@@ -119,6 +119,7 @@ Contents:
    winget
    power-toys
    windows-terminal
+   wsl
    cygwin
    chrome
    git/index
