@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Animation" href="05-animation.html" />
     <link rel="prev" title="Network requests" href="03-network.html" />
@@ -89,12 +90,12 @@ HTTP-header を使用して、同じドメインへのほとんどすべての�
 <div class="section" id="writing-to-document-cookie">
 <h3>Writing to document.cookie<a class="headerlink" href="#writing-to-document-cookie" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> に書き込みができる。これはデータプロパティーではなく、アクセッサーだ。特に代入は特別に扱われる。<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> への書き込み操作は、その中に記述された cookie だけを更新し、他の cookie には触れない。例えば、この呼び出しは <code class="docutils literal notranslate"><span class="pre">user</span></code> という名前と <code class="docutils literal notranslate"><span class="pre">John</span></code> という値を持つ cookie を設定する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>代入後に <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を出力すると、先に述べた理由でおそらく cookie が複数表示されるだろう。</p>
 <p>技術的には、名前と値はどんな文字でも持つことができる。有効な書式を維持するために、組み込み関数 <code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> を使ってエスケープする必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -106,7 +107,7 @@ HTTP-header を使用して、同じドメインへのほとんどすべての�
 <hr class="docutils" />
 <p>Cookie にはオプションがいくつかあり、その多くは重要なのでなるべく設定する。</p>
 <p>オプションは key=value の後にセミコロンで区切って、以下のように並べる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -133,12 +134,12 @@ cookie にアクセスできるようにする。既定値は現在のパスだ�
 を決して受け取らない。これは安全上の制限で、あるサイトでのみ利用可能であるべき機密データを cookie に保存できるようにするためだ。</p>
 <p>初期状態では、cookie はそれを設定したドメインでのみアクセス可能だ。
 forum.site.comのようなサブドメインにも共有されない。しかし、これを変更することができる。 forum.site.com のようなサブドメインが site.com で設定された cookie を取得できるようにしたい場合、それは可能だ。そのためには、site.com で cookie を設定するときに、<code class="docutils literal notranslate"><span class="pre">domain</span></code> オプションを明示的にルートドメインに設定する必要がある。そうすれば、すべてのサブドメインがそのような cookie を見ることになる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// at site.com</span>
-<span class="c1">// make the cookie accessible on any subdomain *.site.com:</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; domain=site.com&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// at site.com</span><span class="w"></span>
+<span class="c1">// make the cookie accessible on any subdomain *.site.com:</span><span class="w"></span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; domain=site.com&quot;</span><span class="w"></span>
 
-<span class="c1">// at forum.site.com</span>
-<span class="c1">// document.cookie has cookie user=John</span>
+<span class="c1">// at forum.site.com</span><span class="w"></span>
+<span class="c1">// document.cookie has cookie user=John</span><span class="w"></span>
 </pre></div>
 </div>
 <p>歴史的理由から、<code class="docutils literal notranslate"><span class="pre">domain=.site.com</span></code> も同じように動作し、サブドメインから
@@ -156,8 +157,8 @@ cookie はセッション cookie と呼ばれる。</p>
 <p>Cookie の有効期限は、ブラウザーが自動的に cookie を削除する時刻だ。</p>
 <p>日付は GMT で、正確にこの形式でなければならない。日付は <code class="docutils literal notranslate"><span class="pre">date.toUTCString()</span></code>
 で得られる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">86400</span><span class="nx">e3</span><span class="p">);</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; expires=&quot;</span> <span class="o">+</span> <span class="nx">date</span><span class="p">.</span><span class="nx">toUTCString</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">86400e3</span><span class="p">);</span><span class="w"></span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; expires=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">date</span><span class="p">.</span><span class="nx">toUTCString</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">expires</span></code> を過去の日付に設定すると、その cookie は消える。</p>
@@ -166,11 +167,11 @@ cookie はセッション cookie と呼ばれる。</p>
 </div>
 <p>Cookie の有効期限を現在の時点から秒単位で指定する。
 0 または負の値を設定した場合、その cookie は消える。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// cookie will die in +1 hour from now</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; max-age=3600&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// cookie will die in +1 hour from now</span><span class="w"></span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; max-age=3600&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// delete cookie (let it expire right now)</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&quot;user=John; max-age=0&quot;</span><span class="p">;</span>
+<span class="c1">// delete cookie (let it expire right now)</span><span class="w"></span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; max-age=0&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -253,12 +254,12 @@ cookie を見たり、<code class="docutils literal notranslate"><span class="pr
 <h4>getCookie(name)<a class="headerlink" href="#getcookie-name" title="Permalink to this heading">¶</a></h4>
 <p>Cookie にアクセスする最も短い方法は、正規表現を用いることだ。関数
 <code class="docutils literal notranslate"><span class="pre">getCookie(name)</span></code> は与えられた名前を持つ cookie を返す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">matches</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span>
-        <span class="s2">&quot;(?:^|; )&quot;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([\.$?*|{}\(\)\[\]\\\/\+^])/g</span><span class="p">,</span> <span class="s1">&#39;\\$1&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=([^;]*)&quot;</span>
-    <span class="p">));</span>
-    <span class="k">return</span> <span class="nx">matches</span> <span class="o">?</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">matches</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">getCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">matches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">RegExp</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;(?:^|; )&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([\.$?*|{}\(\)\[\]\\\/\+^])/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;\\$1&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;=([^;]*)&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">matches</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">matches</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>パターン <code class="docutils literal notranslate"><span class="pre">;</span> <span class="pre">name=&lt;value&gt;</span></code> にマッチするように <code class="docutils literal notranslate"><span class="pre">RegExp</span></code> を動的に生成する。</p>
@@ -275,11 +276,11 @@ cookie を見たり、<code class="docutils literal notranslate"><span class="pr
 <div class="section" id="deletecookie-name">
 <h4>deleteCookie(name)<a class="headerlink" href="#deletecookie-name" title="Permalink to this heading">¶</a></h4>
 <p>Cookie を削除するには、有効期限を負の値にして呼び出すことで行う。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">deleteCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">setCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="s1">&#39;max-age&#39;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="p">})</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">deleteCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">setCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="s1">&#39;max-age&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -359,11 +360,11 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <li><p>データに有効期限がない。ブラウザーの再起動はもちろん、OS の再起動後もデータが残る。</p></li>
 </ul>
 <p>例えば、次のコードをまず実行する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>そしてブラウザーを閉じたり開いたり、あるいは同じページを別のウィンドウで開くだけで、このようにして値を取得できる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span> <span class="c1">// 1</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1</span><span class="w"></span>
 </pre></div>
 </div>
 <p>同じオリジンであればよく、URL パスは異なっていてもよい。 <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> は同じオリジンを持つすべてのウィンドウで共有されるので、あるウィンドウでデータを設定すると、その変更は別のウィンドウからも見えるようになる。</p>
@@ -385,7 +386,7 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <h3>Strings only<a class="headerlink" href="#strings-only" title="Permalink to this heading">¶</a></h3>
 <p>ストレージオブジェクトはキーと値の両方が文字列でなければならない。数値やオブジェクトなど他の型であった場合は、自動的に文字列に変換される。</p>
 <p>オブジェクトを保存したければ JSON がある。また、デバッグ用にストレージオブジェクトを JSON にすることもある：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -401,11 +402,11 @@ cookieを設定する場合、その cookie はサードパーティーではな
 </li>
 <li><p>データはページの更新には耐えるが、タブを閉じたり開いたりするのには耐えられない。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このコードを実行して、画面を更新すると</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>で値がまだ得られる。しかし、同じページを別のタブで開き、そこでもう一度試してみると、上記のコードは <code class="docutils literal notranslate"><span class="pre">null</span></code> を返す。これはまさに、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> がオリジンだけでなく、ブラウザーのタブにも束縛されているためだ。そのため、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> の使用は控えられる。</p>
@@ -459,7 +460,7 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <div class="section" id="open-database">
 <h3>Open database<a class="headerlink" href="#open-database" title="Permalink to this heading">¶</a></h3>
 <p>IndexedDB を使い始めるには、まずデータベースを開く（接続する）。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">version</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">version</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -477,38 +478,38 @@ listen する。</p>
 </ul>
 <p>IndexedDB には、サーバーサイドデータベースにはない「スキーマのバージョン管理」という機構が組み込まれている。サーバーサイドのデータベースとは異なり、IndexedDB はクライアントサイドで、データはブラウザーに保存されるため、開発者はそれにフルタイムでアクセスすることができない。そのため、私たちがアプリケーションの新バージョンを公開し、利用者が私たちのウェブページにアクセスしたとき、データベースを更新する必要が生じることがある。ローカルのデータベースのバージョンが <code class="docutils literal notranslate"><span class="pre">open()</span></code> で指定されたものより小さい場合、特別なイベント <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> が発生し、必要に応じてバージョンを比較し、データ構造をアップグレードすることができる。</p>
 <p>イベント <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> は、データベースがまだ存在しない（バージョンが 0 である）場合にも起こされるので、初期化を実行できる。例えば、アプリケーションの最初のバージョンを公開したとする。そして、バージョン 1 のデータベースを開き、<code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> ハンドラーで次のように初期化できる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// triggers if the client had no database</span>
-    <span class="c1">// ...perform initialization...</span>
-<span class="p">};</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// triggers if the client had no database</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...perform initialization...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
-    <span class="c1">// ...</span>
-<span class="p">};</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>そして後日、バージョン 2 を公開する。次のようにアップグレードを実行することができる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// the existing database version is less than 2 (or it doesn&#39;t exist)</span>
-    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
-    <span class="k">switch</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">oldVersion</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-        <span class="c1">// version 0 means that the client had no database</span>
-        <span class="c1">// perform initialization</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-        <span class="c1">// client had version 1</span>
-        <span class="c1">// update</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// the existing database version is less than 2 (or it doesn&#39;t exist)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">oldVersion</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mf">0</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// version 0 means that the client had no database</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// perform initialization</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mf">1</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// client had version 1</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// update</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>現在のバージョンは 2 なので、<code class="docutils literal notranslate"><span class="pre">onupgradeneeded</span></code> ハンドラーには、</p>
@@ -518,7 +519,7 @@ listen する。</p>
 </ul>
 <p>コード分岐を用意することに注意。そして、<code class="docutils literal notranslate"><span class="pre">onupgradeneeded</span></code> ハンドラーがエラーなく終了した場合に限り、イベント <code class="docutils literal notranslate"><span class="pre">openRequest.onsuccess</span></code> が起動し、データベースは正常に開かれたとみなされる。</p>
 <p>データベースを削除するには次のようにする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">deleteDatabase</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">deleteDatabase</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -541,26 +542,26 @@ listen する。</p>
 <p>もし、イベント <code class="docutils literal notranslate"><span class="pre">versionchange</span></code> を listen せず、古い接続を閉じないのであれば、二回目の新しい接続は行われないでしょう。オブジェクト <code class="docutils literal notranslate"><span class="pre">openRequest</span></code> は
 <code class="docutils literal notranslate"><span class="pre">success</span></code> ではなく、イベント <code class="docutils literal notranslate"><span class="pre">blocked</span></code> を発生させる。そのため、二つ目タブは機能しない。</p>
 <p>以下は、並列更新を正しく処理するためのコードだ。<code class="docutils literal notranslate"><span class="pre">onversionchange</span></code> ハンドラーを導入し、現在のデータベース接続が古くなった場合（他の場所で DB バージョンが更新された場合）に引き起こして、接続を閉じる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// Implement appropriately.</span>
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="c1">// Implement appropriately.</span><span class="w"></span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"></span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"></span>
 
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span><span class="w"></span>
 
-    <span class="nx">db</span><span class="p">.</span><span class="nx">onversionchange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">db</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Database is outdated, please reload the page.&quot;</span><span class="p">)</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">.</span><span class="nx">onversionchange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">db</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Database is outdated, please reload the page.&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
 
-    <span class="c1">// ...the db is ready, use it...</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="c1">// ...the db is ready, use it...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onblocked</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// As described in the book.</span>
-<span class="p">};</span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onblocked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// As described in the book.</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>言い換えれば、ここでは二つのことを行っている：</p>
@@ -584,7 +585,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>このオブジェクトストアの概念図に見覚えがないだろうか。</p>
 </div>
 <p>すぐにわかるように、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> と同様に、値をストアに追加するときにキーを与えることができる。しかし、オブジェクトを保存する場合、IndexedDB ではオブジェクトのプロパティーをキーとして設定することができ、より便利だ。あるいは、キーを自動生成することもできる。しかし、まずはオブジェクトストアを作成する必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="nx">name</span><span class="p">[,</span> <span class="nx">keyOptions</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="nx">name</span><span class="p">[,</span><span class="w"> </span><span class="nx">keyOptions</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この操作は同期的であり、<code class="docutils literal notranslate"><span class="pre">await</span></code> は無用であることに注意。</p>
@@ -600,7 +601,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </li>
 </ul>
 <p>もし <code class="docutils literal notranslate"><span class="pre">keyOptions</span></code> を指定しないなら、オブジェクトを保存する際に、後でキーを明示的に指定する必要がある。例えば、このオブジェクトストアでは、キーとして <code class="docutils literal notranslate"><span class="pre">id</span></code> プロパティーを用いる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>オブジェクトストアの作成も変更も、DB のバージョンを更新しながら <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code>
@@ -613,15 +614,15 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <code class="docutils literal notranslate"><span class="pre">db.objectStoreNames</span></code> として得る。このオブジェクトは``DOMStringList`` 型で、メソッド <code class="docutils literal notranslate"><span class="pre">contains(name)</span></code> で存在するかどうかをチェックできる。そして、何が存在して、何が存在しないかによって、更新できる。</p></li>
 </ol>
 <p>小規模なデータベースでは、後者の方法がより単純かもしれない。デモ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;db&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;db&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// create/upgrade the database without version checks</span>
-<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">objectStoreNames</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// if there&#39;s no &quot;books&quot; store</span>
-        <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span> <span class="c1">// create it</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="c1">// create/upgrade the database without version checks</span><span class="w"></span>
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">objectStoreNames</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// if there&#39;s no &quot;books&quot; store</span><span class="w"></span>
+<span class="w">        </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">});</span><span class="w"> </span><span class="c1">// create it</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -629,7 +630,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>データベースというか、データ一般でのバージョン差異の吸収処理？</p>
 </div>
 <p>オブジェクトストアを削除するにはこうする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">deleteObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">deleteObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -642,7 +643,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </ol>
 <p>もし、操作 1 を完了させた後、消灯などの理由で操作 2 に失敗したらかなりまずい。両方とも成功するか、両方とも失敗するかでなければならない。失敗しても、少なくとも彼には所持金が維持されているので、再施行できる。トランザクションはそれを保証する。</p>
 <p>IndexedDB では、すべてのデータ操作はトランザクション内で行う必要がある。トランザクションを開始するには：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="nx">store</span><span class="p">[,</span> <span class="nx">type</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="nx">store</span><span class="p">[,</span><span class="w"> </span><span class="nx">type</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -657,20 +658,20 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>また、<code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクション型もある。このようなトランザクションは、何でもできるが、手動で作成できない。 IndexedDB はデータベースに接続する際に、アップグレードが必要なハンドラーのために、 <code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクションを自動的に作成する。そのため、データベースの構造を更新したり、オブジェクトストアを作成したり削除したりすることができる単一の場所となる。</p>
 <p>トランザクションに読み取り専用と読み取り書き込みのラベルを付ける理由は、性能にある。多くの読み取り専用トランザクションは、同じストアに同時にアクセスできるが、読み書きトランザクションはそうはできない。読み書きトランザクションは、書き込みのためにストアをロックする。次のトランザクションは、同じストアにアクセスする前に、前のトランザクションが終了するのを待たねばならない。</p>
 <p>トランザクションが作成されたら、ストアに商品を追加できる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">);</span> <span class="c1">// (1)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;readwrite&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
 
-<span class="c1">// get an object store to operate on it</span>
-<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span> <span class="c1">// (2)</span>
+<span class="c1">// get an object store to operate on it</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// (2)</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span>
-    <span class="nx">price</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="nx">created</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
-<span class="p">};</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;js&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">created</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span> <span class="c1">// (3)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span><span class="w"> </span><span class="c1">// (3)</span><span class="w"></span>
 
-<span class="c1">// ... (4)</span>
+<span class="c1">// ... (4)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ここに段階が四つある：</p>
@@ -699,16 +700,16 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>通常、トランザクションはそのすべての要求が完了し、現在のコードが終了したときにコミットされると考えられる。したがって、上記の例では、トランザクションを終了するための特別な呼び出しが必要ない。</p>
 <p>トランザクションの自動コミット原則には、重要な副作用がある。トランザクションの途中で <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> や <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> のような非同期操作を挿入することはできない。 IndexedDB はこれらが完了するまでトランザクションを待機させるようなことはない。</p>
 <p>以下のコードでは、(*) 行の <code class="docutils literal notranslate"><span class="pre">request2</span></code> が失敗する。なぜなら、トランザクションはすでにコミットされており、その中ではいかなる要求も行えないからだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request1</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">request1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">request1</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">request2</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">anotherBook</span><span class="p">);</span> <span class="c1">// (*)</span>
-        <span class="nx">request2</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request2</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// TransactionInactiveError</span>
-        <span class="p">};</span>
-    <span class="p">});</span>
-<span class="p">};</span>
+<span class="nx">request1</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">request2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">anotherBook</span><span class="p">);</span><span class="w"> </span><span class="c1">// (*)</span><span class="w"></span>
+<span class="w">        </span><span class="nx">request2</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request2</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w"> </span><span class="c1">// TransactionInactiveError</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>それは、<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> が非同期処理であり、マクロタスクであるからだ。トランザクションは、ブラウザーがマクロタスクを開始する前に閉じられる。</p>
@@ -721,7 +722,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>成功の瞬間を検出するには、イベント <code class="docutils literal notranslate"><span class="pre">transaction.oncomplete</span></code> を listen すればよい。</p>
 <p>トランザクションが全体として保存されることを保証するのはイベント <code class="docutils literal notranslate"><span class="pre">complete</span></code> しかない。個々の要求は成功するかもしれないが、最終的な書き込み操作は I/O エラーなどでうまくいかないかもしれない。</p>
 <p>手動でトランザクションを中止するには、次のようにする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">transaction</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">transaction</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これにより、トランザクション中の要求が行ったすべての変更が取り消され、イベント
@@ -734,26 +735,26 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>状況によっては、既存の変更を取り消すことなく、失敗を処理してトランザクションを続行したいと思うかもしれない。ハンドラー <code class="docutils literal notranslate"><span class="pre">request.onerror</span></code> は
 <code class="docutils literal notranslate"><span class="pre">event.preventDefault()</span></code> を呼び出すことで、トランザクションの中断を防ぐことができる。</p>
 <p>以下の例では、新しい本が既存の本と同じキー <code class="docutils literal notranslate"><span class="pre">id</span></code> で追加されている。このとき、メソッド <code class="docutils literal notranslate"><span class="pre">store.add()</span></code> は <code class="docutils literal notranslate"><span class="pre">&quot;ConstraintError</span> <span class="pre">&quot;</span></code> を引き起こす。トランザクションを取り消すことなく、このエラーを処理する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;readwrite&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="mi">10</span> <span class="p">};</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;js&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="nx">book</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// ... handle the error</span>
-        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> <span class="c1">// don&#39;t abort the transaction</span>
-        <span class="c1">// use another key for the book?</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="c1">// unexpected error, can&#39;t handle it</span>
-      <span class="c1">// the transaction will abort</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// ... handle the error</span><span class="w"></span>
+<span class="w">        </span><span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span><span class="w"> </span><span class="c1">// don&#39;t abort the transaction</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// use another key for the book?</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// unexpected error, can&#39;t handle it</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// the transaction will abort</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="nx">transaction</span><span class="p">.</span><span class="nx">onabort</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="nx">transaction</span><span class="p">.</span><span class="nx">onabort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="section" id="event-delegation">
@@ -763,25 +764,25 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 する。</p>
 <p>イベントはすべて DOM イベントであり、捕捉と bubbling を行うが、通常は bubbling
 段階しか用いられない。そのため、ハンドラー <code class="docutils literal notranslate"><span class="pre">db.onerror</span></code> を使ってすべてのエラーを捕捉し、報告やその他の目的に利用できる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="c1">// the request that caused the error</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span><span class="w"> </span><span class="c1">// the request that caused the error</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>しかし、エラーが完全に処理された場合は報告したくない。
 <code class="docutils literal notranslate"><span class="pre">request.onerror</span></code> の中で <code class="docutils literal notranslate"><span class="pre">event.stopPropagation()</span></code> を使うことで、bubbling を停止して <code class="docutils literal notranslate"><span class="pre">db.onerror</span></code> を停止できる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Book with such id already exists&quot;</span><span class="p">);</span> <span class="c1">// handle the error</span>
-        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> <span class="c1">// don&#39;t abort the transaction</span>
-        <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> <span class="c1">// don&#39;t bubble error up, &quot;chew&quot; it</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="c1">// do nothing</span>
-        <span class="c1">// transaction will be aborted</span>
-        <span class="c1">// we can take care of error in transaction.onabort</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Book with such id already exists&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// handle the error</span><span class="w"></span>
+<span class="w">        </span><span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span><span class="w"> </span><span class="c1">// don&#39;t abort the transaction</span><span class="w"></span>
+<span class="w">        </span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span><span class="w"> </span><span class="c1">// don&#39;t bubble error up, &quot;chew&quot; it</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// do nothing</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// transaction will be aborted</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// we can take care of error in transaction.onabort</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -826,7 +827,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <div class="section" id="by-a-field-using-an-index">
 <h4>By a field using an index<a class="headerlink" href="#by-a-field-using-an-index" title="Permalink to this heading">¶</a></h4>
 <p>他のオブジェクトフィールドで検索するには、インデックスというデータ構造を追加的に作成する必要がある。インデックスは、与えられたオブジェクトフィールドを追跡するストアの追加機能だ。そのフィールドの値それぞれに対して、その値を持つオブジェクトのキーのリストを格納する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">keyPath</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">keyPath</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">options</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -841,11 +842,11 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </li>
 </ul>
 <p>本書よりも先にコードを示す：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// we must create the index here, in versionchange transaction</span>
-    <span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span>
-    <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;price_idx&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">);</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// we must create the index here, in versionchange transaction</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;price_idx&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;price&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この例では、キーは <code class="docutils literal notranslate"><span class="pre">id</span></code> であり、本を保存する。ここで、<code class="docutils literal notranslate"><span class="pre">price</span></code> で検索したいとする。まず、インデックスを作成する必要がある。オブジェクトストアと同様に
@@ -880,19 +881,19 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </table>
 <p>このように、<code class="docutils literal notranslate"><span class="pre">createIndex()</span></code> 呼び出しの <code class="docutils literal notranslate"><span class="pre">price</span></code> の値ごとのインデックスには、その <code class="docutils literal notranslate"><span class="pre">price</span></code> を持つ <code class="docutils literal notranslate"><span class="pre">key</span></code> のリストが保持される。このインデックスは自動的に更新される。</p>
 <p>ある価格を検索したいときは、同じ検索方法をインデックスに適用するだけでよい：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span> <span class="c1">// readonly</span>
-<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">priceIndex</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s2">&quot;price_idx&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// readonly</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">priceIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s2">&quot;price_idx&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Books&quot;</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// array of books with price=10</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No such books&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Books&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span><span class="w"> </span><span class="c1">// array of books with price=10</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No such books&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -901,7 +902,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">IDBKeyRange</span></code> を用いて安い本/高い本を探すこともできる。次の例では <code class="docutils literal notranslate"><span class="pre">price</span></code> が
 5 またはそれ未満の本を検索する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="mf">5</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 <p>インデックスは、内部的には追跡されたオブジェクトのフィールドでソートされている。この場合、検索を行うと結果も <code class="docutils literal notranslate"><span class="pre">price</span></code> によってソートされる。</p>
@@ -913,21 +914,21 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">delete(query)</span></code>: 問い合わせにマッチする値を削除する。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// delete the book with id=&#39;js&#39;</span>
-<span class="nx">books</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;js&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// delete the book with id=&#39;js&#39;</span><span class="w"></span>
+<span class="nx">books</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="s1">&#39;js&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>もし <code class="docutils literal notranslate"><span class="pre">price</span></code> や他のオブジェクトフィールドに基づいて本を削除したいのであれば、まずインデックスでキーを見つけ、それから <code class="docutils literal notranslate"><span class="pre">delete()</span></code> を呼び出す必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">priceIndex</span><span class="p">.</span><span class="nx">getKey</span><span class="p">(</span><span class="mf">5</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
-    <span class="kd">let</span> <span class="nx">deleteRequest</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">deleteRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>全削除をするにはメソッド <code class="docutils literal notranslate"><span class="pre">clear()</span></code> を呼ぶ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">books</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">books</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -935,7 +936,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <h3>Cursors<a class="headerlink" href="#cursors" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">getAll()</span></code>, <code class="docutils literal notranslate"><span class="pre">getAllKeys()</span></code> などは配列を返すが、場合によってはメモリーに収まらないほど巨大な結果となり得る。その場合にはメソッド呼び出しは失敗する。この事態を回避するためにカーソルという手段が用意されている。</p>
 <p>カーソルは特別なオブジェクトであり、問い合わせを与えるとオブジェクト格納域を走査し、一度に一つのキーや値を返すため、メモリーを節約することができる。オブジェクトストアは内部的にキーでソートされているので、カーソルはキー順に走査する。未指定時は昇順。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="p">[</span><span class="nx">direction</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">store</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">direction</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -955,23 +956,23 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <li><p><code class="docutils literal notranslate"><span class="pre">continue([key])</span></code>: 範囲一致の次の値か、キーが指定されている場合はキーの直後にカーソルを進める。</p></li>
 </ul>
 <p>カーソルに一致する値がさらにあるかどうかにかかわらず <code class="docutils literal notranslate"><span class="pre">onsuccess</span></code> が呼び出され、その結果、カーソルが次のレコードを指すか、<code class="docutils literal notranslate"><span class="pre">undefined</span></code> であるかになる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">books</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">();</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">();</span><span class="w"></span>
 
-<span class="c1">// called for each book found by the cursor</span>
-<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">cursor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span> <span class="c1">// book key (id field)</span>
-        <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span> <span class="c1">// book object</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
-        <span class="nx">cursor</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No more books&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="c1">// called for each book found by the cursor</span><span class="w"></span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span><span class="w"> </span><span class="c1">// book key (id field)</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// book object</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">cursor</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No more books&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>上記の例では、オブジェクトストアに対してカーソルを作成したが、インデックスに対するカーソルを作成することもできまる。インデックス上のカーソルは、オブジェクトストア上のカーソルと全く同じように、一度に値を一つ返すことでメモリーを節約する。インデックスに対するカーソルでは、<code class="docutils literal notranslate"><span class="pre">cursor.key</span></code> はインデックスキーであり、オブジェクトキーには <code class="docutils literal notranslate"><span class="pre">cursor.primaryKey</span></code> プロパティーを用いる必要がある。</p>
@@ -984,26 +985,26 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 &lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt; を使ってみる。これは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 化された
 IndexedDB のメソッドを持つグローバルなオブジェクト <code class="docutils literal notranslate"><span class="pre">idb</span></code> を生成する。すると
 <code class="docutils literal notranslate"><span class="pre">onsuccess</span></code>/<code class="docutils literal notranslate"><span class="pre">onerror</span></code> の代わりに、次のように書ける：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">idb</span><span class="p">.</span><span class="nx">openDB</span><span class="p">(</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">db</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">oldVersion</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// perform the initialization</span>
-        <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">idb</span><span class="p">.</span><span class="nx">openDB</span><span class="p">(</span><span class="s1">&#39;store&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">oldVersion</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// perform the initialization</span><span class="w"></span>
+<span class="w">        </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span> <span class="s1">&#39;readwrite&#39;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">books</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;readwrite&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span><span class="w"></span>
 
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nx">await</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(...);</span>
-    <span class="nx">await</span> <span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(...);</span>
+<span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(...);</span><span class="w"></span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">books</span><span class="p">.</span><span class="nx">add</span><span class="p">(...);</span><span class="w"></span>
 
-    <span class="nx">await</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">complete</span><span class="p">;</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">complete</span><span class="p">;</span><span class="w"></span>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;jsbook saved&#39;</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;jsbook saved&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -1014,11 +1015,11 @@ IndexedDB のメソッドを持つグローバルなオブジェクト <code cla
 <h4>Error handling<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
 <p>もし、エラーを捕捉しなければ、最も近くに囲まれている <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> まで0落ちる。捕捉されなかったエラーは、オブジェクト <code class="docutils literal notranslate"><span class="pre">window</span></code> の “unhandled promise
 rejection” イベントになる。このようなエラーは、次のように処理できる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span> <span class="c1">// IndexedDB native request object</span>
-    <span class="kd">let</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">reason</span><span class="p">;</span> <span class="c1">//  Unhandled error object, same as request.error</span>
-    <span class="c1">// ...report about the error...</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span><span class="w"> </span><span class="c1">// IndexedDB native request object</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">reason</span><span class="p">;</span><span class="w"> </span><span class="c1">//  Unhandled error object, same as request.error</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...report about the error...</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1026,14 +1027,14 @@ rejection” イベントになる。このようなエラーは、次のよう�
 <h4>“Inactive transaction” pitfall<a class="headerlink" href="#inactive-transaction-pitfall" title="Permalink to this heading">¶</a></h4>
 <p>トランザクションはブラウザーが現在のコードとマイクロタスクを終了するとすぐに自動コミットされる。<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> のようなマクロタスクをトランザクションの途中に置くと、トランザクションはその終了を待機するようなことはない。自動コミットするだけだ。そのため、次の要求は失敗する：</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> ラッパーと <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> の場合も状況は同じだ。次のものはトランザクションの途中で <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> する例だ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">,</span> <span class="s2">&quot;readwrite&quot;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">inventory</span> <span class="o">=</span> <span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;readwrite&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">inventory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">await</span> <span class="nx">inventory</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">created</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">});</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">inventory</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;js&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="nx">created</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
 
-<span class="nx">await</span> <span class="nx">fetch</span><span class="p">(...);</span> <span class="c1">// (*)</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(...);</span><span class="w"> </span><span class="c1">// (*)</span><span class="w"></span>
 
-<span class="nx">await</span> <span class="nx">inventory</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;js&#39;</span><span class="p">,</span> <span class="nx">price</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">created</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">});</span> <span class="c1">// Error</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">inventory</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;js&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="nx">created</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// Error</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">fetch()</span></code> (*) 後の次の <code class="docutils literal notranslate"><span class="pre">inventory.add()</span></code> は “inactive transaction” エラーで失敗する。その時点ではトランザクションがすでにコミットされ閉じているからだ。回避策は、ネイティブの IndexedDB で作業するときと同じだ。新しいトランザクションを作成するか、物事を分割することだ。</p>
@@ -1191,6 +1192,7 @@ rejection” イベントになる。このようなエラーは、次のよう�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

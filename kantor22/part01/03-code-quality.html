@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Objects: the basics" href="04-object-basics.html" />
     <link rel="prev" title="JavaScript Fundamentals" href="02-first-steps.html" />
@@ -243,65 +244,65 @@ JavaScript の場合には、どちらの方式でも有効なコードなので
 <div class="section" id="initial-implementation">
 <h3>Initial implementation<a class="headerlink" href="#initial-implementation" title="Permalink to this heading">¶</a></h3>
 <p>初期版は次のコードとする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="mi">8</span><span class="p">;</span> <span class="c1">// :) we cheat!</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">8</span><span class="p">;</span><span class="w"> </span><span class="c1">// :) we cheat!</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>明らかに正しくないのだが、テストの初期版も次のような感じなので成功する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;raises to n-th power&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">8</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;raises to n-th power&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">),</span><span class="w"> </span><span class="mf">8</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="improving-the-spec">
 <h3>Improving the spec<a class="headerlink" href="#improving-the-spec" title="Permalink to this heading">¶</a></h3>
 <p>次のテストを追加することで、失敗させる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;3 raised to power 4 is 81&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">81</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;3 raised to power 4 is 81&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">),</span><span class="w"> </span><span class="mf">81</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>一つのテストは一つのことをチェックする。初期版も修正しておく：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;2 raised to power 3 is 8&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">8</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;2 raised to power 3 is 8&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">),</span><span class="w"> </span><span class="mf">8</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="improving-the-implementation">
 <h3>Improving the implementation<a class="headerlink" href="#improving-the-implementation" title="Permalink to this heading">¶</a></h3>
 <p>ここで <code class="docutils literal notranslate"><span class="pre">pow()</span></code> の実装をまともにする。それからテスト項目を追加するやり方を柔軟にする。これで 3 乗のテストは比較的網羅できるようになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">function</span> <span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">expected</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
-        <span class="nx">it</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">x</span><span class="si">}</span><span class="sb"> in the power 3 is </span><span class="si">${</span><span class="nx">expected</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nx">expected</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nx">it</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">x</span><span class="si">}</span><span class="sb"> in the power 3 is </span><span class="si">${</span><span class="nx">expected</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">),</span><span class="w"> </span><span class="nx">expected</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w"> </span><span class="nx">x</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="nested-describe">
 <h3>Nested describe<a class="headerlink" href="#nested-describe" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">describe()</span></code> の入れ子を形成することで、テストを階層的に構築する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;raises x to power 3&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// ...</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;raises x to power 3&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// ...</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 
-    <span class="c1">// ... more tests to follow here, both describe and it can be added</span>
-<span class="p">});</span>
+<span class="w">    </span><span class="c1">// ... more tests to follow here, both describe and it can be added</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -488,6 +489,7 @@ transpiler を自動的に実行する手段を提供しているので、開発
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

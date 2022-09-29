@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/mermaid.js"></script>
     <link rel="next" title="NumPy 利用ノート" href="python-numpy/index.html" />
     <link rel="prev" title="IPython 利用ノート" href="python-ipython.html" />
@@ -190,7 +191,7 @@ HTML に変換してそのままブラウザーで閲覧できる
 <h2><a class="toc-backref" href="#id29">Jupyter をインストールする</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="python-miniconda.html#python-pkg-proc"><span class="std std-ref">一般のサードパーティー製 Python パッケージのインストール手順</span></a> を参照してインストールすること。図で示されているところの <strong class="program">conda</strong> を利用するルートになる。</p>
 <p>参考までに私の Miniconda 環境で Python 本体しか使えない更地の仮想環境を作成し、そこに Jupyter をインストールしようとすると、どのような他の必要パッケージが一緒にインストールされるのかを調べた。下に端末での入出力を掲載するが、かなりの数のパッケージを必要とすることがわかる。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda install jupyter
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda install jupyter
 <span class="go">Fetching package metadata .........</span>
 <span class="go">Solving package specifications: ..........</span>
 <span class="go">Using Anaconda API: https://api.anaconda.org</span>
@@ -266,7 +267,7 @@ HTML に変換してそのままブラウザーで閲覧できる
 <p>コマンドラインツールとして実装されている Jupyter の各サブコマンドにはそれぞれ専用の設定ファイルが対応する。設定ファイル自身は optional なので、利用者が不要と判断すればわざわざ作成することはない。</p>
 <p>例えば後述するサブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span></code> はそれ専用の設定ファイルを扱っており、その既定のパスは
 <code class="file docutils literal notranslate"><span class="pre">$HOME/.jupyter/jupyter_nbconvert_config.py</span></code> である。このファイルのスケルトンを得るには、次のようにする（一部加工済）。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbconvert --generate-config
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter nbconvert --generate-config
 <span class="go">Writing default config to: $HOME\.jupyter\jupyter_nbconvert_config.py</span>
 </pre></div>
 </div>
@@ -278,7 +279,7 @@ HTML に変換してそのままブラウザーで閲覧できる
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id32">関連ディレクトリーを理解する</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>端末から <strong class="program">jupyter</strong> を次のように実行すると Jupyter が参照するディレクトリーをすべて確認できる（一部加工済）：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter --paths
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter --paths
 <span class="go">config:</span>
 <span class="gp">    $</span>HOME<span class="se">\.</span>jupyter
 <span class="go">    D:\Miniconda3\etc\jupyter</span>
@@ -310,8 +311,8 @@ HTML に変換してそのままブラウザーで閲覧できる
 <div class="section" id="id9">
 <h2><a class="toc-backref" href="#id34">サブコマンドを確認する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <p><strong class="program">jupyter</strong> のサブコマンドを知るには、この実行ファイルがあるディレクトリーでファイル <code class="file docutils literal notranslate"><span class="pre">jupyter-*.exe</span></code> を表示すればよい。ハイフン以降拡張子以前の文字列がサブコマンド名と合致する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> /d/Miniconda3/Scripts
-<span class="gp">$</span> ls jupyter*.exe
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> /d/Miniconda3/Scripts
+<span class="gp">$ </span>ls jupyter*.exe
 <span class="go">jupyter.exe*             jupyter-nbextension.exe*</span>
 <span class="go">jupyter-console.exe*     jupyter-notebook.exe*</span>
 <span class="go">jupyter-kernelspec.exe*  jupyter-qtconsole.exe*</span>
@@ -348,7 +349,7 @@ Python のプロセスが 2 個起動する。後述するサブコマンドに�
 <li><p>オプション <code class="docutils literal notranslate"><span class="pre">--generate-config</span></code> を与えると、このサブコマンド専用の設定ファイル <code class="file docutils literal notranslate"><span class="pre">jupyter_console_config.py</span></code> のスケルトンを前述のディレクトリーに生成する。</p></li>
 </ul>
 <p><a class="reference external" href="https://github.com/takluyver/bash_kernel">bash_kernel</a> をインストールして（次の節参照）コンソールを起動してみたところ、謎の例外が発生した。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter console --kernel<span class="o">=</span>bash
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter console --kernel<span class="o">=</span>bash
 <span class="go">Traceback (most recent call last):</span>
 <span class="go">  File &quot;D:\Miniconda3\lib\runpy.py&quot;, line 184, in _run_module_as_main</span>
 <span class="go">    &quot;__main__&quot;, mod_spec)</span>
@@ -382,7 +383,7 @@ Python のプロセスが 2 個起動する。後述するサブコマンドに�
 <h2><a class="toc-backref" href="#id36">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">kernelspec</span></code></a><a class="headerlink" href="#jupyter-kernelspec" title="Permalink to this heading">¶</a></h2>
 <p>このサブコマンドは Jupyter のカーネルの詳細を管理するためのものだ。
 Jupyter インストール直後にサブコマンド <code class="docutils literal notranslate"><span class="pre">list</span></code> を実行するとこのような結果を出力する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter kernelspec list
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter kernelspec list
 <span class="go">Available kernels:</span>
 <span class="go">  python3    D:\Miniconda3\lib\site-packages\ipykernel\resources</span>
 </pre></div>
@@ -392,7 +393,7 @@ Jupyter インストール直後にサブコマンド <code class="docutils lite
 </ul>
 <p>なお、
 <a class="reference external" href="https://github.com/takluyver/bash_kernel">bash_kernel</a> を Python 環境にインストールし、それから Jupyter 環境にインストールし、最後に本サブコマンドを実行すると次のようになる（一部加工済）：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install bash_kernel
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install bash_kernel
 <span class="go">Collecting bash_kernel</span>
 <span class="go">  Downloading bash_kernel-0.4.1-py2.py3-none-any.whl</span>
 <span class="go">Collecting pexpect&gt;=3.3 (from bash_kernel)</span>
@@ -403,10 +404,10 @@ Jupyter インストール直後にサブコマンド <code class="docutils lite
 <span class="go">Installing collected packages: ptyprocess, pexpect, bash-kernel</span>
 <span class="go">Successfully installed bash-kernel-0.4.1 pexpect-4.2.1 ptyprocess-0.5.1</span>
 
-<span class="gp">$</span> python -m bash_kernel.install
+<span class="gp">$ </span>python -m bash_kernel.install
 <span class="go">Installing IPython kernel spec</span>
 
-<span class="gp">$</span> jupyter kernelspec list
+<span class="gp">$ </span>jupyter kernelspec list
 <span class="go">Available kernels:</span>
 <span class="go">  python3    D:\Miniconda3\lib\site-packages\ipykernel\resources</span>
 <span class="go">  bash       $APPDATA\Roaming\jupyter\kernels\bash</span>
@@ -416,7 +417,7 @@ Jupyter インストール直後にサブコマンド <code class="docutils lite
 <div class="section" id="jupyter-migrate">
 <h2><a class="toc-backref" href="#id37">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">migrate</span></code></a><a class="headerlink" href="#jupyter-migrate" title="Permalink to this heading">¶</a></h2>
 <p>私はこれを利用する必要はないらしい。事実、IPython から Jupyter に移行したい資源は何もなかったはずだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter migrate
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter migrate
 <span class="go">[JupyterMigrate] Found nothing to migrate.</span>
 </pre></div>
 </div>
@@ -436,13 +437,13 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、指定する形式�
 </ul>
 <dl>
 <dt><code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">latex</span> <span class="pre">helloworld.ipynb</span></code></dt><dd><p>このサブコマンドが動作する事前条件の一つに <a class="reference external" href="http://pandoc.org/">Pandoc</a> が利用可能であることがある。正常に動作すれば、次のようにファイル拡張子が <code class="docutils literal notranslate"><span class="pre">.tex</span></code> のものが生成される：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbconvert --to<span class="o">=</span>latex helloworld.ipynb
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter nbconvert --to<span class="o">=</span>latex helloworld.ipynb
 <span class="go">[NbConvertApp] Converting notebook helloworld.ipynb to latex</span>
 <span class="go">[NbConvertApp] Writing 18947 bytes to helloworld.tex</span>
 </pre></div>
 </div>
 <p>Pandoc が利用可能でなければ次のように失敗する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbconvert --to<span class="o">=</span>latex helloworld.ipynb
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter nbconvert --to<span class="o">=</span>latex helloworld.ipynb
 <span class="go">[NbConvertApp] Converting notebook helloworld.ipynb to latex</span>
 <span class="go">[NbConvertApp] ERROR | Error while converting &#39;helloworld.ipynb&#39;</span>
 <span class="go">Traceback (most recent call last):</span>
@@ -512,7 +513,7 @@ HTML, LaTeX, PDF, Markdown, reStructuredText といった、指定する形式�
 <h2><a class="toc-backref" href="#id40">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbextension</span></code></a><a class="headerlink" href="#jupyter-nbextension" title="Permalink to this heading">¶</a></h2>
 <p>このサブコマンドは Notebook の拡張を管理するためのものだ。
 Jupyter インストール直後にサブコマンド <code class="docutils literal notranslate"><span class="pre">list</span></code> を実行するとこのような結果を出力する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter nbextension list
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter nbextension list
 <span class="go">Known nbextensions:</span>
 <span class="go">  config dir: D:\Miniconda3\etc\jupyter\nbconfig</span>
 <span class="go">    notebook section</span>
@@ -547,7 +548,7 @@ Notebook クライアントが利用可能になる。</p>
 <h3><a class="toc-backref" href="#id42">Jupyter Notebook を起動する</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <p>端末ウィンドウで作業する。適当な作業ディレクトリーに移動してから
 <strong class="program">jupyter</strong> を実行する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter notebook
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter notebook
 <span class="go">[W HH:MM:SS.352 NotebookApp] Unrecognized JSON config file version, assuming version 1</span>
 <span class="go">[I HH:MM:SS.571 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found</span>
 <span class="go">[I HH:MM:SS.905 NotebookApp] [nb_conda] enabled</span>
@@ -686,7 +687,7 @@ Matplotlib のデモコードを一つ実行したときの画面だ。</p>
 <div class="section" id="jupyter-serverextension">
 <h2><a class="toc-backref" href="#id49">サブコマンド <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">serverextension</span></code></a><a class="headerlink" href="#jupyter-serverextension" title="Permalink to this heading">¶</a></h2>
 <p>Jupyter インストール直後にサブコマンド <code class="docutils literal notranslate"><span class="pre">list</span></code> を実行するとこのような結果を出力する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> jupyter serverextension list
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter serverextension list
 <span class="go">config dir: D:\Miniconda3\etc\jupyter</span>
 <span class="go">    nb_anacondacloud enabled</span>
 <span class="go">    - Validating...</span>
@@ -879,6 +880,7 @@ Cygwin のコンソールでは <strong class="program">ptex2pdf</strong> が失
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>

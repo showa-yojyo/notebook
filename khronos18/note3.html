@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 4" href="note4.html" />
     <link rel="prev" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 2" href="note2.html" />
@@ -111,9 +112,9 @@
 <p>単一のシェーダーに対するソースとは、文字集合の文字列の配列だ。単一のシェーダーはこれらの文字列を連結したものからなる。各文字列は改行で区切られた複数の行を含むことができる。一つの文字列の中に改行がある必要はなく、複数の文字列から単一行を形成することができる。文字列を連結して単一シェーダーを形成する際には、実装は改行やその他の文字を挿入しない。複数のシェーダーをリンクして単一のプログラムにすることができる。</p>
 <p>シェーダーのコンパイルから返される診断内容は、文字列内の行番号と、その伝達内容がどのソース文字列に該当するかの両方を特定する必要がある。ソース文字列は、最初の文字列を文字列 0 として順次カウントされる。行番号は、処理された新しい行の数よりも一つ多くなるが、これには、行継続文字によって削除される新しい行をカウントすることも含まれる。</p>
 <p>改行 (a new-line) の前にあって、行継続文字により区切られた行（複数形）は、コメント処理や前処理の前に連結される。これは行継続文字の代わりに空白文字が使われることはないことを意味する。すなわち、ある行の終わりの文字とその次の行の始まりの文字を連結することで、単一トークンが形成される。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// equivalent to &quot;float foo;&quot;</span>
-<span class="kt">float</span> <span class="n">f</span><span class="err">\</span>
-<span class="n">oo</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// equivalent to &quot;float foo;&quot;</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="err">\</span><span class="w"></span>
+<span class="n">oo</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -133,9 +134,9 @@
 <p>C++ 前処理器の標準機能である <code class="docutils literal notranslate"><span class="pre">#define</span></code> および <code class="docutils literal notranslate"><span class="pre">#undef</span></code> 機能は、マクロパラメーターを持つマクロ定義と持たないマクロ定義の両方で定義される。</p>
 <hr class="docutils" />
 <p>以下の定義済みマクロが用意されている：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">__LINE__</span>
-<span class="n">__FILE__</span>
-<span class="n">__VERSION__</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">__LINE__</span><span class="w"></span>
+<span class="n">__FILE__</span><span class="w"></span>
+<span class="n">__VERSION__</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">__LINE__</span></code> は、現在のソース文字列における先行する改行数よりも 1 多い十進数の整数定数に置換される。</p>
@@ -169,22 +170,22 @@
 <p><code class="docutils literal notranslate"><span class="pre">#error</span></code> が発生すると、実装はコンパイル時の診断内容をシェーダーオブジェクトの情報ログに記録する。伝達内容は <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令に続くトークンで、最初の改行までとなる。実装では <code class="docutils literal notranslate"><span class="pre">#error</span></code> 指令の存在をコンパイルエラーとして扱わなければならない。</p>
 <p><code class="docutils literal notranslate"><span class="pre">#pragma</span></code> は、実装依存コンパイラー制御を許す。
 <code class="docutils literal notranslate"><span class="pre">#pragma</span></code> に続くトークンは、前処理器のマクロ展開の対象にはならない。実装が <code class="docutils literal notranslate"><span class="pre">#pragma</span></code> に続くトークンを認識しない場合は、それを無視する。次の pragmas は言語の一部として定義されている：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma STDGL</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma STDGL</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">STDGL</span></code> pragma は、この言語の将来の改訂版で使用するための pragma を予約するために使用される。どのような実装でも、最初のトークンが <code class="docutils literal notranslate"><span class="pre">STDGL</span></code> である pragma を使用することは許さない。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma optimize(on)</span>
-<span class="cp">#pragma optimize(off)</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma optimize(on)</span><span class="w"></span>
+<span class="cp">#pragma optimize(off)</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> pragma はシェーダーの開発やデバッグを支援するために、最適化を切るために使用できる。これは、関数定義の外側でしか使用できない。既定では、すべてのシェーダーで <code class="docutils literal notranslate"><span class="pre">optimize</span></code> がオンになっている。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma debug(on)</span>
-<span class="cp">#pragma debug(off)</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma debug(on)</span><span class="w"></span>
+<span class="cp">#pragma debug(off)</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">debug</span></code> pragma はデバッグ情報を付加してシェーダーをコンパイルし、デバッガーでそれを使用できるようにするために使用される。この pragma は、関数定義の外側でしか使用できない。既定では <code class="docutils literal notranslate"><span class="pre">debug</span></code> は効いていない。</p>
 <p>シェーダーは言語のバージョンを宣言する必要がある。それは次のように指定される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version number profile_opt</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#version number profile_opt</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ここで <code class="docutils literal notranslate"><span class="pre">number</span></code> は言語のバージョンでなければならず、上記の __VERSION__ と同じ規則に従う。言語のバージョン 4.60 を使用するシェーダーでは <code class="docutils literal notranslate"><span class="pre">#version</span> <span class="pre">460</span></code> という指令が必要だ。コンパイラーが対処していない言語のバージョンを表す数字を入力すると、コンパイルエラーが発生する。言語のバージョン 1.10 では、シェーダーにこの指令を含める必要はない。
@@ -208,22 +209,22 @@ OpenGL プロファイルの名前である必要がある。現在、選択肢�
 GLSL バージョンのリンク規則に従って与えられる。シェーダーのコンパイルエラーは、各シェーダー内で宣言された（または既定で設定された）バージョンに厳密に基づいて与えられなければならない。</p>
 <p>特に指定のない限り、本仕様書はコアプロファイルを文書化しており、コアプロファイルに指定されているものはすべて互換性プロファイルでも利用可能だ。互換性プロファイルに特に属すると指定された機能は、コアプロファイルでは利用可能でない。互換性プロファイルの機能は SPIR-V の生成時には利用可能でない。</p>
 <p>実装が対処する各プロファイルには組み込みマクロ定義がある。すべての実装には次のマクロが用意されている：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_core_profile 1</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_core_profile 1</span><span class="w"></span>
 </pre></div>
 </div>
 <p>互換性プロファイルを提供する実装には次のマクロが用意されている：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_compatibility_profile 1</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_compatibility_profile 1</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">es</span></code> プロファイルを提供する実装では、次のマクロが用意されている：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_es_profile 1</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_es_profile 1</span><span class="w"></span>
 </pre></div>
 </div>
 <p>シェーダーの中では、コメントや空白を除いて、何よりも先に
 <code class="docutils literal notranslate"><span class="pre">#version</span></code> 指令を記述しなければならない。</p>
 <p>既定では、この言語のコンパイラーは、この仕様に適合していないシェーダーに対してコンパイル時に字句エラーや文法エラーを出さなければならない。どんな拡張された動作も、最初に有効にする必要がある。拡張機能に関するコンパイラーの動作を制御するための指令は <code class="docutils literal notranslate"><span class="pre">#extension</span></code> 指令で宣言される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension extension_name : behavior</span>
-<span class="cp">#extension all : behavior</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension extension_name : behavior</span><span class="w"></span>
+<span class="cp">#extension all : behavior</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ここで <code class="docutils literal notranslate"><span class="pre">extension_name</span></code> は拡張の名前だ。拡張の名前は当仕様では文書化されていない。トークン <code class="docutils literal notranslate"><span class="pre">all</span></code> はその動作がコンパイラーで対処されている拡張子すべてに適用されることを意味する。動作は以下のいずれかになる：</p>
@@ -250,7 +251,7 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <code class="docutils literal notranslate"><span class="pre">all</span></code> の変種は拡張すべてに対する動作を設定し、以前に発令されたすべての拡張機能の指令を上書きするが、
 <code class="docutils literal notranslate"><span class="pre">warn</span></code> と <code class="docutils literal notranslate"><span class="pre">disable</span></code> の動作しか上書きされない。</p>
 <p>コンパイラーの初期状態は、あたかも指令：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension all : disable</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension all : disable</span><span class="w"></span>
 </pre></div>
 </div>
 <p>すべてのエラーや警告の報告は、この仕様に基づいて行われなければならず、拡張は無視されることをコンパイラに伝える。が発令されたかのように、「すべてのエラーや警告の報告はこの仕様に基づいて行われなければならず、拡張は無視される」ことをコンパイラーに教える。</p>
@@ -266,16 +267,16 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">#line</span></code> 指令の中で定数表現を許可している実装と、そうでない実装がある。式が対処される場合でも、文法が曖昧なので、結果は実装依存となる。例えば：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#line +2 +2 // Line number set to 4, or file to 2 and line to 2</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#line +2 +2 // Line number set to 4, or file to 2 and line to 2</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>OpenGL SPIR-V 用にシェーダーをコンパイルした場合、次の定義済みマクロが利用できる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_SPIRV 100</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GL_SPIRV 100</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Vulkan を対象にする場合、次の定義済みマクロが利用できる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define VULKAN 100</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#define VULKAN 100</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -284,8 +285,8 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <p>コメントは <code class="docutils literal notranslate"><span class="pre">/*</span></code> と <code class="docutils literal notranslate"><span class="pre">*/</span></code>、または <code class="docutils literal notranslate"><span class="pre">//</span></code> と改行で区切られる。コメント開始時の区切りパターンは、コメント内ではそれとして認識されないため、コメントを入れ子にすることはできない。コメント <code class="docutils literal notranslate"><span class="pre">/*</span></code> はコメント終了時の区切りパターン <code class="docutils literal notranslate"><span class="pre">*/</span></code> を含む。しかし <code class="docutils literal notranslate"><span class="pre">//</span></code> コメントは終端の改行を含まない（つまり排除する）。</p>
 <p>コメント内では、値が 0 のバイトを除き、任意のバイト値を使用することができる。コメントの内容については、エラーは発生せず、コメントの内容を検証する必要もない。</p>
 <p>コメントが処理される前に、論理的には行継続文字による改行の除去が行われる。つまり、文字 <code class="docutils literal notranslate"><span class="pre">\</span></code> で終わる単一行コメントは、次の行も含めてコメントになる。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// a single-line comment containing the next line \</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// this is still in the first comment</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">// a single-line comment containing the next line \</span><span class="w"></span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// this is still in the first comment</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -341,16 +342,16 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 <strong>動的インスタンス</strong> (dynamic instances) が複数得られる。これは、命令がループ内で実行される場合や、複数の呼び出し場所から呼び出される関数内で実行される場合、あるいはこれらの複数の組み合わせで発生する。ループの繰り返しや、関数と呼び出し場所の動的な連鎖が異なると、そのような命令の動的インスタンスも異なる。動的インスタンスは、どの呼び出しが実行されたかではなく、呼び出し内の制御フローの経路によって区別される。つまり、<code class="docutils literal notranslate"><span class="pre">main()</span></code> の異なる呼び出しは、同じ制御フロー経路をたどる場合、その命令の同じ動的インスタンスを実行する。</p>
 <p>ある式がそれを消費するある動的インスタンスに対して <strong>動的に一様</strong> (dynamically uniform) であるとは、動的インスタンスを実行する（呼び出しグループ内の）呼び出しすべてに対してその値が同じであるときに言う。</p>
 <p><strong>一様制御フロー</strong> （収束制御フロー）は、呼び出しグループ内のすべての呼び出しが同じ制御フロー経路（したがって、命令の動的インスタンスの順序も同じ）を実行するときに発生する。一様制御フローは <code class="docutils literal notranslate"><span class="pre">main()</span></code> に入ったときの初期状態であり、条件分岐が異なる呼び出しに対して異なる制御経路を取るまで続く（非一様制御フローまたは発散制御フロー）。このような発散は再収束し、すべての呼び出しが再び同じ制御フローの経路を実行するようになり、これにより一様制御フローの存在が再び確立される。選択肢やループに入ったときに制御フローが一様であり、その後、呼び出しグループのすべての呼び出しがその選択肢やループから離れると、制御フローは一様に収束し直す。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="p">...;</span> <span class="c1">// this is uniform control flow</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// this expression is true for some fragments, not all</span>
-        <span class="p">...;</span>       <span class="c1">// non-uniform control flow</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="p">...;</span>       <span class="c1">// non-uniform control flow</span>
-    <span class="p">}</span>
-    <span class="p">...;</span>           <span class="c1">// uniform control flow again</span>
-<span class="p">}</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"> </span><span class="c1">// this is uniform control flow</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// this expression is true for some fragments, not all</span><span class="w"></span>
+<span class="w">        </span><span class="p">...;</span><span class="w">       </span><span class="c1">// non-uniform control flow</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">...;</span><span class="w">       </span><span class="c1">// non-uniform control flow</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">...;</span><span class="w">           </span><span class="c1">// uniform control flow again</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>定数式は動的に一様であることは自明だ。これにより、定数式に基づく典型的なループ計数器も動的に一様であることがわかる。</p>
@@ -500,6 +501,7 @@ GLSL バージョンのリンク規則に従って与えられる。シェーダ
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

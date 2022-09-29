@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="OpenGL Shading Language 4.60 Specification 読書ノート Part 9" href="note9.html" />
@@ -137,10 +138,10 @@
 </ul>
 <p>組み込み関数の結果の精度修飾は、以下のいずれかの方法で決定される：</p>
 <p>テクスチャー採取、画像ロード、画像格納の各関数では、戻り値型の精度はテクスチャーを混合した採取器型の精度と合致する：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span> <span class="k">lowp</span> <span class="kt">sampler2D</span> <span class="n">texSampler</span><span class="p">;</span>
-<span class="k">highp</span> <span class="kt">vec2</span> <span class="n">coord</span><span class="p">;</span>
-<span class="p">...</span>
-<span class="k">lowp</span> <span class="kt">vec4</span> <span class="n">col</span> <span class="o">=</span> <span class="n">texture</span> <span class="p">(</span><span class="n">texSampler</span><span class="p">,</span> <span class="n">coord</span><span class="p">);</span> <span class="c1">// texture() returns lowp</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">uniform</span><span class="w"> </span><span class="k">lowp</span><span class="w"> </span><span class="kt">sampler2D</span><span class="w"> </span><span class="n">texSampler</span><span class="p">;</span><span class="w"></span>
+<span class="k">highp</span><span class="w"> </span><span class="kt">vec2</span><span class="w"> </span><span class="n">coord</span><span class="p">;</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="k">lowp</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">texture</span><span class="w"> </span><span class="p">(</span><span class="n">texSampler</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">);</span><span class="w"> </span><span class="c1">// texture() returns lowp</span><span class="w"></span>
 </pre></div>
 </div>
 <p>そうでなければ：</p>
@@ -157,21 +158,21 @@
 <p class="admonition-title">コメント</p>
 <p>この節以降も、ノートには関数シグニチャーをすべて記す。機能が自明なものについては演算仕様を書かない。</p>
 </div>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span> <span class="n">radians</span><span class="p">(</span><span class="n">genFType</span> <span class="n">degrees</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">degrees</span><span class="p">(</span><span class="n">genFType</span> <span class="n">radians</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">sin</span><span class="p">(</span><span class="n">genFType</span> <span class="n">angle</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">cos</span><span class="p">(</span><span class="n">genFType</span> <span class="n">angle</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">tan</span><span class="p">(</span><span class="n">genFType</span> <span class="n">angle</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">asin</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">acos</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">atan</span><span class="p">(</span><span class="n">genFType</span> <span class="n">y</span><span class="p">,</span> <span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">atan</span><span class="p">(</span><span class="n">genFType</span> <span class="n">y_over_x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">sinh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">cosh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">tanh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">asinh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">acosh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">atanh</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span><span class="w"> </span><span class="n">radians</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">degrees</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">degrees</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">radians</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">angle</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">cos</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">angle</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">tan</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">angle</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">asin</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">acos</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">atan</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">atan</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">y_over_x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">sinh</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">cosh</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">tanh</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">asinh</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">acosh</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">atanh</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -183,15 +184,15 @@
 <div class="section" id="exponential-functions">
 <h3><a class="toc-backref" href="#id7">8.2. Exponential Functions</a><a class="headerlink" href="#exponential-functions" title="Permalink to this heading">¶</a></h3>
 <p>これらはすべて成分ごとに演算する。記述は成分ごとに成り立つ。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span> <span class="n">pow</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">,</span> <span class="n">genFType</span> <span class="n">y</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">exp</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">log</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">exp2</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">log2</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genDType</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">genDType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genFType</span> <span class="n">inversesqrt</span><span class="p">(</span><span class="n">genFType</span> <span class="n">x</span><span class="p">);</span>
-<span class="n">genDType</span> <span class="n">inversesqrt</span><span class="p">(</span><span class="n">genDType</span> <span class="n">x</span><span class="p">);</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">genFType</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">log</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">exp2</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">log2</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genDType</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">genDType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genFType</span><span class="w"> </span><span class="n">inversesqrt</span><span class="p">(</span><span class="n">genFType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="n">genDType</span><span class="w"> </span><span class="n">inversesqrt</span><span class="p">(</span><span class="n">genDType</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
@@ -251,9 +252,9 @@
 <dt id="term-genFType-smoothstep-genFType-edge0-genFType-edge1-genFType-x-etc."><code class="docutils literal notranslate"><span class="pre">genFType</span> <span class="pre">smoothstep(genFType</span> <span class="pre">edge0,</span> <span class="pre">genFType</span> <span class="pre">edge1,</span> <span class="pre">genFType</span> <span class="pre">x)</span></code>, etc.<a class="headerlink" href="#term-genFType-smoothstep-genFType-edge0-genFType-edge1-genFType-x-etc." title="Permalink to this term">¶</a></dt><dd><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">edge0</span></code> なら 0.0 を、
 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">edge1</span></code> なら 1.0 を返し、
 <code class="docutils literal notranslate"><span class="pre">edge0</span> <span class="pre">&lt;</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">edge1</span></code> のときは 0 と 1 の間で滑らかな Hermite 補間を行う。滑らかな遷移をする閾値関数が欲しい場合にこれは便利だ。これは次と等価だ：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span> <span class="n">t</span><span class="p">;</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">clamp</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">edge0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">edge1</span> <span class="o">-</span> <span class="n">edge0</span><span class="p">),</span> <span class="mo">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="k">return</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">);</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">genFType</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
+<span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clamp</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">edge0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">edge1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">edge0</span><span class="p">),</span><span class="w"> </span><span class="mo">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">edge0</span> <span class="pre">&gt;=</span> <span class="pre">edge1</span></code> なる引数に対しては結果は未定義だ。</p>
@@ -359,7 +360,7 @@ IEEE 754 Inf または NaN が作成された場合、それは信号を出さ�
 </dd>
 <dt id="term-vec4-ftransform-compatibility-profile-only"><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">ftransform()</span></code> compatibility profile only<a class="headerlink" href="#term-vec4-ftransform-compatibility-profile-only" title="Permalink to this term">¶</a></dt><dd><p>互換性プロファイルを使用している場合に限って有効だ。コア OpenGL では
 <code class="docutils literal notranslate"><span class="pre">invariant</span></code> を使用しろ。頂点シェーダー限定。この関数は、入力される頂点値が OpenGL の固定機能変換で生成されるのと厳密に同じ結果を生成する方法で変換されることを保証する。これは <code class="docutils literal notranslate"><span class="pre">gl_Position</span></code> を計算する用途を意図している：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_Position</span> <span class="o">=</span> <span class="n">ftransform</span><span class="p">()</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ftransform</span><span class="p">()</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この関数は、例えば、アプリケーションが同じ幾何を別々のパスでレンダリングしていて、あるパスでは固定機能パスを使ってレンダリングし、別のパスではプログラム可能シェーダーを使っている場合などに使用するべきだ。</p>
@@ -646,10 +647,10 @@ OpenGL 仕様の <code class="docutils literal notranslate"><span class="pre">LI
 <p>には未定義だ。</p>
 <dl class="glossary">
 <dt id="term-gvec4-textureGather-gsampler2D-sampler-vec2-P-int-comp-..."><code class="docutils literal notranslate"><span class="pre">gvec4</span> <span class="pre">textureGather(gsampler2D</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P</span> <span class="pre">[,</span> <span class="pre">int</span> <span class="pre">comp])</span></code>, …,<a class="headerlink" href="#term-gvec4-textureGather-gsampler2D-sampler-vec2-P-int-comp-..." title="Permalink to this term">¶</a></dt><dt id="term-vec4-textureGather-sampler2DShadow-sampler-vec2-P-float-refZ-..."><code class="docutils literal notranslate"><span class="pre">vec4</span> <span class="pre">textureGather(sampler2DShadow</span> <span class="pre">sampler,</span> <span class="pre">vec2</span> <span class="pre">P,</span> <span class="pre">float</span> <span class="pre">refZ)</span></code>, …<a class="headerlink" href="#term-vec4-textureGather-sampler2DShadow-sampler-vec2-P-float-refZ-..." title="Permalink to this term">¶</a></dt><dd><p>次を返す：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span><span class="p">(</span><span class="n">Sample_i0_j1</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span>
-     <span class="n">Sample_i1_j1</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span>
-     <span class="n">Sample_i1_j0</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span>
-     <span class="n">Sample_i0_j0</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">)</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec4</span><span class="p">(</span><span class="n">Sample_i0_j1</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="n">Sample_i1_j1</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="n">Sample_i1_j0</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="n">Sample_i0_j0</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">base</span><span class="p">).</span><span class="n">comp</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>指定された場合、引数 <code class="docutils literal notranslate"><span class="pre">comp</span></code> は 0, 1, 2, 3 のいずれかの値を持つ定整数式でなければならず、各テクセルの 4 成分ベクトル検索結果の <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code> のかき混ぜた後の成分をそれぞれ識別する。
@@ -775,17 +776,17 @@ OpenGL 仕様の <code class="docutils literal notranslate"><span class="pre">LI
 <code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;iimage&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;uimage&quot;</span></code> のいずれかで始まる型を意味するプレースホルダーを果たす。</p>
 <p>以下のプロトタイプの <code class="docutils literal notranslate"><span class="pre">IMAGE_PARAMS</span></code> は 33 個の別々の関数を表すプレースホルダーで、それぞれが異なる型の画像変数に対応する。
 <code class="docutils literal notranslate"><span class="pre">IMAGE_PARAMS</span></code> のプレースホルダーは、以下の引数リストのいずれかで置き換えられる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gimage2D</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage3D</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimageCube</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimageBuffer</span> <span class="n">image</span><span class="p">,</span> <span class="kt">int</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage2DArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimageCubeArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage1D</span> <span class="n">image</span><span class="p">,</span> <span class="kt">int</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage1DArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage2DRect</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage2DMS</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec2</span> <span class="n">P</span><span class="p">,</span> <span class="kt">int</span> <span class="k">sample</span><span class="p">)</span>
-<span class="p">(</span><span class="n">gimage2DMSArray</span> <span class="n">image</span><span class="p">,</span> <span class="kt">ivec3</span> <span class="n">P</span><span class="p">,</span> <span class="kt">int</span> <span class="k">sample</span><span class="p">)</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gimage2D</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec2</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage3D</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec3</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimageCube</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec3</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimageBuffer</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage2DArray</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec3</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimageCubeArray</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec3</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage1D</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage1DArray</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec2</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage2DRect</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec2</span><span class="w"> </span><span class="n">P</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage2DMS</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec2</span><span class="w"> </span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">sample</span><span class="p">)</span><span class="w"></span>
+<span class="p">(</span><span class="n">gimage2DMSArray</span><span class="w"> </span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">ivec3</span><span class="w"> </span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">sample</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ここで、各行は三種類の画像変数型のいずれかを表し、
@@ -1168,6 +1169,7 @@ coherent access が行われても、それが見えるようになる <a class=
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

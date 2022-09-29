@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/mermaid.js"></script>
     <link rel="next" title="Windows 用フリーウェア 利用ノート" href="freeware.html" />
     <link rel="prev" title="Python 移行ノート" href="python-upgrade.html" />
@@ -196,15 +197,15 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">P</span></code> してから <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">P</span></code> することが可能であることがある。可能な場合には、これらが同一環境下に共存する。</p>
 <ul>
 <li><p>環境にある全パッケージを単にアップグレードするには、次のコマンドでよい。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda update --all --yes
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda update --all --yes
 </pre></div>
 </div>
 </li>
 <li><p>困ったことに <strong class="program">pip</strong> によってインストールしたパッケージのバージョンが
 <strong class="program">conda</strong> のものより新しい傾向がある。例えば上記コマンドの実行直後に <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span> <span class="pre">-o</span></code> すると、なおパッケージ名が列記されることがある。このようなパッケージは <strong class="program">conda</strong> での管理とは別に「手動で」管理するハメになる。インストールもアップグレードもなるべく <strong class="program">conda</strong> で統一したいのだが。</p></li>
 <li><p>一括アップグレードを実現する場合、このことが重要である。つまり、次のような手順を採用することになるだろう。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda update --all --yes
-<span class="gp">$</span> pip install --upgrade --requirement reqpip.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda update --all --yes
+<span class="gp">$ </span>pip install --upgrade --requirement reqpip.txt
 </pre></div>
 </div>
 <p>ここで、パッケージ一覧ファイル <code class="file docutils literal notranslate"><span class="pre">reqpip.txt</span></code> はあらかじめ用意する必要があるものである。</p>
@@ -214,8 +215,8 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 </li>
 <li><p>初回のパッケージ調達が一段落したら、上記の自動化に備えて
 <code class="file docutils literal notranslate"><span class="pre">reqconda.txt</span></code> と <code class="file docutils literal notranslate"><span class="pre">reqpip.txt</span></code> を作成しておくとよい。アップグレード目的のため、バージョン文字列はカットしたい。こうだろうか。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda list --export --no-pip <span class="p">|</span> cut -d<span class="o">=</span> -f1 &gt; reqconda.txt
-<span class="gp">$</span> conda list <span class="p">|</span> grep <span class="s1">&#39;&lt;pip&gt;&#39;</span> <span class="p">|</span> cut -f1 -d<span class="s1">&#39; &#39;</span> &gt; reqpip.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda list --export --no-pip <span class="p">|</span> cut -d<span class="o">=</span> -f1 &gt; reqconda.txt
+<span class="gp">$ </span>conda list <span class="p">|</span> grep <span class="s1">&#39;&lt;pip&gt;&#39;</span> <span class="p">|</span> cut -f1 -d<span class="s1">&#39; &#39;</span> &gt; reqpip.txt
 </pre></div>
 </div>
 </li>
@@ -239,15 +240,15 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id15">バックアップ</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>現在の <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境とそっくり同じものを <code class="docutils literal notranslate"><span class="pre">3.5</span></code> として作成し、管理されているパッケージ群を専用コマンドでテキストファイルに出力する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda create -n <span class="m">3</span>.5
-<span class="gp">$</span> conda env <span class="nb">export</span> -n <span class="m">3</span>.5 &gt; <span class="m">3</span>.5.yml
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda create -n <span class="m">3</span>.5
+<span class="gp">$ </span>conda env <span class="nb">export</span> -n <span class="m">3</span>.5 &gt; <span class="m">3</span>.5.yml
 </pre></div>
 </div>
 </div>
 <div class="section" id="root">
 <h3><a class="toc-backref" href="#id16">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a><a class="headerlink" href="#root" title="Permalink to this heading">¶</a></h3>
 <p>まずは <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境の Python を 3.6 にアップグレードする。これには <code class="docutils literal notranslate"><span class="pre">update</span></code> コマンドではなく <code class="docutils literal notranslate"><span class="pre">install</span></code> を用いる必要がある：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda install <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda install <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
 <span class="go">Fetching package metadata ...........</span>
 <span class="go">Solving package specifications: .</span>
 
@@ -259,7 +260,7 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 </pre></div>
 </div>
 <p>すると上記のようなエラーが発生した。これは人によっては異なるだろう。いったん指摘されたパッケージを取り除いて、後で再インストールを試みるという作戦でいきたい：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda uninstall nbpresent
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda uninstall nbpresent
 <span class="go">Fetching package metadata ...........</span>
 <span class="go">Solving package specifications: .</span>
 
@@ -277,7 +278,7 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 </pre></div>
 </div>
 <p>再度 <code class="docutils literal notranslate"><span class="pre">install</span></code> コマンドを試す：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda install <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda install <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
 <span class="go">Fetching package metadata ...........</span>
 <span class="go">Solving package specifications: .</span>
 
@@ -376,9 +377,9 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 <ul>
 <li><p>これまで <code class="docutils literal notranslate"><span class="pre">root</span></code> と書いたものは <code class="docutils literal notranslate"><span class="pre">base</span></code> と呼ばれるように変更されたらしい。</p></li>
 <li><p>どうやら <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">update</span></code> 系のコマンド実行に OS の管理者権限が必要となったらしい。通常権限のコンソールで更新系のコマンドを実行すると、最後に例外が発生して正しくファイルが配置されない。これは Windows のスタートメニュー <span class="guilabel">Anaconda Prompt</span> を右クリックして「管理者として実行」してから更新コマンドを実行することで免れる。以下に一例を示す：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> conda --version
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda --version
 <span class="go">conda 4.7.5</span>
-<span class="gp">$</span> conda update --all --yes
+<span class="gp">$ </span>conda update --all --yes
 <span class="go">Collecting package metadata (current_repodata.json): done</span>
 <span class="go">Solving environment: done</span>
 <span class="go">...</span>
@@ -536,6 +537,7 @@ Segmentation fault が発生する不具合が私の環境で現在発生して�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>

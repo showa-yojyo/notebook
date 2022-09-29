@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/mermaid.js"></script>
     <link rel="next" title="ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート" href="onodera10.html" />
     <link rel="prev" title="実用 Git 読書ノート" href="loeliger09.html" />
@@ -162,13 +163,13 @@ WPF, SilverLight, ASP.NET の章は後回しにしたかったので、未だに
 <li><p>5.3 <code class="docutils literal notranslate"><span class="pre">Predicate&lt;T&gt;</span></code> p: X → { true, false }</p></li>
 <li><p>5.4 匿名メソッド</p></li>
 <li><p>5.5 ラムダ式。記法に慣れること。</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Predicate</span><span class="p">&lt;</span><span class="n">Document</span><span class="p">&gt;</span> <span class="n">pred</span> <span class="p">=</span> <span class="n">doc</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">doc</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;?&quot;</span><span class="p">);</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Predicate</span><span class="p">&lt;</span><span class="n">Document</span><span class="p">&gt;</span><span class="w"> </span><span class="n">pred</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">!</span><span class="n">doc</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;?&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>5.7 <code class="docutils literal notranslate"><span class="pre">Function&lt;T,</span> <span class="pre">TResult&gt;</span></code></p></li>
 <li><p>5.8 <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">EventHandler</span></code></p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">...</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">sender</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -207,26 +208,26 @@ WPF, SilverLight, ASP.NET の章は後回しにしたかったので、未だに
 <p>読むのが初めてならば、内容がなかなか頭に入ってこないと思う。</p>
 <ul>
 <li><p>8.1 まずは <code class="docutils literal notranslate"><span class="pre">Dictionary.EnumerateFiles</span></code> を利用した例。</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">q</span> <span class="p">=</span> <span class="k">from</span> <span class="n">file</span> <span class="k">in</span> <span class="n">Dictionary</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(...)</span>
-        <span class="k">where</span> <span class="k">new</span> <span class="nf">FileInfo</span><span class="p">(</span><span class="n">file</span><span class="p">).</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">10000000</span>
-        <span class="k">select</span> <span class="n">file</span><span class="p">;</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Dictionary</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(...)</span><span class="w"></span>
+<span class="w">        </span><span class="k">where</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">FileInfo</span><span class="p">(</span><span class="n">file</span><span class="p">).</span><span class="n">Length</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="m">10000000</span><span class="w"></span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="n">file</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">file</span></code> の部分は、例えば <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">File.ReadAllLines(file).Length</span></code> のようなものでも通じる。</p>
 </li>
 <li><p>8.1.1 そのまま <code class="docutils literal notranslate"><span class="pre">.Where(...).Select(...);</span></code> と書き換え可能。</p></li>
 <li><p>8.1.2 拡張メソッド。既存のクラスに対して、メンバーメソッドを追加定義できる。だから <code class="docutils literal notranslate"><span class="pre">Where</span></code> はこういうモノだ。</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">&gt;</span> <span class="n">Where</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">&gt;(</span>
-<span class="k">this</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">&gt;</span> <span class="n">src</span><span class="p">,</span>
-    <span class="n">Func</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">,</span> <span class="kt">bool</span><span class="p">&gt;</span> <span class="n">predicate</span><span class="p">);</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">&gt;</span><span class="w"> </span><span class="n">Where</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">&gt;(</span><span class="w"></span>
+<span class="k">this</span><span class="w"> </span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">&gt;</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">Func</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">&gt;</span><span class="w"> </span><span class="n">predicate</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>8.1.3 <code class="docutils literal notranslate"><span class="pre">let</span></code> 句。先程の例では <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">FileInfo</span></code> の処理が勿体ない。こうする。</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">q</span> <span class="p">=</span> <span class="k">from</span> <span class="n">file</span> <span class="k">in</span> <span class="n">Dictionary</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(...)</span>
-        <span class="k">let</span> <span class="n">info</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FileInfo</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">info</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">10000000</span>
-        <span class="k">select</span> <span class="n">file</span><span class="p">;</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="kt">var</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Dictionary</span><span class="p">.</span><span class="n">EnumerateFiles</span><span class="p">(...)</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInfo</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">where</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="m">10000000</span><span class="w"></span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="n">file</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -289,9 +290,9 @@ WPF, SilverLight, ASP.NET の章は後回しにしたかったので、未だに
 <ul>
 <li><p>12.3 <code class="docutils literal notranslate"><span class="pre">XDocument</span></code>, <code class="docutils literal notranslate"><span class="pre">XElement</span></code>, …</p></li>
 <li><p>12.4 LINQ との絡み。</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">from</span> <span class="n">customer</span> <span class="k">in</span> <span class="n">customerXml</span><span class="p">.</span><span class="n">Descendants</span><span class="p">(</span><span class="s">&quot;Customers&quot;</span><span class="p">)</span>
-    <span class="k">where</span> <span class="n">customer</span><span class="p">.</span><span class="n">Elemen</span><span class="p">(</span><span class="s">&quot;EmailAddress&quot;</span><span class="p">).</span><span class="n">Value</span> <span class="p">==</span> <span class="s">&quot;dAdams@....com&quot;</span>
-    <span class="k">select</span> <span class="n">customer</span><span class="p">;</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">from</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">customerXml</span><span class="p">.</span><span class="n">Descendants</span><span class="p">(</span><span class="s">&quot;Customers&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">customer</span><span class="p">.</span><span class="n">Elemen</span><span class="p">(</span><span class="s">&quot;EmailAddress&quot;</span><span class="p">).</span><span class="n">Value</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">&quot;dAdams@....com&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">customer</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -303,9 +304,9 @@ WPF, SilverLight, ASP.NET の章は後回しにしたかったので、未だに
 <h2><a class="toc-backref" href="#id31">13 章 ネットワーク処理</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>13.3 HTTP</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">WebClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WebClient</span><span class="p">();</span>
-<span class="kt">string</span> <span class="n">pageContent</span> <span class="p">=</span> <span class="n">client</span><span class="p">.</span><span class="n">DownloadString</span><span class="p">(</span><span class="s">&quot;http://oreilly.com/&quot;</span><span class="p">);</span>
-<span class="kt">byte</span><span class="p">[]</span> <span class="n">data</span> <span class="p">=</span> <span class="n">client</span><span class="p">.</span><span class="n">DownloadData</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="n">http</span><span class="p">:</span><span class="c1">//.../oreilly_large.gif&quot;);</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">WebClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WebClient</span><span class="p">();</span><span class="w"></span>
+<span class="kt">string</span><span class="w"> </span><span class="n">pageContent</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">DownloadString</span><span class="p">(</span><span class="s">&quot;http://oreilly.com/&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">DownloadData</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="n">http</span><span class="p">:</span><span class="c1">//.../oreilly_large.gif&quot;);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -346,22 +347,22 @@ WPF, SilverLight, ASP.NET の章は後回しにしたかったので、未だに
 <li><p>16.1.4 thread affinity, <code class="docutils literal notranslate"><span class="pre">SynchronizationContext</span></code></p></li>
 <li><p>16.1.5.3 …</p></li>
 <li><p>16.2.1 必要以上にロックオブジェクトを保持するのは避ける。</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">lock</span><span class="p">(</span><span class="n">lockObject</span><span class="p">)</span>
-    <span class="k">while</span><span class="p">(!</span><span class="n">canGo</span><span class="p">)</span>
-        <span class="n">Monitor</span><span class="p">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">lockObject</span><span class="p">);</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">lock</span><span class="p">(</span><span class="n">lockObject</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="p">(!</span><span class="n">canGo</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">Monitor</span><span class="p">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">lockObject</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">lock</span><span class="p">(</span><span class="n">lockObject</span><span class="p">)</span>
-    <span class="n">canGo</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-    <span class="n">Monitor</span><span class="p">.</span><span class="n">PulseAll</span><span class="p">(</span><span class="n">lockObject</span><span class="p">);</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="k">lock</span><span class="p">(</span><span class="n">lockObject</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">canGo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Monitor</span><span class="p">.</span><span class="n">PulseAll</span><span class="p">(</span><span class="n">lockObject</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>16.3 非同期プログラミング
 <code class="docutils literal notranslate"><span class="pre">IAsyncResult</span></code>, <code class="docutils literal notranslate"><span class="pre">AsyncCallback</span></code></p></li>
 <li><p>16.4 タスク並列 TPL</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Task</span><span class="p">.</span><span class="n">Factory</span><span class="p">.</span><span class="n">StartNew</span><span class="p">(</span><span class="n">Go</span><span class="p">,</span> <span class="s">&quot;One&quot;</span><span class="p">);</span>
-<span class="n">Task</span><span class="p">.</span><span class="n">WaitAll</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">);</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Task</span><span class="p">.</span><span class="n">Factory</span><span class="p">.</span><span class="n">StartNew</span><span class="p">(</span><span class="n">Go</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;One&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">Task</span><span class="p">.</span><span class="n">WaitAll</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -374,10 +375,10 @@ WPF, SilverLight, ASP.NET の章は後回しにしたかったので、未だに
 </ul>
 </li>
 <li><p>16.5 データ並列性</p>
-<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Parallel</span><span class="p">.</span><span class="n">For</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">pixelHeight</span><span class="p">,</span> <span class="n">pixelY</span><span class="p">)</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="p">...</span>
-<span class="p">});</span>
+<div class="highlight-c# notranslate"><div class="highlight"><pre><span></span><span class="n">Parallel</span><span class="p">.</span><span class="n">For</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">pixelHeight</span><span class="p">,</span><span class="w"> </span><span class="n">pixelY</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -556,6 +557,7 @@ Excel のファイルを開いてシートにデータを書き出すだけの�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>

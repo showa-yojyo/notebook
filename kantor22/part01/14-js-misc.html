@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Part 2 Browser: Document, Events, Interfaces" href="../part02/index.html" />
     <link rel="prev" title="Modules" href="13-modules.html" />
@@ -69,7 +70,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">Proxy</span></code> オブジェクトは、他のオブジェクトを包んで、プロパティーの読み書きなどの操作を横取り、オプションで自分自身で処理したり、オブジェクトに透過的に処理することができる。</p>
 <div class="section" id="proxy">
 <h3>Proxy<a class="headerlink" href="#proxy" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>まずは <code class="docutils literal notranslate"><span class="pre">handler</span> <span class="pre">=</span> <span class="pre">{}</span></code> のときの挙動を理解する。オブジェクト <code class="docutils literal notranslate"><span class="pre">proxy</span></code> への操作全てがオブジェクト <code class="docutils literal notranslate"><span class="pre">target</span></code> に転送される。</p>
@@ -125,18 +126,18 @@
 <h3>“In range” with “has” trap<a class="headerlink" href="#in-range-with-has-trap" title="Permalink to this heading">¶</a></h3>
 <p>演算子 <code class="docutils literal notranslate"><span class="pre">in</span></code> を盗聴したい。例えば、次のオブジェクト <code class="docutils literal notranslate"><span class="pre">range</span></code> に対して
 <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">in</span> <span class="pre">range</span></code> のようなコードを意味のあるものにしたい。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">range</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">start</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nx">end</span><span class="o">:</span> <span class="mi">10</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">end</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">has(target,</span> <span class="pre">property)</span></code> を <code class="docutils literal notranslate"><span class="pre">handler</span></code> に実装すると <code class="docutils literal notranslate"><span class="pre">in</span></code> テストを盗聴できる。例えば：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">range</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">range</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">has</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">prop</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">target</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="nx">prop</span> <span class="o">&amp;&amp;</span> <span class="nx">prop</span> <span class="o">&lt;</span> <span class="nx">target</span><span class="p">.</span><span class="nx">end</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">(</span><span class="nx">range</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">has</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">prop</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">start</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">end</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -150,16 +151,16 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">args</span></code> は元の関数の実引数だ。</p></li>
 </ul>
 <p>以前やった関数ベースの Decorator パターンを <code class="docutils literal notranslate"><span class="pre">Proxy</span></code> で実装する。この方式の利点は、関数のプロパティーを損なわないという点だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">delay</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">ms</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//return function() {</span>
-    <span class="c1">//    setTimeout(() =&gt; f.apply(this, arguments), ms);</span>
-    <span class="c1">//};</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">apply</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">thisArg</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">target</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">thisArg</span><span class="p">,</span> <span class="nx">args</span><span class="p">),</span> <span class="nx">ms</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">delay</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">ms</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//return function() {</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//    setTimeout(() =&gt; f.apply(this, arguments), ms);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//};</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">apply</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">thisArg</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">thisArg</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">),</span><span class="w"> </span><span class="nx">ms</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -184,15 +185,15 @@
 <code class="docutils literal notranslate"><span class="pre">userProxy</span></code> に指定されている。</p></li>
 </ul>
 <p>従来のように <code class="docutils literal notranslate"><span class="pre">handler.get</span></code> を実装すると <code class="docutils literal notranslate"><span class="pre">admin.name</span></code> は <code class="docutils literal notranslate"><span class="pre">user._name</span></code> に評価される。こういうときには <code class="docutils literal notranslate"><span class="pre">Reflect.get</span></code> を使う：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">userProxy</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="p">{</span>
-    <span class="c1">// target, prop, receiver == user (guest), &quot;name&quot;, admin</span>
-    <span class="c1">//get(target, prop, receiver) {</span>
-    <span class="c1">//    return target[prop];</span>
-    <span class="c1">//}</span>
-    <span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">userProxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// target, prop, receiver == user (guest), &quot;name&quot;, admin</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//get(target, prop, receiver) {</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//    return target[prop];</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">prop</span><span class="p">,</span><span class="w"> </span><span class="nx">receiver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Reflect</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">prop</span><span class="p">,</span><span class="w"> </span><span class="nx">receiver</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -204,10 +205,10 @@
 <h4>Built-in objects: Internal slots<a class="headerlink" href="#built-in-objects-internal-slots" title="Permalink to this heading">¶</a></h4>
 <p>組み込み型 <code class="docutils literal notranslate"><span class="pre">Map</span></code>, <code class="docutils literal notranslate"><span class="pre">Set</span></code>, <code class="docutils literal notranslate"><span class="pre">Date</span></code>, <code class="docutils literal notranslate"><span class="pre">Promise</span></code> など、内部情報が絡んでくるものに対しては <code class="docutils literal notranslate"><span class="pre">Proxy</span></code> が機能しないプロパティーがある。</p>
 <p>例： <code class="docutils literal notranslate"><span class="pre">Map</span></code> 型オブジェクトを <code class="docutils literal notranslate"><span class="pre">handler</span></code> が空であるような <code class="docutils literal notranslate"><span class="pre">Proxy</span></code> 型オブジェクトを生成し、それに対して <code class="docutils literal notranslate"><span class="pre">set</span></code> を呼び出すと <code class="docutils literal notranslate"><span class="pre">map.set</span></code> の呼び出しに失敗する。これは、 <code class="docutils literal notranslate"><span class="pre">hander.get</span></code> を本文のように実装することで修正される。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">receiver</span><span class="p">);</span>
-    <span class="k">return</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span> <span class="o">?</span> <span class="nx">value</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">prop</span><span class="p">,</span><span class="w"> </span><span class="nx">receiver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Reflect</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">prop</span><span class="p">,</span><span class="w"> </span><span class="nx">receiver</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;function&#39;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Array</span></code> は <code class="docutils literal notranslate"><span class="pre">Proxy</span></code> の機能を邪魔するような内部情報がない。</p>
@@ -225,11 +226,11 @@
 <div class="section" id="revocable-proxies">
 <h3>Revocable proxies<a class="headerlink" href="#revocable-proxies" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Proxy.revocable()</span></code> は <code class="docutils literal notranslate"><span class="pre">target</span></code> との結びつきを取り消す <code class="docutils literal notranslate"><span class="pre">Proxy</span></code> オブジェクトを可能にする。それには、後で戻り値の <code class="docutils literal notranslate"><span class="pre">revoke()</span></code> を呼び出す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="p">{</span><span class="nx">proxy</span><span class="p">,</span> <span class="nx">revoke</span><span class="p">}</span> <span class="o">=</span> <span class="nb">Proxy</span><span class="p">.</span><span class="nx">revocable</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="p">{</span><span class="nx">proxy</span><span class="p">,</span><span class="w"> </span><span class="nx">revoke</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">.</span><span class="nx">revocable</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// ...</span>
+<span class="c1">// ...</span><span class="w"></span>
 
-<span class="nx">revoke</span><span class="p">();</span>
+<span class="nx">revoke</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -302,13 +303,13 @@
 <p>例えば関数 <code class="docutils literal notranslate"><span class="pre">f(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code> から関数 <code class="docutils literal notranslate"><span class="pre">f(a)(b)(c)</span></code> へ変換するような操作を currying
 という。この用語はプログラミング言語に依らない。</p>
 <p>二変数関数の場合は次のような関数がそれを実現する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">curry</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// curry(f) does the currying transform</span>
-    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
-        <span class="p">};</span>
-    <span class="p">};</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">curry</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// curry(f) does the currying transform</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="section" id="currying-what-for">
@@ -332,8 +333,8 @@ JavaScript では currying と言ったら、本文のように高度なもの�
 <div class="section" id="reference-type-explained">
 <h3>Reference type explained<a class="headerlink" href="#reference-type-explained" title="Permalink to this heading">¶</a></h3>
 <p>実は次のコードですらエラーになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">user</span><span class="p">.</span><span class="nx">hi</span><span class="p">;</span>
-<span class="nx">f</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">hi</span><span class="p">;</span><span class="w"></span>
+<span class="nx">f</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">user.hi()</span></code> にせよ <code class="docutils literal notranslate"><span class="pre">user.hi</span></code> にせよ、ドットはそもそも関数を返していない。参照型なる実体（これは言語内部の型と理解する）を返し、それの特別な処理により
@@ -345,7 +346,7 @@ JavaScript では currying と言ったら、本文のように高度なもの�
 <li><p><code class="docutils literal notranslate"><span class="pre">strict</span></code> は “use strict” モードであるかどうか</p></li>
 </ul>
 <p>例えば <code class="docutils literal notranslate"><span class="pre">user.hi</span></code> は、実体は次のものだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="s2">&quot;hi&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;hi&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>参照型に対して丸括弧 <code class="docutils literal notranslate"><span class="pre">()</span></code> が評価されると、この情報を用いて正しい <code class="docutils literal notranslate"><span class="pre">this</span></code> を決めることができる。参照型は特別な内部型であり、ドットから丸括弧の呼び出しに情報を渡すことを目的とするものだ。</p>
@@ -374,10 +375,10 @@ JavaScript では currying と言ったら、本文のように高度なもの�
 <p>&lt;<a class="reference external" href="https://javascript.info/bigint">https://javascript.info/bigint</a>&gt; のノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">BigInt</span></code> は任意の長さの整数を扱える数値型だ。</p>
 <p>この型の値を定義するには、整数リテラルのケツに <code class="docutils literal notranslate"><span class="pre">n</span></code> を付加する。または、文字列や数値などから <code class="docutils literal notranslate"><span class="pre">BigInt</span></code> コンストラクターを呼び出す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="mi">1234567890123456789012345678901234567890</span><span class="nx">n</span><span class="p">;</span>
-<span class="nx">BigInt</span><span class="p">(</span><span class="s2">&quot;1234567890123456789012345678901234567890&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="mi">1234567890123456789012345678901234567890n</span><span class="p">;</span><span class="w"></span>
+<span class="nb">BigInt</span><span class="p">(</span><span class="s2">&quot;1234567890123456789012345678901234567890&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">BigInt</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nb">BigInt</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="section" id="math-operators">
@@ -543,6 +544,7 @@ JavaScript では currying と言ったら、本文のように高度なもの�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

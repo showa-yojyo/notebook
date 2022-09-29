@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="グラフを描画する" href="drawing.html" />
@@ -106,12 +107,12 @@
                       <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">capacity</span><span class="o">=</span><span class="mi">3</span><span class="p">)),))</span>
 
     <span class="n">flow_value</span><span class="p">,</span> <span class="n">flows</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">maximum_flow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;maximum flow: </span><span class="si">{flow_value}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;maximum flow: </span><span class="si">{</span><span class="n">flow_value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="n">caps</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;capacity&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">flow</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">flows</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{u}</span><span class="s1">, </span><span class="si">{v}</span><span class="s1">): </span><span class="si">{flow}</span><span class="s1">/</span><span class="si">{caps[(u, v)]}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">flow</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">caps</span><span class="p">[(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -181,15 +182,15 @@ maximum flow: <span class="m">5</span>
     <span class="n">cut_value</span><span class="p">,</span> <span class="n">partition</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">minimum_cut</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">)</span>
     <span class="n">S</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">partition</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cut value: </span><span class="si">{cut_value}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(S, T): (</span><span class="si">{S}</span><span class="s1">, </span><span class="si">{T}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cut value: </span><span class="si">{</span><span class="n">cut_value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(S, T): (</span><span class="si">{</span><span class="n">S</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 
     <span class="c1"># Compute the cut set of edges that induce the minimum cut</span>
     <span class="c1"># as follows:</span>
     <span class="n">cutset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">nbrs</span> <span class="ow">in</span> <span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">G</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">S</span><span class="p">):</span>
         <span class="n">cutset</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nbrs</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">T</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cut set: </span><span class="si">{cutset}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cut set: </span><span class="si">{</span><span class="n">cutset</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>実行結果を次に示す。カットセットの構成本数が点 s, t に関する辺連結度 2 と一致している。</p>
@@ -361,6 +362,7 @@ cut set: {(&#39;r&#39;, &#39;t&#39;), (&#39;q&#39;, &#39;t&#39;)}
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

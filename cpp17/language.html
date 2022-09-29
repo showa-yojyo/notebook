@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="What’s New In C++17 標準ライブラリー" href="library.html" />
     <link rel="prev" title="What’s New In C++17 ノート" href="index.html" />
@@ -134,7 +135,7 @@
 </pre></div>
 </div>
 <p>C++17 ではこのように書く：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="p">[</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">second</span><span class="p">,</span><span class="w"> </span><span class="n">third</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -208,15 +209,15 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <div class="section" id="if-switch">
 <h3><a class="toc-backref" href="#id26"><cite>if</cite> 文と <cite>switch</cite> 文の括弧の中で変数の初期化が許される</a><a class="headerlink" href="#if-switch" title="Permalink to this heading">¶</a></h3>
 <p>Python で言うところの <code class="docutils literal notranslate"><span class="pre">:=</span></code> のような役割を果たすのだろうか？セミコロンを使うことになるので、書く手間は Python と同じ程度？</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">){</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// 初期化コードは optional</span>
-<span class="k">switch</span><span class="p">(;</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-<span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<span class="k">switch</span><span class="p">(;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -229,9 +230,9 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <div class="section" id="if-constexpr">
 <h3><a class="toc-backref" href="#id28"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 文</a><a class="headerlink" href="#if-constexpr" title="Permalink to this heading">¶</a></h3>
 <p>コンパイル時に <code class="docutils literal notranslate"><span class="pre">if</span></code> 文を評価させる構文だ。構文は <code class="docutils literal notranslate"><span class="pre">if</span></code> と括弧の間にキーワード <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> を挟むだけの単純なものだ。使い方はふつうの <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> と同程度に難しい。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">condition</span><span class="p">){</span>
-    <span class="n">statement</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -239,11 +240,11 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <h3><a class="toc-backref" href="#id29">範囲 <code class="docutils literal notranslate"><span class="pre">for</span></code> ループにおける仕様変更</a><a class="headerlink" href="#for" title="Permalink to this heading">¶</a></h3>
 <p>対象となる範囲の <code class="docutils literal notranslate"><span class="pre">begin()</span></code> と <code class="docutils literal notranslate"><span class="pre">end()</span></code> の型が異なっていても OK となる。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">//auto first = range.begin(), last = range.end();</span>
-<span class="k">auto</span> <span class="n">first</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-<span class="k">auto</span> <span class="n">last</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
-<span class="k">for</span><span class="p">(;</span> <span class="n">first</span> <span class="o">!=</span> <span class="n">last</span><span class="p">;</span> <span class="o">++</span><span class="n">first</span><span class="p">){</span>
-    <span class="n">statement</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"></span>
+<span class="k">auto</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"></span>
+<span class="k">for</span><span class="p">(;</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">first</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -277,11 +278,11 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 </ul>
 </li>
 <li><p>畳み込み式は丸括弧で囲まれることで表すものとする。シンプルだ。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">fold</span><span class="p">(</span><span class="n">T</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">args</span> <span class="n">op</span> <span class="p">...);</span> <span class="c1">// i.e. arg1 op ... op argN</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fold</span><span class="p">(</span><span class="n">T</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">args</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="p">...);</span><span class="w"> </span><span class="c1">// i.e. arg1 op ... op argN</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -307,43 +308,43 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <li><p><code class="docutils literal notranslate"><span class="pre">using</span></code> 宣言のパック展開。</p>
 <p>基底クラスのメンバーをまとめてパック展開する使い方が許される。
 <a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> より引用：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
-<span class="k">struct</span> <span class="n">ForLong</span> <span class="p">{</span>
-    <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="kt">long</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ForLong:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ForLong</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="kt">long</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ForLong:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">struct</span> <span class="n">ForString</span> <span class="p">{</span>
-    <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ForString:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ForString</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ForString:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nl">ForAll</span> <span class="p">:</span> <span class="n">T</span><span class="p">...</span> <span class="p">{</span>
-    <span class="k">using</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span><span class="p">()...;</span>
-    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ForAll:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ForAll</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">T</span><span class="p">...</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">T</span><span class="o">::</span><span class="k">operator</span><span class="p">()...;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ForAll:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>変数テンプレートの「デフォルトテンプレート」が許される。
 <a class="reference external" href="https://cpprefjp.github.io/site">cpprefjp</a> の例を一部改変：</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cassert&gt;</span><span class="cp"></span>
 
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">=</span><span class="kt">int</span><span class="o">&gt;</span>
-<span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">=</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">&lt;&gt;</span><span class="p">;</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;&gt;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -361,24 +362,24 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <h2><a class="toc-backref" href="#id33">名前空間</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>ダブルコロンを連結した名前を書くことでスコープを入れ子にすることなく部分名前空間を定義することが許される。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">aaa</span><span class="o">::</span><span class="n">bbb</span><span class="o">::</span><span class="n">cc</span>
-<span class="p">{</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">aaa</span><span class="o">::</span><span class="nn">bbb</span><span class="o">::</span><span class="nn">cc</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>名前空間に対して属性を与えることが許される。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="p">[[</span><span class="n">deprecated</span><span class="p">]]</span> <span class="n">aaa</span>
-<span class="p">{</span>
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="p">[[</span><span class="nn">deprecated</span><span class="p">]]</span><span class="w"> </span><span class="nn">aaa</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">using</span></code> ディレクティブでパック展開が許される。</p>
 <p>次のように <code class="docutils literal notranslate"><span class="pre">using</span></code> 宣言の行にカンマ区切りで識別子を並べることができる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -403,20 +404,20 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <ul>
 <li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[fallthrough]]</span></code> が追加。先述のとおり。</p></li>
 <li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[maybe_unused]]</span></code> が追加。コンパイラーの未使用変数の警告を抑止する。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kt">void</span> <span class="n">f</span><span class="p">();</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">();</span><span class="w"></span>
 
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="n">g</span><span class="p">();</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">g</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>属性 <code class="docutils literal notranslate"><span class="pre">[[nodiscard]]</span></code> が追加。関数の戻り値を呼び出し側が無視してはならないことを指示する。ユーザー定義型に与える方法と関数宣言に与える方法がある。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="n">error_info</span> <span class="p">{};</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="n">error_info</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 
-<span class="n">error_info</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">error_info</span><span class="p">{};</span> <span class="p">}</span>
+<span class="n">error_info</span><span class="w"> </span><span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">error_info</span><span class="p">{};</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-<span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span> <span class="kt">int</span> <span class="n">g</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">g</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -424,7 +425,7 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 <li><p>列挙型の列挙子に属性を与えることが許される。その場合には列挙子とカンマの間に属性を記す。</p></li>
 <li><p>属性内の名前空間の指定をいちどにできる構文が追加。属性の先頭部分に <code class="docutils literal notranslate"><span class="pre">using</span></code> 名前空間 <code class="docutils literal notranslate"><span class="pre">:</span></code> の順に記述し、その後に続けて属性の名前を記述する。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// [[CC::opt(1), CC::debug]] void f(){} と同じ</span>
-<span class="p">[[</span><span class="k">using</span> <span class="nl">CC</span><span class="p">:</span> <span class="n">opt</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">debug</span><span class="p">]]</span> <span class="kt">void</span> <span class="n">f</span><span class="p">(){}</span>
+<span class="p">[[</span><span class="k">using</span><span class="w"> </span><span class="n">CC</span><span class="o">:</span><span class="w"> </span><span class="n">opt</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">debug</span><span class="p">]]</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">(){}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -613,6 +614,7 @@ C++ という言語の性質を考えると、生半可な理解でここに何�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

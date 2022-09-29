@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="JavaScript and the Browser" href="chapter13.html" />
     <link rel="prev" title="Asynchronous Programming" href="chapter11.html" />
@@ -128,14 +129,14 @@
 </li>
 </ul>
 <p>先ほどのコード片における <code class="docutils literal notranslate"><span class="pre">&gt;(x,</span> <span class="pre">5)</span></code> の部分は次のように表現されるだろう：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;apply&quot;</span><span class="p">,</span>
-    <span class="nx">operator</span><span class="o">:</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">},</span>
-    <span class="nx">args</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;x&quot;</span><span class="p">},</span>
-        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">5</span><span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;apply&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;x&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul>
@@ -155,27 +156,27 @@
 </li>
 </ul>
 <p>解析器の最初の部分はこのようなものだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
-    <span class="kd">let</span> <span class="nx">match</span><span class="p">,</span> <span class="nx">expr</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">match</span><span class="p">,</span><span class="w"> </span><span class="nx">expr</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^&quot;([^&quot;]*)&quot;/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]};</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^\d+\b/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">])};</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="sr">/^[^\s(),#&quot;]+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]};</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected syntax: &quot;</span> <span class="o">+</span> <span class="nx">program</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">));</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">match</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/^&quot;([^&quot;]*)&quot;/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="nx">match</span><span class="p">[</span><span class="mf">1</span><span class="p">]};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">match</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/^\d+\b/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">])};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">match</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/^[^\s(),#&quot;]+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">program</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">]};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected syntax: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">program</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">length</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">first</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">first</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">string</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">first</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">first</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -195,27 +196,27 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <li><p><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> は JavaScript 標準例外型だ。</p></li>
 </ul>
 <p>プログラム文字列からマッチした部分を切り取り、その部分を式のオブジェクトと一緒に関数 <code class="docutils literal notranslate"><span class="pre">parseApply</span></code> に引き渡す。式がアプリケーションであるかどうかをチェックし、そうならば括弧でくくられた引数を解析する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;(&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">{</span><span class="nx">expr</span><span class="o">:</span> <span class="nx">expr</span><span class="p">,</span> <span class="nx">rest</span><span class="o">:</span> <span class="nx">program</span><span class="p">};</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">program</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;(&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">expr</span><span class="o">:</span><span class="w"> </span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">rest</span><span class="o">:</span><span class="w"> </span><span class="nx">program</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-    <span class="nx">expr</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;apply&quot;</span><span class="p">,</span> <span class="nx">operator</span><span class="o">:</span> <span class="nx">expr</span><span class="p">,</span> <span class="nx">args</span><span class="o">:</span> <span class="p">[]};</span>
-    <span class="k">while</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">arg</span> <span class="o">=</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
-        <span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arg</span><span class="p">.</span><span class="nx">expr</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="nx">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;apply&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">operator</span><span class="o">:</span><span class="w"> </span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">[]};</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;)&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arg</span><span class="p">.</span><span class="nx">expr</span><span class="p">);</span><span class="w"></span>
 
-        <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">arg</span><span class="p">.</span><span class="nx">rest</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">program</span> <span class="o">=</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;,&#39; or &#39;)&#39;&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="nx">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">arg</span><span class="p">.</span><span class="nx">rest</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">program</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;)&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;,&#39; or &#39;)&#39;&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">parseApply</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">program</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -228,50 +229,50 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <code class="docutils literal notranslate"><span class="pre">parseApply</span></code> はアプリケーションを解析した後に、再度自分自身を呼び出して、別の括弧のペアが続くかどうかをチェックする必要がある。</p></li>
 </ul>
 <p>以上が Egg の解析に必要なものだ。式を解析した後、入力文字列の最後に到達したかどうかを確認する便利な関数 <code class="docutils literal notranslate"><span class="pre">parse</span></code> でラップする。そしてプログラムのデータ構造が得られる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="p">{</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">rest</span><span class="p">}</span> <span class="o">=</span> <span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">rest</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected text after program&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">expr</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">{</span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">rest</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parseExpression</span><span class="p">(</span><span class="nx">program</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">rest</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Unexpected text after program&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">expr</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;+(a, 10)&quot;</span><span class="p">));</span>
-<span class="c1">// → {type: &quot;apply&quot;,</span>
-<span class="c1">//     operator: {type: &quot;word&quot;, name: &quot;+&quot;},</span>
-<span class="c1">//     args: [{type: &quot;word&quot;, name: &quot;a&quot;},</span>
-<span class="c1">//     {type: &quot;value&quot;, value: 10}]}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;+(a, 10)&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// → {type: &quot;apply&quot;,</span><span class="w"></span>
+<span class="c1">//     operator: {type: &quot;word&quot;, name: &quot;+&quot;},</span><span class="w"></span>
+<span class="c1">//     args: [{type: &quot;word&quot;, name: &quot;a&quot;},</span><span class="w"></span>
+<span class="c1">//     {type: &quot;value&quot;, value: 10}]}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="the-evaluator">
 <h2><a class="toc-backref" href="#id4">The evaluator</a><a class="headerlink" href="#the-evaluator" title="Permalink to this heading">¶</a></h2>
 <p>評価器に構文木と名前と値を関連付けるスコープオブジェクトを与えると構文木が表現する式を評価して、それが生成する値を返す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">specialForms</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">specialForms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">scope</span><span class="p">[</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">];</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ReferenceError</span><span class="p">(</span><span class="sb">`Undefined binding: </span><span class="si">${</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;apply&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="p">{</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">args</span><span class="p">}</span> <span class="o">=</span> <span class="nx">expr</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">operator</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;word&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">specialForms</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">specialForms</span><span class="p">[</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span><span class="p">](</span><span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">op</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">op</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nx">op</span><span class="p">(...</span><span class="nx">args</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arg</span> <span class="p">=&gt;</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)));</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Applying a non-function.&quot;</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">expr</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">expr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">scope</span><span class="p">[</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">ReferenceError</span><span class="p">(</span><span class="sb">`Undefined binding: </span><span class="si">${</span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;apply&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">{</span><span class="nx">operator</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">expr</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">operator</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">specialForms</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">specialForms</span><span class="p">[</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span><span class="p">](</span><span class="nx">expr</span><span class="p">.</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nx">op</span><span class="p">(...</span><span class="nx">args</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arg</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)));</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Applying a non-function.&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -296,15 +297,15 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <h2><a class="toc-backref" href="#id5">Special forms</a><a class="headerlink" href="#special-forms" title="Permalink to this heading">¶</a></h2>
 <p>オブジェクト <code class="docutils literal notranslate"><span class="pre">specialForms</span></code> を Egg における特別な構文を定義するのに使う。このオブジェクトはタントとそのような形式を評価する関数とを関連付ける。</p>
 <p>まず <code class="docutils literal notranslate"><span class="pre">if</span></code> を追加する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">if</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to if&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">scope</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">if</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to if&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">2</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -319,28 +320,28 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <li><p><code class="docutils literal notranslate"><span class="pre">if</span></code> を通常の関数ではなく、特別な形式で表現する理由とは、関数への実引数すべてが関数が呼び出されるよりも前に評価される一方で、この <code class="docutils literal notranslate"><span class="pre">if</span></code> は、第一引数の値に応じて第二引数か第三引数のいずれか一方のみを評価する必要があるからだ。</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">while</span></code> 形式も同様にする。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">while</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to while&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">while</span> <span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">scope</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">while</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Wrong number of args to while&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// Since undefined does not exist in Egg, we return false,</span>
-    <span class="c1">// for lack of a meaningful result.</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="c1">// Since undefined does not exist in Egg, we return false,</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// for lack of a meaningful result.</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">do</span></code> ループはすべての引数を上から下へ実行する。評価は最後の引数が生成する値だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">do</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">arg</span> <span class="k">of</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="k">do</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">arg</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>変数を定義する機能を実装するために <code class="docutils literal notranslate"><span class="pre">define</span></code> という形式も作る。</p>
@@ -348,14 +349,14 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <li><p>第一引数：単語</p></li>
 <li><p>第二引数：その単語に割り当てる値を生成する式</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">define</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">2</span> <span class="o">||</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of define&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
-    <span class="nx">scope</span><span class="p">[</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">define</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of define&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">scope</span><span class="p">[</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -369,40 +370,40 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <p>ようなものだ。</p>
 <p>先ほどの <code class="docutils literal notranslate"><span class="pre">if</span></code> 文を使用できるようにするには、真偽値にアクセスしなければならない。真偽値は二つしかないので、特別な構文は不要だ。単に二つの名前を <code class="docutils literal notranslate"><span class="pre">true</span></code> と
 <code class="docutils literal notranslate"><span class="pre">false</span></code> に束縛する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">topScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">topScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">topScope</span><span class="p">.</span><span class="kc">true</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="nx">topScope</span><span class="p">.</span><span class="kc">false</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="nx">topScope</span><span class="p">.</span><span class="kc">true</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<span class="nx">topScope</span><span class="p">.</span><span class="kc">false</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul>
 <li><p>ここで <code class="docutils literal notranslate"><span class="pre">topScope</span></code> は大域名前空間を表す。</p></li>
 <li><p>これにより真偽値を否定する簡単な式を評価できるようになった。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">prog</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">(</span><span class="sb">`if(true, false, true)`</span><span class="p">);</span>
-<span class="nx">evaluate</span><span class="p">(</span><span class="nx">prog</span><span class="p">,</span> <span class="nx">topScope</span><span class="p">);</span> <span class="c1">// → false</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">prog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parse</span><span class="p">(</span><span class="sb">`if(true, false, true)`</span><span class="p">);</span><span class="w"></span>
+<span class="nx">evaluate</span><span class="p">(</span><span class="nx">prog</span><span class="p">,</span><span class="w"> </span><span class="nx">topScope</span><span class="p">);</span><span class="w"> </span><span class="c1">// → false</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 </ul>
 <p>基本的な算術演算子と比較演算子を提供するべく、関数値をいくつか大域名前空間に追加する。コードを短く保つために、演算子を個別に定義するのではなく JavaScript にある
 <code class="docutils literal notranslate"><span class="pre">Function</span></code> を利用してループ内で一連の演算子を合成する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">op</span> <span class="k">of</span> <span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">])</span> <span class="p">{</span>
-    <span class="nx">topScope</span><span class="p">[</span><span class="nx">op</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;a, b&quot;</span><span class="p">,</span> <span class="sb">`return a </span><span class="si">${</span><span class="nx">op</span><span class="si">}</span><span class="sb"> b;`</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">op</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;==&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">topScope</span><span class="p">[</span><span class="nx">op</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;a, b&quot;</span><span class="p">,</span><span class="w"> </span><span class="sb">`return a </span><span class="si">${</span><span class="nx">op</span><span class="si">}</span><span class="sb"> b;`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>値を出力する手段が欲しいので <code class="docutils literal notranslate"><span class="pre">console.log</span></code> を関数にラップしてそれを <code class="docutils literal notranslate"><span class="pre">print</span></code> を名付けることにする。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">topScope</span><span class="p">.</span><span class="nx">print</span> <span class="o">=</span> <span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">topScope</span><span class="p">.</span><span class="nx">print</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>以上で簡単なプログラムを書くのに十分な初頭的なツールが用意できた。</p>
 <p>次の関数 <code class="docutils literal notranslate"><span class="pre">run</span></code> は、プログラムを解析して新しいスコープで実行するものだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">run</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">),</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">topScope</span><span class="p">));</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">run</span><span class="p">(</span><span class="nx">program</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="nx">program</span><span class="p">),</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">topScope</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>オブジェクトプロトタイプの連鎖を使って入れ子になったスコープを表現して、プログラムが大域名前空間を変更することなしに、そのローカルスコープに変数を追加できるはずだ。</p>
@@ -413,8 +414,8 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <span class="sb">         do(define(total, +(total, count)),</span>
 <span class="sb">            define(count, +(count, 1)))),</span>
 <span class="sb">   print(total))</span>
-<span class="sb">`</span><span class="p">);</span>
-<span class="c1">// → 55</span>
+<span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// → 55</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -428,29 +429,29 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <li><p>最後の引数を関数の本体として扱い、</p></li>
 <li><p>それ以外の引数すべてを関数の引数リストとして使用する。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">fun</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Functions need a body&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="kd">let</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-    <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">expr</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Parameter names must be words&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
-    <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">fun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Functions need a body&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">args</span><span class="p">[</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">expr</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">expr</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Parameter names must be words&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">expr</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong number of arguments&quot;</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="kd">let</span> <span class="nx">localScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">localScope</span><span class="p">[</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">localScope</span><span class="p">);</span>
-    <span class="p">};</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">params</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong number of arguments&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">localScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">localScope</span><span class="p">[</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span><span class="w"> </span><span class="nx">localScope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Egg の関数は固有の関数スコープを有する。
@@ -458,15 +459,15 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">run</span><span class="p">(</span><span class="sb">`</span>
 <span class="sb">do(define(plusOne, fun(a, +(a, 1))),</span>
 <span class="sb">   print(plusOne(10)))</span>
-<span class="sb">`</span><span class="p">);</span>
-<span class="c1">// → 11</span>
+<span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// → 11</span><span class="w"></span>
 
 <span class="nx">run</span><span class="p">(</span><span class="sb">`</span>
 <span class="sb">do(define(pow, fun(base, exp,</span>
 <span class="sb">   if(==(exp, 0), 1, *(base, pow(base, -(exp, 1)))))),</span>
 <span class="sb">   print(pow(2, 10)))</span>
-<span class="sb">`</span><span class="p">);</span>
-<span class="c1">// → 1024</span>
+<span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// → 1024</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -511,9 +512,9 @@ Egg がサポートする三種の要素（文字列、数字、単語）を判�
 <li><p>配列から n 番目の要素を取得する <code class="docutils literal notranslate"><span class="pre">element(array,</span> <span class="pre">n)</span></code></p></li>
 </ul>
 <p><strong>解答</strong> これは単純に書いてよいだろう：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">topScope</span><span class="p">.</span><span class="nx">array</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">[...</span><span class="nx">args</span><span class="p">];</span>
-<span class="nx">topScope</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">arr</span> <span class="p">=&gt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-<span class="nx">topScope</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">n</span><span class="p">];</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">topScope</span><span class="p">.</span><span class="nx">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[...</span><span class="nx">args</span><span class="p">];</span><span class="w"></span>
+<span class="nx">topScope</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"></span>
+<span class="nx">topScope</span><span class="p">.</span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">arr</span><span class="p">[</span><span class="nx">n</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -531,22 +532,22 @@ JavaScript の関数がそうであるのと同様だ。</p>
 </div>
 <p>形式 <code class="docutils literal notranslate"><span class="pre">fun</span></code> の定義に戻って、どのような仕組みでこれが動作するのかを動作するのかを述べろ。</p>
 <p><strong>解答</strong> このコードを JavaScript に翻訳すると：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
-    <span class="kd">function</span> <span class="nx">b</span><span class="p">(){</span>
-        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="nx">b</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">b</span><span class="p">(){</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">specialForms.fun</span></code> の定義において、関数の本体とスコープを決定するコードは次のものだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">localScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>
-<span class="c1">//console.log(Object.getPrototypeOf(localScope));</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">localScope</span><span class="p">[</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-    <span class="c1">//console.log(`localScope[${params[i]}] = ${arguments[i]}`);</span>
-<span class="p">}</span>
-<span class="k">return</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">localScope</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">localScope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="c1">//console.log(Object.getPrototypeOf(localScope));</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">localScope</span><span class="p">[</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//console.log(`localScope[${params[i]}] = ${arguments[i]}`);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span><span class="w"> </span><span class="nx">localScope</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>まず <code class="docutils literal notranslate"><span class="pre">f</span></code> の定義が起こる。その <code class="docutils literal notranslate"><span class="pre">localScope</span></code> に新たに <code class="docutils literal notranslate"><span class="pre">a</span></code> が入る。</p>
@@ -563,11 +564,11 @@ JavaScript の <code class="docutils literal notranslate"><span class="pre">//</
 <code class="docutils literal notranslate"><span class="pre">skipSpace</span></code> がコメントを空白文字のように飛ばすように変更するだけで、
 <code class="docutils literal notranslate"><span class="pre">skipSpace</span></code> が呼び出されるすべてのポイントでコメントも飛ばされるようになる。この変更を加えろ。</p>
 <p><strong>解答</strong> 素直に考えると次のようになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">skipSpace</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">first</span> <span class="o">=</span> <span class="nx">string</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">first</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">first</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/#.*/g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">skipSpace</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">string</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/\S/</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">first</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">first</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/#.*/g</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ただし、文字列リテラル中に <code class="docutils literal notranslate"><span class="pre">#</span></code> を含むようなプログラムに対しては構文エラーを生じる。</p>
@@ -580,27 +581,27 @@ JavaScript の <code class="docutils literal notranslate"><span class="pre">//</
 <li><p>スコープを単純なオブジェクトで表現する手法は、これまでは便利だったが、ここからは少々邪魔になる。ここではオブジェクトのプロトタイプを返す <code class="docutils literal notranslate"><span class="pre">Object.getPrototypeOf</span></code> 関数を使うといいだろう。</p></li>
 <li><p>また、スコープは <code class="docutils literal notranslate"><span class="pre">Object.prototype</span></code> から派生していないので、スコープに対して <code class="docutils literal notranslate"><span class="pre">hasOwnProperty</span></code> を呼び出すには、次のような不器用な式を使わなければならないことにも留意しろ：</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p><strong>解答</strong> これは時間がかかった。キーワードを <code class="docutils literal notranslate"><span class="pre">put</span></code> にすると次のようなコードになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">put</span> <span class="o">=</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">2</span> <span class="o">||</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">type</span> <span class="o">!=</span> <span class="s2">&quot;word&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of put&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-    <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">scope</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">name</span><span class="p">)){</span>
-        <span class="nx">scope</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">scope</span><span class="p">){</span>
-        <span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">scope</span><span class="p">)[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">specialForms</span><span class="p">.</span><span class="nx">put</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">scope</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;word&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Incorrect use of put&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span><span class="w"> </span><span class="nx">scope</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)){</span><span class="w"></span>
+<span class="w">        </span><span class="nx">scope</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">scope</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">scope</span><span class="p">)[</span><span class="nx">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">throw</span> <span class="k">new</span> <span class="nx">ReferenceError</span><span class="p">(</span><span class="sb">`Incorrect use of put; </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb"> is undefined`</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">ReferenceError</span><span class="p">(</span><span class="sb">`Incorrect use of put; </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb"> is undefined`</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>急所は問題文から推察されるように、プロトタイプの理解ができているかどうかだ。次のようなコードを修正して色々なパターンを試す：</p>
@@ -769,6 +770,7 @@ JavaScript の <code class="docutils literal notranslate"><span class="pre">//</
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Introduction to Events" href="02-events.html" />
     <link rel="prev" title="Part 2 Browser: Document, Events, Interfaces" href="index.html" />
@@ -306,12 +307,12 @@ DOM が live だという性質がある。HTML の構造が変化すると同�
 <div class="section" id="search-for-elements">
 <h4>Search for elements<a class="headerlink" href="#search-for-elements" title="Permalink to this heading">¶</a></h4>
 <p>なるべく <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> 系を利用する。開発ツールの Console タブで <code class="docutils literal notranslate"><span class="pre">$()</span></code> とあわせて <code class="docutils literal notranslate"><span class="pre">$x()</span></code> でも XPath を指定することで参照できるように能力をつける。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//table[@id=&quot;age-table&quot;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//table//label&#39;</span><span class="p">);</span>
-<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//table[@id=&quot;age-table&quot;]//td&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//form[@name=&quot;search&quot;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//form[@name=&quot;search&quot;]/input&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//form[@name=&quot;search&quot;]/input&#39;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//table[@id=&quot;age-table&quot;]&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//table//label&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//table[@id=&quot;age-table&quot;]//td&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//form[@name=&quot;search&quot;]&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//form[@name=&quot;search&quot;]/input&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="nx">$x</span><span class="p">(</span><span class="s1">&#39;/html/body//form[@name=&quot;search&quot;]/input&#39;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="o">-</span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -715,7 +716,7 @@ CSS の <code class="docutils literal notranslate"><span class="pre">width</span
 <div class="section" id="resetting-the-style-property">
 <h3>Resetting the style property<a class="headerlink" href="#resetting-the-style-property" title="Permalink to this heading">¶</a></h3>
 <p>CSS の特定の属性を既定値に戻すには、空文字列を割り当てる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">elem.style</span></code> 自体は read-only であることに注意。全体を上書きしたいときには
@@ -724,24 +725,24 @@ CSS の <code class="docutils literal notranslate"><span class="pre">width</span
 <div class="section" id="mind-the-units">
 <h3>Mind the units<a class="headerlink" href="#mind-the-units" title="Permalink to this heading">¶</a></h3>
 <p>単位付きの属性には、単位付きの値を文字列として設定する必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">margin</span> <span class="o">=</span> <span class="s1">&#39;20px&#39;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;20px&#39;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="computed-styles-getcomputedstyle">
 <h3>Computed styles: getComputedStyle<a class="headerlink" href="#computed-styles-getcomputedstyle" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">window.getComputedStyle(elem)</span></code> で最終的なスタイルを得ることになる。本書の例のような状況だと、属性を直接参照してもまともな値が得られない。次のようにすることで、意味のある値が得られる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">computedStyle</span> <span class="o">=</span> <span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">marginTop</span><span class="p">);</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">computedStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span><span class="w"></span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">marginTop</span><span class="p">);</span><span class="w"></span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">computedStyle</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>このメソッドは read-only な値を参照するだけなので、上手く使うということは考えないでいい。</p>
 <p><code class="docutils literal notranslate"><span class="pre">getComputedStyle(elem)</span></code> の用途は具体的なスタイル定義を参照することだ。例えば、空のドキュメント上で次の二つの値を比較するといい：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">background</span><span class="p">;</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">background</span><span class="p">;</span><span class="w"></span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -969,7 +970,7 @@ MDN で調べると、スクロールのアニメーション有無を指定す�
 <div class="section" id="forbid-the-scrolling">
 <h3>Forbid the scrolling<a class="headerlink" href="#forbid-the-scrolling" title="Permalink to this heading">¶</a></h3>
 <p>ページ全体でのスクロールを禁止するには次のようにする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">overflow</span> <span class="o">=</span> <span class="s2">&quot;hidden&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">overflow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hidden&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この手法は利用することがあるので覚えておく。</p>
@@ -1018,13 +1019,13 @@ MDN で調べると、スクロールのアニメーション有無を指定す�
 <h4>Find window coordinates of the field<a class="headerlink" href="#find-window-coordinates-of-the-field" title="Permalink to this heading">¶</a></h4>
 <p>サッカーフィールドの問題はシンプルにやればいいと思う。ここで <code class="docutils literal notranslate"><span class="pre">getComputedStyle()</span></code>
 を思い出せる人ならば、このチュートリアルをそもそも今頃習っていないと思う。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">field</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">rect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span><span class="w"></span>
 <span class="sb">`</span>
 <span class="sb">Upper-left, outer corner: </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">y</span><span class="si">}</span><span class="sb"></span>
 <span class="sb">Bottom-right, outer corner: </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">right</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">bottom</span><span class="si">}</span><span class="sb"></span>
-<span class="sb">Upper-left, inner corner: </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">field</span><span class="p">.</span><span class="nx">clientLeft</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">field</span><span class="p">.</span><span class="nx">clientTop</span><span class="si">}</span><span class="sb"></span>
-<span class="sb">Bottom-right, inner corner: </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">field</span><span class="p">.</span><span class="nx">clientLeft</span> <span class="o">+</span> <span class="nx">field</span><span class="p">.</span><span class="nx">clientWidth</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">field</span><span class="p">.</span><span class="nx">clientTop</span> <span class="o">+</span> <span class="nx">field</span><span class="p">.</span><span class="nx">clientHeight</span><span class="si">}</span><span class="sb"></span>
-<span class="sb">`</span><span class="p">;</span>
+<span class="sb">Upper-left, inner corner: </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">clientLeft</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">clientTop</span><span class="si">}</span><span class="sb"></span>
+<span class="sb">Bottom-right, inner corner: </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">clientLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">clientWidth</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">rect</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">clientTop</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">field</span><span class="p">.</span><span class="nx">clientHeight</span><span class="si">}</span><span class="sb"></span>
+<span class="sb">`</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1186,6 +1187,7 @@ MDN で調べると、スクロールのアニメーション有無を指定す�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

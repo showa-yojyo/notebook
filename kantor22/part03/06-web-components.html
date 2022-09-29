@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Regular expressions" href="07-regular-expressions.html" />
     <link rel="prev" title="Animation" href="05-animation.html" />
@@ -118,18 +119,18 @@ Google Chrome がこれらの機能に関して最も up-to-date だと考えら
 <li><p>カスタマイズされた組み込み要素。<code class="docutils literal notranslate"><span class="pre">HTMLButtonElement</span></code> などをベースにカスタマイズされたボタンなど、組み込み要素を拡張したもの。</p></li>
 </ol>
 <p>まず自律的な要素をやる。自作要素を作成するには、その要素に関するいくつかの詳細をブラウザーに伝える必要がある。どのように表示するか、要素がページに追加または削除されたときに何をするか、等。これを特別なメソッドを持つクラスを作成することで行う。メソッドの数は少なく、すべてオプショナルなので簡単だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MyElement</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
-    <span class="c1">// 本書参照</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">MyElement</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">HTMLElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 本書参照</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// let the browser know that &lt;my-element&gt; is served by our new class</span>
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;my-element&quot;</span><span class="p">,</span> <span class="nx">MyElement</span><span class="p">);</span>
+<span class="c1">// let the browser know that &lt;my-element&gt; is served by our new class</span><span class="w"></span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;my-element&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">MyElement</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これによって、タグ <code class="docutils literal notranslate"><span class="pre">&lt;my-element&gt;</span></code> のある HTML 要素に対して、
 <code class="docutils literal notranslate"><span class="pre">MyElement</span></code> インスタンスが生成され、前述のメソッドが呼び出されるようになった。
 JavaScript からでも</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>を使うことができる。</p>
@@ -140,16 +141,16 @@ JavaScript からでも</p>
 <h3>Example: “time-formatted”<a class="headerlink" href="#example-time-formatted" title="Permalink to this heading">¶</a></h3>
 <p>例えば、HTML には日付・時刻を表す <code class="docutils literal notranslate"><span class="pre">&lt;time&gt;</span></code> が既に存在する。しかし、これだけでは何の書式化もできない。そこで、言語を意識した美しい書式で時刻を表示する
 <code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> を作成する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">TimeFormatted</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
-    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">)</span> <span class="o">??</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">());</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Intl</span><span class="p">.</span><span class="nx">DateTimeFormat</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="cm">/* 本書参照 */</span><span class="p">;</span>
-        <span class="p">}).</span><span class="nx">format</span><span class="p">(</span><span class="nx">date</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">TimeFormatted</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">HTMLElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">connectedCallback</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Intl</span><span class="p">.</span><span class="nx">DateTimeFormat</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="cm">/* 本書参照 */</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}).</span><span class="nx">format</span><span class="p">(</span><span class="nx">date</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;time-formatted&quot;</span><span class="p">,</span> <span class="nx">TimeFormatted</span><span class="p">);</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;time-formatted&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">TimeFormatted</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このクラスは <code class="docutils literal notranslate"><span class="pre">connectedCallback()</span></code> というメソッド一つだけを持っている。ブラウザーは <code class="docutils literal notranslate"><span class="pre">&lt;time-formatted&gt;</span></code> がページに追加されたとき（または HTML 解析器がそれを検出したとき）これを呼び出し、ブラウザー全体で十分にサポートされている組み込みの
@@ -180,31 +181,31 @@ JavaScript からでも</p>
 <p><code class="docutils literal notranslate"><span class="pre">observedAttributes()</span></code> で属性のリストを提供することで、属性を観察することができる。このような属性については、その属性が変更されたときに
 <code class="docutils literal notranslate"><span class="pre">attributeChangedCallback()</span></code> が呼び出される。他のリストされていない属性に対しては呼び出されない。これは性能上の理由による。</p>
 <p>属性が変更されたときに自動更新されるようにする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">TimeFormatted</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
-    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// 従来と同様</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">TimeFormatted</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">HTMLElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// 従来と同様</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">rendered</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">rendered</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nx">connectedCallback</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">rendered</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span><span class="w"></span>
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="nx">rendered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="kr">static</span> <span class="nx">get</span> <span class="nx">observedAttributes</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;time-zone-name&#39;</span><span class="p">];</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">observedAttributes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;minute&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;second&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;time-zone-name&#39;</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">attributeChangedCallback</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">oldValue</span><span class="p">,</span> <span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">attributeChangedCallback</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">oldValue</span><span class="p">,</span><span class="w"> </span><span class="nx">newValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;time-formatted&quot;</span><span class="p">,</span> <span class="nx">TimeFormatted</span><span class="p">);</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;time-formatted&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">TimeFormatted</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 別の場所</span>
-<span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="c1">// 別の場所</span><span class="w"></span>
+<span class="nx">setInterval</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">elem</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()),</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>レンダリングのロジックは <code class="docutils literal notranslate"><span class="pre">render()</span></code> メソッドに移された。要素がページに挿入されたときに一度だけ呼び出されるものとする。<code class="docutils literal notranslate"><span class="pre">observedAttributes()</span></code> にリストされている属性が変更されると、<code class="docutils literal notranslate"><span class="pre">attributeChangedCallback()</span></code> が起動し、要素を再描画する。</p>
@@ -224,10 +225,10 @@ JavaScript からでも</p>
 </pre></div>
 </div>
 <p>次のように実装すると、外側の要素が内側の要素よりも先に初期化を終えていることを確認できる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb"> connected.`</span><span class="p">);</span>
-    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb"> initialized.`</span><span class="p">));</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">connectedCallback</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb"> connected.`</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb"> initialized.`</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>入れ子になった要素の準備ができた後に発生する組み込みコールバックはない。必要であれば、そのようなものを独自に実装することができる。例えば、内側の要素は初期化などのイベントを dispatch し、外側の要素はそれを listen して反応させることができる。</p>
@@ -241,16 +242,16 @@ JavaScript からでも</p>
 <li><p>自作要素を使用するために通常の <code class="docutils literal notranslate"><span class="pre">&lt;button&gt;</span></code> タグを挿入するが、
 <code class="docutils literal notranslate"><span class="pre">is=&quot;hello-button&quot;</span></code> を追加する。</p></li>
 </ol>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="c1">// The button that says &quot;hello&quot; on click</span>
-<span class="kr">class</span> <span class="nx">HelloButton</span> <span class="kr">extends</span> <span class="nx">HTMLButtonElement</span> <span class="p">{</span>
-    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kr">super</span><span class="p">();</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello!&quot;</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="c1">// The button that says &quot;hello&quot; on click</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">HelloButton</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">HTMLButtonElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">super</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello!&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;hello-button&#39;</span><span class="p">,</span> <span class="nx">HelloButton</span><span class="p">,</span> <span class="p">{</span><span class="kr">extends</span><span class="o">:</span> <span class="s1">&#39;button&#39;</span><span class="p">});</span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;hello-button&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">HelloButton</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="k">extends</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;button&#39;</span><span class="p">});</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">button</span> <span class="na">is</span><span class="o">=</span><span class="s">&quot;hello-button&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
@@ -276,8 +277,8 @@ JavaScript からでも</p>
 </ol>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">live-timer</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;elem&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">live-timer</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="nx">elem</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;tick&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">));</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;tick&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">));</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -310,9 +311,9 @@ JavaScript からでも</p>
 </div>
 <p>この <code class="docutils literal notranslate"><span class="pre">#shadow-root</span></code> の下に表示されるものを shadow DOM と呼ぶ。</p>
 <p>通常の JavaScript の呼び出しやセレクターでは、組み込み shadow DOM 要素を取得できない。これらは通常の子要素ではなく、強力なカプセル化技術なのだ。上の例では、便利な属性 <code class="docutils literal notranslate"><span class="pre">pseudo</span></code> があることがわかる。これは非標準的なもので、歴史的な理由から存在する。この属性は、CSS で部分要素のスタイルを指定するために用いられる。</p>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">input</span><span class="p">::</span><span class="nd">-webkit-slider-runnable-track</span> <span class="p">{</span>
-    <span class="k">background</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">input</span><span class="p">::</span><span class="nd">-webkit-slider-runnable-track</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>時系列的には、ブラウザーが DOM の内部構造を使ってコントロールを実装する実験を始めたのが <code class="docutils literal notranslate"><span class="pre">pseudo</span></code> の嚆矢で、その後、開発者が同様のことを行えるように shadow DOM
@@ -398,16 +399,16 @@ DOM 構造を検出し、それを「修正」して <code class="docutils liter
 <code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> として利用可能だ。これを他の DOM ノードと同じように扱うことができるが、特別な特性が一つある。これをどこかに挿入すると、代わりにその子（複数形）が挿入される。</p>
 <p>本書のコードを示す：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
-  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;message&quot;</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-  <span class="kd">let</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
-  <span class="nx">elem</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">elem</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -415,17 +416,17 @@ DOM 構造を検出し、それを「修正」して <code class="docutils liter
 <hr class="docutils" />
 <p>前章の shadow DOM の例（に似たもの）を <code class="docutils literal notranslate"><span class="pre">template</span></code> を使って書き換える。
 Shadow DOM 版はこういう感じ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">elem</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span><span class="p">});</span>
-<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">elem</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;open&#39;</span><span class="p">});</span><span class="w"></span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span>
 <span class="sb">    &lt;style&gt; p { font-weight: bold; } &lt;/style&gt;</span>
 <span class="sb">    &lt;p id=&quot;message&quot;&gt;Hello from the shadows!&lt;/p&gt;</span>
-<span class="sb">`</span><span class="p">;</span>
+<span class="sb">`</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これがこうなる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">elem</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span><span class="p">});</span>
-<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
-<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Hello from the shadows!&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">elem</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;open&#39;</span><span class="p">});</span><span class="w"></span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span><span class="w"></span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Hello from the shadows!&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">tmpl.content</span></code> を複製して挿入する行では、その <code class="docutils literal notranslate"><span class="pre">DocumentFragment</span></code> として、その子である <code class="docutils literal notranslate"><span class="pre">style</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code> が代わりに挿入される。</p>
@@ -529,7 +530,7 @@ information の次要素として入る（本書の平坦化 DOM 参照）。要
 </div>
 <p>これに対応する、適切なスロットを持つ shadow DOM テンプレートをこうする：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span> <span class="c">/* menu styles */</span> <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"> </span><span class="c">/* menu styles */</span><span class="w"> </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;menu&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;title&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
@@ -606,28 +607,28 @@ information の次要素として入る（本書の平坦化 DOM 参照）。要
 にshadow host がマッチする場合にしか適用されない。</p>
 <p>例えば、<code class="docutils literal notranslate"><span class="pre">&lt;custom-dialog&gt;</span></code> が属性 <code class="docutils literal notranslate"><span class="pre">centered</span></code> を持っている場合にのみ、中央寄せにしたい場合は次でいい：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-    <span class="p">:</span><span class="nd">host</span><span class="o">([</span><span class="nt">centered</span><span class="o">])</span> <span class="p">{</span>
-      <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span>
-      <span class="k">left</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-      <span class="k">top</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-      <span class="k">transform</span><span class="p">:</span> <span class="nb">translate</span><span class="p">(</span><span class="mi">-50</span><span class="kt">%</span><span class="p">,</span> <span class="mi">-50</span><span class="kt">%</span><span class="p">);</span>
-      <span class="k">border-color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
-    <span class="p">}</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="p">:</span><span class="nd">host</span><span class="o">([</span><span class="nt">centered</span><span class="o">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">fixed</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="nb">translate</span><span class="p">(</span><span class="nv">-50</span><span class="err">%</span><span class="p">,</span><span class="w"> </span><span class="nv">-50</span><span class="err">%</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="p">:</span><span class="nd">host</span> <span class="p">{</span>
-      <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
-      <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
-      <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">:</span><span class="nd">host</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
 
 ...
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(...);</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(...);</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">custom-dialog</span> <span class="na">centered</span><span class="p">&gt;</span>
@@ -647,12 +648,12 @@ information の次要素として入る（本書の平坦化 DOM 参照）。要
 <p>スロットの状況を考えてみる。スロットされた要素は light DOM から来るので、ドキュメントスタイルを使用する。ローカルスタイルはスロットされた中身に影響しない。</p>
 <p>本書の例では、スロット付き <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> はドキュメントスタイルに従って太字になり、ローカルスタイルから <code class="docutils literal notranslate"><span class="pre">background</span></code> を得ることはない。結果は太字であって、赤にはならない。</p>
 <p>コンポーネント内のスロット要素にスタイルを設定したい場合、選択肢が二つある。一つ目は、<code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> 自身にスタイルを設定し、CSS の継承の仕組みに頼ることだ。ここでは <code class="docutils literal notranslate"><span class="pre">&lt;span&gt;John</span> <span class="pre">Smith&lt;/span&gt;</span></code> が太字になるが、これは <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> とその中身の間で CSS の継承が有効であるからだ。しかし、CSS 自体では、プロパティーすべてが継承されるわけではない。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span>
 <span class="sb">  &lt;style&gt;</span>
 <span class="sb">  slot[name=&quot;username&quot;] { font-weight: bold; }</span>
 <span class="sb">  &lt;/style&gt;</span>
 <span class="sb">  Name: &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;</span>
-<span class="sb">`</span><span class="p">;</span>
+<span class="sb">`</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>二つ目の選択肢は <code class="docutils literal notranslate"><span class="pre">::slotted(selector)</span></code> 疑似クラスを使うことだ。これは二つの条件に基づいて要素をマッチングする。</p>
@@ -661,12 +662,12 @@ information の次要素として入る（本書の平坦化 DOM 参照）。要
 <li><p>その要素が <code class="docutils literal notranslate"><span class="pre">selector</span></code> にマッチする。</p></li>
 </ol>
 <p>本書の例では <code class="docutils literal notranslate"><span class="pre">::slotted(div)</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;div</span> <span class="pre">slot=&quot;username&quot;&gt;</span></code> を厳密に選択するのであって、その子要素は選択しない。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span>
 <span class="sb">  &lt;style&gt;</span>
 <span class="sb">  ::slotted(div) { border: 1px solid red; }</span>
 <span class="sb">  &lt;/style&gt;</span>
 <span class="sb">  Name: &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;</span>
-<span class="sb">`</span><span class="p">;</span>
+<span class="sb">`</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">::slotted</span></code> はスロットの中にそれ以上降りることができない。そのようなセレクターは無効となる。また、<code class="docutils literal notranslate"><span class="pre">::slotted</span></code> は CSS でしか使えない。例えば
@@ -679,32 +680,32 @@ information の次要素として入る（本書の平坦化 DOM 参照）。要
 <p>自作 CSS プロパティーは、light と shadow の両方のすべてのレベルに存在する。たとえば、shadow DOM では <code class="docutils literal notranslate"><span class="pre">--user-card-field-color</span></code> CSS 変数を使用してフィールドのスタイルを設定でき、外側のドキュメントでその値を設定できる。そして、このプロパティーを <code class="docutils literal notranslate"><span class="pre">&lt;user-card&gt;</span></code> の外部文書で宣言すればよい。</p>
 <p>自作 CSS プロパティーは shadow DOM を貫通し、どこでも見えるので、内側の
 <code class="docutils literal notranslate"><span class="pre">.field</span></code> 規則はそれを利用することになる。</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>&lt;style&gt;
-  user-card {
-    --user-card-field-color: green;
-  }
-&lt;/style&gt;
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">user-card</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nv">--user-card-field-color</span><span class="p">:</span><span class="w"> </span><span class="kc">green</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 
-&lt;template id=&quot;tmpl&quot;&gt;
-  &lt;style&gt;
-    .field {
-      color: var(--user-card-field-color, black);
-    }
-  &lt;/style&gt;
-  &lt;!-- slot を含む user-card 型の定義がここに来る --&gt;
-&lt;/template&gt;
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmpl&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nc">field</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--user-card-field-color</span><span class="p">,</span><span class="w"> </span><span class="kc">black</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- slot を含む user-card 型の定義がここに来る --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
 
-&lt;script&gt;
-customElements.define(&#39;user-card&#39;, class extends HTMLElement {
-  connectedCallback() {
-    // 自作要素をいつものように実装する
-  }
-});
-&lt;/script&gt;
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;user-card&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">HTMLElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">connectedCallback</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 自作要素をいつものように実装する</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
-&lt;user-card&gt;
-  &lt;!-- span slot=&quot;X&quot; 要素群からなる user-card データの定義がここに来る --&gt;
-&lt;/user-card&gt;
+<span class="p">&lt;</span><span class="nt">user-card</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- span slot=&quot;X&quot; 要素群からなる user-card データの定義がここに来る --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -736,19 +737,19 @@ shadow host を得る。</p></li>
   <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;user-card&#39;</span><span class="p">,</span> <span class="kr">class</span> <span class="kr">extends</span> <span class="nx">HTMLElement</span> <span class="p">{</span>
-  <span class="nx">connectedCallback</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;open&#39;</span><span class="p">});</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="sb">`&lt;div&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="nx">customElements</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;user-card&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">HTMLElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">connectedCallback</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">attachShadow</span><span class="p">({</span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;open&#39;</span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`&lt;div&gt;</span>
 <span class="sb">      &lt;b&gt;Name:&lt;/b&gt; &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;</span>
-<span class="sb">    &lt;/div&gt;`</span><span class="p">;</span>
+<span class="sb">    &lt;/div&gt;`</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="p">...</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="nx">userCard</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="nx">userCard</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -767,14 +768,14 @@ shadow host を得る。</p></li>
   <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Name:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="c">&lt;!-- ここをクリックする --&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">slot</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>John Smith<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="cm">&lt;!-- ここをクリックする --&gt;</span>
     <span class="p">&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">user-card</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;span</span> <span class="pre">slot=&quot;username&quot;&gt;</span></code> をクリックすると、<code class="docutils literal notranslate"><span class="pre">event.composedPath()</span></code> は配列</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">span</span><span class="p">,</span> <span class="nx">slot</span><span class="p">,</span> <span class="nx">div</span><span class="p">,</span> <span class="nx">shadow</span><span class="o">-</span><span class="nx">root</span><span class="p">,</span> <span class="nx">user</span><span class="o">-</span><span class="nx">card</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">html</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="nb">window</span><span class="p">]</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">span</span><span class="p">,</span><span class="w"> </span><span class="nx">slot</span><span class="p">,</span><span class="w"> </span><span class="nx">div</span><span class="p">,</span><span class="w"> </span><span class="nx">shadow</span><span class="o">-</span><span class="nx">root</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="o">-</span><span class="nx">card</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">,</span><span class="w"> </span><span class="nx">html</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nb">window</span><span class="p">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>を返す。これはまさに、合成後の平坦化 DOM における、対象要素を起点とする親子関係に関する昇鎖だ。</p>
@@ -804,21 +805,21 @@ tree が <code class="docutils literal notranslate"><span class="pre">{mode:</sp
 <span class="cm">div(id=outer)</span>
 <span class="cm">  #shadow-dom</span>
 <span class="cm">    div(id=inner)</span>
-<span class="cm">*/</span>
+<span class="cm">*/</span><span class="w"></span>
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">));</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">));</span><span class="w"></span>
 
-<span class="nx">inner</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nx">composed</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nx">detail</span><span class="o">:</span> <span class="s2">&quot;composed&quot;</span>
-<span class="p">}));</span>
+<span class="nx">inner</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">bubbles</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">composed</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">detail</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;composed&quot;</span><span class="w"></span>
+<span class="p">}));</span><span class="w"></span>
 
-<span class="nx">inner</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nx">composed</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nx">detail</span><span class="o">:</span> <span class="s2">&quot;not composed&quot;</span>
-<span class="p">}));</span>
+<span class="nx">inner</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">bubbles</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">composed</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">detail</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;not composed&quot;</span><span class="w"></span>
+<span class="p">}));</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -963,6 +964,7 @@ tree が <code class="docutils literal notranslate"><span class="pre">{mode:</sp
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

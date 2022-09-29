@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Storing data in the browser" href="04-data-storage.html" />
     <link rel="prev" title="Binary data, files" href="02-binary.html" />
@@ -76,7 +77,7 @@
 <p>JavaScript からのネットワーク要求には AJAX という包括的な用語がある。最後の X は
 XML を意味するが、別にそれを使う必要はない。古い時代の名残だ。</p>
 <p>ネットワーク要求を送信して、サーバーから情報を取得する方法は複数ある。現代的で汎用性が高いメソッド <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> から始める。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">])</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">options</span><span class="p">])</span><span class="w"></span>
 </pre></div>
 </div>
 <p>オプションがない場合、単純な GET 要求で URL の内容をダウンロードする。</p>
@@ -89,12 +90,12 @@ resolve される。この段階では HTTP 状態のチェック、成功かど
 <li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: HTTP 状態コード。例えば 200 など。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ok</span></code>: HTTP 状態コードが 200 から 299 までの値であるかどうか。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;HTTP-Error: &quot;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;HTTP-Error: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>二段階目に、応答本体を取得するために、メソッドを追加的に呼び出す必要がある。
@@ -130,14 +131,14 @@ resolve される。この段階では HTTP 状態のチェック、成功かど
 </table>
 <p>さらに、プロパティー <code class="docutils literal notranslate"><span class="pre">response.body</span></code> という <code class="docutils literal notranslate"><span class="pre">ReadableStream</span></code> オブジェクトがある。これによって本文を一定の塊ごとに読むことができる。</p>
 <p>本書では JSON 読み込みの例として、次のようなコードを紹介している：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits&#39;</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">commits</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p>プレーンテキストとして読み込むには：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p>あとは参考として <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトの扱いも例がある。画像をロードして動的に
@@ -146,23 +147,23 @@ DOM に追加して描画させるという、高級なものだ。</p>
 <div class="section" id="response-headers">
 <h3>Response headers<a class="headerlink" href="#response-headers" title="Permalink to this heading">¶</a></h3>
 <p>応答ヘッダーは <code class="docutils literal notranslate"><span class="pre">response.headers</span></code> にある <code class="docutils literal notranslate"><span class="pre">Map</span></code> 風のオブジェクトで利用できる。これは厳密には <code class="docutils literal notranslate"><span class="pre">Map</span></code> ではないものの、個々のヘッダーを名前で取得したり、ヘッダーを反復処理したりするための類似のメソッドがある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get one header</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">));</span> <span class="c1">// application/json; charset=utf-8</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get one header</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">));</span><span class="w"> </span><span class="c1">// application/json; charset=utf-8</span><span class="w"></span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb"> = </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb"> = </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="request-headers">
 <h3>Request headers<a class="headerlink" href="#request-headers" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> で要求ヘッダーを設定するには、オプションの引数 <code class="docutils literal notranslate"><span class="pre">headers</span></code> を使用する。次のコードのようにして、オブジェクトに発信ヘッダーを持たせる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">protectedUrl</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">Authentication</span><span class="o">:</span> <span class="s1">&#39;secret&#39;</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">protectedUrl</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">Authentication</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;secret&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>禁じられた HTTP ヘッダーというのがあり、それを指定することは許されていない。これらのヘッダーは、適切かつ安全な HTTP を保証するため、ブラウザー専用とされる。</p>
@@ -227,7 +228,7 @@ DOM に追加して描画させるという、高級なものだ。</p>
 <h2><a class="toc-backref" href="#id8">FormData</a><a class="headerlink" href="#formdata" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://javascript.info/formdata">https://javascript.info/formdata</a> のノート。</p>
 <p>HTML フォームの送信について習う。<code class="docutils literal notranslate"><span class="pre">FormData</span></code> から始める。フォームデータを表すオブジェクトだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">formData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">([</span><span class="nx">form</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">formData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FormData</span><span class="p">([</span><span class="nx">form</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">FORM</span></code> 要素 <code class="docutils literal notranslate"><span class="pre">form</span></code> が与えられると、そのフィールドを自動的に取り込む。</p>
@@ -289,7 +290,7 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <div class="section" id="sending-a-form-with-blob-data">
 <h3>Sending a form with Blob data<a class="headerlink" href="#sending-a-form-with-blob-data" title="Permalink to this heading">¶</a></h3>
 <p>画像など、動的に生成されるバイナリーデータを <code class="docutils literal notranslate"><span class="pre">Blob</span></code> として送信するのは前章で見たように簡単だ。 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 呼び出しで引数 <code class="docutils literal notranslate"><span class="pre">body</span></code> として直接与えることができる。実際には、画像を個別に送信するのではなく、名前などの追加フィールドやメタデータとともに、フォームの一部として送信するのが便利な場合が多い。また、サーバーは通常、生のバイナリーデータよりも multipart 符号化されたフォームを受け入れるのに適している。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">formData</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="nx">imageBlob</span><span class="p">,</span> <span class="s2">&quot;image.png&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">formData</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">imageBlob</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image.png&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これで、フォームに <code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">type=&quot;file&quot;</span> <span class="pre">name=&quot;image&quot;&gt;</span></code> があり、訪問者がファイルシステムから image.png という名前のファイルと <code class="docutils literal notranslate"><span class="pre">imageBlob</span></code> というデータを送信したのと同じことになる。サーバーは、通常のフォーム提出と同じように、フォームデータとファイルを読み取る。</p>
@@ -302,23 +303,23 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <code class="docutils literal notranslate"><span class="pre">ReadableStream</span></code> 型で、ボディーを塊単位で供給する特殊なオブジェクトだ。
 <code class="docutils literal notranslate"><span class="pre">response.text()</span></code> や <code class="docutils literal notranslate"><span class="pre">response.json()</span></code> などとは異なり、<code class="docutils literal notranslate"><span class="pre">response.body</span></code> では読み込み処理を完全に制御でき、どれだけ消費されたかをどんな瞬間にも数えることができる。</p>
 <p>出力 <code class="docutils literal notranslate"><span class="pre">response</span></code> を得た後に次のようにすることができるとある：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">reader</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getReader</span><span class="p">();</span>
-<span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// done is true for the last chunk</span>
-    <span class="c1">// value is Uint8Array of the chunk bytes</span>
-    <span class="kr">const</span> <span class="p">{</span><span class="nx">done</span><span class="p">,</span> <span class="nx">value</span><span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Received </span><span class="si">${</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> bytes`</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getReader</span><span class="p">();</span><span class="w"></span>
+<span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// done is true for the last chunk</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// value is Uint8Array of the chunk bytes</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">done</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">done</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Received </span><span class="si">${</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> bytes`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このコードだけ見ると <code class="docutils literal notranslate"><span class="pre">reader</span></code> は反復可能オブジェクトを備えていないのかと疑問に思うが、事実、用意されているらしい。本書ではその機能が広くサポートされていないから、あえて素のループを採用したと述べている。</p>
 <p>勝手に調べてみたところ、次のように書けるはずらしい（手許の Chrome では動かず）：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nx">await</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Received </span><span class="si">${</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> bytes`</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Received </span><span class="si">${</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> bytes`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>読み込みが終了するまで、すなわち <code class="docutils literal notranslate"><span class="pre">done</span></code> が真になるまで、ループ内で応答の塊を受信する。進捗を記録するには、受信した欠片の値ごとに、その長さをカウンターに追加する。</p>
@@ -342,7 +343,7 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <div class="section" id="the-abortcontroller-object">
 <h3>The AbortController object<a class="headerlink" href="#the-abortcontroller-object" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">AbortController</span></code> は構造が単純だ。メソッド <code class="docutils literal notranslate"><span class="pre">abort()</span></code> と、イベントリスナーを設定するためのプロパティー <code class="docutils literal notranslate"><span class="pre">signal</span></code> がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AbortController</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AbortController</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">controller.abort()</span></code> すると、<code class="docutils literal notranslate"><span class="pre">controller.signal</span></code> がイベント “abort” を放つ。プロパティー <code class="docutils literal notranslate"><span class="pre">controller.signal.aborted</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> になる。</p>
@@ -352,10 +353,10 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <div class="section" id="using-with-fetch">
 <h3>Using with fetch<a class="headerlink" href="#using-with-fetch" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> 呼び出しのオプションに <code class="docutils literal notranslate"><span class="pre">signal</span></code> を指定することで中止可能になる。次のように書いておき、適当なタイミングで <code class="docutils literal notranslate"><span class="pre">controller.abort()</span></code> を呼び出すことになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AbortController</span><span class="p">();</span>
-<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">signal</span><span class="o">:</span> <span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AbortController</span><span class="p">();</span><span class="w"></span>
+<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">signal</span><span class="o">:</span><span class="w"> </span><span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> が中止されると、その promise は <code class="docutils literal notranslate"><span class="pre">AbortError</span></code> を送出して reject する。 <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> などで処理する必要がある。</p>
@@ -363,18 +364,18 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <div class="section" id="abortcontroller-is-scalable">
 <h3>AbortController is scalable<a class="headerlink" href="#abortcontroller-is-scalable" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">AbortController</span></code> は複数の非同期タスクを一度に中止することができる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">urls</span><span class="p">;</span> <span class="c1">// a list of urls to fetch in parallel</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">urls</span><span class="p">;</span><span class="w"> </span><span class="c1">// a list of urls to fetch in parallel</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AbortController</span><span class="p">();</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AbortController</span><span class="p">();</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">fetchJobs</span> <span class="o">=</span> <span class="nx">urls</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">url</span> <span class="p">=&gt;</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">signal</span><span class="o">:</span> <span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span>
-<span class="p">}));</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">fetchJobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">urls</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">signal</span><span class="o">:</span><span class="w"> </span><span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span><span class="w"></span>
+<span class="p">}));</span><span class="w"></span>
 
-<span class="kd">let</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">fetchJobs</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">fetchJobs</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// if controller.abort() is called from anywhere,</span>
-<span class="c1">// it aborts all fetches</span>
+<span class="c1">// if controller.abort() is called from anywhere,</span><span class="w"></span>
+<span class="c1">// it aborts all fetches</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -401,7 +402,7 @@ hacker.com の悪質なスクリプトは、ウェブサイト gmail.com の利�
 <div class="section" id="using-scripts">
 <h4>Using scripts<a class="headerlink" href="#using-scripts" title="Permalink to this heading">¶</a></h4>
 <p>もう一つの方法は SCRIPT タグを使うことだ。スクリプトは</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://another.com/...&quot;</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://another.com/...&quot;</span><span class="p">&gt;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>のように、任意の <code class="docutils literal notranslate"><span class="pre">src</span></code> とドメインを持てる。どのウェブサイトからでもスクリプトを実行できる。</p>
@@ -498,13 +499,13 @@ Access-Control-Expose-Headers: Content-Length,API-Key
 <p>さらに、ヘッダー <code class="docutils literal notranslate"><span class="pre">Access-Control-Max-Age</span></code> で、許可をキャッシュする秒数を指定できる。そのため、ブラウザーは与えられた許可を満たす後続の要求に対して予備要求を送信する必要がなくなる。</p>
 <p>本書では、オリジン横断的 PATCH 要求を例に、その仕組みを順を追って解説している。
 PATCH method というのはデータの更新によく使われる HTTP method とのことだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://site.com/service.json&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;PATCH&#39;</span><span class="p">,</span>
-  <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;API-Key&#39;</span><span class="o">:</span> <span class="s1">&#39;secret&#39;</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://site.com/service.json&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;PATCH&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s1">&#39;API-Key&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;secret&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>当要求が安全でない理由は三つある（一つでもある時点でこの仕組を要する）：</p>
@@ -559,15 +560,15 @@ Access-Control-Max-Age: 86400
 <div class="section" id="credentials">
 <h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this heading">¶</a></h3>
 <p>JavaScript コードによって開始されたオリジン横断的要求には、Cookie や HTTP 認証などといった資格証が何もない。それは HTTP 要求では珍しいことだ。通常、あるドメインへの要求は、そのドメインからのすべての Cookies を伴う。一方、JavaScript のメソッドによって行われるオリジン横断的要求は例外だ。たとえば</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://another.com&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://another.com&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>はドメイン <code class="docutils literal notranslate"><span class="pre">another.com</span></code> に属するものでさえ、どんな Cookie も送らない。</p>
 <p>それはなぜかというと、資格証付きの要求ははるかに強力だからだ。もし許可されれば、利用者の代理として行動し、その資格証を使って機密情報にアクセスする全権限を
 JavaScript に供与することになる。サーバーはスクリプトを本当にそこまで信頼しているだろうか。ならば、追加ヘッダーで資格証付き要求を明示的に許可しなければならない。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://another.com&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">credentials</span><span class="o">:</span> <span class="s2">&quot;include&quot;</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://another.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">credentials</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;include&quot;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これで <code class="docutils literal notranslate"><span class="pre">fetch</span></code> は <code class="docutils literal notranslate"><span class="pre">another.com</span></code> から発信された Cookie をそのサイトへの要求と一緒に送る。</p>
@@ -616,9 +617,9 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 </pre></div>
 </div>
 <p>もし、他のウェブサイトが URL パスではなく、オリジン部分のみを知りたい場合は、オプションを設定することができる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://another.com/page&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">referrerPolicy</span><span class="o">:</span> <span class="s2">&quot;origin-when-cross-origin&quot;</span> <span class="c1">// Referer: https://javascript.info</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://another.com/page&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">referrerPolicy</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;origin-when-cross-origin&quot;</span><span class="w"> </span><span class="c1">// Referer: https://javascript.info</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>すべての <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 呼び出しにこれを適用することができる。おそらく、要求のすべてを処理するプロジェクトのJavaScript ライブラリーにこれを統合し、内部で <code class="docutils literal notranslate"><span class="pre">fetch</span></code>
@@ -721,9 +722,9 @@ HTTP 要求がするのと同じように、Expires と Cache-Control ヘッダ�
 SHA-384, SHA-512 であり、ブラウザーによっては他の関数もあるかもしれない。</p>
 <p>例えば、あるファイルをダウンロードするとき、そのファイルの SHA-256 チェックサムが
 abcdef であることがわかったとする。それをオプション <code class="docutils literal notranslate"><span class="pre">integrity</span></code> に書くと、次のようになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://site.com/file&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">integrity</span><span class="o">:</span> <span class="s1">&#39;sha256-abcdef&#39;</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://site.com/file&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">integrity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sha256-abcdef&#39;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>すると、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> は独自に SHA-256 を計算し、与えられた情報と比較する。不一致の場合、エラーが発生する。</p>
@@ -731,13 +732,13 @@ abcdef であることがわかったとする。それをオプション <code 
 <div class="section" id="keepalive">
 <h3>keepalive<a class="headerlink" href="#keepalive" title="Permalink to this heading">¶</a></h3>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">keepalive</span></code> は、要求を開始したウェブページよりもそれが長生きする可能性があることを示唆する。例えば、ユーザー体験を分析し、改善するために、現在の閲覧者がどのようにページ（マウスクリック、見られているページ断片）を使用するかについての統計を収集する。閲覧者がページを離れるとき、そのデータをサーバーに保存したい。そのためにイベント <code class="docutils literal notranslate"><span class="pre">window.onunload</span></code> が使える：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">onunload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/analytics&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
-        <span class="nx">body</span><span class="o">:</span> <span class="s2">&quot;statistics&quot;</span><span class="p">,</span>
-        <span class="nx">keepalive</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">});</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">onunload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/analytics&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;statistics&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">keepalive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>通常、ドキュメントがアンロードされると、関連するネットワーク要求はすべて中止される。しかしオプション <code class="docutils literal notranslate"><span class="pre">keepalive</span></code> はブラウザーがページを離れた後もバックグラウンドで要求を実行するように指示する。したがって、このオプションは上のような要求が成功するために必要不可欠だ。</p>
@@ -765,7 +766,7 @@ abcdef であることがわかったとする。それをオプション <code 
 <p>組み込みクラス <code class="docutils literal notranslate"><span class="pre">URL</span></code> には URL の作成と解析のための便利なインターフェイスがある。ただし、<code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトをまさに必要とするネットワークメソッドはなく、文字列で事足りる。</p>
 <div class="section" id="creating-a-url">
 <h3>Creating a URL<a class="headerlink" href="#creating-a-url" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">[</span><span class="nx">base</span><span class="p">])</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">base</span><span class="p">])</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -773,8 +774,8 @@ abcdef であることがわかったとする。それをオプション <code 
 <li><p><code class="docutils literal notranslate"><span class="pre">base</span></code>: 相対パスから完全 URL を組み立てるための 基準 URL</p></li>
 </ul>
 <p>既存の URL からの相対パスに基づいて、新しい URL を簡単に作成できる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;https://javascript.info/profile/admin&#39;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">newUrl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;tester&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span> <span class="c1">// &quot;https://javascript.info/profile/tester&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;https://javascript.info/profile/admin&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">newUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;tester&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"> </span><span class="c1">// &quot;https://javascript.info/profile/tester&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトはすぐにその構成要素にアクセスすることができる。</p>
@@ -863,7 +864,7 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <div class="section" id="encoding">
 <h3>Encoding<a class="headerlink" href="#encoding" title="Permalink to this heading">¶</a></h3>
 <p>RFC3986 という規格があり、URL で利用が許される文字が定義されている。例えば、非ラテン文字や空白は UTF-8 コードに置き換えられ、 <code class="docutils literal notranslate"><span class="pre">%20</span></code> のように記号 <code class="docutils literal notranslate"><span class="pre">%</span></code> で始まる（歴史的な理由から記号 <code class="docutils literal notranslate"><span class="pre">+</span></code> で符号化できる）。 <code class="docutils literal notranslate"><span class="pre">URL</span></code> はこれらすべてを自動的に処理する。すべての引数を生で与え、<code class="docutils literal notranslate"><span class="pre">URL</span></code> を文字列に変換すればよい。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;https://ru.wikipedia.org/wiki/Тест&#39;</span><span class="p">);</span> <span class="c1">// &quot;https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;https://ru.wikipedia.org/wiki/Тест&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// &quot;https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>UTF-8 ではキリル文字が 2 バイトで表現されるため、
@@ -882,8 +883,8 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <code class="docutils literal notranslate"><span class="pre">;</span></code>, <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> を符号化する。</p>
 <p>つまり、URL 全体に対しては <code class="docutils literal notranslate"><span class="pre">encodeURI</span></code> を使うことができるが、URL 引数に対しては
 <code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> を代わりに使用するべきなのだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">music</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">&#39;Rock&amp;Roll&#39;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`https://google.com/search?q=</span><span class="si">${</span><span class="nx">music</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span> <span class="c1">// &quot;https://google.com/search?q=Rock%26Roll&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">music</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">&#39;Rock&amp;Roll&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`https://google.com/search?q=</span><span class="si">${</span><span class="nx">music</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w"> </span><span class="c1">// &quot;https://google.com/search?q=Rock%26Roll&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">URL</span></code> と <code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code> は、最新の URI 仕様に基づいている。一方、
@@ -916,9 +917,9 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p>オブジェクトを初期化する。</p></li>
 <li><p>送信する。</p></li>
 </ol>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">async</span><span class="p">,</span> <span class="nx">user</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">xhr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="w"></span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">);</span><span class="w"></span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>コンストラクターは引数を取らない。</p>
@@ -941,13 +942,13 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p><code class="docutils literal notranslate"><span class="pre">progress</span></code>: 応答がダウンロードされている間じゅう定期的に呼び出され、ダウンロード量が報告される。</p></li>
 </ul>
 <p>基本的に <code class="docutils literal notranslate"><span class="pre">xhr.addEventListener('load',</span> <span class="pre">...)</span></code> のようにして設定できると思われる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">alert</span><span class="p">(</span><span class="sb">`Error </span><span class="si">${</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">statusText</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span> <span class="c1">// e.g. 404: Not Found</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">alert</span><span class="p">(</span><span class="sb">`Done, got </span><span class="si">${</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> bytes`</span><span class="p">);</span> <span class="c1">// response is the server response</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="sb">`Error </span><span class="si">${</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">statusText</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"> </span><span class="c1">// e.g. 404: Not Found</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="sb">`Done, got </span><span class="si">${</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> bytes`</span><span class="p">);</span><span class="w"> </span><span class="c1">// response is the server response</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>サーバーが応答したら、その結果を次の <code class="docutils literal notranslate"><span class="pre">xhr</span></code> のプロパティーから受け取る：</p>
@@ -958,7 +959,7 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p><code class="docutils literal notranslate"><span class="pre">response</span></code>: サーバー応答本文。</p></li>
 </ul>
 <p>また、プロパティーを用いてタイムアウトを指定することもできる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span> <span class="c1">// timeout in ms, 10 seconds</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10000</span><span class="p">;</span><span class="w"> </span><span class="c1">// timeout in ms, 10 seconds</span><span class="w"></span>
 </pre></div>
 </div>
 <p>与えられた時間内に要求が成功しない場合、キャンセルされてイベント <code class="docutils literal notranslate"><span class="pre">timeout</span></code> が発生する。</p>
@@ -1009,7 +1010,7 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <h3>Aborting request<a class="headerlink" href="#aborting-request" title="Permalink to this heading">¶</a></h3>
 <p>要求はいつでも終了させることができる。これにより、<code class="docutils literal notranslate"><span class="pre">abort</span></code> イベントが発生して
 <code class="docutils literal notranslate"><span class="pre">xhr.status</span></code> の値が 0 になる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1089,7 +1090,7 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <div class="section" id="cross-origin-requests">
 <h3>Cross-origin requests<a class="headerlink" href="#cross-origin-requests" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> は <code class="docutils literal notranslate"><span class="pre">fetch</span></code> と同じ CORS 方針を使用して、オリジン横断的要求を行うことができる。 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 同様に、既定では Cookie と HTTP 認証を別のオリジンに送信しない。これらを有効にするには、次のようにする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">withCredentials</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">withCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1107,27 +1108,27 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 </div>
 <div class="section" id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">fileId</span> <span class="o">=</span> <span class="nx">file</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">.</span><span class="nx">size</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">.</span><span class="nx">lastModified</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s1">&#39;X-File-Id&#39;</span><span class="o">:</span> <span class="nx">fileId</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">fileId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">lastModified</span><span class="p">;</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="s1">&#39;X-File-Id&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">fileId</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="c1">// The server has that many bytes</span>
-<span class="kd">let</span> <span class="nx">startByte</span> <span class="o">=</span> <span class="o">+</span><span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span>
+<span class="c1">// The server has that many bytes</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">startByte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;upload&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;X-File-Id&#39;</span><span class="p">,</span> <span class="nx">fileId</span><span class="p">);</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;X-Start-Byte&#39;</span><span class="p">,</span> <span class="nx">startByte</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;upload&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"></span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;X-File-Id&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">fileId</span><span class="p">);</span><span class="w"></span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;X-Start-Byte&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">startByte</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">onprogress</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Uploaded </span><span class="si">${</span><span class="nx">startByte</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">loaded</span><span class="si">}</span><span class="sb"> of </span><span class="si">${</span><span class="nx">startByte</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">total</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">onprogress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Uploaded </span><span class="si">${</span><span class="nx">startByte</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">loaded</span><span class="si">}</span><span class="sb"> of </span><span class="si">${</span><span class="nx">startByte</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">total</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="c1">// file can be from input.files[0] or another source</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">startByte</span><span class="p">));</span>
+<span class="c1">// file can be from input.files[0] or another source</span><span class="w"></span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">startByte</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 <ol class="arabic simple">
@@ -1193,8 +1194,8 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">subscribe()</span></code> する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">response.status</span> <span class="pre">==</span> <span class="pre">502</span></code> の場合にはタイムアウトなので、単に <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">subscribe()</span></code> する。</p></li>
 <li><p>それ以外のステータスの場合には一秒待って再び自分自身を呼び出す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span><span class="p">));</span>
-<span class="nx">await</span> <span class="nx">subscribe</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="mf">1000</span><span class="p">));</span><span class="w"></span>
+<span class="k">await</span><span class="w"> </span><span class="nx">subscribe</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -1232,7 +1233,7 @@ polling をそれぞれ実装している。</p></li>
 <p>WebSocket はオンラインゲームやリアルタイム取引システムなど、継続的なデータ交換が必要なサービスに特に適している。</p>
 <div class="section" id="a-simple-example">
 <h3>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://javascript.info&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://javascript.info&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>WebSocket 接続を開始するには、特別なプロトコル ws:// を使用して新しい
@@ -1274,7 +1275,7 @@ JavaScript はこれらのヘッダーを設定することができないのだ
 <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Extensions</span></code> は、ブラウザーが対応するすべての拡張機能一覧とともに自動的に送信される。</p>
 <p>例えば <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Protocol:</span> <span class="pre">soap,</span> <span class="pre">wamp</span></code> というヘッダーがあるとすると、ただのデータではなく、SOAP や WAMP のデータを転送したいことを意味する。 WebSocket のサブプロトコルは IANA 目録に登録されている。つまり、このヘッダーには、これから使用するデータ書式が記述されている。このオプションのヘッダーは、新しい WebSocket
 の第二引数で設定される：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;wss://javascript.info/chat&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;soap&quot;</span><span class="p">,</span> <span class="s2">&quot;wamp&quot;</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;wss://javascript.info/chat&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;soap&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wamp&quot;</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>サーバーは、使用することに同意するプロトコルと拡張子の一覧を応答するはずだ。</p>
@@ -1308,7 +1309,7 @@ SOAP は対応していると応答していると読める。</p>
 <div class="section" id="connection-close">
 <h3>Connection close<a class="headerlink" href="#connection-close" title="Permalink to this heading">¶</a></h3>
 <p>接続を閉じたい側は、数字コードとテキストによる理由を書いた接続終了フレームを送信するのが普通だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">socket</span><span class="p">.</span><span class="nx">close</span><span class="p">([</span><span class="nx">code</span><span class="p">],</span> <span class="p">[</span><span class="nx">reason</span><span class="p">]);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">socket</span><span class="p">.</span><span class="nx">close</span><span class="p">([</span><span class="nx">code</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="nx">reason</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>引数は全部オプショナル。引数 <code class="docutils literal notranslate"><span class="pre">code</span></code> は特別な WebSocket コード。引数 <code class="docutils literal notranslate"><span class="pre">reason</span></code>
@@ -1392,12 +1393,12 @@ data: of two lines
 </ul>
 <p>実際には、複雑なメッセージは通常 JSON に変換して送信する。改行はその中で <code class="docutils literal notranslate"><span class="pre">\n</span></code>
 として符号化されるので、複数行の <code class="docutils literal notranslate"><span class="pre">data:</span></code> メッセージは必要ではない。ゆえに、<code class="docutils literal notranslate"><span class="pre">data:</span></code> 一つがちょうどメッセージ一つを保持していると仮定できる。そのようなメッセージごとに、イベント <code class="docutils literal notranslate"><span class="pre">message</span></code> が発生する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="s2">&quot;/events/subscribe&quot;</span><span class="p">);</span>
-<span class="c1">// or eventSource.addEventListener(&#39;message&#39;, function(event){ ... })</span>
-<span class="nx">eventSource</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;New message&quot;</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
-    <span class="c1">// will log 3 times for the data stream above</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">eventSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">EventSource</span><span class="p">(</span><span class="s2">&quot;/events/subscribe&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// or eventSource.addEventListener(&#39;message&#39;, function(event){ ... })</span><span class="w"></span>
+<span class="nx">eventSource</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;New message&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// will log 3 times for the data stream above</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="section" id="id5">
@@ -1406,9 +1407,9 @@ data: of two lines
 <p>リモートサーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Origin</span></code> を取得し、処理を続行するにはヘッダー
 <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Origin</span></code> で応答しなければならない。</p>
 <p>証明証を渡すには、追加オプションの <code class="docutils literal notranslate"><span class="pre">withCredentials</span></code> を設定しなくてはならない。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="s2">&quot;https://another-site.com/events&quot;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">withCredentials</span><span class="o">:</span> <span class="kc">true</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">EventSource</span><span class="p">(</span><span class="s2">&quot;https://another-site.com/events&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">withCredentials</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1456,9 +1457,9 @@ id: 3
 <div class="section" id="connection-status-readystate">
 <h3>Connection status: readyState<a class="headerlink" href="#connection-status-readystate" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">EventSource</span></code> はプロパティー <code class="docutils literal notranslate"><span class="pre">readyState</span></code> を持ち、その値は三つのうちの一つだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">EventSource</span><span class="p">.</span><span class="nx">CONNECTING</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// connecting or reconnecting</span>
-<span class="nx">EventSource</span><span class="p">.</span><span class="nx">OPEN</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>       <span class="c1">// connected</span>
-<span class="nx">EventSource</span><span class="p">.</span><span class="nx">CLOSED</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>     <span class="c1">// connection closed</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">EventSource</span><span class="p">.</span><span class="nx">CONNECTING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// connecting or reconnecting</span><span class="w"></span>
+<span class="nx">EventSource</span><span class="p">.</span><span class="nx">OPEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w">       </span><span class="c1">// connected</span><span class="w"></span>
+<span class="nx">EventSource</span><span class="p">.</span><span class="nx">CLOSED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w">     </span><span class="c1">// connection closed</span><span class="w"></span>
 </pre></div>
 </div>
 <p>オブジェクトが生成したときや、接続が切れたときは、<code class="docutils literal notranslate"><span class="pre">EventSource.CONNECTING</span></code> につねに等しい。このプロパティーを照会することで、<code class="docutils literal notranslate"><span class="pre">EventSource</span></code> の状態を知ることができる。</p>
@@ -1482,9 +1483,9 @@ data: Bob
 </pre></div>
 </div>
 <p>カスタムイベントを処理するには、<code class="docutils literal notranslate"><span class="pre">onmessage</span></code> ではなく、<code class="docutils literal notranslate"><span class="pre">addEventListener</span></code> を使用する必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">eventSource</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;join&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="sb">`Joined </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">eventSource</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;join&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="sb">`Joined </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1639,6 +1640,7 @@ data: Bob
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

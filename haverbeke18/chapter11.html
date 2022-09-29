@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Project: A Programming Language" href="chapter12.html" />
     <link rel="prev" title="Modules" href="chapter10.html" />
@@ -106,7 +107,7 @@
 <li><p>非同期プログラミングの技法の一つに、ゆっくりとしたアクションを行う関数にコールバック関数というおまけの引数を与える方法がある。アクションが開始して終了すると、コールバック関数が結果とともに呼び出される。</p>
 <ul>
 <li><p>Node.js とブラウザーの両方で使用可能である関数 <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> は、指定されたミリ秒待機したのち、コールバック関数を呼び出す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Tick&quot;</span><span class="p">),</span> <span class="mi">500</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Tick&quot;</span><span class="p">),</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -119,15 +120,15 @@
 </ul>
 <p>ほとんどのカラスの巣の計算機には、長期的なデータ保存用の球根があり、そこでは情報の断片を小枝に表面加工して、後で取り出すことができるようになっている。表面加工や検索には時間がかかるため、長期保存のためのインターフェイスは非同期で、コールバック関数を使用している。</p>
 <p>球根は JSON でエンコード可能なデータの断片を名前を付けて保存する。例えば、カラスが食料を隠した場所の情報を “food caches “という名前で保存するとする。この名前は、実際のキャッシュを示す他のデータを示す名前の配列を保持することができる。巣 Big Oak の球根にある貯蔵食料を探すために、カラスは次のようなコードを実行する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">//import {bigOak} from &quot;./crow-tech&quot;;</span>
-<span class="kr">const</span> <span class="p">{</span><span class="nx">bigOak</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">//import {bigOak} from &quot;./crow-tech&quot;;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">bigOak</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">bigOak</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="s2">&quot;food caches&quot;</span><span class="p">,</span> <span class="nx">caches</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">firstCache</span> <span class="o">=</span> <span class="nx">caches</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-    <span class="nx">bigOak</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="nx">firstCache</span><span class="p">,</span> <span class="nx">info</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">info</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+<span class="nx">bigOak</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="s2">&quot;food caches&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">caches</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">firstCache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">caches</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="nx">bigOak</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="nx">firstCache</span><span class="p">,</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">info</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <ul>
@@ -144,11 +145,11 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>メッセージそれぞれに「タイプ」のタグが付けられており、メッセージの処理方法を決める。私たちのコードは、特定のリクエストタイプに対するハンドラーを定義することができ、そのようなリクエストが来ると、対応するハンドラーが呼び出されて応答を生成する。</p></li>
 </ul>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">./crow-tech</span></code> がエクスポートするインターフェイスには通信のためのコールバック型関数が備わっている。巣にはリクエストを送信するメソッド <code class="docutils literal notranslate"><span class="pre">send</span></code> がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">bigOak</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
-    <span class="s2">&quot;Cow Pasture&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;note&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Let&#39;s caw loudly at 7PM&quot;</span><span class="p">,</span>
-    <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Note delivered.&quot;</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">bigOak</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Cow Pasture&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;note&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Let&#39;s caw loudly at 7PM&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Note delivered.&quot;</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -156,13 +157,13 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>巣がこのリクエストを受信できるようにするには、この <code class="docutils literal notranslate"><span class="pre">note</span></code> というリクエストタイプを定義する必要がある。</p></li>
 <li><p>ハンドラーコードはカラスが全ての巣に飛び回ってインストールしていくようなので気にしないものとする。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">//import {defineRequestType} from &quot;./crow-tech&quot;;</span>
-<span class="kr">const</span> <span class="p">{</span><span class="nx">defineRequestType</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">//import {defineRequestType} from &quot;./crow-tech&quot;;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">defineRequestType</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="nx">defineRequestType</span><span class="p">(</span><span class="s2">&quot;note&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> received note: </span><span class="si">${</span><span class="nx">content</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-    <span class="nx">done</span><span class="p">();</span>
-<span class="p">});</span>
+<span class="nx">defineRequestType</span><span class="p">(</span><span class="s2">&quot;note&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">,</span><span class="w"> </span><span class="nx">done</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> received note: </span><span class="si">${</span><span class="nx">content</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">done</span><span class="p">();</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -208,8 +209,8 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>すでに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> である場合は、単純にそれを返す。</p></li>
 <li><p>そうでない場合は、指定された値を結果として返すような、すぐに終了する新しい <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">fifteen</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
-<span class="nx">fifteen</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Got </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">fifteen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mf">15</span><span class="p">);</span><span class="w"></span>
+<span class="nx">fifteen</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Got </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -238,13 +239,13 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </ul>
 <hr class="docutils" />
 <p>関数 <code class="docutils literal notranslate"><span class="pre">readStorage</span></code> に対する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのインターフェイスは次のように定義する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">nest</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">result</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">result</span><span class="p">));</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">nest</span><span class="p">.</span><span class="nx">readStorage</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">result</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">storage</span><span class="p">(</span><span class="nx">bigOak</span><span class="p">,</span> <span class="s2">&quot;enemies&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="p">));</span>
+<span class="nx">storage</span><span class="p">(</span><span class="nx">bigOak</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;enemies&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -298,15 +299,15 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>例外を投げた場合は拒絶、</p></li>
 <li><p>それらのいずれかを返した場合は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の結果となる。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Fail&quot;</span><span class="p">)))</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler 1&quot;</span><span class="p">))</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Caught failure &quot;</span> <span class="o">+</span> <span class="nx">reason</span><span class="p">);</span>
-        <span class="k">return</span> <span class="s2">&quot;nothing&quot;</span><span class="p">;</span>
-    <span class="p">})</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler 2&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="p">));</span>
-<span class="c1">// → Caught failure Error: Fail</span>
-<span class="c1">// → Handler 2 nothing</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Fail&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler 1&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Caught failure &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">reason</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;nothing&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Handler 2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// → Caught failure Error: Fail</span><span class="w"></span>
+<span class="c1">// → Handler 2 nothing</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -329,26 +330,26 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </ul>
 <p>リクエストとその応答が正常に届く場合でも、例えば、定義されていないリクエストタイプを使おうとした場合や、ハンドラーがエラーを送出する場合などに、応答が失敗を示すことがある。これをサポートするために、<code class="docutils literal notranslate"><span class="pre">send</span></code> と <code class="docutils literal notranslate"><span class="pre">defineRequestType</span></code> を前述の規則に従わせる。コールバックに渡される最初の引数を失敗の理由とし、2 番目の引数を実際の結果とする。</p>
 <p>これらは、ラッパーによって <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決と却下に変換できる。この <code class="docutils literal notranslate"><span class="pre">request</span></code> は後ほどしばしば参照されるたいせつな機能だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Timeout</span> <span class="kr">extends</span> <span class="nb">Error</span> <span class="p">{}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">Timeout</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">done</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="kd">function</span> <span class="nx">attempt</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">nest</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="p">(</span><span class="nx">failed</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="nx">done</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">failed</span><span class="p">)</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">failed</span><span class="p">);</span>
-                <span class="k">else</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-            <span class="p">});</span>
-            <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="nx">attempt</span><span class="p">(</span><span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-                <span class="k">else</span> <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nx">Timeout</span><span class="p">(</span><span class="s2">&quot;Timed out&quot;</span><span class="p">));</span>
-            <span class="p">},</span> <span class="mi">250</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="nx">attempt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">attempt</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">nest</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">failed</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">failed</span><span class="p">)</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="nx">failed</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">});</span><span class="w"></span>
+<span class="w">            </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">done</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="nx">attempt</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">Timeout</span><span class="p">(</span><span class="s2">&quot;Timed out&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"> </span><span class="mf">250</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="nx">attempt</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -358,18 +359,18 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <p>1/4 秒ごとに再試行し、3/4 秒経っても応答がない場合にあきらめるというのは、いかにも恣意的だ。リクエストが通っていても、ハンドラーが少し時間をかけているだけでリクエストが複数回送信されることもある。この問題があることを念頭にハンドラーを書く。</p>
 <hr class="docutils" />
 <p>コールバックから我々自身を完全に切り離すために、先に <code class="docutils literal notranslate"><span class="pre">defineRequestType</span></code> のラッパーを定義しておく。このラッパーでは、ハンドラー関数が <code class="docutils literal notranslate"><span class="pre">Promise</span></code> や普通の値を返すことができ、それをコールバックに送ってくれるというものだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">requestType</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">defineRequestType</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span>
-                             <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">try</span> <span class="p">{</span>
-            <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">handler</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">source</span><span class="p">))</span>
-                <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">response</span><span class="p">),</span>
-                      <span class="nx">failure</span> <span class="p">=&gt;</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">failure</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">exception</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">callback</span><span class="p">(</span><span class="nx">exception</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">requestType</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">defineRequestType</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">,</span><span class="w"></span>
+<span class="w">                             </span><span class="nx">callback</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">handler</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">))</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">),</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">failure</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">callback</span><span class="p">(</span><span class="nx">failure</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">callback</span><span class="p">(</span><span class="nx">exception</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -391,17 +392,17 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>これらの <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が生成した値の配列に解決する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を元の配列と同じ順序で返す。</p></li>
 <li><p>いずれかの <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が却下された場合 <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> 自体が却下される。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;ping&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="s2">&quot;pong&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;ping&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s2">&quot;pong&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">availableNeighbors</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">requests</span> <span class="o">=</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">neighbor</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">neighbor</span><span class="p">,</span> <span class="s2">&quot;ping&quot;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kc">true</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="kc">false</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">requests</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">result</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">availableNeighbors</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">requests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">neighbor</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">neighbor</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ping&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">requests</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">result</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -413,26 +414,26 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <div class="section" id="network-flooding">
 <h2><a class="toc-backref" href="#id11">Network flooding</a><a class="headerlink" href="#network-flooding" title="Permalink to this heading">¶</a></h2>
 <p>ネットワーク全体に情報を流すためには、ある種のリクエストを設定し、それを自動的に隣の巣に転送するという方法がある。ネットワーク全体がメッセージを受け取るまで、これらの巣がさらにそれらの隣の巣に転送する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span><span class="nx">everywhere</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./crow-tech&quot;</span><span class="p">;</span>
-<span class="c1">//const {everywhere} = require(&quot;./crow-tech&quot;);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">everywhere</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="c1">//const {everywhere} = require(&quot;./crow-tech&quot;);</span><span class="w"></span>
 
-<span class="nx">everywhere</span><span class="p">(</span><span class="nx">nest</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gossip</span> <span class="o">=</span> <span class="p">[];</span>
-<span class="p">});</span>
+<span class="nx">everywhere</span><span class="p">(</span><span class="nx">nest</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gossip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">sendGossip</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">message</span><span class="p">,</span> <span class="nx">exceptFor</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gossip</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">neighbor</span> <span class="k">of</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">if</span> <span class="p">(</span><span class="nx">neighbor</span> <span class="o">==</span> <span class="nx">exceptFor</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
-       <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">neighbor</span><span class="p">,</span> <span class="s2">&quot;gossip&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">sendGossip</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">exceptFor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gossip</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">neighbor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">neighbor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">exceptFor</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"></span>
+<span class="w">       </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">neighbor</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;gossip&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;gossip&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">message</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gossip</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">message</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> received gossip &#39;</span><span class="si">${</span><span class="nx">message</span><span class="si">}</span><span class="sb">&#39; from </span><span class="si">${</span><span class="nx">source</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-    <span class="nx">sendGossip</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">message</span><span class="p">,</span> <span class="nx">source</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;gossip&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">gossip</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">message</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> received gossip &#39;</span><span class="si">${</span><span class="nx">message</span><span class="si">}</span><span class="sb">&#39; from </span><span class="si">${</span><span class="nx">source</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">sendGossip</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -454,29 +455,29 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </ul>
 <p>巣のどれもが自分の直系の隣人のことしか知らないので、経路を計算するのに必要な情報を持っていない。巣のネットワークの状態が時間の経過ととも変化することを考慮に入れた方法で、これらの接続に関する情報をすべての巣に広めなければならない。</p>
 <p>ここでも flooding を使うことができるが、与えられたメッセージがすでに受信されているかどうかをチェックする代わりに、与えられた巣の隣人の新しい集合が、現在持っている集合と等しいかどうかをチェックする。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;connections&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">neighbors</span><span class="p">},</span>
-                            <span class="nx">source</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">connections</span> <span class="o">=</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span> <span class="o">==</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">neighbors</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nx">connections</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">neighbors</span><span class="p">);</span>
-    <span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">source</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;connections&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">neighbors</span><span class="p">},</span><span class="w"></span>
+<span class="w">                            </span><span class="nx">source</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">connections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">neighbors</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">connections</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">neighbors</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">exceptFor</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">neighbor</span> <span class="k">of</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">neighbor</span> <span class="o">==</span> <span class="nx">exceptFor</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
-        <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">neighbor</span><span class="p">,</span> <span class="s2">&quot;connections&quot;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nx">name</span><span class="p">,</span>
-            <span class="nx">neighbors</span><span class="o">:</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">exceptFor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">neighbor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">neighbor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">exceptFor</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">neighbor</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;connections&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">neighbors</span><span class="o">:</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">everywhere</span><span class="p">(</span><span class="nx">nest</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
-    <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">);</span>
-    <span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="nx">everywhere</span><span class="p">(</span><span class="nx">nest</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Map</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">broadcastConnections</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -486,19 +487,19 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <hr class="docutils" />
 <p>グラフでできることは、以前見たように、グラフの中の経路を見つけることだ。メッセージの宛先に向かう経路があれば、メッセージを送るべき方向がわかる。</p>
 <p>以下の関数 <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> は、第 7 章の <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> とよく似ていて、ネットワーク上の任意のノードに到達する道を検索する。ただし、経路全体を返すのではなく、次のステップを返すだけだ。その次の巣では、ネットワークに関する最新の情報を使って、メッセージをどこに送るかを決定する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">connections</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">via</span><span class="o">:</span> <span class="kc">null</span><span class="p">}];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="p">{</span><span class="nx">at</span><span class="p">,</span> <span class="nx">via</span><span class="p">}</span> <span class="o">=</span> <span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">next</span> <span class="k">of</span> <span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">at</span><span class="p">)</span> <span class="o">||</span> <span class="p">[])</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">next</span> <span class="o">==</span> <span class="nx">to</span><span class="p">)</span> <span class="k">return</span> <span class="nx">via</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">work</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">w</span> <span class="p">=&gt;</span> <span class="nx">w</span><span class="p">.</span><span class="nx">at</span> <span class="o">==</span> <span class="nx">next</span><span class="p">))</span> <span class="p">{</span>
-                <span class="nx">work</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">at</span><span class="o">:</span> <span class="nx">next</span><span class="p">,</span> <span class="nx">via</span><span class="o">:</span> <span class="nx">via</span> <span class="o">||</span> <span class="nx">next</span><span class="p">});</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">findRoute</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">to</span><span class="p">,</span><span class="w"> </span><span class="nx">connections</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">work</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span><span class="nx">at</span><span class="o">:</span><span class="w"> </span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">via</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">{</span><span class="nx">at</span><span class="p">,</span><span class="w"> </span><span class="nx">via</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">connections</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">at</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">to</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">via</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">work</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">w</span><span class="p">.</span><span class="nx">at</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">next</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">work</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">at</span><span class="o">:</span><span class="w"> </span><span class="nx">next</span><span class="p">,</span><span class="w"> </span><span class="nx">via</span><span class="o">:</span><span class="w"> </span><span class="nx">via</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">next</span><span class="p">});</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これで遠くの巣にもメッセージを送信できる関数を作ることができる。</p>
@@ -506,21 +507,21 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>メッセージが直接の隣人に宛てられたものであれば、通常通り送信する。</p></li>
 <li><p>そうでない場合は、メッセージをオブジェクトにパックして <code class="docutils literal notranslate"><span class="pre">route</span></code> リクエストを使って、目標に近い隣人に送り、その隣人は同じ動作を繰り返す。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">via</span> <span class="o">=</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span>
-            <span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">via</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`No route to </span><span class="si">${</span><span class="nx">target</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">via</span><span class="p">,</span> <span class="s2">&quot;route&quot;</span><span class="p">,</span>
-                       <span class="p">{</span><span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">neighbors</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">target</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">via</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">findRoute</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">via</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="sb">`No route to </span><span class="si">${</span><span class="nx">target</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">via</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;route&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                       </span><span class="p">{</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;route&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="p">{</span><span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">content</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;route&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -537,33 +538,33 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>カラスは重要な情報を保存するために、複数の巣に亘って情報を複製する。そうすれば、タカが巣を一つ破壊しても情報は失われない。</p></li>
 <li><p>巣の計算機は、自分のストレージにない情報を取り出すために、それがある巣を見つけるまで、ネットワーク上の他の巣をランダムに調べる。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">requestType</span><span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">));</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">findInStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">found</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">found</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">found</span><span class="p">;</span>
-        <span class="k">else</span> <span class="k">return</span> <span class="nx">findInRemoteStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">findInStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">found</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">found</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">found</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">findInRemoteStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">keys</span><span class="p">());</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">nest</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">keys</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">findInRemoteStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">sources</span> <span class="o">=</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span> <span class="o">!=</span> <span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
-    <span class="kd">function</span> <span class="nx">next</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">sources</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="nx">sources</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
-            <span class="nx">sources</span> <span class="o">=</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span> <span class="o">!=</span> <span class="nx">source</span><span class="p">);</span>
-            <span class="k">return</span> <span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
-                <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="nx">value</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span> <span class="nx">next</span><span class="p">(),</span> <span class="nx">next</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">findInRemoteStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">sources</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sources</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span><span class="w"></span>
+<span class="w">            </span><span class="nx">sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">source</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;storage&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">next</span><span class="p">(),</span><span class="w"> </span><span class="nx">next</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">next</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -604,29 +605,29 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <ul class="simple">
 <li><p>関数を <code class="docutils literal notranslate"><span class="pre">function*</span></code> で定義すると、その関数はジェネレーターになる。ジェネレータを呼び出すと第 6 章で説明した反復子が返される。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="o">*</span> <span class="nx">powers</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;;</span> <span class="nx">current</span> <span class="o">*=</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">yield</span> <span class="nx">current</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="o">*</span><span class="w"> </span><span class="nx">powers</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">n</span><span class="p">;;</span><span class="w"> </span><span class="nx">current</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">yield</span><span class="w"> </span><span class="nx">current</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">power</span> <span class="k">of</span> <span class="nx">powers</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">power</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">power</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">// → 3</span>
-<span class="c1">// → 9</span>
-<span class="c1">// → 27</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">power</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">powers</span><span class="p">(</span><span class="mf">3</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">power</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">50</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">power</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="c1">// → 3</span><span class="w"></span>
+<span class="c1">// → 9</span><span class="w"></span>
+<span class="c1">// → 27</span><span class="w"></span>
 </pre></div>
 </div>
 <ul>
 <li><p>コードを見る限り、Python のジェネレーターと同じように動作するものだろう。</p></li>
 <li><p>ジェネレータ関数を使うと反復子を書くのがはるかに簡単になる。第 6 章の練習問題で出てきたクラス <code class="docutils literal notranslate"><span class="pre">Group</span></code> の反復子はジェネレーターを使って書ける：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Group</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nx">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">members</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">yield</span> <span class="k">this</span><span class="p">.</span><span class="nx">members</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Group</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="o">*</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">members</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">yield</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">members</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -643,12 +644,12 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>非同期的な挙動は、それ自体が空の関数コールスタック上で起こる。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がない場合の非同期コードの例外管理が難しい理由の一つがこれだ。各コールバックはほとんど空のスタックから始まるので、捕捉ハンドラーが例外を送出するときには、ハンドラーはスタック上にない。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
-    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Woosh&quot;</span><span class="p">);},</span> <span class="mi">20</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">_</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// This will not run</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Caught!&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Woosh&quot;</span><span class="p">);},</span><span class="w"> </span><span class="mf">20</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// This will not run</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Caught!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>タイムアウトやリクエストの受信といったイベントがどれだけ接近して発生しても、
@@ -656,20 +657,20 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 <strong>イベントループ</strong> と呼ばれる、プログラムの大きなループを実行していると考えることができる。</p>
 <p>何もすることがないときは、このループは停止する。しかし、イベントが入ってくると、キューに追加され、そのコードが次々と実行されていく。同時に二つのものは実行されないので、ゆっくりと実行されるコードは他のイベントの処理を遅らせる可能性がある。</p>
 <p>次の例ではタイムアウトを設定するが、タイムアウトが意図した時点を過ぎるまでダレてしまい、タイムアウトが遅れる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">start</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Timeout ran at&quot;</span><span class="p">,</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span><span class="p">);},</span> <span class="mi">20</span><span class="p">);</span>
-<span class="k">while</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">start</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span> <span class="p">{}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Wasted time until&quot;</span><span class="p">,</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span><span class="p">);</span>
-<span class="c1">// → Wasted time until 50</span>
-<span class="c1">// → Timeout ran at 55</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span><span class="w"></span>
+<span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Timeout ran at&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">start</span><span class="p">);},</span><span class="w"> </span><span class="mf">20</span><span class="p">);</span><span class="w"></span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">50</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Wasted time until&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">start</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// → Wasted time until 50</span><span class="w"></span>
+<span class="c1">// → Timeout ran at 55</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は常に新しいイベントとして解決または却下される。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がすでに解決されていても、それが待機されていると、コールバックはすぐにではなく、現在のスクリプトが終了してから実行されることになる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Me first!&quot;</span><span class="p">);</span>
-<span class="c1">// → Me first!</span>
-<span class="c1">// → Done</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Me first!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// → Me first!</span><span class="w"></span>
+<span class="c1">// → Done</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -680,18 +681,18 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 </ul>
 <p>カラスには球根の中の数を数える趣味がある。次のコードは、ある年のすべての巣にあるの数を列挙しようとしている。</p>
 <p>カラスには毎年村中で孵化するヒナの数を数えるという趣味がある。巣ではこの数をストレージ球根に保存する。次のコードは、ある年のすべての巣の数を列挙するものだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>function anyStorage(nest, source, name) {
-    if (source == nest.name) return storage(nest, name);
-    else return routeRequest(nest, source, &quot;storage&quot;, name);
-}
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">source</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">nest</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">storage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">routeRequest</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;storage&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-async function chicks(nest, year) {
-    let list = &quot;&quot;;
-    await Promise.all(network(nest).map(async name =&gt; {
-        list += `${name}: ${await anyStorage(nest, name, `chicks in ${year}`)}\n`;
-    }));
-    return list;
-}
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">chicks</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">year</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">list</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="k">await</span><span class="w"> </span><span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="sb">`chicks in </span><span class="si">${</span><span class="nx">year</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="si">}</span><span class="sb">\n`</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}));</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">list</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -707,13 +708,13 @@ async function chicks(nest, year) {
 <ul class="simple">
 <li><p>いつものように、新しい値を計算することは、既存の値を変更することよりも間違いにくい。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">async</span> <span class="kd">function</span> <span class="nx">chicks</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">async</span> <span class="nx">name</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span>
-            <span class="nx">await</span> <span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="sb">`chicks in </span><span class="si">${</span><span class="nx">year</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="k">return</span> <span class="p">(</span><span class="nx">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">lines</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">chicks</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">year</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="sb">`chicks in </span><span class="si">${</span><span class="nx">year</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">lines</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ノート：適当な巣 <code class="docutils literal notranslate"><span class="pre">nest</span></code> に対して例えば <code class="docutils literal notranslate"><span class="pre">chicks(nest,</span> <span class="pre">2009)</span></code> を呼び出すと次のようなデータが得られる：</p>
@@ -756,41 +757,41 @@ Cow Pasture: 1
 <p>これを実行する非同期関数 <code class="docutils literal notranslate"><span class="pre">locateScalpel</span></code> を書け。先に定義した <code class="docutils literal notranslate"><span class="pre">anyStorage</span></code> 関数を使えば、任意の巣のストレージにアクセスすることができる。十分な時間が経過しているので、どの巣のストレージにも “scalpel” のエントリーがあるとして構わない。</p>
 <p>次に、同じ関数を <code class="docutils literal notranslate"><span class="pre">async</span></code> や <code class="docutils literal notranslate"><span class="pre">await</span></code> を使わずにもう一度書け。どちらのバージョンでも、リクエストの失敗が返された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の却下として適切に表示されるか。それはどのようなものになるか。</p>
 <p><strong>解答</strong> 目標は <code class="docutils literal notranslate"><span class="pre">nest.scalpel</span> <span class="pre">==</span> <span class="pre">nest.name</span></code> なる <code class="docutils literal notranslate"><span class="pre">nest</span></code> を見つけることだ。問いの前半は次のコードで見つかる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">async</span> <span class="kd">function</span> <span class="nx">locateScalpel</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">try</span><span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="kr">const</span> <span class="nx">target</span> <span class="k">of</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)){</span>
-            <span class="kr">const</span> <span class="nx">location</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="s2">&quot;scalpel&quot;</span><span class="p">);</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">location</span> <span class="o">==</span> <span class="nx">target</span><span class="p">){</span>
-                <span class="k">return</span> <span class="nx">location</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-        <span class="c1">// 問題の仮定として、この場合はあり得ないとする。</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">locateScalpel</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">try</span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)){</span><span class="w"></span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;scalpel&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="nx">location</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">target</span><span class="p">){</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nx">location</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// 問題の仮定として、この場合はあり得ないとする。</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kr">const</span> <span class="nx">loc</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">locateScalpel</span><span class="p">(</span><span class="nx">bigOak</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Found in </span><span class="si">${</span><span class="nx">loc</span><span class="si">}</span><span class="sb">`</span><span class="p">))</span> <span class="c1">// → Found in Butcher Shop</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">loc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">locateScalpel</span><span class="p">(</span><span class="nx">bigOak</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Found in </span><span class="si">${</span><span class="nx">loc</span><span class="si">}</span><span class="sb">`</span><span class="p">))</span><span class="w"> </span><span class="c1">// → Found in Butcher Shop</span><span class="w"></span>
 </pre></div>
 </div>
 <p>同じ関数を非同期キーワードを用いずに書くと：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">locateScalpelSync</span><span class="p">(</span><span class="nx">nest</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="kr">const</span> <span class="nx">target</span> <span class="k">of</span> <span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)){</span>
-        <span class="kd">let</span> <span class="nx">location</span><span class="p">;</span>
-        <span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="s2">&quot;scalpel&quot;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="nx">location</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
-            <span class="p">})</span>
-            <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span> <span class="c1">// この場合はあり得ない</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">location</span> <span class="o">==</span> <span class="nx">target</span><span class="p">){</span>
-            <span class="k">return</span> <span class="nx">location</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="c1">// この場合はあり得ない</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">);</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">locateScalpelSync</span><span class="p">(</span><span class="nx">nest</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">network</span><span class="p">(</span><span class="nx">nest</span><span class="p">)){</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">location</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nx">anyStorage</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;scalpel&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">})</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="k">catch</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{});</span><span class="w"> </span><span class="c1">// この場合はあり得ない</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">location</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">target</span><span class="p">){</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">location</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// この場合はあり得ない</span><span class="w"></span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Not found&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これは先ほどのようには動作しない。関数を呼び出すとループが終わって例外が <code class="docutils literal notranslate"><span class="pre">throw</span></code> される。</p>
@@ -807,19 +808,19 @@ Cow Pasture: 1
 <p>プロミスが成功または失敗した後は、再び成功または失敗することはできず、それを解決する関数への呼び出しは無視されることを覚えておくことだ。これにより、プロミスの失敗を処理する方法を単純化できる。</p>
 <p><strong>解答</strong> これは二時間くらい考えて諦めた。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列に対するループを <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコンストラクターに与えるのが急所のようだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">Promise_all</span><span class="p">(</span><span class="nx">promises</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">promises</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="p">{</span>
-            <span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
-                <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="nx">promises</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">resolve</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">Promise_all</span><span class="p">(</span><span class="nx">promises</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">promises</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">promises</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>なお、上記のコードは本物とは異なり、引数の配列に <code class="docutils literal notranslate"><span class="pre">Promise</span></code> でないオブジェクトが含まれる場合の挙動が異なる。</p>
@@ -971,6 +972,7 @@ Cow Pasture: 1
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/mermaid.js"></script>
     <link rel="next" title="What’s New In Python 3.7 ノート" href="python-3.7.html" />
     <link rel="prev" title="What’s New In Python 3.5 ノート" href="python-3.5.html" />
@@ -70,10 +71,10 @@
 <ul>
 <li><p>最初は利用価値がわからなかったが、使ってみると便利だったのでこれ一本にしよう。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
-<span class="sa">f</span><span class="s1">&#39;</span><span class="si">{a}</span><span class="s1"> </span><span class="si">{b}</span><span class="s1"> </span><span class="si">{c}</span><span class="s1">&#39;</span>
+<span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%T&#39;</span><span class="p">)</span>
-<span class="sa">f</span><span class="s1">&#39;{datetime.now():%T}`</span>
+<span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="si">:</span><span class="s1">%T</span><span class="si">}</span><span class="s1">`</span>
 </pre></div>
 </div>
 </li>
@@ -91,10 +92,10 @@
 </pre></div>
 </div>
 <p>反対方向もできる：</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="sa">f</span><span class="s1">&#39;{0xFFFFFFFF:_}&#39;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mh">0xFFFFFFFF</span><span class="si">:</span><span class="s1">_</span><span class="si">}</span><span class="s1">&#39;</span>
 <span class="gh">Out[7]: </span><span class="go">&#39;4_294_967_295&#39;</span>
 
-<span class="gp">In [8]: </span><span class="sa">f</span><span class="s1">&#39;{0xFFFFFFFF:_x}&#39;</span>
+<span class="gp">In [8]: </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="mh">0xFFFFFFFF</span><span class="si">:</span><span class="s1">_x</span><span class="si">}</span><span class="s1">&#39;</span>
 <span class="gh">Out[8]: </span><span class="go">&#39;ffff_ffff&#39;</span>
 </pre></div>
 </div>
@@ -172,16 +173,16 @@
 <p>次の例は issue12006 による：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 
-<span class="gp">In [2]: </span><span class="sa">f</span><span class="s1">&#39;{date(2013, 12, 31):%Y %V </span><span class="si">%u</span><span class="s1">}&#39;</span>
+<span class="gp">In [2]: </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">date</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="si">:</span><span class="s1">%Y %V %u</span><span class="si">}</span><span class="s1">&#39;</span>
 <span class="gh">Out[2]: </span><span class="go">&#39;2013 01 2&#39;</span>
 
-<span class="gp">In [3]: </span><span class="sa">f</span><span class="s1">&#39;{date(2013, 1, 1):%Y %V </span><span class="si">%u</span><span class="s1">}&#39;</span>
+<span class="gp">In [3]: </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">date</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s1">%Y %V %u</span><span class="si">}</span><span class="s1">&#39;</span>
 <span class="gh">Out[3]: </span><span class="go">&#39;2013 01 2&#39;</span>
 
-<span class="gp">In [4]: </span><span class="sa">f</span><span class="s1">&#39;{date(2013, 12, 31):</span><span class="si">%G</span><span class="s1"> %V </span><span class="si">%u</span><span class="s1">}&#39;</span>
+<span class="gp">In [4]: </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">date</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="si">:</span><span class="s1">%G %V %u</span><span class="si">}</span><span class="s1">&#39;</span>
 <span class="gh">Out[4]: </span><span class="go">&#39;2014 01 2&#39;</span>
 
-<span class="gp">In [5]: </span><span class="sa">f</span><span class="s1">&#39;{date(2013, 1, 1):</span><span class="si">%G</span><span class="s1"> %V </span><span class="si">%u</span><span class="s1">}&#39;</span>
+<span class="gp">In [5]: </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">date</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s1">%G %V %u</span><span class="si">}</span><span class="s1">&#39;</span>
 <span class="gh">Out[5]: </span><span class="go">&#39;2013 01 2&#39;</span>
 </pre></div>
 </div>
@@ -361,6 +362,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>

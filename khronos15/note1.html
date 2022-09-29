@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="WebGL Specification 1.0 読書ノート 2 of 4" href="note2.html" />
@@ -327,11 +328,11 @@ WebGL の実装に従わなければならない。</p></li>
 <div class="admonition-example-i admonition">
 <p class="admonition-title">Example I</p>
 <p>WebGL プログラムにビューポートを設定するロジックが含まれていないと、キャンバスのサイズが変更された場合に適切に対処できないことに注意。次の例は、WebGL プログラムが（ユーザーの操作によるものではなく）プログラムによってキャンバスのサイズを変更する方法を示す：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canvas1&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl&#39;</span><span class="p">);</span>
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">newWidth</span><span class="p">;</span>
-<span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">newHeight</span><span class="p">;</span>
-<span class="nx">gl</span><span class="p">.</span><span class="nx">viewport</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferWidth</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferHeight</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canvas1&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">gl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;webgl&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">newWidth</span><span class="p">;</span><span class="w"></span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">newHeight</span><span class="p">;</span><span class="w"></span>
+<span class="nx">gl</span><span class="p">.</span><span class="nx">viewport</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferWidth</span><span class="p">,</span><span class="w"> </span><span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferHeight</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -438,14 +439,14 @@ Cross-Origin Resource Sharing <a class="reference internal" href="note4.html#cor
 <div class="admonition-example-ii admonition">
 <p class="admonition-title">Example II</p>
 <p>次の例では、別のドメインから送られてくる画像に対して CORS リクエストを発行する方法を示している。画像は、認証情報 (Cookie) なしでサーバーから得られる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;webgl&quot;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">gl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;webgl&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Image</span><span class="p">();</span><span class="w"></span>
 
-<span class="c1">// The onload handler should be set to a function which uploads the HTMLImageElement</span>
-<span class="c1">// using texImage2D or texSubImage2D.</span>
-<span class="nx">image</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="nx">image</span><span class="p">.</span><span class="nx">crossOrigin</span> <span class="o">=</span> <span class="s2">&quot;anonymous&quot;</span><span class="p">;</span>
-<span class="nx">image</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://other-domain.com/image.jpg&quot;</span><span class="p">;</span>
+<span class="c1">// The onload handler should be set to a function which uploads the HTMLImageElement</span><span class="w"></span>
+<span class="c1">// using texImage2D or texSubImage2D.</span><span class="w"></span>
+<span class="nx">image</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"></span>
+<span class="nx">image</span><span class="p">.</span><span class="nx">crossOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;anonymous&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="nx">image</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://other-domain.com/image.jpg&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -662,6 +663,7 @@ WebGL API は Appendix A で義務付けられているインデックス付与�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

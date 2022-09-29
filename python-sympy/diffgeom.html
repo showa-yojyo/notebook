@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="出力" href="printing.html" />
@@ -648,8 +649,8 @@ CoordSystem オブジェクトと座標成分番号 <cite>i</cite> を指定す�
 
     <span class="c1"># Jacobian matrices:</span>
     <span class="k">for</span> <span class="n">map0</span><span class="p">,</span> <span class="n">map1</span> <span class="ow">in</span> <span class="n">intersections</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jacobian </span><span class="si">{map0.name}</span><span class="s1"> -&gt; </span><span class="si">{map1.name}</span><span class="s1">: &#39;</span><span class="p">,</span> <span class="n">map0</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">map1</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x1&#39;</span><span class="p">]))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jacobian </span><span class="si">{map1.name}</span><span class="s1"> -&gt; </span><span class="si">{map0.name}</span><span class="s1">: &#39;</span><span class="p">,</span> <span class="n">map1</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">map0</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">]))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jacobian </span><span class="si">{</span><span class="n">map0</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">map1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">,</span> <span class="n">map0</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">map1</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x1&#39;</span><span class="p">]))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jacobian </span><span class="si">{</span><span class="n">map1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">map0</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">,</span> <span class="n">map1</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">map0</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">]))</span>
 
     <span class="c1"># Transition maps:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
@@ -662,8 +663,8 @@ CoordSystem オブジェクトと座標成分番号 <cite>i</cite> を指定す�
         <span class="p">(</span><span class="n">phim1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">phip0</span><span class="p">),</span>
         <span class="p">(</span><span class="n">phim1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">phim0</span><span class="p">),)</span>
     <span class="k">for</span> <span class="n">cfrom</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">cto</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{cfrom.name}</span><span class="s1">(</span><span class="si">{t:7.4f}</span><span class="s1">) = &#39;</span>
-              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{cto.name}</span><span class="s1">({cto.point_to_coords(cfrom.point([t]))[0]:7.4f})&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cfrom</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s1">7.4f</span><span class="si">}</span><span class="s1">) = &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cto</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="n">cto</span><span class="o">.</span><span class="n">point_to_coords</span><span class="p">(</span><span class="n">cfrom</span><span class="o">.</span><span class="n">point</span><span class="p">([</span><span class="n">t</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">7.4f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -1149,6 +1150,7 @@ R_{ij} = R^k {}_{i k j}
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

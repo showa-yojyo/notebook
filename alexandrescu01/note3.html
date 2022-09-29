@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Effective STL 読書ノート" href="../meyers01.html" />
     <link rel="prev" title="Modern C++ Design 読書ノート 2/3" href="note2.html" />
@@ -87,22 +88,22 @@ Abstract Factory デザイン・パターンを使用することによって <c
 <code class="docutils literal notranslate"><span class="pre">FunkyButton</span></code> が使用されるように保証することができます&gt; (p. 231)</p>
 <hr class="docutils" />
 <p>&lt;ゲーム中に登場する全てのオブジェクトを生成する関数を 1 ヶ所に集めておくのが良いでしょう&gt; (p. 232)</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AbstractEnemyFactory</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="n">Soldier</span><span class="o">*</span> <span class="n">MakeSoldier</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">Monster</span><span class="o">*</span> <span class="nf">MakeMonster</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">SuperMonster</span><span class="o">*</span> <span class="nf">MakeSuperMonster</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">};</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">AbstractEnemyFactory</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">Soldier</span><span class="o">*</span><span class="w"> </span><span class="n">MakeSoldier</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">Monster</span><span class="o">*</span><span class="w"> </span><span class="nf">MakeMonster</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">SuperMonster</span><span class="o">*</span><span class="w"> </span><span class="nf">MakeSuperMonster</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">EasyLevelEnemyFactory</span> <span class="o">:</span> <span class="k">public</span> <span class="n">AbstractEnemyFactory</span>
-<span class="p">{</span>
-    <span class="p">...</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">DieHardLevelEnemyFactory</span> <span class="o">:</span> <span class="k">public</span> <span class="n">AbstractEnemyFactory</span>
-<span class="p">{</span>
-    <span class="p">...</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EasyLevelEnemyFactory</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractEnemyFactory</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DieHardLevelEnemyFactory</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractEnemyFactory</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -114,36 +115,36 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <p>ここからジェネリックな Abstract Factory の設計に入る。</p>
 <p>構造は、以前取り扱った <code class="docutils literal notranslate"><span class="pre">GenScatterHierarchy</span></code> と、ファクトリーユニットなるクラステンプレートの群を合体させたようなもの。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 235 より引用。</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">AbstractFactoryUnit</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="n">T</span><span class="o">*</span> <span class="n">DoCreate</span><span class="p">(</span><span class="n">Type2Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">AbstractFactoryUnit</span><span class="p">()</span> <span class="p">{}</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractFactoryUnit</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">DoCreate</span><span class="p">(</span><span class="n">Type2Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">AbstractFactoryUnit</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">template</span>
-<span class="o">&lt;</span>
-    <span class="k">class</span> <span class="nc">TList</span><span class="p">,</span>
-    <span class="k">template</span> <span class="o">&lt;</span><span class="n">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Unit</span> <span class="o">=</span> <span class="n">AbstractFactoryUnit</span>
-<span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">AbstractFactory</span> <span class="o">:</span> <span class="k">public</span> <span class="n">GenScatterHierarchy</span><span class="o">&lt;</span><span class="n">TList</span><span class="p">,</span> <span class="n">Unit</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">typedef</span> <span class="n">TList</span> <span class="n">ProductList</span><span class="p">;</span>
-    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="n">T</span><span class="o">*</span> <span class="n">Create</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">Unit</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">unit</span> <span class="o">=</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">unit</span><span class="p">.</span><span class="n">DoCreate</span><span class="p">(</span><span class="n">Type2Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">());</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">TList</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AbstractFactoryUnit</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractFactory</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">GenScatterHierarchy</span><span class="o">&lt;</span><span class="n">TList</span><span class="p">,</span><span class="w"> </span><span class="n">Unit</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">TList</span><span class="w"> </span><span class="n">ProductList</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">Create</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Unit</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">unit</span><span class="p">.</span><span class="n">DoCreate</span><span class="p">(</span><span class="n">Type2Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="c1">// p. 236</span>
-<span class="k">typedef</span> <span class="n">AbstractFactory</span>
-<span class="o">&lt;</span>
-   <span class="n">TYPELIST_3</span><span class="p">(</span><span class="n">Soldier</span><span class="p">,</span> <span class="n">Monster</span><span class="p">,</span> <span class="n">SuperMonster</span><span class="p">)</span>
-<span class="o">&gt;</span>
-<span class="n">AbstractEnemyFactory</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">AbstractFactory</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">   </span><span class="n">TYPELIST_3</span><span class="p">(</span><span class="n">Soldier</span><span class="p">,</span><span class="w"> </span><span class="n">Monster</span><span class="p">,</span><span class="w"> </span><span class="n">SuperMonster</span><span class="p">)</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="n">AbstractEnemyFactory</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -159,31 +160,31 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ConcreteFactory</span></code> はクラステンプレート <code class="docutils literal notranslate"><span class="pre">GenLinearHierarchy</span></code> から導出する。何をしたいのかと言うと、Factory Unit のクラス継承を直列させたいわけだ。</p></li>
 </ul>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 238 より引用</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">ConcreteProduct</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Base</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">OpNewFactoryUnit</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="c1">// Base は多分 AbstractFactoryUnit&lt;ConcreteProduct&gt;</span>
-<span class="p">{</span>
-    <span class="p">...</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">ConcreteProduct</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpNewFactoryUnit</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="c1">// Base は多分 AbstractFactoryUnit&lt;ConcreteProduct&gt;</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-<span class="k">public</span><span class="o">:</span>
-    <span class="c1">// この AbstractProduct を typedef するのがちょっと頭を使う。</span>
-    <span class="n">ConcreteProduct</span><span class="o">*</span> <span class="n">DoCreate</span><span class="p">(</span><span class="n">Type2Type</span><span class="o">&lt;</span><span class="n">AbstractProduct</span><span class="o">&gt;</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">ConcreteProduct</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// この AbstractProduct を typedef するのがちょっと頭を使う。</span>
+<span class="w">    </span><span class="n">ConcreteProduct</span><span class="o">*</span><span class="w"> </span><span class="n">DoCreate</span><span class="p">(</span><span class="n">Type2Type</span><span class="o">&lt;</span><span class="n">AbstractProduct</span><span class="o">&gt;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConcreteProduct</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="c1">// p. 239</span>
-<span class="k">template</span>
-<span class="o">&lt;</span>
-    <span class="k">class</span> <span class="nc">AbstractFact</span><span class="p">,</span>
-    <span class="k">template</span> <span class="o">&lt;</span><span class="n">class</span><span class="p">,</span> <span class="n">class</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Creator</span> <span class="o">=</span> <span class="n">OpNewFactoryUnit</span><span class="p">,</span>
-    <span class="k">class</span> <span class="nc">TList</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">AbstractFact</span><span class="o">::</span><span class="n">ProductList</span>
-<span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">ConcreteFactory</span>
-    <span class="o">:</span> <span class="k">public</span> <span class="n">GenLinearHierarchy</span><span class="o">&lt;</span> <span class="p">...</span> <span class="o">&gt;</span>
-<span class="p">{</span>
-    <span class="p">...</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">AbstractFact</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Creator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpNewFactoryUnit</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">TList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">AbstractFact</span><span class="o">::</span><span class="n">ProductList</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConcreteFactory</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">GenLinearHierarchy</span><span class="o">&lt;</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -192,12 +193,12 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <li><p>テンプレートクラス <code class="docutils literal notranslate"><span class="pre">PrototypeFactoryUnit</span></code> を定義する。
 <code class="docutils literal notranslate"><span class="pre">DoCreate</span></code> の実装では、何かオブジェクトを参照しておいて、そこからクローン作成。</p></li>
 <li><p>先程の <code class="docutils literal notranslate"><span class="pre">ConcreteFactory</span></code> がそのまま利用できる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="n">ConcreteFactory</span>
-<span class="o">&lt;</span>
-    <span class="n">AbstractEnemyFactory</span><span class="p">,</span>
-    <span class="n">PrototypeFactoryUnit</span>
-<span class="o">&gt;</span>
-<span class="n">EnemyFactory</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="n">ConcreteFactory</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AbstractEnemyFactory</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">PrototypeFactoryUnit</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="n">EnemyFactory</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -220,28 +221,28 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 </ul>
 <p>ここから架空の文書エディターを開発する場合を考察していく。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 250-251 引用一部略</span>
-<span class="k">class</span> <span class="nc">DocStats</span> <span class="c1">// 文書の統計情報</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">void</span> <span class="n">AddChars</span><span class="p">(</span><span class="n">xxxx</span><span class="p">);</span> <span class="c1">// 文字数</span>
-    <span class="kt">void</span> <span class="nf">AddWords</span><span class="p">(</span><span class="n">xxxx</span><span class="p">);</span> <span class="c1">// 単語数</span>
-    <span class="kt">void</span> <span class="nf">AddImages</span><span class="p">(</span><span class="n">xxxx</span><span class="p">);</span> <span class="c1">// 画像数</span>
-    <span class="p">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocStats</span><span class="w"> </span><span class="c1">// 文書の統計情報</span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">AddChars</span><span class="p">(</span><span class="n">xxxx</span><span class="p">);</span><span class="w"> </span><span class="c1">// 文字数</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">AddWords</span><span class="p">(</span><span class="n">xxxx</span><span class="p">);</span><span class="w"> </span><span class="c1">// 単語数</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">AddImages</span><span class="p">(</span><span class="n">xxxx</span><span class="p">);</span><span class="w"> </span><span class="c1">// 画像数</span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-    <span class="kt">void</span> <span class="n">Display</span><span class="p">();</span> <span class="c1">// 統計情報表示</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Display</span><span class="p">();</span><span class="w"> </span><span class="c1">// 統計情報表示</span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">DocElement</span><span class="p">;</span>
-    <span class="k">class</span> <span class="nc">Paragraph</span><span class="p">;</span>
-    <span class="k">class</span> <span class="nc">RasterBitmap</span><span class="p">;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocElement</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">Paragraph</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">RasterBitmap</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">DocElement</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="c1">// DocElement が Paragraph だったら AddChars や AddWords を利用するし、</span>
-    <span class="c1">// RasterBitmap だったら AddImages を利用して、統計をとる。</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">UpdateStats</span><span class="p">(</span><span class="n">DocStats</span><span class="o">&amp;</span> <span class="n">statistics</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocElement</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// DocElement が Paragraph だったら AddChars や AddWords を利用するし、</span>
+<span class="w">    </span><span class="c1">// RasterBitmap だったら AddImages を利用して、統計をとる。</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">UpdateStats</span><span class="p">(</span><span class="n">DocStats</span><span class="o">&amp;</span><span class="w"> </span><span class="n">statistics</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>いくつか欠点がある。</p>
@@ -253,52 +254,52 @@ C++ ではしばしば発生するわけです&gt; (p. 234)</p></li>
 <p>発想を変えて、<code class="docutils literal notranslate"><span class="pre">UpdateStats</span></code> を <code class="docutils literal notranslate"><span class="pre">DocStats</span></code> に移動させてみると、
 &lt;今度は <code class="docutils literal notranslate"><span class="pre">DocStats</span></code> が、処理対象となる具体的な <code class="docutils literal notranslate"><span class="pre">DocElement</span></code> に依存することになります&gt; (p. 252)</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 252 より引用一部略</span>
-<span class="kt">void</span> <span class="n">DocStats</span><span class="o">::</span><span class="n">UpdateStats</span><span class="p">(</span><span class="n">DocElement</span><span class="o">&amp;</span> <span class="n">elem</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Paragraph</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">elem</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="c1">// Paragraph の統計収集...</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">RasterBitmap</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">elem</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="c1">// RasterBitmap の統計収集...</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">...</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">DocStats::UpdateStats</span><span class="p">(</span><span class="n">DocElement</span><span class="o">&amp;</span><span class="w"> </span><span class="n">elem</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Paragraph</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">elem</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Paragraph の統計収集...</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">RasterBitmap</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">elem</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// RasterBitmap の統計収集...</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ここで Visitor の導入となる。まずはデザインパターンの教科書通りのインターフェイスを持つクラスを書いてみる。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 253 より</span>
 <span class="c1">// まず Visitor の抽象基底クラス</span>
-<span class="k">class</span> <span class="nc">DocElementVisitor</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">VisitParagraph</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">VisitRasterBitmap</span><span class="p">(</span><span class="n">RasterBitmap</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">...</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocElementVisitor</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">VisitParagraph</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">VisitRasterBitmap</span><span class="p">(</span><span class="n">RasterBitmap</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="c1">// DocElement::Visit を宣言。</span>
 
-<span class="k">class</span> <span class="nc">DocElement</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">...</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocElement</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">Paragraph</span><span class="o">::</span><span class="n">Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">v</span><span class="p">.</span><span class="n">VisitParagraph</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Paragraph::Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">VisitParagraph</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 <span class="c1">// RasterBitmap も同様。</span>
 
 <span class="c1">// そして DocStats は DocElementVisitor を実装する。</span>
 
-<span class="k">class</span> <span class="nc">DocStats</span> <span class="o">:</span> <span class="k">public</span> <span class="n">DocElementVisitor</span>
-<span class="p">{</span>
-    <span class="c1">// ... VisitParagraph や VisitRasterBitmap を実装 ...</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocStats</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">DocElementVisitor</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ... VisitParagraph や VisitRasterBitmap を実装 ...</span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -329,30 +330,30 @@ p. 254 の <code class="docutils literal notranslate"><span class="pre">Incremen
 <code class="docutils literal notranslate"><span class="pre">VisitXxxx</span></code> を純粋仮想関数として宣言する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DocElement</span></code> のサブクラス <code class="docutils literal notranslate"><span class="pre">Xxxx::Accept</span></code> 関数にて、引数の <code class="docutils literal notranslate"><span class="pre">DocElementVisitor</span></code> を <code class="docutils literal notranslate"><span class="pre">XxxxVisitor</span></code> に dynamic_cast するテストを加える。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 259 より引用</span>
-<span class="kt">void</span> <span class="n">Paragraph</span><span class="o">::</span><span class="n">Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">ParagraphVisitor</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">ParagraphVisitor</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">p</span><span class="o">-&gt;</span><span class="n">VisitParagraph</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="p">...</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Paragraph::Accept</span><span class="p">(</span><span class="n">DocElementVisitor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">ParagraphVisitor</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">ParagraphVisitor</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">VisitParagraph</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
 <li><p>具体的な Visitor クラスの定義は、例えば次のようになる。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 260 より引用。</span>
-<span class="k">class</span> <span class="nc">DocStats</span> <span class="o">:</span>
-    <span class="k">public</span> <span class="n">DocElementVisitor</span><span class="p">,</span>
-    <span class="k">public</span> <span class="n">ParagraphVisitor</span><span class="p">,</span>
-    <span class="k">public</span> <span class="n">RasterBitmapVisitor</span>
-<span class="p">{</span>
-    <span class="p">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocStats</span><span class="w"> </span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">DocElementVisitor</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">ParagraphVisitor</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">RasterBitmapVisitor</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-    <span class="c1">// VisitXxxx をこのクラスで実装する。</span>
-    <span class="kt">void</span> <span class="n">VisitParagraph</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">&amp;</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">VisitRasterBitmap</span><span class="p">(</span><span class="n">RasterBitmap</span><span class="o">&amp;</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="c1">// VisitXxxx をこのクラスで実装する。</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">VisitParagraph</span><span class="p">(</span><span class="n">Paragraph</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">VisitRasterBitmap</span><span class="p">(</span><span class="n">RasterBitmap</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -376,13 +377,13 @@ Visitor がボトム 10 パターンの中のかなり下の方に位置付け�
 <li><p><code class="docutils literal notranslate"><span class="pre">BaseVisitor</span></code> - 先の例の <code class="docutils literal notranslate"><span class="pre">DocElementVisitor</span></code> と同じ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Visitor</span></code> - <code class="docutils literal notranslate"><span class="pre">XxxxVisitor</span></code> 用。クラステンプレートとして宣言。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 263</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">R</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Visitor</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">typedef</span> <span class="n">R</span> <span class="n">ReturnType</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="n">ReturnType</span> <span class="nf">Visit</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Visitor</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">ReturnType</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ReturnType</span><span class="w"> </span><span class="nf">Visit</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -412,24 +413,24 @@ Visitor がボトム 10 パターンの中のかなり下の方に位置付け�
 </ul>
 <p>循環式の場合、ユーザーコードが圧倒的に少なくて済むようだ。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 270-271 より引用</span>
-<span class="k">typedef</span> <span class="n">CyclicVisitor</span>
-<span class="o">&lt;</span>
-    <span class="kt">void</span><span class="p">,</span> <span class="c1">// 戻り値</span>
-    <span class="n">TYPELIST_3</span><span class="p">(</span><span class="n">DocElement</span><span class="p">,</span> <span class="n">Paragraph</span><span class="p">,</span> <span class="n">RasterBitmap</span><span class="p">)</span>
-<span class="o">&gt;</span>
-<span class="n">MyVisitor</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">CyclicVisitor</span><span class="w"></span>
+<span class="o">&lt;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="c1">// 戻り値</span>
+<span class="w">    </span><span class="n">TYPELIST_3</span><span class="p">(</span><span class="n">DocElement</span><span class="p">,</span><span class="w"> </span><span class="n">Paragraph</span><span class="p">,</span><span class="w"> </span><span class="n">RasterBitmap</span><span class="p">)</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"></span>
+<span class="n">MyVisitor</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">DocElement</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Visit</span><span class="p">(</span><span class="n">MyVisitor</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocElement</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Visit</span><span class="p">(</span><span class="n">MyVisitor</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">Paragraph</span> <span class="o">:</span> <span class="k">public</span> <span class="n">DocElement</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">DEFINE_CYCLIC_VISITABLE</span><span class="p">(</span><span class="n">MyVisitor</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Paragraph</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">DocElement</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">DEFINE_CYCLIC_VISITABLE</span><span class="p">(</span><span class="n">MyVisitor</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -453,25 +454,25 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <p>最初に一番愚直と思われる方法、力任せに dynamic_cast テストをして、動的な型に見合うオーバーロード関数に引き渡すコードを示している。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 280-281 より一部抜粋（一部だけで雰囲気が思い出せるから）</span>
 
-<span class="kt">void</span> <span class="nf">DoHatchArea1</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">DoHatchArea2</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Ellipse</span><span class="o">&amp;</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">DoHatchArea3</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Poly</span><span class="o">&amp;</span><span class="p">);</span>
-<span class="p">...</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">DoHatchArea1</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">DoHatchArea2</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">Ellipse</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">DoHatchArea3</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">Poly</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">DoubleDispatch</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Shape</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span>
-            <span class="n">DoHatchArea1</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">);</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">Ellipse</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Ellipse</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span>
-            <span class="n">DoHatchArea2</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">);</span>
-        <span class="k">else</span> <span class="k">if</span>
-            <span class="p">...</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span>
-        <span class="p">...</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">DoubleDispatch</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span><span class="w"></span>
+<span class="w">            </span><span class="n">DoHatchArea1</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">Ellipse</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Ellipse</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span><span class="w"></span>
+<span class="w">            </span><span class="n">DoHatchArea2</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"></span>
+<span class="w">            </span><span class="p">...</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"></span>
+<span class="w">        </span><span class="p">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -488,39 +489,39 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <p>ここから本書らしいアプローチが始まる。先程の <code class="docutils literal notranslate"><span class="pre">DoubleDispatch</span></code> 相当のコードを、クラステンプレート <code class="docutils literal notranslate"><span class="pre">StaticDispatcher</span></code> とクラス <code class="docutils literal notranslate"><span class="pre">HatchingExecutor</span></code> に分割して、次のような構造で表現する。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 283-286 から断続的に引用。</span>
 
-<span class="k">template</span><span class="o">&lt;</span> <span class="cm">/* 略 */</span> <span class="o">&gt;</span> <span class="c1">// 本を読んで。</span>
-<span class="k">class</span> <span class="nc">StaticDispatcher</span>
-<span class="p">{</span>
-    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">TypesLhs</span><span class="o">::</span><span class="n">Head</span> <span class="n">Head</span><span class="p">;</span>
-    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">TypesLhs</span><span class="o">::</span><span class="n">Tail</span> <span class="n">Tail</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">static</span> <span class="n">ResultType</span> <span class="n">Go</span><span class="p">(</span><span class="n">BaseLhs</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">BaseRhs</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">Executor</span> <span class="n">exec</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">Head</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Head</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">))</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">StaticDispatcher</span><span class="o">&lt;</span> <span class="n">NullType</span><span class="p">,</span> <span class="cm">/* 略 */</span> <span class="o">&gt;::</span><span class="n">DispatchRhs</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">exec</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">StaticDispatcher</span><span class="o">&lt;</span> <span class="n">Tail</span><span class="p">,</span> <span class="cm">/* 略 */</span> <span class="o">&gt;::</span><span class="n">Go</span><span class="p">(</span><span class="cm">/* 略 */</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="cm">/* 略 */</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// 本を読んで。</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StaticDispatcher</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">TypesLhs</span><span class="o">::</span><span class="n">Head</span><span class="w"> </span><span class="n">Head</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">TypesLhs</span><span class="o">::</span><span class="n">Tail</span><span class="w"> </span><span class="n">Tail</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">ResultType</span><span class="w"> </span><span class="n">Go</span><span class="p">(</span><span class="n">BaseLhs</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">BaseRhs</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="n">Executor</span><span class="w"> </span><span class="n">exec</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">Head</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Head</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lhs</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">StaticDispatcher</span><span class="o">&lt;</span><span class="w"> </span><span class="n">NullType</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 略 */</span><span class="w"> </span><span class="o">&gt;::</span><span class="n">DispatchRhs</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="n">exec</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">StaticDispatcher</span><span class="o">&lt;</span><span class="w"> </span><span class="n">Tail</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 略 */</span><span class="w"> </span><span class="o">&gt;::</span><span class="n">Go</span><span class="p">(</span><span class="cm">/* 略 */</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">SomeLhs</span><span class="o">&gt;</span>
-    <span class="k">static</span> <span class="n">ResultType</span> <span class="n">DispatchRhs</span><span class="p">(</span><span class="n">SomeLhs</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">BaseRhs</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">Executor</span> <span class="n">exec</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// ここで Head, Tail に対する typedef を「上書き」する。</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">SomeLhs</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">ResultType</span><span class="w"> </span><span class="n">DispatchRhs</span><span class="p">(</span><span class="n">SomeLhs</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">BaseRhs</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">,</span><span class="w"> </span><span class="n">Executor</span><span class="w"> </span><span class="n">exec</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// ここで Head, Tail に対する typedef を「上書き」する。</span>
 
-        <span class="k">if</span><span class="p">(</span><span class="n">Head</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Head</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">exec</span><span class="p">.</span><span class="n">Fire</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">)</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">StaticDispatcher</span><span class="o">&lt;</span><span class="n">NullType</span><span class="p">,</span> <span class="n">Tail</span><span class="p">,</span> <span class="cm">/* 略 */</span><span class="o">&gt;::</span><span class="n">DispatchRhs</span><span class="p">(</span><span class="cm">/* 略 */</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">Head</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Head</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rhs</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">exec</span><span class="p">.</span><span class="n">Fire</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">StaticDispatcher</span><span class="o">&lt;</span><span class="n">NullType</span><span class="p">,</span><span class="w"> </span><span class="n">Tail</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 略 */</span><span class="o">&gt;::</span><span class="n">DispatchRhs</span><span class="p">(</span><span class="cm">/* 略 */</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="c1">// TODO: StaticDispatcher の部分特殊化 1: TypeLhs = NullType で</span>
 <span class="c1">// ダミーの static メソッド Go を実装する。</span>
@@ -528,15 +529,15 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <span class="c1">// TODO: StaticDispatcher の部分特殊化 2: TypeRhs = NullType で</span>
 <span class="c1">// ダミーの static メソッド DispatchRhs を実装する。</span>
 
-<span class="k">class</span> <span class="nc">HatchingExecutor</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">void</span> <span class="n">Fire</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="nf">Fire</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Ellipse</span><span class="o">&amp;</span><span class="p">);</span>
-    <span class="p">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HatchingExecutor</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Fire</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Fire</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">Ellipse</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-    <span class="kt">void</span> <span class="n">OnError</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Shape</span><span class="o">&amp;</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">OnError</span><span class="p">(</span><span class="n">Shape</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -549,13 +550,13 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <code class="docutils literal notranslate"><span class="pre">Executor::OnError</span></code> を呼び出します&gt; (p. 286)</p></li>
 </ul>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 286 より。</span>
-<span class="k">typedef</span> <span class="n">StaticDispatcher</span><span class="o">&lt;</span><span class="n">HatchingExecutor</span><span class="p">,</span> <span class="n">Shape</span><span class="p">,</span>
-    <span class="n">TYPELIST_3</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">,</span> <span class="n">Ellipse</span><span class="p">,</span> <span class="n">Poly</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">Dispatcher</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">StaticDispatcher</span><span class="o">&lt;</span><span class="n">HatchingExecutor</span><span class="p">,</span><span class="w"> </span><span class="n">Shape</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">TYPELIST_3</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">,</span><span class="w"> </span><span class="n">Ellipse</span><span class="p">,</span><span class="w"> </span><span class="n">Poly</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Dispatcher</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">Shape</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="n">Shape</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="n">HatchingExecutor</span> <span class="n">exec</span><span class="p">;</span>
-<span class="n">Dispatcher</span><span class="o">::</span><span class="n">Go</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">,</span> <span class="n">exec</span><span class="p">);</span>
+<span class="n">Shape</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"></span>
+<span class="n">Shape</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"></span>
+<span class="n">HatchingExecutor</span><span class="w"> </span><span class="n">exec</span><span class="p">;</span><span class="w"></span>
+<span class="n">Dispatcher</span><span class="o">::</span><span class="n">Go</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="p">,</span><span class="w"> </span><span class="n">exec</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -579,11 +580,11 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">StaticDispatcher::DispatchRhs</span></code> の定義で、if ブロック内をこのようにする。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 291 より引用</span>
-<span class="k">enum</span> <span class="p">{</span> <span class="n">swapArgs</span> <span class="o">=</span> <span class="n">symmetric</span> <span class="o">&amp;&amp;</span>
-    <span class="n">IndexOf</span><span class="o">&lt;</span><span class="n">Head</span><span class="p">,</span> <span class="n">TypeRhs</span><span class="o">&gt;::</span><span class="n">result</span> <span class="o">&lt;</span> <span class="n">IndexOf</span><span class="o">&lt;</span><span class="n">BaseLhs</span><span class="p">,</span> <span class="n">TypesLhs</span><span class="o">&gt;::</span><span class="n">result</span> <span class="p">};</span>
-<span class="k">typedef</span> <span class="n">InvocationTraits</span><span class="o">&lt;</span><span class="n">swapArgs</span><span class="p">,</span> <span class="n">BaseLhs</span><span class="p">,</span> <span class="n">Head</span><span class="o">&gt;</span>
-    <span class="n">CallTraits</span><span class="p">;</span>
-<span class="k">return</span> <span class="n">CallTraits</span><span class="o">::</span><span class="n">DoDispatch</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">);</span>
+<span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">swapArgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">symmetric</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"></span>
+<span class="w">    </span><span class="n">IndexOf</span><span class="o">&lt;</span><span class="n">Head</span><span class="p">,</span><span class="w"> </span><span class="n">TypeRhs</span><span class="o">&gt;::</span><span class="n">result</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">IndexOf</span><span class="o">&lt;</span><span class="n">BaseLhs</span><span class="p">,</span><span class="w"> </span><span class="n">TypesLhs</span><span class="o">&gt;::</span><span class="n">result</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">InvocationTraits</span><span class="o">&lt;</span><span class="n">swapArgs</span><span class="p">,</span><span class="w"> </span><span class="n">BaseLhs</span><span class="p">,</span><span class="w"> </span><span class="n">Head</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CallTraits</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="n">CallTraits</span><span class="o">::</span><span class="n">DoDispatch</span><span class="p">(</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -608,16 +609,16 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <li><p>そのマップオブジェクトをメンバーデータに持つ。</p></li>
 <li><p>テンプレートメンバー関数 <code class="docutils literal notranslate"><span class="pre">Add</span></code> を定義し、マップに関数ポインタを動的に追加できるようにする。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Go</span></code> は次のようになる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ResultType</span> <span class="nf">Go</span><span class="p">(</span><span class="n">BaseLhs</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">BaseRhs</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">MapType</span><span class="o">::</span><span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">callbackMap_</span><span class="p">.</span><span class="n">find</span><span class="p">(</span>
-        <span class="n">KeyType</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">lhs</span><span class="p">),</span> <span class="k">typeid</span><span class="p">(</span><span class="n">rhs</span><span class="p">));</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">callbackMap_</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
-    <span class="p">{</span>
-        <span class="c1">// ... 例外送出</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ResultType</span><span class="w"> </span><span class="nf">Go</span><span class="p">(</span><span class="n">BaseLhs</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">BaseRhs</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">MapType</span><span class="o">::</span><span class="n">iterator</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">callbackMap_</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">KeyType</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">lhs</span><span class="p">),</span><span class="w"> </span><span class="k">typeid</span><span class="p">(</span><span class="n">rhs</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">callbackMap_</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// ... 例外送出</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)(</span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -671,15 +672,15 @@ C++ プログラム開発経験者ならまず膝を叩く例が挙げられて�
 <li><p>通常、アトミックなインクリメント・デクリメント操作は OS が C 関数の形式でサポートしている。</p></li>
 </ul>
 <p>ライブラリでアトミック演算をまとめるようだ。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">SomeThreadingModel</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">typedef</span> <span class="kt">int</span> <span class="n">IntType</span><span class="p">;</span> <span class="c1">// int にはプラットフォーム規定整数型名がくる。</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SomeThreadingModel</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">IntType</span><span class="p">;</span><span class="w"> </span><span class="c1">// int にはプラットフォーム規定整数型名がくる。</span>
 
-    <span class="k">static</span> <span class="n">IntType</span> <span class="nf">AtomicAdd</span><span class="p">(</span><span class="k">volatile</span> <span class="n">IntType</span><span class="o">&amp;</span> <span class="n">lval</span><span class="p">,</span> <span class="n">IntType</span> <span class="n">val</span><span class="p">);</span>
-    <span class="p">...</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">IntType</span><span class="w"> </span><span class="nf">AtomicAdd</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="n">IntType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lval</span><span class="p">,</span><span class="w"> </span><span class="n">IntType</span><span class="w"> </span><span class="n">val</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -714,29 +715,29 @@ Edgar Dijkstra によって証明されています。マルチスレッド・�
 <li><p>&lt;オブジェクト指向プログラムでは、リソースはオブジェクトになります&gt; (p. 323)</p></li>
 <li><p>オブジェクト・レベルのロックと、クラス・レベルのロックがある。</p></li>
 </ul>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Host</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">ObjectLevelLockable</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="k">class</span> <span class="nc">Lock</span>
-    <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-        <span class="n">Lock</span><span class="p">(</span><span class="n">Host</span><span class="o">&amp;</span><span class="p">);</span>
-        <span class="p">...</span>
-    <span class="p">};</span>
-<span class="p">};</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Host</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ObjectLevelLockable</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">Lock</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">Lock</span><span class="p">(</span><span class="n">Host</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">...</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">BankAccount</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ObjectLevelLockable</span><span class="o">&lt;</span><span class="n">BankAccount</span><span class="o">&gt;</span>
-<span class="p">{</span>
-    <span class="p">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BankAccount</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ObjectLevelLockable</span><span class="o">&lt;</span><span class="n">BankAccount</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-    <span class="kt">void</span> <span class="n">Deposite</span><span class="p">(</span><span class="cm">/* 略 */</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Lock</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
-        <span class="c1">// ... 入金トランザクション</span>
-    <span class="p">}</span>
-    <span class="p">...</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">Deposite</span><span class="p">(</span><span class="cm">/* 略 */</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Lock</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// ... 入金トランザクション</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -893,6 +894,7 @@ Edgar Dijkstra によって証明されています。マルチスレッド・�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

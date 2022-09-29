@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/mermaid.js"></script>
     <link rel="next" title="IPython 利用ノート" href="python-ipython.html" />
     <link rel="prev" title="Restview 利用ノート" href="python-restview.html" />
@@ -138,15 +139,15 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <li><p>これは py ファイルからテストを自動的に発見し、実行することができる便利なツールだ。</p></li>
 <li><p>引数なしで起動すると、おそらくカレントディレクトリーにあるすべての py ファイルから、すべてのテストを発見し、片っ端から実行するというはたらきをするのではないだろうか。</p></li>
 <li><p>普通は <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> にコマンドライン引数を指定して利用する。次のコマンドライン例は Nose のドキュメントから引用したものだ。モジュール名を指定したり、さらにテスト名を指定したり、あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests test.module
-<span class="gp">$</span> nosetests another.test:TestCase.test_method
-<span class="gp">$</span> nosetests a.test:TestCase
-<span class="gp">$</span> nosetests /path/to/test/file.py:test_function
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests test.module
+<span class="gp">$ </span>nosetests another.test:TestCase.test_method
+<span class="gp">$ </span>nosetests a.test:TestCase
+<span class="gp">$ </span>nosetests /path/to/test/file.py:test_function
 </pre></div>
 </div>
 </li>
 <li><p>ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests /path/to/tests /another/path/to/tests
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests /path/to/tests /another/path/to/tests
 </pre></div>
 </div>
 <p>なので、実は <code class="docutils literal notranslate"><span class="pre">-w</span></code>, <code class="docutils literal notranslate"><span class="pre">--where</span></code> オプションは無用の長物。</p>
@@ -159,9 +160,9 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <code class="docutils literal notranslate"><span class="pre">--config</span></code> オプションを利用することで指定できる。</p></li>
 <li><p>設定ファイルの書き方で注意が要るのは、設定項目を
 <code class="docutils literal notranslate"><span class="pre">[nosetests]</span></code> セクションに書かねばならないことだ。</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[nosetests]</span>
-<span class="na">verbosity</span><span class="o">=</span><span class="s">2</span>
-<span class="na">with-doctest</span><span class="o">=</span><span class="s">true</span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[nosetests]</span><span class="w"></span>
+<span class="na">verbosity</span><span class="o">=</span><span class="s">2</span><span class="w"></span>
+<span class="na">with-doctest</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -177,7 +178,7 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <li><p>さらに <code class="docutils literal notranslate"><span class="pre">--with-id</span></code> を併用し、テストのインデックスリストも得られる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--verbosity</span></code> オプションを併用して、テスト名等を明示させるのがコツ。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests --collect-only --with-id --verbosity<span class="o">=</span><span class="m">2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --collect-only --with-id --verbosity<span class="o">=</span><span class="m">2</span>
 <span class="gp">#</span><span class="m">1</span> A regular <span class="nb">test</span> <span class="k">case</span> ... ok
 <span class="gp">#</span><span class="m">2</span> A very slow <span class="nb">test</span> <span class="k">case</span> ... ok
 <span class="gp">#</span><span class="m">3</span> A <span class="nb">test</span> with attribute ... ok
@@ -227,8 +228,8 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <span class="c1"># Other test cases...</span>
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests -a <span class="s1">&#39;!online&#39;</span> testattr2.py
-<span class="gp">$</span> nosetests -A <span class="s2">&quot;speed != slow&quot;</span> testattr2.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests -a <span class="s1">&#39;!online&#39;</span> testattr2.py
+<span class="gp">$ </span>nosetests -A <span class="s2">&quot;speed != slow&quot;</span> testattr2.py
 </pre></div>
 </div>
 <ul class="simple">
@@ -244,7 +245,7 @@ Python の pdb デバッガが起動する。</p>
 <li><p>通常使いたいのは <code class="docutils literal notranslate"><span class="pre">--pdb</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">--pdb-faillures</span></code> のほうだと思う。</p></li>
 <li><p>pdb はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests --pdb-failures testeven.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --pdb-failures testeven.py
 <span class="go">.&gt; d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()</span>
 <span class="go">-&gt; assert val1 % 2 == 0 or val2 % 2 == 0</span>
 <span class="gp gp-VirtualEnv">(Pdb)</span> <span class="go">l</span>
@@ -268,7 +269,7 @@ Python の pdb デバッガが起動する。</p>
 <p><code class="docutils literal notranslate"><span class="pre">--with-coverage</span></code> オプションで、テスト結果と共にコードカバレッジを測定できる。いつものテスト結果を出力した直後に、カバレッジを出力する。</p>
 <p>チューニングの材料になるわけで、いずれ大掛かりなライブラリーを開発するつもりならば、この機能は覚えていて損はない。</p>
 <p>この機能を利用するには、別途 <a class="reference external" href="http://nedbatchelder.com/code/coverage">coverage</a> という別のパッケージが必要だ。インストールは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> nosetests --with-coverage -v testrandom.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --with-coverage -v testrandom.py
 <span class="go">test_choice (testrandom.TestSequenceFunctions) ... ok</span>
 <span class="go">test_sample (testrandom.TestSequenceFunctions) ... ok</span>
 <span class="go">test_shuffle (testrandom.TestSequenceFunctions) ... ok</span>
@@ -441,10 +442,10 @@ unittest ベースでなかったとのこと。</p></li>
 <li><p>nosetests の変な使い方。</p>
 <ul>
 <li><p>他人様の作ったパッケージのテスト構成を探るのに最適なツールかもしれない。例えば <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> の <code class="docutils literal notranslate"><span class="pre">testsuite</span></code> フォルダーの各ファイルからテストを全部抽出してリストを作成できたりする。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> site-packages/jinja2/
-<span class="gp">$</span> python34 -c <span class="s1">&#39;import jinja2; print(jinja2.__version__)&#39;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> site-packages/jinja2/
+<span class="gp">$ </span>python34 -c <span class="s1">&#39;import jinja2; print(jinja2.__version__)&#39;</span>
 <span class="go">2.7.3</span>
-<span class="gp">$</span> nosetests --collect-only --with-id -v testsuite/*.py
+<span class="gp">$ </span>nosetests --collect-only --with-id -v testsuite/*.py
 <span class="gp">#</span><span class="m">1</span> Failure: TypeError <span class="o">(</span>find_all_tests<span class="o">()</span> missing <span class="m">1</span> required positional argument: <span class="s1">&#39;suite&#39;</span><span class="o">)</span> ... ok
 <span class="gp">#</span><span class="m">2</span> test_autoescape_autoselect <span class="o">(</span>jinja2.testsuite.api.ExtendedAPITestCase<span class="o">)</span> ... ok
 <span class="gp">#</span><span class="m">3</span> test_cycler <span class="o">(</span>jinja2.testsuite.api.ExtendedAPITestCase<span class="o">)</span> ... ok
@@ -650,6 +651,7 @@ Python インタープリターから次のようにタイプしてみるだけ�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>

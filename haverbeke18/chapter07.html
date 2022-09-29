@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Bugs and Errors" href="chapter08.html" />
     <link rel="prev" title="The Secret Life of Objects" href="chapter06.html" />
@@ -92,22 +93,22 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 </ul>
 </li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">buildGraph</span><span class="p">(</span><span class="nx">edges</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">graph</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-    <span class="kd">function</span> <span class="nx">addEdge</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">graph</span><span class="p">[</span><span class="nx">from</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">graph</span><span class="p">[</span><span class="nx">from</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">to</span><span class="p">];</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">graph</span><span class="p">[</span><span class="nx">from</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">buildGraph</span><span class="p">(</span><span class="nx">edges</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">addEdge</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">to</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">graph</span><span class="p">[</span><span class="kr">from</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">graph</span><span class="p">[</span><span class="kr">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">to</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">graph</span><span class="p">[</span><span class="kr">from</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">]</span> <span class="k">of</span> <span class="nx">edges</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="nx">addEdge</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">);</span>
-        <span class="nx">addEdge</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">graph</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="p">[</span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">to</span><span class="p">]</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">edges</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">addEdge</span><span class="p">(</span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">to</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">addEdge</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span><span class="w"> </span><span class="kr">from</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">graph</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -127,11 +128,11 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 <ul>
 <li><p>グラフを見て、この場所が目的地と隣接しているのならば <code class="docutils literal notranslate"><span class="pre">this</span></code> を返す。</p></li>
 <li><p>そうでない場合は小包の場所をチェックすることになる。次のようにして新しい <code class="docutils literal notranslate"><span class="pre">VillageState</span></code> を返す：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">parcels</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="k">this</span><span class="p">.</span><span class="nx">place</span><span class="p">)</span> <span class="k">return</span> <span class="nx">p</span><span class="p">;</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">place</span><span class="o">:</span> <span class="nx">destination</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">};</span>
-    <span class="p">}).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
-<span class="k">return</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">parcels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">place</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">place</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">p</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">place</span><span class="o">:</span><span class="w"> </span><span class="nx">destination</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="o">:</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">place</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">VillageState</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span><span class="w"> </span><span class="nx">parcels</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
@@ -143,14 +144,14 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 </ul>
 <p>このクラスを例えば次のように使う。<code class="docutils literal notranslate"><span class="pre">roads</span></code> の定義によると郵便局と
 Alice の家が隣接しているのでこういう結果となる。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span>
-    <span class="s2">&quot;Post Office&quot;</span><span class="p">,</span>
-    <span class="p">[{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">}]</span>
-<span class="p">);</span>
-<span class="kd">let</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">place</span> <span class="o">==</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">parcels</span><span class="p">);</span> <span class="c1">// → []</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">first</span><span class="p">.</span><span class="nx">place</span> <span class="o">==</span> <span class="s2">&quot;Post Office&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">VillageState</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">[{</span><span class="nx">place</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">}]</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">first</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">place</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">parcels</span><span class="p">);</span><span class="w"> </span><span class="c1">// → []</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">first</span><span class="p">.</span><span class="nx">place</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;Post Office&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -163,9 +164,9 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">Object.freeze</span></code> は引数のオブジェクトのプロパティーの全てを動的に <code class="docutils literal notranslate"><span class="pre">const</span></code> にするような機能だ。</p></li>
 <li><p>本文の感じからすると、これを使うことで何らかの効率上のトレードオフが生じるようだ。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">object</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span> <span class="mi">5</span><span class="p">});</span>
-<span class="nx">object</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="mi">5</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">});</span><span class="w"></span>
+<span class="nx">object</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">5</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -175,18 +176,18 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">VillageState</span></code> オブジェクトを受け取り、近くにある場所の名前を返す関数として配達ロボットを捉える。</p></li>
 <li><p>物事を記憶し、計画を立てて実行できるロボットを設計したいので、ロボットに記憶を渡し、新しい記憶を返すようにする。そのため、ロボットが返すのは、移動したい方向と、次に移動したときに返される記憶の値を含むオブジェクトだ。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">robot</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">turn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;;</span> <span class="nx">turn</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Done in </span><span class="si">${</span><span class="nx">turn</span><span class="si">}</span><span class="sb"> turns`</span><span class="p">);</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="kd">let</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">memory</span><span class="p">);</span>
-        <span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="p">);</span>
-        <span class="nx">memory</span> <span class="o">=</span> <span class="nx">action</span><span class="p">.</span><span class="nx">memory</span><span class="p">;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Moved to </span><span class="si">${</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">robot</span><span class="p">,</span><span class="w"> </span><span class="nx">memory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;;</span><span class="w"> </span><span class="nx">turn</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Done in </span><span class="si">${</span><span class="nx">turn</span><span class="si">}</span><span class="sb"> turns`</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">robot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">memory</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">state</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">action</span><span class="p">.</span><span class="nx">memory</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Moved to </span><span class="si">${</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -194,14 +195,14 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>ロボットは毎回ランダムな方向に歩く。</p></li>
 <li><p>かなりの確率で最終的にすべての小包を見つけて、ある時点で配達すべき場所に到達する。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">choice</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">array</span><span class="p">[</span><span class="nx">choice</span><span class="p">];</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">randomPick</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">choice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">[</span><span class="nx">choice</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">randomRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="nx">state</span><span class="p">.</span><span class="nx">place</span><span class="p">])};</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">randomRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">randomPick</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="nx">state</span><span class="p">.</span><span class="nx">place</span><span class="p">])};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -214,18 +215,18 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">randomRobot</span></code> は先述のロボット的関数の一つなので、本来ならば第二引数 <code class="docutils literal notranslate"><span class="pre">memory</span></code> があるのだが、本関数でそれを利用しないので、前章までのどこかで習ったようにこれを引数リストから削除しても構わない。</p></li>
 </ul>
 <p>ロボットを動かすために、小包いくつかから新しい状態を生成する関数を定義したい。これをクラス <code class="docutils literal notranslate"><span class="pre">VillageState</span></code> の静的メソッドとして実装する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parcelCount</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">parcels</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parcelCount</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">));</span>
-        <span class="kd">let</span> <span class="nx">place</span><span class="p">;</span>
-        <span class="k">do</span> <span class="p">{</span>
-            <span class="nx">place</span> <span class="o">=</span> <span class="nx">randomPick</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">place</span> <span class="o">==</span> <span class="nx">address</span><span class="p">);</span>
-        <span class="nx">parcels</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span> <span class="nx">address</span><span class="p">});</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">);</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">parcelCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">parcels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">parcelCount</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">randomPick</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">place</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">place</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">randomPick</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">place</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">address</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">parcels</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">VillageState</span><span class="p">(</span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">parcels</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -236,21 +237,21 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <h2><a class="toc-backref" href="#id8">The mail truck’s route</a><a class="headerlink" href="#the-mail-truck-s-route" title="Permalink to this heading">¶</a></h2>
 <p>上述のロボット関数は何しろランダムなので効率が悪い。</p>
 <p>もし村のすべての場所を一筆書きのように通過する経路を見つけたら、その経路を二度走らせて確実に配達することができる。それが郵便局から開始するとして次のようなものだとわかっているとする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">mailRoute</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Cabin&quot;</span><span class="p">,</span> <span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Bob&#39;s House&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Town Hall&quot;</span><span class="p">,</span> <span class="s2">&quot;Daria&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Ernie&#39;s House&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Grete&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Shop&quot;</span><span class="p">,</span> <span class="s2">&quot;Grete&#39;s House&quot;</span><span class="p">,</span> <span class="s2">&quot;Farm&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Marketplace&quot;</span><span class="p">,</span> <span class="s2">&quot;Post Office&quot;</span>
-<span class="p">];</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">mailRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Cabin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Bob&#39;s House&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Town Hall&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Daria&#39;s House&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Ernie&#39;s House&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Grete&#39;s House&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Shop&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Grete&#39;s House&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Farm&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;Marketplace&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Post Office&quot;</span><span class="w"></span>
+<span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 <p>経路をたどるロボットを実装するためには、ロボットに記憶が必要だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">routeRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">memory</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">memory</span> <span class="o">=</span> <span class="nx">mailRoute</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">memory</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">memory</span><span class="o">:</span> <span class="nx">memory</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)};</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">routeRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">memory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">memory</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mailRoute</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">memory</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">memory</span><span class="o">:</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">)};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -265,18 +266,18 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>A から B への経路を探すときには、A から始まるものしか興味がない。</p></li>
 <li><p>同じ場所を 2 回通るような効率の悪いに決まっているルートには興味がない。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">graph</span><span class="p">,</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">work</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">at</span><span class="o">:</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">route</span><span class="o">:</span> <span class="p">[]}];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="p">{</span><span class="nx">at</span><span class="p">,</span> <span class="nx">route</span><span class="p">}</span> <span class="o">=</span> <span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">place</span> <span class="k">of</span> <span class="nx">graph</span><span class="p">[</span><span class="nx">at</span><span class="p">])</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">place</span> <span class="o">==</span> <span class="nx">to</span><span class="p">)</span> <span class="k">return</span> <span class="nx">route</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">place</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">work</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">w</span> <span class="p">=&gt;</span> <span class="nx">w</span><span class="p">.</span><span class="nx">at</span> <span class="o">==</span> <span class="nx">place</span><span class="p">))</span> <span class="p">{</span>
-                <span class="nx">work</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">at</span><span class="o">:</span> <span class="nx">place</span><span class="p">,</span> <span class="nx">route</span><span class="o">:</span> <span class="nx">route</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">place</span><span class="p">)});</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">findRoute</span><span class="p">(</span><span class="nx">graph</span><span class="p">,</span><span class="w"> </span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">to</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">work</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span><span class="nx">at</span><span class="o">:</span><span class="w"> </span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">route</span><span class="o">:</span><span class="w"> </span><span class="p">[]}];</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">work</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">{</span><span class="nx">at</span><span class="p">,</span><span class="w"> </span><span class="nx">route</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">work</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">place</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">graph</span><span class="p">[</span><span class="nx">at</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">place</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">to</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">route</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">place</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">work</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">w</span><span class="p">.</span><span class="nx">at</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">place</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">work</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">at</span><span class="o">:</span><span class="w"> </span><span class="nx">place</span><span class="p">,</span><span class="w"> </span><span class="nx">route</span><span class="o">:</span><span class="w"> </span><span class="nx">route</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">place</span><span class="p">)});</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -298,17 +299,17 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>このコードには作業配列に要素がなくなったときの処理は含まれていない。これはグラフが単連結であることを仮定できることによる（任意のノード間に経路が存在することが保証されている）。</p></li>
 </ul>
 <p>本章の最後のロボット関数は次のものだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">goalOrientedRobot</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span> <span class="nx">parcels</span><span class="p">},</span> <span class="nx">route</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">parcel</span> <span class="o">=</span> <span class="nx">parcels</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">parcel</span><span class="p">.</span><span class="nx">place</span> <span class="o">!=</span> <span class="nx">place</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">route</span> <span class="o">=</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">,</span> <span class="nx">place</span><span class="p">,</span> <span class="nx">parcel</span><span class="p">.</span><span class="nx">place</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">route</span> <span class="o">=</span> <span class="nx">findRoute</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">,</span> <span class="nx">place</span><span class="p">,</span> <span class="nx">parcel</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">direction</span><span class="o">:</span> <span class="nx">route</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">memory</span><span class="o">:</span> <span class="nx">route</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)};</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">goalOrientedRobot</span><span class="p">({</span><span class="nx">place</span><span class="p">,</span><span class="w"> </span><span class="nx">parcels</span><span class="p">},</span><span class="w"> </span><span class="nx">route</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">parcel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parcels</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">parcel</span><span class="p">.</span><span class="nx">place</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">place</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">route</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">findRoute</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">,</span><span class="w"> </span><span class="nx">place</span><span class="p">,</span><span class="w"> </span><span class="nx">parcel</span><span class="p">.</span><span class="nx">place</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">route</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">findRoute</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">,</span><span class="w"> </span><span class="nx">place</span><span class="p">,</span><span class="w"> </span><span class="nx">parcel</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">route</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">memory</span><span class="o">:</span><span class="w"> </span><span class="nx">route</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">)};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>引数 <code class="docutils literal notranslate"><span class="pre">route</span></code> は従来のロボット関数と同様に移動方向のリストを意味する。そのリストが空になるたびに、次の行動を決定する。</p>
@@ -376,36 +377,36 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <p><strong>問題</strong> 関数 <code class="docutils literal notranslate"><span class="pre">compareRobots</span></code> を書け。二つのロボットを引数として取る（ロボットにはそれぞれ初期記憶がある）。
 100 タスクを生成し、それぞれのロボットにそのタスクを解かせろ。完了したら、各ロボットがタスクごとに要した平均ステップ数を出力しろ。公平を期すために、両方のロボットに同じ 100 タスクを与えること。</p>
 <p><strong>解答</strong> まず関数 <code class="docutils literal notranslate"><span class="pre">runRobot</span></code> をターン数を返すように修正する必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">robot</span><span class="p">,</span> <span class="nx">memory</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">turn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="nx">turn</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">//console.log(`Done in ${turn} turns`);</span>
-            <span class="k">return</span> <span class="nx">turn</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="kr">const</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">robot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">memory</span><span class="p">);</span>
-        <span class="nx">state</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="p">);</span>
-        <span class="nx">memory</span> <span class="o">=</span> <span class="nx">action</span><span class="p">.</span><span class="nx">memory</span><span class="p">;</span>
-        <span class="c1">//console.log(`Moved to ${action.direction}`);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">robot</span><span class="p">,</span><span class="w"> </span><span class="nx">memory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nx">turn</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">//console.log(`Done in ${turn} turns`);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">turn</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">robot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">memory</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">state</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">direction</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">action</span><span class="p">.</span><span class="nx">memory</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="c1">//console.log(`Moved to ${action.direction}`);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>その上で次のようなベンチマークを書くことが考えられる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">mean</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span> <span class="nx">current</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">total</span> <span class="o">+</span> <span class="nx">current</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">mean</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span><span class="w"> </span><span class="nx">current</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">current</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="nx">compareRobots</span><span class="p">(</span><span class="nx">robot1</span><span class="p">,</span> <span class="nx">robot2</span><span class="p">,</span> <span class="nx">numTask</span> <span class="o">=</span> <span class="mi">100</span><span class="p">){</span>
-    <span class="kd">let</span> <span class="nx">counts1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">),</span> <span class="nx">counts2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numTask</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
-        <span class="kr">const</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
-        <span class="nx">counts1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">robot1</span><span class="p">,</span> <span class="nx">mailRoute</span><span class="p">);</span>
-        <span class="nx">counts2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">robot2</span><span class="p">,</span> <span class="nx">mailRoute</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`robot1: </span><span class="si">${</span><span class="nx">mean</span><span class="p">(</span><span class="nx">counts1</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`robot2: </span><span class="si">${</span><span class="nx">mean</span><span class="p">(</span><span class="nx">counts2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">compareRobots</span><span class="p">(</span><span class="nx">robot1</span><span class="p">,</span><span class="w"> </span><span class="nx">robot2</span><span class="p">,</span><span class="w"> </span><span class="nx">numTask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">counts1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">),</span><span class="w"> </span><span class="nx">counts2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Array</span><span class="p">(</span><span class="nx">numTask</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">numTask</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="nx">i</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="nx">counts1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">robot1</span><span class="p">,</span><span class="w"> </span><span class="nx">mailRoute</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">counts2</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">robot2</span><span class="p">,</span><span class="w"> </span><span class="nx">mailRoute</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`robot1: </span><span class="si">${</span><span class="nx">mean</span><span class="p">(</span><span class="nx">counts1</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`robot2: </span><span class="si">${</span><span class="nx">mean</span><span class="p">(</span><span class="nx">counts2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -438,40 +439,40 @@ Dijkstra のアルゴリズムの重みなし版のようなものを書けば�
 <li><p>コンストラクターの代わりに、空のインスタンスである <code class="docutils literal notranslate"><span class="pre">PGroup.empty</span></code> があり、それを開始値として使用することができる。</p></li>
 </ul>
 <p><strong>解答</strong> コンストラクターを private にする手段が不明。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">PGroup</span><span class="p">{</span>
-    <span class="c1">// for private use</span>
-    <span class="nx">constructor</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_content</span> <span class="o">=</span> <span class="nx">content</span><span class="p">;</span>
-    <span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">PGroup</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// for private use</span><span class="w"></span>
+<span class="w">    </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">content</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">add</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">)){</span>
-            <span class="kr">const</span> <span class="nx">newContent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
-            <span class="nx">newContent</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="nx">newContent</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nx">add</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">)){</span><span class="w"></span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">newContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span><span class="w"></span>
+<span class="w">            </span><span class="nx">newContent</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PGroup</span><span class="p">(</span><span class="nx">newContent</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">delete</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
-        <span class="kr">const</span> <span class="nx">newGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">());</span>
-        <span class="kr">const</span> <span class="nx">where</span> <span class="o">=</span> <span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">where</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-            <span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nx">newGroup</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="ow">delete</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">newGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PGroup</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">slice</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">where</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">where</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">){</span><span class="w"></span>
+<span class="w">            </span><span class="nx">newGroup</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">newGroup</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">has</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_content</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">(</span><span class="k">new</span> <span class="nx">PGroup</span><span class="p">(</span><span class="k">new</span> <span class="nb">Array</span><span class="p">));</span>
+<span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">PGroup</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Array</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 <p>こうするとオブジェクトを次のように生成できるようだが……。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">g1</span> <span class="o">=</span> <span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="nx">g2</span> <span class="o">=</span> <span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">g1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mf">1</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
+<span class="nx">g2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">PGroup</span><span class="p">.</span><span class="nx">empty</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>新しいインスタンスを返すという仕様の下ではメソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> も <code class="docutils literal notranslate"><span class="pre">delete</span></code> も可変個引数にする設計もありだろう。</p>
@@ -618,6 +619,7 @@ Dijkstra のアルゴリズムの重みなし版のようなものを書けば�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>

@@ -13,6 +13,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
     <link rel="next" title="Miscellaneous" href="14-js-misc.html" />
     <link rel="prev" title="Generators, advanced iteration" href="12-generators-iterators.html" />
@@ -73,15 +74,15 @@
 </ul>
 <p>モジュールファイルで <code class="docutils literal notranslate"><span class="pre">export</span></code> をオブジェクト宣言の前に置くと、外側からそれをロードできる。</p>
 <p><code class="docutils literal notranslate"><span class="pre">import</span></code> でロードすることができる。ロードしたいオブジェクトとモジュールファイルパスを指定する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span><span class="nx">sayHi</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./sayHi.js&#39;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">sayHi</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./sayHi.js&#39;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>モジュールは特別なキーワードや機能をサポートしているので、スクリプトの
 <code class="docutils literal notranslate"><span class="pre">type=&quot;module&quot;</span></code> という属性を使って、モジュールとして扱われることを宣言する必要がある。</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span>
-    <span class="kr">import</span> <span class="p">{</span><span class="nx">sayHi</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./say.js&#39;</span><span class="p">;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">sayHi</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./say.js&#39;</span><span class="p">;</span><span class="w"></span>
 
-    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">sayHi</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sayHi</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">);</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -160,11 +161,11 @@ URL でなければならない。</p>
 <div class="section" id="compatibility-nomodule">
 <h4>Compatibility, “nomodule”<a class="headerlink" href="#compatibility-nomodule" title="Permalink to this heading">¶</a></h4>
 <p>古いブラウザーに対応したい場合にはこうする：</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span>
-    <span class="c1">// ...</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">nomodule</span><span class="p">&gt;</span>
-    <span class="c1">// code for old browsers</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">nomodule</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// code for old browsers</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -217,13 +218,13 @@ Python と違ってモジュール名がファイル名を同じでないので 
 <h3>Export default<a class="headerlink" href="#export-default" title="Permalink to this heading">¶</a></h3>
 <p>あるモジュールが単一のオブジェクトしか外部に見せないような造りだとする。こういう状況では特別な構文 <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">export</span></code> を使うのがいい。</p>
 <p>本文の例では、モジュール user.js が次のクラス宣言だけであるとする：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">User</span> <span class="p">{</span>
-    <span class="c1">// class body</span>
-<span class="p">}</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// class body</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>それを利用するモジュール main.js では、クラス <code class="docutils literal notranslate"><span class="pre">User</span></code> を利用するのに、次のように中括弧なしで単純に書けるようになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">User</span> <span class="nx">from</span> <span class="s1">&#39;./user.js&#39;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./user.js&#39;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -244,9 +245,9 @@ Python と違ってモジュール名がファイル名を同じでないので 
 <div class="section" id="a-word-against-default-exports">
 <h4>A word against default exports<a class="headerlink" href="#a-word-against-default-exports" title="Permalink to this heading">¶</a></h4>
 <p>好きに名前を付けられると混乱するので、モジュールスクリプトの名前に対応したものにするのが普通だ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">User</span> <span class="nx">from</span> <span class="s1">&#39;./user.js&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">LoginForm</span> <span class="nx">from</span> <span class="s1">&#39;./loginForm.js&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">func</span> <span class="nx">from</span> <span class="s1">&#39;/path/to/func.js&#39;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./user.js&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">LoginForm</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./loginForm.js&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">func</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;/path/to/func.js&#39;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -254,9 +255,9 @@ Python と違ってモジュール名がファイル名を同じでないので 
 <div class="section" id="re-export">
 <h3>Re-export<a class="headerlink" href="#re-export" title="Permalink to this heading">¶</a></h3>
 <p>あるモジュールから <code class="docutils literal notranslate"><span class="pre">import</span></code> したものを、別の名前に付け替えて <code class="docutils literal notranslate"><span class="pre">export</span></code> する構文がある。名前付き <code class="docutils literal notranslate"><span class="pre">export</span></code> と <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">export</span></code> のどちらの形式も選べる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="p">{</span><span class="nx">XXX</span><span class="p">}</span> <span class="nx">from</span> <span class="nx">YYY</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="nx">XXX</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="nx">YYY</span><span class="p">;</span><span class="w"></span>
 
-<span class="kr">export</span> <span class="p">{</span><span class="k">default</span> <span class="nx">as</span> <span class="nx">XXX</span><span class="p">}</span> <span class="nx">from</span> <span class="nx">YYY</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="k">default</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">XXX</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="nx">YYY</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -268,8 +269,8 @@ Python と違ってモジュール名がファイル名を同じでないので 
 <p><code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">export</span></code> 要素を <code class="docutils literal notranslate"><span class="pre">export</span></code> し直すのには、変な手続きが要る。今、モジュールスクリプト <code class="docutils literal notranslate"><span class="pre">YYY</span></code> で <code class="docutils literal notranslate"><span class="pre">default</span> <span class="pre">export</span></code> されたオブジェクト <code class="docutils literal notranslate"><span class="pre">XXX</span></code>
 があるとする。
 <code class="docutils literal notranslate"><span class="pre">XXX</span></code> を <code class="docutils literal notranslate"><span class="pre">export</span></code> し直すには、次の二行を書く：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="o">*</span> <span class="nx">from</span> <span class="nx">YYY</span><span class="p">;</span>
-<span class="kr">export</span> <span class="p">{</span><span class="k">default</span><span class="p">}</span> <span class="nx">from</span> <span class="nx">YYY</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="nx">YYY</span><span class="p">;</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="k">default</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="nx">YYY</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -435,6 +436,7 @@ Python と違ってモジュール名がファイル名を同じでないので 
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../windows-terminal.html">Windows Terminal 利用ノート</a></li>

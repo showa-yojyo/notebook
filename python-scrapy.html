@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/mermaid.js"></script>
     <link rel="next" title="Python Twitter Tools 利用ノート" href="python-twitter/index.html" />
     <link rel="prev" title="Selenium 利用ノート" href="python-selenium.html" />
@@ -310,8 +311,8 @@ Scrapy のスケジューラーが <code class="docutils literal notranslate"><s
 <li><p>プロジェクトディレクトリのルートにある <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code></p></li>
 </ul>
 <p>構成ファイルの書式はいわゆる INI ファイルのそれと同じようなものだ。</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
-<span class="na">default</span> <span class="o">=</span> <span class="s">myproject.settings</span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span><span class="w"></span>
+<span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">myproject.settings</span><span class="w"></span>
 </pre></div>
 </div>
 <p>さらに、以下の環境変数を考慮する：</p>
@@ -1081,7 +1082,7 @@ IPython ユーザーであるので、以下、IPython
             <span class="n">adapter</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">vat_factor</span>
         <span class="k">return</span> <span class="n">item</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing price in </span><span class="si">{item}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing price in </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1280,9 +1281,9 @@ Scrapy が特別扱いするキーもある。例えばキー <code class="docut
 <li><dl>
 <dt><code class="docutils literal notranslate"><span class="pre">FormRequest</span></code>: 何かを POST するフォームの対応する <code class="docutils literal notranslate"><span class="pre">Request</span></code></dt><dd><p>と考えてよい。例えば、よくあるログインページを通過するにはこれを利用することができる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">uid</span> <span class="p">:</span><span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;uid&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">uid</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;uid&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;missing -a uid=your-user-name&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">password</span> <span class="p">:</span><span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">password</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;missing -a password=your-password&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">FormRequest</span><span class="o">.</span><span class="n">from_response</span><span class="p">(</span>
         <span class="n">response</span><span class="p">,</span>
@@ -1532,7 +1533,7 @@ Python モジュールのパス書式に従う文字列を指定すると、ど�
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter your ID: &#39;</span><span class="p">)</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s1">&#39;Enter password: &#39;</span><span class="p">)</span>
-    <span class="n">cmdline</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrapy runspider </span><span class="si">{sys.argv[0]}</span><span class="s2"> -a uid=</span><span class="si">{user_id}</span><span class="s2"> -a password=</span><span class="si">{password}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">cmdline</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrapy runspider </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> -a uid=</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2"> -a password=</span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1684,6 +1685,7 @@ Python モジュールのパス書式に従う文字列を指定すると、ど�
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>

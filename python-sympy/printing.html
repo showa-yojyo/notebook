@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="テンソル代数" href="tensor.html" />
@@ -175,15 +176,15 @@ IPython コンソールのセッションでオブジェクトの出力がアス
 <p>コード例を以下に示す：</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_print_BaseScalarField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;{self._print(Symbol(string))}&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">def</span> <span class="nf">_print_Differential</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">):</span>
     <span class="n">field</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">_form_field</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s1">&#39;_coord_sys&#39;</span><span class="p">):</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd {self._print(Symbol(string))}&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd({self._print(field)})&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 </div>
 <p>実装の必要に応じてインポート文を追加する（この場合は Symbol を含める）。実装例は LatexPrinter のソースコードを手本にすればよい。</p>
@@ -213,15 +214,15 @@ LatexPrinter に関してはそのようなものは提供されていない。<
 
 <span class="k">def</span> <span class="nf">_print_BaseScalarField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;{self._print(Symbol(string))}&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">def</span> <span class="nf">_print_Differential</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diff</span><span class="p">):</span>
     <span class="n">field</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">_form_field</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s1">&#39;_coord_sys&#39;</span><span class="p">):</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd {self._print(Symbol(string))}&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">Symbol</span><span class="p">(</span><span class="n">string</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd({self._print(field)})&#39;</span>
+        <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
 
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_print_BaseScalarField</span><span class="p">,</span> <span class="n">_print_Differential</span><span class="p">):</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">LatexPrinter</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
@@ -501,6 +502,7 @@ TeX 数式を表す文字列も受け付ける。</p>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
