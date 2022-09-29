@@ -116,6 +116,7 @@ Contents:
    :maxdepth: 1
 
    freeware
+   deepl-translator
    winget
    power-toys
    windows-terminal
