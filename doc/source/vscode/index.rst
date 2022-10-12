@@ -19,6 +19,7 @@ Visual Studio Code 利用ノート
 
    first
    setup
+   extensions
 
 ..
     [DONE] first
