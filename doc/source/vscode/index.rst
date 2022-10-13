@@ -24,18 +24,7 @@ Visual Studio Code 利用ノート
 ..
     [DONE] first
     [DONE] setup
-    拡張機能（先に触れる必要がある）
-        View: Extensions
-        インストール・アンインストール
-        EXTENSIONS: MARKETPLACE コンテキストメニューコマンド
-        検索
-        管理
-            有効・無効を切り替える
-            更新
-            推奨パック
-            無視パック
-        拡張単位を構成
-        コマンドライン
+    [DONE] extensions
     基本編ということになっている（順序を入れ替えたい）
         テキスト編集
             複数キャレット・選択
