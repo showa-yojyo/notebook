@@ -20,29 +20,13 @@ Visual Studio Code 利用ノート
    first
    setup
    extensions
+   basics
 
 ..
     [DONE] first
     [DONE] setup
     [DONE] extensions
-    基本編ということになっている（順序を入れ替えたい）
-        テキスト編集
-            複数キャレット・選択
-            スマート選択 (Shift+Alt+←/Shift+Alt+→)
-            列選択モード (Ctrl+Shift+Alt+矢印)
-        保存
-            自動保存
-            Hot Exit
-        検索と置換
-            選択範囲に操作対象を絞れる
-            Find/Replace In Files (Ctrl+Shift+F/Ctrl+Shift+H)
-            正規表現などの高級なオプション
-            検索エディター Open Search Editor, etc.
-        整形 Format Document, Format Selection
-        畳み込み Folding (Ctrl+Shift+[/Ctrl+Shift+])
-        インデント
-            自動検出
-        エンコーディング
+    [WIP] basics
     ナビゲーション（エディター内移動）
         View: Quick Open (Ctrl+Tab/Ctrl+Shift+Tab)
         Go Back/Go Forward (Alt+Left/Alt+Right)
