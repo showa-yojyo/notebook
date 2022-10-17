@@ -21,24 +21,14 @@ Visual Studio Code 利用ノート
    setup
    extensions
    basics
+   navigation
 
 ..
     [DONE] first
     [DONE] setup
     [DONE] extensions
-    [WIP] basics
-    ナビゲーション（エディター内移動）
-        View: Quick Open (Ctrl+Tab/Ctrl+Shift+Tab)
-        Go Back/Go Forward (Alt+Left/Alt+Right)
-        パンクズ (breadcrumbs.enabled)
-        Go to Definition (F12)
-        Go to Implementation (Ctrl+F12)
-        Go to Symbol (Ctrl+Shift+O)
-        Go to References (Shift+F12)
-        Peek Definition (Alt+F12)
-        Peek Implementation (Ctrl+Shift+F12)
-        Go to Bracket (editor.action.jumoToBracket Ctrl+Shift+\)
-        Go to Next/Previous Problem (Shift+/Alt+/F8, etc.)
+    [DONE] basics
+    [DONE] navigation
     コマンドライン (code)
         コマンドラインオプション
         本体起動
