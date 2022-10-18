@@ -22,6 +22,7 @@ Visual Studio Code 利用ノート
    extensions
    basics
    navigation
+   cli
 
 ..
     [DONE] first
@@ -29,10 +30,7 @@ Visual Studio Code 利用ノート
     [DONE] extensions
     [DONE] basics
     [DONE] navigation
-    コマンドライン (code)
-        コマンドラインオプション
-        本体起動
-        拡張機能関連
+    [DONE] code
     IntelliSense
         IntelliSense の役割
         発動方法
