@@ -23,6 +23,7 @@ Visual Studio Code 利用ノート
    basics
    navigation
    cli
+   intellisense
 
 ..
     [DONE] first
@@ -30,10 +31,8 @@ Visual Studio Code 利用ノート
     [DONE] extensions
     [DONE] basics
     [DONE] navigation
-    [DONE] code
-    IntelliSense
-        IntelliSense の役割
-        発動方法
+    [DONE] cli
+    [DONE] intellisense
     リファクタリング（短く）
         Code Actions (editor.action.codeAction)
         Quick fix
