@@ -24,6 +24,7 @@ Visual Studio Code 利用ノート
    navigation
    cli
    intellisense
+   refactoring
 
 ..
     [DONE] first
@@ -33,11 +34,7 @@ Visual Studio Code 利用ノート
     [DONE] navigation
     [DONE] cli
     [DONE] intellisense
-    リファクタリング（短く）
-        Code Actions (editor.action.codeAction)
-        Quick fix
-        Extract method/variable
-        Rename symbol
+    [WIP] refactoring
     デバッグ（長い）
         実行＆デバッグ
         構成
