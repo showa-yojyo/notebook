@@ -25,6 +25,7 @@ Visual Studio Code 利用ノート
    cli
    intellisense
    refactoring
+   debugging
 
 ..
     [DONE] first
@@ -34,20 +35,8 @@ Visual Studio Code 利用ノート
     [DONE] navigation
     [DONE] cli
     [DONE] intellisense
-    [WIP] refactoring
-    デバッグ（長い）
-        実行＆デバッグ
-        構成
-        デバッグコマンド
-            ツールバーに示される基本コマンド群
-        ブレイクポイント
-            ログポイント
-            先進的なブレイクポイント
-        ウォッチ
-            変数（生の値）
-            ウォッチ（評価アリ）
-        デバッグコンソール
-        etc.
+    [DONE] refactoring
+    [WIP] debugging
     タスク（長い）
         概要あるいは Hello world
         Tasks: Run Build Task (Ctrl+Shift+B)
