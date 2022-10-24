@@ -26,6 +26,7 @@ Visual Studio Code 利用ノート
    intellisense
    refactoring
    debugging
+   tasks
 
 ..
     [DONE] first
@@ -36,13 +37,8 @@ Visual Studio Code 利用ノート
     [DONE] cli
     [DONE] intellisense
     [DONE] refactoring
-    [WIP] debugging
-    タスク（長い）
-        概要あるいは Hello world
-        Tasks: Run Build Task (Ctrl+Shift+B)
-        自作タスク
-        問題
-        例
+    [DONE] debugging
+    [DONE] tasks
     テキスト補完系
         スニペッツ
             概念（構文とスコープ）
