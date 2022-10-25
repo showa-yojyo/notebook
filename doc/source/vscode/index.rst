@@ -39,11 +39,8 @@ Visual Studio Code 利用ノート
     [DONE] refactoring
     [DONE] debugging
     [DONE] tasks
+    [WIP] snippets
     テキスト補完系
-        スニペッツ
-            概念（構文とスコープ）
-            組み込みスニペッツ
-            自作スニペッツ
         Emmet
             概念（普通の意味での補完）
             変数置換
