@@ -27,6 +27,7 @@ Visual Studio Code 利用ノート
    refactoring
    debugging
    tasks
+   snippets
 
 ..
     [DONE] first
@@ -39,7 +40,7 @@ Visual Studio Code 利用ノート
     [DONE] refactoring
     [DONE] debugging
     [DONE] tasks
-    [WIP] snippets
+    [DONE] snippets
     テキスト補完系
         Emmet
             概念（普通の意味での補完）
