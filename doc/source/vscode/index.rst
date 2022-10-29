@@ -28,6 +28,7 @@ Visual Studio Code 利用ノート
    debugging
    tasks
    snippets
+   emmet
 
 ..
     [DONE] first
@@ -41,12 +42,7 @@ Visual Studio Code 利用ノート
     [DONE] debugging
     [DONE] tasks
     [DONE] snippets
-    テキスト補完系
-        Emmet
-            概念（普通の意味での補完）
-            変数置換
-            後処理
-            自作 snippets.json
+    [DONE] emmet
     ----
     バージョン管理 Git 前提
         ステージ操作
