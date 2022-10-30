@@ -9,10 +9,12 @@ Visual Studio Code 利用ノート
 
    次の環境・条件で VS Code を利用していることを先に断っておく。
 
-   OS は Windows 10 Home で、WSL (Ubuntu) のファイルシステムにあるファイルを主に編集する。
-   Git を中心とするコンソールコマンドは Ubuntu にあるものを実行する前提だ。
+   OS は Windows 10 Home で、WSL (Ubuntu) のファイルシステムにあるファイルを主に
+   編集する。Git を中心とするコンソールコマンドは Ubuntu にあるものを実行する。
 
-   VS Code の GUI は英語のまま変えていない。
+   バージョン管理ツールは Git しか使わない。他の SCM まで調査の手が回らない。
+
+   VS Code の GUI は英語のまま変えない。
 
 .. toctree::
    :maxdepth: 2
@@ -29,39 +31,10 @@ Visual Studio Code 利用ノート
    tasks
    snippets
    emmet
+   git
 
 ..
-    [DONE] first
-    [DONE] setup
-    [DONE] extensions
-    [DONE] basics
-    [DONE] navigation
-    [DONE] cli
-    [DONE] intellisense
-    [DONE] refactoring
-    [DONE] debugging
-    [DONE] tasks
-    [DONE] snippets
-    [DONE] emmet
-    ----
-    バージョン管理 Git 前提
-        ステージ操作
-            コミット
-        リポジトリー操作
-            クローン
-            ブランチとタグ
-            リモート
-        ステータスバー
-        エディター
-        コンフリクト表示
-        差分表示
-        タイムラインビュー
-        拡張機能
-        出力確認
-        Git の設定に VS Code を指定する
-            コミットログエディター
-            差分ビューワー
-            マージエディター
+    [WIP] git
     GitHub と連携する？
     ----
     コンソール

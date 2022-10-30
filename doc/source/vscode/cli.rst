@@ -140,24 +140,4 @@ Bash
 Git
 ----------------------------------------------------------------------
 
-エディター、差分、マージに VS Code を使用するように、Git の構成ファイル
-``$HOME/.gitconfig`` に次の記述を含めるとするといい。この記述があれば、特に
-:command:`git difftool` と :command:`git mergetool` それぞれのコマンド実行で VS
-Code が利用できることに注意する。
-
-.. code:: text
-
-   [core]
-       editor = code --wait
-   [diff]
-       tool = vscode-diff
-   [difftool "vscode-diff"]
-       cmd = code --wait --diff $LOCAL $REMOTE
-   [merge]
-       tool = code
-   [mergetool "code"]
-       cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
-
-.. todo::
-
-   バージョン管理の章とリンク
+:doc:`./git` を参照。
