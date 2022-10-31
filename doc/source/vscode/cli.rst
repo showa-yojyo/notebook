@@ -95,27 +95,39 @@ GNU コマンドラインツールのように、オプション ``--version`` �
 
 VS Code の拡張機能を EXTENSIONS ビューからではなく、コンソールから操作することが
 できる。これらのコマンドを拡張機能バックアップと復元の目的で使うことはおそらくな
-いだろうが、何かのために記しておく。
+いだろうが、何かのために記しておく。以下、VS Code 公式文書からのパクリだ：
 
-``code --list-extensions --show-versions``
-    現在の拡張機能をバージョン付きで一覧して終了する。
+``code --extensions-dir <dir>``
+    拡張機能を配置するディレクトリーのパスを指定する。
 
 ``code --list-extensions``
     現在の拡張機能をバージョンなしで一覧して終了する。
 
+``code --list-extensions --show-versions``
+    現在の拡張機能をバージョン付きで一覧して終了する。
+
 ``code --disable-extensions``
     拡張機能すべてを無効にして VS Code を起動する。
 
-``code --install-extension EXT``
+``code --install-extension (<extension-id> | <extension-vsix-path>)``
     ID を指定して拡張機能を VS Code にインストールする。拡張機能ファイルを指定す
     ることもできる。
 
-``code --uninstall-extension EXT``
+``code --uninstall-extension (<extension-id> | <extension-vsix-path>)`
     ID を指定して拡張機能をアンインストールする。
 
-.. todo::
+ここで引数 ``<extension-id>`` とは、拡張により一意に定まる何らかの文字列だ。例え
+ば拡張 Jupyter Notebook Renderers には文字列 ``ms-toolsai.jupyter-renderers`` が
+対応する。この ID は VS Code の拡張ビューに表示される拡張項目の小歯車アイコンメ
+ニューの
 
-   拡張機能の章とリンク
+* :menuselection:`Copy` および
+* :menuselection:`Copy Extension ID`
+
+コマンドで確認されるものだ。
+
+引数 ``<extension-vsix-path>`` は、拡張本体のファイルパスだ。当ノートでは扱わな
+い。
 
 ほかのツールとの連携
 ======================================================================

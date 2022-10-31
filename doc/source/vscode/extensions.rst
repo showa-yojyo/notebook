@@ -123,32 +123,7 @@ Sort フィルターを組み合わせる。検索入力例：
 コマンドライン
 ======================================================================
 
+:doc:`./cli` の章の拡張機能関連の記述を参照。
+
 コマンドラインを利用することで、拡張機能の操作をより自動化することもできる。
 別の環境で現在の環境を再現する状況などに応用できるだろう。
-
-以下、VS Code 公式文書からのパクリだ：
-
-:samp:`code --extensions-dir <dir>`
-    拡張機能を配置するディレクトリーのパスを指定する。
-:samp:`code --list-extensions`
-    インストール済み拡張機能一覧を出力する。
-:samp:`code --list-extensions --show-versions`
-    さらにバージョンも付記する。
-:samp:`code --install-extension (<extension-id> | <extension-vsix-path>)`
-    指定の拡張をインストールする。
-:samp:`code --uninstall-extension (<extension-id> | <extension-vsix-path>)`
-    指定の拡張をアンインストールする。
-
-ここで引数 ``<extension-id>`` とは、拡張により一意に定まる何らかの文字列だ。例え
-ば拡張 Jupyter Notebook Renderers には文字列 ``ms-toolsai.jupyter-renderers`` が
-対応する。この ID は VS Code の拡張ビューに表示される拡張項目の小歯車アイコンメ
-ニューの
-
-* :menuselection:`Copy` および
-* :menuselection:`Copy Extension ID`
-
-コマンドで確認されるものだ。
-
-引数 ``<extension-vsix-path>`` は、拡張本体のファイルパスだ。当ノートでは扱わない。
-
-.. todo:: コマンドラインの章からリンク
