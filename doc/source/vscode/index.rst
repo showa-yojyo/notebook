@@ -34,7 +34,6 @@ Visual Studio Code 利用ノート
    git
 
 ..
-    [WIP] git
     GitHub と連携する？
     ----
     コンソール
