@@ -32,30 +32,10 @@ Visual Studio Code 利用ノート
    snippets
    emmet
    git
+   terminal
 
 ..
     GitHub と連携する？
-    ----
-    コンソール
-        画面を出す
-        複数シェルに対応
-        コンソール管理
-        画面を分割
-        エディターの横に出す
-        ナビゲーション（スクロール）
-        コピー＆ペースト
-        マウス操作
-        検索
-        Terminal: Run Selected Text in Active Terminal
-        巨大表示
-        全選択
-        pwd
-        画面サイズ固定
-        プロファイル
-            WSL
-        見てくれ
-        高級機能
-            セッション
     -- 以下、Getting Started 内にあるか、漏れた項目 --
     UI -- これは本サイトを見ろとしか言えない
         レイアウト
