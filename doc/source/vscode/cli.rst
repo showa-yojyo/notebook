@@ -113,7 +113,7 @@ VS Code の拡張機能を EXTENSIONS ビューからではなく、コンソー
     ID を指定して拡張機能を VS Code にインストールする。拡張機能ファイルを指定す
     ることもできる。
 
-``code --uninstall-extension (<extension-id> | <extension-vsix-path>)`
+``code --uninstall-extension (<extension-id> | <extension-vsix-path>)``
     ID を指定して拡張機能をアンインストールする。
 
 ここで引数 ``<extension-id>`` とは、拡張により一意に定まる何らかの文字列だ。例え
