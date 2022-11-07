@@ -33,23 +33,13 @@ Visual Studio Code 利用ノート
    emmet
    git
    terminal
+   ui
 
 ..
     GitHub と連携する？
+    [terminal]
     -- 以下、Getting Started 内にあるか、漏れた項目 --
-    UI -- これは本サイトを見ろとしか言えない
-        レイアウト
-        エディターを水平方向に増やせる workbench.editor.openSideBySideDirection
-        ミニマップ
-        パンクズ
-        エクスプローラー
-            OPEN EDITORS
-        ビュー
-        コマンドパレット
-        タブ
-            プレビューモード（殺す）
-        グループ
-        フレームウィンドウ全体
+    [ui]
     settings.json
         既定値
         JSON ファイルの絶対パス
