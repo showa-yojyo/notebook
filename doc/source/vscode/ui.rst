@@ -125,9 +125,107 @@ Editor それぞれの上部にパンクズと呼ばれるナビゲーション�
 EXPLORER
 ======================================================================
 
+:guilabel:`EXPLORER` はプロジェクト内のファイルおよびフォルダーすべてを管理する
+のに用いる。 VS Code は本家のようにワークスペースやプロジェクトを定義するファイ
+ルがあるわけではなく、ファイルとフォルダーに基づく。
+
+VS Code でフォルダーを開くと :guilabel:`EXPLORER` にその中身がツリーコントロー
+ルで再帰的に表示される。ここでいろいろなことができる：
+
+* ファイルおよびフォルダーの作成、削除、名前を変更する
+* ドラッグ＆ドロップでファイルおよびフォルダを移動する
+
+項目上のコンテキストメニューで可能な操作を確認できる。
+
+VS Code は外部ツール、特にコマンドラインツールと非常によく連動している。
+VS Code で現在開いているフォルダーのコンテキストでコマンドラインツールを実行したければ、
+フォルダーを右クリックして :menuselection:`Open in Command Prompt` を選択する。
+
+また、項目を右クリックして、:menuselection:`Reveal in Explorer` を選択すると、Windows
+Explorer でその場所に移動することができる。
+
+既定の設定では、VS Code は :guilabel:`EXPLORER` からいくつかのフォルダーを除外す
+る。設定項目 ``files.exclude`` を使用して、:guilabel:`EXPLORER` からファイルや
+フォルダーを隠すための規則を設定する（次の設定は既定値）：
+
+.. code:: json
+
+   {
+       "files.exclude": {
+           "**/.git": true,
+           "**/.svn": true,
+           "**/.hg": true,
+           "**/CVS": true,
+           "**/.DS_Store": true,
+           "**/Thumbs.db": true
+       }
+   }
+
+複数選択
+----------------------------------------------------------------------
+
+:guilabel:`EXPLORER` や :guilabel:`OPEN EDITORS` ビューで複数の項目を選択するこ
+とができ、それらに対してコマンドを実行できる：
+
+* :kbd:`Ctrl` キーを押しながらマウスクリックで個別ファイル選択
+* :kbd:`Shift` キーを押しながらマウスクリックで範囲選択
+
+特に、項目を二つ選択した場合、コンテキストメニューのコマンド
+:menuselection:`Select for Compare` を使用して、ファイル二つの差分をすぐに見るこ
+とができる。
+
+ツリーコントロール
+----------------------------------------------------------------------
+
+わかりにくいが、:guilabel:`EXPLORER` のツリーコントロールには検索とフィルターが
+混ざったようなナビゲーション機能がある。
+
+ファイルをフィルターする：
+:guilabel:`EXPLORER` にフォーカスがある状態で、:kbd:`Ctrl` + :kbd:`F` キーを押し
+てツリーの検索コントロールを開き、一致させたいファイル名の一部を入力する。
+すると :guilabel:`EXPLORER` 右上に、入力した内容を表示する検索コントロールが表示され、
+一致するファイル名がハイライト表示される。
+
+ここで :guilabel:`Filter` アイコンをクリックすると、モードがハイライトとフィル
+ターの間を切り替わる。 :kbd:`↓` キーと :kbd:`↑` キーを押す度にマッチした要素間を
+ジャンプする。
+
+このナビゲーション機能は、VS Code のすべてのツリーコントロールで利用可能だ。
+
+OUTLINE
+----------------------------------------------------------------------
+
+:guilabel:`OUTLINE` ビューは :guilabel:`EXPLORER` の下部にある独立したセクションだ。
+展開すると、現在アクティブな Editor の内容を表現する木構造が表示される。
+
+:guilabel:`OUTLINE` ビューには、さまざまな :menuselection:`Sort By` コマンドを実行でき、
+オプションでカーソル追跡、タイプ別フィルターが操作できる。
+
+.. todo::
+
+   後者二つの機能である :menuselection:`Follow Cursor` と
+   :menuselection:`Filter on Type` がまったく不明。
+
+また、入力ボックスがあり、入力中にシンボルを検索したり、フィルターしたりすることができる。
+エラーや警告も :guilabel:`OUTLINE` ビューに表示され、問題の場所を一目で確認することができる。
+
+木構造は Editor に対する言語モード拡張機能が持っている情報に依存する。
+例えば組み込みの Markdown モードは文書のヘッダー階層を返す。
+
+:guilabel:`OUTLINE` には次のような設定項目があり、アイコンの有効無効、エラーと警
+告の表示の制御が可能だ。
+
+``outline.icons``
+  項目先頭のアイコンを描くかどうか
+``outline.problems.enabled``
+  項目にエラーと警告を示すかどうか
+``outline.problems.badges``
+  エラーと警告に対してバッヂを使うかどうか
+``outline.problems.colors``
+  エラーと警告に対して色を使うかどうか
 
 OPEN EDITORS
-----------------------------------------------------------------------
+======================================================================
 
 :guilabel:`EXPLORER` の上部には :guilabel:`OPEN EDITORS` と表示されたビューがあ
 る。アクティブなファイルまたはプレビューの一覧だ。これらは最近 VS Code で開いた
@@ -159,8 +257,67 @@ OPEN EDITORS
 ビュー
 ======================================================================
 
+VS Code には :guilabel:`EXPLORER` 以外にも次のようなビューがある：
+
+:guilabel:`SEARCH`
+  ワークスペース全体の検索と置換処理
+:guilabel:`SOURCE CONTROL`
+  Git 操作
+:guilabel:`RUN AND DEBUG`
+  変数、コールスタック、ブレイクポイントなどのデバッグ
+:guilabel:`EXTENSIONS`
+  VS Code 拡張機能に対するインストールと構成
+
+その他、拡張機能が独自のビューを与えることもある。
+
+コマンド :guilabel:`View: Open View` を実行すればどのビューでも開ける。
+
+メインビューの中からビューの表示状態を切り替えたり、ドラッグ＆ドロップで並び替え
+たりすることが可能だ。
+
+Activity Bar
+----------------------------------------------------------------------
+
+ビュー左側にある Activity Bar にあるアイコンをクリックするとビューをすばやく切り
+替えられる。また、Activity Bar 上でアイコンをドラッグ＆ドロップして並び替えたり、
+アイコンのコンテキストメニューからビューを削除することも可能だ。
+
+Activity Bar 自身を :menuselection:`Hide from Activity Bar` で非表示にすることも可能だ。
+
+.. admonition:: 利用者ノート
+
+   Activity Bar を完全に隠蔽して、主要なビュー表示を切り替えるのにショートカット
+   キーを押すのが通好みだろう。
+
+.. csv-table::
+   :delim: @
+   :header: キーバインド,ビュー
+
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`D` @ :guilabel:`RUN AND DEBUG`
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`E` @ :guilabel:`EXPLORER`
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F` @ :guilabel:`SEARCH`
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`G` @ :guilabel:`SOURCE CONTROL`
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`X` @ :guilabel:`EXTENSIONS`
+
 コマンドパレット
 ======================================================================
+
+VS Code で最も重要なキーバインドは、:kbd:`Ctrl` + :kbd:`Shift` + :kbd:`P` だ。
+これはコマンド :guilabel:`Show All Commands` を実行するショートカットであり、
+この操作により画面上部に現れる入力欄をコマンドパレットと呼ぶ。
+ここから VS Code のコマンドすべてを一覧したり選択することが可能であり、定義があ
+ればコマンドを呼び出すキーバインドも表示される。
+
+.. todo::
+
+   コマンドパレットは掛け値なしに重要な要素なので、VS Code 利用ノートの可能な限
+   り早い位置に移動する。
+
+.. Ctrl+P will let you navigate to any file or symbol by typing its name
+.. Ctrl+Tab will cycle you through the last set of files opened
+.. Ctrl+Shift+P will bring you directly to the editor commands
+.. Ctrl+Shift+O will let you navigate to a specific symbol in a file
+.. Ctrl+G will let you navigate to a specific line in a file
 
 タブ
 ======================================================================
