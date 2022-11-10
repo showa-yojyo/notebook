@@ -34,20 +34,14 @@ Visual Studio Code 利用ノート
    git
    terminal
    ui
+   settings
 
 ..
     GitHub と連携する？
     [terminal]
     -- 以下、Getting Started 内にあるか、漏れた項目 --
     [ui]
-    settings.json
-        既定値
-        JSON ファイルの絶対パス
-        編集
-            GUI
-            エディター
-        推奨設定
-        拡張機能に関する設定に注意
+    [settings]
     テーマ
         色テーマ Preferences: Color Theme
         色をカスタマイズ
