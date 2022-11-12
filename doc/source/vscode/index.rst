@@ -35,21 +35,10 @@ Visual Studio Code 利用ノート
    terminal
    ui
    settings
+   themes
 
 ..
     GitHub と連携する？
-    [terminal]
-    -- 以下、Getting Started 内にあるか、漏れた項目 --
-    [ui]
-    [settings]
-    テーマ
-        色テーマ Preferences: Color Theme
-        色をカスタマイズ
-            workbench.colorCustomizations
-            editor.tokenColorCustomizations
-        自作テーマ
-        削除
-        アイコンテーマ
     キーバインド
         Keyboard Shortcuts 画面
         キーバインドの衝突を検知する
