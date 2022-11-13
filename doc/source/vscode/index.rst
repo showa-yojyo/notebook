@@ -36,15 +36,9 @@ Visual Studio Code 利用ノート
    ui
    settings
    themes
+   key-bindings
 
 ..
     GitHub と連携する？
-    キーバインド
-        Keyboard Shortcuts 画面
-        キーバインドの衝突を検知する
-        自分で変えたキーバインドを検知する
-        keybindings.json
-        特定のキーバインドを無効化する
-        初期状態のキーバインドを表示する
     言語
         英語一択
