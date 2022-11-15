@@ -37,8 +37,7 @@ Visual Studio Code 利用ノート
    settings
    themes
    key-bindings
+   locale
 
 ..
     GitHub と連携する？
-    言語
-        英語一択
