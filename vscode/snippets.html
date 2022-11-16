@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snippets &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="Emmet" href="emmet.html" />
+    <link rel="prev" title="外部ツールとの連携" href="tasks.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="tasks.html" title="Previous document">外部ツールとの連携</a>
+        </li>
+        <li>
+          <a href="emmet.html" title="Next document">Emmet</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="snippets">
+<h1><a class="toc-backref" href="#id14">Snippets</a><a class="headerlink" href="#snippets" title="Permalink to this heading">¶</a></h1>
+<p>VS Code の snippets 機能は、テンプレートというよりは、ループや条件文などの定型コード入力を支援する機能だと考えた方がいい。<strong class="program">Emacs</strong> の expand-abbrev と同等以上のことをできる。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#snippets" id="id14">Snippets</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id15">基本</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id16">組み込み Snippets</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id17">拡張 Snippets</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id18">自作 Snippets</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id19">作用域</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id20">言語モードから決定される作用域</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id21">ワークスペースから決定される作用域</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id22">構文</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id23">タブ移動</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id24">プレースホルダー</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id25">ドロップダウンリスト</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id26">変数</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id27">変数変換</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id15">基本</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="intellisense.html"><span class="doc">IntelliSense</span></a> で述べたように、IntelliSense のポップアップに他の候補と併せて混ざって snippets が表示される。Snippets だけの一覧が必要ならば、コマンド
+<span class="guilabel">Snippets: Insert Snippet</span> を直接呼び出す。</p>
+<p>ショートカットキーでテンプレとしての snippet をエディターに置くのが普通だ。タブ補完を有効にした状態で <kbd class="kbd docutils literal notranslate">Tab</kbd> キーを押せばいい。展開可能状態の snippet が置かれる。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;editor.tabCompletion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;on&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id16">組み込み Snippets</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>VS Code には次の言語用の snippets を組み込みで定義している：</p>
+<ul class="simple">
+<li><p>JavaScript</p></li>
+<li><p>TypeScript</p></li>
+<li><p>Markdown</p></li>
+<li><p>PHP</p></li>
+</ul>
+<p>例えばエディターの言語モードが JavaScript モードであるときには、
+<code class="docutils literal notranslate"><span class="pre">trycatch</span></code>, <code class="docutils literal notranslate"><span class="pre">dowhile</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code> などの snippets が用意されている。このことはコマンド <span class="guilabel">Insert Snippet</span> を実行すると表示されるドロップダウンリストの <span class="guilabel">JavaScript Language Basics</span> というグループの存在により確認される。</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id17">拡張 Snippets</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>Side Bar <span class="guilabel">EXTENSIONS: MARKETPLACE</span> 検索欄でフィルター
+<span class="menuselection">Category ‣ Snippets</span> を適用すると、追加的 snippets を含む拡張が検索できる。</p>
+<p>拡張機能が用意している Snippets を利用可能にするには、インストール後に VS Code
+を再起動して当該拡張を有効にすることが必要だ。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id18">自作 Snippets</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>ユーザー独自の snippets を定義することも可能だ。まず、専用の設定ファイルにアクセスする手段を知る必要がある。次のいずれかの方法でまず対象となる設定ファイルを間接的に決定する：</p>
+<ul class="simple">
+<li><p>メインメニューから <span class="menuselection">File ‣ Preferences ‣ Configure User Snippets</span>
+を選択</p></li>
+<li><p>コマンドパレットから <span class="guilabel">Configure User Snippets</span> を選択</p></li>
+</ul>
+<p>すると <span class="guilabel">Select Snippets File or Create Snippets</span> というポップアップ付きの入力欄が現れる。目的に応じて snippets を定義する先を決める。</p>
+<p>言語モードの snippets を増やしたいならば、言語名に <code class="docutils literal notranslate"><span class="pre">.json</span></code> が付いた項目を選択する。必要に応じてファイルが生成され、snippet の定義オブジェクトを記入すればいい。</p>
+<p>言語モードに関係がない場合、さらに選択肢がある。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id19">作用域</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>各 snippet には作用域という属性がある。現在のエディターに関連する snippets しか補完候補として表示されないように必要なものだ。次のいずれかの作用域がある：</p>
+<ol class="arabic simple">
+<li><p>言語モードから決定される作用域</p></li>
+<li><p>ワークスペースから決定される作用域</p></li>
+</ol>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id20">言語モードから決定される作用域</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p>単一言語のユーザー定義 snippets は、特定の言語の snippet ファイルで定義される。コマンド <span class="guilabel">Preferences: Configure User Snippets</span> の一覧にある言語名 +
+<code class="docutils literal notranslate"><span class="pre">.json</span></code> の形式をとる項目を選択すると、設定ファイルにアクセスする。このような
+snippets は、それが定義されている言語を編集しているときしか補完候補に挙がり得ない。</p>
+<p>多言語および大域的ユーザー定義 snippets はすべて拡張子が <code class="docutils literal notranslate"><span class="pre">.code-snippets</span></code>
+の JSON ファイルで定義される。この種の設定ファイルでは、snippet 定義に任意の個数の言語識別子を取るプロパティー <code class="docutils literal notranslate"><span class="pre">scope</span></code> を追加できることに注意する。指定されていない場合、当該 snippet はすべての言語で補完候補に挙がり得る。</p>
+<p>ユーザー定義 snippet のほとんどは一つの言語を作用域とするため、言語固有の
+snippet ファイルで定義される。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id21">ワークスペースから決定される作用域</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>ワークスペースを作用域とする snippets 設定ファイルがあり得る。この場合も拡張子が <code class="docutils literal notranslate"><span class="pre">.code-snippets</span></code> という JSON ファイルで snippets を管理する。</p>
+<p>コマンド <span class="guilabel">Preferences: Configure User Snippets</span> の一覧にある項目
+<span class="guilabel">New Snippets file for ‘’…</span> を選択すると、設定ファイルが生成する。これはワークスペースの <code class="docutils literal notranslate"><span class="pre">.vscode</span></code> 内に配置される。</p>
+<p>ワークスペース snippets ファイルは、そのワークスペースで働くプロジェクトメンバー間で
+snippets を共有するのに用いられる。</p>
+<p>ワークスペース snippets はユーザー snippets 同様にプロパティー <code class="docutils literal notranslate"><span class="pre">scope</span></code> を指定でき、特定の言語を作用域に指示できる。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id22">構文</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<p>まず公式文書の例を引用する。これはユーザーレベル snippets であり、具体的にはファイル <code class="file docutils literal notranslate"><span class="pre">/path/to/Code/User/snippets/javascript.json</span></code> に定義されている
+JSON オブジェクトの一部ということだ：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;For Loop&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;for&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;for-const&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;for (const ${2:element} of ${1:array}) {&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;\t$0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;}&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A for loop.&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>基本事項を一気に列挙しておく：</p>
+<ul>
+<li><p>プロパティー自体が snippet の名前だ。この場合は <code class="docutils literal notranslate"><span class="pre">For</span> <span class="pre">Loop</span></code> という文字列が
+IntelliSense 等の補完候補リストの項目ラベル名となる。</p></li>
+<li><p>値のオブジェクトが snippet の仕様を表現する。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">prefix</span></code></dt><dd><p>IntelliSense でこの snippet を表示するためのトリガー文字列を定義する。合致がこの配列の値対して行われるので、例えば <code class="docutils literal notranslate"><span class="pre">fc</span></code> とタイプすると
+<code class="docutils literal notranslate"><span class="pre">for-const</span></code> に合致するだろう。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">body</span></code></dt><dd><p>Snippet 本文。この文字列がエディターに展開され、変数を処理し始める。</p>
+<ul class="simple">
+<li><p>この例のように文字列配列で指定すると、展開時に複数行として結合される。</p></li>
+<li><p>改行文字と埋め込みタブ文字は展開時の文脈に即して整形される。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">description</span></code></dt><dd><p>IntelliSense 補完候補ポップアップにメモのように表示される文言。</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">body</span></code> 文字列中にプレースホルダー <code class="docutils literal notranslate"><span class="pre">$0</span></code>, <code class="docutils literal notranslate"><span class="pre">$1</span></code>, … を含めることもできる。</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">Tab</kbd> キーで次のプレースホルダーにジャンプ。その時点でプレースホルダーを編集したり、次のプレースホルダーにジャンプしたりすることができます。</p></li>
+<li><p>コロン <code class="docutils literal notranslate"><span class="pre">:</span></code> の後の文字列がもしあれば、それは既定値を指示している。この例だと <code class="docutils literal notranslate"><span class="pre">${2:element}</span></code> は、プレースホルダー 2 の入力をスキップすると文字列
+<code class="docutils literal notranslate"><span class="pre">element</span></code> が適用されるということだ。</p></li>
+<li><p>プレースホルダーの探索順序は、1, 2, … だ。0 は特別で、常に最後に来るオプショナスケースだ。この位置にキャレットがある状態で snippet 展開が終了する。</p></li>
+</ul>
+</li>
+</ul>
+<p>本文構文についてさらに詳しく述べる。</p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id23">タブ移動</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p>展開中、snippet 本体がプレースホルダーを含んでいれば、<kbd class="kbd docutils literal notranslate">Tab</kbd> を押すことでそれらの間を番号順に移動する。</p>
+<ul class="simple">
+<li><p>前述のように <code class="docutils literal notranslate"><span class="pre">$0</span></code> は展開終了直後のキャレットの位置を指示する特別なものだ。</p></li>
+<li><p>同一番号のプレースホルダーを複数含むことができる。その場合、複数キャレットモードと同様の挙動となる。</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id24">プレースホルダー</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>公式にはプレースホルダーは既定値が指定された <code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code> などのことを言うようだ。区別する必要性が感じられないので、本稿では値があろうがなかろうか、どちらもプレースホルダーと呼ぶ。</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">Tab</kbd> を押してプレースホルダーが移動すると、キーボードで編集しやすいように対象部分が選択状態になる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${1:another${2:placeholder}}</span></code> のように入れ子にしてもよい。</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id25">ドロップダウンリスト</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<p>プレースホルダーにドロップダウンリストを仕掛けて、そこから文字列を選べるようにする機能がある。日記で使っているものを引用する：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>${2|晴れ,曇り,雨|}
+</pre></div>
+</div>
+<p>このプレースホルダーに焦点が合っていると、人は <kbd class="kbd docutils literal notranslate">↑</kbd> と <kbd class="kbd docutils literal notranslate">↓</kbd> を押すことで入力文字列を選択し、この位置にそれを挿入する。</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id26">変数</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<p>この <a class="reference external" href="https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables">一覧</a>
+にあるように、エディター固有の情報、日付・時刻、ランダム要素を変数として参照できる。</p>
+<div class="section" id="id13">
+<h4><a class="toc-backref" href="#id27">変数変換</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
+<p><strong class="program">Bash</strong> の変数のように、変数の値を挿入する前に加工することができる。変数名の後に文字 <code class="docutils literal notranslate"><span class="pre">/</span></code> で三つの部分に分けて、それぞれで変換のための指定をする：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>${PLACEHOLDER_OR_VARIABLE/PART1/PART2/PART3}
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">PLACEHOLDER_OR_VARIABLE</span></code> はプレースホルダー番号 <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, … か、または変数名を指定する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">PART1</span></code> ではプレースホルダー番号または変数の値に対して合致する正規表現パターンを書く。正規表現は JavaScript 方式で指定する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">PART2</span></code> では書式またはリテラル文字列を指定する。書式については説明が難しいので公式文書でも文章の形式では述べられていない。文法定義から急所を抜粋する：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>transform   ::= &#39;/&#39; regex &#39;/&#39; (format | text)+ &#39;/&#39; options
+format      ::= &#39;$&#39; int | &#39;${&#39; int &#39;}&#39;
+                | &#39;${&#39; int &#39;:&#39; &#39;/upcase&#39; | &#39;/downcase&#39; | &#39;/capitalize&#39; | &#39;/camelcase&#39; | &#39;/pascalcase&#39; &#39;}&#39;
+                | &#39;${&#39; int &#39;:+&#39; if &#39;}&#39;
+                | &#39;${&#39; int &#39;:?&#39; if &#39;:&#39; else &#39;}&#39;
+                | &#39;${&#39; int &#39;:-&#39; else &#39;}&#39; | &#39;${&#39; int &#39;:&#39; else &#39;}&#39;
+int         ::= [0-9]+
+text        ::= .*
+if          ::= text
+else        ::= text
+</pre></div>
+</div>
+<p>これによると、どうやら <code class="docutils literal notranslate"><span class="pre">PART1</span></code> の大文字小文字を変換したり、場合分けして（ここが文書化されていない）リテラル文字列（のはず）を選択したりできるはずだ。後で試す。</p>
+<p><code class="docutils literal notranslate"><span class="pre">PART3</span></code> には必要ならば正規表現オプションを書く。なければ空にしておく。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>変数変換をユーザー用設定ファイルに一時的に定義して、挙動をよく確認しておく。
+<code class="docutils literal notranslate"><span class="pre">$TM_SELECTED_TEXT</span></code>, <code class="docutils literal notranslate"><span class="pre">$CLIPBOARD</span></code> を上手く使いたい。</p>
+<p>クリップボードにある複数行からなるテキストを変換するための snippet を定義するとき、改行文字が <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> であることに注意を要する。VS Code 内でカット＆ペーストするときに <code class="docutils literal notranslate"><span class="pre">\n</span></code> になる状況にも対応するべく、正規表現パターン中の改行を
+<code class="docutils literal notranslate"><span class="pre">\r?\n</span></code> のように書くかもしれない。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="tasks.html" title="Previous document">外部ツールとの連携</a>
+        </li>
+        <li>
+          <a href="emmet.html" title="Next document">Emmet</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Visual Studio Code 利用ノート</a><ul>
+      <li>Previous: <a href="tasks.html" title="previous chapter">外部ツールとの連携</a></li>
+      <li>Next: <a href="emmet.html" title="next chapter">Emmet</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

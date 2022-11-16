@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>テキスト編集基本機能 &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="ナビゲーション" href="navigation.html" />
+    <link rel="prev" title="拡張" href="extensions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="extensions.html" title="Previous document">拡張</a>
+        </li>
+        <li>
+          <a href="navigation.html" title="Next document">ナビゲーション</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id28">テキスト編集基本機能</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>VS Code のテキスト編集機能のうち、基本的なものからやや先進的なものまでについて記す。本章ではショートカットキーは既定のものを示す。記述の便宜上、部分的に
+<strong class="program">Emacs</strong> 用語を借用する。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id28">テキスト編集基本機能</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id29">キャレットを移動する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id30">単語内で移動する</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id31">釣りあう括弧に移動する</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id32">行番号を指定して移動する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id33">テキストを選択する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id34">標準的な選択</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id35">複数キャレット</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id36">同じ文字列を全て選択</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id37">スマート選択</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id38">列選択モード</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id13" id="id39">テキストを削除する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id40">行単位の編集</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id41">クリップボード操作</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id42">コード整形</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id43">ブロックを折り畳む</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id44">インデント</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id19" id="id45">インデント設定を検出する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id20" id="id46">エンコーディング</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id47">履歴</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id48">ファイルに保存する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id23" id="id49">自動保存</a></p></li>
+<li><p><a class="reference internal" href="#hot-exit" id="id50">Hot Exit</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id24" id="id51">検索と置換</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id25" id="id52">バッファーを対象とする検索および置換</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id53">ファイルの集合を対象とする検索および置換</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id27" id="id54">検索エディター</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id29">キャレットを移動する</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>VS Code のユーザー設定が初期状態であれば、Windows のエディットコントロール上でのショートカットキーと同様にキャレットを移動することができる。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>キャレットの移動または移動先</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>矢印キー各種</p></td>
+<td><p>矢印方向に一文字または一行移動する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Home</kbd></p></td>
+<td><p>行頭</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">End</kbd></p></td>
+<td><p>行末</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">PageUp</kbd></p></td>
+<td><p>一画面ほど上</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">PageDown</kbd></p></td>
+<td><p>一画面ほど下</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Home</kbd></p></td>
+<td><p>バッファーの先頭</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">End</kbd></p></td>
+<td><p>バッファーの末尾</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">←</kbd></p></td>
+<td><p>現在いる単語の先頭</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">→</kbd></p></td>
+<td><p>現在いる単語の末尾</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id30">単語内で移動する</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>既定ではキーバインドが割り当てられていないが、キャレットを単語内で前後に移動する
+<code class="docutils literal notranslate"><span class="pre">cursorWordPart{Left,Right}</span></code> コマンドがある。どうやら次の条件でキャレットを移動させるようだ：</p>
+<ul class="simple">
+<li><p>英単語の場合は大文字と小文字が入れ替わる最寄りの位置まで移動する。</p></li>
+<li><p>一般には句読点などの最寄りの位置まで移動する。正確に言うと設定項目
+<code class="docutils literal notranslate"><span class="pre">editor.wordSeparator</span></code> で定義される文字だ。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>このように名前のないコマンドを実行するには、キーバインドを明示的に割り当てる必要がある。<a class="reference internal" href="key-bindings.html"><span class="doc">キーバインド</span></a> を参照。</p>
+</div>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>これらのコマンドの本物の仕様を参照する。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id31">釣りあう括弧に移動する</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<p>キャレットが括弧にあるときに <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">\</kbd> を押すと、その括弧に釣りあう括弧にキャレットが移動する。</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id32">行番号を指定して移動する</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p>既定では <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">G</kbd> 押しで <span class="menuselection">Go to Line/Column…</span> 入力テキストボックスが表示される。ここで行番号単体か、それに加えてコロンと桁番号を入力すれば、キャレットがその位置に移動する。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id33">テキストを選択する</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id34">標準的な選択</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<p>前節のキャレット移動キー操作それぞれに対して <kbd class="kbd docutils literal notranslate">Shift</kbd> キーを追加的に押すと、対応するキャレット移動が起こり、かつその軌跡上のテキストが選択される。例えば
+<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">End</kbd> を押すとキャレットのあった位置から行末までの文字すべてが選択され、キャレットは行末に移動している。</p>
+<p>選択操作においてはキャレット移動が副作用的に発生しがちだが、気にしないほうがいい。</p>
+<p>Windows 同様に、テキスト全部を <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">A</kbd> を押すことで選択することもできる。</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id35">複数キャレット</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p>VS Code 独特のキャレット操作に「分身」がある。分身自体は選択ではないが、直後に選択を伴う可能性が高いので今述べる。</p>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + (<kbd class="kbd docutils literal notranslate">↑</kbd> | <kbd class="kbd docutils literal notranslate">↓</kbd>) を押すと、現在位置の上または下の行の同じ位置にキャレットを分身する。</p>
+<p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">I</kbd> を押すと、選択範囲を含む行全部の行末にキャレットを分身する。</p>
+<p>キーバインドが既定では与えられていないものの、さらなる分身コマンドが用意されている：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>キャレットの分身位置</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">Add Cursors To Top</span></p></td>
+<td><p>現在位置からバッファー先頭までの行すべての対応する桁</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Add Cursors To Bottom</span></p></td>
+<td><p>現在位置からバッファー末端までの行すべての対応する桁</p></td>
+</tr>
+</tbody>
+</table>
+<p>「分身」を解除するには、既定では <kbd class="kbd docutils literal notranslate">Escape</kbd> を押す。</p>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id36">同じ文字列を全て選択</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>文字列を選択して <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">L</kbd> を押すと、エディター内にあるこの文字列と同じ文字列すべても選択されたことになり、キャレットの分身も起こる。</p>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id37">スマート選択</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<p>スマート選択とは、現在の選択に基づいて選択領域を拡張または縮小していく操作だ。高級プログラミング言語のコードを編集しているならば、選択領域がスコープになるように段階的に変化するのを想像するとだいたい合っているだろう。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">←</kbd></p></td>
+<td><p>スコープ方向に選択を縮小する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">→</kbd></p></td>
+<td><p>スコープ方向に選択を拡大する</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id38">列選択モード</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<p>VS Code の公式文書では列選択モードという言い回しをしているが、<strong class="program">Emacs</strong>
+の用語を借用すると矩形選択モードだ。列選択モードでは選択部分が矩形状に変化するのが特徴だ。関連事項として次の二点を覚えておけばいい。</p>
+<p>まず、メインメニューから <span class="menuselection">Selecion ‣ Column Selection Mode</span> を選択すると、エディターの選択モードが通常選択と列選択に交互に入れ替わる。</p>
+<p>そして、列選択モードに入らなくても、<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> キーを押しながら、矢印キーやページキーを組み合わせて押せば列選択が可能であることを押さえる。</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id39">テキストを削除する</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<p>削除した部分を選択して <kbd class="kbd docutils literal notranslate">Delete</kbd> または <kbd class="kbd docutils literal notranslate">Backspace</kbd> キーを押すのが一般的な削除方法だ。特殊な用途に特化した削除コマンドも用意されている：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Backspace</kbd></p></td>
+<td><p>キャレットの左の文字を削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Delete</kbd></p></td>
+<td><p>キャレットの右の文字を削除する</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Backspace</kbd></p></td>
+<td><p>キャレットがある単語の先頭まで文字を削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd></p></td>
+<td><p>キャレットがある行全体を削除する</p></td>
+</tr>
+</tbody>
+</table>
+<p>次の表は最初のものを除いて既定ではキーバインドが割り当てられていないテキスト削除コマンドだ：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteWordStartLeft</span></code></p></td>
+<td><p>キャレットから単語の先頭まで削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deleteWordStartRight</span></code></p></td>
+<td><p>キャレットから単語の末尾まで＋区切り文字を削除する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteWordEndLeft</span></code></p></td>
+<td><p>キャレットから単語の先頭まで＋区切り文字を削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deleteWordEndRight</span></code></p></td>
+<td><p>キャレットから単語の末尾まで削除する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteWordPartLeft</span></code></p></td>
+<td><p>キャレットから「単語内に移動する」の節で述べた最も左側に近い文字（含む）まで削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deleteWordPartRight</span></code></p></td>
+<td><p>キャレットから「単語内に移動する」の節で述べた最も右側に近い文字（含まない）まで削除する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deleteAllLeft</span></code></p></td>
+<td><p>キャレットから行の先頭まで削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deleteAllRight</span></code></p></td>
+<td><p>キャレットから行の末尾まで削除する</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id40">行単位の編集</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<p>エディター上で行単位で編集する便利なコマンドをいくつか挙げる。</p>
+<p>エディターで <kbd class="kbd docutils literal notranslate">Alt</kbd> + (<kbd class="kbd docutils literal notranslate">↑</kbd> | <kbd class="kbd docutils literal notranslate">↓</kbd>) を押すと上または下の行と現在の行を入れ替える。</p>
+<p>同様に、<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + (<kbd class="kbd docutils literal notranslate">↑</kbd> | <kbd class="kbd docutils literal notranslate">↓</kbd>) を押すと現在の行の複製を上または下の行との間に挿入する。</p>
+<p>キーバインドが既定では与えられていないものの、複数行を選択した状態で効果があるコマンドが用意されている。一部を次に示す：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">Sort Lines Ascending</span></p></td>
+<td><p>行単位で昇順に並び替える</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Sort Lines Descending</span></p></td>
+<td><p>行単位で降順に並び替える</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Delete Duplicated Lines</span></p></td>
+<td><p>行単位で重複するものを一つを除いて削除する</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Join Lines</span></p></td>
+<td><p>改行文字を削除して一行に結合する</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id41">クリップボード操作</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>Windows 標準の意味でのクリップボード操作は VS Code でも有効だ。なお、コマンドに対するキーバインドも OS 標準の二種類あるが、次の表では短い方を採用してある：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd></p></td>
+<td><p>切り取り</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd></p></td>
+<td><p>コピー</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">V</kbd></p></td>
+<td><p>貼り付け</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id42">コード整形</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<p>HTML や JavaScript などは VS Code 自身が整形規則を規定しており、汚いコードを書いても次のコマンドを実行すれば、インデントや改行がよく揃う：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">F</kbd></p></td>
+<td><p>バッファー内容全体を整形する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">F</kbd></p></td>
+<td><p>選択部分を整形する</p></td>
+</tr>
+</tbody>
+</table>
+<p>その他の言語については、これらが機能するのは利用している拡張機能が整形規則を定義していることが必要だ。</p>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id43">ブロックを折り畳む</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<p>構造化されたコードで表現されるような言語のテキストであれば、エディターの行番号と行頭の間の隙間に折りたたみボタンがあり、それぞれがブロックに関連している。</p>
+<ul class="simple">
+<li><p>これをクリックすると、そのブロックを畳むか展開する。</p></li>
+<li><p>これを <kbd class="kbd docutils literal notranslate">Shift</kbd> を押しつつクリックすると、そのブロックと子孫ブロック全部を一斉に折り畳むか展開する。</p></li>
+</ul>
+<p>キーバインドも使える。下の表にあるコマンド以外にも、便利な操作がある。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">[</kbd></p></td>
+<td><p>キャレット位置のブロックを畳む</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">]</kbd></p></td>
+<td><p>キャレット位置のブロックを展開する</p></td>
+</tr>
+</tbody>
+</table>
+<p>ブロックは人為的に定義することも可能だ。これも言語によって異なるが、例えば
+Markdown ならば、文字列 <code class="docutils literal notranslate"><span class="pre">&lt;!--</span> <span class="pre">#region</span> <span class="pre">--&gt;</span></code> から文字列 <code class="docutils literal notranslate"><span class="pre">&lt;!--</span> <span class="pre">#endregion</span> <span class="pre">--&gt;</span></code>
+までの部分がブロックとみなされる。</p>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id44">インデント</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<p>エディター内で <kbd class="kbd docutils literal notranslate">Tab</kbd> を押すと、VS Code はタブ文字か空白文字数個をキャレット位置に挿入する。この挙動はユーザー設定により変化する。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">]</kbd></p></td>
+<td><p>キャレットのある行をインデントする</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">[</kbd></p></td>
+<td><p>キャレットのある行のインデントを一単位戻す</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id45">インデント設定を検出する</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<p>VS Code は開いているファイルを分析し、採用されているインデントを判断する。自動検出されたインデントが既定のインデント設定に優先する。実際に適用されているインデント条件は Status Bar のインジケーターで確認できる。例えば <code class="docutils literal notranslate"><span class="pre">Spaces:</span> <span class="pre">4</span></code> のような表示があるはずだ。</p>
+<p>そのインデント表示をクリックすると、メインウィンドウ上部にインデント関連のドロップダウンが表示される。現在のエディターの設定を変更したり、タブ文字と空白文字を相互に変換したりするのに利用する。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">Indent Using Spaces</span></p></td>
+<td><p>空白文字を使ってインデントすることにする</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Indent Using Tabs</span></p></td>
+<td><p>タブ文字を使ってインデントすることにする</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Detect Indentation from Content</span></p></td>
+<td><p>インデント設定を検出する</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Convert Indentation to Spaces</span></p></td>
+<td><p>インデント箇所のタブ文字すべてを適切な個数の空白文字に置換する</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Convert Indentation to Tabs</span></p></td>
+<td><p>インデント箇所の空白文字すべてを適切な個数のタブ文字に置換する</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id46">エンコーディング</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<p>ワークスペース内のファイルに対する既定のエンコーディングを指定できる。もっと大域的に、VS Code で編集するファイルすべてに対する既定のエンコーディングを指定できる。</p>
+<p>エンコーディングを指定してファイルを開き直したり、保存したりすることができる。</p>
+<p>現在のエディターに関するエンコーディングは Status Bar のインジケーターに表示される。</p>
+</div>
+<div class="section" id="id21">
+<h2><a class="toc-backref" href="#id47">履歴</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
+<p>MS Office のソフトウェアと同様に、バッファーの内容を編集直前に戻したり、戻すのをやめたりすることが可能だ。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Z</kbd></p></td>
+<td><p>元に戻す</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Y</kbd></p></td>
+<td><p>やり直す</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id48">ファイルに保存する</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
+<p>ショートカットキー <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">S</kbd> は、現在のバッファーが既存のファイルに関連していれば上書き保存コマンドを、そうでなければ名前を付けて保存コマンドを実行する。</p>
+<p>コマンド <span class="menuselection">Save All</span> は、大まかに言えば現在の編集バッファー全てに対して上記を実行する。</p>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id49">自動保存</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection">File ‣ Auto Save</span> をオンにすると、編集バッファーすべてに対して自動保存機能が有効になる。これにより、ファイルを明示的に保存する手間が省ける。</p>
+</div>
+<div class="section" id="hot-exit">
+<h3><a class="toc-backref" href="#id50">Hot Exit</a><a class="headerlink" href="#hot-exit" title="Permalink to this heading">¶</a></h3>
+<p>編集済みだがまだファイルに保存されていないバッファーが VS Code 終了時に存在する場合、それらの内容を密かに作業ファイルに保存するという機能がある。</p>
+<ul class="simple">
+<li><p>細かい挙動は設定ファイルで設定可能だ。</p></li>
+<li><p>作業ファイルはフォルダー <code class="file docutils literal notranslate"><span class="pre">%APPDATA%\Code\Backups</span></code> に保存される。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id51">検索と置換</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h2>
+<p>検索と置換で UI が酷似しているのでまとめて説明する。</p>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id52">バッファーを対象とする検索および置換</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">F</kbd></p></td>
+<td><p>バッファー内から文字列を検索する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">H</kbd></p></td>
+<td><p>バッファー内の文字列を置換</p></td>
+</tr>
+</tbody>
+</table>
+<p>検索コマンドを開始すると、バッファー上部に引数入力用の UI が表示される。</p>
+<ul class="simple">
+<li><p>エディットボックスに対象となる文字列を入力する。</p></li>
+<li><p><span class="guilabel">Match Case</span> アイコンをクリックするたびに、検索における大文字小文字区別モードのON/OFF を切り替える。</p></li>
+<li><p><span class="guilabel">Match Whole Word</span> アイコンをクリックすると、対象文字列を単語として扱うように指示することになる。部分文字列としての合致を無視することになる。</p></li>
+<li><p><span class="guilabel">Use Regular Expression</span> アイコンをクリックすると、対象文字列が正規表現パターンであるか否かを切り替える。</p></li>
+<li><p><span class="guilabel">Find in Selection</span> ボタンを押すと、検索対象範囲を現在選択に限定する。</p></li>
+</ul>
+<p>実際に検索すると、次のことが起こる：</p>
+<ul class="simple">
+<li><p>UI 上に結果数が出力される。</p></li>
+<li><p>エディター本体のみならず、縦スクロールバー、ミニマップに検索結果がハイライトされる。</p></li>
+<li><p><span class="guilabel">Previous Match</span> と <span class="guilabel">Next Match</span> ボタンを押すと、エディターの表示が隣の合致位置に移動する。</p></li>
+</ul>
+<p>置換コマンドを開始すると、検索コマンドの UI によく似たものが表示される。UI 項目の追加分を述べる：</p>
+<ul class="simple">
+<li><p>下のエディットボックスに置換後の文字列または正規表現パターンを指定する。</p></li>
+<li><p><span class="guilabel">Preserve Case</span> ボタンで大文字小文字を維持させるか否かを指定する。</p></li>
+<li><p><span class="guilabel">Replace</span> ボタンで実際に現在ハイライトしている合致部分に対して置換する。</p></li>
+<li><p><span class="guilabel">Replace All</span> ボタンで合致全部を置換する。</p></li>
+</ul>
+</div>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id53">ファイルの集合を対象とする検索および置換</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
+<p>現在のワークスペース管理下にあるファイルすべてに対して、検索または置換ができる。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F</kbd></p></td>
+<td><p>ファイル群から文字列を検索する</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">H</kbd></p></td>
+<td><p>ファイル群に対して文字列を置換する</p></td>
+</tr>
+</tbody>
+</table>
+<p>検索・置換オプションは上述のものと共通する仕様だ。共通でないものは：</p>
+<dl>
+<dt><span class="guilabel">files to include</span></dt><dd><p>操作対象となるファイル名を glob 指定する。必須項目。</p>
+<dl class="simple">
+<dt><span class="guilabel">Search only in Open Editors</span></dt><dd><p>さらに、現在開いているバッファーに操作対象を限定する。</p>
+</dd>
+</dl>
+</dd>
+<dt><span class="guilabel">files to exclude</span></dt><dd><p>操作対象から除外するファイル名を glob 指定する。こちらはオプショナル。</p>
+<dl class="simple">
+<dt><span class="guilabel">Use Exclude Settings and Ignore Files</span></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">.gitignore</span></code> や VS Code のユーザー設定を考慮するかどうか。
+ON にしておくのが普通だ。</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>検索ボックスの内容が更新されるたびに、検索結果または置換プレビュー表示が下の空間に出力される。</p>
+<p>なお、特定のフィルダーから下にあるファイルすべてを対象としたい場合は、
+Explorer ビューのフォルダーアイコンのコンテキストメニューから
+<span class="menuselection">Find In Folder…</span> を選択すると <span class="guilabel">files to include</span> の入力の手間が省ける。</p>
+<p>最後に globbing について補足する。通常のワイルドカードに加え、Bash の globstar
+ワイルドカード <code class="docutils literal notranslate"><span class="pre">**</span></code> と等しいものが最初から使える。このパターンはゼロまたは複数のディレクトリーで構成される有効なパスに展開する。</p>
+<div class="section" id="id27">
+<h4><a class="toc-backref" href="#id54">検索エディター</a><a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h4>
+<p>検索結果の統計の右側に書いてあるリンク <span class="guilabel">Open in editor</span> をクリックすると、検索結果または置換プレビュー表示をより見易い形式で表示するタブが VS Code のメイン部分に出現する。これを検索エディターという。</p>
+<p>検索エディターでは、合致行の前後を確認できたり、キーワードを着色したりする。一般的な <strong class="command">grep</strong> 出力の役目を期待して良い。</p>
+<p>結果行をダブルクリックすると、キャレットが同じ位置にあるエディタータブが新たに開く。</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="extensions.html" title="Previous document">拡張</a>
+        </li>
+        <li>
+          <a href="navigation.html" title="Next document">ナビゲーション</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Visual Studio Code 利用ノート</a><ul>
+      <li>Previous: <a href="extensions.html" title="previous chapter">拡張</a></li>
+      <li>Next: <a href="navigation.html" title="next chapter">ナビゲーション</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

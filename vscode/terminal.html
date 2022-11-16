@@ -1,0 +1,1085 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>内蔵端末 &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="ユーザーインターフェイス" href="ui.html" />
+    <link rel="prev" title="Git のインターフェイスとしての VS Code" href="git.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="git.html" title="Previous document">Git のインターフェイスとしての VS Code</a>
+        </li>
+        <li>
+          <a href="ui.html" title="Next document">ユーザーインターフェイス</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id47">内蔵端末</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>VS Code にはハイスペックな端末が組み込まれている。シェルの対話的操作だけでなく、エラー各種を検出したり、エラー箇所にジャンプしたりするなどの便利な機能を用意している。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id47">内蔵端末</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id48">端末を表示する</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id49">複数シェルに対応</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id50">端末管理</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id51">画面を分割</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id52">エディター区域に端末画面を表示する</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id53">スクロール</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id54">コピー＆ペースト</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id55">マウス操作</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id56">右クリック</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id57">キャレットを移動する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id12" id="id58">検索</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id59">エディターのテキストをコマンドとして実行する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id60">最大化表示</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id61">全選択</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id62">作業ディレクトリー</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id63">画面サイズ固定</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id64">プロファイル</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id19" id="id65">プロファイルを構成する</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id66">組み込みプロファイルを削除する</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id67">タスク専用端末プロファイルを構成する</a></p></li>
+<li><p><a class="reference internal" href="#windows-powershell" id="id68">Windows PowerShell</a></p></li>
+<li><p><a class="reference internal" href="#wsl" id="id69">WSL</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id22" id="id70">見栄え</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id23" id="id71">フォント周り</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nerd-fonts" id="id72">Nerd Fonts</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id24" id="id73">キャレットをカスタマイズする</a></p></li>
+<li><p><a class="reference internal" href="#id25" id="id74">端末画面タブをカスタマイズする</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id26" id="id75">端末画面タブのラベルをカスタマイズする</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id76">端末画面アイコン</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id77">端末の状態</a></p></li>
+<li><p><a class="reference internal" href="#id29" id="id78">ブザー</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id30" id="id79">端末画面の色</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id31" id="id80">最小コントラスト比</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#gpu" id="id81">GPU 高速化</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id32" id="id82">カスタムグリフ</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id33" id="id83">プロンプトをカスタマイズする</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id34" id="id84">高度な機能</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id35" id="id85">永続セッション</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id36" id="id86">メインウィンドウをまたいで移動する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id37" id="id87">キーバインド</a></p>
+<ul>
+<li><p><a class="reference internal" href="#chords" id="id88">Chords</a></p></li>
+<li><p><a class="reference internal" href="#mnemonics" id="id89">Mnemonics</a></p></li>
+<li><p><a class="reference internal" href="#id38" id="id90">端末にキーバインド列を送る</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id40" id="id91">確認ダイアログ</a></p></li>
+<li><p><a class="reference internal" href="#id41" id="id92">自動応答</a></p></li>
+<li><p><a class="reference internal" href="#unicode" id="id93">Unicode</a></p></li>
+<li><p><a class="reference internal" href="#id42" id="id94">プロセス環境</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id43" id="id95">環境継承</a></p></li>
+<li><p><a class="reference internal" href="#lang" id="id96">LANG との相互作用</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id44" id="id97">拡張機能による環境への介入</a></p></li>
+<li><p><a class="reference internal" href="#conpty" id="id98">ConPTY</a></p></li>
+<li><p><a class="reference internal" href="#id45" id="id99">リモート開発</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id46" id="id100">リモート入力の反応時間を短縮する</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id48">端末を表示する</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>すでに端末が VS Code メインウィンドウに作成されているならば、次の方法のいずれかで端末を所定の場所（通常はエディター床下）に出したり消したりする。ない場合には
+VS Code が端末画面を新規に生成する。</p>
+<ul class="simple">
+<li><p>コマンド <span class="guilabel">View: Toggle Terminal</span> を実行する</p></li>
+<li><p>キーバインド <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">&#64;</kbd> を押す</p></li>
+</ul>
+<p>端末画面を新しく生成する必要があれば、次の方法のいずれかでそれを実現する：</p>
+<ul class="simple">
+<li><p>コマンド <span class="guilabel">Terminal: Create New Terminal</span> を実行する</p></li>
+<li><p>メニュー項目 <span class="menuselection">Terminal ‣ New Terminal</span> を選択する</p></li>
+<li><p>キーバインド <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">&#64;</kbd> を押す</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id49">複数シェルに対応</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>本節の執筆を放棄する。WSL だとこの機能が調査しにくいことと、どうせ
+<strong class="program">Bash</strong> しか利用する気がない。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id50">端末管理</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">TERMINAL</span> ヘッダーバーのずっと右側にある端末画面アイコンをクリックするとコンテキストメニューが開く。一部の項目を先に記す：</p>
+<dl class="simple">
+<dt><span class="menuselection">Change Color…</span></dt><dd><p>端末画面アイコンの色を ANSI 色から選択し、変更する。あるいは既定の色に戻す。</p>
+</dd>
+<dt><span class="menuselection">Change Icon…</span></dt><dd><p>端末画面アイコンの図像自体をプリセットから選択し、変更する。</p>
+</dd>
+<dt><span class="menuselection">Rename</span></dt><dd><p>端末画面アイコンタブのラベルテキストを指定する。</p>
+</dd>
+</dl>
+<p>端末インスタンスをさらに追加するには、次のいずれかを行う。この操作により、その端末に関連するタブリストに別のエントリーが生成する：</p>
+<ul class="simple">
+<li><p>先述の端末画面の新規作成方法のいずれかを実行する</p></li>
+<li><p>タブ <span class="guilabel">TERMINAL</span> のずっと右側にあるアイコン <span class="guilabel">+</span> をクリックする</p></li>
+<li><p>端末のドロップダウンからプロファイルを何か選択する</p></li>
+</ul>
+<p>逆に、端末インスタンスを削除するには、次のいずれかを行う：</p>
+<ul class="simple">
+<li><p>タブ <span class="guilabel">TERMINAL</span> のずっと右側にあるゴミ箱アイコンをクリックする</p></li>
+<li><p>タブをアクティブにして <kbd class="kbd docutils literal notranslate">Delete</kbd> を押す</p></li>
+<li><p>コマンド <span class="guilabel">Terminal: Kill the Active Terminal Instance</span> を実行する</p></li>
+<li><p>タブのコンテキストメニューから <span class="menuselection">Kill Terminal</span> を選択する</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>端末のセッションを終了すると端末インスタンスが削除される。</p>
+</div>
+<p>端末グループ間の移動をショートカットキーで果たせる。キーボードから手を離したくない：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>コマンド</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">PageDown</kbd></p></td>
+<td><p><span class="guilabel">Terminal: Focus Next Terminal Group</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">PageUp</kbd></p></td>
+<td><p><span class="guilabel">Terminal: Focus Previous Terminal Group</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>端末がある種の状態になると、端末画面タブの右側にアイコンが表示される。マウスホバーで状態情報を読める。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id51">画面を分割</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>端末を横に並べることができるものを端末グループと呼んでいる。これを生成するには端末を分割する：</p>
+<ul class="simple">
+<li><p>端末分割アイコンをクリックする</p></li>
+<li><p>端末画面タブのコンテキストメニューを表示して <span class="menuselection">Split</span> を選択する</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Alt</kbd> を押しながら次のいずれかをする：</p>
+<ul>
+<li><p>端末画面タブをクリックする</p></li>
+<li><p>アイコン <span class="guilabel">+</span> をクリックする</p></li>
+<li><p>端末パネルにある唯一のタブをクリックする</p></li>
+</ul>
+</li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">5</kbd> を押す</p></li>
+</ul>
+<p>分割して生じる端末の初期ディレクトリーは設定 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.splitCwd</span></code> による。</p>
+<p>端末グループ内をショートカットキーでも移動できる。キーボードから手を離したくない：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>コマンド</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">→</kbd></p></td>
+<td><p><span class="guilabel">Terminal: Focus Next Terminal in Terminal Group</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">←</kbd></p></td>
+<td><p><span class="guilabel">Terminal: Focus Previous Terminal in Terminal Group</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>端末タブはドラッグ＆ドロップ可能だ。次の場合があり得る：</p>
+<ul class="simple">
+<li><p>同一グループ内でタブを並び替える。</p></li>
+<li><p>グループをまたいで端末画面を移動させる。</p></li>
+</ul>
+<p>端末をそれの独自グループに移動することもできる。それには次のいずれかを行う：</p>
+<ul class="simple">
+<li><p>コマンド <span class="guilabel">Terminal: Unsplit Terminal</span> を直接実行する</p></li>
+<li><p>端末タブのコンテキストメニューを表示して <span class="menuselection">Unsplit Terminal</span> を選択する</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id52">エディター区域に端末画面を表示する</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>エディター区域にも端末画面を生成したり移動したりすることが可能だ。次のような方法がある：</p>
+<ul class="simple">
+<li><p>コマンド <span class="guilabel">Terminal: Create New Terminal in Editor Area</span> を直接実行する</p></li>
+<li><p>コマンド <span class="guilabel">Terminal: Create New Terminal in Editor Area to the Side</span>
+を直接実行する</p></li>
+<li><p><span class="guilabel">TERMINAL</span> ビューにある端末タブをエディター区域にドラッグする</p></li>
+</ul>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.defaultLocation</span></code> を変えることで、既定の端末画面位置をビューかエディター区域のいずれかに指定することが可能だ。</p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id53">スクロール</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p>本稿では端末画面内の内容をバッファーと呼ぶ。</p>
+<p>スクロール表示において、底部から前にあるバッファー部分をスクロールバックと呼ぶ。スクロールバックの保持量は設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.scrollback</span></code> の値で指定する。既定値は 1000 行だ。</p>
+<p>スクロールのショートカットキーは次のとおり。<strong class="program">Windows Terminal</strong> と同じとは限らないので注意を要する：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">PageUp</kbd></p></td>
+<td><p>上に一行だけスクロールする</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">PageDown</kbd></p></td>
+<td><p>下に一行だけスクロールする</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">PageUp</kbd></p></td>
+<td><p>上に一ページだけスクロールする</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">PageDown</kbd></p></td>
+<td><p>下に一ページだけスクロールする</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Home</kbd></p></td>
+<td><p>バッファーの先頭にスクロールする</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">End</kbd></p></td>
+<td><p>バッファーの末尾にスクロールする</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">↑</kbd></p></td>
+<td><p>前回のコマンドにスクロールする</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">↓</kbd></p></td>
+<td><p>前回のコマンドにスクロールする</p></td>
+</tr>
+</tbody>
+</table>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.smoothScrolling</span></code> の値により、スクロールをアニメーションするように描画させることが可能になる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>繰り返すが、<strong class="program">Windows Terminal</strong> とキーバインドが異なる。混乱しないように注意する。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id54">コピー＆ペースト</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<p>WSL であってもシェルが <strong class="program">Bash</strong> であっても、端末画面上のテキストと
+Windows クリップボード間のやり取りでは、Windows 標準のショートカットキーと同じものを使う。</p>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.copyOnSelection</span></code> が有効な場合、テキスト選択時にその内容がクリップボードに自動的にコピーされる。</p>
+<p>複数行テキストを端末画面に貼り付けようとすると、既定では警告が発生する。これを設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.enableMultiLinePasteWarning</span></code> の値を変えることで無効化可能だ。これはシェルが <a class="reference external" href="https://en.wikipedia.org/wiki/Bracketed-paste">Bracketed-paste</a>
+モードを対応していない場合にしか行われない。</p>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id55">マウス操作</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id56">右クリック</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>右クリックイベントの処理内容を設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.rightClickBehavior</span></code>
+に明示的に指定するべきだ。次の選択肢が有効だ：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>値</p></th>
+<th class="head"><p>処理</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>端末画面用コンテキストメニューを表示する。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">copyPaste</span></code></p></td>
+<td><p>選択があればクリップボードにコピーし、なければクリップボードの中身を貼り付ける。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">paste</span></code></p></td>
+<td><p>クリップボードの中身を貼り付ける。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">selectWord</span></code></p></td>
+<td><p>キャレット位置の単語を選択してコンテキストメニューを表示する。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nothing</span></code></p></td>
+<td><p>何もせず、マウスイベントを端末に送る。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id57">キャレットを移動する</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<p><kbd class="kbd docutils literal notranslate">Alt</kbd> を押しながら左クリックすると、キャレットをマウス位置に移動する。これは、矢印キーストロークを模倣することで実現しているのだが、シェルやプログラムによっては動作しない可能性がある。設定項目
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.altClickMovesCursor</span></code> で無効にすることもできる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>この操作は現在のプロンプト範囲内でしか作用しないものの、複数行編集時に便利だ。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id58">検索</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<p>端末画面にはエディターとよく似た検索機能がある。コマンド <span class="guilabel">Terminal: Focus Find</span> を実行すると、見慣れた検索入力欄が端末画面の隅にポップアップされる。</p>
+<p>いったん検索すると、次のショートカットキーでフォーカスがマッチ間を移動する：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Enter</kbd></p></td>
+<td><p>前のマッチへ移動</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd></p></td>
+<td><p>次のマッチへ移動</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>既定のキーバインドは違和感がある。入れ替えるといいかもしれない。</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id59">エディターのテキストをコマンドとして実行する</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<p>コマンド <span class="guilabel">Terminal: Run Selected Text in Active Terminal</span> を実行すると、エディター上の選択テキストがある場合はその内容全体を、ない場合はキャレットがある行全体をコマンドとして端末で実行する。</p>
+<p>コマンド <span class="guilabel">Terminal: Run Active File Active Terminal</span> を実行すると、現在エディターのバッファー全体をコマンドとして端末で実行する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><strong class="program">Emacs</strong> の <code class="docutils literal notranslate"><span class="pre">shell-command</span></code> のようなものだ。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id60">最大化表示</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<p>エディター区域を一時的に非表示にすることにより、<span class="guilabel">Terminal</span> ビューというよりも、それを擁する Panel 全体を最大化表示することができる。操作例：</p>
+<ul class="simple">
+<li><p>Panel 右上の <span class="guilabel">Maximize Panel Size</span> アイコン（ゴミ箱の右隣）をクリックする</p></li>
+<li><p>コマンド <span class="guilabel">View: Toggle Maximized Panel</span> を直接実行する</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>端末領域を縦長にしたいだけなら、前述のエディター区域にドラッグする選択肢も検討すること。</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id61">全選択</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>端末バッファー全体を選択するには、コマンド <span class="guilabel">Terminal: Select All</span> を直接実行するのが最も無難だ。</p>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id62">作業ディレクトリー</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<p>端末を新規作成すると、通常はワークスペースを開いたディレクトリーを作業ディレクトリーとする。この挙動を変えるには、設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.cwd</span></code> の値をカスタマイズする。</p>
+<p>分割操作により生じる子端末は、親端末が開始したディレクトリーで開始する。この挙動は設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.splitCwd</span></code> を使用して変更できる。</p>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id63">画面サイズ固定</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<p>コマンド <span class="guilabel">Terminal: Set Fixed Dimensions</span> を実行すると、列と行数を変更することができる。</p>
+<p>端末画面タブを右クリックしてコンテキストメニューから
+<span class="menuselection">Toggle Size to Content Width</span> を選択することで、端末の桁数を最大の折り返し行に変更することもできる。</p>
+<p>基本的に固定表示モードはスクロールバーが目障りで推奨されていない。</p>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id64">プロファイル</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.profiles.xxxx</span></code> について記す（ここで <code class="docutils literal notranslate"><span class="pre">xxxx</span></code> は実際には OS 名称が入る）。これは、実行パス、引数、およびその他のカスタマイズから構成される OS 固有のシェル設定だ。既定ではVS Code が自動的に検出したいくつかの項目で構成されている。これをユーザーがカスタマイズしたり、追加したりすることが可能だ。</p>
+<p>既定プロファイルを設定するにはコマンド <span class="guilabel">Terminal: Select Default Profile</span>
+を実行する。VS Code の画面上部にドロップダウンリストが表示されるので、そこから項目を選べばいい。</p>
+<p>既定の端末ロファイルのシェルは、WSL では <code class="docutils literal notranslate"><span class="pre">$SHELL</span></code>, Windows では
+<strong class="program">PowerShell</strong> となっている。VS Code はシステムにあるシェルのほとんどを自動的に検出し、ユーザーが既定シェルとして設定可能であるように用意する。</p>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id65">プロファイルを構成する</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<p>構成ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> 内 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.profiles.xxxx</span></code> を編集することで端末プロファイルを定義する。</p>
+<p>記法は VS Code 既定の <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> の内容を表示して模倣すればよい。まずコマンド <span class="guilabel">Preferences: Open Default Settings (JSON)</span> を実行する。</p>
+<ul class="simple">
+<li><p>WSL の場合は <code class="docutils literal notranslate"><span class="pre">terminal.integrated.profiles.linux</span></code> を、</p></li>
+<li><p>Windows の場合は <code class="docutils literal notranslate"><span class="pre">terminal.integrated.profiles.windows</span></code> を</p></li>
+</ul>
+<p>それぞれ編集する。Defalut Settings で記されている設定項目プロファイルは、
+User Settings に明記しなくてもマージされるのを利用して記述を省くといい。</p>
+<p>プロファイルで使える引数は次のとおり：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">overrideName</span></code></dt><dd><p>これを <code class="docutils literal notranslate"><span class="pre">true</span></code> にすると、端末画面タブのタイトルを静的なプロファイル名で固定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">env</span></code></dt><dd><p>環境変数とその値を定義する写像。変数に <code class="docutils literal notranslate"><span class="pre">null</span></code> を設定すると環境変数は存在しないことになる。設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.env.xxxx</span></code> を使用して、プロファイルすべてに対して設定する方法もある。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">icon</span></code></dt><dd><p>アイコン ID を表す文字列。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">color</span></code></dt><dd><p>アイコンに対するテーマ色 ID を表す文字列。</p>
+</dd>
+</dl>
+<p>プロパティー <code class="docutils literal notranslate"><span class="pre">path</span></code>, <code class="docutils literal notranslate"><span class="pre">args</span></code>, <code class="docutils literal notranslate"><span class="pre">env</span></code> では変数解決が利用できる。</p>
+<p>先ほど既定の端末プロファイルを指定する方法を述べたが、<code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> を手動で編集してもよい。設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.defaultProfile.xxxx</span></code> に既存プロファイル名を割り当てる。</p>
+</div>
+<div class="section" id="id20">
+<h3><a class="toc-backref" href="#id66">組み込みプロファイルを削除する</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<p>VS Code の <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> で値がオブジェクトである項目は、既定値にユーザー定義値をマージしたものになる。このため、既定値を明示的に削除する方法が用意されている。ユーザー版 <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> で VS Code が用意している端末プロファイルの値を
+<code class="docutils literal notranslate"><span class="pre">null</span></code> にすればよい。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;terminal.integrated.profiles.windows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;Git Bash&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id67">タスク専用端末プロファイルを構成する</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<p>既定ではタスク・デバッグ機能は当然ながら既定の端末プロファイルを用いる。このような端末のシェルが重かったり、非標準的シェルであると不愉快だ。そういう場合、タスク・デバッグ機能専用端末プロファイルを設定する方法が用意されているので、それを利用する。</p>
+<p>設定項目は <code class="docutils literal notranslate"><span class="pre">terminal.integrated.automationProfile.xxxx</span></code> だ。</p>
+<p>VS Code の文書では既定で <strong class="program">fish</strong> を使っている Mac ユーザーが
+<strong class="program">sh</strong> シェルを設定する例が挙げられている。</p>
+</div>
+<div class="section" id="windows-powershell">
+<h3><a class="toc-backref" href="#id68">Windows PowerShell</a><a class="headerlink" href="#windows-powershell" title="Permalink to this heading">¶</a></h3>
+<p>VS Code はモダンな <strong class="program">PowerShell</strong> を自動検出しない。これをプロファイルとして手動で定義する。端末画面タブ用のアイコンはあるようだ。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.profiles.windows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;PowerShell&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${env:PROGRAMFILES}\\System32\\PowerShell\\7\\pwsh.exe&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;-noexit&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;-file&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">               </span><span class="s2">&quot;${env:USERPROFILE}\\Documents\\PowerShell\\profile.ps1&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;icon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;terminal-powershell&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wsl">
+<h3><a class="toc-backref" href="#id69">WSL</a><a class="headerlink" href="#wsl" title="Permalink to this heading">¶</a></h3>
+<p>VS Code は WSL のシェルを自動的に検出するが、ディストリビューションが多数インストールされている場合、一覧に大量に項目が出現して傍迷惑になることがある。
+WSL プロファイルをより細かく制御するには、設定項目
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.useWslProfiles</span></code> を <code class="docutils literal notranslate"><span class="pre">false</span></code> に指定して自動検出を無効化するといい。</p>
+</div>
+</div>
+<div class="section" id="id22">
+<h2><a class="toc-backref" href="#id70">見栄え</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
+<p>VS Code 端末画面の視覚的特徴を大きくカスタマイズすることが可能だ。いつもと同じく、設定ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> を編集すればよい。</p>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id71">フォント周り</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
+<p>端末に日本語を出力することが普通にあるため、フォント設定はたいせつだ。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.fontFamily</span></code></dt><dd><p>CSS の font-family と同じ書式の文字列で端末画面のフォントファミリーを指定する。フォールバックをかなり細かく指定するのがコツだ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.fontSize</span></code></dt><dd><p>端末画面のテキストのフォントサイズを指定する。単位はポイントと思われる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.letterSpacing</span></code></dt><dd><p>文字間の追加的な水平方向の間隔をピクセル単位で設定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.lineHeight</span></code></dt><dd><p>文字間の垂直方向の間隔を通常の行の高さの倍数で設定する。例えば 1.1 と指定すると、縦方向に 10% の間隔を追加する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.fontWeight</span></code></dt><dd><p>通常テキストの太さを文字列 <code class="docutils literal notranslate"><span class="pre">normal</span></code>, <code class="docutils literal notranslate"><span class="pre">bold</span></code>, または、1..1000 の値を指定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.fontWeightBold</span></code></dt><dd><p>太字テキストの太さを上記項目と同様の方式で指定する。</p>
+</dd>
+</dl>
+<div class="section" id="nerd-fonts">
+<h4><a class="toc-backref" href="#id72">Nerd Fonts</a><a class="headerlink" href="#nerd-fonts" title="Permalink to this heading">¶</a></h4>
+<p>VS Code 端末は初期設定でも Powerline の一部を描画できる（後述）が、より多くの記号が必要な場合は、フォントファミリーの設定で Powerline フォントを設定する。
+Powerline フォントは通常 <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">Powerline</span></code> で終わる名前である。例：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;editor.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&#39;DejaVu Sans Mono for Powerline&#39;&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Nerd Fonts も同じように動作し、通常 <code class="docutils literal notranslate"><span class="pre">NF</span></code> という接尾辞を持つ。例：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.fontFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&#39;Hack NF&#39;&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><a class="reference external" href="https://ohmyposh.dev/">Oh My Posh</a> を利用しているのならば、
+<strong class="program">Windows Terminal</strong> で設定した値をそのまま適用するのが自然だ。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id73">キャレットをカスタマイズする</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
+<p>端末上のキャレットをカスタマイズする設定項目がある。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.cursorBlinking</span></code></dt><dd><p>端末にフォーカスがあるときにキャレットを点滅させるかどうか</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.cursorStyle</span></code></dt><dd><p>キャレットの形状を指定する。可能な値は次のいずれか：
+<code class="docutils literal notranslate"><span class="pre">block</span></code>, <code class="docutils literal notranslate"><span class="pre">line</span></code>, <code class="docutils literal notranslate"><span class="pre">underline</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.cursorWidth</span></code></dt><dd><p>上記 <code class="docutils literal notranslate"><span class="pre">cursorStyle</span></code> が <code class="docutils literal notranslate"><span class="pre">line</span></code> に設定されている場合のマーカーの幅をピクセル単位で指定する。</p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>既定値がまともなのでこれらには触れなくていい。</p>
+</div>
+</div>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id74">端末画面タブをカスタマイズする</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
+<p>端末画面タブは端末が複数ある場合に <span class="guilabel">TERMINAL</span> ビューの右側に表示される。一つしかない場合はビューヘッダーにアクティブな端末が表示される。</p>
+<p>VS Code の端末画面タブに関する初期設定は、横方向の空間を節約するとするものだ。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.enabled</span></code></dt><dd><p>端末画面タブを使うかどうか。無効にするとドロップダウンリストなど他の手段で複数ある端末を切り替えることになる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.hideCondition</span></code></dt><dd><p>端末画面タブを常に表示したい場合に限り <code class="docutils literal notranslate"><span class="pre">never</span></code> を指定すればいい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.location</span></code></dt><dd><p>端末画面タブを <code class="docutils literal notranslate"><span class="pre">left</span></code> または <code class="docutils literal notranslate"><span class="pre">right</span></code> のどちらに置くか。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.showActiveTerminal</span></code></dt><dd><p><span class="guilabel">TERMINAL</span> ビューヘッダーにアクティブな端末をいつ表示するか。取り得る値はつぎのどれか：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>設定値</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">always</span></code></p></td>
+<td><p>常時</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">singleTerminal</span></code></p></td>
+<td><p>端末が一つしかないとき</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">singleTerminalOrNarrow</span></code></p></td>
+<td><p>端末が一つしかないとき、またはビューが狭いとき</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">never</span></code></p></td>
+<td><p>表示しない</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.showActions</span></code></dt><dd><p>アクティブな端末のアクションをビューヘッダーにいつ表示するか。取り得る値は上記のどれか。</p>
+</dd>
+</dl>
+<div class="section" id="id26">
+<h4><a class="toc-backref" href="#id75">端末画面タブのラベルをカスタマイズする</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h4>
+<p>各タブのラベルを決定する設定項目は次のとおり：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.description</span></code></dt><dd><p>端末画面タブのラベル右側に現れるテキスト。変数 <code class="docutils literal notranslate"><span class="pre">${process}</span></code> などを組み込むのが普通だ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.separator</span></code></dt><dd><p>ラベルとテキストの間を区切る文字列。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.title</span></code></dt><dd><p>端末画面タブのラベル。</p>
+</dd>
+</dl>
+<p><strong class="program">Windows Terminal</strong> など他の端末では、シェルが送信したエスケープシーケンスをラベルとして表示することが多い。VS Code でも同じことが可能だ：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.tabs.title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${sequence}&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id27">
+<h4><a class="toc-backref" href="#id76">端末画面アイコン</a><a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h4>
+<p>各端末には、端末プロファイルによって決定される関連アイコンがある。プロファイルで定義されていない場合に使用される既定のアイコンと色を、次の設定項目で与えることができる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.defaultIcon</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.defaultColor</span></code></p></li>
+</ul>
+<p>アイコンは選択肢が大量にあるものの、色の方は <code class="docutils literal notranslate"><span class="pre">terminal.ansiBlue</span></code> など、地味な色しか指定できない。</p>
+</div>
+<div class="section" id="id28">
+<h4><a class="toc-backref" href="#id77">端末の状態</a><a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h4>
+<p>端末の「状態」はタブの右側に表示されるアイコンで示されるものと考えていい。いくつかの状態はアニメーションする。これが邪魔な場合は設定項目
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.tabs.enableAnimation</span></code> を <code class="docutils literal notranslate"><span class="pre">false</span></code> にする。</p>
+</div>
+<div class="section" id="id29">
+<h4><a class="toc-backref" href="#id78">ブザー</a><a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h4>
+<p>端末のブザーが鳴ると、黄色のベルアイコンが短く表示される。これを
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.enableBell</span></code> で無効にすることができ、継続時間は
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.bellDuration</span></code> で設定することができる。</p>
+</div>
+</div>
+<div class="section" id="id30">
+<h3><a class="toc-backref" href="#id79">端末画面の色</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
+<p>VS Code の端末は 24 ビット色を表示することができるが、プログラムは一般的に ANSI
+色およびそれぞれの明るい変種を用いる。これらの ANSI 色はアクティブな色テーマが決定するものだが、設定項目 <code class="docutils literal notranslate"><span class="pre">workbench.colorCustomizations</span></code> でテーマとは独立して指定することも可能だ。</p>
+<p>太字テキストが通常の ANSI 色を使用するか、明るい色の変種を使用するかは、設定
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.drawBoldTextInBrightColors</span></code> で指定できる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>後者が設定項目としては異色の特殊さで気になる。</p>
+</div>
+<div class="section" id="id31">
+<h4><a class="toc-backref" href="#id80">最小コントラスト比</a><a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h4>
+<p>明暗テーマ、ANSI 色、シェルまたはプログラムの実行などの競合により、コントラストの問題がしばしば発生する。最小コントラスト比機能とは、4.5 : 1 のコントラスト比を満足するまで、テキスト前景色の輝度を増加または減少させることで、この種の輝度の問題を解決する機能をいう。</p>
+<p>この機能の欠点は、テキスト色の彩度が低下することがあることだ。元の色を得るには、次の設定項目を調整する：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.minimumContrastRatio&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="gpu">
+<h3><a class="toc-backref" href="#id81">GPU 高速化</a><a class="headerlink" href="#gpu" title="Permalink to this heading">¶</a></h3>
+<p>VS Code の端末にはレンダラーが三種類ある。それぞれ特性が異なる。</p>
+<dl class="simple">
+<dt>WebGL Renderer</dt><dd><p>真の GPU 高速化。</p>
+</dd>
+<dt>Canvas Renderer</dt><dd><p>CanvasRenderingContext2D Web API を使用した GPU 高速化。
+WebGL よりは遅く、DOM よりは速い。</p>
+</dd>
+<dt>DOM Renderer</dt><dd><p>かなり低速ではあるものの、互換性に優れた代替レンダラー。</p>
+</dd>
+</dl>
+<p>既定で有効化されているのは WebGL レンダラー GPU 高速化だ。これにより、CPU が各フレームを描画する時間が大幅に短縮されるため、端末の動作が高速化し、高い FPS で表示できるようになる。</p>
+<p>Linux 仮想マシン、WebGL 未対応ブラウザー、古いドライバーを搭載したマシンでは、
+WebGL が正しく動作しない場合がある。</p>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.gpuAcceleration</span></code> の既定値である <code class="docutils literal notranslate"><span class="pre">auto</span></code>
+は、WebGL, 2D Canvas, DOM レンダラーを順次試し、問題を検出しない最初のものに決着する。</p>
+<p>この検出がうまくいかず、手動での介入が必要になることがある。値を <code class="docutils literal notranslate"><span class="pre">dom</span></code> にすると通常、性能を犠牲にして、このような描画関連の問題を解決できる。</p>
+<div class="section" id="id32">
+<h4><a class="toc-backref" href="#id82">カスタムグリフ</a><a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h4>
+<p>GPU 高速化が有効な場合、フォントではなくカスタムレンダリングの手法で端末における一部の文字に対する表示が改善する。この恩恵を受けるものには、次の文字がある：</p>
+<ul class="simple">
+<li><p>ボックス描画文字 U+2500..U+257F</p></li>
+<li><p>ブロック要素 U+2580..U+259F</p></li>
+<li><p>電力線記号の部分集合 U+E0B0..U+E0B7</p></li>
+</ul>
+<p>つまり、設定されたフォントはこれらの文字に対応する必要がなく、また、文字が pixel
+perfect でセル全体のサイズに伸張するように描画されることを意味する。</p>
+<p>公式文書のイラストは行の高さと文字間隔をカスタム設定した場合のものなのだが、グリフの効能によりセル間に隙間がない。Powerline Symbols がきれいに描画されていることに注意。</p>
+<p>この機能は ON にするべきだが、無効にする設定項目がある。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.customGlyphs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id83">プロンプトをカスタマイズする</a><a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
+<p>シェルのほとんどは、端末のプロンプトを広範囲にカスタマイズすることができる。
+VS Code の外側でシェルを設定することになる。通常は変数 <code class="docutils literal notranslate"><span class="pre">$PS1</span></code> を変更したり、
+<code class="docutils literal notranslate"><span class="pre">$PROMPT_COMMAND</span></code> を設定したり、プラグインをインストールしたりすることで実現する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>私は <strong class="program">Bash</strong> で Oh My Posh を利用している。そのカスタムプロンプトが
+VS Code 端末でも期待どおりに描画させることが直前に記した設定次第で可能だ。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id34">
+<h2><a class="toc-backref" href="#id84">高度な機能</a><a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
+<p>VS Code の内蔵端末は Unicode やカスタムキーバインド、自動返信など、高度な機能と設定を用意している。使いたいものを記していく。</p>
+<div class="section" id="id35">
+<h3><a class="toc-backref" href="#id85">永続セッション</a><a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
+<p>VS Code 端末は永続セッションを二とおりの方法で実現している。再接続と復活だ。</p>
+<dl class="simple">
+<dt>プロセス再接続</dt><dd><p>拡張機能の構成に変更が生じるなどしてメインウィンドウを再読み込みするとき、以前のプロセスに再接続し、その内容を復元する。</p>
+</dd>
+<dt>プロセス復活</dt><dd><p>VS Code を再起動するとき、端末の内容を復元し、元の環境を使用してプロセスを再開する。</p>
+</dd>
+</dl>
+<p>これらの永続セッションは両方とも設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.enablePersistentSessions</span></code>
+を <code class="docutils literal notranslate"><span class="pre">false</span></code> に設定すれば無効になる。復元されるスクロールバックの量は設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.persistentSessionScrollback</span></code> で制御する。プロセス復活は設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.persistentSessionReviveProcess</span></code>
+で個別に指定することができる。値は <code class="docutils literal notranslate"><span class="pre">onExit</span></code>, <code class="docutils literal notranslate"><span class="pre">onExitAndWindowClose</span></code>, <code class="docutils literal notranslate"><span class="pre">never</span></code>
+のいずれかだ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>端末セッションの環境と履歴をどういうふうに、どれくらいの量を復旧するかという機能だ。永続機能は今のところ邪魔になるほうが多いのでオフにしている。しかし、上で言及された最後の項目の値によっては有用である気がしてきた。</p>
+</div>
+<div class="section" id="id36">
+<h4><a class="toc-backref" href="#id86">メインウィンドウをまたいで移動する</a><a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h4>
+<p>端末を VS Code ウィンドウ間で移動することも可能だ。次の方法がある：</p>
+<ul class="simple">
+<li><p>端末画面タブをドラッグ＆ドロップ</p></li>
+<li><p>次のコマンドをそれぞれのウィンドウから直接呼び出す：</p>
+<ul>
+<li><p>コマンド <span class="guilabel">Terminal: Detach Session</span></p></li>
+<li><p>コマンド <span class="guilabel">Terminal: Attach to Session</span></p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>そんなことをするくらいなら <strong class="program">Windows Terminal</strong> で作業をすればいい。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id87">キーバインド</a><a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h3>
+<p>VS Code 端末は組み込みアプリケーションであるため、VS Code 内で送られるキーバインドをなるべくすべてではなく、一部を途中で押さえ込む。</p>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.commandsToSkipShell</span></code> は、どのコマンドのキーバインドをシェルを常に飛び越え、代わりに VS Code のキーバインドシステムで処理させるかを決定する。初期設定では VS Code の操作に不可欠なコマンドの集合がハードコードされている。特定のコマンドを追加または削除することができる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><span class="guilabel">Preferences: Open Default Settings (JSON)</span> でこの項目のコメントを確認する。ここにないものを追加したい場合またはここにあるものを削除したい場合に限り値を設定することだ。</p>
+</div>
+<div class="section" id="chords">
+<h4><a class="toc-backref" href="#id88">Chords</a><a class="headerlink" href="#chords" title="Permalink to this heading">¶</a></h4>
+<p>例えば <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <cite>kbd:`K</cite> <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> のように複数のキーバインドを素早く押すような操作を chord keybinding とか key chord という。</p>
+<p>この種のキーバインドはシェルを常に飛ばすが、設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.allowChords</span></code>
+で端末にとどまるようにできる。</p>
+</div>
+<div class="section" id="mnemonics">
+<h4><a class="toc-backref" href="#id89">Mnemonics</a><a class="headerlink" href="#mnemonics" title="Permalink to this heading">¶</a></h4>
+<p>初期設定では、VS Code のメインメニューにアクセスするための <kbd class="kbd docutils literal notranslate">Alt</kbd> キー押しニーモニックは端末上で無効だ。設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.allowMnemonics</span></code> でそれを有効にすることもできるが、シェルに行こうとするあらゆる <kbd class="kbd docutils literal notranslate">Alt</kbd> キーイベントを無効にすることでもある。</p>
+</div>
+<div class="section" id="id38">
+<h4><a class="toc-backref" href="#id90">端末にキーバインド列を送る</a><a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h4>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">workbench.action.terminal.sendSequence</span></code> は、シェルによって特別に解釈されるエスケープシーケンスを含む特定のテキストシーケンスを端末に送信するのに用いられる。このコマンドは、矢印キー、<kbd class="kbd docutils literal notranslate">Enter</kbd> キー、キャレット移動などを送信できる。</p>
+<div class="admonition-todo admonition" id="id39">
+<p class="admonition-title">Todo</p>
+<p>本文サンプルの値が説明と一致しているか確認する。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id40">
+<h3><a class="toc-backref" href="#id91">確認ダイアログ</a><a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h3>
+<p>不要なユーザープロンプトを避けたいので、プロセス終了時には通常、警告ダイアログが出たりしない。万が一、警告が必要な場合は次の設定で構成する：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.confirmOnExit</span></code></dt><dd><p>アクティブなデバッグセッションがある場合に、ウィンドウが閉じるときに確認するかどうかを指定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.confirmOnKill</span></code></dt><dd><p>子プロセスがある場合に、ターミナルの終了を確認するかどうかを指定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">terminal.integrated.showExitAlert</span></code></dt><dd><p>終了コードが 0 ではないときに “The terminal process terminated with exit code”という警告を表示するかどうかを指定する。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id41">
+<h3><a class="toc-backref" href="#id92">自動応答</a><a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h3>
+<p>自動応答機能については、次の設定例を見れば理解できるだろう：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.autoReplies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;Terminate batch job (Y/N)&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Y\r&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>初期設定では自動応答はまったく設定されていない。シェルへの入力はなるべくユーザーによる明示的な操作であるべきだからだ。</p>
+</div>
+<div class="section" id="unicode">
+<h3><a class="toc-backref" href="#id93">Unicode</a><a class="headerlink" href="#unicode" title="Permalink to this heading">¶</a></h3>
+<p>VS Code 内蔵端末は Unicode と絵文字を両方対応している。</p>
+<p>一部の Unicode シンボルは Unicode バージョンによって文字幅があいまいに変化する。現在、VS Code は Unicode バージョン 6 と 11 の文字幅に対応している。これは設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.unicodeVersion</span></code> で構成可能だ。絵文字やその他の幅の広い文字が適切なスペースを取らない場合や、<kbd class="kbd docutils literal notranslate">BackSpace</kbd> の削除量がおかしい場合は、この設定を微調整するという限られた手段が残されている。</p>
+<p>指定されたバージョンはシェルや OS で使用されている Unicode バージョンとなるべく合致させること（例えば 6 しか効かないのに 11 を指定してはいけない）。そうしないと描画上の問題が発生するおそれがある。シェル や OS の Unicode バージョンがフォントの実際の幅と一致しない場合があることに注意。</p>
+<p>複数の文字からなる絵文字の一部に、肌色修飾子など、正しく表示されないものがある。</p>
+</div>
+<div class="section" id="id42">
+<h3><a class="toc-backref" href="#id94">プロセス環境</a><a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h3>
+<p>端末内で動作するアプリケーションのプロセス環境は、さまざまな設定や拡張機能の影響を受ける。したがって VS Code 端末の出力が他のそれと異なって見える場合がある。</p>
+<div class="section" id="id43">
+<h4><a class="toc-backref" href="#id95">環境継承</a><a class="headerlink" href="#id43" title="Permalink to this heading">¶</a></h4>
+<p>VS Codeを開くと、シェル環境を獲得するためにログインシェル環境を起動する。シェル起動スクリプト <code class="file docutils literal notranslate"><span class="pre">$HOME/.bash_profile</span></code> などにより開発者ツールを <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>
+に追加することが多いのでこういう設計になっている。初期設定では、プロファイルのシェル引数によって、端末はこの環境を継承し、複数のプロファイルスクリプトが実行されている可能性があることを意味し、予期せぬ動作を引き起こす可能性がある。</p>
+<p>環境継承は、macOS および Linux では <code class="docutils literal notranslate"><span class="pre">terminal.integrated.inheritEnv</span></code> の設定で無効にすることができる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>WSL から Windows 版 VS Code を起動するときも Linux での事情が通用するだろう。</p>
+</div>
+</div>
+<div class="section" id="lang">
+<h4><a class="toc-backref" href="#id96">LANG との相互作用</a><a class="headerlink" href="#lang" title="Permalink to this heading">¶</a></h4>
+<p>端末での文字の表示方法を決定する環境変数 <code class="docutils literal notranslate"><span class="pre">$LANG</span></code> との特別なやり取りがある。この機能は設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.detectLocale</span></code> で構成される：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">on</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">$LANG</span></code> に最も一般的に望ましい値をつねに設定する。選ばれる値は OS のロケールおよび UTF-8 エンコーディングに基づく。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">auto</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">$LANG</span></code> が正しく設定されていない場合、<code class="docutils literal notranslate"><span class="pre">on</span></code> の動作と同様に <code class="docutils literal notranslate"><span class="pre">$LANG</span></code> を設定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">off</span></code></dt><dd><p>環境変数 <code class="docutils literal notranslate"><span class="pre">$LANG</span></code> を変えない。</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="id44">
+<h3><a class="toc-backref" href="#id97">拡張機能による環境への介入</a><a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h3>
+<p>拡張機能は端末環境に介入し、端末に対して何らかの統合を提供することができる。たとえば、VS Code 組み込みの <strong class="program">Git</strong> 拡張は環境変数 <code class="docutils literal notranslate"><span class="pre">GIT_ASKPASS</span></code> を注入して、VS Code が <strong class="program">Git</strong> リモートへの認証を処理できるようにする。</p>
+<p>拡張機能が端末環境を変更した場合、既存の端末は安全であれば再起動され、そうでなければ端末の状態欄で警告される。変更に関する詳細な情報をマウスホバーで確認でき、ボタン <span class="guilabel">Relaunch terminal</span> が表示される。</p>
+</div>
+<div class="section" id="conpty">
+<h3><a class="toc-backref" href="#id98">ConPTY</a><a class="headerlink" href="#conpty" title="Permalink to this heading">¶</a></h3>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.windowsEnableConpty</span></code> を明示的に無効とする設定はなるべく避けること。</p>
+</div>
+<div class="section" id="id45">
+<h3><a class="toc-backref" href="#id99">リモート開発</a><a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h3>
+<p>拡張 <a class="reference external" href="https://code.visualstudio.com/docs/remote/remote-overview">Remote Development</a>
+により VS Code が遠隔機に接続されている場合に特有の話題。</p>
+<div class="section" id="id46">
+<h4><a class="toc-backref" href="#id100">リモート入力の反応時間を短縮する</a><a class="headerlink" href="#id46" title="Permalink to this heading">¶</a></h4>
+<p>ローカルエコーというリモートウィンドウの入力遅延の影響を緩和するための機能がある。リモートで結果が確認される前に、端末のキーストロークを淡色表示で書き込むというものだ。初期設定では、遅延が 30ms 以上であると検出されるとこの機能が発動する。このタイミングを設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.localEchoLatencyThreshold</span></code> で指定できる。</p>
+<p>端末でアクティブなプログラムに応じて、ローカルエコーは自身を動的に無効にする。この挙動を制御するのに設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.localEchoExcludePrograms</span></code>
+を用いる。既定値は次の四プロセスだ：</p>
+<ul class="simple">
+<li><p>vim</p></li>
+<li><p>vi</p></li>
+<li><p>nano</p></li>
+<li><p>tmux</p></li>
+</ul>
+<p>非常に動的なアプリケーションやシェル、あるいは入力中に画面を大量に印刷するようなアプリケーションでは、この機能を無効にするといい。</p>
+<p>機能を完全に無効にするには設定項目 <code class="docutils literal notranslate"><span class="pre">terminal.integrated.localEchoEnabled</span></code> を
+<code class="docutils literal notranslate"><span class="pre">false</span></code> にする。</p>
+<p>コマンド <span class="guilabel">Terminal: Create New Integrated Terminal (Local)</span> を直接実行すると、既定のローカル端末プロファイルを、端末を用いてリモートウィンドウで起動できる。</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="git.html" title="Previous document">Git のインターフェイスとしての VS Code</a>
+        </li>
+        <li>
+          <a href="ui.html" title="Next document">ユーザーインターフェイス</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Visual Studio Code 利用ノート</a><ul>
+      <li>Previous: <a href="git.html" title="previous chapter">Git のインターフェイスとしての VS Code</a></li>
+      <li>Next: <a href="ui.html" title="next chapter">ユーザーインターフェイス</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

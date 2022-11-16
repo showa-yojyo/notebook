@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ユーザーインターフェイス &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="ユーザー設定とワークスペース設定" href="settings.html" />
+    <link rel="prev" title="内蔵端末" href="terminal.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="terminal.html" title="Previous document">内蔵端末</a>
+        </li>
+        <li>
+          <a href="settings.html" title="Next document">ユーザー設定とワークスペース設定</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id21">ユーザーインターフェイス</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>VS Code の UI について記す。メインウィンドウの構成は本家 Visual Studio と同様で、大まかに言えば、左側にワークスペースで扱うファイルとフォルダーを表示する Explorer,
+その右側に開いたファイルの内容を表示する Editor という配置を採用している。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id21">ユーザーインターフェイス</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id22">基本レイアウト</a></p></li>
+<li><p><a class="reference internal" href="#editor-groups" id="id23">Editor Groups の配置</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id24">ミニマップ</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id25">パンクズ</a></p></li>
+<li><p><a class="reference internal" href="#explorer" id="id26">EXPLORER</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id27">複数選択</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id28">ツリーコントロール</a></p></li>
+<li><p><a class="reference internal" href="#outline" id="id29">OUTLINE</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#open-editors" id="id30">OPEN EDITORS</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id31">ビュー</a></p>
+<ul>
+<li><p><a class="reference internal" href="#activity-bar" id="id32">Activity Bar</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id10" id="id33">コマンドパレット</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id34">タブ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id35">タブ順序</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id36">プレビューモード</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id37">Editor Groups</a></p></li>
+<li><p><a class="reference internal" href="#editor" id="id38">Editor に対するグリッドレイアウト</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id16" id="id39">ショートカットキー</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id17" id="id40">タブを一切使わずに作業する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id18" id="id41">プレビューモードを無効にする</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id42">全 Editor 履歴上ナビゲーション</a></p></li>
+<li><p><a class="reference internal" href="#editor-editor-group" id="id43">単一 Editor というより Editor Group 全体を閉じる</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id20" id="id44">メインウィンドウ</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id22">基本レイアウト</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>まずは <a class="reference external" href="https://code.visualstudio.com/docs/getstarted/userinterface">Visual Studio Code User InterfacShoe</a>
+の最初の画像に用いられている用語を頭に叩き込むこと。VS Code の画面全体を次の五つに区分して理解する：</p>
+<dl class="simple">
+<dt>Activity Bar</dt><dd><p>左端にある柱状の領域。アイコンをクリックしてビューを切り替えられるほか、<strong class="program">Git</strong> が有効な場合に保留中のファイル数など、現況に応じてアイコン右下にバッヂが表示されることもある。</p>
+</dd>
+<dt>(Primary) Side Bar</dt><dd><p>Activity Bar のすぐ右側の縦長領域。<span class="guilabel">EXPLORER</span> などのビュー各種を搭載する。</p>
+</dd>
+<dt>Editor/Editor Groups</dt><dd><p>メイン領域。縦にも横にもいくつでも Editor を並べられる。各 Editor Group に
+Editor が一つ以上含まれ、各グループでタブをクリックするなどして現在の Editor
+を切り替える。開いているファイルは、Editor 領域の上部にタブで表示される。</p>
+</dd>
+<dt>Panels</dt><dd><p>初期設定かつ表示されていれば Editor/Editor Groups 領域の下にある領域。出力、デバッグ情報、エラーや警告、端末など、さまざまなパネルを表示できる。テキスト編集領域をなるべく縦方向に確保したければ非表示にしたり、メインウィンドウ右側に移動したりできる。</p>
+</dd>
+<dt>Status Bar</dt><dd><p>床下にある領域。ワークスペースや現在の Editor に関する情報各種を表示する。</p>
+</dd>
+</dl>
+<p>VS Code を開始するたびに、上記 UI 要素は前回終了時と同じ状態で配置される。レイアウトだけでなく、開いていたフォルダー、ファイルも Editor 領域に復元される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>各パーツに対して表示・非表示の切り替えコマンドが存在する。特に、Activity Bar,
+Side Bar, Panel のそれのショートカットキーがもし設定されていれば、覚えておくと編集をより快適に編集できる。</p>
+</div>
+</div>
+<div class="section" id="editor-groups">
+<h2><a class="toc-backref" href="#id23">Editor Groups の配置</a><a class="headerlink" href="#editor-groups" title="Permalink to this heading">¶</a></h2>
+<p>既存の Editor Group の横に別の Editor Group を横または縦に追加的に開くことが可能だ。方法は複数ある：</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">\</kbd> を押して、アクティブ Editor を二分割する。</p></li>
+<li><p><span class="guilabel">EXPLORER</span> ビューで対象ファイルを <kbd class="kbd docutils literal notranslate">Alt</kbd> キーを押しながらクリックする。</p></li>
+<li><p><span class="guilabel">EXPLORER</span> ビューで対象ファイルにフォーカスを与えて次のいずれかを行う：</p>
+<ul>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。</p></li>
+<li><p>コンテキストメニューの <span class="menuselection">Open to the Side</span> を選択する。</p></li>
+</ul>
+</li>
+<li><p>Editor 右上のアイコン <span class="guilabel">Split Editor Right</span> を押す。</p></li>
+<li><p>ファイルまたは Editor タブを Editor 領域に（どこでもいい）ドラッグ＆ドロップする。</p></li>
+<li><p>Quick Open 一覧からファイルを選択するときに <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。</p></li>
+</ul>
+<p>他のファイルを開くときはいつでも、アクティブになっている Editor がその内容を表示する。例えば Editor が二つが並んでいて、ファイル <code class="docutils literal notranslate"><span class="pre">foo.cs</span></code> を右側の Editor で開きたい場合、そちら側がアクティブであることを確実にしてから開くことだ。</p>
+<p>初期設定では Editor はアクティブ Editor の右側に開かれる。設定項目
+<code class="docutils literal notranslate"><span class="pre">workbench.editor.openSideBySideDirection</span></code> の値がこの動作を変更する。新しい Editor をアクティブ Editor の下に開くように設定することも可能だ：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;workbench.editor.openSideBySideDirection&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;down&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>複数の Editor Groups を開いている場合、<kbd class="kbd docutils literal notranslate">Ctrl</kbd> キーを押しながら <kbd class="kbd docutils literal notranslate">1</kbd>,
+<kbd class="kbd docutils literal notranslate">2</kbd>, <kbd class="kbd docutils literal notranslate">3</kbd>, … を押すことで Editor を素早く切り替えることができる。</p>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>この事項は <a class="reference internal" href="basics.html"><span class="doc">テキスト編集基本機能</span></a> で述べる程度に基本的である可能性が高い。本節の移転を検討する。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id24">ミニマップ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>ミニマップは、ソースコードの概要を表現するものだ。ミニマップは Editor の右側に表示される。陰影のついた部分をクリックまたはドラッグすることで、当該部分にジャンプできる。</p>
+<p>設定ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> でミニマップ表示位置を左側に変更したり、完全に無効にすることも可能だ：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;editor.minimap.side&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;left&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;editor.minimap.enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id25">パンクズ</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>Editor それぞれの上部にパンクズと呼ばれるナビゲーションバーがある。これは現在の場所を表示し、フォルダー、ファイル、シンボル間を素早く移動することができる。</p>
+<p>パンクズは次のように、現在キャレットがあるシンボルをルートから階層的に表現したパスのように表現している：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>path &gt; to &gt; file &gt; path &gt; to &gt; symbol
+</pre></div>
+</div>
+<p>カスタマイズについては <a class="reference internal" href="navigation.html"><span class="doc">ナビゲーション</span></a> 内パンクズの節を参照。</p>
+</div>
+<div class="section" id="explorer">
+<h2><a class="toc-backref" href="#id26">EXPLORER</a><a class="headerlink" href="#explorer" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">EXPLORER</span> はプロジェクト内のファイルおよびフォルダーすべてを管理するのに用いる。VS Code は本家のようにワークスペースやプロジェクトを定義するファイルがあるわけではなく、ファイルとフォルダーに基づく。</p>
+<p>VS Code でフォルダーを開くと <span class="guilabel">EXPLORER</span> にその中身がツリーコントロールで再帰的に表示される。ここでいろいろなことができる：</p>
+<ul class="simple">
+<li><p>ファイルおよびフォルダーの作成、削除、名前を変更する</p></li>
+<li><p>ドラッグ＆ドロップでファイルおよびフォルダを移動する</p></li>
+</ul>
+<p>項目上のコンテキストメニューで可能な操作を確認できる。</p>
+<p>VS Code は外部ツール、特にコマンドラインツールと非常によく連動している。VS Code
+で現在開いているフォルダーのコンテキストでコマンドラインツールを実行したければ、フォルダーを右クリックして <span class="menuselection">Open in Command Prompt</span> を選択する。</p>
+<p>また、項目を右クリックして、<span class="menuselection">Reveal in Explorer</span> を選択すると、Windows Explorer でその場所に移動することができる。</p>
+<p>既定の設定では、VS Code は <span class="guilabel">EXPLORER</span> からいくつかのフォルダーを除外する。設定項目 <code class="docutils literal notranslate"><span class="pre">files.exclude</span></code> を使用して、<span class="guilabel">EXPLORER</span> からファイルやフォルダーを隠すための規則を設定する（次の設定は既定値）：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;files.exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;**/.git&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;**/.svn&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;**/.hg&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;**/CVS&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;**/.DS_Store&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;**/Thumbs.db&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id27">複数選択</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">EXPLORER</span> や <span class="guilabel">OPEN EDITORS</span> ビューで複数の項目を選択することができ、それらに対してコマンドを実行できる：</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> キーを押しながらマウスクリックで個別ファイル選択</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> キーを押しながらマウスクリックで範囲選択</p></li>
+</ul>
+<p>特に、項目を二つ選択した場合、コンテキストメニューのコマンド
+<span class="menuselection">Select for Compare</span> を使用して、ファイル二つの差分をすぐに見ることができる。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id28">ツリーコントロール</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>わかりにくいが、<span class="guilabel">EXPLORER</span> のツリーコントロールには検索とフィルターが混ざったようなナビゲーション機能がある。</p>
+<p>ファイルをフィルターする：
+<span class="guilabel">EXPLORER</span> にフォーカスがある状態で、<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">F</kbd> キーを押してツリーの検索コントロールを開き、一致させたいファイル名の一部を入力する。すると <span class="guilabel">EXPLORER</span> 右上に、入力した内容を表示する検索コントロールが表示され、一致するファイル名がハイライト表示される。</p>
+<p>ここで <span class="guilabel">Filter</span> アイコンをクリックすると、モードがハイライトとフィルターの間を切り替わる。 <kbd class="kbd docutils literal notranslate">↓</kbd> キーと <kbd class="kbd docutils literal notranslate">↑</kbd> キーを押す度にマッチした要素間をジャンプする。</p>
+<p>このナビゲーション機能は、VS Code のすべてのツリーコントロールで利用可能だ。</p>
+</div>
+<div class="section" id="outline">
+<h3><a class="toc-backref" href="#id29">OUTLINE</a><a class="headerlink" href="#outline" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">OUTLINE</span> ビューは <span class="guilabel">EXPLORER</span> の下部にある独立したセクションだ。展開すると、現在アクティブな Editor の内容を表現する木構造が表示される。</p>
+<p><span class="guilabel">OUTLINE</span> ビューには、さまざまな <span class="menuselection">Sort By</span> コマンドを実行でき、オプションでカーソル追跡、タイプ別フィルターが操作できる。</p>
+<div class="admonition-todo admonition" id="id8">
+<p class="admonition-title">Todo</p>
+<p>後者二つの機能である <span class="menuselection">Follow Cursor</span> と
+<span class="menuselection">Filter on Type</span> がまったく不明。</p>
+</div>
+<p>また、入力ボックスがあり、入力中にシンボルを検索したり、フィルターしたりすることができる。エラーや警告も <span class="guilabel">OUTLINE</span> ビューに表示され、問題の場所を一目で確認することができる。</p>
+<p>木構造は Editor に対する言語モード拡張機能が持っている情報に依存する。例えば組み込みの Markdown モードは文書のヘッダー階層を返す。</p>
+<p><span class="guilabel">OUTLINE</span> には次のような設定項目があり、アイコンの有効無効、エラーと警告の表示の制御が可能だ。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">outline.icons</span></code></dt><dd><p>項目先頭のアイコンを描くかどうか</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">outline.problems.enabled</span></code></dt><dd><p>項目にエラーと警告を示すかどうか</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">outline.problems.badges</span></code></dt><dd><p>エラーと警告に対してバッヂを使うかどうか</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">outline.problems.colors</span></code></dt><dd><p>エラーと警告に対して色を使うかどうか</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="open-editors">
+<h2><a class="toc-backref" href="#id30">OPEN EDITORS</a><a class="headerlink" href="#open-editors" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">EXPLORER</span> の上部には <span class="guilabel">OPEN EDITORS</span> と表示されたビューがある。アクティブなファイルまたはプレビューの一覧だ。これらは最近 VS Code で開いた作業中のファイルだ。例えば、次のような場合、<span class="guilabel">OPEN EDITORS</span> の一覧にファイルが現れる：</p>
+<ul class="simple">
+<li><p>ファイルに変更を加える</p></li>
+<li><p>ファイルのヘッダをダブルクリックする</p></li>
+<li><p>エクスプローラでファイルをダブルクリックする</p></li>
+<li><p>現在のフォルダにないファイルを開く</p></li>
+</ul>
+<p>このビューの項目をクリックすると、そのファイルを内容とする Editor がアクティブになる。</p>
+<p>作業が完了したら、<span class="guilabel">OPEN EDITORS</span> からファイルを個別に削除するか、次のいずれかのコマンドを実行してすべてのファイルを削除する：</p>
+<ul class="simple">
+<li><p><span class="guilabel">View: Close All Editors</span></p></li>
+<li><p><span class="guilabel">View: Close All Editors in Group</span></p></li>
+</ul>
+<p>このビューを表示したくない場合は設定を編集する：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;explorer.openEditors.visible&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id31">ビュー</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<p>VS Code には <span class="guilabel">EXPLORER</span> 以外にも次のようなビューがある：</p>
+<dl class="simple">
+<dt><span class="guilabel">SEARCH</span></dt><dd><p>ワークスペース全体の検索と置換処理</p>
+</dd>
+<dt><span class="guilabel">SOURCE CONTROL</span></dt><dd><p><strong class="program">Git</strong> 操作</p>
+</dd>
+<dt><span class="guilabel">RUN AND DEBUG</span></dt><dd><p>変数、コールスタック、ブレイクポイントなどのデバッグ</p>
+</dd>
+<dt><span class="guilabel">EXTENSIONS</span></dt><dd><p>VS Code 拡張機能に対するインストールと構成</p>
+</dd>
+</dl>
+<p>その他、拡張機能が独自のビューを与えることもある。</p>
+<p>コマンド <span class="guilabel">View: Open View</span> を実行すればどのビューでも開ける。</p>
+<p>メインビューの中からビューの表示状態を切り替えたり、ドラッグ＆ドロップで並び替えたりすることが可能だ。</p>
+<div class="section" id="activity-bar">
+<h3><a class="toc-backref" href="#id32">Activity Bar</a><a class="headerlink" href="#activity-bar" title="Permalink to this heading">¶</a></h3>
+<p>ビュー左側にある Activity Bar にあるアイコンをクリックするとビューをすばやく切り替えられる。また、Activity Bar 上でアイコンをドラッグ＆ドロップして並び替えたり、アイコンのコンテキストメニューからビューを削除することも可能だ。</p>
+<p>Activity Bar 自身を <span class="menuselection">Hide from Activity Bar</span> で非表示にすることも可能だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>Activity Bar を完全に隠蔽して、主要なビュー表示を切り替えるのにショートカットキーを押すのが通好みだろう。</p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>ビュー</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">D</kbd></p></td>
+<td><p><span class="guilabel">RUN AND DEBUG</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">E</kbd></p></td>
+<td><p><span class="guilabel">EXPLORER</span></p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F</kbd></p></td>
+<td><p><span class="guilabel">SEARCH</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">G</kbd></p></td>
+<td><p><span class="guilabel">SOURCE CONTROL</span></p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd></p></td>
+<td><p><span class="guilabel">EXTENSIONS</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id33">コマンドパレット</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<p>VS Code で最も重要なキーバインドは、<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd> だ。これはコマンド <span class="guilabel">Show All Commands</span> を実行するショートカットであり、この操作により画面上部に現れる入力欄をコマンドパレットと呼ぶ。ここから VS Code のコマンドすべてを一覧したり選択することが可能であり、定義があればコマンドを呼び出すキーバインドも表示される。</p>
+<div class="admonition-todo admonition" id="id11">
+<p class="admonition-title">Todo</p>
+<p>コマンドパレットは掛け値なしに重要な要素なので、VS Code 利用ノートの可能な限り早い位置に移動する。</p>
+</div>
+<p>コマンドパレットは次のコマンドなどでも入力を受け付けるために用いられる：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>コマンド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd></p></td>
+<td><p><span class="guilabel">Go to File…</span></p></td>
+<td><p>名前を指定してファイルへジャンプ</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Tab</kbd></p></td>
+<td><p><span class="guilabel">View: Quick Open Previous Recently Used Editor in Group</span></p></td>
+<td><p>現在の Editor Group 内で直前のものにジャンプ</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd></p></td>
+<td><p><span class="guilabel">Show All Commands</span></p></td>
+<td><p>上述</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">O</kbd></p></td>
+<td><p><span class="guilabel">Go to Symbol in Editor</span></p></td>
+<td><p>指定シンボルへジャンプ</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">G</kbd></p></td>
+<td><p><span class="guilabel">Go to Line/Column…</span></p></td>
+<td><p>指定行へジャンプ</p></td>
+</tr>
+</tbody>
+</table>
+<p>入力欄先頭に <code class="docutils literal notranslate"><span class="pre">?</span></code> を入力すると、ここから実行できるコマンド一覧が出る。これは別の機会に調べる。</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id34">タブ</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<p>Editor Group のタブについて記す。Editor にはタブが一対一対応する。タブをクリックすると対応する Editor がアクティブになる。タブを用いれば Editor 間をすばやく移動できる。タブをドラッグ＆ドロップして順序を変更することができる。Editor Group をまたぐ移動さえ可能だ。</p>
+<p>Editor Group 右上の詳細ボタンメニューから <span class="menuselection">Show Opened Editors</span>
+を選択すると、当グループに含まれる Editor すべての一覧が現れる。</p>
+<p>タブを使いたくない場合は次のように設定する：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;workbench.editor.showTabs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id35">タブ順序</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<p>新しいタブは既存のタブの右側に順次追加されるが、この挙動を設定項目
+<code class="docutils literal notranslate"><span class="pre">workbench.editor.openPositioning</span></code> の値で制御可能だ。例えば、新しいタブを左側に表示させたいならば：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;workbench.editor.openPositioning&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;left&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id36">プレビューモード</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">EXPLORER</span> でシングルクリックでファイルを選択すると、そのファイルはプレビューモードで表示される。このとき、既存の Editor を再利用する。ファイルを素早く閲覧しているときに、訪問したファイルすべてに独自の Editor を持たせたくない場合には有用だ。ファイルの編集を開始したり、ダブルクリックでファイルを開いたりすると、そのファイル専用の新しい Editor が生成する。</p>
+<p>プレビューモードの Editor では、タブのラベルがイタリックで描画される。</p>
+<p>プレビューモードを使用せず、常に新しい Editor を作成したい場合、次の設定で挙動を制御する：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">workbench.editor.enablePreview</span></code></dt><dd><p>プレビューモードの有効性を指定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">workbench.editor.enablePreviewFromCodeNavigation</span></code></dt><dd><p>コードナビゲーションが開始するときに、Editor をプレビューモードのままにしておくかどうかを指定する。プレビューは開いたままにはならず、明示的に開きっぱなしにされない限りはその Editor は再利用されることになる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">workbench.editor.enablePreviewFromQuickOpen</span></code></dt><dd><p>Quick Open からファイルを開くときのプレビュー Editor の有効性を指定する。</p>
+</dd>
+</dl>
+<p>下二つの設定は <code class="docutils literal notranslate"><span class="pre">workbench.editor.enablePreview</span></code> を <code class="docutils literal notranslate"><span class="pre">false</span></code> にしているときにはまったく無視される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>複数ファイルを同時に閲覧したい利用状況を考慮していない概念のようなので、無効にしているがどうだろう。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id37">Editor Groups</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>Editor を分割すると、Editor Group という Editor のコンテナーが新たに生成する。このグループが占める領域を、縦方向と横方向にいくつでも並べて形成することが可能だ。</p>
+<p><span class="guilabel">EXPLORER</span> ビューの上部にある <span class="guilabel">OPEN EDITORS</span> セクションでこれらを確認することができる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><span class="guilabel">OPEN EDITORS</span> が見当たらない場合、次の設定項目の値を確認すること：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">explorer.openEditors.minVisible</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explorer.openEditors.visible</span></code></p></li>
+</ul>
+</div>
+<p>Editor Group をワークベンチにドラッグ＆ドロップしたり、グループ間で個々の Editor
+を移動したり、グループ全体を素早く閉じたりすることが可能だ。</p>
+<p>VS Code ではタブを有効にしているかどうかに関わらず、Editor Group が成立する。タブがない場合、Editor Group は開いている Editor のスタックとなり、最近選択されたものが Editor 区域に表示される。</p>
+</div>
+<div class="section" id="editor">
+<h2><a class="toc-backref" href="#id38">Editor に対するグリッドレイアウト</a><a class="headerlink" href="#editor" title="Permalink to this heading">¶</a></h2>
+<p>Editor を分割すると横に開くので、Editor Groups は水平方向に増えていく。これは既定の挙動であり、Editor Groups は縦にも横にも好きにレイアウト可能だ。</p>
+<p>柔軟なレイアウトを実現するために、空の Editor Group を作成することができる。通常は、Editor Group にある最後の Editor を閉じるとグループ自体も閉じるが、設定項目
+<code class="docutils literal notranslate"><span class="pre">workbench.editor.closeEmptyGroups</span></code> の値で閉じないように動作を変更できる。</p>
+<p>メニュー <span class="menuselection">View ‣ Editor Layout</span> を見ると、定義済みレイアウト各種を確認できる。</p>
+<p>キーボードだけで Editor レイアウトを調整するキーボードコマンドはたくさんあるものの、タブのドラッグ＆ドロップで Editor を望む方向に分割するのが手っ取り早い。</p>
+<p>Editor Group 右上の分割アイコンに <kbd class="kbd docutils literal notranslate">Alt</kbd> キーを押しながらマウスホバーすると、アイコンイメージの水平と垂直が切り替わり、発動するコマンドもそれに対応して変化する。</p>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id39">ショートカットキー</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<p>Editor および Editor Group 間を迅速にナビゲートするコマンドに対する既定キーバインドを記す。マウスでタブをクリックするよりも早い場合が多い。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">PageDown</kbd></p></td>
+<td><p>次の Editor へ行く</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">PageUp</kbd></p></td>
+<td><p>前の Editor へ行く</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Tab</kbd></p></td>
+<td><p>Editor Group で最近使われた Editor へ行く</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">1</kbd></p></td>
+<td><p>いちばん左の Editor Group へ行く</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">2</kbd></p></td>
+<td><p>中央の Editor Group へ行く</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">3</kbd></p></td>
+<td><p>いちばん右の Editor Group へ行く</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">W</kbd></p></td>
+<td><p>現在いる Editor を閉じる</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> <kbd class="kbd docutils literal notranslate">W</kbd></p></td>
+<td><p>Editor Group にある Editor すべてを閉じる</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">W</kbd></p></td>
+<td><p>Editor すべてを閉じる</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id40">タブを一切使わずに作業する</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<p>タブを画面から抹消して作業しているときの話題を記す。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>上級者向けのスタイルなので、真似しなくていい。</p>
+</div>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id41">プレビューモードを無効にする</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<p>タブなしで済ます場合、<span class="guilabel">EXPLORER</span> の <span class="guilabel">OPEN EDITORS</span> セクション上の操作がファイルナビゲーションを行うための素早い方法となる。プレビューモードでは、シングルクリックでファイルを開いても、<span class="guilabel">OPEN EDITOR</span> 内にも
+Editor Group にもそれは追加されない。次の設定項目でこの挙動を無効にできる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workbench.editor.enablePreview</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">workbench.editor.enablePreviewFromQuickOpen</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h3><a class="toc-backref" href="#id42">全 Editor 履歴上ナビゲーション</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Tab</kbd> のキーバインドを変更し、Editor Group とは関係なく、履歴から開いているすべての Editor を一覧表示することができる。次のコマンドにバインドする：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workbench.action.openPreviousEditorFromHistory</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">workbench.action.quickOpenNavigateNext</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="editor-editor-group">
+<h3><a class="toc-backref" href="#id43">単一 Editor というより Editor Group 全体を閉じる</a><a class="headerlink" href="#editor-editor-group" title="Permalink to this heading">¶</a></h3>
+<p>Editor を一つを閉じるときに Editor Group 全体を閉じるという動作が気に入った場合は、コマンド <code class="docutils literal notranslate"><span class="pre">workbench.action.closeEditorsInGroup</span></code> を実行する。</p>
+</div>
+</div>
+<div class="section" id="id20">
+<h2><a class="toc-backref" href="#id44">メインウィンドウ</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<p>プロセス間でウィンドウ（インスタンス）を開いたり復元したりする方法を制御する。以下、VS Code 起動時にコマンドラインオプション <code class="docutils literal notranslate"><span class="pre">--new-window</span></code> も
+<code class="docutils literal notranslate"><span class="pre">--reuse-window</span></code> も指定されないとする。</p>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">window.openFoldersInNewWindow</span></code> や <code class="docutils literal notranslate"><span class="pre">window.openFilesInNewWindow</span></code> はファイルやフォルダーに対して新しいウィンドウを開くか、最後にアクティブだったウィンドウを再利用するかを決定する。可能な値は <code class="docutils literal notranslate"><span class="pre">default</span></code>, <code class="docutils literal notranslate"><span class="pre">on</span></code>, <code class="docutils literal notranslate"><span class="pre">off</span></code> のいずれかだ。</p>
+<p>値が <code class="docutils literal notranslate"><span class="pre">default</span></code> に設定されている場合、ウィンドウを開く要求が行われた場所のコンテキストに基づいて、ウィンドウを再利用するかどうかが決定される。</p>
+<p>値を <code class="docutils literal notranslate"><span class="pre">on</span></code> または <code class="docutils literal notranslate"><span class="pre">off</span></code> に設定すると、常に同じ動作をするようになる。例えば、ファイルメニューからファイルやフォルダを選ぶといつでも新しいウィンドウでなるべく開く場合は、値を <code class="docutils literal notranslate"><span class="pre">on</span></code> にすればいい。</p>
+<p>設定項目 <code class="docutils literal notranslate"><span class="pre">window.restoreWindows</span></code> は、以前のセッションで開いたウィンドウをどのように復元するかを VS Code に指示する。既定では VS Code は前回のセッションで作業したすべてのウィンドウを復元する。この設定を <code class="docutils literal notranslate"><span class="pre">none</span></code> に変更すると、ウィンドウを一切開かず、常に空の VS Code インスタンスで開始する。1 に変更すると、最後に開いたウィンドウやフォルダーを開き、フォルダーが開いているウィンドウしか復元しない。</p>
+</div>
+</div>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="terminal.html" title="Previous document">内蔵端末</a>
+        </li>
+        <li>
+          <a href="settings.html" title="Next document">ユーザー設定とワークスペース設定</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Visual Studio Code 利用ノート</a><ul>
+      <li>Previous: <a href="terminal.html" title="previous chapter">内蔵端末</a></li>
+      <li>Next: <a href="settings.html" title="next chapter">ユーザー設定とワークスペース設定</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

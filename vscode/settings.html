@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ユーザー設定とワークスペース設定 &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="テーマ" href="themes.html" />
+    <link rel="prev" title="ユーザーインターフェイス" href="ui.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ui.html" title="Previous document">ユーザーインターフェイス</a>
+        </li>
+        <li>
+          <a href="themes.html" title="Next document">テーマ</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id18">ユーザー設定とワークスペース設定</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>VS Code は設定可能要素がとにかく多い。なおかつ作用域がユーザーとワークスペースの二種類ある。前者はユーザーが実行する VS Code のどのプロセスでも大域的に適用される設定であり、後者はワークスペース内に保存され、このワークスペースでしか適用されない設定だ。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id18">ユーザー設定とワークスペース設定</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id19">設定エディター</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id20">設定を編集する</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">設定グループ</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id22">設定を変更する</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">設定エディターフィルター</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id24">変更された設定</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id25">その他のフィルター</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id9" id="id26">拡張機能設定</a></p></li>
+<li><p><a class="reference internal" href="#settings-json" id="id27">設定ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id28">設定ファイルを編集する</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id29">ユーザー設定ファイルのパス</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id30">設定をすべてリセットする</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id13" id="id31">ワークスペース設定</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id14" id="id32">ワークスペース設定ファイルのパス</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id33">言語モード固有の編集設定</a></p></li>
+<li><p><a class="reference internal" href="#settings-precedence" id="id34">Settings precedence</a></p></li>
+<li><p><a class="reference internal" href="#settings-and-security" id="id35">Settings and security</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id36">設定同期</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id37">既定値</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id19">設定エディター</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>次のどの方法でも設定エディターが開く：</p>
+<ul class="simple">
+<li><p>メインメニューから <span class="menuselection">File &gt; Preferences &gt; Settings</span> を選択する</p></li>
+<li><p>コマンドパレットから <span class="guilabel">Preferences: Open Settings (UI)</span> を実行する</p></li>
+<li><p>コマンドパレットから <span class="guilabel">Preferences: Open User Settings</span> を実行する</p></li>
+<li><p>Activity Bar 歯車アイコンメニューから <span class="menuselection">Settings</span> を選択する</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">,</kbd> を押す</p></li>
+</ul>
+<p>UI 版か JSON モードの Editor が開くが、当分前者を述べる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>後者を開いているが前者を開きたい場合、Editor 右上の紙アイコンをクリックする。逆方向も同様。</p>
+</div>
+<p>設定エディターを開くと、目当ての設定項目を検索して発見できる。検索欄から検索すると、条件に一致する項目がハイライト表示され、反対に一致しない設定は隠される。</p>
+<p>変更された設定項目は Editor での変更線と同様に青い線で表示される。</p>
+<p>設定項目をアクティブにすると、ツリーとの隙間に小さな歯車アイコンが表示される。これをクリックするとコンテキストメニューが開く。ここには次の選択肢がある：</p>
+<ul class="simple">
+<li><p><span class="menuselection">Reset Setting</span>: 値を既定値に戻す</p></li>
+<li><p><span class="menuselection">Copy Setting ID</span>: 設定項目 ID をクリップボードにコピーする</p></li>
+<li><p><span class="menuselection">Copy Setting as JSON</span>: 設定項目のキーと値の対応をクリップボードにコピーする</p></li>
+<li><p><span class="menuselection">Sync This Setting</span>: 後述</p></li>
+</ul>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id20">設定を編集する</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>設定項目はチェックボックス、入力欄、ドロップダウンリストのいずれかで編集する。</p>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id21">設定グループ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>設定項目はグループになっていて簡単にナビゲートすることができる。</p>
+<p>最上部に <span class="guilabel">Commoonly Used</span> グループがあり、頻出カスタマイズが表示される。</p>
+<p>拡張機能は、独自のカスタム設定を追加することができ、それらの設定は
+<span class="guilabel">Extensions</span> グループに存在する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>Text Editor, Workbench, Window, Features, Application, Security の標準グループはいずれも一階層しか子グループを持たないようだ。一方、Extensions グループは複数階層からなるものがある。拡張機能が別の拡張機能を使う場合だろうか。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id22">設定を変更する</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>本書では Activity Bar を非表示にする方法を述べている。</p>
+<ol class="arabic simple">
+<li><p>設定エディター (UI) を開く。</p></li>
+<li><p>検索欄に activity と入力する。</p></li>
+<li><p>左のツリーの <span class="guilabel">Appearance</span> をクリックしてエディター上の表示項目をさらに絞る。</p></li>
+<li><p>見出し <span class="menuselection">Workbench ‣ Activity Bar: Visible</span> のチェックボックス状態を変更する。</p></li>
+</ol>
+<p>設定値を既定値とは異なる値に変更した場合、箱の左側に青い線が表示される。</p>
+<p>小歯車アイコンのコンテキストメニュー項目 <span class="menuselection">Reset Setting</span> を選択すれば、どの設定項目でも既定値に戻すことができる。</p>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id23">設定エディターフィルター</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>設定エディターの検索欄は管理を容易にするためにフィルター機能を搭載している。検索欄の右側に漏斗アイコンで示されるボタンがあり、簡単に検索フィルターを追加するオプションがいくつか用意されている。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><span class="guilabel">EXTENSIONS</span> ビューの検索欄の漏斗アイコンメニューと同じ操作で理解しやすい。</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id24">変更された設定</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>フィルターメニューの <span class="menuselection">modified</span> をまず述べる。このメニュー項目を選択する代わりに、入力欄に直接 <code class="docutils literal notranslate"><span class="pre">&#64;modified</span></code> とタイプしてもよい。</p>
+<p>これは、どのような設定を行ったかを確認するものだ。設定値が既定値と異なる場合、または同じであっても設定ファイルで明示的に値が設定されている場合、このフィルターの下に設定値が表示される。このフィルターが便利なのは、設定したことを忘れてしまった場合や、うっかり設定したために動作が期待通りにならない場合だ。</p>
+</div>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id25">その他のフィルター</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<p>その他のフィルターを挙げる：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;ext</span></code></dt><dd><p>拡張機能固有の設定。拡張機能の ID を <code class="samp docutils literal notranslate"><span class="pre">&#64;ext:ms-python.python.Python</span></code> のように指定する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;feature</span></code></dt><dd><p>Features グループ固有の設定。例えば、<code class="samp docutils literal notranslate"><span class="pre">&#64;feature:explorer</span></code> は
+<span class="guilabel">EXPLORER</span> の設定項目に絞って表示する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;id</span></code></dt><dd><p>設定 ID に基づき設定を検索する。<code class="samp docutils literal notranslate"><span class="pre">&#64;id:workbench.activityBar.visible</span></code> のようにするのだが、これがわかるくらいなら JSON ファイルを直接編集したほうが早い。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;lang</span></code></dt><dd><p>言語 ID に基づいた言語フィルターを適用する。例えば TypeScript で絞るには
+<code class="samp docutils literal notranslate"><span class="pre">&#64;lang:typescript</span></code> と入力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&#64;tag</span></code></dt><dd><p>VS Code システム固有の設定。例えば、Workspace Trust に関する設定は
+<code class="samp docutils literal notranslate"><span class="pre">&#64;tag:workspaceTrust</span></code> で絞る。</p>
+</dd>
+</dl>
+<p>検索欄は入力された検索内容を記憶しており、Undo/Redo に対応している。</p>
+<p>検索欄右側にある <span class="guilabel">Clear Search Settings Input</span> ボタンをクリックすれば、検索語句やフィルターを素早く消去できる。</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id26">拡張機能設定</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<p>インストール済み拡張機能は固有の設定を持つ。これらについても標準設定項目と同様に、設定エディターの <span class="guilabel">Extensions</span> グループで確認できる。</p>
+<p>または <span class="guilabel">EXTENSIONS</span> ビューから拡張機能を選択し、
+<span class="guilabel">Feature Contributions</span> タブを確認してもよい。こちらの方法は閲覧専用だ。</p>
+</div>
+<div class="section" id="settings-json">
+<h2><a class="toc-backref" href="#id27">設定ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code></a><a class="headerlink" href="#settings-json" title="Permalink to this heading">¶</a></h2>
+<p>これまで述べてきた設定エディターは、ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> に保存されている設定値の UI だ。このファイルはコマンド <span class="guilabel">Preferences: Open Settings JSON</span>
+を実行することで、Editor で直接確認・編集する。設定は、設定 ID と値のペアを指定して、JSON として表現される。</p>
+<p>ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> の編集時には IntelliSense が機能する。設定と値のスマート補完や説明文ポップアップなどが出現し、設定名や JSON の書式が誤っていることによるエラーに関するハイライト表示もある。</p>
+<p><span class="guilabel">Workbench: Color Customizations</span> など、JSON 直接編集でしか設定できない項目もある。そういう項目については <span class="guilabel">Edit in settings.json</span> リンクが画面上に現れる。</p>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id28">設定ファイルを編集する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>本書では Editor の行番号の色をカスタマイズする手順を述べている。重要なのは次の記述なので割愛。</p>
+<p>この例では色テーマすべてに対して一斉に行番号を設定しているが、特定の色テーマに対して何かを調整したり、色テーマ拡張を独自に作成したりできる。</p>
+<p>Editor 上で <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> をつねに直接編集したいならば、設定項目
+<code class="docutils literal notranslate"><span class="pre">workbench.settings.editor</span></code> の値を <code class="docutils literal notranslate"><span class="pre">json</span></code> に変える。</p>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id29">ユーザー設定ファイルのパス</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<p>VS Code を Windows にインストールした場合、ユーザー設定ファイルのパスはこうだ：</p>
+<blockquote>
+<div><p><code class="file docutils literal notranslate"><span class="pre">%APPDATA%\Code\User\settings.json</span></code></p>
+</div></blockquote>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id30">設定をすべてリセットする</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<p>設定エディターのコマンド <span class="menuselection">Reset Setting</span> で個別に設定をリセットすることもできるが、ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> を開いて中括弧 <code class="docutils literal notranslate"><span class="pre">{}</span></code> で囲まれたエントリーを削除すれば、変更した設定すべてをリセットできる。ただし、この場合、以前の設定値を復元できなくなる。</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id31">ワークスペース設定</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<p>ワークスペース設定とは、プロジェクトに固有の設定だ。プロジェクト開発者間で共有する設定を定義する。ワークスペース設定はユーザー設定より優る。</p>
+<p>VS Code のワークスペースは、通常、プロジェクトのルートフォルダーだけだ。ワークスペース設定は、デバッグやタスクの設定と同様にフォルダー <code class="file docutils literal notranslate"><span class="pre">.vscode</span></code> に保存される。また、マルチルートワークスペース機能により、VS Code ワークスペース一つに複数のルートフォルダーを持つことが可能だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>本ノートではマルチワークスペースに立ち入っていない。</p>
+</div>
+<p>ワークスペース設定エディターへのアクセス方法：</p>
+<ul class="simple">
+<li><p>コマンド <span class="guilabel">Preferences: Open Workspace Settings</span> を直接実行する</p></li>
+<li><p>設定エディターの <span class="guilabel">Workspace</span> タブをクリックする</p></li>
+</ul>
+<p>UI の利用方法はユーザー版と同じだ。</p>
+<p>一部、ワークスペース設定として仕様できないユーザー設定項目がある。たとえば、更新や保障に関するアプリケーション全体の設定は、ワークスペース設定で上書きできない。</p>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id32">ワークスペース設定ファイルのパス</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<p>ユーザー設定と同様に、ワークスペース設定もファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> に保存され、コマンド <span class="guilabel">Preferences: Open Workspace Settings (JSON)</span> によって直接編集することができる。</p>
+<p>ワークスペース設定ファイルは、ルートフォルダー内のフィルダー <code class="file docutils literal notranslate"><span class="pre">.vscode</span></code> の下に配置される。</p>
+<p>マルチルートワークスペースの場合、ワークスペース設定はワークスペース設定ファイル内にある。</p>
+<p>ワークスペース設定の <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> は、プロジェクトの利用者全員で共有されるものだ。</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id33">言語モード固有の編集設定</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>言語モード固有の設定をカスタマイズする一つの方法は、設定エディターを開き、漏斗アイコンをクリックし、言語オプションを選択して、言語フィルターを追加するものだ。また、検索欄に <code class="docutils literal notranslate"><span class="pre">&#64;lang:languageId</span></code> 形式で直接言語フィルターを入力することもできる。表示される設定は、その言語モードに対して設定可能で、該当する場合はその言語モード固有の設定値が表示される。</p>
+<p>言語フィルターが設定されている状態で設定を変更すると、その言語モードに対する作用域で設定が有効になる。例えば <code class="docutils literal notranslate"><span class="pre">&#64;lang:css</span></code> フィルターがかかっているときにユーザースコープの設定項目 <code class="docutils literal notranslate"><span class="pre">diffEditor.codeLens</span></code> を変更すると、設定エディターはユーザー設定ファイルの CSS固有のセクションに新しい値を保存する。</p>
+<p>検索欄に言語フィルターを複数入力した場合、現時点では最初の言語フィルターしか効かない。</p>
+<p>言語モード別にカスタマイズする方法はもう一つあり、グローバルコマンド
+<span class="guilabel">Preferences: Configure Language Specific Settings</span> を直接実行することだ。
+UI の場合には言語選択欄が開くので、所望の言語を選択する。すると、選択した言語の言語フィルターが付いた設定エディターが開き、その言語固有の設定をすることができる。</p>
+<p>言語固有のエディター設定は、言語固有でない設定がより狭い作用域であっても、言語固有でないエディター設定よりつねに優先される。例えば、言語固有のユーザー設定は、言語固有でないワークスペース設定より優先される。</p>
+<p>言語固有の設定をワークスペースに適用するには、他の設定と同様にワークスペース設定に配置する。ユーザーとワークスペースの両方の作用域で同じ言語の設定が定義されている場合、ワークスペースで定義されているものを優先してマージする。</p>
+<p>言語固有の設定コードは次のようなものだ：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;[language1]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;key1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;key2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p><code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> の IntelliSense を利用して、言語固有の設定を見つけられる。エディター設定全部と非エディター設定の一部がサポートされている。言語モードによっては、<span class="guilabel">Preferences: Open Default Settings</span> を実行して表示される
+<code class="docutils literal notranslate"><span class="pre">defaultSettings.json</span></code> で言語固有の既定値を確認できる。</p>
+</div>
+<div class="section" id="settings-precedence">
+<h2><a class="toc-backref" href="#id34">Settings precedence</a><a class="headerlink" href="#settings-precedence" title="Permalink to this heading">¶</a></h2>
+<p>設定は異なる作用域が形成する複数階層で上書きされる。次の一覧で言えば、より後ろの作用域が前のものを上書きしていく：</p>
+<ul class="simple">
+<li><p>既定。未構成時の値。</p></li>
+<li><p>ユーザー設定。VS Code プロセスすべてに対して大域的に適用。</p></li>
+<li><p>リモート設定。ユーザーが開いたリモートマシンに適用。</p></li>
+<li><p>ワークスペース設定。開いたフォルダーまたはワークスペースに適用。</p></li>
+<li><p>ワークスペースフォルダー設定。マルチルートワークスペースの特定のフォルダーに適用。</p></li>
+<li><p>言語固有の既定設定。拡張機能が提供できる、言語固有の既定値。</p></li>
+<li><p>言語固有のユーザー設定。ユーザー設定と同じかつ言語に固有。</p></li>
+<li><p>言語固有のリモート設定。リモート設定と同じかつ言語に固有。</p></li>
+<li><p>言語固有のワークスペース設定。ワークスペース設定と同じかつ言語に固有。</p></li>
+<li><p>言語固有のワークスペースフォルダー設定。ワークスペースフォルダー設定と同じかつ言語に固有。</p></li>
+<li><p>ポリシー設定。システム管理者が設定。どの他の設定値よりもつねに優先される。</p></li>
+</ul>
+<p>設定値には種類が色々とある：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>型</p></th>
+<th class="head"><p>設定値の例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>String</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">&quot;files.autoSave&quot;:</span> <span class="pre">&quot;afterDelay&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Boolean</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">&quot;editor.minimap.enabled&quot;:</span> <span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Number</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">&quot;files.autoSaveDelay&quot;:</span> <span class="pre">1000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Array</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">&quot;editor.rulers&quot;:</span> <span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Object</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">&quot;search.exclude&quot;:</span> <span class="pre">{</span> <span class="pre">&quot;**/node_modules&quot;:</span> <span class="pre">true,</span> <span class="pre">&quot;**/bower_components&quot;:</span> <span class="pre">true</span> <span class="pre">}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>原始型や配列型の値は上書きだ。つまり、他の作用域より優先的に設定された値が、他の作用域の値の代わりに使用される。ただし、Object 型を持つ値はマージされる：キー：値のペアがなければそれが追加され、あれば値が上書きされる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>この規則は非常に重要だ。</p>
+</div>
+</div>
+<div class="section" id="settings-and-security">
+<h2><a class="toc-backref" href="#id35">Settings and security</a><a class="headerlink" href="#settings-and-security" title="Permalink to this heading">¶</a></h2>
+<p>設定項目の中には、実行ファイルパスを指定するようなものがある。例えば、内蔵端末が使用するシェルを選択するなどだ。保障強化のため、このような設定はユーザー設定でのみ定義でき、ワークスペース作用域では定義できないようになっている。</p>
+<p>ワークスペース設定でサポートされていない設定の一覧：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git.path</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">terminal.external.windowsExec</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">terminal.external.osxExec</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">terminal.external.linuxExec</span></code></p></li>
+</ul>
+<p>これらの設定を定義したワークスペースを初めて開くと、VS Code は警告を発し、それ以降は値をつねに無視する。</p>
+</div>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id36">設定同期</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<p>設定同期機能により、VS Code プロセス間でユーザー設定を共有することができる。この機能により、様々なマシンにインストールした VS Code 間で、設定、キーバインド、インストールした拡張機能を共有することが可能だ。設定動機を有効にするには、次のいずれかの方法による：</p>
+<ul class="simple">
+<li><p>設定エディター右の <span class="guilabel">Turn on Settings Sync</span> をチェックするか</p></li>
+<li><p>Activity Bar 上 Accounts アイコンクリックのコンテキストメニュー</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>コマンドパレットで <code class="docutils literal notranslate"><span class="pre">sync</span></code> を検索すると関連コマンドも確認できる。試すといい。</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id37">既定値</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<p>コマンド <span class="guilabel">Preferences: Open Default Settings</span> を実行すると、Editor で
+<code class="docutils literal notranslate"><span class="pre">defaultSettings.json</span></code> を読み取り専用で見ることができる。</p>
+</div>
+</div>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ui.html" title="Previous document">ユーザーインターフェイス</a>
+        </li>
+        <li>
+          <a href="themes.html" title="Next document">テーマ</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Visual Studio Code 利用ノート</a><ul>
+      <li>Previous: <a href="ui.html" title="previous chapter">ユーザーインターフェイス</a></li>
+      <li>Next: <a href="themes.html" title="next chapter">テーマ</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

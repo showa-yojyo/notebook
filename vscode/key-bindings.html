@@ -1,0 +1,534 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>キーバインド &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="ロケール" href="locale.html" />
+    <link rel="prev" title="テーマ" href="themes.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="themes.html" title="Previous document">テーマ</a>
+        </li>
+        <li>
+          <a href="locale.html" title="Next document">ロケール</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id16">キーバインド</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>VS Code でもコマンドを実行するショートカットキーをユーザーが割り当てることが可能だ。既定のキーバインドの確認方法、カブリの検出方法、カスタマイズ方法を習得したい。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id16">キーバインド</a></p>
+<ul>
+<li><p><a class="reference internal" href="#keyboard-shortcuts-editor" id="id17">Keyboard Shortcuts Editor</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id18">キーマップ拡張</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id19">ショートカットキー一覧表</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id20">キーバインドの競合を検出する</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id21">トラブルシューティング</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id22">変更したキーバインドを見る</a></p></li>
+<li><p><a class="reference internal" href="#json" id="id23">JSON を編集してカスタマイズする</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id24">キーボード規則</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id25">受理されるキー</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id26">コマンド引数</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id27">指定のキーバインドを削除する</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id28">キーボードレイアウト</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id29">キーボードレイアウトに依存しないキーバインド</a></p></li>
+<li><p><a class="reference internal" href="#when" id="id30"><code class="docutils literal notranslate"><span class="pre">when</span></code> 節</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id31">条件演算子</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id32">利用可能コンテキスト</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id33">リファクタリングのためのカスタムキーバインド</a></p></li>
+<li><p><a class="reference internal" href="#default-keyboard-shortcuts" id="id34">Default Keyboard Shortcuts</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="keyboard-shortcuts-editor">
+<h2><a class="toc-backref" href="#id17">Keyboard Shortcuts Editor</a><a class="headerlink" href="#keyboard-shortcuts-editor" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">Keyboard Shortcuts</span> Editor は豊富で簡単なキーボードショートカットの編集機能を提供する。キーバインドを持つコマンドも持たないコマンドも一覧表示され、利用可能なコマンドを指定してキーバインドを容易に変更、削除、リセットすることができる。また、上部に検索欄があり、コマンドやキーバインドを見つける助けになる。この
+UI は次のいずれかの方法で表示できる：</p>
+<ul class="simple">
+<li><p>コマンドパレットで <span class="guilabel">Preferences: Open Keyboard Shortcuts</span> を直接実行する</p></li>
+<li><p>メインメニューで <span class="menuselection">File ‣ Preferences ‣ Keyboard Shortcuts</span>
+を選択する</p></li>
+<li><p>Activity Bar 歯車アイコンで <span class="menuselection">Keyboard Shortcuts</span> を選択する</p></li>
+<li><p>ショートカットキー <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">S</kbd> を押す</p></li>
+</ul>
+<p>重要なのは、キーボードレイアウトに応じたキーバインドが表示されることだ。例えば
+US キーボードレイアウトのキーバインドは、レイアウトがドイツ語に変更されると異なるキーバインドが一般的には表示される。キーバインド入力ダイアログは、キーボードレイアウトに従ってキーバインドを割り当てる。</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id18">キーマップ拡張</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>メインメニューで <span class="menuselection">File ‣ Preferences ‣ Migrate Keyboard Shortcuts from…</span>
+を選択すると、よその有力エディターで使われるキーマップ拡張機能の一覧が表示される。これらの拡張機能は VS Code の、特に Editor 周りに関するショートカットを他のエディターのものと一致するように変更するものであり、キーボードショートカットを新しく学ぶ必要はないとされる。また、Marketplace には拡張機能のキーマップのカテゴリーがある。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>実際には <span class="guilabel">EXTENSIONS: MARKETPLACE</span> ビューを表示させたら文字列 <code class="docutils literal notranslate"><span class="pre">keymaps</span></code> とエディターの名前を入力するのがいい。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id19">ショートカットキー一覧表</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>メインメニューで <span class="menuselection">Help ‣ Keyboard Shortcut Reference</span> を選択すると、ショートカットキー一覧表を記した PDF ファイルが開く。ブラウザーで。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id20">キーバインドの競合を検出する</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>多くの拡張機能をインストールしている場合や、キーボードショートカットをカスタマイズしている場合、同じキーボードショートカットが複数のコマンドにバインドされていることがある。このようなキーバインド競合は混乱した動作を引き起こすことがある。</p>
+<p>Keyboard Shortcuts Editor のコンテキストメニューにはコマンド
+<span class="menuselection">Show Same Keybindings</span> があり、キーバインドが一致する項目に絞って表示する。</p>
+<p>多重定義されているキーバインド項目の <span class="guilabel">Source</span> や <span class="guilabel">When</span> を確認して競合を解消するといい。</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id21">トラブルシューティング</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>キーバインドに関する問題のトラブルシューティングを行うにはコマンド
+<span class="guilabel">Developer: Toggle Keyboard Shortcuts Troubleshooting</span> を実行する。ショートカットキーのロギングが有効になると、対応するログファイルの
+<span class="guilabel">OUTPUT</span> 出力パネルが現れる。対象のショートカットキーを押して、VS Code
+がどのキーボードショートカットを検出し、どのコマンドが呼び出されるかを確認することができる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>実際にはショートカットキーが効かないとき使うとどうなるか試す。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id22">変更したキーバインドを見る</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>Keyboard Shortcuts Editor 右上の詳細アイコンのメニューから
+<span class="menuselection">Show User Keybindings</span> を選択すると、ユーザーが変更したキーバインドに絞って表示することができる。検索欄に <code class="docutils literal notranslate"><span class="pre">&#64;source:user</span></code> と手動で入力してもいい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><span class="guilabel">Keybinding</span> が空欄の項目は、キーバインドが削除されていることを表す。</p>
+</div>
+</div>
+<div class="section" id="json">
+<h2><a class="toc-backref" href="#id23">JSON を編集してカスタマイズする</a><a class="headerlink" href="#json" title="Permalink to this heading">¶</a></h2>
+<p>ショートカットキーをカスタマイズするのは、設定ファイル <code class="file docutils literal notranslate"><span class="pre">keybindings.json</span></code>
+を編集することでも可能だ。これを Editor で開くには、次の方法がある：</p>
+<ul class="simple">
+<li><p>Keyboard Shortcuts Editor の <span class="menuselection">Open Keyboard Shortcuts (JSON)</span>
+を選択する</p></li>
+<li><p>コマンドパレットから <span class="guilabel">Preferences: Open Keyboard Shortcuts (JSON)</span>
+を直接実行する</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id24">キーボード規則</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p>規則は、次の要素からなる：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">key</span></code></dt><dd><p>押されたキー。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">command</span></code></dt><dd><p>実行するコマンドの識別子。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">when</span></code></dt><dd><p>コンテキストに応じて評価される真偽値を返す式。オプション。</p>
+</dd>
+</dl>
+<p>Chord を記述することも可能。キーストロークを空白文字で分離して記述する。例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;Ctrl+K Ctrl+C&quot;
+</pre></div>
+</div>
+<p>キーが押されると、</p>
+<ol class="arabic simple">
+<li><p>規則が下から上に評価される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code> と <code class="docutils literal notranslate"><span class="pre">when</span></code> の双方が合致する最初の規則が受け入れられる。</p></li>
+<li><p>それ以上の規則は処理されない。</p></li>
+<li><p>見つかった規則にコマンドが設定されているならば、それが実行される。</p></li>
+</ol>
+<p>の場合、キーとタイミングの両方で一致する最初のルールが受け入れられます。</p>
+<p>評価順が下から上である理由は、UI を使ってキーバインド規則を追加したときに
+<code class="file docutils literal notranslate"><span class="pre">keybindings.json</span></code> の JSON オブジェクトの下部に新しい規則が入るからだ。結果的に、新しい規則が古いものを上書きすることになる。</p>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id25">受理されるキー</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<p>要素 <code class="docutils literal notranslate"><span class="pre">key</span></code> は修飾キーとキー自身からなる。修飾キーは Windows の場合、次が使用可能だ：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Shift+</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Alt+</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Win+</span></code></p></li>
+</ul>
+<p>キー自身としては次のものが使用可能だ：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{a..z}
+{0..9}
+f{1..19}
+[
+]
+, - = [ ] \ ; &#39;, , . /
+{left,up,right,down,pageup,pagedown,end,home}
+{tab,enter,escape,space,backspace,delete}
+{pausebreak,capslock,insert}
+numpad{0..9}
+numpad_{multiply,add,separator,subtract,decimal,divide}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id26">コマンド引数</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<p>コマンドに引数をつけて起動することができる。カスタムキーバインドを追加してそれを実行する。次の例は <kbd class="kbd docutils literal notranslate">Enter</kbd> キーを上書きしてテキストを出力する：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;enter&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;when&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;editorTextFocus&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">type</span></code> は <code class="docutils literal notranslate"><span class="pre">{&quot;text&quot;:</span> <span class="pre">&quot;Hello</span> <span class="pre">World&quot;}</span></code> を第一引数として受け取り、既定コマンドを生成するのではなく、現在の Editor に <code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">World&quot;</span></code> を追加する。</p>
+<p>引数を取るコマンドの詳細については、次の資料を参照：
+<a class="reference external" href="https://code.visualstudio.com/api/references/commands">Built-in Commands | Visual Studio Code Extension API</a></p>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id27">指定のキーバインドを削除する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<p>キーバインドカスタマイズは追加だけではなく、削除も可能だ。追加規則ではなく、削除規則というものを定義する。対象となるキーバインドを削除するには、設定ファイル
+<code class="file docutils literal notranslate"><span class="pre">keybindings.json</span></code> を直接編集し、コマンド名の先頭に <code class="docutils literal notranslate"><span class="pre">-</span></code> を追加する。例：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-jumpToNextSnippetPlaceholder&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id28">キーボードレイアウト</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<p>上述のキーは仮想キーに対する文字列表現であり、押したときに生成される文字とは一般的には関係がない。より正確には：
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes?redirectedfrom=MSDN">Virtual-Key Codes (Winuser.h) - Win32 apps | Microsoft Learn</a></p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>Win32 API でプログラムを作成するときに、キーイベントハンドラーで書くアレだ。</p>
+</div>
+<p>キーボードレイアウトが異なると、上記の仮想キーの位置が変更されたり、キーが押されたときに生成される文字が変更されたりするのだ通例だ。標準の US とは異なるキーボードレイアウトを使用する場合、VS Code は次のように動作する：すべてのキーバインドは、現在のシステムのキーボードレイアウトを考慮して UI 上に示される。例えば、フランス語のキーボードレイアウトを使用しているときの:guilabel:<cite>Split Editor</cite> は
+<code class="docutils literal notranslate"><span class="pre">Ctrl+*</span></code> と示される。</p>
+<p>設定ファイル <code class="file docutils literal notranslate"><span class="pre">keybindings.json</span></code> 編集中、Editor は誤解を招くキーバインドを強調表示する。標準的な US キーボードレイアウトでは文字で表現されるが、現在のシステムのキーボードレイアウトでは異なるラベルのキーを押す必要があるものだ。本文の画面キャプチャーは、フランス語キーボードレイアウトを使用する場合に
+<span class="guilabel">Default Keyboard Shortcuts</span> がどのように見えるかを示している。</p>
+<p>設定ファイル <code class="file docutils literal notranslate"><span class="pre">keybindings.json</span></code> 編集中、キーバインド規則の入力を支援する
+UI も用意されている。これを起動するには <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> <kbd class="kbd docutils literal notranslate">Ctrl</kbd> +
+<kbd class="kbd docutils literal notranslate">K</kbd> を押す。</p>
+<p>キーが押されたことをリスニングし、JSON コードをテキストボックスに出力し、その下に現在のキーボードレイアウトの下で VS Code が検出したキーをレンダリングする。必要なキーの組み合わせを入力して <kbd class="kbd docutils literal notranslate">Enter</kbd> キーを押すと、規則コード片が挿入される。</p>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id29">キーボードレイアウトに依存しないキーバインド</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<p>スキャンコードを使用すると、キーボードレイアウトを変更しても変わらないキーバインドを定義することができる。例：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cmd+[Slash]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;editor.action.commentLine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;when&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;editorTextFocus&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>受理されるキーコードは次の文字列だ：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[F{1..19}]
+[Key{A..Z}],
+[Digit{0..9}]
+[Backquote]
+[Minus]
+[Equal]
+[Bracket{Left,Right}]
+[Backslash]
+[Semicolon]
+[Quote]
+[Comma]
+[Period]
+[Slash]
+[Arrow{Left,Up,Right,Down}]
+[Page{Up,Down}]
+[End]
+[Home]
+[Tab]
+[Enter]
+[Escape]
+[Space]
+[Backspace]
+[Delete]
+[Pause]
+[CapsLock]
+[Insert]
+[Numpad{0..9}]
+[Numpad{Multiply,Add,Comma,Subtract,Decimal,Divide}]
+</pre></div>
+</div>
+</div>
+<div class="section" id="when">
+<h2><a class="toc-backref" href="#id30"><code class="docutils literal notranslate"><span class="pre">when</span></code> 節</a><a class="headerlink" href="#when" title="Permalink to this heading">¶</a></h2>
+<p>オプションの <code class="docutils literal notranslate"><span class="pre">when</span></code> 節によって、キーバインドを有効にするタイミングを細かく制御することが可能だ。キーバインドに <code class="docutils literal notranslate"><span class="pre">when</span></code> 節がない場合、そのキーバインドはグローバルに使用可能となる。 <code class="docutils literal notranslate"><span class="pre">when</span></code> 節は、キーバインドを有効にするために Boolean 値で評価される。</p>
+<p>UI のどの要素が表示され、アクティブになっているかによって、VS Code は色々なコンテキストキーと特定の値を設定する。例えば、組み込みコマンド
+<span class="guilabel">Start Debugging</span> には、ショートカットキー <kbd class="kbd docutils literal notranslate">F5</kbd> があるが、これは適切なデバッガーがあり (<code class="docutils literal notranslate"><span class="pre">debuggersAvailable</span></code>) Editor がデバッグモードでない
+(<code class="docutils literal notranslate"><span class="pre">!inDebugMode</span></code>) ときに有効になる。</p>
+<p>キーバインドの <code class="docutils literal notranslate"><span class="pre">when</span></code> 節は、コマンド
+<span class="guilabel">Preferences: Open Default Keyboard Shortcuts (JSON)</span> 実行などで直接確認することが可能だ。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f5&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;workbench.action.debug.start&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;when&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;debuggersAvailable &amp;&amp; !inDebugMode&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id31">条件演算子</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">when</span></code> 節では <code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> などの条件演算子が利用可能だ。参照：
+<a class="reference external" href="https://code.visualstudio.com/api/references/when-clause-contexts#conditional-operators">when clause contexts | Visual Studio Code Extension API</a></p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id32">利用可能コンテキスト</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<p>利用可能な <code class="docutils literal notranslate"><span class="pre">when</span></code> 節コンテキストについても上記リンク先を参照。ただし、この一覧表は完全なものではなく、Keyboard Shortcuts Editor やコマンド
+<span class="guilabel">Preferences: Open Default Keyboard Shortcuts (JSON)</span> 実行後に表示される JSON で他の <code class="docutils literal notranslate"><span class="pre">when</span></code> 節コンテキストを見つけることが可能だ。</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id33">リファクタリングのためのカスタムキーバインド</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">editor.action.codeAction</span></code> は特定のリファクタリング (Code Actions)
+に対するキーバインドを設定することが可能だ。例えば、次のキーバインド定義は
+<span class="menuselection">Extract function</span> リファクタリング Code Actions を実行する：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ctrl+shift+r ctrl+e&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;editor.action.codeAction&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;refactor.extract.function&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>詳しくはリファクタリングの章で述べられる。</p>
+</div>
+<div class="section" id="default-keyboard-shortcuts">
+<h2><a class="toc-backref" href="#id34">Default Keyboard Shortcuts</a><a class="headerlink" href="#default-keyboard-shortcuts" title="Permalink to this heading">¶</a></h2>
+<p>三点アイコンメニューの <span class="menuselection">Show Default Keybindings</span> を使用すると、
+VS Code の既定キーボードショートカットすべてを Keyboard Shortcuts Editor で表示できる。検索欄に <code class="docutils literal notranslate"><span class="pre">&#64;source:default</span></code> フィルターを適用するのと同じだ。
+<span class="guilabel">Source</span> の値が <span class="guilabel">Default</span> のものだ。</p>
+<p>この一覧表を JSON 表示するには、コマンドパレットから
+<span class="guilabel">Preferences: Open Default Keyboard Shortcuts (JSON)</span> を直接実行する。</p>
+<p>以下のいくつかのコマンドは、デフォルトのキーボードショートカットがないため、未割り当てとして表示されますが、独自のキーバインドを割り当てることができます。</p>
+<p>初期設定では既定キーバインドがコマンドがいくつもある。上述のように、キーバインドを独自に割り当てることもできる。</p>
+</div>
+</div>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="themes.html" title="Previous document">テーマ</a>
+        </li>
+        <li>
+          <a href="locale.html" title="Next document">ロケール</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../power-toys.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Visual Studio Code 利用ノート</a><ul>
+      <li>Previous: <a href="themes.html" title="previous chapter">テーマ</a></li>
+      <li>Next: <a href="locale.html" title="next chapter">ロケール</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
