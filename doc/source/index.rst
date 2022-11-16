@@ -121,6 +121,7 @@ Contents:
    power-toys
    windows-terminal
    wsl
+   vscode/index
    cygwin
    chrome
    git/index
