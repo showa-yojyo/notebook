@@ -30,20 +30,16 @@ UI 言語を変更する
 コマンドを実行するとコマンドパレットの位置に言語入力欄が現れる。インストールされ
 ている言語のロケール別一覧が表示され、現在のものが強調表示される。
 
-オプション :guilabel:`Install additional languages...` を用いて Marketplace からさ
-らに多くの Language Pack をインストールするか、一覧から別のロケールを選択する。
-後者の場合、VS Code の再起動が必要だ。再起動を促される。
+オプション :guilabel:`Install additional languages...` を用いて Marketplace から
+さらに多くの Language Pack をインストールするか、一覧から別のロケールを選択す
+る。後者の場合、VS Code の再起動が必要だ。再起動を促される。
 
 コマンド :guilabel:`Configure Display Language` は、ユーザー VS Code フォルダー
 :file:`.vscode` 内のファイル :file:`argv.json` に書き込まれる。
 
 ファイル :file:`argv.json` を直接編集し、VS Code を再起動することでもロケールを
 変更可能だ。これにはコマンド :guilabel:`Preferences: Configure Runtime Arguments`
-を実行し、当該ファイルを Editor で開くといい。
-
-.. admonition:: 利用者ノート
-
-   :file:`%USERPROFILE%\\argv.json`
+を実行し、当該ファイル :file:`%USERPROFILE%\\argv.json` を Editor で開くといい。
 
 利用可能なロケール
 ======================================================================

@@ -40,8 +40,8 @@ VS Code が機械的に修正できる不具合については、項目のクリ
    :delim: @
    :header: コマンド,キーバインド,操作
 
-   Quick Fix... @ :kbd:`Ctrl` + :kbd:`.` @ クイック修正
-   Refactor... @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`R` @ リファクタリング表示
+   :menuselection:`Quick Fix...` @ :kbd:`Ctrl` + :kbd:`.` @ クイック修正
+   :menuselection:`Refactor...` @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`R` @ リファクタリング表示
 
 クイック修正を表示せずにリファクタリングしか表示したくない場合は Refactor コマン
 ドを使用するといい。

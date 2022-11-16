@@ -2,17 +2,20 @@
 Visual Studio Code 利用ノート
 ======================================================================
 
-いつの間にかメインのテキストエディターが `Visual Studio Code
-<https://code.visualstudio.com/>`__ になっているので、このへんで知識を整理しよう。
+いつの間にかメインのテキストエディターが
+`Visual Studio Code <https://code.visualstudio.com/>`__ になっているので、このへ
+んで知識を整理しよう。
 
 .. attention::
 
    次の環境・条件で VS Code を利用していることを先に断っておく。
 
    OS は Windows 10 Home で、WSL (Ubuntu) のファイルシステムにあるファイルを主に
-   編集する。Git を中心とする端末コマンドは Ubuntu にあるものを実行する。
+   編集する。:program:`Git` を中心とする端末コマンドは Ubuntu にあるものを実行す
+   る。
 
-   バージョン管理ツールは Git しか使わない。他の SCM まで調査の手が回らない。
+   バージョン管理ツールは :program:`Git` しか使わない。他の SCM まで調査の手が回
+   らない。
 
    VS Code の GUI は英語のまま変えない。
 
@@ -38,6 +41,3 @@ Visual Studio Code 利用ノート
    themes
    key-bindings
    locale
-
-..
-    GitHub と連携する？

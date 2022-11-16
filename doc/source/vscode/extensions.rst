@@ -17,7 +17,8 @@ VS Code はエディター本体と拡張に機能を分割する設計が上手
 次のいずれかの操作により Side Bar の表示が拡張ビューに変化する：
 
 * ショートカットキー :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`X` を押す。
-* Activity Bar 最下部歯車アイコンクリックからの :menuselection:`Extensions` を選択する。
+* Activity Bar 最下部歯車アイコンクリックからの :menuselection:`Extensions` を選
+  択する。
 * Side Bar が表示されているならば、Activity Bar から四角が離れているアイコンをク
   リックする。
 
@@ -66,11 +67,11 @@ Sort フィルターを組み合わせる。検索入力例：
    :delim: @
    :header: 項目,操作
 
-   Check for Extension Updates @ 拡張の更新が容易されているかを見に行く
-   Update All Extensions @ 更新可能な拡張すべてを更新する
-   Enable All Extensions @ 拡張すべてを有効にする
-   Disable All Installed Extensions @ 拡張すべてを無効にする
-   Show Running Extensions @ 稼働中の拡張を一覧する
+   :menuselection:`Check for Extension Updates` @ 拡張の更新が容易されているかを見に行く
+   :menuselection:`Update All Extensions` @ 更新可能な拡張すべてを更新する
+   :menuselection:`Enable All Extensions` @ 拡張すべてを有効にする
+   :menuselection:`Disable All Installed Extensions` @ 拡張すべてを無効にする
+   :menuselection:`Show Running Extensions` @ 稼働中の拡張を一覧する
 
 拡張ビューには、現在 VS Code 上で管理可能な拡張機能項目が列挙される。各項目の右
 下に小さく描かれている歯車アイコンをクリックすると、拡張機能管理コマンドからなる
@@ -82,14 +83,14 @@ Sort フィルターを組み合わせる。検索入力例：
    :delim: @
    :header: 項目,操作
 
-   Enable @ この拡張機能を有効にする
-   Enable (Workspace) @ この拡張機能を現在のワークスペースに対しては有効にする
-   Disable @ この拡張機能を無効にする
-   Disable (Workspace) @ この拡張機能を現在のワークスペースに対しては無効にする
-   Uninstall @ この拡張機能をアンインストールする
-   Copy @ この拡張機能の情報をテキスト形式でクリップボードにコピーする
-   Copy Extension ID @ この拡張機能の ID 文字列をクリップボードにコピーする
-   Extension Settings @ この拡張機能の設定を操作する
+   :menuselection:`Enable` @ この拡張機能を有効にする
+   :menuselection:`Enable (Workspace)` @ この拡張機能を現在のワークスペースに対しては有効にする
+   :menuselection:`Disable` @ この拡張機能を無効にする
+   :menuselection:`Disable (Workspace)` @ この拡張機能を現在のワークスペースに対しては無効にする
+   :menuselection:`Uninstall` @ この拡張機能をアンインストールする
+   :menuselection:`Copy` @ この拡張機能の情報をテキスト形式でクリップボードにコピーする
+   :menuselection:`Copy Extension ID` @ この拡張機能の ID 文字列をクリップボードにコピーする
+   :menuselection:`Extension Settings` @ この拡張機能の設定を操作する
 
 更新
 ----------------------------------------------------------------------

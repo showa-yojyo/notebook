@@ -89,12 +89,12 @@ Go to コマンド群
    :delim: @
    :header: コマンド,既定キーバインド,操作
 
-   Go to Definition @ :kbd:`F12` @ 対象シンボルの定義箇所にジャンプする
-   Go to Type Definition @ n/a @ 対象シンボルの型の定義箇所にジャンプする
-   Go to Declaration @ n/a @ 対象シンボルの宣言箇所にジャンプする
-   Go to Implementation @ :kbd:`Ctrl` + :kbd:`F12` @ 対象シンボルの実装箇所にジャンプする
-   Go to Symbol @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`O` @ シンボルを指定してジャンプする
-   Go to References @ :kbd:`Shift` + :kbd:`F12` @ 対象シンボルの参照（利用）箇所にジャンプする
+   :guilabel:`Go to Definition` @ :kbd:`F12` @ 対象シンボルの定義箇所にジャンプする
+   :guilabel:`Go to Type Definition` @ n/a @ 対象シンボルの型の定義箇所にジャンプする
+   :guilabel:`Go to Declaration` @ n/a @ 対象シンボルの宣言箇所にジャンプする
+   :guilabel:`Go to Implementation` @ :kbd:`Ctrl` + :kbd:`F12` @ 対象シンボルの実装箇所にジャンプする
+   :guilabel:`Go to Symbol` @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`O` @ シンボルを指定してジャンプする
+   :guilabel:`Go to References` @ :kbd:`Shift` + :kbd:`F12` @ 対象シンボルの参照（利用）箇所にジャンプする
 
 いずれのコマンドにおいても、ジャンプ先候補が複数ある場合には、候補一覧を表示する
 専用ウィンドウがいったん表示される。そこで項目を選択すると、候補が一つしかない場
@@ -129,10 +129,11 @@ Go to Symbol
 を示すウィンドウが現れる。この一覧から :kbd:`↑` または :kbd:`↓` を押してシンボル
 を選択すると、エディター上の対応位置にキャレットが移動する。
 
-なお、記号 `@` の次に `:` を入力すると、一覧表示がカテゴリーごとにグループ化される。
+なお、記号 ``@`` の次に ``:`` を入力すると、一覧表示がカテゴリーごとにグループ化
+される。
 
-この入力欄ではあいまい検索が効くので、settings.json のようにシンボルを著しく含む
-ファイルを開いたエディターに対しても使えることに注意。
+この入力欄ではあいまい検索が効くので、:file:`settings.json` のようにシンボルを著
+しく含むファイルを開いたエディターに対しても使えることに注意。
 
 Go to References
 ----------------------------------------------------------------------
@@ -140,31 +141,31 @@ Go to References
 これはシンボル版 :command:`grep` のようなコマンドだ。対象シンボルが出現するすべ
 ての箇所を一覧し、そこからジャンプ先を選択するのが通常の利用シナリオだ。
 
-被参照数があまりにも多い場合、:kbd:`Shift` + :kbd:`Alt` + :kbd:`F12` を押して参照一覧を
-REFERENCES ビューとして Side Bar に表示することを検討する。
+被参照数があまりにも多い場合、:kbd:`Shift` + :kbd:`Alt` + :kbd:`F12` を押して参
+照一覧を :guilabel:`REFERENCES` ビューとして Side Bar に表示することを検討する。
 
 Peek コマンド群
 ======================================================================
 
-興味のあるシンボルはあるものの、詳細箇所にジャンプする必要がなさそうな場合にはチラ見コ
-マンドが有用だ：
+興味のあるシンボルはあるものの、詳細箇所にジャンプする必要がなさそうな場合にはチ
+ラ見コマンドが有用だ：
 
 .. csv-table::
    :delim: @
    :header: コマンド,既定キーバインド,操作
 
-   Peek Definition @ :kbd:`Alt` + :kbd:`F12` @ 対象の定義を Peek ウィンドウに表示する
-   Peek Type Definition @ n/a @ 対象の型に対する定義を Peek ウィンドウに表示する
-   Peek Declaration @ n/a @ 対象の宣言を Peek ウィンドウに表示する
-   Peek Implementations @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F12` @ 対象の実装を Peek ウィンドウに表示する
-   Peek References @ :kbd:`Shift` + :kbd:`F12` @ 対象の参照箇所を Peek ウィンドウに表示する
+   :guilabel:`Peek Definition` @ :kbd:`Alt` + :kbd:`F12` @ 対象の定義を :guilabel:`Peek` ウィンドウに表示する
+   :guilabel:`Peek Type Definition` @ n/a @ 対象の型に対する定義を :guilabel:`Peek` ウィンドウに表示する
+   :guilabel:`Peek Declaration` @ n/a @ 対象の宣言を :guilabel:`Peek` ウィンドウに表示する
+   :guilabel:`Peek Implementations` @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F12` @ 対象の実装を :guilabel:`Peek` ウィンドウに表示する
+   :guilabel:`Peek References` @ :kbd:`Shift` + :kbd:`F12` @ 対象の参照箇所を :guilabel:`Peek` ウィンドウに表示する
 
 これらのコマンドが表示するウィンドウは、マウスホバーで表示される 10 行程度のコー
 ドを含むポップアップとは別物だ。
 
-表示してみたら当該箇所にジャンプしたくなる場合もある。そのときは Peek ウィンドウ
-側でダブルクリックするなどすれば、このウィンドウが閉じて目的箇所のためのエディ
-ターが開く。
+表示してみたら当該箇所にジャンプしたくなる場合もある。そのときは :guilabel:`Peek`
+ウィンドウ側でダブルクリックするなどすれば、このウィンドウが閉じて目的箇所のため
+のエディターが開く。
 
 括弧に対するナビゲーション
 ======================================================================
@@ -172,7 +173,6 @@ Peek コマンド群
 キャレットを括弧に移動させると、その片割れとなる括弧が控えめにハイライトされる。
 
 ユーザー設定次第で、釣りあう括弧同士を色分けしてエディター上で描画させることも可能だ。
-これは settings.json の章で述べる。
 
 エラーと警告
 ======================================================================
@@ -181,8 +181,10 @@ Peek コマンド群
 告を生成するものがある。これらの項目はウィンドウ内の何箇所かに出現する：
 
 * Status Bar の左下の方にエラー数と警告数がアイコン付きで示される。
-* :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`M` を押すたびに、画面下部の PROBLEM パネルの表示を切り替える。
-* エディター内の問題箇所となる文字列と縦スクロールバー付近に波線とマーカーがそれぞれ現れる。
+* :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`M` を押すたびに、画面下部の :guilabel:`PROBLEM`
+  パネルの表示を切り替える。
+* エディター内の問題箇所となる文字列と縦スクロールバー付近に波線とマーカーがそれ
+  ぞれ現れる。
 
 問題のある箇所にジャンプするには、ショートカットキーを使うと早い：
 
@@ -190,10 +192,10 @@ Peek コマンド群
    :delim: @
    :header: コマンド,既定キーバインド,ジャンプ先
 
-   Go to Next Problem @ :kbd:`F8` @ 現在のエディター内の次の問題箇所
-   Go to Previous Problem @ :kbd:`Shift` + :kbd:`F8` @ 現在のエディター内の前の問題箇所
-   Go to Next Problem In Files @ :kbd:`Alt` + :kbd:`F8` @ 全てのエディター内の次の問題箇所
-   Go to Previous Problem In Files @ :kbd:`Alt` + :kbd:`Shift` + :kbd:`F8` @ 全てのエディター内の前の問題箇所
+   :guilabel:`Go to Next Problem` @ :kbd:`F8` @ 現在のエディター内の次の問題箇所
+   :guilabel:`Go to Previous Problem` @ :kbd:`Shift` + :kbd:`F8` @ 現在のエディター内の前の問題箇所
+   :guilabel:`Go to Next Problem In Files` @ :kbd:`Alt` + :kbd:`F8` @ 全てのエディター内の次の問題箇所
+   :guilabel:`Go to Previous Problem In Files` @ :kbd:`Alt` + :kbd:`Shift` + :kbd:`F8` @ 全てのエディター内の前の問題箇所
 
 .. todo::
 

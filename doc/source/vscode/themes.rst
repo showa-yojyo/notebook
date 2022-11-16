@@ -236,7 +236,7 @@ VS Code の Yeoman 拡張機能生成装置は、拡張機能の残りの部分�
 
 既定テーマを色テーマ選択欄から削除したいならば場合、:guilabel:`EXPLORER` ビュー
 から無効にできる。ビューの上部にある漏斗アイコンをクリックし、
-:menuselection:`Built-in` を選択すると、 :guilabel:`THEMES` 区画が表示され、そこ
+:menuselection:`Built-in` を選択すると :guilabel:`THEMES` 区画が表示され、そこ
 に既定テーマが並ぶ。
 
 内蔵テーマは一般の VS Code 拡張と同様、ミニ歯車のコンテキストメニューのコマンド

@@ -3,7 +3,7 @@ Emmet
 ======================================================================
 
 VS Code は入力支援機能の一つとして `Emmet <https://docs.emmet.io/>`__ に対応して
-いる。 Emmet 機能が既定で有効化されている言語モードは html, xml, xsl, css, scss,
+いる。Emmet 機能が既定で有効化されている言語モードは html, xml, xsl, css, scss,
 sass などか、または php など上記のいずれかを継承しているものだ。
 
 .. attention::
@@ -24,9 +24,9 @@ sass などか、または php など上記のいずれかを継承している�
 オプション設定
 =======================================================================
 
-VS Code の設定ファイル ``settings.json`` で制御できる Emmet オプションを記す。項
-目を重要度順に配列したいところだが、執筆時点で重要度を判定しかねるのでアルファ
-ベット順にしておく。
+VS Code の設定ファイル :file:`settings.json` で制御できる Emmet オプションを記
+す。項目を重要度順に配列したいところだが、執筆時点で重要度を判定しかねるのでアル
+ファベット順にしておく。
 
 ``emmet.excludeLanguages``
 -----------------------------------------------------------------------
@@ -41,7 +41,7 @@ Emmet 展開をなるべくさせない言語モード ID 文字列からなる�
 ``emmet.extensionsPath``
 -----------------------------------------------------------------------
 
-Emmet カスタマイズ設定ファイルである ``syntaxProfiles.json`` や ``snippets.json``
+Emmet カスタマイズ設定ファイルである :file:`syntaxProfiles.json` や :file:`snippets.json`
 を納めるディレクトリーパスからなる配列を指定する。項目定義の衝突が発生した場合、
 後ろにあるものほど優先される。
 
@@ -68,8 +68,8 @@ Emmet カスタマイズ設定ファイルである ``syntaxProfiles.json`` や 
 ``emmet.preferences``
 -----------------------------------------------------------------------
 
-Emmet 設定ファイル ``preferences.json`` に記載するような内容をこのオブジェクトに
-記す。ただし、どの設定項目も VS Code が対応しているわけではない。
+Emmet 設定ファイル :file:`preferences.json` に記載するような内容をこのオブジェク
+トに記す。ただし、どの設定項目も VS Code が対応しているわけではない。
 
 ``emmet.showAbbreviationSuggestions``
 -----------------------------------------------------------------------
@@ -128,7 +128,7 @@ Emmet 由来の補完候補をポップアップのコード片候補に混ぜ�
 ``emmet.syntaxProfiles``
 -----------------------------------------------------------------------
 
-Emmet 設定ファイル ``syntaxProfiles.json`` で定義することをこのプロパティーの値
+Emmet 設定ファイル :file:`syntaxProfiles.json` で定義することをこのプロパティーの値
 とする。
 `syntaxProfiles.json <https://docs.emmet.io/customization/syntax-profiles/>`__
 を参照。
@@ -161,7 +161,7 @@ Emmet が利用する変数の値を指定する設定項目だ。VS Code では
 Emmet のパイプ記号を伴う指示を後置する文字列をタイプするのが基本的な入力技法だ。
 
 コメントフィルター ``|c`` は重要タグの末尾にコメントを挿入しながら展開するアク
-ションだ。 VS Code では設定項目 ``emmet.preferences`` で次の値を指定可能だ：
+ションだ。VS Code では設定項目 ``emmet.preferences`` で次の値を指定可能だ：
 
 * ``filter.commentTrigger``
 * ``filter.commentBefore``

@@ -32,8 +32,9 @@ WSL 対応
 ----------------------------------------------------------------------
 
 WSL の端末から VS Code を開けるようにしておく。実行ファイルのあるパスを環境変数
-PATH に追加すればいい。Bash シェルの場合はファイル :file:`$HOME/.bash_profile`
-と :file:`$HOME/.bashrc` を適切に選んで次のような記述を適宜与える：
+``PATH`` に追加すればいい。:program:`Bash` シェルの場合はファイル
+:file:`$HOME/.bash_profile`と :file:`$HOME/.bashrc` を適切に選んで次のような記述
+を適宜与える：
 
 .. code:: shell
 
@@ -93,5 +94,5 @@ Windows から VS Code 本体をアンインストールし、残滓のような
 
 次に設定ファイルなどを手動で削除する。以下のフォルダーを確認して必要なら削除する：
 
-* :file:`%APPDATA%\Code`
-* :file:`%USERPROFILE%\.vscode`
+* :file:`%APPDATA%\\Code`
+* :file:`%USERPROFILE%\\.vscode`

@@ -15,14 +15,14 @@ VS Code の UI について記す。メインウィンドウの構成は本家 V
 基本レイアウト
 ======================================================================
 
-まずは `Visual Studio Code User Interface <https://code.visualstudio.com/docs/getstarted/userinterface>`__
+まずは `Visual Studio Code User InterfacShoe <https://code.visualstudio.com/docs/getstarted/userinterface>`__
 の最初の画像に用いられている用語を頭に叩き込むこと。VS Code の画面全体を次の五つ
 に区分して理解する：
 
 Activity Bar
-    左端にある柱状の領域。アイコンをクリックしてビューを切り替えられるほか、Git
-    が有効な場合に保留中のファイル数など、現況に応じてアイコン右下にバッヂが表示
-    されることもある。
+    左端にある柱状の領域。アイコンをクリックしてビューを切り替えられるほ
+    か、:program:`Git` が有効な場合に保留中のファイル数など、現況に応じてアイコ
+    ン右下にバッヂが表示されることもある。
 (Primary) Side Bar
     Activity Bar のすぐ右側の縦長領域。:guilabel:`EXPLORER` などのビュー各種を搭
     載する。
@@ -126,8 +126,8 @@ EXPLORER
 ======================================================================
 
 :guilabel:`EXPLORER` はプロジェクト内のファイルおよびフォルダーすべてを管理する
-のに用いる。 VS Code は本家のようにワークスペースやプロジェクトを定義するファイ
-ルがあるわけではなく、ファイルとフォルダーに基づく。
+のに用いる。VS Code は本家のようにワークスペースやプロジェクトを定義するファイル
+があるわけではなく、ファイルとフォルダーに基づく。
 
 VS Code でフォルダーを開くと :guilabel:`EXPLORER` にその中身がツリーコントロー
 ルで再帰的に表示される。ここでいろいろなことができる：
@@ -137,12 +137,12 @@ VS Code でフォルダーを開くと :guilabel:`EXPLORER` にその中身が�
 
 項目上のコンテキストメニューで可能な操作を確認できる。
 
-VS Code は外部ツール、特にコマンドラインツールと非常によく連動している。
-VS Code で現在開いているフォルダーのコンテキストでコマンドラインツールを実行したければ、
+VS Code は外部ツール、特にコマンドラインツールと非常によく連動している。VS Code
+で現在開いているフォルダーのコンテキストでコマンドラインツールを実行したければ、
 フォルダーを右クリックして :menuselection:`Open in Command Prompt` を選択する。
 
-また、項目を右クリックして、:menuselection:`Reveal in Explorer` を選択すると、Windows
-Explorer でその場所に移動することができる。
+また、項目を右クリックして、:menuselection:`Reveal in Explorer` を選択する
+と、Windows Explorer でその場所に移動することができる。
 
 既定の設定では、VS Code は :guilabel:`EXPLORER` からいくつかのフォルダーを除外す
 る。設定項目 ``files.exclude`` を使用して、:guilabel:`EXPLORER` からファイルや
@@ -262,7 +262,7 @@ VS Code には :guilabel:`EXPLORER` 以外にも次のようなビューがあ�
 :guilabel:`SEARCH`
   ワークスペース全体の検索と置換処理
 :guilabel:`SOURCE CONTROL`
-  Git 操作
+  :program:`Git` 操作
 :guilabel:`RUN AND DEBUG`
   変数、コールスタック、ブレイクポイントなどのデバッグ
 :guilabel:`EXTENSIONS`
@@ -321,9 +321,9 @@ VS Code で最も重要なキーバインドは、:kbd:`Ctrl` + :kbd:`Shift` + :
 
    :kbd:`Ctrl` + :kbd:`P` @ :guilabel:`Go to File...` @ 名前を指定してファイルへジャンプ
    :kbd:`Ctrl` + :kbd:`Tab` @ :guilabel:`View: Quick Open Previous Recently Used Editor in Group` @ 現在の Editor Group 内で直前のものにジャンプ
-   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`P` @ `Show All Commands` @ 上述
-   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`O` @ `Go to Symbol in Editor` @ 指定シンボルへジャンプ
-   :kbd:`Ctrl` + :kbd:`G` @ :kbd:`Go to Line/Column...` @ 指定行へジャンプ
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`P` @ :guilabel:`Show All Commands` @ 上述
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`O` @ :guilabel:`Go to Symbol in Editor` @ 指定シンボルへジャンプ
+   :kbd:`Ctrl` + :kbd:`G` @ :guilabel:`Go to Line/Column...` @ 指定行へジャンプ
 
 入力欄先頭に ``?`` を入力すると、ここから実行できるコマンド一覧が出る。これは別
 の機会に調べる。

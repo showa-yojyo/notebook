@@ -122,7 +122,7 @@ Chord を記述することも可能。キーストロークを空白文字で�
 
 .. code:: text
 
-   Ctrl+K Ctrl+C
+   "Ctrl+K Ctrl+C"
 
 キーが押されると、
 

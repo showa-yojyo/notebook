@@ -25,9 +25,9 @@ VS Code は編集モードとデバッグモードを区別している。デバ
    :delim: @
    :header: キーバインド,コマンド,操作
 
-   :kbd:`F5` @ Start Debugging @ デバッグセッションを開始し、最初のブレイクポイントで停止する。
-   :kbd:`Ctrl` + :kbd:`F5` @ Run Without Debugging @ デバッガーなしでプロセスを起動する。
-   :kbd:`F11` @ Start Debugging and Stop on Entry @ デバッグセッションを開始し、エントリーポイントで停止する。
+   :kbd:`F5` @ :guilabel:`Start Debugging` @ デバッグセッションを開始し、最初のブレイクポイントで停止する。
+   :kbd:`Ctrl` + :kbd:`F5` @ :guilabel:`Run Without Debugging` @ デバッガーなしでプロセスを起動する。
+   :kbd:`F11` @ :guilabel:`Start Debugging and Stop on Entry` @ デバッグセッションを開始し、エントリーポイントで停止する。
 
 デバッグには最初のコマンドを用いるのが普通だ。
 
@@ -54,7 +54,7 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
 基本的なプロパティー
 -----------------------------------------------------------------------
 
-構成ファイル ``launch.json`` の書式について簡単に記す。
+構成ファイル :file:`launch.json` の書式について簡単に記す。
 
 .. code:: json
 
@@ -73,13 +73,13 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
        ]
    }
 
-ファイル ``launch.json`` をエディターで編集すると IntelliSense が働いて、オブ
+ファイル :file:`launch.json` をエディターで編集すると IntelliSense が働いて、オブ
 ジェクト内で有効なプロパティー名が補完され、同時に解説がポップアップ表示される。
 指定必須のプロパティーは次の三つ：
 
 ``type``
     デバッガーそのものを指定する。例えば、VS Code 内蔵の Node.js デバッガーを指
-    定するには ``"node"`` と書く。 PHP 拡張機能ならば ``"php"``, Go 拡張機能なら
+    定するには ``"node"`` と書く。PHP 拡張機能ならば ``"php"``, Go 拡張機能なら
     ば ``"go"`` と書く。
 
 ``request``
@@ -124,25 +124,25 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
    :delim: @
    :header: キーバインド,コマンド,操作
 
-   :kbd:`F5` @ Continue @ 次のブレイクまでプログラムカウンターを進める
-   :kbd:`F5` @ Pause @ 進行中のプログラムを一時停止する
-   :kbd:`F10` @ Step Over @ プログラムカウンターをワンステップ進める
-   :kbd:`F11` @ Step Into @ プログラムカウンターを関数呼び出しの内部に入る
-   :kbd:`Ctrl` + :kbd:`F11` @ Step Into Target @ Step Into する対象を一覧する（後述）
-   :kbd:`Shift` + :kbd:`F11` @ Step Out @ 関数呼び出し復帰直後までプログラムを進める
-   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F5` @ Restart Debugging @ デバッグセッションを Stop して新しく Start する。
-   :kbd:`Shift` + :kbd:`F5` @ Stop Debugging @ デバッグセッションを打ち切って終了する。
+   :kbd:`F5` @ :guilabel:`Continue` @ 次のブレイクまでプログラムカウンターを進める
+   :kbd:`F5` @ :guilabel:`Pause` @ 進行中のプログラムを一時停止する
+   :kbd:`F10` @ :guilabel:`Step Over` @ プログラムカウンターをワンステップ進める
+   :kbd:`F11` @ :guilabel:`Step Into` @ プログラムカウンターを関数呼び出しの内部に入る
+   :kbd:`Ctrl` + :kbd:`F11` @ :guilabel:`Step Into Target` @ Step Into する対象を一覧する（後述）
+   :kbd:`Shift` + :kbd:`F11` @ :guilabel:`Step Out` @ 関数呼び出し復帰直後までプログラムを進める
+   :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F5` @ :guilabel:`Restart Debugging` @ デバッグセッションを Stop して新しく Start する。
+   :kbd:`Shift` + :kbd:`F5` @ :guilabel:`Stop Debugging` @ デバッグセッションを打ち切って終了する。
 
-コマンド Step Into Target は説明を要すると思われるのでここに記す。あるステップで
-プログラムカウンターが停止しているとする。この時点で可能性のある Step Into 対象
-（関数）すべての一覧がポップアップされる。何か項目を選択すると、プログラムカウン
-ターがその対象に Step Into するというコマンドだ。
+コマンド :guilabel:`Step Into Target` は説明を要すると思われるのでここに記す。あ
+るステップでプログラムカウンターが停止しているとする。この時点で可能性のある
+Step Into 対象（関数）すべての一覧がポップアップされる。何か項目を選択すると、プ
+ログラムカウンターがその対象に Step Into するというコマンドだ。
 
 ブレイクポイント
 =======================================================================
 
-ブレイクポイント一つの有効性を反転するにはコマンド Toggle Breakpoint を実行する。
-コマンドの直接指定以外では、次のいずれかの操作により発動する：
+ブレイクポイント一つの有効性を反転するにはコマンド :guilabel:`Toggle Breakpoint`
+を実行する。コマンドの直接指定以外では、次のいずれかの操作により発動する：
 
 * 対象行にキャレットがある状態で :kbd:`F9` を押す。
 * 行番号の左マージンをクリックする。
@@ -155,10 +155,10 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
    :delim: @
    :header: コマンド,操作
 
-   Toggle Activate Breakpoints @ ブレイクポイントすべてに対する Toggle Breakpoint
-   Edit Breakpoint @ ブレイクポイントに停止条件を与える
-   Remove Breakpoint @ ブレイクポイント一つを削除する
-   Remove All Breakpoints @ ブレイクポイント全てを削除する
+   :guilabel:`Toggle Activate Breakpoints` @ ブレイクポイントすべてに対する :guilabel:`Toggle Breakpoint`
+   :guilabel:`Edit Breakpoint` @ ブレイクポイントに停止条件を与える
+   :guilabel:`Remove Breakpoint` @ ブレイクポイント一つを削除する
+   :guilabel:`Remove All Breakpoints` @ ブレイクポイント全てを削除する
 
 条件付きブレイクポイント
 -----------------------------------------------------------------------
@@ -166,7 +166,7 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
 適用されているデバッガー拡張機能によっては、条件付きブレイクポイント機能も用意さ
 れている。次のどれかを行って条件を与える：
 
-* 対象行にキャレットを置いてからコマンド Debug: Add Conditional Breakpoint
+* 対象行にキャレットを置いてからコマンド :guilabel:`Debug: Add Conditional Breakpoint`
   を直接実行する。
 * メインメニューから
   :menuselection:`Run --> New Breakpoints --> Add Conditional Breakpoint`
@@ -191,7 +191,7 @@ VS Code 以外のデバッガーと同様に、停止条件を評価式とヒッ
 する。対象文内にキャレットを置いてから、次のいずれかの方法でインラインブレイクポ
 イントを追加する：
 
-* コマンド Debug: Inline Breakpoint を直接実行する。
+* コマンド :guilabel:`Debug: Inline Breakpoint` を直接実行する。
 * :kbd:`Shift` + :kbd:`F9` を押す。
 * メインメニューから :menuselection:`Run --> New Breakpoints --> Inline Breakpoint`
   を選択する。
@@ -204,7 +204,7 @@ VS Code 以外のデバッガーと同様に、停止条件を評価式とヒッ
 
 関数名を指定することでブレイクポイントを設定できる。作成方法：
 
-* コマンド Add Function Breakpoint を直接実行する。
+* コマンド :guilabel:`Add Function Breakpoint` を直接実行する。
 * :guilabel:`BREAKPOINTS` セクション右上のプラスアイコン押し、関数名を入力する。
 
 関数ブレークポイントは :guilabel:`BREAKPOINTS` セクション一覧に赤三角形で示される。
@@ -282,7 +282,8 @@ VS Code 内蔵 JavaScript デバッガーを含むデバッガーのいくつか
 
 私がまだ必要としていない機能群を以下に記しておく。
 
-構成ファイル ``launch.json`` での高度な属性設定
+構成ファイル :file:`launch.json` での高度な属性設定
+    基本的な設定はもちろん必要だ。
 
 複数対象デバッグ
     クライアントサーバーシステムなど、複数のプロセスを含む複雑な
