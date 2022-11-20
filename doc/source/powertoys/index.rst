@@ -68,7 +68,7 @@ Microsoft PowerToys 利用ノート
    hosts-file-editor
    image-resizer
    keyboard-manager
-   mouse-utility
+   mouse-utilities
    power-rename
    powertoys-run
    quick-accent

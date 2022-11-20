@@ -58,4 +58,4 @@ Shortcut Guide を表示するには、ショートカットキー :kbd:`Win` + 
     翻訳ミスだろう。
 
 :guilabel:`アプリの除外`
-    :doc:`./always-on-top` や :doc:`./mouse-utility` の同名設定項目と同様。
+    :doc:`./always-on-top` や :doc:`./mouse-utilities` の同名設定項目と同様。
