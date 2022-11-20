@@ -71,7 +71,7 @@ Hosts File Editor は編集前にファイル :file:`hosts` をバックアッ�
 
 .. csv-table::
    :delim: @
-   :header: 設定項目,趣旨
+   :header: 設定項目,主旨
 
    :guilabel:`管理者として実行する` @ これを有効にしないと :file:`hosts` を保存できない
    :guilabel:`起動時に警告を表示する` @ DNS の名前解決変更可能性があることを警告するかどうか
