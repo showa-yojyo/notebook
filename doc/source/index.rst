@@ -118,7 +118,7 @@ Contents:
    freeware
    deepl-translator
    winget
-   power-toys
+   powertoys/index
    windows-terminal
    wsl
    vscode/index
