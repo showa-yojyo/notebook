@@ -52,36 +52,6 @@ Microsoft PowerToys 利用ノート
 :guilabel:`更新プログラムを確認する` を押して、あとは手なりで進行する。あるいは
 :program:`winget` の一括アップグレード運用で更新されるだろう。
 
-ユーティリティー概要
-======================================================================
-
-:program:`PowerToys` は各種アプリケーションの複合体と考えるほうがわかりやすい。
-アプリケーション同士の連携は全くないものと捉えるべきだ。
-
-以下では :program:`PowerToys` をそれぞれのアプリケーション単位について簡単に述べ
-ていく。きちんとした仕様は先述の文書のリンク先各ページに述べられている。
-
-.. toctree::
-   :maxdepth: 1
-
-   always-on-top
-   awake
-   color-picker
-   fancy-zones
-   file-explorer-add-ons
-   file-locksmith
-   hosts-file-editor
-   image-resizer
-   keyboard-manager
-   mouse-utilities
-   power-rename
-   powertoys-run
-   quick-accent
-   screen-ruler
-   shortcut-guide
-   text-extractor
-   video-conference-mute
-
 全般設定
 ======================================================================
 
@@ -131,7 +101,7 @@ Microsoft PowerToys 利用ノート
 * Image Resizer は使ってみると手軽なので採用する。プリセットは不要。小だけ使う。
   タイムスタンプを保持する設定を推奨。
 * Keyboard Manager は条件付きで採用。レジストリーを別の手段で変更していないとき
-  に使う。
+  に使う。次に Windows PC を新調したときから利用するか。
 * PowerRename はいちおう採用。
 * PowerToys Run はたいへん便利なので採用。Windows の
   :program:`ファイル名を指定して実行` を上書きしたいくらいだ。
@@ -139,6 +109,36 @@ Microsoft PowerToys 利用ノート
 * Text Extractor は採用。日本語文字列に空白文字がしばしばサンドイッチされるが。
 
 こんなものだろう。不採用の機能は設定画面のスイッチで無効にしておく。
+
+ユーティリティー概要
+======================================================================
+
+:program:`PowerToys` は各種アプリケーションの複合体と考えるほうがわかりやすい。
+アプリケーション同士の連携は全くないものと捉えるべきだ。
+
+以下では :program:`PowerToys` をそれぞれのアプリケーション単位について簡単に述べ
+ていく。きちんとした仕様は先述の文書のリンク先各ページに述べられている。
+
+.. toctree::
+   :maxdepth: 1
+
+   always-on-top
+   awake
+   color-picker
+   fancy-zones
+   file-explorer-add-ons
+   file-locksmith
+   hosts-file-editor
+   image-resizer
+   keyboard-manager
+   mouse-utilities
+   power-rename
+   powertoys-run
+   quick-accent
+   screen-ruler
+   shortcut-guide
+   text-extractor
+   video-conference-mute
 
 関連ノート
 ======================================================================
