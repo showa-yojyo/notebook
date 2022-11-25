@@ -11,15 +11,17 @@ Bash バージョン 4.x で追加された新機能のメモ。
 
 * 連想配列
 
-  * ``declare -A array`` の宣言が必要となる。いきなり連想配列の構築をしてもおかしなことになる。
+  * ``declare -A array`` の宣言が必要となる。いきなり連想配列の構築をしてもおか
+    しなことになる。
   * キーも値も同時に定義することになる。
-  * ここで :doc:`./bash-v3` の配列の添字を展開する演算子 ``${!array[@]}`` が有用になる。
+  * ここで :doc:`./bash-v3` の配列の添字を展開する演算子 ``${!array[@]}`` が有用
+    になる。
   * キーは空白文字を含むことができるが、空白文字しか含まないものは認められない。
 
 * ``case`` 文の構文が拡張。``;;&`` および ``;&`` で終了することもできる。
 
-  * ``;;&`` は次の行のあるテストに進むことを意味する。つまり C/C++ の
-    ``switch`` 文でいう ``break`` をしない。
+  * ``;;&`` は次の行のあるテストに進むことを意味する。つまり C/C++ の ``switch``
+    文でいう ``break`` をしない。
   * ``;&`` は次の行にあるテストを無視して、そこにある式を実行する。
   * 複雑な ``if`` 文の代わりに採用される機能とのことだ。
 
@@ -29,37 +31,37 @@ Bash バージョン 4.x で追加された新機能のメモ。
 
      coproc [coprocess_name] { statement* }
 
-  * 《There is a new ‘coproc’ reserved word that specifies a
-    coprocess: an asynchronous command run with two pipes connected to
-    the creating shell. Coprocs can be named. The input and output
-    file descriptors and the PID of the coprocess are available to the
-    calling shell in variables with coproc-specific names》(Chet
-    Ramey, *Bash FAQ*).
-    よそのプログラミング言語でいうコルーチンに相当するものだろう。
+  * 《There is a new ‘coproc’ reserved word that specifies a coprocess: an
+    asynchronous command run with two pipes connected to the creating shell.
+    Coprocs can be named. The input and output file descriptors and the PID of
+    the coprocess are available to the calling shell in variables with
+    coproc-specific names》(Chet Ramey, *Bash FAQ*). よそのプログラミング言語で
+    いうコルーチンに相当するものだろう。
   * ``coproc`` で定義したブロックを coprocess と呼ぶ。これは非同期実行される。
 
-    * 最初の例ではメイン処理から ``read -u ${COPROC[0]} line``
-      で名前なし coprocess から入力を読み取り変数 ``line``
-      に代入する。つまり ``{COPROC[0]}`` は 0 番目の coprocess の file
-      descriptor を意味する。
+    * 最初の例ではメイン処理から :command:`read -u ${COPROC[0]} line` で名前なし
+      coprocess から入力を読み取り変数 ``line``に代入する。つまり ``{COPROC[0]}``
+      は 0 番目の coprocess の file descriptor を意味する。
     * coprocess はサブシェルなので PID を有する。
-    * スクリプト末端の ``kill $COPROC_PID`` が機能しない。
-    * 次の例では coprocess
-      とメイン部分とで変数のスコープが異なることが納得できる。
+    * スクリプト末端の :command:`kill $COPROC_PID` が機能しない。
+    * 次の例では coprocess とメイン部分とで変数のスコープが異なることが納得でき
+      る。
     * 最後の例では名前付き coprocess を使っている。その名前でその file
       descriptor を得られる。
-    * 非同期に実行されるものなので、別の処理が coprocess
-      と通信を終了する前に当該 coprocess が停止することがある。
-      困ったことに最後の例の修正案がよく理解できない。
+    * 非同期に実行されるものなので、別の処理が coprocessと通信を終了する前に当該
+      coprocess が停止することがある。困ったことに最後の例の修正案がよく理解でき
+      ない。
 
 * ``mapfile``
 
-  * この組み込みコマンドはループやコマンド置換を用いずにテキストファイルの内容を配列にロードすることができる。
-  * ``mapfile array < filename`` のように記述する。ファイル
-    ``filename`` の内容の各行が配列要素となる。
-  * 解説と異なり、``array=( $(cat filename) )`` との違いがある。各単語が配列要素となる。
-  * そして ``read -a array < filename`` とも異なる。
-    こちらは最初の一行だけを単語ごとに配列要素に代入する。
+  * この組み込みコマンドはループやコマンド置換を用いずにテキストファイルの内容を
+    配列にロードすることができる。
+  * :command:`mapfile array < filename` のように記述する。ファイル
+    :file:`filename` の内容の各行が配列要素となる。
+  * 解説と異なり、``array=( $(cat filename) )`` との違いがある。各単語が配列要素
+    となる。
+  * そして :file:`read -a array < filename` とも異なる。こちらは最初の一行だけを
+    単語ごとに配列要素に代入する。
 
 * ``read``
 
@@ -68,8 +70,8 @@ Bash バージョン 4.x で追加された新機能のメモ。
     つまり、読み取る値の既定値を ``text`` とすると言っている。
   * ただしこれらのオプションはまだ使いやすくはない。
 
-* パラメーター置換に大文字小文字変換が実装された。変数 ``var``
-  を英単語が値であるものとすると、
+* パラメーター置換に大文字小文字変換が実装された。変数 ``var`` を英単語が値であ
+  るものとすると、
 
   * ``${var^}``: 先頭の一文字を大文字に置換する。
   * ``${var^^}``: すべての文字を大文字に置換する。
@@ -87,7 +89,7 @@ Bash バージョン 4.x で追加された新機能のメモ。
     ``{60..40..2}`` のようにする。
     このようにステップ値の符号は省略できる。
   * やる人はいないと思うが ``{X..d..2}`` なども許される。
-  * ゼロ詰め。\ ``{010..15}`` とすると ``010 011 012 013 014 015`` に展開される。
+  * ゼロ詰め。``{010..15}`` とすると ``010 011 012 013 014 015`` に展開される。
 
 * 位置パラメーターのスライスのインデックスが 0 始まりに変更。
 
@@ -99,21 +101,23 @@ Bash バージョン 4.x で追加された新機能のメモ。
 
 * ``command_not_found_handle``
 
-  * 存在しないコマンドを実行するとこの名前の関数が呼び出される。
-    ユーザーがこの関数を定義することができると解釈してもよい。
+  * 存在しないコマンドを実行するとこの名前の関数が呼び出される。ユーザーがこの関
+    数を定義することができると解釈してもよい。
 
 バージョン 4.1
 ======================================================================
 
 Bash 4.1 は主にバグ修正バージョンだった。
 
-* ``printf -v`` が配列のインデックスをセットするのを受け付けるようになった。
+* :command:`printf -v` が配列のインデックスをセットするのを受け付けるようになっ
+  た。
 
   * これは意味がわからない。
 
 * 二重角括弧の内部で、比較演算子 ``<``, ``>`` がロケールを適格とするようになった。
-* ``read -N`` で読み取る文字数を指定できるようになった。
-* ``$()`` によるコマンド置換の中に here document 構造が単一の ``)`` で終わっても構わない。
+* :command:`read -N` で読み取る文字数を指定できるようになった。
+* ``$()`` によるコマンド置換の中に here document 構造が単一の ``)`` で終わっても
+  構わない。
 
 バージョン 4.2
 ======================================================================
@@ -127,9 +131,10 @@ Bash 4.2 はバグ修正に加えて、新機能と改良の追加があった�
      bash$ echo -e '\u2622'
      ☢
 
-* ``shopt -s lastpipe`` により、パイプの最後のコマンドがサブシェルで走らない。
-* 負の配列インデックスが使えるようになった。モダンなプログラミング言語でのそれと同じ。
-  例えば ``$array[-1]`` は ``${array[${#array[*]}-1]}`` を意味する。
+* :command:`shopt -s lastpipe` により、パイプの最後のコマンドがサブシェルで走ら
+  ない。
+* 負の配列インデックスが使えるようになった。モダンなプログラミング言語でのそれと
+  同じ。例えば ``$array[-1]`` は ``${array[${#array[*]}-1]}`` を意味する。
 * 部分文字列のスライスでも同様に負のインデックスが使えるようになった。
   ``${string:position:length}`` における ``length`` が負で構わない。
 

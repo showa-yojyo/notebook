@@ -1,6 +1,7 @@
 ======================================================================
 Another Python Graph Library (APGL) 利用ノート
 ======================================================================
+
 本稿は :doc:`python-networkx/index` を書くよりも昔に書いたものだ。
 
 .. contents:: ノート目次
@@ -22,17 +23,20 @@ Another Python Graph Library (APGL) 利用ノート
 
 関連リンク
 ======================================================================
+
 `Another Python Graph Library`_ (APGL)
   パッケージ配布元。
 
 関連ノート
 ======================================================================
+
 * :doc:`python-networkx/index`
 * :doc:`python-numpy/index`
 * :doc:`python-scipy/index`
 
 インストール
 ======================================================================
+
 自分の Python_ 環境 (Windows XP) に APGL_ をインストールする方法を記す。
 単体テストが走るところまで確認できたら、インストール成功とみなす。
 
@@ -46,11 +50,13 @@ Another Python Graph Library (APGL) 利用ノート
 
 pysparse
 ----------------------------------------------------------------------
-Windows 版のビルドを利用するのが手っ取り早い。いつもお世話になっている
-`Python Extension Packages for Windows - Christoph Gohlke`_
-からインストーラーをダウンロードし、実行すればよい。
 
-残念ながら、本稿執筆時点では上記サイトに Python 3.x 用および 64 ビット用のビルドは存在しない。
+Windows 版のビルドを利用するのが手っ取り早い。いつもお世話になっている
+`Python Extension Packages for Windows - Christoph Gohlke`_ からインストーラーを
+ダウンロードし、実行すればよい。
+
+残念ながら、本稿執筆時点では上記サイトに Python 3.x 用および 64 ビット用のビルド
+は存在しない。
 
 apgl
 ----------------------------------------------------------------------
@@ -60,10 +66,9 @@ pip_ を利用してインストールする。
 
    $ pip install apgl
 
-インストール処理終了後、Python で公式ドキュメントにあるように
-apgl のテストを起動するのがよいだろう。
-<The automatic testing routine requires Python 2.7 or later,
-or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
+インストール処理終了後、Python で公式ドキュメントにあるように apgl のテストを起
+動するのがよいだろう。<The automatic testing routine requires Python 2.7 or
+later, or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
 .. code:: pycon
 
@@ -81,6 +86,7 @@ or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
 ドキュメント
 ======================================================================
+
 APGL_ のウェブページに "An Introduction to APGL" という PDF ファイルへのリンクがある。
 これを読むことで、グラフのごく基礎的な利用法を習得できる。
 
@@ -140,17 +146,16 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
   ``complement``, ``subgraph``
 
 * グラフのファイル I/O は CSV ベースのショボイものがあるだけか？
-* ``DictGraph`` は ``addEdge("a", "b")`` のような操作ができる。
-  一見便利だが、エッジに weight を指定することができないようだ。
+* ``DictGraph`` は ``addEdge("a", "b")`` のような操作ができる。一見便利だが、
+  エッジに weight を指定することができないようだ。
 
 * ランダムグラフ生成
 
   * ``BarabasiAlbertGenerator``
   * ``ConfigModelGenerator``
-  * ``EdrosRenyiGenerator``: デモコードあり。
-    ``numpy.random`` モジュールを利用している。
-    従って、同じシード (``numpy.random.seed``) 値を使えば、
-    いつでも同一のグラフを得ることになる。
+  * ``EdrosRenyiGenerator``: デモコードあり。``numpy.random`` モジュールを利用
+    している。従って、同じシード (``numpy.random.seed``) 値を使えば、いつでも同
+    一のグラフを得ることになる。
   * ``KroneckerGenerator``
   * ``SmallWorldGenerator``
 
@@ -159,11 +164,12 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 メソッド ``findAllDistances``
 ----------------------------------------------------------------------
-グラフのインスタンスメソッド ``findAllDistances`` を使ってみる。
-前述のとおり、内部で Dijkstra アルゴリズムを適用している。
 
-これは各エッジの重みを、そのエッジの長さとみなした
-グラフを構成するすべての頂点ペア最短経路における総距離を一発で計算するものだ。
+グラフのインスタンスメソッド ``findAllDistances`` を使ってみる。前述のとおり、内
+部で Dijkstra アルゴリズムを適用している。
+
+これは各エッジの重みを、そのエッジの長さとみなしたグラフを構成するすべての頂点ペ
+ア最短経路における総距離を一発で計算するものだ。
 
 .. _apgl-findall:
 
@@ -181,9 +187,9 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 .. literalinclude:: /_sample/apgl/dijkstra.py
    :language: python3
 
-実行結果はこういう感じになる。
-行列 ``dists`` の ij 成分が、頂点 i と頂点 j を結ぶ最短経路のエッジウェイトの総和になっている。
-無向グラフの経路は ``dists[i, j] == dists[j, i]`` となる。
+実行結果はこういう感じになる。行列 ``dists`` の ij 成分が、頂点 i と頂点 j を結
+ぶ最短経路のエッジウェイトの総和になっている。無向グラフの経路は
+``dists[i, j]== dists[j, i]`` となる。
 
 .. code:: text
 
@@ -194,9 +200,8 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
     [ 29.  19.  27.  32.   0.  11.]
     [ 33.  30.  22.  21.  11.   0.]]
 
-また、この例でのグラフは孤立した頂点はないが、
-一般的には接続の切れているような頂点ペアに関しては、
-計算不能を示す値が来るということを記しておく。
+また、この例でのグラフは孤立した頂点はないが、一般的には接続の切れているような頂
+点ペアに関しては、計算不能を示す値が来るということを記しておく。
 
 ``PySparseGraph``
 ----------------------------------------------------------------------
@@ -210,6 +215,7 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 不明点
 ======================================================================
+
 * Graph Properties は勉強しないとわからない。
 * エッジに weight 以外のラベルを付けることができるか？
 * 最短経路の総距離は求められるのに、頂点順序は求められない？

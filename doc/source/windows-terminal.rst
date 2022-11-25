@@ -30,8 +30,8 @@ Windows Terminal をインストールには複数の方法が用意されてい
 * Microsoft Store 経由でインストール
 * Windows 標準のコマンドライン上などから :program:`winget` でインストール
 
-新マシンでのインストール手段は、旧マシンで :program:`winget export` したプログラ
-ムリストを :program:`winget import` してインストールすることを想定している。
+新マシンでのインストール手段は、旧マシンで :command:`winget export` したプログラ
+ムリストを :command:`winget import` してインストールすることを想定している。
 
 アップグレードする
 ======================================================================
@@ -40,7 +40,7 @@ Windows Terminal は自動更新機能を実装していないようなので、
 手段に対応したアップグレード手段を採る。
 
 * Microsoft Store の更新ボタンを押す
-* コマンド :program:`winget upgrade` を実行する
+* コマンド :command:`winget upgrade` を実行する
 
 設定をバックアップする
 ======================================================================
@@ -129,19 +129,19 @@ Profiles
 前者でコンソールすべてに共通する設定をし、後者でシェルごとの設定項目を上書きする
 と考えればいい。
 
-Defaults
+:guilabel:`Defaults`
     コンソールすべてに共通する設定をする。
 
     :guilabel:`Run this profile as Administrator`: OFF
 
-    Appearance
+    :guilabel:`Appearance`
         コンソール画面すべてに共通する設定項目の集合。
 
         * :guilabel:`Font face`: こだわりのフォントがあるならば設定してもよい。
         * :guilabel:`Font size`: 上記に合わせて指定する。
         * :guilabel:`Cursor shape`: キャレットの形状を指定する。
         * :guilabel:`Scrollbar visibility`: :guilabel:`Visible`
-    Advanced
+    :guilabel:`Advanced`
         どの範疇にも該当しないような設定項目の居場所となる画面だ。
 
         * :guilabel:`History size`: 大きい数字にしておく。
@@ -157,9 +157,10 @@ Defaults
       に画面を見せるときにわかりやすさが圧倒的に良くなるので、明示的にファイルパ
       スを与える。
 
-    Appearance, Advanced 各サブ画面については先述のとおり。ただし
-    :guilabel:`Run this profile as Administrator` については ON に上書きするプロ
-    ファイルが考えられる。管理者権限で起動したい :program:`cmd` などがあり得る。
+    :guilabel:`Appearance`, :guilabel:`Advanced` 各サブ画面については先述のとお
+    り。ただし :guilabel:`Run this profile as Administrator` については ON に上
+    書きするプロファイルが考えられる。管理者権限で起動したい :program:`cmd` など
+    があり得る。
 
 覚えておきたい Windows Terminal 内コマンド
 ======================================================================

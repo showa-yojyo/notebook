@@ -17,7 +17,7 @@ WebGL に翻訳しながら学習するということも有力だ。
 
 * `WebGL Overview - The Khronos Group Inc <https://www.khronos.org/webgl/>`__:
   WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。
-  なお、DeepL を利用する都合上、PDF よりは HTML のほうが具合がいい。
+  なお、:program:`DeepL` を利用する都合上、PDF よりは HTML のほうが具合がいい。
 * `WebGL: 2D and 3D graphics for the web - Web APIs \|
   MDN <https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API>`__:
   ここにある資料を基本書としてまずは学習していく。
@@ -47,9 +47,9 @@ WebGL に翻訳しながら学習するということも有力だ。
 ======================================================================
 
 * モダンなブラウザーとテキストエディター
-* HTTP サーバーを起動できるようにしておく。
-  例えば Python を使えるのならば次のコマンドでカレントディレクトリーをルートにして
-  サーバーが開始する。<http://localhost:8000/> を開くと ``./index.html`` が表示される。
+* HTTP サーバーを起動できるようにしておく。例えば Python を使えるのならば次のコ
+  マンドでカレントディレクトリーをルートにしてサーバーが開始する。
+  <http://localhost:8000/> を開くと :file:`./index.html` が表示される。
 
   .. code:: console
 
@@ -228,7 +228,7 @@ WebGL に限った話ではないが：
          Vec4 column[4];
      }
 
-* 上述の glMatrix のサイトから ``gl-matrix-min.js``
+* 上述の glMatrix のサイトから :file:`gl-matrix-min.js`
   を入手しておくとよい。適当に unminify して ``s/var/let/g``
   するとさらに良い。
 

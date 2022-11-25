@@ -19,33 +19,36 @@ Pygame 利用ノート
 
 関連リンクおよび参考サイト
 ======================================================================
+
 Pygame_
   Pygame ウェブサイト。リリースニュース、ダウンロード、ドキュメントへの各リンクを提供している。
 
 関連ノート
 ======================================================================
+
 :doc:`python-numpy/index`
   Pygame の一部機能が Numpy_ を利用している。
 
 インストール
 ======================================================================
-事実上 Windows 環境では msi 実行による手段に限られる。
-Pygame_ のサイトのダウンロードのページから最新の msi ファイルをダウンロードして、
-実行するだけでよい。
+
+事実上 Windows 環境では msi 実行による手段に限られる。 Pygame_ のサイトのダウン
+ロードのページから最新の msi ファイルをダウンロードして、実行するだけでよい。
 
 Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 `Python Extension Packages for Windows - Christoph Gohlke`_ を利用させてもらう。
 
 テスト
 ----------------------------------------------------------------------
+
 コンソールから次のようにタイプすると、テストを実行することになっている。
 
 .. code:: console
 
    $ python34 -m pygame.tests
 
-別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。
-すると、いつもの単体テストの結果らしきテキストがコンソールウィンドウに出力される。
+別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。すると、いつもの単
+体テストの結果らしきテキストがコンソールウィンドウに出力される。
 
 .. code:: console
 
@@ -65,38 +68,39 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 
 ドキュメント
 ======================================================================
-:file:`$PYTHONHOME/site-packages/pygame/docs/index.html` から読み進めてゆけばよい。
+
+:file:`$PYTHONHOME/site-packages/pygame/docs/index.html` から読み進めてゆけばよ
+い。
 
 * Readme には本パッケージの概要が記されている。
 
-  * <Pygame requires the Python language and SDL multimedia library> (About): SDL とは何だ？
-  * <Best of all the examples directory has many playable small
-    programs which can get started playing with the code right away> (Help):
-    ``import Numeric`` と書いてあるものに関しては直ちに動作しない。
+  * <Pygame requires the Python language and SDL multimedia library> (About):
+    SDL とは何だ？
+  * <Best of all the examples directory has many playable small programs which
+    can get started playing with the code right away> (Help): ``import Numeric``
+    と書いてあるものに関しては直ちに動作しない。
 
 * Install のページはもう読まなくてよい。
 * Tutorials をまずはじっくり読み進めるのがよかろう。
 
-  * Introduction to Pygame:
-    紙風船がウィンドウ内をバウンドし続けるプログラムを紹介している。
-    自分でコードを実行してみるとよい。
+  * Introduction to Pygame: 紙風船がウィンドウ内をバウンドし続けるプログラムを紹
+    介している。自分でコードを実行してみるとよい。
 
-  * Chimp Tutorial, Line by Line:
-    ミニウィンドウ内を往復するチンパンジーを殴るゲーム（クソゲー）のプログラミングチュートリアル。
-    Pygame のプログラムの骨格や、スプライトオブジェクトの定義方法等を習得できる。
-    HTML に書かれているコードと、インストールされている ``chimp.py`` のコードとは若干異なるので注意。
+  * Chimp Tutorial, Line by Line: ミニウィンドウ内を往復するチンパンジーを殴る
+    ゲーム（クソゲー）のプログラミングチュートリアル。 Pygame のプログラムの骨格
+    や、スプライトオブジェクトの定義方法等を習得できる。 HTML に書かれているコー
+    ドと、インストールされている :file:`chimp.py` のコードとは若干異なるので注意。
 
-  * Surfarray Introduction: ここが現在の疑問点。
-    Numeric とは Numpy_ の前身か。
+  * Surfarray Introduction: ここが現在の疑問点。Numeric とは Numpy_ の前身か。
 
   * Making Games Tutorial
 
     * 記事内のリンクが切れまくっている。
     * 最初のチュートリアルは "Hello There" というテキストを描画するだけ。
       これは特に問題ない。
-    * 次はテニスゲームの実装チュートリアル。
-      ``ball.png`` と ``bat.png`` を自分で用意する必要があるようだが、
-      実際にコードを作ってみると、ゲーム博物館に展示されていそうな古い画面が出た。
+    * 次はテニスゲームの実装チュートリアル。:file:`ball.png` と :file:`bat.png`
+      を自分で用意する必要があるようだが、実際にコードを作ってみると、ゲーム博物
+      館に展示されていそうな古い画面が出た。
 
       .. figure:: /_images/pygame-pong.png
          :align: center
@@ -105,8 +109,8 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
          :height: 265px
          :scale: 100%
 
-    * 一部コードを修正しないと動作しなかったと思うが、
-      実行時にすぐに気付くし、修正も容易だったと記憶しているのでここには記さない。
+    * 一部コードを修正しないと動作しなかったと思うが、実行時にすぐに気付くし、修
+      正も容易だったと記憶しているのでここには記さない。
 
     * ``#self.offcourt()`` の部分を自分なりに実装するとよい。
 
@@ -114,12 +118,15 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 
 PyOpenGL との連携
 ======================================================================
+
 :file:`$PYTHONHOME/site-packages/pygame/examples/glcube.py` を見れば理解できる。
 
-* GLUT ベースのプログラムでは ``glutDisplayFunc`` で描画コールバックを設定するところを、
-  Pygame ベースのプログラムではイベントループの内部から再描画する。
-* ``pygame.display.set_mode`` の引数を OpenGL 対応にするべく、それ用の値を OR する。
-* フレームバッファの入れ替え ``glutSwapBuffers`` は ``pygame.display.flip`` に相当するようだ。
+* GLUT ベースのプログラムでは ``glutDisplayFunc`` で描画コールバックを設定すると
+  ころを、Pygame ベースのプログラムではイベントループの内部から再描画する。
+* ``pygame.display.set_mode`` の引数を OpenGL 対応にするべく、それ用の値を OR す
+  る。
+* フレームバッファの入れ替え ``glutSwapBuffers`` は ``pygame.display.flip`` に相
+  当するようだ。
 
 .. warning::
 
