@@ -82,13 +82,13 @@ Windows Terminal の設定は上述の JSON ファイルを直接的に編集す
 
 以下、要となるオプションのみを記す。
 
-Startup
+:guilabel:`Startup`
     Windows Terminal 起動時に影響するオプションを決定する。
 
     * :guilabel:`Default profile`: :guilabel:`Bash (WSL2)`
     * :guilabel:`When Terminal starts`: :guilabel:`Open a tab with the default profile`
     * :guilabel:`Launch size` で列数（横）と行数を適宜指定する。
-Interaction
+:guilabel:`Interaction`
     Windows Terminal と私との間に起こる動作に影響するオプションを選択する。
 
     * :guilabel:`Automatically copy selection to clipboard`: OFF
@@ -98,7 +98,7 @@ Interaction
     * :guilabel:`Snap window resizing to character grid`: ON
     * :guilabel:`Automatically focus pane on mouse hover`: OFF
     * :guilabel:`Automatically detect URLs and make them clickable`: ON
-Appearance
+:guilabel:`Appearance`
     Windows Terminal の見てくれを調整するオプション画面だ。
 
     どのソフトウェアを使うときにも言えることだが、
@@ -111,16 +111,16 @@ Appearance
     * :guilabel:`Always on top`: OFF
     * :guilabel:`Tab width mode` を好みの値に設定。
     * :guilabel:`Pane animations`: OFF
-Color schemes
+:guilabel:`Color schemes`
     Windows Terminal の配色を調整する、あるいは配色全体を定義するための画面だ。
     したがって、ここに手を出す必要はない。
-Rendering
+:guilabel:`Rendering`
     Windows Terminal の描画効率最適化を図る項目からなる画面だが、素人お断りとい
     う空気だ。全部既定値のままでよかろう。
-Actions
-    Windows Terminal で定義されているショートカットキーの集合だ。
-    常用するシェルのキーバインドと衝突するものがないかどうかを確認しておくべきだ。
-    反対に、ここにあるコマンドで有用なものは是非習得するべきだ。それは後述する。
+:guilabel:`Actions`
+    Windows Terminal で定義されているショートカットキーの集合だ。常用するシェル
+    のキーバインドと衝突するものがないかどうかを確認しておくべきだ。反対に、ここ
+    にあるコマンドで有用なものは是非習得するべきだ。それは後述する。
 
 Profiles
 ----------------------------------------------------------------------
@@ -190,8 +190,8 @@ Profiles
 Windows Terminal 自身へのコマンドライン引数
 ======================================================================
 
-インストール形態にもよるが、Windows Terminal をコマンドラインから起動する場合には、
-次のようなコマンドライン引数およびオプションを与えることもできる：
+インストール形態にもよるが、Windows Terminal をコマンドラインから起動する場合に
+は、次のようなコマンドライン引数およびオプションを与えることもできる：
 
 .. code:: text
 

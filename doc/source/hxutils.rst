@@ -14,7 +14,7 @@ HTML-XML-utils 利用ノート
 私の環境は Cygwin だ。ソースからビルドしてインストールする必要がある。
 記憶によると次のような手順で `HTML-XML-utils`_ をインストールすることができた：
 
-.. code:: shell
+.. code:: console
 
    bash$ cd /tmp
    bash$ wget https://www.w3.org/Tools/HTML-XML-utils/html-xml-utils-7.8.tar.gz

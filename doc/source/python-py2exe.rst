@@ -95,7 +95,8 @@ Python 2.6 以降に係わる VC ランタイム問題
 * MSVC 2008 がインストールされていれば話は早いハズ。 Py2exe_ の Tutorial 内セク
   ション 5.2. "Python 2.6, 2.7, 3.0, 3.1" を一読すれば、必要なファイルや作業が理
   解できる。
-* 相手がランタイムを独自にインストールするならば、このセクションの対応は省略できる。
+* 相手がランタイムを独自にインストールするならば、このセクションの対応は省略でき
+  る。
 * MSVC 2008 がインストールされていない場合、
 
   * マニフェストファイルの準備 or 自作が必要。
@@ -112,7 +113,6 @@ Python 2.6 以降に係わる VC ランタイム問題
 
 #. コピー後のマニフェストファイルをリネームし、
    :file:`Microsoft.VC90.CRT.manifest` とする。
-
 #. :file:`setup.py` の内容を修正する。例を示す。
 
   .. code:: python
@@ -193,7 +193,7 @@ Tcl/Tk 関連のランタイムは本当に必要なのだろうか。
 
 .. code:: console
 
-   $ ls -l dist
+   bash$ ls -l dist
    合計 24M
    -rwxr-xr-x 1 work ????   72K 8月  24  2010 _ctypes.pyd*
    -rwxr-xr-x 1 work ????  280K 8月  24  2010 _hashlib.pyd*
@@ -273,7 +273,7 @@ Matplotlib
 
 .. code:: console
 
-   $ ls -l dist
+   bash$ ls -l dist
    合計 38M
    -rwxr-xr-x 1 work ????   72K 8月  24  2010 _ctypes.pyd*
    -rwxr-xr-x 1 work ????  280K 8月  24  2010 _hashlib.pyd*
@@ -469,7 +469,7 @@ PyQt4
 
 .. code:: console
 
-   $ ls -l dist
+   bash$ ls -l dist
    合計 21M
    -rwxr-xr-x 1 work ????  71K 8月  24  2010 bz2.pyd*
    -rw-r--r-- 1 work ???? 1.4M 4月  22 22:05 library.zip
@@ -490,7 +490,7 @@ Pygame
 
 実はこれが最も出力ファイルがマッシブとなるようだ。現在調査中。
 
-参考ページ http://www.pygame.org/wiki/Pygame2exe
+参考ページ <http://www.pygame.org/wiki/Pygame2exe>
 
 .. include:: /_include/python-refs-core.txt
 .. _Py2exe: http://www.py2exe.org/

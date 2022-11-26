@@ -64,7 +64,7 @@ pip_ を利用してインストールする。
 
 .. code:: console
 
-   $ pip install apgl
+   bash$ pip install apgl
 
 インストール処理終了後、Python で公式ドキュメントにあるように apgl のテストを起
 動するのがよいだろう。<The automatic testing routine requires Python 2.7 or
@@ -91,9 +91,9 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 これを読むことで、グラフのごく基礎的な利用法を習得できる。
 
 * <adjacency matrices> (p. 1)
-* <The current graph types in APGL are ``SparseGraph``, ``DenseGraph``
-  and ``PySparseGraph`` which use *adjacency* or *weight matrices* as
-  the underlying data structure> (p. 2)
+* <The current graph types in APGL are ``SparseGraph``, ``DenseGraph`` and
+  ``PySparseGraph`` which use *adjacency* or *weight matrices* as the underlying
+  data structure> (p. 2)
 * ``DictGraph`` は weight matrices を用いない。
 * 行列の ij 成分が 1 ならば、グラフの頂点 i-j 間にエッジがあることを表現する。
 * weight matrix は一般に実数を成分に取る。
@@ -115,40 +115,34 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
   * ``VertexList``: 各頂点に ``numpy.ndarray`` 型の値をラベルとして付ける。
   * ``GeneralVertexList``: 各頂点に任意のラベルを付けられる。
 
-* ``SparseGraph`` はデフォルトで無向グラフとなる。
-  有向グラフにしたい場合は、コンストラクターのキーワード引数
-  ``undirected`` に ``False`` を指定する。
+* ``SparseGraph`` はデフォルトで無向グラフとなる。有向グラフにしたい場合は、コン
+  ストラクターのキーワード引数 ``undirected`` に ``False`` を指定する。
+* ``SparseGraph`` はデフォルトで SciPy の ``csr_matrix`` で構築される。これは何
+  かというと、rows に対するアクセスが速い行列だ。
 
-* ``SparseGraph`` はデフォルトで SciPy の ``csr_matrix`` で構築される。
-  これは何かというと、rows に対するアクセスが速い行列だ。
-
-  * デフォルトの行列型を使いたくない場合は、
-    グラフコンストラクターのキーワード引数 ``W`` に
-    呼び出し側が用意した別の行列インスタンスを渡すことになる。
+  * デフォルトの行列型を使いたくない場合は、グラフコンストラクターのキーワード引
+    数 ``W`` に呼び出し側が用意した別の行列インスタンスを渡すことになる。
 
     ``csr_matrix`` よりは ``lil_matrix`` がよいようだ？
 
 * 隣接頂点列を得るには、グラフメソッド ``neighbours`` を呼ぶ。
-
 * グラフの最短経路
 
-  * Floyd-Warshall アルゴリズムは行列の最短経路 `P` を計算する方法だ。
-    これは計算コストがグラフ頂点数 `n` について :math:`O(n^3)` という、たいへん重いものだ。
-
-  * Dijkstra のアルゴリズムに基づいたグラフメソッド ``findAllDistances`` も利用可。
-    グラフの最短経路と言われれば、まずこの手法の適用可能性を検討するのが自然だろう。
-
+  * Floyd-Warshall アルゴリズムは行列の最短経路 `P` を計算する方法だ。これは計算
+    コストがグラフ頂点数 `n` について :math:`O(n^3)` という、たいへん重いもの
+    だ。
+  * Dijkstra のアルゴリズムに基づいたグラフメソッド ``findAllDistances`` も利用
+    可。グラフの最短経路と言われれば、まずこの手法の適用可能性を検討するのが自然
+    だろう。
   * 最短経路は一度計算しておけば、二度使える（つまり何度でも使える）。
 
 * グラフの部分もまたグラフである。
   そこで、グラフに関する集合演算がサポートされている。
   メソッド名だけノートしておくと ``union``, ``intersect``, ``setDiff``,
   ``complement``, ``subgraph``
-
 * グラフのファイル I/O は CSV ベースのショボイものがあるだけか？
 * ``DictGraph`` は ``addEdge("a", "b")`` のような操作ができる。一見便利だが、
   エッジに weight を指定することができないようだ。
-
 * ランダムグラフ生成
 
   * ``BarabasiAlbertGenerator``

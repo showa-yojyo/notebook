@@ -129,22 +129,23 @@ Pygments をインストールすると、フォルダー :file:`Scripts` に :f
 .. code:: console
 
    # HTML 形式で出力し、ファイル名を test.html と指定。
-   $ pygmentize -f html -o test.html test.py
+   bash$ pygmentize -f html -o test.html test.py
 
    # スタイル colorful の定義、つまり CSS コードを画面に出力させる。
-   $ pygmentize -f html -S colorful
+   bash$ pygmentize -f html -S colorful
 
    # -N オプションで入力ファイル名から lexer を推測する。
-   $ pygmentize -N test.txt
+   bash$ pygmentize -N test.txt
 
    # -L オプションで利用可能なコンポーネントを画面にリスト。
-   $ pygmentize -L lexers
+   bash$ pygmentize -L lexers
 
    # -H オプションでより詳しい説明を画面に出力する。
-   $ pygmentize -H lexer python
+   bash$ pygmentize -H lexer python
 
 コンポーネント
 ======================================================================
+
 さっき言った 4 本柱を見ていく。
 
 Lexers

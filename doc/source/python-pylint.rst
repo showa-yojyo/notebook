@@ -39,7 +39,8 @@ Pylint_
 フォルダー :file:`$PYTHONDIR/Scripts` に、ファイル名が ``pylint`` で拡張子が異な
 るものが 3 つあるのが確認できる。内容は次のようなものだ：
 
-* :file:`pylint`: Python スクリプト。単に ``pylint.run_pylint()`` を実行するだけ。
+* :file:`pylint`: Python スクリプト。単に ``pylint.run_pylint()`` を実行するだ
+  け。
 * :file:`pylint.bat`: Windows のバッチスクリプト。
   Python に上記スクリプトをコマンドライン引数として渡して実行するだけ。
 * :file:`pylint.exe`: Windows の実行ファイル。
@@ -50,9 +51,9 @@ Pylint_
 
 .. code:: console
 
-   $ pylint.bat args
+   bash$ pylint.bat args
    # or
-   $ pylint.exe args
+   bash$ pylint.exe args
 
 :file:`.pylintrc` を作成する
 ----------------------------------------------------------------------
@@ -68,7 +69,7 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 
 .. code:: console
 
-   $ pylint --generate-rcfile > ~/.pylintrc
+   bash$ pylint --generate-rcfile > ~/.pylintrc
 
 次にこの設定ファイルのスケルトンに対して構文チェックをしておこう。単に
 :command:`pylint --version` をすることで、:file:`.pylintrc` のチェックをさせるこ
@@ -76,7 +77,7 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 
 .. code:: console
 
-   $ pylint --version
+   bash$ pylint --version
    Warning: option ignore-iface-methods is obsolete and it is slated for removal in Pylint 1.6.
    Warning: option zope is obsolete and it is slated for removal in Pylint 1.6.
    pylint-script.py 1.5.4,
@@ -94,15 +95,15 @@ Pylint の設定ファイルはプロジェクトごとにコーディングル�
 実践例
 ======================================================================
 
-ここでは私が実際に行っている Pylint の利用例を示していく。
-とは言え、利用目的が冒頭で述べたように単純であるがゆえに、利用例の幅はかなり狭い。
+ここでは私が実際に行っている Pylint の利用例を示していく。とは言え、利用目的が冒
+頭で述べたように単純であるがゆえに、利用例の幅はかなり狭い。
 
 よく使うコマンドラインパターン
 ----------------------------------------------------------------------
 
-私が実際の作業で使う Pylint のコマンドラインを紹介する。
-サンプルでは Python のコードファイル名をすべて :file:`mymodule.py` として記すが、
-モジュールでなくスクリプトでも同じである。
+私が実際の作業で使う Pylint のコマンドラインを紹介する。サンプルでは Python の
+コードファイル名をすべて :file:`mymodule.py` として記すが、モジュールでなくスク
+リプトでも同じである。
 
 スクリプト単体の構文チェック
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,10 +118,10 @@ Pylint はオプションなしで実行すると、どんなに品の良いコ�
 
    # Suppress statistics, i.e. display only
    # R: refactor, C: convention, W: warning, and E: error.
-   $ pylint -rn mymodule.py
+   bash$ pylint -rn mymodule.py
 
    # Display only errors (E).
-   $ pylint -E mymodule.py
+   bash$ pylint -E mymodule.py
 
 Pylint の出力はコード解析結果と統計結果のふたつの部分からなる。前述のとおり後者
 はカットする。解析結果は与えたモジュール名に対して、問題のタイプ、行番号、メッ
@@ -138,7 +139,7 @@ Pylint の出力はコード解析結果と統計結果のふたつの部分か�
 .. code:: console
 
    # Specify the package name.
-   $ pylint -rn mypackage
+   bash$ pylint -rn mypackage
 
 Python コード修正
 ----------------------------------------------------------------------

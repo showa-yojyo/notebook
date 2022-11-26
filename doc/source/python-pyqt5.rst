@@ -71,7 +71,6 @@ Miniconda_ を利用してインストールする方法を記す。前者の方
 #. `PyQt Download`_ のページで利用環境に適した Windows 用のインストーラーをダウ
    ンロードする。本稿では :file:`PyQt5-5.4.1-gpl-Py3.4-Qt5.4.1-x64.exe` をインス
    トーラーとしている。
-
 #. ダウンロード終了後、インストーラーを起動する。
 
    * 途中の選択肢はほとんどない。Full インストールを選択する程度。
@@ -95,7 +94,7 @@ Miniconda による方法
 
 .. code:: console
 
-   $ conda install -c mmcauliffe pyqt5
+   bash$ conda install -c mmcauliffe pyqt5
    Fetching package metadata ...........
    Solving package specifications: ..........
 
@@ -130,12 +129,11 @@ Miniconda による方法
    [      COMPLETE      ]|##################################################| 100%
    INFO:progress.stop:None
 
-   $ export QT_QPA_PLATFORM_PLUGIN_PATH='D:/Miniconda3/Library/lib/qt5/plugins/platforms/'
+   bash$ export QT_QPA_PLATFORM_PLUGIN_PATH='D:/Miniconda3/Library/lib/qt5/plugins/platforms/'
 
 * :program:`conda` のオプション引数に :code:`-c` を追加して、パッケージをダウン
   ロードする channel を明示的に指定する必要があった。いずれ標準のパッケージサイ
   トから入手可能になれば、これは不要になると思われる。
-
 * 最後は :program:`bash` の組み込みコマンドで環境変数を set しているが、恒久的に
   指定してよいのであれば、セッション外で定義する。例えば Windows の環境変数を追
   加するようなやり方で定義する。 PyQt5 稼働テスト用環境とスイッチしながら作業す
@@ -197,7 +195,7 @@ PyQt を利用したプログラムを作成する
   * PyQt4 のときと同じように使える。
 
 * 記述ファイルの拡張子は ``.ui`` となる。
-* Qt Desinger 付属のバッチファイル :file:`pyuic5.bat` はui ファイルから py コー
+* Qt Desinger 付属のバッチファイル :file:`pyuic5.bat` は ui ファイルから py コー
   ドを生成するものだ。
 * Python コードから ui ファイルに定義されている GUI を利用することができる。方法
   は二系統あり、ui ファイルを直接ロードするものと、バッチで生成した py モジュー
@@ -216,7 +214,6 @@ Qt Desinger
 
 * Designer は GUI を設計するためのツール。設計内容は拡張子 ui のファイルに
   :menuselection:`上書き保存` または :menuselection:`名前を付けて保存` する。
-
 * 新規 widget を作成すると、真っ白なウィンドウを画面中央に出す。あとは一般的な
   RAD ツールと同じように、子 widget をゴテゴテ盛っていく。
 
@@ -225,7 +222,6 @@ Qt Desinger
 
 * :menuselection:`フォーム --> プレビュー` のショートカットキーは :kbd:`Ctrl` +
   :kbd:`R` のようだ。
-
 * :menuselection:`フォーム --> コードを表示` メニュー項目は使いものにならない。
   PyQt4 からこの不具合が解消されていないとは？
   手動で ui ファイルから py ファイルを生成するしかない。
@@ -255,7 +251,6 @@ Qt Desinger
   * :kbd:`F4` キーでシグナル/スロット編集モードに移行。 connect 関係を定義したい
     widget 間をドラッグアンドドロップ。ドロップ直後にわかりやすい入力フォームが
     現れるので、そこで指示。
-
   * なお :kbd:`F3` キーで GUI 編集モードに移行。
 
 以降の説明では、各ファイル名を次のように決めたものとする。
@@ -317,10 +312,8 @@ ui ファイルから直接 ``Widget`` をロードする方法
 
 #. デザイナー画面の ``QTextBrowser`` アイテム上で右クリックメニューを表示し、
    :menuselection:`格上げ先を指定...` を選択する。
-
 #. 入力フォームが出現する。下部にある :guilabel:`格上げされたクラス名` に
    ``QMyTextBrowser`` と入力する。
-
 #. :guilabel:`追加` を押す。
 #. :guilabel:`格上げ` を押す。
 #. デザイナーで ui ファイルを保存する。

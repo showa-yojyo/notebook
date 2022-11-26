@@ -43,7 +43,7 @@ isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
 .. code:: console
 
-   $ pip install isbn-hyphenate
+   bash$ pip install isbn-hyphenate
 
 または GitHub のレポジトリーを clone して、そこで :command:`pip install -e .` し
 てもよいだろう。
@@ -58,8 +58,8 @@ isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
 .. code:: console
 
-   $ cd D:/Python34/Lib/site-packages/isbn_hyphenate/test
-   $ python34 isbn_hyphenate_test.py
+   bash$ cd D:/Python34/Lib/site-packages/isbn_hyphenate/test
+   bash$ python34 isbn_hyphenate_test.py
    .............
    ----------------------------------------------------------------------
    Ran 13 tests in 0.006s

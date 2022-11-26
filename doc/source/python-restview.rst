@@ -56,7 +56,7 @@ HTML 版を表示する。その後、下に示すように HTTP ログを表示
 
 .. code:: console
 
-   $ restview README.rst
+   bash$ restview README.rst
    Listening on http://localhost:64492/
    127.0.0.1 - - [29/Oct/2015 22:32:18] "GET / HTTP/1.1" 200 -
    127.0.0.1 - - [29/Oct/2015 22:32:20] "GET /favicon.ico HTTP/1.1" 200 -
@@ -100,15 +100,14 @@ Restview を停止する
 
 * `Online reStructuredText editor`_ のようなオンラインサービスが既にあるので、そ
   ちらで間に合うのであればこれをインストールする必要性はない。
-
 * Docutils_ があるのだから、自力で HTML に変換してブラウザーで開いても手間はあま
   り変わらない。ただ Cygwin 環境だと Python のスクリプト呼び出しが若干面倒なので
   確かに有用かもしれない。
 
   .. code:: console
 
-     $ python "$PYTHON_SCRIPTS_DIR/rst2html.py" README.rst > /tmp/README.html
-     $ cygstart /tmp/README.html
+     bash$ python "$PYTHON_SCRIPTS_DIR/rst2html.py" README.rst > /tmp/README.html
+     bash$ cygstart /tmp/README.html
 
   工夫としては最初の長いコマンドラインの固定部分をシェルの設定ファイルに関数化し
   ておくことが考えられる。次のブラウザー呼び出しもつなげてしまってよさそうだ。

@@ -61,7 +61,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 * 一般に、構成要素にはどんなものがあるか？
 
   1) CPU, GPU
-  2) ハードディスク、SSD, RAM, L1/L2 キャッシュ（ただしキャッシュは CPU 内部にある）
+  2) ハードディスク、SSD, RAM, L1/L2 キャッシュ（ただしキャッシュは CPU 内部にあ
+     る）
   3) フロントサイドバス、バックサイドバス、外部バス
 
 * Python は下層のコンピュータアーキテクチャをどのように抽象化しているのか？
@@ -171,7 +172,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 本章で指摘しているコード改善点をまとめておく。
 
-* ``p and q`` のような条件判定では ``p`` が ``q`` よりも早く評価されるように選ぶ。
+* ``p and q`` のような条件判定では ``p`` が ``q`` よりも早く評価されるように選
+  ぶ。
 
   述語を複数並べて論理積を判定する場合には、これらの述語を判定コストの小さい順に
   左から並べるのが定石。他の言語でも同様。
@@ -180,7 +182,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 本章で紹介されている技法のうち、すぐにでも採り入れられるものをまとめておく。
 
-* 時間測定を自動化するデコレーター。このコードは手許に保存しても丸暗記してもよい。
+* 時間測定を自動化するデコレーター。このコードは手許に保存しても丸暗記してもよ
+  い。
 * 標準モジュール ``timeit`` をコマンドラインから実行する。
 
   .. code:: console
@@ -243,7 +246,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * 共通
 
-  * すべて Python 2 コードなので、手動で Python 3 化しないと私の環境では動かせない。
+  * すべて Python 2 コードなので、手動で Python 3 化しないと私の環境では動かせな
+    い。
   * ``if __name__ == __main__:`` を含むスクリプトは冒頭に
     ``#!/usr/bin/env python`` と入れてほしい。
   * 私の環境では計算時間が 3 倍弱かかる。
@@ -252,10 +256,10 @@ Python というよりは計算機の基礎を理解するための章だ。
 * :file:`decorator_time/`: 見るべきはデコレーター関数 ``timefn()`` だ。
 * :file:`dowser/`: ブラウザーでリアルタイムに観察する。
 
-  * 関数 ``launch_memory_usage_server()`` でそれ周りのコードは完結している。
-    これをジュリア集合の計算直前に呼び出して、CherryPy サーバーを走らせるとのこと。
-  * 自分で http://localhost:8080/ のページを表示する。``builtins.list`` の TRACE
-    リンク先を見ればよい。
+  * 関数 ``launch_memory_usage_server()`` でそれ周りのコードは完結している。これ
+    をジュリア集合の計算直前に呼び出して、CherryPy サーバーを走らせるとのこと。
+  * 自分で <http://localhost:8080/> のページを表示する。``builtins.list`` の
+    TRACE リンク先を見ればよい。
 
 * :file:`guppy/`: TODO: Install ``guppy``
 * :file:`line_profiler/`: TODO: Install :file:`kernprof.py`
@@ -370,8 +374,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 以下雑感など。
 
-* ある型が **ハッシュ可能** であるとは、次のものを実装している型であるときをい
-  う：
+* ある型が :dfn:`ハッシュ可能` であるとは、次のものを実装している型であるときを
+  いう：
 
   1) ``__hash__()`` と
   2) ``__eq__()`` または ``__cmp__()`` のいずれか一方（または両方）
@@ -406,9 +410,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 以下、GitHub リポジトリーにあるリソースの分析。
 
-* :file:`custom_vs_default_hash.py`: 自作 Point クラスにどのようにハッシュ関数を
-  実装すべきかを示すスクリプト。上のノート参照。
-
+* :file:`custom_vs_default_hash.py`: 自作 ``Point`` クラスにどのようにハッシュ関
+  数を実装すべきかを示すスクリプト。上のノート参照。
 * :file:`dict_probing.py`: ハッシュの基礎理論を説明するためのスクリプト。
 
   * 関数 ``sample_probe()`` 内の ``format`` が動かないかもしれない。 ForceHash
@@ -452,9 +455,8 @@ Python というよりは計算機の基礎を理解するための章だ。
      5.34 ms ± 35 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 
 * :file:`timing_hash_function.py`: アルファベット二文字からなる全文字列の集合か
-     ら
-  特定の文字列を検索する。ただしハッシュ関数を二通り定義し、それぞれの検索効率を
-  計測する。
+  ら特定の文字列を検索する。ただしハッシュ関数を二通り定義し、それぞれの検索効率
+  を計測する。
 * :file:`unique_lookup.py`: 電話番号検索のリスト対集合。本文の記述参照。
 
 5 章 イテレータとジェネレータ
@@ -475,7 +477,8 @@ Python というよりは計算機の基礎を理解するための章だ。
   1) メモリに乗り切らないようなデータを反復するときなど。
   2) データ生成とデータ処理を切り分けるときなど（前者をジェネレータが担当する）。
 
-* 複雑なジェネレータの処理を定義するために、どのように ``itertools`` を使うのか？
+* 複雑なジェネレータの処理を定義するために、どのように ``itertools`` を使うの
+  か？
 
   与えられた問題を解決するのに役立つ関数を ``itertools`` から見つけて、場合に
   よっては関数を複数組み合わせてジェネレータを定義する。
@@ -494,7 +497,6 @@ Python というよりは計算機の基礎を理解するための章だ。
 * オンライン平均アルゴリズムは知らなかった。ここでは標準偏差を求めて、データ中の
   最大値が値 :math:`\mu + 3 \sigma` を超えるデータがあればその日のデータを異常と
   みなすという応用だ。
-
 * Python 3 では使えないコードがあるので、読者は内包表記に直したい：
 
   * ``ifilter(None, X)`` は ``(x for x in X if x)`` の意。
@@ -544,13 +546,12 @@ Python というよりは計算機の基礎を理解するための章だ。
   * 本書とは無関係だが、バージョンがわからないが私のところの :command:`2to3` が
     ``from itertools import (count, groupby, ifilter, imap, islice)`` を完全に見
     逃す。
-
   * :file:`lazy_data_analysis.py` を実行すると浮動小数点数と ``None`` との比較が
-    発生するらしく、実行時に TypeError が送出する。コードを見たら関数
+    発生するらしく、実行時に ``TypeError`` が送出する。コードを見たら関数
     ``check_anomaly()`` の仮引数名が ``xxx_todo_changeme`` だった……。
 
- *  関数 ``rolling_window_grouper()`` で OSError が送出するというバグがあって結
-    局プログラムが異常終了するしかない。これは
+ *  関数 ``rolling_window_grouper()`` で ``OSError`` が送出するというバグがあっ
+    て結局プログラムが異常終了するしかない。これは
     ``datetime.datetime.fromtimestamp()`` に変な値を渡すときの C の
     ``localtime()`` か ``gmtime()`` がエラー終了するという挙動によるらしい。
 
@@ -563,8 +564,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 * スクリプトとプロファイル結果を同時にバージョン管理して差分を分析するといい。プ
   ロファイルは Python 標準の ``cProfile`` で十分間に合う。
 
-  * IPython で作業をしているならば :command:`%run -p [profile-options] duffusion.py` で
-    いい。
+  * IPython で作業をしているならば :command:`%run -p [profile-options] duffusion.py`
+    でいい。
 
 * NumPy は必要。SciPy はあるといいなくらい。
 * 本編では line_profiler, perf を利用しているが、私は試せなかった。
@@ -575,7 +576,8 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * ベクトルの計算のボトルネックは何か？
 
-  Python の事情としては次の二点が挙げられる。C/C++ の事情と比較すると説明しやすい：
+  Python の事情としては次の二点が挙げられる。C/C++ の事情と比較すると説明しやす
+  い：
 
   1) ``list`` が実データへのポインターを保持していること
   2) バイトコードが ``for`` ループのベクトル化に最適化されていないこと
@@ -614,10 +616,9 @@ Python というよりは計算機の基礎を理解するための章だ。
 以下、GitHub リポジトリーにあるリソースの分析。この章のディレクトリーは本文同様
 盛りだくさんだ。
 
-* :file:`diffusion_1d/`:
-  純 Python 実装による ``diffusion_python`` をベースラインとして、その改良版との
-  計算コストの比較をする :file:`_benchmark.py` というスクリプトがある。これを単
-  に実行すればよい。
+* :file:`diffusion_1d/`: 純 Python 実装による ``diffusion_python`` をベースライ
+  ンとして、その改良版との計算コストの比較をする :file:`_benchmark.py` というス
+  クリプトがある。これを単に実行すればよい。
 
   実行すると :file:`README.md` のようなテキストが出力される。ただしこのディレク
   トリーにあるものはたぶんミス。私の実行結果を次に示す：
@@ -853,7 +854,6 @@ Pool の選択肢が大幅に狭められていることに気づく。
 
   * RawValue をフラグとして用いるコードが成功しない。
     ``TypeError: this type has no size`` となる。
-
   * ``mmap.write_byte(FLAG_CLEAR)`` が成立しない。
     ``TypeError: an integer is required (got type bytes)`` となる。
 
@@ -893,7 +893,7 @@ Pool の選択肢が大幅に狭められていることに気づく。
     * :file:`pi_lists_parallel.py`: マルチプロセスまたはスレッドのどちらかによる
       ``pool.map()`` によるモンテカルロ法円周率見積もり並列処理。
     * :file:`profile_cpu_usage.py`: 上のスクリプトをいろいろなコマンドラインオプ
-         ション値で
+      ション値で
       実行し、プロファイルを取る。
 
       * らしいのだが、意味をなさないコードがある。修正方法も推測不能。
@@ -909,12 +909,12 @@ Pool の選択肢が大幅に狭められていることに気づく。
 
       * ``subprocess.Popen`` 使用。
 
-  * :file:`pi_monte_carlo_diagram/`: よくある円周率の見積もり。
-    単位円に外接する正方形内に多数の点をランダムに取り、その点のうちで単位円に含
-    まれるものとそうでないものの比を用れば、近似的に円周率を計算できる。
-  * :file:`pi_processes_parallel/`:
-    以下のコードでは Python 3 化するときに ``nbr_samples_in_total`` と
-    ``nbr_samples_per_worker`` を``int`` 型に手動で修正する必要がある。
+  * :file:`pi_monte_carlo_diagram/`: よくある円周率の見積もり。単位円に外接する
+    正方形内に多数の点をランダムに取り、その点のうちで単位円に含まれるものとそう
+    でないものの比を用れば、近似的に円周率を計算できる。
+  * :file:`pi_processes_parallel/`: 以下のコードでは Python 3 化するときに
+    ``nbr_samples_in_total`` と ``nbr_samples_per_worker`` を ``int`` 型に手動で
+    修正する必要がある。
 
     * :file:`pi_numpy_parallel_worker.py`: 上記 :file:`pi_lists_parallel.py` の
       NumPy 版。
@@ -1050,10 +1050,8 @@ Pool の選択肢が大幅に狭められていることに気づく。
   * Python 組み込みのリストでは、異なる要素ごとにメモリのコストがかかる。一
     方、``numpy`` と ``array`` は ``int`` のような基本データ型を効率よく記憶す
     る。 C 言語の配列のように連続した RAM 領域を確保する。
-
   * Python は 基本データ型のオブジェクトを（使われなくなっても後の利用のために）
     キャッシュする。
-
   * NumPy はさらに ``complex`` と ``datetime`` も効率よく扱える。
 
 * どのようにしたら大量のテキストを効率よく RAM 上に記憶できるのか？
@@ -1118,28 +1116,29 @@ Pool の選択肢が大幅に狭められていることに気づく。
 
 * :file:`morris_counter_example/`: Morris カウンター。
 
-  * :file:`morris_counter.py`: クラス MorrisCounter の実装。本文のそれより複雑。
-  * :file:`show_morris_counter.py`: クラス MorrisCounter のデモ。
+  * :file:`morris_counter.py`: クラス ``MorrisCounter`` の実装。本文のそれより複
+    雑。
+  * :file:`show_morris_counter.py`: クラス ``MorrisCounter`` のデモ。
 
 * :file:`probabilistic_datastructures/`
 
   モジュール ``mmh3`` がハッシュのために必要だ。
 
-  * :file:`morriscounter.py`: 本文どおりのクラス MorrisCounter の実装。
-  * :file:`kminvalues.py`: クラス KMinValues の実装。
+  * :file:`morriscounter.py`: 本文どおりのクラス ``MorrisCounter`` の実装。
+  * :file:`kminvalues.py`: クラス ``KMinValues`` の実装。
 
   以下 Bloom フィルター系。
 
-  * :file:`bloomfilter.py`: クラス BloomFilter の実装。
-  * :file:`scalingbloomfilter.py`: クラス ScakingBloomFilter の実装。
-    上の BloomFilter と has-a 関係がある。
+  * :file:`bloomfilter.py`: クラス ``BloomFilter`` の実装。
+  * :file:`scalingbloomfilter.py`: クラス ``ScakingBloomFilter`` の実装。
+    上の ``BloomFilter`` と has-a 関係がある。
 
   以下 LogLog カウンター系。
 
-  * :file:`ll.py`: クラス LL の実装。本文でいう簡単な LogLog カウンター。
-  * :file:`llregister.py`: クラス LogLogRegister の実装。
-  * :file:`superll.py`: クラス SuperLL の実装。
-  * :file:`hyperloglog.py`: クラス HyperLogLog の実装。
+  * :file:`ll.py`: クラス ``LL`` の実装。本文でいう簡単な LogLog カウンター。
+  * :file:`llregister.py`: クラス ``LogLogRegister`` の実装。
+  * :file:`superll.py`: クラス ``SuperLL`` の実装。
+  * :file:`hyperloglog.py`: クラス ``HyperLogLog`` の実装。
 
   * :file:`_benchmark.py`: 上記各種カウンターのベンチマークスクリプト。
 

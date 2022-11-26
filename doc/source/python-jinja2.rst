@@ -118,7 +118,6 @@ Jinja2 Documentation から引用：
 ----------------------------------------------------------------------
 
 * ローダーは Environment オブジェクトが持っている。
-
 * <Loaders are responsible for loading templates from a resource such as the
   file system> (Jinja2 Documentation) だそうなので、リソースが何であるかによって
   利用するべきローダーが決まるのだろう。
@@ -409,7 +408,8 @@ Jinja2 Documentation からそのまま引用してきたテンプレート例�
    </div>
 
 #. マクロ ``render_dialog`` が展開されて、
-#. マクロブロック内の ``caller`` ブロックに呼び出し元ブロックがそのまま展開される。
+#. マクロブロック内の ``caller`` ブロックに呼び出し元ブロックがそのまま展開され
+   る。
 
 ``call`` は引数を取ることもできるが、複雑になるのでノートを控える。
 
