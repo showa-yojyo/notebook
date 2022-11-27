@@ -542,7 +542,7 @@ Effective Debugging 読書ノート
 * `GrammaTech CodeSonar`_, `Coverity Code Advisor`_, FindBugs_,
   `Polyspace Bug Finder`_ などの解析ツールがある。
 
-  * 他に知りたければ :samp:`static code analyzer` で検索すればいい。
+  * 他に知りたければ :code:`static code analyzer` で検索すればいい。
 
   また、言語によっては lint で終わる名前の解析ツールがある。
 

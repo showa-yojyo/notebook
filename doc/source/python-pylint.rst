@@ -152,7 +152,7 @@ Pylint のコード解析結果（私は RCWE リストと呼んでいる）に�
 地道にコードのほうを修正する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-例えば :samp:`C:155, 0: Line too long (81/80) (line-too-long)` というコード解析
+例えば :code:`C:155, 0: Line too long (81/80) (line-too-long)` というコード解析
 結果が出たとしよう。このときコードを修正するのであれば、テキストエディターで対象
 のモジュールファイルを開いて、
 
@@ -173,7 +173,7 @@ Pylint の忠告に従いたいが、難しい場合もある。あるいは、P
 
 例を説明する。次のような E が出てしまった：
 
-  :samp:`E:242,34: Class 'AbstractMapper' has no '__subclasses__' member (no-member)`
+  :code:`E:242,34: Class 'AbstractMapper' has no '__subclasses__' member (no-member)`
 
 状況はこうだ。私は自作のモジュールで ``AbstractMapper`` という抽象クラスを定義し
 た。冒頭だけ引用すると次のような構成になっている。``ABCMeta`` 等については
@@ -199,7 +199,7 @@ Python のマニュアルを参照して欲しいが、こうすることで私�
 
 こうすることで、次からの Pylint のメッセージは次のように変わり、やや安心できる。
 
-  :samp:`I: 242, 0: Locally disabling no-member (E1101) (locally-disabled)`
+  :code:`I: 242, 0: Locally disabling no-member (E1101) (locally-disabled)`
 
 なお、出力抑止をしたいエラー項目はエラー名だけでなく、エラー番号でも指定できる。
 カンマ区切りで複数のエラー項目を指示することもできるし、抑止コメントを抑止する項
