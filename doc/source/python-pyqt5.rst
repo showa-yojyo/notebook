@@ -239,16 +239,15 @@ Qt Desinger
 
   .. code:: console
 
-     $ pyuic5.bat myform.ui > ui_myform.py
+     bash$ pyuic5.bat myform.ui > ui_myform.py
 
-* 一番親の widget にレイアウトを設定するにはコツが要る。
-  ある程度子 widget を親 widget に搭載したら、親で右クリックメニュー表示。
-  :menuselection:`レイアウト` のサブメニューに色々あるので、所望の配置スタイルを
-  選択する。
+* 一番親の widget にレイアウトを設定するにはコツが要る。ある程度子 widget を親
+  widget に搭載したら、親で右クリックメニュー表示。 :menuselection:`レイアウト`
+  のサブメニューに色々あるので、所望の配置スタイルを選択する。
 
 * シグナル/スロットの編集はかなり直感的に設定できる。
 
-  * :kbd:`F4` キーでシグナル/スロット編集モードに移行。 connect 関係を定義したい
+  * :kbd:`F4` キーでシグナル/スロット編集モードに移行。connect 関係を定義したい
     widget 間をドラッグアンドドロップ。ドロップ直後にわかりやすい入力フォームが
     現れるので、そこで指示。
   * なお :kbd:`F3` キーで GUI 編集モードに移行。

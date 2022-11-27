@@ -69,7 +69,7 @@ What's New In Python 3.2 を読んで、個人的に関心のある項目に注�
   * ただし次の Python 3.3 で非推奨の憂き目にあう。
 
 * ``array``: 使っていないとは思うが ``array.tostring()`` と ``array.fromstring()``
-  がそれぞれ``array.tobytes()`` と ``array.frombytes()`` に名称変更した。
+  がそれぞれ ``array.tobytes()`` と ``array.frombytes()`` に名称変更した。
 * ``collections.Counter`` に ``-=`` と ``subtract()`` が追加。
 * ``configparser``: ``SafeConfigParser`` が ``ConfigParser`` に取って代わった。
 * ``contextlib.contextmanager``: 要研究。

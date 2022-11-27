@@ -356,10 +356,10 @@ bash_kernel_ をインストールして（次の節参照）コンソールを�
    Installing collected packages: ptyprocess, pexpect, bash-kernel
    Successfully installed bash-kernel-0.4.1 pexpect-4.2.1 ptyprocess-0.5.1
 
-   $ python -m bash_kernel.install
+   bash$ python -m bash_kernel.install
    Installing IPython kernel spec
 
-   $ jupyter kernelspec list
+   bash$ jupyter kernelspec list
    Available kernels:
      python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
      bash       $APPDATA\Roaming\jupyter\kernels\bash
@@ -761,7 +761,7 @@ Jupyter の一連の機能を利用して気付いた点や思い付き等を記
   気になる。
 * :program:`jupyter` の利用可能な「サブコマンド」の集合が文書化されていない？
 * Pandoc は Windows ではすぐにインストールできる。Graphviz や Git と同じようにし
-  て環境変数 ``PATH`` を参照させることでサブコマンドから:program:`pandoc` にアク
+  て環境変数 ``PATH`` を参照させることでサブコマンドから :program:`pandoc` にアク
   セス可能にしておく。
 * 問題になりそうなのは :command:`jupyter nbconvert` で直接 PDF ファイルを生成す
   る場合だ。「原稿」に日本語文字を使うことが多いはずなので、既定の後処理では中間

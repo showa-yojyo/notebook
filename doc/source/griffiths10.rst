@@ -75,7 +75,7 @@ Firefighter の例。
 
 * コラム Multicast Delegate
 * 5.2 ``Action<Document>``
-* 5.3 ``Predicate<T>`` p: X → { true, false }
+* 5.3 ``Predicate<T>`` p: X → { ``true``, ``false`` }
 * 5.4 匿名メソッド
 * 5.5 ラムダ式。記法に慣れること。
 

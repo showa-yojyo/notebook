@@ -743,11 +743,11 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * 並行処理にまつわるパラダイムにはどのようなものがあるのか？
 
-  * ``gevent``: Future 形式
-  * ``tornado``: コールバックと Future の両方
-  * ``asyncio``: コールバックと Future の両方
+  * ``gevent``: ``Future`` 形式
+  * ``tornado``: コールバックと ``Future`` の両方
+  * ``asyncio``: コールバックと ``Future`` の両方
 
-  Future とコルーチンを同義語として読んだが……。
+  ``Future`` とコルーチンを同義語として読んだが……。
 
 * 並行処理を活用するのはどんなときか？
 
@@ -1101,7 +1101,7 @@ Pool の選択肢が大幅に狭められていることに気づく。
 * :file:`compressing_text/`: 大量テキストから単語を検索する。
 
   <Wikipedia の部分ダンプから構築したテストセット> がないので再現は無理か。あと
-  著者は Unix 使いだと思っているが Windows-1252 エンコードを採用するのはなぜだ。
+  著者は UNIX 使いだと思っているが Windows-1252 エンコードを採用するのはなぜだ。
 
   * :file:`text_example.py`: 関数 ``read_words()`` の実装。
   * :file:`text_example_datrie.py`: ``datrie`` モジュールが必要。

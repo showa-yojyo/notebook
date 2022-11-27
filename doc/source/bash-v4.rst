@@ -40,8 +40,8 @@ Bash バージョン 4.x で追加された新機能のメモ。
   * ``coproc`` で定義したブロックを coprocess と呼ぶ。これは非同期実行される。
 
     * 最初の例ではメイン処理から :command:`read -u ${COPROC[0]} line` で名前なし
-      coprocess から入力を読み取り変数 ``line``に代入する。つまり ``{COPROC[0]}``
-      は 0 番目の coprocess の file descriptor を意味する。
+      coprocess から入力を読み取り変数 ``line`` に代入する。つまり
+      ``{COPROC[0]}`` は 0 番目の coprocess の file descriptor を意味する。
     * coprocess はサブシェルなので PID を有する。
     * スクリプト末端の :command:`kill $COPROC_PID` が機能しない。
     * 次の例では coprocess とメイン部分とで変数のスコープが異なることが納得でき
@@ -60,8 +60,8 @@ Bash バージョン 4.x で追加された新機能のメモ。
     :file:`filename` の内容の各行が配列要素となる。
   * 解説と異なり、``array=( $(cat filename) )`` との違いがある。各単語が配列要素
     となる。
-  * そして :file:`read -a array < filename` とも異なる。こちらは最初の一行だけを
-    単語ごとに配列要素に代入する。
+  * そして :command:`read -a array < filename` とも異なる。こちらは最初の一行だ
+    けを単語ごとに配列要素に代入する。
 
 * ``read``
 

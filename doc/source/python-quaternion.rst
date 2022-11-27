@@ -58,7 +58,7 @@ Hamilton の四元数を扱える Python パッケージがあれば、とりあ
 
 .. code:: console
 
-   $ pip search quaternion
+   bash$ pip search quaternion
    qmath                     - qmath provides a class for deal with quaternion algebra and 3D rotations.
      Root evaluations and Moebius transformations are implemented.
    Quaternion                - Quaternion object manipulation
@@ -75,7 +75,7 @@ Hamilton の四元数を扱える Python パッケージがあれば、とりあ
 
 .. code:: console
 
-   $ pip install Quaternion
+   bash$ pip install Quaternion
    Downloading/unpacking Quaternion
      Downloading Quaternion-0.03.1.tar.gz
      Running setup.py (path:D:\Temp\pip_build_work\Quaternion\setup.py) egg_info for package Quaternion
