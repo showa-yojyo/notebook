@@ -1,9 +1,10 @@
 ======================================================================
 IPython 利用ノート
 ======================================================================
-本稿は IPython_ に関する個人的な覚え書きである。
-NumPy_, SciPy_, Matplotlib_ のドキュメントを読んでいるとこのツールの名前が頻繁に出てくる。
-無視するのはもったいない気がするので調査する。
+
+本稿は IPython_ に関する個人的な覚え書きである。 NumPy_, SciPy_, Matplotlib_ の
+ドキュメントを読んでいるとこのツールの名前が頻繁に出てくる。無視するのはもったい
+ない気がするので調査する。
 
 .. contents:: ノート目次
 
@@ -25,34 +26,37 @@ NumPy_, SciPy_, Matplotlib_ のドキュメントを読んでいるとこのツ�
 
 .. note::
 
-   本稿では文字列 ``%PYTHONDIR%`` を :file:`python.exe` が存在するディレクトリーのパスを意味する
-   環境変数のようなものを表現するものであることにする。
-   例えば、正規の Python 3.5 インストーラーを用いて D ドライブ直下にインストールした環境では
-   この値は :file:`D:\\Python35` であり、
-   Miniconda の 3.5 インストーラーを用いて D ドライブ直下にインストールした環境では
-   この値は :file:`D:\\Miniconda3` である。
+   本稿では文字列 ``%PYTHONDIR%`` を :file:`python.exe` が存在するディレクトリー
+   のパスを意味する環境変数のようなものを表現するものであることにする。例えば、
+   正規の Python 3.5 インストーラーを用いて D ドライブ直下にインストールした環境
+   ではこの値は :file:`D:\\Python35` であり、 Miniconda の 3.5 インストーラーを
+   用いて D ドライブ直下にインストールした環境ではこの値は
+   :file:`D:\\Miniconda3` である。
 
 IPython とは何か
 ======================================================================
-ドキュメントによると <IPython is meant to work as a drop-in replacement
-for the standard interactive interpreter> だそうだ。
-標準の Python インタープリターの上位版のようなモノだ。
+
+ドキュメントによると <IPython is meant to work as a drop-in replacement for the
+standard interactive interpreter> だそうだ。標準の Python インタープリターの上位
+版のようなモノだ。
 
 インストールから初回起動まで
 ======================================================================
+
 次の条件を初回条件と呼ぶことにする。
 
 * Python がインストール済みである。
-* :program:`conda` または :program:`pip` の実行ファイルのあるフォルダーに PATH が通っている。
+* :program:`conda` または :program:`pip` の実行ファイルのあるフォルダーに
+  ``PATH`` が通っている。
 
-これを満たす環境において、
-:ref:`python-pkg-proc` に示したようにすると IPython をインストールできる。
+これを満たす環境において、:ref:`python-pkg-proc` に示したようにすると IPython
+をインストールできる。
 
 次に :program:`conda` によるインストール手続きの例を示す。
 
 .. code:: console
 
-   $ conda install ipython
+   bash$ conda install ipython
    Fetching package metadata: ....
    Solving package specifications: .........
 
@@ -119,9 +123,10 @@ for the standard interactive interpreter> だそうだ。
 
 初回起動
 ----------------------------------------------------------------------
-:file:`%PYTHONDIR%\\Scripts\\ipython3.exe` を起動するだけでよい。
-Windows の「ファイル名を指定して実行」で同実行ファイルを指定すると、
-コンソールウィンドウが出現する。
+
+:file:`%PYTHONDIR%\\Scripts\\ipython3.exe` を起動するだけでよい。Windows の
+:guilabel:`ファイル名を指定して実行` で同実行ファイルを指定すると、コンソール
+ウィンドウが出現する。
 
 私の環境でのスタートアップ時の出力を記す。
 
@@ -144,8 +149,8 @@ Windows の「ファイル名を指定して実行」で同実行ファイルを
 
    In [1]:
 
-* WARNING のメッセージが気になるので、ここから攻める。指示に従い
-  pyreadline なるパッケージをインストールしよう。
+* WARNING のメッセージが気になるので、ここから攻める。指示に従い pyreadline なる
+  パッケージをインストールしよう。
 
 PyReadline をインストール
 ----------------------------------------------------------------------
@@ -154,12 +159,12 @@ PyReadline をインストール
 
    このパッケージは IPython 5.0.0 では依存関係がなくなっているようだ。
 
-名前からして Python 版 readline と思われるパッケージを :program:`pip` でインストールして、
-再度 IPython を起動したい。
+名前からして Python 版 readline と思われるパッケージを :program:`pip` でインス
+トールして、再度 IPython を起動したい。
 
 .. code:: console
 
-   $ pip install pyreadline
+   bash$ pip install pyreadline
    Downloading/unpacking pyreadline
      Running setup.py (path:D:\cygwin64\tmp\pip_build_work\pyreadline\setup.py) egg_info for package pyreadline
 
@@ -175,24 +180,28 @@ PyReadline をインストール
 
 * WARNING メッセージが表示されなくなった。
 * ``In [1]:``, ``Out [1]:`` 等のプロンプト文字列に色がついた。
-* 例えば :kbd:`Ctrl + A` （以下 Emacs 風に表記する。これは :kbd:`C-a` と表記することになる）で
-  「キャレットがコマンドライン行の先頭に移動する」等の Emacs 風のキーバインドがなされている。
-  これが一番ありがたい変化。
-  この機能があるというだけで私には通常の Python 対話モードから IPython に乗り換える動機になる。
+* 例えば :kbd:`Ctrl` + :kbd:`A` （以下 Emacs 風に表記する。これは :kbd:`C-a` と
+  表記することになる）で「キャレットがコマンドライン行の先頭に移動する」等の
+  Emacs 風のキーバインドがなされている。これが一番ありがたい変化。この機能がある
+  というだけで私には通常の Python 対話モードから IPython に乗り換える動機にな
+  る。
 
 よい変化なので、PyReadline のインストールの状態を保ったまま先に進もう。
 
 テスト
 ----------------------------------------------------------------------
+
 ここで IPython の動作確認テストを行いたい。
 
 IPython 3.0.0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-公式ドキュメントに従い、初回条件で :program:`iptest` を実行すると以下のようになった。
+
+公式ドキュメントに従い、初回条件で :program:`iptest` を実行すると以下のように
+なった。
 
 .. code:: console
 
-   $ iptest3
+   bash$ iptest3
    Traceback (most recent call last):
      File "D:\Python34\lib\runpy.py", line 170, in _run_module_as_main
        "__main__", mod_spec)
@@ -212,11 +221,12 @@ IPython 3.0.0
 
 IPython 4.0.0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 一連の自動テストが実行された。エラーがボロボロと現れる。
 
 .. code:: console
 
-   $ iptest3
+   bash$ iptest3
 
    Test group: core
    ............................
@@ -240,12 +250,15 @@ IPython 4.0.0
 
 IPython 5.0.0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Conda で IPython をインストールしたところ、:file:`Scripts` に :program:`iptest3` がないようだ。
-開発版では当然存在する。
+
+Conda で IPython をインストールしたところ、:file:`Scripts` に :program:`iptest3`
+がないようだ。開発版では当然存在する。
 
 環境設定
 ======================================================================
-IPython の挙動を次の各項目により制御できるはずなので、本章ではそれらを調べていこう。
+
+IPython の挙動を次の各項目により制御できるはずなので、本章ではそれらを調べていこ
+う。
 
 * 環境変数
 * 設定ファイル
@@ -253,66 +266,70 @@ IPython の挙動を次の各項目により制御できるはずなので、本
 
 環境変数による設定
 ----------------------------------------------------------------------
-IPython 固有の環境変数としては :envvar:`IPYTHON_DIR` ただひとつしかない？
-これはユーザー設定データ、履歴、拡張モジュールを格納するディレクトリーのパスを
-表現する環境変数だろう。
-デフォルトでは :file:`~/.ipython` であり、
-通常の利用状況ではこの値をわざわざ変更することはなさそうだ。
+
+IPython 固有の環境変数としては ``IPYTHON_DIR`` ただひとつしかない？これはユー
+ザー設定データ、履歴、拡張モジュールを格納するディレクトリーのパスを表現する環境
+変数だろう。デフォルトでは :file:`~/.ipython` であり、通常の利用状況ではこの値を
+わざわざ変更することはなさそうだ。
 
 結論としては、環境変数のことは意識しない。
 
 設定ファイルによる設定
 ----------------------------------------------------------------------
+
 ドキュメントによると、IPython のセッティングを指定する方法の基本として
-:file:`~/.ipython/profile_default` ディレクトリー以下の py ファイルで
-プログラムを書くことがあるようだ。
+:file:`~/.ipython/profile_default` ディレクトリー以下の py ファイルでプログラム
+を書くことがあるようだ。
 
 .. code:: console
 
-   $ ipython3 profile create
+   bash$ ipython3 profile create
    [ProfileCreate] Generating default config file: 'D:/home/yojyo/.ipython/profile_default/ipython_config.py'
 
-これでテンプレファイル :file:`ipython_config.py` ができあがった。
-テキストエディターでこれを開き、有効にしたい箇所のコメントアウトを解除するとよさそうだ。
+これでテンプレファイル :file:`ipython_config.py` ができあがった。テキストエディ
+ターでこれを開き、有効にしたい箇所のコメントアウトを解除するとよさそうだ。
 
 .. code:: python3
 
    c.InteractiveShellApp.pylab = 'auto'
 
-これぐらいやっておくと、NumPy や Matplotlib の構成要素のインポートを自動的に行なってくれる。
-例えば :code:`import numpy as np` しなくても :code:`np.arange(10)` のようなコードが通じる。
-さらに、下記の項目を有効にすると :code:`np.` すら不要になる。
+これぐらいやっておくと、NumPy や Matplotlib の構成要素のインポートを自動的に行
+なってくれる。例えば :code:`import numpy as np` しなくても :code:`np.arange(10)`
+のようなコードが通じる。さらに、下記の項目を有効にすると :code:`np.` すら不要に
+なる。
 
 .. code:: python3
 
    c.InteractiveShellApp.pylab_import_all = True
 
 一見タイプの手間が省けて便利なようだが、たまにこれらのパッケージの識別子の名前と
-Python 組み込みのオブジェクトの識別子がカブるようなもの
-(e.g. :code:`all`, :code:`any`, etc.) があると事態が少々複雑になる。
-個人的には全インポートは無効にしておき、
-NumPy や Matplotlib のモジュールとしてのインポートだけに留めておきたい。
+Python 組み込みのオブジェクトの識別子がカブるようなもの (e.g. :code:`all`,
+:code:`any`, etc.) があると事態が少々複雑になる。個人的には全インポートは無効に
+しておき、 NumPy や Matplotlib のモジュールとしてのインポートだけに留めておきた
+い。
 
-敢えて NumPy と Matplotlib の自動インポートを抑制した状況でセッションを開きたい場合は
-名前付きプロファイルを生成して、設定ファイルの対応項目を False にする。
-そして、IPython 起動時に ``--profile`` コマンドラインオプションで設定名を指示する。
+敢えて NumPy と Matplotlib の自動インポートを抑制した状況でセッションを開きたい
+場合は名前付きプロファイルを生成して、設定ファイルの対応項目を False にする。そ
+して、IPython 起動時に ``--profile`` コマンドラインオプションで設定名を指示す
+る。
 
 .. code:: console
 
-   $ ipython3 profile create sympy
-   $ edit ~/.ipython/profile_sympy/ipython_config.py
-   $ ipython3 --profile=sympy
+   bash$ ipython3 profile create sympy
+   bash$ edit ~/.ipython/profile_sympy/ipython_config.py
+   bash$ ipython3 --profile=sympy
 
 コマンドライン引数による設定
 ----------------------------------------------------------------------
+
 * IPython のすべての設定可能な値はコマンドラインパラメーターから構成できる。
 
-  * 通常は次の形式で指定する： :code:`ipython --ClassName.attribute=value`
-  * ただし頻繁に用いられるオプションは短い別名形式が用意してある。
-    例えば :code:`ipython --matplotlib` など。
+  * 通常は次の形式で指定する： :command:`ipython --ClassName.attribute=value`
+  * ただし頻繁に用いられるオプションは短い別名形式が用意してある。例えば
+    :command:`ipython --matplotlib` など。
 
-    * そのようなオプションの一覧は :code:`ipython help` の
-      Options のセクションで確認できる。
+    * そのようなオプションの一覧は :command:`ipython help` の Options のセクショ
+      ンで確認できる。
 
 * コマンドラインで指定したオプションは、設定ファイルのそれを上書きする。
 
@@ -320,18 +337,19 @@ NumPy や Matplotlib のモジュールとしてのインポートだけに留�
 
 使い勝手を試す
 ======================================================================
+
 IPython コンソールウィンドウでの各種機能をひと通り試していこう。
 
-* 単に ``?`` を入力することで IPython に関するちょっとしたドキュメントが出力する。
-  10 ページ弱で終了する。
+* 単に ``?`` を入力することで IPython に関するちょっとしたドキュメントが出力す
+  る。10 ページ弱で終了する。
 
-* :code:`%quickref` で *Quick Reference Card* なるドキュメントが出力する。
-  こちらはページ数が多め。
+* :command:`%quickref` で *Quick Reference Card* なるドキュメントが出力する。こ
+  ちらはページ数が多め。
 
 * 引数なしの :code:`help()` で対話的ヘルプモードになる。
 
-  * 通常の :code:`help(X)` では、普通の Python コンソール同様の機能 X に関する
-    ヘルプが出力することを確認した。
+  * 通常の :code:`help(X)` では、普通の Python コンソール同様の機能 X に関するヘ
+    ルプが出力することを確認した。
 
 * :code:`X?` で IPython スタイルの機能 X に関するヘルプが出力することを確認した。
 
@@ -341,12 +359,13 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 
   * 補完されるのは識別子、Python キーワード。なんとファイルパスも補完対象。
 
-* :code:`%pdoc X` で機能 X の docstring が出力することを確認した。
-* :code:`%pfile X` でモジュール X のテキスト的な内容が出力することを確認した。
-* :code:`%timeit` と :code:`%%timeit` を試した。
-* :code:`%lsmagic` で利用可能なマジックの一覧と
-  :code:`%automagic` スイッチの ON/OFF 状況が出力することを確認した。
-* :code:`%history` でコマンド入力の履歴が出力することを確認した。
+* :command:`%pdoc X` で機能 X の docstring が出力することを確認した。
+* :command:`%pfile X` でモジュール X のテキスト的な内容が出力することを確認し
+  た。
+* :command:`%timeit` と :command:`%%timeit` を試した。
+* :command:`%lsmagic` で利用可能なマジックの一覧と :command:`%automagic` スイッ
+  チの ON/OFF 状況が出力することを確認した。
+* :command:`%history` でコマンド入力の履歴が出力することを確認した。
 
   * 詳しくは後述する。
 
@@ -356,46 +375,44 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 `Built-in magic commands <http://ipython.org/ipython-doc/stable/interactive/magics.html>`__
 を眺めて使えそうなものを試そう。
 
-* :code:`%who`, :code:`%whos` で自分が定義した識別子のリストを出力できる。
+* :command:`%who`, :command:`%whos` で自分が定義した識別子のリストを出力できる。
   後者は利用回数も確認できてたいへん便利。
 
 * 履歴機能操作は readline に強く依存することに留意するべし。
 
-  * :kbd:`C-r` で Bash でいうところの reverse-i-search 機能が使える。
-    すなわち、過去のコマンド入力をインクリメンタルサーチする。
-  * :kbd:`C-p`, :kbd:`C-n`, 上矢印または下矢印キーで入力履歴を一個ずつ移動できる。
+  * :kbd:`C-r` で Bash でいうところの reverse-i-search 機能が使える。すなわち、
+    過去のコマンド入力をインクリメンタルサーチする。
+  * :kbd:`C-p`, :kbd:`C-n`, 上矢印または下矢印キーで入力履歴を一個ずつ移動でき
+    る。
 
 * 履歴リストについて。
 
   * オプション :code:`-n` を常に指定して、履歴番号を表示するようにしたい。
-    この番号情報を基に :code:`%recall` することになるはずだから。
-
-  * 例えば :code:`%history -g print` のようにすると履歴の :program:`grep` が行える。
-    オプション :code:`-g` を指定するときには、
-    同じコマンド入力が重複して出力されないように、
-    オプション :code:`-u` も併せて指定することも許される。
-
+    この番号情報を基に :command:`%recall` することになるはずだから。
+  * 例えば :command:`%history -g print` のようにすると履歴の :program:`grep` が
+    行える。オプション :code:`-g` を指定するときには、同じコマンド入力が重複して
+    出力されないように、オプション :code:`-u` も併せて指定することも許される。
   * オプション :code:`-l` で直近の数コマンドだけを表示できる。
-
-  * オプション :code:`-o` と :code:`-p` を同時に指定すると、
-    履歴の表示が doctest の書式で出力される。
-    このテキストをこのノートにそのまま貼り付けて、
-    サンプルコードのメモ作業を楽にすることもできる。
+  * オプション :code:`-o` と :code:`-p` を同時に指定すると、履歴の表示が doctest
+    の書式で出力される。このテキストをこのノートにそのまま貼り付けて、サンプル
+    コードのメモ作業を楽にすることもできる。
 
 * TBW: 自動インデントの空白文字数調整
 * ログ機能について。
 
-  * :code:`%logstart` でセッションログを保存できる。
-    コンソールでの入出力を適宜テキストファイルに保存するものだ。
+  * :command:`%logstart` でセッションログを保存できる。コンソールでの入出力を適
+    宜テキストファイルに保存するものだ。
 
-* TBW: :code:`%alias`
-* Input caching system: IPython が記憶しているユーザーのコンソールでの入力を再利用できる。
+* TBW: :command:`%alias`
+* Input caching system: IPython が記憶しているユーザーのコンソールでの入力を再利
+  用できる。
 
   * :code:`_i` で 1 つ前の入力を得られる。
   * :code:`_ii` で 2 つ前の入力を得られる。
   * :code:`_iii` で 3 つ前の入力を得られる。
   * リスト :code:`In`, :code:`_ih` でプロンプト番号を添字にして入力を得られる。
-  * 実は :code:`_i5` やら :code:`_i100` やらからも（もし存在すれば）入力を得られる。
+  * 実は :code:`_i5` やら :code:`_i100` やらからも（もし存在すれば）入力を得られ
+    る。
 
 * Output caching system: 上記の機能の出力バージョン。
 
@@ -407,11 +424,12 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 * ディレクトリー移動履歴も管理している。
 
   * リスト :code:`_dh` に作業ディレクトリーをユーザーが訪問した順に保存する。
-  * コマンド :code:`%cd X` を実行すれば、作業ディレクトリーを X に移動する。
-  * コマンド :code:`%dhist` を実行すれば、作業ディレクトリーを訪問順に一覧できる。
+  * コマンド :command:`%cd X` を実行すれば、作業ディレクトリーを X に移動する。
+  * コマンド :command:`%dhist` を実行すれば、作業ディレクトリーを訪問順に一覧でき
+    る。
 
-* スクリプトを IPython のセッションから起動できる。
-  次のコード片は自作のスクリプトを :code:`%run` コマンドにより起動した様子を再現したものだ。
+* スクリプトを IPython のセッションから起動できる。次のコード片は自作のスクリプ
+  トを :command:`%run` コマンドにより起動した様子を再現したものだ。
 
   .. code:: ipython
 
@@ -421,10 +439,8 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
      zzz
 
   * スクリプトのファイル名の拡張子は省略可能のようだ。
-
-  * オプション :code:`-t` で実行時間を測定する。
-    コマンドラインでいうところの ``time python commands`` のようなものだ。
-    例を示す。
+  * オプション :code:`-t` で実行時間を測定する。コマンドラインでいうところの
+    :command:`time python commands` のようなものだ。例を示す。
 
     .. code:: ipython
 
@@ -437,25 +453,22 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
          System :       0.00 s.
        Wall time:       1.19 s.
 
-  * オプション :code:`-d` で対象を pdb の支配下で実行する。
-    ブレイクポイント等のデバッガーオプションも同時に指定できる。
+  * オプション :code:`-d` で対象を :program:`pdb` の支配下で実行する。ブレイクポ
+    イント等のデバッガーオプションも同時に指定できる。
+  * オプション :code:`-p [profile options]` でプロファイルをとれる。というより、
+    コマンド :command:`%prun` のラッパーだと思われる。
+  * オプション :code:`-m module_name` で指定モジュールをスクリプトとして実行す
+    る。コマンドラインでいうところの :command:`python -m module` の Python コー
+    ド限定版という感じだ。
 
-  * オプション :code:`-p [profile options]` でプロファイルをとれる。
-    というより、コマンド :code:`%prun` のラッパーだと思われる。
-
-  * オプション :code:`-m module_name` で指定モジュールをスクリプトとして実行する。
-    コマンドラインでいうところの ``python -m module`` の
-    Python コード限定版という感じだ。
-
-* :code:`%prun`, :code:`%%prun` はプロファイラー付きでコードを実行する。
-  コマンドラインで ``python -m cProfile [options] file`` を実行するのに近い。
-
-* 複数行に亘る関数の定義のコーディングは IPython ウィンドウ内で行うよりも、
-  常用しているテキストエディターで行えるほうが効率的だ。
-  コマンド :code:`%edit` はそれを実現する。このコマンドを実行すると、
-  デフォルトでは :program:`notepad` が開く。ここでコードを書いて保存して閉じる。
-  すると IPython のセッションにその内容が伝わる。
-  エディターで定義した関数を呼び出すことができる。
+* :command:`%prun`, :command:`%%prun` はプロファイラー付きでコードを実行する。コ
+  マンドラインで :command:`python -m cProfile [options] file` を実行するのに近
+  い。
+* 複数行に亘る関数の定義のコーディングは IPython ウィンドウ内で行うよりも、常用
+  しているテキストエディターで行えるほうが効率的だ。コマンド :command:`%edit` は
+  それを実現する。このコマンドを実行すると、デフォルトでは :program:`notepad` が
+  開く。ここでコードを書いて保存して閉じる。すると IPython のセッションにその内
+  容が伝わる。エディターで定義した関数を呼び出すことができる。
 
   .. code:: ipython
 
@@ -480,79 +493,79 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 
   * キーボードで :kbd:`C-S-v` を押すと、
     クリップボードに保存されている Python コードを即時評価する。
-
-  * コマンド :code:`%paste` を実行すると、
+  * コマンド :command:`%paste` を実行すると、
     いったんクリップボードの内容を画面にエコーしてから、コード内容を評価する。
-
-  * 代わりにコマンド :code:`%cpaste` を実行すると、
+  * 代わりにコマンド :command:`%cpaste` を実行すると、
     まずはクリップボードに保存されている Python コードの編集モードになる。
     次にユーザーが :code:`--` という行を入力すると編集終了となり、
     そこに書かれたコードが最終的に評価される。
 
 * 作業内容のリセット機能がある。
 
-  * コマンド :code:`%reset` でセッションの各種状態
-    （ユーザー定義のオブジェクト、入力履歴、出力履歴、ディレクトリー移動履歴）
-    をクリアすることができる。
+  * コマンド :command:`%reset` でセッションの各種状態（ユーザー定義のオブジェク
+    ト、入力履歴、出力履歴、ディレクトリー移動履歴）をクリアすることができる。
 
-    * 異色なのは :code:`%reset array` だろう。
-      NumPy の配列オブジェクトをすべて削除するというものだ。
+    * 異色なのは :command:`%reset array` だろう。NumPy の配列オブジェクトをすべ
+      て削除するというものだ。
 
-  * コマンド :code:`%reset_selective` を用いれば、
-    クリアしたいユーザー定義のオブジェクトを正規表現で指定できる。
+  * コマンド :command:`%reset_selective` を用いれば、クリアしたいユーザー定義の
+    オブジェクトを正規表現で指定できる。
 
 .. todo::
 
-   * Windows だと :code:`!` コマンドが使えてもあまりうれしくない。
-     Cygwin のコマンドを使いたいので設定可能か調べる。単に
-     ``/bin`` に :envvar:`PATH` を通すだけかもしれない。
+   * Windows だと :command:`!` コマンドが使えてもあまりうれしくない。 Cygwin の
+     コマンドを使いたいので設定可能か調べる。単に :file:`/bin` に ``PATH`` を通
+     すだけかもしれない。
    * Output caching system の :code:`_<n>` の有効な *n* を知りたい場合は？
 
 Qt コンソールを試す
 ======================================================================
+
 .. warning::
 
-   本節の記述は現時点では公式に deprecated 扱いされている。
-   Jupyter とやらを利用するようにとのことだ。
+   本節の記述は現時点では公式に deprecated 扱いされている。 Jupyter とやらを利用
+   するようにとのことだ。
 
-PyQt_ と PyZMQ_ が利用可能であれば、IPython を PyQt ウィンドウで再現できる。
-私の環境では PyQt はインストールが済んでいるものの、PyZMQ が入っていなかった。
-本節では PyZMQ のインストール作業から記す。
+PyQt_ と PyZMQ_ が利用可能であれば、IPython を PyQt ウィンドウで再現できる。私の
+環境では PyQt はインストールが済んでいるものの、PyZMQ が入っていなかった。本節で
+は PyZMQ のインストール作業から記す。
 
 PyZMQ をインストールする
 ----------------------------------------------------------------------
-PyZMQ_ が何であるのかを理解するのは後回しにして、まずはインストールだ。
-IPython のドキュメントにあるように、素直に :program:`pip` でインストールできる。
+
+PyZMQ_ が何であるのかを理解するのは後回しにして、まずはインストールだ。IPython
+のドキュメントにあるように、素直に :program:`pip` でインストールできる。
 
 .. code:: console
 
-   $ pip install pyzmq
+   bash$ pip install pyzmq
    Downloading/unpacking pyzmq
    Installing collected packages: pyzmq
    Successfully installed pyzmq
    Cleaning up...
-   $ pip list | grep -i pyzmq
+   bash$ pip list | grep -i pyzmq
    pyzmq (14.5.0)
 
 Qt コンソールを起動する（シンプル）
 ----------------------------------------------------------------------
-Windows の「ファイル名を指定して実行」で次のように指定する。
+
+Windows の :guilabel:`ファイル名を指定して実行` で次のように指定する。
 
 .. code:: text
 
    %PYTHONDIR%\Scripts\ipython3.exe qtconsole
 
-一旦真っ黒なウィンドウが表示され、次に Qt ウィンドウが表示される。
-後者がコンソールとなる。
-通常の IPython のように使えるだけでなく、
-よく見ると便利なコマンドを起動するメニューがウィンドウ上部に備えられている。
+一旦真っ黒なウィンドウが表示され、次に Qt ウィンドウが表示される。後者がコンソー
+ルとなる。通常の IPython のように使えるだけでなく、よく見ると便利なコマンドを起
+動するメニューがウィンドウ上部に備えられている。
 
 Qt コンソールを起動する（プロットインライン）
 ----------------------------------------------------------------------
-Matplotlib のプロット図をインラインに Qt コンソール内に描画させる。
-この機能が Qt コンソールの目玉であると思われる。
-まずは IPython を次のようなコマンドライン引数を指定して起動する。ドキュメントには
-:code:`qtconsole --matplotlib inline` と指定すると記されているが、私の環境ではダメだった。
+
+Matplotlib のプロット図をインラインに Qt コンソール内に描画させる。この機能が Qt
+コンソールの目玉であると思われる。まずは IPython を次のようなコマンドライン引数
+を指定して起動する。ドキュメントには :command:`qtconsole --matplotlib inline` と
+指定すると記されているが、私の環境ではダメだった。
 
 .. code:: text
 
@@ -567,23 +580,22 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
    :height: 602px
    :scale: 50%
 
-インラインでグラフを描画できて何がうれしいのかと言うと、
-このコンソールウィンドウを保存できるからだ。
-ファイルメニューの Save を選択すると、
-コンソールでの入出力を HTML と画像とに分けてファイルとして保存できる。
+インラインでグラフを描画できて何がうれしいのかと言うと、このコンソールウィンドウ
+を保存できるからだ。ファイルメニューの :menuselection:`Save` を選択すると、コン
+ソールでの入出力をHTML と画像とに分けてファイルとして保存できる。
 
 その他
 ======================================================================
-* YouTube で ``IPython`` で検索すると、面白いビデオが大量に見つかる。
-  ``IPython Windows`` 等もよい。
 
+* YouTube で :code:`IPython` で検索すると、面白いビデオが大量に見つかる。
+  :code:`IPython Windows` 等もよい。
 * ConEmu ユーザーならば、当然 IPython をタブ化できるようにしておくのが筋だろう。
-  ところで Qt コンソールウィンドウはタブ化できないのだろうか。
-  「元ウィンドウ」はタブ化できる。
-
+  ところで Qt コンソールウィンドウはタブ化できないのだろうか。「元ウィンドウ」
+  はタブ化できる。
 * このノートをだいたい書き終わったあとに気づいたが、オライリーの
-  `Python によるデータ分析入門 <http://www.oreilly.co.jp/books/9784873116556/>`__ という本が
-  IPython を紹介するのに一章分紙幅を割いている。たいへんまとまっていて便利だ。
+  `Python によるデータ分析入門 <http://www.oreilly.co.jp/books/9784873116556/>`__
+  という本が IPython を紹介するのに一章分紙幅を割いている。たいへんまとまってい
+  て便利だ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
