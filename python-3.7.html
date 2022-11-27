@@ -79,7 +79,7 @@
 <li><p>組み込み関数 <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> 新設</p>
 <ul class="simple">
 <li><p>環境変数 <code class="docutils literal notranslate"><span class="pre">PYTHONBREAKPOINT</span></code> の使い方を押さえれば言うことなし。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">logging.basicConfig(level=logging.DEBUG)</span></code> も必要。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">logging.basicConfig(level=logging.DEBUG)</span></code> も必要。</p></li>
 <li><p>これはふつうに便利なので覚えておこう。</p></li>
 </ul>
 </li>
@@ -94,7 +94,8 @@
 <li><p>ナノ秒単位の分解能を持つ新しい時間関数が加わる。</p>
 <ul>
 <li><p>モジュール <code class="docutils literal notranslate"><span class="pre">time</span></code> に <code class="docutils literal notranslate"><span class="pre">_ns()</span></code> シリーズが追加された。</p></li>
-<li><p>&lt;The time.time_ns() resolution is 3 times better than the time.time() resolution on Linux and Windows&gt; だそうだ。</p></li>
+<li><p>&lt;The time.time_ns() resolution is 3 times better than the time.time()
+resolution on Linux and Windows&gt; だそうだ。</p></li>
 <li><p>サンプルコードで面白い呼び出しを見つけたので控えておく：</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_dt</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">())</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">LOOPS</span><span class="p">)]</span>
@@ -102,7 +103,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min time_ns() delta: </span><span class="si">%s</span><span class="s2"> ns&quot;</span> <span class="o">%</span> <span class="n">min_dt</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>ここで <code class="docutils literal notranslate"><span class="pre">min(min_dt)</span></code> だけでダメなのかどうか考えてみよう。</p>
+<p>ここで <code class="code docutils literal notranslate"><span class="pre">min(min_dt)</span></code> だけでダメなのかどうか考えてみよう。</p>
 </div></blockquote>
 </li>
 <li><p>これらは私は使わないだろう。ミリ秒で事足りるケースしか手許にない。</p></li>
@@ -169,8 +170,7 @@
 <div class="section" id="collections">
 <h3><a class="toc-backref" href="#id7"><code class="docutils literal notranslate"><span class="pre">collections</span></code></a><a class="headerlink" href="#collections" title="Permalink to this heading">¶</a></h3>
 <ul>
-<li><p>関数 <code class="docutils literal notranslate"><span class="pre">namedtuple()</span></code> で属性に対するデフォルト値が指定できる。
-docstring の記述をコード化するとこうなる：</p>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">namedtuple()</span></code> で属性に対するデフォルト値が指定できる。Docstring の記述をコード化するとこうなる：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Point</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Point&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">defaults</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
 <span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -183,7 +183,8 @@ docstring の記述をコード化するとこうなる：</p>
 <div class="section" id="datetime">
 <h3><a class="toc-backref" href="#id8"><code class="docutils literal notranslate"><span class="pre">datetime</span></code></a><a class="headerlink" href="#datetime" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">datetime.fromisoformat()</span></code> の新設。メソッド <code class="docutils literal notranslate"><span class="pre">datetime.isoformat()</span></code> の逆。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">datetime.fromisoformat()</span></code> の新設。メソッド
+<code class="docutils literal notranslate"><span class="pre">datetime.isoformat()</span></code> の逆。</p></li>
 </ul>
 </div>
 <div class="section" id="functools">
@@ -205,7 +206,8 @@ docstring の記述をコード化するとこうなる：</p>
 <div class="section" id="subprocess">
 <h3><a class="toc-backref" href="#id11"><code class="docutils literal notranslate"><span class="pre">subprocess</span></code></a><a class="headerlink" href="#subprocess" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>関数 <code class="docutils literal notranslate"><span class="pre">run()</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">capture_output</span></code> が新設されて、この値を <code class="docutils literal notranslate"><span class="pre">True</span></code> にセットすると、標準出力と標準エラーが捕捉される。</p>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">run()</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">capture_output</span></code> が新設されて、この値を
+<code class="docutils literal notranslate"><span class="pre">True</span></code> にセットすると、標準出力と標準エラーが捕捉される。</p>
 <ul>
 <li><p>明示的にパイプを渡さないで出力を得る方法ができたことになる。</p></li>
 </ul>
@@ -356,7 +358,7 @@ docstring の記述をコード化するとこうなる：</p>
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul>

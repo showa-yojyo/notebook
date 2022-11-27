@@ -112,21 +112,21 @@ UI 版か JSON モードの Editor が開くが、当分前者を述べる。
 その他のフィルターを挙げる：
 
 ``@ext``
-    拡張機能固有の設定。拡張機能の ID を :samp:`@ext:ms-python.python.Python` の
+    拡張機能固有の設定。拡張機能の ID を :code:`@ext:ms-python.python.Python` の
     ように指定する。
 ``@feature``
-    Features グループ固有の設定。例えば、:samp:`@feature:explorer` は
+    Features グループ固有の設定。例えば、:code:`@feature:explorer` は
     :guilabel:`EXPLORER` の設定項目に絞って表示する。
 ``@id``
-    設定 ID に基づき設定を検索する。:samp:`@id:workbench.activityBar.visible` の
+    設定 ID に基づき設定を検索する。:code:`@id:workbench.activityBar.visible` の
     ようにするのだが、これがわかるくらいなら JSON ファイルを直接編集したほうが早
     い。
 ``@lang``
     言語 ID に基づいた言語フィルターを適用する。例えば TypeScript で絞るには
-    :samp:`@lang:typescript` と入力する。
+    :code:`@lang:typescript` と入力する。
 ``@tag``
     VS Code システム固有の設定。例えば、Workspace Trust に関する設定は
-    :samp:`@tag:workspaceTrust` で絞る。
+    :code:`@tag:workspaceTrust` で絞る。
 
 検索欄は入力された検索内容を記憶しており、Undo/Redo に対応している。
 

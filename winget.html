@@ -97,7 +97,7 @@
 <h2><a class="toc-backref" href="#id13">インストール</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>Windows Package Manager CLI のインストール手順を簡単に記す。</p>
 <p>まずコマンドプロンプトを起動する。おもむろに <strong class="command">winget -v</strong> を実行する。バージョン番号に preview が付いている場合にはこれをアンインストールする。何も実行されないようならば問題なく次の工程に進むこと。</p>
-<p>本プログラムを Windows にインストールする。Microsoft Store 経由でインストールするのが推奨手段とされている。検索ボックスで App Installer と入力して検索する。出てくるものをインストールする。この問い合わせ文字列がわかりにくかった。</p>
+<p>本プログラムを Windows にインストールする。Microsoft Store 経由でインストールするのが推奨手段とされている。検索ボックスで <code class="code docutils literal notranslate"><span class="pre">App</span> <span class="pre">Installer</span></code> と入力して検索する。出てくるものをインストールする。この問い合わせ文字列がわかりにくかった。</p>
 <p>インストールが終わったらコマンド <strong class="command">winget -v</strong> を実行して利用可能であることを確認する。</p>
 <div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> winget -v
 <span class="go">v1.1.13405</span>
@@ -108,11 +108,11 @@
 <h2><a class="toc-backref" href="#id14">設定</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>Windows Package Manager CLI の設定手順について簡単に記す。</p>
 <p>CLI であるので、利用者の中では既定のコマンドラインオプションがあれば、それらをテキストファイルにあらかじめ指定しておく方式となる。</p>
-<p>コマンド <strong class="command">winget settings</strong> を実行すると、設定ファイルがテキストエディターに開かれる。設定ファイルは JSON ファイル <code class="docutils literal notranslate"><span class="pre">settings.json</span></code> だ。これは複雑なパスに配置されているのでバックアップやバージョン管理の際に注意を要する。</p>
+<p>コマンド <strong class="command">winget settings</strong> を実行すると、設定ファイルがテキストエディターに開かれる。設定ファイルは JSON ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> だ。これは複雑なパスに配置されているのでバックアップやバージョン管理の際に注意を要する。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json
 </pre></div>
 </div>
-<p>設定項目仕様は公式サイトの <code class="docutils literal notranslate"><span class="pre">Settings.md</span></code> に記載されている。</p>
+<p>設定項目仕様は公式サイトの <code class="file docutils literal notranslate"><span class="pre">Settings.md</span></code> に記載されている。</p>
 <p>現在試行中の設定内容を次に示す：</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://aka.ms/winget-settings.schema.json&quot;</span><span class="p">,</span><span class="w"></span>
@@ -140,11 +140,11 @@
 <p>Windows Package Manager CLI の性質上、利用例は限定される。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>UNIX/Linux コマンドとは異なり <code class="docutils literal notranslate"><span class="pre">winget</span></code> はコマンドライン文字列の大文字小文字を区別しない。</p>
+<p>UNIX/Linux コマンドとは異なり <strong class="command">winget</strong> はコマンドライン文字列の大文字小文字を区別しない。</p>
 </div>
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id16">コマンド一覧を確認する</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
-<p>引数なしでコマンド <code class="docutils literal notranslate"><span class="pre">winget</span></code> を実行すると、出力の一部にコマンド一覧が現れる。次にその内容を引用する：</p>
+<p>引数なしでコマンド <strong class="command">winget</strong> を実行すると、出力の一部にコマンド一覧が現れる。次にその内容を引用する：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>使用状況: winget [&lt;コマンド&gt;] [&lt;オプション&gt;]
 
 使用できるコマンドは次のとおりです:
@@ -174,11 +174,11 @@
 </div>
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id17">プログラムをインストールする</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
-<p>次のコマンドは VS Code を Microsoft Store や WinGet のリポジトリーなどから検索して、存在すればインストールする：</p>
+<p>次のコマンドは VS Code を Microsoft Store や <strong class="program">WinGet</strong> のリポジトリーなどから検索して、存在すればインストールする：</p>
 <div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> winget install --exact --id Microsoft.VisualStudioCode
 </pre></div>
 </div>
-<p>この方式では、オプション <code class="docutils literal notranslate"><span class="pre">--id</span></code> の引数を知っていなければならない。例えば、コマンド <code class="docutils literal notranslate"><span class="pre">winget</span> <span class="pre">search</span></code> を実行するなどして、欲しいプログラムごとに情報を別途得るといい。</p>
+<p>この方式では、オプション <code class="docutils literal notranslate"><span class="pre">--id</span></code> の引数を知っていなければならない。例えば、コマンド <strong class="command">winget search</strong> を実行するなどして、欲しいプログラムごとに情報を別途得るといい。</p>
 </div>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id18">既存のプログラムを更新する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
@@ -194,8 +194,7 @@
 </div>
 <div class="section" id="windows-pc">
 <h3><a class="toc-backref" href="#id19">新しい Windows PC に移行する</a><a class="headerlink" href="#windows-pc" title="Permalink to this heading">¶</a></h3>
-<p>新しい Windows PC でも同じプログラム集合を利用したいのが自然だ。
-Python のパッケージ環境を移行するのと考え方は似ている。プログラム一覧を移行元でエクスポートして、移行先でインポートするという手順だ。</p>
+<p>新しい Windows PC でも同じプログラム集合を利用したいのが自然だ。Python のパッケージ環境を移行するのと考え方は似ている。プログラム一覧を移行元でエクスポートして、移行先でインポートするという手順だ。</p>
 <div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> winget export -o winget.json
 </pre></div>
 </div>
@@ -209,14 +208,14 @@ Python のパッケージ環境を移行するのと考え方は似ている。�
 <h2><a class="toc-backref" href="#id20">その他</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="wsl">
 <h3><a class="toc-backref" href="#id21">WSL からコマンドを実行できるようにする</a><a class="headerlink" href="#wsl" title="Permalink to this heading">¶</a></h3>
-<p>通常、パスが通っていれば WSL 環境でも <code class="docutils literal notranslate"><span class="pre">winget.exe</span></code> を実行することは可能だ。</p>
+<p>通常、パスが通っていれば WSL 環境でも <strong class="program">winget.exe</strong> を実行することは可能だ。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe
 </pre></div>
 </div>
 </div>
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id22">何ヶ月経ってもパッケージをアップグレードしてくれないとき</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
-<p>コマンド <code class="docutils literal notranslate"><span class="pre">winget</span> <span class="pre">upgrade</span></code> でいつまでも更新可能なパッケージがないと表示され続ける場合、コマンド <code class="docutils literal notranslate"><span class="pre">winget</span> <span class="pre">source</span> <span class="pre">update</span></code> で解決する場合がある。</p>
+<p>コマンド <strong class="command">winget upgrade</strong> でいつまでも更新可能なパッケージがないと表示され続ける場合、コマンド <strong class="command">winget source update</strong> で解決する場合がある。</p>
 <div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> winget source update
 <span class="go">すべてのソースを更新しています...</span>
 <span class="go">ソースを更新しています: msstore...</span>
@@ -226,7 +225,7 @@ Python のパッケージ環境を移行するのと考え方は似ている。�
 <span class="go">完了</span>
 </pre></div>
 </div>
-<p>このあと <code class="docutils literal notranslate"><span class="pre">upgrade</span></code> すると、更新可能なパッケージ一覧が出力されることがある。</p>
+<p>このあと <strong class="command">winget upgrade</strong> すると、更新可能なパッケージ一覧が出力されることがある。</p>
 </div>
 </div>
 </div>
@@ -364,7 +363,7 @@ Python のパッケージ環境を移行するのと考え方は似ている。�
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul class="current">

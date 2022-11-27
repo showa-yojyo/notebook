@@ -60,12 +60,12 @@
 <li><p><a class="reference internal" href="#id3" id="id9">利用価値の高いツール</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id4" id="id10">コマンド共通メモ</a></p></li>
-<li><p><a class="reference internal" href="#hxextract" id="id11"><code class="docutils literal notranslate"><span class="pre">hxextract</span></code>: 指定要素抽出</a></p></li>
-<li><p><a class="reference internal" href="#hxclean" id="id12"><code class="docutils literal notranslate"><span class="pre">hxclean</span></code>: 修正</a></p></li>
-<li><p><a class="reference internal" href="#hxnormalize-pretty-print" id="id13"><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code>: pretty-print</a></p></li>
-<li><p><a class="reference internal" href="#hxremove" id="id14"><code class="docutils literal notranslate"><span class="pre">hxremove</span></code>: 指定要素削除</a></p></li>
-<li><p><a class="reference internal" href="#hxselect" id="id15"><code class="docutils literal notranslate"><span class="pre">hxselect</span></code>: 指定要素抽出</a></p></li>
-<li><p><a class="reference internal" href="#hxwls" id="id16"><code class="docutils literal notranslate"><span class="pre">hxwls</span></code>: リンク抽出</a></p></li>
+<li><p><a class="reference internal" href="#hxextract" id="id11"><strong class="program">hxextract</strong>: 指定要素抽出</a></p></li>
+<li><p><a class="reference internal" href="#hxclean" id="id12"><strong class="program">hxclean</strong>: 修正</a></p></li>
+<li><p><a class="reference internal" href="#hxnormalize-pretty-print" id="id13"><strong class="program">hxnormalize</strong>: pretty-print</a></p></li>
+<li><p><a class="reference internal" href="#hxremove" id="id14"><strong class="program">hxremove</strong>: 指定要素削除</a></p></li>
+<li><p><a class="reference internal" href="#hxselect" id="id15"><strong class="program">hxselect</strong>: 指定要素抽出</a></p></li>
+<li><p><a class="reference internal" href="#hxwls" id="id16"><strong class="program">hxwls</strong>: リンク抽出</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#id5" id="id17">関連ノート</a></p></li>
@@ -76,39 +76,39 @@
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id8">インストール</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>私の環境は Cygwin だ。ソースからビルドしてインストールする必要がある。記憶によると次のような手順で <a class="reference external" href="https://www.w3.org/Tools/HTML-XML-utils/">HTML-XML-utils</a> をインストールすることができた：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ <span class="nb">cd</span> /tmp
-bash$ wget https://www.w3.org/Tools/HTML-XML-utils/html-xml-utils-7.8.tar.gz
-bash$ mv html-xml-utils-7.8.tar.gz html-xml-utils-7.8.tar
-bash$ tar xvf html-xml-utils-7.8.tar.gz
-bash$ <span class="nb">cd</span> html-xml-utils-7.8
-bash$ ./configure
-bash$ make
-bash$ make install
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ cd /tmp</span>
+<span class="go">bash$ wget https://www.w3.org/Tools/HTML-XML-utils/html-xml-utils-7.8.tar.gz</span>
+<span class="go">bash$ mv html-xml-utils-7.8.tar.gz html-xml-utils-7.8.tar</span>
+<span class="go">bash$ tar xvf html-xml-utils-7.8.tar.gz</span>
+<span class="go">bash$ cd html-xml-utils-7.8</span>
+<span class="go">bash$ ./configure</span>
+<span class="go">bash$ make</span>
+<span class="go">bash$ make install</span>
 </pre></div>
 </div>
-<p>Makefile からビルドをするために <code class="docutils literal notranslate"><span class="pre">make</span></code> や <code class="docutils literal notranslate"><span class="pre">gcc</span></code> が使える状態でなければならない。これらは Cygwin のパッケージマネージャー setup-x86_64.exe からインストール可能だ。</p>
-<p>ツール各種が <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code> にインストールされれば成功とみなす。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ which hxselect
-/usr/local/bin/hxselect
+<p><code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> からビルドをするために <strong class="program">make</strong> や <strong class="program">gcc</strong> が使える状態でなければならない。これらは Cygwin のパッケージマネージャー
+<code class="file docutils literal notranslate"><span class="pre">setup-x86_64.exe</span></code> からインストール可能だ。</p>
+<p>ツール各種が <code class="file docutils literal notranslate"><span class="pre">/usr/local/bin</span></code> にインストールされれば成功とみなす。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ which hxselect</span>
+<span class="go">/usr/local/bin/hxselect</span>
 </pre></div>
 </div>
 <p>インストールのときに注意する点が少しはある：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> といいつつ中身は <code class="docutils literal notranslate"><span class="pre">.tar</span></code> だった。これは <code class="docutils literal notranslate"><span class="pre">file</span></code> コマンドで確認できる。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">configure</span></code> の出力をよく観察して、足りないパッケージを把握する必要がある。欠けているもののパッケージ名を調べて Cygwin のマネジャーでインストールする必要がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> といいつつ中身は <code class="docutils literal notranslate"><span class="pre">.tar</span></code> だった。これは <strong class="program">file</strong> で確認できる。</p></li>
+<li><p><strong class="command">configure</strong> の出力をよく観察して、足りないパッケージを把握する必要がある。欠けているもののパッケージ名を調べて Cygwin のマネジャーでインストールする必要がある。</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id9">利用価値の高いツール</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<p>スクレイピング用途ならばまずは次の 4 つだけ使いこなせれば十分だと思われる。どのツールも XML 形式にも対応しているが、私は HTML しか扱わないので以下 HTML
-しか取り上げない。</p>
+<p>スクレイピング用途ならばまずは次の 4 つだけ使いこなせれば十分だと思われる。どのツールも XML 形式にも対応しているが、私は HTML しか扱わないので以下 HTMLしか取り上げない。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">hxextract</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hxclean</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hxremove</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hxselect</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hxwls</span></code></p></li>
+<li><p><strong class="program">hxextract</strong></p></li>
+<li><p><strong class="program">hxclean</strong></p></li>
+<li><p><strong class="program">hxnormalize</strong></p></li>
+<li><p><strong class="program">hxremove</strong></p></li>
+<li><p><strong class="program">hxselect</strong></p></li>
+<li><p><strong class="program">hxwls</strong></p></li>
 </ul>
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id10">コマンド共通メモ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
@@ -116,66 +116,65 @@ bash$ make install
 <p>エラー表示が邪魔なのでコマンドラインに <code class="docutils literal notranslate"><span class="pre">2&gt;/dev/null</span></code> を追加しておく。</p>
 </div>
 <div class="section" id="hxextract">
-<h3><a class="toc-backref" href="#id11"><code class="docutils literal notranslate"><span class="pre">hxextract</span></code>: 指定要素抽出</a><a class="headerlink" href="#hxextract" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">hxextract</span></code> は文法通り書かれた HTML テキストから指定要素（タグ）を抽出するコマンドだ。実際には指定していない要素を取り除いた残りの HTML を出力するような振る舞いをするようだ。</p>
+<h3><a class="toc-backref" href="#id11"><strong class="program">hxextract</strong>: 指定要素抽出</a><a class="headerlink" href="#hxextract" title="Permalink to this heading">¶</a></h3>
+<p><strong class="program">hxextract</strong> は文法通り書かれた HTML テキストから指定要素（タグ）を抽出するコマンドだ。実際には指定していない要素を取り除いた残りの HTML を出力するような振る舞いをするようだ。</p>
 <p>使い方は欲しい要素のタグ名またはクラス名を指定する。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxextract img <span class="nv">$URL_OR_FILE</span>
-bash$ hxextract img.thumbnail <span class="nv">$URL_OR_FILE</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ hxextract img $URL_OR_FILE</span>
+<span class="go">bash$ hxextract img.thumbnail $URL_OR_FILE</span>
 </pre></div>
 </div>
-<p>ただし出力がテキスト処理向けでないので、使い勝手は悪い。代わりにいきなり <code class="docutils literal notranslate"><span class="pre">hxselect</span></code> を使ってしまっていいと思われる。</p>
+<p>ただし出力がテキスト処理向けでないので、使い勝手は悪い。代わりにいきなり
+<strong class="program">hxselect</strong> を使ってしまっていいと思われる。</p>
 </div>
 <div class="section" id="hxclean">
-<h3><a class="toc-backref" href="#id12"><code class="docutils literal notranslate"><span class="pre">hxclean</span></code>: 修正</a><a class="headerlink" href="#hxclean" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id12"><strong class="program">hxclean</strong>: 修正</a><a class="headerlink" href="#hxclean" title="Permalink to this heading">¶</a></h3>
 <p>このツールは文法が汚い HTML テキストを修正するのに利用するコマンドだ。コマンドラインオプションが何もないので、使い方に迷うことはない。</p>
-<p>処理対象の HTML ファイルを <code class="docutils literal notranslate"><span class="pre">hxclean</span></code> してパイプに流すのが典型的な用途と思われる。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ wget --output-file - <span class="nv">$URL</span> <span class="p">|</span> hxclean <span class="p">|</span> some-command ...
-bash$ <span class="c1"># or</span>
-bash$ hxclean <span class="nv">$URL_OR_FILE</span> <span class="p">|</span> some-command ...
+<p>処理対象の HTML ファイルを <strong class="program">hxclean</strong> してパイプに流すのが典型的な用途と思われる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ wget --output-file - $URL | hxclean | some-command ...</span>
+<span class="go">bash$ # or</span>
+<span class="go">bash$ hxclean $URL_OR_FILE | some-command ...</span>
 </pre></div>
 </div>
 <p>品質の保証がない HTML ファイルを扱うときにはこのコマンドからパイプラインを組むのが良いだろう。</p>
 </div>
 <div class="section" id="hxnormalize-pretty-print">
-<h3><a class="toc-backref" href="#id13"><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code>: pretty-print</a><a class="headerlink" href="#hxnormalize-pretty-print" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">hxnormalize</span></code> は HTML テキストの内容であるテキストを整形して出力するツールだ。一行あたりの文字数を制限したり、インデントの桁数を指定したりする。</p>
-<p>整形の過程で小さな文法上のエラーを修正する性質があるようで、むしろこちらのほうが利用価値が高い。場合によっては <code class="docutils literal notranslate"><span class="pre">hxclean</span></code> をせずに済む。</p>
+<h3><a class="toc-backref" href="#id13"><strong class="program">hxnormalize</strong>: pretty-print</a><a class="headerlink" href="#hxnormalize-pretty-print" title="Permalink to this heading">¶</a></h3>
+<p><strong class="program">hxnormalize</strong> は HTML テキストの内容であるテキストを整形して出力するツールだ。一行あたりの文字数を制限したり、インデントの桁数を指定したりする。</p>
+<p>整形の過程で小さな文法上のエラーを修正する性質があるようで、むしろこちらのほうが利用価値が高い。場合によっては <strong class="program">hxclean</strong> をせずに済む。</p>
 <p>どちらの機能もパイプによるテキスト処理の前工程になじむ。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ wget -O <span class="nv">$FILE</span> <span class="nv">$URL</span>
-bash$ hxnormalize <span class="nv">$FILE</span> -l <span class="m">80</span> <span class="p">|</span> some-command ...
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ wget -O $FILE $URL</span>
+<span class="go">bash$ hxnormalize $FILE -l 80 | some-command ...</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="hxremove">
-<h3><a class="toc-backref" href="#id14"><code class="docutils literal notranslate"><span class="pre">hxremove</span></code>: 指定要素削除</a><a class="headerlink" href="#hxremove" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">hxremove</span></code> は CSS セレクター形式の文字列を指定すると、それらにマッチする要素を HTML
-から取り去ったものを出力するコマンドだ。処理ファイルを単純化するのに利用できる。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxremove script &lt; <span class="nv">$FILE</span>
+<h3><a class="toc-backref" href="#id14"><strong class="program">hxremove</strong>: 指定要素削除</a><a class="headerlink" href="#hxremove" title="Permalink to this heading">¶</a></h3>
+<p><strong class="program">hxremove</strong> は CSS セレクター形式の文字列を指定すると、それらにマッチする要素を HTMLから取り去ったものを出力するコマンドだ。処理ファイルを単純化するのに利用できる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ hxremove script &lt; $FILE</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="hxselect">
-<h3><a class="toc-backref" href="#id15"><code class="docutils literal notranslate"><span class="pre">hxselect</span></code>: 指定要素抽出</a><a class="headerlink" href="#hxselect" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">hxselect</span></code> は CSS セレクター形式の文字列を指定すると HTML テキストの要素を抽出するコマンドだ。これを使いたかった。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxselect -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;h2&gt;a&#39;</span> <span class="nv">$FILE_OR_URL</span> <span class="p">|</span> grep -oP <span class="s2">&quot;(?&lt;=href=\&quot;).+html(?=\&quot;)&quot;</span>
-bash$ hxselect -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;img[class=&quot;thumbnail_image]&#39;</span> <span class="nv">$FILE_OR_URL</span> <span class="p">|</span> grep -oP <span class="s2">&quot;(?&lt;=src=\&quot;).+jpg(?=\&quot;)&quot;</span>
+<h3><a class="toc-backref" href="#id15"><strong class="program">hxselect</strong>: 指定要素抽出</a><a class="headerlink" href="#hxselect" title="Permalink to this heading">¶</a></h3>
+<p><strong class="program">hxselect</strong> は CSS セレクター形式の文字列を指定すると HTML テキストの要素を抽出するコマンドだ。これを使いたかった。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ hxselect -s &#39;\n&#39; &#39;h2&gt;a&#39; $FILE_OR_URL | grep -oP &quot;(?&lt;=href=\&quot;).+html(?=\&quot;)&quot;</span>
+<span class="go">bash$ hxselect -s &#39;\n&#39; &#39;img[class=&quot;thumbnail_image]&#39; $FILE_OR_URL | grep -oP &quot;(?&lt;=src=\&quot;).+jpg(?=\&quot;)&quot;</span>
 </pre></div>
 </div>
-<p>オプション <code class="docutils literal notranslate"><span class="pre">-c</span></code> を指定すると <code class="docutils literal notranslate"><span class="pre">hxselect</span></code> は要素の中身しか出力しないようになる。例えば <code class="docutils literal notranslate"><span class="pre">&lt;A&gt;</span></code> タグに対してはふつうはリンクテキストしか出力しなくなる。</p>
-<p>ここでだいじなのは、セレクターとして属性を抽出するように指定すると、属性値のみを出力するになる。
-<code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-oP</span></code> にパイプする手間が省ける可能性が高い。上の例は次のようにも書ける：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxselect -c -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;h2&gt;a::attr(href)&#39;</span> <span class="nv">$FILE_OR_URL</span>
-bash$ hxselect -c -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;img[class=&quot;thumbnail_image&quot;]::attr(src)&#39;</span> <span class="nv">$FILE_OR_URL</span>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">-c</span></code> を指定すると <strong class="command">hxselect</strong> は要素の中身しか出力しないようになる。例えば <code class="docutils literal notranslate"><span class="pre">&lt;A&gt;</span></code> タグに対してはふつうはリンクテキストしか出力しなくなる。</p>
+<p>ここでだいじなのは、セレクターとして属性を抽出するように指定すると、属性値のみを出力するになる。<strong class="command">grep -oP</strong> にパイプする手間が省ける可能性が高い。上の例は次のようにも書ける：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ hxselect -c -s &#39;\n&#39; &#39;h2&gt;a::attr(href)&#39; $FILE_OR_URL</span>
+<span class="go">bash$ hxselect -c -s &#39;\n&#39; &#39;img[class=&quot;thumbnail_image&quot;]::attr(src)&#39; $FILE_OR_URL</span>
 </pre></div>
 </div>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">-s</span></code> を指定すると抽出する要素同士を Python でいうところの
 <code class="docutils literal notranslate"><span class="pre">str.join()</span></code> する。テキストエディターで出力をチェックしたいときに有用だ。</p>
 </div>
 <div class="section" id="hxwls">
-<h3><a class="toc-backref" href="#id16"><code class="docutils literal notranslate"><span class="pre">hxwls</span></code>: リンク抽出</a><a class="headerlink" href="#hxwls" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">hxwls</span></code> は HTML テキスト中の各種リンクのリンク先（つまり <code class="docutils literal notranslate"><span class="pre">href</span></code> や
+<h3><a class="toc-backref" href="#id16"><strong class="program">hxwls</strong>: リンク抽出</a><a class="headerlink" href="#hxwls" title="Permalink to this heading">¶</a></h3>
+<p><strong class="program">hxwls</strong> は HTML テキスト中の各種リンクのリンク先（つまり <code class="docutils literal notranslate"><span class="pre">href</span></code> や
 <code class="docutils literal notranslate"><span class="pre">src</span></code> の値）のみを一覧するコマンドだ。場合によってはこれで事足りるだろう。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash$ hxwls <span class="nv">$URL_OR_FILE</span> <span class="p">|</span> awk <span class="s1">&#39;/archives/ &amp;&amp; /jpg/&#39;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ hxwls $URL_OR_FILE | awk &#39;/archives/ &amp;&amp; /jpg/&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -187,6 +186,10 @@ bash$ hxselect -c -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;
 <li><p><a class="reference internal" href="css-selector.html"><span class="doc">CSS セレクター学習ノート</span></a></p></li>
 <li><p><a class="reference internal" href="python-bs4.html"><span class="doc">BeautifulSoup4 利用ノート</span></a></p></li>
 <li><p><a class="reference internal" href="python-selenium.html"><span class="doc">Selenium 利用ノート</span></a></p></li>
+</ul>
+<p>セレクターを試すのならブラウザーの開発者ツールで事足りるかもしれない。</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="chrome.html"><span class="doc">Chrome DevTools 利用ノート</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -324,7 +327,7 @@ bash$ hxselect -c -s <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul class="current">

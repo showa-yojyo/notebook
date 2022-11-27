@@ -126,8 +126,8 @@
 </div>
 <div class="section" id="id5">
 <h2><a class="toc-backref" href="#id20">インストール</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
-<p>まず、私がこのパッケージを知った経緯について記す。単に pip の検索機能で知ったに過ぎない。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip search quaternion
+<p>まず、私がこのパッケージを知った経緯について記す。単に <strong class="program">pip</strong> の検索機能で知ったに過ぎない。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pip search quaternion</span>
 <span class="go">qmath                     - qmath provides a class for deal with quaternion algebra and 3D rotations.</span>
 <span class="go">  Root evaluations and Moebius transformations are implemented.</span>
 <span class="go">Quaternion                - Quaternion object manipulation</span>
@@ -141,7 +141,7 @@
 </pre></div>
 </div>
 <p>このように多数の候補が出力されるが、ここから私は一番名前が素直な Quaternion をインストールすることに決めた。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install Quaternion
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pip install Quaternion</span>
 <span class="go">Downloading/unpacking Quaternion</span>
 <span class="go">  Downloading Quaternion-0.03.1.tar.gz</span>
 <span class="go">  Running setup.py (path:D:\Temp\pip_build_work\Quaternion\setup.py) egg_info for package Quaternion</span>
@@ -154,7 +154,8 @@
 </pre></div>
 </div>
 <p>インストールの成功は、当モジュールを無事にインポートできるかどうかの確認を以って代える。</p>
-<p>インストール後のコピーライトによると、このパッケージは Smithsonian Astrophysical Observatory の作品だ。</p>
+<p>インストール後のコピーライトによると、このパッケージは Smithsonian Astrophysical
+Observatory の作品だ。</p>
 </div>
 <div class="section" id="id6">
 <h2><a class="toc-backref" href="#id21">使いたい機能を確認する</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
@@ -190,7 +191,8 @@
 <li><p>（回転）変換行列からの生成</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">Quat(m)</span></code> の形式で生成する。ここで <code class="docutils literal notranslate"><span class="pre">m</span></code> は <code class="docutils literal notranslate"><span class="pre">m.shape</span> <span class="pre">==</span> <span class="pre">(3,</span> <span class="pre">3)</span></code> を満たす <code class="docutils literal notranslate"><span class="pre">np.array</span></code> オブジェクトである。</p></li>
-<li><p>従って、無変換状態を表現するには単位行列を与える。例えば <code class="docutils literal notranslate"><span class="pre">Quat(np.identity(3))</span></code> とする。</p></li>
+<li><p>従って、無変換状態を表現するには単位行列を与える。例えば
+<code class="docutils literal notranslate"><span class="pre">Quat(np.identity(3))</span></code> とする。</p></li>
 <li><p>おそらく無条件で <code class="docutils literal notranslate"><span class="pre">q.transform</span> <span class="pre">==</span> <span class="pre">m</span></code> となる。</p></li>
 </ul>
 </li>
@@ -209,8 +211,7 @@
 <li><p>先述したが、内部的にはスカラー成分が正で表現されていることがわかる。</p></li>
 </ul>
 </li>
-<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.transform</span></code> で、この四元数の表現する回転変換を
-<code class="docutils literal notranslate"><span class="pre">np.array</span></code> の形でアクセスできる。</p>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">.transform</span></code> で、この四元数の表現する回転変換を <code class="docutils literal notranslate"><span class="pre">np.array</span></code> の形でアクセスできる。</p>
 <ul>
 <li><p>3 次正方行列の shape である。</p></li>
 <li><p>PyOpenGL のインターフェイスに渡す際には、これを 4 次正方行列に直す必要がある。</p>
@@ -227,7 +228,7 @@
 </div>
 <div class="section" id="id9">
 <h3><a class="toc-backref" href="#id25">四元数代数の演算</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
-<p>四元数の乗法は可換ではないことに注意するとよい。</p>
+<p>四元数の乗法は可換ではないことに注意する。</p>
 <ul>
 <li><p>加法、減法はサポートされていない。</p>
 <p>数学的には四元数には加減乗除が定義可能なのだが、利用目的が目的であることと、単位四元数だけを取り扱う方針があるらしいことから、作者は実装しないことを決めたのだろう。</p>
@@ -235,7 +236,8 @@
 <li><p>演算子 <code class="docutils literal notranslate"><span class="pre">*</span></code> による乗法が <code class="docutils literal notranslate"><span class="pre">__mul__</span></code> によりサポートされている。</p></li>
 <li><p>演算子 <code class="docutils literal notranslate"><span class="pre">/</span></code> による除法が <code class="docutils literal notranslate"><span class="pre">__div__</span></code> によりサポートされている。ただし <code class="docutils literal notranslate"><span class="pre">lhs</span> <span class="pre">/</span> <span class="pre">rhs</span></code> の意味は <code class="docutils literal notranslate"><span class="pre">lhs</span> <span class="pre">*</span> <span class="pre">rhs.inv()</span></code> である。いわば「右からの除法」ということだ。</p></li>
 </ul>
-<p>グラフィックスのプログラムでの応用としては、ひとつの <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトにひとつの「ある軸周りの、ある角度だけの回転操作」の意味を持たせることを考える。複数の <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトの積は、複数の連続回転操作の意味を持たせることができるはずだ。回転の順番に注意を要するのと同様に、四元数同士の積の順番にも注意を要する。</p>
+<p>グラフィックスのプログラムでの応用としては、ひとつの <code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトにひとつの「ある軸周りの、ある角度だけの回転操作」の意味を持たせることを考える。複数の
+<code class="docutils literal notranslate"><span class="pre">Quat</span></code> オブジェクトの積は、複数の連続回転操作の意味を持たせることができるはずだ。回転の順番に注意を要するのと同様に、四元数同士の積の順番にも注意を要する。</p>
 </div>
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id26">逆元</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
@@ -254,7 +256,8 @@
 <p>ここでひとつ四元数を用いた回転変換を計算する例を試そう。
 <a class="reference external" href="http://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">Quaternions and spatial rotation</a> の Example の回転をコード化してみよう。ただし、ここでは conjugation ではなく回転行列を用いる。つまり：</p>
 <ol class="arabic simple">
-<li><p>与えられた角度 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> と回転軸 <code class="docutils literal notranslate"><span class="pre">axis</span></code> に対して、四元数オブジェクト <code class="docutils literal notranslate"><span class="pre">q</span></code> を返す関数を作成する。</p></li>
+<li><p>与えられた角度 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> と回転軸 <code class="docutils literal notranslate"><span class="pre">axis</span></code> に対して、四元数オブジェクト <code class="docutils literal notranslate"><span class="pre">q</span></code>
+を返す関数を作成する。</p></li>
 <li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">q.transform</span></code> を用いて、いろいろな 3 次元ベクトルの回転を試す。</p></li>
 </ol>
 <div class="section" id="id13">
@@ -268,7 +271,8 @@
     <span class="k">return</span> <span class="n">Quat</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">cosa</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>IPython のセッションでコードを試すつもりでいるので、各種 import 文を省略している。それから関数全体をおもむろにクリップボードにコピーし、IPython のセッションで <code class="docutils literal notranslate"><span class="pre">%paste</span></code> する。</p>
+<p>IPython のセッションでコードを試すつもりでいるので、各種 import 文を省略している。それから関数全体をおもむろにクリップボードにコピーし、IPython のセッションで
+<strong class="command">%paste</strong> する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">paste</span>
 <span class="go">def make_quat(alpha, axis):</span>
 <span class="go">    def make_quat(alpha, axis):</span>
@@ -445,7 +449,7 @@
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul>

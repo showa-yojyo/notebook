@@ -50,7 +50,7 @@ Marketplace Language Packs
 ======================================================================
 
 英語以外のロケールは Marketplace Language Packs で利用可能だ。Language Packs は
-:guilabel:`EXTENSIONS` ビューで、言語名と :samp:`category:"Language Packs"` を入
+:guilabel:`EXTENSIONS` ビューで、言語名と :code:`category:"Language Packs"` を入
 力して検索する。
 
 Language Packs を複数インストールすることができる。コマンド

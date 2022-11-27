@@ -85,7 +85,7 @@
 WebGL に翻訳しながら学習するということも有力だ。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.khronos.org/webgl/">WebGL Overview - The Khronos Group Inc</a>:
-WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。なお、DeepL を利用する都合上、PDF よりは HTML のほうが具合がいい。</p></li>
+WebGL 総本山。関連仕様書をダウンロードしてローカルディスクに保存しておくと吉。なお、<strong class="program">DeepL</strong> を利用する都合上、PDF よりは HTML のほうが具合がいい。</p></li>
 <li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL: 2D and 3D graphics for the web - Web APIs |
 MDN</a>:
 ここにある資料を基本書としてまずは学習していく。</p>
@@ -105,15 +105,15 @@ C 言語で書かれたプログラムの解説だ。WebGL コードに書き換
 <li><p><a class="reference external" href="https://webglfundamentals.org/">WebGL Fundamentals</a>: OpenGL のそれも含む基礎から学ぶ。このサイトの造りは恐ろしく良い。熟読推奨。</p></li>
 <li><p><a class="reference external" href="https://webgl2fundamentals.org/">WebGL2 Fundamentals</a>: 上記サイトの続編。今ならこちらだけを読むほうがいい。熟読推奨。</p></li>
 <li><p><a class="reference external" href="https://glmatrix.net/">glMatrix</a>: ベクトルや行列の演算をする JavaScript ライブラリー。効率を優先する必要があるからだろうが、インターフェイスに若干クセがある。</p></li>
-<li><p><a class="reference external" href="https://thebookofshaders.com/">The Book of Shaders</a>:
-断片シェーダーの技法に磨きをかける一冊。GLSL のバージョンがやや古いところを読者がカバーしたい。おすすめは easing の概念を丹念に説明した章だ。グラフィックス以外にも応用が効くものなので、時間をかけて習得する価値がある。</p></li>
+<li><p><a class="reference external" href="https://thebookofshaders.com/">The Book of Shaders</a>: 断片シェーダーの技法に磨きをかける一冊。GLSL のバージョンがやや古いところを読者がカバーしたい。おすすめは easing の概念を丹念に説明した章だ。グラフィックス以外にも応用が効くものなので、時間をかけて習得する価値がある。</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id17">環境構築</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>モダンなブラウザーとテキストエディター</p></li>
-<li><p>HTTP サーバーを起動できるようにしておく。例えば Python を使えるのならば次のコマンドでカレントディレクトリーをルートにしてサーバーが開始する。&lt;<a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>&gt; を開くと <code class="docutils literal notranslate"><span class="pre">./index.html</span></code> が表示される。</p>
+<li><p>HTTP サーバーを起動できるようにしておく。例えば Python を使えるのならば次のコマンドでカレントディレクトリーをルートにしてサーバーが開始する。
+&lt;<a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>&gt; を開くと <code class="file docutils literal notranslate"><span class="pre">./index.html</span></code> が表示される。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ python -m http.server 8000 --bind 127.0.0.1</span>
 </pre></div>
 </div>
@@ -170,22 +170,21 @@ C 言語で書かれたプログラムの解説だ。WebGL コードに書き換
 <p>この形式では <code class="docutils literal notranslate"><span class="pre">document.querySelector(&quot;#shader&quot;).innerHTML</span></code> を
 <code class="docutils literal notranslate"><span class="pre">gl.shaderSource</span></code> に実引数として渡すことで動作する。</p>
 </li>
-<li><p>GLSL コードを個別にテキストファイルに保存してあるとする。これを JavaScript コードから <code class="docutils literal notranslate"><span class="pre">fetch</span></code> でロードすることを考えると、それを呼び出す関数、さらにそれを呼び出す関数等々を非同期関数に書くのが自然になる。</p></li>
+<li><p>GLSL コードを個別にテキストファイルに保存してあるとする。これを JavaScript
+コードから <code class="docutils literal notranslate"><span class="pre">fetch</span></code> でロードすることを考えると、それを呼び出す関数、さらにそれを呼び出す関数等々を非同期関数に書くのが自然になる。</p></li>
 </ul>
 </div>
 <div class="section" id="opengl-javascript">
 <h3><a class="toc-backref" href="#id21">OpenGL との相違点と JavaScript 固有の事情</a><a class="headerlink" href="#opengl-javascript" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> のメンバー名と、元になっている OpenGL API
-の名前との対応関係を体で理解する。例を挙げると：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">WebGLRenderingContext</span></code> のメンバー名と、元になっている OpenGL API の名前との対応関係を体で理解する。例を挙げると：</p>
 <ul>
-<li><p>定数名 <code class="docutils literal notranslate"><span class="pre">GL_COLOR_BUFFER_BIT</span></code> などは <code class="docutils literal notranslate"><span class="pre">gl.COLOR_BUFFER_BIT</span></code>
-などのようになる。</p></li>
-<li><p>関数名 <code class="docutils literal notranslate"><span class="pre">glVertrexAttribPointer</span></code> などは
-<code class="docutils literal notranslate"><span class="pre">gl.vertexAttribPointer</span></code> などのようになる。</p></li>
+<li><p>定数名 <code class="docutils literal notranslate"><span class="pre">GL_COLOR_BUFFER_BIT</span></code> などは <code class="docutils literal notranslate"><span class="pre">gl.COLOR_BUFFER_BIT</span></code> などのようになる。</p></li>
+<li><p>関数名 <code class="docutils literal notranslate"><span class="pre">glVertrexAttribPointer</span></code> などは``gl.vertexAttribPointer`` などのようになる。</p></li>
 </ul>
 </li>
-<li><p>WebGL は OpenGL 同様に強力に型付けされたデータを必要とするので、次の JavaScript クラスを使いこなせるようにしておくことだ：</p>
+<li><p>WebGL は OpenGL 同様に強力に型付けされたデータを必要とするので、次の
+JavaScript クラスを使いこなせるようにしておくことだ：</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Uint8Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Uint8ClampedArray</span></code>: RGBA 値などに応用</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Uint16Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Uint32Array</span></code>: インデックスデータに応用</p></li>
@@ -200,8 +199,7 @@ C 言語で書かれたプログラムの解説だ。WebGL コードに書き換
 </li>
 <li><p>C/C++ で言う基本型のサイズを JavaScript で得るには、例えば
 <code class="docutils literal notranslate"><span class="pre">Float32Array.BYTES_PER_ELEMENT</span></code> などの定数を参照する。</p></li>
-<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">gl.createBuffer</span></code> が OpenGL の <code class="docutils literal notranslate"><span class="pre">glGenBuffers</span></code> の代わりになるようだ。同様にメソッド <code class="docutils literal notranslate"><span class="pre">gl.createTexture</span></code> が OpenGL の <code class="docutils literal notranslate"><span class="pre">glGenTextures</span></code> の代わりになる。
-WebGL にはこの種のメソッドがあと二つある。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">gl.createBuffer</span></code> が OpenGL の <code class="docutils literal notranslate"><span class="pre">glGenBuffers</span></code> の代わりになるようだ。同様にメソッド <code class="docutils literal notranslate"><span class="pre">gl.createTexture</span></code> が OpenGL の <code class="docutils literal notranslate"><span class="pre">glGenTextures</span></code> の代わりになる。 WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gl.uniformMatrix[234]fv</span></code> の第二引数は <code class="docutils literal notranslate"><span class="pre">false</span></code> でなければならない。</p></li>
 <li><p>例えば <code class="docutils literal notranslate"><span class="pre">gl.VertexAttribPointer</span></code> の引数 <code class="docutils literal notranslate"><span class="pre">normalize</span></code> の型が <code class="docutils literal notranslate"><span class="pre">GLboolean</span></code>
 ではなく JavaScript の基本型の <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> であることに注意。これはハマった。</p></li>
@@ -212,13 +210,11 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <ul class="simple">
 <li><p>HTML の <code class="docutils literal notranslate"><span class="pre">canvas</span></code> タグの使い方を習得する。レンダリングコンテキストオブジェクトをここから得る。</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">canvas.getContext('webgl')</span></code> でそれを得る。そのオブジェクト名を
-<code class="docutils literal notranslate"><span class="pre">gl</span></code> とすること。決め打っていい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">canvas.getContext('webgl')</span></code> でそれを得る。そのオブジェクト名を <code class="docutils literal notranslate"><span class="pre">gl</span></code> とすること。決め打っていい。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gl.canvas</span></code> でキャンバスを参照する。</p></li>
 </ul>
 </li>
-<li><p>例えば射影行列など、実際の描画領域としてキャンバスのアスペクト比を考慮するならば、
-<code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> を採用する。</p>
+<li><p>例えば射影行列など、実際の描画領域としてキャンバスのアスペクト比を考慮するならば、<code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> を採用する。</p>
 <ul>
 <li><p>一般に、キャンバスの寸法としてこれらのプロパティーを使うのが原則だ。</p></li>
 </ul>
@@ -226,9 +222,9 @@ WebGL にはこの種のメソッドがあと二つある。</p></li>
 <li><p>キャンバスのサイズは二種類あって、ピクセル単位のものと表示単位のものがある。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">canvas</span></code> タグの属性として設定する方法。</p></li>
-<li><p>それに加えて CSS から <cite>width</cite> と <cite>height</cite> が設定されている場合、
-WebGL の描画バッファーのサイズはタグ属性のほうを採る。</p></li>
-<li><p>タグ要素 <cite>clientWidth</cite>, <cite>clientHeight</cite> は CSS ピクセル単位。手動で <cite>canvas.width</cite> などに代入する。</p></li>
+<li><p>それに加えて CSS から <code class="docutils literal notranslate"><span class="pre">width</span></code> と <code class="docutils literal notranslate"><span class="pre">height</span></code> が設定されている場合、WebGL の描画バッファーのサイズはタグ属性のほうを採る。</p></li>
+<li><p>タグ要素 <code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> は CSS ピクセル単位。手動で
+<code class="docutils literal notranslate"><span class="pre">canvas.width</span></code> などに代入する。</p></li>
 </ul>
 </li>
 <li><p>リサイズしたら <code class="docutils literal notranslate"><span class="pre">gl.viewport</span></code> が基本的だ。</p></li>
@@ -288,9 +284,7 @@ WebGL の描画バッファーのサイズはタグ属性のほうを採る。</
 </pre></div>
 </div>
 </li>
-<li><p>上述の glMatrix のサイトから <code class="docutils literal notranslate"><span class="pre">gl-matrix-min.js</span></code>
-を入手しておくとよい。適当に unminify して <code class="docutils literal notranslate"><span class="pre">s/var/let/g</span></code>
-するとさらに良い。</p>
+<li><p>上述の glMatrix のサイトから <code class="file docutils literal notranslate"><span class="pre">gl-matrix-min.js</span></code> を入手しておくとよい。適当に unminify して <code class="docutils literal notranslate"><span class="pre">s/var/let/g</span></code> するとさらに良い。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">mat4.create()</span></code> で行列オブジェクトを生成するらしい。この戻り値に対して
 <code class="docutils literal notranslate"><span class="pre">perspective</span></code>, <code class="docutils literal notranslate"><span class="pre">translate</span></code> などのメソッドを呼び出して成分を決める。</p></li>
@@ -301,24 +295,23 @@ WebGL の描画バッファーのサイズはタグ属性のほうを採る。</
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id26">テクスチャー・画像・ビデオ</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <ul>
-<li><p>画像ファイルからテクスチャーを生成するのに JavaScript のクラス
-<code class="docutils literal notranslate"><span class="pre">Image</span></code> を活用することをよく理解すること。特に <code class="docutils literal notranslate"><span class="pre">onload</span></code>
-で非同期的に <code class="docutils literal notranslate"><span class="pre">gl.texImage2D</span></code> を呼び出せるのがたいへん具合が良い。</p>
+<li><p>画像ファイルからテクスチャーを生成するのに JavaScript のクラス <code class="docutils literal notranslate"><span class="pre">Image</span></code> を活用することをよく理解すること。特に <code class="docutils literal notranslate"><span class="pre">onload</span></code> で非同期的に <code class="docutils literal notranslate"><span class="pre">gl.texImage2D</span></code>
+を呼び出せるのがたいへん具合が良い。</p>
 <ul class="simple">
-<li><p>このような動的にファイルをロードするコードがある場合、
-<code class="docutils literal notranslate"><span class="pre">file://</span></code> から始まるパスで HTML をブラウザーで開くと上手くいかない。作業ディレクトリーから HTTP サーバーを起動するのが普通だ。</p></li>
+<li><p>このような動的にファイルをロードするコードがある場合、<code class="docutils literal notranslate"><span class="pre">file://</span></code> から始まるパスで HTML をブラウザーで開くと上手くいかない。作業ディレクトリーから HTTP
+サーバーを起動するのが普通だ。</p></li>
 </ul>
 </li>
 <li><p>HTML キャンバスで <code class="docutils literal notranslate"><span class="pre">context.getImageData</span></code> がセキュリティーエラーを出すことがある。画像のソースがよそのドメインからだとこうなる。</p>
 <ul class="simple">
 <li><p>WebGL は同じドメイン以外の画像を禁止している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Image.crossOrigin</span></code> の値をどう設定するかが重要だ。イメージソースと自分のサイトのドメインが一致していなければ、この値をとりあえず空文字列にする。それから <cite>.url</cite> に所望のアドレスを代入すると、先方ドメインが寛容ならば画像が得られる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.crossOrigin</span></code> の値をどう設定するかが重要だ。イメージソースと自分のサイトのドメインが一致していなければ、この値をとりあえず空文字列にする。それから <code class="docutils literal notranslate"><span class="pre">.url</span></code> に所望のアドレスを代入すると、先方ドメインが寛容ならば画像が得られる。</p></li>
 </ul>
 </li>
 <li><p>ビデオをテクスチャーに設定することが比較的容易に実現できる。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">documentCreate</span></code> で <code class="docutils literal notranslate"><span class="pre">video</span></code> タグを生成し、
-<code class="docutils literal notranslate"><span class="pre">onplaying</span></code> と <code class="docutils literal notranslate"><span class="pre">ontimeupdate</span></code> イベントハンドラーを実装する手法がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">documentCreate</span></code> で <code class="docutils literal notranslate"><span class="pre">video</span></code> タグを生成し、<code class="docutils literal notranslate"><span class="pre">onplaying</span></code> と
+<code class="docutils literal notranslate"><span class="pre">ontimeupdate</span></code> イベントハンドラーを実装する手法がある。</p></li>
 </ul>
 </li>
 <li><p>サポートされているテクスチャーユニットの数をシェーダーごとにあらかじめ確認しておくといい。</p>
@@ -358,7 +351,8 @@ WebGL の描画バッファーのサイズはタグ属性のほうを採る。</
 <h3><a class="toc-backref" href="#id29">データフォーマット</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Blender OBJ フォーマットのローダーはインターネットに転がっているので、そのまま拝借する。自作してもいいが、それにより得られる経験値は多くはない。あるものを利用するほうがいい。</p></li>
-<li><p>DDS のローダーを書くのはそこまで難しくはない。&lt;<a class="reference external" href="https://gist.github.com/showa-yojyo/a21b1feb0dca84bcc61fe50c4c00c714">https://gist.github.com/showa-yojyo/a21b1feb0dca84bcc61fe50c4c00c714</a>&gt;</p></li>
+<li><p>DDS のローダーを書くのはそこまで難しくはない。
+&lt;<a class="reference external" href="https://gist.github.com/showa-yojyo/a21b1feb0dca84bcc61fe50c4c00c714">https://gist.github.com/showa-yojyo/a21b1feb0dca84bcc61fe50c4c00c714</a>&gt;</p></li>
 </ul>
 </div>
 </div>
@@ -506,7 +500,7 @@ WebGL の描画バッファーのサイズはタグ属性のほうを採る。</
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul class="current">

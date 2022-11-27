@@ -60,13 +60,13 @@
 <li><p><a class="reference internal" href="#id4" id="id16">インストール</a></p></li>
 <li><p><a class="reference internal" href="#id5" id="id17">利用方法</a></p>
 <ul>
-<li><p><a class="reference internal" href="#nosetests" id="id18"><code class="file docutils literal notranslate"><span class="pre">nosetests</span></code></a></p>
+<li><p><a class="reference internal" href="#nosetests" id="id18"><strong class="program">nosetests</strong></a></p>
 <ul>
-<li><p><a class="reference internal" href="#collect-only" id="id19">collect-only オプション – テスト名だけを調べる</a></p></li>
-<li><p><a class="reference internal" href="#attr" id="id20">attr オプション – 属性を指定することで起動するテストを選択する</a></p></li>
-<li><p><a class="reference internal" href="#pdb-failures" id="id21">pdb-failures オプション – テスト失敗時にデバッガーを起動</a></p></li>
-<li><p><a class="reference internal" href="#with-coverage" id="id22">with-coverage オプション – コードカバレッジ</a></p></li>
-<li><p><a class="reference internal" href="#with-profile" id="id23">with-profile オプション – プロファイリング</a></p></li>
+<li><p><a class="reference internal" href="#collect-only" id="id19"><code class="docutils literal notranslate"><span class="pre">collect-only</span></code> オプション – テスト名だけを調べる</a></p></li>
+<li><p><a class="reference internal" href="#attr" id="id20"><code class="docutils literal notranslate"><span class="pre">attr</span></code> オプション – 属性を指定することで起動するテストを選択する</a></p></li>
+<li><p><a class="reference internal" href="#pdb-failures" id="id21"><code class="docutils literal notranslate"><span class="pre">pdb-failures</span></code> オプション – テスト失敗時にデバッガーを起動</a></p></li>
+<li><p><a class="reference internal" href="#with-coverage" id="id22"><code class="docutils literal notranslate"><span class="pre">with-coverage</span></code> オプション – コードカバレッジ</a></p></li>
+<li><p><a class="reference internal" href="#with-profile" id="id23"><code class="docutils literal notranslate"><span class="pre">with-profile</span></code> オプション – プロファイリング</a></p></li>
 <li><p><a class="reference internal" href="#id6" id="id24">オプションメモ</a></p></li>
 </ul>
 </li>
@@ -107,8 +107,8 @@
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id15">目的</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> 自身は、その目的をドキュメントの冒頭に &lt;nose is nicer testing for python&gt; や
-&lt;nose extends unittest to make testing easier&gt; と謳っている。さらに、プログラムの狙いを次の 4 点に絞っている。</p>
+<p><a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> 自身は、その目的をドキュメントの冒頭に &lt;nose is nicer testing for python&gt;
+や &lt;nose extends unittest to make testing easier&gt; と謳っている。さらに、プログラムの狙いを次の 4 点に絞っている。</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><p>テストコードを書くのを簡単に。</p></li>
@@ -117,49 +117,48 @@
 <li><p>やりたいことをやることを簡単に。</p></li>
 </ol>
 </div></blockquote>
-<p>そして私が <a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> を利用する目的は何かというと、主に「走らせるのを簡単に」ではないかと思う。
-Python 標準の <code class="docutils literal notranslate"><span class="pre">unittest</span></code> だけで単体テストをやろうとすると、TestSuite を集めて TestRunner に渡すコードを書く、という、これまでよくやってきた作業パターンが億劫に感じられるはずだ。</p>
+<p>そして私が <a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> を利用する目的は何かというと、主に「走らせるのを簡単に」ではないかと思う。 Python 標準の <code class="docutils literal notranslate"><span class="pre">unittest</span></code> だけで単体テストをやろうとすると、
+TestSuite を集めて TestRunner に渡すコードを書くという、これまでよくやってきた作業パターンが億劫に感じられるはずだ。</p>
 </div>
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id16">インストール</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>方法については <a class="reference internal" href="python-miniconda.html#python-pkg-proc"><span class="std std-ref">一般のサードパーティー製 Python パッケージのインストール手順</span></a> で図示したので、そちらを参照して欲しい。インストールが成功終了後は、Python 環境は次のように変化している。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Lib/site-packages/nose</span></code> フォルダーが存在する。当然その中には py モジュールが含まれている。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Scripts</span></code> フォルダーに実行ファイル <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> が存在する。特に Windows の場合、これは exe ファイルである。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Lib/site-packages/nose</span></code> フォルダーが存在する。当然その中には py モジュールが含まれている。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Scripts</span></code> フォルダーに実行ファイル <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> が存在する。特に
+Windows の場合、これは exe ファイルである。</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h2><a class="toc-backref" href="#id17">利用方法</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
-<p><code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> と Nose ライブラリー本体の利用方法に分けて理解する。</p>
+<p><strong class="program">nosetests</strong> と Nose ライブラリー本体の利用方法に分けて理解する。</p>
 <div class="section" id="nosetests">
-<h3><a class="toc-backref" href="#id18"><code class="file docutils literal notranslate"><span class="pre">nosetests</span></code></a><a class="headerlink" href="#nosetests" title="Permalink to this heading">¶</a></h3>
-<p>Nose をインストールすると、Python パッケージだけでなく、
-<code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> というスクリプトか実行ファイルが <code class="docutils literal notranslate"><span class="pre">Scripts</span></code> フォルダーにインストールされる。</p>
+<h3><a class="toc-backref" href="#id18"><strong class="program">nosetests</strong></a><a class="headerlink" href="#nosetests" title="Permalink to this heading">¶</a></h3>
+<p>Nose をインストールすると、Python パッケージだけでなく、<strong class="program">nosetests</strong> というスクリプトか実行ファイルが <code class="file docutils literal notranslate"><span class="pre">Scripts</span></code> フォルダーにインストールされる。</p>
 <ul>
 <li><p>これは py ファイルからテストを自動的に発見し、実行することができる便利なツールだ。</p></li>
 <li><p>引数なしで起動すると、おそらくカレントディレクトリーにあるすべての py ファイルから、すべてのテストを発見し、片っ端から実行するというはたらきをするのではないだろうか。</p></li>
-<li><p>普通は <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> にコマンドライン引数を指定して利用する。次のコマンドライン例は Nose のドキュメントから引用したものだ。モジュール名を指定したり、さらにテスト名を指定したり、あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests test.module
-<span class="gp">$ </span>nosetests another.test:TestCase.test_method
-<span class="gp">$ </span>nosetests a.test:TestCase
-<span class="gp">$ </span>nosetests /path/to/test/file.py:test_function
+<li><p>普通は <strong class="program">nosetests</strong> にコマンドライン引数を指定して利用する。次のコマンドライン例は Nose のドキュメントから引用したものだ。モジュール名を指定したり、さらにテスト名を指定したり、あるいはモジュールフルパスプラステスト名という指定の仕方がサポートされているようだ。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ nosetests test.module</span>
+<span class="go">bash$ nosetests another.test:TestCase.test_method</span>
+<span class="go">bash$ nosetests a.test:TestCase</span>
+<span class="go">bash$ nosetests /path/to/test/file.py:test_function</span>
 </pre></div>
 </div>
 </li>
 <li><p>ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests /path/to/tests /another/path/to/tests
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ nosetests /path/to/tests /another/path/to/tests</span>
 </pre></div>
 </div>
 <p>なので、実は <code class="docutils literal notranslate"><span class="pre">-w</span></code>, <code class="docutils literal notranslate"><span class="pre">--where</span></code> オプションは無用の長物。</p>
 </li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> は豊富なコマンドラインオプションを提供している。</p></li>
+<li><p><strong class="program">nosetests</strong> は豊富なコマンドラインオプションを提供している。</p></li>
 <li><p>コマンドラインオプションと同等の設定を設定ファイルからも行える。</p>
 <ul>
-<li><p>デフォルトの設定ファイルは <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> にある <code class="file docutils literal notranslate"><span class="pre">.noserc</span></code> または <code class="file docutils literal notranslate"><span class="pre">nose.cfg</span></code> だ。</p></li>
-<li><p>任意の設定ファイルパスをコマンドラインから
-<code class="docutils literal notranslate"><span class="pre">--config</span></code> オプションを利用することで指定できる。</p></li>
-<li><p>設定ファイルの書き方で注意が要るのは、設定項目を
-<code class="docutils literal notranslate"><span class="pre">[nosetests]</span></code> セクションに書かねばならないことだ。</p>
+<li><p>デフォルトの設定ファイルは <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> にある <code class="file docutils literal notranslate"><span class="pre">.noserc</span></code> または
+<code class="file docutils literal notranslate"><span class="pre">nose.cfg</span></code> だ。</p></li>
+<li><p>任意の設定ファイルパスをコマンドラインから <code class="docutils literal notranslate"><span class="pre">--config</span></code> オプションを利用することで指定できる。</p></li>
+<li><p>設定ファイルの書き方で注意が要るのは、設定項目を <code class="docutils literal notranslate"><span class="pre">[nosetests]</span></code> セクションに書かねばならないことだ。</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[nosetests]</span><span class="w"></span>
 <span class="na">verbosity</span><span class="o">=</span><span class="s">2</span><span class="w"></span>
 <span class="na">with-doctest</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
@@ -172,13 +171,13 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 </ul>
 <p>次に、使えそうなオプションを調べてみよう。</p>
 <div class="section" id="collect-only">
-<h4><a class="toc-backref" href="#id19">collect-only オプション – テスト名だけを調べる</a><a class="headerlink" href="#collect-only" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id19"><code class="docutils literal notranslate"><span class="pre">collect-only</span></code> オプション – テスト名だけを調べる</a><a class="headerlink" href="#collect-only" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">--collect-only</span></code> オプションでテストを実行せずにテスト名だけを確認できる。</p>
 <ul class="simple">
 <li><p>さらに <code class="docutils literal notranslate"><span class="pre">--with-id</span></code> を併用し、テストのインデックスリストも得られる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--verbosity</span></code> オプションを併用して、テスト名等を明示させるのがコツ。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --collect-only --with-id --verbosity<span class="o">=</span><span class="m">2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ nosetests --collect-only --with-id --verbosity=2</span>
 <span class="gp">#</span><span class="m">1</span> A regular <span class="nb">test</span> <span class="k">case</span> ... ok
 <span class="gp">#</span><span class="m">2</span> A very slow <span class="nb">test</span> <span class="k">case</span> ... ok
 <span class="gp">#</span><span class="m">3</span> A <span class="nb">test</span> with attribute ... ok
@@ -205,9 +204,9 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 </div>
 </div>
 <div class="section" id="attr">
-<h4><a class="toc-backref" href="#id20">attr オプション – 属性を指定することで起動するテストを選択する</a><a class="headerlink" href="#attr" title="Permalink to this heading">¶</a></h4>
-<p>テストケースをいっぱい書いたはいいが、「今はこのテストだけをやりたいンだ」「このテストは通常はやりたくないンだ」という状況に陥りがち。そんなときには <code class="docutils literal notranslate"><span class="pre">--attr</span></code>, <code class="docutils literal notranslate"><span class="pre">--eval-attr</span></code>
-オプションの仕組みをうまくテストコードに組み込む。</p>
+<h4><a class="toc-backref" href="#id20"><code class="docutils literal notranslate"><span class="pre">attr</span></code> オプション – 属性を指定することで起動するテストを選択する</a><a class="headerlink" href="#attr" title="Permalink to this heading">¶</a></h4>
+<p>テストケースをいっぱい書いたはいいが、「今はこのテストだけをやりたいンだ」「このテストは通常はやりたくないンだ」という状況に陥りがち。そんなときには <code class="docutils literal notranslate"><span class="pre">--attr</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--eval-attr</span></code> オプションの仕組みをうまくテストコードに組み込む。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot; testattr2.py: Demonstrate Nose.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -228,8 +227,8 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 <span class="c1"># Other test cases...</span>
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests -a <span class="s1">&#39;!online&#39;</span> testattr2.py
-<span class="gp">$ </span>nosetests -A <span class="s2">&quot;speed != slow&quot;</span> testattr2.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ nosetests -a &#39;!online&#39; testattr2.py</span>
+<span class="go">bash$ nosetests -A &quot;speed != slow&quot; testattr2.py</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -238,14 +237,14 @@ Python 標準の <code class="docutils literal notranslate"><span class="pre">un
 </ul>
 </div>
 <div class="section" id="pdb-failures">
-<h4><a class="toc-backref" href="#id21">pdb-failures オプション – テスト失敗時にデバッガーを起動</a><a class="headerlink" href="#pdb-failures" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id21"><code class="docutils literal notranslate"><span class="pre">pdb-failures</span></code> オプション – テスト失敗時にデバッガーを起動</a><a class="headerlink" href="#pdb-failures" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">--pdb-failures</span></code> オプションを指定しておくと、テストが FAILURE になった地点で
-Python の pdb デバッガが起動する。</p>
+Python の <strong class="program">pdb</strong> デバッガが起動する。</p>
 <ul class="simple">
 <li><p>通常使いたいのは <code class="docutils literal notranslate"><span class="pre">--pdb</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">--pdb-faillures</span></code> のほうだと思う。</p></li>
-<li><p>pdb はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。</p></li>
+<li><p><strong class="program">pdb</strong> はコンソールベースのデバッガ。正直なところ不慣れなツールだが、この際慣れておく。</p></li>
 </ul>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --pdb-failures testeven.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ nosetests --pdb-failures testeven.py</span>
 <span class="go">.&gt; d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()</span>
 <span class="go">-&gt; assert val1 % 2 == 0 or val2 % 2 == 0</span>
 <span class="gp gp-VirtualEnv">(Pdb)</span> <span class="go">l</span>
@@ -262,14 +261,15 @@ Python の pdb デバッガが起動する。</p>
 </pre></div>
 </div>
 <p>エラーの発生とは関係なく、特定の箇所でステップ実行を有効にする方法もある。まずはステップ実行したいコードを含むモジュールで
-<code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">nose.tools</span> <span class="pre">import</span> <span class="pre">set_trace</span></code> をする。それから対象コードの直前で <code class="code docutils literal notranslate"><span class="pre">set_trace()</span></code> すればよい。</p>
+<code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">nose.tools</span> <span class="pre">import</span> <span class="pre">set_trace</span></code> をする。それから対象コードの直前で
+<code class="code docutils literal notranslate"><span class="pre">set_trace()</span></code> すればよい。</p>
 </div>
 <div class="section" id="with-coverage">
-<h4><a class="toc-backref" href="#id22">with-coverage オプション – コードカバレッジ</a><a class="headerlink" href="#with-coverage" title="Permalink to this heading">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">--with-coverage</span></code> オプションで、テスト結果と共にコードカバレッジを測定できる。いつものテスト結果を出力した直後に、カバレッジを出力する。</p>
+<h4><a class="toc-backref" href="#id22"><code class="docutils literal notranslate"><span class="pre">with-coverage</span></code> オプション – コードカバレッジ</a><a class="headerlink" href="#with-coverage" title="Permalink to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">--with-coverage</span></code> オプションでテスト結果と共にコードカバレッジを測定できる。いつものテスト結果を出力した直後に、カバレッジを出力する。</p>
 <p>チューニングの材料になるわけで、いずれ大掛かりなライブラリーを開発するつもりならば、この機能は覚えていて損はない。</p>
 <p>この機能を利用するには、別途 <a class="reference external" href="http://nedbatchelder.com/code/coverage">coverage</a> という別のパッケージが必要だ。インストールは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nosetests --with-coverage -v testrandom.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ nosetests --with-coverage -v testrandom.py</span>
 <span class="go">test_choice (testrandom.TestSequenceFunctions) ... ok</span>
 <span class="go">test_sample (testrandom.TestSequenceFunctions) ... ok</span>
 <span class="go">test_shuffle (testrandom.TestSequenceFunctions) ... ok</span>
@@ -286,12 +286,12 @@ Python の pdb デバッガが起動する。</p>
 </div>
 </div>
 <div class="section" id="with-profile">
-<h4><a class="toc-backref" href="#id23">with-profile オプション – プロファイリング</a><a class="headerlink" href="#with-profile" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id23"><code class="docutils literal notranslate"><span class="pre">with-profile</span></code> オプション – プロファイリング</a><a class="headerlink" href="#with-profile" title="Permalink to this heading">¶</a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>筆者環境では Nose 1.3.3 でこの機能が利用できなくなっている。</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">--with-profile</span></code> オプションで、テストに関係した全関数に対する呼び出しの回数や時間の統計を取れる。いつものテスト結果を出力した直後に、プロファイル結果を出力する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">--with-profile</span></code> オプションでテストに関係した全関数に対する呼び出しの回数や時間の統計を取れる。いつものテスト結果を出力した直後に、プロファイル結果を出力する。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">         4101 function calls (4084 primitive calls) in 0.201 CPU seconds</span>
 
 <span class="go">   Ordered by: cumulative time</span>
@@ -319,9 +319,10 @@ Python の pdb デバッガが起動する。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">-V</span></code> または <code class="docutils literal notranslate"><span class="pre">--version</span></code> で <code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> のバージョンを表示。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code> または <code class="docutils literal notranslate"><span class="pre">--verbosity</span></code> で表示を少々やかましくできる。テスト名確認時にはこれを併用するだろう。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">REGEX</span></code> 系オプションで「テストとみなしたいファイル・ディレクトリー・関数・クラス名にマッチする」正規表現を指定できる。</p>
-<p>デフォルトで <code class="docutils literal notranslate"><span class="pre">(?:^|[\b_\.\-])[Tt]est</span></code> になっていることを押させておけばよい。</p>
+<p>デフォルトで <code class="regexp docutils literal notranslate"><span class="pre">(?:^|[b_.-])[Tt]est</span></code> になっていることを押させておけばよい。</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code> または <code class="docutils literal notranslate"><span class="pre">--plugins</span></code> オプションで、有効なプラグインの一覧を表示。ただし出力順が何で決まるのかわからないので、適当に <code class="docutils literal notranslate"><span class="pre">grep</span></code> や <code class="docutils literal notranslate"><span class="pre">sort</span></code> にパイプして見やすくするべし。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code> または <code class="docutils literal notranslate"><span class="pre">--plugins</span></code> オプションで、有効なプラグインの一覧を表示。ただし出力順が何で決まるのかわからないので、適当に <strong class="program">grep</strong> や
+<strong class="program">sort</strong> にパイプして見やすくするべし。</p></li>
 </ul>
 </div>
 </div>
@@ -335,19 +336,17 @@ Python の pdb デバッガが起動する。</p>
 <li><p>テスト関数はモジュールの先頭から出現順に走らせる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TestCase</span></code> サブクラスまたはその他のテストクラスは、名前のアルファベット順に走らせる。</p></li>
 <li><p>Fixture について</p>
-<ul>
+<ul class="simple">
 <li><p>どうやら setup/teardown ペアのことを test fixture と呼ぶらしい。</p></li>
 <li><p>Nose はパッケージレベル、モジュールレベル、クラスレベル、関数レベルで
-fixture をサポートしている。</p>
-<p>言い換えれば、これらの各レベルでテストの概念がある。</p>
-</li>
+fixture をサポートしている。言い換えれば、これらの各レベルでテストの概念がある。</p></li>
 </ul>
 </li>
 <li><p>テストパッケージ</p>
 <ul class="simple">
 <li><p>Nose はテストをパッケージの形に編成することを認めている。</p></li>
-<li><p>パッケージレベルでの setup/teardown の概念が存在する。それらはいずれも <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> で関数の形で用意しておくと、
-Nose がそれを適切なタイミングで拾ってくれる。</p>
+<li><p>パッケージレベルでの setup/teardown の概念が存在する。それらはいずれも
+<code class="file docutils literal notranslate"><span class="pre">__init__.py</span></code> で関数の形で用意しておくと、 Nose がそれを適切なタイミングで拾ってくれる。</p>
 <ul>
 <li><p>setup 関数の名前は次のいずれかとなる：
 <code class="docutils literal notranslate"><span class="pre">setup</span></code>, <code class="docutils literal notranslate"><span class="pre">setup_package</span></code>, <code class="docutils literal notranslate"><span class="pre">setUp</span></code>, <code class="docutils literal notranslate"><span class="pre">setUpPackage</span></code></p></li>
@@ -382,7 +381,8 @@ Nose はそれらを (A) タイプのそれのように呼び出すことにな�
 <li><p>クラスレベルの setup/teardown を定義することができる。いずれもクラスメソッドである必要がある。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">setup_class</span></code>, <code class="docutils literal notranslate"><span class="pre">setupClass</span></code>, <code class="docutils literal notranslate"><span class="pre">setUpClass</span></code>, <code class="docutils literal notranslate"><span class="pre">setupAll</span></code>, <code class="docutils literal notranslate"><span class="pre">setUpAll</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">teardown_class</span></code>, <code class="docutils literal notranslate"><span class="pre">teardownClass</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDownClass</span></code>, <code class="docutils literal notranslate"><span class="pre">teardownAll</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDownAll</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">teardown_class</span></code>, <code class="docutils literal notranslate"><span class="pre">teardownClass</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDownClass</span></code>,
+<code class="docutils literal notranslate"><span class="pre">teardownAll</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDownAll</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -391,9 +391,8 @@ Nose はそれらを (A) タイプのそれのように呼び出すことにな�
 </li>
 <li><p>テスト関数</p>
 <ul class="simple">
-<li><p>テストモジュール内に定義されている、
-Nose の <code class="docutils literal notranslate"><span class="pre">testMatch</span></code> にマッチする名前を持つ関数がテスト関数となる。</p></li>
-<li><p>関数にも setup/teardown を適用することができる。自分で定義した関数をデコレーター <code class="docutils literal notranslate"><span class="pre">with_setup</span></code> を利用して「くっつける」。これがたいへん便利だ。</p></li>
+<li><p>テストモジュール内に定義されている、Nose の <code class="docutils literal notranslate"><span class="pre">testMatch</span></code> にマッチする名前を持つ関数がテスト関数となる。</p></li>
+<li><p>関数にも setup/teardown を適用することができる。自分で定義した関数をデコレーター <code class="docutils literal notranslate"><span class="pre">with_setup</span></code> を利用して取り付ける。これがたいへん便利だ。</p></li>
 </ul>
 </li>
 <li><p>そして Nose を利用するとジェネレーターをもテストできる。自分ではよく使わないので今のところはパス。</p></li>
@@ -412,10 +411,8 @@ Nose の <code class="docutils literal notranslate"><span class="pre">testMatch<
 <ul class="simple">
 <li><p>Nose はテストに見えないディレクトリーかつパッケージでないものは検査しない。</p></li>
 <li><p>Nose はモジュールを import する際に、そのモジュールがあるディレクトリーパスを
-<code class="docutils literal notranslate"><span class="pre">sys.path</span></code> 変数に追加してしまう。モジュールが何かパッケージのものである場合、
-<code class="docutils literal notranslate"><span class="pre">package.module</span></code> として import されることになる。</p></li>
-<li><p>もしあるオブジェクトが属性 <code class="docutils literal notranslate"><span class="pre">__test__</span></code> を有し、かつそれが <code class="docutils literal notranslate"><span class="pre">True</span></code>
-と評価しないようなものならば、そのオブジェクトはテストとして集められないし、さらにそのオブジェクトを含むどんなオブジェクトも集められない。</p></li>
+<code class="docutils literal notranslate"><span class="pre">sys.path</span></code> 変数に追加してしまう。モジュールが何かパッケージのものである場合、<code class="docutils literal notranslate"><span class="pre">package.module</span></code> として import されることになる。</p></li>
+<li><p>もしあるオブジェクトが属性 <code class="docutils literal notranslate"><span class="pre">__test__</span></code> を有し、かつそれが <code class="docutils literal notranslate"><span class="pre">True</span></code> と評価しないようなものならば、そのオブジェクトはテストとして集められないし、さらにそのオブジェクトを含むどんなオブジェクトも集められない。</p></li>
 </ul>
 </div>
 </div>
@@ -429,23 +426,21 @@ Nose の <code class="docutils literal notranslate"><span class="pre">testMatch<
 <ul>
 <li><p>Further Reading より：</p>
 <ul>
-<li><p>Jason Pellerin という人物が作者のようだ。
-2005 年からコピーライトが発生している。</p></li>
+<li><p>Jason Pellerin という人物が作者のようだ。2005 年からコピーライトが発生している。</p></li>
 <li><p>Nose という名前はどうして付いたのか。作者は discover の同義語を類語辞書で調べたようで、短くてマヌケな名前で、なおかつ spy の意味を含まぬものを採用したらしい。</p>
 <p>nose は動詞だとクンカクンカするとかいう意味なのでは。</p>
 </li>
-<li><p>Nose は <a class="reference external" href="http://codespeak.net/py/current/doc/test.html">py.test</a> というテスティングフレームワークにインスパイヤされて作ったとある。以前の py.test はインストールが難しく、
-unittest ベースでなかったとのこと。</p></li>
+<li><p>Nose は <a class="reference external" href="http://codespeak.net/py/current/doc/test.html">py.test</a> というテスティングフレームワークにインスパイヤされて作ったとある。以前の py.test はインストールが難しく、unittest ベースでなかったとのこと。</p></li>
 <li><p>Nose のライセンスは LGPL とかいうものらしい。バージョン 2 以降ならば、利用者が好きなライセンスを選択してよいとか。</p></li>
 </ul>
 </li>
 <li><p>nosetests の変な使い方。</p>
 <ul>
 <li><p>他人様の作ったパッケージのテスト構成を探るのに最適なツールかもしれない。例えば <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> の <code class="docutils literal notranslate"><span class="pre">testsuite</span></code> フォルダーの各ファイルからテストを全部抽出してリストを作成できたりする。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> site-packages/jinja2/
-<span class="gp">$ </span>python34 -c <span class="s1">&#39;import jinja2; print(jinja2.__version__)&#39;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ cd site-packages/jinja2/</span>
+<span class="go">bash$ python34 -c &#39;import jinja2; print(jinja2.__version__)&#39;</span>
 <span class="go">2.7.3</span>
-<span class="gp">$ </span>nosetests --collect-only --with-id -v testsuite/*.py
+<span class="go">bash$ nosetests --collect-only --with-id -v testsuite/*.py</span>
 <span class="gp">#</span><span class="m">1</span> Failure: TypeError <span class="o">(</span>find_all_tests<span class="o">()</span> missing <span class="m">1</span> required positional argument: <span class="s1">&#39;suite&#39;</span><span class="o">)</span> ... ok
 <span class="gp">#</span><span class="m">2</span> test_autoescape_autoselect <span class="o">(</span>jinja2.testsuite.api.ExtendedAPITestCase<span class="o">)</span> ... ok
 <span class="gp">#</span><span class="m">3</span> test_cycler <span class="o">(</span>jinja2.testsuite.api.ExtendedAPITestCase<span class="o">)</span> ... ok
@@ -465,12 +460,11 @@ unittest ベースでなかったとのこと。</p></li>
 <p>最近の Jinja2 のインストールには <code class="docutils literal notranslate"><span class="pre">testsuite</span></code> フォルダーがない。</p>
 </div>
 </li>
-<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> の <code class="docutils literal notranslate"><span class="pre">tests</span></code> フォルダーはテストパッケージの構成になっている。
-<code class="file docutils literal notranslate"><span class="pre">nosetests</span></code> の実験場としては面白い。</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> の <code class="file docutils literal notranslate"><span class="pre">tests</span></code> フォルダーはテストパッケージの構成になっている。
+<strong class="program">nosetests</strong> の実験場としては面白い。</p></li>
 <li><p><a class="reference external" href="https://www.numpy.org/">NumPy</a> は Nose をうまく使いこなしているようだ。
 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy;</span> <span class="pre">help(numpy.test)</span></code> してみよう。テストの単位をわかりやすく分類する努力を払っているのがわかる。</p>
-<p>例えば線形代数サブパッケージだけテストしたいのならば、
-Python インタープリターから次のようにタイプしてみるだけでよい。</p>
+<p>例えば線形代数サブパッケージだけテストしたいのならば、Python インタープリターから次のようにタイプしてみるだけでよい。</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">Running unit tests for numpy.linalg</span>
@@ -646,7 +640,7 @@ Python インタープリターから次のようにタイプしてみるだけ�
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul>

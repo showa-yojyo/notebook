@@ -111,17 +111,17 @@
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id14">インストール</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="python-miniconda.html#python-pkg-proc"><span class="std std-ref">一般のサードパーティー製 Python パッケージのインストール手順</span></a> を参照してインストールする。</p>
-<p><code class="docutils literal notranslate"><span class="pre">$PYTHONDIR/Scripts</span></code> フォルダーに、ファイル名が <code class="docutils literal notranslate"><span class="pre">pylint</span></code> で拡張子が異なるものが 3 つあるのが確認できる。内容は次のようなものだ：</p>
+<p>フォルダー <code class="file docutils literal notranslate"><span class="pre">$PYTHONDIR/Scripts</span></code> に、ファイル名が <code class="docutils literal notranslate"><span class="pre">pylint</span></code> で拡張子が異なるものが 3 つあるのが確認できる。内容は次のようなものだ：</p>
 <ul class="simple">
 <li><p><code class="file docutils literal notranslate"><span class="pre">pylint</span></code>: Python スクリプト。単に <code class="docutils literal notranslate"><span class="pre">pylint.run_pylint()</span></code> を実行するだけ。</p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">pylint.bat</span></code>: Windows のバッチスクリプト。
 Python に上記スクリプトをコマンドライン引数として渡して実行するだけ。</p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">pylint.exe</span></code>: Windows の実行ファイル。</p></li>
 </ul>
-<p>私は Python を利用する際には原則的に Cygwin のコマンドライン (Bash) から呼び出すことにしている。環境変数 <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> には既に <code class="docutils literal notranslate"><span class="pre">$PYTHONDIR/Scripts</span></code> を含ませてあるゆえ、私が Pylint をコマンドラインから呼び出すときの記法は次のようになる。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pylint.bat args
+<p>私は Python を利用する際には原則的に Cygwin のコマンドライン (Bash) から呼び出すことにしている。環境変数 <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> には既に <code class="file docutils literal notranslate"><span class="pre">$PYTHONDIR/Scripts</span></code> を含ませてあるゆえ、私が Pylint をコマンドラインから呼び出すときの記法は次のようになる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pylint.bat args</span>
 <span class="gp"># </span>or
-<span class="gp">$ </span>pylint.exe args
+<span class="go">bash$ pylint.exe args</span>
 </pre></div>
 </div>
 <div class="section" id="pylintrc">
@@ -132,12 +132,12 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <div><p><code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">config</span> <span class="pre">file</span> <span class="pre">found,</span> <span class="pre">using</span> <span class="pre">default</span> <span class="pre">configuration.</span></code></p>
 </div></blockquote>
 <p>を発する。設定ファイルの有無は Pylint の機能に支障はないが、この警告文が毎度目につくと煩わしいので、まずはダミーの設定ファイルを作成しておく。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pylint --generate-rcfile &gt; ~/.pylintrc
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pylint --generate-rcfile &gt; ~/.pylintrc</span>
 </pre></div>
 </div>
-<p>次にこの設定ファイルのスケルトンに対して構文チェックをしておこう。単に <code class="docutils literal notranslate"><span class="pre">pylint</span> <span class="pre">--version</span></code> をすることで、
-<code class="file docutils literal notranslate"><span class="pre">.pylintrc</span></code> のチェックをさせることにもなる。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pylint --version
+<p>次にこの設定ファイルのスケルトンに対して構文チェックをしておこう。単に
+<strong class="command">pylint --version</strong> をすることで、<code class="file docutils literal notranslate"><span class="pre">.pylintrc</span></code> のチェックをさせることにもなる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pylint --version</span>
 <span class="go">Warning: option ignore-iface-methods is obsolete and it is slated for removal in Pylint 1.6.</span>
 <span class="go">Warning: option zope is obsolete and it is slated for removal in Pylint 1.6.</span>
 <span class="go">pylint-script.py 1.5.4,</span>
@@ -145,8 +145,7 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <span class="go">Python 3.5.2 |Continuum Analytics, Inc.| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)]</span>
 </pre></div>
 </div>
-<p>上記のような Warning が出力されていれば、
-<code class="file docutils literal notranslate"><span class="pre">.pylintrc</span></code> をエディターで開いて、対応する項目を削除しておくとよい。</p>
+<p>上記のような Warning が出力されていれば、<code class="file docutils literal notranslate"><span class="pre">.pylintrc</span></code> をエディターで開いて、対応する項目を削除しておくとよい。</p>
 <p>Pylint の設定ファイルはプロジェクトごとにコーディングルールに沿って微調整したものを用意するのが普通だろう。自動テストの一環としてコード解析を行う工程が想像できる。しかし、本稿は私個人の用途を想定しているので、その点については深入りしない。深入りしないが、Pylint が設定ファイルを指定する機能があることは承知している。</p>
 </div>
 </div>
@@ -161,10 +160,10 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <p>Pylint はオプションなしで実行すると、どんなに品の良いコードを与えたとしても、たいへんな量のテキストを出力することで知られている。特に出力後半の統計部分が個人的には用がないので常に <code class="docutils literal notranslate"><span class="pre">-rn</span></code>, (or <code class="docutils literal notranslate"><span class="pre">--reports=n</span></code>) を指示する習慣を身につけた。興味があるのは、コードのどの行がどのような「まずさ」を有するかということだけなのだ。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Suppress statistics, i.e. display only
 <span class="gp"># </span>R: refactor, C: convention, W: warning, and E: error.
-<span class="gp">$ </span>pylint -rn mymodule.py
+<span class="go">bash$ pylint -rn mymodule.py</span>
 
 <span class="gp"># </span>Display only errors <span class="o">(</span>E<span class="o">)</span>.
-<span class="gp">$ </span>pylint -E mymodule.py
+<span class="go">bash$ pylint -E mymodule.py</span>
 </pre></div>
 </div>
 <p>Pylint の出力はコード解析結果と統計結果のふたつの部分からなる。前述のとおり後者はカットする。解析結果は与えたモジュール名に対して、問題のタイプ、行番号、メッセージのリストという構成だ。一回見ればだいたい理解できるはずなので、ここに出力例を掲載することは差し控える。</p>
@@ -174,7 +173,7 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <h3><a class="toc-backref" href="#id19">パッケージ単位での構文チェック</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>コマンドラインでの呼び出し方法に変わりはない。モジュールを示すファイル名の代わりにパッケージ名を与えればよい。公式ドキュメントによると、開発版の（＝確かめたい）パッケージと、環境変数 <code class="docutils literal notranslate"><span class="pre">$PYTHONPATH</span></code> にあるそれとを Pylint に混同させないように注意する必要があるそうだ。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Specify the package name.
-<span class="gp">$ </span>pylint -rn mypackage
+<span class="go">bash$ pylint -rn mypackage</span>
 </pre></div>
 </div>
 </div>
@@ -183,7 +182,7 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <p>Pylint のコード解析結果（私は RCWE リストと呼んでいる）にらめっこしながら、対応しよう。修正のやり方には二通りあり、ひとつは忠告に従って素直にコードを修正することで、もう一つのやり方は、Pylint に勘弁してもらうというものだ。ここではこれらを順に説明していく。</p>
 <div class="section" id="id8">
 <h4><a class="toc-backref" href="#id21">地道にコードのほうを修正する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
-<p>例えば <code class="docutils literal notranslate"><span class="pre">C:155,</span> <span class="pre">0:</span> <span class="pre">Line</span> <span class="pre">too</span> <span class="pre">long</span> <span class="pre">(81/80)</span> <span class="pre">(line-too-long)</span></code> というコード解析結果が出たとしよう。このときコードを修正するのであれば、テキストエディターで対象のモジュールファイルを開いて、</p>
+<p>例えば <code class="code docutils literal notranslate"><span class="pre">C:155,</span> <span class="pre">0:</span> <span class="pre">Line</span> <span class="pre">too</span> <span class="pre">long</span> <span class="pre">(81/80)</span> <span class="pre">(line-too-long)</span></code> というコード解析結果が出たとしよう。このときコードを修正するのであれば、テキストエディターで対象のモジュールファイルを開いて、</p>
 <ol class="arabic simple">
 <li><p>155 行目にジャンプする。</p></li>
 <li><p>適宜テキストを編集し、行の長さを 81 文字から 80 字以下に切り詰める。おそらく、行の途中で（Python の構文として違法にならぬように）改行することになる。</p></li>
@@ -195,10 +194,10 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <p>Pylint の忠告に従いたいが、難しい場合もある。あるいは、Pylint が勘違いして不当なエラーを報告する場合もある。このような場合は、対応するコードの近所に「抑止命令」コメントを追加することでしのぐ。</p>
 <p>例を説明する。次のような E が出てしまった：</p>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">E:242,34:</span> <span class="pre">Class</span> <span class="pre">'AbstractMapper'</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">'__subclasses__'</span> <span class="pre">member</span> <span class="pre">(no-member)</span></code></p>
+<div><p><code class="code docutils literal notranslate"><span class="pre">E:242,34:</span> <span class="pre">Class</span> <span class="pre">'AbstractMapper'</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">'__subclasses__'</span> <span class="pre">member</span> <span class="pre">(no-member)</span></code></p>
 </div></blockquote>
-<p>状況はこうだ。私は自作のモジュールで <code class="docutils literal notranslate"><span class="pre">AbstractMapper</span></code> という抽象クラスを定義した。冒頭だけ引用すると次のような構成になっている。
-<code class="docutils literal notranslate"><span class="pre">ABCMeta</span></code> 等については Python のマニュアルを参照して欲しいが、こうすることで私のクラスには
+<p>状況はこうだ。私は自作のモジュールで <code class="docutils literal notranslate"><span class="pre">AbstractMapper</span></code> という抽象クラスを定義した。冒頭だけ引用すると次のような構成になっている。<code class="docutils literal notranslate"><span class="pre">ABCMeta</span></code> 等については
+Python のマニュアルを参照して欲しいが、こうすることで私のクラスには
 <code class="docutils literal notranslate"><span class="pre">__subclasses__</span></code> というメンバーが確かに存在する。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
@@ -216,7 +215,7 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 </div>
 <p>こうすることで、次からの Pylint のメッセージは次のように変わり、やや安心できる。</p>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">I:</span> <span class="pre">242,</span> <span class="pre">0:</span> <span class="pre">Locally</span> <span class="pre">disabling</span> <span class="pre">no-member</span> <span class="pre">(E1101)</span> <span class="pre">(locally-disabled)</span></code></p>
+<div><p><code class="code docutils literal notranslate"><span class="pre">I:</span> <span class="pre">242,</span> <span class="pre">0:</span> <span class="pre">Locally</span> <span class="pre">disabling</span> <span class="pre">no-member</span> <span class="pre">(E1101)</span> <span class="pre">(locally-disabled)</span></code></p>
 </div></blockquote>
 <p>なお、出力抑止をしたいエラー項目はエラー名だけでなく、エラー番号でも指定できる。カンマ区切りで複数のエラー項目を指示することもできるし、抑止コメントを抑止する項目数だけ書いてもよい。</p>
 </div>
@@ -357,7 +356,7 @@ Python に上記スクリプトをコマンドライン引数として渡して�
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul>

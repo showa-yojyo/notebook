@@ -92,8 +92,8 @@
 <div class="section" id="python">
 <h2><a class="toc-backref" href="#id10">1 章 Python 流思考</a><a class="headerlink" href="#python" title="Permalink to this heading">¶</a></h2>
 <ul>
-<li><p>スライスのときに <code class="docutils literal notranslate"><span class="pre">[0:i]</span></code> とか <code class="docutils literal notranslate"><span class="pre">[i:-1]</span></code> とは書かずに
-<code class="docutils literal notranslate"><span class="pre">[:i]</span></code> とか <code class="docutils literal notranslate"><span class="pre">[i:]</span></code> と書くのを推奨。</p></li>
+<li><p>スライスのときに <code class="docutils literal notranslate"><span class="pre">[0:i]</span></code> とか <code class="docutils literal notranslate"><span class="pre">[i:-1]</span></code> とは書かずに <code class="docutils literal notranslate"><span class="pre">[:i]</span></code> とか <code class="docutils literal notranslate"><span class="pre">[i:]</span></code>
+と書くのを推奨。</p></li>
 <li><p>スライスの stride 機能は扱いが難しいので基本的には避ける。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">range</span></code> よりも <code class="docutils literal notranslate"><span class="pre">enumerate</span></code> を好むとあるが、言わんとすることに注意。リストを反復するときに添字が必要であれば、下のようにするなという意味だろう。どのようなときにも <code class="docutils literal notranslate"><span class="pre">enumerate</span></code> を使えと言っているのではない。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
@@ -109,14 +109,16 @@
 <li><p>項目 14 で &lt;<code class="docutils literal notranslate"><span class="pre">None</span></code> を返すよりは例外を選ぶ&gt; とある。これはもう当然だろう。</p></li>
 <li><p>高級な概念だが、closure とか <code class="docutils literal notranslate"><span class="pre">nonlocal</span></code> とかを人に説明できるように理解しておきたい。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">__iter__</span></code> の実装演習をしておきたい。</p></li>
-<li><p>キーワード専用引数のための構文が Python にはある（関数引数リスト内に単体の <code class="docutils literal notranslate"><span class="pre">*</span></code> でそれを示す）。</p></li>
+<li><p>キーワード専用引数のための構文が Python にはある（関数引数リスト内に単体の
+<code class="docutils literal notranslate"><span class="pre">*</span></code> でそれを示す）。</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id12">3 章 クラスと継承</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>組み込みデコレーターの <code class="docutils literal notranslate"><span class="pre">&#64;classmethod</span></code> は「クラス全体」に効く。これはけっこう便利なので愛用している。</p></li>
-<li><p>普通の用途においては <code class="docutils literal notranslate"><span class="pre">super()</span></code> は引数なしで OK だ。いつも派生クラスの <code class="docutils literal notranslate"><span class="pre">__init__</span></code> を書くときに「何だっけ」となるので、忘れないようにする。</p></li>
+<li><p>普通の用途においては <code class="docutils literal notranslate"><span class="pre">super()</span></code> は引数なしで OK だ。いつも派生クラスの
+<code class="docutils literal notranslate"><span class="pre">__init__</span></code> を書くときに「何だっけ」となるので、忘れないようにする。</p></li>
 <li><p>C++ とは事情が逆で、Python では private より public を好むようだ。これについて人に理由を説明できるようにしておきたい。</p></li>
 </ul>
 </div>
@@ -126,9 +128,11 @@
 <li><p>これも C++ とは反対に getter や setter を提供する代わりに、剥き出しの属性を参照させるほうが良いとされる。おそらく理由も先程のものと似ているのだろう。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&#64;property</span></code> という組み込みデコレーターがあるので、一度定義した属性に対して後からどうとでもできる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">__get__</span></code> も <code class="docutils literal notranslate"><span class="pre">__set__</span></code> も使ったことがない。これも練習しよう。</p></li>
-<li><p>項目 32 で紹介されている <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>, <code class="docutils literal notranslate"><span class="pre">__getattribute__</span></code>, <code class="docutils literal notranslate"><span class="pre">__setattr__</span></code> はまったく馴染みがない。実装の練習をしておきたい。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">metaclass=Meta</span></code> と <code class="docutils literal notranslate"><span class="pre">__new__</span></code> に馴染みがないので、要演習。
-&lt;メタクラスの <code class="docutils literal notranslate"><span class="pre">__new__</span></code> メソッドは <code class="docutils literal notranslate"><span class="pre">class</span></code> 文の本体全体が処理された後に実行される&gt; (p. 108) そうだ。</p></li>
+<li><p>項目 32 で紹介されている <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>, <code class="docutils literal notranslate"><span class="pre">__getattribute__</span></code>,
+<code class="docutils literal notranslate"><span class="pre">__setattr__</span></code> はまったく馴染みがない。実装の練習をしておきたい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metaclass=Meta</span></code> と <code class="docutils literal notranslate"><span class="pre">__new__</span></code> に馴染みがないので、要演習。&lt;メタクラスの
+<code class="docutils literal notranslate"><span class="pre">__new__</span></code> メソッドは <code class="docutils literal notranslate"><span class="pre">class</span></code> 文の本体全体が処理された後に実行される&gt;
+(p. 108) そうだ。</p></li>
 <li><p>項目 34 で議論されている <code class="docutils literal notranslate"><span class="pre">register_class</span></code> の技法は是非押さえたい。昔書いたコードではまさに手動でやっていた気がする。</p></li>
 </ul>
 </div>
@@ -136,13 +140,12 @@
 <h2><a class="toc-backref" href="#id14">5 章 並行性と並列性</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>この章の内容はどれもがほぼ未経験。致命的かもしれない。</p>
 <ul class="simple">
-<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> の提供する機能はかつての
-<code class="docutils literal notranslate"><span class="pre">popen</span></code>, <code class="docutils literal notranslate"><span class="pre">popen2</span></code>, <code class="docutils literal notranslate"><span class="pre">os.exec*</span></code> の系譜の最新進化形と捉えてよろしいか。</p></li>
-<li><p>GIL とは &lt;マルチコア CPU でバイトコードを並列に実行することができない&gt; ようにする
-Python のロックという位置づけ。</p></li>
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> の提供する機能はかつての <code class="docutils literal notranslate"><span class="pre">popen</span></code>, <code class="docutils literal notranslate"><span class="pre">popen2</span></code>,
+<code class="docutils literal notranslate"><span class="pre">os.exec*</span></code> の系譜の最新進化形と捉えてよろしいか。</p></li>
+<li><p>GIL とは &lt;マルチコア CPU でバイトコードを並列に実行することができない&gt; ようにするPython のロックという位置づけ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Lock</span></code> は要演習。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Queue</span></code> は要演習。</p></li>
-<li><p>関数を並行実行する機能の枠組の一つに coroutines というものがある。これも演習したい。特に <code class="docutils literal notranslate"><span class="pre">pdb</span></code> でトレース実行してみたい。</p></li>
+<li><p>関数を並行実行する機能の枠組の一つに coroutines というものがある。これも演習したい。特に <strong class="program">pdb</strong> でトレース実行してみたい。</p></li>
 <li><p>さらに <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> なる新機能がある。</p></li>
 </ul>
 </div>
@@ -150,9 +153,9 @@ Python のロックという位置づけ。</p></li>
 <h2><a class="toc-backref" href="#id15">6 章 組み込みモジュール</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&#64;functools.wraps</span></code> は入れ子になった関数の内側の方を修飾するものなのか。既存の自作コードですぐにでも試せそうだ。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&#64;contextlib.contextmanager</span></code> を利用することで、自分でクラスを作って <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> と <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> を定義する手間が省けるかもしれない。これは既存の自作コードを改造するほうが高く付くので、残念だが見送ろう。これから作るものについては、当然デコレーターのほうを先に検討したい。</p></li>
-<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">itertools</span></code> については、Python コードを書く機会に参照する。個人的には C++ で言うところの <code class="docutils literal notranslate"><span class="pre">&lt;algorithm&gt;</span></code> や、
-C# で言うところの LINQ に相当する概念を提供するモジュールだと思っているので。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;contextlib.contextmanager</span></code> を利用することで、自分でクラスを作って
+<code class="docutils literal notranslate"><span class="pre">__enter__</span></code> と <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> を定義する手間が省けるかもしれない。これは既存の自作コードを改造するほうが高く付くので、残念だが見送ろう。これから作るものについては、当然デコレーターのほうを先に検討したい。</p></li>
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">itertools</span></code> については、Python コードを書く機会に参照する。個人的には C++ で言うところの <code class="docutils literal notranslate"><span class="pre">&lt;algorithm&gt;</span></code> や、 C# で言うところの LINQ に相当する概念を提供するモジュールだと思っているので。</p></li>
 </ul>
 </div>
 <div class="section" id="id7">
@@ -165,14 +168,15 @@ C# で言うところの LINQ に相当する概念を提供するモジュー�
 <div class="section" id="id8">
 <h2><a class="toc-backref" href="#id17">8 章 本番運用準備</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">repr</span></code> で返される文字列は正当な Python 式です&gt; とある。それゆえ <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> を実装するときには
-&lt;オブジェクトを複製する Python 式を含んだ文字列を返す&gt; ようにするべきだ。</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">repr</span></code> で返される文字列は正当な Python 式です&gt; とある。それゆえ
+<code class="docutils literal notranslate"><span class="pre">__repr__</span></code> を実装するときには &lt;オブジェクトを複製する Python 式を含んだ文字列を返す&gt; ようにするべきだ。</p>
 <ul>
 <li><p>ただし「含んだ」というのがミソ。</p></li>
 </ul>
 </li>
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">pdb.set_trace</span></code> については必修。いつでもスクリプトの先頭からデバッグ実行するには及ばない。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tracemalloc</span></code> の練習をしたいが、何か良い練習台はないものか。もっと言えば、Python でメモリーリークを引き起こすコードを書く方法とは何か。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tracemalloc</span></code> の練習をしたいが、何か良い練習台はないものか。もっと言えば、
+Python でメモリーリークを引き起こすコードを書く方法とは何か。</p></li>
 </ul>
 </div>
 </div>
@@ -310,7 +314,7 @@ C# で言うところの LINQ に相当する概念を提供するモジュー�
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul>

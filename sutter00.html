@@ -146,9 +146,9 @@
 <li><p><a class="reference internal" href="#id34" id="id82">その他のトピック</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id35" id="id83">変数の初期化──それとも？</a></p></li>
-<li><p><a class="reference internal" href="#const" id="id84">const の正しい利用</a></p></li>
+<li><p><a class="reference internal" href="#const" id="id84"><code class="docutils literal notranslate"><span class="pre">const</span></code> の正しい利用</a></p></li>
 <li><p><a class="reference internal" href="#id36" id="id85">キャスト</a></p></li>
-<li><p><a class="reference internal" href="#bool" id="id86">真偽値 (bool)</a></p></li>
+<li><p><a class="reference internal" href="#bool" id="id86">真偽値 (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)</a></p></li>
 <li><p><a class="reference internal" href="#id37" id="id87">転送関数</a></p></li>
 <li><p><a class="reference internal" href="#id38" id="id88">制御フロー</a></p></li>
 </ul>
@@ -191,7 +191,7 @@
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id45">大文字小文字を区別しない文字列</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>まず最初に「大文字小文字を区別しない文字列クラス」を書くことを検討している。
-basic_string テンプレートの traits パラメータに相当する構造体を自作する手法による。</p>
+<code class="docutils literal notranslate"><span class="pre">basic_string</span></code> テンプレートの <code class="docutils literal notranslate"><span class="pre">traits</span></code> パラメータに相当する構造体を自作する手法による。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">ci_char_traits</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">eq</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c2</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
@@ -205,9 +205,10 @@ basic_string テンプレートの traits パラメータに相当する構造�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>&lt;多くの場合、大文字小文字の区別を比較処理の機能としたほうがより便利である。しかしながら、著者の経験では、これをオブジェクトの機能とする方が便利な場合もある&gt;
-(p. 7)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ci_string</span></code> はそのままでは I/O ストリームに流せないことに注意。出力だけなら <code class="docutils literal notranslate"><span class="pre">c_str()</span></code> をストリームに流せばよい。</p></li>
+<li><p>&lt;多くの場合、大文字小文字の区別を比較処理の機能としたほうがより便利である。しかしながら、著者の経験では、これをオブジェクトの機能とする方が便利な場合もある
+&gt; (p. 7)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_string</span></code> はそのままでは I/O ストリームに流せないことに注意。出力だけなら
+<code class="docutils literal notranslate"><span class="pre">c_str()</span></code> をストリームに流せばよい。</p></li>
 <li><p>&lt;標準ライブラリは、<code class="docutils literal notranslate"><span class="pre">traits</span></code> オブジェクトを多様的に使わない&gt; (p. 9)</p></li>
 </ul>
 </div>
@@ -227,8 +228,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>&lt;<code class="docutils literal notranslate"><span class="pre">T</span></code> 代入演算子の 1 つが <code class="docutils literal notranslate"><span class="pre">copy()</span></code> 操作の途中で失敗すると、そのオブジェクトは矛盾した状態に陥ってしまう。私達の <code class="docutils literal notranslate"><span class="pre">fixed_vector</span></code> オブジェクトの内容のいくつかは、代入に失敗する前の状態を保つだろうが、他の部分はすでに更新されてしまっていることになる&gt;
-(p. 17)</p>
+<p>&lt;<code class="docutils literal notranslate"><span class="pre">T</span></code> 代入演算子の 1 つが <code class="docutils literal notranslate"><span class="pre">copy()</span></code> 操作の途中で失敗すると、そのオブジェクトは矛盾した状態に陥ってしまう。私達の <code class="docutils literal notranslate"><span class="pre">fixed_vector</span></code> オブジェクトの内容のいくつかは、代入に失敗する前の状態を保つだろうが、他の部分はすでに更新されてしまっていることになる&gt; (p. 17)</p>
 <p>今はとりあえず次の言い回しを頭の片隅に憶えておけばいい。</p>
 <ul class="simple">
 <li><p>「矛盾した状態」</p></li>
@@ -241,9 +241,8 @@ basic_string テンプレートの traits パラメータに相当する構造�
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id47">一時オブジェクト</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>&lt;オブジェクトは値渡しではなく <code class="docutils literal notranslate"><span class="pre">const&amp;</span></code> で渡すこと&gt;(p. 20)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループの終了条件部で <code class="docutils literal notranslate"><span class="pre">end()</span></code> を呼ばぬよう注意。
-&lt;一度だけ値を計算して、ローカルオブジェクトに格納し再利用すべきである&gt; (p. 20)</p></li>
+<li><p>&lt;オブジェクトは値渡しではなく <code class="docutils literal notranslate"><span class="pre">const&amp;</span></code> で渡すこと&gt; (p. 20)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループの終了条件部で <code class="docutils literal notranslate"><span class="pre">end()</span></code> を呼ばぬよう注意。&lt;一度だけ値を計算して、ローカルオブジェクトに格納し再利用すべきである&gt; (p. 20)</p></li>
 <li><p>&lt;前置インクリメントを使おう&gt; (p. 21)</p></li>
 <li><p>コンストラクタに <code class="docutils literal notranslate"><span class="pre">explicit</span></code> を指定したり、変換演算子を提供しないようにする理由は、一時オブジェクトを密かに生成される機会を牽制するためのようだ。</p></li>
 <li><p>SE/SE (single-entry/single-exit) 規則なるものの存在を初めて知った。もちろん、これは一般に通用しない規則だ。</p></li>
@@ -251,10 +250,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 </div>
 <div class="section" id="id7">
 <h3><a class="toc-backref" href="#id48">標準ライブラリの使用（もしくは、一時オブジェクト再考）</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
-<p>前項のハンドメイドの <code class="docutils literal notranslate"><span class="pre">for</span></code> ループを <code class="docutils literal notranslate"><span class="pre">find</span></code> アルゴリズムに置き換えた上で、以下のように説く。
-&lt;ファンクタと <code class="docutils literal notranslate"><span class="pre">find_if</span></code> を用いて、もっと格好良くすることも可能だが、
-<code class="docutils literal notranslate"><span class="pre">find</span></code> の単純な再利用が、プログラミング努力の節減と実行時効率にどれだけ効果的か考えてほしい&gt;
-(p. 26)</p>
+<p>前項のハンドメイドの <code class="docutils literal notranslate"><span class="pre">for</span></code> ループを <code class="docutils literal notranslate"><span class="pre">find</span></code> アルゴリズムに置き換えた上で、以下のように説く。&lt;ファンクタと <code class="docutils literal notranslate"><span class="pre">find_if</span></code> を用いて、もっと格好良くすることも可能だが、<code class="docutils literal notranslate"><span class="pre">find</span></code> の単純な再利用が、プログラミング努力の節減と実行時効率にどれだけ効果的か考えてほしい&gt; (p. 26)</p>
 </div>
 </div>
 <div class="section" id="id8">
@@ -264,9 +260,9 @@ basic_string テンプレートの traits パラメータに相当する構造�
 <h3><a class="toc-backref" href="#id50">例外に対して安全なコードを書く</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>Cargill 氏の論文の <code class="docutils literal notranslate"><span class="pre">Stack</span></code> クラステンプレートを、例外安全かつ例外中立にしていく。</p>
 <dl class="simple">
-<dt>例外安全:</dt><dd><p>例外が発生しても適切に処理する。</p>
+<dt>例外安全</dt><dd><p>例外が発生しても適切に処理する。</p>
 </dd>
-<dt>例外中立:</dt><dd><p>すべての例外を呼び出し側に伝える。</p>
+<dt>例外中立</dt><dd><p>すべての例外を呼び出し側に伝える。</p>
 </dd>
 </dl>
 <ul>
@@ -289,8 +285,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 </ol>
 <p>オブジェクトの状態に矛盾が生じない順序で処理している。</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">Pop()</span></code> を例外安全に実装するのは不可能。というより、呼び出し元で不可能になる。
-&lt;一時オブジェクトを返すように、つまり二つの処理効果を担うように書かれた
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">Pop()</span></code> を例外安全に実装するのは不可能。というより、呼び出し元で不可能になる。&lt;一時オブジェクトを返すように、つまり二つの処理効果を担うように書かれた
 <code class="docutils literal notranslate"><span class="pre">Pop()</span></code> では、完全な例外安全にすることができない&gt; (p. 38)</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">Pop(T&amp;</span> <span class="pre">result)</span></code> みたいな形式でならば可能だが、問題点はそういうことではない。「取得する」機能と「取り除く」機能を分離することが望ましい。</p></li>
@@ -310,8 +305,8 @@ basic_string テンプレートの traits パラメータに相当する構造�
 </div>
 <div class="section" id="stackimpl">
 <h4><a class="toc-backref" href="#id52"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> に分離する</a><a class="headerlink" href="#stackimpl" title="Permalink to this heading">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">Stack</span></code> のメモリ管理処理を分離してカプセル化する。
-&lt;<code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> が、元の <code class="docutils literal notranslate"><span class="pre">Stack</span></code> のデータメンバをすべて持っていることに注意&gt; (p. 44)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stack</span></code> のメモリ管理処理を分離してカプセル化する。&lt;<code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> が、元の
+<code class="docutils literal notranslate"><span class="pre">Stack</span></code> のデータメンバをすべて持っていることに注意&gt; (p. 44)</p>
 <dl class="simple">
 <dt>コンストラクタ</dt><dd><p>initializer で <code class="docutils literal notranslate"><span class="pre">v_</span></code> に対して <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new(sizeof(T)</span> <span class="pre">*</span> <span class="pre">size))</span></code> しているのが目を引く。</p>
 </dd>
@@ -327,8 +322,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 <li><p>コンストラクタは、単に <code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> に初期要素数を渡すだけ。</p></li>
 <li><p>デストラクタは書く必要がなくなった。</p></li>
 <li><p>コピーコンストラクタは <code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> のコピーコンストラクタを呼び <strong>出さない</strong>
-（そもそも禁止されている）。
-<code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> にメモリ確保だけをお願いして、
+（そもそも禁止されている）。 <code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> にメモリ確保だけをお願いして、
 <code class="docutils literal notranslate"><span class="pre">Stack</span></code> 側で <code class="docutils literal notranslate"><span class="pre">std::construct</span></code> による <code class="docutils literal notranslate"><span class="pre">T</span></code> オブジェクトの構築と、
 <code class="docutils literal notranslate"><span class="pre">StackImpl::vused_</span></code> の更新を行う。</p></li>
 <li><p>代入演算子。以下のコードが本書最大の功績の一つだろう。</p>
@@ -351,12 +345,13 @@ basic_string テンプレートの traits パラメータに相当する構造�
 </div>
 <div class="section" id="id11">
 <h4><a class="toc-backref" href="#id54"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> を包含で利用する場合</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
-<p>基本的には private 継承の場合と同じ。結合度が低くなるのはよいが、コーディングが面倒になる。著者は包含スタイルを推奨している。</p>
+<p>基本的には <code class="docutils literal notranslate"><span class="pre">private</span></code> 継承の場合と同じ。結合度が低くなるのはよいが、コーディングが面倒になる。著者は包含スタイルを推奨している。</p>
 </div>
 <div class="section" id="id12">
 <h4><a class="toc-backref" href="#id55">例外を投げるデストラクタ</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
-<li><p>&lt;<strong>例外で終了するようなデストラクタを書いてはいけない</strong> 。このようなデストラクタを持つクラスを書くと、オブジェクトの配列に対し、安全な <code class="docutils literal notranslate"><span class="pre">new[]</span></code> や <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> を保証できない&gt; (p. 63)</p></li>
+<li><p>&lt;<strong>例外で終了するようなデストラクタを書いてはいけない</strong> 。このようなデストラクタを持つクラスを書くと、オブジェクトの配列に対し、安全な <code class="docutils literal notranslate"><span class="pre">new[]</span></code> や
+<code class="docutils literal notranslate"><span class="pre">delete[]</span></code> を保証できない&gt; (p. 63)</p></li>
 <li><p>オーバーロードした <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete[]()</span></code> も同様。</p></li>
 <li><p>上述の関数を含む削除系関数はすべて <code class="docutils literal notranslate"><span class="pre">throw()</span></code> とすること。</p></li>
 </ul>
@@ -380,7 +375,7 @@ basic_string テンプレートの traits パラメータに相当する構造�
 <h3><a class="toc-backref" href="#id58">クラスの機構</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <p>クラスの各種メンバー関数や演算子を定義するときの、一般的なガイドラインについて列挙している。</p>
 <ul class="simple">
-<li><p>オブジェクトは値渡しではなく const 参照渡しの方がよい。無意味なコピーを省く。</p></li>
+<li><p>オブジェクトは値渡しではなく <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照渡しの方がよい。無意味なコピーを省く。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">&#64;</span> <span class="pre">b</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&#64;=</span> <span class="pre">b</span></code> とする。効率の向上が望める。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">operator&#64;()</span></code> を提供する場合、</p>
 <ul>
@@ -399,19 +394,17 @@ basic_string テンプレートの traits パラメータに相当する構造�
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;</span></code> と <code class="docutils literal notranslate"><span class="pre">operator&gt;&gt;</span></code> の戻り値は、引数のストリームの参照とすること。</p></li>
 <li><p>後置インクリメントを前置インクリメントで実装すること。</p></li>
-<li><p>アンダースコアで始まる識別子を作ってはいけない。
-C++ コンパイラ作成者のために予約されている。</p></li>
+<li><p>アンダースコアで始まる識別子を作ってはいけない。 C++ コンパイラ作成者のために予約されている。</p></li>
 </ul>
 </div>
 <div class="section" id="id16">
 <h3><a class="toc-backref" href="#id59">仮想関数のオーバーライド</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>基底クラスのデストラクタを virtual とすること。ただし、派生クラスのオブジェクトを基底クラスへのポインタ経由で
-delete しないことになっている場合は別。</p></li>
+<li><p>基底クラスのデストラクタを <code class="docutils literal notranslate"><span class="pre">virtual</span></code> とすること。ただし、派生クラスのオブジェクトを基底クラスへのポインタ経由で <code class="docutils literal notranslate"><span class="pre">delete</span></code> しないことになっている場合は別。</p></li>
 <li><p>継承された関数と同じ名前のメンバ関数を提供する場合、基底クラス側の関数は「隠れる」。</p>
 <ul>
-<li><p>隠す意図がない場合は、public 部に <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Base::f;</span></code> と宣言する。</p></li>
-<li><p>隠す意図がある場合は、private 部に <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Base::f;</span></code> と宣言する。</p></li>
+<li><p>隠す意図がない場合は、<code class="docutils literal notranslate"><span class="pre">public</span></code> 部に <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Base::f;</span></code> と宣言する。</p></li>
+<li><p>隠す意図がある場合は、<code class="docutils literal notranslate"><span class="pre">private</span></code> 部に <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Base::f;</span></code> と宣言する。</p></li>
 </ul>
 </li>
 <li><p>&lt;オーバーロードした継承関数のデフォルトパラメータ値は、決して変更してはならない&gt; (p. 88)</p></li>
@@ -420,10 +413,12 @@ delete しないことになっている場合は別。</p></li>
 </div>
 <div class="section" id="id17">
 <h3><a class="toc-backref" href="#id60">クラス間の関係</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
-<p>最初の著者の主張は「実装のために public 継承を用いるな」ということだ。特に p. 91 の最後の長いパラグラフが最高。</p>
+<p>最初の著者の主張は「実装のために <code class="docutils literal notranslate"><span class="pre">public</span></code> 継承を用いるな」ということだ。特に p. 91
+の最後の長いパラグラフが最高。</p>
 <ul class="simple">
 <li><p>ところで、ここで紹介しているクラスは仮想関数がデストラクタ以外にないのだが、これは意味があるのか。</p></li>
-<li><p>仮想関数を public にすることを避けるように説いている。代わりに Template Method デザインパターンを導入することを勧めている。完全に同意できる。</p></li>
+<li><p>仮想関数を <code class="docutils literal notranslate"><span class="pre">public</span></code> にすることを避けるように説いている。代わりに Template
+Methodデザインパターンを導入することを勧めている。完全に同意できる。</p></li>
 <li><p>&lt;人間が 2 種類の仕事を受け持つとストレスを受ける&gt; (p. 96)</p></li>
 </ul>
 </div>
@@ -447,10 +442,8 @@ delete しないことになっている場合は別。</p></li>
 <li><p>&lt;プログラマの多くは、習慣的に、必要以上に多くのヘッダファイルをインクルードしている。あいにく、それはビルド時間に大きな打撃を与えることになる&gt; (p. 114)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;ostream&gt;</span></code> は <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;iosfwd&gt;</span></code> に置き換えられるか調べるとよさそうだ。</p></li>
 <li><p>一般に、先行宣言で十分な場合は、対応するヘッダファイルをインクルードしないことだ。</p></li>
-<li><p>&lt;private 部がヘッダファイルで見えてしまっているので、クライアントコードは、
-private 部の使用する全ての型に依存してしまう&gt; (p. 118)
-private 部に変更があったときでも、クライアント側に再コンパイルを強いるのは不親切。</p></li>
-<li><p>Pimpl とは著者による造語だと思われる。クラスの private 部を曝さぬように、隠蔽ポインタメンバーデータを使用するものだ。</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">private</span></code> 部がヘッダファイルで見えてしまっているので、クライアントコードは、<code class="docutils literal notranslate"><span class="pre">private</span></code> 部の使用する全ての型に依存してしまう&gt; (p. 118) <code class="docutils literal notranslate"><span class="pre">private</span></code> 部に変更があったときでも、クライアント側に再コンパイルを強いるのは不親切。</p></li>
+<li><p>Pimpl とは著者による造語だと思われる。クラスの <code class="docutils literal notranslate"><span class="pre">private</span></code> 部を曝さぬように、隠蔽ポインタメンバーデータを使用するものだ。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// x.h ファイル</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -466,19 +459,16 @@ private 部に変更があったときでも、クライアント側に再コン
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<p>利点はコンパイルの依存性を断ち切ることであり、欠点はパフォーマンスが高くつくかもしれないこと。
-<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> のメモリ確保・削除、
-<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> - <code class="docutils literal notranslate"><span class="pre">X</span></code> 間の参照が面倒、等。</p>
+<p>利点はコンパイルの依存性を断ち切ることであり、欠点はパフォーマンスが高くつくかもしれないこと。<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> のメモリ確保・削除、<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> - <code class="docutils literal notranslate"><span class="pre">X</span></code> 間の参照が面倒、等。</p>
 </li>
-<li><p>&lt;私の結論は簡単だ。継承は、HAS-A や USES-A よりも強い関係にある。それゆえ、依存性を管理することになれば、常に継承でなく包含を選択すべきだ&gt;
-(p. 122)</p></li>
+<li><p>&lt;私の結論は簡単だ。継承は、HAS-A や USES-A よりも強い関係にある。それゆえ、依存性を管理することになれば、常に継承でなく包含を選択すべきだ&gt; (p. 122)</p></li>
 </ul>
 </div>
 <div class="section" id="id21">
 <h3><a class="toc-backref" href="#id65">コンパイラファイアウォール</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">XImpl</span></code> の中に <code class="docutils literal notranslate"><span class="pre">X</span></code> の何を入れるべきかという問題。著者は <code class="docutils literal notranslate"><span class="pre">X</span></code> のすべての private メンバ（データと関数の両方）を
-<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> に入れることを推奨している。ただし仮想関数は除外する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XImpl</span></code> の中に <code class="docutils literal notranslate"><span class="pre">X</span></code> の何を入れるべきかという問題。著者は <code class="docutils literal notranslate"><span class="pre">X</span></code> のすべての
+<code class="docutils literal notranslate"><span class="pre">private</span></code> メンバ（データと関数の両方）を <code class="docutils literal notranslate"><span class="pre">XImpl</span></code> に入れることを推奨している。ただし仮想関数は除外する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">XImpl</span></code> には <code class="docutils literal notranslate"><span class="pre">X</span></code> オブジェクトへの逆参照ポインタが時には必要になる。</p></li>
 </ul>
 </div>
@@ -495,8 +485,7 @@ private 部に変更があったときでも、クライアント側に再コン
 <div class="section" id="koenig">
 <h4><a class="toc-backref" href="#id69">Koenig の自動照合</a><a class="headerlink" href="#koenig" title="Permalink to this heading">¶</a></h4>
 <ul>
-<li><p>Koenig の自動照合を簡単に説明すると、次のようになる。
-&lt;関数の引数がクラス型の場合、コンパイラは、正しい関数名を照合するため、関数の引数の型定義を含む名前空間で、一致する関数名がないか調べる&gt; (p. 139)</p>
+<li><p>Koenig の自動照合を簡単に説明すると、次のようになる。&lt;関数の引数がクラス型の場合、コンパイラは、正しい関数名を照合するため、関数の引数の型定義を含む名前空間で、一致する関数名がないか調べる&gt; (p. 139)</p>
 <p>例えば、以下のコードはコンパイルされる。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">NS</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -604,8 +593,8 @@ private 部に変更があったときでも、クライアント側に再コン
 </ol>
 <ul class="simple">
 <li><p>インターフェイス原則を適用すると、どちらの方法も同程度 <code class="docutils literal notranslate"><span class="pre">X</span></code> は <code class="docutils literal notranslate"><span class="pre">ostream</span></code> に依存していると見られる。</p></li>
-<li><p>クラス <code class="docutils literal notranslate"><span class="pre">A</span></code> と <code class="docutils literal notranslate"><span class="pre">B</span></code> が「一緒に提供される」とき、
-<code class="docutils literal notranslate"><span class="pre">A</span></code> のメンバ関数 <code class="docutils literal notranslate"><span class="pre">A::g(B)</span></code> は <code class="docutils literal notranslate"><span class="pre">B</span></code> の構成要素でもある。</p></li>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">A</span></code> と <code class="docutils literal notranslate"><span class="pre">B</span></code> が「一緒に提供される」とき、<code class="docutils literal notranslate"><span class="pre">A</span></code> のメンバ関数
+<code class="docutils literal notranslate"><span class="pre">A::g(B)</span></code> は <code class="docutils literal notranslate"><span class="pre">B</span></code> の構成要素でもある。</p></li>
 <li><p>&lt;「一緒に提供される」とは「同じヘッダもしくは名前空間に現れる」ことと解釈すればよい&gt; (p. 154)</p></li>
 </ul>
 </div>
@@ -613,8 +602,10 @@ private 部に変更があったときでも、クライアント側に再コン
 <h4><a class="toc-backref" href="#id72">名前の隠蔽</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>&lt;該当する関数を全く見つけられなかった場合に限り、そのすぐ外を囲んでいるスコープを見にいく&gt; (p. 155)</p></li>
-<li><p>&lt;極端な例をあげると、パラメータの型だけを見た場合、ほぼ一致するメンバ関数が、完全に一致するグローバル関数よりも好まれるということは、直感的に予想できる&gt; (p. 156)</p></li>
-<li><p>&lt;名前空間にクラスを入れる場合、同じ名前空間にヘルパー関数を演算子もすべて置くようにする。これをしないと、他の場所のコードに驚くべき影響が出るかもしれない&gt; (p. 157)</p></li>
+<li><p>&lt;極端な例をあげると、パラメータの型だけを見た場合、ほぼ一致するメンバ関数が、完全に一致するグローバル関数よりも好まれるということは、直感的に予想できる&gt;
+(p. 156)</p></li>
+<li><p>&lt;名前空間にクラスを入れる場合、同じ名前空間にヘルパー関数を演算子もすべて置くようにする。これをしないと、他の場所のコードに驚くべき影響が出るかもしれない&gt;
+(p. 157)</p></li>
 <li><p>クラスを名前空間に全く入れないという選択肢もアリ。</p></li>
 </ul>
 </div>
@@ -658,29 +649,30 @@ private 部に変更があったときでも、クライアント側に再コン
 </dd>
 </dl>
 <ul class="simple">
-<li><p>&lt;特にヒープ (Heap) とフリーストア (Free Store) は通常、便宜的に使用される用語で、
-2 種類の動的に確保されるメモリを区別している&gt; (p. 163)</p></li>
+<li><p>&lt;特にヒープ (Heap) とフリーストア (Free Store) は通常、便宜的に使用される用語で、2 種類の動的に確保されるメモリを区別している&gt; (p. 163)</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="new-delete">
 <h3><a class="toc-backref" href="#id76"><code class="docutils literal notranslate"><span class="pre">new/delete</span></code></a><a class="headerlink" href="#new-delete" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>&lt;クラス専用の <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new[]()</span></code> は、それぞれ必ず <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete[]()</span></code> とのセットで提供すること&gt; (p. 168)</p></li>
-<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code> と <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code> は、たとえ <code class="docutils literal notranslate"><span class="pre">static</span></code> と宣言していなくても、必ず <code class="docutils literal notranslate"><span class="pre">static</span></code> メンバ関数となる。これらの関数を独自に宣言する場合、C++ では明示的に“<code class="docutils literal notranslate"><span class="pre">static</span></code>” と宣言することをプログラマに強制しないが、そう書いておくほうが無難だ。自分がコードを書くときだけでなく、他のプログラマがそのコードを保守する際にも目安となるからだ&gt; (p. 169)</p></li>
-<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code> は static 関数であり、仮想関数とはできないが、仮想関数のように振る舞うのだ&gt; (p. 169)</p></li>
+<li><p>&lt;クラス専用の <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new[]()</span></code> は、それぞれ必ず
+<code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete[]()</span></code> とのセットで提供すること&gt;
+(p. 168)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code> と <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code> は、たとえ <code class="docutils literal notranslate"><span class="pre">static</span></code> と宣言していなくても、必ず <code class="docutils literal notranslate"><span class="pre">static</span></code> メンバ関数となる。これらの関数を独自に宣言する場合、C++ では明示的に <code class="docutils literal notranslate"><span class="pre">static</span></code> と宣言することをプログラマに強制しないが、そう書いておくほうが無難だ。自分がコードを書くときだけでなく、他のプログラマがそのコードを保守する際にも目安となるからだ&gt; (p. 169)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code> は <code class="docutils literal notranslate"><span class="pre">static</span></code> 関数であり、仮想関数とはできないが、仮想関数のように振る舞うのだ&gt; (p. 169)</p></li>
 </ul>
 </div>
 <div class="section" id="auto-ptr">
 <h3><a class="toc-backref" href="#id77"><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code></a><a class="headerlink" href="#auto-ptr" title="Permalink to this heading">¶</a></h3>
 <ul>
-<li><p>多くの商用ライブラリは、洗練されたスマートポインタを提供している。標準の <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> は単純かつ汎用目的のスマートポインタ。</p></li>
+<li><p>多くの商用ライブラリは、洗練されたスマートポインタを提供している。標準の
+<code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> は単純かつ汎用目的のスマートポインタ。</p></li>
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> の仕事は、動的に確保されたオブジェクトを所有し、そのオブジェクトが不要になった時点で自動的に後始末を行うことである&gt; (p. 174)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> は &lt;単に自動変数オブジェクトとして使われるので&gt; (p. 175)
-そう呼ばれる。スコープから外れる時点で削除される。</p></li>
-<li><p>&lt;関数が正常に終了しようが、例外によって中断しようが、メモリリークを生じない&gt; (p. 175)</p></li>
-<li><p>ポインタデータメンバを安全にラップすることにも使用できる。
-Pimpl イディオム実装時に頻出。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> は &lt;単に自動変数オブジェクトとして使われるので&gt; (p. 175) そう呼ばれる。スコープから外れる時点で削除される。</p></li>
+<li><p>&lt;関数が正常に終了しようが、例外によって中断しようが、メモリリークを生じない&gt;
+(p. 175)</p></li>
+<li><p>ポインタデータメンバを安全にラップすることにも使用できる。Pimpl イディオム実装時に頻出。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// c.h</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">C</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -703,10 +695,9 @@ Pimpl イディオム実装時に頻出。</p>
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> では、 <strong>コピー同士が等しくない。</strong></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> のコピーコンストラクタ、代入演算子の引数は、非 const 参照を取るようになっているはず。</p></li>
-<li><p>ある関数が 2 つの処理を含んでいるとする。このとき「関数がアトミックに振る舞う」と説明されたら、「どちらも実行した、あるいは、どちらも実行しなかった」と解釈する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto_ptr</span></code> イディオム：
-&lt;<code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> に <code class="docutils literal notranslate"><span class="pre">const</span></code> をつけることによって、所有権を決して手放さなくなったことの意味は大きい&gt; (p. 184)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> のコピーコンストラクタ、代入演算子の引数は、非 <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照を取るようになっているはず。</p></li>
+<li><p>ある関数が 2 つの処理を含んでいるとする。このとき「関数がアトミックに振る舞う」と説明されたら、 「どちらも実行した、あるいは、どちらも実行しなかった」と解釈する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto_ptr</span></code> イディオム： &lt;<code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> に <code class="docutils literal notranslate"><span class="pre">const</span></code> をつけることによって、所有権を決して手放さなくなったことの意味は大きい&gt; (p. 184)</p></li>
 </ul>
 </div>
 </div>
@@ -721,8 +712,7 @@ Pimpl イディオム実装時に頻出。</p>
 </ul>
 <p>ポインタ同士の比較は、&lt;人が考えているようには行われない場合もある&gt; (p. 188)</p>
 <ul class="simple">
-<li><p>文字列リテラル同士の比較は未定義。特に、コンパイラは
-&lt;2 つの異なる文字列リテラルに対して同じポインタ値を割り当てることもでき&gt; (p. 188) るので、比較結果が等しくなる場合がある。</p></li>
+<li><p>文字列リテラル同士の比較は未定義。特に、コンパイラは &lt;2 つの異なる文字列リテラルに対して同じポインタ値を割り当てることもでき&gt; (p. 188) るので、比較結果が等しくなる場合がある。</p></li>
 <li><p>&lt;一般に、組み込み演算子の <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">&lt;=</span> <span class="pre">&gt;</span> <span class="pre">&gt;=</span></code> を使って任意の生のポインタを比較しても、結果は不定となる&gt; (p. 188)</p></li>
 </ul>
 </div>
@@ -738,7 +728,7 @@ Pimpl イディオム実装時に頻出。</p>
 <span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s3</span><span class="p">;</span><span class="w"> </span><span class="c1">// 右辺は const char* ポインタの差となり、左辺 s1 に代入しようとする</span>
 </pre></div>
 </div>
-<p>結論：型変換演算子も、非 explicit 変換コンストラクタも書かないようにする。</p>
+<p>結論：型変換演算子も、非 <code class="docutils literal notranslate"><span class="pre">explicit</span></code> 変換コンストラクタも書かないようにする。</p>
 </div>
 <div class="section" id="id33">
 <h3><a class="toc-backref" href="#id81">オブジェクトの生存期間</a><a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
@@ -757,12 +747,13 @@ Pimpl イディオム実装時に頻出。</p>
 </div>
 </div>
 <div class="section" id="const">
-<h3><a class="toc-backref" href="#id84">const の正しい利用</a><a class="headerlink" href="#const" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id84"><code class="docutils literal notranslate"><span class="pre">const</span></code> の正しい利用</a><a class="headerlink" href="#const" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>値渡しする関数のパラメータは <code class="docutils literal notranslate"><span class="pre">const</span></code> 宣言しない。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">const</span></code> 値を返す関数はテンプレートの実体化の邪魔になる。組み込み型に対してはそもそも冗長。</p></li>
 <li><p>物理的には非 <code class="docutils literal notranslate"><span class="pre">const</span></code> メンバ関数であっても、論理的に <code class="docutils literal notranslate"><span class="pre">const</span></code> 関数ならばそのように宣言する。変更を加えたいメンバ変数は、元から <code class="docutils literal notranslate"><span class="pre">mutable</span></code> 宣言しておけばよい。</p></li>
-<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">mutable</span></code> を正しく使うことは、<code class="docutils literal notranslate"><span class="pre">const</span></code> を正しく使うことの重要な一部である&gt; (p. 212)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">mutable</span></code> を正しく使うことは、<code class="docutils literal notranslate"><span class="pre">const</span></code> を正しく使うことの重要な一部である&gt;
+(p. 212)</p></li>
 <li><p>&lt;できれば、ライブラリベンダーの怠慢への不平と、代替製品を切望している次第を傍に詳しくコメントしておくと良い&gt; (p. 212)</p></li>
 </ul>
 </div>
@@ -774,7 +765,7 @@ Pimpl イディオム実装時に頻出。</p>
 </ul>
 </div>
 <div class="section" id="bool">
-<h3><a class="toc-backref" href="#id86">真偽値 (bool)</a><a class="headerlink" href="#bool" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id86">真偽値 (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)</a><a class="headerlink" href="#bool" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">wchar_t</span></code> は C では <code class="docutils literal notranslate"><span class="pre">typedef</span></code> だったが、C++ では組み込み型。</p></li>
 </ul>
@@ -782,7 +773,8 @@ Pimpl イディオム実装時に頻出。</p>
 <div class="section" id="id37">
 <h3><a class="toc-backref" href="#id87">転送関数</a><a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>&lt;今日、コンパイラがコピーコンストラクタを取り除くことのできる状況は、戻り値の最適化 (Return Value Optimization) と、一時オブジェクトに関してのみである&gt; (p. 224)</p></li>
+<li><p>&lt;今日、コンパイラがコピーコンストラクタを取り除くことのできる状況は、戻り値の最適化 (Return Value Optimization) と、一時オブジェクトに関してのみである&gt;
+(p. 224)</p></li>
 <li><p>&lt;早い話が、デフォルトではすべての関数をアウトラインにした方が良い&gt; (p. 225)</p></li>
 </ul>
 </div>
@@ -940,7 +932,7 @@ Pimpl イディオム実装時に頻出。</p>
 <li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
 </ul>
 <ul>
