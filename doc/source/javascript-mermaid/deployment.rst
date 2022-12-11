@@ -43,12 +43,11 @@ Available at `mermaid.live <https://mermaid.live>`__
 
 .. admonition:: 学習者ノート
 
-   ``Code`` セクションでは、生の Mermaid
-   コードを書いたり編集したりすることができ、 その横にあるパネル ``Preview``
-   で描画結果を即座に確認できる。それから ``Configuration``
-   セクションは、図式の外観や動作を変更するためにある。 手許に Mermaid
-   コードをチェックする環境がまったくない場合には上記ウェブページが有用だ。
-   キーワード補完機能はここにしかないかもしれない。
+   :guilabel:`Code` セクションでは、生の Mermaid コードを書いたり編集したりする
+   ことができ、その横にあるパネル :guilabel:`Preview` で描画結果を即座に確認でき
+   る。それから :guilabel:`Configuration` セクションは、図式の外観や動作を変更す
+   るためにある。 手許にMermaidコードをチェックする環境がまったくない場合には上
+   記ウェブページが有用だ。キーワード補完機能はここにしかないかもしれない。
 
 Editing History
 -----------------------------------------------------------------------
@@ -62,8 +61,8 @@ only.
 
 .. admonition:: 学習者ノート
 
-   実際にグラフを編集してから Timeline
-   を確認すると、今実行したばかりのコマンド名がよくわからない。
+   実際にグラフを編集してから :guilabel:`Timeline` を確認すると、今実行したばか
+   りのコマンド名がよくわからない。
 
 Saving a Diagram
 -----------------------------------------------------------------------
@@ -80,20 +79,21 @@ in order to make edits and modifications further down the line.**
 Editing your diagrams
 -----------------------------------------------------------------------
 
-Editing is as easy as pasting your **Diagram code**, into the ``code`` section
-of the ``Live Editor``.
+Editing is as easy as pasting your **Diagram code**, into the :guilabel:`code`
+section of the ``Live Editor``.
 
 Loading from Gists
 -----------------------------------------------------------------------
 
-The Gist you create should have a code.mmd file and optionally a config.json.
+The Gist you create should have a code.mmd file and optionally a
+:file:`config.json`.
 
 .. admonition:: 学習者ノート
 
-   まずは Gist に新しくページ（実体はリポジトリー）を追加して、
-   `例 <https://gist.github.com/sidharthv96/6268a23e673a533dcb198f241fd7012a>`__
-   のような構成にする。 Mermaid 書式のテキストファイルと、必要ならば config.json
-   を添える。 あとは Live Editor の UI を見れば指定方法は理解できる。
+   まずは Gist に新しくページ（実体はリポジトリー）を追加して、 `例
+   <https://gist.github.com/sidharthv96/6268a23e673a533dcb198f241fd7012a>`__ の
+   ような構成にする。 Mermaid 書式のテキストファイルと、必要ならば config.jsonを
+   添える。 あとは Live Editor の UI を見れば指定方法は理解できる。
 
 2. Using Mermaid Plugins
 ======================================================================
@@ -105,15 +105,15 @@ plug-ins. It can be done in the same way, you would use the Live Editor.
 
    個人的に注目しているのは次のものだ：
 
-   * VS Code `Markdown Preview Mermaid
-     Support <https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid>`__:
+   * VS Code `Markdown Preview Mermaid Support
+     <https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid>`__:
      当ノートもこれを利用して編集している。
-   * Sphinx
-     `sphinxcontrib-mermaid <https://github.com/mgaitan/sphinxcontrib-mermaid>`__:
-     読者ノート用に確認する。
+   * Sphinx `sphinxcontrib-mermaid
+     <https://github.com/mgaitan/sphinxcontrib-mermaid>`__: 読者ノート用に確認す
+     る。
 
-   なお、Jekyll ブログの Markdown ファイルから Mermaid を利用するにはプラグインではなく、
-   HTML テンプレートを上書きして次の節の手法に帰着させることにする。
+   なお、Jekyll ブログの Markdown ファイルから Mermaid を利用するにはプラグイン
+   ではなく、HTML テンプレートを上書きして次の節の手法に帰着させることにする。
 
 3. Calling the Javascript API
 =======================================================================
@@ -125,8 +125,8 @@ You will also need a text editing tool like Notepad++ to generate a .html file.
 It is then deployed by a web browser (such as Firefox, Chrome, Safari, but not
 Internet Explorer).
 
-The API works by pulling rendering instructions from the source ``mermaid.js``
-in order to render diagrams on the page.
+The API works by pulling rendering instructions from the source
+:file:`mermaid.js` in order to render diagrams on the page.
 
 .. admonition:: 学習者ノート
 
@@ -139,19 +139,18 @@ When writing the .html file, we give three instructions inside the html code to
 the web browser:
 
 a. A reference for fetching the online mermaid renderer, through the
-   ``mermaid.js`` or ``mermaid.min.js``.
-
+   :file:`mermaid.js` or :file:`mermaid.min.js`.
 b. The mermaid code for the diagram we want to create.
-
 c. The ``mermaid.initialize()`` call, which dictates the appearance of diagrams
    and also starts the rendering process.
 
 .. admonition:: 学習者ノート
 
-   この三点セットが Mermaid 利用の基本だ。
-   実際の利用ではこれを変形して実現することになるはずだ。
+   この三点セットが Mermaid 利用の基本だ。実際の利用ではこれを変形して実現するこ
+   とになるはずだ。
 
-**a. A reference to the external CDN in a ``<script src>`` tag, or a reference to mermaid.js as a separate file.:**
+a. A reference to the external CDN in a ``<script src>`` tag, or a reference
+to mermaid.js as a separate file.:
 
 .. code:: html
 
@@ -161,11 +160,11 @@ c. The ``mermaid.initialize()`` call, which dictates the appearance of diagrams
 
 .. admonition:: 学習者ノート
 
-   素の HTML と Jekyll 仕様のブログとでは、この ``script``
-   タグの位置がかなり異なる。場合によっては、ラッパースクリプトを作成して上記
-   URL を動的にダウンロードすることになる。この場合については後述する。
+   素の HTML と Jekyll 仕様のブログとでは、この ``script`` タグの位置がかなり異
+   なる。場合によっては、ラッパースクリプトを作成して上記URL を動的にダウンロー
+   ドすることになる。この場合については後述する。
 
-**b. The embedded mermaid diagram definition inside a ``<div class="mermaid">``:**
+b. The embedded mermaid diagram definition inside a ``<div class="mermaid">``:
 
 .. code:: html
 
@@ -184,12 +183,11 @@ c. The ``mermaid.initialize()`` call, which dictates the appearance of diagrams
 
 .. admonition:: 学習者ノート
 
-   Jekyll で Markdown の三重バッククオートによる ``mermaid``
-   ブロックを定義すると、 Jekyll がこのブロックコードをクラスが ``mermaid``
-   である ``div`` タグに変換するものと期待する。
-   Sphinx のプラグインでも同様の挙動をする。
+   Jekyll で Markdown の三重バッククオートによる ``mermaid`` ブロックを定義する
+   と、Jekyll がこのブロックコードをクラスが ``mermaid``である ``div`` タグに変
+   換するものと期待する。Sphinx のプラグインでも同様の挙動をする。
 
-**c. The ``mermaid.initialize()`` call.**
+c. The ``mermaid.initialize()`` call.
 
 ``mermaid.initialize()`` call takes all the definitions contained in all the
 ``<div class="mermaid">`` tags that it finds in the html body and renders them
@@ -205,8 +203,8 @@ into diagrams. Example:
 
 .. note::
 
-   Rendering in Mermaid is initialized by ``mermaid.initialize()`` call.
-   You can place ``mermaid.initialize()`` inside ``mermaid.min.js`` for brevity.
+   Rendering in Mermaid is initialized by ``mermaid.initialize()`` call. You can
+   place ``mermaid.initialize()`` inside ``mermaid.min.js`` for brevity.
    However, doing the opposite lets you control when it starts looking for
    ``<div>`` tags inside the web page with ``mermaid.initialize()``. This is
    useful when you think that not all ``<div>`` tags may have loaded on the
@@ -223,14 +221,14 @@ startOnLoad Toggle for Rendering upon loading Boolean true, false
 
 .. admonition:: 学習者ノート
 
-   おそらく ``windows.onload`` のイベントハンドラーに Mermaid
-   ブロックを図式化する処理を追加するような指示を表している。
+   おそらく ``windows.onload`` のイベントハンドラーに Mermaid ブロックを図式化す
+   る処理を追加するような指示を表している。
 
 .. admonition:: 学習者ノート
 
    Sphinx で sphinxcontrib-mermaid プラグインを有効にする場合の例をここに示す。
 
-   `conf.py` で例えばこのように定義する：
+   :file:`conf.py` で例えばこのように定義する：
 
    .. code:: python
 
@@ -241,8 +239,8 @@ startOnLoad Toggle for Rendering upon loading Boolean true, false
           # etc.
       ]
 
-   ``_static`` ディレクトリーにスクリプトファイル ``mermaid.js`` を次のような
-   内容で保存する（よりスマートなコードにしたい）：
+   :file:`_static` ディレクトリーにスクリプトファイル :file:`mermaid.js` を次の
+   ような内容で保存する（よりスマートなコードにしたい）：
 
    .. code:: javascript
 
@@ -271,8 +269,8 @@ startOnLoad Toggle for Rendering upon loading Boolean true, false
           document.head.appendChild(js);
       });
 
-   こうすると、rst ファイルに mermaid ディレクティブのあった HTML だけが
-   上記 URL から Mermaid のメインスクリプトをダウンロードして、図式を描くはずだ。
+   こうすると、rst ファイルに ``mermaid`` ディレクティブのあった HTML だけが上記
+   URL から Mermaid のメインスクリプトをダウンロードして、図式を描くはずだ。
 
 Working Examples
 -----------------------------------------------------------------------
@@ -339,23 +337,26 @@ separate JavaScript file, in an example Path.
 4. Adding Mermaid as a dependency
 =======================================================================
 
-1. install node v16, which would have npm
-2. download yarn using npm by entering the command below: ``npm install -g yarn``
-3. After yarn installs, enter the following command: ``yarn add mermaid``
-4. To add Mermaid as a Dev Dependency ``yarn add -dev mermaid``
+1. install node v16, which would have :program:`npm`
+2. download :program:`yarn` using :program:`npm` by entering the command below:
+   :command:`npm install -g yarn`
+3. After :program:`yarn` installs, enter the following command: :command:`yarn
+   add mermaid`
+4. To add Mermaid as a Dev Dependency :command:`yarn add -dev mermaid`
 
 .. admonition:: 学習者ノート
 
-   この記述は私が NPM に疎いために意図するところが汲み取れない。
+   NPM だけではなく、もう一つのツールをインストールして Mermaid への依存関係を定
+   義すると読める。
 
 **Comments from Knut Sveidqvist, creator of mermaid:**
 
 * In early versions of mermaid, the ``<script src>`` tag was invoked in the
-  ``<head>`` part of the web page. Nowadays we can place it in the ``<body>``
-  as seen above. Older parts of the documentation frequently reflects the
-  previous way which still works.
+  ``<head>`` part of the web page. Nowadays we can place it in the ``<body>`` as
+  seen above. Older parts of the documentation frequently reflects the previous
+  way which still works.
 
 .. admonition:: 学習者ノート
 
-   開発者は Mermaid を準備するための ``script`` タグを HTML の
-   ``head`` 部分に置いて欲しくないと考えているように取れる。
+   開発者は Mermaid を準備するための ``script`` タグを HTML の ``head`` 部分に置
+   いて欲しくないと考えているように取れる。

@@ -125,10 +125,9 @@ dedicated declarations:
 
 .. admonition:: 学習者ノート
 
-   UML の仕様としては、activation
-   要素は、オブジェクトがメッセー
-   ジに応答していることを示すものだ。メッセージを受信したときに開始し、オブジェク
-   トがメッセージの処理を終了したときに終了する。
+   UML の仕様としては、activation 要素は、オブジェクトがメッセージに応答している
+   ことを示すものだ。メッセージを受信したときに開始し、オブジェクトがメッセージ
+   の処理を終了したときに終了する。
 
 There is also a shortcut notation by appending ``+``/``-`` suffix to the message
 arrow:
@@ -358,8 +357,8 @@ newline will be treated as a comment, including any diagram syntax.
 
 .. admonition:: 学習者ノート
 
-   これはフローチャートにもある機能だ。
-   このコメント要素は図式クラス全てに対して有効な構文であって欲しい。
+   これはフローチャートにもある機能だ。このコメント要素は図式クラス全てに対して
+   有効な構文であって欲しい。
 
 Entity codes to escape characters
 =======================================================================
@@ -478,7 +477,7 @@ Styling
 
 Styling of a sequence diagram is done by defining a number of css classes.
 During rendering these classes are extracted from the file located at
-``src/themes/sequence.scss``.
+:file:`src/themes/sequence.scss`.
 
 Classes used
 -----------------------------------------------------------------------
@@ -502,8 +501,8 @@ noteText     Styles for the text on in the note boxes.
 
 .. admonition:: 学習者ノート
 
-   フローチャートのときのような、Mermaid
-   ブロック中で即席でスタイルを定義する方式はないだろうか。
+   フローチャートのときのような、Mermaid ブロック中で即席でスタイルを定義する方
+   式はないだろうか。
 
 Sample stylesheet
 -----------------------------------------------------------------------
