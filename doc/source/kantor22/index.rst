@@ -2,9 +2,9 @@
 The Modern JavaScript Tutorial 読書ノート
 ======================================================================
 
-`The Modern JavaScript Tutorial <https://javascript.info/>`__ がよくできているので、
-ノートを残しておきたい。日本語訳もあるが、原文がせっかくあることだし、
-さらにコメント欄の充実ぶりも天と地ほど差があることので、そちらを読む。
+`The Modern JavaScript Tutorial <https://javascript.info/>`__ がよくできているの
+で、ノートを残しておきたい。日本語訳もあるが、原文がせっかくあることだし、さらに
+コメント欄の充実ぶりも天と地ほど差があることので、そちらを読む。
 
 .. toctree::
    :glob:
