@@ -6,34 +6,34 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 9
 
 .. contents:: ノート目次
 
+.. _khronos18-9:
+
 9. Shading Language Grammar
 ======================================================================
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    トークン、文法については仕様書該当部分をその都度参照することにする。
 
 文法は字句解析の出力から供給される。字句解析から返されるトークンはこの章の最初の
 テキストブロックにすべて掲載されている。
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    トークンが大量に列挙されている。キーワードを大文字で書いたものがほとんどのようだ。
 
    ``LEFT_OP``, ``RIGHT_OP``, ``INC_OP``, ``DEC_OP``, ``LE_OP``, など、
    これまで見たことがないトークンがある。あとで定義される？
 
-上記のトークンに関して OpenGL Shading Language の文法を記述したものが二番目の
-テキストブロックにある。
-開始規則は *translation_unit* だ。
-空のシェーダー（前処理の後、解析するトークンがないもの）は有効であり、
-その結果、下記の文法には空のトークンストリームを受け入れる規則がないにも関わらず、
-コンパイルエラーは発生しない。
+上記のトークンに関して OpenGL Shading Language の文法を記述したものが二番目のテ
+キストブロックにある。開始規則は *translation_unit* だ。空のシェーダー（前処理の
+後、解析するトークンがないもの）は有効であり、その結果、下記の文法には空のトーク
+ンストリームを受け入れる規則がないにも関わらず、コンパイルエラーは発生しない。
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
-   これまでのしばしば目にしたような BNF で文法のすべてが定義されている。
-   雰囲気を伝えるために一例を挙げておく：
+   これまでのしばしば目にしたような BNF で文法のすべてが定義されている。雰囲気を
+   伝えるために一例を挙げておく：
 
    | *translation_unit* :
    |     *external_declaration*
@@ -61,27 +61,29 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 9
    |     *type_qualifier IDENTIFIER SEMICOLON*
    |     *type_qualifier IDENTIFIER identifier_list SEMICOLON*
 
-一般的に、上記の文法は OpenGL Shading Language の超集合を記述している。
-文法的には純粋に有効な構成要素も、当仕様書の他の箇所では禁止されている。
+一般的に、上記の文法は OpenGL Shading Language の超集合を記述している。文法的に
+は純粋に有効な構成要素も、当仕様書の他の箇所では禁止されている。
 
 10. Acknowledgments
 ======================================================================
 
-本仕様書は、過去のバージョンの Open GL および Open GL ES 言語仕様書に寄稿した人々と、
-本バージョンに寄稿した以下の人々の仕事に基づいている：
+本仕様書は、過去のバージョンの Open GL および Open GL ES 言語仕様書に寄稿した
+人々と、本バージョンに寄稿した以下の人々の仕事に基づいている：
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
-   30 名ほどの協力者の氏名と、あれば所属が列挙されている。
-   NVIDIA, AMD, Intel, Apple, etc. すごい。
+   30 名ほどの協力者の氏名と、あれば所属が列挙されている。NVIDIA, AMD, Intel,
+   Apple, etc. すごい。
 
    `仕様書本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html##acknowledgments>`__
    参照。
 
+.. _khronos18-11:
+
 11. Normative References
 ======================================================================
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    * 標準 C++ (1998),
    * Open GL ES 3.2 (2016),
@@ -97,7 +99,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 9
 
 この付録の内容：
 
-* Vulkan と OpenGLの両方について、SPIR-V を使用した場合と使用しない場合の機能を比較。
+* Vulkan と OpenGLの両方について、SPIR-V を使用した場合と使用しない場合の機能を
+  比較。
 * GLSL と SPIR-V の両機能が論理的にどのように対応しているか。
 
 12.1. Feature Comparisons
@@ -114,12 +117,11 @@ OpenGL、Vulkan ともに、以下の機能を削除した：
 
 Vulkan では以下の機能を削除したが、OpenGL ではまだ残している：
 
-* 既定の一様変数、不透明型に対して：
-  ``UniformConstant`` 格納クラスは、大域スコープの個々の変数に使用することができる。
-  つまり、一様変数は、GLSL 4.5 以上でブロックになっている組み込みメンバーでない限り、
-  ブロックの中にある必要はない。
-* GLSL 不可分計数器束縛は ``offset`` レイアウト修飾子を持つ。
-  → SPIR-V の ``Offset`` 装飾を使っている ``AtomicCounter`` 格納クラス。
+* 既定の一様変数、不透明型に対して：``UniformConstant`` 格納クラスは、大域スコー
+  プの個々の変数に使用することができる。つまり、一様変数は、GLSL 4.5 以上でブ
+  ロックになっている組み込みメンバーでない限り、ブロックの中にある必要はない。
+* GLSL 不可分計数器束縛は ``offset`` レイアウト修飾子を持つ。 → SPIR-V の
+  ``Offset`` 装飾を使っている ``AtomicCounter`` 格納クラス。
 * GLSL の ``origin_lower_left`` → SPIR-V の ``OriginLowerLeft``
 * 頂点シェーダーでの入力倍数の位置に関する特別な規則
 * ``gl_VertexID`` と ``gl_InstanceID``
@@ -128,13 +130,13 @@ OpenGL、Vulkan ともに、以下の機能が追加：
 
 * 特殊化定数
 * 宣言順とは異なる順序でメンバーを編成できる ``offset``
-* 一様・バッファーブロックの ``offset`` および ``align`` レイアウト修飾子を、
-  対処していなかったバージョンに対応
+* 一様・バッファーブロックの ``offset`` および ``align`` レイアウト修飾子を、対
+  処していなかったバージョンに対応
 
 Vulkan のみ以下の機能が追加：
 
 * 押し込み一定バッファー
-* 別々のテクスチャーと採取器のシェーダー混合（SPIR-V ``OpTypeSampler``)
+* 別々のテクスチャーと採取器のシェーダー混合 (SPIR-V ``OpTypeSampler``)
 * 記述子集合（存在するならば ``DescriptorSet``  0でなければならない）
 * ``gl_VertexIndex`` と ``gl_InstanceIndex``
 * サブパス入力対象と入力付属 (``input_attachment_index``)
@@ -145,20 +147,20 @@ OpenGL、Vulkanともに、以下の機能が変更：
 
 Vulkan のみ以下の機能が変更：
 
-* 精度修飾子 ``mediump``, ``lowp`` はデスクトップ版では削除されず、
-  すべてのバージョンで尊重される（デスクトップ版の既定精度はすべての型で ``highp`` だ）。
-* 一様変数の配列とバッファーブロックの配列は、要素ごとではなく、
-  オブジェクト全体に対して一つの束縛番号しか受け取らなくなった。
+* 精度修飾子 ``mediump``, ``lowp`` はデスクトップ版では削除されず、すべてのバー
+  ジョンで尊重される（デスクトップ版の既定精度はすべての型で ``highp`` だ）。
+* 一様変数の配列とバッファーブロックの配列は、要素ごとではなく、オブジェクト全体
+  に対して一つの束縛番号しか受け取らなくなった。
 * 既定原点は ``origin_lower_left`` ではなく ``origin_upper_left`` となった。
 
 Vulkan は SPIR-V 環境仕様で UBO や SSBO などの資源の多次元配列を許さない。
-SPIR-V はそれを対処しており、OpenGL はすでに GLSL シェーダーでこれを許可している。
-SPIR-V for OpenGL でも許可されている。
+SPIR-V はそれを対処しており、OpenGL はすでに GLSL シェーダーでこれを許可してい
+る。SPIR-V for OpenGL でも許可されている。
 
 12.2. Mapping from GLSL to SPIR-V
 ----------------------------------------------------------------------
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    以下、私には読む必要が全くないトピックのはずだ。
 
@@ -166,19 +168,18 @@ SPIR-V for OpenGL でも許可されている。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 SPIR-V 特殊化定数は、クライアント API で後から設定することができ、
-``layout(constant_id=...)`` を用いて宣言することができる。
-例えば、既定値が 12 の特殊化定数を作るには次のようにする：
+``layout(constant_id=...)`` を用いて宣言することができる。例えば、既定値が 12 の
+特殊化定数を作るには次のようにする：
 
 .. code:: glsl
 
    layout(constant_id = 17) const int arraySize = 12;
 
 上記 17 は API や他のツールが後にこの特定の特殊化定数を参照するための ID だ。
-API や中間ツールは、実行コードに完全に下げられる前に、その値を別の定数の整数に
-変更することができる。
-最終的に下げられる前に変更されない場合は 12 の値を維持する。
+API や中間ツールは、実行コードに完全に下げられる前に、その値を別の定数の整数に変
+更することができる。最終的に下げられる前に変更されない場合は 12 の値を維持する。
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    原文の意味がつかめなかった。動詞 lower の意味がわからない。
 
@@ -195,11 +196,11 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 
    vec4 data2[arraySize + 2];
 
-これにより、シェーダーを実行コードに落とし込む際に、
-``data2`` のサイズが ``arraySize`` の持つ定数値よりも 2 だけ大きくなる。
+これにより、シェーダーを実行コードに落とし込む際に、``data2`` のサイズが
+``arraySize`` の持つ定数値よりも 2 だけ大きくなる。
 
-特殊化定数で形成された式もまた、シェーダー内では特殊化定数のように振る舞う。
-定数のようにではない。
+特殊化定数で形成された式もまた、シェーダー内では特殊化定数のように振る舞う。定数
+のようにではない。
 
 .. code:: glsl
 
@@ -218,8 +219,8 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
    layout(constant_id = 17) const int arraySize = 12;
    sin(float(arraySize));    // result is not a specialization constant
 
-SPIR-V 特殊化定数はスカラーしか対象としていないが、ベクトルはスカラーの演算で
-作ることができる：
+SPIR-V 特殊化定数はスカラーしか対象としていないが、ベクトルはスカラーの演算で作
+ることができる：
 
 .. code:: glsl
 
@@ -233,28 +234,27 @@ SPIR-V 特殊化定数はスカラーしか対象としていないが、ベク�
 
    layout(constant_id = 18) gl_MaxImageUnits;
 
-これにより特殊化定数のようになる。
-これは完全な再宣言ではなく、他のすべての特性は元の組み込み宣言からそのまま残されている。
+これにより特殊化定数のようになる。これは完全な再宣言ではなく、他のすべての特性は
+元の組み込み宣言からそのまま残されている。
 
-組み込みベクトル ``gl_WorkGroupSize`` は、
-``in`` 修飾子に適用される特別レイアウト ``local_size_{xyz}_id`` を用いて特化できる。
-例えば：
+組み込みベクトル ``gl_WorkGroupSize`` は、``in`` 修飾子に適用される特別レイアウ
+ト ``local_size_{xyz}_id`` を用いて特化できる。例えば：
 
 .. code:: glsl
 
    layout(local_size_x_id = 18, local_size_z_id = 19) in;
 
 これにより ``gl_WorkGroupSize.y`` は非特殊化定数として残り、
-``gl_WorkGroupSize`` は部分的に特殊化されたベクトルとなる。
-その ``x`` および ``z`` 成分は、IDの 18 および 19 を使用して後で特殊化することができる。
+``gl_WorkGroupSize`` は部分的に特殊化されたベクトルとなる。その ``x`` および
+``z`` 成分は、ID の 18 および 19 を使用して後で特殊化することができる。
 
 12.2.2. Vulkan Only: Push Constants
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-プッシュ定数は、一様ブロック宣言に適用される新しい *layout-qualifier-id* ``push_constant``
-を使って宣言された一様ブロック内に宿る。
-API は定数の集合を push-constant バッファーに書き込み、
-シェーダーは ``push_constant`` ブロックから定数を読み込む：
+プッシュ定数は、一様ブロック宣言に適用される新しい *layout-qualifier-id*
+``push_constant`` を使って宣言された一様ブロック内に宿る。API は定数の集合を
+``push-constant`` バッファーに書き込み、シェーダーは ``push_constant`` ブロック
+から定数を読み込む：
 
 .. code:: glsl
 
@@ -265,19 +265,18 @@ API は定数の集合を push-constant バッファーに書き込み、
    } InstanceName; // optional instance name
    ... = InstanceName.member2; // read a push constant
 
-``push_constant`` 一様ブロックに使用されるメモリーアカウンティングは他の一様ブロックとは異なる。
-それを収める必要がある隔離した小さなメモリープールがある。
-既定では ``push_constant`` バッファーは ``std430`` の梱包規則に従う。
+``push_constant`` 一様ブロックに使用されるメモリーアカウンティングは他の一様ブ
+ロックとは異なる。それを収める必要がある隔離した小さなメモリープールがある。既定
+では ``push_constant`` バッファーは ``std430`` の梱包規則に従う。
 
 12.2.3. Vulkan Only: Descriptor Sets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-記述子集合内の各シェーダー資源には、記述子集合のレイアウト内での位置を定義する
-集合番号、束縛番号、配列要素の組が割り当てられる。
-GLSL では、集合番号および束縛番号は、それぞれ ``set`` および ``binding``
-レイアウト修飾子を介して割り当てられ、配列要素は、配列の最初の要素のインデックス
-がゼロに等しい（非配列変数の場合は配列要素がゼロ）ことから、暗黙のうちに連続して
-割り当てられる：
+記述子集合内の各シェーダー資源には、記述子集合のレイアウト内での位置を定義する集
+合番号、束縛番号、配列要素の組が割り当てられる。GLSL では、集合番号および束縛番
+号は、それぞれ ``set`` および ``binding`` レイアウト修飾子を介して割り当てられ、
+配列要素は、配列の最初の要素のインデックスがゼロに等しい（非配列変数の場合は配列
+要素がゼロ）ことから、暗黙のうちに連続して割り当てられる：
 
 .. code:: glsl
 
@@ -299,8 +298,8 @@ GLSL では、集合番号および束縛番号は、それぞれ ``set`` およ
 Storage Images
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-格納画像は GLSL シェーダーソースの中で、適切な次元の一様画像変数と、
-必要に応じてフォーマットレイアウト修飾子を用いて宣言される。
+格納画像は GLSL シェーダーソースの中で、適切な次元の一様画像変数と、必要に応じて
+フォーマットレイアウト修飾子を用いて宣言される。
 
 .. code:: glsl
 
@@ -382,8 +381,8 @@ Textures (Sampled Images)
 Combined Texture and Samplers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-混合テクスチャーと採取器は GLSL シェーダソースの中では適切な次元の一様テクスチャー
-混合採取器変数を使って宣言される：
+混合テクスチャーと採取器は GLSL シェーダソースの中では適切な次元の一様テクス
+チャー混合採取器変数を使って宣言される：
 
 .. code:: glsl
 
@@ -408,8 +407,8 @@ Combined Texture and Samplers
    %10 = OpVariable %9 UniformConstant
            ...
 
-なお、混合画像採取器記述子は、上述の節と同様に、
-シェーダー内では単なる画像または採取器として参照することができる。
+なお、混合画像採取器記述子は、上述の節と同様に、シェーダー内では単なる画像または
+採取器として参照することができる。
 
 Combining Separate Samplers and Textures
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -468,8 +467,8 @@ Texture Buffers (Uniform Texel Buffers)
 Image Buffers (Storage Texel Buffers)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-画像バッファーは、GLSL シェーダーソース中では一様 ``imageBuffer`` 変数を使って
-宣言される：
+画像バッファーは、GLSL シェーダーソース中では一様 ``imageBuffer`` 変数を使って宣
+言される：
 
 .. code:: glsl
 
@@ -496,8 +495,8 @@ Image Buffers (Storage Texel Buffers)
 Storage Buffers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-GLSL シェーダーのソースでは、バッファー格納修飾子とブロック構文を使って格納
-バッファーを宣言する：
+GLSL シェーダーのソースでは、バッファー格納修飾子とブロック構文を使って格納バッ
+ファーを宣言する：
 
 .. code:: glsl
 
@@ -574,12 +573,12 @@ GLSL シェーダーのソースでは、一様格納修飾子とブロック構
 Subpass Inputs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-一つのレンダリングパスの中で、サブパスは結果を出力対象に書き込むことができ、
-その結果を次のサブパスが入力サブパスとして読み取ることができる。
-「サブパス入力」機能とは、出力対象を読み取る機能だ。
+一つのレンダリングパスの中で、サブパスは結果を出力対象に書き込むことができ、その
+結果を次のサブパスが入力サブパスとして読み取ることができる。「サブパス入力」機能
+とは、出力対象を読み取る機能だ。
 
-サブパス入力は、断片シェーダーでしか利用できない、新しい型の集合を通して
-読み込まれる：
+サブパス入力は、断片シェーダーでしか利用できない、新しい型の集合を通して読み込ま
+れる：
 
 | ``subpassInput``
 | ``subpassInputMS``
@@ -588,10 +587,11 @@ Subpass Inputs
 | ``usubpassInput``
 | ``usubpassInputMS``
 
-抽出器や画像オブジェクトとは異なり、サブパス入力は断片の
-``(x, y, layer)`` 座標によって暗黙のうちに指定される。
+抽出器や画像オブジェクトとは異なり、サブパス入力は断片の ``(x, y, layer)`` 座標
+によって暗黙のうちに指定される。
 
-入力付属物は、記述子集合と束縛番号に加えて、入力付属物のインデックスで装飾される。
+入力付属物は、記述子集合と束縛番号に加えて、入力付属物のインデックスで装飾され
+る。
 
 .. code:: glsl
 
@@ -616,8 +616,8 @@ Subpass Inputs
    %9 = OpVariable %8 UniformConstant
            ...
 
-``input_attachment_index`` が ``i`` の場合、入力パスリストの i 番目の登録
-を選択する(詳細は API 仕様を参照)。
+``input_attachment_index`` が ``i`` の場合、入力パスリストの i 番目の登録を選択
+する（詳細は API 仕様を参照）。
 
 これらのオブジェクトは、以下の関数によってサブパス入力の読み込みを対処している。
 
@@ -629,12 +629,12 @@ Subpass Inputs
 12.2.5. Mapping Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-gl_FragColor
+``gl_FragColor``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-断片段階組み込み ``gl_FragColor`` は、すべての出力へのブロードキャストを
-意味するが、SPIR-V には存在しない。
-``gl_FragColor`` への書き込みが許可されているシェーダーはやはり書き込みが可能だが、
+断片段階組み込み ``gl_FragColor`` は、すべての出力へのブロードキャストを意味する
+が、SPIR-V には存在しない。``gl_FragColor`` への書き込みが許可されているシェー
+ダーはやはり書き込みが可能だが、
 
 * ``gl_FragColor`` と同じ型の
 * 位置 0 で装飾されている
@@ -644,14 +644,14 @@ gl_FragColor
 
 暗黙のブロードキャストはない。
 
-Vulkan gl_VertexIndex and gl_InstanceIndex
+Vulkan ``gl_VertexIndex`` and ``gl_InstanceIndex``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-既存の組み込み変数 ``gl_VertexID`` と ``gl_InstanceID`` の代わりに、
-新しい組み込み変数 ``gl_VertexIndex`` と ``gl_InstanceIndex`` が加わる。
+既存の組み込み変数 ``gl_VertexID`` と ``gl_InstanceID`` の代わりに、新しい組み込
+み変数 ``gl_VertexIndex`` と ``gl_InstanceIndex`` が加わる。
 
-インデックスが何らかの基準オフセットに対して相対的である場合、
-これらの組み込み変数は Vulkan では以下のような値を取るように定義されている：
+インデックスが何らかの基準オフセットに対して相対的である場合、これらの組み込み変
+数は Vulkan では以下のような値を取るように定義されている：
 
 .. csv-table::
    :delim: @
@@ -661,115 +661,115 @@ Vulkan gl_VertexIndex and gl_InstanceIndex
 
 基準となるものが何であるかは、状況によって異なる。
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    これ以降、コード片を引用するのをほとんどやめる。
 
 Storage Classes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_storage_classes>`__ 参照。
 
 Input/Output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-入力・出力ブロックや変数の対応は、GLSL や ESSL のすべてのバージョンで同じだ。
-あるバージョンで利用可能な変数やメンバーの位置は次のとおりだ。
+入力・出力ブロックや変数の対応は、GLSL や ESSL のすべてのバージョンで同じだ。あ
+るバージョンで利用可能な変数やメンバーの位置は次のとおりだ。
 
-これらは SPIR-V の個々の変数に写され、同様の綴り方の組み込み装飾が一緒になる
-（特記事項を除く）：
+これらは SPIR-V の個々の変数に写され、同様の綴り方の組み込み装飾が一緒になる（特
+記事項を除く）：
 
 どの段階でも：
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_variables>`__ 参照。
 
 計算段階：
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    本文参照。
 
 断片段階：
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    本文参照。
 
-これらは、疑似コードが暗示するように、
-SPIR-V ブロックに写され、メンバーには同様の綴り方の組み込み装飾が一緒になる：
+これらは、疑似コードが暗示するように、SPIR-V ブロックに写され、メンバーには同様
+の綴り方の組み込み装飾が一緒になる：
 
 非断片段階：
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    本文参照。
 
-SPIR-V の各段階には、高々一つの入力ブロックと一つの出力ブロックがある。
-インターフェイスを共有する段階間では、メンバーの部分集合と順序が一致する。
+SPIR-V の各段階には、高々一つの入力ブロックと一つの出力ブロックがある。インター
+フェイスを共有する段階間では、メンバーの部分集合と順序が一致する。
 
 12.2.6. Vulkan Only: Mapping of Precision Qualifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_vulkan_only_mapping_of_precision_qualifiers>`__ 参照。
 
 12.2.7. Mapping of precise:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_of_precise>`__ 参照。
 
 12.2.8. OpenGL Mapping of atomic_uint offset layout qualifier
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_opengl_mapping_of_atomic_uint_offset_layout_qualifier>`__ 参照。
 
 12.2.9. Mapping of Images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_of_images>`__ 参照。
 
 12.2.10. Mapping of Layouts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_of_layouts>`__ 参照。
 
 12.2.11. Mapping of barriers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_of_barriers>`__ 参照。
 
 12.2.12. Mapping of atomics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_of_atomics>`__ 参照。
 
 12.2.13. OpenGL Only: Mapping of Atomics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_opengl_only_mapping_of_atomics>`__ 参照。
 
 12.2.14. Mapping of other instructions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: コメント
+.. admonition:: 読者ノート
 
    `本文 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#_mapping_of_other_instructions>`__ 参照。
