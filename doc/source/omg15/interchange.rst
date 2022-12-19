@@ -1,19 +1,18 @@
 ======================================================================
 Annex B: UML Diagram Interchange
 ======================================================================
-UML 2.5 pp. 685-742 に関するノート。
-ここまで書いておいて何だが、読み返せたものではない。
-もっと簡潔にしよう。
+
+UML 2.5 pp. 685-742 に関するノート。ここまで書いておいて何だが、読み返せたもので
+はない。もっと簡潔にしよう。
 
 .. contents:: ノート目次
    :depth: 2
 
 B.1 Summary
 ======================================================================
-* この付録は、
-  設計者が支配力のある UML モデルの、
-  例えば図表上の形状の位置と点々の道筋を決める線のような、
-  純粋に図表的な外観の交換 (UML DI) を可能にする。
+
+* この付録は、設計者が支配力のある UML モデルの、例えば図表上の形状の位置と点々
+  の道筋を決める線のような、純粋に図表的な外観の交換 (UML DI) を可能にする。
 
 * UML DI は Diagram Definition (DD_) に基づくものであり、
   とりわけその中の Diagram Interchange (DI) と
@@ -74,7 +73,7 @@ B.2.2 UML Diagrams and Diagram Elements
     線を先が開いた実線矢印ではなく、線で見せるオプションである。
 
     * UMLShapes は同時に両方の表記法を用いてよい。
-      交換時には同じ ``modelElement`` があるふたつの
+      交換時には同じ ``modelElement`` がある二つの
       UMLShapes になる。
 
 * UMLDiagramElement に関して注意することをいくつか挙げる。
@@ -109,13 +108,13 @@ B.2.3 UML Shapes and Edges
 
   * UMLLabels ではなく、
     ``modelElements`` がなく、
-    ただひとつの ``ownedElement`` として単独の UMLLabel に
-    少なくともひとつの ``modelElement`` があるような UMLShapes は、
+    ただ一つの ``ownedElement`` として単独の UMLLabel に
+    少なくとも一つの ``modelElement`` があるような UMLShapes は、
     註釈記号として描画されるものとする。
     そのような UMLShapes と他の UMLDiagramElements とを接続する
     UMLEdges は破線を用いて描画されるものとする。
 
-  * ふたつを超える端点がある Dependency を示す矢印 (pl.) は
+  * 二つを超える端点がある Dependency を示す矢印（複数形）は
     ``modelElement`` として Dependency があり、かつ
     ``modelElement`` として Dependency がある UMLShape がある
     ``source`` または ``target`` の一方を有する UMLEdges として交換される。
@@ -134,7 +133,7 @@ B.2.4 Labels
     そして UMLLabel を数種の UMLDiagrams で用いられる
     さまざまな種類のラベルに特殊化する。
 
-* UMLLabels のすべては少なくともひとつの ``modelElement`` があるものする。
+* UMLLabels のすべては少なくとも一つの ``modelElement`` があるものする。
   ただし UMLLabel にしか分類されず、
   その特殊化のいずれでもないようなものは除く。
 
@@ -154,7 +153,7 @@ B.2.4 Labels
   ``modelElements`` に関するさまざまな種類の情報を示す目的がある。
 
 * UMLTypedElementLabel は
-  ちょうどひとつの Slot, InstanceSpecification, InstanceValue, 
+  ちょうど一つの Slot, InstanceSpecification, InstanceValue,
   または TypedElement や Connector といった ``type`` のある要素についての
   名前、型、役割の情報を示すものである。
   UMLTypedElementLabels を交換することについて注意する点がある：
@@ -190,7 +189,7 @@ B.2.4 Labels
     ``text`` は ``modelElement`` の ``name`` および
     その ``modelElement`` の ``type`` の ``name`` を含んでもよい。
 
-* UMLRedefinesLabel はちょうどひとつの RedefinableElement についての
+* UMLRedefinesLabel はちょうど一つの RedefinableElement についての
   情報を示すものであり、
   ``redefinedElement`` の ``name`` を含んでよい。
 
@@ -233,10 +232,10 @@ B.2.6 Stereotype Applications
     適用されている Stereotypes がないときにはどのような描画アイコンも
     この場合は描画されない。
 
-    * ``modelElement`` にちょうどひとつの Stereotype が適用されていて
+    * ``modelElement`` にちょうど一つの Stereotype が適用されていて
       ``icon`` に対する値があって、
-    * ``isIcon`` に対する値が true であって、
-    * ``isIcon`` に対する値が false であるときに矩形で描画される。
+    * ``isIcon`` に対する値が ``true`` であって、
+    * ``isIcon`` に対する値が ``false`` であるときに矩形で描画される。
 
   * 次の条件を満たす UMLShapes は
     Stereotype ``icon`` として描画されるものとする：
@@ -246,13 +245,13 @@ B.2.6 Stereotype Applications
     * ``modelElement`` に Stereotype が適用された ``modelElements`` がある
       UMLDiagramElements の ``ownedElements`` であり、
 
-    * ``isIcon`` に対する値が true である。
+    * ``isIcon`` に対する値が ``true`` である。
 
     これらの UMLShapes は次のいずれかの場所で描画されるものとする：
 
     * それらの ``owningElements`` である UMLShapes について
       描画された幾何的図形の内側であるが、
-      それらが ``isIcon`` に対して false の値であるものとする。
+      それらが ``isIcon`` に対して ``false`` の値であるものとする。
 
     * それらの ``owningElements`` である UMLEdges について
       描画された線の近く。
@@ -292,7 +291,7 @@ B.3.2 Structure Diagrams
 
 * UMLStructureDiagrams はいずれも ``modelElements`` がないが、
   例外として UMLCompositeStructureDiagrams は除く。
-  これらはちょうどひとつあり、
+  これらはちょうど一つあり、
   すべてに関連 (UMLDiagramWithAssociations) を表すための図表的オプションがある。
 
 * UMLDiagramWithAssociations の内容に関して注意点をいくつか挙げる。
@@ -306,7 +305,7 @@ B.3.2 Structure Diagrams
     Association を ``classifier`` とする InstanceSpecifications や、
     Properties や Slots に適用する。
 
-  * 関連線の間にある Generalization の矢印 (pl.) は
+  * 関連線の間にある Generalization の矢印（複数形）は
     UMLEdges が ``modelElements`` である Generalizations と交換されて、
     UMLEdges である ``sources`` と ``targets`` は
     Associations が（線で示される AssociationClasses もこれに含まれる）
@@ -351,7 +350,7 @@ B.3.2 Structure Diagrams
        InterafaceRealization または Usage Dependencies
 
   * ``required`` と ``provided`` Interfaces を表す ball and socket 記法は
-    ``isIcon`` の値が true である UMLClassifierShapes と交換される。
+    ``isIcon`` の値が ``true`` である UMLClassifierShapes と交換される。
 
 * UMLCompositeStructureDiagrams には、
   StructuredClassifiers または
@@ -373,12 +372,12 @@ B.3.2 Structure Diagrams
     ball or socket 記法で描画してよい。
     このとき、Connector ``end`` ``roles`` は
     ``partWithPort`` に値がある Ports であり、
-    ちょうどひとつの Interface を要求または提供する。
+    ちょうど一つの Interface を要求または提供する。
 
   * Interfaces が ``modelElements`` であり、
     ball or socket 記法で描画される UMLClassifierShapes は、
     ``partWithPort`` に値がある Ports であり、
-    ちょうどひとつの Interface を要求または提供する
+    ちょうど一つの Interface を要求または提供する
     ``end`` ``roles`` と共に Connectors を見せるために、
     （ボールがソケットの中にあり、それらの間に線がないように）
     お互いの近くに描画してよい。
@@ -405,7 +404,7 @@ B.3.3 Classifier Shapes
 * Figure B.9 Classifier Shapes
 
   * UMLCompartmentableShape を UMLClassifierShape に特殊化することで、
-    特性を追加し、ちょうどひとつの Classifier を見せるように制限する。
+    特性を追加し、ちょうど一つの Classifier を見せるように制限する。
 
 * UMLClassifierShapes に関する注意をいくつか挙げる：
 
@@ -436,8 +435,8 @@ B.3.4 Multiplicity and Association End Labels
 * Figure B.10 Multiplicity and Association End Labels
 
   * UMLLabel を UMLMultiplicityLabel と UMLAssociationEndLabel に特殊化することで、
-    ただひとつの MultiplicityElement または
-    ただひとつの Association ``memberEnd`` についての情報を見せるように
+    ただ一つの MultiplicityElement または
+    ただ一つの Association ``memberEnd`` についての情報を見せるように
     それぞれ制限する。
 
 * UMLMultiplicityLabels と UMLAssociationEndLabels に関する注意をいくつか挙げる：
@@ -475,14 +474,14 @@ B.3.5 Association, Connector, and Link Shapes
 * Figure B.11 Association, Connector, and Link Shapes
 
   * UMLShape を UMLAssociationOrConnectorOrLinkShape に特殊化して、
-    特性を追加し、ちょうどひとつの Association, Connector, または
+    特性を追加し、ちょうど一つの Association, Connector, または
     Association classifier の付いた InstanceSpecification を見せるように制限する。
 
 * ``kind`` の値が diamond である UMLAssociationOrConnectorOrLinkShapes は
   菱型として描画されるものとし、
-  ふたつの ``memberEnds`` がある Association ``classifier`` か、
-  ふたつの ``ends`` がある Connector か、
-  またはふたつの ``memberEnds`` がある
+  二つの ``memberEnds`` がある Association ``classifier`` か、
+  二つの ``ends`` がある Connector か、
+  または二つの ``memberEnds`` がある
   Association ``classifier`` がある InstanceSpecification
   のいずれかである ``modelElement`` があるものとする。
 
@@ -511,12 +510,12 @@ B.4.2 Behavior Diagrams
 * UMLUseCaseDiagrams には ``modelElements`` はない。
 
   * UMLCase 表記法は UMLClassifierShapes と交換されるものとし、
-    これらは ``isIcon`` の値が true のときには楕円として、
-    値が false のときには矩形として描画される。
+    これらは ``isIcon`` の値が ``true`` のときには楕円として、
+    値が ``false`` のときには矩形として描画される。
 
   * Actor 表記法は UMLClassifierShapes と交換されるものとし、
-    これらは ``isIcon`` の値が true のときには棒人形として、
-    値が false のときには矩形として描画される。
+    これらは ``isIcon`` の値が ``true`` のときには棒人形として、
+    値が ``false`` のときには矩形として描画される。
 
   * Actors を示す設計者定義のアイコンを Stereotype ``icons`` を以って指定してよい。
 
@@ -526,7 +525,7 @@ B.4.2 Behavior Diagrams
 
   * Extends が ``modelElements`` である UMLShapes は註釈記号として描画されるものとし、
     特化版でない UMLLabels を
-    そのふたつしかない ``ownedElements`` として有する。
+    その二つしかない ``ownedElements`` として有する。
 
 * UMLStateMachineDiagrams はちょうど一個の ``modelElement`` があるように制限されており、
   それは StateMachine でなければならない。
@@ -538,7 +537,7 @@ B.4.2 Behavior Diagrams
   * ``isInheritedDashed`` は継承した State を ``modelElement`` とする
     UMLShapes の境界を破線とするかどうかを指示する。
 
-* ``isTransitionOriented`` の値が true である StateMachineDiagrams では
+* ``isTransitionOriented`` の値が ``true`` である StateMachineDiagrams では
   StateMachines はフローチャート様式で示してよく、
   Transition ``triggers`` は凹五角形として示され、
   Transition ``effects`` にある SequenceNodes にある ``executableNodes`` は、
@@ -558,8 +557,8 @@ B.4.2 Behavior Diagrams
   * ``isActivityFrame`` は図式枠を五角形見出しのない
     丸角矩形とするものかどうかを指示する。
 
-    * ``isActivityFrame`` が true のときには
-      必ず ``isFrame`` は false であるものとする。
+    * ``isActivityFrame`` が ``true`` のときには
+      必ず ``isFrame`` は ``false`` であるものとする。
 
 * UMLActivityDiagrams の内容に関する注意点：
 
@@ -571,16 +570,16 @@ B.4.2 Behavior Diagrams
   * InputPins と OutputPins の情報は次のようにして図表的に示してよい：
 
     * 単一の InputPin または OutputPin が ``modelElement`` であり、
-      ``isIcon`` の値が true である UMLShapes は、
+      ``isIcon`` の値が ``true`` である UMLShapes は、
       InputPins に対しては 矩形内にある小さい矢印が
       それらが隣接する丸い矩形を向いているように、
       OutputPins に対しては離れる方向を向いているように
       描画されるものとする。
 
     * 単一の InputPin または OutputPin が
-      ``isStream`` の値が true である Parameter に対応する
+      ``isStream`` の値が ``true`` である Parameter に対応する
       ``modelElement`` であり、
-      かつ ``isIcon`` の値が true である UMLShapes は、
+      かつ ``isIcon`` の値が ``true`` である UMLShapes は、
       その内側に黒塗りの逆矢印として描画されるものとする。
 
   * OutputPins と InputPins の間の ObjectFlows は次のようにして
@@ -598,7 +597,7 @@ B.4.2 Behavior Diagrams
       線の近くにある小さい正方形を使って描画されるものとする。
 
   * 次に記すように、単一の UMLShape を
-    ActivityEdge の ``target`` と ``source`` であるふたつの
+    ActivityEdge の ``target`` と ``source`` である二つの
     ControlNodes の代わりとなる速記法として用いてよい。
 
     * 単一の UMLShape には、
@@ -608,7 +607,7 @@ B.4.2 Behavior Diagrams
       ActivityEdge の ``source`` と ``target`` である。
 
     * 単一の UMLShape には、
-      ``modelElements`` として 
+      ``modelElements`` として
       JoinNode, ActivityEdge, ForkNode があってもよい。
       ここで JoinNode と ForkNode がそれぞれ
       ActivityEdge の ``source`` と ``target`` である。
@@ -616,37 +615,37 @@ B.4.2 Behavior Diagrams
   * UMLEdges には
     ExecptionHandler の ``handlerBody`` を ``modelElement`` とする UMLShapes を
     ``targets`` としてあってもよい。
-    これらの ``isIcon`` が true である UMLEdges は
+    これらの ``isIcon`` が ``true`` である UMLEdges は
     ジグザグ線として描画されるものとし、
-    false ならばジグザグマークが線の近くにあるように描画されるものとする。
+    ``false`` ならばジグザグマークが線の近くにあるように描画されるものとする。
 
-  * ちょうどひとつの ``inputElement``, ``outputElement``, Action ``node`` と
-    ちょうどふたつの ObjectFlow ``edges`` がある ExpansionRegions を、
-    二種類ある略記法のひとつを使って示してよく、
+  * ちょうど一つの ``inputElement``, ``outputElement``, Action ``node`` と
+    ちょうど二つの ObjectFlow ``edges`` がある ExpansionRegions を、
+    二種類ある略記法の一つを使って示してよく、
     それらは両方とも
     ExpansionRegion が ``modelElement`` である UMLShape を含み、
     Action ``node`` が ``modelElement`` である UMLLabel を含み、
     UMLShape の中央に描画される。
 
-    * ひとつ目の表記法は、
+    * 一つ目の表記法は、
       UMLShape の境界上に
       ExpansionRegion の ``inputElement`` と ``outputElement`` が
-      ``modelElements`` であるふたつの他の UMLShapes があるものする。
-      ただし、このふたつの他の UMLShapes は
+      ``modelElements`` である二つの他の UMLShapes があるものする。
+      ただし、この二つの他の UMLShapes は
       最初の UMLShapes の ``ownedElements`` であるものとし、
       かつ ObjectFlows が ``modelElements`` である
-      ふたつの UMLEdges のそれぞれ ``target`` と ``source`` であるものする。
+      二つの UMLEdges のそれぞれ ``target`` と ``source`` であるものする。
       ただし、ObjectFlows には
       ``inputElement`` と ``outputElement`` がそれぞれ
       ``target`` と ``source`` としてあるものとする。
 
-    * もうひとつの表記法は平行 ``mode`` の ExpansionRegions のみについてのものである。
+    * もう一つの表記法は平行 ``mode`` の ExpansionRegions のみについてのものである。
       それは ``inputElement`` と ``outputElement`` を見せてはならない。
 
   * 割り込み活動エッジは割り込み可能な区域により見分ける。
 
   * ActivityPartitions が
-    ``isActivityFrame`` が値 true である
+    ``isActivityFrame`` が値 ``true`` である
     UMLActivityDiagram の ``modelElement`` である
     Activity の ``ownedElements`` である ``modelElements`` である
     UMLSpapes の線分の外側は、
@@ -682,7 +681,7 @@ B.4.2 Behavior Diagrams
 
   * ``interactionOperand`` の値が **par** である ``modelElements`` である
     CombinedFragments があり、
-    かつ ``isIcon`` の値が true である UMLShapes は、
+    かつ ``isIcon`` の値が ``true`` である UMLShapes は、
     形状の上部と下部に中括弧として描画するものとする。
 
   * ``interactionOperand`` に関わらず、すべての CombinedFragments は
@@ -691,7 +690,7 @@ B.4.2 Behavior Diagrams
     UMLLabels と交換され、
     事によると複数のラベルが五角形ごとにある。
 
-  * ExecutionSpecifications が ``isIcon`` の値が true である
+  * ExecutionSpecifications が ``isIcon`` の値が ``true`` である
     ``modelElements`` である UMLShapes は
     陰ったパターンを使って描画するものとする。
 
@@ -812,7 +811,7 @@ B.4.4 State Shapes
 * Figure B.13 State Shapes
 
   * UMLCompartmentableShape を UMLStateShape に特殊化することで、
-    特性をひとつ追加し、ひとつまたはそれを超える States を示すように制限する。
+    特性を一つ追加し、一つまたはそれを超える States を示すように制限する。
 
     * ``isTabbed`` は形状の上部にタブを追加して、
       State の名前を表示するものとするかどうかを指示する。
@@ -854,7 +853,7 @@ B.5 Information Flows
     ``conveyed`` の種類の ``names`` を示す。
 
   * InformationFlows が ``modelElements`` であり、
-    ``isIcon`` の値が true である UMLShapes は、
+    ``isIcon`` の値が ``true`` である UMLShapes は、
     ``modelElements`` として同じ InformationFlows がある
     UMLEdges と共に重なりつつ整列して、
     黒塗りの三角形として描画するものとし、
@@ -875,7 +874,7 @@ B.6 UML Notations and UML DI Representations
     次に括弧内に ``modelElement`` の型が、
     時として図式に適用する他の制約が続く。
 
-    * ひとつの図式に ``modelElement`` の型を
+    * 一つの図式に ``modelElement`` の型を
       複数割り当てることが可能なときには
       型名にプラス記号が付く。
 
