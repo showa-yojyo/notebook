@@ -1,59 +1,60 @@
 ======================================================================
 インストール
 ======================================================================
-SymPy_ をインストールする前に、オンラインシェルでまずはその機能を試した。
-可能性を感じたので、自分の Python_ 環境に SymPy をインストールした。
-その過程をここで述べる。
+
+SymPy_ をインストールする前に、オンラインシェルでまずはその機能を試した。可能性
+を感じたので、自分の Python_ 環境に SymPy をインストールした。その過程をここで述
+べる。
 
 .. contents:: ノート目次
 
 下見する
 ======================================================================
-ブラウザーさえあれば SymPy を自分の Python 環境にインストールすることなく触ってみることが可能だ。
-SymPy をインストールするかどうか迷っている場合は、
-これらの機能で間に合うかどうかを判断してから決めるのがよさそうだ。
 
-次の手順で SymPy を試すことができる。
+ブラウザーさえあれば SymPy を自分の Python 環境にインストールすることなく触って
+みることが可能だ。 SymPy をインストールするかどうか迷っている場合は、これらの機
+能で間に合うかどうかを判断してから決めるのがよさそうだ。
 
-#. プロジェクトサイトの右上リンク `Online Shell <http://live.sympy.org/>`_ 先のページを開く。
+次の手順で SymPy を試すことができる：
+
+#. プロジェクトサイトの右上リンク `Online Shell <http://live.sympy.org/>`_ 先の
+   ページを開く。
 #. Python インタラクティブシェルで適宜コマンドを入力する。
 
-特製シェルの操作方法はページの右側の柱に記述がある。
-これはオンラインドキュメントからも随時表示させることができる。
+特製シェルの操作方法はページの右側の柱に記述がある。これはオンラインドキュメント
+からも随時表示させることができる。
 
-* Enter キーを単に押すだけでは入力した式が実行されない。
-  UI の Evaluate ボタンをクリックすると初めて評価される。
-
+* :kbd:`Enter` キーを単に押すだけでは入力した式が実行されない。:guilabel:`Evaluate`
+  ボタンをクリックすると初めて評価される。
 * 画鋲ボタンはセッションの再現をするための URL を生成する優れ物。
-
-* オンラインシェルの Python のバージョンは 2.7.5 なので、
-  私の 3.4 環境で動作する SymPy はサポートされているのだろうかという疑問がわく。
-  後で試してみたら問題はなかった。
+* オンラインシェルの Python のバージョンは 2.7.5 なので、私の 3.4 環境で動作する
+  SymPy はサポートされているのだろうかという疑問がわく。後で試してみたら問題はな
+  かった。
 
 パッケージをインストールする
 ======================================================================
-SymPy のドキュメントによると、ソースからのインストールが推奨手段だそうだ。
-そしてそのソースの入手方法は次のいずれかになる。
+
+SymPy のドキュメントによると、ソースからのインストールが推奨手段だそうだ。そして
+そのソースの入手方法は次のいずれかになる。
 
 #. ダウンロードページで配布しているソースの圧縮ファイルを解凍して、
-   コマンドラインから :code:`python setup.py install` する。
-
+   コマンドラインから :command:`python setup.py install` する。
 #. Git でレポジトリーをローカルに複製して、以下同文。
 
-私の場合は Git があるのでこちらのやり方のほうが容易だ。
-次のようにコマンドラインを入力したところ、うまくインストールできた。
+私の場合は Git があるのでこちらのやり方のほうが容易だ。次のようにコマンドライン
+を入力したところ、うまくインストールできた。
 
 .. code:: console
 
-   $ cd ~/devel
-   $ git clone git://github.com/sympy/sympy.git
+   bash$ cd ~/devel
+   bash$ git clone git://github.com/sympy/sympy.git
    Cloning into 'sympy'...
-   $ cd sympy
-   $ git pull origin master
+   bash$ cd sympy
+   bash$ git pull origin master
    From git://github.com/sympy/sympy
    * branch            master     -> FETCH_HEAD
    Current branch master is up to date.
-   $ pip install -e .
+   bash$ pip install -e .
    Obtaining file:///D:/home/yojyo/devel/sympy
      Running setup.py (path:D:/home/yojyo/devel/sympy\setup.py) egg_info for package from file:///D:/home/yojyo/devel/sympy
 
@@ -77,26 +78,27 @@ SymPy のドキュメントによると、ソースからのインストール�
    Successfully installed mpmath sympy
    Cleaning up...
 
-* 公式ドキュメントには :code:`setupegg.py install` せよとあるが、私のところでは動かなかった。
-  代わりに上記のように pip_ を用いた。
-
+* 公式ドキュメントには :command:`setupegg.py install` せよとあるが、私のところで
+  は動かなかった。代わりに上記のように pip_ を用いた。
 * 依存パッケージに ``mpmath`` というのが見える。
   任意精度浮動小数点演算のための Python パッケージのようだ。
 
 バージョンを確認する
 ======================================================================
-単にバージョンを確認するには、例えば次のようにする。
+
+単にバージョンを確認するには、例えば次のようにする：
 
 .. code:: console
 
-   $ python -c 'import sympy; print(sympy.__version__)'
+   bash$ python -c 'import sympy; print(sympy.__version__)'
    0.7.7.dev
 
-もしくは pip を利用する。こちらの方法のほうが潰しが効くので憶えておくとよいだろう。
+もしくは pip を利用する。こちらの方法のほうが潰しが効くので憶えておくとよいだろ
+う：
 
 .. code:: console
 
-   $ pip show sympy
+   bash$ pip show sympy
    ---
    Metadata-Version: 1.1
    Name: sympy
@@ -111,12 +113,13 @@ SymPy のドキュメントによると、ソースからのインストール�
 
 単体テストを実施する
 ======================================================================
+
 せっかくソースごとインストールしたので、開発用のものと思われる単体テストを行う。
 私の環境で実施したところ、次のようなレポートが延々と出力されていた。
 
 .. code:: console
 
-   $ python -c 'import sympy; sympy.doctest()'
+   bash$ python -c 'import sympy; sympy.doctest()'
    ============================= test process starts ==============================
    executable:         D:\Python34\python.exe  (3.4.1-final-0) [CPython]
    architecture:       64-bit
@@ -134,45 +137,46 @@ SymPy のドキュメントによると、ソースからのインストール�
    ============================== rst doctests start ==============================
    -- 中断 --
 
-* コンソールに羅列されていく数学用語を見ると、
-  身に余る物をインストールしてしまったという気分を感じられる。
+* コンソールに羅列されていく数学用語を見ると、身に余る物をインストールしてしまっ
+  たという気分を感じられる。
 * 微分方程式のソルバーのテストに時間がかかるようだ。
-* :code:`rst doctest start` 以降は時間がなかったので Ctrl + C で中止した。
+* ``rst doctest start`` 以降は時間がなかったので :kbd:`Ctrl` + :kbd:`C` で中止し
+  た。
 * ``[OK]`` がほとんどのようだから、全く動作しないということはなさそうに思える。
 
 :program:`isympy` を実行する
 ======================================================================
-コマンドラインから :file:`bin/isympy` を起動すると、そのまま Python の対話モードが始まる。
-IPython_ が利用可能な環境では IPython のそれが始まる。
 
-* 私の場合は Cygwin のコマンドラインから直接スクリプトを走らせるよりは、
-  Windows の「ファイル名を指定して実行」から :program:`python` 経由で
-  :program:`isympy` を走らせるとキーバインド等の具合がよい。
-  私の場合は下記コマンドラインのようにする。
+コマンドラインから :file:`bin/isympy` を起動すると、そのまま Python の対話モード
+が始まる。IPython_ が利用可能な環境では IPython のそれが始まる。
+
+* 私の場合は Cygwin のコマンドラインから直接スクリプトを走らせるよりは、Windows
+  の :guilabel:`ファイル名を指定して実行` から :program:`python` 経由で
+  :program:`isympy` を走らせるとキーバインド等の具合がよい。私の場合は下記コマン
+  ドラインのようにする：
 
   .. code:: text
 
      D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" --pretty=no -- --profile=sympy
 
-  私の都合で SymPy 利用時に限り IPython の設定ファイルによる設定を上書きしたいので、
-  コマンドライン引数の最後にそれを指定する。
-  こう書いておくと、IPython は設定ファイル
-  :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。
-  次の行を編集してある。
+  私の都合で SymPy 利用時に限り IPython の設定ファイルによる設定を上書きしたいの
+  で、コマンドライン引数の最後にそれを指定する。こう書いておくと、IPython は設定
+  ファイル :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。次
+  の行を編集してある。
 
   .. code:: python3
 
      c.InteractiveShellApp.pylab_import_all = False
 
-  これの意味を簡単に述べると、
-  いつもなら便利な :code:`from numpy import *` 等の自動インポートを避けるということだ。
-  いかにも NumPy と SymPy で何らかの名前衝突を起こしそうなことは想像に難くない。
+  これの意味を簡単に述べると、いつもなら便利な ``from numpy import *`` 等の自動
+  インポートを避けるということだ。いかにも NumPy と SymPy で何らかの名前衝突を起
+  こしそうなことは想像に難くない。
 
   * 関連ノートとして :doc:`/python-ipython` の環境設定の節を参照。
-  * 後になって SymPy どころか、
-    :code:`all` や :code:`sum` 等の組み込みの関数の名前をも隠すことが発覚した。
+  * 後になって SymPy どころか、``all`` や ``sum`` 等の組み込みの関数の名前をも隠
+    すことが発覚した。
 
-* ConEmu の Predefined Tasks にこのコマンドラインを含めておく。
+* ConEmu の :guilabel:`Predefined Tasks` にこのコマンドラインを含めておく。
   :doc:`/python-upgrade` も参照。
 
 .. include:: /_include/python-refs-core.txt

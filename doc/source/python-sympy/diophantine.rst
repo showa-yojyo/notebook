@@ -1,59 +1,65 @@
 ======================================================================
 ディオファントス方程式
 ======================================================================
-ここではディオファントス方程式モジュールについて記す。
-整数係数方程式の検算などに応用できるかもしれない。
+
+ここではディオファントス方程式モジュールについて記す。整数係数方程式の検算などに
+応用できるかもしれない。
 
 .. contents:: ノート目次
 
 基本事項
 ======================================================================
+
 SymPy のドキュメントの出来が良いので、特に付け足すことはない。
 
-* 関連機能のインポートは :code:`from sympy.solvers.diophantine import ...` の形になる。
-* 方程式の構成方法にコツがある。未知数文字を明示的に整数型にする。
-  次のパターンを覚えておけば間に合う。
+* 関連機能のインポートは :code:`from sympy.solvers.diophantine import ...` の形
+  になる。
+* 方程式の構成方法にコツがある。未知数文字を明示的に整数型にする。次のパターンを
+  覚えておけば間に合う。
 
   .. code:: python3
 
      x, y, z = symbols('x y z', integer=True)
      u, v, w = symbols('u v w', integer=True, positive=True)
 
-* 関数 :code:`diophantine` が基本的。引数にディオファントス方程式の左辺を指定する。
+* 関数 ``diophantine`` が基本的。引数にディオファントス方程式の左辺を指定する。
 
-関数 :code:`diophantine`
+関数 ``diophantine``
 ======================================================================
-関数 :code:`diophantine` は既定の 5 パターンのディオファントス方程式を解くことができる。
-本稿では各パターンの名前を、それらを解くための専用関数のそれと同じに呼ぶことにする。
+
+関数 ``diophantine`` は既定の 5 パターンのディオファントス方程式を解くことができ
+る。本稿では各パターンの名前を、それらを解くための専用関数のそれと同じに呼ぶこと
+にする。
 
 ソルバー関数と方程式のタイプの対応を記しておく。
 
 .. csv-table::
    :delim: @
    :header: タイプ, 方程式の形式
-   :widths: 20, 50
+   :widths: auto
 
-   :code:`diop_linear`@:math:`a_1x_1 + a_2x_2 + \ldots + a_nx_n = b`
-   :code:`diop_quadratic`@:math:`ax^2 + bxy + cy^2 + dx + ey + f = 0`
-   :code:`diop_ternary_quadratic`@:math:`ax^2 + by^2 + cz^2 + dxy + eyz + fzx = 0`
-   :code:`diop_general_pythagorean`@:math:`a_{1}x_{1}^2 + a_{2}x_{2}^2 + \ldots + a_{n}x_{n}^2 = a_{n+1}x_{n+1}^2`
-   :code:`diop_general_sum_of_squares`@:math:`x_{1}^2 + x_{2}^2 + \ldots + x_{n}^2 = k`
+   ``diop_linear``@ :math:`{a_1x_1 + a_2x_2 + \ldots + a_nx_n = b}`
+   ``diop_quadratic``@ :math:`{ax^2 + bxy + cy^2 + dx + ey + f = 0}`
+   ``diop_ternary_quadratic``@ :math:`{ax^2 + by^2 + cz^2 + dxy + eyz + fzx = 0}`
+   ``diop_general_pythagorean``@ :math:`{a_{1}x_{1}^2 + a_{2}x_{2}^2 + \ldots + a_{n}x_{n}^2 = a_{n+1}x_{n+1}^2}`
+   ``diop_general_sum_of_squares``@ :math:`{x_{1}^2 + x_{2}^2 + \ldots + x_{n}^2 = k}`
 
-* 関数 :code:`diophantine` は引数の方程式に相応しい下回りの関数を特定して呼び出すという、
-  窓口のような役割がある。
-* 関数 :code:`diophantine` の戻り値の型は set である。
-  一方、下回りの関数はいずれも tuple である。
-* 解が存在しない場合は None を含むコンテナーを返す。
-* キーワード引数 :code:`param=t` を明示的に指定すれば、
-  方程式の解の変数のための文字を決めることができる。
+* 関数 ``diophantine`` は引数の方程式に相応しい下回りの関数を特定して呼び出すと
+  いう、窓口のような役割がある。
+* 関数 ``diophantine`` の戻り値の型は ``set`` である。一方、下回りの関数はいずれ
+  も ``tuple`` である。
+* 解が存在しない場合は ``None`` を含むコンテナーを返す。
+* キーワード引数 :code:`param=t` を明示的に指定すれば、方程式の解の変数のための
+  文字を決めることができる。
 
-関数 :code:`classify_diop`
+関数 ``classify_diop``
 ======================================================================
-これも関数 :code:`diophantine` の下回りの関数だが、与えられた方程式を解く前に、
-それがどのタイプの方程式であるかを鑑定するものである。
 
-もし :code:`diophantine` が（存在するにもかかわらず）解を見つけなかった場合に、
-関数 :code:`classify_diop` を単独で用いると良い。
+これも関数 ``diophantine`` の下回りの関数だが、与えられた方程式を解く前に、それ
+がどのタイプの方程式であるかを鑑定するものである。
+
+もし ``diophantine`` が（存在するにもかかわらず）解を見つけなかった場合に、関数
+``classify_diop`` を単独で用いると良い。
 
 .. code:: ipython
 
@@ -91,9 +97,8 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
     {x: 7, y: 7, y*z: -2, x*y: -2, z: 7, x*z: -2},
     'inhomogeneous_ternary_quadratic')
 
-関数 :code:`diophantine` は
-:code:`inhomogeneous_ternary_quadratic` タイプの方程式をサポートしていないので、
-解が求まらなかったのだとユーザーが判断できる。
+関数 ``diophantine`` は ``inhomogeneous_ternary_quadratic`` タイプの方程式をサ
+ポートしていないので、解が求まらなかったのだとユーザーが判断できる。
 
 もう一個見てみよう。
 
