@@ -1,35 +1,36 @@
 ======================================================================
 フォロー自身とフォローに付随する機能
 ======================================================================
-本節では friendships 系 REST API について記す。
-私自身はフォロー機能を全く利用しないので、この括りの機能には基本的には縁がない。
-試すとしたら、任意のユーザー同士の関係性を知る機能ということになる。
+
+本節では friendships 系 REST API について記す。私自身はフォロー機能を全く利用し
+ないので、この括りの機能には基本的には縁がない。試すとしたら、任意のユーザー同士
+の関係性を知る機能ということになる。
 
 .. contents::
 
 POST friendships/create
 ======================================================================
-POST friendships/create は他人をフォローする機能だ。
-オプションとして彼に関するイベント通知の有無を設定できる。
+
+POST friendships/create は他人をフォローする機能だ。オプションとして彼に関するイ
+ベント通知の有無を設定できる。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/friendships-create.py
    :language: python3
 
-* [1] フォローするユーザーの ``user_id`` または ``screen_name`` を指定する。
-  どちらか一方でよい。
+* [1] フォローするユーザーの ``user_id`` または ``screen_name`` を指定する。どち
+  らか一方でよい。
 
-  また、オプションとして ``follow=True`` という解りにくいパラメーターがある。
-  これは相手からのイベント通知を有効にするかどうかのフラグである。
-
+  また、オプションとして ``follow=True`` という解りにくいパラメーターがある。こ
+  れは相手からのイベント通知を有効にするかどうかのフラグである。
 * [2] 応答データを出力する。
 
 次に実行例を示す。自分自身をフォローすることはできないようだ。
 
 .. code:: console
 
-   $ ./friendships-create.py
+   bash$ ./friendships-create.py
    Traceback (most recent call last):
      File "D:\Python35\lib\site-packages\twitter\api.py", line 319, in _handle_response
        handle = urllib_request.urlopen(req, **kwargs)
@@ -61,6 +62,7 @@ POST friendships/create は他人をフォローする機能だ。
 
 POST friendships/destroy
 ======================================================================
+
 POST friendships/destroy は他人をフォローするのをやめる機能だ。
 
 次にサンプルコードを示す。
@@ -68,17 +70,16 @@ POST friendships/destroy は他人をフォローするのをやめる機能だ�
 .. literalinclude:: /_sample/ptt/friendships-destroy.py
    :language: python3
 
-* [1] フォローを解除するユーザーの ``user_id`` または ``screen_name`` を指定する。
-  どちらか一方でよい。
-
+* [1] フォローを解除するユーザーの ``user_id`` または ``screen_name`` を指定す
+  る。どちらか一方でよい。
 * [2] 応答データを出力する。
 
-次に実行例を示す。
-フォローに失敗したはずのユーザーでも相手のユーザーオブジェクトが得られる。
+次に実行例を示す。フォローに失敗したはずのユーザーでも相手のユーザーオブジェクト
+が得られる。
 
 .. code:: console
 
-   $ ./friendships-destroy.py
+   bash$ ./friendships-destroy.py
    {
        ...
        "following": false,
@@ -89,9 +90,10 @@ POST friendships/destroy は他人をフォローするのをやめる機能だ�
 
 GET friendships/incoming
 ======================================================================
-GET friendships/incoming は自分が保護ユーザー、
-つまりツイート非公開アカウントとして運用している場合に利用価値がある。
-これは自分に対してのフォローリクエストで未承認のものがどれだけあるかを知る機能だ。
+
+GET friendships/incoming は自分が保護ユーザー、つまりツイート非公開アカウントと
+して運用している場合に利用価値がある。これは自分に対してのフォローリクエストで未
+承認のものがどれだけあるかを知る機能だ。
 
 次にサンプルコードを示す。
 
@@ -100,19 +102,20 @@ GET friendships/incoming は自分が保護ユーザー、
 
 * [1] :doc:`./rest` で説明したカーソル処理。
 
-次に実行例を示す。
-空のデータが得られる。
-私が公開アカウントであることか、誰からも相手にされていないことかのいずれかが成り立っている。
+次に実行例を示す。空のデータが得られる。私が公開アカウントであることか、誰からも
+相手にされていないことかのいずれかが成り立っている。
 
 .. code:: console
 
-   $ ./friendships-incoming.py
+   bash$ ./friendships-incoming.py
    []
 
 GET friendships/outgoing
 ======================================================================
-GET friendships/outgoing は自分がフォローしたい非公開アカウントの ID を得る機能だ。
-言い換えると、フォローリクエストがお預けを食らっている相手がどれだけいるかを知る機能だ。
+
+GET friendships/outgoing は自分がフォローしたい非公開アカウントの ID を得る機能
+だ。言い換えると、フォローリクエストがお預けを食らっている相手がどれだけいるかを
+知る機能だ。
 
 次にサンプルコードを示す。
 
@@ -121,35 +124,35 @@ GET friendships/outgoing は自分がフォローしたい非公開アカウン�
 
 * [1] :doc:`./rest` で説明したカーソル処理。
 
-次に実行例を示す。
-どんな非公開アカウントをもフォローしようとしていないからこうなる。
+次に実行例を示す。どんな非公開アカウントをもフォローしようとしていないからこうな
+る。
 
 .. code:: console
 
-   $ ./friendships-outgoing.py
+   bash$ ./friendships-outgoing.py
    []
 
 GET friendships/lookup
 ======================================================================
-GET friendships/lookup は自分と任意の他人との関係性を知る機能だ。
-関係性とは、フォロー関係、当方から先方へのブロック・ミュート状況といったものだ。
-一度のリクエストで複数のユーザーに対して情報を得ることができる。
+
+GET friendships/lookup は自分と任意の他人との関係性を知る機能だ。関係性とは、
+フォロー関係、当方から先方へのブロック・ミュート状況といったものだ。一度のリクエ
+ストで複数のユーザーに対して情報を得ることができる。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/friendships-lookup.py
    :language: python3
 
-* [1] 調査対象ユーザーをパラメーター ``user_id`` か ``screen_name`` の（どちらか一方でだろうか？）指定する。
-  どちらも CSV 文字列とする。
-
+* [1] 調査対象ユーザーをパラメーター ``user_id`` か ``screen_name`` の（どちらか
+  一方でだろうか？）指定する。どちらも CSV 文字列とする。
 * [2] 結果を出力する。
 
 次に実行例を示す。一部省略する。
 
 .. code:: console
 
-   $ ./friendships-lookup.py
+   bash$ ./friendships-lookup.py
    [
        {
            "connections": [
@@ -180,30 +183,29 @@ GET friendships/lookup は自分と任意の他人との関係性を知る機能
        }
    ]
 
-注目したいのは connections の値だ。
-ここには ``none``, ``blocking``, ``muting``, ``following``,
-``following_requested``, ``followed_by`` がその条件を満たすもの全部が含まれる。
+注目したいのは connections の値だ。ここには ``none``, ``blocking``, ``muting``,
+``following``, ``following_requested``, ``followed_by`` がその条件を満たすもの全
+部が含まれる。
 
 GET friendships/show
 ======================================================================
+
 GET friendships/show は任意の二人のユーザー間の関係を得る機能だ。
 
-サンプルコードを次に示す。
-選択するユーザー同士によってはかなり興味深い情報が得られることがあるが、
-ここではおとなしい結果が得られるようにした。
+サンプルコードを次に示す。選択するユーザー同士によってはかなり興味深い情報が得ら
+れることがあるが、ここではおとなしい結果が得られるようにした。
 
 .. literalinclude:: /_sample/ptt/friendships-show.py
    :language: python3
 
-* [1] この二人の関係性を調べてみよう。
-  Twitter ではユーザー同士の関係性には対称律は一般に成り立たないので、
-  引数を左右入れ替えてもう一度リクエストする。
+* [1] この二人の関係性を調べてみよう。Twitter ではユーザー同士の関係性には対称律
+  は一般に成り立たないので、引数を左右入れ替えてもう一度リクエストする。
 
 次に実行例を示す。
 
 .. code:: console
 
-   $ ./friendships-show.py
+   bash$ ./friendships-show.py
    {
        "relationship": {
            "source": {
@@ -267,9 +269,10 @@ GET friendships/show は任意の二人のユーザー間の関係を得る機�
 
 GET friendships/no_retweets/ids
 ======================================================================
-GET friendships/no_retweets/ids はリツイートを受信したくないユーザーを得る機能だ。
-Twitter ではユーザーごとにリツイートを受信するか否かを選択することが可能で、
-例えば POST friendships/update を用いて受信設定を更新する。
+
+GET friendships/no_retweets/ids はリツイートを受信したくないユーザーを得る機能
+だ。 Twitter ではユーザーごとにリツイートを受信するか否かを選択することが可能
+で、例えば POST friendships/update を用いて受信設定を更新する。
 
 次にサンプルコードを示す。
 
@@ -278,32 +281,33 @@ Twitter ではユーザーごとにリツイートを受信するか否かを選
 
 * [1] これは引数を一切取らない。
 
-次に実行例を示す。
-当方誰でもウェルカムなので空のデータが返ってくる。
+次に実行例を示す。当方誰でもウェルカムなので空のデータが返ってくる。
 
 .. code:: console
 
-   $ ./friendships-no_retweets-ids.py
+   bash$ ./friendships-no_retweets-ids.py
    []
 
 POST friendships/update
 ======================================================================
-POST friendships/update は指定ユーザーに対して、
-リツイート受信または彼に対する何らかのイベント通知の有無設定を更新する機能だ。
+
+POST friendships/update は指定ユーザーに対して、リツイート受信または彼に対する何
+らかのイベント通知の有無設定を更新する機能だ。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/friendships-update.py
    :language: python3
 
-* [1] 対象ユーザーをいつものようにパラメーター ``user_id`` または ``screen_name`` のどちらか一方で指定する。
-  リツイート通知もプッシュ通知も有効にしたい。
+* [1] 対象ユーザーをいつものようにパラメーター ``user_id`` または
+  ``screen_name`` のどちらか一方で指定する。リツイート通知もプッシュ通知も有効に
+  したい。
 
 次に実行例を示す。自分で自分の通知をオンにする。
 
 .. code:: console
 
-   $ ./friendships-update.py
+   bash$ ./friendships-update.py
    {
        "relationship": {
            "source": {

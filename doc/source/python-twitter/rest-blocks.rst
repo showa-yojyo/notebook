@@ -1,25 +1,26 @@
 ======================================================================
 ブロック関連
 ======================================================================
-個人的には一切利用するつもりのない Twitter のブロック機能だが、
-ノートの凝集度を上げるために記す。
+
+個人的には一切利用するつもりのない Twitter のブロック機能だが、ノートの凝集度を
+上げるために記す。
 
 .. contents::
 
 POST blocks/create
 ======================================================================
-POST blocks/create を用いれば特定のユーザーをブロックすることができる。
-ところでブロック操作を多用すると、
-ブロックをしたユーザーのほうが Twitter によってブラックリストに入るという噂を聞いたが、
-事実なのだろうか。
+
+POST blocks/create を用いれば特定のユーザーをブロックすることができる。ところで
+ブロック操作を多用すると、ブロックをしたユーザーのほうが Twitter によってブラッ
+クリストに入るという噂を聞いたが、事実なのだろうか。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/blocks-create.py
    :language: python3
 
-* [1] Twitter ユーザーを指定する。
-  他の機能と同様に ``user_id`` または ``screen_name`` のどちらか一方の形式で指定する。
+* [1] Twitter ユーザーを指定する。他の機能と同様に ``user_id`` または
+  ``screen_name`` のどちらか一方の形式で指定する。
 
   この他にもオプションとして ``include_entities`` と ``skip_status`` というフラグがあるが、
   これからブロックをしようというユーザーの情報などどうでもよいので、意識して利用はしないだろう。
@@ -30,7 +31,7 @@ POST blocks/create を用いれば特定のユーザーをブロックするこ�
 
 .. code:: console
 
-   $ ./blocks-create.py
+   bash$ ./blocks-create.py
    Traceback (most recent call last):
      File "D:\Python35\lib\site-packages\twitter\api.py", line 319, in _handle_response
        handle = urllib_request.urlopen(req, **kwargs)
@@ -62,6 +63,7 @@ POST blocks/create を用いれば特定のユーザーをブロックするこ�
 
 POST blocks/destroy
 ======================================================================
+
 POST blocks/destroy は既にブロックしていたユーザーのブロックを解除する機能だ。
 
 次にサンプルコードを示す。
@@ -76,7 +78,7 @@ POST blocks/destroy は既にブロックしていたユーザーのブロック
 
 .. code:: console
 
-   $ ./blocks-destroy.py
+   bash$ ./blocks-destroy.py
    {
        "contributors_enabled": false,
        ...
@@ -88,26 +90,25 @@ POST blocks/destroy は既にブロックしていたユーザーのブロック
 
 GET blocks/ids
 ======================================================================
+
 GET blocks/ids は現時点で自分がブロックしているユーザーの ID を列挙する機能だ。
-パラメーターは基本的には ``cursor`` があるだけだ。
-多数のユーザーをブロックしている場合には基本編で述べた技法でリクエストを反復し、
-データを取得するとよい。
+パラメーターは基本的には ``cursor`` があるだけだ。多数のユーザーをブロックしてい
+る場合には基本編で述べた技法でリクエストを反復し、データを取得するとよい。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/blocks-ids.py
    :language: python3
 
-* [1] 私は誰もブロックしていないので、カーソル処理は行わない。
-  ゆえにパラメーターは何も与えない。
-
+* [1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーター
+  は何も与えない。
 * [2] 得られたデータを画面に出力する。
 
 次に実行例を示す。
 
 .. code:: console
 
-   $ ./blocks-ids.py
+   bash$ ./blocks-ids.py
    {
        "ids": [],
        "next_cursor": 0,
@@ -120,6 +121,7 @@ GET blocks/ids は現時点で自分がブロックしているユーザーの I
 
 GET blocks/list
 ======================================================================
+
 GET blocks/list は現時点で自分がブロックしているユーザーの情報を列挙する機能だ。
 
 次にサンプルコードを示す。
@@ -127,11 +129,11 @@ GET blocks/list は現時点で自分がブロックしているユーザーの�
 .. literalinclude:: /_sample/ptt/blocks-list.py
    :language: python3
 
-* [1] 私は誰もブロックしていないので、カーソル処理は行わない。
-  ゆえにパラメーターは何も与えない。
+* [1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーター
+  は何も与えない。
 
-  なお、GET blocks/list はユーザオブジェクトを取得するものなので、
-  オプション ``include_entities`` や ``skip_status`` を指定することも可能だ。
+  なお、GET blocks/list はユーザオブジェクトを取得するものなので、オプション
+  ``include_entities`` や ``skip_status`` を指定することも可能だ。
 
 * [2] 得られたデータを画面に出力する。
 
@@ -139,7 +141,7 @@ GET blocks/list は現時点で自分がブロックしているユーザーの�
 
 .. code:: console
 
-   $ ./blocks-list.py
+   bash$ ./blocks-list.py
    {
        "ids": [],
        "next_cursor": 0,

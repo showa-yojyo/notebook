@@ -1,14 +1,17 @@
 ======================================================================
 アカウント設定関連
 ======================================================================
-本節では PTT による、Twitter アカウント設定関連のインターフェイスの利用方法を記す。
+
+本節では PTT による、Twitter アカウント設定関連のインターフェイスの利用方法を記
+す。
 
 .. contents::
 
 GET account/verify_credentials
 ======================================================================
-GET account/verify_credentials は自分の credentials が効力があるのかを試すのに用いる機能らしい。
-正当な場合は自分を表現するユーザーオブジェクトが得られる。
+
+GET account/verify_credentials は自分の credentials が効力があるのかを試すのに用
+いる機能らしい。正当な場合は自分を表現するユーザーオブジェクトが得られる。
 
 サンプルコードを示す。
 
@@ -22,7 +25,7 @@ GET account/verify_credentials は自分の credentials が効力があるのか
 
 .. code:: console
 
-   $ ./account-verify_credentials.py
+   bash$ ./account-verify_credentials.py
    {
        "contributors_enabled": false,
        "created_at": "Wed Jan 11 12:01:03 +0000 2012",
@@ -88,7 +91,9 @@ GET account/verify_credentials は自分の credentials が効力があるのか
 
 POST account/remove_profile_banner
 ======================================================================
-POST account/remove_profile_banner は自分の Twitter のページのバナー画像を削除する機能だ。
+
+POST account/remove_profile_banner は自分の Twitter のページのバナー画像を削除す
+る機能だ。
 
 次にサンプルコードを示す。
 
@@ -102,32 +107,33 @@ POST account/remove_profile_banner は自分の Twitter のページのバナー
 
 .. code:: console
 
-   $ ./account-remove_profile_banner.py
+   bash$ ./account-remove_profile_banner.py
    {
        "code": 200
    }
 
-実行後に Twitter の自分のページを目視で確認したところ、確かにバナー画像が消滅していた。
+実行後に Twitter の自分のページを目視で確認したところ、確かにバナー画像が消滅し
+ていた。
 
 GET account/settings
 ======================================================================
-GET account/settings は自分のアカウント設定情報を得る機能だ。
-次にサンプルコードを示す。
+
+GET account/settings は自分のアカウント設定情報を得る機能だ。次にサンプルコード
+を示す。
 
 .. literalinclude:: /_sample/ptt/account-settings-g.py
    :language: python3
 
-* [1] 実は account/settings には POST 版もあるため、
-  PTT に間違わせないように ``_method=GET`` と指示する。
-  Twitter のインターフェイスとしては、このリクエストは引数を取らない。
-
+* [1] 実は account/settings には POST 版もあるため、PTT に間違わせないように
+  ``_method=GET`` と指示する。 Twitter のインターフェイスとしては、このリクエス
+  トは引数を取らない。
 * [2] 受信データを画面に出力する。
 
 次に実行例を示す。
 
 .. code:: console
 
-   $ ./account-settings.py
+   bash$ ./account-settings.py
    {
        "allow_contributor_request": "all",
        "allow_dm_groups_from": "following",
@@ -172,6 +178,7 @@ GET account/settings は自分のアカウント設定情報を得る機能だ�
 
 POST account/settings
 ======================================================================
+
 POST account/settings は自分のアカウント設定情報を更新する機能だ。
 
 .. literalinclude:: /_sample/ptt/account-settings-p.py
@@ -179,8 +186,8 @@ POST account/settings は自分のアカウント設定情報を更新する機�
 
 * [1] 先ほど述べた理由により ``_method=POST`` も併せて指示する。
 
-  * スリープタイム系のパラメーターのタイムゾーンは、現時点での設定値が基準になる？
-    それとも同時に設定しているタイムゾーンの値になる？
+  * スリープタイム系のパラメーターのタイムゾーンは、現時点での設定値が基準にな
+    る？それとも同時に設定しているタイムゾーンの値になる？
 
 * [2] 処理結果を画面に出力する。
 
@@ -188,7 +195,7 @@ POST account/settings は自分のアカウント設定情報を更新する機�
 
 .. code:: console
 
-   $ ./account-settings-p.py
+   bash$ ./account-settings-p.py
    {
        "allow_contributor_request": "all",
        "allow_dm_groups_from": "following",
@@ -233,28 +240,30 @@ POST account/settings は自分のアカウント設定情報を更新する機�
 
 POST account/update_delivery_device
 ======================================================================
+
 これは動かない。
 
 .. POST account/update_delivery_device は自分のアカウントに対するリツイートや返信等の通知を設定する機能だ。
-.. 
+..
 .. .. literalinclude:: /_sample/ptt/account-update_delivery_device.py
 ..    :language: python3
-.. 
+..
 .. * [1] パラメーターは ``device`` しかない。
 ..   しかも有効な選択肢は ``none`` または ``sms`` しかない。
-.. 
+..
 .. * [2] 処理結果を画面に出力する。
-.. 
+..
 .. 次に実行例を示す。
-.. 
+..
 .. .. code:: console
-.. 
-..    $ ./account-update_delivery_device.py
+..
+..    bash$ ./account-update_delivery_device.py
 
 POST account/update_profile
 ======================================================================
-POST account/update_profile は自分のプロフィール部分の更新をする機能だ。
-次にサンプルコードを示す。
+
+POST account/update_profile は自分のプロフィール部分の更新をする機能だ。次にサン
+プルコードを示す。
 
 .. literalinclude:: /_sample/ptt/account-update_profile.py
    :language: python3
@@ -266,7 +275,7 @@ POST account/update_profile は自分のプロフィール部分の更新をす�
 
 .. code:: console
 
-   $ ./account-update_profile.py
+   bash$ ./account-update_profile.py
    {
        "contributors_enabled": false,
        "created_at": "Wed Jan 11 12:01:03 +0000 2012",
@@ -332,23 +341,23 @@ POST account/update_profile は自分のプロフィール部分の更新をす�
 
 POST account/update_profile_banner
 ======================================================================
-POST account/update_profile_banner は自分の Twitter のページのバナー画像を更新する機能だ。
-実際にはローカルにある画像ファイルのバイナリーデータをアップロードすることになる。
-Twitter API としては、引数 ``banner`` に base64 エンコードされたバイナリーデータを与えるが、
-PTT としてはバイナリーモードで開いた画像ファイルを渡すだけでもよい。
-メソッド内部でその辺の面倒な処理を代行してくれる。
-自力でエンコードする場合は、別途 PTT 用のパラメーター指定 ``_base64=True`` が必要となる。
+
+POST account/update_profile_banner は自分の Twitter のページのバナー画像を更新す
+る機能だ。実際にはローカルにある画像ファイルのバイナリーデータをアップロードする
+ことになる。 Twitter API としては、引数 ``banner`` に base64 エンコードされたバ
+イナリーデータを与えるが、 PTT としてはバイナリーモードで開いた画像ファイルを渡
+すだけでもよい。メソッド内部でその辺の面倒な処理を代行してくれる。自力でエンコー
+ドする場合は、別途 PTT 用のパラメーター指定 ``_base64=True`` が必要となる。
 
 これらを踏まえたサンプルコードを次に示す。
 
 .. literalinclude:: /_sample/ptt/account-update_profile_banner.py
    :language: python3
 
-* [1] あらかじめバナー画像を用意しておく。
-  Python での通常の方法により、ファイルデータをバイナリーとして持っておく。
-
-* [2] パラメーター ``banner`` のみを指示してリクエストを送信する。
-  スクリプトからの相対パス ``profile-banner.png`` がバナー用画像ファイルである。
+* [1] あらかじめバナー画像を用意しておく。 Python での通常の方法により、ファイル
+  データをバイナリーとして持っておく。
+* [2] パラメーター ``banner`` のみを指示してリクエストを送信する。スクリプトから
+  の相対パス ``profile-banner.png`` がバナー用画像ファイルである。
 
   .. hint::
 
@@ -361,17 +370,18 @@ PTT としてはバイナリーモードで開いた画像ファイルを渡す�
 
 .. code:: console
 
-   $ ./account-update_profile_banner.py
+   bash$ ./account-update_profile_banner.py
    {}
 
-ドキュメントの仕様に反して空のデータが戻ってきた。
-しかし Twitter クライアントを用いて自分のページを開いたところ、
-期待通りの画像を表示するようになったことを確認できた。
+ドキュメントの仕様に反して空のデータが戻ってきた。しかし Twitter クライアントを
+用いて自分のページを開いたところ、期待通りの画像を表示するようになったことを確認
+できた。
 
 POST account/update_profile_image
 ======================================================================
-POST account/update_profile_image はたぶんユーザーのアイコンの画像の更新をする機能だ。
-やり方は上述のものと同様になる。
+
+POST account/update_profile_image はたぶんユーザーのアイコンの画像の更新をする機
+能だ。やり方は上述のものと同様になる。
 
 サンプルコードを次に示す。
 
@@ -379,18 +389,16 @@ POST account/update_profile_image はたぶんユーザーのアイコンの画�
    :language: python3
 
 * [1] あらかじめ画像を用意しておく。
-
-* [2] アイコン画像ファイルを開いて、ファイルオブジェクトを得ておき、
-  これをメソッドにキーワード引数 ``image`` として渡す。
-
+* [2] アイコン画像ファイルを開いて、ファイルオブジェクトを得ておき、これをメソッ
+  ドにキーワード引数 ``image`` として渡す。
 * [3] 処理結果を画面に出力する。
 
-次に実行例を示す。
-出力はいつもの自分のユーザーオブジェクトなので興味のある所だけを示す。
+次に実行例を示す。出力はいつもの自分のユーザーオブジェクトなので興味のある所だけ
+を示す。
 
 .. code:: console
 
-   $ ./account-update_profile_image.py
+   bash$ ./account-update_profile_image.py
    {
        "default_profile_image": false,
        ...
@@ -404,8 +412,10 @@ Twitter クライアント等を用いて画像が本当に更新されたかど
 
 POST account/update_profile_background_image
 ======================================================================
-POST account/update_profile_background_image は自分の Twitter のページの背景画像を更新する機能だ。
-背景画像はあまりお目にかからない気がするが、例えばリスト画面で描画される画像だ。
+
+POST account/update_profile_background_image は自分の Twitter のページの背景画像
+を更新する機能だ。背景画像はあまりお目にかからない気がするが、例えばリスト画面で
+描画される画像だ。
 
 画像を指定する方法はこれだけは二つある。
 
@@ -417,20 +427,18 @@ POST account/update_profile_background_image は自分の Twitter のページ�
 .. literalinclude:: /_sample/ptt/account-update_profile_background_image.py
    :language: python3
 
-* [1] あらかじめ画像を用意しておく。
-  画像ファイルを開いて、ファイルオブジェクトを経て生バイナリーを抱えておく。
-
-* [2] これをメソッドにキーワード引数 ``image`` として渡す。
-  また、画像を反復させて描画したいので ``tile=True`` も指定する。
-
+* [1] あらかじめ画像を用意しておく。画像ファイルを開いて、ファイルオブジェクトを
+  経て生バイナリーを抱えておく。
+* [2] これをメソッドにキーワード引数 ``image`` として渡す。また、画像を反復させ
+  て描画したいので ``tile=True`` も指定する。
 * [3] 処理結果を画面に出力する。
 
-次に実行例を示す。
-出力はいつもの自分のユーザーオブジェクトなので興味のある所だけを示す。
+次に実行例を示す。出力はいつもの自分のユーザーオブジェクトなので興味のある所だけ
+を示す。
 
 .. code:: console
 
-   $ ./account-update_profile_background_image.py
+   bash$ ./account-update_profile_background_image.py
    {
        ...
        "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/557620683388108800/RoH3aAq8.png",
