@@ -23,32 +23,33 @@ SymPy としてもこれらを持っているのだろう。
 サブパッケージ ``sympy.sets`` が提供する集合を表現するクラスたち。インデントが派
 生関係を意味する。一行空けは特に意味はない。
 
-.. code:: text
+.. mermaid::
+   :align: center
 
-   Set
-       EmptySet
-       UniversalSet
+   classDiagram
+       Set <|-- EmptySet
+       Set <|-- UniversalSet
 
-       Union
-       Intersection
-       Complement
-       SymmetricDifference
+       Set <|-- Union
+       Set <|-- Intersection
+       Set <|-- Complement
+       Set <|-- SymmetricDifference
 
-       ProductSet
+       Set <|-- ProductSet
 
-       Interval
-           Reals
-       FiniteSet
+       Set <|-- Interval
+           Interval <|-- Reals
+       Set <|-- FiniteSet
 
-       Naturals
-           Naturals0
-       Integers
+       Set <|-- Naturals
+           Naturals <|-- Naturals0
+       Set <|-- Integers
 
-       ComplexRegion
-           Complexes
+       Set <|-- ComplexRegion
+           ComplexRegion<|-- Complexes
 
-       ImageSet
-       Range
+       Set <|-- ImageSet
+       Set <|-- Range
 
 * クラス ``Set`` のスーパークラスはクラス ``Basic`` である。
 * クラス ``Set`` のサブクラスには、もう一つ別のクラスをスーパークラスに持つことがある。

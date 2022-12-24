@@ -12,26 +12,26 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 サブパッケージ ``sympy.geometry`` が提供する主要クラスの継承関係のみを図示すると
 こういう感じになる。
 
-.. code:: text
+.. mermaid::
 
-   GeometryEntity
-       Point
-       Point3D
-       LinearEntity
-           Segment
-           Ray
-           Line
-       LinearEntity3D
-           Line3D
-           Ray3D
-           Segment3D
-       Plane
-       Polygon
-           Triangle
-           RegularPolygon
-       Ellipse
-           Circle
-       Curve
+   classDiagram
+       GeometryEntity <|-- Point
+       GeometryEntity <|-- Point3D
+       GeometryEntity <|-- LinearEntity
+           LinearEntity <|-- Segment
+           LinearEntity <|-- Ray
+           LinearEntity <|-- Line
+       GeometryEntity <|-- LinearEntity3D
+           LinearEntity3D <|-- Line3D
+           LinearEntity3D <|-- Ray3D
+           LinearEntity3D <|-- Segment3D
+       GeometryEntity <|-- Plane
+       GeometryEntity <|-- Polygon
+           Polygon <|-- Triangle
+           Polygon <|-- RegularPolygon
+       GeometryEntity <|-- Ellipse
+           Ellipse <|-- Circle
+       GeometryEntity <|-- Curve
 
 * クラス ``GeometryEntity`` のスーパークラスはクラス ``Basic`` である。
 
@@ -368,7 +368,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 
   .. code:: console
 
-     $ ./ceva.py
+     bash$ ./ceva.py
      P= Point(13.9279086822051, 228.152408889456)
      Q= Point(280.783950617284, 43.1975308641975)
      R= Point(104.14656234152, 529.558791567051)
@@ -390,10 +390,10 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 
 .. code:: console
 
-   $ ./circle_power.py
+   bash$ ./circle_power.py
    PA * PB = 0.245325501000245
    PC * PD = 0.245325501000245
-   $ ./circle_power.py
+   bash$ ./circle_power.py
    PA * PB = 0.0519999915840500
    PC * PD = 0.0519999915840500
 
