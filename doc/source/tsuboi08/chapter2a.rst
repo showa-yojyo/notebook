@@ -900,8 +900,8 @@
           [\pi^*(\iota_a^*\alpha)] = 0.}`
         * ゆえに :math:`{\pi^*\iota_a = \id_{\H^p({[0, 1]} \times M)}.}`
 
-      * :math:`{p = 0}` のときは :math:`{\alpha \in Z^0({[0, 1]} \times M)}`は局
-        所的定数関数であるので :math:`{\pi^*{(\iota_a^*\alpha)}}` と一致する。
+      * :math:`{p = 0}` のときは :math:`{\alpha \in Z^0({[0, 1]} \times M)}` は
+        局所的定数関数であるので :math:`{\pi^*{(\iota_a^*\alpha)}}` と一致する。
 
 .. _tsuboi08.2.4.17:
 

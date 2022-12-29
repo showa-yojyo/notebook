@@ -194,7 +194,7 @@
        同型写像であることから :math:`{f_3(x) = 0.}` したがって :math:`{\exists
        x_2 \in A_2} \text{ s.t. } f_2(x_2) = x.`
      * :math:`{g_2 \circ F_2(x_2)} = {F_3 \circ f_2(x_2)} = 0` および
-       :math:`F_2`が同型写像であることから :math:`{\exists y_1 \in B_1} \text{
+       :math:`F_2` が同型写像であることから :math:`{\exists y_1 \in B_1} \text{
        s.t. } g_1(y_1) = F_2(x_2).`
      * :math:`F_1` が同型写像であることから :math:`{\exists x_1 \in A_1} \text{
        s.t. } {F_1(x_1) = y_1.}`
