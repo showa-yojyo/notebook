@@ -3,10 +3,10 @@ Gantt diagrams
 =======================================================================
 
 A Gantt chart is a type of bar chart, first developed by Karol Adamiecki in
-1896, and independently by Henry Gantt in the 1910s, that illustrates a
-project schedule and the amount of time it would take for any one project to
-finish. Gantt charts illustrate number of days between the start and finish
-dates of the terminal elements and summary elements of a project.
+1896, and independently by Henry Gantt in the 1910s, that illustrates a project
+schedule and the amount of time it would take for any one project to finish.
+Gantt charts illustrate number of days between the start and finish dates of the
+terminal elements and summary elements of a project.
 
 .. contents::
    :depth: 2
@@ -41,8 +41,8 @@ pasted into docs.
 
 .. admonition:: 学習者ノート
 
-   Markdown で記述すると、普通の出力は HTML だから内部的には
-   SVG で表現されることになる。
+   Markdown で記述すると、普通の出力は HTML だから内部的には SVG で表現されるこ
+   とになる。
 
 .. mermaid::
 
@@ -136,8 +136,8 @@ You can add milestones to the diagrams. Milestones differ from tasks as they
 represent a single instant in time and are identified by the keyword
 ``milestone``. Below is an example on how to use milestones. As you may notice,
 the exact location of the milestone is determined by the initial date for the
-milestone and the "duration" of the task this way: *initial
-date* + *duration*/2.
+milestone and the "duration" of the task this way: *initial date* +
+*duration*/2.
 
 .. mermaid::
 
@@ -153,8 +153,8 @@ date* + *duration*/2.
 
    タスクが区間を表現するのとは対象的に、マイルストーンは瞬間を表現する。
 
-   マイルストーンの指定方法に若干クセがある。それゆえ、上記 Initial milestone
-   のコード上の指定は 17:50 よりも早い。
+   マイルストーンの指定方法に若干クセがある。それゆえ、上記 Initial milestone の
+   コード上の指定は 17:50 よりも早い。
 
 Setting dates
 =======================================================================
@@ -199,7 +199,7 @@ SSS      0..999         Thousandths of a second
 Z ZZ     +12:00         Offset from UTC as +-HH:mm, +-HHmm, or Z
 ======== ============== ======================================================
 
-More info in: http://momentjs.com/docs/#/parsing/string-format/
+More info in: <http://momentjs.com/docs/#/parsing/string-format/>
 
 .. admonition:: 学習者ノート
 
@@ -244,7 +244,7 @@ The following formatting strings are supported:
    %Z - time zone offset, such as "-0700".
    %% - a literal "%" character.
 
-More info in: https://github.com/mbostock/d3/wiki/Time-Formatting
+More info in: <https://github.com/mbostock/d3/wiki/Time-Formatting>
 
 .. admonition:: 学習者ノート
 
@@ -280,7 +280,7 @@ Styling
 
 Styling of the a gantt diagram is done by defining a number of css classes.
 During rendering, these classes are extracted from the file located at
-src/themes/gantt.scss
+:file:`src/themes/gantt.scss`
 
 Classes used
 -----------------------------------------------------------------------
@@ -289,12 +289,12 @@ Classes used
    :delim: @
    :header: Class,Description
 
-   grid.tick @ Styling for the Grid Lines
-   grid.path @ Styling for the Grid's borders
-   .taskText @ Task Text Styling
-   .taskTextOutsideRight @ Styling for Task Text that exceeds the activity bar towards the right.
-   .taskTextOutsideLeft @ Styling for Task Text that exceeds the activity bar, towards the left.
-   todayMarker @ Toggle and Styling for the "Today Marker"
+   ``grid.tick`` @ Styling for the Grid Lines
+   ``grid.path`` @ Styling for the Grid's borders
+   ``.taskText`` @ Task Text Styling
+   ``.taskTextOutsideRight`` @ Styling for Task Text that exceeds the activity bar towards the right.
+   ``.taskTextOutsideLeft`` @ Styling for Task Text that exceeds the activity bar, towards the left.
+   ``todayMarker`` @ Toggle and Styling for the "Today Marker"
 
 Sample stylesheet
 -----------------------------------------------------------------------
@@ -370,8 +370,8 @@ It is possible to adjust the margins for rendering the gantt diagram.
 This is done by defining the ``ganttConfig`` part of the configuration object.
 How to use the CLI is described in the `mermaidCLI <mermaidCLI.html>`__ page.
 
-mermaid.ganttConfig can be set to a JSON string with config parameters or the
-corresponding object.
+``mermaid.ganttConfig`` can be set to a JSON string with config parameters or
+the corresponding object.
 
 .. code:: javascript
 

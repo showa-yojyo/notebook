@@ -1,32 +1,34 @@
 ======================================================================
 ミュート関連
 ======================================================================
-個人的には一切利用するつもりのない Twitter のミュート機能だ。
-ミュート機能のインターフェイスはブロック機能のそれと酷似しているので、
-書かなくてもよいかという気はするが、ノートの凝集度を上げるために記す。
+
+個人的には一切利用するつもりのない Twitter のミュート機能だ。ミュート機能のイン
+ターフェイスはブロック機能のそれと酷似しているので、書かなくてもよいかという気は
+するが、ノートの凝集度を上げるために記す。
 
 .. contents::
 
 POST mutes/users/create
 ======================================================================
-POST mutes/create を用いれば特定のユーザーをミュートすることができる。
-こうすれば、ミュートされたユーザーのツイートは自分の所有タイムラインに出てこなくなるらしい。
+
+POST mutes/create を用いれば特定のユーザーをミュートすることができる。こうすれ
+ば、ミュートされたユーザーのツイートは自分の所有タイムラインに出てこなくなるらし
+い。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/mutes-users-create.py
    :language: python3
 
-* [1] Twitter ユーザーを指定する。
-  他の機能と同様に ``user_id`` または ``screen_name`` のどちらか一方の形式で指定する。
-
+* [1] Twitter ユーザーを指定する。他の機能と同様に ``user_id`` または
+  ``screen_name`` のどちらか一方の形式で指定する。
 * [2] とりあえずミュートしたユーザーの情報を画面に出力する。
 
 次に実行例を示す。自分で自分をミュートしよう。
 
 .. code:: console
 
-   $ ./mutes-users-create.py
+   bash$ ./mutes-users-create.py
    Traceback (most recent call last):
      File "D:\Python35\lib\site-packages\twitter\api.py", line 319, in _handle_response
        handle = urllib_request.urlopen(req, **kwargs)
@@ -60,7 +62,9 @@ POST mutes/create を用いれば特定のユーザーをミュートするこ�
 
 POST mutes/users/destroy
 ======================================================================
-POST mutes/users/destroy は既にミュートしていたユーザーのミュートを解除する機能だ。
+
+POST mutes/users/destroy は既にミュートしていたユーザーのミュートを解除する機能
+だ。
 
 次にサンプルコードを示す。
 
@@ -74,7 +78,7 @@ POST mutes/users/destroy は既にミュートしていたユーザーのミュ�
 
 .. code:: console
 
-   $ ./mutes-users-destroy.py
+   bash$ ./mutes-users-destroy.py
    Traceback (most recent call last):
      File "D:\Python35\lib\site-packages\twitter\api.py", line 319, in _handle_response
        handle = urllib_request.urlopen(req, **kwargs)
@@ -108,26 +112,25 @@ POST mutes/users/destroy は既にミュートしていたユーザーのミュ�
 
 GET mutes/users/ids
 ======================================================================
-GET mutes/users/ids は現時点で自分がミュートしているユーザーの ID を列挙する機能だ。
-パラメーターは基本的には ``cursor`` があるだけだ。
-多数のユーザーをミュートしている場合には基本編で述べた技法でリクエストを反復し、
-データを取得するとよい。
+
+GET mutes/users/ids は現時点で自分がミュートしているユーザーの ID を列挙する機能
+だ。パラメーターは基本的には ``cursor`` があるだけだ。多数のユーザーをミュートし
+ている場合には基本編で述べた技法でリクエストを反復し、データを取得するとよい。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/mutes-users-ids.py
    :language: python3
 
-* [1] 私は誰もミュートしていないので、カーソル処理は行わない。
-  ゆえにパラメーターは何も与えない。
-
+* [1] 私は誰もミュートしていないので、カーソル処理は行わない。ゆえにパラメーター
+  は何も与えない。
 * [2] 得られたデータを画面に出力する。
 
 次に実行例を示す。
 
 .. code:: console
 
-   $ mutes-users-ids.py
+   bash$ mutes-users-ids.py
    {
        "ids": [],
        "next_cursor": 0,
@@ -140,26 +143,27 @@ GET mutes/users/ids は現時点で自分がミュートしているユーザー
 
 GET mutes/users/list
 ======================================================================
-GET mutes/users/list は現時点で自分がミュートしているユーザーの情報を列挙する機能だ。
+
+GET mutes/users/list は現時点で自分がミュートしているユーザーの情報を列挙する機
+能だ。
 
 次にサンプルコードを示す。
 
 .. literalinclude:: /_sample/ptt/mutes-users-list.py
    :language: python3
 
-* [1] 私は誰もブロックしていないので、カーソル処理は行わない。
-  ゆえにパラメーターは何も与えない。
+* [1] 私は誰もブロックしていないので、カーソル処理は行わない。ゆえにパラメーター
+  は何も与えない。
 
-  ここでは省略するが、
-  オプション ``include_entities`` や ``skip_status`` を指定することも可能だ。
-
+  ここでは省略するが、オプション ``include_entities`` や ``skip_status`` を指定
+  することも可能だ。
 * [2] 得られたデータを画面に出力する。
 
 次に実行例を示す。
 
 .. code:: console
 
-   $ ./mutes-users-ids.py
+   bash$ ./mutes-users-ids.py
    {
        "ids": [],
        "next_cursor": 0,

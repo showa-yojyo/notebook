@@ -1,32 +1,32 @@
 ======================================================================
 アプリケーション関連
 ======================================================================
-本節では Twitter REST API の application 系機能について記す。
-と言ってはみたものの、実のところ利用するものは一つだけだ。
+
+本節では Twitter REST API の application 系機能について記す。と言ってはみたもの
+の、実のところ利用するものは一つだけだ。
 
 .. contents::
 
 GET application/rate_limit_status
 ======================================================================
-GET application/rate_limit_status は現在の API 利用制限状況を知る機能だ。
-例えばツイートを短時間に連続投稿するには限度があるわけだが、
-今からどのくらいの時間帯にどれだけツイートすることが可能かを具体的に知ることができる。
+
+GET application/rate_limit_status は現在の API 利用制限状況を知る機能だ。例えば
+ツイートを短時間に連続投稿するには限度があるわけだが、今からどのくらいの時間帯に
+どれだけツイートすることが可能かを具体的に知ることができる。
 
 .. literalinclude:: /_sample/ptt/application-rate_limit_status.py
    :language: python3
 
-* [1] 状況を知りたい機能の一つ上位の単位の名前をいくつかまとめる CSV 文字列を組む。
-  欲張って全部のインターフェイスを指定するとおそらく良くないことが起こる。
-
+* [1] 状況を知りたい機能の一つ上位の単位の名前をいくつかまとめる CSV 文字列を組
+  む。欲張って全部のインターフェイスを指定するとおそらく良くないことが起こる。
 * [2] パラメーター ``resources`` として CSV 文字列を与え、リクエストを送信する。
-
 * [3] 受信内容を出力する。
 
 次に実行例を示す。長くなるので一部を省略する。
 
 .. code:: console
 
-   $ ./application-rate_limit_status.py
+   bash$ ./application-rate_limit_status.py
    {
        "rate_limit_context": {
            "access_token": "..."
@@ -66,10 +66,9 @@ GET application/rate_limit_status は現在の API 利用制限状況を知る�
        }
    }
 
-ここで ``reset`` だけがわかりにくいので説明を加える。
-これは利用制限の再設定がかかる時刻を POSIX 時刻表現で表した数値だ。
-見慣れた時刻表現にするならば、
-Python 標準のメソッド ``datetime.datetime.fromtimestamp`` を利用する等の方法がある。
+ここで ``reset`` だけがわかりにくいので説明を加える。これは利用制限の再設定がか
+かる時刻を POSIX 時刻表現で表した数値だ。見慣れた時刻表現にするならば、Python 標
+準のメソッド ``datetime.datetime.fromtimestamp`` を利用する等の方法がある。
 
 .. code:: pycon
 

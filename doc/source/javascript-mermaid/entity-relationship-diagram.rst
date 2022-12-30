@@ -5,8 +5,8 @@ Entity Relationship Diagrams
 《An entity-relationship model (or ER model) describes interrelated things of
 interest in a specific domain of knowledge. A basic ER model is composed of
 entity types (which classify the things of interest) and specifies relationships
-that can exist between entities (instances of those entity types)》
-(`Wikipedia <https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>`__)
+that can exist between entities (instances of those entity types)》 (`Wikipedia
+<https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>`__)
 
 .. contents::
    :depth: 2
@@ -78,8 +78,8 @@ meaning to entities. Ultimately, it's your choice.
 
 .. admonition:: 学習者ノート
 
-   ここまでが ER 図が何であるかについての記述だ。
-   名前は大文字で記すことや、単数形名詞であることなどを語っている。
+   ここまでが ER 図が何であるかについての記述だ。名前は大文字で記すことや、単数
+   形名詞であることなどを語っている。
 
 Syntax
 =======================================================================
@@ -96,18 +96,17 @@ label the relationship. Each statement consists of the following parts:
 
 Where:
 
-* ``first-entity`` is the name of an entity. Names must begin with an
-  alphabetic character and may also contain digits, hyphens, and underscores.
-* ``relationship`` describes the way that both entities inter-relate. See
-  below.
+* ``first-entity`` is the name of an entity. Names must begin with an alphabetic
+  character and may also contain digits, hyphens, and underscores.
+* ``relationship`` describes the way that both entities inter-relate. See below.
 * ``second-entity`` is the name of the other entity.
 * ``relationship-label`` describes the relationship from the perspective of the
   first entity.
 
 .. admonition:: 学習者ノート
 
-   ER 図に関しては PlantUML 用に書いた図式を Mermaid
-   で描画できるということになる。
+   ER 図に関しては PlantUML 用に書いた図式を Mermaid で描画できるということにな
+   る。
 
 For example:
 
@@ -138,9 +137,9 @@ Relationship Syntax
 The ``relationship`` part of each statement can be broken down into three
 sub-components:
 
--  the cardinality of the first entity with respect to the second,
--  whether the relationship confers identity on a ‘child' entity
--  the cardinality of the second entity with respect to the first
+* the cardinality of the first entity with respect to the second,
+* whether the relationship confers identity on a ‘child' entity
+* the cardinality of the second entity with respect to the first
 
 Cardinality is a property that describes how many elements of another entity can
 be related to the entity in question. In the above example a ``PROPERTY`` can
@@ -172,10 +171,10 @@ relevant when one of the entities in question can not have independent existence
 without the other. For example a firm that insures people to drive cars might
 need to store data on ``NAMED-DRIVER`` s. In modelling this we might start out
 by observing that a ``CAR`` can be driven by many ``PERSON`` instances, and a
-``PERSON`` can drive many ``CAR`` s - both entities can exist without the
-other, so this is a non-identifying relationship that we might specify in
-Mermaid as: ``PERSON}|..|{CAR : "driver"``. Note the two dots in the middle of
-the relationship that will result in a dashed line being drawn between the two
+``PERSON`` can drive many ``CAR`` s - both entities can exist without the other,
+so this is a non-identifying relationship that we might specify in Mermaid as:
+``PERSON}|..|{CAR : "driver"``. Note the two dots in the middle of the
+relationship that will result in a dashed line being drawn between the two
 entities. But when this many-to-many relationship is resolved into two
 one-to-many relationships, we observe that a ``NAMED-DRIVER`` cannot exist
 without both a ``PERSON`` and a ``CAR`` - the relationships become identifying
@@ -189,8 +188,8 @@ and would be specified using hyphens, which translate to a solid line:
 
 .. admonition:: 学習者ノート
 
-   関係の分類について重要なことを説明している。実線で描かれている関係は、
-   両側の実体は同時にしか存在しないと解釈できる。
+   関係の分類について重要なことを説明している。実線で描かれている関係は、両側の
+   実体は同時にしか存在しないと解釈できる。
 
 Attributes
 -----------------------------------------------------------------------
@@ -311,5 +310,5 @@ The following CSS class selectors are available for richer styling:
 .. admonition:: 学習者ノート
 
    `Wikipedia の ER 図のページ
-   <https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>`__
-   にあるような図式を表現するときにこれらを利用する。
+   <https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>`__ にあるよ
+   うな図式を表現するときにこれらを利用する。

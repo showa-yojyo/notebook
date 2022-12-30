@@ -78,7 +78,7 @@ Other Language Changes
        >>> Fraction(-123, 456).as_integer_ratio()
        (-41, 152)
 
-* 正規表現で Unicode の文字名を :regexp:`\N{name}` の形で書けるようになった。例
+* 正規表現で Unicode の文字名を :regexp:`\\N{name}` の形で書けるようになった。例
   えば「🀀」にマッチする正規表現は次でもよい：
 
   .. code:: pycon

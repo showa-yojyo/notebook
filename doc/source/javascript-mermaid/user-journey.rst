@@ -5,8 +5,8 @@ User Journey Diagram
 《User journeys describe at a high level of detail exactly what steps different
 users take to complete a specific task within a system, application or website.
 This technique shows the current (as-is) user workflow, and reveals areas of
-improvement for the to-be workflow.》
-(`Wikipedia <https://en.wikipedia.org/wiki/User_journey>`__)
+improvement for the to-be workflow.》 (`Wikipedia
+<https://en.wikipedia.org/wiki/User_journey>`__)
 
 .. contents::
    :depth: 2
@@ -36,5 +36,5 @@ Tasks syntax is
 
 .. admonition:: 学習者ノート
 
-   実際に描画される図式とコードを比較すれば、構文はおのずと理解できる。
-   ただし ``<score>`` の項目については詳細を述べて欲しい。
+   実際に描画される図式とコードを比較すれば、構文はおのずと理解できる。ただし
+   ``<score>`` の項目については詳細を述べて欲しい。

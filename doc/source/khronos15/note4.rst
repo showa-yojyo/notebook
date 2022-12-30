@@ -13,7 +13,7 @@ WebGL Specification 1.0 読書ノート 4 of 4
 本ノートで拾わなった引用リンクを割愛する。
 
 .. [CANVAS] `HTML5: The Canvas Element <https://www.w3.org/TR/html5/scripting-1.html#the-canvas-element>`__, World Wide Web Consortium (W3C).
-.. [OFFSCREENCANVAS] `HTML Living Standard - The OffscreenCanvas interface <https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface>`__, WHATWG.
+.. [OFFSCREENCANVAS] `HTML Living Standard - The ``OffscreenCanvas`` interface <https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface>`__, WHATWG.
 .. [CANVASCONTEXTS] `Canvas Context Registry <http://wiki.whatwg.org/wiki/CanvasContexts>`__, WHATWG.
 .. [ECMASCRIPT] `ECMAScript® 2015 Language Specification <http://www.ecma-international.org/ecma-262/6.0/>`__, Ecma International, 2015.
 .. [GL32CORE] `The OpenGL® Graphics System: A Specification (Version 3.2 (Core Profile) - December 7, 2009) <https://www.khronos.org/registry/OpenGL/specs/gl/glspec32.core.pdf>`__, M. Segal, K. Akeley, December 2009.
@@ -34,4 +34,5 @@ WebGL Specification 1.0 読書ノート 4 of 4
 
 * この仕様は Khronos WebGL Working Group が執筆している。
 * Special thanks 人物が十名ほど列挙されている。
-* 追加的な thanks 人物として二十名プラス Khronos WebGL Working Group の構成員が列挙されている。
+* 追加的な thanks 人物として二十名プラス Khronos WebGL Working Group の構成員が
+  列挙されている。
