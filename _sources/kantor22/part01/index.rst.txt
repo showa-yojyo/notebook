@@ -4,8 +4,8 @@ Part 1 The JavaScript language
 
 `The Modern JavaScript Tutorial <https://javascript.info/>`__ Part 1 ノート。
 
-本文だけでなく、各章末尾のコメント欄にも目を通すのがたいへん重要だ。
-同じように理解に困っている読者が、間違いなくいる。それに対する返信で救われるのだ。
+本文だけでなく、各章末尾のコメント欄にも目を通すのがたいへん重要だ。同じように理
+解に困っている読者が、間違いなくいる。それに対する返信で救われるのだ。
 
 .. toctree::
    :maxdepth: 2

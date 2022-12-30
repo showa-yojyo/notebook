@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>環境変数 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,10 +46,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id9">環境変数</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id9" role="doc-backlink">環境変数</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>本節では <a class="reference external" href="https://git-scm.com/">Git</a> の環境変数について記す。</p>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id9">環境変数</a></p>
@@ -68,16 +66,15 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id10">概要</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
-<p>環境変数は、コマンドライン引数や <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> での構成のように、
-Git コマンドの振る舞いを制御する方法の一つだ。</p>
-<p>普通はコマンドラインオプションか <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> でできるならばそれらで済ませる。しかし、それらで実現できそうにないことをする必要が生じた場合には、環境変数で何とかできないかを模索したい。</p>
-<div class="section" id="id3">
-<h3><a class="toc-backref" href="#id11">リポジトリー関連</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+</nav>
+<section id="id2">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">概要</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>環境変数は、コマンドライン引数や <code class="file docutils literal notranslate"><span class="pre">.gitconfig</span></code> での構成のように、Git コマンドの振る舞いを制御する方法の一つだ。</p>
+<p>普通はコマンドラインオプションか <code class="file docutils literal notranslate"><span class="pre">.gitconfig</span></code> でできるならばそれらで済ませる。しかし、それらで実現できそうにないことをする必要が生じた場合には、環境変数で何とかできないかを模索したい。</p>
+<section id="id3">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">リポジトリー関連</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>ヘルプドキュメントでは、Git はリポジトリー関連の環境変数として次のものを参照するとしている。これらの変数がすべてのコアコマンド群に影響する。また、サードパーティー製の Git フロントエンドツールがこれらの環境変数を当てにしている。</p>
-<p>GIT_INDEX_FILE,
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GIT_INDEX_FILE,
 GIT_INDEX_VERSION,
 GIT_OBJECT_DIRECTORY,
 GIT_ALTERNATE_OBJECT_DIRECTORIES,
@@ -86,48 +83,54 @@ GIT_WORK_TREE,
 GIT_NAMESPACE,
 GIT_CEILING_DIRECTORIES,
 GIT_DISCOVERY_ACROSS_FILESYSTEM,
-GIT_COMMON_DIR.</p>
+GIT_COMMON_DIR.
+</pre></div>
+</div>
 <p>以下、興味のあるものだけ記す。</p>
 <dl class="simple">
-<dt>GIT_INDEX_FILE</dt><dd><p>リポジトリーのインデックスのパスを示す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_INDEX_FILE</span></code></dt><dd><p>リポジトリーのインデックスのパスを示す。</p>
 <ul class="simple">
-<li><p>通常はこの値をセットしないことによって、パス <code class="docutils literal notranslate"><span class="pre">$GIT_DIR/index</span></code> をインデックスとして採用する。</p></li>
+<li><p>通常はこの値をセットしないことによって、パス <code class="file docutils literal notranslate"><span class="pre">$GIT_DIR/index</span></code> をインデックスとして採用する。</p></li>
 </ul>
 </dd>
-<dt>GIT_OBJECT_DIRECTORY</dt><dd><p>リポジトリーのオブジェクト格納ディレクトリーのパスを示す。この直下に 16 進数 2 ケタのディレクトリーがズラッと並ぶようなディレクトリーのことだ。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_OBJECT_DIRECTORY</span></code></dt><dd><p>リポジトリーのオブジェクト格納ディレクトリーのパスを示す。この直下に 16 進数 2
+ケタのディレクトリーがズラッと並ぶようなディレクトリーのことだ。</p>
 <ul class="simple">
-<li><p>通常はこの値をセットしないことによって、パス <code class="docutils literal notranslate"><span class="pre">$GIT_DIR/objects</span></code> をオブジェクト格納ディレクトリーとして採用する。</p></li>
+<li><p>通常はこの値をセットしないことによって、パス <code class="file docutils literal notranslate"><span class="pre">$GIT_DIR/objects</span></code> をオブジェクト格納ディレクトリーとして採用する。</p></li>
 </ul>
 </dd>
-<dt>GIT_DIR</dt><dd><p>リポジトリーのベースディレクトリーを示す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_DIR</span></code></dt><dd><p>リポジトリーのベースディレクトリーを示す。</p>
 <ul class="simple">
-<li><p>通常はこの値をセットしないことによって、ディレクトリー <code class="docutils literal notranslate"><span class="pre">.git</span></code> をリポジトリーベースとして採用する。</p></li>
-<li><p>この環境変数と同じ働きをするコマンドラインオプションが <code class="docutils literal notranslate"><span class="pre">--git-dir=&lt;directory&gt;</span></code> だ。</p></li>
+<li><p>通常はこの値をセットしないことによって、ディレクトリー <code class="file docutils literal notranslate"><span class="pre">.git</span></code> をリポジトリーベースとして採用する。</p></li>
+<li><p>この環境変数と同じ働きをするコマンドラインオプションが
+<a class="reference internal" href="commands.html#cmdoption-git-dir"><code class="xref std std-option docutils literal notranslate"><span class="pre">--git-dir</span></code></a> だ。</p></li>
 </ul>
 </dd>
-<dt>GIT_WORK_TREE</dt><dd><p>作業コピーのルートのパスを示す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_WORK_TREE</span></code></dt><dd><p>作業コピーのルートのパスを示す。</p>
 <ul class="simple">
-<li><p>対応するコマンドラインオプションは <code class="docutils literal notranslate"><span class="pre">--work-tree=&lt;directory&gt;</span></code> だ。</p></li>
-<li><p>対応する <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> の構成項目は <code class="docutils literal notranslate"><span class="pre">core.worktree</span></code> だ。</p></li>
+<li><p>対応するコマンドラインオプションは <a class="reference internal" href="commands.html#cmdoption-work-tree"><code class="xref std std-option docutils literal notranslate"><span class="pre">--work-tree</span></code></a> だ。</p></li>
+<li><p>対応する <code class="file docutils literal notranslate"><span class="pre">.gitconfig</span></code> の構成項目は <code class="docutils literal notranslate"><span class="pre">core.worktree</span></code> だ。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id12">コミット関連</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
-<p>次の環境変数はコミット履歴改竄の主役となるべきもので、たいへん有用だ。</p>
-<p>GIT_AUTHOR_NAME,
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">コミット関連</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>次の環境変数はコミット履歴改竄の主役となるべきもので、たいへん有用だ：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GIT_AUTHOR_NAME,
 GIT_AUTHOR_EMAIL,
 GIT_AUTHOR_DATE,
 GIT_COMMITTER_NAME,
 GIT_COMMITTER_EMAIL,
 GIT_COMMITTER_DATE,
-EMAIL.</p>
+EMAIL.
+</pre></div>
+</div>
 <p>まとめて説明すると、コミットログにこれらの変数の名前が表現する情報がそれぞれ記録される。</p>
 <p>例えば自分だけがコミットする個人用のリポジトリーがここにあるとする。これはたった今よそのバージョン管理システムからコンバートしたばかりなので、すべてのコミットにおいて、ログメッセージ中の上述の情報を適切にリセットしたい。</p>
-<p>それにはコマンド filter-branch を用いる。環境変数の渡し方が特殊で、一般には <code class="docutils literal notranslate"><span class="pre">git</span></code> の直前でセットするのだが、このコマンドはオプション <code class="docutils literal notranslate"><span class="pre">--env-filter=&lt;command&gt;</span></code> でそれを行う。
-<a class="reference internal" href="#so750172" id="id5"><span>[SO750172]</span></a> で紹介されていた例を次に引用する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git filter-branch -f --env-filter <span class="s2">&quot;</span>
+<p>それにはコマンド <strong class="command">filter-branch</strong> を用いる。環境変数の渡し方が特殊で、一般には <code class="docutils literal notranslate"><span class="pre">git</span></code> の直前でセットするのだが、このコマンドはオプション
+<code class="docutils literal notranslate"><span class="pre">--env-filter=&lt;command&gt;</span></code> でそれを行う。<a class="reference internal" href="#so750172" id="id5"><span>[SO750172]</span></a> で紹介されていた例を次に引用する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ git filter-branch -f --env-filter &quot;</span>
 <span class="go">&gt; GIT_AUTHOR_NAME=&#39;Newname&#39;</span>
 <span class="go">&gt; GIT_AUTHOR_EMAIL=&#39;new@email&#39;</span>
 <span class="go">&gt; GIT_COMMITTER_NAME=&#39;Newname&#39;</span>
@@ -135,30 +138,32 @@ EMAIL.</p>
 <span class="go">&gt; &quot; HEAD</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id13">差分関連</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
-<p>次の環境変数が差分コマンドに関連する。</p>
-<p>GIT_DIFF_OPTS,
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">差分関連</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p>次の環境変数が差分コマンドに関連する：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GIT_DIFF_OPTS,
 GIT_EXTERNAL_DIFF,
 GIT_DIFF_PATH_COUNTER,
-GIT_DIFF_PATH_TOTAL.</p>
+GIT_DIFF_PATH_TOTAL.
+</pre></div>
+</div>
 <p>以下、興味のあるものだけ記す。</p>
 <dl>
-<dt>GIT_DIFF_OPTS</dt><dd><p>差分コマンドにおける <code class="docutils literal notranslate"><span class="pre">--unified=&lt;n&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">-U&lt;n&gt;</span></code> オプションと同等。変更行の前後 <cite>n</cite> 行をついでに出力するかを指定する。こちらでの定義のほうが、コマンドライン引数での指定よりも優先度が高い。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_DIFF_OPTS</span></code></dt><dd><p>差分コマンドにおける <code class="docutils literal notranslate"><span class="pre">--unified=&lt;n&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">-U&lt;n&gt;</span></code> オプションと同等。変更行の前後 <code class="docutils literal notranslate"><span class="pre">n</span></code> 行をついでに出力するかを指定する。こちらでの定義のほうが、コマンドライン引数での指定よりも優先度が高い。</p>
 </dd>
-<dt>GIT_EXTERNAL_DIFF</dt><dd><p>差分コマンドに既定の差分プログラムではなく、外部プログラムを実行させるように設定できる。「外部プログラム」と書いたが、下の形式で呼び出すようなので実際にはラッパースクリプトを指定することになりそうだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="s2">&quot;</span><span class="nv">$GIT_EXTERNAL_DIFF</span><span class="s2">&quot;</span> old-file old-hex old-mode new-file new-hex new-mode
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_EXTERNAL_DIFF</span></code></dt><dd><p>差分コマンドに既定の差分プログラムではなく、外部プログラムを実行させるように設定できる。 「外部プログラム」と書いたが、下の形式で呼び出すようなので実際にはラッパースクリプトを指定することになりそうだ。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ &quot;$GIT_EXTERNAL_DIFF&quot; old-file old-hex old-mode new-file new-hex new-mode</span>
 </pre></div>
 </div>
 </dd>
 </dl>
-<p>残りの変数は GIT_EXTERNAL_DIFF での処理中に自動的に設定される。</p>
-</div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id14">その他</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
-<p>どの括りにも当てはまらない環境変数を次に列挙する。</p>
-<p>GIT_MERGE_VERBOSITY,
+<p>残りの変数は <code class="docutils literal notranslate"><span class="pre">GIT_EXTERNAL_DIFF</span></code> での処理中に自動的に設定される。</p>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">その他</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>どの括りにも当てはまらない環境変数を次に列挙する：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GIT_MERGE_VERBOSITY,
 GIT_PAGER,
 GIT_EDITOR,
 GIT_SSH,
@@ -179,27 +184,30 @@ GIT_GLOB_PATHSPECS,
 GIT_NOGLOB_PATHSPECS,
 GIT_ICASE_PATHSPECS,
 GIT_REFLOG_ACTION,
-GIT_REF_PARANOIA.</p>
+GIT_REF_PARANOIA.
+</pre></div>
+</div>
 <p>以下、興味のあるものだけ記す。</p>
 <dl class="simple">
-<dt>GIT_EDITOR</dt><dd><p>Git のコマンドでテキストエディターを開く状況すべてにおいて、ここでエディターのパスが設定されていれば、それを開く。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">GIT_EDITOR</span></code></dt><dd><p>Git のコマンドでテキストエディターを開く状況すべてにおいて、ここでエディターのパスが設定されていれば、それを開く。</p>
 <ul class="simple">
-<li><p>EDITOR も VISUAL もどちらも未定義の場合に GIT_EDITOR が効いてくる。</p></li>
-<li><p>対応する <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> の構成項目は <code class="docutils literal notranslate"><span class="pre">core.editor</span></code> だ。こちらで十分。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EDITOR</span></code> も <code class="docutils literal notranslate"><span class="pre">VISUAL</span></code> もどちらも未定義の場合に <code class="docutils literal notranslate"><span class="pre">GIT_EDITOR</span></code> が効いてくる。</p></li>
+<li><p>対応する <code class="file docutils literal notranslate"><span class="pre">.gitconfig</span></code> の構成項目は <code class="docutils literal notranslate"><span class="pre">core.editor</span></code> だ。こちらで十分。</p></li>
 </ul>
 </dd>
 </dl>
+</section>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">出典</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="so750172" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">SO750172</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://stackoverflow.com/questions/750172/change-the-author-of-a-commit-in-git">Change the author of a commit in Git</a></p>
 </div>
 </div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id15">出典</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
-<dl class="citation">
-<dt class="label" id="so750172"><span class="brackets"><a class="fn-backref" href="#id5">SO750172</a></span></dt>
-<dd><p><a class="reference external" href="http://stackoverflow.com/questions/750172/change-the-author-of-a-commit-in-git">Change the author of a commit in Git</a></p>
-</dd>
-</dl>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

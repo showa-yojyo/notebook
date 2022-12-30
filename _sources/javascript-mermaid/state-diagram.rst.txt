@@ -48,8 +48,8 @@ Still to Crash.
 
 .. admonition:: 学習者ノート
 
-   State diagram については図式名が ``stateDiagram`` と
-   ``stateDiagram-v2`` の二つ用意されている。上のグラフに関しては描画結果に差は認められない。
+   State diagram については図式名が ``stateDiagram`` と ``stateDiagram-v2`` の二
+   つ用意されている。上のグラフに関しては描画結果に差は認められない。
 
 States
 =======================================================================
@@ -122,8 +122,8 @@ defines it either as a start or a stop state.
 
 .. admonition:: 学習者ノート
 
-   開始状態と停止状態を同じ記号で指定することに注意。UML では
-   両者を異なる記号で表現すると規定していることを考えると、Mermaid のそれは興味深い。
+   開始状態と停止状態を同じ記号で指定することに注意。UML では両者を異なる記号で
+   表現すると規定していることを考えると、Mermaid のそれは興味深い。
 
 Composite states
 =======================================================================
@@ -263,8 +263,7 @@ node.
 
 .. admonition:: 学習者ノート
 
-   Sequence diagram にある構文と同様だ。しかし、 これは left
-   なのか？
+   Sequence diagram にある構文と同様だ。しかし、これは left なのか？
 
 Concurrency
 =======================================================================
@@ -316,7 +315,8 @@ which the diagram will render like in this example.
 
 .. admonition:: 学習者ノート
 
-   ``direction RL`` を ``direction LR`` やその他に書き換えて表示を確認するといい。
+   ``direction RL`` を ``direction LR`` やその他に書き換えて表示を確認するとい
+   い。
 
 Comments
 =======================================================================
@@ -346,7 +346,7 @@ Styling
 
 Styling of the a state diagram is done by defining a number of css classes.
 During rendering these classes are extracted from the file located at
-src/themes/state.scss
+:file:`src/themes/state.scss`.
 
 .. admonition:: 学習者ノート
 

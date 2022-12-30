@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Project: A Robot &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,12 +46,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="project-a-robot">
-<h1><a class="toc-backref" href="#id3">Project: A Robot</a><a class="headerlink" href="#project-a-robot" title="Permalink to this heading">¶</a></h1>
+  <section id="project-a-robot">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Project: A Robot</a><a class="headerlink" href="#project-a-robot" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 7 の読書ノート。</p>
-<p>グラフを構築して最短経路を探索するような問題を JavaScript で解く。
-Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
-<div class="contents topic" id="contents">
+<p>グラフを構築して最短経路を探索するような問題を JavaScript で解く。Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#project-a-robot" id="id3">Project: A Robot</a></p>
@@ -74,22 +71,24 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="meadowfield">
-<h2><a class="toc-backref" href="#id4">Meadowfield</a><a class="headerlink" href="#meadowfield" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="meadowfield">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Meadowfield</a><a class="headerlink" href="#meadowfield" title="Permalink to this heading">¶</a></h2>
 <p>あまり大きくはない Meadowfield 村には 11 の場所があり、それらの間に 14 の道がある。この村の道路ネットワークはグラフ理論の意味でのグラフを形成する。</p>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>教科書のコードを Graphviz などで図式にして、画像をここに貼り付けるといいかもしれない。</p>
 </div>
 <ul class="simple">
-<li><p>最初の配列 <code class="docutils literal notranslate"><span class="pre">roads</span></code> は <code class="docutils literal notranslate"><span class="pre">&quot;Alice's</span> <span class="pre">House-Bob's</span> <span class="pre">House&quot;</span></code> や <code class="docutils literal notranslate"><span class="pre">Alice's</span> <span class="pre">House-Cabin&quot;</span></code>
-のように <code class="docutils literal notranslate"><span class="pre">${place1}-${place2}</span></code> という構造の文字列からなる。</p></li>
+<li><p>最初の配列 <code class="docutils literal notranslate"><span class="pre">roads</span></code> は <code class="docutils literal notranslate"><span class="pre">&quot;Alice's</span> <span class="pre">House-Bob's</span> <span class="pre">House&quot;</span></code> や <code class="docutils literal notranslate"><span class="pre">Alice's</span>
+<span class="pre">House-Cabin&quot;</span></code> のように <code class="docutils literal notranslate"><span class="pre">${place1}-${place2}</span></code> という構造の文字列からなる。</p></li>
 <li><p>このデータをもとに、次で定義する関数 <code class="docutils literal notranslate"><span class="pre">buildGraph</span></code> で隣接リストタイプのグラフ構造にする。</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">graph</span> <span class="pre">=</span> <span class="pre">Object.create(null)</span></code> で空のグラフを構築する。これは <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">graph</span> <span class="pre">=</span> <span class="pre">{}</span></code> とは異なる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">graph</span> <span class="pre">=</span> <span class="pre">Object.create(null)</span></code> で空のグラフを構築する。これは <code class="docutils literal notranslate"><span class="pre">let</span>
+<span class="pre">graph</span> <span class="pre">=</span> <span class="pre">{}</span></code> とは異なる。</p></li>
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">addEdge</span></code> で隣接リストを構築していることが読み取れる。</p></li>
-<li><p>関数 <code class="docutils literal notranslate"><span class="pre">buildGraph</span></code> 末尾のループの感じはよく憶えておきたい。配列に対して <code class="docutils literal notranslate"><span class="pre">.map()</span></code> を適用した一時配列を反復するというのはスクレイピングではよくある。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">buildGraph</span></code> 末尾のループの感じはよく憶えておきたい。配列に対して
+<code class="docutils literal notranslate"><span class="pre">.map()</span></code> を適用した一時配列を反復するというのはスクレイピングではよくある。</p></li>
 </ul>
 </li>
 </ul>
@@ -111,9 +110,9 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-task">
-<h2><a class="toc-backref" href="#id5">The task</a><a class="headerlink" href="#the-task" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-task">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">The task</a><a class="headerlink" href="#the-task" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>配達ロボットは村じゅうを移動する。上述の場所のあらゆるところに宛先が書かれた小包がある。</p></li>
 <li><p>ロボットは小包を見つけるとそれを拾って目的地に着くとそれを着荷する。</p></li>
@@ -127,7 +126,8 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">move</span></code> は目的地を引数とする。</p>
 <ul>
 <li><p>グラフを見て、この場所が目的地と隣接しているのならば <code class="docutils literal notranslate"><span class="pre">this</span></code> を返す。</p></li>
-<li><p>そうでない場合は小包の場所をチェックすることになる。次のようにして新しい <code class="docutils literal notranslate"><span class="pre">VillageState</span></code> を返す：</p>
+<li><p>そうでない場合は小包の場所をチェックすることになる。次のようにして新しい
+<code class="docutils literal notranslate"><span class="pre">VillageState</span></code> を返す：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">parcels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">place</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">place</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">p</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">place</span><span class="o">:</span><span class="w"> </span><span class="nx">destination</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="o">:</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">address</span><span class="p">};</span><span class="w"></span>
@@ -142,8 +142,7 @@ Dijkstra のアルゴリズムの一つ前のようなものだろうか。</p>
 </li>
 <li><p>小包は <code class="docutils literal notranslate"><span class="pre">place</span></code> と <code class="docutils literal notranslate"><span class="pre">address</span></code> を持つ <code class="docutils literal notranslate"><span class="pre">object</span></code> であるとする。</p></li>
 </ul>
-<p>このクラスを例えば次のように使う。<code class="docutils literal notranslate"><span class="pre">roads</span></code> の定義によると郵便局と
-Alice の家が隣接しているのでこういう結果となる。</p>
+<p>このクラスを例えば次のように使う。<code class="docutils literal notranslate"><span class="pre">roads</span></code> の定義によると郵便局と Alice の家が隣接しているのでこういう結果となる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">VillageState</span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="p">[{</span><span class="nx">place</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Post Office&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Alice&#39;s House&quot;</span><span class="p">}]</span><span class="w"></span>
@@ -157,11 +156,12 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <ul class="simple">
 <li><p>初期状態では、ロボットが郵便局にいて、小包が届いていないという状況を表す。</p></li>
 </ul>
-</div>
-<div class="section" id="persistent-data">
-<h2><a class="toc-backref" href="#id6">Persistent data</a><a class="headerlink" href="#persistent-data" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="persistent-data">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Persistent data</a><a class="headerlink" href="#persistent-data" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>関数 <code class="docutils literal notranslate"><span class="pre">Object.freeze</span></code> は引数のオブジェクトのプロパティーの全てを動的に <code class="docutils literal notranslate"><span class="pre">const</span></code> にするような機能だ。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">Object.freeze</span></code> は引数のオブジェクトのプロパティーの全てを動的に
+<code class="docutils literal notranslate"><span class="pre">const</span></code> にするような機能だ。</p></li>
 <li><p>本文の感じからすると、これを使うことで何らかの効率上のトレードオフが生じるようだ。</p></li>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">});</span><span class="w"></span>
@@ -169,9 +169,9 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">object</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">5</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="simulation">
-<h2><a class="toc-backref" href="#id7">Simulation</a><a class="headerlink" href="#simulation" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="simulation">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Simulation</a><a class="headerlink" href="#simulation" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">VillageState</span></code> オブジェクトを受け取り、近くにある場所の名前を返す関数として配達ロボットを捉える。</p></li>
 <li><p>物事を記憶し、計画を立てて実行できるロボットを設計したいので、ロボットに記憶を渡し、新しい記憶を返すようにする。そのため、ロボットが返すのは、移動したい方向と、次に移動したときに返される記憶の値を含むオブジェクトだ。</p></li>
@@ -209,10 +209,12 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">randomPick</span></code> は与えられた配列のランダムなインデックスを返す。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Math.random()</span></code> は 0 から 1 の間の数字を返す。</p></li>
-<li><p>JavaScript には Python の <code class="docutils literal notranslate"><span class="pre">int()</span></code> 相当がないので、わざわざ <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> を利用することになる。</p></li>
+<li><p>JavaScript には Python の <code class="docutils literal notranslate"><span class="pre">int()</span></code> 相当がないので、わざわざ
+<code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> を利用することになる。</p></li>
 </ul>
 </li>
-<li><p>関数 <code class="docutils literal notranslate"><span class="pre">randomRobot</span></code> は先述のロボット的関数の一つなので、本来ならば第二引数 <code class="docutils literal notranslate"><span class="pre">memory</span></code> があるのだが、本関数でそれを利用しないので、前章までのどこかで習ったようにこれを引数リストから削除しても構わない。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">randomRobot</span></code> は先述のロボット的関数の一つなので、本来ならば第二引数
+<code class="docutils literal notranslate"><span class="pre">memory</span></code> があるのだが、本関数でそれを利用しないので、前章までのどこかで習ったようにこれを引数リストから削除しても構わない。</p></li>
 </ul>
 <p>ロボットを動かすために、小包いくつかから新しい状態を生成する関数を定義したい。これをクラス <code class="docutils literal notranslate"><span class="pre">VillageState</span></code> の静的メソッドとして実装する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">parcelCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -232,9 +234,9 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <ul class="simple">
 <li><p>宛先と同じ場所から小包が送られてくるわけがない。宛名と同じ場所を抽選してしまったら、そうでなくなるまで抽選したい。上の <code class="docutils literal notranslate"><span class="pre">do</span></code> ループはそれを遂行する。</p></li>
 </ul>
-</div>
-<div class="section" id="the-mail-truck-s-route">
-<h2><a class="toc-backref" href="#id8">The mail truck’s route</a><a class="headerlink" href="#the-mail-truck-s-route" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-mail-truck-s-route">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">The mail truck’s route</a><a class="headerlink" href="#the-mail-truck-s-route" title="Permalink to this heading">¶</a></h2>
 <p>上述のロボット関数は何しろランダムなので効率が悪い。</p>
 <p>もし村のすべての場所を一筆書きのように通過する経路を見つけたら、その経路を二度走らせて確実に配達することができる。それが郵便局から開始するとして次のようなものだとわかっているとする：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">mailRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -258,9 +260,9 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <li><p>今度のロボット関数は第二引数を使用する。</p></li>
 <li><p>ロボットは残りの経路を記憶し、最初の要素を毎ターン切り落とす。</p></li>
 </ul>
-</div>
-<div class="section" id="pathfinding">
-<h2><a class="toc-backref" href="#id9">Pathfinding</a><a class="headerlink" href="#pathfinding" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="pathfinding">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Pathfinding</a><a class="headerlink" href="#pathfinding" title="Permalink to this heading">¶</a></h2>
 <p>最短経路を決定するアルゴリズムを書く。</p>
 <ul class="simple">
 <li><p>A から B への経路を探すときには、A から始まるものしか興味がない。</p></li>
@@ -322,15 +324,11 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 </li>
 <li><p>このロボット関数は <code class="docutils literal notranslate"><span class="pre">routeRobot</span></code> よりは若干マシだが、それでも最適とは言えないとのこと。</p></li>
 </ul>
-</div>
-<div class="section" id="exercises">
-<h2><a class="toc-backref" href="#id10">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
 <p>本章で現れたプログラム要素をまとめておく。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>変数・関数</p></th>
 <th class="head"><p>コメント</p></th>
@@ -372,10 +370,9 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 </tr>
 </tbody>
 </table>
-<div class="section" id="measuring-a-robot">
-<h3><a class="toc-backref" href="#id11">Measuring a robot</a><a class="headerlink" href="#measuring-a-robot" title="Permalink to this heading">¶</a></h3>
-<p><strong>問題</strong> 関数 <code class="docutils literal notranslate"><span class="pre">compareRobots</span></code> を書け。二つのロボットを引数として取る（ロボットにはそれぞれ初期記憶がある）。
-100 タスクを生成し、それぞれのロボットにそのタスクを解かせろ。完了したら、各ロボットがタスクごとに要した平均ステップ数を出力しろ。公平を期すために、両方のロボットに同じ 100 タスクを与えること。</p>
+<section id="measuring-a-robot">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Measuring a robot</a><a class="headerlink" href="#measuring-a-robot" title="Permalink to this heading">¶</a></h3>
+<p><strong>問題</strong> 関数 <code class="docutils literal notranslate"><span class="pre">compareRobots</span></code> を書け。二つのロボットを引数として取る（ロボットにはそれぞれ初期記憶がある）。100 タスクを生成し、それぞれのロボットにそのタスクを解かせろ。完了したら、各ロボットがタスクごとに要した平均ステップ数を出力しろ。公平を期すために、両方のロボットに同じ 100 タスクを与えること。</p>
 <p><strong>解答</strong> まず関数 <code class="docutils literal notranslate"><span class="pre">runRobot</span></code> をターン数を返すように修正する必要がある。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">robot</span><span class="p">,</span><span class="w"> </span><span class="nx">memory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nx">turn</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -409,27 +406,27 @@ Alice の家が隣接しているのでこういう結果となる。</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="robot-efficiency">
-<h3><a class="toc-backref" href="#id12">Robot efficiency</a><a class="headerlink" href="#robot-efficiency" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="robot-efficiency">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Robot efficiency</a><a class="headerlink" href="#robot-efficiency" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">goalOrientedRobot</span></code> よりも早く配送タスクを完了するロボットを書けるか。</p>
 <p>前の問題を解いたのであれば、ロボットが改善されたかどうかを確認するために関数
 <code class="docutils literal notranslate"><span class="pre">compareRobots</span></code> を使える。</p>
-<p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> の高速版を書ければ解けたも同然。
-Dijkstra のアルゴリズムの重みなし版のようなものを書けばいい。</p>
+<p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">findRoute</span></code> の高速版を書ければ解けたも同然。Dijkstra のアルゴリズムの重みなし版のようなものを書けばいい。</p>
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>気が向いたら書く。</p>
 </div>
-</div>
-<div class="section" id="persistent-group">
-<h3><a class="toc-backref" href="#id13">Persistent group</a><a class="headerlink" href="#persistent-group" title="Permalink to this heading">¶</a></h3>
-<p><strong>問題</strong> 第 6 章のクラス <code class="docutils literal notranslate"><span class="pre">Group</span></code> に似た、値の集合を格納する新しいクラス <code class="docutils literal notranslate"><span class="pre">PGroup</span></code> を書け。</p>
+</section>
+<section id="persistent-group">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Persistent group</a><a class="headerlink" href="#persistent-group" title="Permalink to this heading">¶</a></h3>
+<p><strong>問題</strong> 第 6 章のクラス <code class="docutils literal notranslate"><span class="pre">Group</span></code> に似た、値の集合を格納する新しいクラス
+<code class="docutils literal notranslate"><span class="pre">PGroup</span></code> を書け。</p>
 <ul class="simple">
 <li><p>同様にメソッド <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">delete</span></code>, <code class="docutils literal notranslate"><span class="pre">has</span></code> がある。</p>
 <ul>
-<li><p>ただし、メソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> は、与えられたメンバーが追加された新しい
-<code class="docutils literal notranslate"><span class="pre">PGroup</span></code> インスタンスを返し、古いものは変更しないものとする。</p></li>
+<li><p>ただし、メソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> は、与えられたメンバーが追加された新しい <code class="docutils literal notranslate"><span class="pre">PGroup</span></code>
+インスタンスを返し、古いものは変更しないものとする。</p></li>
 <li><p>同様に、メソッド <code class="docutils literal notranslate"><span class="pre">delete</span></code> は与えられたメンバーのない新しいインスタンスを生成するものとする。</p></li>
 </ul>
 </li>
@@ -477,9 +474,9 @@ Dijkstra のアルゴリズムの重みなし版のようなものを書けば�
 </div>
 <p>新しいインスタンスを返すという仕様の下ではメソッド <code class="docutils literal notranslate"><span class="pre">add</span></code> も <code class="docutils literal notranslate"><span class="pre">delete</span></code> も可変個引数にする設計もありだろう。</p>
 <p>以上</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

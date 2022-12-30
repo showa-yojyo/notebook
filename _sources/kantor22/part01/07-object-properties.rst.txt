@@ -15,21 +15,25 @@ Property flags and descriptors
 Property flags
 ----------------------------------------------------------------------
 
-オブジェクトプロパティーには値のほかに三つの特別な属性がある。それらは次のフラグだ：
+オブジェクトプロパティーには値のほかに三つの特別な属性がある。それらは次のフラグ
+だ：
 
-* ``writable``: このプロパティーの値を変更できるか否か。
-* ``enumerable``: ``for...in`` ループでオブジェクトプロパティーを反復させると、
-  このプロパティーが現れるか否か。
-* ``configurable``: このプロパティーが削除可能であり、ここに書いた特別な属性を更新できるか否か。
+``writable``
+    このプロパティーの値を変更できるか否か。
+``enumerable``
+    ``for`` ... ``in`` ループでオブジェクトプロパティーを反復させると、このプロ
+    パティーが現れるか否か。
+``configurable``
+    このプロパティーが削除可能であり、ここに書いた特別な属性を更新できるか否か。
 
 通常の方法でプロパティーを作成すると、これらは ``true`` だ。
 
-``Object.getOwnPropertyDescriptor(obj, propertyName)`` は上述のプロパティーの情報
-すべてを返す。
+``Object.getOwnPropertyDescriptor(obj, propertyName)`` は上述のプロパティーの情
+報すべてを返す。
 
-``Object.defineProperty(obj, propertyName, descriptor)`` は上述のフラグを変更する。
-このメソッドで新規プロパティーを値だけを割り当てるように定義すると、特別なフラグは
-すべて ``false`` となる。
+``Object.defineProperty(obj, propertyName, descriptor)`` は上述のフラグを変更す
+る。このメソッドで新規プロパティーを値だけを割り当てるように定義すると、特別なフ
+ラグはすべて ``false`` となる。
 
 * Non-configurable というのは ``defineProperty`` できないということ。
 
@@ -52,28 +56,32 @@ Non-writable
 
 * "use strict" モードがオフの場合にはエラーが発生せずに、代入は静かに失敗する。
   この振る舞いは他のフラグに対する ``defineProperty`` でも同様だ。
-* ``name`` がまだプロパティーではない場合には、無効を明示的に指定する必要はない。
+* ``name`` がまだプロパティーではない場合には、無効を明示的に指定する必要はな
+  い。
 
 Non-enumerable
 ----------------------------------------------------------------------
 
 まず、オブジェクト ``user`` にメソッド ``toString`` を普通に定義する。それから
-``user`` に対して ``for...in`` ループを書くと、このメソッドがプロパティーとして
-拾われる。それを避けるときには、前項の要領で ``enumerable: false`` を指定する。
+``user`` に対して ``for`` ... ``in`` ループを書くと、このメソッドがプロパティー
+として拾われる。それを避けるときには、前項の要領で ``enumerable: false`` を指定
+する。
 
 * ``Object.keys(user)`` の出力でも ``toString`` を除外する。
 
 Non-configurable
 ----------------------------------------------------------------------
 
-組み込みオブジェクトやプロパティーには、フラグ ``configurable: false`` が設定されて
-いるものもある。例えば ``Math.PI`` を上書きしようとしても失敗する。さらに
+組み込みオブジェクトやプロパティーには、フラグ ``configurable: false`` が設定さ
+れているものもある。例えば ``Math.PI`` を上書きしようとしても失敗する。さらに
 ``writable: true`` を指定しても失敗する。
 
-* いったん ``configurable: false`` にすると、 ``configurable: true`` に変えることはできない。
-* ``configurable: false`` であっても、なぜか ``writable: false`` への変更は成功する。
+* いったん ``configurable: false`` にすると、``configurable: true`` に変えるこ
+  とはできない。
+* ``configurable: false`` であっても、なぜか ``writable: false`` への変更は成功
+  する。
 
-Object.defineProperties
+``Object.defineProperties``
 ----------------------------------------------------------------------
 
 このメソッドは一度にプロパティー複数を定義する。
@@ -86,7 +94,7 @@ Object.defineProperties
        // ...
    });
 
-Object.getOwnPropertyDescriptors
+``Object.getOwnPropertyDescriptors``
 ----------------------------------------------------------------------
 
 このメソッドはオブジェクトのプロパティーと特別フラグをすべて返す。
@@ -158,8 +166,9 @@ Getters and setters
        }
    };
 
-上の定義のあと、標準的な記法 ``obj.propName`` で左辺値でも右辺値でもアクセスできる。
-仮に ``set`` 側メソッドの定義を与えないと、右辺値としてしかアクセスできない。
+上の定義のあと、標準的な記法 ``obj.propName`` で左辺値でも右辺値でもアクセスでき
+る。仮に ``set`` 側メソッドの定義を与えないと、右辺値としてしかアクセスできな
+い。
 
 Accessor descriptors
 ----------------------------------------------------------------------
@@ -179,8 +188,8 @@ Accessor descriptors
        }
    });
 
-* アクセッサープロパティーを定義するときには
-  ``get``, ``set``, ``enumerable``, ``configurable`` の組み合わせのみが許される。
+* アクセッサープロパティーを定義するときには ``get``, ``set``, ``enumerable``,
+  ``configurable`` の組み合わせのみが許される。
 * データプロパティー定義の特別属性の組み合わせと、アクセッサープロパティー定義の
   それとを混ぜることは許されていない。失敗する。
 

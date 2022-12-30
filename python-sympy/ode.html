@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>常微分方程式 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
@@ -49,10 +47,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id24">常微分方程式</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id24" role="doc-backlink">常微分方程式</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.solvers.ode</span></code> が提供する、常微分方程式を解くための機能に関する覚え書きを記す。</p>
-<div class="contents topic" id="id2">
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id24">常微分方程式</a></p>
@@ -93,7 +91,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>紙幅の都合上、出力を一部手で改行した。</p>
@@ -105,33 +103,36 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id25">基本機能</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<p>ここに記す関数は isympy シェルがデフォルトで実行するインポート <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy</span> <span class="pre">import</span> <span class="pre">*</span></code> だけで利用可能だ。</p>
-<p>SymPy で常微分方程式を解くには、関数 <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> を用いる。簡単なケースではこれ一本で事足りる。何か凝ったことをする場合に、その他の関数やデータを併用するという方針でよさそうだ。</p>
+<section id="id3">
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">基本機能</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>ここに記す関数は <strong class="program">isympy</strong> シェルがデフォルトで実行するインポート
+<code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy</span> <span class="pre">import</span> <span class="pre">*</span></code> だけで利用可能だ。</p>
+<p>SymPy で常微分方程式を解くには、関数 <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> を用いる。簡単なケースではこれ一本で事足りる。何か凝ったことをする場合に、その他の関数やデータを併用するという方針でよさそうだ。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">dsolve(eq,</span> <span class="pre">...)</span></code></dt><dd><p>常微分方程式系を解く。</p>
-<p>方程式を一個解くときには、引数 <code class="code docutils literal notranslate"><span class="pre">eq</span></code> には何か導関数を含むような数式オブジェクトを指定する。方程式を複数個解くときには、同様に数式オブジェクトの list オブジェクトを指定する。ソルバーは各方程式が 0 と等しい条件を求める。</p>
+<p>方程式を一個解くときには、引数 <code class="docutils literal notranslate"><span class="pre">eq</span></code> には何か導関数を含むような数式オブジェクトを指定する。方程式を複数個解くときには、同様に数式オブジェクトの <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトを指定する。ソルバーは各方程式が 0 と等しい条件を求める。</p>
 <ul>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">func=None</span></code> は <code class="code docutils literal notranslate"><span class="pre">eq</span></code> がどの一変数関数に関する微分方程式なのかを指示する。方程式を複数個解くときには、やはり list の形式をとる。普通はソルバーが自動検出するため、指定しない。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">func=None</span></code> は <code class="docutils literal notranslate"><span class="pre">eq</span></code> がどの一変数関数に関する微分方程式なのかを指示する。方程式を複数個解くときには、やはり <code class="docutils literal notranslate"><span class="pre">list</span></code> の形式をとる。普通はソルバーが自動検出するため、指定しない。</p></li>
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">hint='default'</span></code> ではソルバーに微分方程式のタイプについてヒントを教える。このヒントによって方程式の解法を調整することになる。</p>
 <p>方程式を一個解くときには、与え得るパラメーターは次のとおり（すべて文字列だが、引用符を省略する）。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">default</span></code>: 後述の関数 <code class="code docutils literal notranslate"><span class="pre">classify_ode(eq,</span> <span class="pre">...)</span></code> にて記す。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">all</span></code>: 全部の解法候補を適用する。この場合はソルバーの戻り値がキーと値をタイプ名と解からなる dict オブジェクトになる。タイプ名は文字列で、解は Equality オブジェクトだと思われる。それに加えて、ベスト解や階数等の副次的な情報も併せて含む。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">all_Integral</span></code>: <code class="code docutils literal notranslate"><span class="pre">all</span></code> と同様に振る舞うが、もしタイプ xxx とタイプ xxx_Integral が候補にある場合、前者を省略するという点が異なる。後者の解法は結果オブジェクト内に Integral オブジェクトが未評価のまま残るが、計算処理が速いという特徴がある。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">best</span></code>: 全部の候補を試して、もっとも解が単純なものを返す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code>: 後述の関数 <code class="code docutils literal notranslate"><span class="pre">classify_ode(eq,</span> <span class="pre">...)</span></code> にて記す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code>: 全部の解法候補を適用する。この場合はソルバーの戻り値がキーと値をタイプ名と解からなる <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクトになる。タイプ名は文字列で、解は
+<code class="docutils literal notranslate"><span class="pre">Equality</span></code> オブジェクトだと思われる。それに加えて、ベスト解や階数等の副次的な情報も併せて含む。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">all_Integral</span></code>: <code class="docutils literal notranslate"><span class="pre">all</span></code> と同様に振る舞うが、もしタイプ <code class="docutils literal notranslate"><span class="pre">xxx</span></code> とタイプ
+<code class="docutils literal notranslate"><span class="pre">xxx_Integral</span></code> が候補にある場合、前者を省略するという点が異なる。後者の解法は結果オブジェクト内に <code class="docutils literal notranslate"><span class="pre">Integral</span></code> オブジェクトが未評価のまま残るが、計算処理が速いという特徴がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">best</span></code>: 全部の候補を試して、もっとも解が単純なものを返す。</p></li>
 <li><p>あるいはユーザーが別途関数 <code class="code docutils literal notranslate"><span class="pre">classify_ode(eq,</span> <span class="pre">...)</span></code> を呼び出して得たタイプのうちの一つ。</p></li>
 </ul>
 </li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">simplify=True</span></code> はソルバー内部が関数 <code class="code docutils literal notranslate"><span class="pre">odesimp</span></code> を呼び出すかどうかを指定する。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">ics=None</span></code> は境界条件を dict オブジェクトで指定できる。</p>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">simplify=True</span></code> はソルバー内部が関数 <code class="docutils literal notranslate"><span class="pre">odesimp</span></code> を呼び出すかどうかを指定する。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">ics=None</span></code> は境界条件を <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクトで指定できる。</p>
 <ul class="simple">
 <li><p>キーの例 <code class="code docutils literal notranslate"><span class="pre">func(x0)</span></code>, <code class="code docutils literal notranslate"><span class="pre">func(x).diff(x).subs(x,</span> <span class="pre">x2)</span></code></p></li>
 <li><p>利用可能になる条件は一階常微分方程式のべき級数？</p></li>
 </ul>
 </li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">xi=None</span></code> および <code class="code docutils literal notranslate"><span class="pre">eta=None</span></code> は無限小関数。後述する関数 <code class="code docutils literal notranslate"><span class="pre">infinitesimals</span></code> の項で解説する。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">xi=None</span></code> および <code class="code docutils literal notranslate"><span class="pre">eta=None</span></code> は無限小関数。後述する関数 <code class="docutils literal notranslate"><span class="pre">infinitesimals</span></code> の項で解説する。</p></li>
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">x0=0</span></code> は微分方程式のべき級数解をどの点周りに評価するかを指定する。</p></li>
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">n=6</span></code> はべき級数の指数をどこまで上げてよいかを指定する。</p></li>
 </ul>
@@ -140,53 +141,54 @@
 <ul class="simple">
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">func=None</span></code> および <code class="code docutils literal notranslate"><span class="pre">ics=None</span></code> はソルバー関数と同じ。</p></li>
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">dict=False</span></code> はソルバー関数が内々に利用するもの。</p></li>
-<li><p>戻り値は文字列からなる tuple オブジェクトである。</p>
+<li><p>戻り値は文字列からなる <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトである。</p>
 <ul>
-<li><p>ソルバーが方程式を解くのにデフォルトで採用するのは、この最初のタイプである。特定の方法で解かせたいならば、関数 <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> の <code class="code docutils literal notranslate"><span class="pre">hint</span></code> として、この候補のいずれかのタイプを指定する。</p></li>
+<li><p>ソルバーが方程式を解くのにデフォルトで採用するのは、この最初のタイプである。特定の方法で解かせたいならば、関数 <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> の <code class="docutils literal notranslate"><span class="pre">hint</span></code> として、この候補のいずれかのタイプを指定する。</p></li>
 <li><p>タイプは基本的には「このタイプとみなせば、方程式を解きやすいだろう」という順序で列挙されている。</p></li>
 </ul>
 </li>
-<li><p>サポートするタイプは <code class="code docutils literal notranslate"><span class="pre">allhints</span></code> という tuple オブジェクトが知っている。手許の環境では 34 個ある。</p></li>
+<li><p>サポートするタイプは <code class="docutils literal notranslate"><span class="pre">allhints</span></code> という <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトが知っている。手許の環境では 34 個ある。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">checkodesol(ode,</span> <span class="pre">sol,</span> <span class="pre">...)</span></code></dt><dd><p>これは微分方程式の解を求めた後に、それを検算するのに用いる。オブジェクト <code class="code docutils literal notranslate"><span class="pre">sol</span></code> をソルバーに渡したものと同じ <code class="code docutils literal notranslate"><span class="pre">ode</span></code> に代入して、ゼロになることを見たい。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">checkodesol(ode,</span> <span class="pre">sol,</span> <span class="pre">...)</span></code></dt><dd><p>これは微分方程式の解を求めた後に、それを検算するのに用いる。オブジェクト
+<code class="docutils literal notranslate"><span class="pre">sol</span></code> をソルバーに渡したものと同じ <code class="docutils literal notranslate"><span class="pre">ode</span></code> に代入して、ゼロになることを見たい。</p>
 <ul class="simple">
-<li><p>戻り値は 2 要素の tuple である。</p>
+<li><p>戻り値は二要素の <code class="docutils literal notranslate"><span class="pre">tuple</span></code> である。</p>
 <ul>
-<li><p>[0]: 代入結果がゼロならば True であり、そうでなければ False である。</p></li>
-<li><p>[1]: [0] が True ならば <code class="docutils literal notranslate"><span class="pre">0</span></code> である（逆は必ずしも成り立たない）。それ以外は代入結果が何になったのかを表現する値が入る。</p></li>
+<li><p>[0]: 代入結果がゼロならば <code class="docutils literal notranslate"><span class="pre">True</span></code> であり、そうでなければ <code class="docutils literal notranslate"><span class="pre">False</span></code> である。</p></li>
+<li><p>[1]: [0] が <code class="docutils literal notranslate"><span class="pre">True</span></code> ならば <code class="docutils literal notranslate"><span class="pre">0</span></code> である（逆は必ずしも成り立たない）。それ以外は代入結果が何になったのかを表現する値が入る。</p></li>
 </ul>
 </li>
-<li><p>この関数の呼び出しがなかなか返って来ないときは、間違いなく <code class="code docutils literal notranslate"><span class="pre">simplify</span></code> がキツイためだろう。</p></li>
+<li><p>この関数の呼び出しがなかなか返って来ないときは、間違いなく <code class="docutils literal notranslate"><span class="pre">simplify</span></code> がキツイためだろう。</p></li>
 </ul>
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">homogeneous_order(eq,</span> <span class="pre">*symbols)</span></code></dt><dd><p>同次方程式 <code class="code docutils literal notranslate"><span class="pre">eq</span> <span class="pre">==</span> <span class="pre">0</span></code> の次数を返す。</p>
 <ul class="simple">
-<li><p>非同次であれば None を返す。</p></li>
-<li><p>シンボル関数も <code class="code docutils literal notranslate"><span class="pre">eq</span></code> になれるが、関数のすべての変数がシンボルである必要がある。なおかつ、数式中のその関数の変数が <code class="code docutils literal notranslate"><span class="pre">*symbols</span></code> にマッチしている必要がある。</p></li>
+<li><p>非同次であれば <code class="docutils literal notranslate"><span class="pre">None</span></code> を返す。</p></li>
+<li><p>シンボル関数も <code class="docutils literal notranslate"><span class="pre">eq</span></code> になれるが、関数のすべての変数がシンボルである必要がある。なおかつ、数式中のその関数の変数が <code class="docutils literal notranslate"><span class="pre">*symbols</span></code> にマッチしている必要がある。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id26">下回りの機能</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">下回りの機能</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>ここからはモジュール <code class="docutils literal notranslate"><span class="pre">sympy.solvers.ode</span></code> からの明示的なインポートを必要とする機能を記す。</p>
 <dl>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">infinitesimals(eq,</span> <span class="pre">...)</span></code></dt><dd><p>一階常微分方程式 <span class="math notranslate nohighlight">\(y^\prime = f(x, y)\)</span> に対して、次の条件をみたすような点変換 <span class="math notranslate nohighlight">\(\xi(x, y)\)</span> と <span class="math notranslate nohighlight">\(\eta(x, y)\)</span> を返す：</p>
-<p>これらの点変換が次のリー群について、元の <span class="math notranslate nohighlight">\(f\)</span> を用いて変換先の各変数に関する微分方程式 <span class="math notranslate nohighlight">\((y^*)^\prime=f(x^*, y^*)\)</span> が成り立つ。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">infinitesimals(eq,</span> <span class="pre">...)</span></code></dt><dd><p>一階常微分方程式 <span class="math notranslate nohighlight">\({y^\prime = f(x, y)}\)</span> に対して、次の条件をみたすような点変換 <span class="math notranslate nohighlight">\({\xi(x, y)}\)</span> と <span class="math notranslate nohighlight">\({\eta(x, y)}\)</span> を返す：</p>
+<p>これらの点変換が次のリー群について、元の <span class="math notranslate nohighlight">\(f\)</span> を用いて変換先の各変数に関する微分方程式 <span class="math notranslate nohighlight">\({(y^*)^\prime=f(x^*, y^*)}\)</span> が成り立つ：</p>
 <div class="math notranslate nohighlight">
 \begin{aligned}
 x^* &amp;= X(x, y;\eps) = x + \eps \xi(x, y),\\
 y^* &amp;= Y(x, y;\eps) = y + \eps \eta(x, y)
 \end{aligned}</div><ul class="simple">
-<li><p>戻り値は dict の list の型をとる。内側の dict は、キーが点変換関数オブジェクトで、値が Function 系オブジェクトまたは定数である。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">hint</span></code> を用いて、点変換関数の計算方法のヒューリスティックを調整できるもよう。</p></li>
+<li><p>戻り値は <code class="docutils literal notranslate"><span class="pre">dict</span></code> の <code class="docutils literal notranslate"><span class="pre">list</span></code> の型をとる。内側の <code class="docutils literal notranslate"><span class="pre">dict</span></code> は、キーが点変換関数オブジェクトで、値が <code class="docutils literal notranslate"><span class="pre">Function</span></code> 系オブジェクトまたは定数である。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">hint</span></code> を用いて、点変換関数の計算方法のヒューリスティックを調整できるもよう。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">checkinfsol(eq,</span> <span class="pre">infinitesimals,</span> <span class="pre">...)</span></code></dt><dd><p>この関数は上述の関数 <code class="code docutils literal notranslate"><span class="pre">infinitesimals</span></code> の結果を検証するのに用いられる。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">checkinfsol(eq,</span> <span class="pre">infinitesimals,</span> <span class="pre">...)</span></code></dt><dd><p>この関数は上述の関数 <code class="docutils literal notranslate"><span class="pre">infinitesimals</span></code> の結果を検証するのに用いられる。</p>
 <ul>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">infinitesimals</span></code> の型は（というか値は）先ほどの関数の戻り値と同じようにする。</p></li>
-<li><p>戻り値は list オブジェクトである。この要素は各点変換のペアに対応するブーリアン値と検算結果の値とのペアである。検算結果とは、次の偏微分に点変換関数を代入して評価した値である。</p>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">infinitesimals</span></code> の型は（というか値は）先ほどの関数の戻り値と同じようにする。</p></li>
+<li><p>戻り値は <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトである。この要素は各点変換のペアに対応するブーリアン値と検算結果の値とのペアである。検算結果とは、次の偏微分に点変換関数を代入して評価した値である。</p>
 <div class="math notranslate nohighlight">
 \begin{align*}
 \frac{\partial \eta}{\partial x} + \left(\frac{\partial \eta}{\partial y}
@@ -199,60 +201,62 @@ y^* &amp;= Y(x, y;\eps) = y + \eps \eta(x, y)
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">odesimp(eq,</span> <span class="pre">func,</span> <span class="pre">order,</span> <span class="pre">constants,</span> <span class="pre">hint)</span></code></dt><dd><p>常微分方程式の単純化処理のための関数。</p>
 <ul class="simple">
-<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> が本関数を呼び出すので、これを単体で利用するケースというのは一般ユーザーにはまれだということだ。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> が本関数を呼び出すので、これを単体で利用するケースというのは一般ユーザーにはまれだということだ。</p></li>
 </ul>
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">constant_renumber(expr,</span> <span class="pre">symbolname,</span> <span class="pre">startnumber,</span> <span class="pre">endnumber)</span></code></dt><dd><p>式に含まれる任意定数の番号付けを変更する関数。</p>
-<p>式 <code class="code docutils literal notranslate"><span class="pre">expr</span></code> 中にはいくつかの Symbol オブジェクトがあるという前提。そのオブジェクト名が <code class="code docutils literal notranslate"><span class="pre">symbolname</span></code> に末尾から数字のくっついたもので、さらにその数字が範囲 <cite>[startnumber, endnumber)</cite> にあれば、リネームの対象になる。新たに 1 から範囲の長さまでの連番が振られる。</p>
+<p>式 <code class="docutils literal notranslate"><span class="pre">expr</span></code> 中にはいくつかの <code class="docutils literal notranslate"><span class="pre">Symbol</span></code> オブジェクトがあるという前提。そのオブジェクト名が <code class="docutils literal notranslate"><span class="pre">symbolname</span></code> に末尾から数字のくっついたもので、さらにその数字が範囲 <code class="docutils literal notranslate"><span class="pre">[startnumber,</span> <span class="pre">endnumber)</span></code> にあれば、リネームの対象になる。新たに 1 から範囲の長さまでの連番が振られる。</p>
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">constantsimp(expr,</span> <span class="pre">constants)</span></code></dt><dd><p>式に含まれる任意定数に対する単純化処理のための関数。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">C1</span> <span class="pre">+</span> <span class="pre">C2</span></code> → <code class="code docutils literal notranslate"><span class="pre">C1</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">C1</span> <span class="pre">*</span> <span class="pre">C2</span></code> → <code class="code docutils literal notranslate"><span class="pre">C1</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">exp(C1)</span></code> → <code class="code docutils literal notranslate"><span class="pre">C1</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">C1</span> <span class="pre">+</span> <span class="pre">C2</span></code> → <code class="docutils literal notranslate"><span class="pre">C1</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">C1</span> <span class="pre">*</span> <span class="pre">C2</span></code> → <code class="docutils literal notranslate"><span class="pre">C1</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">exp(C1)</span></code> → <code class="docutils literal notranslate"><span class="pre">C1</span></code></p></li>
 <li><p>etc.</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">ode_sol_simplicity(sol,</span> <span class="pre">func,</span> <span class="pre">trysolving=True)</span></code></dt><dd><p>解の簡単さを示す数値を返す関数。例えば <code class="code docutils literal notranslate"><span class="pre">ode_sol_simplicity(A,</span> <span class="pre">f)</span> <span class="pre">&lt;</span> <span class="pre">ode_sol_simplicity(B,</span> <span class="pre">f)</span></code> なる <code class="code docutils literal notranslate"><span class="pre">A</span></code> と <code class="code docutils literal notranslate"><span class="pre">B</span></code> については、
-<code class="code docutils literal notranslate"><span class="pre">A</span></code> のほうが <code class="code docutils literal notranslate"><span class="pre">B</span></code> よりも解が簡単であると解釈する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">ode_sol_simplicity(sol,</span> <span class="pre">func,</span> <span class="pre">trysolving=True)</span></code></dt><dd><p>解の簡単さを示す数値を返す関数。例えば <code class="code docutils literal notranslate"><span class="pre">ode_sol_simplicity(A,</span> <span class="pre">f)</span> <span class="pre">&lt;</span>
+<span class="pre">ode_sol_simplicity(B,</span> <span class="pre">f)</span></code> なる <code class="docutils literal notranslate"><span class="pre">A</span></code> と <code class="docutils literal notranslate"><span class="pre">B</span></code> については、<code class="docutils literal notranslate"><span class="pre">A</span></code> のほうが <code class="docutils literal notranslate"><span class="pre">B</span></code>
+よりも解が簡単であると解釈する。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">-2</span></code> や <code class="docutils literal notranslate"><span class="pre">-1</span></code> が戻ってくる場合は「解けている」または「解けていないが、解ける」を意味する。</p></li>
-<li><p>何か正の整数が戻ってくる場合は「解けない」か「与えられた <code class="code docutils literal notranslate"><span class="pre">func</span></code> について解けない」を意味する。この値は解の文字列的な長さである。長い方程式のほうが難しそうだからこうしたのか。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">oo</span></code> が戻ってくる場合、解が未評価の Integral オブジェクトを含むことを意味する。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">trysolving</span></code> は、ユーザーが既に解が解けないことを知っているときに利用できる。値 False を指示することで、計算を省略する。</p>
+<li><p>何か正の整数が戻ってくる場合は「解けない」か「与えられた <code class="docutils literal notranslate"><span class="pre">func</span></code> について解けない」を意味する。この値は解の文字列的な長さである。長い方程式のほうが難しそうだからこうしたのか。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">oo</span></code> が戻ってくる場合、解が未評価の <code class="docutils literal notranslate"><span class="pre">Integral</span></code> オブジェクトを含むことを意味する。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">trysolving</span></code> は、ユーザーが既に解が解けないことを知っているときに利用できる。値 <code class="docutils literal notranslate"><span class="pre">False</span></code> を指示することで、計算を省略する。</p>
 <ul>
-<li><p><code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> の <code class="code docutils literal notranslate"><span class="pre">simplify=False</span></code> と連動している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dsolve</span></code> の <code class="code docutils literal notranslate"><span class="pre">simplify=False</span></code> と連動している。</p></li>
 </ul>
 </li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id27">特化型ソルバー</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">特化型ソルバー</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を併記していて素晴らしいので、カタログのように参照すると目当てのタイプのソルバーが提供されているかどうかはすぐにわかるだろう。</p>
 <p>ここでは関数名だけを列挙するに留める。対応するヒント名を併記するとメモ代わりになるか。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_1st_exact</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_1st_homogeneous_coeff_subs_dep_div_indep</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_1st_homogeneous_coeff_subs_indep_div_dep</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_1st_linear</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_almost_linear</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_Bernoulli</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_linear_coefficients</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_Liouville</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_nth_linear_constant_coeff_homogeneous</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_nth_linear_constant_coeff_undetermined_coefficients</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_nth_linear_constant_coeff_variation_of_parameters</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_Riccati_special_minus2</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_separable</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ode_separable_reduced</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_1st_exact</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_1st_homogeneous_coeff_subs_dep_div_indep</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_1st_homogeneous_coeff_subs_indep_div_dep</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_1st_linear</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_almost_linear</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_Bernoulli</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_linear_coefficients</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_Liouville</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_nth_linear_constant_coeff_homogeneous</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_nth_linear_constant_coeff_undetermined_coefficients</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_nth_linear_constant_coeff_variation_of_parameters</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_Riccati_special_minus2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_separable</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ode_separable_reduced</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id28">連立常微分方程式</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
-<p>連立常微分方程式を <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> に評価させると、最初に関数 <code class="code docutils literal notranslate"><span class="pre">classify_sysode</span></code> を呼ぶ。これで方程式のタイプを判定して、特化型のソルバーに処理を委ねる。</p>
-<p>このタイプ判定が下の図のように入れ子になっていて、末端のソルバーでは結局 <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> を単一の方程式に対して適用することを繰り返す。</p>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">連立常微分方程式</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>連立常微分方程式を <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> に評価させると、最初に関数 <code class="docutils literal notranslate"><span class="pre">classify_sysode</span></code> を呼ぶ。これで方程式のタイプを判定して、特化型のソルバーに処理を委ねる。</p>
+<p>このタイプ判定が下の図のように入れ子になっていて、末端のソルバーでは結局
+<code class="docutils literal notranslate"><span class="pre">dsolve</span></code> を単一の方程式に対して適用することを繰り返す。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sysode_linear_neq_order&lt;M&gt;
     sysode_linear_neq_order1
         _linear_neq_order1_type1
@@ -271,40 +275,40 @@ sysode_nonlinear_&lt;N&gt;seq_order&lt;M&gt;
         _nonlinear_3eq_order1_type&lt;i&gt; i: 1-5
 </pre></div>
 </div>
-</div>
-<div class="section" id="id7">
-<h2><a class="toc-backref" href="#id29">演習</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
-<p>ここに出てくる微分方程式は次の文書から拝借した。</p>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">演習</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p>ここに出てくる微分方程式は次の文書から拝借した：</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://reference.wolfram.com/language/tutorial/DSolveOverview.html">DSolveで解く微分方程式</a></p></li>
 <li><p><a class="reference external" href="http://math.stackexchange.com/questions/650774/non-homogeneous-2nd-order-euler-cauchy-differential-equation">Non-homogeneous 2nd order Euler-Cauchy differential equation</a></p></li>
 </ul>
-<p>演習で得た自分なりのコツを次にまとめる。</p>
+<p>演習で得た自分なりのコツを次にまとめる：</p>
 <ul class="simple">
 <li><p>長い数式で表現される常微分方程式は SymPy のオブジェクトとしても長い表現になる。何度もタイプするハメにならぬように、素直にローカル変数を宣言してバインドしておく。</p></li>
-<li><p>ソルバーに渡す前に関数 <code class="code docutils literal notranslate"><span class="pre">classify_ode</span></code> で常微分方程式のタイプを判定しておく。その結果が次の <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> 呼び出しの <code class="code docutils literal notranslate"><span class="pre">hint</span></code> パラメーターを
-<code class="code docutils literal notranslate"><span class="pre">all</span></code> にするか <code class="code docutils literal notranslate"><span class="pre">all_Integral</span></code> にするかの判断材料になる。</p>
+<li><p>ソルバーに渡す前に関数 <code class="docutils literal notranslate"><span class="pre">classify_ode</span></code> で常微分方程式のタイプを判定しておく。その結果が次の <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> 呼び出しの <code class="docutils literal notranslate"><span class="pre">hint</span></code> パラメーターを <code class="docutils literal notranslate"><span class="pre">all</span></code> にするか
+<code class="docutils literal notranslate"><span class="pre">all_Integral</span></code> にするかの判断材料になる。</p>
 <ul>
-<li><p>空の tuple オブジェクトが戻ってくるようならば、残念だがその常微分方程式を SymPy で解くのを諦める。</p></li>
+<li><p>空の <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトが戻ってくるようならば、残念だがその常微分方程式を SymPy で解くのを諦める。</p></li>
 </ul>
 </li>
-<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> を呼び出すときは許される限り <code class="code docutils literal notranslate"><span class="pre">all_Integral</span></code> を指定する。この戻り値をザッと見ると、未評価の積分オブジェクトが一般解に含まれているだろう。必要ならばこれを <code class="code docutils literal notranslate"><span class="pre">doit()</span></code> にて手動で遅延評価する。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> を呼び出すときは許される限り <code class="docutils literal notranslate"><span class="pre">all_Integral</span></code> を指定する。この戻り値をザッと見ると、未評価の積分オブジェクトが一般解に含まれているだろう。必要ならばこれを <code class="code docutils literal notranslate"><span class="pre">doit()</span></code> にて手動で遅延評価する。</p></li>
 </ul>
-<div class="section" id="id8">
-<h3><a class="toc-backref" href="#id30">常微分方程式</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">常微分方程式</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>連立しないほうのパターン。</p>
-<div class="section" id="id9">
-<h4><a class="toc-backref" href="#id31">使い方</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
-<p>例えば微分方程式 <span class="math notranslate nohighlight">\(y^\prime = y\)</span> を解くには次のようにするのがいちばん早い：</p>
+<section id="id9">
+<h4><a class="toc-backref" href="#id31" role="doc-backlink">使い方</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
+<p>例えば微分方程式 <span class="math notranslate nohighlight">\({y^\prime = y}\)</span> を解くには次のようにするのがいちばん早い：</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="go">Eq(f(x), C1*exp(x))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id10">
-<h4><a class="toc-backref" href="#id32">求積法だけで解が求まる常微分方程式</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
-<p>次のデモは単に <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> するだけで解が得られる常微分方程式を与えるものだ。
+</section>
+<section id="id10">
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">求積法だけで解が求まる常微分方程式</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<p>次のデモは単に <code class="docutils literal notranslate"><span class="pre">integrate</span></code> するだけで解が得られる常微分方程式を与えるものだ。
 SymPy のソルバーは一階線形常微分方程式の特別に単純な場合として処理する。</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="s1">&#39;all_Integral&#39;</span><span class="p">)</span>
@@ -323,9 +327,9 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go">Eq(f(x), C1 - x**2*cos(x) - x*sqrt(x**2 + 1)/2 + 2*x*sin(x) + 2*cos(x) - asinh(x)/2)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id11">
-<h4><a class="toc-backref" href="#id33">変数分離形常微分方程式</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id11">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">変数分離形常微分方程式</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
 <p>変数分離系は微分方程式入門の最初の方に乗っている基本形だ。</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">classify_ode</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
@@ -368,10 +372,10 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go">Eq(f(x), log(1/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3))) + log(2))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id12">
-<h4><a class="toc-backref" href="#id34">一階同次常微分方程式</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
-<p>変数変換 <span class="math notranslate nohighlight">\(z = y/x\)</span> で変数分離形常微分方程式になるものを一つ示す。</p>
+</section>
+<section id="id12">
+<h4><a class="toc-backref" href="#id34" role="doc-backlink">一階同次常微分方程式</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<p>変数変換 <span class="math notranslate nohighlight">\({z = y/x}\)</span> で変数分離形常微分方程式になるものを一つ示す。</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="go">Eq(f(x), x*sqrt(C1*x**4 + 2)/2)],</span>
@@ -383,11 +387,10 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go">Eq(f(x), sqrt(x**6*(C1 + 1/(2*x**4))))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id13">
-<h4><a class="toc-backref" href="#id35">一階線形常微分方程式</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
-<p>一階線形方程式の例だ。非同次項があるものを試す。
-<code class="docutils literal notranslate"><span class="pre">exp</span></code> と <code class="docutils literal notranslate"><span class="pre">Integral</span></code> が目につくのがいかにもそれらしい。</p>
+</section>
+<section id="id13">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">一階線形常微分方程式</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
+<p>一階線形方程式の例だ。非同次項があるものを試す。<code class="docutils literal notranslate"><span class="pre">exp</span></code> と <code class="docutils literal notranslate"><span class="pre">Integral</span></code> が目につくのがいかにもそれらしい。</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="go">{&#39;almost_linear&#39;: Eq(f(x), (C1 + Integral(exp(3*x)*exp(x**2/2), x))*exp(-x**2/2)),</span>
@@ -408,9 +411,9 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go">Eq(f(x), x + x**2*(3 - C1)/2 + 7*x**3/6 + x**4*(C1 + 6)/8 + 53*x**5/120 + C1 + O(x**6))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="bernoulli">
-<h4><a class="toc-backref" href="#id36">Bernoulli 常微分方程式</a><a class="headerlink" href="#bernoulli" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="bernoulli">
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">Bernoulli 常微分方程式</a><a class="headerlink" href="#bernoulli" title="Permalink to this heading">¶</a></h4>
 <p>Bernoulli 常微分方程式を解く。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">11</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
 
@@ -439,10 +442,11 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go"> &#39;order&#39;: 1}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="riccati">
-<h4><a class="toc-backref" href="#id37">Riccati 常微分方程式</a><a class="headerlink" href="#riccati" title="Permalink to this heading">¶</a></h4>
-<p>Riccati 型 <span class="math notranslate nohighlight">\(y^\prime = P(x)y + Q(x)y + R(x)y^2,\;P(x) \ne 0,\;R(x) \ne 0\)</span> を試す。</p>
+</section>
+<section id="riccati">
+<h4><a class="toc-backref" href="#id37" role="doc-backlink">Riccati 常微分方程式</a><a class="headerlink" href="#riccati" title="Permalink to this heading">¶</a></h4>
+<p>Riccati 型 <span class="math notranslate nohighlight">\({y^\prime = P(x)y + Q(x)y + R(x)y^2,\;P(x) \ne 0,\;R(x) \ne
+0}\)</span> を試す。</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="go">{&#39;separable_reduced_Integral&#39;: Eq(Integral(1/(_y*(3*_y + 1 - 2/_y)), (_y, x*f(x))), C1 + Integral(1/x, x)),</span>
 <span class="go"> &#39;lie_group&#39;: Eq(f(x), -(2*C1/3 + x**5)/(x*(-C1 + x**5))),</span>
@@ -455,9 +459,9 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 </pre></div>
 </div>
 <p>デフォルトとして認識されていることがわかる。</p>
-</div>
-<div class="section" id="id14">
-<h4><a class="toc-backref" href="#id38">定数係数二階線形常微分方程式</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id14">
+<h4><a class="toc-backref" href="#id38" role="doc-backlink">定数係数二階線形常微分方程式</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h4>
 <p>この型のものは同次形ならば <code class="docutils literal notranslate"><span class="pre">dsolve()</span></code> に頼らなくでもなんとかなる。</p>
 <p>特性方程式の解のパターン別に試す。ソルバーが適切なタイプ判定をしていることがわかる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -491,9 +495,9 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go"> &#39;order&#39;: 2}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="euler">
-<h4><a class="toc-backref" href="#id39">Euler 常微分方程式</a><a class="headerlink" href="#euler" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="euler">
+<h4><a class="toc-backref" href="#id39" role="doc-backlink">Euler 常微分方程式</a><a class="headerlink" href="#euler" title="Permalink to this heading">¶</a></h4>
 <p>Euler 常微分方程式のデモを示す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
@@ -518,9 +522,9 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="gh">Out[3]: </span><span class="go">Eq(f(x), C1/x + C2*x**2 + x*exp(x) - 2*exp(x) + 2*exp(x)/x)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id15">
-<h4><a class="toc-backref" href="#id40">特殊な二階常微分方程式</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id15">
+<h4><a class="toc-backref" href="#id40" role="doc-backlink">特殊な二階常微分方程式</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h4>
 <p>Airy 微分方程式を解く。ここではべき級数の形で一般解を得たが、よそではある広義積分で与えられる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
@@ -536,8 +540,8 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 <span class="go"> &#39;order&#39;: 2}</span>
 </pre></div>
 </div>
-<p>Bessel 微分方程式を解く。またしてもべき級数の形で一般解が得られる。
-SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式のモジュールには関与していないということだろうか。</p>
+<p>Bessel 微分方程式を解く。またしてもべき級数の形で一般解が得られる。SymPy は Airy
+関数も Bessel 関数も持っているのに、微分方程式のモジュールには関与していないということだろうか。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">16</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">classify_ode</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
@@ -552,10 +556,10 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="go"> &#39;order&#39;: 2}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id16">
-<h4><a class="toc-backref" href="#id41">二階線形非同次常微分方程式</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h4>
-<p>解けているように見えるが、ヒントを <code class="code docutils literal notranslate"><span class="pre">all</span></code> にすると返って来ない？後半で同次版も解いてみる。</p>
+</section>
+<section id="id16">
+<h4><a class="toc-backref" href="#id41" role="doc-backlink">二階線形非同次常微分方程式</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h4>
+<p>解けているように見えるが、ヒントを <code class="docutils literal notranslate"><span class="pre">all</span></code> にすると返って来ない？後半で同次版も解いてみる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
 
 <span class="gp">In [2]: </span><span class="n">classify_ode</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
@@ -576,9 +580,9 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="gh">Out[6]: </span><span class="go">Eq(f(x), sqrt(x)*(C1*sin(sqrt(3)*log(x)/2) + C2*cos(sqrt(3)*log(x)/2)))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id17">
-<h4><a class="toc-backref" href="#id42">二階非線形常微分方程式</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id17">
+<h4><a class="toc-backref" href="#id42" role="doc-backlink">二階非線形常微分方程式</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h4>
 <p>Liouville 型は解ける。それ以外が解けない。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
 
@@ -618,10 +622,10 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="gh">Out[14]: </span><span class="go">Eq(C1 + 3**(1/3)*C2*exp(-I*pi/3)*gamma(1/3)*lowergamma(1/3, x**3*exp_polar(I*pi)/3)/(9*gamma(4/3)) + sqrt(2)*sqrt(pi)*erfi(sqrt(2)*f(x)/2)/2, 0)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id18">
-<h4><a class="toc-backref" href="#id43">定数係数高階線形常微分方程式</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h4>
-<p>SymPy のソルバーは 2 階以上は全部高階扱い。</p>
+</section>
+<section id="id18">
+<h4><a class="toc-backref" href="#id43" role="doc-backlink">定数係数高階線形常微分方程式</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h4>
+<p>SymPy のソルバーは二階以上は全部高階扱い。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="mi">17</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">108</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span><span class="mi">330</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">488</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">280</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">classify_ode</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
@@ -636,10 +640,10 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="go"> &#39;order&#39;: 5}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id19">
-<h4><a class="toc-backref" href="#id44">高階 Euler 常微分方程式</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h4>
-<p>SymPy のソルバーは 2 階以上は全部高階扱い。</p>
+</section>
+<section id="id19">
+<h4><a class="toc-backref" href="#id44" role="doc-backlink">高階 Euler 常微分方程式</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h4>
+<p>SymPy のソルバーは二階以上は全部高階扱い。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">classify_ode</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
@@ -654,10 +658,11 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="go"> &#39;order&#39;: 4}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id20">
-<h4><a class="toc-backref" href="#id45">特殊な高階常微分方程式</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h4>
-<p>二階で望みの形が得られないようならば、高階でもそうだ。次の例題は Airy 関数と Bessel 関数で一般解を返して欲しいもの。これはアウトのようだ。</p>
+</section>
+<section id="id20">
+<h4><a class="toc-backref" href="#id45" role="doc-backlink">特殊な高階常微分方程式</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h4>
+<p>二階で望みの形が得られないようならば、高階でもそうだ。次の例題は Airy 関数と
+Bessel 関数で一般解を返して欲しいもの。これはアウトのようだ。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">eq</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">classify_ode</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
@@ -689,13 +694,13 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="gh">Out[2]: </span><span class="go">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id21">
-<h3><a class="toc-backref" href="#id46">連立常微分方程式</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="id21">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">連立常微分方程式</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
 <p>何となく動作が不安定であるように見受けられる。場合によってはバグレポートを開発陣に提出するかもしれない。</p>
-<div class="section" id="id22">
-<h4><a class="toc-backref" href="#id47">線形</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h4>
+<section id="id22">
+<h4><a class="toc-backref" href="#id47" role="doc-backlink">線形</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h4>
 <p>以下の例では、次の前処理を実施済みであることを事前条件としている。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.solvers.ode</span> <span class="kn">import</span> <span class="n">classify_sysode</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y z&#39;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -734,7 +739,7 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="go">         Eq(y(t), -3*C1*exp(t) - 2*C2*exp(2*t))]</span>
 </pre></div>
 </div>
-<p>次の常微分方程式系は <code class="code docutils literal notranslate"><span class="pre">type_of_equation</span></code> が None とされている。つまりタイプ不明ゆえ解けない。こういう場合は <code class="code docutils literal notranslate"><span class="pre">dsolve</span></code> の呼び出しを諦めてしまってよい。</p>
+<p>次の常微分方程式系は <code class="docutils literal notranslate"><span class="pre">type_of_equation</span></code> が <code class="docutils literal notranslate"><span class="pre">None</span></code> とされている。つまりタイプ不明ゆえ解けない。こういう場合は <code class="docutils literal notranslate"><span class="pre">dsolve</span></code> の呼び出しを諦めてしまってよい。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="mi">64</span> <span class="o">*</span> <span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
 
 <span class="gp">In [2]: </span><span class="n">classify_sysode</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
@@ -854,7 +859,7 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="gh">Out[4]: </span><span class="go">[Eq(x(t), (C1*cos(Integral(tan(t), t)) + C2*sin(Integral(tan(t), t)))*exp(Integral(exp(t), t))), Eq(y(t), (-C1*sin(Integral(tan(t), t)) + C2*cos(Integral(tan(t), t)))*exp(Integral(exp(t), t)))]</span>
 </pre></div>
 </div>
-<p>次のものは解けないと言われる。本筋とは外れるが、関数 <code class="code docutils literal notranslate"><span class="pre">classify_sysode</span></code> の出力にある dict オブジェクトのアイテム順はなんとかならないか。</p>
+<p>次のものは解けないと言われる。本筋とは外れるが、関数 <code class="docutils literal notranslate"><span class="pre">classify_sysode</span></code> の出力にある <code class="docutils literal notranslate"><span class="pre">dict</span></code> オブジェクトのアイテム順はなんとかならないか。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]);</span> <span class="n">X</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">z</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span>
 
 <span class="gp">In [2]: </span><span class="n">sys</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">A</span><span class="o">*</span><span class="n">X</span><span class="p">]</span>
@@ -889,9 +894,9 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="go"> &#39;type_of_equation&#39;: None}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id23">
-<h4><a class="toc-backref" href="#id48">非線形</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id23">
+<h4><a class="toc-backref" href="#id48" role="doc-backlink">非線形</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h4>
 <p>謎のエラーが出てソルバーにたどり着けない。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;p q r s&#39;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -972,10 +977,10 @@ SymPy は Airy 関数も Bessel 関数も持っているのに、微分方程式
 <span class="ne">TypeError</span>: &#39;Equality&#39; object is not iterable
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           </div>

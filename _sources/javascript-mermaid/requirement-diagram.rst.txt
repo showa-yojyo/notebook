@@ -34,7 +34,8 @@ Rendering requirements is straightforward.
 
 .. admonition:: 学習者ノート
 
-   この図式だけ見れば「要素 test_entity は要求 test_req を満足する」と読める。
+   この図式だけ見れば「要素 ``test_entity`` は要求 ``test_req`` を満足する」と読
+   める。
 
 Syntax
 =======================================================================

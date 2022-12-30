@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Bugs and Errors &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,11 +46,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="bugs-and-errors">
-<h1><a class="toc-backref" href="#id1">Bugs and Errors</a><a class="headerlink" href="#bugs-and-errors" title="Permalink to this heading">¶</a></h1>
+  <section id="bugs-and-errors">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Bugs and Errors</a><a class="headerlink" href="#bugs-and-errors" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 8 の読書ノート。</p>
 <p>バグは思考の混乱によるものと、思考をコードに変換する際のミスによるものとに分類できる。一般的に、前者は後者に比べて診断や修正が難しいとされている。</p>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#bugs-and-errors" id="id1">Bugs and Errors</a></p>
@@ -77,9 +75,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="language">
-<h2><a class="toc-backref" href="#id2">Language</a><a class="headerlink" href="#language" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="language">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Language</a><a class="headerlink" href="#language" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>JavaScript のゆるさがプログラムに対する間違い探しの邪魔になる。</p></li>
 <li><p>構文エラーの類はエラー報告が得られる。</p></li>
@@ -87,9 +85,9 @@
 <li><p>プログラムの出力がおかしいことを見て初めて問題があることに気がつく。こういう場合に問題の原因を突き止めるのは難しい。</p></li>
 <li><p>プログラムの中のミス・バグを発見するプロセスをデバッグと呼ぶ。</p></li>
 </ul>
-</div>
-<div class="section" id="strict-mode">
-<h2><a class="toc-backref" href="#id3">Strict mode</a><a class="headerlink" href="#strict-mode" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="strict-mode">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Strict mode</a><a class="headerlink" href="#strict-mode" title="Permalink to this heading">¶</a></h2>
 <p>JavaScript は厳格モードを有効にすることで、少しだけ厳しくできる。厳格モードをオンにするには、ファイルや関数の先頭に文字列で <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">strict</span></code> と記述する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">canYouSpotTheProblem</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span><span class="w"></span>
@@ -103,7 +101,8 @@
 <ul class="simple">
 <li><p>非厳密モードならば、JavaScript は暗黙的に <code class="docutils literal notranslate"><span class="pre">counter</span></code> を大域スコープに作成してそれを使う。これが厳密モードならば <code class="docutils literal notranslate"><span class="pre">ReferenceError</span></code> を報告する。これがとても役に立つ。</p></li>
 <li><p>ただし、すでに変数 <code class="docutils literal notranslate"><span class="pre">counter</span></code> が大域スコープに存在する場合には、適格なコードであるから厳密モードは機能しない。</p></li>
-<li><p>厳密モードには、メソッドとして呼び出されない関数では変数 <code class="docutils literal notranslate"><span class="pre">this</span></code> が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> になるという変更点もある。</p>
+<li><p>厳密モードには、メソッドとして呼び出されない関数では変数 <code class="docutils literal notranslate"><span class="pre">this</span></code> が
+<code class="docutils literal notranslate"><span class="pre">undefined</span></code> になるという変更点もある。</p>
 <ul>
 <li><p>厳密モード以外でのそのような呼び出しは、<code class="docutils literal notranslate"><span class="pre">this</span></code> は大域スコープのオブジェクトを参照する。そのオブジェクトとは、プロパティーが大域変数であるようなものだ。</p></li>
 <li><p>結果的に、厳密モードで誤ってメソッドを呼び出すと、<code class="docutils literal notranslate"><span class="pre">this</span></code> から何かを読むとすぐにエラーとなる。大域スコープに何かを作ることはない。</p></li>
@@ -126,18 +125,19 @@
 <li><p>厳密モードでは関数に同じ名前のパラメータを複数与えることは禁止される。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">with</span></code> 文などの問題のある言語機能を完全に削除する。</p></li>
 </ul>
-</div>
-<div class="section" id="types">
-<h2><a class="toc-backref" href="#id4">Types</a><a class="headerlink" href="#types" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="types">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Types</a><a class="headerlink" href="#types" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>JavaScript はプログラムを実際に実行するときしか型を考慮しない。あまつさえ値を期待される型に暗黙的に変換しようとする。それゆえ JavaScript では型はほとんど役に立たないと思ったほうがいい。</p></li>
 <li><p>型がわかっていれば、計算機がプログラマーに代わって実行前に間違いをチェックすることができる。</p></li>
-<li><p>JavaScript には型をチェックする機能を備えた方言がある。有力なのは TypeScript という言語だ。型付け言語が好みならば試すといい。</p></li>
+<li><p>JavaScript には型をチェックする機能を備えた方言がある。有力なのは TypeScript
+という言語だ。型付け言語が好みならば試すといい。</p></li>
 </ul>
 <p>本書では、この後も型付けされていない JavaScript コードを使用していく。</p>
-</div>
-<div class="section" id="testing">
-<h2><a class="toc-backref" href="#id5">Testing</a><a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="testing">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Testing</a><a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>プログラマーが手作業で何度もプログラムを実行して動作確認をすることは煩わしいだけでなく、効果がないことが多い。変更を加えるたびにすべてを徹底的にテストするには時間がかかりすぎる。</p></li>
 <li><p>自動テストとは、他のプログラムをテストするプログラムを書くことだ</p>
@@ -156,9 +156,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="debugging">
-<h2><a class="toc-backref" href="#id6">Debugging</a><a class="headerlink" href="#debugging" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="debugging">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Debugging</a><a class="headerlink" href="#debugging" title="Permalink to this heading">¶</a></h2>
 <p>プログラムがおかしな挙動をしたり、エラーが発生したりすることで何かおかしいと気付いたら、次にやることはその問題が何であるかを知ることだ。</p>
 <ul class="simple">
 <li><p>エラーメッセージが表示されるようなものは特定の行が示されるので問題が明らかでになることが多い。</p></li>
@@ -171,41 +171,44 @@
 </li>
 </ul>
 <p>デバッガーの使い方は真剣に習得したほうがいい。Chrome DevTools のそれはよく出来ている。</p>
-</div>
-<div class="section" id="error-propagation">
-<h2><a class="toc-backref" href="#id7">Error propagation</a><a class="headerlink" href="#error-propagation" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="error-propagation">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Error propagation</a><a class="headerlink" href="#error-propagation" title="Permalink to this heading">¶</a></h2>
 <p>関数が処理に失敗したときにエラーを表す何かを返す方法には欠点がある。</p>
 <ul class="simple">
 <li><p>関数があらゆる種類の値を返せるようなものである場合、成功と失敗を区別できるように、結果をオブジェクトでラップするようなことをしなければならなくなる。これは使いにくい。</p></li>
 <li><p>そもそも、返り値をチェックしなければならないことが厄介なのだ。</p></li>
 </ul>
-</div>
-<div class="section" id="exceptions">
-<h2><a class="toc-backref" href="#id8">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="exceptions">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this heading">¶</a></h2>
 <p>JavaScript にも他の高級言語のような例外処理の機構が備わっている。</p>
 <ul class="simple">
 <li><p>例外を発生させることは、関数からの超強力なリターンのようなものだ。現在の関数だけでなく、現在の関数を開始した最初の呼び出しに至るまで、その呼び出し元から飛び出す。これを「スタックの巻き戻し」という。</p></li>
 <li><p>もし例外が常にスタックの一番下まで飛び出すのならば、あまり意味がない。</p></li>
 <li><p>例外の威力は、スタックに沿って「障害物」を設定する (catch) ことができるという事実にある。例外を捕捉したら、その例外を使って問題を解決した後、プログラムを続行することができる。</p></li>
 <li><p>キーワード <code class="docutils literal notranslate"><span class="pre">throw</span></code> は例外を発生させるために使用する。</p></li>
-<li><p>例外を捕捉するには、コードの一部を <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックで囲み、その後に <code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックを記述する。</p>
+<li><p>例外を捕捉するには、コードの一部を <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックで囲み、その後に <code class="docutils literal notranslate"><span class="pre">catch</span></code>
+ブロックを記述する。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">try</span></code> ブロック内のコードで例外が発生すると、<code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックが評価され、括弧内の名前と例外の値が結び付けられて評価される。その後 <code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックが終了するか、あるいは <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックが問題なく終了した場合はプログラムはこれらのブロックの次に進む。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> は JavaScript の標準的な例外コンストラクターで、プロパティー <code class="docutils literal notranslate"><span class="pre">message</span></code> を持つオブジェクトを作成する。ほとんどの JavaScript 環境では、このコンストラクターのインスタンスは、例外が作成されたときに存在していたコールスタックに関する情報、いわゆるスタックトレースも収集する。プロパティー <code class="docutils literal notranslate"><span class="pre">stack</span></code> に格納される。問題が発生した関数と、失敗した呼び出しを行った関数がわかる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> は JavaScript の標準的な例外コンストラクターで、プロパティー
+<code class="docutils literal notranslate"><span class="pre">message</span></code> を持つオブジェクトを作成する。ほとんどの JavaScript 環境では、このコンストラクターのインスタンスは、例外が作成されたときに存在していたコールスタックに関する情報、いわゆるスタックトレースも収集する。プロパティー <code class="docutils literal notranslate"><span class="pre">stack</span></code>
+に格納される。問題が発生した関数と、失敗した呼び出しを行った関数がわかる。</p></li>
 </ul>
-</div>
-<div class="section" id="cleaning-up-after-exceptions">
-<h2><a class="toc-backref" href="#id9">Cleaning up after exceptions</a><a class="headerlink" href="#cleaning-up-after-exceptions" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="cleaning-up-after-exceptions">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Cleaning up after exceptions</a><a class="headerlink" href="#cleaning-up-after-exceptions" title="Permalink to this heading">¶</a></h2>
 <p>例外の送出は、通常では実行されるはずだった文をそうでなくするという性質がある。例外が送出されてもされなくとも実行するべき文がある場合には <code class="docutils literal notranslate"><span class="pre">finally</span></code> ブロックを設けることでこれを遂行する。</p>
 <ul class="simple">
 <li><p>構文だけは Java の例外機構と同じようだ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">finally</span></code> ブロックでは、獲得しておいた資源の解放をするのが定石だ。</p></li>
 </ul>
-</div>
-<div class="section" id="selective-catching">
-<h2><a class="toc-backref" href="#id10">Selective catching</a><a class="headerlink" href="#selective-catching" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="selective-catching">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Selective catching</a><a class="headerlink" href="#selective-catching" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>プログラムが処理しない例外は環境が処理する。</p>
 <ul>
@@ -248,9 +251,9 @@
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="assertions">
-<h2><a class="toc-backref" href="#id11">Assertions</a><a class="headerlink" href="#assertions" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="assertions">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Assertions</a><a class="headerlink" href="#assertions" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>アサーションとは、プログラム内のチェックであって、何かが想定されている通りであることを検証するものだ。</p></li>
 <li><p>アサーションは、通常の操作で起こりうる状況を処理するためではなく、プログラマーのミスを見つけるために使用される。</p></li>
@@ -267,21 +270,22 @@
 <li><p>ありとあらゆる種類の悪い入力に対してアサーションを書こうとすることは勧められない。それは大変な作業であり、非常にノイズの多いコードになるだろう。</p></li>
 </ul>
 <p>Chrome DevTools には <code class="docutils literal notranslate"><span class="pre">console.assert</span></code> というものがあるので、この環境ではそれを利用する。</p>
-</div>
-<div class="section" id="summary">
-<h2><a class="toc-backref" href="#id12">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>プログラミングの重要な部分の一つに、バグを発見して、診断し、それを修正することがある。</p></li>
 <li><p>自動化されたテストスイートがあったり、プログラムにアサーションを追加したりすると、問題に気付きやすくなる。</p></li>
 <li><p>例外を送出すると、すぐ外側の <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックまたはスタックの最下部まで呼び出しスタックが巻き戻される。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> ブロックでは実際に期待される種類の例外であることが確認できたらその例外に対して適切な処理をする必要がある。</p></li>
-<li><p>例外によって引き起こされる予測不可能な制御フローに対処するために、<code class="docutils literal notranslate"><span class="pre">finally</span></code> ブロックを使用して、ブロックが終了したときにが常に実行されるようなコードを指定することができる。</p></li>
+<li><p>例外によって引き起こされる予測不可能な制御フローに対処するために、<code class="docutils literal notranslate"><span class="pre">finally</span></code>
+ブロックを使用して、ブロックが終了したときにが常に実行されるようなコードを指定することができる。</p></li>
 </ul>
-</div>
-<div class="section" id="exercises">
-<h2><a class="toc-backref" href="#id13">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="retry">
-<h3><a class="toc-backref" href="#id14">Retry</a><a class="headerlink" href="#retry" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<section id="retry">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Retry</a><a class="headerlink" href="#retry" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> 20% の確率で二つの数の積を返し、80% の確率で
 <code class="docutils literal notranslate"><span class="pre">MultiplicatorUnitFailure</span></code> 型の例外を発生させる関数 <code class="docutils literal notranslate"><span class="pre">primitiveMultiply</span></code> があるとする。この不便な関数をラップして、呼び出しが成功するまで試行を続け、その後結果を返す関数を書け。処理したい例外しか例外処理しないこと。</p>
 <p><strong>解答</strong> せっかくなので関数 <code class="docutils literal notranslate"><span class="pre">primitiveMultiply</span></code> をも実装する：</p>
@@ -312,9 +316,9 @@
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-locked-box">
-<h3><a class="toc-backref" href="#id15">The locked box</a><a class="headerlink" href="#the-locked-box" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="the-locked-box">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">The locked box</a><a class="headerlink" href="#the-locked-box" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> 次のようなかなりわざとらしいオブジェクトを考える：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nx">locked</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -372,9 +376,9 @@
 </pre></div>
 </div>
 <p>以上</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Asynchronous Programming &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,11 +46,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="asynchronous-programming">
-<h1><a class="toc-backref" href="#id3">Asynchronous Programming</a><a class="headerlink" href="#asynchronous-programming" title="Permalink to this heading">¶</a></h1>
+  <section id="asynchronous-programming">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Asynchronous Programming</a><a class="headerlink" href="#asynchronous-programming" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 11 の読書ノート。</p>
 <p>この章はひじょうに重要かつかなり難解な内容であるので、しばらくの間見返すことが多くなるだろう。</p>
-<div class="contents topic" id="id1">
+<nav class="contents" id="id1">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#asynchronous-programming" id="id3">Asynchronous Programming</a></p>
@@ -80,9 +78,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="asynchronicity">
-<h2><a class="toc-backref" href="#id4">Asynchronicity</a><a class="headerlink" href="#asynchronicity" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="asynchronicity">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Asynchronicity</a><a class="headerlink" href="#asynchronicity" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>同期プログラミングモデルでは、物事は一度に一つずつ起こる。長時間動作する関数を呼び出すと、その処理が終了して結果を返せるようになってから戻る。つまり、処理時間だけプログラムが停止してしまう。</p></li>
 <li><p>非同期モデルでは、複数のことを同時に行うことができる。</p></li>
@@ -90,9 +88,9 @@
 <li><p>ブラウザーと Node.js は、スレッドに頼るのではなく、時間のかかる操作を非同期に行う。これは一般的に良いことだと考えられている。</p></li>
 </ul>
 <p>途中の図式をよく憶えておくこと。</p>
-</div>
-<div class="section" id="crow-tech">
-<h2><a class="toc-backref" href="#id5">Crow tech</a><a class="headerlink" href="#crow-tech" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="crow-tech">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Crow tech</a><a class="headerlink" href="#crow-tech" title="Permalink to this heading">¶</a></h2>
 <p>ここは別に読まなくても何とかなる。</p>
 <ul class="simple">
 <li><p>カラスはひじょうに賢い鳥であり、道具を使ったり、計画を立てたり、記憶したり、さらには仲間同士で通信したりすることができる。</p></li>
@@ -100,9 +98,9 @@
 <li><p>これらの機器は通信するのに光の信号を用いる。したがって、視覚的な接続が途切れない巣同士でしか通信できない。</p></li>
 <li><p>カラスの計算機は JavaScript を実行する。</p></li>
 </ul>
-</div>
-<div class="section" id="callbacks">
-<h2><a class="toc-backref" href="#id6">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="callbacks">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Callbacks</a><a class="headerlink" href="#callbacks" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>非同期プログラミングの技法の一つに、ゆっくりとしたアクションを行う関数にコールバック関数というおまけの引数を与える方法がある。アクションが開始して終了すると、コールバック関数が結果とともに呼び出される。</p>
 <ul>
@@ -119,7 +117,8 @@
 <li><p>コールバックを使用して複数の非同期アクションを連続して実行することは、アクション後の計算の継続を処理するために、新しい関数を渡し続けなければならないことを意味する。</p></li>
 </ul>
 <p>ほとんどのカラスの巣の計算機には、長期的なデータ保存用の球根があり、そこでは情報の断片を小枝に表面加工して、後で取り出すことができるようになっている。表面加工や検索には時間がかかるため、長期保存のためのインターフェイスは非同期で、コールバック関数を使用している。</p>
-<p>球根は JSON でエンコード可能なデータの断片を名前を付けて保存する。例えば、カラスが食料を隠した場所の情報を “food caches “という名前で保存するとする。この名前は、実際のキャッシュを示す他のデータを示す名前の配列を保持することができる。巣 Big Oak の球根にある貯蔵食料を探すために、カラスは次のようなコードを実行する：</p>
+<p>球根は JSON でエンコード可能なデータの断片を名前を付けて保存する。例えば、カラスが食料を隠した場所の情報を “food caches” という名前で保存するとする。この名前は、実際のキャッシュを示す他のデータを示す名前の配列を保持することができる。巣
+Big Oak の球根にある貯蔵食料を探すために、カラスは次のようなコードを実行する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">//import {bigOak} from &quot;./crow-tech&quot;;</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">bigOak</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">);</span><span class="w"></span>
 
@@ -132,9 +131,8 @@
 </pre></div>
 </div>
 <ul>
-<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">crow-tech</span></code> はサポートページ &lt;<a class="reference external" href="https://eloquentjavascript.net/code/#11">https://eloquentjavascript.net/code/#11</a>&gt; にある。リンク先の URL をダウンロードしてローカルディスクに保存した上で
-Node.js から上記コードを実行するときには、インポート行をコメントアウトして、
-CommonJS 風のインポート処理に書き換える必要がある。</p>
+<li><p>モジュール <code class="docutils literal notranslate"><span class="pre">crow-tech</span></code> はサポートページ
+&lt;<a class="reference external" href="https://eloquentjavascript.net/code/#11">https://eloquentjavascript.net/code/#11</a>&gt; にある。リンク先の URL をダウンロードしてローカルディスクに保存した上でNode.js から上記コードを実行するときには、インポート行をコメントアウトして、CommonJS 風のインポート処理に書き換える必要がある。</p>
 <p>以下同様。</p>
 </li>
 <li><p>このようなプログラミングでは非同期アクションを行うたびに別の関数に入ってしまい、インデントの深さが増す。複数のアクションを同時に実行するなど、もっと複雑なことをする場合には少々厄介になる。</p></li>
@@ -179,7 +177,10 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </ul>
 </li>
 </ul>
-<p>ノート：この段階でもう一度先ほどの <code class="docutils literal notranslate"><span class="pre">bigOak.send(...)</span></code> を実行してみるとよい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この段階でもう一度先ほどの <code class="docutils literal notranslate"><span class="pre">bigOak.send(...)</span></code> を実行してみるとよい。</p>
+</div>
 <ul class="simple">
 <li><p>非同期性は伝染する。</p>
 <ul>
@@ -189,16 +190,17 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="promises">
-<h2><a class="toc-backref" href="#id7">Promises</a><a class="headerlink" href="#promises" title="Permalink to this heading">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+</section>
+<section id="promises">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Promises</a><a class="headerlink" href="#promises" title="Permalink to this heading">¶</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
 <p>これも併せて読むといい：
 <a class="reference external" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Using_promises">Promiseを使う - JavaScript | MDN</a></p>
 </div>
 <ul>
-<li><p>抽象概念を扱うには、その概念を値で表すことができれば作業が容易になる。非同期アクションの場合、未来のある時点で関数が呼ばれるように仕込む代わりに、その未来のイベントを表すオブジェクトを返すこともできる。これが標準クラス <code class="docutils literal notranslate"><span class="pre">Promiss</span></code> だ。</p>
+<li><p>抽象概念を扱うには、その概念を値で表すことができれば作業が容易になる。非同期アクションの場合、未来のある時点で関数が呼ばれるように仕込む代わりに、その未来のイベントを表すオブジェクトを返すこともできる。これが標準クラス <code class="docutils literal notranslate"><span class="pre">Promiss</span></code>
+だ。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> とは非同期アクションであって、ある時点で完了し、値を生成する可能性のあるものだ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は、その値が利用可能になったときに、興味のある人に通知することができる。</p></li>
@@ -207,7 +209,8 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> を作成する最も簡単な方法は <code class="docutils literal notranslate"><span class="pre">Promise.resolve</span></code> を呼び出すことだ。この関数は、指定された値が <code class="docutils literal notranslate"><span class="pre">Promise</span></code> でラップされているかどうかを確認する。</p>
 <ul class="simple">
 <li><p>すでに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> である場合は、単純にそれを返す。</p></li>
-<li><p>そうでない場合は、指定された値を結果として返すような、すぐに終了する新しい <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p></li>
+<li><p>そうでない場合は、指定された値を結果として返すような、すぐに終了する新しい
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p></li>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">fifteen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mf">15</span><span class="p">);</span><span class="w"></span>
 <span class="nx">fifteen</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Got </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">));</span><span class="w"></span>
@@ -225,15 +228,12 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>値を promised か否かで分類するという考え方をするようだ：</p>
 <ul class="simple">
 <li><p>通常の値は単にそこにあるだけだ。</p></li>
-<li><p>約束された値とは値であって、すでにそこにあるかもしれないし、未来のある時点で現れるかもしれないものだ。
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> で定義された計算は、このようなラップされた値に作用し、その値が利用可能になると非同期に実行される。</p></li>
+<li><p>約束された値とは値であって、すでにそこにあるかもしれないし、未来のある時点で現れるかもしれないものだ。<code class="docutils literal notranslate"><span class="pre">Promise</span></code> で定義された計算は、このようなラップされた値に作用し、その値が利用可能になると非同期に実行される。</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> オブジェクトを作成するには、どこか奇妙なインターフェイスのコンストラクターを使用する。</p>
 <ul class="simple">
-<li><p>引数として関数を受け取り、それを直ちに呼び出して、
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決に使用できる関数を渡す。例えば <code class="docutils literal notranslate"><span class="pre">resolve</span></code> メソッドの代わりにこの方法を動作させて、
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を作成したコードだけがそれを解決するようにできる。</p></li>
+<li><p>引数として関数を受け取り、それを直ちに呼び出して、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決に使用できる関数を渡す。例えば <code class="docutils literal notranslate"><span class="pre">resolve</span></code> メソッドの代わりにこの方法を動作させて、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を作成したコードだけがそれを解決するようにできる。</p></li>
 </ul>
 </li>
 </ul>
@@ -252,9 +252,9 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の主な利点が、非同期関数の使用を単純にするということがわかる。</p></li>
 <li><p>コールバックを渡す代わりに、通常の関数と同じように引数として入力を受け取り、出力を返す。ただし、通常の関数とは出力がまだ得られていない可能性があるという点が異なる。</p></li>
 </ul>
-</div>
-<div class="section" id="failure">
-<h2><a class="toc-backref" href="#id8">Failure</a><a class="headerlink" href="#failure" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="failure">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Failure</a><a class="headerlink" href="#failure" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>非同期計算の一部が例外を送出することがある。</p></li>
 <li><p>非同期プログラミングのコールバックスタイルには、失敗をコールバックに適切に報告させるようにするのが極端に難しいという問題がある。</p></li>
@@ -273,14 +273,13 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </li>
 <li><p>ハンドラーが例外を送出すると <code class="docutils literal notranslate"><span class="pre">then</span></code> の呼び出しが生成する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は自動的に却下される。非同期アクションの連鎖のどこかの要素が失敗すると、連鎖全体の結果は却下されたことになり、失敗地点から先の成功ハンドラーは呼び出されない。</p></li>
 <li><p>解決することが値を与えるのと同じように、却下することにも値を与え、これを通常、拒否の理由という。</p></li>
-<li><p>ハンドラー関数内の例外が拒絶された場合は、その例外の値が理由として使用される。同様に、ハンドラーが却下された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すと、その拒絶は次の <code class="docutils literal notranslate"><span class="pre">Promise</span></code> に流れる。</p>
+<li><p>ハンドラー関数内の例外が拒絶された場合は、その例外の値が理由として使用される。同様に、ハンドラーが却下された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すと、その拒絶は次の
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> に流れる。</p>
 <ul>
 <li><p>却下された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を直ちに新規に作成する関数 <code class="docutils literal notranslate"><span class="pre">Promise.reject</span></code> がある。</p></li>
 </ul>
 </li>
-<li><p>このような却下を明示的に処理するために、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> にはハンドラーを登録するメソッド <code class="docutils literal notranslate"><span class="pre">catch</span></code> がある。
-<code class="docutils literal notranslate"><span class="pre">then</span></code> ハンドラーが通常の解決を処理するのと同様にして、
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> が却下されたときに呼び出される。</p>
+<li><p>このような却下を明示的に処理するために、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> にはハンドラーを登録するメソッド <code class="docutils literal notranslate"><span class="pre">catch</span></code> がある。<code class="docutils literal notranslate"><span class="pre">then</span></code> ハンドラーが通常の解決を処理するのと同様にして、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> が却下されたときに呼び出される。</p>
 <ul>
 <li><p>新しい <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すという点でも <code class="docutils literal notranslate"><span class="pre">then</span></code> とよく似ている。</p></li>
 <li><p>この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は、正常に解決された場合は元の <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の値に、そうでない場合は <code class="docutils literal notranslate"><span class="pre">catch</span></code> ハンドラーの結果に解決される。</p></li>
@@ -316,9 +315,9 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </li>
 <li><p>JavaScript の環境が <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の却下が処理されなかったことを検知した場合には、通常の未処理例外を検知したときと同様に処理する。</p></li>
 </ul>
-</div>
-<div class="section" id="networks-are-hard">
-<h2><a class="toc-backref" href="#id9">Networks are hard</a><a class="headerlink" href="#networks-are-hard" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="networks-are-hard">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Networks are hard</a><a class="headerlink" href="#networks-are-hard" title="Permalink to this heading">¶</a></h2>
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>この節をもう一度確認する。</p>
@@ -326,10 +325,12 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <p>カラスのミラーシステムは、合図を送信するのに十分な光がなかったり、何かが進路を遮ったり、送信しても受信されないということもある。このままでは、送信に与えられたコールバックが呼び出されないだけで、問題に気づかないままにプログラムが停止してしまう。一定期間応答が得られないと、リクエストがタイムアウトして失敗を報告するようになるといいだろう。</p>
 <ul class="simple">
 <li><p>多くの場合、伝送の失敗は偶発的なものなので、単にリクエストを再試行するだけで成功することがある。そこで、リクエストの送信を自動的に何度か再試行するように変更していく。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は良いものだということがわかったので、リクエスト関数を <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すように変更する。表現できる内容の点ではコールバックと <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は等価だ。コールバックベースの関数は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのインターフェイスを公開するためにラップでき、その逆もまた成り立つ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は良いものだということがわかったので、リクエスト関数を <code class="docutils literal notranslate"><span class="pre">Promise</span></code>
+を返すように変更する。表現できる内容の点ではコールバックと <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は等価だ。コールバックベースの関数は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのインターフェイスを公開するためにラップでき、その逆もまた成り立つ。</p></li>
 </ul>
 <p>リクエストとその応答が正常に届く場合でも、例えば、定義されていないリクエストタイプを使おうとした場合や、ハンドラーがエラーを送出する場合などに、応答が失敗を示すことがある。これをサポートするために、<code class="docutils literal notranslate"><span class="pre">send</span></code> と <code class="docutils literal notranslate"><span class="pre">defineRequestType</span></code> を前述の規則に従わせる。コールバックに渡される最初の引数を失敗の理由とし、2 番目の引数を実際の結果とする。</p>
-<p>これらは、ラッパーによって <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決と却下に変換できる。この <code class="docutils literal notranslate"><span class="pre">request</span></code> は後ほどしばしば参照されるたいせつな機能だ。</p>
+<p>これらは、ラッパーによって <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決と却下に変換できる。この
+<code class="docutils literal notranslate"><span class="pre">request</span></code> は後ほどしばしば参照されるたいせつな機能だ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">Timeout</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 
 <span class="kd">function</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="nx">nest</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -353,8 +354,10 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は一度しか解決（または却下）できないので、これでうまくいく。最初に <code class="docutils literal notranslate"><span class="pre">resolve</span></code> または <code class="docutils literal notranslate"><span class="pre">reject</span></code> が呼ばれたときに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の結果が決定され、他のリクエストが終了した後に戻ってきたリクエストによるそれ以降の呼び出しは無視される。</p></li>
-<li><p>非同期ループを作るためには、再試行のために再帰関数を使う。関数 <code class="docutils literal notranslate"><span class="pre">attempt</span></code> は、リクエストの送信を一度だけ試みる。また、タイムアウトを設定し、250 ミリ秒経過しても応答がない場合は、次の試行を開始するか、3 回目の試行であれば、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を却下する。その理由は <code class="docutils literal notranslate"><span class="pre">Timeout</span></code> オブジェクトで表される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は一度しか解決（または却下）できないので、これでうまくいく。最初に
+<code class="docutils literal notranslate"><span class="pre">resolve</span></code> または <code class="docutils literal notranslate"><span class="pre">reject</span></code> が呼ばれたときに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の結果が決定され、他のリクエストが終了した後に戻ってきたリクエストによるそれ以降の呼び出しは無視される。</p></li>
+<li><p>非同期ループを作るためには、再試行のために再帰関数を使う。関数 <code class="docutils literal notranslate"><span class="pre">attempt</span></code>
+は、リクエストの送信を一度だけ試みる。また、タイムアウトを設定し、250 ミリ秒経過しても応答がない場合は、次の試行を開始するか、3 回目の試行であれば、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を却下する。その理由は <code class="docutils literal notranslate"><span class="pre">Timeout</span></code> オブジェクトで表される。</p></li>
 </ul>
 <p>1/4 秒ごとに再試行し、3/4 秒経っても応答がない場合にあきらめるというのは、いかにも恣意的だ。リクエストが通っていても、ハンドラーが少し時間をかけているだけでリクエストが複数回送信されることもある。この問題があることを念頭にハンドラーを書く。</p>
 <hr class="docutils" />
@@ -377,17 +380,18 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise.resolve</span></code> は、ハンドラーからの戻り値がまだ <code class="docutils literal notranslate"><span class="pre">Promise</span></code> でない場合に、それを <code class="docutils literal notranslate"><span class="pre">Promise</span></code> に変換するために使う。これは前に習った。</p></li>
 <li><p>ハンドラーの呼び出しを <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックでラップして、ハンドラーが直接送出する例外がコールバックに渡されるようにしていることに注意。</p>
 <ul>
-<li><p>これは、生のコールバックでエラーを適切に処理することの難しさを表している。このような例外を適切に転送するように制御することを忘れがちだ。連想制御をしっかりしないと、失敗が正しいコールバックに通知されない。
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使えば、このような処理をほとんど自動的に行うことができ、我々が間違いにくくなる。</p></li>
+<li><p>これは、生のコールバックでエラーを適切に処理することの難しさを表している。このような例外を適切に転送するように制御することを忘れがちだ。連想制御をしっかりしないと、失敗が正しいコールバックに通知されない。<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使えば、このような処理をほとんど自動的に行うことができ、我々が間違いにくくなる。</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="collections-of-promises">
-<h2><a class="toc-backref" href="#id10">Collections of promises</a><a class="headerlink" href="#collections-of-promises" title="Permalink to this heading">¶</a></h2>
-<p>どの巣の計算機も、送信可能な距離にある他の巣の配列を、そのプロパティー <code class="docutils literal notranslate"><span class="pre">neighbors</span></code> に保持している。</p>
+</section>
+<section id="collections-of-promises">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Collections of promises</a><a class="headerlink" href="#collections-of-promises" title="Permalink to this heading">¶</a></h2>
+<p>どの巣の計算機も、送信可能な距離にある他の巣の配列を、そのプロパティー
+<code class="docutils literal notranslate"><span class="pre">neighbors</span></code> に保持している。</p>
 <p>どの巣が現在到達可能かを調べるに、それぞれの巣に <code class="docutils literal notranslate"><span class="pre">ping</span></code> リクエスト（単に応答を求めるリクエスト）を送信し、どの巣から応答があるかを見る関数を書くことができる。</p>
-<p>同時に実行されている <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコレクションを扱うときには、関数 <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> が役に立つ。この関数は、配列内のすべての <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が解決するのを待機して、</p>
+<p>同時に実行されている <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコレクションを扱うときには、関数
+<code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> が役に立つ。この関数は、配列内のすべての <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が解決するのを待機して、</p>
 <ul class="simple">
 <li><p>これらの <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が生成した値の配列に解決する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を元の配列と同じ順序で返す。</p></li>
 <li><p>いずれかの <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が却下された場合 <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> 自体が却下される。</p></li>
@@ -406,13 +410,15 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>ある近所の巣が使えない場合、合体 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 全体が失敗してしまうと何もわからぬままになるのは困る。そこで、隣人の集合をリクエスト <code class="docutils literal notranslate"><span class="pre">Promise</span></code> に変換する関数には、成功したリクエストには <code class="docutils literal notranslate"><span class="pre">true</span></code> を、却下されたリクエストには <code class="docutils literal notranslate"><span class="pre">false</span></code> を生成するハンドラーを付ける。</p></li>
+<li><p>ある近所の巣が使えない場合、合体 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 全体が失敗してしまうと何もわからぬままになるのは困る。そこで、隣人の集合をリクエスト <code class="docutils literal notranslate"><span class="pre">Promise</span></code> に変換する関数には、成功したリクエストには <code class="docutils literal notranslate"><span class="pre">true</span></code> を、却下されたリクエストには <code class="docutils literal notranslate"><span class="pre">false</span></code>
+を生成するハンドラーを付ける。</p></li>
 <li><p>合体 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> に対するハンドラーでは、メソッド <code class="docutils literal notranslate"><span class="pre">filter</span></code> を使って、対応する値が <code class="docutils literal notranslate"><span class="pre">false</span></code> である要素を近所の巣の配列から取り除く。</p></li>
 </ul>
-<p>試しに <code class="docutils literal notranslate"><span class="pre">availableNeighbors(bigOak).then(neighbors</span> <span class="pre">=&gt;</span> <span class="pre">console.log(neighbors))</span></code> などとしてみるとよい。</p>
-</div>
-<div class="section" id="network-flooding">
-<h2><a class="toc-backref" href="#id11">Network flooding</a><a class="headerlink" href="#network-flooding" title="Permalink to this heading">¶</a></h2>
+<p>試しに <code class="docutils literal notranslate"><span class="pre">availableNeighbors(bigOak).then(neighbors</span> <span class="pre">=&gt;</span> <span class="pre">console.log(neighbors))</span></code>
+などとしてみるとよい。</p>
+</section>
+<section id="network-flooding">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Network flooding</a><a class="headerlink" href="#network-flooding" title="Permalink to this heading">¶</a></h2>
 <p>ネットワーク全体に情報を流すためには、ある種のリクエストを設定し、それを自動的に隣の巣に転送するという方法がある。ネットワーク全体がメッセージを受け取るまで、これらの巣がさらにそれらの隣の巣に転送する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">everywhere</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;./crow-tech&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="c1">//const {everywhere} = require(&quot;./crow-tech&quot;);</span><span class="w"></span>
@@ -446,9 +452,9 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>これにより、新しい噂話がネットワークに広がっていく。現在、一部の接続が機能していない場合であっても、ある巣への代替経路があれば、そこを経由して噂話が届く。</p></li>
 </ul>
 <p>このようなネットワーク通信スタイルを flooding と呼び、すべてのノードが情報を持つようになるまで、情報をネットワークに氾濫させる。</p>
-</div>
-<div class="section" id="message-routing">
-<h2><a class="toc-backref" href="#id12">Message routing</a><a class="headerlink" href="#message-routing" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="message-routing">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Message routing</a><a class="headerlink" href="#message-routing" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>あるノードが他の単一のノードと会話をしたい場合には、flooding の手法はあまり効率的でない。特にネットワークの規模が大きい場合、データ転送が無駄に多くなる。</p></li>
 <li><p>もうひとつの方法は、メッセージがノードからノードへとホップして目的地に到達するまでの道を設定することだ。これには、ネットワークのレイアウトに関する知識が必要になるという難点がある。遠くの巣の方向にリクエストを送るには、どの隣の巣が目的地により近いかを知る必要がある。間違った方向に送ってもあまり意味がない。</p></li>
@@ -481,7 +487,7 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>オブジェクトや配列に対して <code class="docutils literal notranslate"><span class="pre">==</span></code> はそのまま適用しても意味がないので、粗いようだが``JSON.stringify`` を使用している。</p></li>
+<li><p>オブジェクトや配列に対して <code class="docutils literal notranslate"><span class="pre">==</span></code> はそのまま適用しても意味がないので、粗いようだが <code class="docutils literal notranslate"><span class="pre">JSON.stringify</span></code> を使用している。</p></li>
 <li><p>ノードはすぐに接続のブロードキャストを開始し、完全に到達できない巣がない限り、すべての巣に最新のネットワークグラフの <code class="docutils literal notranslate"><span class="pre">Map</span></code> をすばやく与えるはずだ。</p></li>
 </ul>
 <hr class="docutils" />
@@ -531,9 +537,9 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>ネットワークの障害までをも抽象化することはできない。</p></li>
 <li><p>ネットワークプログラミングでは、障害を予測して対処することが重要になる。</p></li>
 </ul>
-</div>
-<div class="section" id="async-functions">
-<h2><a class="toc-backref" href="#id13">Async functions</a><a class="headerlink" href="#async-functions" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="async-functions">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Async functions</a><a class="headerlink" href="#async-functions" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>カラスは重要な情報を保存するために、複数の巣に亘って情報を複製する。そうすれば、タカが巣を一つ破壊しても情報は失われない。</p></li>
 <li><p>巣の計算機は、自分のストレージにない情報を取り出すために、それがある巣を見つけるまで、ネットワーク上の他の巣をランダムに調べる。</p></li>
@@ -573,7 +579,8 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">keys</span></code> ならあるが、これは配列ではなく反復子を返す。反復子または反復可能な値は関数 <code class="docutils literal notranslate"><span class="pre">Array.from</span></code> で配列に変換できる。</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使っても、これはかなり厄介なコードだ。複数の非同期アクションが明らかでないやり方で連結されている。また、巣をループのをモデル化するのに再帰関数 <code class="docutils literal notranslate"><span class="pre">next</span></code> が必要だ。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使っても、これはかなり厄介なコードだ。複数の非同期アクションが明らかでないやり方で連結されている。また、巣をループのをモデル化するのに再帰関数
+<code class="docutils literal notranslate"><span class="pre">next</span></code> が必要だ。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">findInRemoteStorage</span></code> の <code class="docutils literal notranslate"><span class="pre">then()</span></code> 呼び出しの実引数が特に厄介。</p></li>
 </ul>
@@ -581,26 +588,25 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 <li><p>このコードが実際に行っていることは完全に直線的で、常に前のアクションが完了するのを待ってから次のアクションを開始する。同期型のプログラミングモデルであれば、もっと単純に表現できる。</p></li>
 </ul>
 <hr class="docutils" />
-<p>JavaScript では非同期の計算を記述するために、擬似的同期コードを書くことができる。
-<strong>非同期関数</strong> とは、暗黙のうちに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返し、その本体の中で他の <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を待機することで同期的に見せかける関数だ。</p>
+<p>JavaScript では非同期の計算を記述するために、擬似的同期コードを書くことができる。<em class="dfn">非同期関数</em> とは、暗黙のうちに <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返し、その本体の中で他の
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を待機することで同期的に見せかける関数だ。</p>
 <ul class="simple">
-<li><p>ここまで読んでようやく <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が Python でいう <code class="docutils literal notranslate"><span class="pre">concurrent.futures.Future</span></code> に相当するものだと気づく。</p></li>
+<li><p>ここまで読んでようやく <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が Python でいう
+<code class="docutils literal notranslate"><span class="pre">concurrent.futures.Future</span></code> に相当するものだと気づく。</p></li>
 </ul>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">findInStorage</span></code> を次のように書き換えることができる：</p>
 <ul class="simple">
 <li><p>非同期関数はキーワード <code class="docutils literal notranslate"><span class="pre">function</span></code> の前に <code class="docutils literal notranslate"><span class="pre">async</span></code> が付く。</p></li>
 <li><p>また、メソッドも名前の前に <code class="docutils literal notranslate"><span class="pre">async</span></code> と書くことで非同期にすることができる。</p></li>
 <li><p>このような関数やメソッドが呼び出されると <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が返される。本体が何かを返すとすぐにその <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は解決される。例外が発生した場合は却下される。</p></li>
-<li><p>非同期関数の内部では、式の前に <code class="docutils literal notranslate"><span class="pre">await</span></code> という単語を置くことで、
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> の解決を待機してから、元の関数の実行を継続することができる。</p></li>
-<li><p>このような関数は、通常の JavaScript 関数とは違って、最初から最後まで一度に実行されることはない。
-<code class="docutils literal notranslate"><span class="pre">await</span></code> を持つ任意のポイントでフリーズし、後から再開する。</p></li>
+<li><p>非同期関数の内部では、式の前に <code class="docutils literal notranslate"><span class="pre">await</span></code> という単語を置くことで、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>
+の解決を待機してから、元の関数の実行を継続することができる。</p></li>
+<li><p>このような関数は、通常の JavaScript 関数とは違って、最初から最後まで一度に実行されることはない。<code class="docutils literal notranslate"><span class="pre">await</span></code> を持つ任意のポイントでフリーズし、後から再開する。</p></li>
 </ul>
-<p>自明ではない非同期コードの場合、この記法は通常、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を直接使うよりも便利だ。複数のアクションを同時に実行するなど、同期モデルに合わないことをする必要がある場合でも、
-<code class="docutils literal notranslate"><span class="pre">await</span></code> と <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を直接使うことで簡単に組み合わせられる。</p>
-</div>
-<div class="section" id="generators">
-<h2><a class="toc-backref" href="#id14">Generators</a><a class="headerlink" href="#generators" title="Permalink to this heading">¶</a></h2>
+<p>自明ではない非同期コードの場合、この記法は通常、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を直接使うよりも便利だ。複数のアクションを同時に実行するなど、同期モデルに合わないことをする必要がある場合でも、<code class="docutils literal notranslate"><span class="pre">await</span></code> と <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を直接使うことで簡単に組み合わせられる。</p>
+</section>
+<section id="generators">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Generators</a><a class="headerlink" href="#generators" title="Permalink to this heading">¶</a></h2>
 <p>関数を一時停止し、再開する機能は、非同期関数のほかに、ジェネレーター関数というものもある。ここには <code class="docutils literal notranslate"><span class="pre">Promise</span></code> はない。</p>
 <ul class="simple">
 <li><p>関数を <code class="docutils literal notranslate"><span class="pre">function*</span></code> で定義すると、その関数はジェネレーターになる。ジェネレータを呼び出すと第 6 章で説明した反復子が返される。</p></li>
@@ -631,18 +637,17 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </pre></div>
 </div>
 </li>
-<li><p>反復状態を保持するオブジェクトを作成する必要はもうない。
-<code class="docutils literal notranslate"><span class="pre">yield</span></code> するたびにジェネレーターがローカルの状態を自動的に保存する。</p></li>
+<li><p>反復状態を保持するオブジェクトを作成する必要はもうない。<code class="docutils literal notranslate"><span class="pre">yield</span></code> するたびにジェネレーターがローカルの状態を自動的に保存する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">yield</span></code> 式は、ジェネレーター関数の中でのみ直接発生し、その中で定義した内部関数では発生しない。ジェネレーターが <code class="docutils literal notranslate"><span class="pre">yield</span></code> するときに保存する状態は、そのローカル環境と <code class="docutils literal notranslate"><span class="pre">yield</span></code> した位置だ。</p></li>
-<li><p>非同期関数は、特殊なタイプのジェネレーターだ。呼び出されたときには <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を生成し、終了時にはそれを解決するか、例外が発生したときに却下する。</p></li>
+<li><p>非同期関数は、特殊なタイプのジェネレーターだ。呼び出されたときには <code class="docutils literal notranslate"><span class="pre">Promise</span></code>
+を生成し、終了時にはそれを解決するか、例外が発生したときに却下する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> を <code class="docutils literal notranslate"><span class="pre">await</span></code> すると、その <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の結果（解決時でも却下時でも）は常に <code class="docutils literal notranslate"><span class="pre">await</span></code> 式の結果となる。</p></li>
 </ul>
-</div>
-<div class="section" id="the-event-loop">
-<h2><a class="toc-backref" href="#id15">The event loop</a><a class="headerlink" href="#the-event-loop" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-event-loop">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">The event loop</a><a class="headerlink" href="#the-event-loop" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>非同期的な挙動は、それ自体が空の関数コールスタック上で起こる。
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> がない場合の非同期コードの例外管理が難しい理由の一つがこれだ。各コールバックはほとんど空のスタックから始まるので、捕捉ハンドラーが例外を送出するときには、ハンドラーはスタック上にない。</p></li>
+<li><p>非同期的な挙動は、それ自体が空の関数コールスタック上で起こる。<code class="docutils literal notranslate"><span class="pre">Promise</span></code> がない場合の非同期コードの例外管理が難しい理由の一つがこれだ。各コールバックはほとんど空のスタックから始まるので、捕捉ハンドラーが例外を送出するときには、ハンドラーはスタック上にない。</p></li>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Woosh&quot;</span><span class="p">);},</span><span class="w"> </span><span class="mf">20</span><span class="p">);</span><span class="w"></span>
@@ -653,8 +658,8 @@ CommonJS 風のインポート処理に書き換える必要がある。</p>
 </pre></div>
 </div>
 <p>タイムアウトやリクエストの受信といったイベントがどれだけ接近して発生しても、
-JavaScript 環境では一度に一つのプログラムしか実行しない。
-<strong>イベントループ</strong> と呼ばれる、プログラムの大きなループを実行していると考えることができる。</p>
+JavaScript 環境では一度に一つのプログラムしか実行しない。<em class="dfn">イベントループ</em>
+と呼ばれる、プログラムの大きなループを実行していると考えることができる。</p>
 <p>何もすることがないときは、このループは停止する。しかし、イベントが入ってくると、キューに追加され、そのコードが次々と実行されていく。同時に二つのものは実行されないので、ゆっくりと実行されるコードは他のイベントの処理を遅らせる可能性がある。</p>
 <p>次の例ではタイムアウトを設定するが、タイムアウトが意図した時点を過ぎるまでダレてしまい、タイムアウトが遅れる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span><span class="w"></span>
@@ -665,17 +670,16 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 <span class="c1">// → Timeout ran at 55</span><span class="w"></span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は常に新しいイベントとして解決または却下される。
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> がすでに解決されていても、それが待機されていると、コールバックはすぐにではなく、現在のスクリプトが終了してから実行されることになる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は常に新しいイベントとして解決または却下される。<code class="docutils literal notranslate"><span class="pre">Promise</span></code> がすでに解決されていても、それが待機されていると、コールバックはすぐにではなく、現在のスクリプトが終了してから実行されることになる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span><span class="w"></span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Me first!&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="c1">// → Me first!</span><span class="w"></span>
 <span class="c1">// → Done</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="asynchronous-bugs">
-<h2><a class="toc-backref" href="#id16">Asynchronous bugs</a><a class="headerlink" href="#asynchronous-bugs" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="asynchronous-bugs">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Asynchronous bugs</a><a class="headerlink" href="#asynchronous-bugs" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>非同期プログラムでは実行中に他のコードが実行される隙間があるかもしれない。</p></li>
 </ul>
@@ -698,13 +702,13 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 <ul class="simple">
 <li><p>このようにして矢印関数も非同期にできる。</p></li>
 </ul>
-<p>このコードをすぐに怪しいとは思わない。非同期矢印関数を巣の集合に写像して <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列を作り、関数 <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> を使ってこれらすべてを <code class="docutils literal notranslate"><span class="pre">await</span></code> してからそれらが構築したリストを返している。しかし、これには大きな問題がある。この関数は常に一行の出力しか返さず、最も反応の遅かった巣のリストを返す。それはなぜか。</p>
-<p>問題は演算子 <code class="docutils literal notranslate"><span class="pre">+=</span></code> にある。この演算子は、文の実行開始時に <code class="docutils literal notranslate"><span class="pre">list</span></code> の現在の値を受け取り、
-<code class="docutils literal notranslate"><span class="pre">await</span></code> が終了すると、その値に追加された文字列を加えたものを <code class="docutils literal notranslate"><span class="pre">list</span></code> の結合に設定する。</p>
-<p>しかし、文が実行を開始してから終了するまでには、非同期の隙間がある。
-<code class="docutils literal notranslate"><span class="pre">map</span></code> 式はリストに何かが追加される前に実行されるので、それぞれの <code class="docutils literal notranslate"><span class="pre">+=</span></code> は空の文字列から始まり、ストレージの取得が終了したときには、空の文字列にその行を追加した結果である一行のリストに設定されてしまう。</p>
-<p>これは、マッピングされた <code class="docutils literal notranslate"><span class="pre">Promise</span></code> から行を返し、
-<code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> の結果に対して <code class="docutils literal notranslate"><span class="pre">join</span></code> を呼び出すことで簡単に回避することができた。</p>
+<p>このコードをすぐに怪しいとは思わない。非同期矢印関数を巣の集合に写像して
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列を作り、関数 <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> を使ってこれらすべてを <code class="docutils literal notranslate"><span class="pre">await</span></code>
+してからそれらが構築したリストを返している。しかし、これには大きな問題がある。この関数は常に一行の出力しか返さず、最も反応の遅かった巣のリストを返す。それはなぜか。</p>
+<p>問題は演算子 <code class="docutils literal notranslate"><span class="pre">+=</span></code> にある。この演算子は、文の実行開始時に <code class="docutils literal notranslate"><span class="pre">list</span></code> の現在の値を受け取り、<code class="docutils literal notranslate"><span class="pre">await</span></code> が終了すると、その値に追加された文字列を加えたものを <code class="docutils literal notranslate"><span class="pre">list</span></code>
+の結合に設定する。</p>
+<p>しかし、文が実行を開始してから終了するまでには、非同期の隙間がある。<code class="docutils literal notranslate"><span class="pre">map</span></code> 式はリストに何かが追加される前に実行されるので、それぞれの <code class="docutils literal notranslate"><span class="pre">+=</span></code> は空の文字列から始まり、ストレージの取得が終了したときには、空の文字列にその行を追加した結果である一行のリストに設定されてしまう。</p>
+<p>これは、マッピングされた <code class="docutils literal notranslate"><span class="pre">Promise</span></code> から行を返し、<code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> の結果に対して <code class="docutils literal notranslate"><span class="pre">join</span></code> を呼び出すことで簡単に回避することができた。</p>
 <ul class="simple">
 <li><p>いつものように、新しい値を計算することは、既存の値を変更することよりも間違いにくい。</p></li>
 </ul>
@@ -717,7 +721,7 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>ノート：適当な巣 <code class="docutils literal notranslate"><span class="pre">nest</span></code> に対して例えば <code class="docutils literal notranslate"><span class="pre">chicks(nest,</span> <span class="pre">2009)</span></code> を呼び出すと次のようなデータが得られる：</p>
+<p>適当な巣 <code class="docutils literal notranslate"><span class="pre">nest</span></code> に対して例えば <code class="docutils literal notranslate"><span class="pre">chicks(nest,</span> <span class="pre">2009)</span></code> を呼び出すと次のようなデータが得られる：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Big Oak: 1
 Gilles&#39; Garden: 4
 Butcher Shop: 5
@@ -737,24 +741,24 @@ Cow Pasture: 1
 <ul class="simple">
 <li><p>このような間違いは <code class="docutils literal notranslate"><span class="pre">await</span></code> を使っているときに特に起こりやすく、自分のコードのどこに隙間があるのかを意識する必要がある。明示的な非同期性（コールバック、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>, <code class="docutils literal notranslate"><span class="pre">await</span></code> など）の利点は、このような隙間を見つけるのが比較的簡単だということ。</p></li>
 </ul>
-</div>
-<div class="section" id="summary">
-<h2><a class="toc-backref" href="#id17">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>非同期プログラミングでは、長時間実行されるアクションの待ち時間を、アクション中にプログラムをフリーズさせることなく表現することができる。</p></li>
 <li><p>JavaScript 環境では、アクションが完了したときに呼び出される関数であるコールバックを使って、このスタイルのプログラミングを行うのが一般的だ。</p></li>
 <li><p>イベントループでは、このコールバックの実行が重ならないように、適切なタイミングで次々と呼び出されるようにスケジュールされている。</p></li>
-<li><p>非同期プログラミングは、将来完了するかもしれないアクションを表すオブジェクトである
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> や、非同期プログラムがあたかも同期プログラムであるかのように書くことができる <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数によって、より簡単に行うことができる。</p></li>
+<li><p>非同期プログラミングは、将来完了するかもしれないアクションを表すオブジェクトである <code class="docutils literal notranslate"><span class="pre">Promise</span></code> や、非同期プログラムがあたかも同期プログラムであるかのように書くことができる <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数によって、より簡単に行うことができる。</p></li>
 </ul>
-</div>
-<div class="section" id="exercises">
-<h2><a class="toc-backref" href="#id18">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="tracking-the-scalpel">
-<h3><a class="toc-backref" href="#id19">Tracking the scalpel</a><a class="headerlink" href="#tracking-the-scalpel" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<section id="tracking-the-scalpel">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Tracking the scalpel</a><a class="headerlink" href="#tracking-the-scalpel" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> 村のカラスたちは古い手術ナイフを所有していて、網戸や梱包材を切り裂くなど、特別な仕事に使うことがある。手術ナイフをすぐに見つけられるように、手術ナイフを別の巣に移すたびに、手術ナイフが引っ越す前の巣と引っ越す先の巣の両方のストレージに “scalpel” という名前で、新しい場所を値として追加している。</p>
 <p>つまりナイフを見つけるということは、ストレージのエントリーのパンくずのような跡を、それが巣自体を指し示している巣を見つけるまでたどるということだ。</p>
-<p>これを実行する非同期関数 <code class="docutils literal notranslate"><span class="pre">locateScalpel</span></code> を書け。先に定義した <code class="docutils literal notranslate"><span class="pre">anyStorage</span></code> 関数を使えば、任意の巣のストレージにアクセスすることができる。十分な時間が経過しているので、どの巣のストレージにも “scalpel” のエントリーがあるとして構わない。</p>
+<p>これを実行する非同期関数 <code class="docutils literal notranslate"><span class="pre">locateScalpel</span></code> を書け。先に定義した <code class="docutils literal notranslate"><span class="pre">anyStorage</span></code>
+関数を使えば、任意の巣のストレージにアクセスすることができる。十分な時間が経過しているので、どの巣のストレージにも “scalpel” のエントリーがあるとして構わない。</p>
 <p>次に、同じ関数を <code class="docutils literal notranslate"><span class="pre">async</span></code> や <code class="docutils literal notranslate"><span class="pre">await</span></code> を使わずにもう一度書け。どちらのバージョンでも、リクエストの失敗が返された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の却下として適切に表示されるか。それはどのようなものになるか。</p>
 <p><strong>解答</strong> 目標は <code class="docutils literal notranslate"><span class="pre">nest.scalpel</span> <span class="pre">==</span> <span class="pre">nest.name</span></code> なる <code class="docutils literal notranslate"><span class="pre">nest</span></code> を見つけることだ。問いの前半は次のコードで見つかる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">locateScalpel</span><span class="p">(</span><span class="nx">nest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -794,10 +798,11 @@ Cow Pasture: 1
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<p>これは先ほどのようには動作しない。関数を呼び出すとループが終わって例外が <code class="docutils literal notranslate"><span class="pre">throw</span></code> される。</p>
-</div>
-<div class="section" id="building-promise-all">
-<h3><a class="toc-backref" href="#id20">Building <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code></a><a class="headerlink" href="#building-promise-all" title="Permalink to this heading">¶</a></h3>
+<p>これは先ほどのようには動作しない。関数を呼び出すとループが終わって例外が
+<code class="docutils literal notranslate"><span class="pre">throw</span></code> される。</p>
+</section>
+<section id="building-promise-all">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Building <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code></a><a class="headerlink" href="#building-promise-all" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> は <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列が与えられると、配列内のすべての
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が終了するのを待つ <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
 <ul class="simple">
@@ -806,8 +811,8 @@ Cow Pasture: 1
 </ul>
 <p>このようなことをする普通の関数 <code class="docutils literal notranslate"><span class="pre">Promise_all</span></code> を実装しろ。</p>
 <p>プロミスが成功または失敗した後は、再び成功または失敗することはできず、それを解決する関数への呼び出しは無視されることを覚えておくことだ。これにより、プロミスの失敗を処理する方法を単純化できる。</p>
-<p><strong>解答</strong> これは二時間くらい考えて諦めた。
-<code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列に対するループを <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコンストラクターに与えるのが急所のようだ。</p>
+<p><strong>解答</strong> これは二時間くらい考えて諦めた。<code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列に対するループを
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコンストラクターに与えるのが急所のようだ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">Promise_all</span><span class="p">(</span><span class="nx">promises</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -830,9 +835,9 @@ Cow Pasture: 1
 <li><p><a class="reference external" href="https://medium.com/&#64;muralikv/implementing-promise-all-in-javascript-732076497946">Implementing Promise.all in javascript | by Murali Krishna | Medium</a></p></li>
 </ul>
 <p>以上</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

@@ -1,10 +1,10 @@
 ======================================================================
 Python Twitter Tools 利用ノート
 ======================================================================
-Twitter をたしなむ Python プログラマーならば、
-Twitter API を Python で操ろうと考えるのは当然なことだ。
-ここでは Mike Verdone 氏開発による `Python Twitter Tools`_ (hereafter PTT)
-パッケージを利用した Twitter 操作を色々と見ていく。
+
+Twitter をたしなむ Python プログラマーならば、 Twitter API を Python で操ろうと
+考えるのは当然なことだ。ここでは Mike Verdone 氏開発による `Python Twitter
+Tools`_ (PTT) パッケージを利用した Twitter 操作を色々と見ていく。
 
 .. toctree::
    :glob:
@@ -32,9 +32,9 @@ Twitter API を Python で操ろうと考えるのは当然なことだ。
 
 関連リンク
 ======================================================================
+
 `Python Twitter Tools`_
   著者ウェブページ。開発ページは別にある。
-
 Documentation_
   Twitter 本家ドキュメント。
 

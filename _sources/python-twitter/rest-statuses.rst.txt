@@ -1,28 +1,29 @@
 ======================================================================
 タイムラインおよびツイート関連
 ======================================================================
+
 本節では statuses 系 API について述べる。
 
 .. contents::
 
 GET statuses/mentions_timeline
 ======================================================================
-GET statuses/mentions_timeline はいわゆるリプを取得する機能だ。
-次に利用例を挙げる。
+
+GET statuses/mentions_timeline はいわゆるリプを取得する機能だ。次に利用例を挙げ
+る。
 
 .. literalinclude:: /_sample/ptt/statuses-mentions_timeline.py
    :language: python3
 
-* [1] 認証ユーザーに関する mentions を最新のものから 50 件取得する。
-  取得データをなるべく軽量化したいので、色々とオプションを設定している。
-
+* [1] 認証ユーザーに関する mentions を最新のものから 50 件取得する。取得データを
+  なるべく軽量化したいので、色々とオプションを設定している。
 * [2] ここでは mention の日時とツイート本文を新しい順に標準出力に出力している。
 
 実行例を示す。自分で自分に話しかけているツイートが多いので後半をカットした。
 
 .. code:: console
 
-   $ ./statuses-mentions_timeline.py
+   bash$ ./statuses-mentions_timeline.py
    Sun Feb 22 15:52:49 +0000 2015|@showa_yojyo 今さっき復旧したもよう。
    Sun Feb 22 15:44:10 +0000 2015|@showa_yojyo やっぱり固い。この私がレベル 300 いかないというのはおかしい。
    Sat Nov 29 15:57:40 +0000 2014|すいません。右クリックメニューが出ない。 RT @showa_yojyo: 今になって Python (command line) を ConEmu タブ化できるようにした。気付くのが遅い。
@@ -36,34 +37,36 @@ GET statuses/mentions_timeline はいわゆるリプを取得する機能だ。
 
 GET statuses/user_timeline
 ======================================================================
+
 GET statuses/user_timeline は指定ユーザーによるツイートを得られる機能だ。
 
-次にユーザー名を指定してタイムラインを取得し、
-ツイート時刻と投稿内容をコンソールに出力する例を示す。
+次にユーザー名を指定してタイムラインを取得し、ツイート時刻と投稿内容をコンソール
+に出力する例を示す。
 
 .. literalinclude:: /_sample/ptt/statuses-user_timeline.py
    :language: python3
 
-* [1] ユーザー名の指定には ``screen_name`` か ``user_id`` のどちらか一方を用いる。
+* [1] ユーザー名の指定には ``screen_name`` か ``user_id`` のどちらか一方を用い
+  る。
 * [2] 新しい順にツイートを標準出力に出力する。
 
 GET statuses/home_timeline
 ======================================================================
+
 自分のタイムラインを取得する例を示す。
 
 .. literalinclude:: /_sample/ptt/statuses-home_timeline.py
    :language: python3
 
-* [1] 認証ユーザー、自分のタイムラインを最新のものから 50 件取得する。
-  主に自分のツイート、フォローしているユーザーのツイート、返信各種からなるものと思われる。
-
+* [1] 認証ユーザー、自分のタイムラインを最新のものから 50 件取得する。主に自分の
+  ツイート、フォローしているユーザーのツイート、返信各種からなるものと思われる。
 * [2] 新しい順にツイートを標準出力に出力する。
 
 実行例を示す。途中は長いので省略。
 
 .. code:: console
 
-   $ ./statuses-home_timeline.py
+   bash$ ./statuses-home_timeline.py
    Fri Nov 27 16:58:39 +0000 2015|体が冷えまくり。
    Fri Nov 27 16:44:39 +0000 2015|[notebook] https://t.co/PUasyXX9lC showa_yojyo -(rest-saved-searches.rst) Complete saved_searches APIs.
    Fri Nov 27 16:44:39 +0000 2015|[notebook] https://t.co/Te1fC2FqxM showa_yojyo -(rest-lists.rst) Complete lists APIs.
@@ -75,13 +78,16 @@ GET statuses/home_timeline
 
 GET statuses/retweets_of_me
 ======================================================================
-GET statuses/retweets_of_me は他の人がリツイートした自分のツイートを新しい順に得る機能だ。
+
+GET statuses/retweets_of_me は他の人がリツイートした自分のツイートを新しい順に得
+る機能だ。
 
 .. literalinclude:: /_sample/ptt/statuses-retweets_of_me.py
    :language: python3
 
 GET statuses/retweets/:id
 ======================================================================
+
 GET statuses/retweets/:id は指定ツイートの直近 100 リツイートまでを得る機能だ。
 ツイートを指定するにはツイートの ID があらかじめ必要となる。
 
@@ -94,24 +100,25 @@ GET statuses/retweets/:id は指定ツイートの直近 100 リツイートま�
 
 .. code:: console
 
-   $ ./statuses-retweets-id.py
+   bash$ ./statuses-retweets-id.py
    []
 
 GET statuses/show/:id
 ======================================================================
-GET statuses/show/:id は指定ツイートの詳細を得る機能だ。
-このように利用する。
+
+GET statuses/show/:id は指定ツイートの詳細を得る機能だ。このように利用する。
 
 .. literalinclude:: /_sample/ptt/statuses-show-id.py
    :language: python3
 
-* [1] いつものようにパラメーター名が ``id`` のときは ``_id`` に書き換えるのが無難。
+* [1] いつものようにパラメーター名が ``id`` のときは ``_id`` に書き換えるのが無
+  難。
 
 実行結果を次に示す。
 
 .. code:: console
 
-   $ ./statuses-show-id.py
+   bash$ ./statuses-show-id.py
    {'contributors': None,
     'coordinates': None,
     'created_at': 'Sun Oct 11 17:11:36 +0000 2015',
@@ -138,8 +145,9 @@ GET statuses/show/:id は指定ツイートの詳細を得る機能だ。
 
 POST statuses/destroy/:id
 ======================================================================
-POST statuses/destroy/:id は自分のツイートに限るが、指定ツイートを削除する機能だ。
-一度に一ツイートだけを削除するに過ぎないので、使い勝手は悪いと思われる。
+
+POST statuses/destroy/:id は自分のツイートに限るが、指定ツイートを削除する機能
+だ。一度に一ツイートだけを削除するに過ぎないので、使い勝手は悪いと思われる。
 
 .. literalinclude:: /_sample/ptt/statuses-destroy-id.py
    :language: python3
@@ -150,7 +158,7 @@ POST statuses/destroy/:id は自分のツイートに限るが、指定ツイー
 
 .. code:: console
 
-   $ ./statuses-destroy-id.py
+   bash$ ./statuses-destroy-id.py
    {
        "contributors": null,
        "coordinates": null,
@@ -187,6 +195,7 @@ POST statuses/destroy/:id は自分のツイートに限るが、指定ツイー
 
 POST statuses/update
 ======================================================================
+
 POST statuses/update はツイートを投稿する機能だ。
 
 テキストだけをツイートする
@@ -201,21 +210,24 @@ POST statuses/update はツイートを投稿する機能だ。
 
 画像をツイートする
 ----------------------------------------------------------------------
+
 画像ファイルのアップロード方法については :doc:`./rest-media` を参照。
 
 .. literalinclude:: /_sample/ptt/statuses-update.py
    :language: python3
    :lines: 1-10,20-
 
-* [3] あらかじめ POST media/upload で得られた ID を用いて、
-  関数 ``statuses.update`` をキーワード引数 ``media_ids`` に指示して呼び出す。
+* [3] あらかじめ POST media/upload で得られた ID を用いて、関数
+  ``statuses.update`` をキーワード引数 ``media_ids`` に指示して呼び出す。
 
-  なお、複数の画像を同一ツイートに含めるには ``media_ids`` に ID を ``,`` で連結した文字列を与える。
+  なお、複数の画像を同一ツイートに含めるには ``media_ids`` に ID を ``,`` で連結
+  した文字列を与える。
 
 POST statuses/retweet/:id
 ======================================================================
-POST statuses/retweet/:id は指定ツイートを自分のアカウントからリツイートする機能だ。
-ツイートを指定するにはツイートの ID があらかじめ必要となる。
+
+POST statuses/retweet/:id は指定ツイートを自分のアカウントからリツイートする機能
+だ。ツイートを指定するにはツイートの ID があらかじめ必要となる。
 
 .. literalinclude:: /_sample/ptt/statuses-retweet-id.py
    :language: python3
@@ -224,7 +236,7 @@ POST statuses/retweet/:id は指定ツイートを自分のアカウントから
 
 .. code:: console
 
-   $ ./statuses-retweet-id.py
+   bash$ ./statuses-retweet-id.py
    Traceback (most recent call last):
      File "D:\Python35\lib\site-packages\twitter\api.py", line 319, in _handle_response
        handle = urllib_request.urlopen(req, **kwargs)
@@ -256,26 +268,25 @@ POST statuses/retweet/:id は指定ツイートを自分のアカウントから
 
 POST statuses/unretweet/:id
 ======================================================================
-POST statuses/unretweet/:id は指定の retweet を解除するような機能だ。
-先程と同様に ID で retweet を指定する。
-ちょっとした注意をしておくと、仕様には
-<When passing a source status ID instead of the retweet status ID
-a HTTP 200 response will be returned with the same Tweet object but no action>
-とあるので、元ツイートのそれを誤って指定しないようにする。
+
+POST statuses/unretweet/:id は指定の retweet を解除するような機能だ。先程と同様
+に ID で retweet を指定する。ちょっとした注意をしておくと、仕様には <When
+passing a source status ID instead of the retweet status ID a HTTP 200 response
+will be returned with the same Tweet object but no action> とあるので、元ツイー
+トのそれを誤って指定しないようにする。
 
 .. literalinclude:: /_sample/ptt/statuses-unretweet-id.py
    :language: python3
 
 * [1] 自分側の ID をキーワード引数 ``_id`` に指定する。
 
-実行結果を次に示す。
-某ボットアカウントの ID が 708316560780185601 のツイートを私がリツイートして、
-新たに ID が 708317138675630082 のツイートが生成されている。
-ここでは後者の ID を指定する。
+実行結果を次に示す。某ボットアカウントの ID が 708316560780185601 のツイートを私
+がリツイートして、新たに ID が 708317138675630082 のツイートが生成されている。こ
+こでは後者の ID を指定する。
 
 .. code:: console
 
-   $ ./statuses-unretweet-id.py
+   bash$ ./statuses-unretweet-id.py
    {
        "contributors": null,
        "coordinates": null,
@@ -367,45 +378,46 @@ a HTTP 200 response will be returned with the same Tweet object but no action>
        }
    }
 
-ブラウザーで当該 retweet と元 tweet を見ると、
-どのように処理されているのかが理解できるだろう。
-以下にリンクを示す。
+ブラウザーで当該 retweet と元 tweet を見ると、どのように処理されているのかが理解
+できるだろう。以下にリンクを示す。
 
-* https://twitter.com/showa_yojyo/status/708317138675630082
-* https://twitter.com/eiken_1/status/708316560780185601
+* <https://twitter.com/showa_yojyo/status/708317138675630082>
+* <https://twitter.com/eiken_1/status/708316560780185601>
 
 POST statuses/update_with_media
 ======================================================================
-ドキュメントによると
-<This endpoint has been DEPRECATED.
-Please use POST statuses/update for uploading one or more media entities>
-とのことなので、これは忘れ去ってしまったようがよい。
+
+ドキュメントによると <This endpoint has been DEPRECATED. Please use POST
+statuses/update for uploading one or more media entities> とのことなので、これは
+忘れ去ってしまったようがよい。
 
 GET statuses/oembed
 ======================================================================
-GET statuses/oembed は特定のツイートを oEmbed 互換な書式で得る機能だ。
-これは HTML 文書の中に埋め込むコード片としてツイートを表現するためのものだろう。
+
+GET statuses/oembed は特定のツイートを oEmbed 互換な書式で得る機能だ。これは
+HTML 文書の中に埋め込むコード片としてツイートを表現するためのものだろう。
 
 最低限のパラメーターでリクエストを送信しよう。
 
 .. literalinclude:: /_sample/ptt/statuses-oembed.py
    :language: python3
 
-キーワード引数 ``url`` で対象ツイートの URL を指定した。
-Twitter のドキュメントによると URL を指定する代わりに ``id`` としてツイート ID を指定することもできるとある。
-しかし、私が試したところではエラー 34 すなわち Sorry, that page does not exist メッセージが返ってきた。
-PTT のドキュメントによると Python 側のキーワード引数名を ``_id`` にする必要があるとのことだ。
+キーワード引数 ``url`` で対象ツイートの URL を指定した。Twitter のドキュメントに
+よると URL を指定する代わりに ``id`` としてツイート ID を指定することもできると
+ある。しかし、私が試したところではエラー 34 すなわち Sorry, that page does not
+exist メッセージが返ってきた。 PTT のドキュメントによると Python 側のキーワード
+引数名を ``_id`` にする必要があるとのことだ。
 
 .. code:: python3
 
    response = tw.statuses.oembed(_id=674636677982257152)
 
-そういうわけで実行例を示す。
-JSON データの ``html`` の値が確かに HTML コード片になっている。
+そういうわけで実行例を示す。JSON データの ``html`` の値が確かに HTML コード片に
+なっている。
 
 .. code:: console
 
-   $ ./statuses-oembed.py
+   bash$ ./statuses-oembed.py
    {'author_name': 'プレハブ小屋',
     'author_url': 'https://twitter.com/showa_yojyo',
     'cache_age': '3153600000',
@@ -425,12 +437,13 @@ JSON データの ``html`` の値が確かに HTML コード片になってい�
 
 GET statuses/retweeters/ids
 ======================================================================
+
 GET statuses/retweeters/ids は指定ツイートの直近 100 リツイートまでに限定して、
-リツイートしたユーザーの ID を得る機能だ。
-サンプルコード省略。
+リツイートしたユーザーの ID を得る機能だ。サンプルコード省略。
 
 GET statuses/lookup
 ======================================================================
+
 GET statuses/lookup はツイートの詳細を得る機能で、一度に 100 件まで処理できる。
 使いどころが難しい？
 

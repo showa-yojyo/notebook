@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>IntelliSense &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,15 +46,15 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="intellisense">
-<h1><a class="toc-backref" href="#id13">IntelliSense</a><a class="headerlink" href="#intellisense" title="Permalink to this heading">¶</a></h1>
+  <section id="intellisense">
+<h1><a class="toc-backref" href="#id13" role="doc-backlink">IntelliSense</a><a class="headerlink" href="#intellisense" title="Permalink to this heading">¶</a></h1>
 <p>本家 Visual Studio での目玉機能 IntelliSense も VS Code に実装されている。正確には、エディターで有効になっている拡張機能が対応していれば利用可能だ。IntelliSense
 は一般的にはコード編集時の支援機能であるコード補完、引数情報の提供、名前空間内メンバーの一覧など、さまざまなコード編集支援機能の総称ということになっているが、本稿では単純なテキスト補完は IntelliSense とはみなさない立場を取り、別項で扱う。</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p><a class="reference internal" href="index.html"><span class="doc">Visual Studio Code 利用ノート</span></a> 冒頭の前提条件に留意すること。</p>
 </div>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#intellisense" id="id13">IntelliSense</a></p>
@@ -80,31 +78,31 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id14">導入方法</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="id1">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">導入方法</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p>前提として、IntelliSense 機能はプログラミング言語ごとに内容が異なる。「外付け」の拡張機能が IntelliSense を実装しているのが普通で、VS Code 単体では
 JavaScript/TypeScript, JSON, HTML, CSS/SCSS モードなどでしか期待できない。</p>
 <p>普通はプログラミング言語単位で拡張機能をインストールし、やっと IntelliSense が活用できるという状態になる（<a class="reference internal" href="extensions.html"><span class="doc">拡張</span></a> の章を参照）。</p>
-</div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id15">機能</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="id2">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">機能</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>IntelliSense の機能は <strong class="program">Emacs</strong> にある abbrev-expand テキスト補完コマンドを洗練させたものだと解釈される。現在のプログラミング言語モードと、エディターに入力済みのコードを解析して、動的にプログラマーが入力しそうな文字列を、候補の一覧をポップアップ表示して提案するというのが基本だ。この「解析」を言語モードに関する拡張機能が用意する。例えば C++ コードの編集中で、名前空間、オブジェクト、オブジェクトへのポインターを表す識別子の末端にキャレットがある状態で <code class="docutils literal notranslate"><span class="pre">::</span></code>, <code class="docutils literal notranslate"><span class="pre">.</span></code>,
 <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> を入力すると、それぞれ IntelliSense が起動する。</p>
 <p>関数呼び出しをタイプし始めると直ちに IntelliSense が発動し、戻り値や引数リストに関する情報がポップアップされるはずだ。</p>
 <p>なお、<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Space</kbd> を押すと、IntelliSense を手動で起動する。</p>
 <p>IntelliSense ポップアップで <span class="guilabel">i</span> アイコンが右端にある項目については、これをクリックするとメソッドなどのクイック情報がポップアップで示される。ここには当該項目に付随する情報が記されていて、プログラマーの選択判断を助ける。</p>
 <p>訳あって IntelliSense を常時無効化したい場合は <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> で指定する。</p>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id16">補完候補</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">補完候補</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>IntelliSense の補完候補一覧は、おおむね次の順序でグループ分けされてから配列されるようだ：</p>
 <ol class="arabic simple">
 <li><p>キャレット位置での推論から生じる候補項目</p></li>
 <li><p>当該プロジェクトにおける大域的な識別子</p></li>
 </ol>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id17">シンボル型</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<section id="id4">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">シンボル型</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>補完項目にはシンボル型という属性があり、IntelliSense ポップアップ一覧項目左端のアイコンで表現される。例えば候補がメソッドならば、メソッドアイコンが示される。この規則を理解しておくと、後述する IntelliSense のカスタマイズ時に役に立つ。</p>
 <p><a class="reference external" href="https://code.visualstudio.com/docs/editor/intellisense#_types-of-completions">公式文書の図表</a>
 を一度はチェックしておくといい。</p>
@@ -112,26 +110,26 @@ JavaScript/TypeScript, JSON, HTML, CSS/SCSS モードなどでしか期待でき
 <p class="admonition-title">Todo</p>
 <p>この型の集合が拡張機能で拡張される場合があるかを調査したい。</p>
 </div>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id18">カスタマイズ</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">カスタマイズ</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>VS Code の IntelliSense の挙動も他の機能と同様にユーザーが設定可能である設計だ。他の機能のように、<code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> の分類と上述の概念の分類が一致していないことも同様だ。</p>
 <p>ユーザー設定ファイル <code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> をエディターで開く場合には文字列
 <code class="docutils literal notranslate"><span class="pre">suggest</span></code> あるいは <code class="docutils literal notranslate"><span class="pre">suggestion</span></code> で検索する。UI の設定画面を併用するのも重要になる。</p>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id19">タブ補完を有効にする</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<section id="id7">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">タブ補完を有効にする</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>設定項目： <code class="docutils literal notranslate"><span class="pre">editor.tabCompletion</span></code></p>
 <p>エディターで編集中に <kbd class="kbd docutils literal notranslate">Tab</kbd> を押すと、IntelliSense ポップアップの表示の有無に依らず入力中の単語が自動補完されるように設定可能だ。補完される単語は
 IntelliSense が定める最良の候補だ。</p>
-</div>
-<div class="section" id="id8">
-<h3><a class="toc-backref" href="#id20">キャレット位置の局所性を利用する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">キャレット位置の局所性を利用する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>設定項目： <code class="docutils literal notranslate"><span class="pre">editor.suggest.localityBonus</span></code></p>
 <p>補完候補の出現順序は、拡張機能と入力中の単語との合致度で決定される。この挙動に対して、キャレット位置により近い補完候補を一覧のより上位に置かせるように設定することもできる。</p>
-</div>
-<div class="section" id="id9">
-<h3><a class="toc-backref" href="#id21">補完結果を仮決定しておく</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">補完結果を仮決定しておく</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>設定項目： <code class="docutils literal notranslate"><span class="pre">editor.suggestSelection</span></code></p>
 <p>IntelliSense の既定の挙動としては、補完候補一覧の最初の項目をあらかじめ選択されたものとして扱う。これを異なるものに指定するオプションがある。この設定値として次のいずれかを取り得る：</p>
 <dl>
@@ -146,18 +144,14 @@ IntelliSense が定める最良の候補だ。</p>
 </dd>
 </dl>
 <p>直近に採用された項目を選択することは、同じ補完を何度もすばやく挿入するような状況で有用だ。</p>
-</div>
-<div class="section" id="id10">
-<h3><a class="toc-backref" href="#id22">補完候補とコード片候補の表示の混在を制御する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">補完候補とコード片候補の表示の混在を制御する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <p>設定項目： <code class="docutils literal notranslate"><span class="pre">editor.snippetSuggestions</span></code></p>
 <p>これまで言及しなかったが、カスタマイズしない限り IntelliSensee はコード片と補完候補を同一のポップアップで表示する。その動作を制御するオプションがある。</p>
 <p>コード片候補が不要であれば値を <code class="docutils literal notranslate"><span class="pre">none</span></code> とする。</p>
 <p>コード片候補が必要であれば、補完候補群との相対的な順序を値とする：</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>値</p></th>
 <th class="head"><p>位置</p></th>
@@ -176,16 +170,16 @@ IntelliSense が定める最良の候補だ。</p>
 </tbody>
 </table>
 <p><a class="reference internal" href="snippets.html"><span class="doc">Snippets</span></a> も参照。</p>
-</div>
-</div>
-<div class="section" id="id11">
-<h2><a class="toc-backref" href="#id23">その他</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id11">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">その他</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
 <div class="admonition-todo admonition" id="id12">
 <p class="admonition-title">Todo</p>
 <p>JavaScript などの動的型付け言語における型推論推進手法など。</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Animation &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
     <script async="async" src="../../_static/mathjax-v3.js"></script>
@@ -49,9 +47,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="animation">
-<h1><a class="toc-backref" href="#id3">Animation</a><a class="headerlink" href="#animation" title="Permalink to this heading">¶</a></h1>
-<div class="contents topic" id="contents">
+  <section id="animation">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Animation</a><a class="headerlink" href="#animation" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#animation" id="id3">Animation</a></p>
@@ -62,12 +60,12 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="bezier-curve">
-<h2><a class="toc-backref" href="#id4">Bezier curve</a><a class="headerlink" href="#bezier-curve" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="bezier-curve">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Bezier curve</a><a class="headerlink" href="#bezier-curve" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/bezier-curve">https://javascript.info/bezier-curve</a>&gt; ノート。</p>
 <p>Bezier 曲線はコンピューターグラフィックスで図形を描いたり、CSS アニメーションに使ったり、いろいろな用途がある。 Bezier 曲線はひじょうに単純なもので、一度学習しておけば、ベクターグラフィックスや高度なアニメーションの世界でも違和感なく使えるようになる。</p>
-<div class="section" id="control-points">
+<section id="control-points">
 <h3>Control points<a class="headerlink" href="#control-points" title="Permalink to this heading">¶</a></h3>
 <p>Bezier 曲線は制御点によって定義される。二点、三点、四点、またはそれ以上の場合がある。</p>
 <div class="admonition- admonition">
@@ -91,8 +89,8 @@
 <p class="admonition-title">学習者ノート</p>
 <p>本書で言う接続とは、単に端点を共有する程度に留まる。</p>
 </div>
-</div>
-<div class="section" id="de-casteljau-s-algorithm">
+</section>
+<section id="de-casteljau-s-algorithm">
 <h3>De Casteljau’s algorithm<a class="headerlink" href="#de-casteljau-s-algorithm" title="Permalink to this heading">¶</a></h3>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
@@ -114,8 +112,7 @@
 <li><p>つまり、<code class="docutils literal notranslate"><span class="pre">t=0.25</span></code> の場合は、線分の左 1/4 の端に点があり、<code class="docutils literal notranslate"><span class="pre">t=0.5</span></code> の場合は、線分の中央に点があることになる（赤い点）。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">t</span></code> は 0 から 1 まであり、<code class="docutils literal notranslate"><span class="pre">t</span></code> の値ごとに曲線に一点ずつ追加される。そのような点の集合が Bezier 曲線を形成する（赤い放物線）。</p></li>
 </ol>
-<p>以上の手順は三制御点に対するものだが、四点以上の場合も本質的には同じだ。この計算手順は再帰的であり、任意の数の制御点に対して一般化できる：
-N 個の制御点が与えられたとする。</p>
+<p>以上の手順は三制御点に対するものだが、四点以上の場合も本質的には同じだ。この計算手順は再帰的であり、任意の数の制御点に対して一般化できる： N 個の制御点が与えられたとする。</p>
 <ol class="arabic simple">
 <li><p>それらを結んで N - 1 個の線分を最初は得る。</p></li>
 <li><p>次に、0 から 1 までの各 <code class="docutils literal notranslate"><span class="pre">t</span></code> について、<code class="docutils literal notranslate"><span class="pre">t</span></code> に比例した距離の各線分上の点を取り、それらを端点とする線分を作図する。すると N - 2 個の線分が得られる。</p></li>
@@ -129,8 +126,8 @@ N 個の制御点が与えられたとする。</p>
 </div>
 <hr class="docutils" />
 <p>Bezier 曲線を指定するには制御点を用いる。それらは最初と最後の点を除いて曲線上にない。また、いくつかの点を通る曲線を描き、すべての点が一本の滑らかな曲線になるようにするという問題もある。この作業は補間と呼ばれるが、ここでは扱わない。このような曲線には、Lagrange 多項式などの数学的な公式がある。コンピュータグラフィックスでは、多くの点を結ぶ滑らかな曲線を作るために、スプライン補間がよく使われる。</p>
-</div>
-<div class="section" id="maths">
+</section>
+<section id="maths">
 <h3>Maths<a class="headerlink" href="#maths" title="Permalink to this heading">¶</a></h3>
 <p>制御点 <span class="math notranslate nohighlight">\(P_i\)</span> が座標の組で与えられると、最初の制御点の座標は
 <span class="math notranslate nohighlight">\({P_1 =(x_1, y_1)}\)</span>, 二番目は <span class="math notranslate nohighlight">\({P_2 = (x_2, y_2)}\)</span>, というように、曲線の座標は線分 <span class="math notranslate nohighlight">\({[0, 1]}\)</span> からパラメータ <span class="math notranslate nohighlight">\(t\)</span> に依存する方程式で記述される。</p>
@@ -144,14 +141,14 @@ N 個の制御点が与えられたとする。</p>
 <div class="math notranslate nohighlight">
 \[P(t) = (1-t)^3P_1 + 3(1-t)^2tP_2 +3(1-t)t^2P_3 + t^3P_4.\]</div>
 <p>変数 <span class="math notranslate nohighlight">\(t\)</span> が 0 から 1 まで動くと、各 <span class="math notranslate nohighlight">\(t\)</span> の値 <span class="math notranslate nohighlight">\({(x, y)}\)</span> の集合がそのような制御点の曲線を形成する。</p>
-</div>
-</div>
-<div class="section" id="css-animations">
-<h2><a class="toc-backref" href="#id5">CSS-animations</a><a class="headerlink" href="#css-animations" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="css-animations">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">CSS-animations</a><a class="headerlink" href="#css-animations" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/css-animations">https://javascript.info/css-animations</a>&gt; ノート。</p>
 <p>CSS では、JavaScript を全く使わずに簡単なアニメーションを行える。さらに、
 JavaScript を使って CSS アニメーションを制御することで、少ないコードでより良いアニメーションを作れる。</p>
-<div class="section" id="css-transitions">
+<section id="css-transitions">
 <h3>CSS transitions<a class="headerlink" href="#css-transitions" title="Permalink to this heading">¶</a></h3>
 <p>CSS 遷移の考え方は単純だ。あるプロパティーを記述し、その変化をどのようにアニメーションさせるかを記述する。プロパティーが変化すると、ブラウザーがそのアニメーションを描画する。つまり、プロパティーを変更するだけで、ブラウザーが流動的な遷移を行うのだ。例えば、次の CSS は <code class="docutils literal notranslate"><span class="pre">background-color</span></code> の変化を 3 秒間アニメーションさせる。これで、要素に <code class="docutils literal notranslate"><span class="pre">.animated</span></code> クラスがあれば 3 秒間の背景色の変化がアニメーションで表示される：</p>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">animated</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -172,8 +169,8 @@ JavaScript を使って CSS アニメーションを制御することで、少�
 <li><p><code class="docutils literal notranslate"><span class="pre">transition-timing-function</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">transition-delay</span></code></p></li>
 </ul>
-<p>差し当たり、共通 <code class="docutils literal notranslate"><span class="pre">transition</span></code> プロパティーによって、property duration
-timing-function delay の順番でまとめて宣言できることと、複数のプロパティーを一度にアニメーションさせることができることを押さえておく。</p>
+<p>差し当たり、共通 <code class="docutils literal notranslate"><span class="pre">transition</span></code> プロパティーによって、<code class="docutils literal notranslate"><span class="pre">property</span></code> <code class="docutils literal notranslate"><span class="pre">duration</span></code>
+<code class="docutils literal notranslate"><span class="pre">timing-function</span></code> <code class="docutils literal notranslate"><span class="pre">delay</span></code> の順番でまとめて宣言できることと、複数のプロパティーを一度にアニメーションさせることができることを押さえておく。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
 <span class="p">#</span><span class="nn">growing</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">transition</span><span class="p">:</span><span class="w"> </span><span class="k">font-size</span><span class="w"> </span><span class="mi">3</span><span class="kt">s</span><span class="p">,</span><span class="w"> </span><span class="kc">color</span><span class="w"> </span><span class="mi">2</span><span class="kt">s</span><span class="p">;</span><span class="w"></span>
@@ -190,20 +187,20 @@ timing-function delay の順番でまとめて宣言できることと、複数�
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
-<p>組 (property duration timing-function delay) をカンマ区切りで列挙できるのだろう。</p>
+<p>組 (<code class="docutils literal notranslate"><span class="pre">property</span></code> <code class="docutils literal notranslate"><span class="pre">duration</span></code> <code class="docutils literal notranslate"><span class="pre">timing-function</span></code> <code class="docutils literal notranslate"><span class="pre">delay</span></code>) をカンマ区切りで列挙できるのだろう。</p>
 </div>
-</div>
-<div class="section" id="transition-property">
-<h3>transition-property<a class="headerlink" href="#transition-property" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="transition-property">
+<h3><code class="docutils literal notranslate"><span class="pre">transition-property</span></code><a class="headerlink" href="#transition-property" title="Permalink to this heading">¶</a></h3>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">transition-property</span></code> には、アニメートさせたいプロパティーのリストを記述する。また、<code class="docutils literal notranslate"><span class="pre">all</span></code> と書くと、すべてのプロパティーをアニメートすることになる。一般的に使われているプロパティーのほとんどはアニメート可能だが、できないプロパティーもある。</p>
-</div>
-<div class="section" id="transition-duration">
-<h3>transition-duration<a class="headerlink" href="#transition-duration" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="transition-duration">
+<h3><code class="docutils literal notranslate"><span class="pre">transition-duration</span></code><a class="headerlink" href="#transition-duration" title="Permalink to this heading">¶</a></h3>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">transition-duration</span></code> でアニメーション時間を指定できる。
 CSS 時間書式で指定する。秒なら <code class="docutils literal notranslate"><span class="pre">s</span></code>, ミリ秒なら <code class="docutils literal notranslate"><span class="pre">ms</span></code> だ。</p>
-</div>
-<div class="section" id="transition-delay">
-<h3>transition-delay<a class="headerlink" href="#transition-delay" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="transition-delay">
+<h3><code class="docutils literal notranslate"><span class="pre">transition-delay</span></code><a class="headerlink" href="#transition-delay" title="Permalink to this heading">¶</a></h3>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">transition-delay</span></code> には、アニメーションを開始するまでの遅延時間を指定できる。例えば、<code class="docutils literal notranslate"><span class="pre">transition-delay:</span> <span class="pre">1s</span></code> で <code class="docutils literal notranslate"><span class="pre">transition-duration:</span> <span class="pre">2s</span></code> の場合、アニメーションは当該プロパティーの変化から 1 秒後に始まり、全体の継続時間は
 2 秒となる。</p>
 <p>負の値も許される。その場合、アニメーションはすぐに表示されるが、アニメーションの開始点は与えられた値（時間）後になる。例えば、<code class="docutils literal notranslate"><span class="pre">transition-delay:</span> <span class="pre">-1s</span></code> で
@@ -213,11 +210,11 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 <p>デモのスクリプトに注意。<code class="docutils literal notranslate"><span class="pre">onclick</span></code> で CSS クラスを与える方法を採っている。</p>
 </div>
 <p>また、<code class="docutils literal notranslate"><span class="pre">transition-delay</span></code> を負の値にすることで、遷移の途中、例えば現在の秒に相当する正確な数字から開始させることも可能だ。</p>
-</div>
-<div class="section" id="transition-timing-function">
-<h3>transition-timing-function<a class="headerlink" href="#transition-timing-function" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="transition-timing-function">
+<h3><code class="docutils literal notranslate"><span class="pre">transition-timing-function</span></code><a class="headerlink" href="#transition-timing-function" title="Permalink to this heading">¶</a></h3>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">transition-timing-function</span></code> には、アニメーションの進行を時間軸に沿ってどのように配分するかを記述する。このプロパティーは Bezier 曲線と階段関数の二種類の値を取ることができる。</p>
-<div class="section" id="id1">
+<section id="id1">
 <h4>Bezier curve<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
 <p>タイミング関数を、次の条件を満たす四制御点からなる Bezier 曲線として設定できる：</p>
 <ol class="arabic simple">
@@ -250,21 +247,21 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 <p>Bezier 曲線をアニメーションがその範囲を超えるようにとることができる。制御点はどんな y 座標でもかまわない。そうすると、曲線は非常に低いか高いか知らないが延長して、通常の範囲を超えるアニメーションになる。</p>
 <p>ここで本書では <code class="docutils literal notranslate"><span class="pre">cubic-bezier(.5,</span> <span class="pre">-1,</span> <span class="pre">.5,</span> <span class="pre">2)</span></code> のデモが来るが、この曲線のプロットが示されているのでわかりやすい。</p>
 <p>二点目の y 座標を 0 以下にし、三点目については 1 以上にしたため、曲線は「正規の」象限の外に出る。曲線の y 座標はアニメーション処理の完成度を測るものだ。値
-<span class="math notranslate nohighlight">\({y = 0}\)</span> はプロパティーの開始値に対応し、<span class="math notranslate nohighlight">\({y = 1}\)</span> は終了値に対応する。つまり、<span class="math notranslate nohighlight">\({y \lt; 0}\)</span> の値はプロパティーを開始時の左 (<code class="docutils literal notranslate"><span class="pre">left</span></code>) から動かし、 <span class="math notranslate nohighlight">\({y \gt; 1}\)</span> の値は終了時の左から動かす。</p>
+<span class="math notranslate nohighlight">\({y = 0}\)</span> はプロパティーの開始値に対応し、<span class="math notranslate nohighlight">\({y = 1}\)</span> は終了値に対応する。つまり、<span class="math notranslate nohighlight">\({y \lt; 0}\)</span> の値はプロパティーを開始時の左 (<code class="docutils literal notranslate"><span class="pre">left</span></code>) から動かし、<span class="math notranslate nohighlight">\({y \gt; 1}\)</span> の値は終了時の左から動かす。</p>
 <p>特定の課題のために Bezier 曲線を作図するのに、ツールがいろいろとある：</p>
 <ul class="simple">
 <li><p>例えば、&lt;<a class="reference external" href="https://cubic-bezier.com">https://cubic-bezier.com</a>&gt;</p></li>
 <li><p>ブラウザーの開発ツールも CSS における Bezier 曲線を特別に対応している。</p>
 <ol class="arabic simple">
 <li><p>開発者ツールを開く。</p></li>
-<li><p>Elements タブを選択し、右側の Styles サブパネルに注目する。</p></li>
-<li><p>CSS プロパティーで <code class="docutils literal notranslate"><span class="pre">cubic-bezier</span></code> とあるものは、その前にアイコンがある。</p></li>
+<li><p><span class="guilabel">Elements</span> タブを選択し、右側の <span class="guilabel">Styles</span> サブパネルに注目する。</p></li>
+<li><p><span class="guilabel">CSS</span> プロパティーで <code class="docutils literal notranslate"><span class="pre">cubic-bezier</span></code> とあるものは、その前にアイコンがある。</p></li>
 <li><p>このアイコンをクリックして曲線を編集する。</p></li>
 </ol>
 </li>
 </ul>
-</div>
-<div class="section" id="steps">
+</section>
+<section id="steps">
 <h4>Steps<a class="headerlink" href="#steps" title="Permalink to this heading">¶</a></h4>
 <p>タイミング関数の <code class="docutils literal notranslate"><span class="pre">steps(number</span> <span class="pre">of</span> <span class="pre">steps[,</span> <span class="pre">start/end])</span></code> は、遷移を複数の段階に分割できる。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;digit&quot;</span><span class="p">&gt;</span> <span class="cm">&lt;!-- border: 1px solid red; width: 1.2em; --&gt;</span>
@@ -273,7 +270,7 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 </pre></div>
 </div>
 <p>タグ <code class="docutils literal notranslate"><span class="pre">#digit</span></code> は幅が固定で枠があるので、赤い窓のように見える。</p>
-<p>これからタイマーを作る。数字が一文字ずつバラバラに表示されるように。そのために、<code class="docutils literal notranslate"><span class="pre">#digit</span></code> の外側に <code class="docutils literal notranslate"><span class="pre">#stripe</span></code> を <code class="docutils literal notranslate"><span class="pre">overflow:</span> <span class="pre">hidden</span></code> で隠し、 <code class="docutils literal notranslate"><span class="pre">#stripe</span></code>
+<p>これからタイマーを作る。数字が一文字ずつバラバラに表示されるように。そのために、<code class="docutils literal notranslate"><span class="pre">#digit</span></code> の外側に <code class="docutils literal notranslate"><span class="pre">#stripe</span></code> を <code class="docutils literal notranslate"><span class="pre">overflow:</span> <span class="pre">hidden</span></code> で隠し、<code class="docutils literal notranslate"><span class="pre">#stripe</span></code>
 を段階的に左にずらしていくことにする。各桁ごとに一歩ずつ移動し、九歩になる。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
@@ -286,8 +283,7 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 </pre></div>
 </div>
 <p>第一引数は段階数だ。変換が九つの部分に分割される。時間間隔も自動的に九分割されるので、<code class="docutils literal notranslate"><span class="pre">transition:</span> <span class="pre">9s</span></code> であることから一桁あたり一秒ということになる。</p>
-<p>第二引数は <code class="docutils literal notranslate"><span class="pre">start</span></code> または <code class="docutils literal notranslate"><span class="pre">end</span></code> と書く。
-<code class="docutils literal notranslate"><span class="pre">start</span></code> はアニメーションの始まりで、最初の段階をすぐに作る必要があることを意味する。</p>
+<p>第二引数は <code class="docutils literal notranslate"><span class="pre">start</span></code> または <code class="docutils literal notranslate"><span class="pre">end</span></code> と書く。<code class="docutils literal notranslate"><span class="pre">start</span></code> はアニメーションの始まりで、最初の段階をすぐに作る必要があることを意味する。</p>
 <p>桁をクリックするとすぐに 1 に変わり、次の秒の始めに変化する。このように処理が進行する：</p>
 <ul class="simple">
 <li><p>0s: -10%; 1s の頭に最初の変化がすぐにある。</p></li>
@@ -312,10 +308,10 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 <li><p><code class="docutils literal notranslate"><span class="pre">step-end</span></code>: <code class="docutils literal notranslate"><span class="pre">steps(1,</span> <span class="pre">end)</span></code> と同じ。<code class="docutils literal notranslate"><span class="pre">transition-duration</span></code> の終了時に、ワンステップでアニメーションを作成する。</p></li>
 </ul>
 <p>これらの値は、実際のアニメーションではなく、一段階の変化を表しているため、使用されることはほとんどない。</p>
-</div>
-</div>
-<div class="section" id="event-transitionend">
-<h3>Event: “transitionend”<a class="headerlink" href="#event-transitionend" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="event-transitionend">
+<h3>Event: <code class="docutils literal notranslate"><span class="pre">&quot;transitionend&quot;</span></code><a class="headerlink" href="#event-transitionend" title="Permalink to this heading">¶</a></h3>
 <p>CSS アニメーションが終了すると、イベント <code class="docutils literal notranslate"><span class="pre">transitionend</span></code> が起こる。このイベントはアニメーションが終了した後に何か行動するために広く用いられる。また、アニメーションを結合することもできる。</p>
 <p>船の例は、クリックするとそこへ向かって航行し始め、そのたびに右へ向かって遠くへ行く。アニメーションは、遷移が終了するたびに再実行される関数 <code class="docutils literal notranslate"><span class="pre">go()</span></code> によって開始され、方向を反転させる。</p>
 <div class="admonition- admonition">
@@ -329,8 +325,8 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 <dt><code class="docutils literal notranslate"><span class="pre">event.elapsedTime</span></code></dt><dd><p>アニメーションにかかった時間（<code class="docutils literal notranslate"><span class="pre">transition-delay</span></code> は含まず）。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="keyframes">
+</section>
+<section id="keyframes">
 <h3>Keyframes<a class="headerlink" href="#keyframes" title="Permalink to this heading">¶</a></h3>
 <p>CSSの <code class="docutils literal notranslate"><span class="pre">&#64;keyframes</span></code> 規則を使って、単純なアニメーションを複数結合できる。これはアニメーションの「名前」と規則（何を、いつ、どこでアニメーションさせるか）を指定する。それから、プロパティー <code class="docutils literal notranslate"><span class="pre">animation</span></code> を用いて、アニメーションを要素に取り付け、そのパラメーターを追加的に指定できる。</p>
 <div class="admonition- admonition">
@@ -338,8 +334,8 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 <p>難しいかもしれない。本書の説明だけでは厳しい。</p>
 </div>
 <p>キーフレームについては多くの記事があり、詳細な仕様も記載されている。常に動いているサイトでない限り、<code class="docutils literal notranslate"><span class="pre">&#64;keyframes</span></code> が必要になることはあまりないだろう。</p>
-</div>
-<div class="section" id="performance">
+</section>
+<section id="performance">
 <h3>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">¶</a></h3>
 <p>CSS プロパティーのほとんどは数値であるため、アニメーションさせることができる。例えば、<code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">font-size</span></code> はすべて数値だ。これらをアニメーションにすると、ブラウザーはこれらの数値を 1 フレームずつ徐々に変化させ、滑らかな効果を生み出す。ただし、CSS プロパティーによって変更にかかる労力が異なるため、すべてのアニメーションが思いどおりに表示されるわけではない。</p>
 <p>スタイルが変更されると、ブラウザーは三つの段階を経て新しい外観を描画する。</p>
@@ -350,8 +346,7 @@ CSS 時間書式で指定する。秒なら <code class="docutils literal notran
 </ol>
 <p>CSS アニメーションではこの処理がフレームごとに繰り返される。しかし、色など、幾何や位置に影響を与えない CSS プロパティーは、レイアウト段階を飛ばすことができる。色が変更された場合、ブラウザーは新しい幾何を計算せず、Paint Composite に進む。また、直接 Composite に移動するプロパティーはほとんどない。 CSS プロパティーとそれがどの段階で引き起こされるかについては &lt;<a class="reference external" href="https://csstriggers.com">https://csstriggers.com</a>&gt; に詳しい。</p>
 <p>特に、多くの要素や複雑なレイアウトを持つページでは、計算に時間がかかることがある。また、この遅延はデバイスのほとんどで実際に目にすることができ、カクカクした流動性の低いアニメーションとなる。</p>
-<p>Layout 段階を飛ばしたプロパティーのアニメーションはより高速になる。
-Paint も飛ばされるとより効果的だ。</p>
+<p>Layout 段階を飛ばしたプロパティーのアニメーションはより高速になる。Paint も飛ばされるとより効果的だ。</p>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">transform</span></code> を採用すると素晴らしい：</p>
 <ul class="simple">
 <li><p>CSS 変換は対象要素のボックス全体に作用する（回転、反転、伸縮、移動）。</p></li>
@@ -362,17 +357,17 @@ Paint も飛ばされるとより効果的だ。</p>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">transform</span></code> はひじょうに強力だ。要素に <code class="docutils literal notranslate"><span class="pre">transform</span></code> を用いると、要素の回転や反転、拡大や縮小、移動など、さまざまなことが可能になる。つまり、プロパティー <code class="docutils literal notranslate"><span class="pre">left</span></code>/<code class="docutils literal notranslate"><span class="pre">margin-left</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">transform:</span> <span class="pre">translateX(...)</span></code> を用いたり、要素のサイズを大きくするために <code class="docutils literal notranslate"><span class="pre">transform:</span> <span class="pre">scale</span></code> を用いたりできる。</p>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">opacity</span></code> は Layout を引き起こすこともない。これは、表示・非表示やフェードイン・フェードアウトの効果に利用できる。</p>
 <p>通常、<code class="docutils literal notranslate"><span class="pre">transform</span></code> と <code class="docutils literal notranslate"><span class="pre">opacity</span></code> をペアで使うと、ほとんどの需要が解決され、流動的で見栄えのするアニメーションが得られる。</p>
-<p>たとえば、ここでは要素 <code class="docutils literal notranslate"><span class="pre">#boat</span></code> をクリックすると、<code class="docutils literal notranslate"><span class="pre">transform:</span> <span class="pre">translateX(300)</span></code> および
-<code class="docutils literal notranslate"><span class="pre">opacity:</span> <span class="pre">0</span></code> のクラスが追加され、<code class="docutils literal notranslate"><span class="pre">300px</span></code> 右に移動して消える。</p>
+<p>たとえば、ここでは要素 <code class="docutils literal notranslate"><span class="pre">#boat</span></code> をクリックすると、<code class="docutils literal notranslate"><span class="pre">transform:</span> <span class="pre">translateX(300)</span></code>
+および <code class="docutils literal notranslate"><span class="pre">opacity:</span> <span class="pre">0</span></code> のクラスが追加され、<code class="docutils literal notranslate"><span class="pre">300px</span></code> 右に移動して消える。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
-<p>IMG 要素の元々の CSS 定義を一目見ただけで <code class="docutils literal notranslate"><span class="pre">transition</span></code> の仕様が洗練されていることがわかる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">IMG</span></code> 要素の元々の CSS 定義を一目見ただけで <code class="docutils literal notranslate"><span class="pre">transition</span></code> の仕様が洗練されていることがわかる。</p>
 <p>キーフレームの例は難解。</p>
 </div>
-</div>
-<div class="section" id="tasks">
+</section>
+<section id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="animate-a-plane-css">
+<section id="animate-a-plane-css">
 <h4>Animate a plane (CSS)<a class="headerlink" href="#animate-a-plane-css" title="Permalink to this heading">¶</a></h4>
 <p>画像をクリックすると三秒かけて寸法を十倍にするアニメーションを作れ。終了したらメッセージボックスを出せ。アニメーション中にクリックされるときの対応も考えろ。</p>
 <p>私の答案はこう：</p>
@@ -399,13 +394,13 @@ Paint も飛ばされるとより効果的だ。</p>
 <p>フラグを使うのがみっともないのならば、イベントハンドラーを着脱する方法も考えられる。</p>
 <p>本書では <code class="docutils literal notranslate"><span class="pre">transitionend</span></code> イベントを処理しろとある。なるほど。ただし <code class="docutils literal notranslate"><span class="pre">width</span></code>
 と <code class="docutils literal notranslate"><span class="pre">height</span></code> の遷移終了それぞれに対してイベントが起こるので注意が要る。</p>
-</div>
-<div class="section" id="animate-the-flying-plane-css">
+</section>
+<section id="animate-the-flying-plane-css">
 <h4>Animate the flying plane (CSS)<a class="headerlink" href="#animate-the-flying-plane-css" title="Permalink to this heading">¶</a></h4>
 <p>前の課題の解答を修正して、画像を animate して元のサイズより大きくし、そして元のサイズに戻るようにしろ。</p>
 <p>これは <code class="docutils literal notranslate"><span class="pre">transition-timing-function</span></code> に適当な Bezier 曲線を与えるだけでいい。</p>
-</div>
-<div class="section" id="animated-circle">
+</section>
+<section id="animated-circle">
 <h4>Animated circle<a class="headerlink" href="#animated-circle" title="Permalink to this heading">¶</a></h4>
 <p>膨張する円をアニメーションで表示する関数 <code class="docutils literal notranslate"><span class="pre">showCircle(cx,</span> <span class="pre">cy,</span> <span class="pre">radius)</span></code> を書け。</p>
 <ul class="simple">
@@ -427,8 +422,8 @@ Paint も飛ばされるとより効果的だ。</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="animated-circle-with-callback">
+</section>
+<section id="animated-circle-with-callback">
 <h4>Animated circle with callback<a class="headerlink" href="#animated-circle-with-callback" title="Permalink to this heading">¶</a></h4>
 <p>単なる円ではなく、その中にメッセージを表示する必要があるとしよう。メッセージはアニメーションが完了した後（円が最大になった時点）に表示されなければならない。そうでなければ醜く見える。</p>
 <p>先の関数 <code class="docutils literal notranslate"><span class="pre">showCircle(cx,</span> <span class="pre">cy,</span> <span class="pre">radius)</span></code> は円を描くが、準備がいつできたかを追跡する方法を与えていない。そこで、アニメーションが完了したときに呼び出されるコールバック引数を関数の引数リストに追加しろ。コールバック関数は引数として円の
@@ -440,8 +435,8 @@ Paint も飛ばされるとより効果的だ。</p>
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-<p>テキストを垂直方向に中央に置く方法がわからない。解答を見ると
-<code class="docutils literal notranslate"><span class="pre">message-ball</span></code> に <code class="docutils literal notranslate"><span class="pre">line-height</span></code> を直接定義している。それでいいのか。</p>
+<p>テキストを垂直方向に中央に置く方法がわからない。解答を見ると <code class="docutils literal notranslate"><span class="pre">message-ball</span></code> に
+<code class="docutils literal notranslate"><span class="pre">line-height</span></code> を直接定義している。それでいいのか。</p>
 <p>しかし、本問の急所はここだ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">circle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;transitionend&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">handler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nx">circle</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;transitionend&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">);</span><span class="w"></span>
@@ -449,16 +444,17 @@ Paint も飛ばされるとより効果的だ。</p>
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="javascript-animations">
-<h2><a class="toc-backref" href="#id6">JavaScript animations</a><a class="headerlink" href="#javascript-animations" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="javascript-animations">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">JavaScript animations</a><a class="headerlink" href="#javascript-animations" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/js-animation">https://javascript.info/js-animation</a>&gt; ノート。</p>
 <p>JavaScript のアニメーションは CSS では扱えないものを扱える。例えば、Bezier 曲線とは異なるタイミング関数で複雑な経路を移動したり、キャンバス上でアニメーションを行ったりする。</p>
-<div class="section" id="using-setinterval">
-<h3>Using setInterval<a class="headerlink" href="#using-setinterval" title="Permalink to this heading">¶</a></h3>
-<p>アニメーションは、一連のフレームとして実装できる。通常は、HTML/CSS のプロパティーに変更を小さく加えていく。たとえば、<code class="docutils literal notranslate"><span class="pre">style.left</span></code> を 0px から 100px に変更すると、要素が動く。そして、<code class="docutils literal notranslate"><span class="pre">setInterval()</span></code> でそれを増加させ、1 秒間に 50 回のように小さな遅延で 2px ずつ変化させると滑らかに見える。これは映画と同じ原理で、1秒間に 24 フレームあれば十分滑らかに見える。</p>
+<section id="using-setinterval">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">setInterval</span></code><a class="headerlink" href="#using-setinterval" title="Permalink to this heading">¶</a></h3>
+<p>アニメーションは、一連のフレームとして実装できる。通常は、HTML/CSS のプロパティーに変更を小さく加えていく。たとえば、<code class="docutils literal notranslate"><span class="pre">style.left</span></code> を <code class="docutils literal notranslate"><span class="pre">0px</span></code> から
+<code class="docutils literal notranslate"><span class="pre">100px</span></code> に変更すると、要素が動く。そして、<code class="docutils literal notranslate"><span class="pre">setInterval()</span></code> でそれを増加させ、1 秒間に 50 回のように小さな遅延で <code class="docutils literal notranslate"><span class="pre">2px</span></code> ずつ変化させると滑らかに見える。これは映画と同じ原理で、1秒間に 24 フレームあれば十分滑らかに見える。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">100</span><span class="nx">px</span><span class="p">){</span><span class="w"></span>
 <span class="w">        </span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span><span class="w"></span>
@@ -473,9 +469,9 @@ Paint も飛ばされるとより効果的だ。</p>
 <p class="admonition-title">学習者ノート</p>
 <p><a class="reference external" href="https://stackoverflow.com/questions/8690463/get-a-number-for-a-style-value-without-the-px-suffix">javascript - Get a number for a style value WITHOUT the “px;” suffix - Stack Overflow</a></p>
 </div>
-</div>
-<div class="section" id="using-requestanimationframe">
-<h3>Using requestAnimationFrame<a class="headerlink" href="#using-requestanimationframe" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="using-requestanimationframe">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code><a class="headerlink" href="#using-requestanimationframe" title="Permalink to this heading">¶</a></h3>
 <p>複数のアニメーションを同時に実行する場合を考える。これらを別々に実行すると、それぞれに <code class="docutils literal notranslate"><span class="pre">setInterval(...,</span> <span class="pre">20)</span></code> が設定されているにもかかわらず、ブラウザーは
 20ms ごとよりもずっと頻繁に再描画しなければならない。これは、アニメーションの開始時間が異なるため、20ms ごとがアニメーションの種類によって異なるからだ。間隔が揃っていないのだから、20ms の中に独立した複数の実行があることになる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">animate1</span><span class="p">,</span><span class="w"> </span><span class="mf">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// independent animations</span><span class="w"></span>
@@ -525,8 +521,8 @@ Paint も飛ばされるとより効果的だ。</p>
 <p class="admonition-title">学習者ノート</p>
 <p>実際に実行するとそうでもない。</p>
 </div>
-</div>
-<div class="section" id="structured-animation">
+</section>
+<section id="structured-animation">
 <h3>Structured animation<a class="headerlink" href="#structured-animation" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code> の上に、より汎用的なアニメーション機能を作る。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">animate</span><span class="p">({</span><span class="nx">timing</span><span class="p">,</span><span class="w"> </span><span class="nx">draw</span><span class="p">,</span><span class="w"> </span><span class="nx">duration</span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -573,30 +569,31 @@ Paint も飛ばされるとより効果的だ。</p>
 <p>CSS アニメーションとは異なり、ここでは任意のタイミング機能、任意の描画機能を作ることができる。タイミング機能は Bezier 曲線にとらわれない。また、描画はプロパティーを超えて、花火のアニメーションのような新しい要素を作ることができる。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="timing-functions">
+</section>
+<section id="timing-functions">
 <h3>Timing functions<a class="headerlink" href="#timing-functions" title="Permalink to this heading">¶</a></h3>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>GLSL で修行したものと同じ。</p>
 </div>
-<div class="section" id="power-of-n">
+<section id="power-of-n">
 <h4>Power of n<a class="headerlink" href="#power-of-n" title="Permalink to this heading">¶</a></h4>
-<p>アニメーションの速度を上げたい場合は、べき乗の累進性を利用すればよい。
-JavaScript には <code class="docutils literal notranslate"><span class="pre">Math.pow()</span></code> がある。</p>
+<p>アニメーションの速度を上げたい場合は、べき乗の累進性を利用すればよい。JavaScript
+には <code class="docutils literal notranslate"><span class="pre">Math.pow()</span></code> がある。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
-<p>こうは言っているが、立ち上がりの速度はむしろ遅くなる。何しろ <span class="math notranslate nohighlight">\({t \le 1}\)</span> なのだから。</p>
+<p>こうは言っているが、立ち上がりの速度はむしろ遅くなる。何しろ <span class="math notranslate nohighlight">\({t \le 1}\)</span>
+なのだから。</p>
 </div>
-</div>
-<div class="section" id="the-arc">
+</section>
+<section id="the-arc">
 <h4>The arc<a class="headerlink" href="#the-arc" title="Permalink to this heading">¶</a></h4>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>これはやり過ぎ。<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">Math.sqrt(1</span> <span class="pre">-</span> <span class="pre">t</span> <span class="pre">*</span> <span class="pre">t)</span></code> くらいで十分。</p>
 </div>
-</div>
-<div class="section" id="back-bow-shooting">
+</section>
+<section id="back-bow-shooting">
 <h4>Back: bow shooting<a class="headerlink" href="#back-bow-shooting" title="Permalink to this heading">¶</a></h4>
 <p>この関数は「弓を射る」。まず「弓の弦を引く」。そして「射る」。これまでの関数とは異なり、追加の引数である「弾性係数」にも依存する。弓の弦を引く距離は、これによって定義される。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">back</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -604,8 +601,8 @@ JavaScript には <code class="docutils literal notranslate"><span class="pre">M
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="bounce">
+</section>
+<section id="bounce">
 <h4>Bounce<a class="headerlink" href="#bounce" title="Permalink to this heading">¶</a></h4>
 <p>ボールを落とすと下に落ち、数回跳ね返って止まる。関数 <code class="docutils literal notranslate"><span class="pre">bounce()</span></code> はこれと同じことをするが、順序は逆だ。跳ね返りが直ちに始まる。そのために、特殊な係数がいくつか使われている。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">bounce</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -621,8 +618,8 @@ JavaScript には <code class="docutils literal notranslate"><span class="pre">M
 <p class="admonition-title">学習者ノート</p>
 <p>ひじょうにクセがある。</p>
 </div>
-</div>
-<div class="section" id="elastic-animation">
+</section>
+<section id="elastic-animation">
 <h4>Elastic animation<a class="headerlink" href="#elastic-animation" title="Permalink to this heading">¶</a></h4>
 <p>プロットを見ると、順序が逆の減衰関数だ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">elastic</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -630,12 +627,12 @@ JavaScript には <code class="docutils literal notranslate"><span class="pre">M
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="reversal-ease">
+</section>
+</section>
+<section id="reversal-ease">
 <h3>Reversal: ease*<a class="headerlink" href="#reversal-ease" title="Permalink to this heading">¶</a></h3>
 <p>タイミング関数のコレクションを用意した。その直接の用途は easeIn と呼ばれる。時には、アニメーションを逆の順序で表示する必要がある。それは easeOut 変換で行う。</p>
-<div class="section" id="easeout">
+<section id="easeout">
 <h4>easeOut<a class="headerlink" href="#easeout" title="Permalink to this heading">¶</a></h4>
 <p>easeOut モードでは、タイミング関数はラッパー <code class="docutils literal notranslate"><span class="pre">timingEaseOut</span></code> に包められる。つまり、通常のタイミング関数を取り、そのラッパーを返す変換関数 <code class="docutils literal notranslate"><span class="pre">makeEaseOut</span></code> があるのだ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">makeEaseOut</span><span class="p">(</span><span class="nx">timing</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -654,8 +651,8 @@ JavaScript には <code class="docutils literal notranslate"><span class="pre">M
 <li><p>通常版：オブジェクトは下部で跳ねて、最後に急激に上部へ飛び上がる。</p></li>
 <li><p>easeOut 適用後：最初に上部へ飛んで、そこで跳ねる。</p></li>
 </ul>
-</div>
-<div class="section" id="easeinout">
+</section>
+<section id="easeinout">
 <h4>easeInOut<a class="headerlink" href="#easeinout" title="Permalink to this heading">¶</a></h4>
 <p>また、アニメーションの最初と最後の両方で効果を示す変換も考えられる。これを
 easeInOut と呼ぶ。</p>
@@ -672,27 +669,27 @@ easeInOut と呼ぶ。</p>
 </pre></div>
 </div>
 <p>easeInOut 変換はアニメーションの前半は easeIn, 後半は easeOut で合成したようなものだ。関数 <code class="docutils literal notranslate"><span class="pre">circ()</span></code> の easeIn, easeOut, easeInOut のプロットを比較すると、効果は明白だ。このように、アニメーションの前半のグラフは、easeIn を縮小したもので、後半は easeOut を縮小したものであることがわかる。その結果、アニメーションは同じ効果で始まり、終わる。</p>
-</div>
-</div>
-<div class="section" id="more-interesting-draw">
+</section>
+</section>
+<section id="more-interesting-draw">
 <h3>More interesting “draw”<a class="headerlink" href="#more-interesting-draw" title="Permalink to this heading">¶</a></h3>
 <p>要素を移動させる代わりに、他のことをすることができる。必要なのは適切な描画を書くことだ。ここに「跳ねる」テキストタイピングがある。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>ソースを見ると、ほんとうに本書の内容の関数で実装されている。</p>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="animate-the-bouncing-ball">
+<section id="animate-the-bouncing-ball">
 <h4>Animate the bouncing ball<a class="headerlink" href="#animate-the-bouncing-ball" title="Permalink to this heading">¶</a></h4>
 <p>弾むボールを作れ。</p>
 <p>次の量を先に計算しておく必要がある：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">field</span><span class="p">.</span><span class="nx">clientHeight</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">ball</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="animate-the-ball-bouncing-to-the-right">
+</section>
+<section id="animate-the-ball-bouncing-to-the-right">
 <h4>Animate the ball bouncing to the right<a class="headerlink" href="#animate-the-ball-bouncing-to-the-right" title="Permalink to this heading">¶</a></h4>
 <p>ボールを右に弾ませろ。左からの距離は 100px とする。前の問題の解から作れ。</p>
 <p>水平方向に等速運動させたい。こういう場合には座標軸別に <code class="docutils literal notranslate"><span class="pre">aminate()</span></code> するという発想をする。次の呼び出しを前問の解答に追加：</p>
@@ -707,10 +704,10 @@ easeInOut と呼ぶ。</p>
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           </div>

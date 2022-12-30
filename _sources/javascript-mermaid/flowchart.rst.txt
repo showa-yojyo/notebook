@@ -14,14 +14,15 @@ linking to and from subgraphs.
 
 .. admonition:: 学習者ノート
 
-   Mermaid 開発陣はフローチャートとは言っているが、汎用の有向グラフとして取り扱うのがわかりやすい。
+   Mermaid 開発陣はフローチャートとは言っているが、汎用の有向グラフとして取り扱
+   うのがわかりやすい。
 
 .. important::
 
-   Do not type the word "end" as a Flowchart node. Capitalize
-   all or any one the letters to keep the flowchart from breaking, i.e, "End" or
-   "END". Or you can apply this
-   `workaround <https://github.com/mermaid-js/mermaid/issues/1444#issuecomment-639528897>`__.
+   Do not type the word "end" as a Flowchart node. Capitalize all or any one the
+   letters to keep the flowchart from breaking, i.e, "End" or "END". Or you can
+   apply this `workaround
+   <https://github.com/mermaid-js/mermaid/issues/1444#issuecomment-639528897>`__.
 
 Node
 =======================================================================
@@ -90,8 +91,8 @@ Node shapes
 
 .. admonition:: 学習者ノート
 
-   実際に描画させるとやたらスペースをとる形状がいくつかある。
-   そういうものはテキストを設定しないで利用するのが本来想定されている用途なのだろう。
+   実際に描画させるとやたらスペースをとる形状がいくつかある。そういうものはテキ
+   ストを設定しないで利用するのが本来想定されている用途なのだろう。
 
 A node with round edges
 -----------------------------------------------------------------------
@@ -193,7 +194,7 @@ Trapezoid alt
        B[\Go shopping/]
 
 Links between nodes
-===================
+======================================================================
 
 Nodes can be connected with links/edges. It is possible to have different types
 of links or attach a text string to a link.
@@ -620,8 +621,8 @@ Beginners tip, a full example using interactive links in a html context:
 
 .. admonition:: 学習者ノート
 
-   環境によっては対話的操作が制限される。例えば VS Code の
-   Markdown Preview Mermaid Support ではツールチップは表示されない。
+   環境によっては対話的操作が制限される。例えば VS Code の Markdown Preview
+   Mermaid Support ではツールチップは表示されない。
 
 Comments
 -----------------------------------------------------------------------
@@ -656,8 +657,8 @@ will belong to the fourth link in the graph:
 
 .. admonition:: 学習者ノート
 
-   リンクには ID の概念がないので、指定するには定義順による。
-   順序数をゼロから数えるものとする。
+   リンクには ID の概念がないので、指定するには定義順による。順序数をゼロから数
+   えるものとする。
 
 Styling a node
 -----------------------------------------------------------------------
@@ -709,7 +710,7 @@ the ``:::`` operator as per below:
 
    クラス名がコロンの後に来るので違和感がある。
 
-Css classes
+CSS classes
 -----------------------------------------------------------------------
 
 It is also possible to predefine classes in css styles that can be applied from

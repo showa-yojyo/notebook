@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Project: A Pixel Art Editor &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,11 +46,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="project-a-pixel-art-editor">
-<h1><a class="toc-backref" href="#id3">Project: A Pixel Art Editor</a><a class="headerlink" href="#project-a-pixel-art-editor" title="Permalink to this heading">¶</a></h1>
+  <section id="project-a-pixel-art-editor">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Project: A Pixel Art Editor</a><a class="headerlink" href="#project-a-pixel-art-editor" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 19 の読書ノート。</p>
 <p>この章では MS Paint のようなアプリケーションをブラウザーの上に実装する。</p>
-<div class="contents topic" id="id1">
+<nav class="contents" id="id1">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#project-a-pixel-art-editor" id="id3">Project: A Pixel Art Editor</a></p>
@@ -78,9 +76,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="components">
-<h2><a class="toc-backref" href="#id4">Components</a><a class="headerlink" href="#components" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="components">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Components</a><a class="headerlink" href="#components" title="Permalink to this heading">¶</a></h2>
 <p>このアプリケーションのインターフェースは、</p>
 <ul class="simple">
 <li><p>上部に大きな <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素があり、その下にいくつかのフォームフィールドがある。</p></li>
@@ -117,9 +115,9 @@
 <li><p>コンストラクターの大部分は時間経過によらない別の値も受け取る。例えばアクソンをディスパッチするための関数などだ。</p></li>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> があり、新しい状態の値に同期するために呼び出される。このメソッドは引数を一つ取り、それはコンストラクターの第一引数と同じ型の状態とする。</p></li>
 </ul>
-</div>
-<div class="section" id="the-state">
-<h2><a class="toc-backref" href="#id5">The state</a><a class="headerlink" href="#the-state" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-state">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">The state</a><a class="headerlink" href="#the-state" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>アプリケーションの状態は次のものをプロパティーに持つオブジェクトとする：</p>
 <ul>
@@ -179,27 +177,23 @@
 <li><p>これは HTML の色入力欄が使用する記法であり、<code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> の描画コンテキストのプロパティー <code class="docutils literal notranslate"><span class="pre">fillStyle</span></code> でも使用できるため、このプログラムにおいて実用的な方法だ。</p></li>
 </ul>
 <hr class="docutils" />
-<p>インターフェイスがアクションを、以前の状態のプロパティーを上書きするオブジェクトとしてディスパッチできるようにする。ユーザーが <code class="docutils literal notranslate"><span class="pre">color</span></code> フィールドを変更すると、
-<code class="docutils literal notranslate"><span class="pre">{color:</span> <span class="pre">field.value}</span></code> のようなオブジェクトがディスパッチされ、そこからこの更新関数が新しい状態を計算することできる：</p>
+<p>インターフェイスがアクションを、以前の状態のプロパティーを上書きするオブジェクトとしてディスパッチできるようにする。ユーザーが <code class="docutils literal notranslate"><span class="pre">color</span></code> フィールドを変更すると、<code class="docutils literal notranslate"><span class="pre">{color:</span> <span class="pre">field.value}</span></code> のようなオブジェクトがディスパッチされ、そこからこの更新関数が新しい状態を計算することできる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">updateState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span><span class="w"> </span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="p">);</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> を使用して、まず空のオブジェクトに <code class="docutils literal notranslate"><span class="pre">state</span></code> のプロパティーを追加し、
-<code class="docutils literal notranslate"><span class="pre">action</span></code> のプロパティーのいくつかで上書きするという、このやや面倒なパターンは、
-immutable なオブジェクトを使う JavaScript コードでは普通に見られるものだ。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.assign</span></code> を使用して、まず空のオブジェクトに <code class="docutils literal notranslate"><span class="pre">state</span></code> のプロパティーを追加し、<code class="docutils literal notranslate"><span class="pre">action</span></code> のプロパティーのいくつかで上書きするという、このやや面倒なパターンは、immutable なオブジェクトを使う JavaScript コードでは普通に見られるものだ。</p>
 <ul>
 <li><p>他のオブジェクトのすべてのプロパティーをオブジェクト式に含めるための、より便利な表記法としては、演算子 <code class="docutils literal notranslate"><span class="pre">...</span></code> が使われる（これは本書執筆時点で標準化最終段階にある）。これを使えば先ほどのコードを <code class="docutils literal notranslate"><span class="pre">{...state,</span> <span class="pre">...action}</span></code> と書くことができる。</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="dom-building">
-<h2><a class="toc-backref" href="#id6">DOM building</a><a class="headerlink" href="#dom-building" title="Permalink to this heading">¶</a></h2>
-<p>インターフェイスコンポーネントが行う主なことの一つは、DOM 構造の作成だ。そのために冗長な DOM メソッド群を直接使用したくないので、ここでは関数
-<code class="docutils literal notranslate"><span class="pre">elt</span></code> を少し拡張したバージョンを使用する。</p>
+</section>
+<section id="dom-building">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">DOM building</a><a class="headerlink" href="#dom-building" title="Permalink to this heading">¶</a></h2>
+<p>インターフェイスコンポーネントが行う主なことの一つは、DOM 構造の作成だ。そのために冗長な DOM メソッド群を直接使用したくないので、ここでは関数 <code class="docutils literal notranslate"><span class="pre">elt</span></code> を少し拡張したバージョンを使用する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">elt</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">children</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">dom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">type</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span><span class="w"> </span><span class="nx">props</span><span class="p">);</span><span class="w"></span>
@@ -222,9 +216,9 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-canvas">
-<h2><a class="toc-backref" href="#id7">The canvas</a><a class="headerlink" href="#the-canvas" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-canvas">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">The canvas</a><a class="headerlink" href="#the-canvas" title="Permalink to this heading">¶</a></h2>
 <p>絵をカラーボックスのグリッドとして表示するインターフェースの部分だ。このコンポーネントは、絵の表示と、その絵に関するポインターイベントをアプリケーションの他の部分に伝えることを担当する。</p>
 <ul class="simple">
 <li><p>そのため、アプリケーション全体の状態ではなく、現在の絵だけを知っているコンポーネントとして定義することができる。アプリケーション全体の動作を知らないので、アクションを直接ディスパッチすることはできない。そうではなく、ポインターイベントに反応するときには、このコンポーネントを作成したコードが与えたコールバックを呼び出して、アプリケーション固有の部分を処理する。</p></li>
@@ -249,7 +243,8 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 </div>
 <ul class="simple">
 <li><p>各ピクセルを定数 <code class="docutils literal notranslate"><span class="pre">scale</span></code> で決められた 10 ドッド四方の正方形として描画する。</p></li>
-<li><p>不要な作業を避けるべく、コンポーネントは現在の絵を追跡し、メソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> は新しい絵が与えられたときにしか再描画を行わない。</p></li>
+<li><p>不要な作業を避けるべく、コンポーネントは現在の絵を追跡し、メソッド
+<code class="docutils literal notranslate"><span class="pre">syncState</span></code> は新しい絵が与えられたときにしか再描画を行わない。</p></li>
 </ul>
 <hr class="docutils" />
 <p>実際の描画関数は、<code class="docutils literal notranslate"><span class="pre">scale</span></code> と <code class="docutils literal notranslate"><span class="pre">picture</span></code> の寸法に基づいて <code class="docutils literal notranslate"><span class="pre">canvas</span></code> のそれを設定し、各ピクセルに一つ一つ、一連の正方形で埋めていく。</p>
@@ -299,8 +294,8 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>ピクセルのサイズがわかっていて、メソッド <code class="docutils literal notranslate"><span class="pre">getBoundingClientRect</span></code> を使って画面上のキャンバスの位置がわかることから、マウスイベント座標
-<code class="docutils literal notranslate"><span class="pre">clientX</span></code>, <code class="docutils literal notranslate"><span class="pre">clientY</span></code> から絵座標に移動することができる。</p>
+<li><p>ピクセルのサイズがわかっていて、メソッド <code class="docutils literal notranslate"><span class="pre">getBoundingClientRect</span></code> を使って画面上のキャンバスの位置がわかることから、マウスイベント座標 <code class="docutils literal notranslate"><span class="pre">clientX</span></code>,
+<code class="docutils literal notranslate"><span class="pre">clientY</span></code> から絵座標に移動することができる。</p>
 <ul>
 <li><p>特定のピクセルを参照するように、関数 <code class="docutils literal notranslate"><span class="pre">Math.floor</span></code> を使って除算結果を整数にする。</p></li>
 </ul>
@@ -309,9 +304,9 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <hr class="docutils" />
 <p>タッチイベントの場合も同様 (pp. 348-349) だが、異なるイベントを使用することと、パンを防ぐためにイベント <code class="docutils literal notranslate"><span class="pre">touchstart</span></code> で <code class="docutils literal notranslate"><span class="pre">preventDefault</span></code> を間違いなく呼び出すことが必要だ。</p>
 <p>タッチイベントの場合、<code class="docutils literal notranslate"><span class="pre">clientX</span></code>, <code class="docutils literal notranslate"><span class="pre">clientY</span></code> をはイベントオブジェクトでは直接利用できない。プロパティー <code class="docutils literal notranslate"><span class="pre">touches</span></code> の最初のタッチオブジェクトの座標を利用する。</p>
-</div>
-<div class="section" id="the-application">
-<h2><a class="toc-backref" href="#id8">The application</a><a class="headerlink" href="#the-application" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-application">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">The application</a><a class="headerlink" href="#the-application" title="Permalink to this heading">¶</a></h2>
 <p>アプリケーションを一つ一つ建てられるように、絵キャンバスの殻とツールとコントロールの動的な集合としてメインコンポーネントを実装する。</p>
 <p>コントロールとは絵の下に現れるインターフェイス要素だ。コンポーネントのコンストラクターからなる配列として備え付けられる。</p>
 <p>ツールはピクセルを描いたり領域を塗りつぶしたりする。</p>
@@ -348,8 +343,7 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">PictureCanvas</span></code> に与えられたポインターハンドラーは、現在選択されているツールを適切な引数で呼び出し、もしそれが移動ハンドラーを返すならば、状態も受け取るように適応させる。</p></li>
-<li><p>すべてのコントロールは、アプリケーションの状態が変化したときに更新できるように構築され、
-<code class="docutils literal notranslate"><span class="pre">this.controls</span></code> に収められる。</p>
+<li><p>すべてのコントロールは、アプリケーションの状態が変化したときに更新できるように構築され、<code class="docutils literal notranslate"><span class="pre">this.controls</span></code> に収められる。</p>
 <ul>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">reduce</span></code> の呼び出しでコントロールの DOM 要素の間に隙間を作る。こうすると窮屈なみてくれにならない。</p></li>
 </ul>
@@ -394,9 +388,9 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="drawing-tools">
-<h2><a class="toc-backref" href="#id9">Drawing tools</a><a class="headerlink" href="#drawing-tools" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="drawing-tools">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Drawing tools</a><a class="headerlink" href="#drawing-tools" title="Permalink to this heading">¶</a></h2>
 <p>何かを描く前に、キャンバス上のマウスやタッチのイベントの機能を制御するツールが必要だ。</p>
 <p>最も基本的なツールは描画ツールで、クリックやタップしたピクセルを現在選択している色に変える。このツールは指定ピクセルが現在選択中の色に変更されるように絵を更新するアクションをディスパッチする。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">draw</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">dispatch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -409,7 +403,8 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>この関数はすぐに関数 <code class="docutils literal notranslate"><span class="pre">drawPixel</span></code> を呼び出すが、なおかつ、ユーザーが絵の上でドラッグやスワイプをしたときに、新たに触られたピクセルに対して再度 <code class="docutils literal notranslate"><span class="pre">drawPixel</span></code> が呼び出されるようにこれを返しもする。</p>
+<p>この関数はすぐに関数 <code class="docutils literal notranslate"><span class="pre">drawPixel</span></code> を呼び出すが、なおかつ、ユーザーが絵の上でドラッグやスワイプをしたときに、新たに触られたピクセルに対して再度 <code class="docutils literal notranslate"><span class="pre">drawPixel</span></code>
+が呼び出されるようにこれを返しもする。</p>
 <hr class="docutils" />
 <p>矩形ツールはドラッグを開始した点とドラッグした点の間に矩形を描く。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">rectangle</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">dispatch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -474,9 +469,9 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="saving-and-loading">
-<h2><a class="toc-backref" href="#id10">Saving and loading</a><a class="headerlink" href="#saving-and-loading" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="saving-and-loading">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Saving and loading</a><a class="headerlink" href="#saving-and-loading" title="Permalink to this heading">¶</a></h2>
 <p>現在の絵を画像ファイルとしてダウンロードするためのボタンを追加する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">SaveButton</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -503,8 +498,7 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 </pre></div>
 </div>
 <p>このコンポーネントは、保存時にアクセスできるように現在の絵を追跡している。画像ファイルを作成するために <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素を使用し、その上に画像を実寸大で描画する。</p>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素のメソッド <code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> 呼び出しは <code class="docutils literal notranslate"><span class="pre">data://</span></code> で始まる URL を返す。
-<code class="docutils literal notranslate"><span class="pre">http://</span></code> や <code class="docutils literal notranslate"><span class="pre">https://</span></code> の URL とは異なり、<code class="docutils literal notranslate"><span class="pre">data://</span></code> URL はリソース全体を文字列中に含む。したがって、ひじょうに長くなるものの、ブラウザー上で任意の画像へのリンクを作成することができる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素のメソッド <code class="docutils literal notranslate"><span class="pre">toDataURL</span></code> 呼び出しは <code class="docutils literal notranslate"><span class="pre">data://</span></code> で始まる URL を返す。<code class="docutils literal notranslate"><span class="pre">http://</span></code> や <code class="docutils literal notranslate"><span class="pre">https://</span></code> の URL とは異なり、<code class="docutils literal notranslate"><span class="pre">data://</span></code> URL はリソース全体を文字列中に含む。したがって、ひじょうに長くなるものの、ブラウザー上で任意の画像へのリンクを作成することができる。</p>
 <p>ブラウザーに画像を実際にダウンロードさせるには、この URL を指し示す <code class="docutils literal notranslate"><span class="pre">link</span></code> 要素を作成し、属性 <code class="docutils literal notranslate"><span class="pre">download</span></code> を付ける。このリンクをクリックすると、ブラウザーはファイル保存ダイアログボックスを表示する。そのリンクを文書に追加し、クリックをシミュレートして、削除する。</p>
 <hr class="docutils" />
 <p>既存の画像ファイルをアプリケーションに読み込めるようにする。そのために再びボタンコンポーネントを定義する。</p>
@@ -533,7 +527,8 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <li><p>ユーザーのコンピュータにあるファイルにアクセスするには、ユーザーがファイル入力フィールドでファイルを選択する必要がある。しかし、ロードボタンをファイル入力フィールドのように見せたくないので、ボタンがクリックされたときにファイル入力を作成し、このファイル入力自体がクリックされたふりをする。</p></li>
 </ul>
 <hr class="docutils" />
-<p>ユーザーがファイルを選択すると、<code class="docutils literal notranslate"><span class="pre">FileReader</span></code> を使ってその内容にアクセスすることができ、これも <code class="docutils literal notranslate"><span class="pre">data://</span></code> 形式の URL として使える。この URL を使って <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素を作ることができるが、画像のピクセルに直接アクセスすることができないため、そこから <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを作ることはできない。</p>
+<p>ユーザーがファイルを選択すると、<code class="docutils literal notranslate"><span class="pre">FileReader</span></code> を使ってその内容にアクセスすることができ、これも <code class="docutils literal notranslate"><span class="pre">data://</span></code> 形式の URL として使える。この URL を使って
+<code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素を作ることができるが、画像のピクセルに直接アクセスすることができないため、そこから <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを作ることはできない。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">finishLoad</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span><span class="w"> </span><span class="nx">dispatch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">file</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FileReader</span><span class="p">();</span><span class="w"></span>
@@ -549,7 +544,8 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>ピクセルにアクセスするには、まず <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に画像を描画する。キャンバスコンテキストにはメソッド <code class="docutils literal notranslate"><span class="pre">getImageData</span></code> があるので、スクリプトからそのピクセルを読み取れる。つまり、画像をキャンバスに描画したら、それにアクセスして <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを構築できる。</p>
+<p>ピクセルにアクセスするには、まず <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に画像を描画する。キャンバスコンテキストにはメソッド <code class="docutils literal notranslate"><span class="pre">getImageData</span></code> があるので、スクリプトからそのピクセルを読み取れる。つまり、画像をキャンバスに描画したら、それにアクセスして <code class="docutils literal notranslate"><span class="pre">Picture</span></code>
+オブジェクトを構築できる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">pictureFromImage</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span><span class="w"></span>
@@ -573,15 +569,16 @@ immutable なオブジェクトを使う JavaScript コードでは普通に見�
 </pre></div>
 </div>
 <p>画像の寸法を 100x100 ピクセルに制限する。これ以上大きくすると、画面上で巨大に見えてしまい、インターフェースが遅くなるかもしれない。</p>
-<p>コンテキストのメソッド <code class="docutils literal notranslate"><span class="pre">getImageData</span></code> が返すオブジェクトのプロパティー <code class="docutils literal notranslate"><span class="pre">data</span></code> は色成分の配列だ。引数で指定された矩形内の各ピクセルには、ピクセルの RGBA 成分が 0 から 255 までの数で格納されている。</p>
+<p>コンテキストのメソッド <code class="docutils literal notranslate"><span class="pre">getImageData</span></code> が返すオブジェクトのプロパティー
+<code class="docutils literal notranslate"><span class="pre">data</span></code> は色成分の配列だ。引数で指定された矩形内の各ピクセルには、ピクセルの
+RGBA 成分が 0 から 255 までの数で格納されている。</p>
 <ul class="simple">
 <li><p>本アプリケーションではアルファ値は使わない。</p></li>
-<li><p>ヘルパー関数 <code class="docutils literal notranslate"><span class="pre">hex</span></code> は数を 16 進数表記にするのに定義されている。
-JavaScript ではこういうのを自前で書かないといけないようだ。</p></li>
+<li><p>ヘルパー関数 <code class="docutils literal notranslate"><span class="pre">hex</span></code> は数を 16 進数表記にするのに定義されている。JavaScriptではこういうのを自前で書かないといけないようだ。</p></li>
 </ul>
-</div>
-<div class="section" id="undo-history">
-<h2><a class="toc-backref" href="#id11">Undo history</a><a class="headerlink" href="#undo-history" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="undo-history">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Undo history</a><a class="headerlink" href="#undo-history" title="Permalink to this heading">¶</a></h2>
 <p>変更を元に戻せるようにするには、絵の以前のバージョンを保存しておく必要がある。アプリケーションの状態に追加的なフィールドを必要とする。</p>
 <p>絵の以前のバージョンを保存するのに配列 <code class="docutils literal notranslate"><span class="pre">done</span></code> を追加することにする。このプロパティーを維持するのには配列に絵を追加する、より複雑な状態更新関数が要る。</p>
 <p>変更のすべてではなく、一定の時間的間隔をおいた変更しか保存したくない。そうするには、最後に絵を履歴に保存した時刻を追跡するプロパティー <code class="docutils literal notranslate"><span class="pre">doneAt</span></code> が要る。</p>
@@ -621,9 +618,9 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="let-s-draw">
-<h2><a class="toc-backref" href="#id12">Let’s draw</a><a class="headerlink" href="#let-s-draw" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="let-s-draw">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Let’s draw</a><a class="headerlink" href="#let-s-draw" title="Permalink to this heading">¶</a></h2>
 <p>アプリケーションを仕掛けるには、状態、ツールの集合、コントロールの集合、ディスパッチ関数を生成する必要がある。これらを <code class="docutils literal notranslate"><span class="pre">PixelEditor</span></code> コンストラクターに渡して主要コンポーネントを作成できる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">startState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nx">tool</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;draw&quot;</span><span class="p">,</span><span class="w"></span>
@@ -653,7 +650,8 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 </pre></div>
 </div>
 <p>オブジェクトや配列を分割代入するとき、変数名の後ろに <code class="docutils literal notranslate"><span class="pre">=</span></code> を付けると変数名に既定値を与えることができる。これは、プロパティーがない場合や <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を保持する場合に用いられる。</p>
-<p>関数 <code class="docutils literal notranslate"><span class="pre">startPixelEditor</span></code> はいくつかのオプションのプロパティーを持つオブジェクトを引数に取る。例えばプロパティー <code class="docutils literal notranslate"><span class="pre">tools</span></code> を与えない場合、その値は <code class="docutils literal notranslate"><span class="pre">baseTools</span></code> になる。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">startPixelEditor</span></code> はいくつかのオプションのプロパティーを持つオブジェクトを引数に取る。例えばプロパティー <code class="docutils literal notranslate"><span class="pre">tools</span></code> を与えない場合、その値は
+<code class="docutils literal notranslate"><span class="pre">baseTools</span></code> になる。</p>
 <p>次のようにして実際のエディターを画面に表示する：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
@@ -661,21 +659,22 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="why-is-this-so-hard">
-<h2><a class="toc-backref" href="#id13">Why is this so hard?</a><a class="headerlink" href="#why-is-this-so-hard" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="why-is-this-so-hard">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Why is this so hard?</a><a class="headerlink" href="#why-is-this-so-hard" title="Permalink to this heading">¶</a></h2>
 <p>この節は著者の主張がよくわからないので省略。</p>
-</div>
-<div class="section" id="exercises">
-<h2><a class="toc-backref" href="#id14">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="keyboard-bindings">
-<h3><a class="toc-backref" href="#id15">Keyboard bindings</a><a class="headerlink" href="#keyboard-bindings" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<section id="keyboard-bindings">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Keyboard bindings</a><a class="headerlink" href="#keyboard-bindings" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> アプリケーションにキーボードショートカットを追加しろ。</p>
 <ul class="simple">
 <li><p>ツール名の最初の文字でそのツールを選択し、</p></li>
 <li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Z</kbd> でアンドゥを起動しろ。</p></li>
 </ul>
-<p>これを <code class="docutils literal notranslate"><span class="pre">PixelEditor</span></code> を変更することで行え。値がゼロのプロパティー <code class="docutils literal notranslate"><span class="pre">tabIndex</span></code> を折り返しの <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> に設定し、キーボードフォーカスを受けられるようにしろ。なお、属性 <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> に対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">tabIndex</span></code> と大文字の I が使われているが関数 <code class="docutils literal notranslate"><span class="pre">elt</span></code> はプロパティー名を期待することに注意しろ。</p>
+<p>これを <code class="docutils literal notranslate"><span class="pre">PixelEditor</span></code> を変更することで行え。値がゼロのプロパティー <code class="docutils literal notranslate"><span class="pre">tabIndex</span></code>
+を折り返しの <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> に設定し、キーボードフォーカスを受けられるようにしろ。なお、属性 <code class="docutils literal notranslate"><span class="pre">tabindex</span></code> に対応するプロパティーは <code class="docutils literal notranslate"><span class="pre">tabIndex</span></code> と大文字の I が使われているが関数 <code class="docutils literal notranslate"><span class="pre">elt</span></code> はプロパティー名を期待することに注意しろ。</p>
 <p>キーイベントハンドラーを上記 <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> に直接登録しろ。つまり、キーボードで操作する前に、アプリケーションをクリックしたり、タッチしたりする必要がある。キーボードイベントには <code class="docutils literal notranslate"><span class="pre">ctrlKey</span></code> と <code class="docutils literal notranslate"><span class="pre">metaKey</span></code> のプロパティーがあり、これらのキーが押されているかどうかを確認することができることを忘れるな。</p>
 <p><strong>解答</strong> ツール選択は <code class="docutils literal notranslate"><span class="pre">PixelEditor.constructor</span></code> のコードで <code class="docutils literal notranslate"><span class="pre">this.dom</span></code> を定義するところを次のように変更する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elt</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -717,12 +716,12 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 <ul class="simple">
 <li><p>困ったことに <code class="docutils literal notranslate"><span class="pre">event.preventDefault()</span></code> したか否かをテストする手段がわからない。もしこれ以上の処理を禁止するのであれば即 <code class="docutils literal notranslate"><span class="pre">return</span></code> する。</p></li>
 </ul>
-</div>
-<div class="section" id="efficient-drawing">
-<h3><a class="toc-backref" href="#id16">Efficient drawing</a><a class="headerlink" href="#efficient-drawing" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="efficient-drawing">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Efficient drawing</a><a class="headerlink" href="#efficient-drawing" title="Permalink to this heading">¶</a></h3>
 <p>描画の際、アプリケーションが行う作業の大半は <code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> で起こる。新しい状態を作成して DOM の残りの部分を更新するのはそれほど高くつかないが、キャンバス上のすべてのピクセルを再描画するのはかなりの労力を要する。</p>
-<p><strong>問題</strong> 実際に変化したピクセルしか再描画しないように、メソッド <code class="docutils literal notranslate"><span class="pre">PictureCanvas.syncState</span></code> を高速化する方法を考えろ。
-<code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> は保存ボタンでも使用されているので、変更する場合は、以前の使用方法が壊れないようにするか、別の名前で新しいバージョンを作成することだ。</p>
+<p><strong>問題</strong> 実際に変化したピクセルしか再描画しないように、メソッド
+<code class="docutils literal notranslate"><span class="pre">PictureCanvas.syncState</span></code> を高速化する方法を考えろ。<code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> は保存ボタンでも使用されているので、変更する場合は、以前の使用方法が壊れないようにするか、別の名前で新しいバージョンを作成することだ。</p>
 <p>また、要素 <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> の <code class="docutils literal notranslate"><span class="pre">width</span></code> や <code class="docutils literal notranslate"><span class="pre">height</span></code> のプロパティーを設定して寸法を変更すると、それを消去して完全に透明になることにも注意しろ。</p>
 <p><strong>解答</strong> <code class="docutils literal notranslate"><span class="pre">PictureCanvas.syncState</span></code> が <code class="docutils literal notranslate"><span class="pre">drawPicture</span></code> を呼び出すときに新旧のピクセルバッファーが一瞬同時に存在するので、これを比較して差分だけを描画しろというのが題意だ。したがって、まず呼び出し側を次のように変更する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">syncState</span><span class="p">(</span><span class="nx">picture</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -764,9 +763,9 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="circles">
-<h3><a class="toc-backref" href="#id17">Circles</a><a class="headerlink" href="#circles" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="circles">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Circles</a><a class="headerlink" href="#circles" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> ドラッグすると円が描かれるツール <code class="docutils literal notranslate"><span class="pre">circle</span></code> を定義しろ。円の中心は、ドラッグやタッチを開始した位置にあり、その半径はドラッグした距離に応じて決まる。</p>
 <p><strong>解答</strong> マウスやタッチによる操作が矩形ツールと似ているので、コードもそれに倣う。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">circle</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">dispatch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -802,9 +801,9 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">baseTools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">draw</span><span class="p">,</span><span class="w"> </span><span class="nx">fill</span><span class="p">,</span><span class="w"> </span><span class="nx">rectangle</span><span class="p">,</span><span class="w"> </span><span class="nx">circle</span><span class="p">,</span><span class="w"> </span><span class="nx">pick</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="proper-lines">
-<h3><a class="toc-backref" href="#id18">Proper lines</a><a class="headerlink" href="#proper-lines" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="proper-lines">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Proper lines</a><a class="headerlink" href="#proper-lines" title="Permalink to this heading">¶</a></h3>
 <p>ほとんどのブラウザーでは、描画ツールを選択して画像上をすばやくドラッグしても閉じた線が得られない。これは、<code class="docutils literal notranslate"><span class="pre">mousemove</span></code> や <code class="docutils literal notranslate"><span class="pre">touchmove</span></code> のイベントが、すべてのピクセルに到達するほど速く発射しなかったことによる。</p>
 <p><strong>問題</strong> <code class="docutils literal notranslate"><span class="pre">draw</span></code> ツールを改良して、完全な線を描けるようにしろ。上記イベントハンドラー関数に前回の位置を記憶させ、それを現在の位置に連結する必要がある。ピクセルは任意の距離だけ離して存在し得るので、補間する線を引く関数を書かねばならない。</p>
 <p>二つのピクセル間の線とは、始点から終点まで可能な限り直線で結ばれたピクセルの連鎖だ。斜めに隣接するピクセルも連結されたものとして扱う（本書の図を参照。左側のほうが望ましい）。</p>
@@ -815,9 +814,9 @@ JavaScript ではこういうのを自前で書かないといけないようだ
 <p>早く次に行きたいので後回しにする。</p>
 </div>
 <p>以上</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

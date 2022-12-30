@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Storing data in the browser &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
@@ -48,27 +46,28 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="storing-data-in-the-browser">
-<h1><a class="toc-backref" href="#id3">Storing data in the browser</a><a class="headerlink" href="#storing-data-in-the-browser" title="Permalink to this heading">¶</a></h1>
-<div class="contents topic" id="contents">
+  <section id="storing-data-in-the-browser">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Storing data in the browser</a><a class="headerlink" href="#storing-data-in-the-browser" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#storing-data-in-the-browser" id="id3">Storing data in the browser</a></p>
 <ul>
-<li><p><a class="reference internal" href="#cookies-document-cookie" id="id4">Cookies, document.cookie</a></p></li>
-<li><p><a class="reference internal" href="#localstorage-sessionstorage" id="id5">LocalStorage, sessionStorage</a></p></li>
+<li><p><a class="reference internal" href="#cookies-document-cookie" id="id4">Cookies, <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code></a></p></li>
+<li><p><a class="reference internal" href="#localstorage-sessionstorage" id="id5"><code class="docutils literal notranslate"><span class="pre">LocalStorage</span></code>, <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code></a></p></li>
 <li><p><a class="reference internal" href="#indexeddb" id="id6">IndexedDB</a></p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="cookies-document-cookie">
-<h2><a class="toc-backref" href="#id4">Cookies, document.cookie</a><a class="headerlink" href="#cookies-document-cookie" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="cookies-document-cookie">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Cookies, <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code></a><a class="headerlink" href="#cookies-document-cookie" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/cookie">https://javascript.info/cookie</a>&gt; ノート。</p>
 <p>Cookie とは小さな文字列であって、ブラウザーに直接保存されるデータだ。 Cookie は
 HTTP の一部であり、RFC 6265 で定義されている。 Cookie は通常、HTTP-header 応答
-<code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> を使用してウェブサーバーが設定する。その後、ブラウザーは <code class="docutils literal notranslate"><span class="pre">Cookie</span></code>
-HTTP-header を使用して、同じドメインへのほとんどすべての要求に cookie を自動的に追加する。</p>
+<code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> を使用してウェブサーバーが設定する。その後、ブラウザーは
+<code class="docutils literal notranslate"><span class="pre">Cookie</span></code> HTTP-header を使用して、同じドメインへのほとんどすべての要求に cookie
+を自動的に追加する。</p>
 <p>最も広く使われている事例のひとつが認証だ。</p>
 <ol class="arabic simple">
 <li><p>サインインすると、サーバーは応答 <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> HTTP-header を使って、固有のセッション識別子を持つ cookie を設定する。</p></li>
@@ -77,18 +76,18 @@ HTTP-header を使用して、同じドメインへのほとんどすべての�
 </ol>
 <p>ブラウザーから cookie にアクセスすることもできる。プロパティー <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code>
 を用いる。</p>
-<div class="section" id="reading-from-document-cookie">
-<h3>Reading from document.cookie<a class="headerlink" href="#reading-from-document-cookie" title="Permalink to this heading">¶</a></h3>
-<p>値 <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> は、セミコロンで区切りの name=value ペアで構成されている。それぞれが個別の cookie だ。特定の cookie を見つけるには、
-<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を <code class="docutils literal notranslate"><span class="pre">;</span></code> で split し、正しい名前を見つければいい。そのためには正規表現か配列関数を使える。この章の終わりには cookie を操作するためのヘルパー関数がある。</p>
+<section id="reading-from-document-cookie">
+<h3>Reading from <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code><a class="headerlink" href="#reading-from-document-cookie" title="Permalink to this heading">¶</a></h3>
+<p>値 <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> は、セミコロンで区切りの <code class="docutils literal notranslate"><span class="pre">name=value</span></code> ペアで構成されている。それぞれが個別の cookie だ。特定の cookie を見つけるには、
+<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を <code class="docutils literal notranslate"><span class="pre">;</span></code> で <code class="docutils literal notranslate"><span class="pre">split</span></code> し、正しい名前を見つければいい。そのためには正規表現か配列関数を使える。この章の終わりには cookie を操作するためのヘルパー関数がある。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>ブラウザーの適当なタブで検証ツールの Console を開いて <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code>
 をチェックするといい。</p>
 </div>
-</div>
-<div class="section" id="writing-to-document-cookie">
-<h3>Writing to document.cookie<a class="headerlink" href="#writing-to-document-cookie" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="writing-to-document-cookie">
+<h3>Writing to <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code><a class="headerlink" href="#writing-to-document-cookie" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> に書き込みができる。これはデータプロパティーではなく、アクセッサーだ。特に代入は特別に扱われる。<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> への書き込み操作は、その中に記述された cookie だけを更新し、他の cookie には触れない。例えば、この呼び出しは <code class="docutils literal notranslate"><span class="pre">user</span></code> という名前と <code class="docutils literal notranslate"><span class="pre">John</span></code> という値を持つ cookie を設定する：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
@@ -101,39 +100,39 @@ HTTP-header を使用して、同じドメインへのほとんどすべての�
 <hr class="docutils" />
 <p>制限が少しある。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> の後の name=value は 4KB を超えてはいけない。したがって、cookie に巨大なものを保存することはできない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> の後の <code class="docutils literal notranslate"><span class="pre">name=value</span></code> は 4KB を超えてはいけない。したがって、cookie に巨大なものを保存することはできない。</p></li>
 <li><p>ドメインあたりの cookie の総数は約 20+ に制限されているが、正確な制限はブラウザーによる。</p></li>
 </ul>
 <hr class="docutils" />
 <p>Cookie にはオプションがいくつかあり、その多くは重要なのでなるべく設定する。</p>
-<p>オプションは key=value の後にセミコロンで区切って、以下のように並べる：</p>
+<p>オプションは <code class="docutils literal notranslate"><span class="pre">key=value</span></code> の後にセミコロンで区切って、以下のように並べる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="path">
-<h3>path<a class="headerlink" href="#path" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="path">
+<h3><code class="docutils literal notranslate"><span class="pre">path</span></code><a class="headerlink" href="#path" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>path=/mypath
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">path</span></code> のプレフィクスは絶対でなければならない。そのパスの下にあるページから
 cookie にアクセスできるようにする。既定値は現在のパスだ。</p>
 <p>もし cookie が <code class="docutils literal notranslate"><span class="pre">path=/admin</span></code> で設定されると、ページ <code class="docutils literal notranslate"><span class="pre">/admin</span></code> および
-<code class="docutils literal notranslate"><span class="pre">/admin/something</span></code> で見ることができ、 <code class="docutils literal notranslate"><span class="pre">/home</span></code> や <code class="docutils literal notranslate"><span class="pre">/adminpage</span></code> では見えない。</p>
+<code class="docutils literal notranslate"><span class="pre">/admin/something</span></code> で見ることができ、<code class="docutils literal notranslate"><span class="pre">/home</span></code> や <code class="docutils literal notranslate"><span class="pre">/adminpage</span></code> では見えない。</p>
 <p>通常、cookie をすべてのページからアクセスできるように、<code class="docutils literal notranslate"><span class="pre">path</span></code> をルートに設定する必要がある：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>path=/
 </pre></div>
 </div>
-</div>
-<div class="section" id="domain">
-<h3>domain<a class="headerlink" href="#domain" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="domain">
+<h3><code class="docutils literal notranslate"><span class="pre">domain</span></code><a class="headerlink" href="#domain" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>domain=site.com
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">domain</span></code> は、cookie がアクセス可能な場所を定義する。しかし実際には制限がある。どんなドメインでも設定できるわけではない。 Cookie を別の第二レベルドメインからアクセスできるようにする方法はないので、 other.com は site.com で設定された cookie
+<p><code class="docutils literal notranslate"><span class="pre">domain</span></code> は、cookie がアクセス可能な場所を定義する。しかし実際には制限がある。どんなドメインでも設定できるわけではない。 Cookie を別の第二レベルドメインからアクセスできるようにする方法はないので、other.com は site.com で設定された cookie
 を決して受け取らない。これは安全上の制限で、あるサイトでのみ利用可能であるべき機密データを cookie に保存できるようにするためだ。</p>
 <p>初期状態では、cookie はそれを設定したドメインでのみアクセス可能だ。
-forum.site.comのようなサブドメインにも共有されない。しかし、これを変更することができる。 forum.site.com のようなサブドメインが site.com で設定された cookie を取得できるようにしたい場合、それは可能だ。そのためには、site.com で cookie を設定するときに、<code class="docutils literal notranslate"><span class="pre">domain</span></code> オプションを明示的にルートドメインに設定する必要がある。そうすれば、すべてのサブドメインがそのような cookie を見ることになる。</p>
+forum.site.com のようなサブドメインにも共有されない。しかし、これを変更することができる。forum.site.com のようなサブドメインが site.com で設定された cookie を取得できるようにしたい場合、それは可能だ。そのためには、site.com で cookie を設定するときに、<code class="docutils literal notranslate"><span class="pre">domain</span></code> オプションを明示的にルートドメインに設定する必要がある。そうすれば、すべてのサブドメインがそのような cookie を見ることになる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// at site.com</span><span class="w"></span>
 <span class="c1">// make the cookie accessible on any subdomain *.site.com:</span><span class="w"></span>
 <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; domain=site.com&quot;</span><span class="w"></span>
@@ -142,12 +141,12 @@ forum.site.comのようなサブドメインにも共有されない。しかし
 <span class="c1">// document.cookie has cookie user=John</span><span class="w"></span>
 </pre></div>
 </div>
-<p>歴史的理由から、<code class="docutils literal notranslate"><span class="pre">domain=.site.com</span></code> も同じように動作し、サブドメインから
-cookie にアクセスできるようになる。これは古い記法で、古いブラウザー対応をする場合に使われる。</p>
+<p>歴史的理由から、<code class="docutils literal notranslate"><span class="pre">domain=.site.com</span></code> も同じように動作し、サブドメインから cookie
+にアクセスできるようになる。これは古い記法で、古いブラウザー対応をする場合に使われる。</p>
 <p>まとめると、オプション <code class="docutils literal notranslate"><span class="pre">domain</span></code> はサブドメインでも cookie にアクセスしてもいいようにできるものだ。</p>
-</div>
-<div class="section" id="expires-max-age">
-<h3>expires, max-age<a class="headerlink" href="#expires-max-age" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="expires-max-age">
+<h3><code class="docutils literal notranslate"><span class="pre">expires</span></code>, <code class="docutils literal notranslate"><span class="pre">max-age</span></code><a class="headerlink" href="#expires-max-age" title="Permalink to this heading">¶</a></h3>
 <p>Cookie に次に述べるオプションがない場合、ブラウザーを閉じると消える。このような
 cookie はセッション cookie と呼ばれる。</p>
 <p>ブラウザーを閉じても cookie が残るようにするには、オプション <code class="docutils literal notranslate"><span class="pre">expires</span></code> かオプション <code class="docutils literal notranslate"><span class="pre">max-age</span></code> のどちらかを設定する。</p>
@@ -165,8 +164,7 @@ cookie はセッション cookie と呼ばれる。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>max-age=3600
 </pre></div>
 </div>
-<p>Cookie の有効期限を現在の時点から秒単位で指定する。
-0 または負の値を設定した場合、その cookie は消える。</p>
+<p>Cookie の有効期限を現在の時点から秒単位で指定する。0 または負の値を設定した場合、その cookie は消える。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// cookie will die in +1 hour from now</span><span class="w"></span>
 <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user=John; max-age=3600&quot;</span><span class="p">;</span><span class="w"></span>
 
@@ -178,37 +176,38 @@ cookie はセッション cookie と呼ばれる。</p>
 <p class="admonition-title">学習者ノート</p>
 <p>絶対時刻で指定するか、相対時刻で指定するかでオプションを決めればいいようだ。</p>
 </div>
-</div>
-<div class="section" id="secure">
-<h3>secure<a class="headerlink" href="#secure" title="Permalink to this heading">¶</a></h3>
-<p>Cookie はなるべく HTTPS でしか転送されないようにする。既定では <a class="reference external" href="http://site.com">http://site.com</a> で
-cookie を設定すると、<a class="reference external" href="https://site.com">https://site.com</a> にも表示され、その逆もまた成り立つ。つまり、cookie はドメインベースであり、プロトコルを区別しない。</p>
-<p>オプション <code class="docutils literal notranslate"><span class="pre">secure</span></code> があると、もし cookie が <a class="reference external" href="https://site.com">https://site.com</a> で設定されると、同じサイトが HTTP で、つまり <a class="reference external" href="http://site.com">http://site.com</a> としてアクセスされたとき cookie が見えなくなる。</p>
+</section>
+<section id="secure">
+<h3><code class="docutils literal notranslate"><span class="pre">secure</span></code><a class="headerlink" href="#secure" title="Permalink to this heading">¶</a></h3>
+<p>Cookie はなるべく HTTPS でしか転送されないようにする。既定では &lt;<a class="reference external" href="http://site.com">http://site.com</a>&gt;
+で cookie を設定すると、&lt;<a class="reference external" href="https://site.com">https://site.com</a>&gt; にも表示され、その逆もまた成り立つ。つまり、cookie はドメインベースであり、プロトコルを区別しない。</p>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">secure</span></code> があると、もし cookie が &lt;<a class="reference external" href="https://site.com">https://site.com</a>&gt; で設定されると、同じサイトが HTTP で、つまり &lt;<a class="reference external" href="http://site.com">http://site.com</a>&gt; としてアクセスされたとき
+cookie が見えなくなる。</p>
 <p>Cookie が暗号化されていない HTTP で決して送られるべきでない機密性の高い内容を持つなら、<code class="docutils literal notranslate"><span class="pre">secure</span></code> フラグが妥当だ。</p>
-</div>
-<div class="section" id="samesite">
-<h3>samesite<a class="headerlink" href="#samesite" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="samesite">
+<h3><code class="docutils literal notranslate"><span class="pre">samesite</span></code><a class="headerlink" href="#samesite" title="Permalink to this heading">¶</a></h3>
 <p>これもセキュリティ属性だ。これはいわゆる XSRF (cross-site request forgery) 攻撃から保護するために設計されている。</p>
-<div class="section" id="xsrf-attack">
+<section id="xsrf-attack">
 <h4>XSRF attack<a class="headerlink" href="#xsrf-attack" title="Permalink to this heading">¶</a></h4>
 <p>サイト bank.com にログインしているとする。つまり、そのサイトの認証 cookie を利用者が持っている。ブラウザーは要求ごとにこの cookie を bank.com に送信し、利用者を認識させ、機密の財務処理すべてを実行するようになっている。</p>
 <p>さて、その利用者が別のウィンドウで偶然、別のサイト evil.com にたどり着いた。そのサイトには、ハッカーの口座への取引を開始するフィールドを含むフォーム
-<code class="docutils literal notranslate"><span class="pre">&lt;formaction=&quot;https://bank.com/pay&quot;&gt;</span></code> を bank.com に送信する JavaScript コードがある。ブラウザーは、フォームが evil.com から送信されたとしても、 bank.com というサイトにアクセスするたびに認証済み cookie を送信するので、銀行は実際に支払いを実行する。こういう構造の攻撃を Cross-Site Request Forgery という。</p>
+<code class="docutils literal notranslate"><span class="pre">&lt;formaction=&quot;https://bank.com/pay&quot;&gt;</span></code> を bank.com に送信する JavaScript コードがある。ブラウザーは、フォームが evil.com から送信されたとしても、bank.com というサイトにアクセスするたびに認証済み cookie を送信するので、銀行は実際に支払いを実行する。こういう構造の攻撃を Cross-Site Request Forgery という。</p>
 <p>実際の銀行はもちろんそれから守られている。サイト bank.com が生成するフォームすべてに、 XSRF 保護トークンという特別なフィールドがあり、悪意のあるページが遠隔ページから生成したり抽出したりすることはできないのだ。サイト <code class="docutils literal notranslate"><span class="pre">bank.com</span></code> は、フォームを受信するたびに、このようなトークンをチェックする。</p>
 <p>しかし、このような保護機能を実装するには時間がかかる。フォームすべてに必要なトークンフィールドがあることを確認し、さらに要求すべてをチェックする必要がある。</p>
-</div>
-<div class="section" id="enter-cookie-samesite-option">
-<h4>Enter cookie samesite option<a class="headerlink" href="#enter-cookie-samesite-option" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="enter-cookie-samesite-option">
+<h4>Enter cookie <code class="docutils literal notranslate"><span class="pre">samesite</span></code> option<a class="headerlink" href="#enter-cookie-samesite-option" title="Permalink to this heading">¶</a></h4>
 <p>Cookie オプション <code class="docutils literal notranslate"><span class="pre">samesite</span></code> は、このような攻撃から守るための別の用意だ。これは理論的には XSRF 保護トークンを必要としないはずだ。このオプションには取り得る値が二つある。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>samesite=strict
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> cookie クッキーは利用者が同じサイトの外から来た場合、決して送信されない。言い換えれば、利用者がメールからのリンクをたどろうが、evil.com からフォームを送信しようが、あるいは他のドメインから発信された何らかの操作をしようが、cookie は送信されない。</p>
 <p>認証 cookie にオプション <code class="docutils literal notranslate"><span class="pre">samesite</span></code> があれば、evil.com からの送信は cookie なしで来るので、 XSRF 攻撃は成功する可能性がない。そのため、bank.com は利用者を認識できず、支払いを続行することができない。</p>
-<p>この保護機能は信頼できる。例えば、bank.com の他のページからのフォーム送信のように、 bank.com から来る操作のみが <code class="docutils literal notranslate"><span class="pre">samesite</span></code> cookie を送信する。</p>
+<p>この保護機能は信頼できる。例えば、bank.com の他のページからのフォーム送信のように、bank.com から来る操作のみが <code class="docutils literal notranslate"><span class="pre">samesite</span></code> cookie を送信する。</p>
 <p>不都合もある。利用者が自分の手形からなど、bank.com への正当なリンクをたどったときに bank.com が自分を認識しないことに驚くだろう。確かに、その場合は
 <code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> cookie は送信されない。</p>
-<p>Cookie を二つ使うことでそれを回避できる。一つは一般的な認識用だけに使用する。もう一つは <code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> でデータ変更操作のために使用する。そうすれば、サイトの外から来た人は歓迎されることを見るが、二つ目の cookieを送信するためには、銀行のウェブサイトから支払いを開始する必要がある。</p>
+<p>Cookie を二つ使うことでそれを回避できる。一つは一般的な認識用だけに使用する。もう一つは <code class="docutils literal notranslate"><span class="pre">samesite=strict</span></code> でデータ変更操作のために使用する。そうすれば、サイトの外から来た人は歓迎されることを見るが、二つ目の cookie を送信するためには、銀行のウェブサイトから支払いを開始する必要がある。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>samesite=lax
 </pre></div>
 </div>
@@ -234,10 +233,10 @@ cookie を持たせることだ。例えば、これらの条件を満たす手�
 </ul>
 <p>そのため、<code class="docutils literal notranslate"><span class="pre">samesite</span></code> にのみ保護を頼ると、古いブラウザーは脆弱になる。</p>
 <p>それでも、<code class="docutils literal notranslate"><span class="pre">samesite</span></code> と XSRF トークンのような他の保護手段を併用することで、さらに防御の層を厚くすることができるはずだ。</p>
-</div>
-</div>
-<div class="section" id="httponly">
-<h3>httpOnly<a class="headerlink" href="#httponly" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="httponly">
+<h3><code class="docutils literal notranslate"><span class="pre">httpOnly</span></code><a class="headerlink" href="#httponly" title="Permalink to this heading">¶</a></h3>
 <p>このオプションは JavaScript とは何の関係もない。</p>
 <p>ウェブサーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> を使用して cookie を設定する。また、オプション <code class="docutils literal notranslate"><span class="pre">httpOnly</span></code> を設定することもある。</p>
 <p>このオプションは、JavaScript から cookie へアクセスすることを禁じる。このような
@@ -246,12 +245,12 @@ cookie を見たり、<code class="docutils literal notranslate"><span class="pr
 <p>通常、そのようなことが起こり、利用者がハッカーの JavaScript コードを含むウェブページにアクセスすると、そのコードが実行され、認証情報を含む利用者クッキーを持つ
 <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> にアクセスできるようになる。それはまずい。</p>
 <p>しかし、もし cookie が <code class="docutils literal notranslate"><span class="pre">httpOnly</span></code> であれば、<code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> はそれを見ないので保護される。</p>
-</div>
-<div class="section" id="appendix-cookie-functions">
+</section>
+<section id="appendix-cookie-functions">
 <h3>Appendix: Cookie functions<a class="headerlink" href="#appendix-cookie-functions" title="Permalink to this heading">¶</a></h3>
 <p>手動で <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を修正するよりも便利な、cookie を扱うための小さな関数群を紹介する。そういうライブラリーはたくさんあるので、これらはデモ用だ。しかし、これらも完全に動作する。</p>
-<div class="section" id="getcookie-name">
-<h4>getCookie(name)<a class="headerlink" href="#getcookie-name" title="Permalink to this heading">¶</a></h4>
+<section id="getcookie-name">
+<h4><code class="docutils literal notranslate"><span class="pre">getCookie(name)</span></code><a class="headerlink" href="#getcookie-name" title="Permalink to this heading">¶</a></h4>
 <p>Cookie にアクセスする最も短い方法は、正規表現を用いることだ。関数
 <code class="docutils literal notranslate"><span class="pre">getCookie(name)</span></code> は与えられた名前を持つ cookie を返す。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">getCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -268,13 +267,13 @@ cookie を見たり、<code class="docutils literal notranslate"><span class="pr
 <p>正規表現。最初の捕捉なし丸括弧は「行頭または <code class="docutils literal notranslate"><span class="pre">;</span></code> のいずれか」を意味する。リテラル正規表現はメタキャラクターのエスケープを行うためものの。最後の丸括弧が
 <code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code> を得るためのもので、<code class="docutils literal notranslate"><span class="pre">;</span></code> 直前までの最長パターンを表す。</p>
 </div>
-</div>
-<div class="section" id="setcookie-name-value-options">
-<h4>setCookie(name, value, options)<a class="headerlink" href="#setcookie-name-value-options" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="setcookie-name-value-options">
+<h4><code class="docutils literal notranslate"><span class="pre">setCookie(name,</span> <span class="pre">value,</span> <span class="pre">options)</span></code><a class="headerlink" href="#setcookie-name-value-options" title="Permalink to this heading">¶</a></h4>
 <p>Cookie の名前を、既定では <code class="docutils literal notranslate"><span class="pre">path=/</span></code> であるように、指定された値に設定する。</p>
-</div>
-<div class="section" id="deletecookie-name">
-<h4>deleteCookie(name)<a class="headerlink" href="#deletecookie-name" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="deletecookie-name">
+<h4><code class="docutils literal notranslate"><span class="pre">deleteCookie(name)</span></code><a class="headerlink" href="#deletecookie-name" title="Permalink to this heading">¶</a></h4>
 <p>Cookie を削除するには、有効期限を負の値にして呼び出すことで行う。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">deleteCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nx">setCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -286,17 +285,17 @@ cookie を見たり、<code class="docutils literal notranslate"><span class="pr
 <hr class="docutils" />
 <p>Cookie を更新または削除するときは、設定したときとまったく同じ <code class="docutils literal notranslate"><span class="pre">path</span></code> と
 <code class="docutils literal notranslate"><span class="pre">domain</span></code> を用いる必要がある。</p>
-</div>
-</div>
-<div class="section" id="appendix-third-party-cookies">
+</section>
+</section>
+<section id="appendix-third-party-cookies">
 <h3>Appendix: Third-party cookies<a class="headerlink" href="#appendix-third-party-cookies" title="Permalink to this heading">¶</a></h3>
 <p>Cookie がサードパーティー cookie であるとは、利用者が訪問しているページ以外のドメインが置いた cookie だ。</p>
 <p>例えば：</p>
 <ol class="arabic simple">
-<li><p>ドメイン site.com のページで、他のサイトのバナー
-<code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">src=&quot;https://ads.com/banner.png&quot;&gt;</span></code> を読み込む。</p></li>
-<li><p>バナーとともに、ads.com の遠方サーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> に
-<code class="docutils literal notranslate"><span class="pre">id=1234</span></code> のような cookie を設定する場合がある。このような cookie はドメイン ads.com から発信され、ads.com でのみ表示される。</p></li>
+<li><p>ドメイン site.com のページで、他のサイトのバナー <code class="docutils literal notranslate"><span class="pre">&lt;img</span>
+<span class="pre">src=&quot;https://ads.com/banner.png&quot;&gt;</span></code> を読み込む。</p></li>
+<li><p>バナーとともに、ads.com の遠方サーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> に <code class="docutils literal notranslate"><span class="pre">id=1234</span></code>
+のような cookie を設定する場合がある。このような cookie はドメイン ads.com から発信され、ads.com でのみ表示される。</p></li>
 <li><p>次に ads.com にアクセスすると、遠方サーバーは <code class="docutils literal notranslate"><span class="pre">id</span></code> cookie を取得し、利用者を認識する。</p></li>
 <li><p>さらに重要なことに、利用者が site.com から、同じくバナーを持っている他のサイトに移動すると、ads.com は ads.com に属する cookie を取得するため、訪問者を認識し、サイト間を移動する際に追跡することができることだ。</p></li>
 </ol>
@@ -314,25 +313,26 @@ cookie を見たり、<code class="docutils literal notranslate"><span class="pr
 <p><code class="docutils literal notranslate"><span class="pre">&lt;script</span> <span class="pre">src=&quot;https://google-analytics.com/analytics.js&quot;&gt;</span></code> のように第三者のドメインからスクリプトをロードし、そのスクリプトが <code class="docutils literal notranslate"><span class="pre">document.cookie</span></code> を使って
 cookieを設定する場合、その cookie はサードパーティーではない。</p>
 <p>スクリプトが cookie を設定するなら、そのスクリプトがどこから来たかに関係なく、その cookie は現在のウェブページのドメインに属する。</p>
-</div>
-<div class="section" id="appendix-gdpr">
+</section>
+<section id="appendix-gdpr">
 <h3>Appendix: GDPR<a class="headerlink" href="#appendix-gdpr" title="Permalink to this heading">¶</a></h3>
 <p>ここも JavaScript とは全く関係なく、cookie を設定する際に気をつけるべきことを述べる。</p>
 <p>欧州には GDPR と呼ばれる法律があり、ウェブサイトが閲覧者のプライバシーを尊重するために一連の規則を施行している。その規則一つに、追跡 cookie について、利用者からの明示的な許可を必要とすることがある。ただし、これはあくまで cookie の追跡、識別、許可に関するものであって、ある情報を保存するだけで、利用者を追跡も特定もしない cookie を設定するのであれば、それは自由だ。しかし、認証セッションや追跡 ID を持つ cookie を設定するのであれば、利用者がそれを許可しなければならない。</p>
 <p>ウェブサイトには一般に、GDPR に従うための変種が二つある。どちらもすでにウェブで見たことがあるはずだ。</p>
 <ol class="arabic">
 <li><p>ウェブサイトが、認証された利用者だけに追跡 cookie を設定したい場合。</p>
-<p>これを行うには、登録フォームに「プライバシーポリシーを受け入れる」のようなチェックボックスを設け、利用者はそれをチェックしなければならず、その後ウェブサイトは認証 cookie を自由に設定することができるようになる。</p>
+<p>これを行うには、登録フォームに <span class="guilabel">プライバシーポリシーを受け入れる</span>
+のようなチェックボックスを設け、利用者はそれをチェックしなければならず、その後ウェブサイトは認証 cookie を自由に設定することができるようになる。</p>
 </li>
 <li><p>ウェブサイトがすべての人に追跡 cookie を設定したい場合。</p>
 <p>合法的に行うには、ウェブサイトは新規訪問者にモーダルなスプラッシュスクリーンを表示し、cookie に同意するよう求める。そうすれば、ウェブサイトはそれらを設定し、サイトの内容を見せることができる。しかし、それは新しい訪問者にとって邪魔になることがある。内容ではなく、そのような「クリックしなければならない」画面を見ることを好む人はいない。それでも GDPR では明示的な同意が必要だ。</p>
 </li>
 </ol>
 <p>GDPR は cookie だけでなく、他のプライバシー関連の問題についても言及しているが、ここでは述べない。</p>
-</div>
-</div>
-<div class="section" id="localstorage-sessionstorage">
-<h2><a class="toc-backref" href="#id5">LocalStorage, sessionStorage</a><a class="headerlink" href="#localstorage-sessionstorage" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="localstorage-sessionstorage">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">LocalStorage</span></code>, <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code></a><a class="headerlink" href="#localstorage-sessionstorage" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/localstorage">https://javascript.info/localstorage</a>&gt; ノート。</p>
 <p>ウェブストレージオブジェクト <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> および <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> により、ブラウザーにキーと値のペアを保存することができる。これらのオブジェクトの面白いところは、データがページの更新 (<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code>) やブラウザーの完全な再起動
 (<code class="docutils literal notranslate"><span class="pre">localStoregae</span></code>) にも影響を受けないことにある</p>
@@ -346,14 +346,14 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">setItem(key,</span> <span class="pre">value)</span></code>: キーと値のペアを格納する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">getItem(key)</span></code>: キーで値を取得する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">removeItem(key)</span></code>: - キーとその値を削除する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">removeItem(key)</span></code>: キーとその値を削除する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">clear()</span></code>: すべて削除する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">key(index)</span></code>: 任意の位置のキーを取得する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">length</span></code>: 保存する項目の数。</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">Map</span></code> に似ていると憶えればいい。それに <code class="docutils literal notranslate"><span class="pre">key(index)</span></code> が付いたものだと考えられる。</p>
-<div class="section" id="localstorage-demo">
-<h3>localStorage demo<a class="headerlink" href="#localstorage-demo" title="Permalink to this heading">¶</a></h3>
+<section id="localstorage-demo">
+<h3><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> demo<a class="headerlink" href="#localstorage-demo" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の主な機能：</p>
 <ul class="simple">
 <li><p>同じオリジンのすべてのタブとウィンドウで共有される。</p></li>
@@ -367,9 +367,9 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1</span><span class="w"></span>
 </pre></div>
 </div>
-<p>同じオリジンであればよく、URL パスは異なっていてもよい。 <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> は同じオリジンを持つすべてのウィンドウで共有されるので、あるウィンドウでデータを設定すると、その変更は別のウィンドウからも見えるようになる。</p>
-</div>
-<div class="section" id="object-like-access">
+<p>同じオリジンであればよく、URL パスは異なっていてもよい。<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> は同じオリジンを持つすべてのウィンドウで共有されるので、あるウィンドウでデータを設定すると、その変更は別のウィンドウからも見えるようになる。</p>
+</section>
+<section id="object-like-access">
 <h3>Object-like access<a class="headerlink" href="#object-like-access" title="Permalink to this heading">¶</a></h3>
 <p>また、普通のオブジェクトの方法でキーを取得、設定することもできる。これは歴史的な理由で認められており、ほとんど機能しているが、一般的には推奨されない。</p>
 <ol class="arabic simple">
@@ -377,21 +377,22 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <code class="docutils literal notranslate"><span class="pre">length</span></code> や <code class="docutils literal notranslate"><span class="pre">toString</span></code> あるいは <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の他の組み込みメソッドでも。この場合、<code class="docutils literal notranslate"><span class="pre">{get,set}Item()</span></code> は問題なく動作するが、オブジェクト風アクセスは失敗する。</p></li>
 <li><p>イベント <code class="docutils literal notranslate"><span class="pre">storage</span></code> があり、データを変更したときに起こる。そのイベントは、オブジェクト風アクセスでは起こらない。</p></li>
 </ol>
-</div>
-<div class="section" id="looping-over-keys">
+</section>
+<section id="looping-over-keys">
 <h3>Looping over keys<a class="headerlink" href="#looping-over-keys" title="Permalink to this heading">¶</a></h3>
-<p>ストレージオブジェクトは概念としてはコレクションであるものの、反復可能機能を提供していない。いちおう <code class="docutils literal notranslate"><span class="pre">for...in</span></code> ループを書けるが、必要のない組み込みフィールドもキーとして出てくる。なので、本書では <code class="docutils literal notranslate"><span class="pre">Object.keys(localStorage)</span></code> を反復処理することを推奨している。</p>
-</div>
-<div class="section" id="strings-only">
+<p>ストレージオブジェクトは概念としてはコレクションであるものの、反復可能機能を提供していない。いちおう <code class="docutils literal notranslate"><span class="pre">for</span></code> … <code class="docutils literal notranslate"><span class="pre">in</span></code> ループを書けるが、必要のない組み込みフィールドもキーとして出てくる。なので、本書では <code class="docutils literal notranslate"><span class="pre">Object.keys(localStorage)</span></code>
+を反復処理することを推奨している。</p>
+</section>
+<section id="strings-only">
 <h3>Strings only<a class="headerlink" href="#strings-only" title="Permalink to this heading">¶</a></h3>
 <p>ストレージオブジェクトはキーと値の両方が文字列でなければならない。数値やオブジェクトなど他の型であった場合は、自動的に文字列に変換される。</p>
 <p>オブジェクトを保存したければ JSON がある。また、デバッグ用にストレージオブジェクトを JSON にすることもある：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sessionstorage">
-<h3>sessionStorage<a class="headerlink" href="#sessionstorage" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sessionstorage">
+<h3><code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code><a class="headerlink" href="#sessionstorage" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> は <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> に比べると使用頻度が低い。プロパティーやメソッドは同じだ、より限定的だ。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> は現在のブラウザータブ内にしか存在しない。</p>
@@ -410,8 +411,8 @@ cookieを設定する場合、その cookie はサードパーティーではな
 </pre></div>
 </div>
 <p>で値がまだ得られる。しかし、同じページを別のタブで開き、そこでもう一度試してみると、上記のコードは <code class="docutils literal notranslate"><span class="pre">null</span></code> を返す。これはまさに、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> がオリジンだけでなく、ブラウザーのタブにも束縛されているためだ。そのため、<code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> の使用は控えられる。</p>
-</div>
-<div class="section" id="storage-event">
+</section>
+<section id="storage-event">
 <h3>Storage event<a class="headerlink" href="#storage-event" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">localStorage</span></code> や <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> のデータが更新されると、イベント
 <code class="docutils literal notranslate"><span class="pre">storage</span></code> が起こる。そのときのイベントのプロパティーは次のとおり：</p>
@@ -425,13 +426,13 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <p>重要なのは、このイベントは、ストレージにアクセス可能なすべてのウィンドウオブジェクトで発生するということだ（イベントを発生させたオブジェクト自身以外で）。</p>
 <p>ウィンドウが二つあり、同じサイトであるとする。そのため、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> はそれらの間で共有される。（本書のコードをテストするために、このページを二つのブラウザウィンドウで開くといいだろう）</p>
 <p>両方のウィンドウが <code class="docutils literal notranslate"><span class="pre">window.onstorage</span></code> を listen していれば、それぞれのウィンドウはもう一方のウィンドウで発生した更新に反応する。</p>
-<p>イベントは <code class="docutils literal notranslate"><span class="pre">event.url</span></code> として、データが更新されたドキュメントの URL を含むことに注意。イベントは <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> と <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の両方に対して同じなので、 <code class="docutils literal notranslate"><span class="pre">event.storageArea</span></code> は変更された方を参照する。変更に「応答」するために、そこに何かを設定し直したいと思うこともあるかもしれない。</p>
+<p>イベントは <code class="docutils literal notranslate"><span class="pre">event.url</span></code> として、データが更新されたドキュメントの URL を含むことに注意。イベントは <code class="docutils literal notranslate"><span class="pre">sessionStorage</span></code> と <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> の両方に対して同じなので、<code class="docutils literal notranslate"><span class="pre">event.storageArea</span></code> は変更された方を参照する。変更に「応答」するために、そこに何かを設定し直したいと思うこともあるかもしれない。</p>
 <p>これにより、同じオリジンからの異なるウィンドウでメッセージを交換できる。</p>
 <p>最近のブラウザーは Broadcast channel API という同一生成元ウィンドウ間通信のための特別な API も対応しており、こちらはより充実した機能を備えているが、あまり充実していない。<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> を基本にした、この API を polyfill するライブラリーがあり、どこでも利用できるようになっている。</p>
-</div>
-<div class="section" id="tasks">
+</section>
+<section id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="autosave-a-form-field">
+<section id="autosave-a-form-field">
 <h4>Autosave a form field<a class="headerlink" href="#autosave-a-form-field" title="Permalink to this heading">¶</a></h4>
 <p>変更するたびにその値を自動保存するテキストエリア欄を作れ。利用者が誤ってページを閉じてしまい、再び開いたときに、未完成の入力が所定の位置にあるようにしろ。</p>
 <div class="admonition- admonition">
@@ -439,11 +440,11 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <p>Clear ボタンの存在がヒントになっている。<code class="docutils literal notranslate"><span class="pre">onclick</span></code> でもストレージを更新する必要がある。「変更するたびに」をチェックするイベントハンドラーは <code class="docutils literal notranslate"><span class="pre">oninput</span></code>
 に仕込む。</p>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="indexeddb">
-<h2><a class="toc-backref" href="#id6">IndexedDB</a><a class="headerlink" href="#indexeddb" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="indexeddb">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">IndexedDB</a><a class="headerlink" href="#indexeddb" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/indexeddb">https://javascript.info/indexeddb</a>&gt; ノート。</p>
 <p>IndexedDB はブラウザーに組み込まれたデータベースであり、<code class="docutils literal notranslate"><span class="pre">localStorage</span></code> よりもはるかに強力だ。</p>
 <ul class="simple">
@@ -452,12 +453,12 @@ cookieを設定する場合、その cookie はサードパーティーではな
 <li><p>キーレンジクエリー、インデックスをサポート。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">localstorage</span></code> よりはるかに大きなデータ量を保存できる。</p></li>
 </ul>
-<p>その力は、従来のクライアントサーバーアプリケーションでは過剰だ。 IndexedDB はオフラインのアプリケーションを想定しており、ServiceWorkers や他の技術と組み合わせることを想定している。</p>
+<p>その力は、従来のクライアントサーバーアプリケーションでは過剰だ。IndexedDB はオフラインのアプリケーションを想定しており、ServiceWorkers や他の技術と組み合わせることを想定している。</p>
 <p>仕様書 &lt;<a class="reference external" href="https://www.w3.org/TR/IndexedDB">https://www.w3.org/TR/IndexedDB</a>&gt; に記載されている IndexedDB のネイティブインターフェースは、イベントベースだ。</p>
-<p>また、&lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt; のような <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのラッパーの助けを借りて、async/await を利用することもできる。これはかなり便利だが、ラッパーは完璧ではなく、すべての状況でイベントを置き換えることはできない。そこで、まずはイベントから始めて、IndexedDB を理解した後に、ラッパーを使うことにする。</p>
+<p>また、&lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt; のような <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ベースのラッパーの助けを借りて、<code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> を利用することもできる。これはかなり便利だが、ラッパーは完璧ではなく、すべての状況でイベントを置き換えることはできない。そこで、まずはイベントから始めて、IndexedDB を理解した後に、ラッパーを使うことにする。</p>
 <hr class="docutils" />
 <p>技術的には、データは通常、ブラウザーの設定や拡張機能などとともに、訪問者のホームディレクトリーに保存される。ブラウザーや OS レベルの利用者によって、それぞれ独立した格納領域を持っている。</p>
-<div class="section" id="open-database">
+<section id="open-database">
 <h3>Open database<a class="headerlink" href="#open-database" title="Permalink to this heading">¶</a></h3>
 <p>IndexedDB を使い始めるには、まずデータベースを開く（接続する）。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">version</span><span class="p">);</span><span class="w"></span>
@@ -527,7 +528,7 @@ listen する。</p>
 <code class="docutils literal notranslate"><span class="pre">openRequest.onerror</span></code> が発動する。</p>
 <p>レアケースだが、例えば代理キャッシュから古い JavaScript コードを読み込んだ場合、このようなことが起こり得る。つまり、コードは古くても、データベースは新しいということだ。</p>
 <p>エラーから守るために、<code class="docutils literal notranslate"><span class="pre">db.version</span></code> をチェックし、ページの再読み込みを提案する必要がある。古いコードを読み込まないように、適切な HTTP キャッシュヘッダーを使用すれば、このような問題が発生することはないだろう。</p>
-<div class="section" id="parallel-update-problem">
+<section id="parallel-update-problem">
 <h4>Parallel update problem<a class="headerlink" href="#parallel-update-problem" title="Permalink to this heading">¶</a></h4>
 <p>バージョン管理について話しながら、関連する小さな問題に取り組もう。例えば、次のような場合だ：</p>
 <ol class="arabic simple">
@@ -571,14 +572,13 @@ listen する。</p>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">db.onversionchange</span></code> では、より優雅に処理し、接続が閉じられる前にデータを保存するように訪問者に促したりすることができる。あるいは、<code class="docutils literal notranslate"><span class="pre">db.onversionchange</span></code> でデータベースを閉じずに、（新しいタブの）``onblocked`` ハンドラーを使って訪問者に警告し、他のタブを閉じるまで新しいバージョンを読み込むことができないことを伝えるという方法もある。</p>
 <p>このような更新の衝突はめったに起こらないが、少なくともスクリプトが黙して死なぬように、<code class="docutils literal notranslate"><span class="pre">onblocked</span></code> ハンドラーでなるべく何らかの処理をする。</p>
-</div>
-</div>
-<div class="section" id="object-store">
+</section>
+</section>
+<section id="object-store">
 <h3>Object store<a class="headerlink" href="#object-store" title="Permalink to this heading">¶</a></h3>
 <p>IndexedDB に何かを保存するには、オブジェクトストアが必要だ。オブジェクトストアは
 IndexedDB の核となる概念だ。他のデータベースにおけるテーブルまたはコレクションに相当する。データが保存されている場所だ。データベースには、利用者用、商品用など、複数のストアが存在する場合がある。 「オブジェクト」ストアという名前だが、プリミティブも格納できる。</p>
-<p>複雑なオブジェクトを含む、ほとんどすべての値を格納することができる。 IndexedDB
-は標準的なシリアライズアルゴリズムを使用して、オブジェクトを複製して保存する。これは <code class="docutils literal notranslate"><span class="pre">JSON.stringify()</span></code> のようなものだ、より強力で、より多くのデータ型を格納できる。保存できないオブジェクトの例として、循環参照を持つオブジェクトがある。このようなオブジェクトはシリアライズできない。 <code class="docutils literal notranslate"><span class="pre">JSON.stringify()</span></code> もこのようなオブジェクトに対しては失敗する。</p>
+<p>複雑なオブジェクトを含む、ほとんどすべての値を格納することができる。IndexedDB は標準的なシリアライズアルゴリズムを使用して、オブジェクトを複製して保存する。これは <code class="docutils literal notranslate"><span class="pre">JSON.stringify()</span></code> のようなものだ、より強力で、より多くのデータ型を格納できる。保存できないオブジェクトの例として、循環参照を持つオブジェクトがある。このようなオブジェクトはシリアライズできない。<code class="docutils literal notranslate"><span class="pre">JSON.stringify()</span></code> もこのようなオブジェクトに対しては失敗する。</p>
 <p>ストア内のすべての値に対して、一意のキーが必要だ。キーは、数値、日付、文字列、バイナリー、配列のいずれかでなければならない。これは一意的な識別子なので、キーによって値の検索、削除、更新を行える。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
@@ -604,14 +604,14 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-<p>オブジェクトストアの作成も変更も、DB のバージョンを更新しながら <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code>
-ハンドラーでしか行えない。</p>
+<p>オブジェクトストアの作成も変更も、DB のバージョンを更新しながら
+<code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> ハンドラーでしか行えない。</p>
 <p>これは技術的な制限だ。ハンドラーの外ではデータの追加、削除、更新ができるようになるが、オブジェクトストアはバージョン更新中にしか作成、削除、変更することができない。</p>
 <p>データベースのバージョンをアップグレードするには、主な方法が二つある。</p>
 <ol class="arabic simple">
-<li><p>バージョン 1 から 2 へ、2 から 3 へ、3 から 4 へなど、バージョンごとのアップグレード機能を実装することができる。 <code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> でバージョンを比較し、中間バージョンごとに段階的にバージョンごとのアップグレードが可能だ。</p></li>
+<li><p>バージョン 1 から 2 へ、2 から 3 へ、3 から 4 へなど、バージョンごとのアップグレード機能を実装することができる。<code class="docutils literal notranslate"><span class="pre">upgradeneeded</span></code> でバージョンを比較し、中間バージョンごとに段階的にバージョンごとのアップグレードが可能だ。</p></li>
 <li><p>あるいは、データベースを調べることもできる。既存のオブジェクトストアの一覧を
-<code class="docutils literal notranslate"><span class="pre">db.objectStoreNames</span></code> として得る。このオブジェクトは``DOMStringList`` 型で、メソッド <code class="docutils literal notranslate"><span class="pre">contains(name)</span></code> で存在するかどうかをチェックできる。そして、何が存在して、何が存在しないかによって、更新できる。</p></li>
+<code class="docutils literal notranslate"><span class="pre">db.objectStoreNames</span></code> として得る。このオブジェクトは <code class="docutils literal notranslate"><span class="pre">DOMStringList</span></code> 型で、メソッド <code class="docutils literal notranslate"><span class="pre">contains(name)</span></code> で存在するかどうかをチェックできる。そして、何が存在して、何が存在しないかによって、更新できる。</p></li>
 </ol>
 <p>小規模なデータベースでは、後者の方法がより単純かもしれない。デモ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;db&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
@@ -633,8 +633,8 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">deleteObjectStore</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="transactions">
+</section>
+<section id="transactions">
 <h3>Transactions<a class="headerlink" href="#transactions" title="Permalink to this heading">¶</a></h3>
 <p>トランザクションという用語は一般的なもので、多くの種類のデータベースで用いられている。トランザクションはオールオアナッシングである一連の操作だ。例えば、ある人が何かを買うと、次のような処理が必要だ：</p>
 <ol class="arabic simple">
@@ -647,15 +647,15 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><cite>store</cite>: トランザクションがアクセスしようとするストア名。複数のストアにアクセスする場合は、ストア名の配列。</p></li>
-<li><p><cite>type</cite>: トランザクション種類。次のいずれか：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">store</span></code>: トランザクションがアクセスしようとするストア名。複数のストアにアクセスする場合は、ストア名の配列。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: トランザクション種類。次のいずれか：</p>
 <ul>
-<li><p><cite>readonly</cite>: 読み取りのみ（既定値）</p></li>
-<li><p><cite>readwrite</cite>: 読み書きのみで、オブジェクトストアの作成、削除、変更は不能。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readonly</span></code>: 読み取りのみ（既定値）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readwrite</span></code>: 読み書きのみで、オブジェクトストアの作成、削除、変更は不能。</p></li>
 </ul>
 </li>
 </ul>
-<p>また、<code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクション型もある。このようなトランザクションは、何でもできるが、手動で作成できない。 IndexedDB はデータベースに接続する際に、アップグレードが必要なハンドラーのために、 <code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクションを自動的に作成する。そのため、データベースの構造を更新したり、オブジェクトストアを作成したり削除したりすることができる単一の場所となる。</p>
+<p>また、<code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクション型もある。このようなトランザクションは、何でもできるが、手動で作成できない。 IndexedDB はデータベースに接続する際に、アップグレードが必要なハンドラーのために、<code class="docutils literal notranslate"><span class="pre">versionchange</span></code> トランザクションを自動的に作成する。そのため、データベースの構造を更新したり、オブジェクトストアを作成したり削除したりすることができる単一の場所となる。</p>
 <p>トランザクションに読み取り専用と読み取り書き込みのラベルを付ける理由は、性能にある。多くの読み取り専用トランザクションは、同じストアに同時にアクセスできるが、読み書きトランザクションはそうはできない。読み書きトランザクションは、書き込みのためにストアをロックする。次のトランザクションは、同じストアにアクセスする前に、前のトランザクションが終了するのを待たねばならない。</p>
 <p>トランザクションが作成されたら、ストアに商品を追加できる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s2">&quot;books&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;readwrite&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1)</span><span class="w"></span>
@@ -692,8 +692,8 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <li><p><code class="docutils literal notranslate"><span class="pre">add()</span></code> に対する <code class="docutils literal notranslate"><span class="pre">request.result</span></code> は新しいオブジェクトのキーだ。</p></li>
 <li><p>もしあれば、エラーは <code class="docutils literal notranslate"><span class="pre">request.error</span></code> で参照できる。</p></li>
 </ul>
-</div>
-<div class="section" id="transactions-autocommit">
+</section>
+<section id="transactions-autocommit">
 <h3>Transactions’ autocommit<a class="headerlink" href="#transactions-autocommit" title="Permalink to this heading">¶</a></h3>
 <p>上の例では、トランザクションを開始し、要求を追加した。しかし、トランザクションには関連する要求が複数あり、それらはすべて成功するか、すべて失敗するかのどちらかでなければならないと述べた。では、トランザクションを終了することを、これ以上要求ないことを示すにはどうすればよいだろうか。</p>
 <p>簡単な答えは「しない」。仕様の次のバージョン 3.0 では、トランザクションを明示的に終了する方法があるだろうが、今の 2.0 ではそれがない。すべてのトランザクション要求が終了し、マイクロタスクキューが空になると、自動的にコミットされる。</p>
@@ -716,8 +716,8 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>IndexedDB は、主に性能上の理由から、トランザクションは短命であるべきだという設計思想だ。</p>
 <p>注目すべきは、<code class="docutils literal notranslate"><span class="pre">readwrite</span></code> トランザクションがストアを書き込み用にロックすることだ。つまり、もしアプリケーションのある部分が <code class="docutils literal notranslate"><span class="pre">book</span></code> オブジェクトストアに対して
 <code class="docutils literal notranslate"><span class="pre">readwrite</span></code> を開始したら、同じことをしたい他の部分は待たなければならない。新しいトランザクションは、最初のものが完了するまで固まっているのだ。これは、トランザクションが長い時間かかる場合、奇妙な遅延につながる可能性がある。</p>
-<p>では、どうすればいいのか。上の例では、新しい要求の直前に新しい
-<code class="docutils literal notranslate"><span class="pre">db.transaction</span></code> を作ることができる (*)。しかし、IndexedDB トランザクションと他の非同期処理を分割して、一つのトランザクションでまとめて処理したい場合は、もっと良い方法だろう。</p>
+<p>では、どうすればいいのか。上の例では、新しい要求の直前に新しい <code class="docutils literal notranslate"><span class="pre">db.transaction</span></code>
+を作ることができる (*)。しかし、IndexedDB トランザクションと他の非同期処理を分割して、一つのトランザクションでまとめて処理したい場合は、もっと良い方法だろう。</p>
 <p>まず、<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> を行い、必要ならデータを準備し、その後、トランザクションを作成し、すべてのデータベース要求を実行する。それからそれが動作する。</p>
 <p>成功の瞬間を検出するには、イベント <code class="docutils literal notranslate"><span class="pre">transaction.oncomplete</span></code> を listen すればよい。</p>
 <p>トランザクションが全体として保存されることを保証するのはイベント <code class="docutils literal notranslate"><span class="pre">complete</span></code> しかない。個々の要求は成功するかもしれないが、最終的な書き込み操作は I/O エラーなどでうまくいかないかもしれない。</p>
@@ -727,8 +727,8 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </div>
 <p>これにより、トランザクション中の要求が行ったすべての変更が取り消され、イベント
 <code class="docutils literal notranslate"><span class="pre">transaction.onabort</span></code> が引き起こされる。</p>
-</div>
-<div class="section" id="error-handling">
+</section>
+<section id="error-handling">
 <h3>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h3>
 <p>書き込み要求は失敗するかもしれない。これは予想されることで、我々の過失の可能性だけでなく、トランザクション自体に関連しない理由によることもある。したがって、そのような場合に対処できるように準備しておく必要がある。</p>
 <p>失敗した要求は自動的にトランザクションを中止し、すべての変更を取り消す。</p>
@@ -757,7 +757,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="section" id="event-delegation">
+<section id="event-delegation">
 <h4>Event delegation<a class="headerlink" href="#event-delegation" title="Permalink to this heading">¶</a></h4>
 <p>すべての要求に対して <code class="docutils literal notranslate"><span class="pre">onerror</span></code>/<code class="docutils literal notranslate"><span class="pre">onsuccess</span></code> を毎回のように設ける必要はなく、代わりにイベント委譲を使えばいい。</p>
 <p>IndexedDB のイベントは <code class="docutils literal notranslate"><span class="pre">request</span></code>, <code class="docutils literal notranslate"><span class="pre">transaction</span></code>, <code class="docutils literal notranslate"><span class="pre">database</span></code> の順に bubble
@@ -770,8 +770,8 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<p>しかし、エラーが完全に処理された場合は報告したくない。
-<code class="docutils literal notranslate"><span class="pre">request.onerror</span></code> の中で <code class="docutils literal notranslate"><span class="pre">event.stopPropagation()</span></code> を使うことで、bubbling を停止して <code class="docutils literal notranslate"><span class="pre">db.onerror</span></code> を停止できる。</p>
+<p>しかし、エラーが完全に処理された場合は報告したくない。<code class="docutils literal notranslate"><span class="pre">request.onerror</span></code> の中で
+<code class="docutils literal notranslate"><span class="pre">event.stopPropagation()</span></code> を使うことで、bubbling を停止して <code class="docutils literal notranslate"><span class="pre">db.onerror</span></code> を停止できる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;ConstraintError&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Book with such id already exists&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// handle the error</span><span class="w"></span>
@@ -787,18 +787,18 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </div>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
-<p>どうも ConstraintError が生じる仕組みを理解しておく必要がありそうだ。</p>
+<p>どうも <code class="docutils literal notranslate"><span class="pre">ConstraintError</span></code> が生じる仕組みを理解しておく必要がありそうだ。</p>
 </div>
-</div>
-</div>
-<div class="section" id="searching">
+</section>
+</section>
+<section id="searching">
 <h3>Searching<a class="headerlink" href="#searching" title="Permalink to this heading">¶</a></h3>
 <p>オブジェクトストアでの検索には、類型が主に二つある：</p>
 <ol class="arabic simple">
 <li><p>キー値またはキー範囲による検索。<code class="docutils literal notranslate"><span class="pre">books</span></code> ストレージでは <code class="docutils literal notranslate"><span class="pre">book.id</span></code> の値または値の範囲だ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">book.price</span></code> など、別のオブジェクトフィールドによる検索。これには、”index”という名前の追加的データ構造が必要だ。</p></li>
 </ol>
-<div class="section" id="by-key">
+<section id="by-key">
 <h4>By key<a class="headerlink" href="#by-key" title="Permalink to this heading">¶</a></h4>
 <p>まず、検索の最初の類型であるキーによる検索を扱う。</p>
 <p>検索メソッドは正確なキー値と、いわゆる「値の範囲」の両方をサポートしている。オブジェクト <code class="docutils literal notranslate"><span class="pre">IDBKeyRange</span></code> は許容される「キーの範囲」を指定する。</p>
@@ -816,15 +816,15 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <p>実際の検索を行うには以下のメソッドがある。これらのメソッドでは引数 <code class="docutils literal notranslate"><span class="pre">query</span></code> に完全一致のキーか、キー範囲を指定する：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">store.get(query)</span></code>: 最初の値をキーまたは範囲指定で検索する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">store.getAll([query],</span> <span class="pre">[count])</span></code>: 値をすべて検索し、与えられた場合は <code class="docutils literal notranslate"><span class="pre">count</span></code>
-で制限する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store.getAll([query],</span> <span class="pre">[count])</span></code>: 値をすべて検索し、与えられた場合は
+<code class="docutils literal notranslate"><span class="pre">count</span></code> で制限する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">store.getKey(query)</span></code>: 問い合わせ（通常は範囲）を満たす最初のキーを検索する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">store.getAllKeys([query],</span> <span class="pre">[count])</span></code>: 問い合わせ（通常は範囲）を満たすキーを全てを、与えられた場合は <code class="docutils literal notranslate"><span class="pre">count</span></code> までを検索する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">store.count([query])</span></code>: 問い合わせ（通常は範囲）を満たすキーの総数を得る。</p></li>
 </ul>
 <p>オブジェクトストアは常にソートされている。オブジェクトストアは内部的にキーで値をソートする。そのため、多くの値を返す要求では、常にキーでソートされた状態で値が返される。</p>
-</div>
-<div class="section" id="by-a-field-using-an-index">
+</section>
+<section id="by-a-field-using-an-index">
 <h4>By a field using an index<a class="headerlink" href="#by-a-field-using-an-index" title="Permalink to this heading">¶</a></h4>
 <p>他のオブジェクトフィールドで検索するには、インデックスというデータ構造を追加的に作成する必要がある。インデックスは、与えられたオブジェクトフィールドを追跡するストアの追加機能だ。そのフィールドの値それぞれに対して、その値を持つオブジェクトのキーのリストを格納する。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">keyPath</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">options</span><span class="p">]);</span><span class="w"></span>
@@ -858,10 +858,6 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </ul>
 <p>ここで在庫に本が四冊あるとする。<code class="docutils literal notranslate"><span class="pre">index</span></code> が何であるかを示すとこうなる：</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>price</p></th>
 <th class="head"><p>list</p></th>
@@ -906,9 +902,9 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </pre></div>
 </div>
 <p>インデックスは、内部的には追跡されたオブジェクトのフィールドでソートされている。この場合、検索を行うと結果も <code class="docutils literal notranslate"><span class="pre">price</span></code> によってソートされる。</p>
-</div>
-</div>
-<div class="section" id="deleting-from-store">
+</section>
+</section>
+<section id="deleting-from-store">
 <h3>Deleting from store<a class="headerlink" href="#deleting-from-store" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">delete()</span></code> は、問い合わせによって削除する値を検索するもので、呼び出し形式は <code class="docutils literal notranslate"><span class="pre">getAll()</span></code> に似ている。</p>
 <ul class="simple">
@@ -931,8 +927,8 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">books</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cursors">
+</section>
+<section id="cursors">
 <h3>Cursors<a class="headerlink" href="#cursors" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">getAll()</span></code>, <code class="docutils literal notranslate"><span class="pre">getAllKeys()</span></code> などは配列を返すが、場合によってはメモリーに収まらないほど巨大な結果となり得る。その場合にはメソッド呼び出しは失敗する。この事態を回避するためにカーソルという手段が用意されている。</p>
 <p>カーソルは特別なオブジェクトであり、問い合わせを与えるとオブジェクト格納域を走査し、一度に一つのキーや値を返すため、メモリーを節約することができる。オブジェクトストアは内部的にキーでソートされているので、カーソルはキー順に走査する。未指定時は昇順。</p>
@@ -977,10 +973,10 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 </div>
 <p>上記の例では、オブジェクトストアに対してカーソルを作成したが、インデックスに対するカーソルを作成することもできまる。インデックス上のカーソルは、オブジェクトストア上のカーソルと全く同じように、一度に値を一つ返すことでメモリーを節約する。インデックスに対するカーソルでは、<code class="docutils literal notranslate"><span class="pre">cursor.key</span></code> はインデックスキーであり、オブジェクトキーには <code class="docutils literal notranslate"><span class="pre">cursor.primaryKey</span></code> プロパティーを用いる必要がある。</p>
 <p>コード略。</p>
-</div>
-<div class="section" id="promise-wrapper">
+</section>
+<section id="promise-wrapper">
 <h3>Promise wrapper<a class="headerlink" href="#promise-wrapper" title="Permalink to this heading">¶</a></h3>
-<p>すべての要求に <code class="docutils literal notranslate"><span class="pre">onsuccess</span></code>/<code class="docutils literal notranslate"><span class="pre">onerror</span></code> を追加するのはかなり面倒な作業だ。イベント委譲、例えばトランザクション全体にハンドラーを設定することで楽にできることもあるが、 <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> の方がずっと便利だ。</p>
+<p>すべての要求に <code class="docutils literal notranslate"><span class="pre">onsuccess</span></code>/<code class="docutils literal notranslate"><span class="pre">onerror</span></code> を追加するのはかなり面倒な作業だ。イベント委譲、例えばトランザクション全体にハンドラーを設定することで楽にできることもあるが、<code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> の方がずっと便利だ。</p>
 <p>この章のさらに先で、薄い <code class="docutils literal notranslate"><span class="pre">Promise</span></code> ラッパー
 &lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt; を使ってみる。これは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 化された
 IndexedDB のメソッドを持つグローバルなオブジェクト <code class="docutils literal notranslate"><span class="pre">idb</span></code> を生成する。すると
@@ -1011,9 +1007,9 @@ IndexedDB のメソッドを持つグローバルなオブジェクト <code cla
 <p class="admonition-title">学習者ノート</p>
 <p>ラッパーの実装を見ないと何も言えない。</p>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h4>Error handling<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
-<p>もし、エラーを捕捉しなければ、最も近くに囲まれている <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> まで0落ちる。捕捉されなかったエラーは、オブジェクト <code class="docutils literal notranslate"><span class="pre">window</span></code> の “unhandled promise
+<p>もし、エラーを捕捉しなければ、最も近くに囲まれている <code class="docutils literal notranslate"><span class="pre">try</span></code> … <code class="docutils literal notranslate"><span class="pre">catch</span></code> まで落ちる。捕捉されなかったエラーは、オブジェクト <code class="docutils literal notranslate"><span class="pre">window</span></code> の “unhandled promise
 rejection” イベントになる。このようなエラーは、次のように処理できる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span><span class="w"> </span><span class="c1">// IndexedDB native request object</span><span class="w"></span>
@@ -1022,8 +1018,8 @@ rejection” イベントになる。このようなエラーは、次のよう�
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="inactive-transaction-pitfall">
+</section>
+<section id="inactive-transaction-pitfall">
 <h4>“Inactive transaction” pitfall<a class="headerlink" href="#inactive-transaction-pitfall" title="Permalink to this heading">¶</a></h4>
 <p>トランザクションはブラウザーが現在のコードとマイクロタスクを終了するとすぐに自動コミットされる。<code class="docutils literal notranslate"><span class="pre">fetch()</span></code> のようなマクロタスクをトランザクションの途中に置くと、トランザクションはその終了を待機するようなことはない。自動コミットするだけだ。そのため、次の要求は失敗する：</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> ラッパーと <code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> の場合も状況は同じだ。次のものはトランザクションの途中で <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> する例だ：</p>
@@ -1042,17 +1038,17 @@ rejection” イベントになる。このようなエラーは、次のよう�
 <li><p>まずデータを準備し、必要なものをすべて取得する。</p></li>
 <li><p>データベースに保存する。</p></li>
 </ol>
-</div>
-<div class="section" id="getting-native-objects">
+</section>
+<section id="getting-native-objects">
 <h4>Getting native objects<a class="headerlink" href="#getting-native-objects" title="Permalink to this heading">¶</a></h4>
 <p>内部的には、ラッパーはネイティブ IndexedDB 要求を実行し、それに
 <code class="docutils literal notranslate"><span class="pre">onerror</span></code>/<code class="docutils literal notranslate"><span class="pre">onsuccess</span></code> を追加し、その結果で拒否か解決をする <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
 <p>ほとんどの場合、これで問題なく動作する。&lt;<a class="reference external" href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a>&gt;</p>
 <p>まれに、元の <code class="docutils literal notranslate"><span class="pre">request</span></code> オブジェクトが必要な場合は、<code class="docutils literal notranslate"><span class="pre">promise.request</span></code> プロパティーでアクセスできる。</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           </div>

@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>オイラー閉路 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,31 +46,31 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id3">オイラー閉路</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">オイラー閉路</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>本稿では <a class="reference external" href="https://networkx.github.io/">NetworkX</a> の提供する、グラフのオイラー閉路を求める機能を応用する例を示す。</p>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id3">オイラー閉路</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id2" id="id4">ドラクエ 7 最適基本職習得キャリアパスを計算する</a></p>
 <ul>
-<li><p><a class="reference internal" href="#nx-is-eulerian" id="id5">関数 <code class="code docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code></a></p></li>
-<li><p><a class="reference internal" href="#nx-eulerian-circuit" id="id6">関数 <code class="code docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code></a></p></li>
+<li><p><a class="reference internal" href="#nx-is-eulerian" id="id5">関数 <code class="docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code></a></p></li>
+<li><p><a class="reference internal" href="#nx-eulerian-circuit" id="id6">関数 <code class="docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code></a></p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id4">ドラクエ 7 最適基本職習得キャリアパスを計算する</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="id2">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">ドラクエ 7 最適基本職習得キャリアパスを計算する</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>前置きが長くなるが、オリジナル版のドラクエ 7 の転職システムの一部である「職歴技」についておおまかに説明する。以下の説明は厳密に言えばゲームのルールと異なるが、あくまでこれからモデル化するグラフの説明のための表現なのでどうか勘弁して欲しい。</p>
 <p>ゲーム中のある時点で、主人公とその仲間たちは「せんし」や「まほうつかい」といった基本職に任意に就職することができる。さらに、ある職業と別の職業にそれぞれ一定期間連続して就職すると、特別な呪文・特技（以下、これらをスキルとまとめて呼ぶ）を修得するという仕様があった。この一定期間がかなり時間的に長いことと、特別スキルのない職業同士の順序で就職すると時間の無駄になるため、ゲームプレイヤーとしては可能な限り効率的に基本職のマスター順序を計画しておきたい。</p>
 <p>そこで本稿では、各基本職と意味のある転職をそれぞれノード、エッジに見立てた無向グラフを考える。仮にこのグラフが（準）オイラーグラフであれば、そのノード順に就職していくのが最適解であると結論できる。</p>
-<div class="section" id="nx-is-eulerian">
-<h3><a class="toc-backref" href="#id5">関数 <code class="code docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code></a><a class="headerlink" href="#nx-is-eulerian" title="Permalink to this heading">¶</a></h3>
+<section id="nx-is-eulerian">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code></a><a class="headerlink" href="#nx-is-eulerian" title="Permalink to this heading">¶</a></h3>
 <p>まずはグラフを生成し、ダメ元で関数 <code class="docutils literal notranslate"><span class="pre">nx.is_eulerian</span></code> を適用してみよう。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;eulerian.py: demonstrate NetworkX is_eulerian and eulerian_circuit.</span>
@@ -185,7 +183,7 @@
 </pre></div>
 </div>
 <p>これをこのまま実行すると、オイラー閉路を標準出力に書き出さずに終了してしまう。これでグラフがオイラーグラフではないことがわかった。しかし希望はある。元々グラフに期待しているのは（準）オイラーグラフであることなので、オイラー閉路でないのは仕方がないのだ。そこで、このグラフを少々加工してオイラーグラフ化することを考える。ゲーム的に言えば、無駄な職歴を少しは重ねることを認める。</p>
-<p>具体的には、元のグラフの奇点を列挙して、それらの間に上手にエッジを追加または削除をして（準）オイラーグラフ化する。まず、各ノードの位数を <code class="code docutils literal notranslate"><span class="pre">G.degree()</span></code> で確かめる。次の出力は <code class="code docutils literal notranslate"><span class="pre">pprint.pprint(G.degree())</span></code> の結果である。</p>
+<p>具体的には、元のグラフの奇点を列挙して、それらの間に上手にエッジを追加または削除をして（準）オイラーグラフ化する。まず、各ノードの位数を <code class="docutils literal notranslate"><span class="pre">G.degree()</span></code> で確かめる。次の出力は <code class="docutils literal notranslate"><span class="pre">pprint.pprint(G.degree())</span></code> の結果である。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&#39;おどりこ&#39;: 8,
 <span class="hll"> &#39;ぎんゆうしじん&#39;: 7,
 </span> &#39;せんし&#39;: 6,
@@ -198,16 +196,16 @@
 </span> &#39;わらわせし&#39;: 6}
 </pre></div>
 </div>
-<p>「ぎんゆうしじん」、「とうぞく」、「ぶとうか」、「まほうつかい」の 4 職業が奇点だ。先程のコードを見ると、上手い具合に「ぎんゆうしじん」「ぶとうか」の間および「とうぞく」「まほうつかい」の間にエッジがある。前者のエッジのスキルは「おたけび」であるが、これは職歴技としては価値ゼロであり（なぜなら「ぶとうか」単体でカバーできるから）、後者のエッジのスキル「マホトラ」は習得呪文としてはレアなので、早いうちにマスターしたい。</p>
-</div>
-<div class="section" id="nx-eulerian-circuit">
-<h3><a class="toc-backref" href="#id6">関数 <code class="code docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code></a><a class="headerlink" href="#nx-eulerian-circuit" title="Permalink to this heading">¶</a></h3>
-<p>というわけで、先のコードの <code class="docutils literal notranslate"><span class="pre">print_cycle</span></code> 呼び出し以降に次の処理を入れることで、オイラー閉路が得られる。「マホトラ」エッジの端点である「まほうつかい」をオイラー閉路の始終点に指定しよう。</p>
+<p>「ぎんゆうしじん」、「とうぞく」、「ぶとうか」、「まほうつかい」の四職業が奇点だ。先程のコードを見ると、上手い具合に「ぎんゆうしじん」「ぶとうか」の間および「とうぞく」「まほうつかい」の間にエッジがある。前者のエッジのスキルは「おたけび」であるが、これは職歴技としては価値ゼロであり（なぜなら「ぶとうか」単体でカバーできるから）、後者のエッジのスキル「マホトラ」は習得呪文としてはレアなので、早いうちにマスターしたい。</p>
+</section>
+<section id="nx-eulerian-circuit">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code></a><a class="headerlink" href="#nx-eulerian-circuit" title="Permalink to this heading">¶</a></h3>
+<p>というわけで、先のコードの <code class="docutils literal notranslate"><span class="pre">print_cycle</span></code> 呼び出し以降に次の処理を入れることで、オイラー閉路が得られる。 「マホトラ」エッジの端点である「まほうつかい」をオイラー閉路の始終点に指定しよう。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="s1">&#39;ぎんゆうしじん&#39;</span><span class="p">,</span> <span class="s1">&#39;ぶとうか&#39;</span><span class="p">)</span>
     <span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="s1">&#39;まほうつかい&#39;</span><span class="p">,</span> <span class="s1">&#39;とうぞく&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>出力例を示す。なお、関数 <code class="code docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code> の結果は実行するごとにランダムに変わるようなので、再度実行してもこれと同じ結果が得られない場合がある。</p>
+<p>出力例を示す。なお、関数 <code class="docutils literal notranslate"><span class="pre">nx.eulerian_circuit</span></code> の結果は実行するごとにランダムに変わるようなので、再度実行してもこれと同じ結果が得られない場合がある。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(&#39;まほうつかい&#39;, &#39;わらわせし&#39;) メダパニ
 (&#39;わらわせし&#39;, &#39;ぶとうか&#39;) しっぺ返し
 (&#39;ぶとうか&#39;, &#39;ひつじかい&#39;) マトンアタック
@@ -240,9 +238,9 @@
 </pre></div>
 </div>
 <p>このオイラー閉路職歴の最初または最後に「とうぞく」を追加したものが、本問題における最適キャリアの条件を満たす（実際にはモンスター職コンプリートや基本職固有の戦闘回数ノルマの大小も加味してパスを調整したい）。もっとも、2014 年現在では、PS 版オリジナルよりは職歴技システムが完全に廃止されている 3DS 版のリメイクを遊ぶほうがよさそうだが。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

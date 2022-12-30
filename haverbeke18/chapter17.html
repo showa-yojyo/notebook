@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Drawing on Canvas &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
@@ -49,11 +47,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="drawing-on-canvas">
-<h1><a class="toc-backref" href="#id2">Drawing on Canvas</a><a class="headerlink" href="#drawing-on-canvas" title="Permalink to this heading">¶</a></h1>
+  <section id="drawing-on-canvas">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">Drawing on Canvas</a><a class="headerlink" href="#drawing-on-canvas" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 17 の読書ノート。</p>
 <p>ブラウザーでグラフィックスを扱う方法はいくつかある。一つは SVG であり、もう一つはキャンバスだ。前者はベクトルデータ、後者はラスターデータという際立った違いがある。</p>
-<div class="contents topic" id="id1">
+<nav class="contents" id="id1">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#drawing-on-canvas" id="id2">Drawing on Canvas</a></p>
@@ -82,9 +80,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="svg">
-<h2><a class="toc-backref" href="#id3">SVG</a><a class="headerlink" href="#svg" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="svg">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">SVG</a><a class="headerlink" href="#svg" title="Permalink to this heading">¶</a></h2>
 <p>本書では SVG を細かく述べることはしない。</p>
 <p>これは単純な SVG 画像のある HTML 文書だ：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Normal HTML here.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -95,8 +93,7 @@
 </pre></div>
 </div>
 <ul>
-<li><p>属性 <code class="docutils literal notranslate"><span class="pre">xmlns</span></code> は要素を異なる XML 名前空間に変える。
-URL により識別されるこの名前空間は、現在使っている方言を指定する。</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">xmlns</span></code> は要素を異なる XML 名前空間に変える。URL により識別されるこの名前空間は、現在使っている方言を指定する。</p></li>
 <li><p>HTML には存在しない <code class="docutils literal notranslate"><span class="pre">&lt;circle&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;rect&gt;</span></code> タグは SVG においては意味がある。属性が指定するスタイルと位置を使って図形を描画する。</p></li>
 <li><p>これらのタグは DOM 要素を生成する。HTML タグと同様に JavaScript から操作できる。例えば次のようなコードは有効だ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;circle&quot;</span><span class="p">);</span><span class="w"></span>
@@ -105,12 +102,16 @@ URL により識別されるこの名前空間は、現在使っている方言�
 </div>
 </li>
 </ul>
-<p>ノート：Google Chrome などの開発ツールを使えば上記のコード片を簡単に試せる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Google Chrome などの開発ツールを使えば上記のコード片を簡単に試せる。</p>
 </div>
-<div class="section" id="the-canvas-element">
-<h2><a class="toc-backref" href="#id4">The canvas element</a><a class="headerlink" href="#the-canvas-element" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-canvas-element">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">The canvas element</a><a class="headerlink" href="#the-canvas-element" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>キャンバスグラフィックは <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に描画できる。このような要素に属性 <code class="docutils literal notranslate"><span class="pre">width</span></code> と <code class="docutils literal notranslate"><span class="pre">height</span></code> をピクセル単位で与えて寸法を決められる。</p></li>
+<li><p>キャンバスグラフィックは <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に描画できる。このような要素に属性
+<code class="docutils literal notranslate"><span class="pre">width</span></code> と <code class="docutils literal notranslate"><span class="pre">height</span></code> をピクセル単位で与えて寸法を決められる。</p></li>
 <li><p>新しいキャンバスは空だ。完全に透明なので、文書内の何もない空間として現れる。</p></li>
 <li><p>タグ <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> は色々なスタイルの描画を可能にすることを意図している。現在は次の二つの描画スタイルが広くサポートされている：</p>
 <ul>
@@ -138,9 +139,9 @@ URL により識別されるこの名前空間は、現在使っている方言�
 <li><p>コードから想像されるような図形が描画される。</p></li>
 <li><p>キャンバスの座標系は HTML 同様、左上隅を原点とし、そこから Y 軸が画面下方に向かう。</p></li>
 </ul>
-</div>
-<div class="section" id="lines-and-surfaces">
-<h2><a class="toc-backref" href="#id5">Lines and surfaces</a><a class="headerlink" href="#lines-and-surfaces" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="lines-and-surfaces">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Lines and surfaces</a><a class="headerlink" href="#lines-and-surfaces" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>キャンバスインターフェイスでは図形に対して、その領域に一定の色やパターンを与えて塗りつぶしたり、輪郭に沿って線を引いたりすることができる。同じ用語が SVG でも使われる。</p>
 <ul>
@@ -150,8 +151,7 @@ URL により識別されるこの名前空間は、現在使っている方言�
 </li>
 <li><p>どちらのメソッドもこれ以上の引数は取らない。塗りつぶしの色、線の太さなどはメソッドの引数ではなく、コンテキストオブジェクトのプロパティーが決定する。</p>
 <ul>
-<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">fillStyle</span></code> は図形の塗りつぶし方法を制御する。
-CSS で使われる色記法を用いて色を指定する文字列を値とする。</p></li>
+<li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">fillStyle</span></code> は図形の塗りつぶし方法を制御する。CSS で使われる色記法を用いて色を指定する文字列を値とする。</p></li>
 <li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">strokeStyle</span></code> は描線の色を決定する。</p></li>
 <li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">lineWidth</span></code> は描線の太さを決定する。任意の正の数を指定できる。</p></li>
 </ul>
@@ -167,9 +167,9 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <ul class="simple">
 <li><p>このコードで <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> に <code class="docutils literal notranslate"><span class="pre">width</span></code> や <code class="docutils literal notranslate"><span class="pre">height</span></code> が指定されていないことに注意。既定値が適用される。</p></li>
 </ul>
-</div>
-<div class="section" id="paths">
-<h2><a class="toc-backref" href="#id6">Paths</a><a class="headerlink" href="#paths" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="paths">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Paths</a><a class="headerlink" href="#paths" title="Permalink to this heading">¶</a></h2>
 <p>パスとは線分の列だ。2D キャンバスインターフェイスはパスを記述するのに独特のアプローチをとる。これは完全に副作用でなされるものだ。パスは保存したり受け渡したりするような値ではない。パスで何かをするときには、その形状を記述するためにメソッドをいくつか続けて呼び出す。</p>
 <p>次の例 (pp. 298-299) は水平な線分を 9 本描くものだ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">cx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><span class="w"></span>
@@ -204,9 +204,9 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <span class="nx">cx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="curves">
-<h2><a class="toc-backref" href="#id7">Curves</a><a class="headerlink" href="#curves" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="curves">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Curves</a><a class="headerlink" href="#curves" title="Permalink to this heading">¶</a></h2>
 <p>パスには真っ直ぐな線分だけではなく、簡単な曲線も含められる。</p>
 <ul class="simple">
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">quadraticCurveTo</span></code> は指定した点に曲線を描く。</p>
@@ -268,9 +268,9 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="drawing-a-pie-chart">
-<h2><a class="toc-backref" href="#id8">Drawing a pie chart</a><a class="headerlink" href="#drawing-a-pie-chart" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="drawing-a-pie-chart">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Drawing a pie chart</a><a class="headerlink" href="#drawing-a-pie-chart" title="Permalink to this heading">¶</a></h2>
 <p>次の JSON 風データから円グラフを描くことを考える：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Satisfied&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="mf">1043</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;lightblue&quot;</span><span class="p">},</span><span class="w"></span>
@@ -280,8 +280,7 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
-<p>円グラフを構成する扇形の内角を <code class="docutils literal notranslate"><span class="pre">count</span></code> の割合に応じて計算するところまで示すと次のようなコード
-(p. 303) になる：</p>
+<p>円グラフを構成する扇形の内角を <code class="docutils literal notranslate"><span class="pre">count</span></code> の割合に応じて計算するところまで示すと次のようなコード (p. 303) になる：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;200&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;200&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
 <span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">cx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><span class="w"></span>
@@ -303,9 +302,9 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 </pre></div>
 </div>
 <p>ラベルを付けたいので、次にキャンバスにテキストを追加する。</p>
-</div>
-<div class="section" id="text">
-<h2><a class="toc-backref" href="#id9">Text</a><a class="headerlink" href="#text" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="text">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Text</a><a class="headerlink" href="#text" title="Permalink to this heading">¶</a></h2>
 <p>テキストを描くメソッドには <code class="docutils literal notranslate"><span class="pre">fillText</span></code> と <code class="docutils literal notranslate"><span class="pre">strokeText</span></code> がある。後者はアウトラインしている文字には便利だが、ふつうは <code class="docutils literal notranslate"><span class="pre">fillText</span></code> が必要とするものだ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">cx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="nx">cx</span><span class="p">.</span><span class="nx">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;28px Georgia&quot;</span><span class="p">;</span><span class="w"></span>
@@ -334,16 +333,17 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="images">
-<h2><a class="toc-backref" href="#id10">Images</a><a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="images">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Images</a><a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h2>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> はピクセルデータをキャンバスに描く。</p>
 <ul class="simple">
 <li><p>ピクセルデータは <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素や他のキャンバスから取得する。</p></li>
 </ul>
 <p>次の例では <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 要素を作成して画像ファイルを読み込む。</p>
 <ul class="simple">
-<li><p>ブラウザーがまだ読み込めていない可能性があるのですぐには描き始めない。イベント <code class="docutils literal notranslate"><span class="pre">load</span></code> のハンドラーを登録して、読み込まれてから描画する。</p></li>
+<li><p>ブラウザーがまだ読み込めていない可能性があるのですぐには描き始めない。イベント
+<code class="docutils literal notranslate"><span class="pre">load</span></code> のハンドラーを登録して、読み込まれてから描画する。</p></li>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">cx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;canvas&quot;</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span><span class="w"></span>
@@ -388,9 +388,9 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <ul class="simple">
 <li><p>変数 <code class="docutils literal notranslate"><span class="pre">cycle</span></code> はアニメーション内の位置を追跡する。各フレームでこの値をインクリメントして、適宜剰余演算子を使って 0 から 7 の範囲に収める。この値は現在のスプライトの全画像における x 座標を計算する。</p></li>
 </ul>
-</div>
-<div class="section" id="transformation">
-<h2><a class="toc-backref" href="#id11">Transformation</a><a class="headerlink" href="#transformation" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="transformation">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Transformation</a><a class="headerlink" href="#transformation" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">scale</span></code> を呼び出すと、以降の描画に拡縮変換が施される。このメソッドは引数を二つとる。それぞれ水平方向と垂直方向の係数だ。</p>
 <p>次のコードは円の幅と逆さをそれぞれ 3 倍、半分にする：</p>
@@ -442,9 +442,9 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="storing-and-clearing-transformations">
-<h2><a class="toc-backref" href="#id12">Storing and clearing transformations</a><a class="headerlink" href="#storing-and-clearing-transformations" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="storing-and-clearing-transformations">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Storing and clearing transformations</a><a class="headerlink" href="#storing-and-clearing-transformations" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>OpenGL の <code class="docutils literal notranslate"><span class="pre">glPushMatrix</span></code> や <code class="docutils literal notranslate"><span class="pre">glPopMatrix</span></code> のような仕組みが 2D キャンバスにもある。</p>
 <ul>
@@ -454,13 +454,13 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 </li>
 <li><p>本書 p. 309 の関数 <code class="docutils literal notranslate"><span class="pre">branch</span></code> は座標変換を変更する関数が何をできるかを示している。再帰呼び出しを利用して典型的なフラクタルを描画する。</p></li>
 </ul>
-</div>
-<div class="section" id="back-to-the-game">
-<h2><a class="toc-backref" href="#id13">Back to the game</a><a class="headerlink" href="#back-to-the-game" title="Permalink to this heading">¶</a></h2>
-<p>以上で、前章のゲームのためにキャンバスを使った表示システムを構築するのに十分な知識を得た。新しい表示システムでは、色の着いた箱を見せるだけではなく、ゲーム要素を表現する画像を
-<code class="docutils literal notranslate"><span class="pre">drawImage</span></code> で描く。</p>
+</section>
+<section id="back-to-the-game">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Back to the game</a><a class="headerlink" href="#back-to-the-game" title="Permalink to this heading">¶</a></h2>
+<p>以上で、前章のゲームのためにキャンバスを使った表示システムを構築するのに十分な知識を得た。新しい表示システムでは、色の着いた箱を見せるだけではなく、ゲーム要素を表現する画像を``drawImage`` で描く。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CanvasDisplay</span></code> (pp. 310-311) という別の表示オブジェクトを定義し、前章における <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> と同じインターフェイスを、つまりメソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> と <code class="docutils literal notranslate"><span class="pre">clear</span></code> を備えるようにする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CanvasDisplay</span></code> (pp. 310-311) という別の表示オブジェクトを定義し、前章における <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> と同じインターフェイスを、つまりメソッド <code class="docutils literal notranslate"><span class="pre">syncState</span></code> と
+<code class="docutils literal notranslate"><span class="pre">clear</span></code> を備えるようにする。</p></li>
 <li><p>このオブジェクトは <code class="docutils literal notranslate"><span class="pre">DOMDisplay</span></code> よりわずかに多くの情報を保持する。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">DOM</span></code> 要素のスクロール位置を使うのではなく、独自のビューポートを追跡して、ステージのどの部分を見ているのかを知らせるようにする。</p></li>
@@ -483,7 +483,8 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <li><p>スクロールすることもできるが、その場合には背景を別の位置に変える必要がある。</p></li>
 </ul>
 <hr class="docutils" />
-<p>メソッド <code class="docutils literal notranslate"><span class="pre">updateViewport</span></code> (pp. 311-312) は <code class="docutils literal notranslate"><span class="pre">DOMDisplay.scrollPlayerIntoView</span></code> に似ている。プレイヤーが画面の端に近づき過ぎているかをチェックし、その場合にはビューポートを移動する。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">updateViewport</span></code> (pp. 311-312) は <code class="docutils literal notranslate"><span class="pre">DOMDisplay.scrollPlayerIntoView</span></code>
+に似ている。プレイヤーが画面の端に近づき過ぎているかをチェックし、その場合にはビューポートを移動する。</p>
 <hr class="docutils" />
 <p>表示を消去する (p. 312) ときには、ゲームに勝ったときとそうでないときでは、違う色を使う。</p>
 <hr class="docutils" />
@@ -508,8 +509,7 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 </ul>
 </li>
 <li><p>スプライト幅はプレイヤーオブジェクトのそれよりもわずかに大きい。これは、足や腕のスペースを確保するために 16 ピクセルではなく 24 ピクセルになっているからだ。メソッドでは x 座標と幅を量 <code class="docutils literal notranslate"><span class="pre">playerXOverlap</span></code> により調整しなければならない。</p></li>
-<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">drawPlayer</span></code> (pp. 313-314) は、ゲーム内のすべての出演者の描画を担当するメソッド
-<code class="docutils literal notranslate"><span class="pre">drawActors</span></code> (pp. 314-315) から呼び出される。</p></li>
+<li><p>メソッド <code class="docutils literal notranslate"><span class="pre">drawPlayer</span></code> (pp. 313-314) は、ゲーム内のすべての出演者の描画を担当するメソッド <code class="docutils literal notranslate"><span class="pre">drawActors</span></code> (pp. 314-315) から呼び出される。</p></li>
 </ul>
 <p>プレイヤー以外のものを描くときには、その種類を見て正しいスプライトのオフセットを見つける。溶岩タイルはオフセット 20 に、コインスプライトは 40 にそれぞれある。</p>
 <p>キャンバスの原点はステージの左上隅ではなく、ビューポートの左上隅に対応するので、出演者の位置を計算するときには、ビューポートの位置を差し引かなければならない。</p>
@@ -517,16 +517,13 @@ CSS で使われる色記法を用いて色を指定する文字列を値とす�
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">translate</span></code> を使ってもよい。どちらでも動く。</p></li>
 </ul>
 <p>新しい表示システムの説明は以上だ。スクリーンショットが本書 p.315 にある。</p>
-</div>
-<div class="section" id="choosing-a-graphics-interface">
-<h2><a class="toc-backref" href="#id14">Choosing a graphics interface</a><a class="headerlink" href="#choosing-a-graphics-interface" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="choosing-a-graphics-interface">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Choosing a graphics interface</a><a class="headerlink" href="#choosing-a-graphics-interface" title="Permalink to this heading">¶</a></h2>
 <p>ブラウザー上でグラフィックスを生成する必要があるときには、素の HTML, SVG, キャンバスのいずれかを選択することができることを見てきた。どの選択肢にも長所と短所がある。</p>
 <ul class="simple">
-<li><p>素の HTML は単純であることが長所だ。テキストともよく組み込める。
-SVG もキャンバスもテキストを描くことはできるが、位置を調整することと複数行を折り返すことはできない。
-HTML ベースの画像では、テキストブロックを含めるのがずっと容易だ。</p></li>
-<li><p>SVG はズーム操作に強い。どんな倍率でも見栄えが良い鮮明なグラフィックスを生成する。
-HTML とは異なり、SVG は描画用途に設計されているため、この目的には適している。</p></li>
+<li><p>素の HTML は単純であることが長所だ。テキストともよく組み込める。SVG もキャンバスもテキストを描くことはできるが、位置を調整することと複数行を折り返すことはできない。HTML ベースの画像では、テキストブロックを含めるのがずっと容易だ。</p></li>
+<li><p>SVG はズーム操作に強い。どんな倍率でも見栄えが良い鮮明なグラフィックスを生成する。HTML とは異なり、SVG は描画用途に設計されているため、この目的には適している。</p></li>
 <li><p>SVG も HTML も DOM を構築する。これにより、要素の修正が考えられるようになる。ユーザーの行動に応じたり、アニメーションの一部だったりで、大きな絵の小さな部分を繰り返し変更するような場合、キャンバスで行うと必要以上に高くつく。</p>
 <ul>
 <li><p>DOM では、画像の中のどの要素にもマウスイベントハンドラーを登録することができる。キャンバスではそれができない。</p></li>
@@ -534,16 +531,15 @@ HTML とは異なり、SVG は描画用途に設計されているため、こ�
 </li>
 <li><p>キャンバスのピクセル指向のアプローチは、膨大な数の微小要素を描くようなときには有利だ。データ構造を構築するのではなく、同じピクセル面に繰り返し描画するだけなので、キャンバスでは一図形あたりのコストが安くつく。</p>
 <ul>
-<li><p>また、シーンを 1 ピクセルずつレンダリングするような効果や、
-JavaScript を使って画像を後処理するなどの、ピクセルベースのアプローチでなければ現実的に処理できない効果もキャンバスにならばある。</p></li>
+<li><p>また、シーンを 1 ピクセルずつレンダリングするような効果や、JavaScript を使って画像を後処理するなどの、ピクセルベースのアプローチでなければ現実的に処理できない効果もキャンバスにならばある。</p></li>
 </ul>
 </li>
 </ul>
 <p>場合によっては、これらの手法を組み合わせることもできる。例えば、SVG やキャンバスでグラフを描き、その絵の上に HTML 要素を配置することでテキストによる情報を見せることができる。</p>
 <p>多くを求めないアプリケーションであれば、どのインターフェイスを選ぶかは重要ではない。本章でゲーム用に作成した表示システムは、文字の描画やマウス操作の処理や異常に多い数の要素をさばく必要がないので、これら三つのグラフィックス技術のいずれを用いても実装することもできた。</p>
-</div>
-<div class="section" id="summary">
-<h2><a class="toc-backref" href="#id15">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>本章ではブラウザーでグラフィックスを描画する技術について議論した。特に
 <code class="docutils literal notranslate"><span class="pre">&lt;canvas&gt;</span></code> 要素に焦点を当てた。</p>
@@ -577,18 +573,19 @@ JavaScript を使って画像を後処理するなどの、ピクセルベース
 </li>
 <li><p>2D 描画コンテキストは座標変換をサポートしている。</p>
 <ul>
-<li><p>描画コンテキストには現在の変換情報が保持されている。これをメソッド <code class="docutils literal notranslate"><span class="pre">translate</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate</span></code> でさらに変換できる。</p></li>
+<li><p>描画コンテキストには現在の変換情報が保持されている。これをメソッド
+<code class="docutils literal notranslate"><span class="pre">translate</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate</span></code> でさらに変換できる。</p></li>
 <li><p>座標変換はその後の描画処理すべてに影響する。</p></li>
-<li><p>座標変換はメソッド <code class="docutils literal notranslate"><span class="pre">save</span></code> で保存、 <code class="docutils literal notranslate"><span class="pre">restore</span></code> で復元することができる。</p></li>
+<li><p>座標変換はメソッド <code class="docutils literal notranslate"><span class="pre">save</span></code> で保存、<code class="docutils literal notranslate"><span class="pre">restore</span></code> で復元することができる。</p></li>
 </ul>
 </li>
 <li><p>キャンバスへのアニメーション表示の際、再描画の前にキャンバスの一部を消去するのにメソッド <code class="docutils literal notranslate"><span class="pre">clearRect</span></code> が使える。</p></li>
 </ul>
-</div>
-<div class="section" id="exercises">
-<h2><a class="toc-backref" href="#id16">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="shapes">
-<h3><a class="toc-backref" href="#id17">Shapes</a><a class="headerlink" href="#shapes" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<section id="shapes">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Shapes</a><a class="headerlink" href="#shapes" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> 次の図形をキャンバスに描画するプログラムを書け：</p>
 <ol class="arabic simple">
 <li><p>台形</p></li>
@@ -668,9 +665,9 @@ JavaScript を使って画像を後処理するなどの、ピクセルベース
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-pie-chart">
-<h3><a class="toc-backref" href="#id18">The pie chart</a><a class="headerlink" href="#the-pie-chart" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="the-pie-chart">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">The pie chart</a><a class="headerlink" href="#the-pie-chart" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> この章では、円グラフを描くプログラムの例を紹介した。これを修正して、各カテゴリーの名前を、そのカテゴリーを表すスライスの横に表示しろ。他のデータセットにも適用できるように、このテキストを自動的に配置するための見栄えの良い方法を見つけろ。カテゴリーはラベルのための十分なスペースを確保できる大きさであると仮定してかまわない。</p>
 <p><strong>解答</strong> テキストの配置を見栄え良くするという課題が上手くいかなくて、ここだけヒントを参考にした：</p>
 <p>まず <code class="docutils literal notranslate"><span class="pre">for</span></code> ループの外側でフォントの静的な性質を設定する：</p>
@@ -710,15 +707,15 @@ JavaScript を使って画像を後処理するなどの、ピクセルベース
 <li><p><code class="docutils literal notranslate"><span class="pre">middleAngle</span></code> を計算して <code class="docutils literal notranslate"><span class="pre">fillText</span></code> に入力するラベル位置を決定することは容易に思いつく。</p></li>
 <li><p>急所は <code class="docutils literal notranslate"><span class="pre">textAlign</span></code> を円グラフの左右で指定を分けるという点だ。</p></li>
 </ul>
-</div>
-<div class="section" id="a-bouncing-ball">
-<h3><a class="toc-backref" href="#id19">A bouncing ball</a><a class="headerlink" href="#a-bouncing-ball" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="a-bouncing-ball">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">A bouncing ball</a><a class="headerlink" href="#a-bouncing-ball" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> 第 14 章と第 16 章で紹介した <code class="docutils literal notranslate"><span class="pre">requestAnimationFrame</span></code> の技法を使って、跳ね返るボールが入った箱を描け。ボールは一定の速さで動き、箱の側面に当たると跳ね返る。</p>
 <ul class="simple">
 <li><p>箱は <code class="docutils literal notranslate"><span class="pre">strokeRect</span></code> で容易に描ける。箱の寸法が縦と横で異なるようなら、それらを保持する変数を定義しろ。</p></li>
 <li><p>丸い玉を作るには、パスを始めて <code class="docutils literal notranslate"><span class="pre">arc(x,</span> <span class="pre">y,</span> <span class="pre">radius,</span> <span class="pre">0,</span> <span class="pre">7)</span></code> を呼び出せ。それからパスを塗りつぶせ。</p></li>
 <li><p>玉の位置と速度を模すには第 16 章のクラス <code class="docutils literal notranslate"><span class="pre">Vec</span></code> を使える。初速を与えて、各フレーム（コマ）でその速度と経過時間を乗じろ。</p></li>
-<li><p>玉が垂直に立つ壁に十分過ぎるほど接近するときに速度の <code class="docutils literal notranslate"><span class="pre">x</span></code> 成分を反転しろ。水平の壁に衝突するときには同様にして  <code class="docutils literal notranslate"><span class="pre">y</span></code> 成分を反転しろ。</p></li>
+<li><p>玉が垂直に立つ壁に十分過ぎるほど接近するときに速度の <code class="docutils literal notranslate"><span class="pre">x</span></code> 成分を反転しろ。水平の壁に衝突するときには同様にして <code class="docutils literal notranslate"><span class="pre">y</span></code> 成分を反転しろ。</p></li>
 <li><p>新しい位置と速度を見出したら、シーン全体を <code class="docutils literal notranslate"><span class="pre">clearRect</span></code> で消去し、再描画しろ。</p></li>
 </ul>
 <p><strong>解答</strong> まず以前手に入れた <code class="docutils literal notranslate"><span class="pre">Vec</span></code> のコードを利用可能にしておく。下準備部分のコードは次のようになる：</p>
@@ -787,12 +784,13 @@ JavaScript を使って画像を後処理するなどの、ピクセルベース
 </pre></div>
 </div>
 <p>コードが汚い。</p>
-</div>
-<div class="section" id="precomputed-mirroring">
-<h3><a class="toc-backref" href="#id20">Precomputed mirroring</a><a class="headerlink" href="#precomputed-mirroring" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="precomputed-mirroring">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Precomputed mirroring</a><a class="headerlink" href="#precomputed-mirroring" title="Permalink to this heading">¶</a></h3>
 <p>座標変換の残念な点は、ビットマップの描画が遅くなることだ。各ピクセルの位置とサイズを変換しなければならないので、将来的にはブラウザーが変換をより賢くする可能性もあるが、現在は、ビットマップの描画にかかる時間が大幅に増加する。</p>
 <p>我々のゲームのようなものでは、変換された単一のスプライトを描くだけなのでこのことは問題ではないが、何百ものキャラクターや、爆発で回転する何千もの粒子を描く必要があるとしたらどうだろう。</p>
-<p><strong>問題</strong> 追加の画像ファイルを読み込まずに、また、フレームごとに変換された <code class="docutils literal notranslate"><span class="pre">drawImage</span></code> を呼び出さずに、キャラクターを反転させて描く方法を考えろ。</p>
+<p><strong>問題</strong> 追加の画像ファイルを読み込まずに、また、フレームごとに変換された
+<code class="docutils literal notranslate"><span class="pre">drawImage</span></code> を呼び出さずに、キャラクターを反転させて描く方法を考えろ。</p>
 <p><strong>解答</strong> 課せられた制約は</p>
 <ul class="simple">
 <li><p>画像ファイルは一枚しか使えないことと、</p></li>
@@ -822,9 +820,9 @@ JavaScript を使って画像を後処理するなどの、ピクセルベース
 </pre></div>
 </div>
 <p>以上</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

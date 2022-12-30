@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>多項式 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,11 +46,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id12">多項式</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
-<p>本稿ではモジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys</span></code> のサブモジュールに点在するクラスや関数を可能な限り見ていく。
-<a class="reference external" href="https://www.sympy.org/">SymPy</a> は多項式の取り扱いをかなり重要視しているようで、素人にとっては手に余るほどの豊富な機能を提供している。</p>
-<div class="contents topic" id="id2">
+  <section id="id1">
+<h1><a class="toc-backref" href="#id12" role="doc-backlink">多項式</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>本稿ではモジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys</span></code> のサブモジュールに点在するクラスや関数を可能な限り見ていく。 <a class="reference external" href="https://www.sympy.org/">SymPy</a> は多項式の取り扱いをかなり重要視しているようで、素人にとっては手に余るほどの豊富な機能を提供している。</p>
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id12">多項式</a></p>
@@ -84,7 +81,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
@@ -93,22 +90,21 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id13">基本</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">基本</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>ここで紹介する関数は <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">sympy</span> <span class="pre">import</span> <span class="pre">*</span></code> で利用できるが、モジュールとしては <code class="docutils literal notranslate"><span class="pre">sympy.polys</span></code> にある関数を見ていく。</p>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id14">除算</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
-<p>多項式同士の除算を行うには関数 <code class="code docutils literal notranslate"><span class="pre">div</span></code> を用いる。</p>
+<section id="id4">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">除算</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>多項式同士の除算を行うには関数 <code class="docutils literal notranslate"><span class="pre">div</span></code> を用いる。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">div(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code></dt><dd><p>多項式の Euclid 除法を計算する。商と余りを同時に計算する。</p>
 <ul>
-<li><p>戻り値は tuple オブジェクトで、先頭から順に商、余りだ。</p>
+<li><p>戻り値は <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトで、先頭から順に商、余りだ。</p>
 <ul class="simple">
-<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">polys=True</span></code> を指定すると、商、余りを表現する Poly オブジェクトそれぞれを要素とする
-tuple オブジェクトを得られる。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">polys=True</span></code> を指定すると、商、余りを表現する Poly オブジェクトそれぞれを要素とする <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトを得られる。</p></li>
 </ul>
 </li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain</span></code> で中間生成する Poly オブジェクトがどの整域上のものであるのかを指定する。引数として文字列 <code class="docutils literal notranslate"><span class="pre">'ZZ'</span></code> や <code class="docutils literal notranslate"><span class="pre">'QQ'</span></code> などを指定する。例を示す：</p>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">domain</span></code> で中間生成する <code class="docutils literal notranslate"><span class="pre">Poly</span></code> オブジェクトがどの整域上のものであるのかを指定する。引数として文字列 <code class="docutils literal notranslate"><span class="pre">'ZZ'</span></code> や <code class="docutils literal notranslate"><span class="pre">'QQ'</span></code> などを指定する。例を示す：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">x</span>
 
 <span class="gp">In [2]: </span><span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;QQ&#39;</span><span class="p">)</span>
@@ -143,18 +139,18 @@ tuple オブジェクトを得られる。</p></li>
 </pre></div>
 </div>
 </li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">f</span></code> と <code class="code docutils literal notranslate"><span class="pre">g</span></code> を両方定数にすると、例外 ComputationFailed を送出することで計算を失敗として処理する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> と <code class="docutils literal notranslate"><span class="pre">g</span></code> を両方定数にすると、例外 <code class="docutils literal notranslate"><span class="pre">ComputationFailed</span></code> を送出することで計算を失敗として処理する。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id15">最大公約式と最小公倍式</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">最大公約式と最小公倍式</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>多項式同士の GCD および LCM を計算する関数を利用できる。</p>
 <dl class="simple">
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">gcd(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**kwargs)</span></code>, <code class="code docutils literal notranslate"><span class="pre">gcd_list(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>最大公約式を計算する。</p>
 <ul class="simple">
-<li><p>結果の多項式の最高次数係数がどうなるかは引数に依存する。例えば有理数係数同士の <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> はモニックになる。</p></li>
+<li><p>結果の多項式の最高次数係数がどうなるかは引数に依存する。例えば有理数係数同士の <code class="docutils literal notranslate"><span class="pre">gcd</span></code> はモニックになる。</p></li>
 <li><p>多変数多項式にも対応している。変数はアルファベット順に並んでいる。</p></li>
 </ul>
 </dd>
@@ -164,40 +160,44 @@ tuple オブジェクトを得られる。</p></li>
 </ul>
 </dd>
 </dl>
-<p>どちらも定数同士を評価できるが、別のモジュールに <code class="code docutils literal notranslate"><span class="pre">igcd</span></code>, <code class="code docutils literal notranslate"><span class="pre">ilcm</span></code> という関数がある。しかも複数個の評価ができる。多項式の場合は整数の場合とは異なり、ペアの評価か複数個の評価によって関数を使い分ける。例えば複数個の GCD を求める場合には関数 <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> ではなく関数 <code class="code docutils literal notranslate"><span class="pre">gcd_list</span></code> を用いる。引数 <code class="code docutils literal notranslate"><span class="pre">seq</span></code> にリストなどを渡せばよい。</p>
+<p>どちらも定数同士を評価できるが、別のモジュールに <code class="docutils literal notranslate"><span class="pre">igcd</span></code>, <code class="docutils literal notranslate"><span class="pre">ilcm</span></code> という関数がある。しかも複数個の評価ができる。多項式の場合は整数の場合とは異なり、ペアの評価か複数個の評価によって関数を使い分ける。例えば複数個の GCD を求める場合には関数
+<code class="docutils literal notranslate"><span class="pre">gcd</span></code> ではなく関数 <code class="docutils literal notranslate"><span class="pre">gcd_list</span></code> を用いる。引数 <code class="docutils literal notranslate"><span class="pre">seq</span></code> にリストなどを渡せばよい。</p>
 <dl class="simple">
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">resultant(f,</span> <span class="pre">g,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>多項式同士の集結式を計算する。</p>
 <ul class="simple">
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">includePRS=True</span></code> を指定すれば、主部分終結式係数のリストをも生成する。このとき、戻り値は集結式と主部分終結式係数のリストの tuple オブジェクトとなる。ちなみに後者のみを返す関数 <code class="code docutils literal notranslate"><span class="pre">subresultants</span></code> というものがある。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">includePRS=True</span></code> を指定すれば、主部分終結式係数のリストをも生成する。このとき、戻り値は集結式と主部分終結式係数のリストの
+<code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトとなる。ちなみに後者のみを返す関数 <code class="docutils literal notranslate"><span class="pre">subresultants</span></code>
+というものがある。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id16">無平方因子分解</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">無平方因子分解</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>ここでは square-free factorization を無平方因子分解と呼ぶことにする。</p>
 <dl class="simple">
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">sqf(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">sqf_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>多項式を無平方因子分解する。</p>
 <ul class="simple">
 <li><p>多変数多項式も対応する。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">sqf</span></code> の戻り値は単に多項式である。一方 <code class="code docutils literal notranslate"><span class="pre">sqf_list</span></code> の戻り値は次の構造の tuple オブジェクトである。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">sqf</span></code> の戻り値は単に多項式である。一方 <code class="docutils literal notranslate"><span class="pre">sqf_list</span></code> の戻り値は次の構造の
+<code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトである：</p>
 <ol class="arabic simple">
 <li><p>無平方因子分解の最高次数項の係数</p></li>
-<li><p>無平方因数とその指数からなるペアを並べた list オブジェクト</p></li>
+<li><p>無平方因数とその指数からなるペアを並べた <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクト</p></li>
 </ol>
 </li>
 </ul>
 </dd>
 </dl>
-<p>他にも <code class="code docutils literal notranslate"><span class="pre">sqf_</span></code> な関数はある。</p>
-</div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id17">因数分解</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>他にも <code class="docutils literal notranslate"><span class="pre">sqf_</span></code> な関数はある。</p>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">因数分解</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">factor(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">factor_list(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>多項式を（デフォルトでは有理数の範囲で）因数分解する。</p>
 <ul>
 <li><p>一変数多項式だけではなく、多変数多項式も因数分解する。</p></li>
-<li><p>定数を因数分解させると、引数そのものが戻り値として得られる。特に整数を因数分解したい場合は、別に関数 <code class="code docutils literal notranslate"><span class="pre">factorint</span></code> が用意されている。</p></li>
+<li><p>定数を因数分解させると、引数そのものが戻り値として得られる。特に整数を因数分解したい場合は、別に関数 <code class="docutils literal notranslate"><span class="pre">factorint</span></code> が用意されている。</p></li>
 <li><p>キーワード引数各種により因数分解の範囲を「拡大」できる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">factor</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">gaussian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gh">Out[1]: </span><span class="go">(x - I)*(x + I)</span>
@@ -213,21 +213,21 @@ tuple オブジェクトを得られる。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="grobner">
-<h3><a class="toc-backref" href="#id18">Gröbner 基底</a><a class="headerlink" href="#grobner" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="grobner">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Gröbner 基底</a><a class="headerlink" href="#grobner" title="Permalink to this heading">¶</a></h3>
 <p>多項式の方程式を解くのに用いられる概念である。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">groebner(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>Gröbner 基底を計算する。</p>
-<p>最初の引数の <code class="code docutils literal notranslate"><span class="pre">F</span></code> が多項式のコレクションを指定して、次に多項式の変数を引数リストに並べて呼び出す。</p>
+<p>最初の引数の <code class="docutils literal notranslate"><span class="pre">F</span></code> が多項式のコレクションを指定して、次に多項式の変数を引数リストに並べて呼び出す。</p>
 <ul class="simple">
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">order</span></code> で基底の項順序を指定することができる。デフォルトでは <code class="code docutils literal notranslate"><span class="pre">order='lex'</span></code> とのこと。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">order</span></code> で基底の項順序を指定することができる。デフォルトでは <code class="code docutils literal notranslate"><span class="pre">order='lex'</span></code> とのこと。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id8">
-<h3><a class="toc-backref" href="#id19">多項式の方程式、連立方程式を解く</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">多項式の方程式、連立方程式を解く</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>以下では「多項式の方程式」という用語は polynomial equation(s) を指す。これらの関数を用いる際には、多項式変数シンボルを引数リストで明示的に指定する。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">solve(f,</span> <span class="pre">*symbols,</span> <span class="pre">**flags)</span></code>, <code class="code docutils literal notranslate"><span class="pre">solve_poly_system(seq,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>汎用の方程式ソルバーが多項式方程式を解く際にも用いられる。</p>
@@ -259,12 +259,12 @@ tuple オブジェクトを得られる。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="id9">
-<h2><a class="toc-backref" href="#id20">モジュール別</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="sympy-polys-polytools">
-<h3><a class="toc-backref" href="#id21">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polytools</span></code></a><a class="headerlink" href="#sympy-polys-polytools" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="id9">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">モジュール別</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="sympy-polys-polytools">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polytools</span></code></a><a class="headerlink" href="#sympy-polys-polytools" title="Permalink to this heading">¶</a></h3>
 <div class="admonition-todo admonition" id="id10">
 <p class="admonition-title">Todo</p>
 <p>調査中。関数名を見れば何とかなりそうだ。</p>
@@ -284,11 +284,11 @@ tuple オブジェクトを得られる。</p></li>
 <li><p>関数 <code class="code docutils literal notranslate"><span class="pre">real_roots(f,</span> <span class="pre">multiple=True)</span></code></p></li>
 <li><p>関数 <code class="code docutils literal notranslate"><span class="pre">cancel(f,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="sympy-polys-polyfuncs">
-<h3><a class="toc-backref" href="#id22">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyfuncs</span></code></a><a class="headerlink" href="#sympy-polys-polyfuncs" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-polyfuncs">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyfuncs</span></code></a><a class="headerlink" href="#sympy-polys-polyfuncs" title="Permalink to this heading">¶</a></h3>
 <dl>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetrize(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>与えられた対称多項式をいくつかの基本対称式の和として書き換える。戻り値は対称式の tuple オブジェクトなので、受け取る側でこれを <code class="code docutils literal notranslate"><span class="pre">sum</span></code> すれば全体になる。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetrize(F,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>与えられた対称多項式をいくつかの基本対称式の和として書き換える。戻り値は対称式の <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトなので、受け取る側でこれを <code class="docutils literal notranslate"><span class="pre">sum</span></code> すれば全体になる。</p>
 <ul>
 <li><p>引数が対称でない多項式でもエラーなしで呼び出せる。戻り値内の多項式に、元の多項式に含まれていた文字が残ってしまうだけ。</p></li>
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">formal=True</span></code> を指定すること、基本対称式を名前で出してくれる。</p>
@@ -299,7 +299,8 @@ tuple オブジェクトを得られる。</p></li>
 </li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolate(data,</span> <span class="pre">x)</span></code></dt><dd><p>引数の点列データを通過するような多項式を生成する。補間。データ <code class="code docutils literal notranslate"><span class="pre">data</span></code> の型は list か dict で通じる。次のものはどれも同じ多項式を生成する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolate(data,</span> <span class="pre">x)</span></code></dt><dd><p>引数の点列データを通過するような多項式を生成する。補間。データ <code class="docutils literal notranslate"><span class="pre">data</span></code> の型は
+<code class="docutils literal notranslate"><span class="pre">list</span></code> か <code class="docutils literal notranslate"><span class="pre">dict</span></code> で通じる。次のものはどれも同じ多項式を生成する。</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">[(1,</span> <span class="pre">1),</span> <span class="pre">(2,</span> <span class="pre">4),</span> <span class="pre">(3,</span> <span class="pre">9),</span> <span class="pre">(4,</span> <span class="pre">16)]</span></code></p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">{1:1,</span> <span class="pre">2:4,</span> <span class="pre">3:9,</span> <span class="pre">4:16}</span></code></p></li>
@@ -318,21 +319,21 @@ tuple オブジェクトを得られる。</p></li>
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-numberfields">
-<h3><a class="toc-backref" href="#id23">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.numberfields</span></code></a><a class="headerlink" href="#sympy-polys-numberfields" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-numberfields">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.numberfields</span></code></a><a class="headerlink" href="#sympy-polys-numberfields" title="Permalink to this heading">¶</a></h3>
 <p>代数的数、代数体、その辺り。多項式の話題から離れる可能性がある。</p>
 <dl class="simple">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">minimal_polynomial(ex,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">minpoly</span></code></dt><dd><p>代数的数の最小多項式を求める。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">minimal_polynomial(ex,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="docutils literal notranslate"><span class="pre">minpoly</span></code></dt><dd><p>代数的数の最小多項式を求める。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">minpoly</span></code> は単なる別名。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">domain</span></code> で最小多項式をどの体上で求めるかを指定できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minpoly</span></code> は単なる別名。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">domain</span></code> で最小多項式をどの体上で求めるかを指定できる。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-monomials">
-<h3><a class="toc-backref" href="#id24">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.monomials</span></code></a><a class="headerlink" href="#sympy-polys-monomials" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-monomials">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.monomials</span></code></a><a class="headerlink" href="#sympy-polys-monomials" title="Permalink to this heading">¶</a></h3>
 <p>単項式関連のモジュールだ。関数だけ見ていく。</p>
 <dl class="simple">
 <dt>ジェネレーター <code class="code docutils literal notranslate"><span class="pre">itermonomials(variables,</span> <span class="pre">degree)</span></code></dt><dd><p>指定次数の単項式に含まれるすべての単項式を返す。</p>
@@ -340,17 +341,17 @@ tuple オブジェクトを得られる。</p></li>
 <li><p>次数ゼロの項、すなわち <code class="docutils literal notranslate"><span class="pre">1</span></code> をも返す。</p></li>
 <li><p>返ってくる単項式の順序は不定。受け取り側で適宜ソートすればよい。</p>
 <ul>
-<li><p>ソートのキーには別モジュールにある関数 <code class="code docutils literal notranslate"><span class="pre">monomial_key</span></code> という（ドキュメントがないようだ）ものを用いる。</p></li>
+<li><p>ソートのキーには別モジュールにある関数 <code class="docutils literal notranslate"><span class="pre">monomial_key</span></code> という（ドキュメントがないようだ）ものを用いる。</p></li>
 </ul>
 </li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">monomial_count(V,</span> <span class="pre">N)</span></code></dt><dd><p>相異なる <code class="code docutils literal notranslate"><span class="pre">V</span></code> 個の文字からなる <code class="code docutils literal notranslate"><span class="pre">N</span></code> 次多項式が含む単項式の個数を返す。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">monomial_count(V,</span> <span class="pre">N)</span></code></dt><dd><p>相異なる <code class="docutils literal notranslate"><span class="pre">V</span></code> 個の文字からなる <code class="docutils literal notranslate"><span class="pre">N</span></code> 次多項式が含む単項式の個数を返す。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-polyroots">
-<h3><a class="toc-backref" href="#id25">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyroots</span></code></a><a class="headerlink" href="#sympy-polys-polyroots" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-polyroots">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.polyroots</span></code></a><a class="headerlink" href="#sympy-polys-polyroots" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">roots(f,</span> <span class="pre">*gens,</span> <span class="pre">**flags)</span></code></dt><dd><p>一変数多項式の根を計算する。</p>
 <p>色々とキーワード引数があるが、利用する可能性のあるのはこれぐらいか。</p>
@@ -358,7 +359,7 @@ tuple オブジェクトを得られる。</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">filter=R</span></code> などのようにして、根を求める範囲を限定できる。</p>
 <ul class="simple">
 <li><p>デフォルトでは複素数の範囲になっている。すなわち <code class="code docutils literal notranslate"><span class="pre">filter=C</span></code> だ。</p></li>
-<li><p>別の関数では <code class="code docutils literal notranslate"><span class="pre">domain</span></code> と言っていた。</p></li>
+<li><p>別の関数では <code class="docutils literal notranslate"><span class="pre">domain</span></code> と言っていた。</p></li>
 </ul>
 </li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">multiple=True</span></code> とすると、重根を丁寧に出力するようだ。</p>
@@ -379,24 +380,24 @@ tuple オブジェクトを得られる。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-specialpolys">
-<h3><a class="toc-backref" href="#id26">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.specialpolys</span></code></a><a class="headerlink" href="#sympy-polys-specialpolys" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-specialpolys">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.specialpolys</span></code></a><a class="headerlink" href="#sympy-polys-specialpolys" title="Permalink to this heading">¶</a></h3>
 <p>わかる範囲で。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">interpolating_poly(n,</span> <span class="pre">x,</span> <span class="pre">X='x',</span> <span class="pre">Y='y')</span></code></dt><dd><p>Lagrange の補間多項式を生成する。</p>
 <ul class="simple">
-<li><p>第 1 引数は補間点列の点数。</p></li>
-<li><p>第 2 引数は多項式の変数文字を指定する。</p></li>
+<li><p>第一引数は補間点列の点数。</p></li>
+<li><p>第二引数は多項式の変数文字を指定する。</p></li>
 <li><p>通過点列はデフォルトで <code class="code docutils literal notranslate"><span class="pre">(x0,</span> <span class="pre">y0)</span></code>, <code class="code docutils literal notranslate"><span class="pre">(x1,</span> <span class="pre">y1)</span></code>, … となる。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">cyclotomic_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>位数 <code class="code docutils literal notranslate"><span class="pre">n</span></code> の円分多項式を生成する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">cyclotomic_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>位数 <code class="docutils literal notranslate"><span class="pre">n</span></code> の円分多項式を生成する。</p>
 <ul class="simple">
-<li><p>デフォルトだと生成する多項式の変数文字が <code class="code docutils literal notranslate"><span class="pre">_x</span></code> とかいう汚いものになる？</p></li>
+<li><p>デフォルトだと生成する多項式の変数文字が <code class="docutils literal notranslate"><span class="pre">_x</span></code> とかいう汚いものになる？</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetric_poly(n,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>与えた複数の文字における <code class="code docutils literal notranslate"><span class="pre">n</span></code> 番目の基本対称多項式を生成する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">symmetric_poly(n,</span> <span class="pre">*gens,</span> <span class="pre">**args)</span></code></dt><dd><p>与えた複数の文字における <code class="docutils literal notranslate"><span class="pre">n</span></code> 番目の基本対称多項式を生成する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">symmetric_poly</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x0:5&#39;</span><span class="p">))</span>
 <span class="gh">Out[1]: </span><span class="go">x0*x1*x2*x3 + x0*x1*x2*x4 + x0*x1*x3*x4 + x0*x2*x3*x4 + x1*x2*x3*x4</span>
 </pre></div>
@@ -418,9 +419,9 @@ tuple オブジェクトを得られる。</p></li>
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-orthopolys">
-<h3><a class="toc-backref" href="#id27">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.orthopolys</span></code></a><a class="headerlink" href="#sympy-polys-orthopolys" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-orthopolys">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.orthopolys</span></code></a><a class="headerlink" href="#sympy-polys-orthopolys" title="Permalink to this heading">¶</a></h3>
 <p>このモジュールには多項式の直交系に関係する関数が置いてある。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">chebyshevt_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code>, <code class="code docutils literal notranslate"><span class="pre">chebyshevu_poly(n,</span> <span class="pre">x=None,</span> <span class="pre">**args)</span></code></dt><dd><p>それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。</p>
@@ -482,21 +483,21 @@ tuple オブジェクトを得られる。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-rationaltools">
-<h3><a class="toc-backref" href="#id28">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.rationaltools</span></code></a><a class="headerlink" href="#sympy-polys-rationaltools" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-rationaltools">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.rationaltools</span></code></a><a class="headerlink" href="#sympy-polys-rationaltools" title="Permalink to this heading">¶</a></h3>
 <p>このモジュールの代表的な機能は次の関数だ。</p>
 <dl class="simple">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">together(expr,</span> <span class="pre">deep=False)</span></code></dt><dd><p>有理式 <code class="code docutils literal notranslate"><span class="pre">expr</span></code> の通分を実行する。正確に言うと、有理式の和の形になっているものを単一の有理式にする。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">together(expr,</span> <span class="pre">deep=False)</span></code></dt><dd><p>有理式 <code class="docutils literal notranslate"><span class="pre">expr</span></code> の通分を実行する。正確に言うと、有理式の和の形になっているものを単一の有理式にする。</p>
 <ul class="simple">
 <li><p>キーワード引数で <code class="code docutils literal notranslate"><span class="pre">deep=True</span></code> とすると、通分の適用を与式の「内側」まで有効にする。</p></li>
-<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">apart</span></code> と逆の働きをする。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">apart</span></code> と逆の働きをする。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-partfrac">
-<h3><a class="toc-backref" href="#id29">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.partfrac</span></code></a><a class="headerlink" href="#sympy-polys-partfrac" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-partfrac">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.partfrac</span></code></a><a class="headerlink" href="#sympy-polys-partfrac" title="Permalink to this heading">¶</a></h3>
 <p>部分分数分解に関係する機能を含むモジュール。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">apart(f,</span> <span class="pre">x=None,</span> <span class="pre">full=False,</span> <span class="pre">**options)</span></code>, <code class="code docutils literal notranslate"><span class="pre">apart_list(f,</span> <span class="pre">x=None,</span> <span class="pre">dummies=None,</span> <span class="pre">**options)</span></code></dt><dd><p>有理関数を部分分数分解する。</p>
@@ -511,21 +512,21 @@ tuple オブジェクトを得られる。</p></li>
 <li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">full=True</span></code> がわからない。</p></li>
 </ul>
 </dd>
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">assemble_partfrac_list(partial_list)</span></code></dt><dd><p>上述の <code class="code docutils literal notranslate"><span class="pre">apart_list</span></code> の戻り値から有理関数の部分分数分解を復元する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">assemble_partfrac_list(partial_list)</span></code></dt><dd><p>上述の <code class="docutils literal notranslate"><span class="pre">apart_list</span></code> の戻り値から有理関数の部分分数分解を復元する。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="sympy-polys-dispersion">
-<h3><a class="toc-backref" href="#id30">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.dispersion</span></code></a><a class="headerlink" href="#sympy-polys-dispersion" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sympy-polys-dispersion">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">モジュール <code class="docutils literal notranslate"><span class="pre">sympy.polys.dispersion</span></code></a><a class="headerlink" href="#sympy-polys-dispersion" title="Permalink to this heading">¶</a></h3>
 <div class="admonition-todo admonition" id="id11">
 <p class="admonition-title">Todo</p>
 <p>調査中。</p>
 </div>
 <hr class="docutils" />
 <p>モジュールにしろ関数にしろクラスにしろ、かなりの量がある。整理して理解するのは困難。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

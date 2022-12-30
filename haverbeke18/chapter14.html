@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>The Document Object Model &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,12 +46,12 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="the-document-object-model">
-<h1><a class="toc-backref" href="#id2">The Document Object Model</a><a class="headerlink" href="#the-document-object-model" title="Permalink to this heading">¶</a></h1>
+  <section id="the-document-object-model">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">The Document Object Model</a><a class="headerlink" href="#the-document-object-model" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://eloquentjavascript.net/">Eloquent JavaScript</a> Chapter 14 の読書ノート。</p>
 <p>Web ページをブラウザーで開くと、第 12 章の解析器がプログラムを解析するのと同じように、ブラウザーはページの HTML テキストを解析する。文書構造のモデルを構築し、このモデルを使って画面にページを描画する。本章ではこのモデルを学ぶ。</p>
 <p>この章の内容は Web スクレイピングの初等知識が満載なので、必ず履修すること。</p>
-<div class="contents topic" id="id1">
+<nav class="contents" id="id1">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#the-document-object-model" id="id2">The Document Object Model</a></p>
@@ -82,12 +80,13 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="document-structure">
-<h2><a class="toc-backref" href="#id3">Document structure</a><a class="headerlink" href="#document-structure" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="document-structure">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Document structure</a><a class="headerlink" href="#document-structure" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>HTML 文書を入れ子になった箱の集合と考えることができる。</p></li>
-<li><p>文書を表現するのにブラウザーが使うデータ構造は木構造をしている。それぞれの枝にはオブジェクトが存在し、それによって何が何であるかを知る。このモデルを短く <strong>DOM</strong> と呼ぶ。</p></li>
+<li><p>文書を表現するのにブラウザーが使うデータ構造は木構造をしている。それぞれの枝にはオブジェクトが存在し、それによって何が何であるかを知る。このモデルを短く
+<em class="dfn">DOM</em> と呼ぶ。</p></li>
 <li><p>大域変数 <code class="docutils literal notranslate"><span class="pre">document</span></code> はこれらのオブジェクトにアクセスするのに使える。</p>
 <ul>
 <li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">document.documentElement</span></code> は <code class="docutils literal notranslate"><span class="pre">&lt;html&gt;</span></code> タグを表すオブジェクトを参照している。</p></li>
@@ -95,12 +94,12 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="trees">
-<h2><a class="toc-backref" href="#id4">Trees</a><a class="headerlink" href="#trees" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="trees">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Trees</a><a class="headerlink" href="#trees" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>第 12 章の構文木の構造はブラウザーの文書のそれに酷似している。各ノードは他のノード、子を参照することが許され、その子らもまた自身の子があっても構わない。この形は、要素が自分と似た部分要素を含むことができるという、典型的な入れ子構造だ。</p></li>
-<li><p>ここでは分岐した構造であり、循環がなく、単一の根があるものを <strong>木</strong> と呼ぶことにする。</p>
+<li><p>ここでは分岐した構造であり、循環がなく、単一の根があるものを <em class="dfn">木</em> と呼ぶことにする。</p>
 <ul>
 <li><p>循環がないというのは、節が直接的にも間接的にも自分自身を含まないことを意味する。</p></li>
 <li><p>DOM の場合は <code class="docutils literal notranslate"><span class="pre">document.documentElement</span></code> が根となる。</p></li>
@@ -119,23 +118,23 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="the-standard">
-<h2><a class="toc-backref" href="#id5">The standard</a><a class="headerlink" href="#the-standard" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="the-standard">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">The standard</a><a class="headerlink" href="#the-standard" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>DOM のインターフェイスが JavaScript らしくない理由は、それが
-JavaScript のためだけに設計されたものではないからだ。そうではなく、
-DOM は他のシステムからも使用できる、言語中立的なインターフェイスを志向している。そのため JavaScript からすると残念な点がいくつかある。</p>
+<li><p>DOM のインターフェイスが JavaScript らしくない理由は、それが JavaScript のためだけに設計されたものではないからだ。そうではなく、DOM は他のシステムからも使用できる、言語中立的なインターフェイスを志向している。そのため JavaScript からすると残念な点がいくつかある。</p>
 <ul>
-<li><p>要素ノードのプロパティー <code class="docutils literal notranslate"><span class="pre">childNodes</span></code> は配列のようなオブジェクトではあるが、実際の型は <code class="docutils literal notranslate"><span class="pre">NodeList</span></code> というものであり、便利なメソッドである <code class="docutils literal notranslate"><span class="pre">slice</span></code> や <code class="docutils literal notranslate"><span class="pre">map</span></code> などが備わっていない。</p></li>
+<li><p>要素ノードのプロパティー <code class="docutils literal notranslate"><span class="pre">childNodes</span></code> は配列のようなオブジェクトではあるが、実際の型は <code class="docutils literal notranslate"><span class="pre">NodeList</span></code> というものであり、便利なメソッドである <code class="docutils literal notranslate"><span class="pre">slice</span></code>
+や <code class="docutils literal notranslate"><span class="pre">map</span></code> などが備わっていない。</p></li>
 <li><p>これは単に設計が悪いだけだが、新しいノードを作成して、すぐに子や属性を追加する方法がない。代わりに、まずノードを作成してから、副作用を使って子や属性を一つずつ追加していくしかない。</p></li>
 </ul>
 </li>
-<li><p>DOM を多用するコードは長く、繰り返しが多く、醜くなりがちだ。そこで、JavaScript で独自の抽象化を施して、改良された方法を設計することになる。多くのライブラリーにはそのようなツールが備わっている。</p></li>
+<li><p>DOM を多用するコードは長く、繰り返しが多く、醜くなりがちだ。そこで、JavaScript
+で独自の抽象化を施して、改良された方法を設計することになる。多くのライブラリーにはそのようなツールが備わっている。</p></li>
 </ul>
-</div>
-<div class="section" id="moving-through-the-tree">
-<h2><a class="toc-backref" href="#id6">Moving through the tree</a><a class="headerlink" href="#moving-through-the-tree" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="moving-through-the-tree">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Moving through the tree</a><a class="headerlink" href="#moving-through-the-tree" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>本書 p. 235 の図式で示されるように、DOM ノードは近隣のノードへのリンクを豊富に含んでいる。</p>
 <ul>
@@ -171,9 +170,9 @@ DOM は他のシステムからも使用できる、言語中立的なインタ�
 <ul class="simple">
 <li><p>テキストノードのプロパティー <code class="docutils literal notranslate"><span class="pre">nodeValue</span></code> は、そのノードが表現する文字列を値とする。</p></li>
 </ul>
-</div>
-<div class="section" id="finding-elements">
-<h2><a class="toc-backref" href="#id7">Finding elements</a><a class="headerlink" href="#finding-elements" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="finding-elements">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Finding elements</a><a class="headerlink" href="#finding-elements" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">getElementBy</span></code> 系のメソッドを理解する。</p>
 <ul class="simple">
 <li><p>要素ノードのメソッド <code class="docutils literal notranslate"><span class="pre">getElementByTagName</span></code> は、そのノードの子孫ノードの集合から、指定するタグ名の要素をすべて集めて、前述の配列のようなオブジェクトとして返す。</p></li>
@@ -181,9 +180,9 @@ DOM は他のシステムからも使用できる、言語中立的なインタ�
 <code class="docutils literal notranslate"><span class="pre">document.getElementById</span></code> を使う。</p></li>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">getElementsByClassName</span></code> は属性 <code class="docutils literal notranslate"><span class="pre">class</span></code> が指定された文字列であるような要素すべてを返す。</p></li>
 </ul>
-</div>
-<div class="section" id="changing-the-document">
-<h2><a class="toc-backref" href="#id8">Changing the document</a><a class="headerlink" href="#changing-the-document" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="changing-the-document">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Changing the document</a><a class="headerlink" href="#changing-the-document" title="Permalink to this heading">¶</a></h2>
 <p>DOM のデータ構造は、ほとんどすべてを変更できる。文書木の形は親子関係を変更することで改変することができる。</p>
 <ul>
 <li><p>ノードメソッド <code class="docutils literal notranslate"><span class="pre">remove</span></code> は、現在の親ノードからノードを取り除く。</p></li>
@@ -201,7 +200,8 @@ DOM は他のシステムからも使用できる、言語中立的なインタ�
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>同一ノードは文書中に一つの場所にしか存在できない。したがって、段落 Three を段落 One の前に挿入すると、まず One を文書から取り除いてから先頭に挿入する。結果は Three / One / Two となる。</p>
+<p>同一ノードは文書中に一つの場所にしか存在できない。したがって、段落 <code class="docutils literal notranslate"><span class="pre">Three</span></code>
+を段落 <code class="docutils literal notranslate"><span class="pre">One</span></code> の前に挿入すると、まず <code class="docutils literal notranslate"><span class="pre">One</span></code> を文書から取り除いてから先頭に挿入する。結果は <code class="docutils literal notranslate"><span class="pre">Three</span></code> / <code class="docutils literal notranslate"><span class="pre">One</span></code> / <code class="docutils literal notranslate"><span class="pre">Two</span></code> となる。</p>
 <ul class="simple">
 <li><p>既存のノードをどこかに挿入する操作は、それを現在の位置から除去するという操作を暗黙的に伴うことに注意。</p></li>
 </ul>
@@ -214,9 +214,9 @@ DOM は他のシステムからも使用できる、言語中立的なインタ�
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="creating-nodes">
-<h2><a class="toc-backref" href="#id9">Creating nodes</a><a class="headerlink" href="#creating-nodes" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="creating-nodes">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Creating nodes</a><a class="headerlink" href="#creating-nodes" title="Permalink to this heading">¶</a></h2>
 <p>文書中の <code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">alt=&quot;XXXX&quot;&gt;</span></code> すべてをテキスト <code class="docutils literal notranslate"><span class="pre">XXXX</span></code> に置き換えるスクリプトを書きたいとする。こうなると、画像タグを削除するだけでなく、代わりとなる新しいテキストノードを追加する必要がある。それにはメソッド <code class="docutils literal notranslate"><span class="pre">document.createTextNode</span></code> を使う。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">replaceImages</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">images</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">);</span><span class="w"></span>
@@ -234,13 +234,13 @@ DOM は他のシステムからも使用できる、言語中立的なインタ�
 <li><p>ループで画像を後ろから始めることに注意。あるいは <code class="docutils literal notranslate"><span class="pre">Array.from</span></code> を使って作業用の配列を作成する手法もある。</p></li>
 </ul>
 <p>要素ノードを作成するにはメソッド <code class="docutils literal notranslate"><span class="pre">document.createElement</span></code> を使う。タグの名前を引数に取って、その新しい空のノードを返す。</p>
-</div>
-<div class="section" id="attributes">
-<h2><a class="toc-backref" href="#id10">Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="attributes">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h2>
 <ul>
-<li><p>リンクに対する <code class="docutils literal notranslate"><span class="pre">href</span></code> がそうであるように、要素の属性には、
-DOM オブジェクト上の同名のプロパティーでアクセスできるものがある。</p></li>
-<li><p>HTML ではノードに任意の属性を設定することが許されている。こういう場合には先ほどにプロパティーとしては表示されない。メソッド <code class="docutils literal notranslate"><span class="pre">getAttribute</span></code>, <code class="docutils literal notranslate"><span class="pre">setAttribute</span></code> を使って扱う必要がある。</p>
+<li><p>リンクに対する <code class="docutils literal notranslate"><span class="pre">href</span></code> がそうであるように、要素の属性には、DOM オブジェクト上の同名のプロパティーでアクセスできるものがある。</p></li>
+<li><p>HTML ではノードに任意の属性を設定することが許されている。こういう場合には先ほどにプロパティーとしては表示されない。メソッド <code class="docutils literal notranslate"><span class="pre">getAttribute</span></code>,
+<code class="docutils literal notranslate"><span class="pre">setAttribute</span></code> を使って扱う必要がある。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-classified</span><span class="o">=</span><span class="s">&quot;secret&quot;</span><span class="p">&gt;</span>The launch code is 00000000.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-classified</span><span class="o">=</span><span class="s">&quot;unclassified&quot;</span><span class="p">&gt;</span>I have two feet.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
@@ -261,16 +261,16 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="layout">
-<h2><a class="toc-backref" href="#id11">Layout</a><a class="headerlink" href="#layout" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="layout">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Layout</a><a class="headerlink" href="#layout" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>要素の型によってレイアウトが異なる。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;</span></code> のように、画面の幅全体を使って個別の行に表示されるものを
-<strong>ブロック要素</strong> と呼ぶ。</p></li>
+<em class="dfn">ブロック要素</em> と呼ぶ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;</span></code> など、周囲のテキストと同じ行に表示されるものを
-<strong>インライン要素</strong> と呼ぶ。</p></li>
+<em class="dfn">インライン要素</em> と呼ぶ。</p></li>
 </ul>
 </li>
 <li><p>要素のサイズと位置は JavaScript からアクセスできる。</p>
@@ -279,7 +279,8 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 <li><p>プロパティー <code class="docutils literal notranslate"><span class="pre">clientWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">clientHeight</span></code> は、要素の空間的大きさを示す。枠は無視する。</p></li>
 </ul>
 </li>
-<li><p>画面上の要素の正確な位置を知る最も効果的な方法はメソッド <code class="docutils literal notranslate"><span class="pre">getBoundingClientRect</span></code> だ。</p>
+<li><p>画面上の要素の正確な位置を知る最も効果的な方法はメソッド
+<code class="docutils literal notranslate"><span class="pre">getBoundingClientRect</span></code> だ。</p>
 <ul>
 <li><p>これはプロパティーとして <code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code> を持つオブジェクトを返す。各プロパティーは、画面左上からの相対的なピクセル単位での変位を示す。</p>
 <ul>
@@ -291,9 +292,9 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 <li><p>レイアウトはひじょうに手間がかかる。ブラウザーエンジンは文書が変更されるたびにただちにレイアウトし直すのではなく、できる限り遅延する。変更した JavaScript プログラムの実行が終了すると再計算して、変更後の文書を描画する。</p></li>
 <li><p>DOM レイアウト情報を読み取ることと DOM を変更することを交互に反復するプログラムは多くのレイアウト計算を強いる。その結果、動作が著しく遅くなる。</p></li>
 </ul>
-</div>
-<div class="section" id="styling">
-<h2><a class="toc-backref" href="#id12">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="styling">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>HTML の要素には既定のスタイリングがある。これを <code class="docutils literal notranslate"><span class="pre">style</span></code> 属性で上書きすることができる。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;.&quot;</span><span class="p">&gt;</span>Normal link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -315,11 +316,12 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 </li>
 </ul>
 </li>
-<li><p>スタイルプロパティー名には <code class="docutils literal notranslate"><span class="pre">font-family</span></code> のようにハイフンを含むものがある。このようなプロパティー名は、JavaScript ではドット記法が使えず扱いにくいため、そのようなプロパティーに対するスタイルオブジェクトのプロパティー名は、ハイフンが取り除かれ、後ろの文字が大文字になるという規則がある。この場合には <code class="docutils literal notranslate"><span class="pre">style.fontFamily</span></code> となる。</p></li>
+<li><p>スタイルプロパティー名には <code class="docutils literal notranslate"><span class="pre">font-family</span></code> のようにハイフンを含むものがある。このようなプロパティー名は、JavaScript ではドット記法が使えず扱いにくいため、そのようなプロパティーに対するスタイルオブジェクトのプロパティー名は、ハイフンが取り除かれ、後ろの文字が大文字になるという規則がある。この場合には
+<code class="docutils literal notranslate"><span class="pre">style.fontFamily</span></code> となる。</p></li>
 </ul>
-</div>
-<div class="section" id="cascading-styles">
-<h2><a class="toc-backref" href="#id13">Cascading styles</a><a class="headerlink" href="#cascading-styles" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="cascading-styles">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Cascading styles</a><a class="headerlink" href="#cascading-styles" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>HTML のスタイルシステムは CSS と呼ばれている。</p></li>
 <li><p>スタイルシートとは、文書内の要素にスタイルを与えるための規則の集合体だ。</p></li>
@@ -342,7 +344,8 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 <li><p><code class="docutils literal notranslate"><span class="pre">.abc</span></code> に対する規則は属性 <code class="docutils literal notranslate"><span class="pre">class</span></code> の値が <code class="docutils literal notranslate"><span class="pre">abc</span></code> である要素全てにかかる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#abc&quot;</span></code> に対する規則は属性 <code class="docutils literal notranslate"><span class="pre">id</span></code> の値が <code class="docutils literal notranslate"><span class="pre">xyz</span></code> である要素にかかる。</p></li>
 </ul>
-<p>最近に定義された規則を優先するという法則は、規則の <strong>指定度</strong> (specificity) が同じ場合にのみ成り立つ。</p>
+<p>最近に定義された規則を優先するという法則は、規則の <em class="dfn">指定度</em> (specificity)
+が同じ場合にのみ成り立つ。</p>
 <ul class="simple">
 <li><p>規則の指定度とは、合致する要素をどの程度正確に記述するのかを示す指標であって、数と要素の種類によって決定するものだ。</p>
 <ul>
@@ -350,11 +353,12 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="query-selectors">
-<h2><a class="toc-backref" href="#id14">Query selectors</a><a class="headerlink" href="#query-selectors" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="query-selectors">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Query selectors</a><a class="headerlink" href="#query-selectors" title="Permalink to this heading">¶</a></h2>
 <p>CSS セレクターはスタイルシートでスタイルの適用対象となる要素を特定するために使われる記法だ。これを使えば DOM 要素を効果的に見つけることができる。</p>
-<p>メソッド <code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> は文書オブジェクトと要素ノードの両方で定義されていて、セレクター式を文字列で受け取り、それに合致する要素全てからなる <code class="docutils literal notranslate"><span class="pre">NodeList</span></code> を返す。</p>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> は文書オブジェクトと要素ノードの両方で定義されていて、セレクター式を文字列で受け取り、それに合致する要素全てからなる <code class="docutils literal notranslate"><span class="pre">NodeList</span></code>
+を返す。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>And if you go chasing<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;animal&quot;</span><span class="p">&gt;</span>rabbits<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>And you know you&#39;re going to fall<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Tell &#39;em a <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">&gt;</span>hookah smoking <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;animal&quot;</span><span class="p">&gt;</span>caterpillar<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -373,14 +377,13 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">getElementsByTagName</span></code> などとは異なり、
-<code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> の返すオブジェクトは生のものではない。このあと文書を変更してもそれは変化しない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getElementsByTagName</span></code> などとは異なり、<code class="docutils literal notranslate"><span class="pre">querySelectorAll</span></code> の返すオブジェクトは生のものではない。このあと文書を変更してもそれは変化しない。</p></li>
 <li><p>配列のように扱うのならば、やはり <code class="docutils literal notranslate"><span class="pre">Array.from</span></code> を呼び出す必要がある。</p></li>
 </ul>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> も同様に動作する。こちらは特定の単一の要素が欲しい場合に役に立つ。</p>
-</div>
-<div class="section" id="positioning-and-animating">
-<h2><a class="toc-backref" href="#id15">Positioning and animating</a><a class="headerlink" href="#positioning-and-animating" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="positioning-and-animating">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Positioning and animating</a><a class="headerlink" href="#positioning-and-animating" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>スタイルプロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code> は、強力な方法でレイアウトに影響を与える。</p>
 <ul>
@@ -389,8 +392,8 @@ DOM オブジェクト上の同名のプロパティーでアクセスできる�
 <li><p>値 <code class="docutils literal notranslate"><span class="pre">absolute</span></code> に設定されている場合、その要素は通常の文書フローから削除される。つまり、空間を取らなくなり、他の要素と重なる可能性がある。</p></li>
 </ul>
 </li>
-<li><p>また、<code class="docutils literal notranslate"><span class="pre">top</span></code> および <code class="docutils literal notranslate"><span class="pre">left</span></code> プロパティを使用して、プロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code> が
-<code class="docutils literal notranslate"><span class="pre">static</span></code> ではないような包囲要素の左上隅に対して絶対的に（そのような包囲要素が存在しない場合には文書に対して相対的に）位置を決めることができる。</p></li>
+<li><p>また、<code class="docutils literal notranslate"><span class="pre">top</span></code> および <code class="docutils literal notranslate"><span class="pre">left</span></code> プロパティを使用して、プロパティー <code class="docutils literal notranslate"><span class="pre">position</span></code>
+が``static`` ではないような包囲要素の左上隅に対して絶対的に（そのような包囲要素が存在しない場合には文書に対して相対的に）位置を決めることができる。</p></li>
 </ul>
 <p>これを利用してアニメーションを作れる。本書 p. 247 のコードは楕円を動き回るネコの絵を描画する。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center&quot;</span><span class="p">&gt;</span>
@@ -429,9 +432,9 @@ JavaScript の実行中にはブラウザーは画面を更新しないことに
 <li><p>アニメーションそれ自体は三角関数を単純に応用して点を運動させるものなのでメモを割愛する。</p></li>
 <li><p>数値に <code class="docutils literal notranslate"><span class="pre">&quot;px&quot;</span></code> を明示的に付けて、ピクセル単位で位置を表現していることをブラウザーに伝える。これを忘れると、スタイルは値がゼロでない限り無視される（ということは結局つねに無視される）。</p></li>
 </ul>
-</div>
-<div class="section" id="summary">
-<h2><a class="toc-backref" href="#id16">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="summary">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>JavaScript は DOM というデータ構造ごしに、ブラウザーが表示する文書を検査・干渉することができる。</p></li>
 <li><p>DOM はデータ構造が木のように整理されていて、文書の論理構造に対応するように要素が階層的に配置されている。</p>
@@ -443,11 +446,11 @@ JavaScript の実行中にはブラウザーは画面を更新しないことに
 <li><p>スタイルのプロパティーには <code class="docutils literal notranslate"><span class="pre">color</span></code> や <code class="docutils literal notranslate"><span class="pre">display</span></code> などというものがたくさんある。</p></li>
 <li><p>JavaScript では要素のプロパティー <code class="docutils literal notranslate"><span class="pre">style</span></code> を通じてスタイルを直接できる。</p></li>
 </ul>
-</div>
-<div class="section" id="exercises">
-<h2><a class="toc-backref" href="#id17">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="build-a-table">
-<h3><a class="toc-backref" href="#id18">Build a table</a><a class="headerlink" href="#build-a-table" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="exercises">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<section id="build-a-table">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Build a table</a><a class="headerlink" href="#build-a-table" title="Permalink to this heading">¶</a></h3>
 <p>HTML のテーブルは、以下のようなタグ構造をしている：</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
@@ -463,12 +466,14 @@ JavaScript の実行中にはブラウザーは画面を更新しないことに
 <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>各行に対して <code class="docutils literal notranslate"><span class="pre">&lt;table&gt;</span></code> タグは <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> タグを一つ含んでいる。これらの <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> タグの中には見出しセル <code class="docutils literal notranslate"><span class="pre">&lt;th&gt;</span></code> や通常のセル <code class="docutils literal notranslate"><span class="pre">&lt;td&gt;</span></code> などのセル要素を置くことができる。</p>
+<p>各行に対して <code class="docutils literal notranslate"><span class="pre">&lt;table&gt;</span></code> タグは <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code> タグを一つ含んでいる。これらの <code class="docutils literal notranslate"><span class="pre">&lt;tr&gt;</span></code>
+タグの中には見出しセル <code class="docutils literal notranslate"><span class="pre">&lt;th&gt;</span></code> や通常のセル <code class="docutils literal notranslate"><span class="pre">&lt;td&gt;</span></code> などのセル要素を置くことができる。</p>
 <p><strong>問題</strong> 名前、高さ、場所のプロパティーがあるオブジェクトの配列である山のデータセットが与えられた場合、そのオブジェクトを列挙する表の DOM 構造を生成しろ。キーごとに一列、オブジェクトごとに一行、それに加えてまた、最上部に <code class="docutils literal notranslate"><span class="pre">&lt;th&gt;</span></code> 要素を持つヘッダー行を設け、列名を列挙すること。</p>
 <ul class="simple">
 <li><p>これを、データ中の最初のオブジェクトのプロパティー名を取ることで、列が自動的にオブジェクトから得られるように書け。</p></li>
 <li><p>できあがったテーブルを属性 <code class="docutils literal notranslate"><span class="pre">id</span></code> が <code class="docutils literal notranslate"><span class="pre">mountains</span></code> である要素に追加して、文書内で表示されるようにしろ。</p></li>
-<li><p>これができたら、数値を含むセルを右揃えにするためにプロパティー <code class="docutils literal notranslate"><span class="pre">style.textAlign</span></code> を <code class="docutils literal notranslate"><span class="pre">right</span></code> に設定しろ。</p></li>
+<li><p>これができたら、数値を含むセルを右揃えにするためにプロパティー
+<code class="docutils literal notranslate"><span class="pre">style.textAlign</span></code> を <code class="docutils literal notranslate"><span class="pre">right</span></code> に設定しろ。</p></li>
 </ul>
 <p><strong>解答</strong> いちばん単純なコードをまず書く：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">buildTable</span><span class="p">(</span><span class="nx">mountains</span><span class="p">){</span><span class="w"></span>
@@ -521,21 +526,22 @@ JavaScript の実行中にはブラウザーは画面を更新しないことに
 <span class="nx">nodes</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">node</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">node</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">textAlign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;right&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="elements-by-tag-name">
-<h3><a class="toc-backref" href="#id19">Elements by tag name</a><a class="headerlink" href="#elements-by-tag-name" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="elements-by-tag-name">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Elements by tag name</a><a class="headerlink" href="#elements-by-tag-name" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">document.getElementsByTagName</span></code> は、指定されたタグ名を持つすべての子要素を返す。</p>
 <p><strong>問題</strong> ノードとタグ名を引数にとり、与えられたタグ名を持つすべての子孫要素ノードを含む配列を返す関数として、これの独自版を実装しろ。</p>
-<p>ある要素のタグ名を調べるには、その要素のプロパティー <code class="docutils literal notranslate"><span class="pre">nodeName</span></code> を使え。ただし、これはタグ名をすべて大文字で返す。これを補うには文字列メソッド <code class="docutils literal notranslate"><span class="pre">toLowerCase</span></code> または <code class="docutils literal notranslate"><span class="pre">toUpperCase</span></code> を使え。</p>
+<p>ある要素のタグ名を調べるには、その要素のプロパティー <code class="docutils literal notranslate"><span class="pre">nodeName</span></code> を使え。ただし、これはタグ名をすべて大文字で返す。これを補うには文字列メソッド
+<code class="docutils literal notranslate"><span class="pre">toLowerCase</span></code> または <code class="docutils literal notranslate"><span class="pre">toUpperCase</span></code> を使え。</p>
 <p><strong>解答</strong> これで良いと思われる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">getAncestors</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span><span class="w"> </span><span class="nx">tagName</span><span class="p">){</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">tagName</span><span class="p">));</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-cat-s-hat">
-<h3><a class="toc-backref" href="#id20">The cat’s hat</a><a class="headerlink" href="#the-cat-s-hat" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="the-cat-s-hat">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">The cat’s hat</a><a class="headerlink" href="#the-cat-s-hat" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> 先ほどの猫のアニメーションを拡張して、猫と帽子の両方が楕円の反対側を周回するようにしろ。</p>
 <ul class="simple">
 <li><p>あるいは、帽子が猫の周りを回るようにしろ。</p></li>
@@ -578,9 +584,9 @@ JavaScript の実行中にはブラウザーは画面を更新しないことに
 </div>
 <p>帽子を猫中心に回すには、帽子用の楕円のため定数を追加したり、属性設定関数の引数を拡張したりするといいだろう。</p>
 <p>以上</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

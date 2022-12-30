@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,26 +46,26 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id9">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id9" role="doc-backlink">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
-<dt class="field-odd">著者</dt>
+<dt class="field-odd">著者<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Eric Gamma, Richard Helm, Ralph Johnson, John Vlissides</p>
 </dd>
-<dt class="field-even">監訳者</dt>
+<dt class="field-even">監訳者<span class="colon">:</span></dt>
 <dd class="field-even"><p>本位田真一、吉田和樹</p>
 </dd>
-<dt class="field-odd">出版社</dt>
+<dt class="field-odd">出版社<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ソフトバンク クリエイティブ株式会社</p>
 </dd>
-<dt class="field-even">発行年</dt>
+<dt class="field-even">発行年<span class="colon">:</span></dt>
 <dd class="field-even"><p>1999 年</p>
 </dd>
-<dt class="field-odd">ISBN</dt>
+<dt class="field-odd">ISBN<span class="colon">:</span></dt>
 <dd class="field-odd"><p>978-4-7973-1112-9</p>
 </dd>
 </dl>
-<div class="contents topic" id="id2">
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id9">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 3/3</a></p>
@@ -98,22 +96,25 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id10">第 5 章 振る舞いに関するパターン</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="chain-of-responsibility">
-<h3><a class="toc-backref" href="#id11">Chain of Responsibility</a><a class="headerlink" href="#chain-of-responsibility" title="Permalink to this heading">¶</a></h3>
+</nav>
+<section id="id3">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">第 5 章 振る舞いに関するパターン</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="chain-of-responsibility">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Chain of Responsibility</a><a class="headerlink" href="#chain-of-responsibility" title="Permalink to this heading">¶</a></h3>
 <p>複数オブジェクトに要求を処理する機会を与える。要求の送信・受信オブジェクト間の結合を避け、オブジェクトをチェーンでつなぐ。</p>
 <p>動機として、GUI アプリで状況依存ヘルプ機能について考察している。</p>
 <ul>
-<li><p>ヘルプ情報は &lt;もっとも特殊なものからもっとも一般的なものへと組織化していく&gt; (p. 237)</p>
+<li><p>ヘルプ情報は &lt;もっとも特殊なものからもっとも一般的なものへと組織化していく&gt;
+(p. 237)</p>
 <p>印刷ボタン→印刷ダイアログ→アプリケーション、のような順にヘルプ優先度がある感じがわかる。</p>
 </li>
-<li><p>&lt;ヘルプ要求を出すオブジェクトをヘルプ情報を与えるオブジェクトから引き離す方法&gt; (p. 237)
-が必要。</p></li>
-<li><p>&lt;このパターンのポイントは、複数のオブジェクトに要求を処理する機会を与えることにより、要求を送信するオブジェクトと受信するオブジェクトを引き離すことにある&gt; (p. 237)</p></li>
-<li><p>&lt;チェーンの中にある各オブジェクトは、要求を処理したり後続のオブジェクト (successor) にアクセスするための共通のインタフェースを持っている&gt; (p. 238)</p></li>
-<li><p>ヘルプの要求を処理したいクラスは、HelpHandler を親クラスにする (p. 238)</p></li>
+<li><p>&lt;ヘルプ要求を出すオブジェクトをヘルプ情報を与えるオブジェクトから引き離す方法&gt;
+(p. 237) が必要。</p></li>
+<li><p>&lt;このパターンのポイントは、複数のオブジェクトに要求を処理する機会を与えることにより、要求を送信するオブジェクトと受信するオブジェクトを引き離すことにある&gt;
+(p. 237)</p></li>
+<li><p>&lt;チェーンの中にある各オブジェクトは、要求を処理したり後続のオブジェクト
+(<code class="docutils literal notranslate"><span class="pre">successor</span></code>) にアクセスするための共通のインタフェースを持っている&gt; (p. 238)</p></li>
+<li><p>ヘルプの要求を処理したいクラスは、<code class="docutils literal notranslate"><span class="pre">HelpHandler</span></code> を親クラスにする (p. 238)</p></li>
 </ul>
 <p>結果</p>
 <ul class="simple">
@@ -125,28 +126,28 @@
 <ul class="simple">
 <li><p>チェーンの実装</p>
 <ul>
-<li><p>オブジェクト間に既存の参照関係があれば、それを流用して successor チェーンとすることもあり。</p></li>
+<li><p>オブジェクト間に既存の参照関係があれば、それを流用して <code class="docutils literal notranslate"><span class="pre">successor</span></code> チェーンとすることもあり。</p></li>
 </ul>
 </li>
 <li><p>チェーンの接続</p>
 <ul>
-<li><p>Handler クラスでは、通常は successor も保持する。要求を successor に転送することを実装のデフォルトとする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Handler</span></code> クラスでは、通常は <code class="docutils literal notranslate"><span class="pre">successor</span></code> も保持する。要求を
+<code class="docutils literal notranslate"><span class="pre">successor</span></code> に転送することを実装のデフォルトとする。</p></li>
 </ul>
 </li>
 <li><p>要求の表現</p>
 <ul>
-<li><p>要求を Request オブジェクトとしてカプセル化して
-<code class="docutils literal notranslate"><span class="pre">HandleRequest</span></code> に渡すのが普通。</p></li>
+<li><p>要求を <code class="docutils literal notranslate"><span class="pre">Request</span></code> オブジェクトとしてカプセル化して <code class="docutils literal notranslate"><span class="pre">HandleRequest</span></code> に渡すのが普通。</p></li>
 <li><p>&lt;サブクラスは自らが関与すべき要求のみを扱う。他の要求は転送する&gt; (p. 242)</p></li>
 </ul>
 </li>
 </ul>
 <p>サンプルコードではさっきのヘルプの実装を検討している。</p>
 <ul class="simple">
-<li><p>&lt;既存のウィジェット階層での親オブジェクトへの参照を利用する&gt; (p. 243)
-ことで、ヘルプ要求を伝えていく方法をとる。</p></li>
+<li><p>&lt;既存のウィジェット階層での親オブジェクトへの参照を利用する&gt; (p. 243) ことで、ヘルプ要求を伝えていく方法をとる。</p></li>
 <li><p>「チェーンの最初」といったら、一番最初に要求を処理するチャンスのあるオブジェクトを指すようだ。</p></li>
-<li><p>&lt;ただし、successor は <code class="docutils literal notranslate"><span class="pre">Widget</span></code> オブジェクトではなく、任意の <code class="docutils literal notranslate"><span class="pre">HelpHandler</span></code> オブジェクトである&gt; (p. 245)</p></li>
+<li><p>&lt;ただし、<code class="docutils literal notranslate"><span class="pre">successor</span></code> は <code class="docutils literal notranslate"><span class="pre">Widget</span></code> オブジェクトではなく、任意の <code class="docutils literal notranslate"><span class="pre">HelpHandler</span></code>
+オブジェクトである&gt; (p. 245)</p></li>
 </ul>
 <p>使用例</p>
 <ul class="simple">
@@ -155,42 +156,40 @@
 </ul>
 <p>関連するパターン</p>
 <ul>
-<li><p>&lt;しばしば Composite パターンとともに適用される。その場合、component の親オブジェクトを successor にすることができる&gt; (p. 247)</p>
+<li><p>&lt;しばしば Composite パターンとともに適用される。その場合、<code class="docutils literal notranslate"><span class="pre">component</span></code> の親オブジェクトを <code class="docutils literal notranslate"><span class="pre">successor</span></code> にすることができる&gt; (p. 247)</p>
 <p>子（持たれている方）が先に要求を処理するチャンスがあって、無視するならば親（所有者）に転送、か。</p>
 </li>
 </ul>
-</div>
-<div class="section" id="command">
-<h3><a class="toc-backref" href="#id12">Command</a><a class="headerlink" href="#command" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="command">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Command</a><a class="headerlink" href="#command" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>要求をオブジェクトとしてカプセル化</p></li>
 <li><p>取り消し可能なオペレーションをサポート</p></li>
-<li><p>&lt;ツールキットはボタンやメニューの中で、直接、要求を実装することはできない&gt; (p. 249)</p></li>
+<li><p>&lt;ツールキットはボタンやメニューの中で、直接、要求を実装することはできない&gt;
+(p. 249)</p></li>
 <li><p>&lt;要求自身をオブジェクトにすることにより、ツールキットのオブジェクトが、仕様化されていないアプリケーションオブジェクトの要求を作成できるようにする&gt; (p. 249)</p></li>
-<li><p>&lt;もっとも簡単な形としては、このインタフェースに、抽象化した Execute オペレーションを入れておく&gt; (p. 249)</p></li>
-<li><p>&lt;Command の具象クラスが受信オブジェクトとアクションの組を明らかにする。受信オブジェクトには、要求を実行するために必要な知識がある&gt; (p. 249)</p>
+<li><p>&lt;もっとも簡単な形としては、このインタフェースに、抽象化した <code class="docutils literal notranslate"><span class="pre">Execute</span></code> オペレーションを入れておく&gt; (p. 249)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Command</span></code> の具象クラスが受信オブジェクトとアクションの組を明らかにする。受信オブジェクトには、要求を実行するために必要な知識がある&gt; (p. 249)</p>
 <p><code class="docutils literal notranslate"><span class="pre">PasteCommand</span></code> の場合、受信オブジェクトは <code class="docutils literal notranslate"><span class="pre">Document</span></code> である。</p>
 </li>
-<li><p>&lt;command をつなぎ合わせるのは一般的なので、
-MenuItem オブジェクトが複数の command に対して
-Execute オペレーションの呼び出しを行うことができるように、
-<code class="docutils literal notranslate"><span class="pre">MacroCommand</span></code> クラスを定義する&gt; (p. 251)</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">command</span></code> をつなぎ合わせるのは一般的なので、<code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> オブジェクトが複数の <code class="docutils literal notranslate"><span class="pre">command</span></code> に対して <code class="docutils literal notranslate"><span class="pre">Execute</span></code> オペレーションの呼び出しを行うことができるように、<code class="docutils literal notranslate"><span class="pre">MacroCommand</span></code> クラスを定義する&gt; (p. 251)</p>
 <p>図を見ればこれがすぐに Composite パターンだとわかる。</p>
 </li>
-<li><p>動的に command を入れ替えることができるということが、状況依存のヘルプを実装するのに便利。</p></li>
-<li><p>command を複数合成することで、コマンドスクリプトをサポートすることができる。</p></li>
+<li><p>動的に <code class="docutils literal notranslate"><span class="pre">command</span></code> を入れ替えることができるということが、状況依存のヘルプを実装するのに便利。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">command</span></code> を複数合成することで、コマンドスクリプトをサポートすることができる。</p></li>
 </ul>
 <p>適用可能性</p>
 <ul>
-<li><p>&lt;Command パターンでは、そのようなコールバック関数の代わりにオブジェクトを使う&gt; (p. 251)</p>
+<li><p>&lt;Command パターンでは、そのようなコールバック関数の代わりにオブジェクトを使う&gt;
+(p. 251)</p>
 <p>なるほど。Command パターンはコールバック関数の進化系なんだろう。</p>
 </li>
-<li><p>&lt;command での処理の結果を再び元の状態に戻すことができるように、状態を保存するようにしておくことができる&gt; (p. 252)</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">command</span></code> での処理の結果を再び元の状態に戻すことができるように、状態を保存するようにしておくことができる&gt; (p. 252)</p>
 <ul class="simple">
-<li><p>&lt;呼び出し結果を元に戻す Unexecute オペレーション&gt; (p. 252)</p></li>
-<li><p>実行 command を履歴リストに蓄えておき、
-&lt;取り出しや再実行は、このリスト内を前後に移動しながら&gt; (p. 252)
-Execute/Unexecute の連続呼び出しで Undo/Redo を実装できる、か。</p></li>
+<li><p>&lt;呼び出し結果を元に戻す <code class="docutils literal notranslate"><span class="pre">Unexecute</span></code> オペレーション&gt; (p. 252)</p></li>
+<li><p>実行 <code class="docutils literal notranslate"><span class="pre">command</span></code> を履歴リストに蓄えておき、&lt;取り出しや再実行は、このリスト内を前後に移動しながら&gt; (p. 252) <code class="docutils literal notranslate"><span class="pre">Execute</span></code>/<code class="docutils literal notranslate"><span class="pre">Unexecute</span></code> の連続呼び出しで
+<code class="docutils literal notranslate"><span class="pre">Undo</span></code>/<code class="docutils literal notranslate"><span class="pre">Redo</span></code> を実装できる、か。</p></li>
 </ul>
 </li>
 <li><p>&lt;一般に、1 つのトランザクションは、データに対する更新手続きの集合をカプセル化している&gt; (p. 252)</p></li>
@@ -198,28 +197,23 @@ Execute/Unexecute の連続呼び出しで Undo/Redo を実装できる、か。
 <p>結果のリストを見ると、このパターンにはデメリットがないようだ。</p>
 <p>実装</p>
 <ul>
-<li><p>&lt;極端な場合、単に Receiver オブジェクトと要求を実行するアクションを結び付けるだけのものから、
-Receiver オブジェクトにはまったく委譲することなくそれ自身ですべてを実装してしまうものまで考えることができる&gt; (p. 254)</p>
+<li><p>&lt;極端な場合、単に <code class="docutils literal notranslate"><span class="pre">Receiver</span></code> オブジェクトと要求を実行するアクションを結び付けるだけのものから、<code class="docutils literal notranslate"><span class="pre">Receiver</span></code> オブジェクトにはまったく委譲することなくそれ自身ですべてを実装してしまうものまで考えることができる&gt; (p. 254)</p>
 <p>さっきの例で言うと <code class="docutils literal notranslate"><span class="pre">PasteCommand::Execute</span></code> が <code class="docutils literal notranslate"><span class="pre">Document::Paste</span></code> メソッドを呼び出すだけか、貼り付けロジックを <code class="docutils literal notranslate"><span class="pre">PasteCommand</span></code> が独自に実装するかの違いが考えられるということ。</p>
 </li>
-<li><p>Undo/Redo をサポートする場合、
-&lt;Receiver オブジェクトは、自身を元の状態に戻すことができるようなオペレーションを
-command に対して提供しなければならない&gt; (p. 254)</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Undo</span></code>/<code class="docutils literal notranslate"><span class="pre">Redo</span></code> をサポートする場合、&lt;<code class="docutils literal notranslate"><span class="pre">Receiver</span></code> オブジェクトは、自身を元の状態に戻すことができるようなオペレーションを <code class="docutils literal notranslate"><span class="pre">command</span></code> に対して提供しなければならない&gt; (p. 254)</p>
 <ul>
 <li><p>履歴リストも必要。リスト内を時系列順に移動するような。</p></li>
 <li><p>&lt;たとえば、選択された複数のオブジェクトを削除する <code class="docutils literal notranslate"><span class="pre">DeleteCommand</span></code> オブジェクトは、それが実行される際には、削除されるオブジェクトの集合を保持しておかなければならない&gt; (p. 255)</p></li>
-<li><p>ヒステリシス。
-Undo/Redo を反復実行すると、何かがまずくて元の状態とは異なってくる様。</p>
-<p>&lt;command が他のオブジェクトの内部に踏み入ることなくこの情報にアクセスできるように、
-Memento パターンを適用することができる&gt; (p. 255)</p>
+<li><p>ヒステリシス。<code class="docutils literal notranslate"><span class="pre">Undo</span></code>/<code class="docutils literal notranslate"><span class="pre">Redo</span></code> を反復実行すると、何かがまずくて元の状態とは異なってくる様。</p>
+<p>&lt;<code class="docutils literal notranslate"><span class="pre">command</span></code> が他のオブジェクトの内部に踏み入ることなくこの情報にアクセスできるように、Memento パターンを適用することができる&gt; (p. 255)</p>
 </li>
 </ul>
 </li>
 </ul>
 <p>サンプルコード</p>
 <ul>
-<li><p>&lt;取り消しできない、または引数を必要としない簡単な command については、
-Receiver オブジェクトをパラメータ化するためにクラステンプレートを使うことができる&gt; (p. 257)</p>
+<li><p>&lt;取り消しできない、または引数を必要としない簡単な <code class="docutils literal notranslate"><span class="pre">command</span></code> については、
+<code class="docutils literal notranslate"><span class="pre">Receiver</span></code> オブジェクトをパラメータ化するためにクラステンプレートを使うことができる&gt; (p. 257)</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 257</span>
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Receiver</span><span class="o">&gt;</span><span class="w"></span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SimpleCommand</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Command</span><span class="p">{</span><span class="w"></span>
@@ -234,12 +228,13 @@ Receiver オブジェクトをパラメータ化するためにクラステン�
 </div>
 <p>ただし、このクラスのコンストラクタ呼び出しはコードを書くのが面倒。</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MacroCommand</span></code> クラスに Unexecute オペレーションを実装する場合、逆順に command をたどって Unexecute を実行しなければならない (p. 258)</p></li>
-<li><p>&lt;command を削除するのは <code class="docutils literal notranslate"><span class="pre">MacroCommand</span></code> クラスの責任である&gt; (p. 258)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MacroCommand</span></code> クラスに <code class="docutils literal notranslate"><span class="pre">Unexecute</span></code> オペレーションを実装する場合、逆順に
+<code class="docutils literal notranslate"><span class="pre">command</span></code> をたどって <code class="docutils literal notranslate"><span class="pre">Unexecute</span></code> を実行しなければならない (p. 258)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">command</span></code> を削除するのは <code class="docutils literal notranslate"><span class="pre">MacroCommand</span></code> クラスの責任である&gt; (p. 258)</p></li>
 </ul>
-</div>
-<div class="section" id="interpreter">
-<h3><a class="toc-backref" href="#id13">Interpreter</a><a class="headerlink" href="#interpreter" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="interpreter">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Interpreter</a><a class="headerlink" href="#interpreter" title="Permalink to this heading">¶</a></h3>
 <p>真面目に読む気なし。</p>
 <p>運用適用性</p>
 <ul class="simple">
@@ -272,200 +267,188 @@ Receiver オブジェクトをパラメータ化するためにクラステン�
 </pre></div>
 </div>
 </li>
-<li><p>&lt;Interpreter パターンには、Composite パターンを使ったクラス階層上に
-1 つのオペレーションを分散させる、ということ以上の意味がある&gt; (p. 273)</p></li>
+<li><p>&lt;Interpreter パターンには、Composite パターンを使ったクラス階層上に 1 つのオペレーションを分散させる、ということ以上の意味がある&gt; (p. 273)</p></li>
 </ul>
 <p>使用例</p>
 <ul class="simple">
-<li><p>&lt;オブジェクト指向言語により実装されたコンパイラでは広く使われている&gt; (pp. 273-274)</p></li>
-<li><p>&lt;もっとも一般的な形式（つまり、1 つのオペレーションを
-Composite パターンに基づくクラス階層上に分散させるような場合）を考えると、
-Composite パターンはほとんどの場合に Interpreter パターンを含んだ形で使われる。しかし Interpreter パターンは、クラス階層を言語を定義するものとして考えた場合に限り使用すべきである&gt; (p. 274)</p></li>
+<li><p>&lt;オブジェクト指向言語により実装されたコンパイラでは広く使われている&gt; (pp.
+273-274)</p></li>
+<li><p>&lt;もっとも一般的な形式（つまり、1 つのオペレーションを Composite パターンに基づくクラス階層上に分散させるような場合）を考えると、Composite パターンはほとんどの場合に Interpreter パターンを含んだ形で使われる。しかし Interpreter パターンは、クラス階層を言語を定義するものとして考えた場合に限り使用すべきである&gt;
+(p. 274)</p></li>
 </ul>
-</div>
-<div class="section" id="iterator">
-<h3><a class="toc-backref" href="#id14">Iterator</a><a class="headerlink" href="#iterator" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="iterator">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Iterator</a><a class="headerlink" href="#iterator" title="Permalink to this heading">¶</a></h3>
 <p>動機</p>
 <ul>
 <li><p>&lt;リストのような集約オブジェクトは、その内部構造を明かすことなく、要素にアクセスする方法をユーザに対して提供するべきである&gt; (p. 275)</p></li>
-<li><p>&lt;アクセスや走査のための責任を抜き出して、これを <strong>iterator</strong> オブジェクトに与えるということである&gt; (p. 275)</p></li>
-<li><p>&lt;走査のメカニズムを List オブジェクトから切り離すことで、
-List インタフェースを使って要素を列挙していく以外にも、走査について異なる方針を持った iterator を定義することができるようになる&gt; (p. 276)</p></li>
-<li><p>&lt;CreateIterator オペレーションは、factory method の使用例になる&gt; (p. 276)</p>
+<li><p>&lt;アクセスや走査のための責任を抜き出して、これを <em class="dfn">iterator</em> オブジェクトに与えるということである&gt; (p. 275)</p></li>
+<li><p>&lt;走査のメカニズムを <code class="docutils literal notranslate"><span class="pre">List</span></code> オブジェクトから切り離すことで、<code class="docutils literal notranslate"><span class="pre">List</span></code> インタフェースを使って要素を列挙していく以外にも、走査について異なる方針を持った
+<code class="docutils literal notranslate"><span class="pre">iterator</span></code> を定義することができるようになる&gt; (p. 276)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">CreateIterator</span></code> オペレーションは、factory method の使用例になる&gt; (p. 276)</p>
 <p>クラス図によると <code class="docutils literal notranslate"><span class="pre">AbstractList</span></code> のメソッドに <code class="docutils literal notranslate"><span class="pre">CreateIterator</span></code> がある。
-<code class="docutils literal notranslate"><span class="pre">List</span></code> は <code class="docutils literal notranslate"><span class="pre">ListIterator</span></code> を返し、
-<code class="docutils literal notranslate"><span class="pre">SkipList</span></code> は <code class="docutils literal notranslate"><span class="pre">SkipListIterator</span></code> を返す。</p>
+<code class="docutils literal notranslate"><span class="pre">List</span></code> は <code class="docutils literal notranslate"><span class="pre">ListIterator</span></code> を返し、<code class="docutils literal notranslate"><span class="pre">SkipList</span></code> は <code class="docutils literal notranslate"><span class="pre">SkipListIterator</span></code> を返す。</p>
 </li>
 </ul>
 <p>結果</p>
 <ul class="simple">
 <li><p>&lt;複雑な aggregate には、走査の方法がたくさんあるだろう&gt; (p. 278)</p></li>
-<li><p>&lt;コード生成では、構文解析木を inorder に走査することもあれば、
-preorder に走査することもあるだろう&gt; (p. 278)</p></li>
+<li><p>&lt;コード生成では、構文解析木を inorder に走査することもあれば、preorder に走査することもあるだろう&gt; (p. 278)</p></li>
 <li><p>&lt;複数の走査を同時に実行することができる&gt; (p. 278) とあるが、そういうケースを何か例示して欲しい。</p></li>
 </ul>
 <p>実装</p>
 <ul>
 <li><p>&lt;外部 iterator は内部 iterator に比べてより柔軟である&gt; (p. 278)</p>
-<p>iteration を制御するのがクライアントか iterator 自身かの違いによって、外部 iterator と呼んだり内部 iterator と呼んだりするようだ。</p>
+<p>iteration を制御するのがクライアントか iterator 自身かの違いによって、外部
+iterator と呼んだり内部 iterator と呼んだりするようだ。</p>
 </li>
-<li><p>&lt;aggregate が走査のアルゴリズムを定義していて、
-iterator は単に iteration の状態を保持しておくためだけに使われるのかもしれない&gt; (p. 279)</p></li>
-<li><p>&lt;走査の最中に aggregate に要素を追加したり、また削除したりすると、ある要素に 2 回アクセスしてしまったり、またはまったくアクセスしなかったりということが起こりかねない&gt; (p. 279)</p>
+<li><p>&lt;aggregate が走査のアルゴリズムを定義していて、iterator は単に iteration の状態を保持しておくためだけに使われるのかもしれない&gt; (p. 279)</p></li>
+<li><p>&lt;走査の最中に aggregate に要素を追加したり、また削除したりすると、ある要素に 2
+回アクセスしてしまったり、またはまったくアクセスしなかったりということが起こりかねない&gt; (p. 279)</p>
 <p>これはよくミスるんだ。</p>
 </li>
 <li><p>&lt;iterator には特権的なアクセス権を持たせてもよい&gt; (p. 280)</p></li>
 <li><p>&lt;外部 iterator を、Composite パターンで示されるような再帰的な集約構造上で実装するのは難しいだろう&gt; (p. 280)</p>
 <ul class="simple">
 <li><p>&lt;構造内でのパスを保存しておかなければならない&gt; (p. 280)</p></li>
-<li><p>構造内のノードが兄弟、親、子ノードをたどれる場合は、
-cursor ベースの iterator のほうがよい。</p></li>
+<li><p>構造内のノードが兄弟、親、子ノードをたどれる場合は、cursor ベースの
+iterator のほうがよい。</p></li>
 <li><p>&lt;composite の構造は、しばしば 2 種類以上の方法で走査する必要がある。
-preorder, postorder, inorder, breadth-first などの走査が一般的である&gt; (p. 281)</p></li>
+preorder, postorder, inorder, breadth-first などの走査が一般的である&gt;
+(p. 281)</p></li>
 </ul>
 </li>
 </ul>
 <p>関連パターン</p>
 <ul class="simple">
-<li><p>&lt;iterator は、iteration の状態を把握するために memento を使うことができる&gt; (p. 290)</p></li>
+<li><p>&lt;iterator は、iteration の状態を把握するために memento を使うことができる&gt;
+(p. 290)</p></li>
 </ul>
-</div>
-<div class="section" id="mediator">
-<h3><a class="toc-backref" href="#id15">Mediator</a><a class="headerlink" href="#mediator" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="mediator">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Mediator</a><a class="headerlink" href="#mediator" title="Permalink to this heading">¶</a></h3>
 <ul>
-<li><p>相互作用をカプセル化する。
-&lt;オブジェクト同士がお互いを明示的に参照し合うことがないように&gt; (p. 291)</p></li>
+<li><p>相互作用をカプセル化する。&lt;オブジェクト同士がお互いを明示的に参照し合うことがないように&gt; (p. 291)</p></li>
 <li><p>&lt;オブジェクト間の関連を増やすことがせっかく高めた再利用性を再び低める傾向がある&gt; (p. 291)</p></li>
 <li><p>&lt;しばしば、ダイアログ内のウィジェット間には依存関係がある&gt; (p. 292)</p></li>
-<li><p>&lt;別のダイアログボックスでは、ウィジェット間に異なる依存関係が存在するだろう&gt; (p. 292)</p></li>
+<li><p>&lt;別のダイアログボックスでは、ウィジェット間に異なる依存関係が存在するだろう&gt;
+(p. 292)</p></li>
 <li><p>例えば <code class="docutils literal notranslate"><span class="pre">FontDialogDirector</span></code> クラスを定義し、それに &lt;ウィジェット間の通信におけるハブ&gt; (p. 292) として活躍させる。</p>
 <ul class="simple">
 <li><p>ウィジェットは他のウィジェットのことを知っている必要がなくなる。</p></li>
 </ul>
 </li>
-<li><p>&lt;オブジェクトの集まりが通信する場合&gt; (p. 294) に
-Mediator パターンを適用する可能性がある。</p></li>
-<li><p>&lt;mediator 自体を保守が難しい一枚岩&gt; (p. 296) になる。</p></li>
-<li><p>colleague から mediator への通信手段だが、
-&lt;1 つのアプローチとしては、Observer パターンを使って Mediator クラスを
-Observer として実装することがあげられる&gt; (p. 296)</p></li>
-<li><p>&lt;Mediator パターンのもう 1 つの適用例として、複雑な更新を調整する場合があげられる。例としては、Observer パターンで説明する ChangeManager クラスがあげられる。（略）
-ChangeManager オブジェクトは、変化が起こったオブジェクトに対して依存関係にあるオブジェクトにそれを知らせることにより更新を行う&gt; (p. 300)</p>
+<li><p>&lt;オブジェクトの集まりが通信する場合&gt; (p. 294) に Mediator パターンを適用する可能性がある。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">mediator</span></code> 自体を保守が難しい一枚岩&gt; (p. 296) になる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">colleague</span></code> から <code class="docutils literal notranslate"><span class="pre">mediator</span></code> への通信手段だが、&lt;1 つのアプローチとしては、Observer パターンを使って Mediator クラスを Observer として実装することがあげられる&gt; (p. 296)</p></li>
+<li><p>&lt;Mediator パターンのもう 1 つの適用例として、複雑な更新を調整する場合があげられる。例としては、Observer パターンで説明する <code class="docutils literal notranslate"><span class="pre">ChangeManager</span></code> クラスがあげられる。（略） <code class="docutils literal notranslate"><span class="pre">ChangeManager</span></code> オブジェクトは、変化が起こったオブジェクトに対して依存関係にあるオブジェクトにそれを知らせることにより更新を行う&gt; (p. 300)</p>
 <p>オブジェクト間の依存関係が複雑な場合の更新調整という意味だろうか。</p>
 </li>
 </ul>
-</div>
-<div class="section" id="memento">
-<h3><a class="toc-backref" href="#id16">Memento</a><a class="headerlink" href="#memento" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="memento">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Memento</a><a class="headerlink" href="#memento" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>オブジェクトを後にある時点の状態に戻すことができるようにするというパターン。</p></li>
-<li><p>&lt;<strong>memento</strong> は、別のオブジェクトの内部状態のスナップショットを保存するオブジェクトである&gt; (p. 304)</p>
+<li><p>&lt;<em class="dfn">memento</em> は、別のオブジェクトの内部状態のスナップショットを保存するオブジェクトである&gt; (p. 304)</p>
 <ul class="simple">
-<li><p>&lt;別のオブジェクト&gt; のことを memento に対して <strong>originator</strong> と呼ぶ。</p></li>
+<li><p>&lt;別のオブジェクト&gt; のことを memento に対して <em class="dfn">originator</em> と呼ぶ。</p></li>
 <li><p>originator は要求に応じて memento を返す。</p></li>
 </ul>
 </li>
-<li><p>&lt;Caretaker クラスには、Memento クラスの narrow インタフェースが見えるようになっている&gt; (p. 305)</p>
-<p>とにかく Caretaker オブジェクトは、Memento オブジェクトの中身を細かくいじるようなことはない。</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Caretaker</span></code> クラスには、<code class="docutils literal notranslate"><span class="pre">Memento</span></code> クラスの narrow インタフェースが見えるようになっている&gt; (p. 305)</p>
+<p>とにかく <code class="docutils literal notranslate"><span class="pre">Caretaker</span></code> オブジェクトは、<code class="docutils literal notranslate"><span class="pre">Memento</span></code> オブジェクトの中身を細かくいじるようなことはない。</p>
 </li>
-<li><p>&lt;それとは対称的に、Originator クラスには wide インタフェースが見えるようになっている&gt; (p. 305)</p>
-<p>Memento オブジェクトを生成する役割があるから、
-Originator は Memento のことをよく把握している必要がある。</p>
+<li><p>&lt;それとは対称的に、<code class="docutils literal notranslate"><span class="pre">Originator</span></code> クラスには wide インタフェースが見えるようになっている&gt; (p. 305)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Memento</span></code> オブジェクトを生成する役割があるから、<code class="docutils literal notranslate"><span class="pre">Originator</span></code> は
+<code class="docutils literal notranslate"><span class="pre">Memento</span></code> のことをよく把握している必要がある。</p>
 </li>
-<li><p>&lt;理想的には、Memento オブジェクトを生成した Originator オブジェクトだけが
-Memento オブジェクトの内部構造にアクセスすることを許されるようにする&gt; (p. 305)</p></li>
-<li><p>Memento のデータ量が多いケースでは、コストが高くつく。「差分」だけを保存しておけば済むようにできるなら、そうする。</p></li>
-<li><p>Caretaker は Memento を管理する。オブジェクトを削除する責任がある (p. 307) ということ。</p></li>
+<li><p>&lt;理想的には、<code class="docutils literal notranslate"><span class="pre">Memento</span></code> オブジェクトを生成した <code class="docutils literal notranslate"><span class="pre">Originator</span></code> オブジェクトだけが <code class="docutils literal notranslate"><span class="pre">Memento</span></code> オブジェクトの内部構造にアクセスすることを許されるようにする&gt;
+(p. 305)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Memento</span></code> のデータ量が多いケースでは、コストが高くつく。「差分」だけを保存しておけば済むようにできるなら、そうする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Caretaker</span></code> は <code class="docutils literal notranslate"><span class="pre">Memento</span></code> を管理する。オブジェクトを削除する責任がある (p.
+307) ということ。</p></li>
 </ul>
-</div>
-<div class="section" id="observer">
-<h3><a class="toc-backref" href="#id17">Observer</a><a class="headerlink" href="#observer" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="observer">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Observer</a><a class="headerlink" href="#observer" title="Permalink to this heading">¶</a></h3>
 <p>&lt;あるオブジェクトが状態を変えたときに、それに依存するすべてのオブジェクトに自動的にそのことが知らされ、また、それらが更新されるように、オブジェクト間に一対多の依存関係を定義する&gt; (p. 313)</p>
 <ul class="simple">
 <li><p>&lt;関連するオブジェクト間で無矛盾性を保つ必要がある&gt; (p. 313)</p></li>
 <li><p>しかし、そのためにクラス間の結合度を高めるようなことはしたくない (p. 313)</p></li>
-<li><p>スプレッドシートとバーチャートの例え (p. 313) は、
-&lt;同じデータに対して異なるユーザインタフェースがいくつあっても構わない&gt; (p. 314)
-ということを示したい。</p></li>
-<li><p>&lt;subject には、それに依存する observer を任意の数だけ持たせることができる&gt;
-(p. 314) ということは、極端な話ゼロでも構わない（意義があるかどうかは置いて）。</p></li>
+<li><p>スプレッドシートとバーチャートの例え (p. 313) は、&lt;同じデータに対して異なるユーザインタフェースがいくつあっても構わない&gt; (p. 314) ということを示したい。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">subject</span></code> には、それに依存する <code class="docutils literal notranslate"><span class="pre">observer</span></code> を任意の数だけ持たせることができる&gt; (p. 314) ということは、極端な話ゼロでも構わない（意義があるかどうかは置いて）。</p></li>
 </ul>
-<p>適用可能性のところに色々書いてあるが、基本的には
-&lt;1 つのオブジェクトを変化させるときに、それに伴いその他のオブジェクトも変化させる必要があり、しかも変化させる必要があるオブジェクトを固定的に決められないとき&gt; (p. 314)
-状況で決まりだろう。</p>
+<p>適用可能性のところに色々書いてあるが、基本的には&lt;1 つのオブジェクトを変化させるときに、それに伴いその他のオブジェクトも変化させる必要があり、しかも変化させる必要があるオブジェクトを固定的に決められないとき&gt; (p. 314) 状況で決まりだろう。</p>
 <ul class="simple">
-<li><p>subject は observer を知っている。</p></li>
-<li><p>observer は更新のインタフェースを定義する。</p></li>
-<li><p>ConcreteSubject は ConcreteObserver に影響する状態を保存している。</p></li>
-<li><p>ConcreteObserver は ConcreteSubject への参照を保持している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subject</span></code> は <code class="docutils literal notranslate"><span class="pre">observer</span></code> を知っている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">observer</span></code> は更新のインタフェースを定義する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteSubject</span></code> は <code class="docutils literal notranslate"><span class="pre">ConcreteObserver</span></code> に影響する状態を保存している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteObserver</span></code> は <code class="docutils literal notranslate"><span class="pre">ConcreteSubject</span></code> への参照を保持している。</p></li>
 <li><p>&lt;通知を得るまでには自身の状態の更新を延ばしている&gt; (p. 316)</p></li>
-<li><p>&lt;subject と observer の結合は抽象的であり極小である&gt; (p. 316)</p></li>
-<li><p>&lt;observer 同士は互いに相手の存在を知らないため、
-subject の変化に伴うコストの総計を observer が予測することはできない&gt; (p. 316)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">subject</span></code> と <code class="docutils literal notranslate"><span class="pre">observer</span></code> の結合は抽象的であり極小である&gt; (p. 316)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">observer</span></code> 同士は互いに相手の存在を知らないため、<code class="docutils literal notranslate"><span class="pre">subject</span></code> の変化に伴うコストの総計を <code class="docutils literal notranslate"><span class="pre">observer</span></code> が予測することはできない&gt; (p. 316)</p></li>
 </ul>
 <p>このパターンは記述量がけっこうある。</p>
 <ul class="simple">
-<li><p>&lt;subect が多くて observer が少ないときにはコストが高くつく&gt; (p. 317)</p></li>
-<li><p>1 つの observer が複数の subject に依存しているような場合、
-&lt;どの subject が通知を送ったのかを observer に知らせるように
-Update オペレーションインタフェースを拡張する必要がある&gt; (p. 317)</p></li>
-<li><p>&lt;どのオブジェクトが Notify オペレーションを呼び出すことになるのか&gt; (p. 317)
-だが、subject にやらせるにせよ observer にやらせるにせよ、トレードオフがある。</p></li>
-<li><p>&lt;subject が削除される際に、observer に対して subject への参照をリセットするように通知を出すようにすること&gt; (p. 317) を検討する。</p></li>
-<li><p>&lt;Subject クラスのどのオペレーションが通知のきっかけを作るのかは、文書化しておくのがよい&gt; (p. 318)</p></li>
-<li><p>subject の変更情報をどのように observer に引き渡すかで、
-push 型と pull 型に分類できる。これもトレードオフがある (pp. 318-319)</p></li>
-<li><p>subject と observer の依存関係が複雑なときには、間にワンクッション
-ChangeManager オブジェクトのようなものをはさんで、依存関係や変更通知を管理させる場合がある (pp. 319-320)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">subject</span></code> が多くて <code class="docutils literal notranslate"><span class="pre">observer</span></code> が少ないときにはコストが高くつく&gt; (p. 317)</p></li>
+<li><p>1 つの <code class="docutils literal notranslate"><span class="pre">observer</span></code> が複数の <code class="docutils literal notranslate"><span class="pre">subject</span></code> に依存しているような場合、&lt;どの
+<code class="docutils literal notranslate"><span class="pre">subject</span></code> が通知を送ったのかを <code class="docutils literal notranslate"><span class="pre">observer</span></code> に知らせるように <code class="docutils literal notranslate"><span class="pre">Update</span></code> オペレーションインタフェースを拡張する必要がある&gt; (p. 317)</p></li>
+<li><p>&lt;どのオブジェクトが <code class="docutils literal notranslate"><span class="pre">Notify</span></code> オペレーションを呼び出すことになるのか&gt; (p.
+317) だが、<code class="docutils literal notranslate"><span class="pre">subject</span></code> にやらせるにせよ <code class="docutils literal notranslate"><span class="pre">observer</span></code> にやらせるにせよ、トレードオフがある。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">subject</span></code> が削除される際に、<code class="docutils literal notranslate"><span class="pre">observer</span></code> に対して <code class="docutils literal notranslate"><span class="pre">subject</span></code> への参照をリセットするように通知を出すようにすること&gt; (p. 317) を検討する。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Subject</span></code> クラスのどのオペレーションが通知のきっかけを作るのかは、文書化しておくのがよい&gt; (p. 318)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subject</span></code> の変更情報をどのように <code class="docutils literal notranslate"><span class="pre">observer</span></code> に引き渡すかで、push 型と pull
+型に分類できる。これもトレードオフがある (pp. 318-319)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subject</span></code> と <code class="docutils literal notranslate"><span class="pre">observer</span></code> の依存関係が複雑なときには、間にワンクッション
+<code class="docutils literal notranslate"><span class="pre">ChangeManager</span></code> オブジェクトのようなものをはさんで、依存関係や変更通知を管理させる場合がある (pp. 319-320)</p></li>
 </ul>
-<p>サンプルコードは「時計」の実装例。タイマーが Subject で、各種時計が Observer だ。</p>
-</div>
-<div class="section" id="state">
-<h3><a class="toc-backref" href="#id18">State</a><a class="headerlink" href="#state" title="Permalink to this heading">¶</a></h3>
+<p>サンプルコードは「時計」の実装例。タイマーが <code class="docutils literal notranslate"><span class="pre">Subject</span></code> で、各種時計が
+<code class="docutils literal notranslate"><span class="pre">Observer</span></code> だ。</p>
+</section>
+<section id="state">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">State</a><a class="headerlink" href="#state" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>&lt;クラス内では、振る舞いの変化を記述せず、状態を表すオブジェクトを導入することでこれを実現する&gt; (p. 325)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TCPConnection</span></code> の例では、
-established, listen, closed の状態をそれぞれクラスとして表現する。</p>
-<p>&lt;このパターンでキーとなる考え方は、
-<code class="docutils literal notranslate"><span class="pre">TCPState</span></code> クラスと呼ばれる抽象クラスを導入することである&gt; (p. 325)</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">TCPConnection</span></code> の例では、established, listen, closed の状態をそれぞれクラスとして表現する。</p>
+<p>&lt;このパターンでキーとなる考え方は、<code class="docutils literal notranslate"><span class="pre">TCPState</span></code> クラスと呼ばれる抽象クラスを導入することである&gt; (p. 325)</p>
 </li>
-<li><p>パターン適用可能性としては、
-&lt;オペレーションが、オブジェクトの状態に依存した多岐に渡る条件文を持っている場合&gt;
-(p. 326) 等がある。</p></li>
-<li><p>Context クラスが State オブジェクトを持つ。</p>
+<li><p>パターン適用可能性としては、&lt;オペレーションが、オブジェクトの状態に依存した多岐に渡る条件文を持っている場合&gt; (p. 326) 等がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Context</span></code> クラスが <code class="docutils literal notranslate"><span class="pre">State</span></code> オブジェクトを持つ。</p>
 <ul class="simple">
-<li><p>&lt;状態に依存した要求を ConcreteState オブジェクトに委譲する&gt; (p. 327)</p></li>
-<li><p>&lt;ConcreteState オブジェクトに対して自身を引数として送る&gt; (p. 327)</p></li>
+<li><p>&lt;状態に依存した要求を <code class="docutils literal notranslate"><span class="pre">ConcreteState</span></code> オブジェクトに委譲する&gt; (p. 327)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">ConcreteState</span></code> オブジェクトに対して自身を引数として送る&gt; (p. 327)</p></li>
 </ul>
 </li>
-<li><p>状態遷移は Context クラスか ConcreteState クラスが決定するらしい (p. 327)</p>
+<li><p>状態遷移は <code class="docutils literal notranslate"><span class="pre">Context</span></code> クラスか <code class="docutils literal notranslate"><span class="pre">ConcreteState</span></code> クラスが決定するらしい (p.
+327)</p>
 <p>どちらでも OK ということか。</p>
 </li>
 </ul>
 <p>結果</p>
 <ul class="simple">
-<li><p>&lt;個々の状態に対する振る舞いを State のサブクラスに分配するため、クラスの数は増え、1 つのクラスを利用する場合よりもコンパクトではなくなるという問題である。しかし、多くの状態が存在する場合には、このように分配することにより、実際に良い効果が得られる。なぜならば、もしこの方法を用いていなければ、多数の条件文が必要になるからである&gt; (p. 327)</p></li>
+<li><p>&lt;個々の状態に対する振る舞いを <code class="docutils literal notranslate"><span class="pre">State</span></code> のサブクラスに分配するため、クラスの数は増え、1 つのクラスを利用する場合よりもコンパクトではなくなるという問題である。しかし、多くの状態が存在する場合には、このように分配することにより、実際に良い効果が得られる。なぜならば、もしこの方法を用いていなければ、多数の条件文が必要になるからである&gt; (p. 327)</p></li>
 <li><p>&lt;実行状態という概念をオブジェクトの地位にまで引き上げる&gt; (p. 327)</p></li>
-<li><p>&lt;Context クラスが矛盾した内部状態を持つのを防ぐことができる&gt; (p. 328)</p></li>
-<li><p>もし ConcreteState が独自の変数を持たないならば、Flyweight パターンも検討。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Context</span></code> クラスが矛盾した内部状態を持つのを防ぐことができる&gt; (p. 328)</p></li>
+<li><p>もし <code class="docutils literal notranslate"><span class="pre">ConcreteState</span></code> が独自の変数を持たないならば、Flyweight パターンも検討。</p></li>
 </ul>
 <p>実装</p>
 <ul class="simple">
 <li><p>&lt;どの構成要素が状態遷移の規準を定義するのかを特定していない&gt; (p. 328)</p>
 <ul>
-<li><p>&lt;State のサブクラス自身が次の状態と遷移の時期を特定できれば、一般的により柔軟で適切なものになる&gt; が、サブクラス間に依存関係が入り込むことになる。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">State</span></code> のサブクラス自身が次の状態と遷移の時期を特定できれば、一般的により柔軟で適切なものになる&gt; が、サブクラス間に依存関係が入り込むことになる。</p></li>
 </ul>
 </li>
 <li><p>テーブル検索型の状態遷移も紹介していて、利点と欠点を挙げている。決定的な欠点は遷移の規準が不明確になることだろうか。</p></li>
-<li><p>Context クラスがどの程度の頻度で状態を変えるかによって、
-ConcreteState オブジェクトの生成・破棄の戦略を決めるのがよい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Context</span></code> クラスがどの程度の頻度で状態を変えるかによって、<code class="docutils literal notranslate"><span class="pre">ConcreteState</span></code>
+オブジェクトの生成・破棄の戦略を決めるのがよい。</p></li>
 <li><p>&lt;委譲ベースの言語&gt; (p. 329) とは何だろう。</p></li>
 </ul>
 <p>サンプルコード</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">TCPConnection</span></code></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">TCPState</span></code> を friend 宣言している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TCPState</span></code> を <code class="docutils literal notranslate"><span class="pre">friend</span></code> 宣言している。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">ChangeState(TCPState*)</span></code> メソッドを提供する。</p></li>
 <li><p>この例の運用では、コンストラクタで <code class="docutils literal notranslate"><span class="pre">TCPClosed</span></code> に状態メンバーをセットする。</p></li>
 </ul>
@@ -483,9 +466,10 @@ ConcreteState オブジェクトの生成・破棄の戦略を決めるのがよ
 </li>
 </ul>
 </li>
-<li><p>ConcreteState</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteState</span></code></p>
 <ul>
-<li><p>この例ではいずれも &lt;ローカルな状態&gt; を保持しないので、各サブクラスを Singleton とする。</p></li>
+<li><p>この例ではいずれも &lt;ローカルな状態&gt; を保持しないので、各サブクラスを
+Singleton とする。</p></li>
 <li><p>例えば <code class="docutils literal notranslate"><span class="pre">TCPListen::Send</span></code> メソッドの実装は、まず SYN や ACK の送受信処理を行ってから、最後に</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ChangeState</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">TCPEstablished</span><span class="o">::</span><span class="n">Instance</span><span class="p">());</span><span class="w"></span>
 </pre></div>
@@ -502,9 +486,9 @@ ConcreteState オブジェクトの生成・破棄の戦略を決めるのがよ
 <p><code class="docutils literal notranslate"><span class="pre">Tool</span></code> のサブクラスとして線描画ツールやら選択ツールやらが定義されていて、クリックやドラッグのアプリケーション内での振る舞いが実際にはサブクラスに委譲されているので、それぞれ異なる。</p>
 </li>
 </ul>
-</div>
-<div class="section" id="strategy">
-<h3><a class="toc-backref" href="#id19">Strategy</a><a class="headerlink" href="#strategy" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="strategy">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Strategy</a><a class="headerlink" href="#strategy" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Strategy はカプセル化された交換可能なアルゴリズム (p. 335)</p></li>
 <li><p>別名が Policy になっている。</p></li>
@@ -512,7 +496,7 @@ ConcreteState オブジェクトの生成・破棄の戦略を決めるのがよ
 <p>テキストストリームを取り扱う方法を例に話が進む。</p>
 <ul class="simple">
 <li><p>&lt;特に、改行について複数のアルゴリズムをサポートする場合&gt; (p. 335)</p></li>
-<li><p>&lt;テキストをフォーマットするときには、Compositor のオブジェクトに対してこの責任を委譲する&gt; (p. 336)</p></li>
+<li><p>&lt;テキストをフォーマットするときには、<code class="docutils literal notranslate"><span class="pre">Compositor</span></code> のオブジェクトに対してこの責任を委譲する&gt; (p. 336)</p></li>
 </ul>
 <p>適用可能性も色々挙げているが、基本はこれだろう。</p>
 <ul class="simple">
@@ -520,30 +504,25 @@ ConcreteState オブジェクトの生成・破棄の戦略を決めるのがよ
 </ul>
 <p>構造、構成要素、協調関係について。</p>
 <ul class="simple">
-<li><p>Strategy がアルゴリズムに共通のインタフェースを宣言する。</p></li>
-<li><p>ConcreteStrategy がアルゴリズムを実装する。</p></li>
-<li><p>Context が Strategy を利用する。アルゴリズムに必要なデータを引き渡したりするのかもしれない。</p></li>
-<li><p>色々なアルゴリズムをサポートするのに Context を派生させない理由は、
-&lt;アルゴリズムの実装と Context クラスの実装が混ざってしまい、
-Context クラスを理解し、保守し、拡張することをより難しくしてしまう&gt;
-(p. 338) から。わざわざアルゴリズムを独立させている。</p></li>
-<li><p>&lt;振る舞いの種類がクライアントに関係がある場合にのみ、
-Strategy パターンを利用するべきである&gt; (p. 339)</p></li>
-<li><p>Context は ConcreteStrategy が効果的にアクセスできるようにするべし (p. 339)</p></li>
-<li><p>C++ の場合、テンプレートを利用して
-Strategy をコンパイル時に選択させることができる (p. 340)
-もっとも、Strategy を動的に変更できなくて構わない場合に限る手段だが。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Strategy</span></code> がアルゴリズムに共通のインタフェースを宣言する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteStrategy</span></code> がアルゴリズムを実装する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Context</span></code> が <code class="docutils literal notranslate"><span class="pre">Strategy</span></code> を利用する。アルゴリズムに必要なデータを引き渡したりするのかもしれない。</p></li>
+<li><p>色々なアルゴリズムをサポートするのに <code class="docutils literal notranslate"><span class="pre">Context</span></code> を派生させない理由は、 &lt;アルゴリズムの実装と <code class="docutils literal notranslate"><span class="pre">Context</span></code> クラスの実装が混ざってしまい、<code class="docutils literal notranslate"><span class="pre">Context</span></code> クラスを理解し、保守し、拡張することをより難しくしてしまう&gt; (p. 338) から。わざわざアルゴリズムを独立させている。</p></li>
+<li><p>&lt;振る舞いの種類がクライアントに関係がある場合にのみ、Strategy パターンを利用するべきである&gt; (p. 339)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Context</span></code> は <code class="docutils literal notranslate"><span class="pre">ConcreteStrategy</span></code> が効果的にアクセスできるようにするべし (p.
+339)</p></li>
+<li><p>C++ の場合、テンプレートを利用して <code class="docutils literal notranslate"><span class="pre">Strategy</span></code> をコンパイル時に選択させることができる (p. 340) もっとも、<code class="docutils literal notranslate"><span class="pre">Strategy</span></code> を動的に変更できなくて構わない場合に限る手段だが。</p></li>
 </ul>
 <p>サンプルコードの <code class="docutils literal notranslate"><span class="pre">Compose</span></code> メソッドは引数リストがゴチャゴチャしてないか？</p>
-</div>
-<div class="section" id="template-method">
-<h3><a class="toc-backref" href="#id20">Template Method</a><a class="headerlink" href="#template-method" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="template-method">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Template Method</a><a class="headerlink" href="#template-method" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;アルゴリズムのスケルトン&gt; (p. 347)</p></li>
-<li><p>&lt;その中のいくつかのステップについては、サブクラスの定義に任せることにする&gt; (p. 347)</p></li>
+<li><p>&lt;その中のいくつかのステップについては、サブクラスの定義に任せることにする&gt;
+(p. 347)</p></li>
 </ul>
-<p>またぞろ Application と Document クラスの例を挙げ、
-Document を「開く」オペレーションについての議論。</p>
+<p>またぞろ <code class="docutils literal notranslate"><span class="pre">Application</span></code> と <code class="docutils literal notranslate"><span class="pre">Document</span></code> クラスの例を挙げ、<code class="docutils literal notranslate"><span class="pre">Document</span></code> を「開く」オペレーションについての議論。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 347-348; 一部省略</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">Application::OpenDocument</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CanOpenDocument</span><span class="p">(</span><span class="n">name</span><span class="p">)){</span><span class="w"></span>
@@ -561,38 +540,39 @@ Document を「開く」オペレーションについての議論。</p>
 </pre></div>
 </div>
 <ul>
-<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">OpenDocument</span></code> オペレーションは、文書を開くための各ステップを定義する&gt; (p. 348)</p>
-<p><code class="docutils literal notranslate"><span class="pre">OpenDocument</span></code> はおそらく仮想関数になっていなくて、この中の各呼び出しメソッドが Application や Document の仮想関数になっている。
-&lt;抽象オペレーションを使ってアルゴリズムのいくつかのステップを定義することにより、
-template method はそれらの順番を固定する&gt; (p. 348)</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">OpenDocument</span></code> オペレーションは、文書を開くための各ステップを定義する&gt;
+(p. 348)</p>
+<p><code class="docutils literal notranslate"><span class="pre">OpenDocument</span></code> はおそらく仮想関数になっていなくて、この中の各呼び出しメソッドが <code class="docutils literal notranslate"><span class="pre">Application</span></code> や <code class="docutils literal notranslate"><span class="pre">Document</span></code> の仮想関数になっている。 &lt;抽象オペレーションを使ってアルゴリズムのいくつかのステップを定義することにより、template
+method はそれらの順番を固定する&gt; (p. 348)</p>
 </li>
 </ul>
 <p>適用可能性にいいことが書いてある。</p>
 <ul class="simple">
-<li><p>&lt;まず、既存のコードにおける相違点を識別し、次にその相違点を新しいオペレーションに分離する。最後に、既存のコードを、その相違点については新しいオペレーションを呼び出すようにした
-template method で置き換える&gt; (p. 348)</p></li>
+<li><p>&lt;まず、既存のコードにおける相違点を識別し、次にその相違点を新しいオペレーションに分離する。最後に、既存のコードを、その相違点については新しいオペレーションを呼び出すようにした template method で置き換える&gt; (p. 348)</p></li>
 </ul>
 <p>このセクションは短い。</p>
 <ul class="simple">
 <li><p>&lt;template method は、コード再利用のための基本的な方法である&gt; (p. 349)</p></li>
 <li><p>ハリウッドの原則</p></li>
-<li><p>&lt;hook operation は、デフォルトでは何もしないようにしておくことがしばしばある&gt; (p. 350)</p></li>
+<li><p>&lt;hook operation は、デフォルトでは何もしないようにしておくことがしばしばある&gt;
+(p. 350)</p></li>
 </ul>
 <p>実装のコツ</p>
 <ul class="simple">
 <li><p>C++ では</p>
 <ul>
-<li><p>primitive operation を private 宣言する (p. 351)</p></li>
+<li><p>primitive operation を <code class="docutils literal notranslate"><span class="pre">private</span></code> 宣言する (p. 351)</p></li>
 <li><p>&lt;template method は非仮想関数として宣言しておく&gt; (p. 351)</p></li>
 </ul>
 </li>
 <li><p>primitive operation の数を最小化すること (p. 351)</p></li>
-<li><p>名前を見て template method, primitive operation とわかるようにすると便利 (p. 351)</p></li>
+<li><p>名前を見て template method, primitive operation とわかるようにすると便利
+(p. 351)</p></li>
 </ul>
 <p>&lt;template method はたいへん基本的なもの&gt; (p. 352)</p>
-</div>
-<div class="section" id="visitor">
-<h3><a class="toc-backref" href="#id21">Visitor</a><a class="headerlink" href="#visitor" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="visitor">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Visitor</a><a class="headerlink" href="#visitor" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>最初に読んだときにクラス構造が頭にストンと入らなかったパターン。</p></li>
 <li><p>&lt;オペレーションを加えるオブジェクトのクラスに変更を加えずに、新しいオペレーションを定義することができる&gt; (p. 353)</p></li>
@@ -607,16 +587,16 @@ template method で置き換える&gt; (p. 348)</p></li>
 </li>
 <li><p>&lt;そこで、関連するオペレーションを各クラスから取り出して別のオブジェクトにまとめ、アブストラクト・シンタックスツリーを走査するときにその要素にこのオブジェクトを渡す、というアプローチをとることができる&gt; (p. 354)</p>
 <ul class="simple">
-<li><p>別のオブジェクトが <strong>visitor</strong> と呼ばれるもの。
-<code class="docutils literal notranslate"><span class="pre">TypeCheckingVisitor</span></code> やら <code class="docutils literal notranslate"><span class="pre">CodeGeneratingVisitor</span></code> やらだ。</p></li>
+<li><p>別のオブジェクトが <em class="dfn">visitor</em> と呼ばれるもの。<code class="docutils literal notranslate"><span class="pre">TypeCheckingVisitor</span></code>
+やら <code class="docutils literal notranslate"><span class="pre">CodeGeneratingVisitor</span></code> やらだ。</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>&lt;Visitor パターンでは、2 つのクラス階層を定義する&gt; (p. 355)</p>
 <ul class="simple">
-<li><p>オペレーションを加えられる側 (Node)</p></li>
-<li><p>オペレーションを定義する側 (NodeVisitor)</p></li>
+<li><p>オペレーションを加えられる側 (<code class="docutils literal notranslate"><span class="pre">Node</span></code>)</p></li>
+<li><p>オペレーションを定義する側 (<code class="docutils literal notranslate"><span class="pre">NodeVisitor</span></code>)</p></li>
 </ul>
 </li>
 </ul>
@@ -627,18 +607,18 @@ template method で置き換える&gt; (p. 348)</p></li>
 </ul>
 <p>構成要素</p>
 <ul class="simple">
-<li><p>ConcreteVisitor クラスは &lt;構造を走査していく過程で、状態に結果が蓄積されていくことがしばしばある&gt; (p. 356)</p></li>
-<li><p>Element クラスは &lt;引数として visitor をとる Accept オペレーションを定義する&gt; (p. 356)</p></li>
-<li><p>ConcreteElement クラスが Accept の実装をする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteVisitor</span></code> クラスは &lt;構造を走査していく過程で、状態に結果が蓄積されていくことがしばしばある&gt; (p. 356)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Element</span></code> クラスは &lt;引数として <code class="docutils literal notranslate"><span class="pre">visitor</span></code> をとる <code class="docutils literal notranslate"><span class="pre">Accept</span></code> オペレーションを定義する&gt; (p. 356)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteElement</span></code> クラスが <code class="docutils literal notranslate"><span class="pre">Accept</span></code> の実装をする。</p></li>
 </ul>
 <p>結果</p>
 <ul>
-<li><p>&lt;Visitor パターンでは、Element の新しいサブクラスを加えることを難しくする&gt; (p. 358)</p></li>
-<li><p>&lt;新しい ConcreteElement クラスがひんぱんに追加されるときには、
-Visitor クラスの階層を保守することが難しくなる危険性がある&gt; (p. 358)</p></li>
-<li><p>&lt;visitor によるアプローチでは、ConcreteElement クラスのインタフェースが、
-visitor が仕事を行うのに十分、強力であることを仮定している&gt; (p. 359)</p>
-<p>Element 側のカプセル化がもろくなる可能性を指摘している。</p>
+<li><p>&lt;Visitor パターンでは、<code class="docutils literal notranslate"><span class="pre">Element</span></code> の新しいサブクラスを加えることを難しくする&gt;
+(p. 358)</p></li>
+<li><p>&lt;新しい <code class="docutils literal notranslate"><span class="pre">ConcreteElement</span></code> クラスがひんぱんに追加されるときには、<code class="docutils literal notranslate"><span class="pre">Visitor</span></code>
+クラスの階層を保守することが難しくなる危険性がある&gt; (p. 358)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">visitor</span></code> によるアプローチでは、<code class="docutils literal notranslate"><span class="pre">ConcreteElement</span></code> クラスのインタフェースが、 <code class="docutils literal notranslate"><span class="pre">visitor</span></code> が仕事を行うのに十分、強力であることを仮定している&gt; (p. 359)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Element</span></code> 側のカプセル化がもろくなる可能性を指摘している。</p>
 </li>
 </ul>
 <p>実装</p>
@@ -649,21 +629,19 @@ visitor が仕事を行うのに十分、強力であることを仮定してい
 <li><p><code class="docutils literal notranslate"><span class="pre">ElementA</span></code>, <code class="docutils literal notranslate"><span class="pre">ElementB</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ConpositeElement</span></code></p></li>
 </ul>
-<p>クラスを定義してみよう。
-<code class="docutils literal notranslate"><span class="pre">CompositeElement::Accept</span></code> の実装方法に注意。</p>
+<p>クラスを定義してみよう。<code class="docutils literal notranslate"><span class="pre">CompositeElement::Accept</span></code> の実装方法に注意。</p>
 </li>
-<li><p>ダブルディスパッチの話題が出てくる。Accept がそれなのだが、</p>
+<li><p>ダブルディスパッチの話題が出てくる。<code class="docutils literal notranslate"><span class="pre">Accept</span></code> がそれなのだが、</p>
 <ul>
 <li><p>&lt;ダブルディスパッチとは、単に、実行されるオペレーションが要求の種類と 2 つの受け手の型に依存することを意味している&gt; (p. 361)</p>
-<p>Visitor の型と Element の型が Accept を決める。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Visitor</span></code> の型と <code class="docutils literal notranslate"><span class="pre">Element</span></code> の型が <code class="docutils literal notranslate"><span class="pre">Accept</span></code> を決める。</p>
 </li>
 </ul>
 </li>
 </ul>
 <p>サンプルコード</p>
 <ul>
-<li><p>&lt;visitor は通常 composite と関連がある&gt; (p. 362)
-というわけで Composite パターンの説明で出てきた <code class="docutils literal notranslate"><span class="pre">Equipment</span></code> クラスを引っ張り出す。</p>
+<li><p>&lt;visitor は通常 composite と関連がある&gt; (p. 362) というわけで Composite パターンの説明で出てきた <code class="docutils literal notranslate"><span class="pre">Equipment</span></code> クラスを引っ張り出す。</p>
 <ul class="simple">
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Equipment</span></code> クラスはとても簡単なので、実際には Visitor パターンを利用する必要はない&gt; (p. 362)</p></li>
 </ul>
@@ -678,7 +656,7 @@ visitor が仕事を行うのに十分、強力であることを仮定してい
 <span class="c1">// visitor 内部に Inventory 情報が蓄積された。</span>
 </pre></div>
 </div>
-<p>単に Accept 呼び出しだけだ。</p>
+<p>単に <code class="docutils literal notranslate"><span class="pre">Accept</span></code> 呼び出しだけだ。</p>
 </li>
 </ul>
 <p>使用例</p>
@@ -687,54 +665,56 @@ visitor が仕事を行うのに十分、強力であることを仮定してい
 <p>描画、イベント処理、検索、バウンディングボックス計算等々、それぞれの用途に専用の visitor が存在すると言っている。</p>
 </li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id22">まとめ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">まとめ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>まだ全部読み切っていない。</p>
 <ul class="simple">
-<li><p>Observer パターンでは &lt;observer と subject が制約を維持するために協力し合わなければならない&gt; (p. 370)</p></li>
-<li><p>&lt;mediator を再利用可能なものにするよりも、
-observer と subject を再利用可能なものにする方が容易なのは明らかである&gt; (p. 370)</p></li>
+<li><p>Observer パターンでは &lt;<code class="docutils literal notranslate"><span class="pre">observer</span></code> と <code class="docutils literal notranslate"><span class="pre">subject</span></code> が制約を維持するために協力し合わなければならない&gt; (p. 370)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">mediator</span></code> を再利用可能なものにするよりも、<code class="docutils literal notranslate"><span class="pre">observer</span></code> と <code class="docutils literal notranslate"><span class="pre">subject</span></code> を再利用可能なものにする方が容易なのは明らかである&gt; (p. 370)</p></li>
 <li><p>&lt;Observer パターンよりも Mediator パターンの方が通信の流れを理解するのは容易である&gt; (p. 370)</p></li>
 <li><p>&lt;協力し合うオブジェクトが直接お互いを参照しているときには、（略）システムの階層化と再利用性に対してマイナスの効果を及ぼす&gt; (p. 371)</p></li>
 <li><p>&lt;Observer パターンは、Command パターンよりも送信―受信オブジェクトの結合をさらにゆるく定義する&gt; (p. 371)</p></li>
-<li><p>&lt;mediator は、さらに柔軟性を得るためには独自のディスパッチスキーマを実装しなければならないだろう&gt; (p. 372)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">mediator</span></code> は、さらに柔軟性を得るためには独自のディスパッチスキーマを実装しなければならないだろう&gt; (p. 372)</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id23">第 6 章 終わりに</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">第 6 章 終わりに</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>&lt;本書は単に既存の設計法について述べたものである。本書はチュートリアルとしては妥当だが、熟練したオブジェクト指向設計者にはあまり役に立たないと思われるかもしれない&gt; (p. 375)</p></li>
 <li><p>&lt;読者がいかにデザインパターンを見つけてカタログ化していくことができるかについて述べる&gt; (p. 375)</p></li>
 </ul>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id24">6.1 デザインパターンに何を期待するか</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<section id="id6">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">6.1 デザインパターンに何を期待するか</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;デザインパターンを用いることで、より高いレベルで設計し、設計について議論することが可能になるのだ&gt; (p. 376)</p></li>
-<li><p>&lt;十分に長い間オブジェクト指向システムに従事すれば、自力でデザインパターンを習得することができるだろう。しかし、本書を読めばはるかに速く習得できるはずである&gt; (p. 376)</p></li>
-<li><p>&lt;デザインパターンは分析モデルから実装モデルへの転換のときに特に効果がある&gt; (p. 377)</p></li>
-<li><p>&lt;柔軟で再利用可能な設計には、分析モデルには存在しないオブジェクトが含まれる&gt; (p. 377)</p></li>
+<li><p>&lt;十分に長い間オブジェクト指向システムに従事すれば、自力でデザインパターンを習得することができるだろう。しかし、本書を読めばはるかに速く習得できるはずである
+&gt; (p. 376)</p></li>
+<li><p>&lt;デザインパターンは分析モデルから実装モデルへの転換のときに特に効果がある&gt;
+(p. 377)</p></li>
+<li><p>&lt;柔軟で再利用可能な設計には、分析モデルには存在しないオブジェクトが含まれる&gt;
+(p. 377)</p></li>
 <li><p>&lt;進化を続けるためには、ソフトウェアは“リファクタリング”と呼ばれるプロセスによって作り直さなければならない&gt; (p. 378)</p></li>
-<li><p>&lt;優秀は設計者はリファクタリングが必要になるような変更には気付くものである&gt; (p. 378)</p></li>
+<li><p>&lt;優秀は設計者はリファクタリングが必要になるような変更には気付くものである&gt;
+(p. 378)</p></li>
 </ul>
-</div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id25">6.2 経緯</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">6.2 経緯</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>&lt;本書のカタログは Erich の学位論文の一部として始まった&gt; (p. 378)
-おお、学位論文なのか。</p></li>
+<li><p>&lt;本書のカタログは Erich の学位論文の一部として始まった&gt; (p. 378) おお、学位論文なのか。</p></li>
 <li><p>&lt;しかし、パターンを理解できるのは、すでにパターンを使ったことのある人に限られていた&gt; (p. 379)</p></li>
-<li><p>&lt;なぜ行っているのかを理解することは、何をしているかを理解するよりも難しい&gt; (p. 379)
-これはいい言葉だ。</p></li>
+<li><p>&lt;なぜ行っているのかを理解することは、何をしているかを理解するよりも難しい&gt;
+(p. 379) これはいい言葉だ。</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id26">付録以降</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">付録以降</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <p>ノートに取るほどの重大な記述はなさそうだ？</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

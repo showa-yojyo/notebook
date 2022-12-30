@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 2/3 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,26 +46,26 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id7">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 2/3</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id7" role="doc-backlink">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 2/3</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
-<dt class="field-odd">著者</dt>
+<dt class="field-odd">著者<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Eric Gamma, Richard Helm, Ralph Johnson, John Vlissides</p>
 </dd>
-<dt class="field-even">監訳者</dt>
+<dt class="field-even">監訳者<span class="colon">:</span></dt>
 <dd class="field-even"><p>本位田真一、吉田和樹</p>
 </dd>
-<dt class="field-odd">出版社</dt>
+<dt class="field-odd">出版社<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ソフトバンク クリエイティブ株式会社</p>
 </dd>
-<dt class="field-even">発行年</dt>
+<dt class="field-even">発行年<span class="colon">:</span></dt>
 <dd class="field-even"><p>1999 年</p>
 </dd>
-<dt class="field-odd">ISBN</dt>
+<dt class="field-odd">ISBN<span class="colon">:</span></dt>
 <dd class="field-odd"><p>978-4-7973-1112-9</p>
 </dd>
 </dl>
-<div class="contents topic" id="id2">
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id7">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート 2/3</a></p>
@@ -97,9 +95,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id8">第 3 章 生成に関するパターン</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="id3">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">第 3 章 生成に関するパターン</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>&lt;クラス継承よりもオブジェクトコンポジションに頼る形でシステムを発展させていく場合に、生成に関するパターンは重要になる&gt; (p. 89)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">MazeGame::CreateMaze</span></code> についての考察が数ページ続くが、高密度な記述ゆえに上手い形にノートにまとめられない。</p>
@@ -108,81 +106,81 @@
 <li><p>迷路構成を変更しようとすると、メンバ関数のオーバーライド（実質再定義）か、それと同等の仕事が必要となる (p. 92)</p></li>
 </ul>
 </li>
-<li><p>&lt;より柔軟な設計（必ずしも、コードを短くするわけではない）&gt; (p. 93)
-このカッコ内がポイント。</p></li>
-<li><p>&lt;インスタンス化されるクラスがコード中に直接書かれていることが最大の問題&gt; (p. 93)</p></li>
+<li><p>&lt;より柔軟な設計（必ずしも、コードを短くするわけではない）&gt; (p. 93) このカッコ内がポイント。</p></li>
+<li><p>&lt;インスタンス化されるクラスがコード中に直接書かれていることが最大の問題&gt;
+(p. 93)</p></li>
 </ul>
-<div class="section" id="abstract-factory">
-<h3><a class="toc-backref" href="#id9">Abstract Factory</a><a class="headerlink" href="#abstract-factory" title="Permalink to this heading">¶</a></h3>
+<section id="abstract-factory">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Abstract Factory</a><a class="headerlink" href="#abstract-factory" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>Motif とか Presentation Manager とかって何？</p></li>
 <li><p>&lt;各種の基本ウィジェットを生成するためのインタフェースを宣言した抽象クラス
-WidgetFactory を定義する&gt; (p. 95)</p></li>
-<li><p>各種のウィジェットに対する抽象クラスを作成したら、
-&lt;その具象クラスで特定の look-and-feel 規格のもとでの実装を与える&gt; (p. 95)</p></li>
-<li><p>&lt;たとえば Motif ではスクロールバーはボタンやテキストエディタとともに使わなければならないといった制約が、MotifWidgetFactory クラスを利用する結果として自動的に規定されることになる&gt; (p. 96)</p></li>
-<li><p>このパターンでは Client は AbstractFactory と AbstractProduct で宣言されたインタフェースのみを利用する (p. 97)</p></li>
-<li><p>&lt;普通、ConcreteFactory クラスのインスタンスは実行時に生成される&gt; (p. 97)
+<code class="docutils literal notranslate"><span class="pre">WidgetFactory</span></code> を定義する&gt; (p. 95)</p></li>
+<li><p>各種のウィジェットに対する抽象クラスを作成したら、 &lt;その具象クラスで特定の
+look-and-feel 規格のもとでの実装を与える&gt; (p. 95)</p></li>
+<li><p>&lt;たとえば Motif ではスクロールバーはボタンやテキストエディタとともに使わなければならないといった制約が、<code class="docutils literal notranslate"><span class="pre">MotifWidgetFactory</span></code> クラスを利用する結果として自動的に規定されることになる&gt; (p. 96)</p></li>
+<li><p>このパターンでは Client は <code class="docutils literal notranslate"><span class="pre">AbstractFactory</span></code> と <code class="docutils literal notranslate"><span class="pre">AbstractProduct</span></code> で宣言されたインタフェースのみを利用する (p. 97)</p></li>
+<li><p>&lt;普通、<code class="docutils literal notranslate"><span class="pre">ConcreteFactory</span></code> クラスのインスタンスは実行時に生成される&gt; (p. 97)
 とあるが、実行時に生成されないインスタンスなど考えられる？</p></li>
-<li><p>新たな種類の部品への対応は AbstractFactory とそのすべてのサブクラスについて、インタフェースの修正が必要となる。これが面倒。</p></li>
-<li><p>部品を実際に生成するのは ConcreteProduct クラスになるが、各部品について factory method を定義する方法がよく用いられる (p. 98)</p></li>
-<li><p>Prototype パターンを使って ConcreteFactory クラスを実装する方法がある。部品の集合が多数存在する場合にそうすることができる (p. 98)</p></li>
-<li><p>&lt;クラスをオブジェクトとして扱うことのできる言語では、
-prototype を用いたアプローチに変化をつけることが可能になる&gt; (p. 99)</p></li>
-<li><p>生成する部品の種類を表すパラメータを取る AbstractFactory の手法は、
-&lt;C++ を使うときには、すべてのオブジェクトが同じ抽象基底クラスを持つ場合か、要求を出すクライアントにより部品オブジェクトが正しい型に変換できる場合にのみ、適用することができる&gt; (p. 100)</p>
-<p>この条件はそんなにきつくない。
-&lt;サブクラスに特有のオペレーション&gt; (p. 100) をする必要がない場合は、この手法の採用の検討に値する。</p>
+<li><p>新たな種類の部品への対応は <code class="docutils literal notranslate"><span class="pre">AbstractFactory</span></code> とそのすべてのサブクラスについて、インタフェースの修正が必要となる。これが面倒。</p></li>
+<li><p>部品を実際に生成するのは <code class="docutils literal notranslate"><span class="pre">ConcreteProduct</span></code> クラスになるが、各部品について
+factory method を定義する方法がよく用いられる (p. 98)</p></li>
+<li><p>Prototype パターンを使って <code class="docutils literal notranslate"><span class="pre">ConcreteFactory</span></code> クラスを実装する方法がある。部品の集合が多数存在する場合にそうすることができる (p. 98)</p></li>
+<li><p>&lt;クラスをオブジェクトとして扱うことのできる言語では、prototype を用いたアプローチに変化をつけることが可能になる&gt; (p. 99)</p></li>
+<li><p>生成する部品の種類を表すパラメータを取る AbstractFactory の手法は、&lt;C++ を使うときには、すべてのオブジェクトが同じ抽象基底クラスを持つ場合か、要求を出すクライアントにより部品オブジェクトが正しい型に変換できる場合にのみ、適用することができる&gt; (p. 100)</p>
+<p>この条件はそんなにきつくない。&lt;サブクラスに特有のオペレーション&gt; (p. 100) をする必要がない場合は、この手法の採用の検討に値する。</p>
 </li>
 </ul>
 <p>サンプルコードで <code class="docutils literal notranslate"><span class="pre">MazeGame::CreateMaze</span></code> を Abstract Factory パターンで実装している。</p>
 <ul class="simple">
-<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">MazeFactory</span></code> クラスは、単に factory method を集めたものになっているが、これは Abstract Factory パターンを実装するときにもっとも一般的な方法である&gt; (p. 102)</p></li>
-<li><p>AbstractFactory が ConcreteFactory を兼ねるのも一般的な実装方法 (p. 102)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">MazeFactory</span></code> クラスは、単に factory method を集めたものになっているが、これは Abstract Factory パターンを実装するときにもっとも一般的な方法である&gt;
+(p. 102)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AbstractFactory</span></code> が <code class="docutils literal notranslate"><span class="pre">ConcreteFactory</span></code> を兼ねるのも一般的な実装方法 (p.
+102)</p></li>
 </ul>
-</div>
-<div class="section" id="builder">
-<h3><a class="toc-backref" href="#id10">Builder</a><a class="headerlink" href="#builder" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="builder">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Builder</a><a class="headerlink" href="#builder" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>同じ作成過程で異なる表現形式の複合オブジェクトを生成できる (p. 105)</p></li>
 <li><p>&lt;変換すべきフォーマットのすべてを事前に確定できるとは限らないので、読み取り部を修正することなく、新たに与えられたフォーマットへの変換が容易に行えるようにしておくことが望ましい&gt; (p. 105)</p></li>
-<li><p>&lt;RTFReader オブジェクトが RTF の文書の構文解析を行い、その結果を TextConverter オブジェクトを使って変換する&gt; (p. 105)</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">RTFReader</span></code> オブジェクトが RTF の文書の構文解析を行い、その結果を
+<code class="docutils literal notranslate"><span class="pre">TextConverter</span></code> オブジェクトを使って変換する&gt; (p. 105)</p>
 <p>「何に」変換するかはまだ言及していないことに注意。</p>
 </li>
-<li><p>この各変換クラスを <strong>builder</strong> と呼び、読み取り部のクラスを <strong>director</strong> と呼ぶ (p. 106)</p></li>
-<li><p>&lt;RTFReader クラスの構文解析アルゴリズムは再利用することができる&gt; (p. 106)</p></li>
+<li><p>この各変換クラスを <em class="dfn">builder</em> と呼び、読み取り部のクラスを <em class="dfn">director</em>
+と呼ぶ (p. 106)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">RTFReader</span></code> クラスの構文解析アルゴリズムは再利用することができる&gt; (p. 106)</p></li>
 <li><p>オブジェクトの作成プロセスが、多様な表現を認めるようにしておける (p. 106)</p></li>
-<li><p>当パターンのクラス構造を見ると、Director が Builder を持っている。面白いのは <code class="docutils literal notranslate"><span class="pre">Director</span></code> が <code class="docutils literal notranslate"><span class="pre">Builder::BuildPart</span></code> メソッドしか利用していないこと。</p>
+<li><p>当パターンのクラス構造を見ると、<code class="docutils literal notranslate"><span class="pre">Director</span></code> が <code class="docutils literal notranslate"><span class="pre">Builder</span></code> を持っている。面白いのは <code class="docutils literal notranslate"><span class="pre">Director</span></code> が <code class="docutils literal notranslate"><span class="pre">Builder::BuildPart</span></code> メソッドしか利用していないこと。</p>
 <ul class="simple">
-<li><p>ConcreteBuilder は &lt;Product オブジェクトを取り出すためのインターフェイスを提供する&gt; (p. 107)</p></li>
-<li><p>Product クラスは &lt;多くの構成要素からなる複合オブジェクト&gt; (p. 107) である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteBuilder</span></code> は &lt;<code class="docutils literal notranslate"><span class="pre">Product</span></code> オブジェクトを取り出すためのインターフェイスを提供する&gt; (p. 107)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Product</span></code> クラスは &lt;多くの構成要素からなる複合オブジェクト&gt; (p. 107) である。</p></li>
 </ul>
 </li>
 </ul>
 <p>このパターンはトレード・オフがないのか。</p>
 <ul>
-<li><p>&lt;別の Director オブジェクトが同じ構成要素からなる Product オブジェクトを作成する場合に、それを再利用することができるようになる&gt; (p. 108)</p>
-<p>各 ConcreteBuilder がそのまま（変更せずに）再利用できると強調している。</p>
+<li><p>&lt;別の <code class="docutils literal notranslate"><span class="pre">Director</span></code> オブジェクトが同じ構成要素からなる <code class="docutils literal notranslate"><span class="pre">Product</span></code> オブジェクトを作成する場合に、それを再利用することができるようになる&gt; (p. 108)</p>
+<p>各 <code class="docutils literal notranslate"><span class="pre">ConcreteBuilder</span></code> がそのまま（変更せずに）再利用できると強調している。</p>
 </li>
-<li><p>&lt;生成要求の結果を、それまでに得られている Product
-オブジェクトに単純に追加していくだけのモデルで十分な場合が多い&gt; (p. 109)</p></li>
-<li><p>&lt;異なる Product オブジェクトに共通の親クラスを作るメリットは少ない&gt; (p. 109)</p>
+<li><p>&lt;生成要求の結果を、それまでに得られている <code class="docutils literal notranslate"><span class="pre">Product</span></code> オブジェクトに単純に追加していくだけのモデルで十分な場合が多い&gt; (p. 109)</p></li>
+<li><p>&lt;異なる <code class="docutils literal notranslate"><span class="pre">Product</span></code> オブジェクトに共通の親クラスを作るメリットは少ない&gt; (p.
+109)</p>
 <p>なるほど。</p>
 </li>
 </ul>
-<p>サンプルコードでは、MazeGame の例を Builder パターンを導入して書き直している。</p>
+<p>サンプルコードでは <code class="docutils literal notranslate"><span class="pre">MazeGame</span></code> の例を Builder パターンを導入して書き直している。</p>
 <ul class="simple">
-<li><p>MazeBuilder クラスにメソッド群 BuildXXXX を定義するメリットは、各 Product (Room, Door) の生成ロジックを隠蔽することにある。
-&lt;異なる種類の迷路を作成する場合に MazeBuilder クラスを再利用できることを意味している&gt; (p. 110)</p></li>
-<li><p>&lt;MazeBuilder クラスは迷路そのものを作るのではなく、迷路作成のためのインターフェイスを定義しているにすぎない&gt; (p. 110)</p></li>
-<li><p>&lt;しかし、Maze クラスを小さくしておくことで理解や修正が容易になるという利点があり、また、StandardMazeBuilder クラスは Maze クラスから容易に分離することもできる。もっと重要なことは、この 2 つを分離しておくことにより、部屋、壁、ドアに対して、異なるクラスを使ってさまざまな
-MazeBuilder クラスを作れるようになるという点である&gt; (p. 112)</p></li>
-<li><p>Abstract Factory パターンは &lt;複合オブジェクトを作成するという点で
-Builder パターンに類似している&gt; (p. 114)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MazeBuilder</span></code> クラスにメソッド群 <code class="docutils literal notranslate"><span class="pre">BuildXXXX</span></code> を定義するメリットは、各
+<code class="docutils literal notranslate"><span class="pre">Product</span></code> (<code class="docutils literal notranslate"><span class="pre">Room</span></code>, <code class="docutils literal notranslate"><span class="pre">Door</span></code>) の生成ロジックを隠蔽することにある。 &lt;異なる種類の迷路を作成する場合に <code class="docutils literal notranslate"><span class="pre">MazeBuilder</span></code> クラスを再利用できることを意味している&gt; (p. 110)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">MazeBuilder</span></code> クラスは迷路そのものを作るのではなく、迷路作成のためのインターフェイスを定義しているにすぎない&gt; (p. 110)</p></li>
+<li><p>&lt;しかし、<code class="docutils literal notranslate"><span class="pre">Maze</span></code> クラスを小さくしておくことで理解や修正が容易になるという利点があり、また、<code class="docutils literal notranslate"><span class="pre">StandardMazeBuilder</span></code> クラスは <code class="docutils literal notranslate"><span class="pre">Maze</span></code> クラスから容易に分離することもできる。もっと重要なことは、この 2 つを分離しておくことにより、部屋、壁、ドアに対して、異なるクラスを使ってさまざまな <code class="docutils literal notranslate"><span class="pre">MazeBuilder</span></code> クラスを作れるようになるという点である&gt; (p. 112)</p></li>
+<li><p>Abstract Factory パターンは &lt;複合オブジェクトを作成するという点で Builder パターンに類似している&gt; (p. 114)</p></li>
 </ul>
-</div>
-<div class="section" id="factory-method">
-<h3><a class="toc-backref" href="#id11">Factory Method</a><a class="headerlink" href="#factory-method" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="factory-method">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Factory Method</a><a class="headerlink" href="#factory-method" title="Permalink to this heading">¶</a></h3>
 <p>フレームワーク寄りのデザインパターンらしい。</p>
 <ul>
 <li><p>フレームワークにしばしば見られる特徴 (p. 115):</p>
@@ -191,25 +189,25 @@ Builder パターンに類似している&gt; (p. 114)</p></li>
 <li><p>（具象型のわからない）オブジェクトの生成を行う責任がある。</p></li>
 </ul>
 </li>
-<li><p>フレームワークの立場としては、&lt;Application クラスは Document
-のどのサブクラスがインスタンス化されるのかを事前に知ることはできない&gt; (p. 115)
-ので、Application クラスに Document を生成するオーバーライド可能なメソッド CreateDocument を用意し、ユーザーにサブクラス型を返すような実装をさせる。</p>
-<p>この CreateDocument みたいなものを一般に factory method と呼ぶ。</p>
+<li><p>フレームワークの立場としては、&lt;<code class="docutils literal notranslate"><span class="pre">Application</span></code> クラスは <code class="docutils literal notranslate"><span class="pre">Document</span></code> のどのサブクラスがインスタンス化されるのかを事前に知ることはできない&gt; (p. 115) ので、
+<code class="docutils literal notranslate"><span class="pre">Application``クラスに</span> <span class="pre">``Document</span></code> を生成するオーバーライド可能なメソッド
+<code class="docutils literal notranslate"><span class="pre">CreateDocument</span></code> を用意し、ユーザーにサブクラス型を返すような実装をさせる。</p>
+<p>この <code class="docutils literal notranslate"><span class="pre">CreateDocument</span></code> みたいなものを一般に factory method と呼ぶ。</p>
 </li>
 <li><p>&lt;クラス内部でオブジェクトを生成する場合、直接生成するよりも factory method を使うほうが柔軟性を高める&gt; (p. 117)</p></li>
 <li><p>図形操作ツールの話 (pp. 118-119) が面白かったので、後でもう一回読んでみる。
-Figure インタフェースに CreateManipulator (factory method) を与えておき、各 Figure のサブクラスがそれに応じた Manipulator のサブクラスを生成する、というトリック。</p></li>
-<li><p>Creator クラスを抽象クラスにして、factory method を空にする場合と、
-Creator クラスを具象クラスにして、factory method にデフォルト実装を与える場合がある
-(p. 118)</p></li>
+<code class="docutils literal notranslate"><span class="pre">Figure</span></code> インタフェースに <code class="docutils literal notranslate"><span class="pre">CreateManipulator</span></code> (factory method) を与えておき、各 <code class="docutils literal notranslate"><span class="pre">Figure</span></code> のサブクラスがそれに応じた <code class="docutils literal notranslate"><span class="pre">Manipulator</span></code> のサブクラスを生成する、というトリック。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Creator</span></code> クラスを抽象クラスにして、factory method を空にする場合と、
+<code class="docutils literal notranslate"><span class="pre">Creator</span></code> クラスを具象クラスにして、factory method にデフォルト実装を与える場合がある(p. 118)</p></li>
 <li><p>Factory Method パターンの変形として、&lt;factory method が数種類の
-ConcreteProduct オブジェクトを生成できるようにしておく&gt; (p. 119) ものがある。種類を表すパラメータを取るようなメソッドにするらしい。</p>
+<code class="docutils literal notranslate"><span class="pre">ConcreteProduct</span></code> オブジェクトを生成できるようにしておく&gt; (p. 119) ものがある。種類を表すパラメータを取るようなメソッドにするらしい。</p>
 <ul class="simple">
 <li><p>この手法はシリアライズ実装で使うというようなことが書かれている。</p></li>
 </ul>
 </li>
 <li><p>言語によっては &lt;インスタンス化されるクラスを返すメソッド&gt; (p. 120) を使う。オブジェクトではなく、クラス自体を返すということ。</p></li>
-<li><p>C++ では Creator クラスのコンストラクタ内で factory method を呼び出せない (p. 121)</p>
+<li><p>C++ では <code class="docutils literal notranslate"><span class="pre">Creator</span></code> クラスのコンストラクタ内で factory method を呼び出せない
+(p. 121)</p>
 <p>そんなことをしたら実行時エラーが起こって即終了。</p>
 </li>
 <li><p>C++ ではさらに &lt;テンプレートを用いてサブクラス化を避ける&gt; (p. 121) 技法も駆使したい。</p></li>
@@ -217,72 +215,74 @@ ConcreteProduct オブジェクトを生成できるようにしておく&gt; (p
 </ul>
 <p>サンプルコードでは <code class="docutils literal notranslate"><span class="pre">MazeGame::CreateMaze</span></code> を factory method で実装している。</p>
 <ul class="simple">
-<li><p>&lt;factory method は、ツールキットやフレームワークの中で広く採用されている&gt; (p. 124)</p></li>
-<li><p>Abstract Factory パターンは factory method を使って実装されることが多い (p. 125)</p></li>
+<li><p>&lt;factory method は、ツールキットやフレームワークの中で広く採用されている&gt;
+(p. 124)</p></li>
+<li><p>Abstract Factory パターンは factory method を使って実装されることが多い
+(p. 125)</p></li>
 </ul>
-</div>
-<div class="section" id="prototype">
-<h3><a class="toc-backref" href="#id12">Prototype</a><a class="headerlink" href="#prototype" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="prototype">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Prototype</a><a class="headerlink" href="#prototype" title="Permalink to this heading">¶</a></h3>
 <p>既存インスタンスをコピーすることで新たなオブジェクトの生成を行うパターン。</p>
 <ul>
 <li><p>「動機」に書いてあること</p>
 <ul class="simple">
-<li><p>Graphics: 音符、休止符、譜表、等々の図形オブジェクトを表現するための抽象クラス</p></li>
-<li><p>Tool: ツールパレット上のツールを定義するための抽象クラス</p></li>
-<li><p>GraphicTool: Graphics をドキュメントに追加するための Tool のサブクラス</p></li>
-<li><p>&lt;GraphicTool クラスは、音符などのクラスのインスタンスを楽譜に加えるためにどのように生成したらよいのかを知らない&gt; (p. 127)</p></li>
-<li><p>&lt;Graphic のサブクラスのインスタンスをクローン化して、新たなオブジェクトを生成する方法&gt; (p. 127) によって得られるインスタンスのことを
-<strong>prototype</strong> と呼ぶ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Graphics</span></code>: 音符、休止符、譜表、等々の図形オブジェクトを表現するための抽象クラス</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tool</span></code>: ツールパレット上のツールを定義するための抽象クラス</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GraphicTool</span></code>: <code class="docutils literal notranslate"><span class="pre">Graphics</span></code> をドキュメントに追加するための <code class="docutils literal notranslate"><span class="pre">Tool</span></code> のサブクラス</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">GraphicTool</span></code> クラスは、音符などのクラスのインスタンスを楽譜に加えるためにどのように生成したらよいのかを知らない&gt; (p. 127)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Graphic</span></code> のサブクラスのインスタンスをクローン化して、新たなオブジェクトを生成する方法&gt; (p. 127) によって得られるインスタンスのことを
+<em class="dfn">prototype</em> と呼ぶ。</p></li>
 </ul>
 </li>
-<li><p>&lt;Prototype パターンは、Client オブジェクトに対してインスタンス化する具象クラスを隠蔽している&gt; (p. 129)</p></li>
+<li><p>&lt;Prototype パターンは、<code class="docutils literal notranslate"><span class="pre">Client</span></code> オブジェクトに対してインスタンス化する具象クラスを隠蔽している&gt; (p. 129)</p></li>
 <li><p>&lt;たとえば回路設計エディタでは、回路をいくつかの部分回路から作成するようになっている&gt; (p. 130)</p>
 <p>つまり、部分回路が繰り返し使われる状況である可能性が高く、そうなれば当パターンの守備範囲だ。</p>
 </li>
 <li><p>&lt;C++ のようにクラスが first-class オブジェクトとして扱われない言語&gt; (p. 130)
-にとっては、Creator のクラス階層を作らずに済む当パターンにメリットがある。</p></li>
+にとっては、<code class="docutils literal notranslate"><span class="pre">Creator</span></code> のクラス階層を作らずに済む当パターンにメリットがある。</p></li>
 <li><p>&lt;prototype マネージャ&gt; (p. 130)</p></li>
-<li><p>&lt;その内部に複製をサポートしていないオブジェクトや循環する参照を持つオブジェクトを含む場合&gt; (p. 131) 等、
-prototype 各サブクラスで <code class="docutils literal notranslate"><span class="pre">Clone</span></code> を実装するのが困難な場合もある。</p></li>
+<li><p>&lt;その内部に複製をサポートしていないオブジェクトや循環する参照を持つオブジェクトを含む場合&gt; (p. 131) 等、 prototype 各サブクラスで <code class="docutils literal notranslate"><span class="pre">Clone</span></code> を実装するのが困難な場合もある。</p></li>
 </ul>
 <p>実装ポイント</p>
 <ul>
-<li><p>Prototype パターンは C++ のような静的な言語において有効なパターンである (p. 131)</p></li>
-<li><p>&lt;Client オブジェクトは prototype を直接扱うのではなく、登録されている prototype オブジェクトを検索したり、新たに登録したりする&gt; (p. 131)</p>
+<li><p>Prototype パターンは C++ のような静的な言語において有効なパターンである
+(p. 131)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Client</span></code> オブジェクトは prototype を直接扱うのではなく、登録されている
+prototype オブジェクトを検索したり、新たに登録したりする&gt; (p. 131)</p>
 <p>prototype マネージャは連想配列ベースのデータ構造。</p>
 </li>
-<li><p>&lt;もっとも困難な点は、Clone オペレーションを正しく実装することである&gt; (p. 131)</p>
+<li><p>&lt;もっとも困難な点は、<code class="docutils literal notranslate"><span class="pre">Clone</span></code> オペレーションを正しく実装することである&gt;
+(p. 131)</p>
 <ul class="simple">
 <li><p>&lt;複製を行うということを、元のインスタンス変数を共有させることにするのか、またはインスタンス変数の複製を行うことにするのか&gt; (p. 131)</p></li>
-<li><p>お手軽な Clone の実装例として、もしオブジェクトが Save/Load
-オペレーションを提供しているのであれば、これで実装できると言っている (p. 132)</p></li>
+<li><p>お手軽な <code class="docutils literal notranslate"><span class="pre">Clone</span></code> の実装例として、もしオブジェクトが <code class="docutils literal notranslate"><span class="pre">Save</span></code>/<code class="docutils literal notranslate"><span class="pre">Load</span></code> オペレーションを提供しているのであれば、これで実装できると言っている (p. 132)</p></li>
 </ul>
 </li>
 </ul>
-<p>サンプルコードのページでは MazeFactory の Prototype パターン版を紹介。</p>
+<p>サンプルコードのページでは <code class="docutils literal notranslate"><span class="pre">MazeFactory</span></code> の Prototype パターン版を紹介。</p>
 <ul class="simple">
-<li><p>MazePrototypeFactory では
-&lt;生成オブジェクトをあらかじめ prototype として持つように初期化&gt; (p. 132) する。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">MazePrototypeFactory</span></code> では &lt;生成オブジェクトをあらかじめ prototype として持つように初期化&gt; (p. 132) する。</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">MazePrototypeFactory::MakeXXXX</span></code> では XXXX 型メンバーデータの
+<li><p><code class="docutils literal notranslate"><span class="pre">MazePrototypeFactory::MakeXXXX</span></code> では <code class="docutils literal notranslate"><span class="pre">XXXX</span></code> 型メンバーデータの
 prototype に対して <code class="docutils literal notranslate"><span class="pre">Clone</span></code> を呼び出し、戻り値をそのまま返す。</p>
 <ul>
-<li><p>場合によっては clone のパラメータを修正する。</p></li>
+<li><p>場合によっては <code class="docutils literal notranslate"><span class="pre">Clone</span></code> のパラメータを修正する。</p></li>
 </ul>
 </li>
-<li><p>&lt;他の迷路を作成する場合には、MazePrototypeFactory オブジェクトを別の
+<li><p>&lt;他の迷路を作成する場合には、<code class="docutils literal notranslate"><span class="pre">MazePrototypeFactory</span></code> オブジェクトを別の
 prototype で初期化すればよい&gt; (p. 133)</p></li>
 </ul>
 </li>
-<li><p>&lt;Client オブジェクトの側では、Clone オペレーションの返却値を望む型にダウンキャストしなくてもよいようにしておくべきである&gt; (p. 135)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Client</span></code> オブジェクトの側では、<code class="docutils literal notranslate"><span class="pre">Clone</span></code> オペレーションの返却値を望む型にダウンキャストしなくてもよいようにしておくべきである&gt; (p. 135)</p></li>
 </ul>
-</div>
-<div class="section" id="singleton">
-<h3><a class="toc-backref" href="#id13">Singleton</a><a class="headerlink" href="#singleton" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="singleton">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Singleton</a><a class="headerlink" href="#singleton" title="Permalink to this heading">¶</a></h3>
 <p>ここは読まなくていいや。</p>
-</div>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id14">まとめ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">まとめ</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>オブジェクトを生成するクラスをサブクラス化する方法</p>
 <ul>
@@ -294,104 +294,90 @@ prototype で初期化すればよい&gt; (p. 133)</p></li>
 <li><p>Abstract Factory, Builder, Prototype パターンの基本。設計は柔軟だが、より複雑 (p. 146)</p></li>
 </ul>
 </li>
-<li><p>図形エディタフレームワークを設計するのならば、
-Factory Method パターンがもっとも使いやすいパターン (p. 145)
-だが、GraphicTool のサブクラスが多く必要になる。</p></li>
-<li><p>&lt;全般的に見て、Prototype パターンが図形エディタフレームワークにとって、おそらく最適なパターンになるだろう&gt; (p. 146)
-<code class="docutils literal notranslate"><span class="pre">Graphic::Clone</span></code> のオーバーライドだけでよいから。</p></li>
+<li><p>図形エディタフレームワークを設計するのならば、Factory Method パターンがもっとも使いやすいパターン (p. 145) だが、<code class="docutils literal notranslate"><span class="pre">GraphicTool</span></code> のサブクラスが多く必要になる。</p></li>
+<li><p>&lt;全般的に見て、Prototype パターンが図形エディタフレームワークにとって、おそらく最適なパターンになるだろう&gt; (p. 146) <code class="docutils literal notranslate"><span class="pre">Graphic::Clone</span></code> のオーバーライドだけでよいから。</p></li>
 <li><p>&lt;Factory Method パターンを使うことで、設計はカスタマイズが容易になると同時に若干複雑になる&gt; (p. 146)</p></li>
 <li><p>設計の初期段階では Factory Method パターンを採用しておき、様子を見て他のパターンに発展させていくやり方がよい (p. 146)</p></li>
 </ul>
 <p>どの方法も複雑であると言っている？</p>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id15">第 4 章 構造に関するパターン</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">第 4 章 構造に関するパターン</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>&lt;クラスやオブジェクトを合成する方法に関係している&gt; (p. 147)
-なるほど。構造イコール合成なのか。</p></li>
+<li><p>&lt;クラスやオブジェクトを合成する方法に関係している&gt; (p. 147) なるほど。構造イコール合成なのか。</p></li>
 <li><p>構造に関するパターンも、「オブジェクトに適用するもの」と「クラスに適用するもの」がある。前者が動的で後者が静的な性質のものだということなのだろう。</p></li>
 </ul>
-<div class="section" id="adapter">
-<h3><a class="toc-backref" href="#id16">Adapter</a><a class="headerlink" href="#adapter" title="Permalink to this heading">¶</a></h3>
+<section id="adapter">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Adapter</a><a class="headerlink" href="#adapter" title="Permalink to this heading">¶</a></h3>
 <p>このセクションは他のパターンのそれに比べて妙に長く感じた。</p>
 <ul class="simple">
 <li><p>&lt;再利用を目的として設計されたツールキットクラスは、そのインタフェースがアプリケーションの要求するドメインに特化したインタフェースと一致しないというだけの理由で、再利用できないことがある&gt; (p. 149) もったいない話だ。</p></li>
 </ul>
-<p>既存のツールキットクラス TextView をうまく再利用して、
-LineShape や PolygonShape のテキスト版と言える
-TextShape というクラスを定義できないかを議論している。</p>
+<p>既存のツールキットクラス <code class="docutils literal notranslate"><span class="pre">TextView</span></code> をうまく再利用して、<code class="docutils literal notranslate"><span class="pre">LineShape</span></code> や
+<code class="docutils literal notranslate"><span class="pre">PolygonShape</span></code> のテキスト版と言える <code class="docutils literal notranslate"><span class="pre">TextShape</span></code> というクラスを定義できないかを議論している。</p>
 <ul>
-<li><p>&lt;それに対して、テキストの表示と編集を行う TextShape クラスは、基本的なテキスト編集の歳にも、複雑な画面の更新やバッファの管理などをしなければならないため、実装はより困難であると考えられる&gt; (p. 149)</p></li>
-<li><p>&lt;しかし TextView クラスを変更するのは勧められない。なぜならば、このツールキットが、ある 1 つのアプリケーションを動作させるためだけに、ドメインに特化したインタフェースを採用したとすると、このツールキット自体が汎用性を欠くものになってしまうからである&gt; (p. 149)</p></li>
-<li><p>ここでやりたいことは TextView を Shape に適合させること。</p>
+<li><p>&lt;それに対して、テキストの表示と編集を行う <code class="docutils literal notranslate"><span class="pre">TextShape</span></code> クラスは、基本的なテキスト編集の歳にも、複雑な画面の更新やバッファの管理などをしなければならないため、実装はより困難であると考えられる&gt; (p. 149)</p></li>
+<li><p>&lt;しかし <code class="docutils literal notranslate"><span class="pre">TextView</span></code> クラスを変更するのは勧められない。なぜならば、このツールキットが、ある 1 つのアプリケーションを動作させるためだけに、ドメインに特化したインタフェースを採用したとすると、このツールキット自体が汎用性を欠くものになってしまうからである&gt; (p. 149)</p></li>
+<li><p>ここでやりたいことは <code class="docutils literal notranslate"><span class="pre">TextView</span></code> を <code class="docutils literal notranslate"><span class="pre">Shape</span></code> に適合させること。</p>
 <ul class="simple">
-<li><p>方法 1: Shape のインタフェースと TextView の実装を継承したクラスを定義する。</p></li>
-<li><p>方法 2: TextView を持ったクラスを定義し、それは Shape インタフェースを有する。</p></li>
+<li><p>方法 1: <code class="docutils literal notranslate"><span class="pre">Shape</span></code> のインタフェースと <code class="docutils literal notranslate"><span class="pre">TextView</span></code> の実装を継承したクラスを定義する。</p></li>
+<li><p>方法 2: <code class="docutils literal notranslate"><span class="pre">TextView</span></code> を持ったクラスを定義し、それは <code class="docutils literal notranslate"><span class="pre">Shape</span></code> インタフェースを有する。</p></li>
 </ul>
-<p>→クラスに適用する Adapter と、オブジェクトに適用するパターン (p. 152)
-があるということ。</p>
+<p>→クラスに適用する <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> と、オブジェクトに適用するパターン (p. 152) があるということ。</p>
 </li>
-<li><p>&lt;Shape のどのオブジェクトも、ユーザがインタラクティブにドラッグして別の場所に移すことができるようになっているべきである。ところが、TextView クラスは、それができるように設計されていない&gt; (p. 150)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Shape</span></code> のどのオブジェクトも、ユーザがインタラクティブにドラッグして別の場所に移すことができるようになっているべきである。ところが、<code class="docutils literal notranslate"><span class="pre">TextView</span></code> クラスは、それができるように設計されていない&gt; (p. 150)</p></li>
 </ul>
 <p>考慮すべき問題点を挙げている。</p>
 <ul class="simple">
-<li><p>何らかのインタフェースに一致させる作業が必要になるが、
-&lt;作業の範囲は、オペレーションの名前を変えるだけの簡単なインタフェースの変更から、まったく異なるオペレーションの集合をサポートすることまでが考えられる&gt; (p. 152)</p></li>
-<li><p>&lt;インタフェースの適合機能が作りこまれているクラスを
-<strong>pluggable adapter</strong> と呼んでいる&gt; (p. 153) の例として、
-TreeDisplay を紹介している。</p>
+<li><p>何らかのインタフェースに一致させる作業が必要になるが、&lt;作業の範囲は、オペレーションの名前を変えるだけの簡単なインタフェースの変更から、まったく異なるオペレーションの集合をサポートすることまでが考えられる&gt; (p. 152)</p></li>
+<li><p>&lt;インタフェースの適合機能が作りこまれているクラスを <em class="dfn">pluggable adapter</em>
+と呼んでいる&gt; (p. 153) の例として、<code class="docutils literal notranslate"><span class="pre">TreeDisplay</span></code> を紹介している。</p>
 <ul>
 <li><p>異なる木構造は異なるインタフェースを持つことになるだろう。</p></li>
-<li><p>言い換えると、TreeDisplay ウィジェットはインタフェース適合機能を内部に組み込むべきなのである。</p></li>
+<li><p>言い換えると、<code class="docutils literal notranslate"><span class="pre">TreeDisplay</span></code> ウィジェットはインタフェース適合機能を内部に組み込むべきなのである。</p></li>
 </ul>
 </li>
 </ul>
 <p>実装にも問題点が色々。</p>
 <ul class="simple">
-<li><p>C++ の場合、クラスに適合するタイプの Adapter では、
-Adaptee 側クラスを private 継承する。ということは、
-Adapter クラスは Adaptee クラスのサブクラスではなくなる (p. 154)</p></li>
-<li><p>適合させなければならない最小限のオペレーションの集合を意識すること
-(p. 154)</p></li>
+<li><p>C++ の場合、クラスに適合するタイプの <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> では、<code class="docutils literal notranslate"><span class="pre">Adaptee</span></code> 側クラスを
+<code class="docutils literal notranslate"><span class="pre">private</span></code> 継承する。ということは、<code class="docutils literal notranslate"><span class="pre">Adapter</span></code> クラスは <code class="docutils literal notranslate"><span class="pre">Adaptee</span></code> クラスのサブクラスではなくなる (p. 154)</p></li>
+<li><p>適合させなければならない最小限のオペレーションの集合を意識すること (p. 154)</p></li>
 </ul>
-<p>サンプルコード。
-&lt;オブジェクトを基にした adapter の方が、コードの作成では若干の労力が必要になるが、より柔軟なものになっている&gt; (p. 159)
-ポイントは、TextView のサブクラスでも OK だというところ。</p>
-<p>関連パターン。
-&lt;アプリケーションにとっては、adapter よりも decorator の方が透過性が高い&gt; (p. 161)</p>
-</div>
-<div class="section" id="bridge">
-<h3><a class="toc-backref" href="#id17">Bridge</a><a class="headerlink" href="#bridge" title="Permalink to this heading">¶</a></h3>
+<p>サンプルコード。&lt;オブジェクトを基にした adapter の方が、コードの作成では若干の労力が必要になるが、より柔軟なものになっている&gt; (p. 159) ポイントは、<code class="docutils literal notranslate"><span class="pre">TextView</span></code>
+のサブクラスでも OK だというところ。</p>
+<p>関連パターン。&lt;アプリケーションにとっては、adapter よりも decorator の方が透過性が高い&gt; (p. 161)</p>
+</section>
+<section id="bridge">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Bridge</a><a class="headerlink" href="#bridge" title="Permalink to this heading">¶</a></h3>
 <p>最初に書いてある &lt;抽出したクラスと実装を分離&gt; の意味がわからない。</p>
 <p>別名が Handle/Body とある。</p>
 <p>動機ではクロスプラットフォームなウィンドウクラスライブラリの話を例に出している。</p>
 <ul class="simple">
-<li><p>&lt;さらに悪いことには、すべての種類のウィンドウに対して、
-2 つずつ新たなクラスを定義していかなければならなくなるだろう&gt; (p. 163)</p></li>
-<li><p>&lt;この Window クラスと WindowImp クラスの間の関係を <strong>bridge</strong> と呼ぶ&gt; (p. 164)</p></li>
+<li><p>&lt;さらに悪いことには、すべての種類のウィンドウに対して、2 つずつ新たなクラスを定義していかなければならなくなるだろう&gt; (p. 163)</p></li>
+<li><p>&lt;この <code class="docutils literal notranslate"><span class="pre">Window</span></code> クラスと <code class="docutils literal notranslate"><span class="pre">WindowImp</span></code> クラスの間の関係を <em class="dfn">bridge</em> と呼ぶ&gt; (p. 164)</p></li>
 </ul>
 <p>適用可能性を見ると、クロスプラットフォーム以外にも使い途がある。特に C++ で威力を発揮するケースがあるようだ。</p>
 <ul>
 <li><p>&lt;クライアントのコードを再コンパイルしなくても済む&gt; (p. 165)</p></li>
-<li><p>&lt;クラスの実装をクライアントから完全に隠蔽したい場合。
-C++ では、クラスの内部表現はクラスのインタフェイスで見ることができてしまう&gt; (p. 165)</p>
+<li><p>&lt;クラスの実装をクライアントから完全に隠蔽したい場合。C++ では、クラスの内部表現はクラスのインタフェイスで見ることができてしまう&gt; (p. 165)</p>
 <p>Exceptional C++ とかで議論していた Pimpl パターンの話を思い出す。</p>
 </li>
 </ul>
 <p>クラス構造を見ると一発で理解できる。</p>
 <ul>
-<li><p>Implementor クラスが一種類しかない場合でも、クラスの実装上の変化がクライアントに影響を与えることがあってはならない場合には、
-Abstraction/Implementor 分離は有効 (p. 167)</p></li>
-<li><p>C++ の場合、Implementor の宣言を &lt;私的なヘッダファイル&gt; (p. 167) で行う。要するにクライアントが include できないファイルで宣言する。</p></li>
-<li><p>Implementor の決定を他のオブジェクトに完全に委譲するという方法もある (p. 167)</p>
-<p>例えば Implementor の決定を専用の factory が行うことにすると、
-Abstraction クラスと Implementor クラスの結合も間接的になる。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Implementor</span></code> クラスが一種類しかない場合でも、クラスの実装上の変化がクライアントに影響を与えることがあってはならない場合には、<code class="docutils literal notranslate"><span class="pre">Abstraction</span></code>/<code class="docutils literal notranslate"><span class="pre">Implementor</span></code>
+分離は有効 (p. 167)</p></li>
+<li><p>C++ の場合、<code class="docutils literal notranslate"><span class="pre">Implementor</span></code> の宣言を &lt;私的なヘッダファイル&gt; (p. 167) で行う。要するにクライアントが include できないファイルで宣言する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Implementor</span></code> の決定を他のオブジェクトに完全に委譲するという方法もある (p. 167)</p>
+<p>例えば <code class="docutils literal notranslate"><span class="pre">Implementor</span></code> の決定を専用の factory が行うことにすると、
+<code class="docutils literal notranslate"><span class="pre">Abstraction</span></code> クラスと <code class="docutils literal notranslate"><span class="pre">Implementor</span></code> クラスの結合も間接的になる。</p>
 </li>
 </ul>
 <p>サンプルコードを検討すると、次のことに気付く。</p>
 <ul>
-<li><p>Window のサブクラスのメソッドの実装は、すべて WindowImp のメソッドで実装している。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Window</span></code> のサブクラスのメソッドの実装は、すべて <code class="docutils literal notranslate"><span class="pre">WindowImp</span></code> のメソッドで実装している。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 170</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">Window::DrawRect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Point</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Point</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p2</span><span class="p">){</span><span class="w"></span>
 <span class="w">    </span><span class="n">WindowImp</span><span class="o">*</span><span class="w"> </span><span class="n">imp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWindowImp</span><span class="p">();</span><span class="w"></span>
@@ -400,61 +386,61 @@ Abstraction クラスと Implementor クラスの結合も間接的になる。<
 </pre></div>
 </div>
 </li>
-<li><p>WindowImp のサブクラスでのメソッド実装は、そのプラットフォームの API で実装している。例えば <code class="docutils literal notranslate"><span class="pre">XWindowImp::DeviceRect</span></code> は関数 <code class="docutils literal notranslate"><span class="pre">XDrawRectanele</span></code> で矩形を描画する、といった具合だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WindowImp</span></code> のサブクラスでのメソッド実装は、そのプラットフォームの API で実装している。例えば <code class="docutils literal notranslate"><span class="pre">XWindowImp::DeviceRect</span></code> は関数 <code class="docutils literal notranslate"><span class="pre">XDrawRectanele</span></code> で矩形を描画する、といった具合だ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Window::GetWindowImp</span></code> は Abstract Factory パターンでインスタンスを取得している。</p></li>
 </ul>
-</div>
-<div class="section" id="composite">
-<h3><a class="toc-backref" href="#id18">Composite</a><a class="headerlink" href="#composite" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="composite">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Composite</a><a class="headerlink" href="#composite" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;オブジェクトを木構造に組み立てる&gt; (p. 175)</p></li>
-<li><p>&lt;個々のオブジェクトとオブジェクトを合成したものを一様に扱うことができる&gt; (p. 175)</p></li>
+<li><p>&lt;個々のオブジェクトとオブジェクトを合成したものを一様に扱うことができる&gt;
+(p. 175)</p></li>
 <li><p>&lt;Composite パターンの特徴は、1 つの抽象クラスがプリミティブとコンテナの両方を表すことである&gt; (p. 175)</p></li>
-<li><p>プリミティブの意味がよくわからんが、
-&lt;プリミティブなオブジェクトは子を持たないため、子オブジェクトに関するオペレーションは実装しない&gt; (p. 176)</p></li>
-<li><p>&lt;Draw オペレーションをその子オブジェクトの Draw オペレーションを呼び出すように実装し、またそれ以外にも、子オブジェクトに関連するオペレーションを実装する&gt; (p. 176)</p></li>
-<li><p>&lt;Picture オブジェクトは別の Picture オブジェクトを再帰的に生成していくことができる&gt; (p. 176)</p></li>
-<li><p>Component クラスにおいて、親にあたる composite にアクセスするインタフェースを宣言するのはオプション (p. 177)</p></li>
-<li><p>ある要求を composite が受け取ったとき、
-&lt;通常、その要求を子にあたる component に転送し、さらに転送の前後に付加的なオペレーションを実行することもある&gt; (p. 177)</p></li>
+<li><p>プリミティブの意味がよくわからんが、&lt;プリミティブなオブジェクトは子を持たないため、子オブジェクトに関するオペレーションは実装しない&gt; (p. 176)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Draw</span></code> オペレーションをその子オブジェクトの <code class="docutils literal notranslate"><span class="pre">Draw</span></code> オペレーションを呼び出すように実装し、またそれ以外にも、子オブジェクトに関連するオペレーションを実装する&gt; (p. 176)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトは別の <code class="docutils literal notranslate"><span class="pre">Picture</span></code> オブジェクトを再帰的に生成していくことができる&gt; (p. 176)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Component</span></code> クラスにおいて、親にあたる <code class="docutils literal notranslate"><span class="pre">composite</span></code> にアクセスするインタフェースを宣言するのはオプション (p. 177)</p></li>
+<li><p>ある要求を <code class="docutils literal notranslate"><span class="pre">composite</span></code> が受け取ったとき、&lt;通常、その要求を子にあたる
+<code class="docutils literal notranslate"><span class="pre">component</span></code> に転送し、さらに転送の前後に付加的なオペレーションを実行することもある&gt; (p. 177)</p></li>
 </ul>
 <p>実装のセクションにある記述が濃い。</p>
 <ul class="simple">
-<li><p>親オブジェクトへの参照を持たせる場合、composite 構造の走査や管理が簡単になるが、「ある composite のすべての子オブジェクトは、その親オブジェクトとしてそれを持つ」という制約を壊さないように注意しないといけない (p. 178)</p></li>
-<li><p>&lt;Component クラスでサポートされているが、
-Leaf クラスには無意味なオペレーションも多く存在する&gt; (p. 179)</p></li>
-<li><p>Add/Remove オペレーションをどのクラスで宣言するかは重要な問題。この議論に 2 ページ近くを割いている。普通は安全性を捨てて、透過性をとる方向に解決するのだろう。</p></li>
+<li><p>親オブジェクトへの参照を持たせる場合、<code class="docutils literal notranslate"><span class="pre">composite</span></code> 構造の走査や管理が簡単になるが、「ある <code class="docutils literal notranslate"><span class="pre">composite</span></code> のすべての子オブジェクトは、その親オブジェクトとしてそれを持つ」という制約を壊さないように注意しないといけない (p. 178)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Component</span></code> クラスでサポートされているが、<code class="docutils literal notranslate"><span class="pre">Leaf</span></code> クラスには無意味なオペレーションも多く存在する&gt; (p. 179)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Add</span></code>/<code class="docutils literal notranslate"><span class="pre">Remove</span></code> オペレーションをどのクラスで宣言するかは重要な問題。この議論に 2 ページ近くを割いている。普通は安全性を捨てて、透過性をとる方向に解決するのだろう。</p></li>
 <li><p>多くの設計では、&lt;子オブジェクトの順番を明確にする&gt; (p. 182)</p></li>
-<li><p>&lt;composite に、自身が削除されるときにその子オブジェクトの削除も一緒に行わせるようにするのが、通常ではもっとも良い&gt; (p. 182)
-が、子オブジェクトが共有されているような場合は話は別だ。</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">composite</span></code> に、自身が削除されるときにその子オブジェクトの削除も一緒に行わせるようにするのが、通常ではもっとも良い&gt; (p. 182) が、子オブジェクトが共有されているような場合は話は別だ。</p></li>
 </ul>
-</div>
-<div class="section" id="decorator">
-<h3><a class="toc-backref" href="#id19">Decorator</a><a class="headerlink" href="#decorator" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="decorator">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Decorator</a><a class="headerlink" href="#decorator" title="Permalink to this heading">¶</a></h3>
 <p>&lt;サブクラス化よりも柔軟な機能拡張方法&gt; (p. 187) を動的に行えるようだ。</p>
 <ul class="simple">
 <li><p>&lt;クラス全体に対してではなく、個々のオブジェクトに責任を追加したくなることがある&gt; (p. 187)</p></li>
-<li><p>いつぞやのスクロールバー付き枠付き TextView の例を持ちだしている。</p>
+<li><p>いつぞやのスクロールバー付き枠付き <code class="docutils literal notranslate"><span class="pre">TextView</span></code> の例を持ちだしている。</p>
 <ul>
 <li><p>&lt;常にスクロールバーが必要とは限らない&gt;</p></li>
-<li><p>&lt;必要になったときには ScrollDecorator オブジェクトを用いてスクロールバーを追加する&gt; (p. 188)</p></li>
+<li><p>&lt;必要になったときには <code class="docutils literal notranslate"><span class="pre">ScrollDecorator</span></code> オブジェクトを用いてスクロールバーを追加する&gt; (p. 188)</p></li>
 </ul>
 </li>
 </ul>
-<p>Decorator クラスの構造は、</p>
+<p><code class="docutils literal notranslate"><span class="pre">Decorator</span></code> クラスの構造は、</p>
 <ul class="simple">
-<li><p>&lt;component または decorator への参照を保持する&gt;</p></li>
-<li><p>&lt;Component クラスのインタフェースと一致したインタフェースを定義する&gt; (p. 189)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">component</span></code> または <code class="docutils literal notranslate"><span class="pre">decorator</span></code> への参照を保持する&gt;</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Component</span></code> クラスのインタフェースと一致したインタフェースを定義する&gt; (p.
+189)</p></li>
 </ul>
 <p>の二点。</p>
 <ul>
-<li><p>&lt;Decorator パターンを用いると、decorator を付けたりはずしたりして、実行時に簡単に責任の追加や削除ができる&gt; (p. 190)</p>
+<li><p>&lt;Decorator パターンを用いると、<code class="docutils literal notranslate"><span class="pre">decorator</span></code> を付けたりはずしたりして、実行時に簡単に責任の追加や削除ができる&gt; (p. 190)</p>
 <p>個人的には削除の例は見たことがない。</p>
 </li>
-<li><p>&lt;1 つの単純なクラスを定義し、decorator を用いて機能を段階的に追加していく&gt; (p. 190)</p></li>
-<li><p>Component クラスを軽く保つことが重要。メンバーデータは極力サブクラスに持たせる (p. 191)</p></li>
-<li><p>&lt;Component クラスが本質的に重く、そのため Decorator パターンを適用するにはコストがかかりすぎるような状況では
-Strategy パターンを選択する方がよい&gt; (p. 191)</p></li>
+<li><p>&lt;1 つの単純なクラスを定義し、<code class="docutils literal notranslate"><span class="pre">decorator</span></code> を用いて機能を段階的に追加していく&gt;
+(p. 190)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Component</span></code> クラスを軽く保つことが重要。メンバーデータは極力サブクラスに持たせる (p. 191)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Component</span></code> クラスが本質的に重く、そのため <code class="docutils literal notranslate"><span class="pre">Decorator</span></code> パターンを適用するにはコストがかかりすぎるような状況では <code class="docutils literal notranslate"><span class="pre">Strategy</span></code> パターンを選択する方がよい
+&gt; (p. 191)</p></li>
 </ul>
 <p>サンプルコード。コンストラクタの呼び出し方にインパクトあり。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 194</span>
@@ -469,24 +455,25 @@ Strategy パターンを選択する方がよい&gt; (p. 191)</p></li>
 <ul class="simple">
 <li><p>&lt;ストリームはほとんどの I/O 機構に存在する基本的な抽象概念である&gt; (p. 195)</p></li>
 <li><p>decorator は adapter とは異なる。責任を変えるだけで、インタフェースまでは変えない (p. 196)</p></li>
-<li><p>オブジェクトを変化させる方法には、decorator と strategy の 2 通りが考えられる (p. 196)</p></li>
+<li><p>オブジェクトを変化させる方法には、decorator と strategy の 2 通りが考えられる
+(p. 196)</p></li>
 </ul>
-</div>
-<div class="section" id="facade">
-<h3><a class="toc-backref" href="#id20">Facade</a><a class="headerlink" href="#facade" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="facade">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Facade</a><a class="headerlink" href="#facade" title="Permalink to this heading">¶</a></h3>
 <p>後回し。</p>
-</div>
-<div class="section" id="flyweight">
-<h3><a class="toc-backref" href="#id21">Flyweight</a><a class="headerlink" href="#flyweight" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="flyweight">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Flyweight</a><a class="headerlink" href="#flyweight" title="Permalink to this heading">¶</a></h3>
 <p>このパターンは細かいオブジェクトの共有を目的とする。</p>
 <ul class="simple">
-<li><p>&lt;<strong>flyweight</strong> とは、複数の文脈で同時に利用され得る共有オブジェクトのことである&gt; (p. 207)</p>
+<li><p>&lt;<em class="dfn">flyweight</em> とは、複数の文脈で同時に利用され得る共有オブジェクトのことである&gt; (p. 207)</p>
 <ul>
 <li><p>文脈とは何か。</p></li>
 <li><p>共有オブジェクトということは、状態の持ち方に特別な何かがありそうだ。</p></li>
 </ul>
 </li>
-<li><p>&lt;ここでキーとなる概念は <strong>intrinsic</strong> 状態と <strong>extrinsic</strong> 状態の区別である&gt; (p. 208)</p>
+<li><p>&lt;ここでキーとなる概念は <em class="dfn">intrinsic</em> 状態と <em class="dfn">extrinsic</em> 状態の区別である&gt; (p. 208)</p>
 <ul>
 <li><p>intrinsic 状態は flyweight オブジェクトの内部に格納。</p>
 <ul>
@@ -509,8 +496,7 @@ Strategy パターンを選択する方がよい&gt; (p. 191)</p></li>
 </li>
 </ul>
 </li>
-<li><p>&lt;extrinsic 状態に依存する可能性のあるオペレーションは、
-extrinsic 状態をパラメータとして渡される&gt; (pp. 208-209)</p></li>
+<li><p>&lt;extrinsic 状態に依存する可能性のあるオペレーションは、extrinsic 状態をパラメータとして渡される&gt; (pp. 208-209)</p></li>
 </ul>
 <p>適用可能性は、それを見極めるのがわかりやすいようだ。</p>
 <ul>
@@ -518,27 +504,25 @@ extrinsic 状態をパラメータとして渡される&gt; (pp. 208-209)</p></l
 <li><p>そのためにメモリ消費コストが高くつく。</p></li>
 <li><p>&lt;オブジェクトの状態を構成するほとんどの情報を extrinsic にできる&gt; (p. 209)</p></li>
 <li><p>あとはオブジェクトを共有できるかどうか。</p></li>
-<li><p>&lt;flyweight が機能するために必要な状態は、
-intrinsic 状態か extrinsic 状態のどちらかに分類されなければならない&gt; (p. 211)</p></li>
-<li><p>flyweight オブジェクトは &lt;FlyweightFactory オブジェクトから入手しなければならない&gt; (p. 211)</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">flyweight</span></code> が機能するために必要な状態は、intrinsic 状態か extrinsic 状態のどちらかに分類されなければならない&gt; (p. 211)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flyweight</span></code> オブジェクトは &lt;<code class="docutils literal notranslate"><span class="pre">FlyweightFactory</span></code> オブジェクトから入手しなければならない&gt; (p. 211)</p>
 <p>便宜上 Factory という単語を使っているだけであって、アクセスの度に常にオブジェクトを生成しているわけではない。</p>
 </li>
-<li><p>&lt;格納コストをもっとも節約できるのは、オブジェクトが intrinsic 状態と
-extrinsic 状態の両方についてかなりの量の情報を持ち、しかも extrinsic 状態が格納されるのではなくて計算できる場合&gt; (p. 212)</p></li>
+<li><p>&lt;格納コストをもっとも節約できるのは、オブジェクトが intrinsic 状態とextrinsic
+状態の両方についてかなりの量の情報を持ち、しかも extrinsic 状態が格納されるのではなくて計算できる場合&gt; (p. 212)</p></li>
 <li><p>&lt;オブジェクトは共有されるので、クライアントがそれらを直接インスタンス化すべきではない&gt; (p. 212)</p></li>
-<li><p>&lt;オブジェクトの共有では、flyweight が不要になったときに（略）何らかの形の参照数管理やガーベッジコレクションが必要になる&gt; (p. 213)</p></li>
+<li><p>&lt;オブジェクトの共有では、<code class="docutils literal notranslate"><span class="pre">flyweight</span></code> が不要になったときに（略）何らかの形の参照数管理やガーベッジコレクションが必要になる&gt; (p. 213)</p></li>
 </ul>
 <p>サンプルコードの見どころは <code class="docutils literal notranslate"><span class="pre">GlyphContext</span></code> クラス。一見しただけでは何を管理しているのか理解できない。</p>
 <p>使用例</p>
 <ul>
-<li><p>&lt;flyweight の概念は、InterViews 3.0 における設計テクニックとして初めて記述され、研究された。その開発者は、この概念を立証するために、
-Doc と呼ばれる強力な文書エディタを構築した&gt; (p. 218)</p>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">flyweight</span></code> の概念は、InterViews 3.0 における設計テクニックとして初めて記述され、研究された。その開発者は、この概念を立証するために、Doc と呼ばれる強力な文書エディタを構築した&gt; (p. 218)</p>
 <p>180000 文字を含む文書を 480 個の文字オブジェクトで賄えるケースがあったとか。</p>
 </li>
 </ul>
-</div>
-<div class="section" id="proxy">
-<h3><a class="toc-backref" href="#id22">Proxy</a><a class="headerlink" href="#proxy" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="proxy">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Proxy</a><a class="headerlink" href="#proxy" title="Permalink to this heading">¶</a></h3>
 <p>&lt;オブジェクトの代理、または入れ物&gt; (p. 221)</p>
 <ul>
 <li><p>&lt;そのオブジェクトを実際に利用する必要が生じるまで、そのオブジェクトの生成と初期化にコストをかけるのを延期する&gt; (p. 221)</p></li>
@@ -559,17 +543,17 @@ Doc と呼ばれる強力な文書エディタを構築した&gt; (p. 218)</p>
 </ul>
 <p>結果の説明でコピーオンライトについて言及がある。</p>
 <ul class="simple">
-<li><p>&lt;もしコピーされたオブジェクトが変更されないのであれば、このコストを発生させる必要はない。コピーするプロセスを延期するために proxy を使えば、そのオブジェクトが変更されたときにのみ、そのオブジェクトをコピーすればよいようにできる&gt; (p. 225)</p></li>
+<li><p>&lt;もしコピーされたオブジェクトが変更されないのであれば、このコストを発生させる必要はない。コピーするプロセスを延期するために proxy を使えば、そのオブジェクトが変更されたときにのみ、そのオブジェクトをコピーすればよいようにできる&gt;
+(p. 225)</p></li>
 </ul>
 <p>実装</p>
 <ul class="simple">
 <li><p>&lt;メンバアクセスオペレータをオーバーロードする方法は、どのような種類の proxy に対しても良い解決法になるとは限らない&gt; (p. 226)</p></li>
-<li><p>&lt;Proxy クラスが RealSubject クラスをインスタンス化する場合（略）には、
-Proxy クラスはその具象クラスを知っていなければならない&gt; (p. 227)</p></li>
+<li><p>&lt;<code class="docutils literal notranslate"><span class="pre">Proxy</span></code> クラスが <code class="docutils literal notranslate"><span class="pre">RealSubject</span></code> クラスをインスタンス化する場合（略）には、<code class="docutils literal notranslate"><span class="pre">Proxy</span></code> クラスはその具象クラスを知っていなければならない&gt; (p. 227)</p></li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id23">まとめ</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">まとめ</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>Composite, Decorator, Proxy の比較 (p. 234) が面白かった。</p>
 <ul class="simple">
 <li><p>Decorator は退化した Composite ではない。</p>
@@ -578,17 +562,16 @@ Proxy クラスはその具象クラスを知っていなければならない&g
 <li><p>ということは、相補的に利用できる。</p></li>
 </ul>
 </li>
-<li><p>Decorator も Proxy も、クライアントに合成前のインタフェースと同じものを与えるが、
-Proxy に関しては</p>
+<li><p>Decorator も Proxy も、クライアントに合成前のインタフェースと同じものを与えるが、Proxy に関しては</p>
 <ul>
 <li><p>特性を動的に加えたりはずしたりしない。</p></li>
 <li><p>再帰的な合成のために設計されていない。</p></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

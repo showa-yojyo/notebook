@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>積分 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,21 +46,20 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id7">積分</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id7" role="doc-backlink">積分</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>本節ではモジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals</span></code> にある積分機能を見ていく。</p>
 <p><a class="reference external" href="https://www.sympy.org/">SymPy</a> は積分変数を含む数式の定積分および不定積分（原始関数）を評価することができる。また、各種 Laplace 変換および各種 Fourier 変換のための機能を提供している。例えば学生は数学の宿題を片付けるのにこの機能を利用してもよい。</p>
-<p>計算機を利用する限り、積分といえば普通は数値計算を想定するものだ。
-SymPy においても、得意とする代数的な設計・実装による積分法のほかに、数値積分法もサポートしている。本節の最後にこれらを見ていくことにする。</p>
-<div class="contents topic" id="id2">
+<p>計算機を利用する限り、積分といえば普通は数値計算を想定するものだ。 SymPy においても、得意とする代数的な設計・実装による積分法のほかに、数値積分法もサポートしている。本節の最後にこれらを見ていくことにする。</p>
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id7">積分</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id3" id="id8">基本事項</a></p>
 <ul>
-<li><p><a class="reference internal" href="#integrate" id="id9">関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code></a></p></li>
-<li><p><a class="reference internal" href="#integral" id="id10">クラス Integral</a></p></li>
+<li><p><a class="reference internal" href="#integrate" id="id9">関数 <code class="docutils literal notranslate"><span class="pre">integrate</span></code></a></p></li>
+<li><p><a class="reference internal" href="#integral" id="id10">クラス <code class="docutils literal notranslate"><span class="pre">Integral</span></code></a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#id4" id="id11">線積分</a></p></li>
@@ -76,7 +73,7 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
@@ -84,18 +81,18 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id8">基本事項</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<p>SymPy では、ある計算を実現するために、それの即時評価版と遅延評価版の両方を提供し、前者を後者で実装するという方式を多用している。積分の場合、前者と後者がそれぞれ関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> とクラス Integral になる。本節ではこれらを簡単に記す。</p>
-<div class="section" id="integrate">
-<h3><a class="toc-backref" href="#id9">関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code></a><a class="headerlink" href="#integrate" title="Permalink to this heading">¶</a></h3>
+<section id="id3">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">基本事項</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>SymPy では、ある計算を実現するために、それの即時評価版と遅延評価版の両方を提供し、前者を後者で実装するという方式を多用している。積分の場合、前者と後者がそれぞれ関数 <code class="docutils literal notranslate"><span class="pre">integrate</span></code> とクラス <code class="docutils literal notranslate"><span class="pre">Integral</span></code> になる。本節ではこれらを簡単に記す。</p>
+<section id="integrate">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">integrate</span></code></a><a class="headerlink" href="#integrate" title="Permalink to this heading">¶</a></h3>
 <p>積分を計算するには、関数 <code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">var,</span> <span class="pre">...)</span></code> をもっとも採用することになる。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">x)</span></code> の形式で用いれば、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の変数 <code class="code docutils literal notranslate"><span class="pre">x</span></code> に関する不定積分（原始関数が一つ）が得られる。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">(x,</span> <span class="pre">a,</span> <span class="pre">b))</span></code> の形式で用いれば、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の指定区間における定積分が得られる。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">x)</span></code> の形式で用いれば、被積分関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> の変数 <code class="docutils literal notranslate"><span class="pre">x</span></code> に関する不定積分（原始関数が一つ）が得られる。</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">(x,</span> <span class="pre">a,</span> <span class="pre">b))</span></code> の形式で用いれば、被積分関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> の指定区間における定積分が得られる。</p></li>
 <li><p>引数に積分変数あるいは積分区間を列挙することにより、多変数関数の重積分を計算できる。</p>
 <ul>
-<li><p>積分変数も区間もどちらも指定しない場合は、被積分関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の適当な変数に関する原始関数を返すようだ。</p></li>
+<li><p>積分変数も区間もどちらも指定しない場合は、被積分関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> の適当な変数に関する原始関数を返すようだ。</p></li>
 </ul>
 </li>
 <li><p>ユーザーは数学公式集に掲載されている基本的な積分公式を本関数が承知していると期待してよい。</p></li>
@@ -118,32 +115,34 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>[1] 不定積分を求める。ちなみに検算には <code class="code docutils literal notranslate"><span class="pre">diff</span></code> や <code class="code docutils literal notranslate"><span class="pre">subs</span></code> を駆使することになる。</p></li>
+<li><p>[1] 不定積分を求める。ちなみに検算には <code class="docutils literal notranslate"><span class="pre">diff</span></code> や <code class="docutils literal notranslate"><span class="pre">subs</span></code> を駆使することになる。</p></li>
 <li><p>[2] 同じ関数のある定積分を求める。</p></li>
-<li><p>[3] 定義域が無限区間になるようなある関数の定積分を求める。区間の端点にシンボル <code class="code docutils literal notranslate"><span class="pre">oo</span></code> を用いるのがコツだ。</p></li>
+<li><p>[3] 定義域が無限区間になるようなある関数の定積分を求める。区間の端点にシンボル
+<code class="docutils literal notranslate"><span class="pre">oo</span></code> を用いるのがコツだ。</p></li>
 <li><p>[4][5] 重積分を求める。</p>
 <ul>
 <li><p>積分区間を表す引数の順序を丁寧に指定する必要があることがわかる。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">Ci</span></code> は余弦積分。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ci</span></code> は余弦積分。</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="integral">
-<h3><a class="toc-backref" href="#id10">クラス Integral</a><a class="headerlink" href="#integral" title="Permalink to this heading">¶</a></h3>
-<p>積分計算をオブジェクトにカプセル化するためのクラスに違いない。前述の関数 <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> が本クラスの機能をラップしているはずだ。</p>
+</section>
+<section id="integral">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Integral</span></code></a><a class="headerlink" href="#integral" title="Permalink to this heading">¶</a></h3>
+<p>積分計算をオブジェクトにカプセル化するためのクラスに違いない。前述の関数
+<code class="docutils literal notranslate"><span class="pre">integrate</span></code> が本クラスの機能をラップしているはずだ。</p>
 <dl>
 <dt>メソッド <code class="code docutils literal notranslate"><span class="pre">doit(**hints)</span></code></dt><dd><p>実際に積分を計算する。</p>
 </dd>
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">as_sum(n,</span> <span class="pre">method='midpoint')</span></code></dt><dd><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">method</span></code> の取りうる値が次のものなので、これは積分領域を矩形または台形の <cite>n</cite> 本の短冊の寄せ集めに近似して、その面積を計算するメソッドだろう。</p>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">as_sum(n,</span> <span class="pre">method='midpoint')</span></code></dt><dd><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">method</span></code> の取りうる値が次のものなので、これは積分領域を矩形または台形の <code class="docutils literal notranslate"><span class="pre">n</span></code> 本の短冊の寄せ集めに近似して、その面積を計算するメソッドだろう。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">left</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">right</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">midpoint</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">trapezoid</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">left</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">right</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">midpoint</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trapezoid</span></code></p></li>
 </ul>
 </dd>
-<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">transform(x,</span> <span class="pre">u)</span></code></dt><dd><p>置換積分を行う。第一引数を <code class="code docutils literal notranslate"><span class="pre">x</span></code> と書いたが、実際は元の積分変数で表現された数式に相当する。これを第二引数のシンボル <code class="code docutils literal notranslate"><span class="pre">u</span></code> に置換する。</p>
+<dt>メソッド <code class="code docutils literal notranslate"><span class="pre">transform(x,</span> <span class="pre">u)</span></code></dt><dd><p>置換積分を行う。第一引数を <code class="docutils literal notranslate"><span class="pre">x</span></code> と書いたが、実際は元の積分変数で表現された数式に相当する。これを第二引数のシンボル <code class="docutils literal notranslate"><span class="pre">u</span></code> に置換する。</p>
 <p>高校数学のテキストから拝借したある積分を評価してみるとこうなる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">J</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
 
@@ -159,16 +158,16 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </div>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id11">線積分</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">線積分</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>線積分を求めるには、先述のものとは異なる関数を用いる。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">line_integrate(field,</span> <span class="pre">Curve,</span> <span class="pre">variables)</span></code></dt><dd><p>線積分を求める。</p>
 <ul class="simple">
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">field</span></code> が被積分関数である。ベクトル場ということだろう。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">Curve</span></code> で積分区間となる曲線オブジェクトを指定する。これは平面曲線でなければならないようだ。このクラスについては <a class="reference internal" href="geometry.html"><span class="doc">幾何</span></a> で見た。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">field</span></code> が被積分関数である。ベクトル場ということだろう。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">Curve</span></code> で積分区間となる曲線オブジェクトを指定する。これは平面曲線でなければならないようだ。このクラスについては <a class="reference internal" href="geometry.html"><span class="doc">幾何</span></a> で見た。</p></li>
 </ul>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">C</span> <span class="o">=</span> <span class="n">Curve</span><span class="p">([</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)],</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">))</span>
 
@@ -178,26 +177,27 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id12">関数変換</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
-<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals.transforms</span></code> には、ある積分を用いることにより、与えられた関数から別の関数を生成するための一連の機能がある。ここではそのうち Laplace 変換と Fourier 変換だけを見ていく。</p>
-<div class="section" id="laplace">
-<h3><a class="toc-backref" href="#id13">Laplace 変換</a><a class="headerlink" href="#laplace" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">関数変換</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals.transforms</span></code> には、ある積分を用いることにより、与えられた関数から別の関数を生成するための一連の機能がある。ここではそのうち Laplace
+変換と Fourier 変換だけを見ていく。</p>
+<section id="laplace">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Laplace 変換</a><a class="headerlink" href="#laplace" title="Permalink to this heading">¶</a></h3>
 <p>Laplace 変換およびその逆変換を計算する機能は、関数として提供されている。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">laplace_transform(f,</span> <span class="pre">t,</span> <span class="pre">s,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">f(t)</span></code> の Laplace 変換を計算して、結果を返す。</p>
 <ul class="simple">
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> と <code class="code docutils literal notranslate"><span class="pre">t</span></code> は変換したい関数とその変数シンボルをそれぞれ指定する。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">s</span></code> で得られる変換関数の変数シンボルを指定する。</p></li>
-<li><p>戻り値は <code class="code docutils literal notranslate"><span class="pre">(F,</span> <span class="pre">a,</span> <span class="pre">cond)</span></code> の形の tuple オブジェクト。</p>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">f</span></code> と <code class="docutils literal notranslate"><span class="pre">t</span></code> は変換したい関数とその変数シンボルをそれぞれ指定する。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">s</span></code> で得られる変換関数の変数シンボルを指定する。</p></li>
+<li><p>戻り値は <code class="code docutils literal notranslate"><span class="pre">(F,</span> <span class="pre">a,</span> <span class="pre">cond)</span></code> の形の <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクト。</p>
 <ul>
-<li><p><code class="code docutils literal notranslate"><span class="pre">F</span></code> は変換関数そのもの。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">a</span></code> はこの変換の収束域の境界値。「変数 <code class="code docutils literal notranslate"><span class="pre">s</span></code> の実部が値 <code class="code docutils literal notranslate"><span class="pre">a</span></code> を超えていれば、積分が収束する」と読み換えてかまわない。</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">cond</span></code> はさらなる収束条件。形式不明。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span></code> は変換関数そのもの。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> はこの変換の収束域の境界値。「変数 <code class="docutils literal notranslate"><span class="pre">s</span></code> の実部が値 <code class="docutils literal notranslate"><span class="pre">a</span></code> を超えていれば、積分が収束する」と読み換えてかまわない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cond</span></code> はさらなる収束条件。形式不明。</p></li>
 </ul>
 </li>
-<li><p>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を加えれば、戻り値は <code class="code docutils literal notranslate"><span class="pre">F</span></code> のみになる。</p></li>
+<li><p>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を加えれば、戻り値は <code class="docutils literal notranslate"><span class="pre">F</span></code> のみになる。</p></li>
 </ul>
 <p>いくつか実行例を示す。変換したい関数はよそのドキュメントから拝借した。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">t</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;t s&#39;</span><span class="p">)</span>
@@ -225,17 +225,17 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>[1] Laplace 変換で標準的に用いられる変数名 <code class="code docutils literal notranslate"><span class="pre">t</span></code> 等を有効にする。</p></li>
+<li><p>[1] Laplace 変換で標準的に用いられる変数名 <code class="docutils literal notranslate"><span class="pre">t</span></code> 等を有効にする。</p></li>
 <li><p>[2][3][4] 小手試し。以降、収束条件が全部同じの例ばかりになってしまうので、呼び出し時に <code class="code docutils literal notranslate"><span class="pre">noconds=True</span></code> を与えたほうがよかった。</p></li>
-<li><p>[5] <code class="code docutils literal notranslate"><span class="pre">expint</span></code> を含む関数が得られる。</p></li>
-<li><p>[6] EulerGamma を含む関数が得られる。</p></li>
-<li><p>[7] Heaviside 関数を Laplace 変換する。</p></li>
+<li><p>[5] <code class="docutils literal notranslate"><span class="pre">expint</span></code> を含む関数が得られる。</p></li>
+<li><p>[6] <code class="docutils literal notranslate"><span class="pre">EulerGamma</span></code> を含む関数が得られる。</p></li>
+<li><p>[7] <code class="docutils literal notranslate"><span class="pre">Heaviside</span></code> 関数を Laplace 変換する。</p></li>
 </ul>
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">inverse_laplace_transform(F,</span> <span class="pre">s,</span> <span class="pre">t,</span> <span class="pre">plane=None,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">F(s)</span></code> の逆 Laplace 変換を計算して、結果を返す。</p>
 <ul class="simple">
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">F</span></code>, <code class="code docutils literal notranslate"><span class="pre">s</span></code>, <code class="code docutils literal notranslate"><span class="pre">t</span></code> の意味は前述の関数に準ずる。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">plane</span></code> を利用する場合は、呼び出し側で変換関数 <code class="code docutils literal notranslate"><span class="pre">F</span></code> が極を持たないような半平面を知っているときにそうする。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">F</span></code>, <code class="docutils literal notranslate"><span class="pre">s</span></code>, <code class="docutils literal notranslate"><span class="pre">t</span></code> の意味は前述の関数に準ずる。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">plane</span></code> を利用する場合は、呼び出し側で変換関数 <code class="docutils literal notranslate"><span class="pre">F</span></code> が極を持たないような半平面を知っているときにそうする。</p></li>
 </ul>
 <p>いくつか実行例を示す。逆変換の対象となる関数はよそのドキュメントから拝借した。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">inverse_laplace_transform</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
@@ -248,26 +248,27 @@ SymPy においても、得意とする代数的な設計・実装による積�
 <span class="gh">Out[10]: </span><span class="go">cos(t)*Heaviside(t)</span>
 </pre></div>
 </div>
-<p>いちいち Heaviside 関数が現れるのが特徴だ。</p>
+<p>いちいち <code class="docutils literal notranslate"><span class="pre">Heaviside</span></code> 関数が現れるのが特徴だ。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="fourier">
-<h3><a class="toc-backref" href="#id14">Fourier 変換</a><a class="headerlink" href="#fourier" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="fourier">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Fourier 変換</a><a class="headerlink" href="#fourier" title="Permalink to this heading">¶</a></h3>
 <p>こちらも関数として提供されている。ユニタリー周波に関する変換方式を採用している。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">fourier_transform(f,</span> <span class="pre">x,</span> <span class="pre">k,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">f(x)</span></code> の Fourier 変換を計算して、結果を返す。</p>
 <ul>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> は変換したい実変数関数。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">x</span></code> は関数 <code class="code docutils literal notranslate"><span class="pre">f</span></code> の変数シンボル。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">k</span></code> は周波数。角周波数ではない（そうだったら <code class="code docutils literal notranslate"><span class="pre">omega</span></code> みたいなパラメーター名になっただろう）。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">f</span></code> は変換したい実変数関数。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">x</span></code> は関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> の変数シンボル。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">k</span></code> は周波数。角周波数ではない（そうだったら <code class="docutils literal notranslate"><span class="pre">omega</span></code> みたいなパラメーター名になっただろう）。</p></li>
 <li><p>戻り値は計算状況によって異なる。</p>
 <ul class="simple">
 <li><p>評価が成功すれば、いつものように関数を表現する数式 <code class="code docutils literal notranslate"><span class="pre">F(k)</span></code> が得られる。</p></li>
-<li><p>微妙な場合、クラス FourierTransform のオブジェクトが返る。これは変換が未評価であることを意味する。</p></li>
+<li><p>微妙な場合、クラス <code class="docutils literal notranslate"><span class="pre">FourierTransform</span></code> のオブジェクトが返る。これは変換が未評価であることを意味する。</p></li>
 </ul>
 </li>
-<li><p>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=False</span></code> を加えれば、戻り値は <code class="code docutils literal notranslate"><span class="pre">F</span></code> とブール値からなる tuple オブジェクトに変わる。</p>
+<li><p>さらに <code class="code docutils literal notranslate"><span class="pre">noconds=False</span></code> を加えれば、戻り値は <code class="docutils literal notranslate"><span class="pre">F</span></code> とブール値からなる
+<code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトに変わる。</p>
 <p>ブール値の意味が文書化されていないので、後で調べたい。</p>
 </li>
 </ul>
@@ -289,7 +290,8 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>[1][2] 入力が異なるのに変換結果が同じになるのは解せない。おそらく DiracDelta を結果に含むはずの変換が正しく求まらない。</p></li>
+<li><p>[1][2] 入力が異なるのに変換結果が同じになるのは解せない。おそらく DiracDelta
+を結果に含むはずの変換が正しく求まらない。</p></li>
 <li><p>[3]-[5] こちらはよさそうだ。</p></li>
 </ul>
 </dd>
@@ -312,22 +314,24 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>[6] 逆変換で DiracDelta が欲しい例。</p></li>
-<li><p>[7][8] DiracDelta の逆変換は正しく求まる。</p></li>
+<li><p>[6] 逆変換で <code class="docutils literal notranslate"><span class="pre">DiracDelta</span></code> が欲しい例。</p></li>
+<li><p>[7][8] <code class="docutils literal notranslate"><span class="pre">DiracDelta</span></code> の逆変換は正しく求まる。</p></li>
 <li><p>[9] このように評価し切れない場合は遅延評価版オブジェクトが返る。</p></li>
 <li><p>[10] おそらく正しい。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id15">数値積分</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">数値積分</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>その名もモジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals.quadrature</span></code> に、数値積分系の関数が定義されている。すべてが Gauss 求積法の派生アルゴリズムということになる。まず各関数に共通する引数と戻り値の性質を説明する。</p>
 <ul class="simple">
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">n</span></code> は各求積法の order である。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">n_digits</span></code> は求積の精度、有効桁数を指定する。</p></li>
-<li><p>戻り値は長さ 2 の tuple オブジェクトであり、どちらの要素も長さ <code class="code docutils literal notranslate"><span class="pre">n</span></code> の list オブジェクトだ。その中身も共通して小数点以下が <code class="code docutils literal notranslate"><span class="pre">n_digits</span></code> 桁の float 値だ。</p>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">n</span></code> は各求積法の order である。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">n_digits</span></code> は求積の精度、有効桁数を指定する。</p></li>
+<li><p>戻り値は長さ 2 の <code class="docutils literal notranslate"><span class="pre">tuple</span></code> オブジェクトであり、どちらの要素も長さ <code class="docutils literal notranslate"><span class="pre">n</span></code> の
+<code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトだ。その中身も共通して小数点以下が <code class="docutils literal notranslate"><span class="pre">n_digits</span></code> 桁の
+<code class="docutils literal notranslate"><span class="pre">float</span></code> 値だ。</p>
 <ul>
 <li><p>ガウス点。各短冊の位置のようなものを想像するとよい。</p></li>
 <li><p>重み。各短冊の太さのようなもの。</p></li>
@@ -342,7 +346,8 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_gen_laguerre(n,</span> <span class="pre">alpha,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Laguerre 求積法の一般化版を評価する。</p>
 <ul class="simple">
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> は一般化されていないほうの求積法の重み関数に対して乗じる <code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">alpha</span></code> の指数を指定する。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> は一般化されていないほうの求積法の重み関数に対して乗じる
+<code class="code docutils literal notranslate"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">alpha</span></code> の指数を指定する。</p></li>
 </ul>
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_hermite(n,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Hermite 求積法を評価する。</p>
@@ -353,13 +358,13 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </dd>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">gauss_jacobi(n,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">n_digits)</span></code></dt><dd><p>Gauss-Jacobi 求積法を評価する。</p>
 <ul class="simple">
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> は Jacobi 多項式第 1 項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">x)</span></code> の指数。</p></li>
-<li><p>引数 <code class="code docutils literal notranslate"><span class="pre">beta</span></code> は Jacobi 多項式第 2 項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x)</span></code> の指数。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> は Jacobi 多項式第一項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">x)</span></code> の指数。</p></li>
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">beta</span></code> は Jacobi 多項式第二項 <code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">+</span> <span class="pre">x)</span></code> の指数。</p></li>
 <li><p>これらの指数は -1 より大きい必要がある。</p></li>
 </ul>
 </dd>
 </dl>
-<p>最後に、関数 <code class="code docutils literal notranslate"><span class="pre">gauss_legendre</span></code> だけデモを示す。</p>
+<p>最後に、関数 <code class="docutils literal notranslate"><span class="pre">gauss_legendre</span></code> だけデモを示す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="gh">Out[1]: </span><span class="go">sqrt(2)*sqrt(pi)*erf(sqrt(2)/2)</span>
 
@@ -381,13 +386,13 @@ SymPy においても、得意とする代数的な設計・実装による積�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>[1][2] まずは汎用の <code class="code docutils literal notranslate"><span class="pre">integrate</span></code> による定積分を計算し、近似値を見ておく。これをガウス求積による数値計算で得るのがこのデモの目的だ。</p></li>
+<li><p>[1][2] まずは汎用の <code class="docutils literal notranslate"><span class="pre">integrate</span></code> による定積分を計算し、近似値を見ておく。これをガウス求積による数値計算で得るのがこのデモの目的だ。</p></li>
 <li><p>[4] オーダー 5 でガウス点と重みを計算する。</p></li>
 <li><p>[5][6] それぞれ有効精度が 8 桁であることがわかる。</p></li>
 <li><p>[7] これらと Python の組み込み関数を用いて、簡単な算術計算で定積分の数値計算を実現できた。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

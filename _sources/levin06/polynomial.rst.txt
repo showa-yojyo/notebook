@@ -2,8 +2,9 @@
 Polynomial Shaping Functions
 ======================================================================
 
-`Polynomial Shaping Functions - Golan Levin and Collaborators <http://www.flong.com/archive/texts/code/shapers_poly/>`__ ノート。
-区間 :math:`{[0, 1]}` を定義域とする多項式整形関数が紹介されている。
+`Polynomial Shaping Functions - Golan Levin and Collaborators
+<http://www.flong.com/archive/texts/code/shapers_poly/>`__ ノート。区間
+:math:`{[0, 1]}` を定義域とする多項式整形関数が紹介されている。
 
 .. contents:: ノート目次
 
@@ -14,9 +15,9 @@ Blinn-Wyvill Approximation to the Raised Inverted Cosine
 
    y = \frac{4}{9} x^6 - \frac{7}{9} x^4 + \frac{12}{9} x^2.
 
-* 秒間数百万回もの :math:`\cos`, :math:`\sin` の演算が必要な場合に、
-  より単純な近似式で代用して計算コストの削減を図りたい。
-  その例として、Blinn-Wyvill 多項式近似による Raised Inverted Cosine がある。
+* 秒間数百万回もの :math:`\cos`, :math:`\sin` の演算が必要な場合に、より単純な近
+  似式で代用して計算コストの削減を図りたい。その例として、Blinn-Wyvill 多項式近
+  似による Raised Inverted Cosine がある。
 * この近似多項式には次のような性質がある。
 
   * :math:`x = 0, 1` で導関数の値がゼロとなる（要確認）。
@@ -28,8 +29,8 @@ Blinn-Wyvill Approximation to the Raised Inverted Cosine
 
 実装の急所：
 
-* :math:`x^2`, :math:`x^4`, :math:`x^6` をこの順に計算すること。
-  直前に得たべき乗の値を乗算する。
+* :math:`x^2`, :math:`x^4`, :math:`x^6` をこの順に計算すること。直前に得たべき乗
+  の値を乗算する。
 
 感想：
 
@@ -46,15 +47,15 @@ Double-Cubic Seat
    b + \left(1 - b\right)\left(\dfrac{x - a}{1 - a}\right)^3, & a \le x \le 1.
    \end{cases}
 
-このシート状の関数は、三次多項式二つを結合して形成される。
-部分曲線同士は制御座標 :math:`{(a, b)}` において水平方向に接続するように変曲点を持つ。
+このシート状の関数は、三次多項式二つを結合して形成される。部分曲線同士は制御座標
+:math:`{(a, b)}` において水平方向に接続するように変曲点を持つ。
 
 実装の急所：
 
 * 引数は ``(float x, float a, float b)`` となる。
 * 引数 ``a, b`` のチェックをする必要があるだろう。
-* 本文では関数 ``pow`` でべき乗を計算しているが、自然数乗だから演算子 ``*``
-  のほうがいい可能性がある？ここは別途調査したい。
+* 本文では関数 ``pow`` でべき乗を計算しているが、自然数乗だから演算子 ``*`` のほ
+  うがいい可能性がある？ここは別途調査したい。
 
 Double-Cubic Seat with Linear Blend
 ======================================================================
@@ -66,10 +67,11 @@ Double-Cubic Seat with Linear Blend
    bx + \left(1 - b\right)\left(a + \left(1 - a\right)\left(\dfrac{x - a}{1 - a}\right)^3\right), & a \le x \le 1.
    \end{cases}
 
-* 前項関数の改良版で、単位正方形の対角線に沿った変曲点の位置を単一の変数で制御する。
-* それに加え、この曲線を恒等関数 :math:`{y = x}` と混合するためにもう一つ変数がある。
-  ここでは、変数 ``b`` を使用してこの混合量を制御し、変曲点近傍の曲線の
-  傾きを変える効果がある。
+* 前項関数の改良版で、単位正方形の対角線に沿った変曲点の位置を単一の変数で制御す
+  る。
+* それに加え、この曲線を恒等関数 :math:`{y = x}` と混合するためにもう一つ変数が
+  ある。ここでは、変数 ``b`` を使用してこの混合量を制御し、変曲点近傍の曲線の傾
+  きを変える効果がある。
 * 変曲点付近の平坦化を調整できるので、等間隔のデータを拡大する際などに便利だ。
 
 実装の急所は前項と同じ。
@@ -88,8 +90,10 @@ Double-Odd-Polynomial Seat
    b + \left(1 - b\right)\left(\dfrac{x - a}{1 - a}\right)^{2n + 1}, & a \le x \le 1.
    \end{cases}
 
-* 先述の Double-Cubic Seat 関数は、任意の奇数整数の指数を使用する形式に一般化できる。
-* 三次関数や五次関数などの奇数次数の多項式は、シート状の曲線を作るのにひじょうに自然な形で適している。
+* 先述の Double-Cubic Seat 関数は、任意の奇数整数の指数を使用する形式に一般化で
+  きる。
+* 三次関数や五次関数などの奇数次数の多項式は、シート状の曲線を作るのにひじょうに
+  自然な形で適している。
 
    * 引数 ``a`` によって恒等関数とパラメトリックに混合される。
    * :math:`{(0, 0)}` と :math:`{(1, 1)}` を通過する。
@@ -119,17 +123,18 @@ Symmetric Double-Polynomial Sigmoids
    1 + \dfrac{(2x - 2)^{2n + 1} }{2}, & 0.5 \le x \lt 1.
    \end{cases}
 
-単位正方形の中心に対称的な多項式のペアを結合することで sigmoid パターンを生成する。
-これらの方程式の指数 ``n`` は、つぶれた値と盛り上がった値を分ける壁の急峻さを制御する。
+単位正方形の中心に対称的な多項式のペアを結合することで sigmoid パターンを生成す
+る。これらの方程式の指数 ``n`` は、つぶれた値と盛り上がった値を分ける壁の急峻さ
+を制御する。
 
 * 整数 ``n`` の推奨範囲は 1 から約 10 だ。
 * これらの中では二次の sigmoid が Raised Inverted Cosine に最も近い。
   2.8 パーセント以内で近似している。
 
-ここで紹介する対称二重多項式 sigmoid は、0 と 1 に平らな接線を持つ S 字型をしており
-（関数名に含まれる sigmoid という言葉は元々「:math:`\varsigma` に似たもの」を意味する）、
-:math:`{f(0.5) = 0.5}` という特別な性質がある。
-偶数べき sigmoid と奇数べきの場合とでは、少し異なる方程式のペアが必要になる。
+ここで紹介する対称二重多項式 sigmoid は、0 と 1 に平らな接線を持つ S 字型をして
+おり（関数名に含まれる sigmoid という言葉は元々「:math:`\varsigma` に似たもの」
+を意味する）、:math:`{f(0.5) = 0.5}` という特別な性質がある。偶数べき sigmoid
+と奇数べきの場合とでは、少し異なる方程式のペアが必要になる。
 
 Quadratic Through a Given Point
 ======================================================================
@@ -139,6 +144,8 @@ Quadratic Through a Given Point
    y = \left(\frac{1 - b}{1 - a} - \frac{b}{a}\right) x^2
      - \frac{1}{a} \left(a^2 - \left(\frac{1 - b}{1 - a} - \frac{b}{a}\right) - b\right)x.
 
-この関数は、単位正方形内の点 :math:`{(a, b)}` を通り、座標軸に揃う放物線を定義する。
+この関数は、単位正方形内の点 :math:`{(a, b)}` を通り、座標軸に揃う放物線を定義す
+る。
 
-意味不明：単位正方形内のすべての点が :math:`(0, 0)` と :math:`(1, 1)` の位置を通る曲線になるとは限らない。
+意味不明：単位正方形内のすべての点が :math:`(0, 0)` と :math:`(1, 1)` の位置を通
+る曲線になるとは限らない。

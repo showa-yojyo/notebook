@@ -5,8 +5,8 @@ Class diagrams
 《In software engineering, a class diagram in the Unified Modeling Language
 (UML) is a type of static structure diagram that describes the structure of a
 system by showing the system's classes, their attributes, operations (or
-methods), and the relationships among objects.》
-(`Wikipedia <https://en.wikipedia.org/wiki/Class_diagram>`__)
+methods), and the relationships among objects.》 (`Wikipedia
+<https://en.wikipedia.org/wiki/Class_diagram>`__)
 
 .. contents::
    :depth: 2
@@ -67,8 +67,8 @@ the diagram contains three compartments:
   annotation text describing the nature of the class.
 * The middle compartment contains the attributes of the class. They are
   left-aligned and the first letter is lowercase.
-* The bottom compartment contains the operations the class can execute. They
-  are also left-aligned and the first letter is lowercase.
+* The bottom compartment contains the operations the class can execute. They are
+  also left-aligned and the first letter is lowercase.
 
 .. mermaid::
 
@@ -152,7 +152,8 @@ different ways are:
 
 .. admonition:: 学習者ノート
 
-   後者の記法のほうがコード量が少なくて済む。あと、インデントをどうするかは取り決めた方がいい。
+   後者の記法のほうがコード量が少なくて済む。あと、インデントをどうするかは取り
+   決めた方がいい。
 
 Return Type
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -203,8 +204,8 @@ This can be done as part of either class definition method:
 
 .. admonition:: 学習者ノート
 
-   完全ではないが、C++ でいうクラステンプレートを対応している。
-   プログラミング言語によっては上記の対応で事足りるのだろう。
+   完全ではないが、C++ でいうクラステンプレートを対応している。プログラミング言
+   語によっては上記の対応で事足りるのだろう。
 
 Visibility
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -277,8 +278,8 @@ Type      Description
 
 .. admonition:: 学習者ノート
 
-   各種 association の理解に自身がない場合は UML
-   の仕様書を参照すること。 ここに書き写してもいいか？
+   各種 association の理解に自身がない場合は UML の仕様書を参照すること。 ここに
+   書き写してもいいか？
 
 We can use the labels to describe nature of relation between two classes. Also,
 arrowheads can be used in opposite directions as well:
@@ -445,8 +446,8 @@ output will be same. The two ways are:
 
 .. admonition:: 学習者ノート
 
-   クラス記法（と勝手に呼んでいる）の場合にはクラス名の直後？に
-   annotation を宣言する。
+   クラス記法（と勝手に呼んでいる）の場合にはクラス名の直後？に annotation を宣
+   言する。
 
 Comments
 =======================================================================
@@ -496,7 +497,8 @@ which the diagram will render like in this example.
 
 .. admonition:: 学習者ノート
 
-   ``direction RL`` を ``direction LR`` やその他に書き換えて表示を確認するといい。
+   ``direction RL`` を ``direction LR`` やその他に書き換えて表示を確認するとい
+   い。
 
 Interaction
 =======================================================================
@@ -680,7 +682,8 @@ Or:
 
 .. admonition:: 学習者ノート
 
-   VS Code の Markdown Preview Mermaid Support は上二つを Mermaid オブジェクトとして描画しない。
+   VS Code の Markdown Preview Mermaid Support は上二つを Mermaid オブジェクトと
+   して描画しない。
 
 cssClasses cannot be added using this shorthand method at the same time as a
 relation statement.

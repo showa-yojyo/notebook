@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Algorithmic drawing &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
@@ -49,9 +47,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="algorithmic-drawing">
-<h1><a class="toc-backref" href="#id2">Algorithmic drawing</a><a class="headerlink" href="#algorithmic-drawing" title="Permalink to this heading">¶</a></h1>
-<div class="contents topic" id="id1">
+  <section id="algorithmic-drawing">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">Algorithmic drawing</a><a class="headerlink" href="#algorithmic-drawing" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="id1">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#algorithmic-drawing" id="id2">Algorithmic drawing</a></p>
@@ -114,13 +112,14 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="shaping-functions">
-<h2><a class="toc-backref" href="#id3">Shaping functions</a><a class="headerlink" href="#shaping-functions" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="shaping-functions">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Shaping functions</a><a class="headerlink" href="#shaping-functions" title="Permalink to this heading">¶</a></h2>
 <p>個人的にはこの章が本書の神髄であると評価している。シェーダー以外にもつぶしが効く。</p>
 <ul class="simple">
 <li><p>一次元の関数を作る方法を理解する。</p></li>
-<li><p>最初の二つのライブコードでプロットの描画方法がわかる。なお、線形補間の処理には GLSL 関数 <code class="docutils literal notranslate"><span class="pre">mix</span></code> を利用できる。</p></li>
+<li><p>最初の二つのライブコードでプロットの描画方法がわかる。なお、線形補間の処理には
+GLSL 関数 <code class="docutils literal notranslate"><span class="pre">mix</span></code> を利用できる。</p></li>
 <li><p>0 から 1 の値を黒から白の間の灰色に線形に対応させる。</p></li>
 </ul>
 <hr class="docutils" />
@@ -130,8 +129,8 @@
 </ul>
 <p>解答</p>
 <p>何も工夫しないと定義域と値域の都合で <code class="docutils literal notranslate"><span class="pre">exp</span></code> と <code class="docutils literal notranslate"><span class="pre">log</span></code> ではプロット曲線が現れない。実引数である <code class="docutils literal notranslate"><span class="pre">st.x</span></code> に下駄を履かせる。</p>
-<div class="section" id="step-and-smoothstep">
-<h3><a class="toc-backref" href="#id4">Step and Smoothstep</a><a class="headerlink" href="#step-and-smoothstep" title="Permalink to this heading">¶</a></h3>
+<section id="step-and-smoothstep">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Step and Smoothstep</a><a class="headerlink" href="#step-and-smoothstep" title="Permalink to this heading">¶</a></h3>
 <p>これまでの人生で一度も有効活用したことがない関数だ。これらは断片シェーダーの実装でたいへん活躍する。</p>
 <ul class="simple">
 <li><p>この節で取り扱う GLSL 関数二つは補間に用いる。細工しなければ定義域は実数全体、値域は閉区間 <span class="math notranslate nohighlight">\({[0, 1]}\)</span> となる。</p></li>
@@ -147,9 +146,9 @@
 </li>
 </ul>
 <p>この段階では関数の合成にまだ踏み込まない。踏み込んだほうが良かった。</p>
-</div>
-<div class="section" id="sine-and-cosine">
-<h3><a class="toc-backref" href="#id5">Sine and Cosine</a><a class="headerlink" href="#sine-and-cosine" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="sine-and-cosine">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Sine and Cosine</a><a class="headerlink" href="#sine-and-cosine" title="Permalink to this heading">¶</a></h3>
 <p>値が <span class="math notranslate nohighlight">\({[-1, 1]}\)</span> にある滑らかな関数として利用する。</p>
 <ul class="simple">
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> など。三角関数の波長と振幅の調整法。</p>
@@ -165,12 +164,12 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">sin</span></code> を計算する前に <code class="docutils literal notranslate"><span class="pre">x</span></code> に時間 <code class="docutils literal notranslate"><span class="pre">u_time</span></code> を加えろ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sin</span></code> を計算する前に <code class="docutils literal notranslate"><span class="pre">x</span></code> に <code class="docutils literal notranslate"><span class="pre">PI</span></code> を掛けろ。位相が縮小し、各周期が 2 ごとに繰り返されるだろう。</p></li>
 <li><p>時間 <code class="docutils literal notranslate"><span class="pre">u_time</span></code> を <code class="docutils literal notranslate"><span class="pre">x</span></code> に乗じてから <code class="docutils literal notranslate"><span class="pre">sin</span></code> を計算しろ。位相間の周波数がますます圧縮されていくだろう。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> に 1.0 を加えろ。すべての波が上にずれて、すべての値が 0.0 から 2.0 の間になっているだろう。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> に 1.0 を加えろ。すべての波が上にずれて、すべての値が 0.0 から 2.0
+の間になっているだろう。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> に 2.0 を掛けろ。振幅が倍になる。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> の絶対値 (<code class="docutils literal notranslate"><span class="pre">abs()</span></code>) を計算しろ。弾んだボールの跡のようになるだろう。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> の結果の小数部分 (<code class="docutils literal notranslate"><span class="pre">fract()</span></code>) だけを取り出せ。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> の結果の整数の大きい方(<code class="docutils literal notranslate"><span class="pre">ceil()</span></code>) と小さい方 (<code class="docutils literal notranslate"><span class="pre">floor()</span></code>) を足すと、
-1 と -1 の値のデジタル波になる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sin(x)</span></code> の結果の整数の大きい方 (<code class="docutils literal notranslate"><span class="pre">ceil()</span></code>) と小さい方 (<code class="docutils literal notranslate"><span class="pre">floor()</span></code>) を足すと、 1 と -1 の値のデジタル波になる。</p></li>
 </ul>
 <p>回答</p>
 <p>この練習では <code class="docutils literal notranslate"><span class="pre">u_time</span></code> がすでに大きくなっていて、プロットが読みづらくなっている可能性がある。そこは適当に工夫する。要点をまとめると：</p>
@@ -180,19 +179,15 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">fract</span></code> の結果は少々驚く。これのおかげで「小数部分」の定義を明確に習得できた。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ceil</span></code> と <code class="docutils literal notranslate"><span class="pre">floor</span></code> の加工では、実は離散的に値 <span class="math notranslate nohighlight">\(\pm 2\)</span> が生じる。</p></li>
 </ul>
-</div>
-<div class="section" id="some-extra-useful-functions">
-<h3><a class="toc-backref" href="#id6">Some extra useful functions</a><a class="headerlink" href="#some-extra-useful-functions" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="some-extra-useful-functions">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Some extra useful functions</a><a class="headerlink" href="#some-extra-useful-functions" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">mod</span></code>, <code class="docutils literal notranslate"><span class="pre">fract</span></code>, <code class="docutils literal notranslate"><span class="pre">sign</span></code>, <code class="docutils literal notranslate"><span class="pre">clamp</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code> を体で覚える。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">mod(x,</span> <span class="pre">y)</span></code> の定義を言えるようにしておく必要がある。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sign(x)</span></code> は -1, 0, 1 のいずれかを返す。この 0 が便利な場合とそうでない場合がある。</p></li>
 </ul>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>関数呼び出し</p></th>
 <th class="head"><p>プロット</p></th>
@@ -228,39 +223,41 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="advance-shaping-functions">
-<h3><a class="toc-backref" href="#id7">Advance shaping functions</a><a class="headerlink" href="#advance-shaping-functions" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="advance-shaping-functions">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Advance shaping functions</a><a class="headerlink" href="#advance-shaping-functions" title="Permalink to this heading">¶</a></h3>
 <p>これら単体でノートのページが丸々埋まるのでまともに取り組むか悩む。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_poly/">Polynomial Shaping Functions - Golan Levin and Collaborators</a></p></li>
 <li><p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_exp/">Exponential Shaping Functions - Golan Levin and Collaborators</a></p></li>
 <li><p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_circ/">Circular &amp; Elliptical Shaping Functions - Golan Levin and Collaborators</a></p></li>
 <li><p><a class="reference external" href="http://www.flong.com/archive/texts/code/shapers_bez/">Bezier and Other Parametric Shaping Functions - Golan Levin and Collaborators</a></p></li>
-<li><p><a class="reference external" href="https://www.iquilezles.org/www/articles/functions/functions.htm">Inigo Quilez :: fractals, computer graphics, mathematics, shaders, demoscene and more</a></p></li>
+<li><p><a class="reference external" href="https://www.iquilezles.org/www/articles/functions/functions.htm">Inigo Quilez :: fractals, computer graphics, mathematics, shaders, demoscene
+and more</a></p></li>
 </ul>
-<div class="section" id="exercise">
-<h4><a class="toc-backref" href="#id8">Exercise</a><a class="headerlink" href="#exercise" title="Permalink to this heading">¶</a></h4>
-<p>単純な数式の関数を習得して損はないだろう。関数 <code class="docutils literal notranslate"><span class="pre">pow</span></code> を多用するので関数 <code class="docutils literal notranslate"><span class="pre">abs</span></code> も併用するようだ。非負だとわかっている合成関数ならば <code class="docutils literal notranslate"><span class="pre">abs</span></code> 呼び出しを省略する。</p>
+<section id="exercise">
+<h4><a class="toc-backref" href="#id8" role="doc-backlink">Exercise</a><a class="headerlink" href="#exercise" title="Permalink to this heading">¶</a></h4>
+<p>単純な数式の関数を習得して損はないだろう。関数 <code class="docutils literal notranslate"><span class="pre">pow</span></code> を多用するので関数
+<code class="docutils literal notranslate"><span class="pre">abs</span></code> も併用するようだ。非負だとわかっている合成関数ならば <code class="docutils literal notranslate"><span class="pre">abs</span></code> 呼び出しを省略する。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">));</span><span class="w"></span>
 <span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
 <span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="for-your-toolbox">
-<h4><a class="toc-backref" href="#id9">For your toolbox</a><a class="headerlink" href="#for-your-toolbox" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="for-your-toolbox">
+<h4><a class="toc-backref" href="#id9" role="doc-backlink">For your toolbox</a><a class="headerlink" href="#for-your-toolbox" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Grapher (Mac only)</p></li>
 <li><p><a class="reference external" href="https://graphtoy.com/">Graphtoy</a>: これは良い。ノートにペンでスケッチする手間が省ける。</p></li>
 <li><p><a class="reference external" href="http://tobyschachman.com/Shadershop/editor/">Shadershop</a>: 操作が難しい。</p></li>
 </ul>
 <p>一変数関数プロットツールということなら Matplotlib や SymPy で事足りる。</p>
-</div>
-</div>
-</div>
-<div class="section" id="colors">
-<h2><a class="toc-backref" href="#id10">Colors</a><a class="headerlink" href="#colors" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="colors">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Colors</a><a class="headerlink" href="#colors" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vec3</span></code>, <code class="docutils literal notranslate"><span class="pre">vec4</span></code> のメンバーのアクセス方法</p></li>
 <li><p>ベクトル成分に対する swizzling と呼ばれるアクセス方法</p></li>
@@ -271,15 +268,15 @@
 vec4($1, $2, $3, ${4:1.0})
 </pre></div>
 </div>
-<div class="section" id="mixing-color">
-<h3><a class="toc-backref" href="#id11">Mixing color</a><a class="headerlink" href="#mixing-color" title="Permalink to this heading">¶</a></h3>
+<section id="mixing-color">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Mixing color</a><a class="headerlink" href="#mixing-color" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">mix</span></code> で二つの値をパーセンテージで混合できる。線形内分補間。</p></li>
-<li><p>こういう関数も利用できる：<a class="reference external" href="https://easings.net/">Easing Functions Cheat Sheet</a></p></li>
+<li><p>こういう関数も利用できる： <a class="reference external" href="https://easings.net/">Easing Functions Cheat Sheet</a></p></li>
 </ul>
-</div>
-<div class="section" id="playing-with-gradients">
-<h3><a class="toc-backref" href="#id12">Playing with gradients</a><a class="headerlink" href="#playing-with-gradients" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="playing-with-gradients">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Playing with gradients</a><a class="headerlink" href="#playing-with-gradients" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">mix</span></code> は <code class="docutils literal notranslate"><span class="pre">float</span></code> 型だけでなく、同型の <code class="docutils literal notranslate"><span class="pre">vecN</span></code> を渡すこともできる。</p></li>
 </ul>
@@ -333,17 +330,17 @@ vec4($1, $2, $3, ${4:1.0})
 </pre></div>
 </div>
 <p>上のコードの <code class="docutils literal notranslate"><span class="pre">mix</span></code> 部分を色ベクトルで置き換えるとカラフルな旗になる。</p>
-</div>
-<div class="section" id="hsb">
-<h3><a class="toc-backref" href="#id13">HSB</a><a class="headerlink" href="#hsb" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="hsb">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">HSB</a><a class="headerlink" href="#hsb" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">rgb2hsv</span></code> と <code class="docutils literal notranslate"><span class="pre">hsv2rgb</span></code> の実装。このコードはよそにも用意されているだろう。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span> <span class="pre">=</span> <span class="pre">rgb*rgb*(3.0-2.0*rgb)</span></code> の式は Hermite 補間、すなわち
-<code class="docutils literal notranslate"><span class="pre">smoothstep</span></code> に見える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span> <span class="pre">=</span> <span class="pre">rgb*rgb*(3.0-2.0*rgb)</span></code> の式は Hermite 補間、すなわち <code class="docutils literal notranslate"><span class="pre">smoothstep</span></code>
+に見える。</p></li>
 </ul>
-</div>
-<div class="section" id="hsb-in-polar-coordinates">
-<h3><a class="toc-backref" href="#id14">HSB in polar coordinates</a><a class="headerlink" href="#hsb-in-polar-coordinates" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="hsb-in-polar-coordinates">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">HSB in polar coordinates</a><a class="headerlink" href="#hsb-in-polar-coordinates" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>HSB は極座標で考えるのが普通。したがって関数 <code class="docutils literal notranslate"><span class="pre">length</span></code> や <code class="docutils literal notranslate"><span class="pre">atan</span></code> が有用。</p></li>
 <li><p>GLSL ベクトルに対しては次のような関数も用意されている：</p>
@@ -446,17 +443,17 @@ vec4($1, $2, $3, ${4:1.0})
 <li><p>なるほど <code class="docutils literal notranslate"><span class="pre">st.y</span> <span class="pre">=</span> <span class="pre">1.</span> <span class="pre">-</span> <span class="pre">st.y</span></code> とすれば上下逆になる。</p></li>
 <li><p>対称な位置にある矩形二つを一度の関数呼び出しで描けるのは面白い。</p></li>
 </ul>
-<div class="section" id="note-about-functions-and-arguments">
-<h4><a class="toc-backref" href="#id15">Note about functions and arguments</a><a class="headerlink" href="#note-about-functions-and-arguments" title="Permalink to this heading">¶</a></h4>
+<section id="note-about-functions-and-arguments">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Note about functions and arguments</a><a class="headerlink" href="#note-about-functions-and-arguments" title="Permalink to this heading">¶</a></h4>
 <p>GLSL の関数引数リストの <code class="docutils literal notranslate"><span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">out</span></code>, <code class="docutils literal notranslate"><span class="pre">inout</span></code> について。</p>
-</div>
-</div>
-</div>
-<div class="section" id="shapes">
-<h2><a class="toc-backref" href="#id16">Shapes</a><a class="headerlink" href="#shapes" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="shapes">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Shapes</a><a class="headerlink" href="#shapes" title="Permalink to this heading">¶</a></h2>
 <p>単純な図形を並列に描く手法を習得する。</p>
-<div class="section" id="rectangle">
-<h3><a class="toc-backref" href="#id17">Rectangle</a><a class="headerlink" href="#rectangle" title="Permalink to this heading">¶</a></h3>
+<section id="rectangle">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Rectangle</a><a class="headerlink" href="#rectangle" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>関数 <code class="docutils literal notranslate"><span class="pre">step</span></code> を二次元的に採用して矩形を定義する方法</p>
 <ul>
@@ -513,9 +510,9 @@ vec4($1, $2, $3, ${4:1.0})
 <li><p>どの矩形も白とする。</p></li>
 </ul>
 <p>これならば上記の <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> を呼び出した戻り値をその都度 <code class="docutils literal notranslate"><span class="pre">max</span></code> を取っていけばいい。矩形に色が着いていたり、相異なる矩形が重なり合うことを考えると問題が難しくなる。</p>
-</div>
-<div class="section" id="circles">
-<h3><a class="toc-backref" href="#id18">Circles</a><a class="headerlink" href="#circles" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="circles">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Circles</a><a class="headerlink" href="#circles" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>円を描く方法</p></li>
 </ul>
@@ -537,9 +534,9 @@ vec4($1, $2, $3, ${4:1.0})
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec3</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">vec3</span><span class="p">(</span><span class="n">pct</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="distance-field">
-<h3><a class="toc-backref" href="#id19">Distance field</a><a class="headerlink" href="#distance-field" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="distance-field">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Distance field</a><a class="headerlink" href="#distance-field" title="Permalink to this heading">¶</a></h3>
 <p>距離場の概念：平面から非負実数への写像という解釈でよかろう。</p>
 <hr class="docutils" />
 <p>演習問題</p>
@@ -582,18 +579,19 @@ vec4($1, $2, $3, ${4:1.0})
 </pre></div>
 </div>
 <p>以下略。</p>
-<div class="section" id="for-your-tool-box">
-<h4><a class="toc-backref" href="#id20">For your tool box</a><a class="headerlink" href="#for-your-tool-box" title="Permalink to this heading">¶</a></h4>
+<section id="for-your-tool-box">
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">For your tool box</a><a class="headerlink" href="#for-your-tool-box" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">sqrt</span></code> を可能な限り避けて <code class="docutils literal notranslate"><span class="pre">dot</span></code> で済ませる。これは GLSL に限らず幾何学プログラミング全般での基本だ。</p>
-</div>
-</div>
-<div class="section" id="useful-properties-of-a-distance-field">
-<h3><a class="toc-backref" href="#id21">Useful properties of a Distance Field</a><a class="headerlink" href="#useful-properties-of-a-distance-field" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="useful-properties-of-a-distance-field">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Useful properties of a Distance Field</a><a class="headerlink" href="#useful-properties-of-a-distance-field" title="Permalink to this heading">¶</a></h3>
 <p>距離場を用いて何らかの視覚的表現を実装することはよくある。</p>
-</div>
-<div class="section" id="polar-shapes">
-<h3><a class="toc-backref" href="#id22">Polar shapes</a><a class="headerlink" href="#polar-shapes" title="Permalink to this heading">¶</a></h3>
-<p>正規化された座標 <code class="docutils literal notranslate"><span class="pre">st</span></code> からキャンバスの中心を原点とする極座標空間の座標 <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">theta)</span></code> を得る公式：</p>
+</section>
+<section id="polar-shapes">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Polar shapes</a><a class="headerlink" href="#polar-shapes" title="Permalink to this heading">¶</a></h3>
+<p>正規化された座標 <code class="docutils literal notranslate"><span class="pre">st</span></code> からキャンバスの中心を原点とする極座標空間の座標 <code class="docutils literal notranslate"><span class="pre">(r,</span>
+<span class="pre">theta)</span></code> を得る公式：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec2</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">vec2</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">st</span><span class="p">;</span><span class="w"></span>
 <span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w"></span>
 <span class="kt">float</span><span class="w"> </span><span class="n">theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atan</span><span class="p">(</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">pos</span><span class="p">.</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
@@ -607,7 +605,8 @@ vec4($1, $2, $3, ${4:1.0})
 <li><p>前章で使用した関数 <code class="docutils literal notranslate"><span class="pre">plot</span></code> を使って輪郭だけを描け。</p></li>
 </ul>
 <p>解答</p>
-<p>アニメーションは色々考えられるが、偏角 <code class="docutils literal notranslate"><span class="pre">a</span></code> またはプロット <code class="docutils literal notranslate"><span class="pre">f</span></code> を <code class="docutils literal notranslate"><span class="pre">u_time</span></code> で加工するのが普通だろう。</p>
+<p>アニメーションは色々考えられるが、偏角 <code class="docutils literal notranslate"><span class="pre">a</span></code> またはプロット <code class="docutils literal notranslate"><span class="pre">f</span></code> を <code class="docutils literal notranslate"><span class="pre">u_time</span></code>
+で加工するのが普通だろう。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">TAU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radians</span><span class="p">(</span><span class="mf">360.</span><span class="p">);</span><span class="w"></span>
 
 <span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">(){</span><span class="w"></span>
@@ -651,9 +650,9 @@ vec4($1, $2, $3, ${4:1.0})
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="combining-powers">
-<h3><a class="toc-backref" href="#id23">Combining powers</a><a class="headerlink" href="#combining-powers" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="combining-powers">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Combining powers</a><a class="headerlink" href="#combining-powers" title="Permalink to this heading">¶</a></h3>
 <p>極座標を距離場に応用する。</p>
 <hr class="docutils" />
 <p>演習問題</p>
@@ -679,22 +678,23 @@ vec4($1, $2, $3, ${4:1.0})
 <p>正多角形の最初の頂点が x 軸上に来るのか y 軸上に来るのかで <code class="docutils literal notranslate"><span class="pre">atan</span></code> 呼び出しの引数の順序を入れ替えるといい。気に入らないのは、距離場の定義が良くないのか、頂点数によって多角形の半径がどんどん小さくなることだ。これは正直なんとかしたい（ベクトルの問題ゆえ難しくはない）。</p>
 <p>距離場の混ぜ合わせは <code class="docutils literal notranslate"><span class="pre">max</span></code> を取ると正多角形同士の和集合が現れ、<code class="docutils literal notranslate"><span class="pre">min</span></code> を取ると積集合が現れる。</p>
 <p>幾何学的なロゴタイプで何かいいのがあれば試したい。</p>
-</div>
-</div>
-<div class="section" id="matrices">
-<h2><a class="toc-backref" href="#id24">Matrices</a><a class="headerlink" href="#matrices" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="translate">
-<h3><a class="toc-backref" href="#id25">Translate</a><a class="headerlink" href="#translate" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="matrices">
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">Matrices</a><a class="headerlink" href="#matrices" title="Permalink to this heading">¶</a></h2>
+<section id="translate">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Translate</a><a class="headerlink" href="#translate" title="Permalink to this heading">¶</a></h3>
 <p>ここはいい。</p>
-</div>
-<div class="section" id="rotations">
-<h3><a class="toc-backref" href="#id26">Rotations</a><a class="headerlink" href="#rotations" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="rotations">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Rotations</a><a class="headerlink" href="#rotations" title="Permalink to this heading">¶</a></h3>
 <p>ここはいい。</p>
 <ul class="simple">
 <li><p>この節で <code class="docutils literal notranslate"><span class="pre">mat2</span></code>, <code class="docutils literal notranslate"><span class="pre">mat3</span></code>, <code class="docutils literal notranslate"><span class="pre">mat4</span></code> を導入する。</p></li>
 <li><p>この TeX を書いたのは誰だろう。なっていない。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mat2</span></code> への引数の渡し方が本文の説明と GLSL のコードとで合致していない。
-GLSL では列ベクトルを並べる。このコードで見かけ上動作している理由は、世界座標系を回転させることで、相対的にオブジェクトが反時計回りするから。本ノートでは <code class="docutils literal notranslate"><span class="pre">mat2(cos(t),</span> <span class="pre">sin(t),</span> <span class="pre">-sin(t),</span> <span class="pre">cos(t))</span></code> の順で統一する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mat2</span></code> への引数の渡し方が本文の説明と GLSL のコードとで合致していない。 GLSL
+では列ベクトルを並べる。このコードで見かけ上動作している理由は、世界座標系を回転させることで、相対的にオブジェクトが反時計回りするから。本ノートでは
+<code class="docutils literal notranslate"><span class="pre">mat2(cos(t),</span> <span class="pre">sin(t),</span> <span class="pre">-sin(t),</span> <span class="pre">cos(t))</span></code> の順で統一する。</p></li>
 </ul>
 <hr class="docutils" />
 <p>演習問題</p>
@@ -707,9 +707,9 @@ GLSL では列ベクトルを並べる。このコードで見かけ上動作し
 <p>45 行目のコメントを外すと背景にデバッグ色が着く。これにより、座標変換がすべての画素に施されていることが納得できる。</p>
 <p><code class="docutils literal notranslate"><span class="pre">st</span> <span class="pre">+=</span> <span class="pre">vec(0.5)</span></code> などをコメントアウトすると、回転中心がキャンバスの左下のままになるのがわかる。</p>
 <p>最後の問題は並進の練習では回転ベクトルを直接計算していたので、そこを行列の乗算に置き換えろという趣旨だろう。ただ、どう書き換えても以前のコードのほうが保守しやすいだろう。</p>
-</div>
-<div class="section" id="scale">
-<h3><a class="toc-backref" href="#id27">Scale</a><a class="headerlink" href="#scale" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="scale">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Scale</a><a class="headerlink" href="#scale" title="Permalink to this heading">¶</a></h3>
 <p>特にない。</p>
 <hr class="docutils" />
 <p>演習問題</p>
@@ -717,7 +717,7 @@ GLSL では列ベクトルを並べる。このコードで見かけ上動作し
 <li><p>42 行目のコメントを外すと、空間座標が拡縮されているのがわかる。</p></li>
 <li><p>37 行目と 39 行目の拡縮の前と後の並進をコメントするとどうなるか。</p></li>
 <li><p>回転行列と拡縮行列を組み合わせろ。順番が重要であることに注意しろ。</p></li>
-<li><p>ニセの UI または HUD を設計して構築しろ。Ndel 氏による ShaderToy の<a class="reference external" href="https://www.shadertoy.com/view/4s2SRt">例</a>が参考になる。</p></li>
+<li><p>ニセの UI または HUD を設計して構築しろ。Ndel 氏による ShaderToy の <a class="reference external" href="https://www.shadertoy.com/view/4s2SRt">例</a> が参考になる。</p></li>
 </ul>
 <p>解答</p>
 <p>今回もオブジェクト座標系ではなく世界座標系に対して拡縮している。したがって、拡縮前後の並進をやめると左下（の少しずれた位置）を中心に描画全体が拡縮する。</p>
@@ -732,14 +732,14 @@ GLSL では列ベクトルを並べる。このコードで見かけ上動作し
 </pre></div>
 </div>
 <p>HUD の問題は何を言っているのかわからない。</p>
-</div>
-<div class="section" id="other-uses-for-matrices-yuv-color">
-<h3><a class="toc-backref" href="#id28">Other uses for matrices: YUV color</a><a class="headerlink" href="#other-uses-for-matrices-yuv-color" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="other-uses-for-matrices-yuv-color">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Other uses for matrices: YUV color</a><a class="headerlink" href="#other-uses-for-matrices-yuv-color" title="Permalink to this heading">¶</a></h3>
 <p>YUV とは色空間の一種で、写真やビデオのアナログ符号化処理に使用される。人間の知覚範囲を考慮して、C 成分の帯域を狭くしてある。</p>
-</div>
-</div>
-<div class="section" id="patterns">
-<h2><a class="toc-backref" href="#id29">Patterns</a><a class="headerlink" href="#patterns" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="patterns">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">Patterns</a><a class="headerlink" href="#patterns" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>シェーダプログラムは画素単位で実行される。形状をどれだけ反復して計算回数は一定だ。したがって、断片シェーダーはタイルパターンに特に適していると言える。</p></li>
 <li><p>正規化した二次元座標を拡大してから <code class="docutils literal notranslate"><span class="pre">fract</span></code> を適用する手法が基本的だ。これにより、正規化されたキャンバスを格子状に区切ることができる。</p></li>
@@ -772,15 +772,14 @@ GLSL では列ベクトルを並べる。このコードで見かけ上動作し
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">tile</span><span class="p">(</span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="mf">3.</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">st</span></code> がどのセルに属すかは、係数の逆数を整数倍した区間のどこに属するかで決まる。例えば <code class="docutils literal notranslate"><span class="pre">scalar</span> <span class="pre">=</span> <span class="pre">3.</span></code> とする。仮に <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">/</span> <span class="pre">scalar</span> <span class="pre">&lt;=</span> <span class="pre">st.x</span> <span class="pre">&amp;&amp;</span> <span class="pre">st.x</span> <span class="pre">&lt;</span> <span class="pre">2.</span> <span class="pre">/</span> <span class="pre">scalar</span></code>
-ならば <code class="docutils literal notranslate"><span class="pre">st</span></code> は中央の列のどこかにある。ただし <code class="docutils literal notranslate"><span class="pre">st</span></code> は係数倍される前の値とする。
-GLSL なので <code class="docutils literal notranslate"><span class="pre">floor</span></code> が適任だ：</p>
+<p><code class="docutils literal notranslate"><span class="pre">st</span></code> がどのセルに属すかは、係数の逆数を整数倍した区間のどこに属するかで決まる。例えば <code class="docutils literal notranslate"><span class="pre">scalar</span> <span class="pre">=</span> <span class="pre">3.</span></code> とする。仮に <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">/</span> <span class="pre">scalar</span> <span class="pre">&lt;=</span> <span class="pre">st.x</span> <span class="pre">&amp;&amp;</span> <span class="pre">st.x</span> <span class="pre">&lt;</span> <span class="pre">2.</span> <span class="pre">/</span>
+<span class="pre">scalar</span></code> ならば <code class="docutils literal notranslate"><span class="pre">st</span></code> は中央の列のどこかにある。ただし <code class="docutils literal notranslate"><span class="pre">st</span></code> は係数倍される前の値とする。GLSL なので <code class="docutils literal notranslate"><span class="pre">floor</span></code> が適任だ：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">ivec2</span><span class="p">(</span><span class="n">floor</span><span class="p">(</span><span class="n">st</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scalar</span><span class="p">))</span><span class="w"></span>
 </pre></div>
 </div>
 <p>さらにバツジルシを描く関数が必要だ。前章の <code class="docutils literal notranslate"><span class="pre">cross</span></code> を拝借すればできるだろう。セルの条件分岐はどうする？</p>
-<div class="section" id="apply-matrices-inside-patterns">
-<h3><a class="toc-backref" href="#id30">Apply matrices inside patterns</a><a class="headerlink" href="#apply-matrices-inside-patterns" title="Permalink to this heading">¶</a></h3>
+<section id="apply-matrices-inside-patterns">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Apply matrices inside patterns</a><a class="headerlink" href="#apply-matrices-inside-patterns" title="Permalink to this heading">¶</a></h3>
 <p>各セルに対して前章で習った座標変換の手法を適用することができる。</p>
 <hr class="docutils" />
 <p>演習問題</p>
@@ -792,14 +791,15 @@ GLSL なので <code class="docutils literal notranslate"><span class="pre">floo
 <p>解答</p>
 <p>その他の要素に関するアニメーションは学習済みなので、パターン自体をアニメーションするかどうかを中心に考えたい。</p>
 <ul class="simple">
-<li><p>分割自体を時刻によって変化させる。このコードで言うと <code class="docutils literal notranslate"><span class="pre">zoom</span></code> への実引数を <code class="docutils literal notranslate"><span class="pre">u_time</span></code> 依存にする。</p></li>
+<li><p>分割自体を時刻によって変化させる。このコードで言うと <code class="docutils literal notranslate"><span class="pre">zoom</span></code> への実引数を
+<code class="docutils literal notranslate"><span class="pre">u_time</span></code> 依存にする。</p></li>
 <li><p>回転角を <code class="docutils literal notranslate"><span class="pre">u_time</span></code> に依存する。</p></li>
 <li><p>ボックスの色を <code class="docutils literal notranslate"><span class="pre">u_time</span></code> に依存する。</p></li>
 </ul>
 <p>残りの問題は難しいから後回し。</p>
-</div>
-<div class="section" id="offset-patterns">
-<h3><a class="toc-backref" href="#id31">Offset patterns</a><a class="headerlink" href="#offset-patterns" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="offset-patterns">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">Offset patterns</a><a class="headerlink" href="#offset-patterns" title="Permalink to this heading">¶</a></h3>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">mod</span></code> を利用した偶数奇数の判定方法を理解する。</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">step</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">mod</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">));</span><span class="w"></span>
 </pre></div>
@@ -829,8 +829,7 @@ GLSL なので <code class="docutils literal notranslate"><span class="pre">floo
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brickTile</span><span class="p">(</span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w"> </span><span class="n">fract</span><span class="p">(</span><span class="n">u_time</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
-<p>偶数奇数で互い違いにオフセットさせるには、偶数、奇数を
--1, 1 にそれぞれ写像することができれば十分だ。次のようにする：</p>
+<p>偶数奇数で互い違いにオフセットさせるには、偶数、奇数を -1, 1 にそれぞれ写像することができれば十分だ。次のようにする：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">vec2</span><span class="w"> </span><span class="n">brickTile</span><span class="p">(</span><span class="kt">vec2</span><span class="w"> </span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">zoom</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">offset</span><span class="p">){</span><span class="w"></span>
 <span class="w">    </span><span class="n">st</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">zoom</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="n">st</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mf">2.</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">step</span><span class="p">(</span><span class="mf">.001</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span><span class="w"> </span><span class="n">mod</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mf">2.</span><span class="p">)))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.</span><span class="p">);</span><span class="w"></span>
@@ -854,9 +853,9 @@ GLSL なので <code class="docutils literal notranslate"><span class="pre">floo
 <span class="n">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brickTile</span><span class="p">(</span><span class="n">st</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w"> </span><span class="n">fract</span><span class="p">(</span><span class="n">u_time</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="truchet-tiles">
-<h3><a class="toc-backref" href="#id32">Truchet Tiles</a><a class="headerlink" href="#truchet-tiles" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="truchet-tiles">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">Truchet Tiles</a><a class="headerlink" href="#truchet-tiles" title="Permalink to this heading">¶</a></h3>
 <p>一つのセルをもう一度四つ切りに細分する。次の処理を <code class="docutils literal notranslate"><span class="pre">zoom</span></code> の直後に行う：</p>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="c1">//  Scale the coordinate system by 2x2</span><span class="w"></span>
 <span class="n">st</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">2.</span><span class="p">;</span><span class="w"></span>
@@ -912,7 +911,7 @@ GLSL なので <code class="docutils literal notranslate"><span class="pre">floo
 <li><p>黒と白の三角形を、半円、回転した四角形、線などの別の要素に変えろ。</p></li>
 <li><p>要素の位置に応じて回転させる他のパターンをコードにしろ。</p></li>
 <li><p>要素の位置に応じて他の性質が変化するパターンを作れ。</p></li>
-<li><p>この節の原則を適用できる、必ずしもパターンではない何か他のものを考えろ(例：易経の易卦）。</p></li>
+<li><p>この節の原則を適用できる、必ずしもパターンではない何か他のものを考えろ（例：易経の易卦）。</p></li>
 </ul>
 <p>解答</p>
 <p>コメント・アンコメント・コピー問題は色々試す。回転にアニメーションが施されているから、二つの回転角をずらすと面白い効果を得る。</p>
@@ -924,9 +923,9 @@ GLSL なので <code class="docutils literal notranslate"><span class="pre">floo
 </div>
 <p>値 <code class="docutils literal notranslate"><span class="pre">index</span></code> に応じて「他の性質」を決めるコードを追加すればいいだろう。</p>
 <p>最後の六十四卦をモチーフにしたパターンはコードが全部読めるのだが、コメントがないので理解に時間を要する。有益な技法がいくつか埋め込まれているので、時間をかけて解読すれば得られるものがある。</p>
-</div>
-<div class="section" id="making-your-own-rules">
-<h3><a class="toc-backref" href="#id33">Making your own rules</a><a class="headerlink" href="#making-your-own-rules" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="making-your-own-rules">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Making your own rules</a><a class="headerlink" href="#making-your-own-rules" title="Permalink to this heading">¶</a></h3>
 <p>手続き型パターンの作成は、再利用可能な最小限の要素を見つけるための精神的な訓練だと著者は主張している。</p>
 <ul class="simple">
 <li><p>古代ギリシャの蛇行文様</p></li>
@@ -935,9 +934,9 @@ GLSL なので <code class="docutils literal notranslate"><span class="pre">floo
 <li><p>アフリカのゴージャスな布地のデザイン</p></li>
 </ul>
 <p>パターンの世界には学ぶべきものがたくさんあるとも言っている。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

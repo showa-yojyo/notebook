@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Network requests &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/mermaid.js"></script>
@@ -48,21 +46,21 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="network-requests">
-<h1><a class="toc-backref" href="#id6">Network requests</a><a class="headerlink" href="#network-requests" title="Permalink to this heading">¶</a></h1>
-<div class="contents topic" id="contents">
+  <section id="network-requests">
+<h1><a class="toc-backref" href="#id6" role="doc-backlink">Network requests</a><a class="headerlink" href="#network-requests" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#network-requests" id="id6">Network requests</a></p>
 <ul>
 <li><p><a class="reference internal" href="#fetch" id="id7">Fetch</a></p></li>
-<li><p><a class="reference internal" href="#formdata" id="id8">FormData</a></p></li>
+<li><p><a class="reference internal" href="#formdata" id="id8"><code class="docutils literal notranslate"><span class="pre">FormData</span></code></a></p></li>
 <li><p><a class="reference internal" href="#fetch-download-progress" id="id9">Fetch: Download progress</a></p></li>
 <li><p><a class="reference internal" href="#fetch-abort" id="id10">Fetch: Abort</a></p></li>
 <li><p><a class="reference internal" href="#fetch-cross-origin-requests" id="id11">Fetch: Cross-Origin Requests</a></p></li>
 <li><p><a class="reference internal" href="#fetch-api" id="id12">Fetch API</a></p></li>
-<li><p><a class="reference internal" href="#url-objects" id="id13">URL objects</a></p></li>
-<li><p><a class="reference internal" href="#xmlhttprequest" id="id14">XMLHttpRequest</a></p></li>
+<li><p><a class="reference internal" href="#url-objects" id="id13"><code class="docutils literal notranslate"><span class="pre">URL</span></code> objects</a></p></li>
+<li><p><a class="reference internal" href="#xmlhttprequest" id="id14"><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code></a></p></li>
 <li><p><a class="reference internal" href="#resumable-file-upload" id="id15">Resumable file upload</a></p></li>
 <li><p><a class="reference internal" href="#long-polling" id="id16">Long polling</a></p></li>
 <li><p><a class="reference internal" href="#websocket" id="id17">WebSocket</a></p></li>
@@ -70,9 +68,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="fetch">
-<h2><a class="toc-backref" href="#id7">Fetch</a><a class="headerlink" href="#fetch" title="Permalink to this heading">¶</a></h2>
+</nav>
+<section id="fetch">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Fetch</a><a class="headerlink" href="#fetch" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/fetch">https://javascript.info/fetch</a>&gt; のノート。</p>
 <p>JavaScript からのネットワーク要求には AJAX という包括的な用語がある。最後の X は
 XML を意味するが、別にそれを使う必要はない。古い時代の名残だ。</p>
@@ -81,7 +79,8 @@ XML を意味するが、別にそれを使う必要はない。古い時代の�
 </pre></div>
 </div>
 <p>オプションがない場合、単純な GET 要求で URL の内容をダウンロードする。</p>
-<p>ブラウザーはリクエストをすぐに開始し、呼び出し側のコードが結果を取得するための <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
+<p>ブラウザーはリクエストをすぐに開始し、呼び出し側のコードが結果を取得するための
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す。</p>
 <p>応答の取得は通常二段階で行われる。まず、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> が返す <code class="docutils literal notranslate"><span class="pre">response</span></code> はサーバーがヘッダーで応答すると同時に、組み込みクラス <code class="docutils literal notranslate"><span class="pre">Response</span></code> のオブジェクトで
 resolve される。この段階では HTTP 状態のチェック、成功かどうかの確認、ヘッダーのチェックはできるものの、本文 (body) がまだない。</p>
 <p>ネットワークに問題がある、またはそのようなサイトがないなど、HTTP 要求を果たせなかった場合 <code class="docutils literal notranslate"><span class="pre">promise</span></code> は reject される。 404 や 500 のような異常な HTTP 状態はエラーにならない。</p>
@@ -102,10 +101,6 @@ resolve される。この段階では HTTP 状態のチェック、成功かど
 <code class="docutils literal notranslate"><span class="pre">Response</span></code> には、さまざまな形式で本文にアクセスするための複数の <code class="docutils literal notranslate"><span class="pre">Promise</span></code>
 ベースのメソッドがある。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 43%" />
-<col style="width: 57%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
 <th class="head"><p>Behavior</p></th>
@@ -144,7 +139,7 @@ resolve される。この段階では HTTP 状態のチェック、成功かど
 <p>あとは参考として <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトの扱いも例がある。画像をロードして動的に
 DOM に追加して描画させるという、高級なものだ。</p>
 <p>重要な点として、本文を読み取る方法はひとつしか選べないことを理解しておく。例えばすでに <code class="docutils literal notranslate"><span class="pre">response.text()</span></code> で応答を取得している場合は <code class="docutils literal notranslate"><span class="pre">body</span></code> の内容がすでに処理されているので <code class="docutils literal notranslate"><span class="pre">response.json()</span></code> は使えない、といった具合だ。</p>
-<div class="section" id="response-headers">
+<section id="response-headers">
 <h3>Response headers<a class="headerlink" href="#response-headers" title="Permalink to this heading">¶</a></h3>
 <p>応答ヘッダーは <code class="docutils literal notranslate"><span class="pre">response.headers</span></code> にある <code class="docutils literal notranslate"><span class="pre">Map</span></code> 風のオブジェクトで利用できる。これは厳密には <code class="docutils literal notranslate"><span class="pre">Map</span></code> ではないものの、個々のヘッダーを名前で取得したり、ヘッダーを反復処理したりするための類似のメソッドがある。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get one header</span><span class="w"></span>
@@ -155,8 +150,8 @@ DOM に追加して描画させるという、高級なものだ。</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="request-headers">
+</section>
+<section id="request-headers">
 <h3>Request headers<a class="headerlink" href="#request-headers" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> で要求ヘッダーを設定するには、オプションの引数 <code class="docutils literal notranslate"><span class="pre">headers</span></code> を使用する。次のコードのようにして、オブジェクトに発信ヘッダーを持たせる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">protectedUrl</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -167,15 +162,11 @@ DOM に追加して描画させるという、高級なものだ。</p>
 </pre></div>
 </div>
 <p>禁じられた HTTP ヘッダーというのがあり、それを指定することは許されていない。これらのヘッダーは、適切かつ安全な HTTP を保証するため、ブラウザー専用とされる。</p>
-</div>
-<div class="section" id="post-requests">
+</section>
+<section id="post-requests">
 <h3>POST requests<a class="headerlink" href="#post-requests" title="Permalink to this heading">¶</a></h3>
 <p>GET 以外の POST や他の要求を行うには <code class="docutils literal notranslate"><span class="pre">options</span></code> を使用する必要がある。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 30%" />
-<col style="width: 70%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Property</p></th>
 <th class="head"><p>Value</p></th>
@@ -199,17 +190,17 @@ DOM に追加して描画させるという、高級なものだ。</p>
 </ul>
 <p>ほとんどの場合で JSON 形式が採用される。本書のコード例の
 <code class="docutils literal notranslate"><span class="pre">options.headers['Content-Type']</span></code> の値に注目する。</p>
-</div>
-<div class="section" id="sending-an-image">
+</section>
+<section id="sending-an-image">
 <h3>Sending an image<a class="headerlink" href="#sending-an-image" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Blob</span></code> や <code class="docutils literal notranslate"><span class="pre">BufferSource</span></code> を使って、バイナリーデータを <code class="docutils literal notranslate"><span class="pre">fetch</span></code> で送信することもできる。本書の例では <code class="docutils literal notranslate"><span class="pre">CANVAS</span></code> 要素上の描画をデータ化して、画像をサーバーに送信する。</p>
 <p>コードを分析すると、JavaScript はキャンバス DOM ノードの <code class="docutils literal notranslate"><span class="pre">toBlob()</span></code> で所定の形式で画像を生成できるようだ。これを単純な <code class="docutils literal notranslate"><span class="pre">options</span></code> で <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> したのち
-<code class="docutils literal notranslate"><span class="pre">json()</span></code> する。 <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトの場合、その型が Content-Type の値になる。 <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトには組み込みの型 image/png があるため、Content-Type
+<code class="docutils literal notranslate"><span class="pre">json()</span></code> する。<code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトの場合、その型が Content-Type の値になる。<code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトには組み込みの型 image/png があるため、Content-Type
 ヘッダーを手動で設定しないで済む。</p>
-</div>
-<div class="section" id="tasks">
+</section>
+<section id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="fetch-users-from-github">
+<section id="fetch-users-from-github">
 <h4>Fetch users from GitHub<a class="headerlink" href="#fetch-users-from-github" title="Permalink to this heading">¶</a></h4>
 <p>GitHub のログイン名の配列を入力とし、GitHub からユーザーを取得してその配列を出力とする非同期関数 <code class="docutils literal notranslate"><span class="pre">getUsers(names)</span></code> を書く演習だ。</p>
 <p>指定された USERNAME の情報を持つ GitHub の URL は
@@ -221,12 +212,12 @@ DOM に追加して描画させるという、高級なものだ。</p>
 <code class="docutils literal notranslate"><span class="pre">null</span></code> を置くものとする。</p></li>
 </ol>
 <p>この要件の急所は 2. であって、<code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> を使うタイミングを慎重に決めることになる。本質的に同じ処理とするが、見てくれは異なるコードが解答例以外にありそうだ。</p>
-</div>
-</div>
-</div>
-<div class="section" id="formdata">
-<h2><a class="toc-backref" href="#id8">FormData</a><a class="headerlink" href="#formdata" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://javascript.info/formdata">https://javascript.info/formdata</a> のノート。</p>
+</section>
+</section>
+</section>
+<section id="formdata">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">FormData</span></code></a><a class="headerlink" href="#formdata" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/formdata">https://javascript.info/formdata</a>&gt; のノート。</p>
 <p>HTML フォームの送信について習う。<code class="docutils literal notranslate"><span class="pre">FormData</span></code> から始める。フォームデータを表すオブジェクトだ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">formData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FormData</span><span class="p">([</span><span class="nx">form</span><span class="p">]);</span><span class="w"></span>
 </pre></div>
@@ -236,7 +227,7 @@ DOM に追加して描画させるという、高級なものだ。</p>
 オブジェクトを本文として受け取ることができることにある。これは符号化されて
 <code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> で送信される。</p>
 <p>サーバーからはこれが通常の提出と同じように見える。</p>
-<div class="section" id="sending-a-simple-form">
+<section id="sending-a-simple-form">
 <h3>Sending a simple form<a class="headerlink" href="#sending-a-simple-form" title="Permalink to this heading">¶</a></h3>
 <p>単純なフォームを POST で送信するコード例。</p>
 <ul class="simple">
@@ -244,16 +235,11 @@ DOM に追加して描画させるという、高級なものだ。</p>
 <li><p>おそらく <code class="docutils literal notranslate"><span class="pre">e.preventDefault()</span></code> 呼び出しは必須。</p></li>
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">fetch</span></code> の呼び出しで <code class="docutils literal notranslate"><span class="pre">options.body</span></code> の値を上述のように指定する。</p></li>
 </ul>
-</div>
-<div class="section" id="formdata-methods">
+</section>
+<section id="formdata-methods">
 <h3>FormData Methods<a class="headerlink" href="#formdata-methods" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">FormData</span></code> のフィールドをメソッドで変更することができる。
-GUI 以外の手段でもフォームの内容を操作できるということだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">FormData</span></code> のフィールドをメソッドで変更することができる。GUI 以外の手段でもフォームの内容を操作できるということだ。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 49%" />
-<col style="width: 51%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
 <th class="head"><p>Behavior</p></th>
@@ -280,24 +266,24 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 </table>
 <p>フォームには同じ名前のフィールドをいくつも持つことが技術的には許されているので、メソッド <code class="docutils literal notranslate"><span class="pre">append</span></code> を何度も呼び出すと同じ名前のフィールドがどんどん追加される。引数リストが <code class="docutils literal notranslate"><span class="pre">append</span></code> と同じであるメソッド <code class="docutils literal notranslate"><span class="pre">set</span></code> もある。与えられた名前のフィールドをすべて削除し、新しいフィールドを追加する。</p>
 <p>本書のコードは、無からフォームデータを生成する例だろう。</p>
-</div>
-<div class="section" id="sending-a-form-with-a-file">
+</section>
+<section id="sending-a-form-with-a-file">
 <h3>Sending a form with a file<a class="headerlink" href="#sending-a-form-with-a-file" title="Permalink to this heading">¶</a></h3>
-<p>フォームはいつでも <code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> として送信され、この符号化によってファイルを送信することができる。したがって、
-<code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">type=&quot;file&quot;&gt;</span></code> フィールドも通常のものと同じように送信される。</p>
+<p>フォームはいつでも <code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code> として送信され、この符号化によってファイルを送信することができる。したがって、<code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">type=&quot;file&quot;&gt;</span></code>
+フィールドも通常のものと同じように送信される。</p>
 <p>ハンドラー部分のコードがさっきのものと同じであることに注意する。</p>
-</div>
-<div class="section" id="sending-a-form-with-blob-data">
+</section>
+<section id="sending-a-form-with-blob-data">
 <h3>Sending a form with Blob data<a class="headerlink" href="#sending-a-form-with-blob-data" title="Permalink to this heading">¶</a></h3>
-<p>画像など、動的に生成されるバイナリーデータを <code class="docutils literal notranslate"><span class="pre">Blob</span></code> として送信するのは前章で見たように簡単だ。 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 呼び出しで引数 <code class="docutils literal notranslate"><span class="pre">body</span></code> として直接与えることができる。実際には、画像を個別に送信するのではなく、名前などの追加フィールドやメタデータとともに、フォームの一部として送信するのが便利な場合が多い。また、サーバーは通常、生のバイナリーデータよりも multipart 符号化されたフォームを受け入れるのに適している。</p>
+<p>画像など、動的に生成されるバイナリーデータを <code class="docutils literal notranslate"><span class="pre">Blob</span></code> として送信するのは前章で見たように簡単だ。<code class="docutils literal notranslate"><span class="pre">fetch</span></code> 呼び出しで引数 <code class="docutils literal notranslate"><span class="pre">body</span></code> として直接与えることができる。実際には、画像を個別に送信するのではなく、名前などの追加フィールドやメタデータとともに、フォームの一部として送信するのが便利な場合が多い。また、サーバーは通常、生のバイナリーデータよりも multipart 符号化されたフォームを受け入れるのに適している。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">formData</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">imageBlob</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image.png&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これで、フォームに <code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">type=&quot;file&quot;</span> <span class="pre">name=&quot;image&quot;&gt;</span></code> があり、訪問者がファイルシステムから image.png という名前のファイルと <code class="docutils literal notranslate"><span class="pre">imageBlob</span></code> というデータを送信したのと同じことになる。サーバーは、通常のフォーム提出と同じように、フォームデータとファイルを読み取る。</p>
-</div>
-</div>
-<div class="section" id="fetch-download-progress">
-<h2><a class="toc-backref" href="#id9">Fetch: Download progress</a><a class="headerlink" href="#fetch-download-progress" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="fetch-download-progress">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Fetch: Download progress</a><a class="headerlink" href="#fetch-download-progress" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/fetch-progress">https://javascript.info/fetch-progress</a>&gt; のノート。</p>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">fetch</span></code> では、ダウンロードの進捗を追跡することができる。戻り値オブジェクト <code class="docutils literal notranslate"><span class="pre">response</span></code> のプロパティー <code class="docutils literal notranslate"><span class="pre">body</span></code> を使用する。これは
 <code class="docutils literal notranslate"><span class="pre">ReadableStream</span></code> 型で、ボディーを塊単位で供給する特殊なオブジェクトだ。
@@ -335,23 +321,23 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 </li>
 </ul>
 <p>受信バイト数は必ずチェックする。一定の限界に達したらループを打ち切るなどして、メモリーが枯渇することを防止することだ。</p>
-</div>
-<div class="section" id="fetch-abort">
-<h2><a class="toc-backref" href="#id10">Fetch: Abort</a><a class="headerlink" href="#fetch-abort" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="fetch-abort">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Fetch: Abort</a><a class="headerlink" href="#fetch-abort" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/fetch-abort">https://javascript.info/fetch-abort</a>&gt; のノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> には「中止する」という概念が一般的にはない。進行中の <code class="docutils literal notranslate"><span class="pre">fetch</span></code> を中止するにはどうすればよいか。このような目的のために <code class="docutils literal notranslate"><span class="pre">AbortController</span></code> が使える。これは <code class="docutils literal notranslate"><span class="pre">fetch</span></code> の他にも、非同期タスクを中断させることができる。</p>
-<div class="section" id="the-abortcontroller-object">
-<h3>The AbortController object<a class="headerlink" href="#the-abortcontroller-object" title="Permalink to this heading">¶</a></h3>
+<section id="the-abortcontroller-object">
+<h3>The <code class="docutils literal notranslate"><span class="pre">AbortController</span></code> object<a class="headerlink" href="#the-abortcontroller-object" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">AbortController</span></code> は構造が単純だ。メソッド <code class="docutils literal notranslate"><span class="pre">abort()</span></code> と、イベントリスナーを設定するためのプロパティー <code class="docutils literal notranslate"><span class="pre">signal</span></code> がある。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AbortController</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">controller.abort()</span></code> すると、<code class="docutils literal notranslate"><span class="pre">controller.signal</span></code> がイベント “abort” を放つ。プロパティー <code class="docutils literal notranslate"><span class="pre">controller.signal.aborted</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> になる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">controller.abort()</span></code> すると、<code class="docutils literal notranslate"><span class="pre">controller.signal</span></code> がイベント <code class="docutils literal notranslate"><span class="pre">&quot;abort&quot;</span></code> を放つ。プロパティー <code class="docutils literal notranslate"><span class="pre">controller.signal.aborted</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> になる。</p>
 <p>キャンセル可能な操作を行う側は、<code class="docutils literal notranslate"><span class="pre">controller.signal</span></code> のリスナーを設定する。
 <code class="docutils literal notranslate"><span class="pre">controller.signal.addEventListener(&quot;abort&quot;,</span> <span class="pre">...)</span></code> による。キャンセルする側は、必要な時に <code class="docutils literal notranslate"><span class="pre">controller.abort()</span></code> を呼び出す。</p>
-</div>
-<div class="section" id="using-with-fetch">
-<h3>Using with fetch<a class="headerlink" href="#using-with-fetch" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="using-with-fetch">
+<h3>Using with <code class="docutils literal notranslate"><span class="pre">fetch</span></code><a class="headerlink" href="#using-with-fetch" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> 呼び出しのオプションに <code class="docutils literal notranslate"><span class="pre">signal</span></code> を指定することで中止可能になる。次のように書いておき、適当なタイミングで <code class="docutils literal notranslate"><span class="pre">controller.abort()</span></code> を呼び出すことになる：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AbortController</span><span class="p">();</span><span class="w"></span>
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -359,10 +345,10 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> が中止されると、その promise は <code class="docutils literal notranslate"><span class="pre">AbortError</span></code> を送出して reject する。 <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> などで処理する必要がある。</p>
-</div>
-<div class="section" id="abortcontroller-is-scalable">
-<h3>AbortController is scalable<a class="headerlink" href="#abortcontroller-is-scalable" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fetch</span></code> が中止されると、その promise は <code class="docutils literal notranslate"><span class="pre">AbortError</span></code> を送出して reject する。<code class="docutils literal notranslate"><span class="pre">try</span></code> … <code class="docutils literal notranslate"><span class="pre">catch</span></code> などで処理する必要がある。</p>
+</section>
+<section id="abortcontroller-is-scalable">
+<h3><code class="docutils literal notranslate"><span class="pre">AbortController</span></code> is scalable<a class="headerlink" href="#abortcontroller-is-scalable" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">AbortController</span></code> は複数の非同期タスクを一度に中止することができる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">urls</span><span class="p">;</span><span class="w"> </span><span class="c1">// a list of urls to fetch in parallel</span><span class="w"></span>
 
@@ -378,30 +364,31 @@ GUI 以外の手段でもフォームの内容を操作できるということ�
 <span class="c1">// it aborts all fetches</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="fetch-cross-origin-requests">
-<h2><a class="toc-backref" href="#id11">Fetch: Cross-Origin Requests</a><a class="headerlink" href="#fetch-cross-origin-requests" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="fetch-cross-origin-requests">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Fetch: Cross-Origin Requests</a><a class="headerlink" href="#fetch-cross-origin-requests" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/fetch-crossorigin">https://javascript.info/fetch-crossorigin</a>&gt; のノート。</p>
 <p>もし他のウェブサイトに <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 要求を送ると、まず失敗するだろう。</p>
 <p>核となる概念は domain/port/protocol の三つ組からなる origin だ。</p>
 <p>Origin をまたぐ要求はリモート側から特別なヘッダーを要求される。そのような方針は
 CORS: Cross-Origin Resource Sharing と呼ばれる。</p>
-<div class="section" id="why-is-cors-needed-a-brief-history">
+<section id="why-is-cors-needed-a-brief-history">
 <h3>Why is CORS needed? A brief history<a class="headerlink" href="#why-is-cors-needed-a-brief-history" title="Permalink to this heading">¶</a></h3>
 <p>CORS は邪悪なハッカーからインターネットを保護するために存在する。</p>
 <p>あるサイトのスクリプトが他のサイトの内容にアクセスすることはできない。古のこの単純かつ強力な規則は、インターネット安全保障の基礎だった。例えば、ウェブサイト
 hacker.com の悪質なスクリプトは、ウェブサイト gmail.com の利用者のメールボックスにアクセスできない。</p>
 <p>また、JavaScript には当時、ネットワークへの要求を実行するための特別な手段がなかった。しかし、ウェブ開発者はもっと強力なものを求めた。そこで、この制約を回避し、他のWeb サイトに要求するためのさまざまな小細工を考案した。</p>
-<div class="section" id="using-forms">
+<section id="using-forms">
 <h4>Using forms<a class="headerlink" href="#using-forms" title="Permalink to this heading">¶</a></h4>
-<p>他のサーバーと通信する方法の一つは、そこに FORM を送信することだった。人々は、現在のページにとどまるために、IFRAME にそれを submit した。</p>
-<p>そのため、ネットワークメソッドがなくても、フォームはどこにでもデータを送ることができるため、他のサイトに GET/POST 要求をすることは可能だった。しかし、IFRAME の内容に他のサイトからアクセスすることは禁じられているため、応答を読むことはできなかった。</p>
-<p>正確には、そのための仕掛けがあったが、それは IFRAME とページの両方で特別なスクリプトを必要とした。つまり、IFRAME との通信は技術的には可能だった。</p>
-</div>
-<div class="section" id="using-scripts">
+<p>他のサーバーと通信する方法の一つは、そこに FORM を送信することだった。人々は、現在のページにとどまるために、<code class="docutils literal notranslate"><span class="pre">IFRAME</span></code> にそれを <code class="docutils literal notranslate"><span class="pre">submit</span></code> した。</p>
+<p>そのため、ネットワークメソッドがなくても、フォームはどこにでもデータを送ることができるため、他のサイトに GET/POST 要求をすることは可能だった。しかし、<code class="docutils literal notranslate"><span class="pre">IFRAME</span></code>
+の内容に他のサイトからアクセスすることは禁じられているため、応答を読むことはできなかった。</p>
+<p>正確には、そのための仕掛けがあったが、それは <code class="docutils literal notranslate"><span class="pre">IFRAME</span></code> とページの両方で特別なスクリプトを必要とした。つまり、<code class="docutils literal notranslate"><span class="pre">IFRAME</span></code> との通信は技術的には可能だった。</p>
+</section>
+<section id="using-scripts">
 <h4>Using scripts<a class="headerlink" href="#using-scripts" title="Permalink to this heading">¶</a></h4>
-<p>もう一つの方法は SCRIPT タグを使うことだ。スクリプトは</p>
+<p>もう一つの方法は <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> タグを使うことだ。スクリプトは</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://another.com/...&quot;</span><span class="p">&gt;</span><span class="w"></span>
 </pre></div>
 </div>
@@ -411,9 +398,9 @@ hacker.com の悪質なスクリプトは、ウェブサイト gmail.com の利�
 <p>両者がこの方法でデータを渡すことに合意しているので、うまくいくし、安全保障に違反もしない。そして、双方が同意している場合、それは間違いなくハッキングではない。古いブラウザーでも動作するため、このようなアクセスを供与するサービスはまだ存在する。</p>
 <p>やがて、ブラウザーの JavaScript にネットワーク方式が登場した。</p>
 <p>当初、origin をまたぐ要求は禁じられていたが、長い議論の結果、それが許可されました。新しい機能は、特別なヘッダーで表現された、サーバーによる明示的な許可が必要だ。</p>
-</div>
-</div>
-<div class="section" id="safe-requests">
+</section>
+</section>
+<section id="safe-requests">
 <h3>Safe requests<a class="headerlink" href="#safe-requests" title="Permalink to this heading">¶</a></h3>
 <p>オリジン横断要求には安全な要求とそれ以外に分類できる。前者は作るのがより簡単なので、まずはそれから始める。</p>
 <p>要求は次の二つの条件を満たすと安全だ：</p>
@@ -434,10 +421,10 @@ hacker.com の悪質なスクリプトは、ウェブサイト gmail.com の利�
 </ul>
 </li>
 </ol>
-<p>上記以外の要求は「安全でない」とみなされる。本質的な違いは、安全な要求は特別なメソッドなしに FORM や SCRIPT で行なえるということだ。したがって、古いサーバーでも安全な要求を受け入れることができるはずだ。それとは逆に、非標準のヘッダーや、例えば DELETE メソッドを持つ要求を、この方法で作成することはできない。</p>
+<p>上記以外の要求は「安全でない」とみなされる。本質的な違いは、安全な要求は特別なメソッドなしに <code class="docutils literal notranslate"><span class="pre">FORM</span></code> や <code class="docutils literal notranslate"><span class="pre">SCRIPT</span></code> で行なえるということだ。したがって、古いサーバーでも安全な要求を受け入れることができるはずだ。それとは逆に、非標準のヘッダーや、例えば DELETE メソッドを持つ要求を、この方法で作成することはできない。</p>
 <p>安全でない要求を行おうとすると、ブラウザーは特別な preflight 要求を送信し、このようなオリジン横断的要求を受け入れることに同意するかどうかをサーバーに問う。そして、サーバーがヘッダーで明示的に確認しない限り、安全でない要求は送信されない。</p>
-</div>
-<div class="section" id="cors-for-safe-requests">
+</section>
+<section id="cors-for-safe-requests">
 <h3>CORS for safe requests<a class="headerlink" href="#cors-for-safe-requests" title="Permalink to this heading">¶</a></h3>
 <p>要求がオリジンを横断する場合はいつでも、ブラウザーは <code class="docutils literal notranslate"><span class="pre">Origin</span></code> ヘッダーを追加する。例では <code class="docutils literal notranslate"><span class="pre">https://javascript.info/page</span></code> から <code class="docutils literal notranslate"><span class="pre">https://anywhere.com/request</span></code>
 を要求するときのヘッダーを示している。</p>
@@ -454,8 +441,8 @@ Content-Type:text/html; charset=UTF-8
 Access-Control-Allow-Origin: https://javascript.info
 </pre></div>
 </div>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h3>Response headers<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>オリジン横断的要求では、JavaScript はいわゆる「安全な」応答ヘッダーにしかアクセスすることができない。次の六つしかないようだ：</p>
 <ul class="simple">
@@ -478,8 +465,8 @@ Access-Control-Expose-Headers: Content-Length,API-Key
 </pre></div>
 </div>
 <p>このような <code class="docutils literal notranslate"><span class="pre">Access-Control-Expose-Headers</span></code> ヘッダーを得て、要求側のスクリプトが応答の <code class="docutils literal notranslate"><span class="pre">Content-Length</span></code> および <code class="docutils literal notranslate"><span class="pre">API-Key</span></code> ヘッダーを読み取ることを許される。</p>
-</div>
-<div class="section" id="unsafe-requests">
+</section>
+<section id="unsafe-requests">
 <h3>“Unsafe” requests<a class="headerlink" href="#unsafe-requests" title="Permalink to this heading">¶</a></h3>
 <p>GET, POST, PATCH, DELETE など、あらゆる HTTP method を利用することができる。</p>
 <p>少し前までは、ウェブページがそのような要求をするという想定がなかった。そのため、非標準のメソッドを「それはブラウザーではない」と警戒して扱うウェブサービスがまだ存在する可能性がある。アクセス権をチェックするときに、それを考慮することができる。</p>
@@ -522,7 +509,7 @@ PATCH method というのはデータの更新によく使われる HTTP method 
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">API-Key</span></code> ヘッダーは安全でないとされる</p></li>
 </ul>
-<div class="section" id="step-1-preflight-request">
+<section id="step-1-preflight-request">
 <h4>Step 1 (preflight request)<a class="headerlink" href="#step-1-preflight-request" title="Permalink to this heading">¶</a></h4>
 <p>このような要求を送信する前に、ブラウザーが独自に次のような予備要求を送信する：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>OPTIONS /service.json
@@ -533,8 +520,8 @@ Access-Control-Request-Headers: Content-Type,API-Key
 </pre></div>
 </div>
 <p>OPTIONS は要求側のスクリプトのパスからなる。Host は先方のドメイン？残り三つは先述のものだ。</p>
-</div>
-<div class="section" id="step-2-preflight-response">
+</section>
+<section id="step-2-preflight-response">
 <h4>Step 2 (preflight response)<a class="headerlink" href="#step-2-preflight-response" title="Permalink to this heading">¶</a></h4>
 <p>成功すれば、予備応答は上の残り三つと記したヘッダーを部分的に含む。これをもって将来の通信が可能になる。もしサーバーが将来的に他のメソッドやヘッダーを期待するのであれば、それらをリストに追加することで事前に許可するのが自然だ。たとえば、次の応答例は PUT, DELETE, さらなるヘッダーも許可していると取れる：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>200 OK
@@ -546,18 +533,18 @@ Access-Control-Max-Age: 86400
 </div>
 <p>以上でブラウザーが本要求を送信することができるようになった。</p>
 <p>ヘッダー <code class="docutils literal notranslate"><span class="pre">Access-Control-Max-Age</span></code> に秒数があれば、指定された時間だけ予備要求の許可がキャッシュされる。上記の応答では、86400 秒キャッシュされる。この時間枠内であれば、それ以降の予備要求が発生することはない。キャッシュされた許容範囲内であれば、直接の送信が起こる。</p>
-</div>
-<div class="section" id="step-3-actual-request">
+</section>
+<section id="step-3-actual-request">
 <h4>Step 3 (actual request)<a class="headerlink" href="#step-3-actual-request" title="Permalink to this heading">¶</a></h4>
 <p>予備要求が成功したら、今度はブラウザーが主要求を行う。オリジン横断的要求ゆえ、本要求には <code class="docutils literal notranslate"><span class="pre">Origin</span></code> ヘッダーがあるが、処理は安全な要求と違いはない。</p>
-</div>
-<div class="section" id="step-4-actual-response">
+</section>
+<section id="step-4-actual-response">
 <h4>Step 4 (actual response)<a class="headerlink" href="#step-4-actual-response" title="Permalink to this heading">¶</a></h4>
 <p>サーバーは <code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Origin</span></code> を主応答に追加することを忘れてはならない。予備要求が成立しても、それから解放されるわけではない。</p>
 <p>これで <code class="docutils literal notranslate"><span class="pre">JavaScript</span></code> はサーバーの主応答を読むことができる。</p>
-</div>
-</div>
-<div class="section" id="credentials">
+</section>
+</section>
+<section id="credentials">
 <h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this heading">¶</a></h3>
 <p>JavaScript コードによって開始されたオリジン横断的要求には、Cookie や HTTP 認証などといった資格証が何もない。それは HTTP 要求では珍しいことだ。通常、あるドメインへの要求は、そのドメインからのすべての Cookies を伴う。一方、JavaScript のメソッドによって行われるオリジン横断的要求は例外だ。たとえば</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://another.com&#39;</span><span class="p">);</span><span class="w"></span>
@@ -580,24 +567,23 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 <p>というヘッダーを追加する必要がある。</p>
 <p>注意として、<code class="docutils literal notranslate"><span class="pre">Access-Control-Allow-Origin</span></code> では、資格情報を含むリクエストに星印
 <code class="docutils literal notranslate"><span class="pre">*</span></code> を使用することは禁止されている。正確なオリジンをそこに記さなければならない。これは追加的な安全対策であって、そのような要求をするために誰が信頼できるかをサーバーが本当に知っているかを確認するのが目的だ。</p>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
-<div class="section" id="why-do-we-need-origin">
+<section id="why-do-we-need-origin">
 <h4>Why do we need Origin?<a class="headerlink" href="#why-do-we-need-origin" title="Permalink to this heading">¶</a></h4>
-<p>HTTPS から HTTP のページを取得する場合など、Referer が存在しない場合がある。このため Origin が必須となる。 Content Security Policy で Referer を送ることが禁止されている場合もある。</p>
+<p>HTTPS から HTTP のページを取得する場合など、Referer が存在しない場合がある。このため Origin が必須となる。Content Security Policy で Referer を送ることが禁止されている場合もある。</p>
 <p>まさに Referer が信頼できないからこそ Origin が発明された。ブラウザーはオリジン横断的要求に対して正しい Origin を保証している。</p>
-</div>
-</div>
-</div>
-<div class="section" id="fetch-api">
-<h2><a class="toc-backref" href="#id12">Fetch API</a><a class="headerlink" href="#fetch-api" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="fetch-api">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Fetch API</a><a class="headerlink" href="#fetch-api" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/fetch-api">https://javascript.info/fetch-api</a>&gt; のノート。</p>
-<p>ここで学ぶオプションのほとんどはめったに使用されない。それでも、
-<code class="docutils literal notranslate"><span class="pre">fetch</span></code> で何ができるかを知っておくのは良いことだ。</p>
+<p>ここで学ぶオプションのほとんどはめったに使用されない。それでも、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> で何ができるかを知っておくのは良いことだ。</p>
 <p>冒頭のコード片は <code class="docutils literal notranslate"><span class="pre">fetch</span></code> の引数 <code class="docutils literal notranslate"><span class="pre">options</span></code> の既定値をすべて列挙している。このうち <code class="docutils literal notranslate"><span class="pre">method</span></code>, <code class="docutils literal notranslate"><span class="pre">headers</span></code>, <code class="docutils literal notranslate"><span class="pre">body</span></code>, <code class="docutils literal notranslate"><span class="pre">signal</span></code> はすでに習ったので、残りをここでやる。</p>
-<div class="section" id="referrer-referrerpolicy">
-<h3>referrer, referrerPolicy<a class="headerlink" href="#referrer-referrerpolicy" title="Permalink to this heading">¶</a></h3>
+<section id="referrer-referrerpolicy">
+<h3><code class="docutils literal notranslate"><span class="pre">referrer</span></code>, <code class="docutils literal notranslate"><span class="pre">referrerPolicy</span></code><a class="headerlink" href="#referrer-referrerpolicy" title="Permalink to this heading">¶</a></h3>
 <p>これらのオプションは HTTP Referer ヘッダーをどのように設定するかを制御する。通常、このヘッダーは自動的に設定され、要求元のページの URL が含まれる。ほとんどの場合、このヘッダーは重要ではないが、安全保障上、削除したり短くしたりすることが意味を持つ場合もある。</p>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">referrer</span></code> は（現在のオリジン内で）任意の Referer を設定したり、削除したりできる。送信しない場合は空文字列を指定する。</p>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">referrerPolicy</span></code> は Referer に関する一般的な規則を設ける。要求は三つに分類される：</p>
@@ -626,15 +612,11 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 を使用する感じになる。</p>
 <p>既定動作との唯一の違いは、他のオリジンへの要求に対して、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> は URL のオリジン部分しか送信しない点にある（以前の記述を参照）。こちら側でのオリジンへの要求では、やはり完全な <code class="docutils literal notranslate"><span class="pre">Referer</span></code> を取得するというのもある。デバッグの助けになるかもしれないから。</p>
 <p>Referer-Policy に関するひとくちメモはよくわからない。</p>
-</div>
-<div class="section" id="mode">
-<h3>mode<a class="headerlink" href="#mode" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="mode">
+<h3><code class="docutils literal notranslate"><span class="pre">mode</span></code><a class="headerlink" href="#mode" title="Permalink to this heading">¶</a></h3>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">mode</span></code> は、時折発生するオリジン横断的要求を防ぐためのセーフガードだ。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 75%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
@@ -653,15 +635,11 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 </tbody>
 </table>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">mode</span></code> が便利であるのは、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> 用の URL がサードパーティーから来て、オリジン横断的要求を制限するための電源オフスイッチが欲しいときだ。</p>
-</div>
-<div class="section" id="id3">
-<h3>credentials<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id3">
+<h3><code class="docutils literal notranslate"><span class="pre">credentials</span></code><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">credentials</span></code> は Cookie と HTTP-Authorization ヘッダーを要求とともに送信するべきかどうかを指定する。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 24%" />
-<col style="width: 76%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
@@ -681,22 +659,18 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 </table>
 <p>つねに送信する場合、JavaScript が応答にアクセスするためには、別サーバーからの
 Access-Control-Allow-Credentials が必要だ。</p>
-</div>
-<div class="section" id="cache">
-<h3>cache<a class="headerlink" href="#cache" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="cache">
+<h3><code class="docutils literal notranslate"><span class="pre">cache</span></code><a class="headerlink" href="#cache" title="Permalink to this heading">¶</a></h3>
 <p>何も指定しなければ、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> は標準的な HTTP-caching を利用する。つまり、通常の
 HTTP 要求がするのと同じように、Expires と Cache-Control ヘッダーを考慮し、If-Modified-Since などの情報を送信する。オプション <code class="docutils literal notranslate"><span class="pre">cache</span></code> は HTTP-cache
 を無視できたり、その使用方法を細かく設定したりできる。</p>
 <p>表は略。</p>
-</div>
-<div class="section" id="redirect">
-<h3>redirect<a class="headerlink" href="#redirect" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="redirect">
+<h3><code class="docutils literal notranslate"><span class="pre">redirect</span></code><a class="headerlink" href="#redirect" title="Permalink to this heading">¶</a></h3>
 <p>通常、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> は 301 や 302 などの HTTP リダイレクトには透過的に従う。オプション <code class="docutils literal notranslate"><span class="pre">redirect</span></code> はそれを変えることができる：</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 81%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
@@ -715,9 +689,9 @@ HTTP 要求がするのと同じように、Expires と Cache-Control ヘッダ�
 </tbody>
 </table>
 <p>手動で処理するときには、リダイレクトの場合 <code class="docutils literal notranslate"><span class="pre">response.type=&quot;opaqueredirect&quot;</span></code> の特別な応答オブジェクトを取得し、そこにはゼロ・空ステータスと他のほとんどのプロパティーがある。</p>
-</div>
-<div class="section" id="integrity">
-<h3>integrity<a class="headerlink" href="#integrity" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="integrity">
+<h3><code class="docutils literal notranslate"><span class="pre">integrity</span></code><a class="headerlink" href="#integrity" title="Permalink to this heading">¶</a></h3>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">integrity</span></code> は応答が <code class="docutils literal notranslate"><span class="pre">known-ahead</span></code> チェックサムに一致するかどうかを調べることができる。仕様によると、サポートされているハッシュ関数は SHA-256,
 SHA-384, SHA-512 であり、ブラウザーによっては他の関数もあるかもしれない。</p>
 <p>例えば、あるファイルをダウンロードするとき、そのファイルの SHA-256 チェックサムが
@@ -728,9 +702,9 @@ abcdef であることがわかったとする。それをオプション <code 
 </pre></div>
 </div>
 <p>すると、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> は独自に SHA-256 を計算し、与えられた情報と比較する。不一致の場合、エラーが発生する。</p>
-</div>
-<div class="section" id="keepalive">
-<h3>keepalive<a class="headerlink" href="#keepalive" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="keepalive">
+<h3><code class="docutils literal notranslate"><span class="pre">keepalive</span></code><a class="headerlink" href="#keepalive" title="Permalink to this heading">¶</a></h3>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">keepalive</span></code> は、要求を開始したウェブページよりもそれが長生きする可能性があることを示唆する。例えば、ユーザー体験を分析し、改善するために、現在の閲覧者がどのようにページ（マウスクリック、見られているページ断片）を使用するかについての統計を収集する。閲覧者がページを離れるとき、そのデータをサーバーに保存したい。そのためにイベント <code class="docutils literal notranslate"><span class="pre">window.onunload</span></code> が使える：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">onunload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/analytics&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -758,14 +732,14 @@ abcdef であることがわかったとする。それをオプション <code 
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="url-objects">
-<h2><a class="toc-backref" href="#id13">URL objects</a><a class="headerlink" href="#url-objects" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="url-objects">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">URL</span></code> objects</a><a class="headerlink" href="#url-objects" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/url">https://javascript.info/url</a>&gt; のノート。</p>
 <p>組み込みクラス <code class="docutils literal notranslate"><span class="pre">URL</span></code> には URL の作成と解析のための便利なインターフェイスがある。ただし、<code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトをまさに必要とするネットワークメソッドはなく、文字列で事足りる。</p>
-<div class="section" id="creating-a-url">
-<h3>Creating a URL<a class="headerlink" href="#creating-a-url" title="Permalink to this heading">¶</a></h3>
+<section id="creating-a-url">
+<h3>Creating a <code class="docutils literal notranslate"><span class="pre">URL</span></code><a class="headerlink" href="#creating-a-url" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">base</span><span class="p">])</span><span class="w"></span>
 </pre></div>
 </div>
@@ -780,10 +754,6 @@ abcdef であることがわかったとする。それをオプション <code 
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトはすぐにその構成要素にアクセスすることができる。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Property</p></th>
 <th class="head"><p>Specification</p></th>
@@ -808,18 +778,13 @@ abcdef であることがわかったとする。それをオプション <code 
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>`http://login:password@site.com`
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトを文字列の代わりにネットワーク（および他のほとんどの）メソッドに渡すことができる。 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> や <code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> など、URL 文字列が期待される場所のほどんとで使用できる。一般に、<code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトは文字列の代わりにどのようなメソッドにも渡すことができる。ほとんどのメソッドは文字列変換を行い、<code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトを完全な URL を含む文字列に変換する。</p>
-</div>
-<div class="section" id="searchparams">
-<h3>SearchParams “?…”<a class="headerlink" href="#searchparams" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトを文字列の代わりにネットワーク（および他のほとんどの）メソッドに渡すことができる。<code class="docutils literal notranslate"><span class="pre">fetch</span></code> や <code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> など、URL 文字列が期待される場所のほどんとで使用できる。一般に、<code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトは文字列の代わりにどのようなメソッドにも渡すことができる。ほとんどのメソッドは文字列変換を行い、<code class="docutils literal notranslate"><span class="pre">URL</span></code> オブジェクトを完全な URL を含む文字列に変換する。</p>
+</section>
+<section id="searchparams">
+<h3>SearchParams <code class="docutils literal notranslate"><span class="pre">?...</span></code><a class="headerlink" href="#searchparams" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">https://google.com/search?query=JavaScript</span></code> のような、検索引数を指定した
 URL を 作成したい。<code class="docutils literal notranslate"><span class="pre">URL</span></code> の引数でそれらを直接指定してもいいが、引数に空白や非ラテン文字などが含まれている場合は、符号化する必要がある。そこで、そのためのプロパティー <code class="docutils literal notranslate"><span class="pre">url.searchParams</span></code> がある。このプロパティーは <code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code> という型のオブジェクトを値に取る。これには、検索引数用の便利なメソッドが用意されている。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 26%" />
-<col style="width: 56%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
 <th class="head"><p>Parameters</p></th>
@@ -860,16 +825,15 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 </table>
 <p><code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code> は <code class="docutils literal notranslate"><span class="pre">Map</span></code> と同様に反復可能だ。</p>
 <p>本書の Google に検索クエリーを送信する例は実用的だ。</p>
-</div>
-<div class="section" id="encoding">
+</section>
+<section id="encoding">
 <h3>Encoding<a class="headerlink" href="#encoding" title="Permalink to this heading">¶</a></h3>
-<p>RFC3986 という規格があり、URL で利用が許される文字が定義されている。例えば、非ラテン文字や空白は UTF-8 コードに置き換えられ、 <code class="docutils literal notranslate"><span class="pre">%20</span></code> のように記号 <code class="docutils literal notranslate"><span class="pre">%</span></code> で始まる（歴史的な理由から記号 <code class="docutils literal notranslate"><span class="pre">+</span></code> で符号化できる）。 <code class="docutils literal notranslate"><span class="pre">URL</span></code> はこれらすべてを自動的に処理する。すべての引数を生で与え、<code class="docutils literal notranslate"><span class="pre">URL</span></code> を文字列に変換すればよい。</p>
+<p>RFC3986 という規格があり、URL で利用が許される文字が定義されている。例えば、非ラテン文字や空白は UTF-8 コードに置き換えられ、<code class="docutils literal notranslate"><span class="pre">%20</span></code> のように記号 <code class="docutils literal notranslate"><span class="pre">%</span></code> で始まる（歴史的な理由から記号 <code class="docutils literal notranslate"><span class="pre">+</span></code> で符号化できる）。<code class="docutils literal notranslate"><span class="pre">URL</span></code> はこれらすべてを自動的に処理する。すべての引数を生で与え、<code class="docutils literal notranslate"><span class="pre">URL</span></code> を文字列に変換すればよい。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;https://ru.wikipedia.org/wiki/Тест&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// &quot;https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-<p>UTF-8 ではキリル文字が 2 バイトで表現されるため、
-<code class="docutils literal notranslate"><span class="pre">%xx</span></code> が一文字に対して二つ存在することになり、文字列が長くなる。</p>
-<div class="section" id="encoding-strings">
+<p>UTF-8 ではキリル文字が 2 バイトで表現されるため、<code class="docutils literal notranslate"><span class="pre">%xx</span></code> が一文字に対して二つ存在することになり、文字列が長くなる。</p>
+<section id="encoding-strings">
 <h4>Encoding strings<a class="headerlink" href="#encoding-strings" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">URL</span></code> が登場する前は、文字列が使われていた。現在でも文字列もまだ使うことができる。文字列を使った方が多くの場合コードが短くなる。文字列を使う場合、特殊文字を手動で符号化、復号化する必要がある。そのための組み込み関数：</p>
 <ul class="simple">
@@ -879,25 +843,24 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p><code class="docutils literal notranslate"><span class="pre">decodeURIComponent</span></code></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">encodeURI</span></code> は URL で完全に禁止されている文字だけを符号化する。
-<code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> は、同じ文字に加えて、<code class="docutils literal notranslate"><span class="pre">#</span></code>, <code class="docutils literal notranslate"><span class="pre">$</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">,</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">:</span></code>,
-<code class="docutils literal notranslate"><span class="pre">;</span></code>, <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> を符号化する。</p>
-<p>つまり、URL 全体に対しては <code class="docutils literal notranslate"><span class="pre">encodeURI</span></code> を使うことができるが、URL 引数に対しては
-<code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> を代わりに使用するべきなのだ。</p>
+<code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> は、同じ文字に加えて、<code class="docutils literal notranslate"><span class="pre">#</span></code>, <code class="docutils literal notranslate"><span class="pre">$</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">,</span></code>,
+<code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">:</span></code>, <code class="docutils literal notranslate"><span class="pre">;</span></code>, <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> を符号化する。</p>
+<p>つまり、URL 全体に対しては <code class="docutils literal notranslate"><span class="pre">encodeURI</span></code> を使うことができるが、URL 引数に対しては <code class="docutils literal notranslate"><span class="pre">encodeURIComponent</span></code> を代わりに使用するべきなのだ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">music</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">&#39;Rock&amp;Roll&#39;</span><span class="p">);</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`https://google.com/search?q=</span><span class="si">${</span><span class="nx">music</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w"> </span><span class="c1">// &quot;https://google.com/search?q=Rock%26Roll&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">URL</span></code> と <code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code> は、最新の URI 仕様に基づいている。一方、
 <code class="docutils literal notranslate"><span class="pre">encode</span></code> 系関数は廃止された規格 RFC2396 に基づいている。 1998 年当時存在しなかった IPv6 アドレスの符号化が異なるなど、相違点がいくつかある。このような場合はまれで、<code class="docutils literal notranslate"><span class="pre">encode</span></code> 系関数はほとんどの場合うまく動作する。</p>
-</div>
-</div>
-<div class="section" id="comments">
+</section>
+</section>
+<section id="comments">
 <h3>Comments<a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h3>
 <p>このページのコメント欄は面白い。</p>
-</div>
-</div>
-<div class="section" id="xmlhttprequest">
-<h2><a class="toc-backref" href="#id14">XMLHttpRequest</a><a class="headerlink" href="#xmlhttprequest" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="xmlhttprequest">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code></a><a class="headerlink" href="#xmlhttprequest" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/xmlhttprequest">https://javascript.info/xmlhttprequest</a>&gt; のノート。</p>
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> は JavaScript で HTTP 要求を行うためのブラウザー組み込み型だ。名前に XML という単語を含むが、XML だけでなく、あらゆるデータに対して操作可能だ。ファイルのアップロード、ダウンロード、進捗状況の確認など、さまざまなことが可能だ。</p>
 <p>現在では <code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> をやや非推奨とする、より現代的なメソッド <code class="docutils literal notranslate"><span class="pre">fetch</span></code>
@@ -908,7 +871,7 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p>古いブラウザーをサポートする必要があり、スクリプトを小さく保ちたいなどの理由で polyfill が欲しくない。</p></li>
 <li><p>アップロードの進行状況を追跡するなど、<code class="docutils literal notranslate"><span class="pre">fetch</span></code> ではまだできないことをする必要がある。</p></li>
 </ol>
-<div class="section" id="the-basics">
+<section id="the-basics">
 <h3>The basics<a class="headerlink" href="#the-basics" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> には、動作モードに同期と非同期とがある。多くの場合に非同期が使用されるので非同期を先に見ていく。</p>
 <p>要求を行うには三段階が必要だ。</p>
@@ -964,15 +927,11 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 </div>
 <p>与えられた時間内に要求が成功しない場合、キャンセルされてイベント <code class="docutils literal notranslate"><span class="pre">timeout</span></code> が発生する。</p>
 <p>囲み記事については前ページ参照。</p>
-</div>
-<div class="section" id="response-type">
+</section>
+<section id="response-type">
 <h3>Response Type<a class="headerlink" href="#response-type" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">xhr.responseType</span></code> を使用して、応答フォーマットを設定することができる。この値を <code class="docutils literal notranslate"><span class="pre">send</span></code> 呼び出しまでに変えると、<code class="docutils literal notranslate"><span class="pre">xhr.response</span></code> の値が対応する内容になる。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 28%" />
-<col style="width: 72%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Value</p></th>
 <th class="head"><p>Specification</p></th>
@@ -999,36 +958,31 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="ready-states">
+</section>
+<section id="ready-states">
 <h3>Ready states<a class="headerlink" href="#ready-states" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> はその進行に応じて状態が変化する。現在の状態はプロパティー
 <code class="docutils literal notranslate"><span class="pre">xhr.readyState</span></code> だ。状態値は 0 → 1 → 2 → 3 → … → 3 → 4 の順に移動する。ネットワーク上でデータパケットを受信するたびに状態 3 を 反復する。</p>
 <p>イベント <code class="docutils literal notranslate"><span class="pre">readstatechange</span></code> を使って追跡することができるが、これは古い。現在では <code class="docutils literal notranslate"><span class="pre">load</span></code>/<code class="docutils literal notranslate"><span class="pre">error</span></code>/<code class="docutils literal notranslate"><span class="pre">progress</span></code> ハンドラーがある。</p>
-</div>
-<div class="section" id="aborting-request">
+</section>
+<section id="aborting-request">
 <h3>Aborting request<a class="headerlink" href="#aborting-request" title="Permalink to this heading">¶</a></h3>
 <p>要求はいつでも終了させることができる。これにより、<code class="docutils literal notranslate"><span class="pre">abort</span></code> イベントが発生して
 <code class="docutils literal notranslate"><span class="pre">xhr.status</span></code> の値が 0 になる。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="synchronous-requests">
+</section>
+<section id="synchronous-requests">
 <h3>Synchronous requests<a class="headerlink" href="#synchronous-requests" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">open</span></code> には第三の引数 <code class="docutils literal notranslate"><span class="pre">async</span></code> がある。これを <code class="docutils literal notranslate"><span class="pre">false</span></code> とすると、要求が同期的に行われる。つまり、JavaScript の実行は <code class="docutils literal notranslate"><span class="pre">send()</span></code> 呼び出しでブロックされ、応答を受信した時点で復帰する。</p>
 <p>読み込みが完了するまでページ内の JavaScript をブロックしてしまうので、ほとんど使われない。ブラウザーによっては、スクロール不能になるまである。同期呼び出しに時間がかかり過ぎる場合、ブラウザーはハングアップしたページを閉じるよう案内することがある。</p>
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> の高度な機能の多くは、同期的要求では使用できない。進行状況の表示もない。以上のような理由から、同期的要求はあまり用いられない。</p>
-</div>
-<div class="section" id="http-headers">
+</section>
+<section id="http-headers">
 <h3>HTTP-headers<a class="headerlink" href="#http-headers" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> ではカスタムヘッダーの送信と、応答からヘッダーを読み取ることのどちらも可能だ。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 34%" />
-<col style="width: 32%" />
-<col style="width: 34%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
 <th class="head"><p>Parameters</p></th>
@@ -1038,18 +992,13 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setRequestHeader</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
-<td><p>指定された <code class="docutils literal notranslate"><span class="pre">name</span></code>
-と <code class="docutils literal notranslate"><span class="pre">value</span></code>
-を持つ要求ヘッダーを与える</p></td>
+<td><p>指定された <code class="docutils literal notranslate"><span class="pre">name</span></code> と <code class="docutils literal notranslate"><span class="pre">value</span></code> を持つ要求ヘッダーを与える</p></td>
 </tr>
-<tr class="row-odd"><td><p>`
-<cite>getResponseHeader`</cite></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getResponseHeader</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p>指定された <code class="docutils literal notranslate"><span class="pre">name</span></code>
-の応答ヘッダーを得る</p></td>
+<td><p>指定された <code class="docutils literal notranslate"><span class="pre">name</span></code> の応答ヘッダーを得る</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get</span>
-<span class="pre">AllResponseHeaders</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getAllResponseHeaders</span></code></p></td>
 <td></td>
 <td><p>すべての応答ヘッダーを得る</p></td>
 </tr>
@@ -1061,9 +1010,9 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <p>ここで言う応答ヘッダーには Set-Cookie および Set-Cookie2 は含まれない。</p>
 <p>複数ヘッダーは一行で返される。</p>
 <p>ヘッダーとヘッダーの間の改行は OS に依らず <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> なので、個々のヘッダーに分割することは容易だ。名前と値のセパレーターはコロンの後に空白文字が必ず入る。</p>
-</div>
-<div class="section" id="post-formdata">
-<h3>POST, FormData<a class="headerlink" href="#post-formdata" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="post-formdata">
+<h3>POST, <code class="docutils literal notranslate"><span class="pre">FormData</span></code><a class="headerlink" href="#post-formdata" title="Permalink to this heading">¶</a></h3>
 <p>POST 要求を行うには <code class="docutils literal notranslate"><span class="pre">FormData</span></code> を用いる。オブジェクト <code class="docutils literal notranslate"><span class="pre">formData</span></code> を用意したら次の手順で：</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">xhr.open('POST',</span> <span class="pre">...)</span></code></p></li>
@@ -1071,8 +1020,8 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 </ol>
 <p>フォームは multipart/form-data 符号様式で送信される。</p>
 <p>JSON が好みなら <code class="docutils literal notranslate"><span class="pre">JSON.stringify</span></code> して得られる文字列を送信する。ただ、Content-Type: application/json というヘッダーを設定するのを忘れてはいけない。サーバーサイドフレームワークの多くは、これで自動的に JSON を復号してくれる。</p>
-</div>
-<div class="section" id="upload-progress">
+</section>
+<section id="upload-progress">
 <h3>Upload progress<a class="headerlink" href="#upload-progress" title="Permalink to this heading">¶</a></h3>
 <p>イベント <code class="docutils literal notranslate"><span class="pre">progress</span></code> はダウンロードの段階でだけ発射される。つまり、何かを POST
 する場合、<code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> はまずデータ（要求本文）をアップロードし、次に応答をダウンロードする。何か大きなデータをアップロードする場合、その進行状況を追跡することに関心があるはずだ。しかし、<code class="docutils literal notranslate"><span class="pre">xhr.onprogress</span></code> はここで役に立たない。</p>
@@ -1086,27 +1035,27 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: アップロードがタイムアウトした</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">loadend</span></code>: 成功またはエラーでアップロードが終了した</p></li>
 </ul>
-</div>
-<div class="section" id="cross-origin-requests">
+</section>
+<section id="cross-origin-requests">
 <h3>Cross-origin requests<a class="headerlink" href="#cross-origin-requests" title="Permalink to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> は <code class="docutils literal notranslate"><span class="pre">fetch</span></code> と同じ CORS 方針を使用して、オリジン横断的要求を行うことができる。 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 同様に、既定では Cookie と HTTP 認証を別のオリジンに送信しない。これらを有効にするには、次のようにする：</p>
+<p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> は <code class="docutils literal notranslate"><span class="pre">fetch</span></code> と同じ CORS 方針を使用して、オリジン横断的要求を行うことができる。<code class="docutils literal notranslate"><span class="pre">fetch</span></code> 同様に、既定では Cookie と HTTP 認証を別のオリジンに送信しない。これらを有効にするには、次のようにする：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xhr</span><span class="p">.</span><span class="nx">withCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="resumable-file-upload">
-<h2><a class="toc-backref" href="#id15">Resumable file upload</a><a class="headerlink" href="#resumable-file-upload" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="resumable-file-upload">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Resumable file upload</a><a class="headerlink" href="#resumable-file-upload" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/resume-upload">https://javascript.info/resume-upload</a>&gt; のノート。</p>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">fetch</span></code> を使用すると、ファイルをアップロードするのはかなり簡単だ。接続が切れた後にアップロードを再開するための組み込みのオプションはないが、それを実装するための部品はある。</p>
 <p>再開可能なアップロードには、アップロードの進行状況表示が必要だ。<code class="docutils literal notranslate"><span class="pre">fetch</span></code> では進捗を追跡できないので <code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> を使用する。</p>
-<div class="section" id="not-so-useful-progress-event">
+<section id="not-so-useful-progress-event">
 <h3>Not-so-useful progress event<a class="headerlink" href="#not-so-useful-progress-event" title="Permalink to this heading">¶</a></h3>
 <p>アップロードを再開するには、接続が切断されるまでにどれだけの量がアップロードされたかを知っていなければならない。</p>
 <p>アップロードの進行状況を追跡するために <code class="docutils literal notranslate"><span class="pre">xhr.upload.onprogress</span></code> がある。これはデータが送信されたときに発射されるため、アップロードを再開する助けにはならない。このイベントはプログレスバーを表示するのにしか有用でない。</p>
 <p>アップロードを再開するには、サーバーが受信したバイト数を正確に把握する必要がある。それはサーバーしか知り得ないので、追加の要求を行うことになる。</p>
-</div>
-<div class="section" id="algorithm">
+</section>
+<section id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">fileId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">lastModified</span><span class="p">;</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1143,9 +1092,9 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <hr class="docutils" />
 <p>本書のここには Node.js で書かれたクライアントとサーバーの両方のコードを掲載したデモが来る。 Node.js は Nginx の背後で稼働し、アップロードをバッファリングし、完了したら Node.js に渡す。このコードを読者がダウンロードしてローカルで実行すると、デモが完全に動作するとある。</p>
 <ul class="simple">
-<li><p>client.js: これまでのコードをカプセル化したクラスの定義</p></li>
-<li><p>server.js: 未知のコード群</p></li>
-<li><p>index.html: フォームおよび一部イベントハンドラーの実装や設定</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">client.js</span></code>: これまでのコードをカプセル化したクラスの定義</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">server.js</span></code>: 未知のコード群</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">index.html</span></code>: フォームおよび一部イベントハンドラーの実装や設定</p></li>
 </ul>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
@@ -1153,7 +1102,7 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ npm install node-static</span>
 </pre></div>
 </div>
-<p>そして server.js をサーバーとして稼動させる。</p>
+<p>そして <code class="file docutils literal notranslate"><span class="pre">server.js</span></code> をサーバーとして稼動させる。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ node server.js</span>
 </pre></div>
 </div>
@@ -1161,13 +1110,13 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <p>本章ではこのような Node.js を必要とするデモが以降にあと二つはある。基本的には同じようにして（必要パッケージが違うくらい）動作を確認する。</p>
 </div>
 <p>最近のネットワーク方式は、ヘッダーの制御、進捗状況の表示、部分ファイルの送信など、ファイルマネージャーに近い機能を備えている。再開可能なアップロードやその他多くの機能を実装することができる。</p>
-</div>
-</div>
-<div class="section" id="long-polling">
-<h2><a class="toc-backref" href="#id16">Long polling</a><a class="headerlink" href="#long-polling" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://javascript.info/long-polling">https://javascript.info/long-polling</a> のノート。</p>
+</section>
+</section>
+<section id="long-polling">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Long polling</a><a class="headerlink" href="#long-polling" title="Permalink to this heading">¶</a></h2>
+<p>&lt;<a class="reference external" href="https://javascript.info/long-polling">https://javascript.info/long-polling</a>&gt; のノート。</p>
 <p>Long polling とは手法であって、WebSocket や Server Side Events のような特定のプロトコルを使用せず、サーバーとの持続的な接続を行う最も単純なものだ。ひじょうに簡単に実装でき、多くの場合に十分な効果を得られる。</p>
-<div class="section" id="regular-polling">
+<section id="regular-polling">
 <h3>Regular Polling<a class="headerlink" href="#regular-polling" title="Permalink to this heading">¶</a></h3>
 <p>サーバーから新しい情報を取得する最も簡単な方法は、定期的な polling だ。つまり、サーバーへの定期的な（例えば十秒に一回）「私はここだ。何か私に情報があるか」要求だ。これに対してサーバーは、まずクライアントがオンラインであることを自分自身に通知し、それから、その時点までに受け取ったメッセージのパケットを送信する。</p>
 <p>しかし、これには欠点がある。</p>
@@ -1176,8 +1125,8 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <li><p>メッセージがなかったり、ユーザーが別の場所に移動していたり、寝ていたりしたとしても、サーバーは十秒ごとに要求で爆撃される。</p></li>
 </ul>
 <p>ごく小さなサービスの話でなければ、この方法には改善が必要だ。</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h3>Long polling<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>いわゆる long polling とは、より良い polling だ。実装も簡単で、メッセージを遅延なく送信することができる。処理の流れは次のようになる：</p>
 <ol class="arabic simple">
@@ -1192,7 +1141,8 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">response.status</span></code> が 200 の場合が正常ケース。本来欲しいデータを処理して
 <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">subscribe()</span></code> する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">response.status</span> <span class="pre">==</span> <span class="pre">502</span></code> の場合にはタイムアウトなので、単に <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">subscribe()</span></code> する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">response.status</span> <span class="pre">==</span> <span class="pre">502</span></code> の場合にはタイムアウトなので、単に <code class="docutils literal notranslate"><span class="pre">await</span>
+<span class="pre">subscribe()</span></code> する。</p></li>
 <li><p>それ以外のステータスの場合には一秒待って再び自分自身を呼び出す。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="mf">1000</span><span class="p">));</span><span class="w"></span>
 <span class="k">await</span><span class="w"> </span><span class="nx">subscribe</span><span class="p">();</span><span class="w"></span>
@@ -1206,32 +1156,31 @@ URL を 作成したい。<code class="docutils literal notranslate"><span class
 <p>PHP や Ruby などの言語で書かれたバックエンドでは、このようなことがよくある。
 Node.js で書かれたサーバーは、そのような問題は通常、発生しない。</p>
 <p>これはプログラミング言語の問題ではない。PHP や Ruby を含むほとんどの現代の言語では、適切なバックエンドを実装することができる。それでも、サーバー様式が、多数同時接続に問題なく動作することを確認することだ。</p>
-</div>
-<div class="section" id="demo-a-chat">
+</section>
+<section id="demo-a-chat">
 <h3>Demo: a chat<a class="headerlink" href="#demo-a-chat" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>browser.js: ページ側機能。コンストラクター関数 <code class="docutils literal notranslate"><span class="pre">PublishForm</span></code> と <code class="docutils literal notranslate"><span class="pre">SubscribePane</span></code>
-の定義。前者はフォームの submit イベントハンドラーと POST 送信を、後者は long
-polling をそれぞれ実装している。</p></li>
-<li><p>server.js: Node.js ベースの未知のコード。</p></li>
-<li><p>index.js: 簡易チャットページ。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">browser.js</span></code>: ページ側機能。コンストラクター関数 <code class="docutils literal notranslate"><span class="pre">PublishForm</span></code> と
+<code class="docutils literal notranslate"><span class="pre">SubscribePane</span></code> の定義。前者はフォームの submit イベントハンドラーと POST 送信を、後者は long polling をそれぞれ実装している。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">server.js</span></code>: Node.js ベースの未知のコード。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">index.js</span></code>: 簡易チャットページ。</p></li>
 </ul>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>デモの再現方法は上述の学習者ノートを参照。</p>
 </div>
-</div>
-<div class="section" id="area-of-usage">
+</section>
+<section id="area-of-usage">
 <h3>Area of usage<a class="headerlink" href="#area-of-usage" title="Permalink to this heading">¶</a></h3>
 <p>Long polling はメッセージがめったに来ないような状況では効果的だ。もしメッセージが頻繁に来るようなら、上に描いた要求と受信の図は鋭いノコギリのような折れ線になる。すべてのメッセージは個別の要求であり、ヘッダーや認証のオーバヘッドが付随する。こういう場合には Websocket や Server Sent Events など、別の方法が望ましい。</p>
-</div>
-</div>
-<div class="section" id="websocket">
-<h2><a class="toc-backref" href="#id17">WebSocket</a><a class="headerlink" href="#websocket" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="websocket">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">WebSocket</a><a class="headerlink" href="#websocket" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/websocket">https://javascript.info/websocket</a>&gt; のノート。</p>
 <p>仕様 RFC 6455 にある WebSocket プロトコルは、ブラウザーとサーバーの間で持続的な接続を介してデータを交換する方法を規定している。接続を切断したり、HTTP 要求を追加したりすることなしに、データをパケットとして双方向に渡すことができる。</p>
 <p>WebSocket はオンラインゲームやリアルタイム取引システムなど、継続的なデータ交換が必要なサービスに特に適している。</p>
-<div class="section" id="a-simple-example">
+<section id="a-simple-example">
 <h3>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://javascript.info&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
@@ -1251,8 +1200,8 @@ WebSocket であり、トランスポートセキュリティー層は、送信�
 </ul>
 <p>本書ではここにコード例が来る。この構造はどこかで見覚えがある。</p>
 <p>デモサーバーから “Hello from server, John” と応答があり、五秒待って接続を閉じる。つまり、open → message → close というイベントが表示される。実はこれだけで、もう WebSocket を話すことができるのだ。</p>
-</div>
-<div class="section" id="opening-a-websocket">
+</section>
+<section id="opening-a-websocket">
 <h3>Opening a websocket<a class="headerlink" href="#opening-a-websocket" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">WebSocket(url)</span></code> が生成されると、すぐに接続を開始する。接続中、ブラウザーは（ヘッダーを使って）サーバーに対して WebSocket に対応しているかと質問する。サーバーが Yes と答えた場合には、HTTP ではなく、WebSocket プロトコルで話を続ける。</p>
 <p>本書ではここに <code class="docutils literal notranslate"><span class="pre">WebSocket(&quot;wss://javascript.info/chat&quot;)</span></code> が生成するブラウザーヘッダーを掲載している。注目すべきヘッダーを説明している。</p>
@@ -1266,8 +1215,8 @@ WebSocket であり、トランスポートセキュリティー層は、送信�
 <p><code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> や <code class="docutils literal notranslate"><span class="pre">fetch</span></code> では、このような HTTP 要求を行うことはできない。
 JavaScript はこれらのヘッダーを設定することができないのだ。</p>
 <p>本書では応答例がここに来る。</p>
-<p>サーバーが WebSocket への切り替えに同意した場合、コード 101 の応答を送信するべきだ。 <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Accept</span></code> は <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Key</span></code> であり、特別なアルゴリズムで再暗号化されている。ブラウザーはこれを利用して、応答が要求に対応していることを確認する。その後、データは WebSocket プロトコルを使用して転送される。HTTP では全然ない。</p>
-<div class="section" id="extensions-and-subprotocols">
+<p>サーバーが WebSocket への切り替えに同意した場合、コード 101 の応答を送信するべきだ。<code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Accept</span></code> は <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Key</span></code> であり、特別なアルゴリズムで再暗号化されている。ブラウザーはこれを利用して、応答が要求に対応していることを確認する。その後、データは WebSocket プロトコルを使用して転送される。HTTP では全然ない。</p>
+<section id="extensions-and-subprotocols">
 <h4>Extensions and subprotocols<a class="headerlink" href="#extensions-and-subprotocols" title="Permalink to this heading">¶</a></h4>
 <p>さらに、拡張やサブプロトコルを記述するヘッダー <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Extensions</span></code> や
 <code class="docutils literal notranslate"><span class="pre">Sec-WebSocket-Protocol</span></code> が存在するかもしれない。</p>
@@ -1281,9 +1230,9 @@ JavaScript はこれらのヘッダーを設定することができないのだ
 <p>サーバーは、使用することに同意するプロトコルと拡張子の一覧を応答するはずだ。</p>
 <p>本書ではここに要求例と応答例が来る。SOAP と WAMP は対応しているかと問われて、
 SOAP は対応していると応答していると読める。</p>
-</div>
-</div>
-<div class="section" id="data-transfer">
+</section>
+</section>
+<section id="data-transfer">
 <h3>Data transfer<a class="headerlink" href="#data-transfer" title="Permalink to this heading">¶</a></h3>
 <p>WebSocket 通信は、コマ（データの断片）で構成されており、どちらからでも送信され、いくつかの種類のものを持つことができる：</p>
 <ul class="simple">
@@ -1293,20 +1242,19 @@ SOAP は対応していると応答していると読める。</p>
 <li><p>接続終了および他のいくつかのサービスコマもある。</p></li>
 </ul>
 <p>ブラウザーではテキストフレームまたはバイナリフレームだけを直接操作している。</p>
-<p>WebSocket のメソッド <code class="docutils literal notranslate"><span class="pre">send()</span></code> は、テキストデータまたはバイナリデータのどちらか一方を送信できる。 <code class="docutils literal notranslate"><span class="pre">socket.send(body)</span></code> 呼び出しで、<code class="docutils literal notranslate"><span class="pre">Blob</span></code>, <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code>
-などの文字列またはバイナリー形式の <code class="docutils literal notranslate"><span class="pre">body</span></code> を送信できる。設定は不要で、任意の書式で送信するだけだ。</p>
+<p>WebSocket のメソッド <code class="docutils literal notranslate"><span class="pre">send()</span></code> は、テキストデータまたはバイナリデータのどちらか一方を送信できる。<code class="docutils literal notranslate"><span class="pre">socket.send(body)</span></code> 呼び出しで、<code class="docutils literal notranslate"><span class="pre">Blob</span></code>, <code class="docutils literal notranslate"><span class="pre">ArrayBuffer``な</span>
+<span class="pre">どの文字列またはバイナリー形式の</span> <span class="pre">``body</span></code> を送信できる。設定は不要で、任意の書式で送信するだけだ。</p>
 <p>データを受け取るとき、テキストは常に文字列でやって来る。また、バイナリーデータについては、<code class="docutils literal notranslate"><span class="pre">Blob</span></code> 形式と <code class="docutils literal notranslate"><span class="pre">ArrayBuffer</span></code> 形式のうちどちらかを選択できる。</p>
-<p>これをプロパティー <code class="docutils literal notranslate"><span class="pre">socket.binaryType</span></code> で設定する。既定値は <code class="docutils literal notranslate"><span class="pre">&quot;blob&quot;</span></code> なので、バイナリーデータは <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトとして送られる。 <code class="docutils literal notranslate"><span class="pre">Blob</span></code> は高水準なバイナリーオブジェクトであり、 A や IMG などのタグと直接統合できるので、既定値としてはまともなものだ。バイナリー処理に対しては、個々のデータバイトにアクセスするのに <code class="docutils literal notranslate"><span class="pre">&quot;arraybuffer&quot;</span></code> に変更するとよい。</p>
-</div>
-<div class="section" id="rate-limiting">
+<p>これをプロパティー <code class="docutils literal notranslate"><span class="pre">socket.binaryType</span></code> で設定する。既定値は <code class="docutils literal notranslate"><span class="pre">&quot;blob&quot;</span></code> なので、バイナリーデータは <code class="docutils literal notranslate"><span class="pre">Blob</span></code> オブジェクトとして送られる。<code class="docutils literal notranslate"><span class="pre">Blob</span></code> は高水準なバイナリーオブジェクトであり、 A や IMG などのタグと直接統合できるので、既定値としてはまともなものだ。バイナリー処理に対しては、個々のデータバイトにアクセスするのに <code class="docutils literal notranslate"><span class="pre">&quot;arraybuffer&quot;</span></code> に変更するとよい。</p>
+</section>
+<section id="rate-limiting">
 <h3>Rate limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading">¶</a></h3>
 <p>大量のデータを生成して送信しているサービスがあるとする。ユーザーはネットワーク接続が遅く、モバイルインターネットや都市部以外の場所にいる可能性がある。
 <code class="docutils literal notranslate"><span class="pre">socket.send(data)</span></code> を何度も何度も呼び出すこともできるが、データはメモリーにバッファリング（保存）され、ネットワーク速度が許す範囲でしか送出されない。</p>
 <p>プロパティー <code class="docutils literal notranslate"><span class="pre">socket.bufferedAmount</span></code> からは、今現在、何バイトがバッファリングされ、ネットワーク上で送信されるのを待っているかを得られる。そのソケットが実際に送信可能かどうかを確認できる。</p>
-<p>その値が 0 であるならば <code class="docutils literal notranslate"><span class="pre">send</span></code> すればいい。本書では <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> を利用して、
-0.1 秒ごとに値をテストして可能ならば送信するコード片を示している。</p>
-</div>
-<div class="section" id="connection-close">
+<p>その値が 0 であるならば <code class="docutils literal notranslate"><span class="pre">send</span></code> すればいい。本書では <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> を利用して、0.1 秒ごとに値をテストして可能ならば送信するコード片を示している。</p>
+</section>
+<section id="connection-close">
 <h3>Connection close<a class="headerlink" href="#connection-close" title="Permalink to this heading">¶</a></h3>
 <p>接続を閉じたい側は、数字コードとテキストによる理由を書いた接続終了フレームを送信するのが普通だ。</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">socket</span><span class="p">.</span><span class="nx">close</span><span class="p">([</span><span class="nx">code</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="nx">reason</span><span class="p">]);</span><span class="w"></span>
@@ -1320,16 +1268,11 @@ SOAP は対応していると応答していると読める。</p>
 <li><p>1006: このようなコードを手動で設定する方法がない。接続が失われた（接続終了フレームがない）。</p></li>
 </ul>
 <p>WebSocket のコードは HTTP のそれとどこか似ているようだが、異なる。特に、1000 未満のコードは予約されており、そのようなコードを設定しようとするとエラーになる。</p>
-</div>
-<div class="section" id="connection-state">
+</section>
+<section id="connection-state">
 <h3>Connection state<a class="headerlink" href="#connection-state" title="Permalink to this heading">¶</a></h3>
 <p>接続状態を取得するために、さらに、値を持つプロパティー <code class="docutils literal notranslate"><span class="pre">socket.readyState</span></code> がある。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 29%" />
-<col style="width: 62%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Code</p></th>
 <th class="head"><p>Value</p></th>
@@ -1338,25 +1281,25 @@ SOAP は対応していると応答していると読める。</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>0</p></td>
-<td><p>“CONNECTING”</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;CONNECTING&quot;</span></code></p></td>
 <td><p>接続がまだ確立されていない</p></td>
 </tr>
 <tr class="row-odd"><td><p>1</p></td>
-<td><p>“OPEN”</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;OPEN&quot;</span></code></p></td>
 <td><p>通信中</p></td>
 </tr>
 <tr class="row-even"><td><p>2</p></td>
-<td><p>“CLOSING”</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;CLOSING&quot;</span></code></p></td>
 <td><p>接続を閉じている</p></td>
 </tr>
 <tr class="row-odd"><td><p>3</p></td>
-<td><p>“CLOSED”</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;CLOSED&quot;</span></code></p></td>
 <td><p>接続が閉じた</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="chat-example">
+</section>
+<section id="chat-example">
 <h3>Chat example<a class="headerlink" href="#chat-example" title="Permalink to this heading">¶</a></h3>
 <p>ブラウザーの WebSocket API と Node.js の WebSocketモジュール
 &lt;<a class="reference external" href="https://github.com/websockets/ws">https://github.com/websockets/ws</a>&gt; を使ったチャットの例。ここではクライアント側に主に注目する。</p>
@@ -1365,16 +1308,17 @@ SOAP は対応していると応答していると読める。</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">document.forms.publish.onsubmit</span></code> ハンドラーでソケットの <code class="docutils literal notranslate"><span class="pre">send</span></code> を呼び出す。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">socket.onmessage</span></code> ハンドラーでサーバーからの受信メッセージをページ内に追加する。</p></li>
 </ul>
-<p>このデモをダウンロードしてローカルで実行することもできる。<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span> <span class="pre">ws</span></code> しておくことが必要だ。</p>
-</div>
-</div>
-<div class="section" id="server-sent-events">
-<h2><a class="toc-backref" href="#id18">Server Sent Events</a><a class="headerlink" href="#server-sent-events" title="Permalink to this heading">¶</a></h2>
+<p>このデモをダウンロードしてローカルで実行することもできる。<strong class="command">npm install
+ws</strong> しておくことが必要だ。</p>
+</section>
+</section>
+<section id="server-sent-events">
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">Server Sent Events</a><a class="headerlink" href="#server-sent-events" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/server-sent-events">https://javascript.info/server-sent-events</a>&gt; のノート。</p>
 <p>Server-Sent Events 仕様では、サーバーとの接続を維持し、サーバーからのイベントを受信することができる組み込みクラス <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> を記述している。 WebSocket と同様に、接続は永続的だ。しかし、本書の表のように、いくつかの重要な違いがある。</p>
 <p><code class="docutils literal notranslate"><span class="pre">WebSocket</span></code> と比べると <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> はサーバーと通信するための方法としては強力さで劣る。なぜそれを使わなければならないのか。最大の理由はより単純であることだ。多くのアプリケーションでは <code class="docutils literal notranslate"><span class="pre">WebSocket</span></code> の力はやや過剰だ。</p>
 <p>サーバーからデータのストリームを受信する必要がある。それはチャットメッセージ、市場価格、その他かもしれない。こういうことは <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> が得意とするところだ。また、<code class="docutils literal notranslate"><span class="pre">WebSocket</span></code> では手動で実装する必要がある自動再接続も対応している。その上、それはれっきとした HTTP であり、新しいプロトコルではない。</p>
-<div class="section" id="getting-messages">
+<section id="getting-messages">
 <h3>Getting messages<a class="headerlink" href="#getting-messages" title="Permalink to this heading">¶</a></h3>
 <p>メッセージの受信を開始するには、新しい <code class="docutils literal notranslate"><span class="pre">EventSource(url)</span></code> を生成する。ブラウザは <code class="docutils literal notranslate"><span class="pre">url</span></code> に接続し、接続を開いたままイベントを待つ。サーバーはステータス 200 と
 <code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">text/event-stream</span></code> というヘッダーで応答し、接続を維持したまま、次のように特別な書式でメッセージを書き込むはずだ：</p>
@@ -1401,7 +1345,7 @@ data: of two lines
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="section" id="id5">
+<section id="id5">
 <h4>Cross-origin requests<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">EventSource</span></code> は <code class="docutils literal notranslate"><span class="pre">fetch</span></code> やその他のネットワークメソッドのように、オリジン横断的要求を対応している。任意の URL を使用できる。</p>
 <p>リモートサーバーはヘッダー <code class="docutils literal notranslate"><span class="pre">Origin</span></code> を取得し、処理を続行するにはヘッダー
@@ -1412,9 +1356,9 @@ data: of two lines
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="reconnection">
+</section>
+</section>
+<section id="reconnection">
 <h3>Reconnection<a class="headerlink" href="#reconnection" title="Permalink to this heading">¶</a></h3>
 <p>生成時に、新しい <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> はサーバーに接続し、接続が切れた場合は再接続する。これはたいへん便利で、接続切れを気にする必要はない。再接続の間にはわずかな遅延があり、既定では 3, 4 秒だ。</p>
 <p>サーバーは <code class="docutils literal notranslate"><span class="pre">retry:</span></code> を応答に使って推奨遅延時間を設定できる。</p>
@@ -1426,14 +1370,14 @@ data: Hello, I set the reconnection delay to 15 seconds
 <p>ブラウザーは再接続する前に、その時間だけ待たねばならない。もっと長い場合もある。たとえば、ブラウザーが現在ネットワーク接続がないことを OS から知っている場合、接続が現れるまで待つことができ、それから再試行する。</p>
 <p>サーバーがブラウザーに再接続を停止させたい場合は、HTTP ステータス 204 で応答するはずだ。ブラウザーが接続を終了させたい場合には、<code class="docutils literal notranslate"><span class="pre">eventSource.close()</span></code> を呼び出すのがいい。</p>
 <p>また、応答の <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> が正しくない場合や、HTTP ステータスが 301, 307,
-200, 204 と異なる場合は、再接続はないはずだ。このような場合、イベント
-<code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code> が発生し、ブラウザーは再接続しようとしない。</p>
+200, 204 と異なる場合は、再接続はないはずだ。このような場合、イベント <code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code>
+が発生し、ブラウザーは再接続しようとしない。</p>
 <hr class="docutils" />
 <p>最終的に接続を閉じた場合、それを再開する方法はない。再び接続したいならば新しい
 <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> を生成するだけだ。</p>
-</div>
-<div class="section" id="message-id">
-<h3>Message id<a class="headerlink" href="#message-id" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="message-id">
+<h3>Message <code class="docutils literal notranslate"><span class="pre">id</span></code><a class="headerlink" href="#message-id" title="Permalink to this heading">¶</a></h3>
 <p>ネットワーク問題で接続が切れた場合、どちらの側もどのメッセージが受信されてどのメッセージが受信されていないのかを確認できない。接続を正しく再開するために、メッセージそれぞれには <code class="docutils literal notranslate"><span class="pre">id</span></code> フィールドがあるといい：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>data: Message 1
 id: 1
@@ -1453,9 +1397,9 @@ id: 3
 </ul>
 <hr class="docutils" />
 <p>メッセージ受信後、<code class="docutils literal notranslate"><span class="pre">lastEventId</span></code> を確実に更新するために、サーバーは <code class="docutils literal notranslate"><span class="pre">id</span></code> をメッセージデータの下に付加する。</p>
-</div>
-<div class="section" id="connection-status-readystate">
-<h3>Connection status: readyState<a class="headerlink" href="#connection-status-readystate" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="connection-status-readystate">
+<h3>Connection status: <code class="docutils literal notranslate"><span class="pre">readyState</span></code><a class="headerlink" href="#connection-status-readystate" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">EventSource</span></code> はプロパティー <code class="docutils literal notranslate"><span class="pre">readyState</span></code> を持ち、その値は三つのうちの一つだ：</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">EventSource</span><span class="p">.</span><span class="nx">CONNECTING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// connecting or reconnecting</span><span class="w"></span>
 <span class="nx">EventSource</span><span class="p">.</span><span class="nx">OPEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w">       </span><span class="c1">// connected</span><span class="w"></span>
@@ -1463,8 +1407,8 @@ id: 3
 </pre></div>
 </div>
 <p>オブジェクトが生成したときや、接続が切れたときは、<code class="docutils literal notranslate"><span class="pre">EventSource.CONNECTING</span></code> につねに等しい。このプロパティーを照会することで、<code class="docutils literal notranslate"><span class="pre">EventSource</span></code> の状態を知ることができる。</p>
-</div>
-<div class="section" id="event-types">
+</section>
+<section id="event-types">
 <h3>Event types<a class="headerlink" href="#event-types" title="Permalink to this heading">¶</a></h3>
 <p>既定では、<code class="docutils literal notranslate"><span class="pre">EventSource</span></code> オブジェクトはイベント三つを発生させる：</p>
 <ul class="simple">
@@ -1488,19 +1432,19 @@ data: Bob
 <span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="full-example">
+</section>
+<section id="full-example">
 <h3>Full example<a class="headerlink" href="#full-example" title="Permalink to this heading">¶</a></h3>
 <p>これはメッセージ <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code>, <code class="docutils literal notranslate"><span class="pre">bye</span></code> を送信してから、接続を切断するサーバーだ。その後、ブラウザーが自動的に再接続する。</p>
-<p>server.js のコードを見ると、この直前に述べられているように、ヘッダーを定義しているのがなんとかわかる。</p>
-<p>index.html のコードでは <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> を生成して、この直前に述べられているように、イベントハンドラーを定義していることがわかる。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">server.js</span></code> のコードを見ると、この直前に述べられているように、ヘッダーを定義しているのがなんとかわかる。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">index.html</span></code> のコードでは <code class="docutils literal notranslate"><span class="pre">EventSource</span></code> を生成して、この直前に述べられているように、イベントハンドラーを定義していることがわかる。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p>デモの再現方法は上述の学習者ノートを参照。</p>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

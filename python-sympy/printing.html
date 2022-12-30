@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>出力 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script async="async" src="../_static/mathjax-v3.js"></script>
@@ -49,10 +47,10 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id6">出力</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id6" role="doc-backlink">出力</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>SymPy オブジェクトを表現するいろいろな方法について記す。</p>
-<div class="contents topic" id="id2">
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id6">出力</a></p>
@@ -60,7 +58,7 @@
 <li><p><a class="reference internal" href="#pretty-print" id="id7">Pretty Print</a></p></li>
 <li><p><a class="reference internal" href="#latex" id="id8">LaTeX</a></p>
 <ul>
-<li><p><a class="reference internal" href="#latexprinter" id="id9">LatexPrinter をカスタマイズする</a></p></li>
+<li><p><a class="reference internal" href="#latexprinter" id="id9"><code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> をカスタマイズする</a></p></li>
 <li><p><a class="reference internal" href="#id3" id="id10">実装例</a></p></li>
 </ul>
 </li>
@@ -77,7 +75,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
@@ -86,28 +84,28 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="pretty-print">
-<h2><a class="toc-backref" href="#id7">Pretty Print</a><a class="headerlink" href="#pretty-print" title="Permalink to this heading">¶</a></h2>
+<section id="pretty-print">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Pretty Print</a><a class="headerlink" href="#pretty-print" title="Permalink to this heading">¶</a></h2>
 <p>大げさに言えば、オブジェクトをアスキーアートとして出力する一連の仕組みだ。先に要点を挙げる：</p>
 <ul class="simple">
-<li><p>個人的に SymPy のこれは肌に合わないので、常に無効にしておきたい。
-IPython コンソールのセッションでオブジェクトの出力がアスキーアート化されているようならば、
+<li><p>個人的に SymPy のこれは肌に合わないので、常に無効にしておきたい。 IPython コンソールのセッションでオブジェクトの出力がアスキーアート化されているようならば、
 <code class="code docutils literal notranslate"><span class="pre">init_printing(pretty_print=False)</span></code> を実行することで、即時に無効化できる。</p></li>
-<li><p>明示的にアスキーアートを出力するには関数 <code class="code docutils literal notranslate"><span class="pre">pretty_print</span></code> を呼び出す。</p></li>
-<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">pretty_print</span></code> には別名 <code class="code docutils literal notranslate"><span class="pre">pprint</span></code> が定義されているので、コンソール上の作業時には別名のほうを主にタイプするはずだ。</p></li>
+<li><p>明示的にアスキーアートを出力するには関数 <code class="docutils literal notranslate"><span class="pre">pretty_print</span></code> を呼び出す。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">pretty_print</span></code> には別名 <code class="docutils literal notranslate"><span class="pre">pprint</span></code> が定義されているので、コンソール上の作業時には別名のほうを主にタイプするはずだ。</p></li>
 <li><p>この機能に頼るぐらいならば、IPython ではなく Jupyter で作業するだろう。そちらは最初から LaTeX 出力がオンになっているはずだ。</p></li>
 </ul>
-</div>
-<div class="section" id="latex">
-<h2><a class="toc-backref" href="#id8">LaTeX</a><a class="headerlink" href="#latex" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="latex">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">LaTeX</a><a class="headerlink" href="#latex" title="Permalink to this heading">¶</a></h2>
 <p>オブジェクトを TeX コードとして出力するときの要点を挙げると次のようなものになるだろう：</p>
 <ul class="simple">
-<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> または <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> を呼び出すとオブジェクトを表現する TeX コードを得ることができる。</p></li>
-<li><p>関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> または <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> の挙動を調整するための
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">latex</span></code> または <code class="docutils literal notranslate"><span class="pre">print_latex</span></code> を呼び出すとオブジェクトを表現する TeX
+コードを得ることができる。</p></li>
+<li><p>関数 <code class="docutils literal notranslate"><span class="pre">latex</span></code> または <code class="docutils literal notranslate"><span class="pre">print_latex</span></code> の挙動を調整するための
 <code class="docutils literal notranslate"><span class="pre">fold_func_brackets</span></code>, <code class="docutils literal notranslate"><span class="pre">mat_str</span></code>, <code class="docutils literal notranslate"><span class="pre">mat_delim</span></code> などのキーワード引数があるので、これを上手に使う。</p></li>
 <li><p>ただし過信はできない。出力結果を何かの文書に流用するのであれば、最終的にはテキストエディターで細部を手動編集することになる。</p></li>
 </ul>
-<p>オブジェクトを TeX 形式の文字列に変換するには関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> を用いる。ただし、それを標準出力等に出力するには関数 <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> を使うのがタイプ量の点でわずかに楽だ。</p>
+<p>オブジェクトを TeX 形式の文字列に変換するには関数 <code class="docutils literal notranslate"><span class="pre">latex</span></code> を用いる。ただし、それを標準出力等に出力するには関数 <code class="docutils literal notranslate"><span class="pre">print_latex</span></code> を使うのがタイプ量の点でわずかに楽だ。</p>
 <p>両者の引数リストは同一だ。そのキーワード引数の中で有用なものをいくつか記す。</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">fold_func_brackets=True</span></code> を指定すると、数学関数呼び出しのカッコを可能な限り省略する。例えば三角関数を多く含む式に対して適用すると効果がわかりやすい：</p>
@@ -124,9 +122,10 @@ IPython コンソールのセッションでオブジェクトの出力がアス
 <span class="go">\sin^{2} {x} + \cos^{2} {x}</span>
 </pre></div>
 </div>
-<p>個人的にはまだ中括弧を削れるとは思うのだが、実用には堪える。</p>
+<p>個人的にはまだ中括弧を削れるとは思うのだが、実用には耐える。</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mat_str</span></code> は行列の環境名を指定するキーワード引数だ。例えば <code class="docutils literal notranslate"><span class="pre">mat_str=pmatrix</span></code> を指定すると、式に含まれる行列に対応する TeX コードが
+<li><p><code class="docutils literal notranslate"><span class="pre">mat_str</span></code> は行列の環境名を指定するキーワード引数だ。例えば
+<code class="docutils literal notranslate"><span class="pre">mat_str=pmatrix</span></code> を指定すると、式に含まれる行列に対応する TeX コードが
 <code class="docutils literal notranslate"><span class="pre">\begin{pmatrix}</span></code> と <code class="docutils literal notranslate"><span class="pre">\end{pmatrix}</span></code> で囲まれるようになる。ただしその場合には行列のカッコを SymPy が別途補うので、さらに <code class="docutils literal notranslate"><span class="pre">mat_delim</span></code> キーワード引数を空文字列等に指定することでそれを無効化する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Matrix</span>
 
@@ -146,18 +145,18 @@ IPython コンソールのセッションでオブジェクトの出力がアス
 <span class="go">\begin{pmatrix}1 &amp; 2\\3 &amp; 4\end{pmatrix}</span>
 </pre></div>
 </div>
-<p>[4] と [5] の MathJax によるレンダリングを次に示す（画像上の右クリックメニュー <span class="menuselection">Show Math As ‣ Tex Commands</span>
-でソース TeX コードが確認できる）：</p>
+<p>[4] と [5] の MathJax によるレンダリングを次に示す（画像上の右クリックメニュー
+<span class="menuselection">Show Math As ‣ Tex Commands</span> でソース TeX コードが確認できる）：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[\begin{pmatrix}1 &amp; 2\\3 &amp; 4\end{pmatrix}\right]\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{pmatrix}1 &amp; 2\\3 &amp; 4\end{pmatrix}\end{split}\]</div>
 </li>
 </ul>
-<p>実際には <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> の出力結果をそのままコピー＆ペーストして済むということはほとんどないだろう。テキストエディターに出力結果テキストを展開して、手動で括弧を間引いたり、スペースを補ったり、コマンドを一部自作のマクロに置き換えたりすることになる。</p>
-<div class="section" id="latexprinter">
-<h3><a class="toc-backref" href="#id9">LatexPrinter をカスタマイズする</a><a class="headerlink" href="#latexprinter" title="Permalink to this heading">¶</a></h3>
-<p>ここでは 関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> による SymPy オブジェクトの一部の出力文字列を変更する方法を記す。例を挙げる。外微分周りの表示で以下の二点を目的としたカスタマイズ手順を説明する。</p>
+<p>実際には <code class="docutils literal notranslate"><span class="pre">print_latex</span></code> の出力結果をそのままコピー＆ペーストして済むということはほとんどないだろう。テキストエディターに出力結果テキストを展開して、手動で括弧を間引いたり、スペースを補ったり、コマンドを一部自作のマクロに置き換えたりすることになる。</p>
+<section id="latexprinter">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> をカスタマイズする</a><a class="headerlink" href="#latexprinter" title="Permalink to this heading">¶</a></h3>
+<p>ここでは 関数 <code class="docutils literal notranslate"><span class="pre">latex</span></code> による SymPy オブジェクトの一部の出力文字列を変更する方法を記す。例を挙げる。外微分周りの表示で以下の二点を目的としたカスタマイズ手順を説明する。</p>
 <ul class="simple">
 <li><p>座標成分が太字になるのを回避したい。</p></li>
 <li><p>外微分演算子を自作のマクロに置き換えたい。</p></li>
@@ -171,8 +170,7 @@ IPython コンソールのセッションでオブジェクトの出力がアス
 </div>
 </li>
 <li><p>対応する SymPy オブジェクトの型に従い、カスタムメソッドを実装する。</p>
-<p>今回の例だと対象となるのは BaseScalerField と Differential だ。このときは名前が <code class="docutils literal notranslate"><span class="pre">_print_BaseScalarField</span></code> および <code class="docutils literal notranslate"><span class="pre">_print_Differential</span></code>
-というメソッドを適当なスコープで実装する。</p>
+<p>今回の例だと対象となるのは <code class="docutils literal notranslate"><span class="pre">BaseScalerField</span></code> と <code class="docutils literal notranslate"><span class="pre">Differential</span></code> だ。このときは名前が <code class="docutils literal notranslate"><span class="pre">_print_BaseScalarField</span></code> および <code class="docutils literal notranslate"><span class="pre">_print_Differential</span></code> というメソッドを適当なスコープで実装する。</p>
 <p>コード例を以下に示す：</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_print_BaseScalarField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">_coord_sys</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">_index</span><span class="p">]</span>
@@ -187,24 +185,27 @@ IPython コンソールのセッションでオブジェクトの出力がアス
         <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;\dd(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 </div>
-<p>実装の必要に応じてインポート文を追加する（この場合は Symbol を含める）。実装例は LatexPrinter のソースコードを手本にすればよい。</p>
-<p>一般にクラス CLASSNAME の LaTeX 出力を書き換える場合にはメソッド <code class="docutils literal notranslate"><span class="pre">_print_CLASSNAME</span></code> を実装する。</p>
+<p>実装の必要に応じてインポート文を追加する（この場合は Symbol を含める）。実装例は <code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> のソースコードを手本にすればよい。</p>
+<p>一般にクラス <code class="docutils literal notranslate"><span class="pre">CLASSNAME</span></code> の LaTeX 出力を書き換える場合にはメソッド
+<code class="docutils literal notranslate"><span class="pre">_print_CLASSNAME</span></code> を実装する。</p>
 </li>
-<li><p>LatexPrinter 本来のメソッドをカスタムメソッドで置き換える。</p>
-<p>Python 組み込み関数 <code class="code docutils literal notranslate"><span class="pre">setattr</span></code> を活用する：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> 本来のメソッドをカスタムメソッドで置き換える。</p>
+<p>Python 組み込み関数 <code class="docutils literal notranslate"><span class="pre">setattr</span></code> を活用する：</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_print_BaseScalarField</span><span class="p">,</span> <span class="n">_print_Differential</span><span class="p">):</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">LatexPrinter</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 </ol>
-<p>ここまでできれば、既定の <code class="code docutils literal notranslate"><span class="pre">latex</span></code> や <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> をそのまま呼び出すことで、カスタムメソッドが SymPy の出力システムから呼び出される。</p>
-<p>オブジェクト指向プログラミング言語のライブラリー設計だと、何か <code class="docutils literal notranslate"><span class="pre">set_latex_printer</span></code> のようなインターフェイスが存在して、そこに LatexPrinter のサブクラスを設定できて然るべきなのだが、
-LatexPrinter に関してはそのようなものは提供されていない。</p>
-<p>なお、正攻法で行くのならば、LatexPrinter をサブクラスして、自分用の関数 <code class="code docutils literal notranslate"><span class="pre">latex</span></code> と <code class="code docutils literal notranslate"><span class="pre">print_latex</span></code> を実装するのが妥当と思われる。</p>
-</div>
-<div class="section" id="id3">
-<h3><a class="toc-backref" href="#id10">実装例</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>ここまでできれば、既定の <code class="docutils literal notranslate"><span class="pre">latex</span></code> や <code class="docutils literal notranslate"><span class="pre">print_latex</span></code> をそのまま呼び出すことで、カスタムメソッドが SymPy の出力システムから呼び出される。</p>
+<p>オブジェクト指向プログラミング言語のライブラリー設計だと、何か
+<code class="docutils literal notranslate"><span class="pre">set_latex_printer</span></code> のようなインターフェイスが存在して、そこに
+<code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> のサブクラスを設定できて然るべきなのだが、<code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> に関してはそのようなものは提供されていない。</p>
+<p>なお、正攻法で行くのならば、<code class="docutils literal notranslate"><span class="pre">LatexPrinter</span></code> をサブクラスして、自分用の関数
+<code class="docutils literal notranslate"><span class="pre">latex</span></code> と <code class="docutils literal notranslate"><span class="pre">print_latex</span></code> を実装するのが妥当と思われる。</p>
+</section>
+<section id="id3">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">実装例</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>これまでに説明してきた方法を一つにまとめたスクリプトおよびその実行結果を以下に示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sympy.printing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">latex</span><span class="p">,</span> <span class="n">print_latex</span><span class="p">)</span>
@@ -266,68 +267,67 @@ LatexPrinter に関してはそのようなものは提供されていない。<
 <span class="o">-</span> <span class="n">x</span> <span class="n">z</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span> <span class="n">x</span> <span class="n">z</span> <span class="n">b</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id11">画像出力</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
-<p>オブジェクトを文字列として出力する以外に、画像として出力する方法もある。関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> はそのような画像生成と出力の両方を行なうことができる。</p>
+</section>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">画像出力</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>オブジェクトを文字列として出力する以外に、画像として出力する方法もある。関数
+<code class="docutils literal notranslate"><span class="pre">preview</span></code> はそのような画像生成と出力の両方を行なうことができる。</p>
 <p>詳細はモジュール <code class="docutils literal notranslate"><span class="pre">sympy.printing.preview</span></code> のコードを確認するといい。プロセス生成の手順は理解しやすい。</p>
-<div class="section" id="png">
-<h3><a class="toc-backref" href="#id12">PNG 出力</a><a class="headerlink" href="#png" title="Permalink to this heading">¶</a></h3>
-<p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">output=png</span></code> を指定するか、あるいはこのキーワード引数を省略すると、
-SymPy オブジェクトに相当する数式が描画された PNG 画像を生成して適当なビューワープログラムでそれを表示する。</p>
+<section id="png">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">PNG 出力</a><a class="headerlink" href="#png" title="Permalink to this heading">¶</a></h3>
+<p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">output=png</span></code> を指定するか、あるいはこのキーワード引数を省略すると、 SymPy オブジェクトに相当する数式が描画された PNG 画像を生成して適当なビューワープログラムでそれを表示する。</p>
 <ul>
-<li><p>Pyglet パッケージが動作環境にない場合には、呼び出し側が明示的にキーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer</span></code> を追加で指定する必要がある。</p>
+<li><p>Pyglet パッケージが動作環境にない場合には、呼び出し側が明示的にキーワード引数
+<code class="docutils literal notranslate"><span class="pre">viewer</span></code> を追加で指定する必要がある。</p>
 <p>例えば Windows 上での実行において「ペイント」を起動させるには次のようにする：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="o">**</span><span class="mi">2</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;mspaint&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>このようにすると、対応する数式が描かれている PNG ファイルを開いた状態の「ペイント」ウィンドウがデスクトップに現れる。</p>
 </li>
-<li><p>数式が描画された PNG 画像をファイルに保存することもできる。キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='file'</span></code> に加えて、キーワード引数 <code class="docutils literal notranslate"><span class="pre">filename</span></code> を指定し、保存先のファイルパスを指定する必要がある：</p>
+<li><p>数式が描画された PNG 画像をファイルに保存することもできる。キーワード引数
+<code class="docutils literal notranslate"><span class="pre">viewer='file'</span></code> に加えて、キーワード引数 <code class="docutils literal notranslate"><span class="pre">filename</span></code> を指定し、保存先のファイルパスを指定する必要がある：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;preview.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>また、画像をメモリに保存する機能もある。これには BytesIO オブジェクトをあらかじめ生成しておき、キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='BytesIO'</span></code> に加えてキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputbuffer</span></code> を指定し、そのオブジェクトをその引数に設定する必要がある。利用予定がないので詳細を割愛する。</p></li>
+<li><p>また、画像をメモリに保存する機能もある。これには <code class="docutils literal notranslate"><span class="pre">BytesIO</span></code> オブジェクトをあらかじめ生成しておき、キーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer='BytesIO'</span></code> に加えてキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputbuffer</span></code> を指定し、そのオブジェクトをその引数に設定する必要がある。利用予定がないので詳細を割愛する。</p></li>
 </ul>
-</div>
-<div class="section" id="dvi">
-<h3><a class="toc-backref" href="#id13">DVI 出力</a><a class="headerlink" href="#dvi" title="Permalink to this heading">¶</a></h3>
-<p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='dvi'</span></code> を指定することで、出力データの形式が DVI となる。
-PNG のときと同様に、閲覧プログラムを実行させたり、データをファイルに保存させたりできる。</p>
-<p>ちなみにここでの LaTeX 環境は <a class="reference external" href="https://www.tug.org/texlive/">TeX Live</a> であり、環境変数 <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> には <strong class="command">dviout</strong> 等の実行形式格納フォルダーのパスが含まれている。</p>
+</section>
+<section id="dvi">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">DVI 出力</a><a class="headerlink" href="#dvi" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='dvi'</span></code> を指定することで、出力データの形式が DVI となる。PNG のときと同様に、閲覧プログラムを実行させたり、データをファイルに保存させたりできる。</p>
+<p>ちなみにここでの LaTeX 環境は <a class="reference external" href="https://www.tug.org/texlive/">TeX Live</a> であり、環境変数 <code class="docutils literal notranslate"><span class="pre">PATH</span></code> には <strong class="program">dviout</strong> 等の実行形式格納フォルダーのパスが含まれている。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dvi&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;dviout&#39;</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dvi&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;preview.dvi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pdf">
-<h3><a class="toc-backref" href="#id14">PDF 出力</a><a class="headerlink" href="#pdf" title="Permalink to this heading">¶</a></h3>
-<p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='pdf'</span></code> を指定することで、出力データの形式が PDF となる。</p>
-<p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">output='pdf'</span></code> を指定すると、次のコマンドラインを実行することと同等の処理が入る。
-TeX Live では <strong class="command">dvipdf</strong> が存在しないためにこれが通じず、実行時エラーを引き起こす。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dvipdf texput.dvi texput.pdf
+</section>
+<section id="pdf">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">PDF 出力</a><a class="headerlink" href="#pdf" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='pdf'</span></code> を指定することで、出力データの形式が PDF となる。</p>
+<p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">output='pdf'</span></code> を指定すると、次のコマンドラインを実行することと同等の処理が入る。 TeX Live では <strong class="program">dvipdf</strong> が存在しないためにこれが通じず、実行時エラーを引き起こす。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ dvipdf texput.dvi texput.pdf</span>
 </pre></div>
 </div>
 <p>SymPy のコードを修正して、次のようなコマンドライン実行に差し替えられれば動作するだろう：</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dvipdfmx texput.dvi
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ dvipdfmx texput.dvi</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="svg">
-<h3><a class="toc-backref" href="#id15">SVG 出力</a><a class="headerlink" href="#svg" title="Permalink to this heading">¶</a></h3>
-<p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='svg'</span></code> を指定することで、出力データの形式が SVG となる。</p>
+</section>
+<section id="svg">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">SVG 出力</a><a class="headerlink" href="#svg" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">preview</span></code> にキーワード引数 <code class="docutils literal notranslate"><span class="pre">output='svg'</span></code> を指定することで、出力データの形式が SVG となる。</p>
 <ul class="simple">
-<li><p>実行環境に <strong class="command">dvisvgm</strong> が存在すること必要だ。TeX Live ユーザーならば問題ないだろう。</p></li>
+<li><p>実行環境に <strong class="program">dvisvgm</strong> が存在すること必要だ。TeX Live ユーザーならば問題ないだろう。</p></li>
 <li><p>即表示する場合はキーワード引数 <code class="docutils literal notranslate"><span class="pre">viewer</span></code> に SVG ファイルを描画できるプログラムを指定するわけだが、普通は Web ブラウザーで十分だ。Inkscape だと起動に時間がかかる。</p></li>
 </ul>
-</div>
-<div class="section" id="tex">
-<h3><a class="toc-backref" href="#id16">TeX ファイルを保存する</a><a class="headerlink" href="#tex" title="Permalink to this heading">¶</a></h3>
-<p>関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> に対してキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputTexFile</span></code> に保存先パスを指定すると、処理中に中間生成する TeX ファイルを捨てずにとっておくことができる。
-SymPy の生成する TeX コードをテキストエディターで清書するにはこの手段を採用する。</p>
+</section>
+<section id="tex">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">TeX ファイルを保存する</a><a class="headerlink" href="#tex" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">preview</span></code> に対してキーワード引数 <code class="docutils literal notranslate"><span class="pre">outputTexFile</span></code> に保存先パスを指定すると、処理中に中間生成する TeX ファイルを捨てずにとっておくことができる。SymPy の生成する TeX コードをテキストエディターで清書するにはこの手段を採用する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">outputTexFile</span><span class="o">=</span><span class="s1">&#39;preview.tex&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -342,7 +342,8 @@ SymPy の生成する TeX コードをテキストエディターで清書する
 <span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
 </pre></div>
 </div>
-<p>これをキーワード引数 <code class="docutils literal notranslate"><span class="pre">preamble</span></code> を指定することで変更できる。次に説明する TeX 数式直接指定の際に、必要パッケージを指示するためにはこれが使える。</p>
+<p>これをキーワード引数 <code class="docutils literal notranslate"><span class="pre">preamble</span></code> を指定することで変更できる。次に説明する TeX
+数式直接指定の際に、必要パッケージを指示するためにはこれが使える。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">preamble</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&#39;&#39;\documentclass[10pt]</span><span class="si">{article}</span><span class="s1"></span>
 <span class="gp">   ...: </span><span class="s1">\usepackage{amsmath,amsfonts}</span>
 <span class="gp">   ...: </span><span class="s1">\begin</span><span class="si">{document}</span><span class="s1"></span>
@@ -351,18 +352,17 @@ SymPy の生成する TeX コードをテキストエディターで清書する
 <span class="gp">In [3]: </span><span class="n">preview</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">outputTexFile</span><span class="o">=</span><span class="s1">&#39;preview.tex&#39;</span><span class="p">,</span> <span class="n">preamble</span><span class="o">=</span><span class="n">preamble</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id17">入力</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
-<p>実は関数 <code class="code docutils literal notranslate"><span class="pre">preview</span></code> の引数としては SymPy オブジェクトだけではなく、
-TeX 数式を表す文字列も受け付ける。</p>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">入力</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<p>実は関数 <code class="docutils literal notranslate"><span class="pre">preview</span></code> の引数としては SymPy オブジェクトだけではなく、 TeX 数式を表す文字列も受け付ける。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">preview</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\cos^2 x + \sin^2 x$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;mspaint&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>今ならば MathJax があるので、この機能はそれほど便利なわけではない。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>

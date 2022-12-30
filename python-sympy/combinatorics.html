@@ -4,14 +4,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>組合せ論と群論 &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
@@ -48,18 +46,18 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1><a class="toc-backref" href="#id26">組合せ論と群論</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+  <section id="id1">
+<h1><a class="toc-backref" href="#id26" role="doc-backlink">組合せ論と群論</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics</span></code> をいくつかのサブモジュールを省略しつつ大雑把に見ていく。ここにあるのは群論の有限置換群に関係する機能が中心のようだ。</p>
-<div class="contents topic" id="id2">
+<nav class="contents" id="id2">
 <p class="topic-title">ノート目次</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id26">組合せ論と群論</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id3" id="id27">巡回置換と置換</a></p>
 <ul>
-<li><p><a class="reference internal" href="#cycle" id="id28">クラス Cycle</a></p></li>
-<li><p><a class="reference internal" href="#permutation" id="id29">クラス Permutation</a></p>
+<li><p><a class="reference internal" href="#cycle" id="id28">クラス <code class="docutils literal notranslate"><span class="pre">Cycle</span></code></a></p></li>
+<li><p><a class="reference internal" href="#permutation" id="id29">クラス <code class="docutils literal notranslate"><span class="pre">Permutation</span></code></a></p>
 <ul>
 <li><p><a class="reference internal" href="#id4" id="id30">コンストラクター</a></p></li>
 <li><p><a class="reference internal" href="#id5" id="id31">置換の合成・積</a></p></li>
@@ -87,17 +85,17 @@
 <li><p><a class="reference internal" href="#id20" id="id46">直積群</a></p></li>
 <li><p><a class="reference internal" href="#id21" id="id47">名前付き群</a></p>
 <ul>
-<li><p><a class="reference internal" href="#abeliangroup" id="id48">AbelianGroup</a></p></li>
-<li><p><a class="reference internal" href="#alternatinggroup" id="id49">AlternatingGroup</a></p></li>
-<li><p><a class="reference internal" href="#cyclicgroup" id="id50">CyclicGroup</a></p></li>
-<li><p><a class="reference internal" href="#dihedralgroup" id="id51">DihedralGroup</a></p></li>
-<li><p><a class="reference internal" href="#symmetricgroup" id="id52">SymmetricGroup</a></p></li>
-<li><p><a class="reference internal" href="#rubikgroup" id="id53">RubikGroup</a></p></li>
+<li><p><a class="reference internal" href="#abeliangroup" id="id48"><code class="docutils literal notranslate"><span class="pre">AbelianGroup</span></code></a></p></li>
+<li><p><a class="reference internal" href="#alternatinggroup" id="id49"><code class="docutils literal notranslate"><span class="pre">AlternatingGroup</span></code></a></p></li>
+<li><p><a class="reference internal" href="#cyclicgroup" id="id50"><code class="docutils literal notranslate"><span class="pre">CyclicGroup</span></code></a></p></li>
+<li><p><a class="reference internal" href="#dihedralgroup" id="id51"><code class="docutils literal notranslate"><span class="pre">DihedralGroup</span></code></a></p></li>
+<li><p><a class="reference internal" href="#symmetricgroup" id="id52"><code class="docutils literal notranslate"><span class="pre">SymmetricGroup</span></code></a></p></li>
+<li><p><a class="reference internal" href="#rubikgroup" id="id53"><code class="docutils literal notranslate"><span class="pre">RubikGroup</span></code></a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#id22" id="id54">正多面体</a></p>
 <ul>
-<li><p><a class="reference internal" href="#polyhedron" id="id55">クラス Polyhedron</a></p>
+<li><p><a class="reference internal" href="#polyhedron" id="id55">クラス <code class="docutils literal notranslate"><span class="pre">Polyhedron</span></code></a></p>
 <ul>
 <li><p><a class="reference internal" href="#id23" id="id56">プロパティー</a></p></li>
 <li><p><a class="reference internal" href="#id24" id="id57">メソッド</a></p></li>
@@ -109,7 +107,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよび出力書式設定が済んでいるものとする。</p>
@@ -119,12 +117,12 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id27">巡回置換と置換</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.permutations</span></code> に群論オブジェクトのための重要な構成要素がある。クラス Cycle と Permutation がそれで、後で見る各種有限群オブジェクトの基礎となるデータ型を表現する。
-<a class="reference external" href="https://www.sympy.org/">SymPy</a> のドキュメントでは先に Permutation を説明しているが、私は Cycle を先に理解するのがよいと思うので、ここではそのようにノートを記す。</p>
-<div class="section" id="cycle">
-<h3><a class="toc-backref" href="#id28">クラス Cycle</a><a class="headerlink" href="#cycle" title="Permalink to this heading">¶</a></h3>
+<section id="id3">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">巡回置換と置換</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.permutations</span></code> に群論オブジェクトのための重要な構成要素がある。クラス <code class="docutils literal notranslate"><span class="pre">Cycle</span></code> と <code class="docutils literal notranslate"><span class="pre">Permutation</span></code> がそれで、後で見る各種有限群オブジェクトの基礎となるデータ型を表現する。<a class="reference external" href="https://www.sympy.org/">SymPy</a> のドキュメントでは先に
+<code class="docutils literal notranslate"><span class="pre">Permutation</span></code> を説明しているが、私は <code class="docutils literal notranslate"><span class="pre">Cycle</span></code> を先に理解するのがよいと思うので、ここではそのようにノートを記す。</p>
+<section id="cycle">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Cycle</span></code></a><a class="headerlink" href="#cycle" title="Permalink to this heading">¶</a></h3>
 <p>巡回置換を表現する。基本的な構成要素なので少々細かく見てきたい。</p>
 <ul>
 <li><p>要素は自然数で表現する。0 から始まる。</p>
@@ -143,7 +141,7 @@
 <li><p>IPython 等の Python シェルでオブジェクトをダンプする際には</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">c.list()</span></code> のようにして確認できる。</p></li>
-<li><p>または明示的に Python 組み込み関数 <code class="code docutils literal notranslate"><span class="pre">print</span></code> を用いる。</p></li>
+<li><p>または明示的に Python 組み込み関数 <code class="docutils literal notranslate"><span class="pre">print</span></code> を用いる。</p></li>
 </ul>
 </li>
 <li><p>巡回置換を合成するにはコンストラクター呼び出し直後にさらに括弧を付けて巡回置換を追加する。例を示す。</p>
@@ -152,16 +150,18 @@
 </pre></div>
 </div>
 </li>
-<li><p>このクラスは実は Python の dict をスーパークラスに持つだけなので、あまり SymPy のオブジェクトという感じがしない。</p></li>
-<li><p>極端に大きい値を巡回させると MemoryError が送出される。例えば <code class="code docutils literal notranslate"><span class="pre">Cycle(1000000,</span> <span class="pre">100)(10000,</span> <span class="pre">1,</span> <span class="pre">100000000)</span></code> などとしないほうがよい。</p></li>
+<li><p>このクラスは実は Python の dict をスーパークラスに持つだけなので、あまり SymPy
+のオブジェクトという感じがしない。</p></li>
+<li><p>極端に大きい値を巡回させると <code class="docutils literal notranslate"><span class="pre">MemoryError</span></code> が送出される。例えば
+<code class="code docutils literal notranslate"><span class="pre">Cycle(1000000,</span> <span class="pre">100)(10000,</span> <span class="pre">1,</span> <span class="pre">100000000)</span></code> などとしないほうがよい。</p></li>
 </ul>
-</div>
-<div class="section" id="permutation">
-<h3><a class="toc-backref" href="#id29">クラス Permutation</a><a class="headerlink" href="#permutation" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="permutation">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Permutation</span></code></a><a class="headerlink" href="#permutation" title="Permalink to this heading">¶</a></h3>
 <p>置換を表現する。土台となる概念は上述の巡回置換なので、要素周りの規則はそれに準じる。</p>
 <p>ここではこのクラスの主要な機能を記す。</p>
-<div class="section" id="id4">
-<h4><a class="toc-backref" href="#id30">コンストラクター</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
+<section id="id4">
+<h4><a class="toc-backref" href="#id30" role="doc-backlink">コンストラクター</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
 <p>コンストラクターの記法が複数ある。好きなものを使えるようにしておく。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="gh">Out[1]: </span><span class="go">(0 5 6)(1 2)</span>
@@ -175,36 +175,36 @@
 </div>
 <ul>
 <li><p>上のコンストラクターのみの場合では、与える巡回置換は互いに素である必要がある。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">size</span></code> が便利。要素数は多いが置換部分が少ない置換を生成するときにはこれだ。</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Permutation</span><span class="p">([[</span><span class="mi">44</span><span class="p">,</span> <span class="mi">88</span><span class="p">],],</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gh">Out[1]: </span><span class="go">(99)(44 88)</span>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">size</span></code> が便利。要素数は多いが置換部分が少ない置換を生成するときにはこれだ。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Permutation</span><span class="p">([[</span><span class="mi">44</span><span class="p">,</span> <span class="mi">88</span><span class="p">],],</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">(</span><span class="mi">99</span><span class="p">)(</span><span class="mi">44</span> <span class="mi">88</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>長さ <cite>n</cite> の恒等置換の生成法をひとつマスターしておく。一番楽なのは <code class="code docutils literal notranslate"><span class="pre">Permutation(size=n)</span></code> だろう。</p></li>
+<li><p>長さ <cite>n</cite> の恒等置換の生成法を一つマス``ターしておく``。一番楽なのは
+<code class="code docutils literal notranslate"><span class="pre">Permutation(size=n)</span></code> だろう。</p></li>
 </ul>
-</div>
-<div class="section" id="id5">
-<h4><a class="toc-backref" href="#id31">置換の合成・積</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
-<p>置換の合成の記法も複数あるので注意。次のものはすべて <code class="code docutils literal notranslate"><span class="pre">i</span></code> に対して同じ作用を示す。いずれもまず <code class="code docutils literal notranslate"><span class="pre">p</span></code> を作用する。</p>
+</section>
+<section id="id5">
+<h4><a class="toc-backref" href="#id31" role="doc-backlink">置換の合成・積</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
+<p>置換の合成の記法も複数あるので注意。次のものはすべて <code class="docutils literal notranslate"><span class="pre">i</span></code> に対して同じ作用を示す。いずれもまず <code class="docutils literal notranslate"><span class="pre">p</span></code> を作用する。</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">(p</span> <span class="pre">*</span> <span class="pre">q)(i)</span></code></p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">q(p(i))</span></code></p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">i^p^q</span></code></p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">i^(p</span> <span class="pre">*</span> <span class="pre">q)</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h4><a class="toc-backref" href="#id32">オブジェクトの出力</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id6">
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">オブジェクトの出力</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
 <p>Permutation オブジェクトを出力する方法がいくつかある。</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">array_form</span></code>: e.g. <code class="code docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">6,</span> <span class="pre">0]</span></code></p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">cyclic_form</span></code>: e.g. <code class="code docutils literal notranslate"><span class="pre">[[0,</span> <span class="pre">5,</span> <span class="pre">6],</span> <span class="pre">[1,</span> <span class="pre">2]]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">array_form</span></code>: e``.``g. <code class="code docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">6,</span> <span class="pre">0]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cyclic_form</span></code>: e.g. <code class="docutils literal notranslate"><span class="pre">[[0,</span> <span class="pre">5,</span> <span class="pre">6],</span> <span class="pre">[1,</span> <span class="pre">2]]</span></code></p></li>
 </ul>
 <p>デフォルトの出力パターンは <code class="code docutils literal notranslate"><span class="pre">Permutation.print_cyclic</span></code> フラグで設定する。</p>
-</div>
-<div class="section" id="id7">
-<h4><a class="toc-backref" href="#id33">置換による像を得る</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id7">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">置換による像を得る</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>
 <p>オブジェクトの丸括弧演算子を用いる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
@@ -220,9 +220,9 @@
 <span class="gh">Out[2]: </span><span class="go">[a5, a2, a1, a3, a4, a6, a0]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
-<h4><a class="toc-backref" href="#id34">置換によって動く要素を求める</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id8">
+<h4><a class="toc-backref" href="#id34" role="doc-backlink">置換によって動く要素を求める</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
 <p>メソッド <code class="code docutils literal notranslate"><span class="pre">support()</span></code> を用いる。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">support</span><span class="p">()</span>
 <span class="gh">Out[1]: </span><span class="go">[0, 1, 2, 5, 6]</span>
@@ -234,9 +234,9 @@
 <span class="gh">Out[3]: </span><span class="go">[]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id9">
-<h4><a class="toc-backref" href="#id35">置換をランダムに生成する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id9">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">置換をランダムに生成する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
 <p>ランダムな置換の生成にはクラスメソッド <code class="code docutils literal notranslate"><span class="pre">random(n)</span></code> を用いる。次数 <cite>n</cite> の対称群にある置換をランダムに一個返すと言えばよい？</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Permutation</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gh">Out[1]: </span><span class="go">(0 5 3 4 8)(1 2 9)(6 7)</span>
@@ -252,10 +252,10 @@
 <li><p>どういう種類のランダムなのか Python だけが知っている。</p></li>
 <li><p>ちなみに <code class="code docutils literal notranslate"><span class="pre">random(0)</span></code> と <code class="code docutils literal notranslate"><span class="pre">random(1)</span></code> の結果は異なる。</p></li>
 </ul>
-</div>
-<div class="section" id="id10">
-<h4><a class="toc-backref" href="#id36">置換のべき乗を求める</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
-<p>べき乗演算子 <code class="code docutils literal notranslate"><span class="pre">**</span></code> を置換オブジェクトに適用することができる。試しに適当な置換オブジェクトをその位数乗すると、恒等置換が得られることを見よう。</p>
+</section>
+<section id="id10">
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">置換のべき乗を求める</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<p>べき乗演算子 <code class="docutils literal notranslate"><span class="pre">**</span></code> を置換オブジェクトに適用することができる。試しに適当な置換オブジェクトをその位数乗すると、恒等置換が得られることを見よう。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span> <span class="n">p</span>
 <span class="gh">Out[1]: </span><span class="go">(0 5 6)(1 2)</span>
 
@@ -266,10 +266,10 @@
 <span class="gh">Out[3]: </span><span class="go">(6)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id11">
-<h4><a class="toc-backref" href="#id37">逆置換を求める</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
-<p>逆置換オブジェクトを生成するにはべき乗演算子 <code class="code docutils literal notranslate"><span class="pre">**</span></code> を援用する。指数を -1 にすればよい。</p>
+</section>
+<section id="id11">
+<h4><a class="toc-backref" href="#id37" role="doc-backlink">逆置換を求める</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
+<p>逆置換オブジェクトを生成するにはべき乗演算子 <code class="docutils literal notranslate"><span class="pre">**</span></code> を援用する。指数を <code class="docutils literal notranslate"><span class="pre">-1</span></code> にすればよい。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span> <span class="n">p</span>
 <span class="gh">Out[1]: </span><span class="go">(0 5 6)(1 2)</span>
 
@@ -280,9 +280,9 @@
 <span class="gh">Out[3]: </span><span class="go">(6)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id12">
-<h4><a class="toc-backref" href="#id38">置換の巡回表記を互換の積へ分解する</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id12">
+<h4><a class="toc-backref" href="#id38" role="doc-backlink">置換の巡回表記を互換の積へ分解する</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
 <p>メソッド <code class="code docutils literal notranslate"><span class="pre">transpositions()</span></code> を用いることで、置換を互換の積として表現できる。置換と同等のあみだくじの描き方がわかるということだ。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">p</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span> <span class="n">p</span>
 <span class="gh">Out[1]: </span><span class="go">(0 5 6)(1 2)</span>
@@ -292,11 +292,11 @@
 </pre></div>
 </div>
 <p>と思ったら、両端の線を結ぶことになってしまった。</p>
-</div>
-<div class="section" id="id13">
-<h4><a class="toc-backref" href="#id39">置換の符号、偶置換、奇置換判定</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
-<p>置換の符号を得るにはメソッド <code class="code docutils literal notranslate"><span class="pre">signature()</span></code> を、置換の偶置換、奇置換の判定にはプロパティー <code class="code docutils literal notranslate"><span class="pre">is_even</span></code>, <code class="code docutils literal notranslate"><span class="pre">is_odd</span></code> をそれぞれ用いる。</p>
-<p>先ほどの 3 つの互換の積で表せる <code class="code docutils literal notranslate"><span class="pre">p</span></code> を再利用して動作を確認する。</p>
+</section>
+<section id="id13">
+<h4><a class="toc-backref" href="#id39" role="doc-backlink">置換の符号、偶置換、奇置換判定</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h4>
+<p>置換の符号を得るにはメソッド <code class="code docutils literal notranslate"><span class="pre">signature()</span></code> を、置換の偶置換、奇置換の判定にはプロパティー <code class="docutils literal notranslate"><span class="pre">is_even</span></code>, <code class="docutils literal notranslate"><span class="pre">is_odd</span></code> をそれぞれ用いる。</p>
+<p>先ほどの三つの互換の積で表せる <code class="docutils literal notranslate"><span class="pre">p</span></code> を再利用して動作を確認する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">p</span><span class="o">.</span><span class="n">signature</span><span class="p">()</span>
 <span class="gh">Out[1]: </span><span class="go">-1</span>
 
@@ -307,18 +307,14 @@
 <span class="gh">Out[3]: </span><span class="go">True</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="id14">
-<h2><a class="toc-backref" href="#id40">群オブジェクトジェネレーター</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="id14">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">群オブジェクトジェネレーター</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.generators</span></code> にあるジェネレーターおよび関数は、よく使われる群を参照するのに便利だ。下に示す表はこのモジュールが提供する機能だ。</p>
 <p>いずれも対応する群の元を Permutation オブジェクトとして生成する。</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 67%" />
-</colgroup>
+<table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>ジェネレーターまたは関数</p></th>
 <th class="head"><p>機能</p></th>
@@ -326,22 +322,22 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">alternating(n)</span></code></p></td>
-<td><p><cite>n</cite> 次の交代群を列挙する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 次の交代群を列挙する。</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">cyclic(n)</span></code></p></td>
-<td><p><cite>n</cite> 次の巡回群を列挙する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 次の巡回群を列挙する。</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">dihedral(n)</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">n</span></code> 次の二面体群を列挙する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">n</span></code> 次の二面体群を列挙する。</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">rubik(n)</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">n</span> <span class="pre">*</span> <span class="pre">n</span></code> 次のルービックキューブ群を生成する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">*</span> <span class="pre">n</span></code> 次のルービックキューブ群を生成する。</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">rubik_cube_generators()</span></code></p></td>
 <td><p>普通のルービックキューブ群を生成する。</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">symmetric(n)</span></code></p></td>
-<td><p><cite>n</cite> 次の対称群を列挙する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 次の対称群を列挙する。</p></td>
 </tr>
 </tbody>
 </table>
@@ -404,25 +400,26 @@
 </pre></div>
 </div>
 <p>ルービックキューブについては後述する。</p>
-</div>
-<div class="section" id="id15">
-<h2><a class="toc-backref" href="#id41">置換群</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
-<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.perm_groups</span></code> に置換群を表現するクラス PermutationGroup が宣言されている。</p>
-<div class="section" id="id16">
-<h3><a class="toc-backref" href="#id42">コンストラクター</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
-<p>置換群を表現するクラス PermutationGroup のコンストラクターには、その群の生成元を表すいくつかの Permutation オブジェクトを渡す。</p>
+</section>
+<section id="id15">
+<h2><a class="toc-backref" href="#id41" role="doc-backlink">置換群</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.perm_groups</span></code> に置換群を表現するクラス
+<code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> が宣言されている。</p>
+<section id="id16">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">コンストラクター</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<p>置換群を表現するクラス <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> のコンストラクターには、その群の生成元を表すいくつかの <code class="docutils literal notranslate"><span class="pre">Permutation</span></code> オブジェクトを渡す。</p>
 <p>手作業で一つ一つオブジェクトを用意するのもよいし、先述のジェネレーターを利用するのもよいだろう。</p>
-</div>
-<div class="section" id="id17">
-<h3><a class="toc-backref" href="#id43">プロパティー</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id17">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">プロパティー</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <p>理解している範囲で記す。</p>
 <dl>
-<dt><code class="code docutils literal notranslate"><span class="pre">base</span></code></dt><dd><p>群の基底。整数点の list オブジェクトである。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">base</span></code></dt><dd><p>群の基底。整数点の <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトである。</p>
 <ul>
 <li><p>Schreier-Sims アルゴリズムから得られる。</p></li>
-<li><p>この置換群の恒等置換（単位元）以外のどんな置換を適用しても、
-<code class="code docutils literal notranslate"><span class="pre">base</span></code> のすべての整数点を固定することがない。</p>
-<p>例。5 次の対称群 <code class="code docutils literal notranslate"><span class="pre">S5</span> <span class="pre">=</span> <span class="pre">SymmetricGroup(5)</span></code> を下処理（後述の <code class="code docutils literal notranslate"><span class="pre">is_group</span></code> の記述を参照）したものに対して試す。</p>
+<li><p>この置換群の恒等置換（単位元）以外のどんな置換を適用しても、<code class="docutils literal notranslate"><span class="pre">base</span></code> のすべての整数点を固定することがない。</p>
+<p>例。五次の対称群 <code class="code docutils literal notranslate"><span class="pre">S5</span> <span class="pre">=</span> <span class="pre">SymmetricGroup(5)</span></code> を下処理（後述の
+<code class="docutils literal notranslate"><span class="pre">is_group</span></code> の記述を参照）したものに対して試す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="nb">all</span><span class="p">(</span>
 <span class="go">.....:    (not all(</span>
 <span class="go">.....:        (i == g(i) for i in S5.base)) for g in S5 if not g.is_Identity))</span>
@@ -432,12 +429,11 @@
 </li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">basic_orbits</span></code></dt><dd><p>群の基底と強生成元に関する軌道。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">basic_orbits</span></code></dt><dd><p>群の基底と強生成元に関する軌道。</p>
 <ul>
 <li><p>Schreier-Sims アルゴリズムから得られる。</p></li>
-<li><p>上述のプロパティー <code class="code docutils literal notranslate"><span class="pre">base</span></code> と後述のメソッド <code class="code docutils literal notranslate"><span class="pre">orbit</span></code> とを組み合わせたものと考える。</p></li>
-<li><p>例。テキトーに作った置換群で動作確認をする。
-<code class="code docutils literal notranslate"><span class="pre">basic_orbits</span></code> と <code class="code docutils literal notranslate"><span class="pre">base</span></code> がすべての軌道とそれらの代表元をそれぞれ表しているのか。</p>
+<li><p>上述のプロパティー <code class="docutils literal notranslate"><span class="pre">base</span></code> と後述のメソッド <code class="docutils literal notranslate"><span class="pre">orbit</span></code> とを組み合わせたものと考える。</p></li>
+<li><p>例。テキトーに作った置換群で動作確認をする。<code class="docutils literal notranslate"><span class="pre">basic_orbits</span></code> と <code class="docutils literal notranslate"><span class="pre">base</span></code> がすべての軌道とそれらの代表元をそれぞれ表しているのか。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">G</span> <span class="o">=</span> <span class="n">PermutationGroup</span><span class="p">([</span><span class="n">Permutation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">Permutation</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)])</span>
 
 <span class="gp">In [2]: </span><span class="n">G</span> <span class="o">=</span> <span class="n">PermutationGroup</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">generate</span><span class="p">()))</span>
@@ -463,11 +459,11 @@
 </li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">basic_stabilizers</span></code></dt><dd><p>群の基底と強生成元に関する固定群鎖。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">basic_stabilizers</span></code></dt><dd><p>群の基底と強生成元に関する固定群鎖。</p>
 <ul>
 <li><p>Schreier-Sims アルゴリズムから得られる。</p></li>
 <li><p>このリストは先頭から大きい順に部分群が並んでいる。</p>
-<p>例。8 次の対称群 <code class="code docutils literal notranslate"><span class="pre">S8</span> <span class="pre">=</span> <span class="pre">SymmetricGroup(8)</span></code> で試す。</p>
+<p>例。八次の対称群 <code class="code docutils literal notranslate"><span class="pre">S8</span> <span class="pre">=</span> <span class="pre">SymmetricGroup(8)</span></code> で試す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">L</span> <span class="o">=</span> <span class="n">S8</span><span class="o">.</span><span class="n">basic_stabilizers</span>
 
 <span class="gp">In [2]: </span><span class="n">S8</span><span class="o">.</span><span class="n">base</span>
@@ -483,9 +479,9 @@
 </li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">basic_transversals</span></code></dt><dd><p>群の <code class="code docutils literal notranslate"><span class="pre">basic_orbits</span></code> の代表系。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">basic_transversals</span></code></dt><dd><p>群の <code class="docutils literal notranslate"><span class="pre">basic_orbits</span></code> の代表系。</p>
 <ul>
-<li><p>型は dict の list である。キーと値は <code class="code docutils literal notranslate"><span class="pre">basic_orbits</span></code> の要素とそれに対応する代表元をそれぞれ表す。</p>
+<li><p>型は <code class="docutils literal notranslate"><span class="pre">dict</span></code> の <code class="docutils literal notranslate"><span class="pre">list</span></code> である。キーと値は <code class="docutils literal notranslate"><span class="pre">basic_orbits</span></code> の要素とそれに対応する代表元をそれぞれ表す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">G</span><span class="o">.</span><span class="n">base</span>
 <span class="gh">Out[1]: </span><span class="go">[0, 5, 1]</span>
 
@@ -499,48 +495,48 @@
 </li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">degree</span></code></dt><dd><p>群が含む置換のサイズ。置換が対象とする文字数。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">degree</span></code></dt><dd><p>群が含む置換のサイズ。置換が対象とする文字数。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">generators</span></code></dt><dd><p>群の生成元を保持する list オブジェクトだ。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">generators</span></code></dt><dd><p>群の生成元を保持する <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトだ。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_abelian</span></code></dt><dd><p>群がアーベル群かどうかを返す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">is_abelian</span></code></dt><dd><p>群がアーベル群かどうかを返す。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_nilpotent</span></code></dt><dd><p>群がべき零群かどうかを返す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">is_nilpotent</span></code></dt><dd><p>群がべき零群かどうかを返す。</p>
 <ul class="simple">
 <li><p>実装ではこの群の降中心列の末端の部分群が恒等群かどうかを（入念なやり方で）見ている。</p></li>
 <li><p>べき零群は可解群である。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_solvable</span></code></dt><dd><p>群が可解群かどうかを返す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">is_solvable</span></code></dt><dd><p>群が可解群かどうかを返す。</p>
 <ul class="simple">
-<li><p>実装が上述の <code class="code docutils literal notranslate"><span class="pre">is_nilpotent</span></code> と酷似しているので見ておくとよい。降中心列ではなく導来列を調べる。</p></li>
+<li><p>実装が上述の <code class="docutils literal notranslate"><span class="pre">is_nilpotent</span></code> と酷似しているので見ておくとよい。降中心列ではなく導来列を調べる。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_trivial</span></code></dt><dd><p>群が自明な群、恒等群かどうかを返す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">is_trivial</span></code></dt><dd><p>群が自明な群、恒等群かどうかを返す。</p>
 <ul class="simple">
-<li><p>そのような群を得たければ何か適当な <cite>n</cite> を用いて
+<li><p>そのような群を得たければ何か適当な <code class="docutils literal notranslate"><span class="pre">n</span></code> を用いて
 <code class="code docutils literal notranslate"><span class="pre">PermutationGroup(Permutation(size=n))</span></code> とでもしよう。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">strong_gens</span></code></dt><dd><p>群の強生成元。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">strong_gens</span></code></dt><dd><p>群の強生成元。</p>
 <ul class="simple">
 <li><p>Schreier-Sims アルゴリズムから得られる。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id18">
-<h3><a class="toc-backref" href="#id44">メソッド</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
-<p>理解している範囲で記す。以下、第一引数の <code class="code docutils literal notranslate"><span class="pre">self</span></code> を省略する。</p>
+</section>
+<section id="id18">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">メソッド</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<p>理解している範囲で記す。以下、第一引数の <code class="docutils literal notranslate"><span class="pre">self</span></code> を省略する。</p>
 <dl>
 <dt><code class="code docutils literal notranslate"><span class="pre">center()</span></code></dt><dd><p>群の中心を返す。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">centralizer(other)</span></code></dt><dd><p>この置換群と <code class="code docutils literal notranslate"><span class="pre">other</span></code> の中心化群を返す。ここで <code class="code docutils literal notranslate"><span class="pre">other</span></code> は置換の list または置換群をとる。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">centralizer(other)</span></code></dt><dd><p>この置換群と <code class="docutils literal notranslate"><span class="pre">other</span></code> の中心化群を返す。ここで <code class="docutils literal notranslate"><span class="pre">other</span></code> は置換の <code class="docutils literal notranslate"><span class="pre">list</span></code> または置換群をとる。</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">G.center()</span> <span class="pre">==</span> <span class="pre">G.centralizer(G)</span></code> が成り立つ。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">commutator(G,</span> <span class="pre">H)</span></code></dt><dd><p>群の部分群 <code class="code docutils literal notranslate"><span class="pre">G</span></code> と <code class="code docutils literal notranslate"><span class="pre">H</span></code> の交換子を生成する。特に引数として両方とも自身を与えると、交換子群が生成する。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">commutator(G,</span> <span class="pre">H)</span></code></dt><dd><p>群の部分群 <code class="docutils literal notranslate"><span class="pre">G</span></code> と <code class="docutils literal notranslate"><span class="pre">H</span></code> の交換子を生成する。特に引数として両方とも自身を与えると、交換子群が生成する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">S4</span> <span class="o">=</span> <span class="n">SymmetricGroup</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">A4</span> <span class="o">=</span> <span class="n">AlternatingGroup</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -552,15 +548,15 @@
 </pre></div>
 </div>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">contains(g,</span> <span class="pre">strict=True)</span></code></dt><dd><p>置換 <code class="code docutils literal notranslate"><span class="pre">g</span></code> が群に含まれているかどうかを返す。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">contains(g,</span> <span class="pre">strict=True)</span></code></dt><dd><p>置換 <code class="docutils literal notranslate"><span class="pre">g</span></code> が群に含まれているかどうかを返す。</p>
 <ul class="simple">
 <li><p>キーワード引数を <code class="code docutils literal notranslate"><span class="pre">strict=False</span></code> などとした場合は、群と引数の置換のサイズ不整合時に適宜考慮してくれる。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">coset_factor(g,</span> <span class="pre">factor_index=False)</span></code></dt><dd><p>群の元 <code class="code docutils literal notranslate"><span class="pre">g</span></code> を「因数分解」する。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">coset_factor(g,</span> <span class="pre">factor_index=False)</span></code></dt><dd><p>群の元 <code class="docutils literal notranslate"><span class="pre">g</span></code> を「因数分解」する。</p>
 <ul>
-<li><p>戻り値は置換の list であり、末端から先頭に向かって掛けると <code class="code docutils literal notranslate"><span class="pre">g</span></code> が得られる。</p></li>
-<li><p>さきほどの <code class="code docutils literal notranslate"><span class="pre">G</span></code> で試そう。</p>
+<li><p>戻り値は置換の <code class="docutils literal notranslate"><span class="pre">list</span></code> であり、末端から先頭に向かって掛けると <code class="docutils literal notranslate"><span class="pre">g</span></code> が得られる。</p></li>
+<li><p>さきほどの <code class="docutils literal notranslate"><span class="pre">G</span></code> で試そう。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="n">G</span><span class="o">.</span><span class="n">basic_transversals</span>
 <span class="gh">Out[5]: </span><span class="go">[{0: (6), 2: (6)(0 2 4)(1 3), 4: (6)(0 4 2)}, {5: (6), 6: (5 6)}, {1: (6), 3: (6)(1 3)}]</span>
 
@@ -579,23 +575,24 @@
 </li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">coset_rank(g)</span></code></dt><dd><p>群の元 <code class="code docutils literal notranslate"><span class="pre">g</span></code> のインデックスを得る。つまり <code class="code docutils literal notranslate"><span class="pre">G[k]</span> <span class="pre">==</span> <span class="pre">g</span></code> を満たす値 <cite>k</cite> を得る。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">coset_rank(g)</span></code></dt><dd><p>群の元 <code class="docutils literal notranslate"><span class="pre">g</span></code> のインデックスを得る。つまり <code class="code docutils literal notranslate"><span class="pre">G[k]</span> <span class="pre">==</span> <span class="pre">g</span></code> を満たす値 <code class="docutils literal notranslate"><span class="pre">k</span></code>
+を得る。</p>
 <ul class="simple">
 <li><p>当然 <code class="code docutils literal notranslate"><span class="pre">G.contains(g)</span></code> なる元にしか意味がない。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">coset_unrank(rank,</span> <span class="pre">af=False)</span></code></dt><dd><p>群の <code class="code docutils literal notranslate"><span class="pre">rank</span></code> 番目の元を得る。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">coset_unrank(rank,</span> <span class="pre">af=False)</span></code></dt><dd><p>群の <code class="docutils literal notranslate"><span class="pre">rank</span></code> 番目の元を得る。</p>
 <ul class="simple">
 <li><p>普通は <code class="code docutils literal notranslate"><span class="pre">G[rank]</span></code> の記法のほうが楽だ。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">af</span></code> は戻り値を list オブジェクトにするか
-Permutation オブジェクトで得るかを指定する。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">af</span></code> は戻り値を <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトにするか
+<code class="docutils literal notranslate"><span class="pre">Permutation</span></code> オブジェクトで得るかを指定する。</p></li>
 </ul>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">derived_series()</span></code></dt><dd><p>群の導来列を求める。日本語はこれで適切か知らないが。</p>
 <ul class="simple">
-<li><p>戻り値は PermutationGroup オブジェクトの list オブジェクト。</p></li>
+<li><p>戻り値は <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> オブジェクトの <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクト。</p></li>
 <li><p>列の先頭と末尾はそれぞれこの群自身と恒等群である。</p></li>
-<li><p>実装はメソッド <code class="code docutils literal notranslate"><span class="pre">derived_subgroup</span></code> を反復的に利用している。</p></li>
+<li><p>実装はメソッド <code class="docutils literal notranslate"><span class="pre">derived_subgroup</span></code> を反復的に利用している。</p></li>
 </ul>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">derived_subgroup()</span></code></dt><dd><p>群の導来部分群（交換子部分群）を求める。</p>
@@ -603,13 +600,13 @@ Permutation オブジェクトで得るかを指定する。</p></li>
 <dt><code class="code docutils literal notranslate"><span class="pre">generate(method='coset',</span> <span class="pre">af=False)</span></code></dt><dd><p>群の要素をすべて列挙する。</p>
 <ul class="simple">
 <li><p>名前の通りジェネレーターである。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">af=True</span></code> とすると
-Permutation オブジェクトではなく list オブジェクトを列挙する。</p></li>
+<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">af=True</span></code> とすると <code class="docutils literal notranslate"><span class="pre">Permutation</span></code> オブジェクトではなく
+<code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトを列挙する。</p></li>
 </ul>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">is_group()</span></code></dt><dd><p>この群が本当に群かどうかを返す。</p>
 <ul>
-<li><p>後述する名前付き群オブジェクトと正多面体群オブジェクトを用いるときは要注意。次のように前処理をしないと True を返してくれない場合がある。</p>
+<li><p>後述する名前付き群オブジェクトと正多面体群オブジェクトを用いるときは要注意。次のように前処理をしないと <code class="docutils literal notranslate"><span class="pre">True</span></code> を返してくれない場合がある：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">S5</span> <span class="o">=</span> <span class="n">SymmetricGroup</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="gp">In [2]: </span><span class="n">S5</span><span class="o">.</span><span class="n">is_group</span><span class="p">()</span>
@@ -623,10 +620,10 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 </div>
 </li>
 <li><p>そしてこの関数はおそらくかなりのコストがかかる。</p></li>
-<li><p>本稿では上の例の <code class="code docutils literal notranslate"><span class="pre">S5</span></code> の作り直しのような処理を「下処理」と呼ぶことにする。群としてみなされるための下処理。</p></li>
+<li><p>本稿では上の例の <code class="docutils literal notranslate"><span class="pre">S5</span></code> の作り直しのような処理を「下処理」と呼ぶことにする。群としてみなされるための下処理。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_normal(gr)</span></code></dt><dd><p>この群が群 <code class="code docutils literal notranslate"><span class="pre">gr</span></code> の正規部分群かどうかを返す。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">is_normal(gr)</span></code></dt><dd><p>この群が群 <code class="docutils literal notranslate"><span class="pre">gr</span></code> の正規部分群かどうかを返す。</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">is_primitive(randomized=True)</span></code></dt><dd><p>この群が原始的かどうかを返す。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">CyclicGroup</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">is_primitive</span><span class="p">()</span>
@@ -637,9 +634,9 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 </pre></div>
 </div>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">is_subgroup(G,</span> <span class="pre">strict=True)</span></code></dt><dd><p>この群が群 <code class="code docutils literal notranslate"><span class="pre">G</span></code> の部分群であるかどうかを返す。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">is_subgroup(G,</span> <span class="pre">strict=True)</span></code></dt><dd><p>この群が群 <code class="docutils literal notranslate"><span class="pre">G</span></code> の部分群であるかどうかを返す。</p>
 <ul class="simple">
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">strict</span></code> については別のメソッドのそれと同じ意味だ。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">strict</span></code> については別のメソッドのそれと同じ意味だ。</p></li>
 </ul>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">is_transitive(strict=True)</span></code></dt><dd><p>この群が推移的かどうかを返す。</p>
@@ -650,20 +647,20 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">lower_central_series()</span></code></dt><dd><p>群の降中心列を返す。</p>
 <ul class="simple">
-<li><p>戻り値は PermutationGroup オブジェクトの list オブジェクト。</p></li>
+<li><p>戻り値は <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> オブジェクトの <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクト。</p></li>
 <li><p>もちろん列の先頭がこの群自身だ。</p></li>
-<li><p>実装はメソッド <code class="code docutils literal notranslate"><span class="pre">commutator</span></code> を反復的に利用している。</p></li>
+<li><p>実装はメソッド <code class="docutils literal notranslate"><span class="pre">commutator</span></code> を反復的に利用している。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">orbit(alpha,</span> <span class="pre">action='tuples')</span></code></dt><dd><p>群の置換の作用による整数点 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> の軌道を求める。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">orbit(alpha,</span> <span class="pre">action='tuples')</span></code></dt><dd><p>群の置換の作用による整数点 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> の軌道を求める。</p>
 <ul class="simple">
 <li><p>整数点を複数指定することも可能。そのときは <code class="code docutils literal notranslate"><span class="pre">action='union'</span></code> が便利だ。</p></li>
 </ul>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">orbits(rep=False)</span></code></dt><dd><p>群自身の軌道を全て返す。</p>
 <ul class="simple">
-<li><p>戻り値の型は各軌道を set オブジェクトで表した list オブジェクトだ。</p></li>
-<li><p>キーワード引数 <code class="code docutils literal notranslate"><span class="pre">rep</span></code> の意味は不明。</p></li>
+<li><p>戻り値の型は各軌道を <code class="docutils literal notranslate"><span class="pre">set</span></code> オブジェクトで表した <code class="docutils literal notranslate"><span class="pre">list</span></code> オブジェクトだ。</p></li>
+<li><p>キーワード引数 <code class="docutils literal notranslate"><span class="pre">rep</span></code> の意味は不明。</p></li>
 </ul>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">order()</span></code></dt><dd><p>群の位数を求める。</p>
@@ -671,53 +668,50 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <li><p>全部でいくつの置換を生成できるかということ。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">pointwise_stabilizer(points,</span> <span class="pre">incremental=True)</span></code></dt><dd><p>整数点 <code class="code docutils literal notranslate"><span class="pre">points</span></code> を動かさない、この群の置換の部分群を返す。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">pointwise_stabilizer(points,</span> <span class="pre">incremental=True)</span></code></dt><dd><p>整数点 <code class="docutils literal notranslate"><span class="pre">points</span></code> を動かさない、この群の置換の部分群を返す。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">random(af=False)</span></code></dt><dd><p>ランダムで群の元を返す。キーワード引数は戻り値を list と PermutationGroup のどちらを得るかを指定する。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">random(af=False)</span></code></dt><dd><p>ランダムで群の元を返す。キーワード引数は戻り値を <code class="docutils literal notranslate"><span class="pre">list</span></code> と
+<code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> のどちらを得るかを指定する。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">stabilizer(alpha)</span></code></dt><dd><p>整数点 <code class="code docutils literal notranslate"><span class="pre">alpha</span></code> を動かさない、この群の置換の部分群を返す。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">stabilizer(alpha)</span></code></dt><dd><p>整数点 <code class="docutils literal notranslate"><span class="pre">alpha</span></code> を動かさない、この群の置換の部分群を返す。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id19">
-<h3><a class="toc-backref" href="#id45">その他のメンバー</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
-<p>演算子や特別な関数をここに記す。ここでは <code class="code docutils literal notranslate"><span class="pre">G</span></code> などを PermutationGroup オブジェクトとする。</p>
+</section>
+<section id="id19">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">その他のメンバー</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<p>演算子や特別な関数をここに記す。ここでは <code class="docutils literal notranslate"><span class="pre">G</span></code> などを <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> オブジェクトとする。</p>
 <dl class="simple">
-<dt><code class="code docutils literal notranslate"><span class="pre">G[i]</span></code></dt><dd><p>置換群の <cite>i</cite> 番目の生成元を参照する。乗法表を書くときや、「下処理」に用いる。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">G[i]</span></code></dt><dd><p>置換群の <code class="docutils literal notranslate"><span class="pre">i</span></code> 番目の生成元を参照する。乗法表を書くときや、「下処理」に用いる。</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">len(G)</span></code></dt><dd><p>置換群の生成元の個数を返す。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">G</span> <span class="pre">==</span> <span class="pre">H</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">G</span></code> と <code class="code docutils literal notranslate"><span class="pre">H</span></code> それぞれのすべての生成元が同じかどうかを返す。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">G</span> <span class="pre">==</span> <span class="pre">H</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">G</span></code> と <code class="docutils literal notranslate"><span class="pre">H</span></code> それぞれのすべての生成元が同じかどうかを返す。</p>
 <ul class="simple">
-<li><p>オブジェクトの由来次第では両辺の置換群が同型であっても False を返すことがある。これは実装では <code class="code docutils literal notranslate"><span class="pre">.generators</span></code> を比較していることによる。</p></li>
+<li><p>オブジェクトの由来次第では両辺の置換群が同型であっても <code class="docutils literal notranslate"><span class="pre">False</span></code> を返すことがある。これは実装では <code class="docutils literal notranslate"><span class="pre">.generators</span></code> を比較していることによる。</p></li>
 </ul>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">G</span> <span class="pre">*</span> <span class="pre">H</span></code></dt><dd><p>直積群を置換群として生成する。次節の関数 <code class="code docutils literal notranslate"><span class="pre">DirectProduct</span></code> も参照。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">G</span> <span class="pre">*</span> <span class="pre">H</span></code></dt><dd><p>直積群を置換群として生成する。次節の関数 <code class="docutils literal notranslate"><span class="pre">DirectProduct</span></code> も参照。</p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="id20">
-<h2><a class="toc-backref" href="#id46">直積群</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id20">
+<h2><a class="toc-backref" href="#id46" role="doc-backlink">直積群</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.group_constructs</span></code> に群オブジェクトのコレクションから直積群オブジェクトを生成する関数がある。</p>
 <dl class="simple">
-<dt>関数 <code class="code docutils literal notranslate"><span class="pre">DirectProduct(*groups)</span></code></dt><dd><p>複数の PermutationGroup オブジェクトの直積をひとつの PermutationGroup として生成する。</p>
+<dt>関数 <code class="code docutils literal notranslate"><span class="pre">DirectProduct(*groups)</span></code></dt><dd><p>複数の <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> オブジェクトの直積を一つの <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> として生成する。</p>
 <ul class="simple">
 <li><p>単に <code class="code docutils literal notranslate"><span class="pre">G1</span> <span class="pre">*</span> <span class="pre">G2</span> <span class="pre">*</span> <span class="pre">...</span></code> としても同じ結果が得られる。効率の観点からは当関数を利用するほうが有利だそうだ。</p></li>
-<li><p>この関数の恩恵をもっとも受けるのは、おそらく後述する関数 <code class="code docutils literal notranslate"><span class="pre">AbelianGroup</span></code> である。</p></li>
+<li><p>この関数の恩恵をもっとも受けるのは、おそらく後述する関数 <code class="docutils literal notranslate"><span class="pre">AbelianGroup</span></code> である。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id21">
-<h2><a class="toc-backref" href="#id47">名前付き群</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
-<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.named_groups</span></code> にある群オブジェクト生成関数を見ていく。これらの関数は最終的にひとつの PermutationGroup オブジェクトを生成する。</p>
+</section>
+<section id="id21">
+<h2><a class="toc-backref" href="#id47" role="doc-backlink">名前付き群</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h2>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.named_groups</span></code> にある群オブジェクト生成関数を見ていく。これらの関数は最終的に一つの <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> オブジェクトを生成する。</p>
 <p>勝手に「名前付き」と訳したが、「名前のある」「名前を持っている」くらいの意味だろう。</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 60%" />
-</colgroup>
+<table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>関数</p></th>
 <th class="head"><p>機能</p></th>
@@ -728,25 +722,25 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <td><p>巡回群の直積群を生成する。</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">AlternatingGroup(n)</span></code></p></td>
-<td><p><cite>n</cite> 次交代群を生成する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 次交代群を生成する。</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">CyclicGroup(n)</span></code></p></td>
-<td><p><cite>n</cite> 次巡回群を生成する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 次巡回群を生成する。</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">DihedralGroup(n)</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">n</span></code> 次の二面体群を生成する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">n</span></code> 次の二面体群を生成する。</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">SymmetricGroup(n)</span></code></p></td>
-<td><p><cite>n</cite> 次対称群を生成する。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 次対称群を生成する。</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">RubikGroup(n)</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">PermutationGroup(rubik(n))</span></code> を返す。</p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="abeliangroup">
-<h3><a class="toc-backref" href="#id48">AbelianGroup</a><a class="headerlink" href="#abeliangroup" title="Permalink to this heading">¶</a></h3>
-<p>名前はアーベル群だが、実体は先ほどの DirectProduct の計算の利用による巡回群の直積群である。引数で与えたものの和が次数、積が位数になると覚えておくとよい。</p>
+<section id="abeliangroup">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">AbelianGroup</span></code></a><a class="headerlink" href="#abeliangroup" title="Permalink to this heading">¶</a></h3>
+<p>名前はアーベル群だが、実体は先ほどの <code class="docutils literal notranslate"><span class="pre">DirectProduct</span></code> の計算の利用による巡回群の直積群である。引数で与えたものの和が次数、積が位数になると覚えておくとよい。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">G</span> <span class="o">=</span> <span class="n">AbelianGroup</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="n">G</span>
 <span class="gh">Out[1]:</span>
 <span class="go">    PermutationGroup([</span>
@@ -778,9 +772,9 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <span class="gh">Out[5]: </span><span class="go">[1, 3, 3, 3, 3, 3, 3, 3, 3]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="alternatinggroup">
-<h3><a class="toc-backref" href="#id49">AlternatingGroup</a><a class="headerlink" href="#alternatinggroup" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="alternatinggroup">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">AlternatingGroup</span></code></a><a class="headerlink" href="#alternatinggroup" title="Permalink to this heading">¶</a></h3>
 <p>交代群。ここでは群の要素がすべて偶置換であることを見ておく。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">AlternatingGroup</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">AlternatingGroup</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="gh">Out[1]: </span><span class="go">True</span>
@@ -791,9 +785,9 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <span class="gh">Out[3]: </span><span class="go">True</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cyclicgroup">
-<h3><a class="toc-backref" href="#id50">CyclicGroup</a><a class="headerlink" href="#cyclicgroup" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="cyclicgroup">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">CyclicGroup</span></code></a><a class="headerlink" href="#cyclicgroup" title="Permalink to this heading">¶</a></h3>
 <p>巡回群。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">CyclicGroup</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">CyclicGroup</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="gh">Out[1]: </span><span class="go">True</span>
@@ -821,9 +815,9 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <span class="gh">Out[6]: </span><span class="go">True</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="dihedralgroup">
-<h3><a class="toc-backref" href="#id51">DihedralGroup</a><a class="headerlink" href="#dihedralgroup" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="dihedralgroup">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">DihedralGroup</span></code></a><a class="headerlink" href="#dihedralgroup" title="Permalink to this heading">¶</a></h3>
 <p>二面体群。引数は次数の半分を指定する。ここでは位数 2, 4, 6, 8 の二面体群の乗法表をそれぞれ出力する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="o">%</span><span class="k">paste</span>
 <span class="go">def group_multiplication_table(G):</span>
@@ -866,9 +860,9 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <span class="go">7 0 1 4 5 6 3 2</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="symmetricgroup">
-<h3><a class="toc-backref" href="#id52">SymmetricGroup</a><a class="headerlink" href="#symmetricgroup" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="symmetricgroup">
+<h3><a class="toc-backref" href="#id52" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">SymmetricGroup</span></code></a><a class="headerlink" href="#symmetricgroup" title="Permalink to this heading">¶</a></h3>
 <p>対称群。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">A5</span><span class="p">,</span> <span class="n">C5</span><span class="p">,</span> <span class="n">S5</span> <span class="o">=</span> <span class="n">AlternatingGroup</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">CyclicGroup</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">SymmetricGroup</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
@@ -888,9 +882,9 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <span class="gh">Out[6]: </span><span class="go">False</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="rubikgroup">
-<h3><a class="toc-backref" href="#id53">RubikGroup</a><a class="headerlink" href="#rubikgroup" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="rubikgroup">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">RubikGroup</span></code></a><a class="headerlink" href="#rubikgroup" title="Permalink to this heading">¶</a></h3>
 <p>ルービックキューブ群を生成する。通常は 3x3 なので 3 を指定する。整数点とキューブ小面との対応関係のイラストを用意しないと読み解けない。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">R3</span> <span class="o">=</span> <span class="n">RubikGroup</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
@@ -920,25 +914,25 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 <span class="go">{36} 1</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id22">
-<h2><a class="toc-backref" href="#id54">正多面体</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+<section id="id22">
+<h2><a class="toc-backref" href="#id54" role="doc-backlink">正多面体</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.polyhedron</span></code> に正多面体を表現するクラスが実装されている。そして、各正多面体に対応するオブジェクトが生成されており、ユーザーはこれらを参照することができる。</p>
-<div class="section" id="polyhedron">
-<h3><a class="toc-backref" href="#id55">クラス Polyhedron</a><a class="headerlink" href="#polyhedron" title="Permalink to this heading">¶</a></h3>
+<section id="polyhedron">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Polyhedron</span></code></a><a class="headerlink" href="#polyhedron" title="Permalink to this heading">¶</a></h3>
 <p>正多面体群を表現する。</p>
 <ul class="simple">
-<li><p>基底クラスが Basic であることをうまく利用できるかもしれない。</p></li>
-<li><p>このクラスと PermutationGroup との間に has-a 関係がある。</p></li>
+<li><p>基底クラスが <code class="docutils literal notranslate"><span class="pre">Basic</span></code> であることをうまく利用できるかもしれない。</p></li>
+<li><p>このクラスと <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> との間に has-a 関係がある。</p></li>
 </ul>
-<div class="section" id="id23">
-<h4><a class="toc-backref" href="#id56">プロパティー</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h4>
-<p>クラス Polyhedron のプロパティーは次のものがある。</p>
+<section id="id23">
+<h4><a class="toc-backref" href="#id56" role="doc-backlink">プロパティー</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h4>
+<p>クラス <code class="docutils literal notranslate"><span class="pre">Polyhedron</span></code> のプロパティーは次のものがある。</p>
 <dl>
-<dt><code class="code docutils literal notranslate"><span class="pre">array_form</span></code>, <code class="code docutils literal notranslate"><span class="pre">cyclic_form</span></code></dt><dd><p>それぞれ頂点のインデックスを先述の形式で得る。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">array_form</span></code>, <code class="docutils literal notranslate"><span class="pre">cyclic_form</span></code></dt><dd><p>それぞれ頂点のインデックスを先述の形式で得る。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">corners</span></code>, <code class="code docutils literal notranslate"><span class="pre">vertices</span></code>, <code class="code docutils literal notranslate"><span class="pre">size</span></code></dt><dd><p>最初のふたつのプロパティーは同一で、多面体の全頂点を返す。最後のプロパティーはこの多面体の頂点数を返す。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">corners</span></code>, <code class="docutils literal notranslate"><span class="pre">vertices</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code></dt><dd><p>最初のふたつのプロパティーは同一で、多面体の全頂点を返す。最後のプロパティーはこの多面体の頂点数を返す。</p>
 <p>例。生成済み多面体の頂点数を出力する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">solids</span> <span class="o">=</span> <span class="p">(</span><span class="n">tetrahedron</span><span class="p">,</span> <span class="n">cube</span><span class="p">,</span> <span class="n">octahedron</span><span class="p">,</span> <span class="n">dodecahedron</span><span class="p">,</span> <span class="n">icosahedron</span><span class="p">)</span>
 
@@ -947,7 +941,7 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 </pre></div>
 </div>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">edges</span></code>, <code class="code docutils literal notranslate"><span class="pre">faces</span></code></dt><dd><p>それぞれ多面体の全辺、全面を返す。どちらも頂点列を表す tuple の set オブジェクト。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">edges</span></code>, <code class="docutils literal notranslate"><span class="pre">faces</span></code></dt><dd><p>それぞれ多面体の全辺、全面を返す。どちらも頂点列を表す <code class="docutils literal notranslate"><span class="pre">tuple</span></code> の <code class="docutils literal notranslate"><span class="pre">set</span></code> オブジェクト。</p>
 <p>例。正四面体の辺と面を出力する。また、各多面体において Euler の多面体公式を確認する。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">tetrahedron</span><span class="o">.</span><span class="n">edges</span>
 <span class="gh">Out[1]: </span><span class="go">{(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)}</span>
@@ -960,8 +954,8 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 </pre></div>
 </div>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">pgroup</span></code></dt><dd><p>多面体群を返す。PermutationGroup オブジェクト。</p>
-<p>例。正四面体群の位数が 12 であることと 4 次の交代群と同型であることを見る。</p>
+<dt><code class="docutils literal notranslate"><span class="pre">pgroup</span></code></dt><dd><p>多面体群を返す。<code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> オブジェクト。</p>
+<p>例。正四面体群の位数が 12 であることと四次の交代群と同型であることを見る。</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">T4</span> <span class="o">=</span> <span class="n">tetrahedron</span><span class="o">.</span><span class="n">pgroup</span>
 
 <span class="gp">In [2]: </span><span class="n">T4</span><span class="o">.</span><span class="n">order</span><span class="p">()</span>
@@ -978,28 +972,28 @@ Permutation オブジェクトではなく list オブジェクトを列挙す�
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="id24">
-<h4><a class="toc-backref" href="#id57">メソッド</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h4>
+</section>
+<section id="id24">
+<h4><a class="toc-backref" href="#id57" role="doc-backlink">メソッド</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h4>
 <p>メソッドはそれほど多くない。</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">reset()</span></code></dt><dd><p>オブジェクトを「初期状態」に復元する。</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">rotate(perm)</span></code></dt><dd><p>この多面体に置換 <code class="code docutils literal notranslate"><span class="pre">perm</span></code> を作用させる。</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">rotate(perm)</span></code></dt><dd><p>この多面体に置換 <code class="docutils literal notranslate"><span class="pre">perm</span></code> を作用させる。</p>
 <ul class="simple">
 <li><p>メソッドは引数の置換が妥当であるか判断しないので、呼び出し側で気を遣う必要がある。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-</div>
-</div>
-<div class="section" id="id25">
-<h2><a class="toc-backref" href="#id58">テンソルの正規化</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
-<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.tensor_con</span></code> にはテンソルの正規化に関する関数が何個かある。どの関数も PermutationGroup を利用しているため、この階層にこのモジュールがある。本格的なテンソル代数モジュールが別にあるので、そちらを見てから再びここに戻ってくる予定。</p>
+</section>
+</section>
+</section>
+<section id="id25">
+<h2><a class="toc-backref" href="#id58" role="doc-backlink">テンソルの正規化</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
+<p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.combinatorics.tensor_con</span></code> にはテンソルの正規化に関する関数が何個かある。どの関数も <code class="docutils literal notranslate"><span class="pre">PermutationGroup</span></code> を利用しているため、この階層にこのモジュールがある。本格的なテンソル代数モジュールが別にあるので、そちらを見てから再びここに戻ってくる予定。</p>
 <p><a class="reference internal" href="tensor.html"><span class="doc">テンソル代数</span></a> を参照。</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
