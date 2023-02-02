@@ -217,8 +217,8 @@ to mermaid.js as a separate file.:</p>
 <code class="docutils literal notranslate"><span class="pre">&lt;div</span> <span class="pre">class=&quot;mermaid&quot;&gt;</span></code> tags that it finds in the html body and renders them
 into diagrams. Example:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"> </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"> </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
 <span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </pre></div>
@@ -267,30 +267,30 @@ execution of <code class="docutils literal notranslate"><span class="pre">mermai
 </pre></div>
 </div>
 <p><code class="file docutils literal notranslate"><span class="pre">_static</span></code> ディレクトリーにスクリプトファイル <code class="file docutils literal notranslate"><span class="pre">mermaid.js</span></code> を次のような内容で保存する（よりスマートなコードにしたい）：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">MERMAID_CLASS_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;.mermaid&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">MERMAID_CLASS_NAME</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">MERMAID_CLASS_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;.mermaid&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">MERMAID_CLASS_NAME</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">js</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="nx">js</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">js</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"></span>
-<span class="w">            </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nx">theme</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;base&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nx">themeVariables</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="nx">primaryColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nx">lineColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nx">textColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="nx">primaryBorderColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="c1">// etc.</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">});</span><span class="w"></span>
-<span class="w">        </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">MERMAID_CLASS_NAME</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">js</span><span class="p">);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">js</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">js</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">js</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+<span class="w">            </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">theme</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;base&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">themeVariables</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">primaryColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">lineColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">textColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">primaryBorderColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="c1">// etc.</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">MERMAID_CLASS_NAME</span><span class="p">));</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">js</span><span class="p">);</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 <p>こうすると、rst ファイルに <code class="docutils literal notranslate"><span class="pre">mermaid</span></code> ディレクティブのあった HTML だけが上記
@@ -303,8 +303,8 @@ URL から Mermaid のメインスクリプトをダウンロードして、図�
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">            </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"> </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"> </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
 <span class="w">        </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
         Here is one mermaid diagram:
@@ -347,8 +347,8 @@ separate JavaScript file, in an example Path.</p>
             B --&gt; D[Server2]
         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;The\Path\In\Your\Package\mermaid.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">            </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"> </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span><span class="w"> </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
 <span class="w">        </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -540,6 +540,7 @@ way which still works.</p></li>
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -574,7 +575,7 @@ way which still works.</p></li>
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

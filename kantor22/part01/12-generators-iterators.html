@@ -66,9 +66,9 @@
 <section id="generator-functions">
 <h3>Generator functions<a class="headerlink" href="#generator-functions" title="Permalink to this heading">¶</a></h3>
 <p>ジェネレーターを定義するには専用の構文を書く：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="o">*</span><span class="w"> </span><span class="nx">generateSequence</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// function body...</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="o">*</span><span class="w"> </span><span class="nx">generateSequence</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// function body...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -102,33 +102,33 @@
 <section id="using-generators-for-iterables">
 <h3>Using generators for iterables<a class="headerlink" href="#using-generators-for-iterables" title="Permalink to this heading">¶</a></h3>
 <p>以前習った <code class="docutils literal notranslate"><span class="pre">range</span></code> をジェネレーター関数に書き直す。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kr">from</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">to</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">from</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">to</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span>
 
-<span class="w">    </span><span class="c1">// a shorthand for [Symbol.iterator]: function*()</span><span class="w"></span>
-<span class="w">    </span><span class="o">*</span><span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">from</span><span class="p">;</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">to</span><span class="p">;</span><span class="w"> </span><span class="nx">value</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">yield</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// a shorthand for [Symbol.iterator]: function*()</span>
+<span class="w">    </span><span class="o">*</span><span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">from</span><span class="p">;</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">to</span><span class="p">;</span><span class="w"> </span><span class="nx">value</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">yield</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 </section>
 <section id="generator-composition">
 <h3>Generator composition<a class="headerlink" href="#generator-composition" title="Permalink to this heading">¶</a></h3>
 <p>ジェネレーター合成とは、ジェネレーター同士を透過的に「埋め込む」ことを可能にする特別な機能だ。それには <code class="docutils literal notranslate"><span class="pre">yield*</span></code> 文を使う。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="o">*</span><span class="w"> </span><span class="nx">generatePasswordCodes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// 0..9</span><span class="w"></span>
-<span class="w">    </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">48</span><span class="p">,</span><span class="w"> </span><span class="mf">58</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="o">*</span><span class="w"> </span><span class="nx">generatePasswordCodes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 0..9</span>
+<span class="w">    </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">48</span><span class="p">,</span><span class="w"> </span><span class="mf">58</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// A..Z</span><span class="w"></span>
-<span class="w">    </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">65</span><span class="p">,</span><span class="w"> </span><span class="mf">91</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// A..Z</span>
+<span class="w">    </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">65</span><span class="p">,</span><span class="w"> </span><span class="mf">91</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// a..z</span><span class="w"></span>
-<span class="w">    </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">97</span><span class="p">,</span><span class="w"> </span><span class="mf">123</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// a..z</span>
+<span class="w">    </span><span class="k">yield</span><span class="o">*</span><span class="w"> </span><span class="nx">range</span><span class="p">(</span><span class="mf">97</span><span class="p">,</span><span class="w"> </span><span class="mf">123</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -363,6 +363,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -399,7 +400,7 @@
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

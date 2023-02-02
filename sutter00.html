@@ -190,16 +190,16 @@
 <h3><a class="toc-backref" href="#id45" role="doc-backlink">大文字小文字を区別しない文字列</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>まず最初に「大文字小文字を区別しない文字列クラス」を書くことを検討している。
 <code class="docutils literal notranslate"><span class="pre">basic_string</span></code> テンプレートの <code class="docutils literal notranslate"><span class="pre">traits</span></code> パラメータに相当する構造体を自作する手法による。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">ci_char_traits</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">eq</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c2</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c2</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">...</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">ci_char_traits</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">eq</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c2</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c2</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">};</span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="n">basic_string</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="n">ci_char_traits</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ci_string</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">basic_string</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="n">ci_char_traits</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ci_string</span><span class="p">;</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -218,12 +218,12 @@
 <ul>
 <li><p>テンプレートメンバ関数は、決してコピーコンストラクタ、代入演算子たり得ない。</p></li>
 <li><p>例外安全という用語が、本書で初めて登場する。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">O</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">osize</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">fixed_vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">fixed_vector</span><span class="o">&lt;</span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">osize</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">osize</span><span class="p">),</span><span class="w"> </span><span class="n">begin</span><span class="p">());</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">O</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">osize</span><span class="o">&gt;</span>
+<span class="n">fixed_vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">fixed_vector</span><span class="o">&lt;</span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">osize</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">osize</span><span class="p">),</span><span class="w"> </span><span class="n">begin</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>&lt;<code class="docutils literal notranslate"><span class="pre">T</span></code> 代入演算子の 1 つが <code class="docutils literal notranslate"><span class="pre">copy()</span></code> 操作の途中で失敗すると、そのオブジェクトは矛盾した状態に陥ってしまう。私達の <code class="docutils literal notranslate"><span class="pre">fixed_vector</span></code> オブジェクトの内容のいくつかは、代入に失敗する前の状態を保つだろうが、他の部分はすでに更新されてしまっていることになる&gt; (p. 17)</p>
@@ -324,12 +324,12 @@
 <code class="docutils literal notranslate"><span class="pre">Stack</span></code> 側で <code class="docutils literal notranslate"><span class="pre">std::construct</span></code> による <code class="docutils literal notranslate"><span class="pre">T</span></code> オブジェクトの構築と、
 <code class="docutils literal notranslate"><span class="pre">StackImpl::vused_</span></code> の更新を行う。</p></li>
 <li><p>代入演算子。以下のコードが本書最大の功績の一つだろう。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Stack</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Stack</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Stack</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Stack</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
 <span class="w">    </span><span class="n">Stack</span><span class="w"> </span><span class="nf">temp</span><span class="p">(</span><span class="n">other</span><span class="p">);</span><span class="w">  </span><span class="c1">// これがすべての仕事を行う。</span>
 <span class="w">    </span><span class="n">Swap</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span><span class="w">         </span><span class="c1">// これは例外を投げない。</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -443,18 +443,18 @@ Methodデザインパターンを導入することを勧めている。完全�
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">private</span></code> 部がヘッダファイルで見えてしまっているので、クライアントコードは、<code class="docutils literal notranslate"><span class="pre">private</span></code> 部の使用する全ての型に依存してしまう&gt; (p. 118) <code class="docutils literal notranslate"><span class="pre">private</span></code> 部に変更があったときでも、クライアント側に再コンパイルを強いるのは不親切。</p></li>
 <li><p>Pimpl とは著者による造語だと思われる。クラスの <code class="docutils literal notranslate"><span class="pre">private</span></code> 部を曝さぬように、隠蔽ポインタメンバーデータを使用するものだ。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// x.h ファイル</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
 <span class="w">    </span><span class="c1">// public と protected メンバ</span>
-<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span>
 <span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">XImpl</span><span class="o">*</span><span class="w"> </span><span class="n">pimpl_</span><span class="p">;</span><span class="w"> </span><span class="c1">// 先行宣言してあるクラスへのポインタ</span>
-<span class="p">};</span><span class="w"></span>
+<span class="p">};</span>
 
 <span class="c1">// x.cpp ファイル</span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">X</span><span class="o">::</span><span class="n">XImpl</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">X</span><span class="o">::</span><span class="n">XImpl</span>
+<span class="p">{</span>
 <span class="w">    </span><span class="c1">// X の private 部相当を実装</span>
-<span class="p">};</span><span class="w"></span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>利点はコンパイルの依存性を断ち切ることであり、欠点はパフォーマンスが高くつくかもしれないこと。<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> のメモリ確保・削除、<code class="docutils literal notranslate"><span class="pre">XImpl</span></code> - <code class="docutils literal notranslate"><span class="pre">X</span></code> 間の参照が面倒、等。</p>
@@ -485,18 +485,18 @@ Methodデザインパターンを導入することを勧めている。完全�
 <ul>
 <li><p>Koenig の自動照合を簡単に説明すると、次のようになる。&lt;関数の引数がクラス型の場合、コンパイラは、正しい関数名を照合するため、関数の引数の型定義を含む名前空間で、一致する関数名がないか調べる&gt; (p. 139)</p>
 <p>例えば、以下のコードはコンパイルされる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">NS</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">{</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">T</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">NS</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="n">NS</span><span class="o">::</span><span class="n">T</span><span class="w"> </span><span class="n">parm</span><span class="p">;</span><span class="w"></span>
+<span class="n">NS</span><span class="o">::</span><span class="n">T</span><span class="w"> </span><span class="n">parm</span><span class="p">;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">parm</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">parm</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -515,7 +515,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 <li><p>定義から自動的に、任意の <code class="docutils literal notranslate"><span class="pre">X</span></code> のメンバ関数は構成要素ということになる。</p></li>
 <li><p>クラス <code class="docutils literal notranslate"><span class="pre">X</span></code> と同じヘッダ内で、フリー関数の引数に <code class="docutils literal notranslate"><span class="pre">X</span></code> が用いられるものも、
 <code class="docutils literal notranslate"><span class="pre">X</span></code> の構成要素である。例えば</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="p">{</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
 <span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">X</span><span class="o">&amp;</span><span class="p">);</span><span class="w">  </span><span class="c1">// これは構成要素</span>
 </pre></div>
 </div>
@@ -524,36 +524,36 @@ Methodデザインパターンを導入することを勧めている。完全�
 </li>
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">operator+</span></code> は左辺の引数の型変換を可能にするため、メンバ関数とすべきではない&gt; (p. 144)</p></li>
 <li><p>&lt;Koenig の自動照合は、コンパイラに適切な動作をさせる&gt; (p. 145)</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1"> // cout</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="c1"> // 文字列の operator&lt;&lt;() の宣言を含む</span><span class="cp"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1"> // cout</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="c1"> // 文字列の operator&lt;&lt;() の宣言を含む</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello, world&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello, world&quot;</span><span class="p">;</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hello</span><span class="p">;</span><span class="w"> </span><span class="c1">// 自動照合により、std::operator&lt;&lt; を呼び出す。</span>
 
 <span class="w">    </span><span class="c1">// もし自動照合が存在せず、using namespace std; をしないならば</span>
 <span class="w">    </span><span class="c1">// こういうふうに書かなければいけなかった。</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">hello</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">hello</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
 <li><p>名前空間に関数を追加することは、その名前空間の外側のコードを「破壊」する。次のコード片で <code class="docutils literal notranslate"><span class="pre">A</span></code> と <code class="docutils literal notranslate"><span class="pre">B</span></code> の作者・定義場所が違うときのケースを考える。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="p">{</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
 <span class="w">    </span><span class="c1">//void f(X); // コメントを解除するだけで B::g をコンパイル不可能にする。</span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">}</span>
 
-<span class="k">namespace</span><span class="w"> </span><span class="nn">B</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">A</span><span class="o">::</span><span class="n">X</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">A</span><span class="o">::</span><span class="n">X</span><span class="w"> </span><span class="n">parm</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">B</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">A</span><span class="o">::</span><span class="n">X</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">A</span><span class="o">::</span><span class="n">X</span><span class="w"> </span><span class="n">parm</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">f</span><span class="p">(</span><span class="n">parm</span><span class="p">);</span><span class="w"> </span><span class="c1">// A::f を生かすとオーバーロードの解決に失敗する。</span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -564,27 +564,27 @@ Methodデザインパターンを導入することを勧めている。完全�
 <p>クラスに対する <code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code> を書く方法は主に二つ。</p>
 <ol class="loweralpha">
 <li><p>クラスの通常のインターフェイスのみ使うフリー関数とする方法</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="p">{</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
 
-<span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">X</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">X</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
 <span class="w">    </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">o</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">o</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
 <li><p>クラスのヘルパー関数 <code class="docutils literal notranslate"><span class="pre">Print()</span></code> を呼び出すフリー関数とする方法</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">X</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">X</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -672,23 +672,23 @@ Methodデザインパターンを導入することを勧めている。完全�
 (p. 175)</p></li>
 <li><p>ポインタデータメンバを安全にラップすることにも使用できる。Pimpl イディオム実装時に頻出。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// c.h</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">C</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">C</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="o">~</span><span class="n">C</span><span class="p">();</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">C</span><span class="p">();</span>
+<span class="w">    </span><span class="o">~</span><span class="n">C</span><span class="p">();</span>
 <span class="w">    </span><span class="c1">//...</span>
-<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span>
 <span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">CImpl</span><span class="p">;</span><span class="w"> </span><span class="c1">// 先行宣言</span>
-<span class="w">    </span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">CImpl</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pimpl_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">C</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">C</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">C</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">C</span><span class="o">&amp;</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">CImpl</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pimpl_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">C</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">C</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">C</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">C</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
 
 <span class="c1">// c.cpp</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">C</span><span class="o">::</span><span class="n">CImpl</span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="n">C</span><span class="o">::</span><span class="n">C</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">pimpl_</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">CImpl</span><span class="p">){</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="n">C</span><span class="o">::~</span><span class="n">C</span><span class="p">(){</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C</span><span class="o">::</span><span class="n">CImpl</span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span>
+<span class="n">C</span><span class="o">::</span><span class="n">C</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">pimpl_</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">CImpl</span><span class="p">){</span><span class="w"> </span><span class="p">}</span>
+<span class="n">C</span><span class="o">::~</span><span class="n">C</span><span class="p">(){</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -722,7 +722,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 <li><p>間違ったコードのコンパイルを簡単に通してしまう。</p></li>
 </ol>
 <p>2. の例として、<code class="docutils literal notranslate"><span class="pre">string</span></code> が <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code> に暗黙の型変換が存在するとすれば、次のコードのコンパイルが通る。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="n">s3</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="n">s3</span><span class="p">;</span>
 <span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s3</span><span class="p">;</span><span class="w"> </span><span class="c1">// 右辺は const char* ポインタの差となり、左辺 s1 に代入しようとする</span>
 </pre></div>
 </div>
@@ -953,6 +953,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 <li class="toctree-l1"><a class="reference internal" href="hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -985,7 +986,7 @@ Methodデザインパターンを導入することを勧めている。完全�
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

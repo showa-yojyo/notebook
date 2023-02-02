@@ -96,9 +96,9 @@
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">Promise</a><a class="headerlink" href="#promise" title="Permalink to this heading">¶</a></h2>
 <p>&lt;<a class="reference external" href="https://javascript.info/promise-basics">https://javascript.info/promise-basics</a>&gt; のノート。</p>
 <p>マルチスレッド処理でよく説明される consumer/producer のパターンで理解する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// the producing code</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// the producing code</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> に渡す関数を executor と言う。その引数 <code class="docutils literal notranslate"><span class="pre">resolve</span></code>, <code class="docutils literal notranslate"><span class="pre">reject</span></code> がそれぞれ前項の <code class="docutils literal notranslate"><span class="pre">onload</span></code>, <code class="docutils literal notranslate"><span class="pre">onerror</span></code> に対応する。</p>
@@ -141,17 +141,17 @@
 <div class="admonition- admonition">
 <p class="admonition-title">学習者ノート</p>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の基本動作を確認しておくといい。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;POOR&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;POOR&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;POOR&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">reject</span><span class="p">(</span><span class="s2">&quot;POOR&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">resolve()</span></code> も <code class="docutils literal notranslate"><span class="pre">reject()</span></code> も呼び出さないままでいると、内部状態は pending
@@ -166,10 +166,10 @@
 <section id="then">
 <h4><code class="docutils literal notranslate"><span class="pre">then</span></code><a class="headerlink" href="#then" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Primise</span></code> のメソッドでいちばん基本的かつ重要なのは <code class="docutils literal notranslate"><span class="pre">then</span></code> だ。その引数リストは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> のコンストラクター関数と同様だ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle a successful result */</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle an error */</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle a successful result */</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle an error */</span><span class="w"> </span><span class="p">}</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -238,7 +238,7 @@
 <h3>Bigger example: <code class="docutils literal notranslate"><span class="pre">fetch</span></code><a class="headerlink" href="#bigger-example-fetch" title="Permalink to this heading">¶</a></h3>
 <p>ネットワークリクエストには <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がよく用いられる。</p>
 <p>リモートサーバーから情報を読み込むにはメソッド <code class="docutils literal notranslate"><span class="pre">fetch</span></code> を使用する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -266,15 +266,15 @@
 <section id="implicit-try-catch">
 <h3>Implicit <code class="docutils literal notranslate"><span class="pre">try</span></code> … <code class="docutils literal notranslate"><span class="pre">catch</span></code><a class="headerlink" href="#implicit-try-catch" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> executor やコールバックの周りには見えない <code class="docutils literal notranslate"><span class="pre">try</span></code> ブロックがあると考える。エラーが起こると、それを捕まえて <code class="docutils literal notranslate"><span class="pre">reject</span></code> するように扱う。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// == reject(new Error(&quot;Whoops!&quot;));</span><span class="w"></span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">alert</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// == reject(new Error(&quot;Whoops!&quot;));</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">alert</span><span class="p">);</span>
 
-<span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// == reject(new Error(&quot;Whoops!&quot;));</span><span class="w"></span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">alert</span><span class="p">);</span><span class="w"></span>
+<span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// == reject(new Error(&quot;Whoops!&quot;));</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">alert</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -286,8 +286,8 @@
 <section id="unhandled-rejections">
 <h3>Unhandled rejections<a class="headerlink" href="#unhandled-rejections" title="Permalink to this heading">¶</a></h3>
 <p>ブラウザーの場合には、<code class="docutils literal notranslate"><span class="pre">Promise</span></code> が送出した捕捉されなかった例外を扱うイベントハンドラーがある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -319,7 +319,7 @@
 <p>クラスメソッドの紹介。</p>
 <section id="promise-all">
 <h3><code class="docutils literal notranslate"><span class="pre">Promise.all</span></code><a class="headerlink" href="#promise-all" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> は並行処理を join するイメージでよい。結果からなる配列を返す。エラーがなにか一つでも発生すると、すべてが無になる。また、未済処理が中断されるようなことはない。All or nothing な条件のときに利用するといい。</p>
@@ -340,7 +340,7 @@
 <section id="promise-race">
 <h3><code class="docutils literal notranslate"><span class="pre">Promise.race</span></code><a class="headerlink" href="#promise-race" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> と似ているが、最初に決済された promise だけを待ち、その結果またはエラーを得る。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">race</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">race</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -349,7 +349,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">Promise.race</span></code> と似ている。最初に成功した promise だけを待ち、その結果を得る。与えられた promise がすべて <code class="docutils literal notranslate"><span class="pre">reject</span></code> された場合、返された promise は
 <code class="docutils literal notranslate"><span class="pre">AggregateError</span></code> で <code class="docutils literal notranslate"><span class="pre">reject</span></code> される。これにはエラー全てをが含むプロパティー
 <code class="docutils literal notranslate"><span class="pre">errors</span></code> がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">any</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">any</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -359,14 +359,14 @@
 <section id="promise-resolve">
 <h4><code class="docutils literal notranslate"><span class="pre">Promise.resolve</span></code><a class="headerlink" href="#promise-resolve" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.resolve(value)</span></code> は次と同じ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">));</span>
 </pre></div>
 </div>
 </section>
 <section id="promise-reject">
 <h4><code class="docutils literal notranslate"><span class="pre">Promise.reject</span></code><a class="headerlink" href="#promise-reject" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.reject(error)</span></code> は次と同じ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
 </pre></div>
 </div>
 </section>
@@ -413,14 +413,14 @@
 <h3>Await<a class="headerlink" href="#await" title="Permalink to this heading">¶</a></h3>
 <p>キーワード <code class="docutils literal notranslate"><span class="pre">await</span></code> は非同期関数の中だけで機能する。例えば、下のコードは
 <code class="docutils literal notranslate"><span class="pre">await</span></code> の行で一時停止することになる：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;done!&quot;</span><span class="p">),</span><span class="w"> </span><span class="mf">1000</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;done!&quot;</span><span class="p">),</span><span class="w"> </span><span class="mf">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="p">});</span>
 
-<span class="w">    </span><span class="c1">// wait until the promise resolves</span><span class="w"></span>
-<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">promise</span><span class="p">);</span><span class="w"> </span><span class="c1">// &quot;done!&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// wait until the promise resolves</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">promise</span><span class="p">);</span><span class="w"> </span><span class="c1">// &quot;done!&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>何かを <code class="docutils literal notranslate"><span class="pre">await</span></code> すると、CPU は終了まで他のコードを実行することができるかもしれない。</p>
@@ -431,9 +431,9 @@
 <section id="error-handling">
 <h3>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">promise</span></code> は reject された場合には、その行に <code class="docutils literal notranslate"><span class="pre">throw</span></code> 文があるかのようにエラーを送出する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">));</span><span class="w"> </span><span class="c1">// == throw new Error(&quot;Whoops!&quot;);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s2">&quot;Whoops!&quot;</span><span class="p">));</span><span class="w"> </span><span class="c1">// == throw new Error(&quot;Whoops!&quot;);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code> を使う場合には <code class="docutils literal notranslate"><span class="pre">then</span></code> はほとんど必要ない。<code class="docutils literal notranslate"><span class="pre">await</span></code> が待機時間をプログラマーに代わり処理する。そして <code class="docutils literal notranslate"><span class="pre">catch</span></code> の代わりに通常の
@@ -615,6 +615,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -651,7 +652,7 @@
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

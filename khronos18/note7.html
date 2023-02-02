@@ -169,9 +169,9 @@
 <p><code class="docutils literal notranslate"><span class="pre">gl_Position</span></code>, <code class="docutils literal notranslate"><span class="pre">gl_PointSize</span></code>, <code class="docutils literal notranslate"><span class="pre">gl_ClipDistance</span></code>, <code class="docutils literal notranslate"><span class="pre">gl_CullDistance</span></code> は、直前のシェーダー段階に対応する出力に書き込まれた値を含む。</p>
 <p><code class="docutils literal notranslate"><span class="pre">gl_PatchVerticesIn</span></code> と <code class="docutils literal notranslate"><span class="pre">gl_PrimitiveID</span></code> は細分化制御シェーダーで対応する入力変数と同じ方法で定義される。</p>
 <p><code class="docutils literal notranslate"><span class="pre">gl_TessCoord</span></code> は細分化される基本形状に対するシェーダーで処理される頂点の位置を識別する三成分 <code class="docutils literal notranslate"><span class="pre">(u,</span> <span class="pre">v</span> <span class="pre">,w)</span></code> ベクトルを指定する。値は以下の性質に従い、細分計算を再現する援助とする：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// two operations performed</span><span class="w"></span>
-<span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1">// two operations performed</span><span class="w"></span>
-<span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="c1">// two operations performed</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// two operations performed</span>
+<span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1">// two operations performed</span>
+<span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">gl_TessCoord</span><span class="p">.</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="c1">// two operations performed</span>
 </pre></div>
 </div>
 <p>細分化制御シェーダーがアクティブな場合、入力変数 <code class="docutils literal notranslate"><span class="pre">gl_TessLevelOuter</span></code> と
@@ -313,15 +313,15 @@ DispatchCompute API 入場地点に渡された <code class="docutils literal no
 <code class="docutils literal notranslate"><span class="pre">gl_LocalInvocationID</span></code> の使用は、<code class="docutils literal notranslate"><span class="pre">local_size_x</span></code>, <code class="docutils literal notranslate"><span class="pre">local_size_y</span></code>,
 <code class="docutils literal notranslate"><span class="pre">local_size_z</span></code> の宣言の前に許される。</p>
 <p>組み込み変数 <code class="docutils literal notranslate"><span class="pre">gl_GlobalInvocationID</span></code> は、現在の作業項目の大域インデックスを含む計算シェーダーの入力変数だ。この値は、現在の <code class="docutils literal notranslate"><span class="pre">DispatchCompute</span></code> 呼び出しによって開始されたすべての作業グループにわたる他のすべての呼び出しからこの呼び出しを一意に識別する。これは次のように計算される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_GlobalInvocationID</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="nb">gl_WorkGroupID</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">gl_LocalInvocationID</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_GlobalInvocationID</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="nb">gl_WorkGroupID</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">gl_LocalInvocationID</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>組み込み変数 <code class="docutils literal notranslate"><span class="pre">gl_LocalInvocationIndex</span></code> は <code class="docutils literal notranslate"><span class="pre">gl_LocalInvocationID</span></code> の一次元表現を含む計算シェーダーの入力変数だ。これは次のように計算される：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_LocalInvocationIndex</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="nb">gl_LocalInvocationID</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">    </span><span class="nb">gl_LocalInvocationID</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">    </span><span class="nb">gl_LocalInvocationID</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="nb">gl_LocalInvocationIndex</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="nb">gl_LocalInvocationID</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nb">gl_LocalInvocationID</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gl_WorkGroupSize</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nb">gl_LocalInvocationID</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gl_LocalInvocationIndex</span></code> の使用は、<code class="docutils literal notranslate"><span class="pre">local_size_x</span></code>, <code class="docutils literal notranslate"><span class="pre">local_size_y</span></code>,
@@ -331,28 +331,28 @@ DispatchCompute API 入場地点に渡された <code class="docutils literal no
 <span id="khronos18-7-1-7"></span><h4><a class="toc-backref" href="#id17" role="doc-backlink">7.1.7. Compatibility Profile Built-In Language Variables</a><a class="headerlink" href="#compatibility-profile-built-in-language-variables" title="Permalink to this heading">¶</a></h4>
 <p>互換性プロファイルを使用する場合、GL は頂点および断片のプログラム可能パイプライン段階に固定機能の動作を供給することができる。例えば、固定機能の頂点段階とプログラム可能な断片段階を混在させることができる。</p>
 <p>後続のプログラム可能シェーダ段階や固定機能の断片段階の入力を指定するために、次の組み込み頂点、細分化制御、細分化評価、幾何出力変数が利用可能だ。特定の変数は、対応する断片シェーダーまたは固定パイプラインのいずれかの機能がその変数またはその変数から派生した状態を使用する場合、書き込まれるべきだ。それ以外の場合、動作は未定義だ。これらの言語では、出力 <code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> ブロックに以下のメンバーが追加されている：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// part of the gl_PerVertex block described in 7.1</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// in addition to other gl_PerVertex members...</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_ClipVertex</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontSecondaryColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackSecondaryColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_TexCoord</span><span class="p">[];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_FogFragCoord</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// part of the gl_PerVertex block described in 7.1</span>
+<span class="w">    </span><span class="c1">// in addition to other gl_PerVertex members...</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_ClipVertex</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontSecondaryColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackSecondaryColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_TexCoord</span><span class="p">[];</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_FogFragCoord</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>出力変数 <code class="docutils literal notranslate"><span class="pre">gl_ClipVertex</span></code> は、頂点シェーダーと幾何シェーダーが、ユーザー切り取り平面で使用する座標を書き込む場所を与える。<code class="docutils literal notranslate"><span class="pre">gl_ClipDistance</span></code> への書き込みは、ユーザー切り取りのための好ましい方法だ。プログラムを構成する一連のシェーダーが
 <code class="docutils literal notranslate"><span class="pre">gl_ClipVertex</span></code> と``gl_ClipDistance`` または <code class="docutils literal notranslate"><span class="pre">gl_CullDistance</span></code> の両方を静的に読み書きすることは、コンパイルエラーまたはリンクエラーとなる。
 <code class="docutils literal notranslate"><span class="pre">gl_ClipVertex</span></code> も <code class="docutils literal notranslate"><span class="pre">gl_ClipDistance</span></code> も書き込まれていない場合、それらの値は未定義であり、ユーザー切り取り平面に対するいかなる切り取りも未定義となる。</p>
 <p>前にコアプロファイルについて説明したのと同様に、<code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> ブロックをシェーダーで再宣言して、これらの追加メンバーを明示的に含めることができる。例えば：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_Position</span><span class="p">;</span><span class="w">    </span><span class="c1">// will use gl_Position</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FrontColor</span><span class="p">;</span><span class="w">  </span><span class="c1">// will consume gl_color in the fragment shader</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_BackColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_TexCoord</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"> </span><span class="c1">// 3 elements of gl_TexCoord will be used</span><span class="w"></span>
-<span class="p">};</span><span class="w"> </span><span class="c1">// no other aspects of the fixed interface will be used</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_Position</span><span class="p">;</span><span class="w">    </span><span class="c1">// will use gl_Position</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FrontColor</span><span class="p">;</span><span class="w">  </span><span class="c1">// will consume gl_color in the fragment shader</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_BackColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_TexCoord</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"> </span><span class="c1">// 3 elements of gl_TexCoord will be used</span>
+<span class="p">};</span><span class="w"> </span><span class="c1">// no other aspects of the fixed interface will be used</span>
 </pre></div>
 </div>
 <p>ユーザーは切り取り頂点とユーザー切り取り平面が同じ座標空間で定義されていることを間違いなくする必要がある。ユーザー切り取り平面は線形変換のもとでしか適切に動作しない。非線形変換のもとで何が起こるかは未定義である。</p>
@@ -360,40 +360,40 @@ DispatchCompute API 入場地点に渡された <code class="docutils literal no
 <code class="docutils literal notranslate"><span class="pre">gl_BackSecondaryColor</span></code> は、処理される頂点を含む基本形状の正面と背面の一次色と二次色を代入する。出力変数 <code class="docutils literal notranslate"><span class="pre">gl_TexCoord</span></code> は処理される頂点のテクスチャー座標を代入する。</p>
 <p><code class="docutils literal notranslate"><span class="pre">gl_FogFragCoord</span></code> の場合、OpenGL 仕様の互換性プロファイルの 16.4 “Fog” の “c”値として、固定機能パイプラインで使用されるので、書き込まれた値が使用される。例えば、カメラ空間における断片の <code class="docutils literal notranslate"><span class="pre">z</span></code> 座標を “c” としたい場合、それが頂点シェーダーの実行形式が <code class="docutils literal notranslate"><span class="pre">gl_FogFragCoord</span></code> に書き込むべき値だ。</p>
 <p>すべての配列と同様に、<code class="docutils literal notranslate"><span class="pre">gl_TexCoord</span></code> の添字に使用されるインデックスは、定整数式であるか、またはこの配列がシェーダーによってサイズと一緒に再宣言されなければならない。このサイズは最大 <code class="docutils literal notranslate"><span class="pre">gl_MaxTextureCoords</span></code> にすることができる。0 に近いインデックスを使用すると、実装が様々な (varying) 資源を保存するのに役立つかもしれない。<code class="docutils literal notranslate"><span class="pre">gl_TexCoord</span></code> の再宣言は、例えば、大域スコープで行うこともできる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_TexCoord</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
-<span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_TexCoord</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_TexCoord</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_TexCoord</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
 </pre></div>
 </div>
 <p>なお、この処理は <code class="docutils literal notranslate"><span class="pre">gl_TexCoord[]</span></code> の特殊な場合であり、ブロックのメンバーを再宣言するための一般的な方法ではない。<code class="docutils literal notranslate"><span class="pre">gl_TexCoord[]</span></code> を大域スコープで再宣言すると、対応する組み込みブロックの再宣言がある場合にはコンパイルエラーとなる。シェーダー内では一つの形式の再宣言しか認められない（それゆえ、ブロックの再宣言はそれを使用するすべてのシェーダーに亘って一致しなければならないため、段階内でも同様だ）。</p>
 <p>細分化制御、同評価、幾何シェーダーでは、上述の直前段階の出力は、これらの言語の入力 <code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> ブロックでも利用可能だ。</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// part of the gl_PerVertex block described in 7.1</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// in addition to other gl_PerVertex members...</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_ClipVertex</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontSecondaryColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackSecondaryColor</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_TexCoord</span><span class="p">[];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_FogFragCoord</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="nb">gl_in</span><span class="p">[];</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// part of the gl_PerVertex block described in 7.1</span>
+<span class="w">    </span><span class="c1">// in addition to other gl_PerVertex members...</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_ClipVertex</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_FrontSecondaryColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_BackSecondaryColor</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_TexCoord</span><span class="p">[];</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_FogFragCoord</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="nb">gl_in</span><span class="p">[];</span>
 </pre></div>
 </div>
 <p>これらは、前述の出力ブロック <code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> と同様に、明示的なパイプラインインターフェイスを設置するために再宣言することができ、入力の再宣言は、直前段階の出力再宣言と一致しなければならない。ただし、インスタンス名を持つ組み込みインターフェースブロック（<code class="docutils literal notranslate"><span class="pre">gl_in</span></code> など）を再宣言する場合は、再宣言にインスタンス名を含めなければならない。組み込みインスタンス名を含まない場合や、名前を変更する場合は、コンパイルエラーとなる。例えば、以下のようになる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_ClipVertex</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FrontColor</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="nb">gl_in</span><span class="p">[];</span><span class="w"> </span><span class="c1">// must be present and must be &quot;gl_in[]&quot;</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_ClipVertex</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FrontColor</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="nb">gl_in</span><span class="p">[];</span><span class="w"> </span><span class="c1">// must be present and must be &quot;gl_in[]&quot;</span>
 </pre></div>
 </div>
 <p>サイズとともに宣言済み組み込みブロック配列は、サイズなしの構文で再宣言することができる。これにより、それらのサイズは元の宣言済みサイズと等しくなる。</p>
 <p><code class="docutils literal notranslate"><span class="pre">gl_TexCoord[]</span></code> の再宣言の扱いも、出力ブロックの <code class="docutils literal notranslate"><span class="pre">gl_TexCoord[]</span></code> の再宣言で述べたと同じだ。</p>
 <p>次の断片入力ブロックは、互換性プロファイルを使用する場合、断片シェーダーでも使用できる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="nb">gl_PerFragment</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_FogFragCoord</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_TexCoord</span><span class="p">[];</span><span class="w"></span>
-<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_Color</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_SecondaryColor</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">in</span><span class="w"> </span><span class="nb">gl_PerFragment</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_FogFragCoord</span><span class="p">;</span>
+<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_TexCoord</span><span class="p">[];</span>
+<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_Color</span><span class="p">;</span>
+<span class="w">    </span><span class="k">in</span><span class="w"> </span><span class="kt">vec4</span><span class="w">  </span><span class="nb">gl_SecondaryColor</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gl_Color</span></code> と <code class="docutils literal notranslate"><span class="pre">gl_SecondaryColor</span></code> の値は、断片を生成する基本形状でどの面が見えているかに基づいて、<code class="docutils literal notranslate"><span class="pre">gl_FrontColor</span></code>, <code class="docutils literal notranslate"><span class="pre">gl_BackColor</span></code>,
@@ -405,8 +405,8 @@ DispatchCompute API 入場地点に渡された <code class="docutils literal no
 <code class="docutils literal notranslate"><span class="pre">gl_PerFragment</span></code> 内の宣言の順番はシェーダー間で一致する必要はなく、一致する
 <code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> の再宣言の宣言の順番と一致する必要もない。</p>
 <p>互換性プロファイルを使用する場合、以下の断片出力変数が断片シェーダーで使用できる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FragColor</span><span class="p">;</span><span class="w"></span>
-<span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FragData</span><span class="p">[</span><span class="nb">gl_MaxDrawBuffers</span><span class="p">];</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FragColor</span><span class="p">;</span>
+<span class="k">out</span><span class="w"> </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_FragData</span><span class="p">[</span><span class="nb">gl_MaxDrawBuffers</span><span class="p">];</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gl_FragColor</span></code> に書き込むと、後続の固定機能パイプラインで使用される断片色を指定する。後続の固定機能が断片色を消費し、断片シェーダー実行形式の実行時に
@@ -464,19 +464,19 @@ OpenGL 状態の現在の値にアクセスするために使用できる：</p>
 <section id="redeclaring-built-in-blocks">
 <h3><a class="toc-backref" href="#id23" role="doc-backlink">7.5. Redeclaring Built-In Blocks</a><a class="headerlink" href="#redeclaring-built-in-blocks" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> ブロックをシェーダー内で再宣言することで、固定パイプラインインターフェイスのどの部分集合を使用するかを明示的に示すことができる。これは複数のプログラム間のインターフェイスを設定するために必要だ。例えば、以下のようになる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_Position</span><span class="p">;</span><span class="w">   </span><span class="c1">// will use gl_Position</span><span class="w"></span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_PointSize</span><span class="p">;</span><span class="w"> </span><span class="c1">// will use gl_PointSize</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w">             </span><span class="c1">// error, only gl_PerVertex members allowed</span><span class="w"></span>
-<span class="p">};</span><span class="w"> </span><span class="c1">// no other members of gl_PerVertex will be used</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_Position</span><span class="p">;</span><span class="w">   </span><span class="c1">// will use gl_Position</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_PointSize</span><span class="p">;</span><span class="w"> </span><span class="c1">// will use gl_PointSize</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w">             </span><span class="c1">// error, only gl_PerVertex members allowed</span>
+<span class="p">};</span><span class="w"> </span><span class="c1">// no other members of gl_PerVertex will be used</span>
 </pre></div>
 </div>
 <p>これはシェーダーが後続のパイプライン段階で使用する出力インターフェイスを設定する。これは <code class="docutils literal notranslate"><span class="pre">gl_PerVertex</span></code> の組み込みメンバーの部分集合でなければならない。このような再宣言では、不変修飾子、補間修飾子、レイアウト修飾子 <code class="docutils literal notranslate"><span class="pre">xfb_offset</span></code>,
 <code class="docutils literal notranslate"><span class="pre">xfb_buffer</span></code>, <code class="docutils literal notranslate"><span class="pre">xfb_stride</span></code> を追加することができる。また、サイズなし配列に対しては、配列のサイズを追加することもできる。例えば、以下のようになる：</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="k">layout</span><span class="p">(</span><span class="n">xfb_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">xfb_stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_Position</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">layout</span><span class="p">(</span><span class="n">xfb_offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_ClipDistance</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">out</span><span class="w"> </span><span class="k">layout</span><span class="p">(</span><span class="n">xfb_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">xfb_stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="nb">gl_PerVertex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">vec4</span><span class="w"> </span><span class="nb">gl_Position</span><span class="p">;</span>
+<span class="w">    </span><span class="k">layout</span><span class="p">(</span><span class="n">xfb_offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mo">0</span><span class="p">)</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nb">gl_ClipDistance</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">location</span></code> のような他のレイアウト修飾子は、特に明記されていない限り、このような再宣言に追加することはできない。</p>
@@ -641,6 +641,7 @@ OpenGL 状態の現在の値にアクセスするために使用できる：</p>
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -675,7 +676,7 @@ OpenGL 状態の現在の値にアクセスするために使用できる：</p>
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

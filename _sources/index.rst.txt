@@ -134,6 +134,7 @@ Contents:
    hxutils
    webgl
    pandoc
+   zoom
 
 .. toctree::
    :maxdepth: 1

@@ -170,14 +170,14 @@
 <ul>
 <li><p>&lt;関数とはスクリプトの中のスクリプトのようなもの&gt; (p. 87) メモリーにシェルコードが格納される。</p></li>
 <li><p>定義方法は次のどちらかとなる。機能差はない。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> <span class="k">function</span>-name
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="k">function</span>-name
 <span class="o">{</span>
-  shell-command
+<span class="w">  </span>shell-command
 <span class="o">}</span>
 <span class="c1"># or</span>
-<span class="k">function</span>-name <span class="o">()</span>
+<span class="k">function</span>-name<span class="w"> </span><span class="o">()</span>
 <span class="o">{</span>
-  shell-command
+<span class="w">  </span>shell-command
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -311,7 +311,7 @@
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">$(&lt;コマンド&gt;)</span></code> とすると、&lt;コマンドの標準出力を変数の値として使用することができる&gt; (p. 105)</p></li>
 <li><p>昔はバッククォートで囲んでいたようだが、読みにくいうえに入れ子にできない。ドルカッコのほうを使うべし。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls -l <span class="k">$(</span><span class="nb">type</span> -path -all command-name<span class="k">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span><span class="k">$(</span><span class="nb">type</span><span class="w"> </span>-path<span class="w"> </span>-all<span class="w"> </span>command-name<span class="k">)</span>
 </pre></div>
 </div>
 </li>
@@ -572,10 +572,10 @@ names<span class="o">[</span><span class="m">0</span><span class="o">]=</span>ha
 names<span class="o">[</span><span class="m">1</span><span class="o">]=</span>duchess
 
 <span class="c1"># 方法 2</span>
-<span class="nv">names</span><span class="o">=([</span><span class="m">2</span><span class="o">]=</span>alice <span class="o">[</span><span class="m">0</span><span class="o">]=</span>hatter <span class="o">[</span><span class="m">1</span><span class="o">]=</span>duchess<span class="o">)</span>
+<span class="nv">names</span><span class="o">=([</span><span class="m">2</span><span class="o">]=</span>alice<span class="w"> </span><span class="o">[</span><span class="m">0</span><span class="o">]=</span>hatter<span class="w"> </span><span class="o">[</span><span class="m">1</span><span class="o">]=</span>duchess<span class="o">)</span>
 
 <span class="c1"># 方法 3</span>
-<span class="nv">names</span><span class="o">=(</span>hatter duchess alice<span class="o">)</span>
+<span class="nv">names</span><span class="o">=(</span>hatter<span class="w"> </span>duchess<span class="w"> </span>alice<span class="o">)</span>
 </pre></div>
 </div>
 </li>
@@ -649,16 +649,16 @@ names<span class="o">[</span><span class="m">1</span><span class="o">]=</span>du
 1 つも指定しないと、入力行はまとめて <code class="docutils literal notranslate"><span class="pre">REPLY</span></code> 変数に代入される&gt; (p. 183)</p></li>
 <li><p><strong class="command">read</strong> は行単位の処理を指向している。が、そういうのはパイプラインが行う仕事だろうから&lt;行単位での処理を行いたいのであれば、シェルスクリプトを使用する理由はまったくない&gt; (p. 183)。</p></li>
 <li><p>関数は標準入出力デスクリプタを独自に持つ。関数呼び出しの右側にリダイレクタを書いたり、関数定義の終了直後にリダイレクタを書いたりできる。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>findterm <span class="o">()</span> <span class="o">{</span>
-   <span class="c1"># ...関数定義</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>findterm<span class="w"> </span><span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">   </span><span class="c1"># ...関数定義</span>
 <span class="o">}</span>
 
-findterm &lt; /etc/terms
+findterm<span class="w"> </span>&lt;<span class="w"> </span>/etc/terms
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>findterm <span class="o">()</span> <span class="o">{</span>
-  <span class="c1"># ...関数定義</span>
-<span class="o">}</span> &lt; /etc/terms
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>findterm<span class="w"> </span><span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="c1"># ...関数定義</span>
+<span class="o">}</span><span class="w"> </span>&lt;<span class="w"> </span>/etc/terms
 </pre></div>
 </div>
 </li>
@@ -666,7 +666,7 @@ findterm &lt; /etc/terms
 <li><p>&lt;コマンドを <code class="docutils literal notranslate"><span class="pre">{</span></code> と <code class="docutils literal notranslate"><span class="pre">}</span></code> で囲むと、そのコードは名前のない関数のように機能する&gt; (p. 186) 本書ではこれを <strong>コマンドブロック</strong> と呼んでいる。このブロックの終了直後も、リダイレクタを置ける。</p></li>
 <li><p>ユーザーへのプロンプトの出し方が参考になる。下のコード片だが、<strong class="command">echo
 -n</strong> で改行を抑制していることと、<code class="docutils literal notranslate"><span class="pre">&gt;&amp;2</span></code> で標準出力を標準エラー出力に切り替えていることがポイント。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> -n <span class="s1">&#39;terminal? &#39;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;terminal? &#39;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
 </pre></div>
 </div>
 </li>
@@ -703,9 +703,9 @@ findterm &lt; /etc/terms
 <li><p>&lt;スクリプトを実行しながらコマンド文字列をその場で生成し、シェルにそれらを実行させることができる&gt; (p. 197)</p></li>
 <li><p>&lt;変数名の先頭のドル記号をバックスラッシュエスケープしたのは、変数の値に <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>
 や <code class="docutils literal notranslate"><span class="pre">|</span></code> といった特殊記号が含まれていると、思わぬ結果を招くからだ。バックスラッシュには、<strong class="command">eval</strong> コマンド自体が実行されるまでの変数の評価を先送りするという働きがある&gt; (p. 198)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span> sort -nr <span class="se">\$</span><span class="m">1</span> <span class="si">${</span><span class="nv">2</span><span class="p">:+</span><span class="s2">&quot;| head -\$2&quot;</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span>sort<span class="w"> </span>-nr<span class="w"> </span><span class="se">\$</span><span class="m">1</span><span class="w"> </span><span class="si">${</span><span class="nv">2</span><span class="p">:+</span><span class="s2">&quot;| head -\$2&quot;</span><span class="si">}</span>
 
-<span class="nb">eval</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt; logfile <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+<span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>logfile<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
 </li>
@@ -871,6 +871,7 @@ findterm &lt; /etc/terms
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -905,7 +906,7 @@ findterm &lt; /etc/terms
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

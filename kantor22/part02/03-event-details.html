@@ -302,14 +302,14 @@ CSS クラス、中身、位置を指定するが、今回も位置が大事だ�
 <section id="correct-positioning">
 <h3>Correct positioning<a class="headerlink" href="#correct-positioning" title="Permalink to this heading">¶</a></h3>
 <p>ドラッグ開始時点のマウスポインターの座標を要素座標系に変換する。そして、ドラッグ中の要素の座標を、現在のマウス座標から上記座標の変位を加味して決める。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mousedown</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elem</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">shiftX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">rc</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">shiftY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">rc</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mousedown</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elem</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">shiftX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">rc</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">shiftY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">rc</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
 
-<span class="c1">// mousemove</span><span class="w"></span>
-<span class="nx">elem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">pageX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">shiftX</span><span class="si">}</span><span class="sb">px`</span><span class="p">;</span><span class="w"></span>
-<span class="nx">elem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">pageY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">shiftY</span><span class="si">}</span><span class="sb">px`</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// mousemove</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">pageX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">shiftX</span><span class="si">}</span><span class="sb">px`</span><span class="p">;</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">pageY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">shiftY</span><span class="si">}</span><span class="sb">px`</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
@@ -519,10 +519,10 @@ CSS クラス、中身、位置を指定するが、今回も位置が大事だ�
 <code class="docutils literal notranslate"><span class="pre">top</span></code> と <code class="docutils literal notranslate"><span class="pre">bottom</span></code> が変動する。</p></li>
 <li><p>ウィンドウの高さは <code class="docutils literal notranslate"><span class="pre">document.documentElement.clientHeight</span></code> を見る。</p></li>
 <li><p>今はドキュメントの下部がそこから何ピクセルか以上離れていないときを知る必要がある。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span><span class="w"></span>
-<span class="k">while</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">clientHeight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">bottom</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">now</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">clientHeight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">bottom</span><span class="p">){</span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">now</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -712,6 +712,7 @@ CSS クラス、中身、位置を指定するが、今回も位置が大事だ�
 <li class="toctree-l1"><a class="reference internal" href="../../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -748,7 +749,7 @@ CSS クラス、中身、位置を指定するが、今回も位置が大事だ�
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

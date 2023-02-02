@@ -215,15 +215,15 @@
 <li><p>&lt;取り消しできない、または引数を必要としない簡単な <code class="docutils literal notranslate"><span class="pre">command</span></code> については、
 <code class="docutils literal notranslate"><span class="pre">Receiver</span></code> オブジェクトをパラメータ化するためにクラステンプレートを使うことができる&gt; (p. 257)</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 257</span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Receiver</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SimpleCommand</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Command</span><span class="p">{</span><span class="w"></span>
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="n">Receiver</span><span class="o">::*</span><span class="n">Action</span><span class="p">)();</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Receiver</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleCommand</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Command</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="n">Receiver</span><span class="o">::*</span><span class="n">Action</span><span class="p">)();</span>
 
-<span class="w">    </span><span class="n">SimpleCommand</span><span class="p">(</span><span class="n">Receiver</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">Action</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">SimpleCommand</span><span class="p">(</span><span class="n">Receiver</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">Action</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// ...</span>
-<span class="p">};</span><span class="w"></span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>ただし、このクラスのコンストラクタ呼び出しはコードを書くのが面倒。</p>
@@ -254,16 +254,16 @@
 <li><p>&lt;C++ で実装された Bool 表現を操作・評価するシステム&gt; (p. 269) の例。これは先に利用例を見てから、各メソッドを見ていくのが理解がいいと思う。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 272 一部改変</span>
 
-<span class="n">VariableExp</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VariableExp</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="n">VariableExp</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VariableExp</span><span class="p">(</span><span class="s">&quot;Y&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="n">BooleanExp</span><span class="o">*</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OrExp</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">AndExp</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Constant</span><span class="p">(</span><span class="nb">true</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">AndExp</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotExp</span><span class="p">(</span><span class="n">x</span><span class="p">)));</span><span class="w"></span>
+<span class="n">VariableExp</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VariableExp</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">);</span>
+<span class="n">VariableExp</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VariableExp</span><span class="p">(</span><span class="s">&quot;Y&quot;</span><span class="p">);</span>
+<span class="n">BooleanExp</span><span class="o">*</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OrExp</span><span class="p">(</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">AndExp</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Constant</span><span class="p">(</span><span class="nb">true</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="p">),</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">AndExp</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotExp</span><span class="p">(</span><span class="n">x</span><span class="p">)));</span>
 
-<span class="n">Context</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w"></span>
-<span class="n">context</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
-<span class="n">context</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expression</span><span class="o">-&gt;</span><span class="n">Evaluate</span><span class="p">(</span><span class="n">context</span><span class="p">);</span><span class="w"></span>
+<span class="n">Context</span><span class="w"> </span><span class="n">context</span><span class="p">;</span>
+<span class="n">context</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="n">context</span><span class="p">.</span><span class="n">Assign</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expression</span><span class="o">-&gt;</span><span class="n">Evaluate</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -458,9 +458,9 @@ preorder, postorder, inorder, breadth-first などの走査が一般的である
 <li><p>多くの TCP 関連メソッドは空実装。当然仮想関数。</p></li>
 <li><p>ここにも <code class="docutils literal notranslate"><span class="pre">ChangeState</span></code> という名のメソッドがいる。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 331</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">TCPState::ChangeState</span><span class="p">(</span><span class="n">TCPConnection</span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">TCPState</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">ChangeState</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">TCPState::ChangeState</span><span class="p">(</span><span class="n">TCPConnection</span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">TCPState</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">){</span>
+<span class="w">    </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">ChangeState</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -471,7 +471,7 @@ preorder, postorder, inorder, breadth-first などの走査が一般的である
 <li><p>この例ではいずれも &lt;ローカルな状態&gt; を保持しないので、各サブクラスを
 Singleton とする。</p></li>
 <li><p>例えば <code class="docutils literal notranslate"><span class="pre">TCPListen::Send</span></code> メソッドの実装は、まず SYN や ACK の送受信処理を行ってから、最後に</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ChangeState</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">TCPEstablished</span><span class="o">::</span><span class="n">Instance</span><span class="p">());</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ChangeState</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">TCPEstablished</span><span class="o">::</span><span class="n">Instance</span><span class="p">());</span>
 </pre></div>
 </div>
 <p>のようにする。</p>
@@ -524,19 +524,19 @@ Singleton とする。</p></li>
 </ul>
 <p>またぞろ <code class="docutils literal notranslate"><span class="pre">Application</span></code> と <code class="docutils literal notranslate"><span class="pre">Document</span></code> クラスの例を挙げ、<code class="docutils literal notranslate"><span class="pre">Document</span></code> を「開く」オペレーションについての議論。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 347-348; 一部省略</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">Application::OpenDocument</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CanOpenDocument</span><span class="p">(</span><span class="n">name</span><span class="p">)){</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Application::OpenDocument</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CanOpenDocument</span><span class="p">(</span><span class="n">name</span><span class="p">)){</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">Document</span><span class="o">*</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoCreateDocument</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">doc</span><span class="p">){</span><span class="w"></span>
-<span class="w">        </span><span class="n">_docs</span><span class="o">-&gt;</span><span class="n">AddDocument</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">AboutToOpenDocument</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">doc</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">();</span><span class="w"></span>
-<span class="w">        </span><span class="n">doc</span><span class="o">-&gt;</span><span class="n">DoRead</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">Document</span><span class="o">*</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoCreateDocument</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">doc</span><span class="p">){</span>
+<span class="w">        </span><span class="n">_docs</span><span class="o">-&gt;</span><span class="n">AddDocument</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
+<span class="w">        </span><span class="n">AboutToOpenDocument</span><span class="p">(</span><span class="n">doc</span><span class="p">);</span>
+<span class="w">        </span><span class="n">doc</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">();</span>
+<span class="w">        </span><span class="n">doc</span><span class="o">-&gt;</span><span class="n">DoRead</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul>
@@ -647,12 +647,12 @@ method はそれらの順番を固定する&gt; (p. 348)</p>
 </ul>
 </li>
 <li><p>Visitor の利用例コードを見落としがちだが、以下のようになる。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Equipment</span><span class="o">*</span><span class="w"> </span><span class="n">component</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Equipment</span><span class="o">*</span><span class="w"> </span><span class="n">component</span><span class="p">;</span>
 
 <span class="c1">// ... component をどこからか得る。</span>
 
-<span class="n">InventoryVisitor</span><span class="w"> </span><span class="n">visitor</span><span class="p">;</span><span class="w"></span>
-<span class="n">component</span><span class="o">-&gt;</span><span class="n">Accept</span><span class="p">(</span><span class="n">visitor</span><span class="p">);</span><span class="w"></span>
+<span class="n">InventoryVisitor</span><span class="w"> </span><span class="n">visitor</span><span class="p">;</span>
+<span class="n">component</span><span class="o">-&gt;</span><span class="n">Accept</span><span class="p">(</span><span class="n">visitor</span><span class="p">);</span>
 <span class="c1">// visitor 内部に Inventory 情報が蓄積された。</span>
 </pre></div>
 </div>
@@ -872,6 +872,7 @@ method はそれらの順番を固定する&gt; (p. 348)</p>
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -906,7 +907,7 @@ method はそれらの順番を固定する&gt; (p. 348)</p>
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

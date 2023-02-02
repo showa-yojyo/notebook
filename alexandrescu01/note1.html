@@ -132,10 +132,10 @@ Exceptional C++ Style が関係ある？</p></li>
 <li><p>&lt;さらに、多重パラメータのクラス・テンプレートを用いた場合、部分的にテンプレートの特殊化を行うこともできます&gt; (p. 6)</p></li>
 </ul>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// こういう定義がある場合、</span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">SmartPtr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">SmartPtr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span>
 
 <span class="c1">// この定義は部分特殊化となる。</span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">SmartPtr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="o">&gt;</span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">SmartPtr</span><span class="o">&lt;</span><span class="n">Widget</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="o">&gt;</span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -184,8 +184,8 @@ Exceptional C++ Style が関係ある？</p></li>
 <ul class="simple">
 <li><p>静的チェックの必要性。すなわち、コンパイル時版 <code class="docutils literal notranslate"><span class="pre">assert</span></code> だ。 &lt;評価される式がコンパイル時の定数になるのであれば、実行時ではなく、コンパイル時にチェックを行うことができるはずです&gt; (p. 26)</p></li>
 </ul>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">CompileTimeError</span><span class="p">;</span><span class="w"></span>
-<span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">CompileTimeError</span><span class="o">&lt;</span><span class="nb">true</span><span class="o">&gt;</span><span class="p">{};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">CompileTimeError</span><span class="p">;</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">CompileTimeError</span><span class="o">&lt;</span><span class="nb">true</span><span class="o">&gt;</span><span class="p">{};</span>
 
 <span class="cp">#define STATIC_CHECK(expr) \</span>
 <span class="cp">   (CompileTimeError&lt;(expr) != 0&gt;())</span>
@@ -196,25 +196,25 @@ Exceptional C++ Style が関係ある？</p></li>
 <li><p>省略記号 <code class="docutils literal notranslate"><span class="pre">(...)</span></code> を用いた関数宣言を利用する。</p></li>
 </ul>
 <hr class="docutils" />
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Window</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Controller</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Window</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Controller</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
 
 <span class="c1">// テンプレート全体を明示的に特殊化する場合の例。</span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="o">&lt;</span><span class="n">ModalDialog</span><span class="p">,</span><span class="w"> </span><span class="n">MyController</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="o">&lt;</span><span class="n">ModalDialog</span><span class="p">,</span><span class="w"> </span><span class="n">MyController</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
 
 <span class="c1">// 任意の Window や MyController に対して特殊化する場合（部分特殊化）。</span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Window</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="o">&lt;</span><span class="n">Window</span><span class="p">,</span><span class="w"> </span><span class="n">MyController</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Window</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="o">&lt;</span><span class="n">Window</span><span class="p">,</span><span class="w"> </span><span class="n">MyController</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -233,22 +233,22 @@ Exceptional C++ Style が関係ある？</p></li>
 </li>
 </ul>
 <hr class="docutils" />
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Int2Type</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Int2Type</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">};</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>例えば &lt;<code class="docutils literal notranslate"><span class="pre">Int2Type&lt;0&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">Int2Type&lt;1&gt;</span></code> は異なった型&gt; (p. 31) となる。このようなクラスの応用例として、p. 33 の <code class="docutils literal notranslate"><span class="pre">NiftyContainer::DoSomething</span></code> を覚えておくこと。</p></li>
 </ul>
 <hr class="docutils" />
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Type2Type</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">typedef</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">OriginalType</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Type2Type</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">typedef</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">OriginalType</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -259,25 +259,25 @@ Exceptional C++ Style が関係ある？</p></li>
 <li><p>&lt;ブーリアン定数によって様々な型から特定の型を選択しなければならない場合&gt;
 (p. 35)</p></li>
 </ul>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">bool</span><span class="w"> </span><span class="n">flag</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Select</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Result</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">bool</span><span class="w"> </span><span class="n">flag</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Select</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Result</span><span class="p">;</span>
+<span class="p">};</span>
 
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Select</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">Result</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Select</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">Result</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">isPolymorphic</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">NiftyContainer</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">isPolymorphic</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NiftyContainer</span>
+<span class="p">{</span>
 <span class="w">    </span><span class="c1">// ここでコンテナの収容型を typedef するのに</span>
 <span class="w">    </span><span class="c1">// Select を利用できる。</span>
-<span class="p">};</span><span class="w"></span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -303,7 +303,7 @@ Exceptional C++ Style が関係ある？</p></li>
 <li><p>使いにくいので、ラッパークラスを定義する。</p></li>
 </ul>
 <hr class="docutils" />
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">NullType</span><span class="p">{};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">NullType</span><span class="p">{};</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">EmptyType</span><span class="p">{};</span><span class="w"> </span><span class="c1">// 継承を許す。</span>
 </pre></div>
 </div>
@@ -333,12 +333,12 @@ Exceptional C++ Style が関係ある？</p></li>
 <li><p>&lt;仮想関数はテンプレートにできない&gt; (p. 55) 言われてみればそうだった。</p></li>
 </ul>
 <hr class="docutils" />
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Typelist</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Head</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">Tail</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Typelist</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">Head</span><span class="p">;</span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">Tail</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -346,18 +346,18 @@ Exceptional C++ Style が関係ある？</p></li>
 </ul>
 <hr class="docutils" />
 <p>&lt;タイプリストは Lisp 的&gt; (p. 57) なので、色々補助的なマクロを用意する。</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">signed</span><span class="w"> </span><span class="kt">char</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">short</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">NullType</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">   </span><span class="n">SignedIntegrals</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">signed</span><span class="w"> </span><span class="kt">char</span><span class="p">,</span>
+<span class="w">      </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">short</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span>
+<span class="w">         </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">Typelist</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">NullType</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w">   </span><span class="n">SignedIntegrals</span><span class="p">;</span>
 </pre></div>
 </div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TYPELIST_1(T1) Typelist&lt;T1, NullType&gt;</span>
 <span class="cp">#define TYPELIST_2(T1, T2) Typelist&lt;T1, Typelist_1(T2) &gt;</span>
-<span class="p">...</span><span class="w"></span>
+<span class="p">...</span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="n">TYPELIST_4</span><span class="p">(</span><span class="kt">signed</span><span class="w"> </span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="n">SignedIntegrals</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">TYPELIST_4</span><span class="p">(</span><span class="kt">signed</span><span class="w"> </span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span>
+<span class="w">   </span><span class="n">SignedIntegrals</span><span class="p">;</span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -407,17 +407,17 @@ Exceptional C++ Style が関係ある？</p></li>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">Chunk</span></code> は「固定長ブロックを保持するメモリのチャンク」を保持・管理する。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 87 より引用。細部省略。</span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Chunk</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Init</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">blocks</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">Allocate</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Deallocate</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Release</span><span class="p">();</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Chunk</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Init</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">blocks</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">Allocate</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Deallocate</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Release</span><span class="p">();</span>
 
-<span class="w">    </span><span class="n">unsinged</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">pData_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">unsinged</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">firstAvailableBlock_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">unsinged</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">blocksAvailable_</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">unsinged</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">pData_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">unsinged</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">firstAvailableBlock_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">unsinged</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">blocksAvailable_</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -432,16 +432,16 @@ Exceptional C++ Style が関係ある？</p></li>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">FixedAllocator</span></code> は <code class="docutils literal notranslate"><span class="pre">Chunk</span></code> の <code class="docutils literal notranslate"><span class="pre">vector</span></code> として実装する。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 91 より引用。</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">FixedAllocator</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">numBlocks_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Chunk</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Chunks</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Chunks</span><span class="w"> </span><span class="n">chunks_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Chunk</span><span class="o">*</span><span class="w"> </span><span class="n">allocChunk_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Chunk</span><span class="o">*</span><span class="w"> </span><span class="n">deallocChunk_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FixedAllocator</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">blockSize_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">numBlocks_</span><span class="p">;</span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Chunk</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Chunks</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Chunks</span><span class="w"> </span><span class="n">chunks_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Chunk</span><span class="o">*</span><span class="w"> </span><span class="n">allocChunk_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Chunk</span><span class="o">*</span><span class="w"> </span><span class="n">deallocChunk_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -451,20 +451,20 @@ Exceptional C++ Style が関係ある？</p></li>
 <hr class="docutils" />
 <p>&lt;<code class="docutils literal notranslate"><span class="pre">SmallObjAllocator</span></code> は、いくつかの <code class="docutils literal notranslate"><span class="pre">FixedAllocator</span></code> オブジェクトを集約することによって実現されています&gt; (p. 94)</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// pp. 94-95 参照。</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SmallObjAllocator</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FixedAllocator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pool_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">FixedAllocator</span><span class="o">*</span><span class="w"> </span><span class="n">pLastAlloc_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">FixedAllocator</span><span class="o">*</span><span class="w"> </span><span class="n">pLastDealloc_</span><span class="p">;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SmallObjAllocator</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FixedAllocator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pool_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FixedAllocator</span><span class="o">*</span><span class="w"> </span><span class="n">pLastAlloc_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FixedAllocator</span><span class="o">*</span><span class="w"> </span><span class="n">pLastDealloc_</span><span class="p">;</span>
 
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">SmallObjAllocator</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">chunkSize</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">maxObjectSize</span><span class="p">);</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">SmallObjAllocator</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">chunkSize</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">maxObjectSize</span><span class="p">);</span>
 
-<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">Allocate</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">numBytes</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Deallocate</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">Allocate</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">numBytes</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">Deallocate</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
 
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -476,13 +476,13 @@ Exceptional C++ Style が関係ある？</p></li>
 <hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">SmallObject</span></code> はほぼ教科書通りのインターフェイスになる。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 96</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SmallObject</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">new</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SmallObject</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">new</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">SmallObject</span><span class="p">();</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">SmallObject</span><span class="p">();</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -494,14 +494,14 @@ Exceptional C++ Style が関係ある？</p></li>
 <hr class="docutils" />
 <p>各種ポリシーをくっつけて <code class="docutils literal notranslate"><span class="pre">SmallObject</span></code> をクラステンプレートにして仕上がる。本章ではここまでテンプレートがなかなか出てこなかった感があるが、ここでようやく登場。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// p. 100 より引用。</span>
-<span class="k">template</span><span class="w"></span>
-<span class="o">&lt;</span><span class="w"></span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="k">class</span><span class="w"> </span><span class="nc">ThreadingModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_THREADING</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">chunkSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_CHUNK_SIZE</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">maxSmallObjectSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_SMALL_OBJECT_SIZE</span><span class="w"></span>
-<span class="o">&gt;</span><span class="w"></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SmallObject</span><span class="p">;</span><span class="w"></span>
+<span class="k">template</span>
+<span class="o">&lt;</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="k">class</span><span class="w"> </span><span class="nc">ThreadingModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_THREADING</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">chunkSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_CHUNK_SIZE</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">maxSmallObjectSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_SMALL_OBJECT_SIZE</span>
+<span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SmallObject</span><span class="p">;</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -666,6 +666,7 @@ Exceptional C++ Style が関係ある？</p></li>
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -700,7 +701,7 @@ Exceptional C++ Style が関係ある？</p></li>
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

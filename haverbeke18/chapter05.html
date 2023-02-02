@@ -88,18 +88,18 @@
 <section id="abstracting-repetition">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Abstracting repetition</a><a class="headerlink" href="#abstracting-repetition" title="Permalink to this heading">¶</a></h2>
 <p>プログラミングでは、与えられた回数だけ何かを反復するというのは普通のことだ。このことをどれだけ抽象化できるかを考える。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">repeat</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">action</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">repeat</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">action</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="nx">repeat</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span><span class="w"></span>
+<span class="nx">repeat</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nx">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
-<span class="nx">repeat</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">labels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`Unit </span><span class="si">${</span><span class="nx">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="nx">repeat</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">labels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`Unit </span><span class="si">${</span><span class="nx">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
 </pre></div>
 </div>
 </section>
@@ -111,17 +111,17 @@
 <li><p>配列メソッド <code class="docutils literal notranslate"><span class="pre">forEach</span></code> は <code class="docutils literal notranslate"><span class="pre">for</span></code> ループのようなものを高階関数として提供する。</p></li>
 </ul>
 <p>この例が少し難しい：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">unless</span><span class="p">(</span><span class="nx">test</span><span class="p">,</span><span class="w"> </span><span class="nx">then</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">test</span><span class="p">)</span><span class="w"> </span><span class="nx">then</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">unless</span><span class="p">(</span><span class="nx">test</span><span class="p">,</span><span class="w"> </span><span class="nx">then</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">test</span><span class="p">)</span><span class="w"> </span><span class="nx">then</span><span class="p">();</span>
+<span class="p">}</span>
 
-<span class="nx">repeat</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">unless</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;is even&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">});</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
-<span class="c1">// → 0 is even</span><span class="w"></span>
-<span class="c1">// → 2 is even</span><span class="w"></span>
+<span class="nx">repeat</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">unless</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;is even&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">});</span>
+<span class="c1">// → 0 is even</span>
+<span class="c1">// → 2 is even</span>
 </pre></div>
 </div>
 </section>
@@ -131,14 +131,14 @@
 &lt;<a class="reference external" href="https://eloquentjavascript.net/code#5">https://eloquentjavascript.net/code#5</a>&gt; の変数 <code class="docutils literal notranslate"><span class="pre">SCRIPTS</span></code> が利用できる。これには Unicode で定義されている 140 の文字に関する情報が含まれている。</p>
 <ul>
 <li><p>それは配列であって、次のようなオブジェクトを 140 個含んでいるようだ：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Coptic&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ranges</span><span class="o">:</span><span class="w"> </span><span class="p">[[</span><span class="mf">994</span><span class="p">,</span><span class="w"> </span><span class="mf">1008</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">11392</span><span class="p">,</span><span class="w"> </span><span class="mf">11508</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">11513</span><span class="p">,</span><span class="w"> </span><span class="mf">11520</span><span class="p">]],</span><span class="w"></span>
-<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ltr&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">year</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">200</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">living</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">link</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://en.wikipedia.org/wiki/Coptic_alphabet&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Coptic&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">ranges</span><span class="o">:</span><span class="w"> </span><span class="p">[[</span><span class="mf">994</span><span class="p">,</span><span class="w"> </span><span class="mf">1008</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">11392</span><span class="p">,</span><span class="w"> </span><span class="mf">11508</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">11513</span><span class="p">,</span><span class="w"> </span><span class="mf">11520</span><span class="p">]],</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ltr&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">year</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">living</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">link</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://en.wikipedia.org/wiki/Coptic_alphabet&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -147,8 +147,8 @@
 <section id="filtering-arrays">
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">Filtering arrays</a><a class="headerlink" href="#filtering-arrays" title="Permalink to this heading">¶</a></h2>
 <p>配列のメソッド <code class="docutils literal notranslate"><span class="pre">filter</span></code> を使って、与えた条件を満たす要素だけを抽出する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;ttb&quot;</span><span class="p">));</span><span class="w"></span>
-<span class="c1">// → [{name: &quot;Mongolian&quot;, …}, …]</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;ttb&quot;</span><span class="p">));</span>
+<span class="c1">// → [{name: &quot;Mongolian&quot;, …}, …]</span>
 </pre></div>
 </div>
 <p>このような操作をする関数は純粋関数であることに注意。</p>
@@ -156,9 +156,9 @@
 <section id="transforming-with-map">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">Transforming with map</a><a class="headerlink" href="#transforming-with-map" title="Permalink to this heading">¶</a></h2>
 <p>配列のメソッド <code class="docutils literal notranslate"><span class="pre">map</span></code> は、すべての要素に与えた関数を適用し、返された値から新しい配列を作成する。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">rtlScripts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;rtl&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">map</span><span class="p">(</span><span class="nx">rtlScripts</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">name</span><span class="p">));</span><span class="w"></span>
-<span class="c1">// → [&quot;Adlam&quot;, &quot;Arabic&quot;, &quot;Imperial Aramaic&quot;, ...]</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">rtlScripts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;rtl&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">map</span><span class="p">(</span><span class="nx">rtlScripts</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">name</span><span class="p">));</span>
+<span class="c1">// → [&quot;Adlam&quot;, &quot;Arabic&quot;, &quot;Imperial Aramaic&quot;, ...]</span>
 </pre></div>
 </div>
 </section>
@@ -169,21 +169,21 @@
 <li><p>配列のメソッド <code class="docutils literal notranslate"><span class="pre">reduce</span></code> がこれを実現する。</p></li>
 <li><p>上で述べた「要素を一つ取り出し」ができない場合の値を引数として指定することもできる。</p></li>
 </ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">].</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">10</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">].</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">10</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="composability">
 <h2><a class="toc-backref" href="#id10" role="doc-backlink">Composability</a><a class="headerlink" href="#composability" title="Permalink to this heading">¶</a></h2>
 <p>高階関数が活躍するのは、操作を合成する必要があるときだ。</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">average</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">average</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">average</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">living</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">year</span><span class="p">))));</span><span class="w"></span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">average</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="nx">s</span><span class="p">.</span><span class="nx">living</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">year</span><span class="p">))));</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">average</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">living</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">year</span><span class="p">))));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">average</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">SCRIPTS</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="nx">s</span><span class="p">.</span><span class="nx">living</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">year</span><span class="p">))));</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -226,11 +226,11 @@
 <h3><a class="toc-backref" href="#id15" role="doc-backlink">Flattening</a><a class="headerlink" href="#flattening" title="Permalink to this heading">¶</a></h3>
 <p><strong>問題</strong> メソッド <code class="docutils literal notranslate"><span class="pre">reduce</span></code> とメソッド <code class="docutils literal notranslate"><span class="pre">concat</span></code> を組み合わせて配列の配列を、元の配列の要素をすべて含む単一の配列にしろ。</p>
 <p><strong>解答</strong> 原文から、二次元配列を一次元配列に平坦にする処理として実装する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">total</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span><span class="w"> </span><span class="p">[]);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">total</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span><span class="w"> </span><span class="p">[]);</span>
+<span class="p">}</span>
 
-<span class="nx">flatten</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">7</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">]]);</span><span class="w"> </span><span class="c1">// → [1, 2, 3, 4, 5, 6, 7, 8, 9]</span><span class="w"></span>
+<span class="nx">flatten</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">7</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">]]);</span><span class="w"> </span><span class="c1">// → [1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
 </pre></div>
 </div>
 </section>
@@ -244,15 +244,15 @@
 <li><p>関数を定義する際に、実際のループ処理を行うために通常のループを使用することができる。</p></li>
 </ul>
 <p><strong>解答</strong> つまらないものができた：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">loop</span><span class="p">(){</span><span class="w"></span>
-<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">inner</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">test</span><span class="p">,</span><span class="w"> </span><span class="nx">update</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">){</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="p">(;</span><span class="w"> </span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">update</span><span class="p">(</span><span class="nx">value</span><span class="p">)){</span><span class="w"></span>
-<span class="w">            </span><span class="nx">body</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">inner</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">loop</span><span class="p">(){</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">inner</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">test</span><span class="p">,</span><span class="w"> </span><span class="nx">update</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">){</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(;</span><span class="w"> </span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">update</span><span class="p">(</span><span class="nx">value</span><span class="p">)){</span>
+<span class="w">            </span><span class="nx">body</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">inner</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -266,20 +266,20 @@
 <li><p>メソッド <code class="docutils literal notranslate"><span class="pre">some</span></code> を使う</p></li>
 </ul>
 <p><strong>解答</strong> 前半は単純に：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">every</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span><span class="w"> </span><span class="nx">pred</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">array</span><span class="p">){</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">pred</span><span class="p">(</span><span class="nx">i</span><span class="p">)){</span><span class="w"></span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">every</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span><span class="w"> </span><span class="nx">pred</span><span class="p">){</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">array</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">pred</span><span class="p">(</span><span class="nx">i</span><span class="p">)){</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>後半は De Morgan の法則を応用する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">every</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span><span class="w"> </span><span class="nx">pred</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="nx">pred</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">every</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span><span class="w"> </span><span class="nx">pred</span><span class="p">){</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="nx">pred</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -293,19 +293,19 @@
 <li><p>ヒント：この章で定義した関数 <code class="docutils literal notranslate"><span class="pre">characterScript</span></code> と <code class="docutils literal notranslate"><span class="pre">countBy</span></code> が使えるはずだ。</p></li>
 </ul>
 <p><strong>解答</strong> 本文中の関数 <code class="docutils literal notranslate"><span class="pre">textScripts</span></code> を改変する：</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">textScripts</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">scripts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">countBy</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="kr">char</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">characterScript</span><span class="p">(</span><span class="kr">char</span><span class="p">.</span><span class="nx">codePointAt</span><span class="p">(</span><span class="mf">0</span><span class="p">));</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">script</span><span class="p">.</span><span class="nx">direction</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}).</span><span class="nx">filter</span><span class="p">(({</span><span class="nx">name</span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">textScripts</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">scripts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">countBy</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="kr">char</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">characterScript</span><span class="p">(</span><span class="kr">char</span><span class="p">.</span><span class="nx">codePointAt</span><span class="p">(</span><span class="mf">0</span><span class="p">));</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">script</span><span class="p">.</span><span class="nx">direction</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}).</span><span class="nx">filter</span><span class="p">(({</span><span class="nx">name</span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nx">scripts</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">){</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nx">scripts</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">scripts</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="nx">dominant</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">dominant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">dominant</span><span class="p">.</span><span class="nx">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">i</span><span class="p">.</span><span class="nx">count</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">dominant</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">scripts</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span>
+<span class="w">        </span><span class="p">(</span><span class="nx">dominant</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">dominant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">dominant</span><span class="p">.</span><span class="nx">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">i</span><span class="p">.</span><span class="nx">count</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">dominant</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -472,6 +472,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -506,7 +507,7 @@
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>

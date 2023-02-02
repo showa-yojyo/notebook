@@ -104,10 +104,10 @@
 </section>
 <section id="abstractviewnavigation">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">AbstractViewNavigation</span></code></a><a class="headerlink" href="#abstractviewnavigation" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="sd">&quot;&quot;&quot;The abstract base class of for classes that control view navigation.&quot;&quot;&quot;</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;The abstract base class of for classes that control view navigation.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">button</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize an instance of class AbstractViewNavigation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize an instance of class AbstractViewNavigation.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="n">button</span>
@@ -116,7 +116,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">first_mouse_position</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">mouse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The mouse callback function.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The mouse callback function.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">button</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">button</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">GLUT</span><span class="o">.</span><span class="n">GLUT_DOWN</span><span class="p">:</span>
@@ -125,25 +125,25 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">release_mouse</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">motion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The motion callback function.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The motion callback function.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_mouse_position</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_mouse_position</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">capture_mouse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Capture mouse drag event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture mouse drag event.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">GLUT</span><span class="o">.</span><span class="n">glutGet</span><span class="p">(</span><span class="n">GLUT</span><span class="o">.</span><span class="n">GLUT_WINDOW_WIDTH</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">GLUT</span><span class="o">.</span><span class="n">glutGet</span><span class="p">(</span><span class="n">GLUT</span><span class="o">.</span><span class="n">GLUT_WINDOW_HEIGHT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">first_mouse_position</span> <span class="o">=</span> <span class="n">nds_coord</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">release_mouse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Release mouse drag event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Release mouse drag event.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">first_mouse_position</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">update_mouse_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Handle mouse motion event.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle mouse motion event.&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
 </pre></div>
@@ -167,7 +167,7 @@
 <p>回転に関しては四元数を用いた計算をする。感覚的には、回転以外の同次座標系表現によるアフィン変換のコードより一手間多く手順がかかっている気がする。</p>
 <section id="capture-mouse">
 <h3><a class="toc-backref" href="#id10" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">capture_mouse</span></code></a><a class="headerlink" href="#capture-mouse" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Capture mouse.&quot;&quot;&quot;</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Capture mouse.&quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">ViewRotate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">capture_mouse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_quat_arg</span> <span class="o">=</span> <span class="n">trackball_space</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
@@ -178,7 +178,7 @@
 </section>
 <section id="update-mouse-position">
 <h3><a class="toc-backref" href="#id11" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">update_mouse_position</span></code></a><a class="headerlink" href="#update-mouse-position" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Handle mouse motion event.&quot;&quot;&quot;</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle mouse motion event.&quot;&quot;&quot;</span>
 
         <span class="c1"># Compute position on hemisphere.</span>
         <span class="n">cur_quat_arg</span> <span class="o">=</span> <span class="n">trackball_space</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
@@ -217,7 +217,7 @@
 <section id="id4">
 <h3><a class="toc-backref" href="#id13" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">update_mouse_position</span></code></a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>メソッド <code class="docutils literal notranslate"><span class="pre">update_mouse_position</span></code> だけを解説する。</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>        <span class="sd">&quot;&quot;&quot;Handle mouse motion event.&quot;&quot;&quot;</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle mouse motion event.&quot;&quot;&quot;</span>
 
         <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">nds_coord</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">cur_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_mouse_position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">)</span>
@@ -238,11 +238,11 @@
 <section id="id5">
 <h2><a class="toc-backref" href="#id14" role="doc-backlink">補助関数群を定義する</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>マウスカーソル位置のウィンドウ座標からある種の座標系に変換するための関数群を用意する。マウス位置、およびその変位をウィンドウの形状に依らずに取り扱いたいので、こういうものが要るのだ。</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span>    <span class="sd">&quot;&quot;&quot;Convert SCS to NDS.&quot;&quot;&quot;</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert SCS to NDS.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="n">width</span><span class="p">,</span> <span class="p">(</span><span class="n">height</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">height</span>
 
 <span class="k">def</span> <span class="nf">trackball_space</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Project orthographically the mouse cursor to a hemisphere.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Project orthographically the mouse cursor to a hemisphere.&quot;&quot;&quot;</span>
 
     <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nds_coord</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
@@ -425,6 +425,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
@@ -461,7 +462,7 @@
       <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
     </li>
     <li id="footer_copyright">
-      Copyright &copy; 1999-2022, プレハブ小屋 All rights reserved.
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
     </li>
   </ul>
 </div>
