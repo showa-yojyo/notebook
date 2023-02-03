@@ -116,6 +116,7 @@ Contents:
    :maxdepth: 1
 
    freeware
+   google-ime
    deepl-translator
    winget
    powertoys/index
