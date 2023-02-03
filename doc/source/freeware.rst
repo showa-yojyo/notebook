@@ -99,6 +99,10 @@ Windows Package Manager CLI を使って自動インストールする
 
     英語を日本語に翻訳させる用途でインストールしている。
 
+    .. seealso::
+
+       :doc:`/deepl-translator`
+
 `Dropbox <https://www.dropbox.com/>`__
     プログラムとしての Dropbox は、当局固有のオンラインストレージを利用するため
     のインターフェイスだ。家計簿や履歴書などの非テキストデータファイル、または機
@@ -124,6 +128,10 @@ Windows Package Manager CLI を使って自動インストールする
     るどんなテキスト作業においてもこちらを有効にするべきだ。本稿では扱わないが、
     本体とは別に辞書もセットアップするのが普通だ。
 
+    .. seealso::
+
+       :doc:`/google-ime`
+
 `LibreOffice <https://www.libreoffice.org/>`__
     MS Office が高くて購入できないので、フリーウェアである LibreOffice をインス
     トールすることを余儀なくされる。家計簿、履歴書、職務経歴書、業務報告書などを
@@ -133,10 +141,14 @@ Windows Package Manager CLI を使って自動インストールする
 `Inkscape <https://inkscape.org/>`__
     Inkscape はベクトルデータベースの描画ツールで、主に SVG 形式の画像を作成する
     ために用いられる。他の形式フォーマットのインポートおよびエクスポートも可能
-    だ。HTML 文書に添える画像を整えるのに有用だ。 :doc:`/inkscape/index` 参照。
+    だ。HTML 文書に添える画像を整えるのに有用だ。
 
     このノートを書くために久しぶりに公式ページを当たったところ、メジャーバージョ
     ンがついに 1 になっていて驚く。
+
+    .. seealso::
+
+       :doc:`/inkscape/index`
 
 `Mozilla Thunderbird <https://www.thunderbird.net/>`__
     Thunderbird は有名なメールクライアントだ。設定やカスタマイズが簡単であり、環
@@ -154,6 +166,10 @@ Windows Package Manager CLI を使って自動インストールする
     これだけあれば、上級者でなくても常用できそうな機能が何かあるのが自然だ。ぜひ
     インストールしたい。
 
+    .. seealso::
+
+       :doc:`/powertoys/index`
+
 `Rapid Environment Editor <https://www.rapidee.com/en/about>`__
     Windows 環境変数編集ソフトウェア。インターフェイスがとにかく秀でいている。パ
     スの編集が容易という理由だけで導入する価値がある。
@@ -164,11 +180,15 @@ Windows Package Manager CLI を使って自動インストールする
 `Ubuntu (WSL) <https://releases.ubuntu.com/>`__
     ここでいう Ubuntu は WSL を有効化してからの Linux ディストリビューションとし
     てのそれだ。本環境については考慮する点が多数あるため、専用のノートを設けてそ
-    こで詳述する予定だ。
+    こで詳述する。
 
 `Visual Studio Code <https://azure.microsoft.com/ja-jp/products/visual-studio-code/>`__
     私の現時点でのメインテキストエディター。本プログラムについても注意点が多数あ
     るので、専用ノートに要点を述べていく。
+
+    .. seealso::
+
+       :doc:`/vscode/index`
 
 `VLC media player <https://www.videolan.org/>`__
     VLC media player はマルチメディアファイルのほとんどと、さまざまなストリーミ
@@ -179,6 +199,10 @@ Windows Package Manager CLI を使って自動インストールする
 `Windows Terminal <https://docs.microsoft.com/ja-jp/windows/terminal/>`__
     Windows Terminal はタブブラウザーならぬタブコンソールだ。かつて私が愛用して
     いた ConEmu と目的意識を共有していると思われる。
+
+    .. seealso::
+
+       :doc:`/windows-terminal`
 
 優先度の高いソフトウェアを手動インストールする
 ----------------------------------------------------------------------
@@ -207,6 +231,11 @@ Windows Package Manager CLI を使って自動インストールする
 
     このシステムについてはまだまだ理解が不足しているので、別途学習してノートにす
     る。
+
+    .. seealso::
+
+       :doc:`/wsl`
+
 
 その他を必要に応じて手動インストールする
 ----------------------------------------------------------------------
