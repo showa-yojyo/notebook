@@ -127,6 +127,7 @@ Contents:
    chrome
    git/index
    twitter
+   youtube-dl
    inkscape/index
    mathjax
    javascript-mermaid/index
