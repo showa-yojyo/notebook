@@ -93,6 +93,24 @@ GNU ツールに従っている：
 
 オプション ``-o`` or ``--output`` の詳細は README_ を参照。
 
+また、引数の URL がプレイリスト由来のときには :program:`youtube-dl` への指示に紛
+れが生じるおそれがあるので、オプション ``--no-playlist`` を明示的に与えて属する
+プレイリストにあるビデオをダウンロードするのを防ぐようにしてもいいだろう。
+
+MP4 形式でダウンロードする
+----------------------------------------------------------------------
+
+次のオプションを前述のコマンドに追加的に指定すれば MP4 形式が生成される。利用者
+側に途中工程の理解が求められる：
+
+.. code:: text
+
+   -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best
+
+.. admonition:: 利用者ノート
+
+   こんなに ``best`` を明示しなければならないのか？
+
 音楽ファイル一つをダウンロードする
 ----------------------------------------------------------------------
 
@@ -152,7 +170,7 @@ GNU ツールに従っている：
 ビデオ情報をなるべく詳細に取得するには JSON 出力を採用する。そのためのオプションは次の二種類ある：
 
 * ``-j`` or ``--dump-json``
-* ``-J`` or ``--dump-single-line``
+* ``-J`` or ``--dump-single-json``
 
 実際には改行文字を入れるかどうかくらいの差しかなさそうだ。どうせ :program:`jq`
 を利用するので、改行文字を用いない後者のオプションを使おう。
@@ -227,8 +245,43 @@ YouTube プレイリスト
    youtube-dl --skip-download --get-title "https://www.youtube.com/playlist?list=$PLAYLIST_ID"
    youtube-dl --skip-download --get-id "https://www.youtube.com/playlist?list=$PLAYLIST_ID"
 
-情報を JSON 形式で得る
+情報を JSON 形式で得る（簡易版）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+オプション ``--flat-playlist`` を指定するとビデオを抽出せず、プレイリストの各項
+目に対して簡単な属性集合を得るようだ。完全版に比べると処理が短時間で終わることが
+期待できる。プレイリストの概要を把握するのに最適だ。
+
+.. code:: console
+
+   youtube-dl --flat-playlist -J "https://www.youtube.com/playlist?list=$PLAYLIST_ID" > flat-playlist.json
+   jq -r '.title, .webpage_url, .uploader' < RA.json
+   jq -r '.entries[] | [.id, .title, .duration, .view_count] | @tsv' < flat-playlist.json
+
+こうすると、``.entries[] | keys`` は次しかない：
+
+.. code:: text
+
+   _type
+   description
+   duration
+   id
+   ie_key
+   title
+   uploader
+   url
+   view_count
+
+引数はプレイリストの URL でなくても、例えば YouTube ユーザーのビデオ一覧のそれでも動作する：
+
+.. code:: console
+
+   youtube-dl --flat-playlist -J "https://www.youtube.com/@$USERNAME/videos" > "$USERNAME-videos.json"
+
+情報を JSON 形式で得る（完全版）
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+情報がもっと欲しい場合にはオプション ``--flat-playlist`` をやめる。
 
 ビデオ単品の場合と同じだ。一般には出力が多いので、いったん JSON をファイルに保存
 するのを勧める。これを :program:`jq` で解析、整形するのが実践的だろう。
@@ -274,14 +327,6 @@ JSON は構造的でありすぎるという場合には CSV や TSV 形式に�
 他の方法としては、上述の JSON データを用意してから、それを編集して欲しいものを部
 分的に得るというものがあるだろう。
 
-.. todo::
-
-   次のコマンドを確認する：
-
-   .. code:: console
-
-      youtube-dl --output "%(title)s.%(ext)s" --yes-playlist "https://www.youtube.com/playlist?list=$PLAYLIST"
-
 構成
 ======================================================================
 
@@ -308,8 +353,8 @@ JSON は構造的でありすぎるという場合には CSV や TSV 形式に�
 ``%(ATTRIB_NAME)05d`` のようなものだ。
 
 もちろん ``%(ATTRIB_NAME)s`` などのパターンが対応する実際の値に置換される。適切
-な値が存在しない場合、オプション ``--output-na-placeholder`` で指定された値に置換
-される。この既定値は文字列 ``NA`` だ。
+な値が存在しない場合、オプション ``--output-na-placeholder`` で指定された値に置
+換される。この既定値は文字列 ``NA`` だ。
 
 数値列の場合は、数値に関連する書式を使用できる。例えば、``%(view_count)05d`` と
 すると、``00042`` のように 5 文字までのゼロで埋め尽くされた ``view_count`` が文
@@ -346,12 +391,11 @@ GNU 様式のオプション：
 ``--list-extractors``
     対応プラットフォームの一覧を標準出力に出力する。
 ``--extractor-descriptions``
-    上のオプションの出力に対応して、プラットフォームの説明文一覧を標準出力に出力する。
+    上のオプションの出力に対応して、プラットフォームの説明文一覧を標準出力に出力
+    する。
 
-.. todo::
-
-   ``--flat-playlist``
-       プレイリストの動画は抽出せず、一覧表示しかしない。これを多用したい。
+``--flat-playlist``
+    プレイリストの動画は抽出せず、一覧表示しかしない。これを多用したい。
 
 取捨選択オプション
 ----------------------------------------------------------------------
@@ -379,6 +423,9 @@ GNU 様式のオプション：
 ``--dateafter DATE``
     指定日付またはそれ以降のビデオを扱う。
 
+日付の書式は README_ の当該箇所を参照（相対日付の仕様に曖昧な点がある気がして引
+用がはばかられる）。例はしかしそのまま引用しておく：
+
 .. code:: console
 
    # Download only the videos uploaded in the last 6 months
@@ -396,6 +443,24 @@ GNU 様式のオプション：
     正規表現 ``REGEX`` に合致するものを扱う。
 ``--reject-title REGEX``
     正規表現 ``REGEX`` に合致するものを扱わない。
+
+引数 URL の形式に関わらず、ダウンロードするビデオが単一ビデオなのか複数なのかを
+次のオプションを明示的に指定することが可能だ：
+
+``--no-playlist``
+    URL が ビデオとプレイリストの両方の情報を含む場合、ビデオしかダウンロードし
+    ない。
+``--yes-playlist``
+    こちらはそのビデオだけでなく、プレイリストに含まれる他のビデオをもダウンロー
+    ドする。
+
+次のオプションは欲しいビデオすべてをファイルに指定してダウンロードするのに指定す
+る：
+
+``--download-archive FILE``
+    :file:`FILE` に記載されていないビデオに限ってダウンロードする。ダウンロード
+    したものについてはその ID を :file:`FILE` に記録する（今後はダウンロードしな
+    い）。
 
 ファイルシステムオプション
 ----------------------------------------------------------------------

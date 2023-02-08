@@ -108,6 +108,7 @@ Contents:
    python-pandas/index
    python-pygame
    python-pytube
+   youtube-dl
    python-py2exe
    python-upgrade
    python-miniconda
@@ -127,7 +128,6 @@ Contents:
    chrome
    git/index
    twitter
-   youtube-dl
    inkscape/index
    mathjax
    javascript-mermaid/index
