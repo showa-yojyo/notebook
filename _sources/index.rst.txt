@@ -108,6 +108,7 @@ Contents:
    python-pandas/index
    python-pygame
    python-pytube
+   youtube-dl
    python-py2exe
    python-upgrade
    python-miniconda
