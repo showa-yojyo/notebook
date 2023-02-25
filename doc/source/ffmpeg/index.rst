@@ -30,4 +30,5 @@ FFmpeg に関するノートだ。利用環境は次のとおりで、新しい�
    ffplay
    ffmpeg
    filters
+   cheetsheet
    references
