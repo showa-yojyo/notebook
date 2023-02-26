@@ -16,10 +16,10 @@
 逆再生
 ======================================================================
 
-確認するべき記事：
+.. seealso::
 
-* `How to Reverse a Video using FFmpeg - OTTVerse <https://ottverse.com/reverse-a-video-using-ffmpeg/>`__
-* `How to use FFmpeg Command for Reverse Video? - Video Production Stack Exchange <https://video.stackexchange.com/questions/17738/how-to-use-ffmpeg-command-for-reverse-video>`__
+   * `How to Reverse a Video using FFmpeg - OTTVerse <https://ottverse.com/reverse-a-video-using-ffmpeg/>`__
+   * `How to use FFmpeg Command for Reverse Video? - Video Production Stack Exchange <https://video.stackexchange.com/questions/17738/how-to-use-ffmpeg-command-for-reverse-video>`__
 
 映像と音声を同時に逆転させることも、一方だけを逆転させることも可能だ。
 
@@ -37,8 +37,11 @@
 携帯電話で撮影した映像を扱うのであれば、ちょうど 90 度だけ回転させたり反転させた
 りする手筋を覚えておくと何かのときに助かる。
 
-* `How to Rotate A Video using FFmpeg Easily - OTTVerse <https://ottverse.com/rotate-a-video-using-ffmpeg-90-180/>`__
-* `rotation - Rotating videos with FFmpeg - Stack Overflow <https://stackoverflow.com/questions/3937387/rotating-videos-with-ffmpeg>`__
+.. seealso::
+
+   * `FancyFilteringExamples - FFmpeg <https://trac.ffmpeg.org/wiki/FancyFilteringExamples>`__
+   * `How to Rotate A Video using FFmpeg Easily - OTTVerse <https://ottverse.com/rotate-a-video-using-ffmpeg-90-180/>`__
+   * `rotation - Rotating videos with FFmpeg - Stack Overflow <https://stackoverflow.com/questions/3937387/rotating-videos-with-ffmpeg>`__
 
 反転
 ----------------------------------------------------------------------
@@ -87,9 +90,9 @@
 ビデオを Twitter に投稿可能な状態にエンコードし直す
 ======================================================================
 
-確認するべき記事：
+.. seealso::
 
-* `twitter ffmpeg · GitHub <https://gist.github.com/nikhan/26ddd9c4e99bbf209dd7>`__
+   `twitter ffmpeg · GitHub <https://gist.github.com/nikhan/26ddd9c4e99bbf209dd7>`__
 
 携帯電話で撮影した MP4 ファイルに対してならば、上記リンク先スレッドの ``foone
 commented on May 18, 2018`` コメントのコマンドを加工して実行するといい。状況に応
@@ -98,16 +101,17 @@ commented on May 18, 2018`` コメントのコマンドを加工して実行す�
 静止画像抽出
 ======================================================================
 
-`Thumbnails &amp; Screenshots using FFmpeg - 3 Efficient Techniques - OTTVerse <https://ottverse.com/thumbnails-screenshots-using-ffmpeg/>`__
-参照。
+.. seealso::
+
+   `Thumbnails &amp; Screenshots using FFmpeg - 3 Efficient Techniques - OTTVerse <https://ottverse.com/thumbnails-screenshots-using-ffmpeg/>`__
 
 画像ファイル群からスライドショウを作成する
 ======================================================================
 
-確認するべき記事：
+.. seealso::
 
-* `Create Video from Images using FFmpeg - OTTVerse <https://ottverse.com/create-video-from-images-using-ffmpeg/>`__
-* `Slideshow - FFmpeg <https://trac.ffmpeg.org/wiki/Slideshow>`__
+   * `Slideshow - FFmpeg <https://trac.ffmpeg.org/wiki/Slideshow>`__
+   * `Create Video from Images using FFmpeg - OTTVerse <https://ottverse.com/create-video-from-images-using-ffmpeg/>`__
 
 紙幅がないのでコツを箇条書きにして済ませる：
 
@@ -142,11 +146,11 @@ commented on May 18, 2018`` コメントのコマンドを加工して実行す�
 ビデオを結合する
 ======================================================================
 
-確認するべき記事：
+.. seealso::
 
-* `FFmpeg Formats Documentation | 3.5 concat <https://ffmpeg.org/ffmpeg-formats.html#concat-1>`__
-* `Concatenate - FFmpeg <https://trac.ffmpeg.org/wiki/Concatenate>`__
-* `How to Concatenate mp4 Files Using FFmpeg Easily in 3 Different Ways! - OTTVerse <https://ottverse.com/3-easy-ways-to-concatenate-mp4-files-using-ffmpeg/>`__
+   * `FFmpeg Formats Documentation | 3.5 concat <https://ffmpeg.org/ffmpeg-formats.html#concat-1>`__
+   * `Concatenate - FFmpeg <https://trac.ffmpeg.org/wiki/Concatenate>`__
+   * `How to Concatenate mp4 Files Using FFmpeg Easily in 3 Different Ways! - OTTVerse <https://ottverse.com/3-easy-ways-to-concatenate-mp4-files-using-ffmpeg/>`__
 
 同一形式のものを結合する
 ----------------------------------------------------------------------
@@ -201,12 +205,13 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 再生区間を抽出する
 ======================================================================
 
-時間帯を指定して元ビデオから再生時間がより短いビデオを得たい。確認するべき記事は
-次のとおり：
+時間帯を指定して元ビデオから再生時間がより短いビデオを得たい。
 
-* `ffmpeg Documentation | 5.4 Main options <https://ffmpeg.org/ffmpeg.html#Main-options>`__
-* `How to Cut Video Using FFmpeg in 3 Easy Ways (Extract/Trim) - OTTVerse <https://ottverse.com/trim-cut-video-using-start-endtime-reencoding-ffmpeg/>`__
-* `How i could cut the last 7 second of my video with ffmpeg? - Super User <https://superuser.com/questions/744823/how-i-could-cut-the-last-7-second-of-my-video-with-ffmpeg>`__
+.. seealso::
+
+   * `ffmpeg Documentation | 5.4 Main options <https://ffmpeg.org/ffmpeg.html#Main-options>`__
+   * `How to Cut Video Using FFmpeg in 3 Easy Ways (Extract/Trim) - OTTVerse <https://ottverse.com/trim-cut-video-using-start-endtime-reencoding-ffmpeg/>`__
+   * `How i could cut the last 7 second of my video with ffmpeg? - Super User <https://superuser.com/questions/744823/how-i-could-cut-the-last-7-second-of-my-video-with-ffmpeg>`__
 
 時間指定用オプションを以下にまとめる。まずは一部を捨てるコマンドから：
 
@@ -264,10 +269,11 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 ビデオの画面を伸縮する
 ======================================================================
 
-確認するべき記事：
+.. seealso::
 
-* `Resize/Scale/Change Resolution of a Video using FFmpeg Easily - OTTVerse <https://ottverse.com/change-resolution-resize-scale-video-using-ffmpeg/)>`__
-* `Scaling - FFmpeg <https://trac.ffmpeg.org/wiki/Scaling>`__
+   * `FFmpeg Filters Documentation | 11.212 scale <https://ffmpeg.org/ffmpeg-filters.html#scale-1>`__
+   * `Resize/Scale/Change Resolution of a Video using FFmpeg Easily - OTTVerse <https://ottverse.com/change-resolution-resize-scale-video-using-ffmpeg/)>`__
+   * `Scaling - FFmpeg <https://trac.ffmpeg.org/wiki/Scaling>`__
 
 伸縮操作の基本は映像フィルター ``scale`` を用いるものだ。次のコマンド呼び出しは
 省略部分が同一ならばすべてが同値だ：
@@ -316,38 +322,83 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 
 字幕という手もあるが、ここではフィルター ``drawtext`` を用いる方法を述べる。
 
-確認するべき記事：
+.. seealso::
 
-* `FFmpeg drawtext filter to Insert Dynamic Overlays, Scrolling Text, and Timestamps - OTTVerse <https://ottverse.com/ffmpeg-drawtext-filter-dynamic-overlays-timecode-scrolling-text-credits/>`__
-* `FilteringGuide - FFmpeg <https://trac.ffmpeg.org/wiki/FilteringGuide>`__ の ``drawtext`` を利用した節二つ
+   * `FFmpeg Filters Documentation | 11.76 drawtext <https://ffmpeg.org/ffmpeg-filters.html#drawtext-1>`__
+   * `FFmpeg drawtext filter to Insert Dynamic Overlays, Scrolling Text, and Timestamps - OTTVerse <https://ottverse.com/ffmpeg-drawtext-filter-dynamic-overlays-timecode-scrolling-text-credits/>`__
+   * `FilteringGuide - FFmpeg <https://trac.ffmpeg.org/wiki/FilteringGuide>`__ の ``drawtext`` を利用した節二つ
 
-.. todo::
+文字を打ち込む作業は何度も何度も画面を見直すから :program:`ffplay` で確認すると
+いい：
 
-   WSL におけるフォントの設定をノートに残しておきたい。
+.. code:: console
+
+   bash$ ffplay -vf "drawtext=text='なんらかのテキスト':
+       fontfile=/path/to/fontfile:
+       box=0:boxcolor=white@0.5:
+       x=20:y=20:
+       shadowx=1:shadowy=1:shadowcolor=deeppink@0.9:
+       fontcolor=deeppink:fontsize=48:line_spacing=8" -autoexit -y 480 input.mp4
+
+.. admonition:: 利用者ノート
+
+   問題はオプション ``fontfile`` の指定だ。これは Windows のフォントを指定しても
+   OK ではある。しかし、できれば WSL 側で適宜設定して単純なパスで指定するか、あ
+   るいは代わりにオプション ``font`` でフォント名だけを指定すれば十分であるよう
+   に持っていきたい。
+
+   あと、TrueType フォントを指定すると描画が乱れる現象が起こっている。現状、拡張
+   子 ``.ttc`` のものしか描けない。
 
 複数配置
 ======================================================================
 
 フィルター ``hstack``, ``vstack``, ``xstack`` がその目的にはふさわしい。
 
-確認するべき記事：
+.. seealso::
 
-* `Stack Videos Horizontally, Vertically, in a Grid With FFmpeg - OTTVerse <https://ottverse.com/stack-videos-horizontally-vertically-grid-with-ffmpeg/>`__
-* `Vertically or horizontally stack (mosaic) several videos using ffmpeg? - Stack Overflow <https://stackoverflow.com/questions/11552565/vertically-or-horizontally-stack-mosaic-several-videos-using-ffmpeg>`__
+   * `Stack Videos Horizontally, Vertically, in a Grid With FFmpeg - OTTVerse <https://ottverse.com/stack-videos-horizontally-vertically-grid-with-ffmpeg/>`__
+   * `Vertically or horizontally stack (mosaic) several videos using ffmpeg? - Stack Overflow <https://stackoverflow.com/questions/11552565/vertically-or-horizontally-stack-mosaic-several-videos-using-ffmpeg>`__
 
-.. todo::
+フィルター ``hstack``, ``vstack`` を組み合わることで 2x2 レイアウトを実現するこ
+ともできるが、効率がより良いフィルター `xstack` があるのでそれを利用したい。例を
+示す。簡単のために、入力映像の画面寸法はすべて同じであると仮定する：
 
-   実践例から何か書く。
+.. code:: console
+
+   bash$ ffmpeg \
+       -i input0.mp4 -i input1.mp4 \
+       -i input2.mp4 -i input3.mp4 \
+       -filter_complex "xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0:shortest=1"
+       output.mp4
+
+これは次のようなレイアウトになる：
+
+.. code:: text
+
+   input0 input2
+   input1 input3
+
+引数 ``layout`` の値は縦棒区切りの謎の記号だが、これで出力における各映像入力の位
+置を指示する。``POSX_POSY`` のような形式で座標を指定している。数字は序数で
+``w0`` や ``h0`` はそれぞれ入力映像 ``0`` の幅と高さを表す。
+
+同系統のフィルターと同様に、入力映像すべてが同一のピクセルフォーマットでなければ
+ならない。
+
+グリッドの個数は 2 以上でも可能だし、極端に言えばグリッド状でなくてもいい。同一
+の映像入力を用いてもよい。演習として、ビートマニアの V のクリップのようなものを
+構成してみるといい。
 
 ぼかし
 ======================================================================
 
-確認するべき記事：
-
-* `Blur a Video using FFmpeg's BoxBlur Filter - OTTVerse <https://ottverse.com/blur-a-video-using-ffmpeg-boxblur/>`__
-* `How to Apply a Gaussian Blur to a Video with FFmpeg - Bannerbear <https://www.bannerbear.com/blog/how-to-apply-a-gaussian-blur-to-a-video-with-ffmpeg/>`__
-
 映像の空間的に、または時間的に一部をぼかす方法を記す。
+
+.. seealso::
+
+   * `Blur a Video using FFmpeg's BoxBlur Filter - OTTVerse <https://ottverse.com/blur-a-video-using-ffmpeg-boxblur/>`__
+   * `How to Apply a Gaussian Blur to a Video with FFmpeg - Bannerbear <https://www.bannerbear.com/blog/how-to-apply-a-gaussian-blur-to-a-video-with-ffmpeg/>`__
 
 考え方を述べる。オリジナルの映像の一部を矩形に「クリップボード」にコピーし、ぼか
 しフィルターで加工する。加工した映像矩形を元映像の同じ位置に「貼り付ける」という
@@ -375,7 +426,8 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 
      overlay --> output
 
-* ``crop=400:400:300:350``: 座標 (300, 350) を原点とする矩形 400x400 を crop するの意。
+* ``crop=400:400:300:350``: 座標 (300, 350) を原点とする矩形 400x400 を crop す
+  るの意。
 * ``overlay=300:350``: オーバーレイ座標。
 * ``boxblur=10``: ぼかしの強度。
 
@@ -383,12 +435,38 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 ``crop`` したものを ``overlay`` すればいい。また、フィルターには ``boxblur`` の
 他にも豊富にある。
 
-クロスフェイド
+映像遷移効果
 ======================================================================
 
-Demuxer ``concat`` で物足りないときにはフィルター ``xfade`` を検討したい。
+Demuxer ``concat`` で物足りないときにはフィルター ``xfade`` を検討したい。これは
+ある映像から別の映像へ切り替わるときに、スライドやワイプなどの視覚的効果を与える
+ものだ。
 
-.. todo::
+.. seealso::
 
-   * 実践例から何か書く。
-   * このタイミングではないかもしれないが ``settb=AVTB,fps=30`` について述べる。
+   * `FFmpeg Filters Documentation | 11.283 xfade <https://ffmpeg.org/ffmpeg-filters.html#toc-xfade>`__
+   * `Xfade - FFmpeg <https://trac.ffmpeg.org/wiki/Xfade>`__
+   * `CrossFade, Dissolve, and other Effects using FFmpeg's xfade Filter - OTTVerse <https://ottverse.com/crossfade-between-videos-ffmpeg-xfade-filter/>`__
+
+次のコマンドは :file:`input0.mp4` から :file:`input1.mp4` へクロスフェイドす
+る映像を出力するはずだ：
+
+.. code:: console
+
+   bash$ ffmpeg \
+       -i input0.mp4 \
+       -i input1.mp4 \
+       -filter_complex "xfade=transition=fade:
+       duration=${TRANSITION_DURATION_IN_SECONDS}:
+       offset=${OFFSET_RELATIVE_TO_FIRST_STREAM_IN_SECONDS}" \
+       output.mp4
+
+オプション ``transition`` に効果を指定する。``xfade`` が対応する利用可能な遷移効
+果を指定する。選択肢がべらぼうに多いので本稿では割愛。
+
+オプション ``duration`` には遷移効果時間を指定する。60 秒以下である必要がある。
+
+オプション ``offset`` には遷移を開始する時刻を秒単位で指定する。時刻の基準は最初
+の映像開始時点とする。
+
+最後に出力ファイルを指定する。望むなら encoding オプションを追加的に指定する。
