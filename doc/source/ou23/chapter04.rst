@@ -79,7 +79,19 @@ Basic Operations
    std::cout << std::get<double>(t) << std::endl; // illegal, runtime error
    std::cout << std::get<3>(t) << std::endl;
 
-``tie()`` については、もっと簡潔な記法があったと以前述べられていた記憶があるが。
+.. admonition:: 読者ノート
+
+   ``tie()`` については、もっと簡潔な記法があったと以前述べられていた：
+
+   .. code:: c++
+
+      // double gpa;
+      // char grade;
+      // std::string name;
+      auto [gpa, grade, name] = get_student(1);
+
+   ``tuple`` オブジェクトのメンバーすべてを得るときにしかできない方法だというこ
+   とに注意する。
 
 Runtime Indexing
 ----------------------------------------------------------------------
