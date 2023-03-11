@@ -24,6 +24,8 @@ Chapter 01: Towards Modern C++
           -latomic \
           -o ${fileDirname}/${fileBasenameNoExtension}
 
+   これでコンパイルが通らないコードが現れたら ``-std=c++20`` にすればいいだろう。
+
 1.1 Deprecated Features
 ======================================================================
 
