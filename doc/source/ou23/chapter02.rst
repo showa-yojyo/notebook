@@ -130,7 +130,7 @@ C++ 20 以降、関数の引数としても ``auto`` を使うこともできる
    auto y = 2;
    decltype(x + y) z;
 
-tail type inference
+Tail type inference
 ----------------------------------------------------------------------
 
 新しい順に述べる。C++14 では次の関数テンプレートの戻り値型 ``auto`` が適法だ：
@@ -166,7 +166,48 @@ C++11 の時点から次のような文法があった。戻り値型のとこ�
 ``decltype(auto)``
 ----------------------------------------------------------------------
 
-後回しにせよとあるので、そうする。
+.. admonition:: 読者ノート
+
+   :doc:`./chapter03` 内の完全転送を理解してからここに戻ることを推奨されている。
+
+簡単に言うと、``decltype(auto)`` は転送関数やパッケージの戻り値の型を導出するた
+めに使われるものだ、``decltype`` の引数式を明示的に指定する必要はないということ
+だ。例えば、次の関数があり、それらを個別にラップする関数を定義することを考える：
+
+.. code:: c++
+
+   std::string lookup1();
+   std::string& lookup2();
+
+C++11 まででも通じる文法で、次のよう定義される関数を現代的に書き換えることを考え
+る：
+
+.. code:: c++
+
+   std::string look_up_a_string_1() {
+       return lookup1();
+   }
+   std::string& look_up_a_string_2() {
+       return lookup2();
+   }
+
+このような面倒なパラメータ転送は ``decltype(auto)`` を使ってコンパイラーに任せる：
+
+.. code:: c++
+
+   decltype(auto) look_up_a_string_1() {
+       return lookup1();
+   }
+   decltype(auto) look_up_a_string_2() {
+       return lookup2();
+   }
+
+.. admonition:: 読者ノート
+
+   この節の内容でプログラマーが楽をできる要素は、変数宣言＆初期化における型およ
+   び、関数テンプレート、関数定義時における戻り値の型だととりあえず覚えておく。
+   コードを書くときには ``auto``, ``decltype(expr)``, ``decltype(auto)`` のどれ
+   かが利用できないかを意識すればいい。
 
 2.4 Control flow
 ======================================================================
@@ -189,6 +230,11 @@ C++17 では ``if`` 文に ``constexpr`` キーワードが導入され、コー
        }
    }
 
+.. admonition:: 読者ノート
+
+   上記の関数テンプレートは同じ関数本体で特殊化なしに二つ以上の関数定義を与えて
+   いる。
+
 Range-based for loop
 ----------------------------------------------------------------------
 
@@ -200,6 +246,10 @@ C++11 では範囲ベースの反復法が導入され、Python のように簡�
        std::cout << element << std::endl; // read only
    for (auto &element: vec)
        element += 1;                      // writeable
+
+.. admonition:: 読者ノート
+
+   この結果、標準ファンクターとバインダーの価値が下がった。
 
 2.5 Templates
 ======================================================================
@@ -227,7 +277,8 @@ Extern Templates
 The ">"
 ----------------------------------------------------------------------
 
-次のコードは C++11 からはコンパイルエラーが生じなくなっている：
+次のコードは C++11 からはコンパイルエラーが生じなくなっている。つまり、コンパイ
+ラーがシフト演算子に解釈しなくなった：
 
 .. code:: c++
 
@@ -236,14 +287,16 @@ The ">"
 Type alias templates
 ----------------------------------------------------------------------
 
-前提として「テンプレートは型ではない」ことを理解しておく。
-
 C++11では ``using`` を使って次のような別名宣言を与えることができる：
 
 .. code:: c++
 
    // typedef int (*process)(void *);
    using NewProcess = int(*)(void *);
+
+上記のものは ``typedef`` 記法に対して選択肢が単に増えただけだが、次のものはそう
+ではなく、代えが効かない。前提として「テンプレートは型ではない」ことを理解してお
+く。
 
 .. code:: c++
 
@@ -303,13 +356,38 @@ Variadic templates
        if constexpr (sizeof...(t) > 0) printf2(t...);
    }
 
-最後に、初期化リストとラムダ式を組み合わる方法を紹介してこの節は終わっている。ラ
-ムダ式のほうが未習得なので後回しにする。
+最後に、初期化リストとラムダ式を組み合わる方法を紹介してこの節を締めている：
+
+.. code:: c++
+
+   template<typename T, typename... Ts>
+   auto printf3(T value, Ts... args) {
+       std::cout << value << std::endl;
+       std::initializer_list<T>{([&args] {
+           std::cout << args << std::endl;
+       }(), value)...};
+   }
+
+.. admonition:: 読者ノート
+
+   この定義はすぐには理解しがたい。まず
+
+   .. code:: c++
+
+      ([&args] {std::cout << args << std::endl; }()
+
+   でラムダ式を定義してその場で呼び出している。これを ``A`` とおくと、
+
+   .. code:: c++
+
+      std::initializer_list<T>{(A, value)...};
+
+   が現れる。これにより引数の出力が完了することが読める。
 
 Fold expression
 ----------------------------------------------------------------------
 
-C++17
+C++17 からは ``...`` の用法がさらに拡張される：
 
 .. code:: c++
 
@@ -321,17 +399,37 @@ C++17
 Non-type template parameter deduction
 ----------------------------------------------------------------------
 
-C++17 からテンプレート引数リストに ``auto`` を書ける：
+型だけではなく、リテラルをテンプレート引数とすることができるのは従来どおりだが、
+それに対してもキーワード ``auto`` を用いることが C++17 から許される。例：
 
 .. code:: c++
 
-   template <auto value> void foo() {
-       // ...
+   template <auto value>
+   void foo() {
+       std::cout << value << std::endl;
    }
 
    int main() {
-       foo<10>();  // value as int
+       foo<10>(); // value as int
    }
+
+.. admonition:: 読者ノート
+
+   説明のためだけの例なので、上記コードに実用性は皆無だ。むしろ先の例を再利用し
+   てこうしたい：
+
+   .. code:: c++
+
+      template <typename T, auto BufSize>
+      class buffer_t {
+          T data[BufSize];
+
+      public:
+          T& alloc();
+          void free(T& item);
+      }
+
+      buffer_t<int, 100> buf; // 100 as template parameter
 
 2.6 Object-oriented
 ======================================================================
@@ -359,7 +457,9 @@ C++11 ではキーワード ``using`` を使って継承コンストラクター
        Base() : value1(1){}
 
        // delegate Base() constructor
-       Base(int value) : Base(), value2(value) {}
+       Base(int value) : Base(){
+           value2 = value;
+       }
    };
 
    class Subclass : public Base {
@@ -368,6 +468,11 @@ C++11 ではキーワード ``using`` を使って継承コンストラクター
        // E.g. Subclass s{3};
        using Base::Base;
    };
+
+.. admonition:: 読者ノート
+
+   この例で ``Base(int)`` コンストラクターはメンバー ``value2`` を中括弧の外側で
+   初期化できないことに注意。委譲コンストラクター側で初期化されるからだ。
 
 Explicit virtual function overwrite
 ----------------------------------------------------------------------
