@@ -23,8 +23,47 @@ Basics
 
 1. value capture: 通常関数の値渡しに対応する。
 2. reference capture: 通常関数の参照渡しに対応する。
-3. implicit capture: 捕捉リストをコンパイラーに任せる。``&`` や ``=`` を書くこと
-   で、参照や値のキャプチャーを宣言することができる。
+3. implicit capture: 捕捉リストをコンパイラーに任せる。
+4. expression capture: 前述の 1. と 2. は外側スコープで宣言された変数なので、こ
+   れらの捕捉メソッドは lvalue を捕捉して rvalue を捕捉しない。
+
+Value capture
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+重要なのは、取り込まれた変数が、ラムダ式が呼び出されたときではなく、ラムダ式が定
+義されたときにコピーされることだ。
+
+.. code:: c++
+
+   void lambda_value_capture() {
+       int value = 1;
+       auto copy_value = [value] {
+           return value;
+       };
+       value = 100;
+       auto stored_value = copy_value();
+       std::cout << "stored_value = " << stored_value << std::endl;
+       assert(stored_value == 1);
+       assert(value == 100);
+   }
+
+Reference capture
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+上記コードのラムダ式を以下に替えると、今度は ``stored_value == 100`` で終了する。
+
+.. code:: c++
+
+   auto copy_value = [&value] {
+        return value;
+   };
+
+Implicit capture
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+捕捉リストを手動で書くのではなく、コンパイラーに任せることもできる。このとき捕捉
+リストに ``&`` や ``=`` を書くことで、参照や値のキャプチャーを宣言することができ
+る。
 
 .. csv-table::
    :delim: |
@@ -36,10 +75,43 @@ Basics
    ``[&]`` | 参照捕捉（コンパイラー自身に参照リストであることを推論させる）
    ``[=]`` | 値捕捉（コンパイラー自身に値リストであることを推論させる）
 
-もう一つの類型がある。理解には rvalue の概念に加え、スマートポインターの知識が必
-要。後回しにする。
+Expression capture
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4. expression capture: TBW
+.. admonition:: 読者ノート
+
+   理解には rvalue の概念に加え、スマートポインターの知識が必要。
+   :doc:`./chapter05` を先に目を通してから取り組む。
+
+先述の値捕捉および参照捕捉は外側有効域で宣言された変数なので、これらの捕捉メソッ
+ドは lvalue を捕捉して rvalue を捕捉しない。
+
+C++14 からは捕捉対象を任意の式で初期化でき、rvalue の捕捉が可能になる。宣言され
+ることになる捕捉変数の型は式によって判定され、その判定は ``auto`` を使うのと同じ
+だ。例：
+
+.. code:: c++
+
+   #include <iostream>
+   #include <memory>  // std::make_unique
+   #include <utility> // std::move
+
+   void lambda_expression_capture() {
+       auto important = std::make_unique<int>(1);
+       auto add = [v1 = 1, v2 = std::move(important)](int x, int y) -> int {
+           return x + y + v1 + *v2;
+       };
+       std::cout << add(3, 4) << std::endl;
+   }
+
+スマートポインターオブジェクト ``important`` が ``[=]`` による値捕捉では捕捉でき
+ないことに注意する。いったん rvalue に所有権ごと引き渡して式中で初期化する
+(``v2``) 必要がある。
+
+.. admonition:: 読者ノート
+
+   捕捉リストの ``v1``, ``v2`` の定義に対して、型が明記されていないので C++ コー
+   ドとしては異例だという印象を強く受ける。
 
 Generic Lambda
 ----------------------------------------------------------------------
@@ -138,16 +210,14 @@ Rvalue 参照は、C++11 での導入により歴史的な問題を大量に解�
 lvalue, rvalue, prvalue, xvalue
 ----------------------------------------------------------------------
 
-.. mermaid::
+.. admonition:: 読者ノート
 
-   flowchart BT
-       glvalue & rvalue --> expression
-       lvalue --> glvalue
-       xvalue --> glvalue & rvalue
-       prvalue --> rvalue
+   これらの概念を図式化したものを既存ノートから引用する：
 
-       linkStyle 0,1,2,3,4,5 stroke:#000,stroke-width:1px,fill:none;
-       classDef default fill:none,stroke:none;
+   .. mermaid:: /_include/c++-expr-cat.mmd
+      :align: center
+      :alt: Expression category taxonomy
+      :caption: Expression category taxonomy
 
 prvalue (pure rvalue, purely rvalue) は、
 
@@ -197,6 +267,59 @@ C++11 では、lvalue 引数を無条件に rvalue に変換する ``std::move``
 Move semantics
 ----------------------------------------------------------------------
 
+従来の C++ ではコピーコンストラクターやコピー代入演算子でしかクラスオブジェクト
+の複製を設計していなかった。資源の移動を実装するには、呼び出し側が先に複製してか
+ら破壊するメソッドを使う必要があり、そうでなければ、移動先のオブジェクトのイン
+ターフェースを自分で実装する必要があった。
+
+こうなると大量のデータが複製され、時間と空間を浪費していた。rvalue 参照の導入
+は、複製と移動の概念の混同を解消する狙いがある。
+
+本文の例では、次のコンストラクターが鍵だ：
+
+.. code:: c++
+
+   class A{
+      int* pointer;
+
+   public:
+      A() : pointer(new int(1)) {
+      }
+
+      A(A& a) : pointer(new int(*a.pointer)) {}
+
+      A(A&& a) : pointer(a.pointer) {
+          a.pointer = nullptr;
+      }
+
+      ~A(){
+          delete pointer;
+      }
+
+      // ...
+   };
+
+   // avoid compiler optimization
+   A return_rvalue(bool test) {
+       A a, b;
+       if(test) return a; // equal to static_cast<A&&>(a);
+       else return b; // equal to static_cast<A&&>(b);
+   }
+
+   int main() {
+       A obj = return_rvalue(false);
+       // ...
+   }
+
+関数 ``main`` の一行目の右辺が xvalue として評価される。その結果、左辺 ``obj``
+の初期化にはコンストラクター ``A(A&&)`` が採用される。``obj.pointer`` は xvalue
+のメンバーデータ ``pointer`` と同一であり、このコンストラクター内部で xvalue の
+``pointer`` は ``nullptr`` にリセットされる。さらに、xvalue に対してデストラク
+ターが直ちに呼び出され、``nullptr`` は安全に処理される。
+
+標準ライブラリーにもこの形式のコンストラクター、代入演算子が提供されている。文字
+列の例：
+
 .. code:: c++
 
    std::string str = "Hello world.";
@@ -207,11 +330,15 @@ Move semantics
    // and therefore std::move can reduce copy cost
    v.push_back(std::move(str));
 
+.. admonition:: 読者ノート
+
+   ``const T&&`` は ``const`` なのか？
+
 Perfect forwarding
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 従来の C++ では参照型を参照し続けることできなかった。しかし、rvalue 参照の登場に
-よりこの慣習が撤回され、 lvalue 参照と rvalue 参照の両方を参照することができる規
+よりこの慣習が撤回され、lvalue 参照と rvalue 参照の両方を参照することができる規
 則に変わった。
 
 関数テンプレートで ``T&&`` を使用すると、rvalue 参照ができない場合があり、

@@ -164,19 +164,10 @@ What's New In C++11 言語仕様
 
   と思ったら、C++11 から次のような式の分類法が導入されたようだ：
 
-  .. mermaid::
+  .. mermaid:: /_include/c++-expr-cat.mmd
      :align: center
      :alt: Expression category taxonomy
      :caption: Expression category taxonomy
-
-     flowchart BT
-     glvalue & rvalue --> expression
-     lvalue --> glvalue
-     xvalue --> glvalue & rvalue
-     prvalue --> rvalue
-
-     linkStyle 0,1,2,3,4,5 stroke:#000,stroke-width:1px,fill:none;
-     classDef default fill:none,stroke:none;
 
   * glvalue は lvalue または xvalue のどちらかに分類される。「一般化された左辺
     値」くらいの意味。
