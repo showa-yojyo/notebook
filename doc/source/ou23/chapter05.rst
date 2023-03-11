@@ -68,7 +68,8 @@ Chapter 05: Smart Pointers and Memory Management
 5.4 ``std::weak_ptr``
 ======================================================================
 
-``std::shared_ptr`` は次のような使い方をすると解放漏れが生じる：
+``std::shared_ptr`` は次のような使い方をすると解放漏れが生じる。デストラクターを
+実装して、デバッガーでステップ実行すればわかる：
 
 .. code:: c++
 
@@ -78,12 +79,11 @@ Chapter 05: Smart Pointers and Memory Management
    class A {
    public:
        std::shared_ptr<B> pointer;
-       ~A(){}
    };
+
    class B {
    public:
        std::shared_ptr<A> pointer;
-       ~B(){}
    };
 
    auto a = std::make_shared<A>();
@@ -110,10 +110,18 @@ Chapter 05: Smart Pointers and Memory Management
 ``std::weak_ptr::lock()`` は、資源が解放されていない場合に限り、元の
 ``std::shared_ptr`` を返す。
 
+.. admonition:: 読者ノート
+
+   本文は ``lock`` しか言及していないが、``owner_before`` というメソッドもある。
+   これらを使って本文の例を書き換えたものを考えたい。
+
+   `std::weak_ptr - cppreference.com <https://en.cppreference.com/w/cpp/memory/weak_ptr>`__
+
 Conclusion
 ======================================================================
 
-多くの言語で一般的な技術であるスマートポインターだが、C++ ではこの技術が最近導入された。
+多くの言語で一般的な技術であるスマートポインターだが、C++ ではこの技術が最近導入
+された。
 
 Further Readings
 ======================================================================
