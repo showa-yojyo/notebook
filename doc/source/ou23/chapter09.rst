@@ -16,6 +16,11 @@ Chapter 09: Minor Features
 C99 の時点で C 標準に含まれていたため、ほとんどのコンパイラーがすでに対応済みだ。
 C++11 では正式に標準ライブラリーに組み込まれ、少なくとも 64 ビット長の型だ。
 
+.. admonition:: 読者ノート
+
+   ということは ``unsigned long long int`` も同じビット長で対応されているという
+   ことだ。
+
 9.2 ``noexcept`` and Its Operations
 ======================================================================
 
@@ -29,29 +34,51 @@ C++11 では例外宣言を二つの場合に単純化している：
 
 この両方の動作を制限するために ``noexcept`` を使用する。
 
+.. code:: c++
+
+   void no_throw() noexcept;
+
+.. admonition:: 読者ノート
+
+   この形式の ``noexcept`` には引数として述語定数式をとる変種がある。それが
+   ``true`` に評価されるならば、その関数は例外を投げることができないものとされ
+   る。したがって、上の宣言は次と等価ということになる：
+
+   .. code:: c++
+
+      void no_throw() noexcept(true);
+
 ``noexcept`` 関数が例外を発生させた場合、コンパイラーは ``std::terminate()`` を
 使ってプログラムを直ちに終了させる。
 
-``noexcept`` は式を操作する演算子としても使用でき、式に例外がない場合は ``true``
-を、そうでない場合は ``false`` を返す。次のコードはその例だ。対象の関数を実際に
-は呼び出さない。コンパイル時に評価していると考えられる。
+.. admonition:: 読者ノート
+
+   古の ``throw()`` 方式だと、実行時に例外が送出される場合に
+   ``std::unexpected()`` が呼び出されていたが、それとは異なると述べている。
+
+``noexcept`` は式を操作する演算子としても使用でき、式が例外を送出させないように
+宣言されている場合は ``true`` を、そうでない場合は ``false`` を返す。次のコード
+はその例だ。対象の関数を実際には呼び出さない（ので、宣言のみで済むものはそうして
+ある）。コンパイル時に評価している：
 
 .. code:: c++
 
+   void may_throw();
+   void no_throw() noexcept;
+   auto lmay_throw = [] {};
+   auto lno_throw = []() noexcept {};
+
    int main()
    {
-       std::cout << std::boolalpha
-           << "may_throw() noexcept? " << noexcept(may_throw()) << std::endl
-           << "no_throw() noexcept? " << noexcept(no_throw()) << std::endl
-           << "lmay_throw() noexcept? " << noexcept(non_block_throw()) << std::endl
-           << "lno_throw() noexcept? " << noexcept(block_throw()) << std::endl;
+       static_assert(!noexcept(may_throw()));
+       static_assert(noexcept(no_throw()));
+       static_assert(!noexcept(lmay_throw()));
+       static_assert(noexcept(lno_throw()));
        return 0;
    }
 
 ``noexcept`` 修飾子は関数の後に例外の拡散をブロックする効果があり、内部で例外が
 発生しても外部で発動することはない。
-
-ここにある例コードは本節の文脈では意味がない。通常の例外処理の動作に見える。
 
 9.3 Literal
 ======================================================================
@@ -65,6 +92,14 @@ Raw String Literal
 .. code:: c++
 
    R"(raw string literal)"
+
+.. admonition:: 読者ノート
+
+   次のようなものをコード中に埋め込むのに有用だと考えられる：
+
+   * Windows 形式のパス文字列
+   * 正規表現
+   * 改行を含むリテラル文字列
 
 Custom Literal
 ----------------------------------------------------------------------
