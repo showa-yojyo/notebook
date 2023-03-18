@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Chapter 09: Minor Features &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="Chapter 10 Outlook: Introduction of C++20" href="chapter10.html" />
+    <link rel="prev" title="Chapter 08: File System" href="chapter08.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="chapter08.html" title="Previous document">Chapter 08: File System</a>
+        </li>
+        <li>
+          <a href="chapter10.html" title="Next document">Chapter 10 Outlook: Introduction of C++20</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="chapter-09-minor-features">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 09: Minor Features</a><a class="headerlink" href="#chapter-09-minor-features" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://changkun.de/modern-cpp/en-us/09-others/">Chapter 09: Minor Features</a>
+に関するノート。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#chapter-09-minor-features" id="id1">Chapter 09: Minor Features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#new-type" id="id2">9.1 New Type</a></p>
+<ul>
+<li><p><a class="reference internal" href="#long-long-int" id="id3"><code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">long</span> <span class="pre">int</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#noexcept-and-its-operations" id="id4">9.2 <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> and Its Operations</a></p></li>
+<li><p><a class="reference internal" href="#literal" id="id5">9.3 Literal</a></p>
+<ul>
+<li><p><a class="reference internal" href="#raw-string-literal" id="id6">Raw String Literal</a></p></li>
+<li><p><a class="reference internal" href="#custom-literal" id="id7">Custom Literal</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#memory-alignment" id="id8">9.4 Memory Alignment</a></p></li>
+<li><p><a class="reference internal" href="#conclusion" id="id9">Conclusion</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="new-type">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">9.1 New Type</a><a class="headerlink" href="#new-type" title="Permalink to this heading">¶</a></h2>
+<section id="long-long-int">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">long</span> <span class="pre">int</span></code></a><a class="headerlink" href="#long-long-int" title="Permalink to this heading">¶</a></h3>
+<p>C99 の時点で C 標準に含まれていたため、ほとんどのコンパイラーがすでに対応済みだ。
+C++11 では正式に標準ライブラリーに組み込まれ、少なくとも 64 ビット長の型だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>ということは <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">int</span></code> も同じビット長で対応されているということだ。</p>
+</div>
+</section>
+</section>
+<section id="noexcept-and-its-operations">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">9.2 <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> and Its Operations</a><a class="headerlink" href="#noexcept-and-its-operations" title="Permalink to this heading">¶</a></h2>
+<p>C++11 以前は、関数名の後に例外宣言式 <code class="docutils literal notranslate"><span class="pre">throw(xxx)</span></code> を書く人はほぼ皆無だった。
+C++11 からはこの仕組みは非推奨となった。</p>
+<p>C++11 では例外宣言を二つの場合に単純化している：</p>
+<ol class="arabic simple">
+<li><p>関数は例外を投げる可能性がある</p></li>
+<li><p>関数は例外を投げることができない</p></li>
+</ol>
+<p>この両方の動作を制限するために <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> を使用する。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">no_throw</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この形式の <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> には引数として述語定数式をとる変種がある。それが
+<code class="docutils literal notranslate"><span class="pre">true</span></code> に評価されるならば、その関数は例外を投げることができないものとされる。したがって、上の宣言は次と等価ということになる：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">no_throw</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">noexcept</span></code> 関数が例外を発生させた場合、コンパイラーは <code class="docutils literal notranslate"><span class="pre">std::terminate()</span></code> を使ってプログラムを直ちに終了させる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>古の <code class="docutils literal notranslate"><span class="pre">throw()</span></code> 方式だと、実行時に例外が送出される場合に
+<code class="docutils literal notranslate"><span class="pre">std::unexpected()</span></code> が呼び出されていたが、それとは異なると述べている。</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">noexcept</span></code> は式を操作する演算子としても使用でき、式が例外を送出させないように宣言されている場合は <code class="docutils literal notranslate"><span class="pre">true</span></code> を、そうでない場合は <code class="docutils literal notranslate"><span class="pre">false</span></code> を返す。次のコードはその例だ。対象の関数を実際には呼び出さない（ので、宣言のみで済むものはそうしてある）。コンパイル時に評価している：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">may_throw</span><span class="p">();</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">no_throw</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">lmay_throw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">lno_throw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="k">noexcept</span><span class="p">(</span><span class="n">may_throw</span><span class="p">()));</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="n">no_throw</span><span class="p">()));</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="k">noexcept</span><span class="p">(</span><span class="n">lmay_throw</span><span class="p">()));</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="n">lno_throw</span><span class="p">()));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">noexcept</span></code> 修飾子は関数の後に例外の拡散をブロックする効果があり、内部で例外が発生しても外部で発動することはない。</p>
+</section>
+<section id="literal">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">9.3 Literal</a><a class="headerlink" href="#literal" title="Permalink to this heading">¶</a></h2>
+<section id="raw-string-literal">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Raw String Literal</a><a class="headerlink" href="#raw-string-literal" title="Permalink to this heading">¶</a></h3>
+<p>丸括弧を引用符の内側に書く必要があるに注意。つまり <code class="docutils literal notranslate"><span class="pre">R&quot;(</span></code> と <code class="docutils literal notranslate"><span class="pre">)&quot;</span></code> で囲むということだ。これは C++11 から利用可能な記法だ。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="sa">R</span><span class="s">&quot;</span><span class="dl">(</span><span class="s">raw string literal</span><span class="dl">)</span><span class="s">&quot;</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>次のようなものをコード中に埋め込むのに有用だと考えられる：</p>
+<ul class="simple">
+<li><p>Windows 形式のパス文字列</p></li>
+<li><p>正規表現</p></li>
+<li><p>改行を含むリテラル文字列</p></li>
+</ul>
+</div>
+</section>
+<section id="custom-literal">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Custom Literal</a><a class="headerlink" href="#custom-literal" title="Permalink to this heading">¶</a></h3>
+<p>二重引用符接尾辞演算子をオーバーロードすることで、リテラルをカスタマイズする機能が C++11 から導入されている。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// String literal customization must be set to the following parameter list</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="n">_wow1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">wow1</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">wow1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;woooooooooow, amazing&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="n">_wow2</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;woooooooooow, amazing&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="n">_wow1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="n">_wow2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>最初の演算子オーバーロードで <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code> リテラルに対する接尾辞 <code class="docutils literal notranslate"><span class="pre">_wow1</span></code> が有効になる。ソースコード中にこのままタイプするとコンパイルが通る。</p>
+<p>カスタムリテラルが対応する型は四つだ：</p>
+<ol class="arabic simple">
+<li><p>整数リテラル。オーバーロードは次の引数を使用する必要がある：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code></p></li>
+<li><p>テンプレートリテラル演算子</p></li>
+</ul>
+</li>
+<li><p>浮動小数点演算子。オーバーロードは次の引数を使用する必要がある：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code></p></li>
+<li><p>テンプレートリテラル</p></li>
+</ul>
+</li>
+<li><p>文字列リテラル。引数リストを <code class="docutils literal notranslate"><span class="pre">(const</span> <span class="pre">char*,</span> <span class="pre">size_t)</span></code> とする必要がある。</p></li>
+<li><p>文字リテラル。引数は次のもののみ使用可能：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">char</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wchar_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">char16_t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">char32_t</span></code></p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="memory-alignment">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">9.4 Memory Alignment</a><a class="headerlink" href="#memory-alignment" title="Permalink to this heading">¶</a></h2>
+<p>キーワード <code class="docutils literal notranslate"><span class="pre">alignof</span></code> と <code class="docutils literal notranslate"><span class="pre">alignas</span></code> が導入された。</p>
+<p>まず整列 (alignment) の概念を確認する。すべてのオブジェクト型には整列要件と呼ばれる性質がある（型に対する性質であることに注意）。その型のオブジェクトを割り当てることが可能な連続したアドレス間のバイト数を表すような 2 のべき乗である値で表される。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alignof(T)</span></code> で <code class="docutils literal notranslate"><span class="pre">T</span></code> の整列要件値をコンパイル時に評価する。</p></li>
+<li><p>最小整列要件は <code class="docutils literal notranslate"><span class="pre">char</span></code>, <code class="docutils literal notranslate"><span class="pre">signed</span> <span class="pre">char</span></code>, <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">char</span></code> のそれとなる。すなわち 1 に等しい。</p></li>
+</ul>
+<p>次の構造体を考える：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Storage</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">alignof(Storage)</span></code> は 8 になる。メンバーに対する <code class="docutils literal notranslate"><span class="pre">sizeof</span></code> 値の最大値が 8 だからだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">alignas</span></code> 指定子を用いた宣言によって宣言されたオブジェクトまたは型は、その自然な整列を弱めることにならない場合に限り、その整列要件値は、その宣言で使用されたすべての <code class="docutils literal notranslate"><span class="pre">alignas</span></code> 指定子の最も厳しい（最大）非ゼロ式に等しくなる。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">alignas</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max_align_t</span><span class="p">)</span><span class="w"> </span><span class="n">AlignasStorage</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">std::max_align_t</span></code> はヘッダーファイル <code class="docutils literal notranslate"><span class="pre">&lt;cstddef&gt;</span></code> に定義されている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">std::max_align_t</span></code> は通常、最大のスカラー型と同義だ。大半のプラットフォームでは <code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code> であり、したがってその整列要件は 8 または 16 に等しい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>手許の環境では 16 のようだ。</p>
+</div>
+<p>上の構造体 <code class="docutils literal notranslate"><span class="pre">AlignasStorage</span></code> の <code class="docutils literal notranslate"><span class="pre">alignof</span></code> 値は、<code class="docutils literal notranslate"><span class="pre">alignas</span></code> なし版構造体と比べると異なる。上述の環境では指定の意図どおり 16 に等しい。</p>
+</section>
+<section id="conclusion">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Conclusion</a><a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
+<p>この中では <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> が最も重要な機能だ。コンパイラーがコードを最大限に最適化する効果もある。</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="chapter08.html" title="Previous document">Chapter 08: File System</a>
+        </li>
+        <li>
+          <a href="chapter10.html" title="Next document">Chapter 10 Outlook: Introduction of C++20</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a><ul>
+      <li>Previous: <a href="chapter08.html" title="previous chapter">Chapter 08: File System</a></li>
+      <li>Next: <a href="chapter10.html" title="next chapter">Chapter 10 Outlook: Introduction of C++20</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

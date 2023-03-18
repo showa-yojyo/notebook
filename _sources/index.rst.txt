@@ -51,6 +51,7 @@ Contents:
    haverbeke18/index
    khronos18/index
    kantor22/index
+   ou23/index
 
 .. toctree::
    :maxdepth: 1

@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Chapter 03: Language Runtime Enhancements ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="Chapter 04: Containers" href="chapter04.html" />
+    <link rel="prev" title="Chapter 02: Language Usability Enhancements" href="chapter02.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="chapter02.html" title="Previous document">Chapter 02: Language Usability Enhancements</a>
+        </li>
+        <li>
+          <a href="chapter04.html" title="Next document">Chapter 04: Containers</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="chapter-03-language-runtime-enhancements">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">Chapter 03: Language Runtime Enhancements ノート</a><a class="headerlink" href="#chapter-03-language-runtime-enhancements" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://changkun.de/modern-cpp/en-us/03-runtime/">Chapter 03: Language Runtime Enhancements</a>
+についてのノート。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#chapter-03-language-runtime-enhancements" id="id2">Chapter 03: Language Runtime Enhancements ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lambda-expression" id="id3">3.1 Lambda Expression</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basics" id="id4">Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#value-capture" id="id5">Value capture</a></p></li>
+<li><p><a class="reference internal" href="#reference-capture" id="id6">Reference capture</a></p></li>
+<li><p><a class="reference internal" href="#implicit-capture" id="id7">Implicit capture</a></p></li>
+<li><p><a class="reference internal" href="#expression-capture" id="id8">Expression capture</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#generic-lambda" id="id9">Generic Lambda</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#function-object-wrapper" id="id10">3.2 Function Object Wrapper</a></p>
+<ul>
+<li><p><a class="reference internal" href="#std-function" id="id11"><code class="docutils literal notranslate"><span class="pre">std::function</span></code></a></p></li>
+<li><p><a class="reference internal" href="#std-bind-and-std-placeholder" id="id12"><code class="docutils literal notranslate"><span class="pre">std::bind</span></code> and <code class="docutils literal notranslate"><span class="pre">std::placeholder</span></code></a></p></li>
+<li><p><a class="reference internal" href="#rvalue-reference" id="id13">3.3 Rvalue Reference</a></p></li>
+<li><p><a class="reference internal" href="#lvalue-rvalue-prvalue-xvalue" id="id14">lvalue, rvalue, prvalue, xvalue</a></p></li>
+<li><p><a class="reference internal" href="#rvalue-reference-and-lvalue-reference" id="id15">rvalue reference and lvalue reference</a></p></li>
+<li><p><a class="reference internal" href="#move-semantics" id="id16">Move semantics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#perfect-forwarding" id="id17">Perfect forwarding</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#conclusion" id="id18">Conclusion</a></p></li>
+<li><p><a class="reference internal" href="#further-readings" id="id19">Further Readings</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="lambda-expression">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">3.1 Lambda Expression</a><a class="headerlink" href="#lambda-expression" title="Permalink to this heading">¶</a></h2>
+<p>ラムダ式は現代の C++ で最も重要な機能の一つであり、ラムダ式は匿名関数のように機能する。匿名関数が使えるのは、関数が必要だが、それを呼び出すのに名前を使いたくないときだ。こういう状況は何度も何度もある。それゆえ匿名関数は、現代のプログラミング言語のほとんどでは標準で備わっている。というようなことを著者は述べている。</p>
+<section id="basics">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Basics</a><a class="headerlink" href="#basics" title="Permalink to this heading">¶</a></h3>
+<p>ラムダ式の構文をまず頭に叩き込む。関数定義の構文に対応物がない高栄養素である捕捉リストを見ていく。それをまず三つに分類する：</p>
+<ol class="arabic simple">
+<li><p>value capture: 通常関数の値渡しに対応する。</p></li>
+<li><p>reference capture: 通常関数の参照渡しに対応する。</p></li>
+<li><p>implicit capture: 捕捉リストをコンパイラーに任せる。</p></li>
+<li><p>expression capture: 前述の 1. と 2. は外側スコープで宣言された変数なので、これらの捕捉メソッドは lvalue を捕捉して rvalue を捕捉しない。</p></li>
+</ol>
+<section id="value-capture">
+<h4><a class="toc-backref" href="#id5" role="doc-backlink">Value capture</a><a class="headerlink" href="#value-capture" title="Permalink to this heading">¶</a></h4>
+<p>重要なのは、取り込まれた変数が、ラムダ式が呼び出されたときではなく、ラムダ式が定義されたときにコピーされることだ。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">lambda_value_capture</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">copy_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">stored_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">copy_value</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;stored_value = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stored_value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">stored_value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="reference-capture">
+<h4><a class="toc-backref" href="#id6" role="doc-backlink">Reference capture</a><a class="headerlink" href="#reference-capture" title="Permalink to this heading">¶</a></h4>
+<p>上記コードのラムダ式を以下に替えると、今度は <code class="docutils literal notranslate"><span class="pre">stored_value</span> <span class="pre">==</span> <span class="pre">100</span></code> で終了する。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">copy_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="implicit-capture">
+<h4><a class="toc-backref" href="#id7" role="doc-backlink">Implicit capture</a><a class="headerlink" href="#implicit-capture" title="Permalink to this heading">¶</a></h4>
+<p>捕捉リストを手動で書くのではなく、コンパイラーに任せることもできる。このとき捕捉リストに <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> や <code class="docutils literal notranslate"><span class="pre">=</span></code> を書くことで、参照や値のキャプチャーを宣言することができる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>記法</p></th>
+<th class="head"><p>分類</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>空</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[name1,</span> <span class="pre">name2,</span> <span class="pre">...]</span></code></p></td>
+<td><p>値捕捉</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code></p></td>
+<td><p>参照捕捉（コンパイラー自身に参照リストであることを推論させる）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[=]</span></code></p></td>
+<td><p>値捕捉（コンパイラー自身に値リストであることを推論させる）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="expression-capture">
+<h4><a class="toc-backref" href="#id8" role="doc-backlink">Expression capture</a><a class="headerlink" href="#expression-capture" title="Permalink to this heading">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>理解には rvalue の概念に加え、スマートポインターの知識が必要。
+<a class="reference internal" href="chapter05.html"><span class="doc">Chapter 05: Smart Pointers and Memory Management</span></a> を先に目を通してから取り組む。</p>
+</div>
+<p>先述の値捕捉および参照捕捉は外側有効域で宣言された変数なので、これらの捕捉メソッドは lvalue を捕捉して rvalue を捕捉しない。</p>
+<p>C++14 からは捕捉対象を任意の式で初期化でき、rvalue の捕捉が可能になる。宣言されることになる捕捉変数の型は式によって判定され、その判定は <code class="docutils literal notranslate"><span class="pre">auto</span></code> を使うのと同じだ。例：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span><span class="c1">  // std::make_unique</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span><span class="c1"> // std::move</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">lambda_expression_capture</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">important</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">important</span><span class="p">)](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">*</span><span class="n">v2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>スマートポインターオブジェクト <code class="docutils literal notranslate"><span class="pre">important</span></code> が <code class="docutils literal notranslate"><span class="pre">[=]</span></code> による値捕捉では捕捉できないことに注意する。いったん rvalue に所有権ごと引き渡して式中で初期化する
+(<code class="docutils literal notranslate"><span class="pre">v2</span></code>) 必要がある。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>捕捉リストの <code class="docutils literal notranslate"><span class="pre">v1</span></code>, <code class="docutils literal notranslate"><span class="pre">v2</span></code> の定義に対して、型が明記されていないので C++ コードとしては異例だという印象を強く受ける。</p>
+</div>
+</section>
+</section>
+<section id="generic-lambda">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Generic Lambda</a><a class="headerlink" href="#generic-lambda" title="Permalink to this heading">¶</a></h3>
+<p>ラムダ関数の仮引数にキーワード <code class="docutils literal notranslate"><span class="pre">auto</span></code> を使えばテンプレートのように扱える。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">lambda_generic</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">generic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">generic</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">generic</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JavaScript 感覚だ。</p>
+</section>
+</section>
+<section id="function-object-wrapper">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">3.2 Function Object Wrapper</a><a class="headerlink" href="#function-object-wrapper" title="Permalink to this heading">¶</a></h2>
+<p>この機能は標準ライブラリの一部であり、C++ のランタイム機能を強化するものだ。この部分も重要なので、導入のためにここに記すとある。</p>
+<section id="std-function">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">std::function</span></code></a><a class="headerlink" href="#std-function" title="Permalink to this heading">¶</a></h3>
+<p>ラムダ式の本質は、関数オブジェクト型に似たクラス型のオブジェクトであるということだ。前者と後者をそれぞれクロージャー型、クロージャーオブジェクトと呼ぶ。ラムダ式の捕捉リストが空の場合、クロージャーオブジェクトを関数ポインター値に変換して受け渡すことなども可能だ。本文の例コードから <code class="docutils literal notranslate"><span class="pre">auto</span></code> や <code class="docutils literal notranslate"><span class="pre">using</span></code> が便利であることがわかる。</p>
+<p>これらから callable の概念が抽象化され、それをラップするのが <code class="docutils literal notranslate"><span class="pre">std::function</span></code>
+だ。関数ポインターに比べれば型安全度が相対的に高い。関数ポインターをラップする例：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">para</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">para</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ラムダ式をラップする例：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">important</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">important</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="std-bind-and-std-placeholder">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">std::bind</span></code> and <code class="docutils literal notranslate"><span class="pre">std::placeholder</span></code></a><a class="headerlink" href="#std-bind-and-std-placeholder" title="Permalink to this heading">¶</a></h3>
+<p>関数呼び出しの実引数を束縛するために <code class="docutils literal notranslate"><span class="pre">std::bind</span></code> が使われる。実引数の用意ができるタイミングがバラバラのときに有用だ：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// bind parameter 1, 2 on function foo,</span>
+<span class="w">    </span><span class="c1">// and use std::placeholders::_1 as placeholder for the first parameter.</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">bindFoo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// when call bindFoo, we only need one param left</span>
+<span class="w">    </span><span class="n">bindFoo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="rvalue-reference">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">3.3 Rvalue Reference</a><a class="headerlink" href="#rvalue-reference" title="Permalink to this heading">¶</a></h3>
+<p>Rvalue 参照は、C++11 での導入により歴史的な問題を大量に解決した重要な概念だ。
+<code class="docutils literal notranslate"><span class="pre">std::vector</span></code>, <code class="docutils literal notranslate"><span class="pre">std::string</span></code> などの余分なオーバーヘッドを排除し、関数オブジェクトコンテナー <code class="docutils literal notranslate"><span class="pre">std::function</span></code> の実現を可能にするものだ。</p>
+</section>
+<section id="lvalue-rvalue-prvalue-xvalue">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">lvalue, rvalue, prvalue, xvalue</a><a class="headerlink" href="#lvalue-rvalue-prvalue-xvalue" title="Permalink to this heading">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>これらの概念を図式化したものを既存ノートから引用する：</p>
+<figure class="align-center" id="id1">
+<div class="mermaid">
+            flowchart BT
+    glvalue &amp; rvalue --&gt; expression
+    lvalue --&gt; glvalue
+    xvalue --&gt; glvalue &amp; rvalue
+    prvalue --&gt; rvalue
+
+    linkStyle 0,1,2,3,4,5 stroke:#000,stroke-width:1px,fill:none;
+    classDef default fill:none,stroke:none;
+
+        </div><figcaption>
+<p><span class="caption-text">Expression category taxonomy</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div>
+<p>prvalue (pure rvalue, purely rvalue) は、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code> などの純粋なリテラルか、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">2</span></code> などの評価結果がリテラルまたは匿名一時オブジェクトと等価である</p></li>
+</ul>
+<p>かのどちらかだ。非参照によって返される一時変数、演算式によって生成される一時変数、元のリテラル、ラムダ式はすべて純粋な rvalue だ。特に、リテラル（文字列リテラルを除く）は prvalue だ。文字列リテラルは例外的に <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span></code> 配列型の lvalue
+であるとする。</p>
+<p>xvalue (expiring value) は C++11 が rvalue 参照を導入するために提案した概念で（つまり従来の C++ では、prvalue と rvalue は同じ概念）、破棄されるが移動できる値を意味する。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">foo()</span></code> で生成された戻り値は一時的な値だ。<code class="docutils literal notranslate"><span class="pre">v</span></code> にコピーされると即座に破棄され、取得・変更することはできない。C++11 以降、コンパイラーは lvalue である
+<code class="docutils literal notranslate"><span class="pre">temp</span></code> に対して、<code class="docutils literal notranslate"><span class="pre">static_cast&lt;std::vector&lt;int&gt;</span> <span class="pre">&amp;&amp;&gt;(temp)</span></code> と同等の暗黙の
+rvalue変換を行い、<code class="docutils literal notranslate"><span class="pre">v</span></code> は <code class="docutils literal notranslate"><span class="pre">foo</span></code> が返す値をローカルに move させるという作業を行うようになった。</p>
+</section>
+<section id="rvalue-reference-and-lvalue-reference">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">rvalue reference and lvalue reference</a><a class="headerlink" href="#rvalue-reference-and-lvalue-reference" title="Permalink to this heading">¶</a></h3>
+<p>xvalue を取得するには、rvalue 参照の宣言 <code class="docutils literal notranslate"><span class="pre">T&amp;&amp;</span></code> を使用する。rvalue 参照の宣言は、この一時的な値の寿命を延長する。変数が生きている限り、xvalue は存続する。</p>
+<p>C++11 では、lvalue 引数を無条件に rvalue に変換する <code class="docutils literal notranslate"><span class="pre">std::move</span></code> がある。
+<code class="docutils literal notranslate"><span class="pre">std::move</span></code> は宣言がヘッダーファイル <code class="docutils literal notranslate"><span class="pre">&lt;utility&gt;</span></code> にある。これを使えば、例えば rvalue の一時オブジェクトを簡単に取得することができる。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">lv1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;string,&quot;</span><span class="p">;</span><span class="w">       </span><span class="c1">// lv1 is a lvalue</span>
+<span class="c1">// std::string&amp;&amp; r1 = lv1;          // illegal, rvalue can&#39;t ref to lvalue</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rv1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lv1</span><span class="p">);</span><span class="w"> </span><span class="c1">// legal, std::move can convert lvalue to rvalue</span>
+</pre></div>
+</div>
+</section>
+<section id="move-semantics">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Move semantics</a><a class="headerlink" href="#move-semantics" title="Permalink to this heading">¶</a></h3>
+<p>従来の C++ ではコピーコンストラクターやコピー代入演算子でしかクラスオブジェクトの複製を設計していなかった。資源の移動を実装するには、呼び出し側が先に複製してから破壊するメソッドを使う必要があり、そうでなければ、移動先のオブジェクトのインターフェースを自分で実装する必要があった。</p>
+<p>こうなると大量のデータが複製され、時間と空間を浪費していた。rvalue 参照の導入は、複製と移動の概念の混同を解消する狙いがある。</p>
+<p>本文の例では、次のコンストラクターが鍵だ：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">{</span>
+<span class="w">   </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">pointer</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">   </span><span class="n">A</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">pointer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">pointer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">.</span><span class="n">pointer</span><span class="p">))</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">   </span><span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">pointer</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">pointer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">a</span><span class="p">.</span><span class="n">pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="o">~</span><span class="n">A</span><span class="p">(){</span>
+<span class="w">       </span><span class="k">delete</span><span class="w"> </span><span class="n">pointer</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="c1">// avoid compiler optimization</span>
+<span class="n">A</span><span class="w"> </span><span class="nf">return_rvalue</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">test</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// equal to static_cast&lt;A&amp;&amp;&gt;(a);</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// equal to static_cast&lt;A&amp;&amp;&gt;(b);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">return_rvalue</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">main</span></code> の一行目の右辺が xvalue として評価される。その結果、左辺 <code class="docutils literal notranslate"><span class="pre">obj</span></code>
+の初期化にはコンストラクター <code class="docutils literal notranslate"><span class="pre">A(A&amp;&amp;)</span></code> が採用される。<code class="docutils literal notranslate"><span class="pre">obj.pointer</span></code> は xvalue
+のメンバーデータ <code class="docutils literal notranslate"><span class="pre">pointer</span></code> と同一であり、このコンストラクター内部で xvalue の
+<code class="docutils literal notranslate"><span class="pre">pointer</span></code> は <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> にリセットされる。さらに、xvalue に対してデストラクターが直ちに呼び出され、<code class="docutils literal notranslate"><span class="pre">nullptr</span></code> は安全に処理される。</p>
+<p>標準ライブラリーにもこの形式のコンストラクター、代入演算子が提供されている。文字列の例：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello world.&quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+
+<span class="c1">// use push_back(const T&amp;&amp;),</span>
+<span class="c1">// no copy the string will be moved to vector,</span>
+<span class="c1">// and therefore std::move can reduce copy cost</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T&amp;&amp;</span></code> は <code class="docutils literal notranslate"><span class="pre">const</span></code> なのか？</p>
+</div>
+<section id="perfect-forwarding">
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">Perfect forwarding</a><a class="headerlink" href="#perfect-forwarding" title="Permalink to this heading">¶</a></h4>
+<p>従来の C++ では参照型を参照し続けることできなかった。しかし、rvalue 参照の登場によりこの慣習が撤回され、lvalue 参照と rvalue 参照の両方を参照することができる規則に変わった。</p>
+<p>関数テンプレートで <code class="docutils literal notranslate"><span class="pre">T&amp;&amp;</span></code> を使用すると、rvalue 参照ができない場合があり、
+lvalue が渡されると、この関数への参照は lvalue として導出されることになる。より正確には、テンプレート引数がどのような参照型であっても、引数の型が右参照である場合に限り、テンプレート引数は右参照型として導出されることができる。これにより、lvalueの受け渡しが成功する。</p>
+<p><strong>完全転送</strong> (perfect forwarding) とは、引数を渡す際に元の引数の型を維持したまま転送する（渡す）ことを意味する。lvalue 参照は lvalue 参照を、rvalue 参照は
+rvalue 参照を維持する。この問題を解決するために、<code class="docutils literal notranslate"><span class="pre">std::forward</span></code> を使って引数を転送する必要がある。</p>
+<p><code class="docutils literal notranslate"><span class="pre">std::forward&lt;T&gt;(v)</span></code> は <code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&amp;&amp;&gt;(v)</span></code> に他ならない。</p>
+</section>
+</section>
+<section id="conclusion">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Conclusion</a><a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h3>
+<p>本章で紹介する機能はすべて知っておいて損はない：</p>
+<ul class="simple">
+<li><p>ラムダ式</p></li>
+<li><p>関数オブジェクトコンテナー <code class="docutils literal notranslate"><span class="pre">std::function</span></code></p></li>
+<li><p>rvalue 参照</p></li>
+</ul>
+</section>
+<section id="further-readings">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Further Readings</a><a class="headerlink" href="#further-readings" title="Permalink to this heading">¶</a></h3>
+<p>Bjarne Stroustrup, The Design and Evolution of C++ は邦訳書が確かあったか？</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="chapter02.html" title="Previous document">Chapter 02: Language Usability Enhancements</a>
+        </li>
+        <li>
+          <a href="chapter04.html" title="Next document">Chapter 04: Containers</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a><ul>
+      <li>Previous: <a href="chapter02.html" title="previous chapter">Chapter 02: Language Usability Enhancements</a></li>
+      <li>Next: <a href="chapter04.html" title="next chapter">Chapter 04: Containers</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
