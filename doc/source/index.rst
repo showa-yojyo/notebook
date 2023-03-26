@@ -66,7 +66,7 @@ Contents:
    :glob:
    :maxdepth: 1
 
-   bash-v*
+   bash-v[2-5]
 
 .. toctree::
    :glob:
