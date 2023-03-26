@@ -10,6 +10,9 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 バージョン 5.0
 ======================================================================
 
+`Bash-5.0 release available <https://lists.gnu.org/archive/html/bug-bash/2019-01/msg00063.html>`__
+からめぼしい項目に絞ってノートを取る。
+
 | There is an ``EPOCHSECONDS`` variable, which expands to the time in seconds
 | since the Unix epoch.
 
@@ -183,20 +186,250 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 バージョン 5.1
 ======================================================================
 
-.. todo::
+`Bash-5.1 release available <https://lists.gnu.org/archive/html/info-gnu/2020-12/msg00003.html>`__
+のめぼしい項目に集中してノートをつづる。
 
-   調査してノート。
+| :command:`read -e` may now be used with arbitrary file descriptors (:command:`read -u N`).
+
+Readline が効いた状態と descriptors を指定することが両立可能になった。
+
+| The ``select`` builtin now runs traps if its internal call to the ``read`` builtin
+| is interrupted by a signal.
+
+組み込みコマンド :command:`select` は、信号が :command:`read` の内部呼び出しに割
+り込んだときにトラップするようになった。
+
+| ``SRANDOM``: a new variable that expands to a 32-bit random number that is not
+| produced by an LCRNG, and uses ``getrandom``/``getentropy``, falling back to
+| :file:`/dev/urandom` or ``arc4random`` if available. There is a fallback generator if
+| none of these are available.
+
+環境変数 ``SRANDOM`` から 32 ビット長の乱数を得られる。ここに言及されているよう
+な手段、関数で生成されるため、``srand`` のようなものを使って乱数列を再現すること
+は不可能のようだ。
+
+.. code:: console
+
+   bash$ echo $SRANDOM
+   3687839026
+   bash$ echo $SRANDOM
+   1135571563
+   bash$ echo $SRANDOM
+   2451151285
+
+| ``shell-transpose-words``: a new bindable readline command that uses the same
+| definition of word as ``shell-forward-word``, etc.
+|
+| The shell now adds default bindings for ``shell-forward-word``,
+| ``shell-backward-word``, ``shell-transpose-words``, and ``shell-kill-word``.
+
+新コマンド ``shell-transpose-words`` の意味は直観的に理解できると思うので説明を
+省く（パス文字列などで ``transpose-words`` との違いを実感できる）。
+
+ここで挙げたコマンドに対するキーバインド既定値は次のとおり：
+
+.. csv-table::
+   :delim: |
+   :header: キーバインド,コマンド
+   :widths: auto
+
+   :kbd:`M-C-b` | ``shell-backward-word``
+   :kbd:`M-C-d` | ``shell-kill-word``
+   :kbd:`M-C-f` | ``shell-forward-word``
+   :kbd:`M-C-t` | ``shell-transpose-words``
+
+| If :command:`unset` is executed without option arguments, bash tries to unset a shell
+| function if a name argument cannot be a shell variable name because it's not
+| an identifier.
+
+コマンド :command:`unset` をオプションなしで実行すると、引数を変数名として処理す
+ることをまず試みる。それが失敗すると、今度は関数名として処理する。
+
+| The :command:`test -N` operator uses nanosecond timestamp granularity if it's
+| available.
+
+ファイルが最後に読み込まれてからナノ秒単位の短時間の間に変更されたとしてもテスト
+が機能するようになった。
+
+| ``BASH_REMATCH`` is no longer readonly.
+
+この環境変数は ``[[ target =~ pattern ]]`` テストの結果を格納する配列だ。
+その読み取りしかできない性質がなくなったということは？
+
+| :command:`wait`: has a new ``-p VARNAME`` option, which stores the PID returned by :command:`wait -n`
+| or :command:`wait` without arguments.
+
+コマンド :command:`wait` 実行時にプロセス ID を保存しておく事態になったらこれを
+使おう。
+
+| Sorting the results of pathname expansion now uses byte-by-byte comparisons
+| if two strings collate equally to impose a total order; the result of a
+| POSIX interpretation.
+
+それでもなお等しいということはあり得ないか。
+
+| Bash now allows ``SIGINT`` ``trap`` handlers to execute recursively.
+
+これだけでは何のことかわからない。
+
+| Process substitution is now available in posix mode.
+
+プロセス置換が POSIX モードで利用可能になったことは本バージョンの注目項目の一つ
+として紹介されている。
+
+| ``READLINE_MARK``: a new variable available while executing commands bound with
+| :command:`bind -x`, contains the value of the mark.
+
+変数 ``READLINE_MARK`` はコマンド :command:`bind -x` で使用する Readline ライン
+バッファー内の印の位置を含む変数だ。挿入点と印の間の文字列が region と呼ばれるもの
+だ。
+
+| :command:`test -v N` can now test whether or not positional parameter ``N`` is set.
+
+``$1``, ``$2``, ... がセット済みかどうかを知る術は他にもある。
+
+| ``local`` now honors the ``-p`` option to display all local variables at the
+| current context.
+
+今まで知らなかったが、実は ``local`` はシェル関数であったのだ。キーワードかと
+思っていた。何らかの関数中で ``local -p`` を呼び出すと、上述のように機能する。
+
+.. code:: shell
+
+   function test-local {
+       local a=3
+       local b=Mono
+       echo test local
+       local -p
+   }
+
+実行結果の例（この出力と一致しない場合があり得る）：
+
+.. code:: console
+
+   bash$ test-local
+   test local
+   declare -- a="3"
+   declare -- b="Mono"
+
+| The ``@a`` variable transformation now prints attributes for unset array
+| variables.
+|
+| The ``@A`` variable transformation now prints a declare command that sets a
+| variable's attributes if the variable has attributes but is unset.
+
+やってみよう：
+
+.. code:: console
+
+   bash$ declare -a myarray
+   bash$ echo ${myarray@a}
+   a
+   bash$ echo ${myarray@A}
+   declare -a myarray
+
+| ``declare`` and ``local`` now have a ``-I`` option that inherits attributes and
+| value from a variable with the same name at a previous scope.
+
+これは入れ子スコープで変数を複製するのに利用できるだろうか。
+
+| When run from a ``-c`` command, ``jobs`` now reports the status of completed jobs.
+
+コマンド :command:`jobs` を :command:`bash -h` 中に実行するとジョブの実行状況を
+確認できる。
+
+| New ``U``, ``u``, and ``L`` parameter transformations to convert to uppercase,
+| convert first character to uppercase, and convert to lowercase,
+| respectively.
+
+変数変換 ``${parameter@operator}`` において、``operator`` 部分にこれらの記号が対
+応された。それぞれの変換は Emacs における ``upcase-word``, ``capitalize-word``,
+``lowercase-word`` に相当すると憶えておくといい。
+
+.. code:: console
+
+   myvar=varName
+   echo ${myvar@u} ${myvar@U} ${myvar@L}
+   VarName VARNAME varname
+
+| ``PROMPT_COMMAND``: can now be an array variable, each element of which can
+| contain a command to be executed like a string ``PROMPT_COMMAND`` variable.
+
+変数 ``PROMPT_COMMAND`` は ``PS1`` を表示する前に毎回実行されるコマンドを指定す
+るものだ。複数のコマンドを実行するために配列を代入することが可能になった。例えば
+
+.. code:: shell
+
+   PROMPT_COMMAND=( "command1" "command2" ... )
+
+とすると、端末でコマンドを何か入力、実行するたびに ``command1``, ``command2``, ...
+がいちいち実行されるようになる。
+
+| :command:`ulimit` has a ``-R`` option to report and set the ``RLIMIT_RTTIME`` resource.
+
+コマンド :command:`ulimit` 自体を全く利用しないので後回し。
+
+| Associative arrays may be assigned using a list of key-value pairs within
+| a compound assignment. Compound assignments where the words are not of
+| the form ``[key]=value`` are assumed to be key-value assignments. A missing or
+| empty key is an error; a missing value is treated as ``NULL``. Assignments may
+| not mix the two forms.
+
+連想配列への key-value の代入および追加方法が次のような式が合法になるように拡張
+された：
+
+.. code:: console
+
+   bash$ declare -A mymap=(k0 v0 k1 v1)
+   bash$ echo "${mymap[@]}"
+   v0 v1
+   bash$ mymap+=(k2 v2 k3 v3)
+   bash$ echo "${mymap[@]}"
+   v0 v1 v2 v3
+
+| New ``K`` parameter transformation to display associative arrays as key-
+| value pairs.
+
+連想配列の値を引用符で囲まれた可能性のある出力を生成する。先ほどの例の ``mymap``
+に適用すると：
+
+.. code:: console
+
+   echo "${mymap[@]@K}"
+   k0 "v0" k1 "v1" k2 "v2" k3 "v3"
+
+| ``SECONDS`` and ``RANDOM`` may now be assigned using arithmetic expressions, since
+| they are nominally integer variables. ``LINENO`` is not an integer variable.
+
+そのようなことはしない。
+
+| Bash temporarily suppresses the verbose option when running the ``DEBUG`` trap
+| while running a command from the :command:`fc` builtin.
+
+状況がわからない。
+
+| :command:`wait -n` now accepts a list of job specifications as arguments and will
+| wait for the first one in the list to change state.
+
+オプションの ``-n`` は the next の意。この変更は理に適っている。
+
+| ``HISTFILE`` is now readonly in a restricted shell.
+
+制限シェル :command:`rbash` を起動して変数の属性を先ほど習った変数展開で調べる：
+
+.. code:: console
+
+   $ echo ${HISTFILE@a}
+   r
+
+| ``GLOBIGNORE`` now ignores ``.`` and ``..`` as a terminal pathname component.
+
+環境変数 ``GLOBIGNORE`` はコロン区切りのパターンのリストであって、パス展開時に無
+視されるパターンを定義する。Bash 5.1 からはドットおよびドットドットが端末パス名
+構成要素としては無視されるようになったと言っている。
 
 参考資料
 ======================================================================
-
-主要資料
-----------------------------------------------------------------------
-
-* `Bash-5.0 release available <https://lists.gnu.org/archive/html/bug-bash/2019-01/msg00063.html>`__
-
-先人たちの記事
-----------------------------------------------------------------------
 
 * `Bash 5.0 is here with new features and improvements | Packt Hub <https://hub.packtpub.com/gnu-bash-5-0-is-here-with-new-features-and-improvements/>`__
 * `Bash 5.0 Released with New Features <https://itsfoss.com/bash-5-release/>`__
@@ -208,4 +441,7 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 * `Globbing e as variáveis ‘LANG’ e ‘LC_’ – DEBXP COMUNIDADE <https://debxp.org/globbing-e-as-variaveis-lang-e-lc_/>`__
 * `linux - How to delete history of last 10 commands in shell? - Stack Overflow <https://stackoverflow.com/questions/14750650/how-to-delete-history-of-last-10-commands-in-shell>`__
 * `Bash wait Command with Examples <https://phoenixnap.com/kb/bash-wait-command>`__
-* etc.
+* `Bash 5.1 has already been released and these are its news | Linux Addicts <https://www.linuxadictos.com/en/bash-5-1-has-already-been-released-and-these-are-its-news.html>`__
+* `bash - Is $PROMPT_COMMAND a colon-separated list? - Unix & Linux Stack Exchange <https://unix.stackexchange.com/questions/460651/is-prompt-command-a-colon-separated-list>`__
+* `Bash fc Command : Easily Wield the Bash Shell Like a Pro <https://adamtheautomator.com/bash-fc-command/>`__
+* その他、Bash Reference Manual やヘルプなど
