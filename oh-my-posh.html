@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Oh My Posh 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/mermaid.js"></script>
+    <link rel="next" title="Twitter 利用ノート [obsolete]" href="twitter.html" />
+    <link rel="prev" title="環境変数" href="git/envvars.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="git/envvars.html" title="Previous document">環境変数</a>
+        </li>
+        <li>
+          <a href="twitter.html" title="Next document">Twitter 利用ノート [obsolete]</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="oh-my-posh">
+<h1><a class="toc-backref" href="#id17" role="doc-backlink">Oh My Posh 利用ノート</a><a class="headerlink" href="#oh-my-posh" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><p>Oh My Posh is a custom prompt engine for any shell that has the ability to
+adjust the prompt string with a function or variable.</p>
+</div></blockquote>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#oh-my-posh" id="id17">Oh My Posh 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id18">目標</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id19">Oh My Posh をシステムにインストールする</a></p>
+<ul>
+<li><p><a class="reference internal" href="#wsl" id="id20">WSL</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id21">Windows</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id3" id="id22">推奨フォントをシステムにインストールする</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id23">推奨フォントを端末エミュレーターに設定する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#windows-terminal" id="id24">Windows Terminal</a></p></li>
+<li><p><a class="reference internal" href="#visual-studio-code" id="id25">Visual Studio Code</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id26">プロンプトを Oh My Posh に割り当てさせる</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bash" id="id27">Bash</a></p></li>
+<li><p><a class="reference internal" href="#powershell" id="id28">PowerShell</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id29">プロンプトをカスタマイズする</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id30">Bash</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id31">PowerShell</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id32">テーマファイルを編集する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id33">テーマオブジェクト概要</a></p></li>
+<li><p><a class="reference internal" href="#block" id="id34">Block</a></p></li>
+<li><p><a class="reference internal" href="#segment" id="id35">Segment</a></p></li>
+<li><p><a class="reference internal" href="#templates" id="id36">Templates</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id11" id="id37">コツ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id12" id="id38">プレビュー</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id39">Segment 単位のオンオフ切り替え</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id40">インストール済みテーマを確認する</a></p></li>
+<li><p><a class="reference internal" href="#segment-properties" id="id41">言語系 Segment の <cite>properties</cite> の内容は似ている</a></p></li>
+<li><p><a class="reference internal" href="#jst" id="id42">時刻を JST で表示する</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id43">色指定をする</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id16" id="id44">資料</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id1">
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">目標</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>本稿では次を目標とする：</p>
+<ol class="arabic simple">
+<li><p>Oh My Posh を Windows と WSL Ubuntu の両方にインストールする</p></li>
+<li><p>推奨フォントを Windows にインストールする</p></li>
+<li><p>推奨フォント設定を Windows Terminal と Visual Studio Code に実施する</p></li>
+<li><p>プロンプトに Oh My Posh を組み込む</p></li>
+<li><p>プロンプトをカスタマイズする</p></li>
+</ol>
+<p>実施する事柄を表にまとめる：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>タスク</p></th>
+<th class="head"><p>Windows</p></th>
+<th class="head"><p>Ubuntu</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Oh My Posh をシステムにインストールする</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>推奨フォントを設定する</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>プロンプトに Oh My Posh を組み込む</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>プロンプトを構成する</p></td>
+<td><p>Yes/No</p></td>
+<td><p>No/Yes</p></td>
+</tr>
+</tbody>
+</table>
+<p>次を事前条件をする（本ノート当該項目それぞれを参照）：</p>
+<ul class="simple">
+<li><p>WSL は導入済みであり、Distribution は Ubuntu であるとする。さらにシェルは Bash
+であるとする。</p></li>
+<li><p>Windows Terminal は導入済みであるとする。そこでは WSL も PowerShell も対応済みとする。</p></li>
+<li><p>Visual Studio Code は導入済みであるとする。</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="wsl.html"><span class="doc">Windows Subsystem for Linux 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="windows-terminal.html"><span class="doc">Windows Terminal 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="vscode/index.html"><span class="doc">Visual Studio Code 利用ノート</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="id2">
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">Oh My Posh をシステムにインストールする</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>Oh My Posh 本体を WSL (Ubuntu) と Windows それぞれにインストール、更新、アンインストールする方法を記す。</p>
+<section id="wsl">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">WSL</a><a class="headerlink" href="#wsl" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A <a class="reference external" href="https://brew.sh/">Homebrew</a> formula is available for easy installation.
+When installing Homebrew for Linux, be sure to follow Next steps instructions
+to add Homebrew to your PATH and to your bash shell profile script, and
+Requirements to build Oh My Posh.</p>
+</div></blockquote>
+<p>Homebrew についてはノートを割愛する。 Homebrew がなくても Oh My Posh 単品でインストールすることは可能だが、更新やアンインストールの手間を考えると Homebrew の枠組を採用するほうがいい。</p>
+<p>インストール、更新、アンインストールのコマンドはそれぞれ次のとおり：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>brew<span class="w"> </span>install<span class="w"> </span>jandedobbeleer/oh-my-posh/oh-my-posh
+<span class="gp">$ </span>brew<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>brew<span class="w"> </span>upgrade<span class="w"> </span>oh-my-posh
+<span class="gp">$ </span>brew<span class="w"> </span>uninstall<span class="w"> </span>oh-my-posh
+</pre></div>
+</div>
+<p>インストール手順が完了すると、実行形式 <code class="file docutils literal notranslate"><span class="pre">$(brew</span> <span class="pre">--prefix)/bin/oh-my-posh</span></code>
+とテーマ各種を格納するディレクトリー <code class="file docutils literal notranslate"><span class="pre">$(brew</span> <span class="pre">--prefix</span> <span class="pre">oh-my-posh)/themes</span></code>
+が得られる。</p>
+</section>
+<section id="windows">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Windows</a><a class="headerlink" href="#windows" title="Permalink to this heading">¶</a></h3>
+<p>Oh My Posh 本体を Windows へインストールするには <strong class="program">winget</strong> を用いる。したがって Oh My Posh を更新、アンインストールするのにも <strong class="program">winget</strong> を用いる。</p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="go">winget install --id JanDeDobbeleer.OhMyPosh</span>
+<span class="go">winget upgrade --id JanDeDobbeleer.OhMyPosh</span>
+<span class="go">winget uninstall --id JanDeDobbeleer.OhMyPosh</span>
+</pre></div>
+</div>
+<p>この手順が完了すると、上述の実行可能ファイルとテーマ各種がファイルシステムにインストールされる。</p>
+<p>インストールすることで環境変数 <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> が更新されて
+<strong class="program">oh-my-posh.exe</strong> が実行可能になる。インストールしたセッションのコンソールをいったん終了するといい。</p>
+</section>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">推奨フォントをシステムにインストールする</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>Oh My Posh を余すとこなく利用するのにフォントを別途インストールすることが推奨されている。これにより、プロンプト文字列中にマイナーな文字を書き込むと、文字化けして豆腐になるのを避ける。</p>
+<blockquote>
+<div><p>Oh My Posh was designed to use <a class="reference external" href="https://www.nerdfonts.com/">Nerd Fonts</a>.
+Nerd Fonts are popular fonts that are patched to include icons. We recommend
+<a class="reference external" href="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip">Meslo LGM NF</a>,
+but any Nerd Font should be compatible with the standard themes.</p>
+</div></blockquote>
+<p>リンク先からフォントをダウンロードして Windows のインストールするのかと思いきや、Oh My Posh 自身がフォントのインストールをサポートしている。次のコマンドを管理者権限で起動したコンソールから実行する：</p>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="go">oh-my-posh font install</span>
+</pre></div>
+</div>
+<p>コンソール上にメニューが現れるので、本文で推奨されている <code class="docutils literal notranslate"><span class="pre">Meslo</span></code> を選択、決定などする。成功するとその旨が表示される。念のため <code class="file docutils literal notranslate"><span class="pre">C:\Windows\Fonts</span></code> を調べるといい。</p>
+<p>最後に、特殊フォントを必要としない Oh My Posh テーマが用意されていることを心に留めておく：</p>
+<blockquote>
+<div><p>If you are not interested in using a Nerd Font, you will want to use a theme
+which doesn’t include any Nerd Font icons. The <code class="docutils literal notranslate"><span class="pre">minimal</span></code> themes do not make
+use of Nerd Font icons.</p>
+</div></blockquote>
+<section id="id4">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">推奨フォントを端末エミュレーターに設定する</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>次に Windows Terminal および Visual Studio Code それぞれで端末ウィンドウのフォントを指定する。</p>
+<section id="windows-terminal">
+<h4><a class="toc-backref" href="#id24" role="doc-backlink">Windows Terminal</a><a class="headerlink" href="#windows-terminal" title="Permalink to this heading">¶</a></h4>
+<p>Windows Terminal のフォント設定は例えば <span class="guilabel">Settings</span> から
+<span class="menuselection">Defaults ‣ Appearance</span> の <span class="guilabel">Font face</span>,
+<span class="guilabel">Font size</span> を調整して <span class="guilabel">Save</span> ボタンを押す。もしくは下記のように JSON ファイルをエディターで書き換えてもよい。いずれの方法にせよ、同じ結果になる：</p>
+<blockquote>
+<div><p>Once you have installed a Nerd Font, you will need to configure the Windows
+Terminal to use it. This can be easily done by modifying the Windows Terminal
+settings This can be easily done by modifying the Windows Terminal settings
+(default shortcut: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">,</kbd>). In your
+<code class="file docutils literal notranslate"><span class="pre">settings.json</span></code> file, add the <span class="guilabel">font.face</span> attribute under the
+<span class="guilabel">defaults</span> attribute in profiles</p>
+</div></blockquote>
+</section>
+<section id="visual-studio-code">
+<h4><a class="toc-backref" href="#id25" role="doc-backlink">Visual Studio Code</a><a class="headerlink" href="#visual-studio-code" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>This can be done by changing the Integrated: Font Family value in the Terminal
+settings (default shortcut: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">,</kbd> and search for
+<span class="guilabel">Integrated: Font Family</span> or via
+<span class="menuselection">Users ‣ Features‣ Terminal</span>).
+If you are using the JSON based settings, you will need to update the
+<code class="docutils literal notranslate"><span class="pre">terminal.integrated.fontFamily</span></code> value. Example in case of <code class="docutils literal notranslate"><span class="pre">MesloLGM</span> <span class="pre">NF</span></code>
+Nerd Font:</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>ところがこれが上手くいかない。各種アイコン文字が豆腐になる。おそらく VS Code
+のクセではないか。</p>
+</div>
+</section>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">プロンプトを Oh My Posh に割り当てさせる</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>Oh My Posh にプロンプト文字列を動的に構成させる方法を記す。これはシェルごとの構成になる。まずは設定ファイルを指定せず、既定の構成を適用する方法を記す。</p>
+<section id="bash">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Bash</a><a class="headerlink" href="#bash" title="Permalink to this heading">¶</a></h3>
+<p>Oh My Posh は UNIX/Linux 系シェルの対応しているものの、私は Bash しか利用しない。</p>
+<blockquote>
+<div><p>Add the following to <code class="file docutils literal notranslate"><span class="pre">~/.bashrc</span></code> (could be <code class="file docutils literal notranslate"><span class="pre">~/.profile</span></code> or
+<code class="file docutils literal notranslate"><span class="pre">~/.bash_profile</span></code> depending on your environment):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>oh-my-posh<span class="w"> </span>init<span class="w"> </span>bash<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>自分のスタートアップファイルを確認して、環境変数 <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PS1</span></code> などを初期化しているコードを含む方に追加すると整合する。コマンド <code class="docutils literal notranslate"><span class="pre">oh-my-posh</span> <span class="pre">init</span> <span class="pre">bash</span></code> は環境変数 <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code> を独自関数プラス既存の <span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code> で置き換えるシェルコードを生成する。このコードは是非とも一読しておきたい。</p>
+<p>起動ファイルを編集、保存したのちに <strong class="command">source</strong> するかセッションを再起動することで、端末画面上のプロンプトの見栄えが著しく変化することが確認できるはずだ。</p>
+</section>
+<section id="powershell">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">PowerShell</a><a class="headerlink" href="#powershell" title="Permalink to this heading">¶</a></h3>
+<p>私は PowerShell をほとんど利用しないが、Oh My Posh の機能を堪能するべくこちらも試す。</p>
+<blockquote>
+<div><p>Edit your PowerShell profile script, you can find its location under the
+<code class="docutils literal notranslate"><span class="pre">$PROFILE</span></code> variable in your preferred PowerShell version.</p>
+</div></blockquote>
+<p>Bash でいうところの <code class="file docutils literal notranslate"><span class="pre">.bash_profile</span></code> のようなファイルをテキストエディターで開く。実際には <code class="file docutils literal notranslate"><span class="pre">Microsoft.PowerShell_profile.ps1</span></code> のような名前のファイルだ。そして次のような行を加えておく：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="n">oh-my-posh</span> <span class="n">init</span> <span class="n">pwsh</span> <span class="p">|</span> <span class="nb">Invoke-Expression</span>
+</pre></div>
+</div>
+<p>この起動ファイルを編集、保存する。PowerShell セッションが開いていればそこで</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="p">.</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>を実行するか、あるいは PowerShell を再起動すれば、端末画面内のプロンプトの見栄えが変化していることが確認できる。</p>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">プロンプトをカスタマイズする</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>For your convenience, the existing themes from Oh My Posh have been added to
+version 3, so you can get started even without having to understand the
+theming.</p>
+</div></blockquote>
+<p>Oh My Posh は既定のテーマを用意しているためテーマを自作しなくても利用できる。あくまでも利便性のためにそうなっているだけであり、プログラマーがテーマをカスタマイズして作業するのが Oh My Posh の常識だ。</p>
+<section id="id7">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Bash</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>先述のコマンド <code class="docutils literal notranslate"><span class="pre">oh-my-posh</span> <span class="pre">init</span></code> が生成するコードが含む関数 <code class="docutils literal notranslate"><span class="pre">_omp_hook()</span></code> を見ればわかるように、コマンド <code class="docutils literal notranslate"><span class="pre">oh-my-posh</span> <span class="pre">print</span> <span class="pre">primary</span></code> が Bash 環境変数
+<span class="target" id="index-4"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PS1</span></code> の値を割り当てる。注目するべきは <code class="docutils literal notranslate"><span class="pre">--config=&quot;$POSH_THEME&quot;</span></code> の部分だ。この環境変数の値がテーマファイルを示す。</p>
+<p>シェルのスタートアップファイルに追加した <strong class="command">eval</strong> 呼び出しを、例えば次のように書き換える：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>oh-my-posh<span class="w"> </span>init<span class="w"> </span>bash<span class="w"> </span>--config<span class="w"> </span>~/.omp.json<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>これにより環境変数 <span class="target" id="index-5"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">POSH_THEME</span></code> にパス <code class="file docutils literal notranslate"><span class="pre">$HOME/.omp.json</span></code> を割り当て、環境変数 <span class="target" id="index-6"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code> はその影響を受ける。自作テーマを与えるには、既存テーマファイルを複製し、それを好みで編集すればいい。既存テーマの場所は後述するコツで述べる。</p>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">PowerShell</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<p>考え方は Bash の場合と同じだ。スタートアップファイル <cite>$PROFILE</cite> に加えた行を次のように修正する：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="n">oh-my-posh</span> <span class="n">init</span> <span class="n">pwsh</span> <span class="p">-</span><span class="n">-config</span> <span class="s2">&quot;$env:USERPROFILE\omp.json&quot;</span> <span class="p">|</span> <span class="nb">Invoke-Expression</span>
+</pre></div>
+</div>
+<p>テーマファイルはパス <code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%omp.json</span></code> に用意したものとする。</p>
+<blockquote>
+<div><p>When using oh-my-posh in Windows and the WSL, know that you can share your
+theme with the WSL by pointing to a theme in your Windows user’s home folder.</p>
+</div></blockquote>
+<p>二重管理を避け、テーマファイルをどちらか一方の環境で管理するのが望ましい。
+Windows から WSL にある設定ファイルを指定するならば、WSL Ubuntu がドライブ U にマウントされているとして次のように書ける：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="n">oh-my-posh</span> <span class="n">init</span> <span class="n">pwsh</span> <span class="p">-</span><span class="n">-config</span> <span class="s2">&quot;U:\home\USERNAME\PATH\TO\omp.json&quot;</span> <span class="p">|</span> <span class="nb">Invoke-Expression</span>
+</pre></div>
+</div>
+<p>普通は Windows 側に設定ファイルを置いて WSL 側から
+<code class="file docutils literal notranslate"><span class="pre">/mnt/c/PATH/TO/omp.json</span></code> で参照するのが安定するだろうが、私は WSL の Git
+でバージョン管理をしたいのでそれを避けざるを得ない。</p>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">テーマファイルを編集する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p>以下、JSON 形式でテーマファイルを管理するものとする。</p>
+<p>後述するインストール済みテーマを確認するの節の内容に沿って既存のテーマを下見し、気に入ったものを複製して <span class="target" id="index-7"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">HOME</span></code> などに <code class="file docutils literal notranslate"><span class="pre">omp.json</span></code> などの名前で置いたことを前提として記す。</p>
+<blockquote>
+<div><p>To fully understand how to customize a theme, read through the documentation
+in the configuration and segments sections. The configuration section covers
+the basic building blocks and concepts of Oh My Posh themes, while the
+segments section covers how to configure each available segment.</p>
+</div></blockquote>
+<p>テーマプレビュー、仕様書、エディター、端末画面を反復しながらカスタマイズするしかテーマの何たるかを理解する手段はない。</p>
+<section id="id10">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">テーマオブジェクト概要</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Oh My Posh renders your prompt based on the definition of blocks (like Lego)
+which contain one or more segments.</p>
+</div></blockquote>
+<p>Block と Segment の概念が重要だとわかるが、それでもテーマオブジェクトにもわずかな属性がある。カスタマイズの観点からはそれほど重要ではない属性でありそうだが、目を通しておこう。</p>
+<blockquote>
+<div><p>Oh My Posh themes can utilize JSON Schema to validate their contents. Themes
+should include a link to the external schema document which prescribes the
+appropriate structure and contents for various elements. If your code editor
+is configured to use JSON Schema, it will compare your custom theme to the
+external document, and issue warnings for discrepancies.</p>
+</div></blockquote>
+<p>Visual Studio Code でテーマ JSON ファイルを編集するときにこの事実が効いてくる。テキスト補完時に適切な選択肢を提示してくれるのだ。</p>
+</section>
+<section id="block">
+<h4><a class="toc-backref" href="#id34" role="doc-backlink">Block</a><a class="headerlink" href="#block" title="Permalink to this heading">¶</a></h4>
+<p><a class="reference external" href="https://ohmyposh.dev/docs/configuration/block">Block | Oh My Posh</a></p>
+<p>設定オブジェクトは <code class="docutils literal notranslate"><span class="pre">blocks</span></code> という配列型属性を一つ含む。その属性をいくつか述べる。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> の値が <code class="docutils literal notranslate"><span class="pre">&quot;rprompt&quot;</span></code> の場合、断片はキャレットの右に揃えられる。このようなブロックは高々一つしか許されない。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">newline</span></code> は値がどちらであっても、<code class="docutils literal notranslate"><span class="pre">&quot;bash&quot;</span></code> と <code class="docutils literal notranslate"><span class="pre">&quot;pwsh&quot;</span></code> の場合にはプロンプトが一行目にあるとき、シェルセッション開始時には、最初のブロックに定義されている改行を表示しない。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">overflow</span></code> は右寄せブロックに対しては、ブロックが長過ぎて左寄せのブロックからはみ出る場合、ブロックを壊すか、非表示にするかを指示する。</p>
+</section>
+<section id="segment">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">Segment</a><a class="headerlink" href="#segment" title="Permalink to this heading">¶</a></h4>
+<p><a class="reference external" href="https://ohmyposh.dev/docs/configuration/segment">Segment | Oh My Posh</a></p>
+<p>ブロックオブジェクトには次の型のオブジェクトからなる配列 <code class="docutils literal notranslate"><span class="pre">segments</span></code> を値とする属性がある。この構成要素の型を Segment と呼ぶ。以下、Segment の属性をいくつか説明する。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> には Segment の分類を指示する文字列を与える。私が使いたいものは次のものだ：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>値</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;git&quot;</span></code></p></td>
+<td><p>位置する Git リポジトリーの情報を示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;node&quot;</span></code></p></td>
+<td><p>アクティブ Node.js バージョン示す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;npm&quot;</span></code></p></td>
+<td><p>アクティブ NPM バージョンを示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;path&quot;</span></code></p></td>
+<td><p>現在のパスを示す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;python&quot;</span></code></p></td>
+<td><p>アクティブ Python バージョンおよび仮想環境を示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;root&quot;</span></code></p></td>
+<td><p>現在ユーザーが root である場合に表示する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;shell&quot;</span></code></p></td>
+<td><p>現在のシェルを示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;time&quot;</span></code></p></td>
+<td><p>現在時刻を書く</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;text&quot;</span></code></p></td>
+<td><p>文字列を書く</p></td>
+</tr>
+</tbody>
+</table>
+<p>この値によって Segment の属性 <code class="docutils literal notranslate"><span class="pre">properties</span></code> の値オブジェクトの構成が決まることに注意する。対応する <code class="docutils literal notranslate"><span class="pre">type</span></code> を知るには、上記リンク先のページ左側の Segment ツリーを見るといい。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">style</span></code> には次の選択肢がある：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>値</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;powerline&quot;</span></code></p></td>
+<td><p>属性 <code class="docutils literal notranslate"><span class="pre">powerline_symbol</span></code> の値により segment を分割</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;plain&quot;</span></code></p></td>
+<td><p>透過背景に文字しかない単純な描画</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;diamond&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">powerline</span></code> の変種で、始点にも対応</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;accordion&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">powerline</span></code> の変種で、無効時でもテキストなしで描画</p></td>
+</tr>
+</tbody>
+</table>
+<p>本稿では断りのない限り値 <code class="docutils literal notranslate"><span class="pre">&quot;powerline&quot;</span></code> を与えているものとする。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">foreground</span></code>, <code class="docutils literal notranslate"><span class="pre">background</span></code> には文字色、背景色をそれぞれ指定する。値の書式は <code class="docutils literal notranslate"><span class="pre">#rrggbb</span></code> 形式で指定するのが無難。透明は <code class="docutils literal notranslate"><span class="pre">&quot;transparent&quot;</span></code> とする。より高級な属性 <code class="docutils literal notranslate"><span class="pre">foreground_templates</span></code>, <code class="docutils literal notranslate"><span class="pre">background_templates</span></code> も存在し得る。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">template</span></code> がいちばん重要だ。この Segment の内容を与える Template を定義する。属性 <code class="docutils literal notranslate"><span class="pre">templates</span></code> は Segment の Template 文字列を複数行にまたがるようにするものだ。属性 <code class="docutils literal notranslate"><span class="pre">template_logic</span></code> に基づき、狙いに応じて結果となり得るものが二つある：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>値</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;first_match&quot;</span></code></p></td>
+<td><p>配列のうち最初の非空白文字列であるもの</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;join&quot;</span></code></p></td>
+<td><p>配列要素すべてを評価し、非空白文字列のものすべてを結合したもの</p></td>
+</tr>
+</tbody>
+</table>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">properties</span></code> は適当なオブジェクトの配列を値にとるものであり、Segment の描画調整に主に用いられる。その属性 <code class="docutils literal notranslate"><span class="pre">include_folders</span></code> および <code class="docutils literal notranslate"><span class="pre">exclude_folders</span></code>
+はどの Segment においても考慮される Property の属性であり、パス文字列の配列を値にとる。特殊な属性についてはおそらく属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> により定まるものと考えられる。</p>
+</section>
+<section id="templates">
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">Templates</a><a class="headerlink" href="#templates" title="Permalink to this heading">¶</a></h4>
+<p><a class="reference external" href="https://ohmyposh.dev/docs/configuration/templates">Templates | Oh My Posh</a></p>
+<p>Segment の看板属性とも言える <code class="docutils literal notranslate"><span class="pre">template</span></code> の書式の仕様だ。Go 言語の知識があれば有利らしい。</p>
+</section>
+</section>
+</section>
+<section id="id11">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">コツ</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<section id="id12">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">プレビュー</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>一時的な設定ファイルを用意する。以降の説明では <code class="file docutils literal notranslate"><span class="pre">omp-temp.json</span></code> とする。</p></li>
+<li><p>次のコマンドを実行する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oh-my-posh<span class="w"> </span>print<span class="w"> </span>primary<span class="w"> </span>--config<span class="w"> </span>omp-temp.json<span class="w"> </span>--shell<span class="w"> </span>uni
+</pre></div>
+</div>
+</li>
+</ol>
+<p>この出力が Oh My Posh プロンプト文字列だ。次で述べるコツと併用するといい。もっとも、<code class="docutils literal notranslate"><span class="pre">oh-my-posh</span> <span class="pre">init</span> <span class="pre">bash</span> <span class="pre">--config</span></code> がプロンプト表示時に常時評価されるので、いつも使っている JSON を編集しつつ、端末で <kbd class="kbd docutils literal notranslate">Enter</kbd> を押すのが楽だ。</p>
+</section>
+<section id="id13">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">Segment 単位のオンオフ切り替え</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Sometimes run into a situation where you don’t want to see a specific segment
+but the use-case does not justify using a conditional template. In this case
+you can use the <code class="docutils literal notranslate"><span class="pre">oh-my-posh</span> <span class="pre">toggle</span> <span class="pre">&lt;type&gt;</span></code> command to toggle the segment on or
+off. This works on a <strong>per shell session basis</strong>, meaning that if you toggle a
+segment off in one instance of a shell, it will not disable in the others.</p>
+</div></blockquote>
+<p>例えばプロンプトには <code class="docutils literal notranslate"><span class="pre">type</span></code> が <code class="docutils literal notranslate"><span class="pre">&quot;python&quot;</span></code> である Segment を含んでいて現在それが表示されるが、今は Node.js に依存するプロジェクトを開発しているので、一時的に Python 情報表示をオフにしたいとする。こういうときに</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oh-my-posh<span class="w"> </span>toggle<span class="w"> </span>python
+</pre></div>
+</div>
+<p>とする。直後のプロンプト表示から当該 Segment の表示がオフになる。このコマンドを再び実行すると、Python 情報 Segment 表示がオンに戻る。</p>
+<blockquote>
+<div><p>To list the currently toggled segments, use <code class="docutils literal notranslate"><span class="pre">oh-my-posh</span> <span class="pre">get</span> <span class="pre">toggles</span></code>.</p>
+</div></blockquote>
+<p>このコマンドは表示オフ Segment のすべてが一覧できる。</p>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">インストール済みテーマを確認する</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<p>PowerShell ならば次のコマンドでインストールされているテーマとそのプレビューを一覧することが可能だ：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-PoshThemes</span>
+</pre></div>
+</div>
+<p>Bash ならばテーマディレクトリーが次のパスにある。演習として PowerShell
+<code class="docutils literal notranslate"><span class="pre">Get-PoshThemes</span></code> 相当の機能を自分で実装してみるのもありだろう。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$HOMEBREW_PREFIX</span>/Cellar/oh-my-posh/<span class="k">$(</span>oh-my-posh<span class="w"> </span>version<span class="k">)</span>/themes
+</pre></div>
+</div>
+<p>オンラインでウェブブラウザーが開いていれば、次のページを確認するのが早いかもしれない： <a class="reference external" href="https://ohmyposh.dev/docs/themes">Themes | Oh My Posh</a></p>
+</section>
+<section id="segment-properties">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">言語系 Segment の <cite>properties</cite> の内容は似ている</a><a class="headerlink" href="#segment-properties" title="Permalink to this heading">¶</a></h3>
+<p>次の Segment の属性 <code class="docutils literal notranslate"><span class="pre">type</span></code> が <code class="docutils literal notranslate"><span class="pre">&quot;python&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ruby&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;node&quot;</span></code> などの場合には属性 <code class="docutils literal notranslate"><span class="pre">properties</span></code> の値オブジェクトにおいて、キー <code class="docutils literal notranslate"><span class="pre">home_enabled</span></code>,
+<code class="docutils literal notranslate"><span class="pre">display_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">fetch_version</span></code>, その他が共通して有効だ。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;style&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;powerline&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;powerline_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxx_symbol&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot; {{ .Full }}&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;home_enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;fetch_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;display_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">home_enabled</span></code> の既定値は <code class="docutils literal notranslate"><span class="pre">false</span></code> であるが、これは <code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> 直下にスクリプトファイルがないことが普通だからと考えられる。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">fetch_version</span></code> の既定値は <code class="docutils literal notranslate"><span class="pre">true</span></code> であり、これが自然なので明記しなくていい。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">display_mode</span></code> の既定値は文字列 <code class="docutils literal notranslate"><span class="pre">files</span></code> であり、言語に関係するファイルが <code class="file docutils literal notranslate"><span class="pre">$PWD</span></code> にある場合に Segment が有効になることを指示する。言語によってはもっと細かい制御をする値が用意されている。</p>
+</section>
+<section id="jst">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">時刻を JST で表示する</a><a class="headerlink" href="#jst" title="Permalink to this heading">¶</a></h3>
+<p>Segment の構成を模索中。時刻書式の指定を Go 言語方式でする。これは難解だ。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;style&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plain&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;invert_powerline&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;foreground&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#ff1493&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;time_format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15:04:05 JST+9:00&quot;</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="nt">&quot;template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot; \uf64f {{ dateInZone .Format .CurrentDate \&quot;Asia/Tokyo\&quot; }}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>垢抜けていないので、より相応しい記法が実はある予感がする。</p>
+</div>
+</section>
+<section id="id15">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">色指定をする</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference external" href="https://ohmyposh.dev/docs/configuration/colors">Colors | Oh My Posh</a></p>
+<p>パレットの概念がある。同じ色を何度も指定するようなテーマを実現するのならば上手く使いたい。</p>
+</section>
+</section>
+<section id="id16">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">資料</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ohmyposh.dev/docs">Introduction | Oh My Posh</a></p></li>
+<li><p><a class="reference external" href="https://brew.sh/">Homebrew</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="git/envvars.html" title="Previous document">環境変数</a>
+        </li>
+        <li>
+          <a href="twitter.html" title="Next document">Twitter 利用ノート [obsolete]</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ou23/index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-v4.html">What’s New In Bash 4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-v5.html">What’s New In Bash 5 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Oh My Posh 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="git/envvars.html" title="previous chapter">環境変数</a></li>
+      <li>Next: <a href="twitter.html" title="next chapter">Twitter 利用ノート [obsolete]</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
