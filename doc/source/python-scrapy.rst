@@ -1106,17 +1106,17 @@ Scrapy が特別扱いするキーもある。例えばキー ``download_timeout
 * ``FormRequest``: 何かを POST するフォームの対応する ``Request`` と考えてよい。
   例えば、よくあるログインページを通過するにはこれを利用することができる。
 
-   .. code:: python
+  .. code:: python
 
-      def parse(self, response, **kwargs):
-          if (uid := getattr(self, 'uid', None)) is None:
-              raise KeyError('missing -a uid=your-user-name')
-          if (password := getattr(self, 'password', None)) is None:
-              raise KeyError('missing -a password=your-password')
-          return FormRequest.from_response(
-              response,
-              formdata={'uid': uid, 'password': password},
-              callback=self._after_login)
+     def parse(self, response, **kwargs):
+         if (uid := getattr(self, 'uid', None)) is None:
+             raise KeyError('missing -a uid=your-user-name')
+         if (password := getattr(self, 'password', None)) is None:
+             raise KeyError('missing -a password=your-password')
+         return FormRequest.from_response(
+             response,
+             formdata={'uid': uid, 'password': password},
+             callback=self._after_login)
 
 * ``JsonRequest``: JSON リクエストを処理できるクラス。コンストラクターの
   ``data`` に JSON シリアライズ可能なオブジェクトを渡せるということだ。
