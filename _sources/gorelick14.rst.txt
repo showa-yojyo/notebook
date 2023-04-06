@@ -549,8 +549,7 @@ Python というよりは計算機の基礎を理解するための章だ。
   * :file:`lazy_data_analysis.py` を実行すると浮動小数点数と ``None`` との比較が
     発生するらしく、実行時に ``TypeError`` が送出する。コードを見たら関数
     ``check_anomaly()`` の仮引数名が ``xxx_todo_changeme`` だった……。
-
- *  関数 ``rolling_window_grouper()`` で ``OSError`` が送出するというバグがあっ
+  * 関数 ``rolling_window_grouper()`` で ``OSError`` が送出するというバグがあっ
     て結局プログラムが異常終了するしかない。これは
     ``datetime.datetime.fromtimestamp()`` に変な値を渡すときの C の
     ``localtime()`` か ``gmtime()`` がエラー終了するという挙動によるらしい。

@@ -66,42 +66,44 @@
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">バージョン 5.0</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://lists.gnu.org/archive/html/bug-bash/2019-01/msg00063.html">Bash-5.0 release available</a>
 からめぼしい項目に絞ってノートを取る。</p>
-<div class="line-block">
-<div class="line">There is an <code class="docutils literal notranslate"><span class="pre">EPOCHSECONDS</span></code> variable, which expands to the time in seconds</div>
-<div class="line">since the Unix epoch.</div>
-</div>
+<blockquote>
+<div><p>There is an <code class="docutils literal notranslate"><span class="pre">EPOCHSECONDS</span></code> variable, which expands to the time in seconds
+since the Unix epoch.</p>
+</div></blockquote>
 <p>例えばコマンド <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$EPOCHSECONDS</span></code> を実行すると、コマンド <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">+%s</span></code> と同じものを出力する。</p>
-<div class="line-block">
-<div class="line">There is an <code class="docutils literal notranslate"><span class="pre">EPOCHREALTIME</span></code> variable, which expands to the time in seconds</div>
-<div class="line">since the Unix epoch with microsecond granularity.</div>
-</div>
+<blockquote>
+<div><p>There is an <code class="docutils literal notranslate"><span class="pre">EPOCHREALTIME</span></code> variable, which expands to the time in seconds
+since the Unix epoch with microsecond granularity.</p>
+</div></blockquote>
 <p>これも同様で、コマンド <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$EPOCHREALTIME</span></code> を実行すれば <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">+%s.%6N</span></code> と同じ出力が得られる。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">BASH_ARGV0</span></code>: a new variable that expands to <code class="docutils literal notranslate"><span class="pre">$0</span></code> and sets <code class="docutils literal notranslate"><span class="pre">$0</span></code> on assignment.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">BASH_ARGV0</span></code>: a new variable that expands to <code class="docutils literal notranslate"><span class="pre">$0</span></code> and sets <code class="docutils literal notranslate"><span class="pre">$0</span></code> on
+assignment.</p>
+</div></blockquote>
 <p>変数 <code class="docutils literal notranslate"><span class="pre">$0</span></code> に値を代入することは不可能だが、それを可能にするのが変数
 <code class="docutils literal notranslate"><span class="pre">BASH_ARGV0</span></code> だ。デバッグ用途らしい。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">history</span> <span class="pre">-d</span></code> understands negative arguments: negative arguments offset from</div>
-<div class="line">the end of the history list.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">history</span> <span class="pre">-d</span></code> understands negative arguments: negative arguments offset from
+the end of the history list.</p>
+</div></blockquote>
 <p>例えば <code class="docutils literal notranslate"><span class="pre">history</span> <span class="pre">-d</span> <span class="pre">-10</span></code> とすれば、有効なコマンド履歴の十個前に実行したコマンドを履歴から削除する。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">wait</span></code> builtin now has a <code class="docutils literal notranslate"><span class="pre">-f</span></code> option, which signfies to wait until the</div>
-<div class="line">specified job or process terminates, instead of waiting until it changes</div>
-<div class="line">state.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">wait</span></code> builtin now has a <code class="docutils literal notranslate"><span class="pre">-f</span></code> option, which signfies to wait until the
+specified job or process terminates, instead of waiting until it changes
+state.</p>
+</div></blockquote>
 <p>コマンド <code class="docutils literal notranslate"><span class="pre">wait</span> <span class="pre">-f</span> <span class="pre">ID</span></code> はジョブ状態が変更されたときに返るのではなく、ジョブ
 <code class="docutils literal notranslate"><span class="pre">ID</span></code> が実際に終了するのを待ってからその終了コードを返すようになる。</p>
-<div class="line-block">
-<div class="line">If a non-interactive shell with job control enabled detects that a foreground</div>
-<div class="line">job died due to <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>, it acts as if it received the <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>.</div>
-</div>
+<blockquote>
+<div><p>If a non-interactive shell with job control enabled detects that a foreground
+job died due to <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>, it acts as if it received the <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>.</p>
+</div></blockquote>
 <p>これは既存の何かに影響するか？</p>
-<div class="line-block">
-<div class="line">A new <code class="docutils literal notranslate"><span class="pre">shopt</span></code> option: <code class="docutils literal notranslate"><span class="pre">localvar_inherit</span></code>; if set, a local variable inherits the</div>
-<div class="line">value of a variable with the same name at the nearest preceding scope.</div>
-</div>
+<blockquote>
+<div><p>A new <code class="docutils literal notranslate"><span class="pre">shopt</span></code> option: <code class="docutils literal notranslate"><span class="pre">localvar_inherit</span></code>; if set, a local variable
+inherits the value of a variable with the same name at the nearest preceding
+scope.</p>
+</div></blockquote>
 <p>次の関数で説明する。局所変数 <code class="docutils literal notranslate"><span class="pre">var</span></code> を内側の局所変数スコープとそのすぐ外側のスコープに宣言する。このオプションを有効にすると、局所変数スコープ突入前に同名の変数に値が初期化済みならば、その値を引き継ぐようになる。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>demo_localvar_inherit
 <span class="o">{</span>
@@ -134,99 +136,100 @@
 </pre></div>
 </div>
 <p>継承しないほうが、つまり従来と同じ設定のほうが変数のスコープの意味が生きるから好みだ。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">history</span></code> builtin can now delete ranges of history entries using</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">start-end</span></code>.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">history</span></code> builtin can now delete ranges of history entries using
+<code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">start-end</span></code>.</p>
+</div></blockquote>
 <p>コマンド履歴を履歴番号範囲を指定することで削除できるようになった。次を実行するとコマンド履歴番号 1103 から 1118 までの履歴を削除する：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ history -d 1103-1118</span>
 </pre></div>
 </div>
 <p>先ほど挙げた負のオフセットを <code class="docutils literal notranslate"><span class="pre">start</span></code> および <code class="docutils literal notranslate"><span class="pre">end</span></code> の値として受け入れる。例えば次のようなコマンドが考えられる：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ history -d -16--1</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go"> bash$ history -d -16--1</span>
+
+<span class="go">The command completion code now matches aliases and shell function names</span>
+<span class="go">case-insensitively if the readline ``completion-ignore-case`` variable is set.</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line">The command completion code now matches aliases and shell function names</div>
-<div class="line">case-insensitively if the readline <code class="docutils literal notranslate"><span class="pre">completion-ignore-case</span></code> variable is set.</div>
-</div>
 <p>ファイル <code class="file docutils literal notranslate"><span class="pre">$HOME/.inputrc</span></code> で <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">completion-ignore-case</span> <span class="pre">on</span></code> を指定しているはずだ。こうすると <code class="docutils literal notranslate"><span class="pre">alias</span></code> や <code class="docutils literal notranslate"><span class="pre">function</span></code> の名前補完にも効果があるようになった。これは便利なのかどうかわからない。その手の識別子には小文字しか使わないようにしている。</p>
-<div class="line-block">
-<div class="line">There is a new <code class="docutils literal notranslate"><span class="pre">assoc_expand_once</span></code> shell option that attempts to expand</div>
-<div class="line">associative array subscripts only once.</div>
-</div>
+<blockquote>
+<div><p>There is a new <code class="docutils literal notranslate"><span class="pre">assoc_expand_once</span></code> shell option that attempts to expand
+associative array subscripts only once.</p>
+</div></blockquote>
 <p>これはなぜあるのだろう。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">umask</span></code> builtin now allows modes and masks greater than octal 777.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">umask</span></code> builtin now allows modes and masks greater than octal 777.</p>
+</div></blockquote>
 <p>要するに四桁のマスクを操作可能になったということか。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">complete</span></code> builtin now accepts a <code class="docutils literal notranslate"><span class="pre">-I</span></code> option that applies the completion</div>
-<div class="line">to the initial word on the line.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">complete</span></code> builtin now accepts a <code class="docutils literal notranslate"><span class="pre">-I</span></code> option that applies the
+completion to the initial word on the line.</p>
+</div></blockquote>
 <p>行の最初の単語に補完を適用することができるようになった。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">localvar_inherit</span></code> option will not attempt to inherit a value from a</div>
-<div class="line">variable of an incompatible type (indexed vs. associative arrays, for</div>
-<div class="line">example).</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">localvar_inherit</span></code> option will not attempt to inherit a value from a
+variable of an incompatible type (indexed vs. associative arrays, for
+example).</p>
+</div></blockquote>
 <p>新規オプション <code class="docutils literal notranslate"><span class="pre">localvar_inherit</span></code> に関する仕様の一部。型を指定して局所変数を宣言するデモを書いて試したいところだ。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">globasciiranges</span></code> option is now enabled by default; it can be set to</div>
-<div class="line">off by default at configuration time.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">globasciiranges</span></code> option is now enabled by default; it can be set to off
+by default at configuration time.</p>
+</div></blockquote>
 <p>オプション <code class="docutils literal notranslate"><span class="pre">globasciiranges</span></code> 自体は以前からある。5.0 でこの既定値が on になったと言っている。例えば、パターン <code class="docutils literal notranslate"><span class="pre">[a-d]</span></code> が <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">d</span></code> のいずれかにマッチするパターンを意味するように指定したい場合（大文字などは不要）に有効にする。</p>
-<div class="line-block">
-<div class="line">Associative and indexed arrays now allow subscripts consisting solely of</div>
-<div class="line">whitespace.</div>
-</div>
+<blockquote>
+<div><p>Associative and indexed arrays now allow subscripts consisting solely of
+whitespace.</p>
+</div></blockquote>
 <p>配列の添字が空白文字のみから構成されても構わないと読めるが、実際には先頭の要素が参照されるという理解でいいか？</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">checkwinsize</span></code> is now enabled by default.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">checkwinsize</span></code> is now enabled by default.</p>
+</div></blockquote>
 <p>このオプションは WSL が明示的に on にしているので気にしない。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">localvar_unset</span></code> <code class="docutils literal notranslate"><span class="pre">shopt</span></code> option is now visible and documented.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">localvar_unset</span></code> <code class="docutils literal notranslate"><span class="pre">shopt</span></code> option is now visible and documented.</p>
+</div></blockquote>
 <p>隠しオプション <code class="docutils literal notranslate"><span class="pre">localvar_unset</span></code> が表に浮上。</p>
 <p>このオプションが on の場合、直前の関数スコープにある局所変数に対する <code class="docutils literal notranslate"><span class="pre">unset</span></code>
 呼び出しが、その関数が戻るまでに後続の検索でそれらが未設定であることをわかるように印をつけるようになる。この挙動は現在の関数スコープでローカル変数の設定を解除したときのそれと同じだ。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">progcomp_alias</span></code> shopt option is now visible and documented.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">progcomp_alias</span></code> shopt option is now visible and documented.</p>
+</div></blockquote>
 <p>隠しオプション <code class="docutils literal notranslate"><span class="pre">progcomp_alias</span></code> が表に浮上。仕様を読むと <code class="docutils literal notranslate"><span class="pre">alias</span></code> が絡むダブル補完を試みると読める。</p>
-<div class="line-block">
-<div class="line">There is a new <code class="docutils literal notranslate"><span class="pre">seq</span></code> loadable builtin.</div>
-</div>
+<blockquote>
+<div><p>There is a new <code class="docutils literal notranslate"><span class="pre">seq</span></code> loadable builtin.</p>
+</div></blockquote>
 <p>手許の環境では存在しない。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">$_</span></code> variable doesn’t change when the shell executes a command that forks.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">$_</span></code> variable doesn’t change when the shell executes a command that
+forks.</p>
+</div></blockquote>
 <p>ではどうなるのか。</p>
-<div class="line-block">
-<div class="line">POSIX mode now enables the <code class="docutils literal notranslate"><span class="pre">shift_verbose</span></code> option.</div>
-</div>
+<blockquote>
+<div><p>POSIX mode now enables the <code class="docutils literal notranslate"><span class="pre">shift_verbose</span></code> option.</p>
+</div></blockquote>
 <p>コマンド <code class="docutils literal notranslate"><span class="pre">shift</span></code> で範囲外の数を指定すると、たいていのシェルではエラーとなる。しかし、本家 POSIX ではエラーとする仕様では特にない。Bash 5.0 からはこのオプション自体を有効にするようになった。そう解釈していいか。</p>
 </section>
 <section id="id2">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">バージョン 5.1</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://lists.gnu.org/archive/html/info-gnu/2020-12/msg00003.html">Bash-5.1 release available</a>
 のめぼしい項目に集中してノートをつづる。</p>
-<div class="line-block">
-<div class="line"><strong class="command">read -e</strong> may now be used with arbitrary file descriptors (<strong class="command">read -u N</strong>).</div>
-</div>
+<blockquote>
+<div><p><strong class="command">read -e</strong> may now be used with arbitrary file descriptors
+(<strong class="command">read -u N</strong>).</p>
+</div></blockquote>
 <p>Readline が効いた状態と descriptors を指定することが両立可能になった。</p>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">select</span></code> builtin now runs traps if its internal call to the <code class="docutils literal notranslate"><span class="pre">read</span></code> builtin</div>
-<div class="line">is interrupted by a signal.</div>
-</div>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">select</span></code> builtin now runs traps if its internal call to the <code class="docutils literal notranslate"><span class="pre">read</span></code>
+builtin is interrupted by a signal.</p>
+</div></blockquote>
 <p>組み込みコマンド <strong class="command">select</strong> は、信号が <strong class="command">read</strong> の内部呼び出しに割り込んだときにトラップするようになった。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">SRANDOM</span></code>: a new variable that expands to a 32-bit random number that is not</div>
-<div class="line">produced by an LCRNG, and uses <code class="docutils literal notranslate"><span class="pre">getrandom</span></code>/<code class="docutils literal notranslate"><span class="pre">getentropy</span></code>, falling back to</div>
-<div class="line"><code class="file docutils literal notranslate"><span class="pre">/dev/urandom</span></code> or <code class="docutils literal notranslate"><span class="pre">arc4random</span></code> if available. There is a fallback generator if</div>
-<div class="line">none of these are available.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">SRANDOM</span></code>: a new variable that expands to a 32-bit random number that is not
+produced by an LCRNG, and uses <code class="docutils literal notranslate"><span class="pre">getrandom</span></code>/<code class="docutils literal notranslate"><span class="pre">getentropy</span></code>, falling back to
+<code class="file docutils literal notranslate"><span class="pre">/dev/urandom</span></code> or <code class="docutils literal notranslate"><span class="pre">arc4random</span></code> if available. There is a fallback
+generator if none of these are available.</p>
+</div></blockquote>
 <p>環境変数 <code class="docutils literal notranslate"><span class="pre">SRANDOM</span></code> から 32 ビット長の乱数を得られる。ここに言及されているような手段、関数で生成されるため、<code class="docutils literal notranslate"><span class="pre">srand</span></code> のようなものを使って乱数列を再現することは不可能のようだ。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ echo $SRANDOM</span>
 <span class="go">3687839026</span>
@@ -236,13 +239,13 @@
 <span class="go">2451151285</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">shell-transpose-words</span></code>: a new bindable readline command that uses the same</div>
-<div class="line">definition of word as <code class="docutils literal notranslate"><span class="pre">shell-forward-word</span></code>, etc.</div>
-<div class="line"><br /></div>
-<div class="line">The shell now adds default bindings for <code class="docutils literal notranslate"><span class="pre">shell-forward-word</span></code>,</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">shell-backward-word</span></code>, <code class="docutils literal notranslate"><span class="pre">shell-transpose-words</span></code>, and <code class="docutils literal notranslate"><span class="pre">shell-kill-word</span></code>.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">shell-transpose-words</span></code>: a new bindable readline command that uses the same
+definition of word as <code class="docutils literal notranslate"><span class="pre">shell-forward-word</span></code>, etc.</p>
+<p>The shell now adds default bindings for <code class="docutils literal notranslate"><span class="pre">shell-forward-word</span></code>,
+<code class="docutils literal notranslate"><span class="pre">shell-backward-word</span></code>, <code class="docutils literal notranslate"><span class="pre">shell-transpose-words</span></code>, and <code class="docutils literal notranslate"><span class="pre">shell-kill-word</span></code>.</p>
+</div></blockquote>
 <p>新コマンド <code class="docutils literal notranslate"><span class="pre">shell-transpose-words</span></code> の意味は直観的に理解できると思うので説明を省く（パス文字列などで <code class="docutils literal notranslate"><span class="pre">transpose-words</span></code> との違いを実感できる）。</p>
 <p>ここで挙げたコマンドに対するキーバインド既定値は次のとおり：</p>
 <table class="docutils align-default">
@@ -266,53 +269,55 @@
 </tr>
 </tbody>
 </table>
-<div class="line-block">
-<div class="line">If <strong class="command">unset</strong> is executed without option arguments, bash tries to unset a shell</div>
-<div class="line">function if a name argument cannot be a shell variable name because it’s not</div>
-<div class="line">an identifier.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p>If <strong class="command">unset</strong> is executed without option arguments, bash tries to unset
+a shell function if a name argument cannot be a shell variable name because
+it’s not an identifier.</p>
+</div></blockquote>
 <p>コマンド <strong class="command">unset</strong> をオプションなしで実行すると、引数を変数名として処理することをまず試みる。それが失敗すると、今度は関数名として処理する。</p>
-<div class="line-block">
-<div class="line">The <strong class="command">test -N</strong> operator uses nanosecond timestamp granularity if it’s</div>
-<div class="line">available.</div>
-</div>
+<blockquote>
+<div><p>The <strong class="command">test -N</strong> operator uses nanosecond timestamp granularity if it’s
+available.</p>
+</div></blockquote>
 <p>ファイルが最後に読み込まれてからナノ秒単位の短時間の間に変更されたとしてもテストが機能するようになった。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">BASH_REMATCH</span></code> is no longer readonly.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">BASH_REMATCH</span></code> is no longer readonly.</p>
+</div></blockquote>
 <p>この環境変数は <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">target</span> <span class="pre">=~</span> <span class="pre">pattern</span> <span class="pre">]]</span></code> テストの結果を格納する配列だ。その読み取りしかできない性質がなくなったということは？</p>
-<div class="line-block">
-<div class="line"><strong class="command">wait</strong>: has a new <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">VARNAME</span></code> option, which stores the PID returned by <strong class="command">wait -n</strong></div>
-<div class="line">or <strong class="command">wait</strong> without arguments.</div>
-</div>
+<blockquote>
+<div><p><strong class="command">wait</strong>: has a new <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">VARNAME</span></code> option, which stores the PID
+returned by <strong class="command">wait -n</strong> or <strong class="command">wait</strong> without arguments.</p>
+</div></blockquote>
 <p>コマンド <strong class="command">wait</strong> 実行時にプロセス ID を保存しておく事態になったらこれを使おう。</p>
-<div class="line-block">
-<div class="line">Sorting the results of pathname expansion now uses byte-by-byte comparisons</div>
-<div class="line">if two strings collate equally to impose a total order; the result of a</div>
-<div class="line">POSIX interpretation.</div>
-</div>
+<blockquote>
+<div><p>Sorting the results of pathname expansion now uses byte-by-byte comparisons if
+two strings collate equally to impose a total order; the result of a POSIX
+interpretation.</p>
+</div></blockquote>
 <p>それでもなお等しいということはあり得ないか。</p>
-<div class="line-block">
-<div class="line">Bash now allows <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code> <code class="docutils literal notranslate"><span class="pre">trap</span></code> handlers to execute recursively.</div>
-</div>
+<blockquote>
+<div><p>Bash now allows <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code> <code class="docutils literal notranslate"><span class="pre">trap</span></code> handlers to execute recursively.</p>
+</div></blockquote>
 <p>これだけでは何のことかわからない。</p>
-<div class="line-block">
-<div class="line">Process substitution is now available in posix mode.</div>
-</div>
+<blockquote>
+<div><p>Process substitution is now available in posix mode.</p>
+</div></blockquote>
 <p>プロセス置換が POSIX モードで利用可能になったことは本バージョンの注目項目の一つとして紹介されている。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">READLINE_MARK</span></code>: a new variable available while executing commands bound with</div>
-<div class="line"><strong class="command">bind -x</strong>, contains the value of the mark.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">READLINE_MARK</span></code>: a new variable available while executing commands bound
+with <strong class="command">bind -x</strong>, contains the value of the mark.</p>
+</div></blockquote>
 <p>変数 <code class="docutils literal notranslate"><span class="pre">READLINE_MARK</span></code> はコマンド <strong class="command">bind -x</strong> で使用する Readline ラインバッファー内の印の位置を含む変数だ。挿入点と印の間の文字列が region と呼ばれるものだ。</p>
-<div class="line-block">
-<div class="line"><strong class="command">test -v N</strong> can now test whether or not positional parameter <code class="docutils literal notranslate"><span class="pre">N</span></code> is set.</div>
-</div>
+<blockquote>
+<div><p><strong class="command">test -v N</strong> can now test whether or not positional parameter <code class="docutils literal notranslate"><span class="pre">N</span></code> is
+set.</p>
+</div></blockquote>
 <p><code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code>, … がセット済みかどうかを知る術は他にもある。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">local</span></code> now honors the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option to display all local variables at the</div>
-<div class="line">current context.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">local</span></code> now honors the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option to display all local variables at the
+current context.</p>
+</div></blockquote>
 <p>今まで知らなかったが、実は <code class="docutils literal notranslate"><span class="pre">local</span></code> はシェル関数であったのだ。キーワードかと思っていた。何らかの関数中で <code class="docutils literal notranslate"><span class="pre">local</span> <span class="pre">-p</span></code> を呼び出すと、上述のように機能する。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>test-local<span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">3</span>
@@ -329,13 +334,13 @@
 <span class="go">declare -- b=&quot;Mono&quot;</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">&#64;a</span></code> variable transformation now prints attributes for unset array</div>
-<div class="line">variables.</div>
-<div class="line"><br /></div>
-<div class="line">The <code class="docutils literal notranslate"><span class="pre">&#64;A</span></code> variable transformation now prints a declare command that sets a</div>
-<div class="line">variable’s attributes if the variable has attributes but is unset.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">&#64;a</span></code> variable transformation now prints attributes for unset array
+variables.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;A</span></code> variable transformation now prints a declare command that sets a
+variable’s attributes if the variable has attributes but is unset.</p>
+</div></blockquote>
 <p>やってみよう：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ declare -a myarray</span>
 <span class="go">bash$ echo ${myarray@a}</span>
@@ -344,47 +349,50 @@
 <span class="go">declare -a myarray</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">declare</span></code> and <code class="docutils literal notranslate"><span class="pre">local</span></code> now have a <code class="docutils literal notranslate"><span class="pre">-I</span></code> option that inherits attributes and</div>
-<div class="line">value from a variable with the same name at a previous scope.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">declare</span></code> and <code class="docutils literal notranslate"><span class="pre">local</span></code> now have a <code class="docutils literal notranslate"><span class="pre">-I</span></code> option that inherits attributes
+and value from a variable with the same name at a previous scope.</p>
+</div></blockquote>
 <p>これは入れ子スコープで変数を複製するのに利用できるだろうか。</p>
-<div class="line-block">
-<div class="line">When run from a <code class="docutils literal notranslate"><span class="pre">-c</span></code> command, <code class="docutils literal notranslate"><span class="pre">jobs</span></code> now reports the status of completed jobs.</div>
-</div>
+<blockquote>
+<div><p>When run from a <code class="docutils literal notranslate"><span class="pre">-c</span></code> command, <code class="docutils literal notranslate"><span class="pre">jobs</span></code> now reports the status of completed
+jobs.</p>
+</div></blockquote>
 <p>コマンド <strong class="command">jobs</strong> を <strong class="command">bash -h</strong> 中に実行するとジョブの実行状況を確認できる。</p>
-<div class="line-block">
-<div class="line">New <code class="docutils literal notranslate"><span class="pre">U</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code>, and <code class="docutils literal notranslate"><span class="pre">L</span></code> parameter transformations to convert to uppercase,</div>
-<div class="line">convert first character to uppercase, and convert to lowercase,</div>
-<div class="line">respectively.</div>
-</div>
+<blockquote>
+<div><p>New <code class="docutils literal notranslate"><span class="pre">U</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code>, and <code class="docutils literal notranslate"><span class="pre">L</span></code> parameter transformations to convert to uppercase,
+convert first character to uppercase, and convert to lowercase, respectively.</p>
+</div></blockquote>
 <p>変数変換 <code class="docutils literal notranslate"><span class="pre">${parameter&#64;operator}</span></code> において、<code class="docutils literal notranslate"><span class="pre">operator</span></code> 部分にこれらの記号が対応された。それぞれの変換は Emacs における <code class="docutils literal notranslate"><span class="pre">upcase-word</span></code>, <code class="docutils literal notranslate"><span class="pre">capitalize-word</span></code>,
 <code class="docutils literal notranslate"><span class="pre">lowercase-word</span></code> に相当すると憶えておくといい。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">myvar=varName</span>
-<span class="go">echo ${myvar@u} ${myvar@U} ${myvar@L}</span>
+<span class="go">bash$ echo ${myvar@u} ${myvar@U} ${myvar@L}</span>
 <span class="go">VarName VARNAME varname</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code>: can now be an array variable, each element of which can</div>
-<div class="line">contain a command to be executed like a string <code class="docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code> variable.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code>: can now be an array variable, each element of which can
+contain a command to be executed like a string <code class="docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code> variable.</p>
+</div></blockquote>
 <p>変数 <code class="docutils literal notranslate"><span class="pre">PROMPT_COMMAND</span></code> は <code class="docutils literal notranslate"><span class="pre">PS1</span></code> を表示する前に毎回実行されるコマンドを指定するものだ。複数のコマンドを実行するために配列を代入することが可能になった。例えば</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">PROMPT_COMMAND</span><span class="o">=(</span><span class="w"> </span><span class="s2">&quot;command1&quot;</span><span class="w"> </span><span class="s2">&quot;command2&quot;</span><span class="w"> </span>...<span class="w"> </span><span class="o">)</span>
 </pre></div>
 </div>
 <p>とすると、端末でコマンドを何か入力、実行するたびに <code class="docutils literal notranslate"><span class="pre">command1</span></code>, <code class="docutils literal notranslate"><span class="pre">command2</span></code>, …がいちいち実行されるようになる。</p>
-<div class="line-block">
-<div class="line"><strong class="command">ulimit</strong> has a <code class="docutils literal notranslate"><span class="pre">-R</span></code> option to report and set the <code class="docutils literal notranslate"><span class="pre">RLIMIT_RTTIME</span></code> resource.</div>
-</div>
+<blockquote>
+<div><p><strong class="command">ulimit</strong> has a <code class="docutils literal notranslate"><span class="pre">-R</span></code> option to report and set the <code class="docutils literal notranslate"><span class="pre">RLIMIT_RTTIME</span></code>
+resource.</p>
+</div></blockquote>
 <p>コマンド <strong class="command">ulimit</strong> 自体を全く利用しないので後回し。</p>
-<div class="line-block">
-<div class="line">Associative arrays may be assigned using a list of key-value pairs within</div>
-<div class="line">a compound assignment. Compound assignments where the words are not of</div>
-<div class="line">the form <code class="docutils literal notranslate"><span class="pre">[key]=value</span></code> are assumed to be key-value assignments. A missing or</div>
-<div class="line">empty key is an error; a missing value is treated as <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. Assignments may</div>
-<div class="line">not mix the two forms.</div>
-</div>
+<blockquote>
+<div><p>Associative arrays may be assigned using a list of key-value pairs within a
+compound assignment. Compound assignments where the words are not of the form
+<code class="docutils literal notranslate"><span class="pre">[key]=value</span></code> are assumed to be key-value assignments. A missing or empty
+key is an error; a missing value is treated as <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. Assignments may not
+mix the two forms.</p>
+</div></blockquote>
 <p>連想配列への key-value の代入および追加方法が次のような式が合法になるように拡張された：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ declare -A mymap=(k0 v0 k1 v1)</span>
 <span class="go">bash$ echo &quot;${mymap[@]}&quot;</span>
@@ -394,42 +402,46 @@
 <span class="go">v0 v1 v2 v3</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line">New <code class="docutils literal notranslate"><span class="pre">K</span></code> parameter transformation to display associative arrays as key-</div>
-<div class="line">value pairs.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p>New <code class="docutils literal notranslate"><span class="pre">K</span></code> parameter transformation to display associative arrays as key-value
+pairs.</p>
+</div></blockquote>
 <p>連想配列の値を引用符で囲まれた可能性のある出力を生成する。先ほどの例の <code class="docutils literal notranslate"><span class="pre">mymap</span></code>
 に適用すると：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo &quot;${mymap[@]@K}&quot;</span>
 <span class="go">k0 &quot;v0&quot; k1 &quot;v1&quot; k2 &quot;v2&quot; k3 &quot;v3&quot;</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">SECONDS</span></code> and <code class="docutils literal notranslate"><span class="pre">RANDOM</span></code> may now be assigned using arithmetic expressions, since</div>
-<div class="line">they are nominally integer variables. <code class="docutils literal notranslate"><span class="pre">LINENO</span></code> is not an integer variable.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">SECONDS</span></code> and <code class="docutils literal notranslate"><span class="pre">RANDOM</span></code> may now be assigned using arithmetic expressions,
+since they are nominally integer variables. <code class="docutils literal notranslate"><span class="pre">LINENO</span></code> is not an integer
+variable.</p>
+</div></blockquote>
 <p>そのようなことはしない。</p>
-<div class="line-block">
-<div class="line">Bash temporarily suppresses the verbose option when running the <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> trap</div>
-<div class="line">while running a command from the <strong class="command">fc</strong> builtin.</div>
-</div>
+<blockquote>
+<div><p>Bash temporarily suppresses the verbose option when running the <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> trap
+while running a command from the <strong class="command">fc</strong> builtin.</p>
+</div></blockquote>
 <p>状況がわからない。</p>
-<div class="line-block">
-<div class="line"><strong class="command">wait -n</strong> now accepts a list of job specifications as arguments and will</div>
-<div class="line">wait for the first one in the list to change state.</div>
-</div>
+<blockquote>
+<div><p><strong class="command">wait -n</strong> now accepts a list of job specifications as arguments and
+will wait for the first one in the list to change state.</p>
+</div></blockquote>
 <p>オプションの <code class="docutils literal notranslate"><span class="pre">-n</span></code> は the next の意。この変更は理に適っている。</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">HISTFILE</span></code> is now readonly in a restricted shell.</div>
-</div>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">HISTFILE</span></code> is now readonly in a restricted shell.</p>
+</div></blockquote>
 <p>制限シェル <strong class="command">rbash</strong> を起動して変数の属性を先ほど習った変数展開で調べる：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">HISTFILE</span><span class="p">@a</span><span class="si">}</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ echo ${HISTFILE@a}</span>
 <span class="go">r</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">GLOBIGNORE</span></code> now ignores <code class="docutils literal notranslate"><span class="pre">.</span></code> and <code class="docutils literal notranslate"><span class="pre">..</span></code> as a terminal pathname component.</div>
-</div>
+<hr class="docutils" />
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">GLOBIGNORE</span></code> now ignores <code class="docutils literal notranslate"><span class="pre">.</span></code> and <code class="docutils literal notranslate"><span class="pre">..</span></code> as a terminal pathname component.</p>
+</div></blockquote>
 <p>環境変数 <code class="docutils literal notranslate"><span class="pre">GLOBIGNORE</span></code> はコロン区切りのパターンのリストであって、パス展開時に無視されるパターンを定義する。Bash 5.1 からはドットおよびドットドットが端末パス名構成要素としては無視されるようになったと言っている。</p>
 </section>
 <section id="id3">

@@ -111,21 +111,21 @@ Python 2.6 以降に係わる VC ランタイム問題
    * :file:`C:\\WINDOWS\\WinSxS\\Manifests\\x86_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.21022.8_x-ww_d08d0375.manifest`
    * :file:`C:\\WINDOWS\\WinSxS\\x86_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.21022.8_x-ww_d08d0375\\msvc*90.dll`
 
-#. コピー後のマニフェストファイルをリネームし、
-   :file:`Microsoft.VC90.CRT.manifest` とする。
+#. コピー後のマニフェストファイルをリネームし、:file:`Microsoft.VC90.CRT.manifest`
+   とする。
 #. :file:`setup.py` の内容を修正する。例を示す。
 
-  .. code:: python
+   .. code:: python
 
-     from distutils.core import setup
-     import py2exe
-     from glob import glob
+      from distutils.core import setup
+      import py2exe
+      from glob import glob
 
-     data_files = [("Microsoft.VC90.CRT",
-                    ["Microsoft.VC90.CRT.manifest"] + glob(r'msvc*90.dll'))]
+      data_files = [("Microsoft.VC90.CRT",
+                     ["Microsoft.VC90.CRT.manifest"] + glob(r'msvc*90.dll'))]
 
-     setup(console=['hello.py'],
-           data_files=data_files)
+      setup(console=['hello.py'],
+            data_files=data_files)
 
 サードパーティ製パッケージを利用した自作プログラムを配布する場合
 ----------------------------------------------------------------------
