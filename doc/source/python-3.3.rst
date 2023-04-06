@@ -97,26 +97,26 @@ What's New In Python 3.3 を読んで、個人的に関心のある項目に注�
   * ``@abstractproperty``, ``@abstractclassmethod``, ``@abstractstaticmethod``
     が軒並み非推奨。``@abstractmethod`` に対応する組み込み関数を渡すように。
 
-   * この場合 ``@abstractmethod`` のほうを内側に置く。
+  * この場合 ``@abstractmethod`` のほうを内側に置く。
 
-     .. code:: python3
+    .. code:: python3
 
-        class SomeClass(metaclass=ABCMeta):
+       class SomeClass(metaclass=ABCMeta):
 
-            @property
-            @abstractmethod
-            def some_abstract_property(self):
-                return ...
+           @property
+           @abstractmethod
+           def some_abstract_property(self):
+               return ...
 
-            @classmethod
-            @abstractmethod
-            def some_abstract_classmethod(cls, args):
-                ...
+           @classmethod
+           @abstractmethod
+           def some_abstract_classmethod(cls, args):
+               ...
 
-            @staticmethod
-            @abstractmethod
-            def some_static_method(args):
-                ...
+           @staticmethod
+           @abstractmethod
+           def some_static_method(args):
+               ...
 
   * ``ABCMeta.register()`` が戻り値としてサブクラスを返すようになった。このこと
     でクラスに対するデコレーターとしても使えるようになった。

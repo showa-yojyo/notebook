@@ -13,7 +13,7 @@ New Features
 * 組み込み関数 ``breakpoint()`` 新設
 
   * 環境変数 ``PYTHONBREAKPOINT`` の使い方を押さえれば言うことなし。
-  * :code:`logging.basicConfig(level=logging.DEBUG)` も必要。
+  * ``logging.basicConfig(level=logging.DEBUG)`` も必要。
   * これはふつうに便利なので覚えておこう。
 
 * モジュールに対して ``__getattr()__`` および ``__dir__`` が定義できる。
@@ -32,13 +32,13 @@ New Features
     resolution on Linux and Windows> だそうだ。
   * サンプルコードで面白い呼び出しを見つけたので控えておく：
 
-     .. code:: python
+    .. code:: python
 
-        min_dt = [abs(time.time_ns() - time.time_ns()) for _ in range(LOOPS)]
-        min_dt = min(filter(bool, min_dt))
-        print("min time_ns() delta: %s ns" % min_dt)
+       min_dt = [abs(time.time_ns() - time.time_ns()) for _ in range(LOOPS)]
+       min_dt = min(filter(bool, min_dt))
+       print("min time_ns() delta: %s ns" % min_dt)
 
-     ここで :code:`min(min_dt)` だけでダメなのかどうか考えてみよう。
+    ここで ``min(min_dt)`` だけでダメなのかどうか考えてみよう。
 
   * これらは私は使わないだろう。ミリ秒で事足りるケースしか手許にない。
 
