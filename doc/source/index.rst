@@ -128,6 +128,7 @@ Contents:
    cygwin
    chrome
    git/index
+   oh-my-posh
    twitter
    inkscape/index
    ffmpeg/index
