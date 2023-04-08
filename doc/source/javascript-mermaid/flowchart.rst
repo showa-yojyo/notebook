@@ -2,641 +2,539 @@
 Flowcharts - Basic Syntax
 =======================================================================
 
-All Flowcharts are composed of nodes, the geometric shapes and edges, the arrows
-or lines. The mermaid code defines the way that these nodes and edges are made
-and interact.
+  All Flowcharts are composed of nodes, the geometric shapes and edges, the arrows
+  or lines. The mermaid code defines the way that these nodes and edges are made
+  and interact.
 
-It can also accomodate different arrow types, multi directional arrows, and
-linking to and from subgraphs.
+  It can also accomodate different arrow types, multi directional arrows, and
+  linking to and from subgraphs.
+
+Mermaid 開発陣はフローチャートとは言っているが、汎用の有向グラフとして取り扱うの
+がわかりやすい。
 
 .. contents::
    :depth: 2
 
-.. admonition:: 学習者ノート
-
-   Mermaid 開発陣はフローチャートとは言っているが、汎用の有向グラフとして取り扱
-   うのがわかりやすい。
-
-.. important::
-
-   Do not type the word "end" as a Flowchart node. Capitalize all or any one the
-   letters to keep the flowchart from breaking, i.e, "End" or "END". Or you can
-   apply this `workaround
-   <https://github.com/mermaid-js/mermaid/issues/1444#issuecomment-639528897>`__.
-
 Node
 =======================================================================
+
+  Do not type the word "end" as a Flowchart node. Capitalize all or any one the
+  letters to keep the flowchart from breaking, i.e, "End" or "END".
+
+という注意点があるそうなので、何かエラーが出たらこれを意識することにする。
 
 A node (default)
 -----------------------------------------------------------------------
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       id
+     ---
+     title: Node
+     ---
+     flowchart LR
+         id
 
-.. note::
-
-   The id is what is displayed in the box.
+いつの間にか Flowchart に対して見出しを与えることが可能になっている。図式の天井
+中央にテキストが描画されるようだ。
 
 A node with text
 -----------------------------------------------------------------------
 
-It is also possible to set text in the box that differs from the id. If this is
-done several times, it is the last text found for the node that will be used.
-Also if you define edges for the node later on, you can omit text definitions.
-The one previously defined will be used when rendering the box.
+次の文法により、ID 文字列とは異なるテキストをノードに書ける：
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       id1[This is the text in the box]
+     ---
+     title: Node with text
+     ---
+     flowchart LR
+         id1[This is the text in the box]
 
 Graph
 =======================================================================
 
-This statement declares the direction of the Flowchart.
+  This declares the flowchart is oriented from top to bottom (``TD`` or ``TB``).
 
-This declares the flowchart is oriented from top to bottom (``TD`` or ``TB``).
+  .. code:: text
 
-.. mermaid::
+     flowchart TD
+         Start --> Stop
 
-   flowchart TD
-       Start --> Stop
-
-This declares the flowchart is oriented from left to right (``LR``).
-
-.. mermaid::
-
-   flowchart LR
-       Start --> Stop
+``flowchart`` に続けて二文字でグラフの向きを指定する。
 
 Flowchart Orientation
 =======================================================================
 
-Possible FlowChart orientations are:
+  Possible FlowChart orientations are:
 
-* ``TB`` - top to bottom
-* ``TD`` - top-down/ same as top to bottom
-* ``BT`` - bottom to top
-* ``RL`` - right to left
-* ``LR`` - left to right
+  * ``TB`` - top to bottom
+  * ``TD`` - top-down/ same as top to bottom
+  * ``BT`` - bottom to top
+  * ``RL`` - right to left
+  * ``LR`` - left to right
 
-.. admonition:: 学習者ノート
-
-   実質的には四つだ。
+``TB`` と ``TD`` が同じなので実質的には四つあると言える。
 
 Node shapes
 =======================================================================
 
-.. admonition:: 学習者ノート
+ノード形状はテキスト周りの括弧の組で決まる。
 
-   実際に描画させるとやたらスペースをとる形状がいくつかある。そういうものはテキ
-   ストを設定しないで利用するのが本来想定されている用途なのだろう。
+実際に描画させるとやたらスペースをとるノード形状がいくつかある。そういうものはテ
+キストを設定しないで利用するのが本来想定されている用途なのだろう。
 
-A node with round edges
------------------------------------------------------------------------
+.. code:: text
 
-.. mermaid::
-
+   ---
+   title: Node shapes
+   ---
    flowchart LR
-       id1(This is the text in the box)
-
-A stadium-shaped node
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1([This is the text in the box])
-
-A node in a subroutine shape
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1[[This is the text in the box]]
-
-A node in a cylindrical shape
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1[(Database)]
-
-A node in the form of a circle
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1((This is the text in the circle))
-
-A node in an asymmetric shape
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1>This is the text in the box]
-
-Currently only the shape above is possible and not its mirror. This might change
-with future releases.
-
-A node (rhombus)
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1{This is the text in the box}
-
-A hexagon node
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart LR
-       id1{{This is the text in the box}}
-
-Parallelogram
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart TD
-       id1[/This is the text in the box/]
-
-Parallelogram alt
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart TD
-       id1[\This is the text in the box\]
-
-Trapezoid
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart TD
-       A[/Christmas\]
-
-Trapezoid alt
------------------------------------------------------------------------
-
-.. mermaid::
-
-   flowchart TD
-       B[\Go shopping/]
+       nodeA(A node with round edges)
+       nodeB([A stadium-shaped node])
+       nodeC[[A node in a subroutine shape]]
+       nodeD[(A node in a cylindrical shape)]
+       nodeE((A node in the form of a circle))
+       nodeF>A node in an asymmetric shape]
+       nodeG{A node rhombus}
+       nodeH{{A hexagon node}}
+       nodeI[/Parallelogram/]
+       nodeJ[\Parallelogram alt\]
+       nodeK[/Trapezoid\]
+       nodeL[\Trapezoid alt/]
 
 Links between nodes
 ======================================================================
 
-Nodes can be connected with links/edges. It is possible to have different types
-of links or attach a text string to a link.
-
 A link with arrow head
 -----------------------------------------------------------------------
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       A-->B
+     flowchart LR
+         A-->B
+
+これは有向グラフに用いるといいだろう。
 
 An open link
 -----------------------------------------------------------------------
 
-.. mermaid::
+.. code:: text
 
    flowchart LR
        A --- B
 
+こちらは無向グラフに用いたい。
+
 Text on links
 -----------------------------------------------------------------------
 
-.. mermaid::
+次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現
+れる：
 
-   flowchart LR
-       A-- This is the text! ---B
+  .. code:: text
 
-or
+     flowchart LR
+         A-- This is the text! ---B
 
-.. mermaid::
+または：
 
-   flowchart LR
-       A---|This is the text|B
+  .. code:: text
+
+     flowchart LR
+         A---|This is the text|B
 
 A link with arrow head and text
 -----------------------------------------------------------------------
 
-.. mermaid::
+次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現
+れる：
 
-   flowchart LR
-       A-->|text|B
+  .. code:: text
 
-or
+     flowchart LR
+         A-->|text|B
 
-.. mermaid::
+もしくは：
 
-   flowchart LR
-       A-- text -->B
+  .. code:: text
+
+     flowchart LR
+         A-- text -->B
 
 Dotted link
 -----------------------------------------------------------------------
 
-.. mermaid::
+点線スタイルはしばしば採用したくなるので記法を覚えておく。ドットしか使わないわけ
+ではない。
 
-   flowchart LR;
-      A-.->B;
+  .. code:: text
+
+     flowchart LR;
+        A-.->B;
 
 Dotted link with text
 -----------------------------------------------------------------------
 
-.. mermaid::
+記憶しにくい記法だ：
 
-   flowchart LR
-      A-. text .-> B
+  .. code:: text
+
+     flowchart LR
+        A-. text .-> B
 
 Thick link
 -----------------------------------------------------------------------
 
-.. mermaid::
+太い線を描く場合には文字 ``=`` をつなげる。これは自然な記法だ。
 
-   flowchart LR
-      A ==> B
+  .. code:: text
+
+     flowchart LR
+        A ==> B
 
 Thick link with text
 -----------------------------------------------------------------------
 
-.. mermaid::
+こちらも自然：
 
-   flowchart LR
-      A == text ==> B
+  .. code:: text
+
+     flowchart LR
+        A == text ==> B
+
+An invisible link
+----------------------------------------------------------------------
+
+  This can be a useful tool in some instances where you want to alter the default
+  positioning of a node.
+
+昔のバージョンにはなかったリンクのスタイルだ。
+
+  .. code:: text
+
+     flowchart LR
+         A ~~~ B
 
 Chaining of links
 -----------------------------------------------------------------------
 
-It is possible declare many links in the same line as per below:
+  It is possible declare many links in the same line as per below:
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-      A -- text --> B -- text2 --> C
+     flowchart LR
+        A -- text --> B -- text2 --> C
 
-It is also possible to declare multiple nodes links in the same line as per
-below:
+人間にはエッジラベルとノードの見分けがすぐにはつかない。視認性がかなり悪い。
 
-.. mermaid::
+  It is also possible to declare multiple nodes links in the same line as per
+  below:
 
-   flowchart LR
-      a --> b & c--> d
+  .. code:: text
 
-You can then describe dependencies in a very expressive way. Like the one-liner
-below:
+     flowchart LR
+        a --> b & c--> d
 
-.. mermaid::
+  You can then describe dependencies in a very expressive way. Like the one-liner
+  below:
 
-   flowchart TB
-       A & B--> C & D
+  .. code:: text
 
-.. admonition:: 学習者ノート
+     flowchart TB
+         A & B--> C & D
 
-   Bash で ``{A,B}{C,D}`` を評価させるのに似ている。
-
-If you describe the same diagram using the the basic syntax, it will take four
-lines. A word of warning, one could go overboard with this making the flowchart
-harder to read in markdown form. The Swedish word ``lagom`` comes to mind. It
-means, not too much and not too little. This goes for expressive syntaxes as
-well.
-
-.. mermaid::
-
-   flowchart TB
-       A --> C
-       A --> D
-       B --> C
-       B --> D
+Bash における brace expansion, e.g. ``{A,B}{C,D}`` 等々に類似する記法か。
 
 New arrow types
 -----------------------------------------------------------------------
 
-There are new types of arrows supported as per below:
+  There are new types of arrows supported as per below:
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       A --o B
-       B --x C
+     flowchart LR
+         A --o B
+         B --x C
+
+ベタ塗り●とバツジルシ✕がそれぞれ終端にマークされる。
 
 Multi directional arrows
 -----------------------------------------------------------------------
 
-There is the possibility to use multidirectional arrows.
+  There is the possibility to use multidirectional arrows.
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       A o--o B
-       B <--> C
-       C x--x D
+     flowchart LR
+         A o--o B
+         B <--> C
+         C x--x D
+
+想像どおりの印が両端点に描画される。
 
 Minimum length of a link
 -----------------------------------------------------------------------
 
-Each node in the flowchart is ultimately assigned to a rank in the rendered
-graph, i.e. to a vertical or horizontal level (depending on the flowchart
-orientation), based on the nodes to which it is linked. By default, links can
-span any number of ranks, but you can ask for any link to be longer than the
-others by adding extra dashes in the link definition.
+  By default, links can span any number of ranks, but you can ask for any link to
+  be longer than the others by adding extra dashes in the link definition.
 
-In the following example, two extra dashes are added in the link from node *B*
-to node *E*, so that it spans two more ranks than regular links:
+  In the following example, two extra dashes are added in the link from node *B*
+  to node *E*, so that it spans two more ranks than regular links:
 
-.. mermaid::
+  .. code:: text
 
-   flowchart TD
-       A[Start] --> B{Is it?}
-       B -->|Yes| C[OK]
-       C --> D[Rethink]
-       D --> B
-       B ---->|No| E[End]
+     flowchart TD
+         A[Start] --> B{Is it?}
+         B -->|Yes| C[OK]
+         C --> D[Rethink]
+         D --> B
+         B ---->|No| E[End]
 
-.. note::
+これによりエッジ BE が長めに描画される。
 
-   Links may still be made longer than the requested number of ranks by
-   the rendering engine to accommodate other requests.
+  When the link label is written in the middle of the link, the extra dashes must
+  be added on the right side of the link. The following example is equivalent to
+  the previous one:
 
-When the link label is written in the middle of the link, the extra dashes must
-be added on the right side of the link. The following example is equivalent to
-the previous one:
+  .. code:: text
 
-.. mermaid::
+     flowchart TD
+         A[Start] --> B{Is it?}
+         B -- Yes --> C[OK]
+         C --> D[Rethink]
+         D --> B
+         B -- No ----> E[End]
 
-   flowchart TD
-       A[Start] --> B{Is it?}
-       B -- Yes --> C[OK]
-       C --> D[Rethink]
-       D --> B
-       B -- No ----> E[End]
+ラベル ``No`` とノード ``E`` の間の部分を長くしろと言っている。
 
-.. admonition:: 学習者ノート
+  For dotted or thick links, the characters to add are equals signs or dots, as
+  summed up in the following table:
 
-   リンクラベル ``No`` とノード ``E`` の間の部分を長くしろと言っている。
+  ================= ======== ========= ==========
+  Length            1        2         3
+  ================= ======== ========= ==========
+  Normal            ``---``  ``----``  ``-----``
+  Normal with arrow ``-->``  ``--->``  ``---->``
+  Thick             ``===``  ``====``  ``=====``
+  Thick with arrow  ``==>``  ``===>``  ``====>``
+  Dotted            ``-.-``  ``-..-``  ``-...-``
+  Dotted with arrow ``-.->`` ``-..->`` ``-...->``
+  ================= ======== ========= ==========
 
-For dotted or thick links, the characters to add are equals signs or dots, as
-summed up in the following table:
-
-================= ======== ========= ==========
-Length            1        2         3
-================= ======== ========= ==========
-Normal            ``---``  ``----``  ``-----``
-Normal with arrow ``-->``  ``--->``  ``---->``
-Thick             ``===``  ``====``  ``=====``
-Thick with arrow  ``==>``  ``===>``  ``====>``
-Dotted            ``-.-``  ``-..-``  ``-...-``
-Dotted with arrow ``-.->`` ``-..->`` ``-...->``
-================= ======== ========= ==========
+点線のときだけ注意すればいいだろう。中程を反復する。
 
 Special characters that break syntax
 =======================================================================
 
-It is possible to put text within quotes in order to render more troublesome
-characters. As in the example below:
+  It is possible to put text within quotes in order to render more troublesome
+  characters.
 
-.. mermaid::
-
-   flowchart LR
-       id1["This is the (text) in the box"]
+怪しいノード形状を採用する場合には引用符を予防的に入れておくことにしよう。
 
 Entity codes to escape characters
 -----------------------------------------------------------------------
 
-It is possible to escape characters using the syntax exemplified here.
+  It is possible to escape characters using the syntax exemplified here.
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       A["A double quote:#quot;"] -->B["A dec char:#9829;"]
+     flowchart LR
+         A["A double quote:#quot;"] -->B["A dec char:#9829;"]
 
-Numbers given are base 10, so ``#`` can be encoded as ``#35;``. It is also
-supported to use HTML character names.
+  Numbers given are base 10, so ``#`` can be encoded as ``#35;``. It is also
+  supported to use HTML character names.
+
+これは HTML 上で何かを表現するコードを規定するものにしては異例の仕様だと思う。
+``&quot;`` を不採用にする理由が何かあったはずだ。
 
 Subgraphs
 =======================================================================
 
-.. admonition:: 学習者ノート
+部分グラフの構文は次のとおりだ：
 
-   部分グラフの構文は次のとおりだ。
+  .. code:: text
 
-.. code:: text
+     subgraph title
+         graph definition
+     end
 
-   subgraph title
-       graph definition
-   end
+上記 ``graph definition`` 部分に Flowchat の中身の文法と同じコードが来る。
 
-An example below:
+  You can also set an explicit id for the subgraph.
 
-.. mermaid::
+  .. code:: text
 
-   flowchart TB
-       c1-->a2
-       subgraph one
-       a1-->a2
-       end
-       subgraph two
-       b1-->b2
-       end
-       subgraph three
-       c1-->c2
-       end
+     flowchart TB
+         c1-->a2
+         subgraph ide1 [one]
+         a1-->a2
+         end
 
-You can also set an explicit id for the subgraph.
-
-.. mermaid::
-
-   flowchart TB
-       c1-->a2
-       subgraph ide1 [one]
-       a1-->a2
-       end
+こうすると部分グラフの描画領域に ``one`` というラベルテキストが描画される。
 
 flowcharts
 =======================================================================
 
-With the graphtype flowchart it is also possible to set edges to and from
-subgraphs as in the flowchart below.
+  With the graphtype flowchart it is also possible to set edges to and from
+  subgraphs as in the flowchart below.
 
-.. mermaid::
+  .. code:: text
 
-   flowchart TB
-       c1-->a2
-       subgraph one
-       a1-->a2
-       end
-       subgraph two
-       b1-->b2
-       end
-       subgraph three
-       c1-->c2
-       end
-       one --> two
-       three --> two
-       two --> c2
+     flowchart TB
+         c1-->a2
+         subgraph one
+         a1-->a2
+         end
+         subgraph two
+         b1-->b2
+         end
+         subgraph three
+         c1-->c2
+         end
+         one --> two
+         three --> two
+         two --> c2
+
+エッジの端点がノードではなく部分グラフ領域に接することが可能だということだ。最後
+の三つのエッジがその例になっている。
 
 Direction in subgraphs
 =======================================================================
 
-With the graphtype flowcharts you can use the direction statement to set the
-direction which the subgraph will render like in this example.
+  With the graphtype flowcharts you can use the direction statement to set the
+  direction which the subgraph will render like in this example.
 
-.. mermaid::
+``LR`` などの方向指定を部分グラフ間でも可能ではあるのだが、グラフ描画エンジンは
+その指定すべてを達成することができない場合には遠慮せずに無視するようだ。
 
+Markdown Strings
+=======================================================================
+
+  The "Markdown Strings" feature enhances flowcharts and mind maps by offering a
+  more versatile string type, which supports text formatting options such as bold
+  and italics, and automatically wraps text within labels.
+
+これは最近のバージョンで追加された機能だ。
+
+.. code:: text
+
+   %%{init: {"flowchart": {"htmlLabels": false}} }%%
    flowchart LR
-     subgraph TOP
-       direction TB
-       subgraph B1
-           direction RL
-           i1 -->f1
-       end
-       subgraph B2
-           direction BT
-           i2 -->f2
-       end
-     end
-     A --> TOP --> B
-     B1 --> B2
+   subgraph "One"
+     a("`The **cat**
+     in the hat`") -- "edge label" --> b{{"`The **dog** in the hog`"}}
+   end
+   subgraph "`**Two**`"
+     c("`The **cat**
+     in the hat`") -- "`Bold **edge label**`" --> d("The dog in the hog")
+   end
+
+こんなふうに初期化時設定さえあれば Markdown のインライン装飾文字が使える。
+
+  This feature is applicable to node labels, edge labels, and subgraph labels.
+
+Flowchart 本体のほとんどのテキストで適用可能ということだ。
 
 Interaction
 =======================================================================
 
-It is possible to bind a click event to a node, the click can lead to either a
-javascript callback or to a link which will be opened in a new browser tab.
+  It is possible to bind a click event to a node, the click can lead to either a
+  javascript callback or to a link which will be opened in a new browser tab.
 
-.. note::
+  .. note::
 
-   This functionality is disabled when using ``securityLevel='strict'``
-   and enabled when using ``securityLevel='loose'``.
+     This functionality is disabled when using ``securityLevel='strict'``
+     and enabled when using ``securityLevel='loose'``.
 
-.. code:: text
+Markdown 設定により Flowchart ノードに対してはクリックイベントを実装することがで
+きる。
 
-   click nodeId callback
-   click nodeId call callback()
+  .. code:: text
 
-* nodeId is the id of the node
-* callback is the name of a javascript function defined on the page displaying
-  the graph, the function will be called with the nodeId as parameter.
+     click nodeId callback
+     click nodeId call callback()
 
-Examples of tooltip usage below:
+このようなコード片を Flowchart に追加して、クリックイベントを ``callback`` に処
+理させる。
 
-.. code:: html
+  * ``nodeId`` is the id of the node
+  * ``callback`` is the name of a javascript function defined on the page
+    displaying the graph, the function will be called with the ``nodeId`` as
+    parameter.
 
-   <script>
-     var callback = function(){
-         alert('A callback was triggered');
-     }
-   </script>
+イベントハンドラーは Markdown コードの外部に別途実装する：
 
-.. admonition:: 学習者ノート
-
-   モダンな JavaScript コードを書いても問題ない。
-
-The tooltip text is surrounded in double quotes. The styles of the tooltip are
-set by the class ``.mermaidTooltip``.
-
-.. mermaid::
-
-   flowchart LR
-       A-->B
-       B-->C
-       C-->D
-       click A callback "Tooltip for a callback"
-       click B "http://www.github.com" "This is a tooltip for a link"
-       click A call callback() "Tooltip for a callback"
-       click B href "http://www.github.com" "This is a tooltip for a link"
-
-.. admonition:: Success
-
-   The tooltip functionality and the ability to link to urls are
-   available from version 0.5.2.
-
-Due to limitations with how Docsify handles JavaScript callback functions, an
-alternate working demo for the above code can be viewed at `this
-jsfiddle <https://jsfiddle.net/s37cjoau/3/>`__.
-
-Links are opened in the same browser tab/window by default. It is possible to
-change this by adding a link target to the click definition (``_self``,
-``_blank``, ``_parent`` and ``_top`` are supported):
-
-.. mermaid::
-
-   flowchart LR
-       A-->B
-       B-->C
-       C-->D
-       D-->E
-       click A "http://www.github.com" _blank
-       click B "http://www.github.com" "Open this in a new tab" _blank
-       click C href "http://www.github.com" _blank
-       click D href "http://www.github.com" "Open this in a new tab" _blank
-
-Beginners tip, a full example using interactive links in a html context:
-
-.. code:: html
-
-   <body>
-     <div class="mermaid">
-       flowchart LR
-           A-->B
-           B-->C
-           C-->D
-           click A callback "Tooltip"
-           click B "http://www.github.com" "This is a link"
-           click C call callback() "Tooltip"
-           click D href "http://www.github.com" "This is a link"
-     </div>
+  .. code:: html
 
      <script>
-       var callback = function(){
-           alert('A callback was triggered');
-       }
-       var config = {
-           startOnLoad:true,
-           flowchart:{
-               useMaxWidth:true,
-               htmlLabels:true,
-               curve:'cardinal',
-           },
-           securityLevel:'loose',
+       const callback = function () {
+         alert('A callback was triggered');
        };
+     </script>
 
+  The tooltip text is surrounded in double quotes. The styles of the tooltip are
+  set by the class ``.mermaidTooltip``.
+
+  .. code:: text
+
+     flowchart LR
+         A-->B
+         B-->C
+         C-->D
+         click A callback "Tooltip for a callback"
+         click B "http://www.github.com" "This is a tooltip for a link"
+         click A call callback() "Tooltip for a callback"
+         click B href "http://www.github.com" "This is a tooltip for a link"
+
+ツールチップ表示も URL ジャンプも有用だ。前者はクリックイベントというよりマウス
+オーバーで表示される。公式 Live Editor では発動しない。
+
+  Links are opened in the same browser tab/window by default. It is possible to
+  change this by adding a link target to the click definition (``_self``,
+  ``_blank``, ``_parent`` and ``_top`` are supported):
+
+  .. code:: text
+
+     flowchart LR
+         A-->B
+         B-->C
+         C-->D
+         D-->E
+         click A "http://www.github.com" _blank
+         click B "http://www.github.com" "Open this in a new tab" _blank
+         click C href "http://www.github.com" _blank
+         click D href "http://www.github.com" "Open this in a new tab" _blank
+
+初心者向けコード例のうち、設定部分を引用する：
+
+  .. code:: html
+
+     <script>
+       const callback = function () {
+         alert('A callback was triggered');
+       };
+       const config = {
+         startOnLoad: true,
+         flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'cardinal' },
+         securityLevel: 'loose',
+       };
        mermaid.initialize(config);
      </script>
-   </body>
-
-..
-
-.. admonition:: 学習者ノート
-
-   環境によっては対話的操作が制限される。例えば VS Code の Markdown Preview
-   Mermaid Support ではツールチップは表示されない。
 
 Comments
 -----------------------------------------------------------------------
 
-Comments can be entered within a flow diagram, which will be ignored by the
-parser. Comments need to be on their own line, and must be prefaced with ``%%``
-(double percent signs). Any text after the start of the comment to the next
-newline will be treated as a comment, including any flow syntax
+  Comments need to be on their own line, and must be prefaced with ``%%``
+  (double percent signs).
 
-.. mermaid::
+コメントは一行丸々を必要とすることに注意。コード行末にコメントすることはできな
+い。
 
-   flowchart LR
-   %% this is a comment A -- text --> B{node}
-      A -- text --> B -- text2 --> C
+  .. code:: text
+
+     flowchart LR
+     %% this is a comment A -- text --> B{node}
+        A -- text --> B -- text2 --> C
 
 Styling and classes
 =======================================================================
@@ -644,169 +542,200 @@ Styling and classes
 Styling links
 -----------------------------------------------------------------------
 
-It is possible to style links. For instance you might want to style a link that
-is going backwards in the flow. As links have no ids in the same way as nodes,
-some other way of deciding what style the links should be attached to is
-required. Instead of ids, the order number of when the link was defined in the
-graph is used. In the example below the style defined in the linkStyle statement
-will belong to the fourth link in the graph:
+  It is possible to style links. For instance you might want to style a link
+  that is going backwards in the flow. As links have no ids in the same way as
+  nodes, some other way of deciding what style the links should be attached to
+  is required. Instead of ids, the order number of when the link was defined in
+  the graph is used. In the example below the style defined in the ``linkStyle``
+  statement will belong to the fourth link in the graph:
 
-.. code:: text
+  .. code:: text
 
-   linkStyle 3 stroke:#ff3,stroke-width:4px,color:red;
+     linkStyle 3 stroke:#ff3,stroke-width:4px,color:red;
 
-.. admonition:: 学習者ノート
+エッジには ID の概念がないので、指定するにはその定義順を用いる。順序数をゼロから
+数えるものとする。
 
-   リンクには ID の概念がないので、指定するには定義順による。順序数をゼロから数
-   えるものとする。
+Styling line curves
+----------------------------------------------------------------------
+
+  It is possible to style the type of curve used for lines between items, if the
+  default method does not meet your needs.
+
+エッジの曲線的形状を指定する術があり、次のような設定により有効になる：
+
+  .. code:: text
+
+     %%{ init: { 'flowchart': { 'curve': 'stepBefore' } } }%%
+
+  For a full list of available curves, including an explanation of custom curves,
+  refer to the `Shapes <https://github.com/d3/d3-shape/blob/main/README.md#curves>`__
+  documentation in the d3-shape project.
+
+こちらの JavaScript ライブラリーはモデリングソフト開発経験者としては興味深い。
 
 Styling a node
 -----------------------------------------------------------------------
 
-It is possible to apply specific styles such as a thicker border or a different
-background color to a node.
+  It is possible to apply specific styles such as a thicker border or a different
+  background color to a node.
 
-.. mermaid::
+  .. code:: text
 
-   flowchart LR
-       id1(Start)-->id2(Stop)
-       style id1 fill:#f9f,stroke:#333,stroke-width:4px
-       style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+     flowchart LR
+         id1(Start)-->id2(Stop)
+         style id1 fill:#f9f,stroke:#333,stroke-width:4px
+         style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
 
-Classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+この仕様は紛れがない。
 
-More convenient than defining the style every time is to define a class of
-styles and attach this class to the nodes that should have a different look.
+次に、ノードそれぞれに対してスタイルを与えるというよりは、スタイルを先に定義して、
+ノードがどのスタイルを持つのかを決めるという方法を述べる。
 
-A class definition looks like the example below:
+  More convenient than defining the style every time is to define a class of
+  styles and attach this class to the nodes that should have a different look.
 
-.. code:: text
+  A class definition looks like the example below:
 
-   classDef className fill:#f9f,stroke:#333,stroke-width:4px;
+  .. code:: text
 
-Attachment of a class to a node is done as per below:
+     classDef className fill:#f9f,stroke:#333,stroke-width:4px;
 
-.. code:: text
+  Attachment of a class to a node is done as per below:
 
-   class nodeId1 className;
+  .. code:: text
 
-It is also possible to attach a class to a list of nodes in one statement:
+     class nodeId1 className;
 
-.. code:: text
+スタイル定義を先に行い、ノードに対してスタイルを指定するという方法だ。これによ
+り、異なるノードが同じスタイルをコードの複製なしに共有することができる。
 
-   class nodeId1,nodeId2 className;
+  It is also possible to attach a class to a list of nodes in one statement:
 
-A shorter form of adding a class is to attach the classname to the node using
-the ``:::`` operator as per below:
+  .. code:: text
 
-.. mermaid::
+     class nodeId1,nodeId2 className;
 
-   flowchart LR
-       A:::someclass --> B
-       classDef someclass fill:#f96;
+この方式ではノードスタイルをグラフ定義コードでインラインで指定する記法もある：
 
-.. admonition:: 学習者ノート
+  .. code:: text
 
-   クラス名がコロンの後に来るので違和感がある。
+     flowchart LR
+         A:::someclass --> B
+         classDef someclass fill:#f96;
+
+クラス名がコロンの後に来るので違和感がある。
 
 CSS classes
 -----------------------------------------------------------------------
 
-It is also possible to predefine classes in css styles that can be applied from
-the graph definition as in the example below:
+  It is also possible to predefine classes in css styles that can be applied from
+  the graph definition as in the example below:
 
-Example style
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  .. code:: html
 
-.. code:: html
+     <style>
+         .cssClass > rect{
+             fill:#FF0000;
+             stroke:#FFFF00;
+             stroke-width:4px;
+         }
+     </style>
 
-   <style>
-       .cssClass > rect{
-           fill:#FF0000;
-           stroke:#FFFF00;
-           stroke-width:4px;
-       }
-   </style>
+  .. code:: text
 
-Example definition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     flowchart LR
+         A-->B[AAA<span>BBB</span>]
+         B-->D
+         class A cssClass
 
-.. mermaid::
+手順としては、先に CSS 側にスタイル規則を決める。次に Flowchart 側で規則名称をス
+タイル定義の代わりに書く。
 
-   flowchart LR;
-       A-->B[AAA<span>BBB</span>]
-       B-->D
-       class A cssClass
-
-.. admonition:: 学習者ノート
-
-   ``span`` タグが活きていない？
+Flowchart 例の ``span`` タグに意味はあるのか？
 
 Default class
 -----------------------------------------------------------------------
 
-If a class is named default it will be assigned to all classes without specific
-class definitions.
+  If a class is named ``default`` it will be assigned to all classes without
+  specific class definitions.
 
-.. code:: text
+  .. code:: text
 
-   classDef default fill:#f9f,stroke:#333,stroke-width:4px;
+     classDef default fill:#f9f,stroke:#333,stroke-width:4px;
+
+図式が一つしかない場合にこの使い方が最も多く用いられると思われる。複数ある場合に
+は外部 CSS ファイルの手法を採用したい。
 
 Basic support for fontawesome
 =======================================================================
 
-It is possible to add icons from fontawesome.
+  It is possible to add icons from fontawesome.
 
-The icons are accessed via the syntax `fa:#icon class name#`.
+  The icons are accessed via the syntax ``fa:#icon class name#``.
 
-.. mermaid::
+  .. code:: text
 
-   flowchart TD
-       B["fa:fa-twitter for peace"]
-       B-->C[fa:fa-ban forbidden]
-       B-->D(fa:fa-spinner);
-       B-->E(A fa:fa-camera-retro perhaps?)
+     flowchart TD
+         B["fa:fa-twitter for peace"]
+         B-->C[fa:fa-ban forbidden]
+         B-->D(fa:fa-spinner);
+         B-->E(A fa:fa-camera-retro perhaps?)
 
-.. admonition:: 学習者ノート
-
-   `Font Awesome <https://fontawesome.com/>`__ のことは深入りしないことにする。
+Oh My Posh で見られるような特殊記号のためのフォントをどう得るのかが不明。
+`Font Awesome <https://fontawesome.com/>`__ をどうにかするのだろうが。
 
 Graph declarations with spaces between vertices and link and without semicolon
 ======================================================================
 
-* In graph declarations, the statements also can now end without a semicolon.
-  After release 0.2.16, ending a graph statement with semicolon is just
-  optional. So the below graph declaration is also valid along with the old
-  declarations of the graph.
-* A single space is allowed between vertices and the link. However there should
-  not be any space between a vertex and its text and a link and its text. The
-  old syntax of graph declaration will also work and hence this new feature is
-  optional and is introduced to improve readability.
+  * In graph declarations, the statements also can now end without a semicolon.
+    After release 0.2.16, ending a graph statement with semicolon is just
+    optional. So the below graph declaration is also valid along with the old
+    declarations of the graph.
+  * A single space is allowed between vertices and the link. However there should
+    not be any space between a vertex and its text and a link and its text. The
+    old syntax of graph declaration will also work and hence this new feature is
+    optional and is introduced to improve readability.
 
-Below is the new declaration of the graph edges which is also valid along with
-the old declaration of the graph edges.
-
-.. mermaid::
-
-   flowchart LR
-       A[Hard edge] -->|Link text| B(Round edge)
-       B --> C{Decision}
-       C -->|One| D[Result one]
-       C -->|Two| E[Result two]
+空白文字を下手に入れるのは有害である可能性があることを覚えておく。
 
 Configuration
-=======================================================================
+======================================================================
 
-Is it possible to adjust the width of the rendered flowchart.
+Renderer
+----------------------------------------------------------------------
 
-This is done by defining **mermaid.flowchartConfig** or by the CLI to use a json
-file with the configuration. How to use the CLI is described in the mermaidCLI
-page. mermaid.flowchartConfig can be set to a JSON string with config parameters
-or the corresponding object.
+  Starting with Mermaid version 9.4, you can use an alternate renderer named elk.
+  The elk renderer is better for larger and/or more complex diagrams.
 
-.. code:: javascript
+  The elk renderer is an experimenal feature. You can change the renderer to elk
+  by adding this directive:
 
-   mermaid.flowchartConfig = {
-       width: 100%
-   }
+  .. code:: text
+
+     %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+
+  Note that the site needs to use mermaid version 9.4+ for this to work and have
+  this featured enabled in the lazy-loading configuration.
+
+Mermaid の遅延ロードの手法はどこに記載があったか？
+
+Width
+----------------------------------------------------------------------
+
+  Is it possible to adjust the width of the rendered flowchart.
+
+  This is done by defining ``mermaid.flowchartConfig`` or by the CLI to use a
+  json file with the configuration. How to use the CLI is described in the
+  mermaidCLI page. ``mermaid.flowchartConfig`` can be set to a JSON string with
+  config parameters or the corresponding object.
+
+  .. code:: javascript
+
+     mermaid.flowchartConfig = {
+         width: 100%
+     }
+
+Mermaid の描画は SVG のようなものなので、ブラウザーのウィンドウを拡縮すると描画
+も自然に拡縮される。したがって、ブロック要素の図式ならば 100 パーにしておくのは
+ありだろう。
