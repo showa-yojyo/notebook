@@ -7,7 +7,7 @@ Mermaid 利用ノート
 編集することができる。
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    deployment
    flowchart

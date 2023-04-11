@@ -2,39 +2,34 @@
 User Journey Diagram
 =======================================================================
 
-《User journeys describe at a high level of detail exactly what steps different
-users take to complete a specific task within a system, application or website.
-This technique shows the current (as-is) user workflow, and reveals areas of
-improvement for the to-be workflow.》 (`Wikipedia
-<https://en.wikipedia.org/wiki/User_journey>`__)
-
 .. contents::
    :depth: 2
 
-Mermaid can render user journey diagrams:
+..
 
-.. mermaid::
+  《User journeys describe at a high level of detail exactly what steps
+  different users take to complete a specific task within a system, application
+  or website. This technique shows the current (as-is) user workflow, and
+  reveals areas of improvement for the to-be workflow.》 (`Wikipedia
+  <https://en.wikipedia.org/wiki/User_journey>`__)
 
-   journey
-       title My working day
-       section Go to work
-         Make tea: 5: Me
-         Go upstairs: 3: Me
-         Do work: 1: Me, Cat
-       section Go home
-         Go downstairs: 5: Me
-         Sit down: 5: Me
+  Mermaid can render user journey diagrams:
 
-Each user journey is split into sections, these describe the part of the task
-the user is trying to complete.
+  .. mermaid:: ./uj.mmd
+     :align: center
+  .. literalinclude:: ./uj.mmd
 
-Tasks syntax is
+Mermaid の文書を読むまでこれを知らなかった。いったん知れば何かの役に立つこともあ
+るか。
 
-.. code:: text
+  Each user journey is split into sections, these describe the part of the task
+  the user is trying to complete.
 
-   Task name: <score>: <comma separated list of actors>
+  Tasks syntax is
 
-.. admonition:: 学習者ノート
+  .. code:: text
 
-   実際に描画される図式とコードを比較すれば、構文はおのずと理解できる。ただし
-   ``<score>`` の項目については詳細を述べて欲しい。
+     Task name: <score>: <comma separated list of actors>
+
+実際に描画される図式とコードを比較すれば、構文はおのずと理解できる。ただし
+``<score>`` の項目については詳細を述べて欲しい。
