@@ -1,466 +1,243 @@
-=======================================================================
+======================================================================
 Gantt diagrams
-=======================================================================
-
-A Gantt chart is a type of bar chart, first developed by Karol Adamiecki in
-1896, and independently by Henry Gantt in the 1910s, that illustrates a project
-schedule and the amount of time it would take for any one project to finish.
-Gantt charts illustrate number of days between the start and finish dates of the
-terminal elements and summary elements of a project.
+======================================================================
 
 .. contents::
    :depth: 2
 
+..
+
+  A Gantt chart is a type of bar chart, first developed by Karol Adamiecki in
+  1896, and independently by Henry Gantt in the 1910s, that illustrates a
+  project schedule and the amount of time it would take for any one project to
+  finish. Gantt charts illustrate number of days between the start and finish
+  dates of the terminal elements and summary elements of a project.
+
+プロジェクト管理理論を調べると必ず含まれるのがこの図式だ。Mermaid でこれを描くこ
+とができる。
+
 A note to users
-=======================================================================
+======================================================================
 
-.. admonition:: 学習者ノート
+最初に Gantt チャート一般の構造を理解する。垂直下方向にタスクが並び、上から
+下に向かってタスクが完了する。これは Mermaid でも同じだ。
 
-   Gantt チャートの構造を理解する。垂直下方向にタスクが並び、
-   上から下に向かってタスクが完了する。
+  Mermaid can render Gantt diagrams as SVG, PNG or a MarkDown link that can be
+  pasted into docs.
 
-Gantt Charts will record each scheduled task as one continuous bar that extends
-from the left to the right. The x axis represents time and the y records the
-different tasks and the order in which they are to be completed.
+Markdown で記述すると、普通の出力は HTML だから内部的には SVG で表現されることに
+なる。
 
-It is important to remember that when a date, day, or collection of dates
-specific to a task are "excluded", the Gantt Chart will accommodate those
-changes by extending an equal number of days, towards the right, not by creating
-a gap inside the task.
+  .. literalinclude:: /_include/g-first.mmd
+     :language: default
+  .. mermaid:: /_include/g-first.mmd
+     :align: center
 
-However, if the excluded dates are between two tasks that are set to start
-consecutively, the excluded dates will be skipped graphically and left blank,
-and the following task will begin after the end of the excluded dates.
-
-A Gantt chart is useful for tracking the amount of time it would take before a
-project is finished, but it can also be used to graphically represent
-"non-working days", with a few tweaks.
-
-Mermaid can render Gantt diagrams as SVG, PNG or a MarkDown link that can be
-pasted into docs.
-
-.. admonition:: 学習者ノート
-
-   Markdown で記述すると、普通の出力は HTML だから内部的には SVG で表現されるこ
-   とになる。
-
-.. mermaid::
-
-   gantt
-       title A Gantt Diagram
-       dateFormat  YYYY-MM-DD
-       section Section
-       A task           :a1, 2014-01-01, 30d
-       Another task     :after a1  , 20d
-       section Another
-       Task in sec      :2014-01-12  , 12d
-       another task      : 24d
-
-.. admonition:: 学習者ノート
-
-   タスクは所属する区画につき、完了日順に整列されている。
+タスクは所属する区画につき、完了日順に整列されている。
 
 Syntax
-=======================================================================
+======================================================================
 
-.. mermaid::
+  .. literalinclude:: /_include/g-syntax.mmd
+     :language: default
+  .. mermaid:: /_include/g-syntax.mmd
+     :align: center
 
-   gantt
-       dateFormat  YYYY-MM-DD
-       title       Adding GANTT diagram functionality to mermaid
-       excludes    weekends
-       %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+どれがキーワードでどれがリテラル文字列なのかわからない。
 
-       section A section
-       Completed task            :done,    des1, 2014-01-06,2014-01-08
-       Active task               :active,  des2, 2014-01-09, 3d
-       Future task               :         des3, after des2, 5d
-       Future task2              :         des4, after des3, 5d
+  It is possible to set multiple dependencies separated by space:
 
-       section Critical tasks
-       Completed task in the critical line :crit, done, 2014-01-06,24h
-       Implement parser and jison          :crit, done, after des1, 2d
-       Create tests for parser             :crit, active, 3d
-       Future task in critical line        :crit, 5d
-       Create tests for renderer           :2d
-       Add to mermaid                      :1d
-       Functionality added                 :milestone, 2014-01-25, 0d
+  .. literalinclude:: /_include/g-deps.mmd
+     :language: default
+  .. mermaid:: /_include/g-deps.mmd
+     :align: center
 
-       section Documentation
-       Describe gantt syntax               :active, a1, after des1, 3d
-       Add gantt diagram to demo page      :after a1  , 20h
-       Add another diagram to demo page    :doc1, after a1  , 48h
-
-       section Last section
-       Describe gantt syntax               :after doc1, 3d
-       Add gantt diagram to demo page      :20h
-       Add another diagram to demo page    :48h
-
-It is possible to set multiple dependencies separated by space:
-
-.. mermaid::
-
-   gantt
-       apple :a, 2017-07-20, 1w
-       banana :crit, b, 2017-07-23, 1d
-       cherry :active, c, after b a, 1d
-
-.. admonition:: 学習者ノート
-
-   タスク ``cherry`` の ``after b a`` の部分が複数依存を定義している。
+タスク ``cherry`` の ``after b a`` の部分が複数依存を定義している。
 
 Title
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-The ``title`` is an *optional* string to be displayed at the top of the Gantt
-chart to describe the chart as a whole.
+  The ``title`` is an *optional* string to be displayed at the top of the Gantt
+  chart to describe the chart as a whole.
+
+タイトルはあってもなくても構わない。
 
 Section statements
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-You can divide the chart into various sections, for example to separate
-different parts of a project like development and documentation.
+  You can divide the chart into various sections, for example to separate
+  different parts of a project like development and documentation.
 
-To do so, start a line with the ``section`` keyword and give it a name. (Note
-that unlike with the `title for the entire chart <#title>`__, this name is
-*required*.
+プロジェクトの部署や組ごとにチャートの区画が対応するような造りにするのがコツかも
+しれない。
 
-.. admonition:: 学習者ノート
+  To do so, start a line with the ``section`` keyword and give it a name. (Note
+  that unlike with the title for the entire chart, this name is required.
 
-   タイトルはあってもなくても構わないが、区画名は指定必須だ。
+タイトルとは対照的に、区画名は指定必須だ。
 
 Milestones
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-You can add milestones to the diagrams. Milestones differ from tasks as they
-represent a single instant in time and are identified by the keyword
-``milestone``. Below is an example on how to use milestones. As you may notice,
-the exact location of the milestone is determined by the initial date for the
-milestone and the "duration" of the task this way: *initial date* +
-*duration*/2.
+  You can add milestones to the diagrams. Milestones differ from tasks as they
+  represent a single instant in time and are identified by the keyword
+  ``milestone``. Below is an example on how to use milestones. As you may
+  notice, the exact location of the milestone is determined by the initial date
+  for the milestone and the "duration" of the task this way: *initial date* +
+  *duration*/2.
 
-.. mermaid::
+タスクが区間を表現するのとは対象的に、マイルストーンは瞬間を表現する。
 
-   gantt
-   dateFormat HH:mm
-   axisFormat %H:%M
-   Initial milestone : milestone, m1, 17:49,2min
-   taska2 : 10min
-   taska3 : 5min
-   Final milestone : milestone, m2, 18:14, 2min
+  .. literalinclude:: /_include/g-milestome.mmd
+     :language: default
+  .. mermaid:: /_include/g-milestome.mmd
+     :align: center
 
-.. admonition:: 学習者ノート
-
-   タスクが区間を表現するのとは対象的に、マイルストーンは瞬間を表現する。
-
-   マイルストーンの指定方法に若干クセがある。それゆえ、上記 Initial milestone の
-   コード上の指定は 17:50 よりも早い。
+マイルストーンの指定方法に若干クセがある。それゆえ、上記 ``Initial milestone``
+のコード上の指定は 17:50 よりも早い。
 
 Setting dates
-=======================================================================
+======================================================================
 
-``dateFormat`` defines the format of the date **input** of your gantt elements.
-How these dates are represented in the rendered chart **output** are defined by
-``axisFormat``.
+  ``dateFormat`` defines the format of the date input of your gantt elements.
+  How these dates are represented in the rendered chart output are defined by
+  ``axisFormat``.
 
 Input date format
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-The default input date format is ``YYYY-MM-DD``. You can define your custom
-``dateFormat``.
+  The default input date format is ``YYYY-MM-DD``. You can define your custom
+  ``dateFormat``.
 
-.. code:: text
+  .. code:: text
 
-   dateFormat YYYY-MM-DD
+     dateFormat YYYY-MM-DD
 
-The following formatting options are supported:
+  More info in: <https://day.js.org/docs/en/parse/string-format/>
 
-======== ============== ======================================================
-Input    Example        Description
-======== ============== ======================================================
-YYYY     2014           4 digit year
-YY       14             2 digit year
-Q        1..4           Quarter of year. Sets month to first month in quarter.
-M MM     1..12          Month number
-MMM MMMM January..Dec   Month name in locale set by moment.locale()
-D DD     1..31          Day of month
-Do       1st..31st      Day of month with ordinal
-DDD DDDD 1..365         Day of year
-X        1410715640.579 Unix timestamp
-x        1410715640579  Unix ms timestamp
-H HH     0..23          24 hour time
-h hh     1..12          12 hour time used with a A.
-a A      am pm          Post or ante meridiem
-m mm     0..59          Minutes
-s ss     0..59          Seconds
-S        0..9           Tenths of a second
-SS       0..99          Hundreds of a second
-SSS      0..999         Thousandths of a second
-Z ZZ     +12:00         Offset from UTC as +-HH:mm, +-HHmm, or Z
-======== ============== ======================================================
-
-More info in: <http://momentjs.com/docs/#/parsing/string-format/>
-
-.. admonition:: 学習者ノート
-
-   今思い出したが、Mermaid は JavaScript のライブラリーだ。
+Mermaid は JavaScript で実装されているので、同じく JavaScript 製パッケージ Day.js
+を利用して日付を取り扱うようだ。Gantt チャートではその書式そのままを指定する。
 
 Output date format on the axis
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-The default output date format is YYYY-MM-DD. You can define your custom
-``axisFormat``, like ``2020-Q1`` for the first quarter of the year 2020.
+  The default output date format is YYYY-MM-DD. You can define your custom
+  ``axisFormat``, like ``2020-Q1`` for the first quarter of the year 2020.
 
-.. code:: text
+  .. code:: text
 
-   axisFormat  %Y-%m-%d
+     axisFormat %Y-%m-%d
 
-The following formatting strings are supported:
+  More info in: <https://github.com/d3/d3-time-format/tree/v4.0.0#locale_format>
 
-.. code:: text
+今度は d3-time-format なる JavaScript パッケージを採用。
 
-   %a - abbreviated weekday name.
-   %A - full weekday name.
-   %b - abbreviated month name.
-   %B - full month name.
-   %c - date and time, as "%a %b %e %H:%M:%S %Y".
-   %d - zero-padded day of the month as a decimal number [01,31].
-   %e - space-padded day of the month as a decimal number [ 1,31]; equivalent to %_d.
-   %H - hour (24-hour clock) as a decimal number [00,23].
-   %I - hour (12-hour clock) as a decimal number [01,12].
-   %j - day of the year as a decimal number [001,366].
-   %m - month as a decimal number [01,12].
-   %M - minute as a decimal number [00,59].
-   %L - milliseconds as a decimal number [000, 999].
-   %p - either AM or PM.
-   %S - second as a decimal number [00,61].
-   %U - week number of the year (Sunday as the first day of the week) as a decimal number [00,53].
-   %w - weekday as a decimal number [0(Sunday),6].
-   %W - week number of the year (Monday as the first day of the week) as a decimal number [00,53].
-   %x - date, as "%m/%d/%Y".
-   %X - time, as "%H:%M:%S".
-   %y - year without century as a decimal number [00,99].
-   %Y - year with century as a decimal number.
-   %Z - time zone offset, such as "-0700".
-   %% - a literal "%" character.
+Axis ticks
+----------------------------------------------------------------------
 
-More info in: <https://github.com/mbostock/d3/wiki/Time-Formatting>
+  The default output ticks are auto. You can custom your ``tickInterval``, like
+  ``1day`` or ``1week``.
 
-.. admonition:: 学習者ノート
+  The pattern is:
 
-   ``strftime`` と同じような感じだろう。
+  .. code:: javascript
+
+     /^([1-9][0-9]*)(minute|hour|day|week|month)$/;
+
+  More info in: <https://github.com/d3/d3-time#interval_every>
+
+Output in compact mode
+======================================================================
+
+  The compact mode allows you to display multiple tasks in the same row. Compact
+  mode can be enabled for a gantt chart by setting the display mode of the graph
+  via preceeding YAML settings.
+
+  .. literalinclude:: /_include/g-compact-mode.mmd
+     :language: default
+  .. mermaid:: /_include/g-compact-mode.mmd
+     :align: center
+
+コンパクトモードを適用するのに front matter 部分に ``displayMode: compact`` と書
+く。チャートの同一行にタスクが複数あり得るようになる。
 
 Comments
-=======================================================================
+======================================================================
 
-Comments can be entered within a gantt chart, which will be ignored by the
-parser. Comments need to be on their own line and must be prefaced with ``%%``
-(double percent signs). Any text after the start of the comment to the next
-newline will be treated as a comment, including any diagram syntax
+これまで見てきた他の図式で用いられてきたコメントの構文と同じだ。``%%`` から行末
+までがコメント扱いとなる。
 
-.. mermaid::
+  .. code:: text
 
-   gantt
-       title A Gantt Diagram
-       %% this is a comment
-       dateFormat  YYYY-MM-DD
-       section Section
-       A task           :a1, 2014-01-01, 30d
-       Another task     :after a1  , 20d
-       section Another
-       Task in sec      :2014-01-12  , 12d
-       another task      : 24d
-
-.. admonition:: 学習者ノート
-
-   これまで見てきた他の図式で用いられてきたコメントの構文と同じだ。
+     gantt
+         title A Gantt Diagram
+         %% this is a comment
+         dateFormat  YYYY-MM-DD
+         section Section
+         A task           :a1, 2014-01-01, 30d
+         Another task     :after a1  , 20d
+         section Another
+         Task in sec      :2014-01-12  , 12d
+         another task     : 24d
 
 Styling
-=======================================================================
+======================================================================
 
-Styling of the a gantt diagram is done by defining a number of css classes.
-During rendering, these classes are extracted from the file located at
-:file:`src/themes/gantt.scss`
-
-Classes used
------------------------------------------------------------------------
-
-.. csv-table::
-   :delim: @
-   :header: Class,Description
-
-   ``grid.tick`` @ Styling for the Grid Lines
-   ``grid.path`` @ Styling for the Grid's borders
-   ``.taskText`` @ Task Text Styling
-   ``.taskTextOutsideRight`` @ Styling for Task Text that exceeds the activity bar towards the right.
-   ``.taskTextOutsideLeft`` @ Styling for Task Text that exceeds the activity bar, towards the left.
-   ``todayMarker`` @ Toggle and Styling for the "Today Marker"
-
-Sample stylesheet
------------------------------------------------------------------------
-
-.. code:: css
-
-   .grid .tick {
-       stroke: lightgrey;
-       opacity: 0.3;
-       shape-rendering: crispEdges;
-   }
-   .grid path {
-       stroke-width: 0;
-   }
-
-   #tag {
-       color: white;
-       background: #FA283D;
-       width: 150px;
-       position: absolute;
-       display: none;
-       padding:3px 6px;
-       margin-left: -80px;
-       font-size: 11px;
-   }
-
-   #tag:before {
-       border: solid transparent;
-       content: ' ';
-       height: 0;
-       left: 50%;
-       margin-left: -5px;
-       position: absolute;
-       width: 0;
-       border-width: 10px;
-       border-bottom-color: #FA283D;
-       top: -20px;
-   }
-   .taskText {
-       fill:white;
-       text-anchor:middle;
-   }
-   .taskTextOutsideRight {
-       fill:black;
-       text-anchor:start;
-   }
-   .taskTextOutsideLeft {
-       fill:black;
-       text-anchor:end;
-   }
+本文参照。
 
 Today marker
-=======================================================================
+======================================================================
 
-You can style or hide the marker for the current date. To style it, add a value
-for the ``todayMarker`` key.
+  You can style or hide the marker for the current date. To style it, add a
+  value for the ``todayMarker`` key.
 
-.. code:: text
+  .. code:: text
 
-   todayMarker stroke-width:5px,stroke:#0f0,opacity:0.5
+     todayMarker stroke-width:5px,stroke:#0f0,opacity:0.5
 
-To hide the marker, set ``todayMarker`` to ``off``.
+  To hide the marker, set ``todayMarker`` to ``off``.
 
-.. code:: text
+  .. code:: text
 
-   todayMarker off
+     todayMarker off
 
 Configuration
-=======================================================================
+======================================================================
 
-It is possible to adjust the margins for rendering the gantt diagram.
+  ``mermaid.ganttConfig`` can be set to a JSON string with config parameters or
+  the corresponding object.
 
-This is done by defining the ``ganttConfig`` part of the configuration object.
-How to use the CLI is described in the `mermaidCLI <mermaidCLI.html>`__ page.
+  .. code:: javascript
 
-``mermaid.ganttConfig`` can be set to a JSON string with config parameters or
-the corresponding object.
-
-.. code:: javascript
-
-   mermaid.ganttConfig = {
-       titleTopMargin: 25,
-       barHeight: 20,
-       barGap: 4,
-       topPadding: 75,
-       sidePadding: 75
-   }
+     mermaid.ganttConfig = {
+         titleTopMargin: 25,
+         barHeight: 20,
+         barGap: 4,
+         topPadding: 75,
+         sidePadding: 75
+     }
 
 Possible configuration params:
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-+-------------------------+-------------------------+-------------------------+
-| Param                   | Description             | Default value           |
-+=========================+=========================+=========================+
-| mirrorActor             | Turns on/off the        | false                   |
-|                         | rendering of actors     |                         |
-|                         | below the diagram as    |                         |
-|                         | well as above it        |                         |
-+-------------------------+-------------------------+-------------------------+
-| bottomMarginAdj         | Adjusts how far down    | 1                       |
-|                         | the graph ended. Wide   |                         |
-|                         | borders styles with css |                         |
-|                         | could generate unwanted |                         |
-|                         | clipping which is why   |                         |
-|                         | this config param       |                         |
-|                         | exists.                 |                         |
-+-------------------------+-------------------------+-------------------------+
+``mirrorActor`` と ``bottomMarginAdj`` というのがある。本文参照。
 
 Interaction
-=======================================================================
+======================================================================
 
-It is possible to bind a click event to a task. The click can lead to either a
-javascript callback or to a link which will be opened in the current browser
-tab.
+  It is possible to bind a click event to a task. The click can lead to either a
+  javascript callback or to a link which will be opened in the current browser
+  tab.
 
-.. note::
+チャート上のタスクに対するクリックイベント処理を定義できる。コード例は本書参照。
+Flowchart など、他の図式でも定義できるものがある。
 
-   This functionality is disabled when using ``securityLevel='strict'`` and
-   enabled when using ``securityLevel='loose'``.
+  .. code:: text
 
-.. code:: text
+     click taskId call callback(arguments)
+     click taskId href URL
 
-   click taskId call callback(arguments)
-   click taskId href URL
-
-* taskId is the id of the task
-* callback is the name of a javascript function defined on the page displaying
-  the graph, the function will be called with the taskId as the parameter if no
-  other arguments are specified.
-
-Beginners tip, a full example using interactive links in an html context:
-
-.. code:: html
-
-   <body>
-     <div class="mermaid">
-       gantt
-         dateFormat  YYYY-MM-DD
-
-         section Clickable
-         Visit mermaidjs           :active, cl1, 2014-01-07, 3d
-         Print arguments         :cl2, after cl1, 3d
-         Print task              :cl3, after cl2, 3d
-
-         click cl1 href "https://mermaidjs.github.io/"
-         click cl2 call printArguments("test1", "test2", test3)
-         click cl3 call printTask()
-     </div>
-
-     <script>
-       var printArguments = function(arg1, arg2, arg3) {
-         alert('printArguments called with arguments: ' + arg1 + ', ' + arg2 + ', ' + arg3);
-       }
-       var printTask = function(taskId) {
-         alert('taskId: ' + taskId);
-       }
-       var config = {
-         startOnLoad:true,
-         securityLevel:'loose',
-       };
-       mermaid.initialize(config);
-     </script>
-   </body>
-
-.. admonition:: 学習者ノート
-
-   この機能は、これまで見てきた他の図式にも対応しているものがある。
-
-   どうでもいいが、このドキュメント群に示される JavaScript は古風なコードだ。
+  * ``taskId`` is the id of the task
+  * ``callback`` is the name of a javascript function defined on the page
+    displaying the graph, the function will be called with the ``taskId`` as the
+    parameter if no other arguments are specified.
