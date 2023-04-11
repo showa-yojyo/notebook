@@ -34,32 +34,16 @@ Entity Relationship Diagrams
   need to be exhaustive; often a small subset of attributes is enough. Mermaid
   allows to be defined in terms of their *type* and *name*.
 
-  .. code:: text
-
-     erDiagram
-      CUSTOMER ||--o{ ORDER : places
-      CUSTOMER {
-          string name
-          string custNumber
-          string sector
-      }
-      ORDER ||--|{ LINE-ITEM : contains
-      ORDER {
-          int orderNumber
-          string deliveryAddress
-      }
-      LINE-ITEM {
-          string productCode
-          int quantity
-          float pricePerUnit
-      }
+  .. mermaid:: ./er-first.mmd
+     :align: center
+  .. literalinclude:: ./er-first.mmd
 
   When including attributes on ER diagrams, you must decide whether to include
-  foreign keys as attributes. This probably depends on how closely you are trying
-  to represent relational table structures. If your diagram is a *logical* model
-  which is not meant to imply a relational implementation, then it is better to
-  leave these out because the associative relationships already convey the way
-  that entities are associated.
+  foreign keys as attributes. This probably depends on how closely you are
+  trying to represent relational table structures. If your diagram is a
+  *logical* model which is not meant to imply a relational implementation, then
+  it is better to leave these out because the associative relationships already
+  convey the way that entities are associated.
 
 ER 図に属性を記載するかどうかを決定するのは、図式で説明したいことが設計と実装の
 どちらにより軸足を置くのかということか。
@@ -82,12 +66,13 @@ Entities and Relationships
 
   Where:
 
-  * ``first-entity`` is the name of an entity. Names must begin with an alphabetic
-    character and may also contain digits, hyphens, and underscores.
-  * ``relationship`` describes the way that both entities inter-relate. See below.
+  * ``first-entity`` is the name of an entity. Names must begin with an
+    alphabetic character and may also contain digits, hyphens, and underscores.
+  * ``relationship`` describes the way that both entities inter-relate. See
+    below.
   * ``second-entity`` is the name of the other entity.
-  * ``relationship-label`` describes the relationship from the perspective of the
-    first entity.
+  * ``relationship-label`` describes the relationship from the perspective of
+    the first entity.
 
 ER 図に関しては PlantUML 用に書いた図式を Mermaid で描画できるということになる。
 関係性にラベルを付加した場合、逆にその Mermaid コードを PlantUML が処理すること
@@ -97,7 +82,7 @@ ER 図に関しては PlantUML 用に書いた図式を Mermaid で描画でき�
 
   .. code:: text
 
-         PROPERTY ||--|{ ROOM : contains
+     PROPERTY ||--|{ ROOM : contains
 
   This statement can be read as *a property contains one or more rooms, and a
   room is part of one and only one property*. You can see that the label here
@@ -195,25 +180,13 @@ Class diagram の用語でいう composition と aggrigation の概念と類似�
 Attributes
 ----------------------------------------------------------------------
 
-  Attributes can be defined for entities by specifying the entity name followed by
-  a block containing multiple ``type name`` pairs, where a block is delimited by
-  an opening ``{`` and a closing ``}``. For example:
+  Attributes can be defined for entities by specifying the entity name followed
+  by a block containing multiple ``type name`` pairs, where a block is delimited
+  by an opening ``{`` and a closing ``}``. For example:
 
-  .. code:: text
-
-     erDiagram
-         CAR ||--o{ NAMED-DRIVER : allows
-         CAR {
-             string registrationNumber
-             string make
-             string model
-         }
-         PERSON ||--o{ NAMED-DRIVER : is
-         PERSON {
-             string firstName
-             string lastName
-             int age
-         }
+  .. mermaid:: ./er-attributes.mmd
+     :align: center
+  .. literalinclude:: ./er-attributes.mmd
 
   The attributes are rendered inside the entity boxes.
 
@@ -239,29 +212,9 @@ Attribute Keys and Comments
 
 本書ではやや実践的な例を挙げている：
 
-  .. code:: text
-
-     erDiagram
-         CAR ||--o{ NAMED-DRIVER : allows
-         CAR {
-             string registrationNumber PK
-             string make
-             string model
-             string[] parts
-         }
-         PERSON ||--o{ NAMED-DRIVER : is
-         PERSON {
-             string driversLicense PK "The license #"
-             string(99) firstName "Only 99 characters are allowed"
-             string lastName
-             string phone UK
-             int age
-         }
-         NAMED-DRIVER {
-             string carRegistrationNumber PK, FK
-             string driverLicence PK, FK
-         }
-         MANUFACTURER only one to zero or more CAR : makes
+  .. mermaid:: ./er-keys.mmd
+     :align: center
+  .. literalinclude:: ./er-keys.mmd
 
 Other Things
 ----------------------------------------------------------------------

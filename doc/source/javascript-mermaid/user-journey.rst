@@ -15,14 +15,12 @@ User Journey Diagram
 
   Mermaid can render user journey diagrams:
 
-  .. mermaid:: /_include/uj.mmd
+  .. mermaid:: ./uj.mmd
      :align: center
+  .. literalinclude:: ./uj.mmd
 
 Mermaid の文書を読むまでこれを知らなかった。いったん知れば何かの役に立つこともあ
 るか。
-
-  .. literalinclude:: /_include/uj.mmd
-     :language: default
 
   Each user journey is split into sections, these describe the part of the task
   the user is trying to complete.

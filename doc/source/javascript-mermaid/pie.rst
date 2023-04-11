@@ -9,10 +9,9 @@ Pie chart diagrams
 
   Mermaid can render Pie Chart diagrams.
 
-  .. literalinclude:: /_include/p-pets.mmd
-     :language: default
-  .. mermaid:: /_include/p-pets.mmd
+  .. mermaid:: ./p-pets.mmd
      :align: center
+  .. literalinclude:: ./p-pets.mmd
 
 円グラフを HTML 上に描きたくなる状況が思い浮かばぬが、習得しよう。
 
@@ -36,10 +35,9 @@ Syntax
 Example
 ======================================================================
 
-.. literalinclude:: /_include/p-elements.mmd
-   :language: default
-.. mermaid:: /_include/p-elements.mmd
+.. mermaid:: ./p-elements.mmd
    :align: center
+.. literalinclude:: ./p-elements.mmd
 
 Configuration
 ======================================================================

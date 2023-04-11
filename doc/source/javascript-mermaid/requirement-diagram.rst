@@ -15,10 +15,9 @@ SysML は UML と同じく OMG が策定する言語仕様の一つだ。
 
   Rendering requirements is straightforward.
 
-  .. literalinclude:: /_include/r-first.mmd
-     :language: default
-  .. mermaid:: /_include/r-first.mmd
+  .. mermaid::./r-first.mmd
      :align: center
+  .. literalinclude::./r-first.mmd
 
 この図式だけ見れば「要素 ``test_entity`` は要求 ``test_req`` を満足する」と読め
 る。
@@ -131,9 +130,8 @@ Larger Example
 
   This example uses all features of the diagram.
 
-  .. literalinclude:: /_include/r-all-features.mmd
-     :language: default
-  .. mermaid:: /_include/r-all-features.mmd
+  .. mermaid::./r-all-features.mmd
      :align: center
+  .. literalinclude::./r-all-features.mmd
 
 内容が実践的だともっとありがたい。

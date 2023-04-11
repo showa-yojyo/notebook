@@ -2,39 +2,16 @@
 Class diagrams
 =======================================================================
 
-  Mermaid can render class diagrams.
-
 .. contents::
    :depth: 2
 
-.. mermaid::
+..
 
-   ---
-   title: Animal example
-   ---
-   classDiagram
-       note "From Duck till Zebra"
-       Animal <|-- Duck
-       note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
-       Animal <|-- Fish
-       Animal <|-- Zebra
-       Animal: +int age
-       Animal: +String gender
-       Animal: +isMammal()
-       Animal: +mate()
-       class Duck{
-           +String beakColor
-           +swim()
-           +quack()
-       }
-       class Fish{
-           -int sizeInFeet
-           -canEat()
-       }
-       class Zebra{
-           +bool is_wild
-           +run()
-       }
+  Mermaid can render class diagrams.
+
+  .. mermaid:: ./cd-animals.mmd
+     :align: center
+  .. literalinclude:: ./cd-animals.mmd
 
 Syntax
 =======================================================================
@@ -246,17 +223,9 @@ Defining Relationship
   We can use the labels to describe nature of relation between two classes.
   Also, arrowheads can be used in opposite directions as well:
 
-  .. code:: text
-
-     classDiagram
-       classA --|> classB : Inheritance
-       classC --* classD : Composition
-       classE --o classF : Aggregation
-       classG --> classH : Association
-       classI -- classJ : Link(Solid)
-       classK ..> classL : Dependency
-       classM ..|> classN : Realization
-       classO .. classP : Link(Dashed)
+  .. mermaid:: ./cd-relationships.mmd
+     :align: center
+  .. literalinclude:: ./cd-relationships.mmd
 
 関係の名前を矢印の中央に描画することが可能だ。「矢印を逆向きにも使える」というの
 はたいへん興味深い仕様だ。
@@ -317,12 +286,9 @@ Cardinality / Multiplicity on relations
 
 多重度の表現は基本的なので習得する。
 
-  .. code:: text
-
-     classDiagram
-         Customer "1" --> "*" Ticket
-         Student "1" --> "1..*" Course
-         Galaxy --> "many" Star : Contains
+  .. mermaid:: ./cd-cardinal.mmd
+     :align: center
+  .. literalinclude:: ./cd-cardinal.mmd
 
 描画が怪しい。
 
@@ -386,23 +352,9 @@ Setting the direction of the diagram
   With class diagrams you can use the direction statement to set the direction in
   which the diagram will render:
 
-  .. code:: text
-
-     classDiagram
-       direction RL
-       class Student {
-         -idCard : IdCard
-       }
-       class IdCard{
-         -id : int
-         -name : string
-       }
-       class Bike{
-         -id : int
-         -name : string
-       }
-       Student "1" --o "1" IdCard : carries
-       Student "1" --o "1" Bike : rides
+  .. mermaid:: ./cd-direction.mmd
+     :align: center
+  .. literalinclude:: ./cd-direction.mmd
 
 ``direction RL`` を ``direction LR`` やその他に書き換えて表示を確認するといい。
 

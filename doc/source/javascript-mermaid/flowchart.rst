@@ -1,10 +1,15 @@
-=======================================================================
+======================================================================
 Flowcharts - Basic Syntax
-=======================================================================
+======================================================================
 
-  All Flowcharts are composed of nodes, the geometric shapes and edges, the arrows
-  or lines. The mermaid code defines the way that these nodes and edges are made
-  and interact.
+.. contents::
+   :depth: 2
+
+..
+
+  All Flowcharts are composed of nodes, the geometric shapes and edges, the
+  arrows or lines. The mermaid code defines the way that these nodes and edges
+  are made and interact.
 
   It can also accomodate different arrow types, multi directional arrows, and
   linking to and from subgraphs.
@@ -12,11 +17,8 @@ Flowcharts - Basic Syntax
 Mermaid 開発陣はフローチャートとは言っているが、汎用の有向グラフとして取り扱うの
 がわかりやすい。
 
-.. contents::
-   :depth: 2
-
 Node
-=======================================================================
+======================================================================
 
   Do not type the word "end" as a Flowchart node. Capitalize all or any one the
   letters to keep the flowchart from breaking, i.e, "End" or "END".
@@ -24,7 +26,7 @@ Node
 という注意点があるそうなので、何かエラーが出たらこれを意識することにする。
 
 A node (default)
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   .. code:: text
 
@@ -38,7 +40,7 @@ A node (default)
 中央にテキストが描画されるようだ。
 
 A node with text
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 次の文法により、ID 文字列とは異なるテキストをノードに書ける：
 
@@ -51,7 +53,7 @@ A node with text
          id1[This is the text in the box]
 
 Graph
-=======================================================================
+======================================================================
 
   This declares the flowchart is oriented from top to bottom (``TD`` or ``TB``).
 
@@ -63,7 +65,7 @@ Graph
 ``flowchart`` に続けて二文字でグラフの向きを指定する。
 
 Flowchart Orientation
-=======================================================================
+======================================================================
 
   Possible FlowChart orientations are:
 
@@ -76,37 +78,22 @@ Flowchart Orientation
 ``TB`` と ``TD`` が同じなので実質的には四つあると言える。
 
 Node shapes
-=======================================================================
+======================================================================
 
 ノード形状はテキスト周りの括弧の組で決まる。
 
 実際に描画させるとやたらスペースをとるノード形状がいくつかある。そういうものはテ
 キストを設定しないで利用するのが本来想定されている用途なのだろう。
 
-.. code:: text
-
-   ---
-   title: Node shapes
-   ---
-   flowchart LR
-       nodeA(A node with round edges)
-       nodeB([A stadium-shaped node])
-       nodeC[[A node in a subroutine shape]]
-       nodeD[(A node in a cylindrical shape)]
-       nodeE((A node in the form of a circle))
-       nodeF>A node in an asymmetric shape]
-       nodeG{A node rhombus}
-       nodeH{{A hexagon node}}
-       nodeI[/Parallelogram/]
-       nodeJ[\Parallelogram alt\]
-       nodeK[/Trapezoid\]
-       nodeL[\Trapezoid alt/]
+.. mermaid:: ./fc-nodes.mmd
+   :align: center
+.. literalinclude:: ./fc-nodes.mmd
 
 Links between nodes
 ======================================================================
 
 A link with arrow head
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   .. code:: text
 
@@ -116,7 +103,7 @@ A link with arrow head
 これは有向グラフに用いるといいだろう。
 
 An open link
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 .. code:: text
 
@@ -126,7 +113,7 @@ An open link
 こちらは無向グラフに用いたい。
 
 Text on links
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現
 れる：
@@ -144,7 +131,7 @@ Text on links
          A---|This is the text|B
 
 A link with arrow head and text
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現
 れる：
@@ -162,7 +149,7 @@ A link with arrow head and text
          A-- text -->B
 
 Dotted link
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 点線スタイルはしばしば採用したくなるので記法を覚えておく。ドットしか使わないわけ
 ではない。
@@ -173,7 +160,7 @@ Dotted link
         A-.->B;
 
 Dotted link with text
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 記憶しにくい記法だ：
 
@@ -183,7 +170,7 @@ Dotted link with text
         A-. text .-> B
 
 Thick link
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 太い線を描く場合には文字 ``=`` をつなげる。これは自然な記法だ。
 
@@ -193,7 +180,7 @@ Thick link
         A ==> B
 
 Thick link with text
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
 こちらも自然：
 
@@ -216,7 +203,7 @@ An invisible link
          A ~~~ B
 
 Chaining of links
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   It is possible declare many links in the same line as per below:
 
@@ -235,8 +222,8 @@ Chaining of links
      flowchart LR
         a --> b & c--> d
 
-  You can then describe dependencies in a very expressive way. Like the one-liner
-  below:
+  You can then describe dependencies in a very expressive way. Like the
+  one-liner below:
 
   .. code:: text
 
@@ -246,7 +233,7 @@ Chaining of links
 Bash における brace expansion, e.g. ``{A,B}{C,D}`` 等々に類似する記法か。
 
 New arrow types
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   There are new types of arrows supported as per below:
 
@@ -259,7 +246,7 @@ New arrow types
 ベタ塗り●とバツジルシ✕がそれぞれ終端にマークされる。
 
 Multi directional arrows
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   There is the possibility to use multidirectional arrows.
 
@@ -273,7 +260,7 @@ Multi directional arrows
 想像どおりの印が両端点に描画される。
 
 Minimum length of a link
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   By default, links can span any number of ranks, but you can ask for any link to
   be longer than the others by adding extra dashes in the link definition.
@@ -324,7 +311,7 @@ Minimum length of a link
 点線のときだけ注意すればいいだろう。中程を反復する。
 
 Special characters that break syntax
-=======================================================================
+======================================================================
 
   It is possible to put text within quotes in order to render more troublesome
   characters.
@@ -332,7 +319,7 @@ Special characters that break syntax
 怪しいノード形状を採用する場合には引用符を予防的に入れておくことにしよう。
 
 Entity codes to escape characters
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   It is possible to escape characters using the syntax exemplified here.
 
@@ -348,7 +335,7 @@ Entity codes to escape characters
 ``&quot;`` を不採用にする理由が何かあったはずだ。
 
 Subgraphs
-=======================================================================
+======================================================================
 
 部分グラフの構文は次のとおりだ：
 
@@ -373,33 +360,20 @@ Subgraphs
 こうすると部分グラフの描画領域に ``one`` というラベルテキストが描画される。
 
 flowcharts
-=======================================================================
+======================================================================
 
   With the graphtype flowchart it is also possible to set edges to and from
   subgraphs as in the flowchart below.
 
-  .. code:: text
-
-     flowchart TB
-         c1-->a2
-         subgraph one
-         a1-->a2
-         end
-         subgraph two
-         b1-->b2
-         end
-         subgraph three
-         c1-->c2
-         end
-         one --> two
-         three --> two
-         two --> c2
+  .. mermaid:: ./fc-subgraphs.mmd
+     :align: center
+  .. literalinclude:: ./fc-subgraphs.mmd
 
 エッジの端点がノードではなく部分グラフ領域に接することが可能だということだ。最後
 の三つのエッジがその例になっている。
 
 Direction in subgraphs
-=======================================================================
+======================================================================
 
   With the graphtype flowcharts you can use the direction statement to set the
   direction which the subgraph will render like in this example.
@@ -408,7 +382,7 @@ Direction in subgraphs
 その指定すべてを達成することができない場合には遠慮せずに無視するようだ。
 
 Markdown Strings
-=======================================================================
+======================================================================
 
   The "Markdown Strings" feature enhances flowcharts and mind maps by offering a
   more versatile string type, which supports text formatting options such as bold
@@ -436,7 +410,7 @@ Markdown Strings
 Flowchart 本体のほとんどのテキストで適用可能ということだ。
 
 Interaction
-=======================================================================
+======================================================================
 
   It is possible to bind a click event to a node, the click can lead to either a
   javascript callback or to a link which will be opened in a new browser tab.
@@ -522,7 +496,7 @@ Markdown 設定により Flowchart ノードに対してはクリックイベン
      </script>
 
 Comments
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   Comments need to be on their own line, and must be prefaced with ``%%``
   (double percent signs).
@@ -537,10 +511,10 @@ Comments
         A -- text --> B -- text2 --> C
 
 Styling and classes
-=======================================================================
+======================================================================
 
 Styling links
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   It is possible to style links. For instance you might want to style a link
   that is going backwards in the flow. As links have no ids in the same way as
@@ -575,7 +549,7 @@ Styling line curves
 こちらの JavaScript ライブラリーはモデリングソフト開発経験者としては興味深い。
 
 Styling a node
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   It is possible to apply specific styles such as a thicker border or a different
   background color to a node.
@@ -627,7 +601,7 @@ Styling a node
 クラス名がコロンの後に来るので違和感がある。
 
 CSS classes
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   It is also possible to predefine classes in css styles that can be applied from
   the graph definition as in the example below:
@@ -655,7 +629,7 @@ CSS classes
 Flowchart 例の ``span`` タグに意味はあるのか？
 
 Default class
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
   If a class is named ``default`` it will be assigned to all classes without
   specific class definitions.
@@ -668,7 +642,7 @@ Default class
 は外部 CSS ファイルの手法を採用したい。
 
 Basic support for fontawesome
-=======================================================================
+======================================================================
 
   It is possible to add icons from fontawesome.
 
@@ -692,10 +666,10 @@ Graph declarations with spaces between vertices and link and without semicolon
     After release 0.2.16, ending a graph statement with semicolon is just
     optional. So the below graph declaration is also valid along with the old
     declarations of the graph.
-  * A single space is allowed between vertices and the link. However there should
-    not be any space between a vertex and its text and a link and its text. The
-    old syntax of graph declaration will also work and hence this new feature is
-    optional and is introduced to improve readability.
+  * A single space is allowed between vertices and the link. However there
+    should not be any space between a vertex and its text and a link and its
+    text. The old syntax of graph declaration will also work and hence this new
+    feature is optional and is introduced to improve readability.
 
 空白文字を下手に入れるのは有害である可能性があることを覚えておく。
 

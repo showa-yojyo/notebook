@@ -28,29 +28,26 @@ A note to users
 Markdown で記述すると、普通の出力は HTML だから内部的には SVG で表現されることに
 なる。
 
-  .. literalinclude:: /_include/g-first.mmd
-     :language: default
-  .. mermaid:: /_include/g-first.mmd
+  .. mermaid:: ./g-first.mmd
      :align: center
+  .. literalinclude:: ./g-first.mmd
 
 タスクは所属する区画につき、完了日順に整列されている。
 
 Syntax
 ======================================================================
 
-  .. literalinclude:: /_include/g-syntax.mmd
-     :language: default
-  .. mermaid:: /_include/g-syntax.mmd
+  .. mermaid:: ./g-syntax.mmd
      :align: center
+  .. literalinclude:: ./g-syntax.mmd
 
 どれがキーワードでどれがリテラル文字列なのかわからない。
 
   It is possible to set multiple dependencies separated by space:
 
-  .. literalinclude:: /_include/g-deps.mmd
-     :language: default
-  .. mermaid:: /_include/g-deps.mmd
+  .. mermaid:: ./g-deps.mmd
      :align: center
+  .. literalinclude:: ./g-deps.mmd
 
 タスク ``cherry`` の ``after b a`` の部分が複数依存を定義している。
 
@@ -88,10 +85,9 @@ Milestones
 
 タスクが区間を表現するのとは対象的に、マイルストーンは瞬間を表現する。
 
-  .. literalinclude:: /_include/g-milestome.mmd
-     :language: default
-  .. mermaid:: /_include/g-milestome.mmd
+  .. mermaid:: ./g-milestome.mmd
      :align: center
+  .. literalinclude:: ./g-milestome.mmd
 
 マイルストーンの指定方法に若干クセがある。それゆえ、上記 ``Initial milestone``
 のコード上の指定は 17:50 よりも早い。
@@ -153,10 +149,9 @@ Output in compact mode
   mode can be enabled for a gantt chart by setting the display mode of the graph
   via preceeding YAML settings.
 
-  .. literalinclude:: /_include/g-compact-mode.mmd
-     :language: default
-  .. mermaid:: /_include/g-compact-mode.mmd
+  .. mermaid:: ./g-compact-mode.mmd
      :align: center
+  .. literalinclude:: ./g-compact-mode.mmd
 
 コンパクトモードを適用するのに front matter 部分に ``displayMode: compact`` と書
 く。チャートの同一行にタスクが複数あり得るようになる。

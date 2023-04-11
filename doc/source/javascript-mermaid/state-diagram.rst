@@ -2,24 +2,26 @@
 State diagrams
 ======================================================================
 
+.. contents::
+   :depth: 2
+
+..
+
   Mermaid can render state diagrams. The syntax tries to be compliant with the
   syntax used in PlantUml as this will make it easier for users to share
   diagrams between mermaid and PlantUml.
 
-.. contents::
-   :depth: 2
+  .. mermaid::
+     :align: center
 
-.. mermaid::
-   :align: center
+     stateDiagram-v2
+         [*] --> Still
+         Still --> [*]
 
-   stateDiagram-v2
-       [*] --> Still
-       Still --> [*]
-
-       Still --> Moving
-       Moving --> Still
-       Moving --> Crash
-       Crash --> [*]
+         Still --> Moving
+         Moving --> Still
+         Moving --> Crash
+         Crash --> [*]
 
 State diagram については図式名が ``stateDiagram`` と ``stateDiagram-v2`` の二つ
 用意されている。以下、後者を用いる。
@@ -170,19 +172,9 @@ Forks
 
   It is possible to specify a fork in the diagram using ``<<fork>>``.
 
-.. code:: text
-
-      stateDiagram-v2
-       state fork_state <<fork>>
-         [*] --> fork_state
-         fork_state --> State2
-         fork_state --> State3
-
-       state join_state <<join>>
-         State2 --> join_state
-         State3 --> join_state
-         join_state --> State4
-         State4 --> [*]
+.. mermaid:: ./s-forks.mmd
+   :align: center
+.. literalinclude:: ./s-forks.mmd
 
 Notes
 ======================================================================
@@ -214,24 +206,9 @@ Concurrency
 遷移指定の間に水平罫線のイメージでこれを記す。コードから連想されるように図式内の
 部分状態が区画に分かれる。
 
-  .. code:: text
-
-     stateDiagram-v2
-         [*] --> Active
-
-         state Active {
-             [*] --> NumLockOff
-             NumLockOff --> NumLockOn : EvNumLockPressed
-             NumLockOn --> NumLockOff : EvNumLockPressed
-             --
-             [*] --> CapsLockOff
-             CapsLockOff --> CapsLockOn : EvCapsLockPressed
-             CapsLockOn --> CapsLockOff : EvCapsLockPressed
-             --
-             [*] --> ScrollLockOff
-             ScrollLockOff --> ScrollLockOn : EvScrollLockPressed
-             ScrollLockOn --> ScrollLockOff : EvScrollLockPressed
-         }
+  .. mermaid:: ./s-concurrency.mmd
+     :align: center
+  .. literalinclude:: ./s-concurrency.mmd
 
 Setting the direction of the diagram
 ======================================================================

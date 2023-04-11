@@ -2,19 +2,18 @@
 Sequence Diagrams
 ======================================================================
 
-  Mermaid can render sequence diagrams.
-
-  .. code:: text
-
-     sequenceDiagram
-         Alice->>John: Hello John, how are you?
-         John-->>Alice: Great!
-         Alice-)John: See you later!
-
-UML シーケンス図は使い所が多いのでありがたい。
-
 .. contents::
    :depth: 2
+
+..
+
+  Mermaid can render sequence diagrams.
+
+  .. mermaid:: ./sd-first.mmd
+     :align: center
+  .. literalinclude:: ./sd-first.mmd
+
+UML シーケンス図は使い所が多いのでありがたい。
 
 Syntax
 ======================================================================
@@ -94,21 +93,9 @@ Grouping / Box
 
 次の例は正常に描画される実践的なものだ：
 
-  .. code:: text
-
-     sequenceDiagram
-       box Purple Alice & John
-         participant A
-         participant J
-       end
-       box Another Group
-         participant B
-         participant C
-       end
-       A->>J: Hello John, how are you?
-       J->>A: Great!
-       A->>B: Hello Bob, how is Charly?
-       B->>C: Hello Charly, how are you?
+  .. mermaid:: ./sd-boxes.mmd
+     :align: center
+  .. literalinclude:: ./sd-boxes.mmd
 
 Messages
 ======================================================================
@@ -168,13 +155,9 @@ UML の仕様としては、activation 要素は、オブジェクトがメッ�
 
   Activations can be stacked for same actor:
 
-  .. code:: text
-
-     sequenceDiagram
-         Alice->>+John: Hello John, how are you?
-         Alice->>+John: John, can you hear me?
-         John-->>-Alice: Hi Alice, I can hear you!
-         John-->>-Alice: I feel great!
+  .. mermaid:: ./sd-activation.mmd
+     :align: center
+  .. literalinclude:: ./sd-activation.mmd
 
 活性区間が重なり合うように描画される。
 
@@ -261,18 +244,9 @@ Alt
 
 これらの両方のブロックを用いた例：
 
-  .. code:: text
-
-     sequenceDiagram
-         Alice->>Bob: Hello Bob, how are you?
-         alt is sick
-             Bob->>Alice: Not so good :(
-         else is well
-             Bob->>Alice: Feeling fresh like a daisy
-         end
-         opt Extra response
-             Bob->>Alice: Thanks for asking
-         end
+  .. mermaid:: ./sd-alt-opt.mmd
+     :align: center
+  .. literalinclude:: ./sd-alt-opt.mmd
 
 シーケンス図の ``alt`` はプログラミング言語でいう ``if`` 文のような構文だが、
 ``elif`` に相当するものがない。
@@ -301,19 +275,9 @@ Parallel
 
   It is also possible to nest parallel blocks.
 
-  .. code:: text
-
-     sequenceDiagram
-         par Alice to Bob
-             Alice->>Bob: Go help John
-         and Alice to John
-             Alice->>John: I want this done today
-             par John to Charlie
-                 John->>Charlie: Can we do this today?
-             and John to Diana
-                 John->>Diana: Can you help us today?
-             end
-         end
+  .. mermaid:: ./sd-par.mmd
+     :align: center
+  .. literalinclude:: ./sd-par.mmd
 
 異種の構造化ブロックを入れ子にしたい場合がよくあるし、Mermaid はそれを対応してい
 るはずだ。
@@ -340,16 +304,9 @@ Critical Region
 
   See the example below:
 
-  .. code:: text
-
-     sequenceDiagram
-         critical Establish a connection to the DB
-             Service-->DB: connect
-         option Network timeout
-             Service-->Service: Log error
-         option Credentials rejected
-             Service-->Service: Log different error
-         end
+  .. mermaid:: ./sd-critical.mmd
+     :align: center
+  .. literalinclude:: ./sd-critical.mmd
 
 主要機能説明時に言及されていなかったが、矢印を自身に向けることも許されている。
 
@@ -441,8 +398,8 @@ Comments
          %% this is a comment
          John-->>Alice: Great!
 
-これは ``flowchart`` にもある機能だ。このコメント要素は図式クラス全てに対して
- 有効な構文であって欲しい。
+これは ``flowchart`` にもある機能だ。このコメント要素は図式クラス全てに対して有
+効な構文であって欲しい。
 
 Entity codes to escape characters
 ======================================================================
