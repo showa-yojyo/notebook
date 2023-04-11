@@ -48,11 +48,6 @@
             
   <section id="flowcharts-basic-syntax">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">Flowcharts - Basic Syntax</a><a class="headerlink" href="#flowcharts-basic-syntax" title="Permalink to this heading">¶</a></h1>
-<p>All Flowcharts are composed of nodes, the geometric shapes and edges, the arrows
-or lines. The mermaid code defines the way that these nodes and edges are made
-and interact.</p>
-<p>It can also accomodate different arrow types, multi directional arrows, and
-linking to and from subgraphs.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -67,63 +62,73 @@ linking to and from subgraphs.</p>
 <li><p><a class="reference internal" href="#subgraphs" id="id8">Subgraphs</a></p></li>
 <li><p><a class="reference internal" href="#flowcharts" id="id9">flowcharts</a></p></li>
 <li><p><a class="reference internal" href="#direction-in-subgraphs" id="id10">Direction in subgraphs</a></p></li>
-<li><p><a class="reference internal" href="#interaction" id="id11">Interaction</a></p></li>
-<li><p><a class="reference internal" href="#styling-and-classes" id="id12">Styling and classes</a></p></li>
-<li><p><a class="reference internal" href="#basic-support-for-fontawesome" id="id13">Basic support for fontawesome</a></p></li>
-<li><p><a class="reference internal" href="#graph-declarations-with-spaces-between-vertices-and-link-and-without-semicolon" id="id14">Graph declarations with spaces between vertices and link and without semicolon</a></p></li>
-<li><p><a class="reference internal" href="#configuration" id="id15">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#markdown-strings" id="id11">Markdown Strings</a></p></li>
+<li><p><a class="reference internal" href="#interaction" id="id12">Interaction</a></p></li>
+<li><p><a class="reference internal" href="#styling-and-classes" id="id13">Styling and classes</a></p></li>
+<li><p><a class="reference internal" href="#basic-support-for-fontawesome" id="id14">Basic support for fontawesome</a></p></li>
+<li><p><a class="reference internal" href="#graph-declarations-with-spaces-between-vertices-and-link-and-without-semicolon" id="id15">Graph declarations with spaces between vertices and link and without semicolon</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id16">Configuration</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
+<blockquote>
+<div><p>All Flowcharts are composed of nodes, the geometric shapes and edges, the
+arrows or lines. The mermaid code defines the way that these nodes and edges
+are made and interact.</p>
+<p>It can also accomodate different arrow types, multi directional arrows, and
+linking to and from subgraphs.</p>
+</div></blockquote>
 <p>Mermaid 開発陣はフローチャートとは言っているが、汎用の有向グラフとして取り扱うのがわかりやすい。</p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Do not type the word “end” as a Flowchart node. Capitalize all or any one the
-letters to keep the flowchart from breaking, i.e, “End” or “END”. Or you can
-apply this <a class="reference external" href="https://github.com/mermaid-js/mermaid/issues/1444#issuecomment-639528897">workaround</a>.</p>
-</div>
 <section id="node">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">Node</a><a class="headerlink" href="#node" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Do not type the word “end” as a Flowchart node. Capitalize all or any one the
+letters to keep the flowchart from breaking, i.e, “End” or “END”.</p>
+</div></blockquote>
+<p>という注意点があるそうなので、何かエラーが出たらこれを意識することにする。</p>
 <section id="a-node-default">
 <h3>A node (default)<a class="headerlink" href="#a-node-default" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>---
+title: Node
+---
+flowchart LR
     id
-        </div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The id is what is displayed in the box.</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>いつの間にか Flowchart に対して見出しを与えることが可能になっている。図式の天井中央にテキストが描画されるようだ。</p>
 </section>
 <section id="a-node-with-text">
 <h3>A node with text<a class="headerlink" href="#a-node-with-text" title="Permalink to this heading">¶</a></h3>
-<p>It is also possible to set text in the box that differs from the id. If this is
-done several times, it is the last text found for the node that will be used.
-Also if you define edges for the node later on, you can omit text definitions.
-The one previously defined will be used when rendering the box.</p>
-<div class="mermaid">
-            flowchart LR
+<p>次の文法により、ID 文字列とは異なるテキストをノードに書ける：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>---
+title: Node with text
+---
+flowchart LR
     id1[This is the text in the box]
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 </section>
 <section id="graph">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">Graph</a><a class="headerlink" href="#graph" title="Permalink to this heading">¶</a></h2>
-<p>This statement declares the direction of the Flowchart.</p>
-<p>This declares the flowchart is oriented from top to bottom (<code class="docutils literal notranslate"><span class="pre">TD</span></code> or <code class="docutils literal notranslate"><span class="pre">TB</span></code>).</p>
-<div class="mermaid">
-            flowchart TD
+<blockquote>
+<div><p>This declares the flowchart is oriented from top to bottom (<code class="docutils literal notranslate"><span class="pre">TD</span></code> or <code class="docutils literal notranslate"><span class="pre">TB</span></code>).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart TD
     Start --&gt; Stop
-        </div><p>This declares the flowchart is oriented from left to right (<code class="docutils literal notranslate"><span class="pre">LR</span></code>).</p>
-<div class="mermaid">
-            flowchart LR
-    Start --&gt; Stop
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">flowchart</span></code> に続けて二文字でグラフの向きを指定する。</p>
+</section>
 <section id="flowchart-orientation">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Flowchart Orientation</a><a class="headerlink" href="#flowchart-orientation" title="Permalink to this heading">¶</a></h2>
-<p>Possible FlowChart orientations are:</p>
+<blockquote>
+<div><p>Possible FlowChart orientations are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">TB</span></code> - top to bottom</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TD</span></code> - top-down/ same as top to bottom</p></li>
@@ -131,237 +136,243 @@ The one previously defined will be used when rendering the box.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">RL</span></code> - right to left</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LR</span></code> - left to right</p></li>
 </ul>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>実質的には四つだ。</p>
-</div>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">TB</span></code> と <code class="docutils literal notranslate"><span class="pre">TD</span></code> が同じなので実質的には四つあると言える。</p>
 </section>
 <section id="node-shapes">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">Node shapes</a><a class="headerlink" href="#node-shapes" title="Permalink to this heading">¶</a></h2>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>実際に描画させるとやたらスペースをとる形状がいくつかある。そういうものはテキストを設定しないで利用するのが本来想定されている用途なのだろう。</p>
+<p>ノード形状はテキスト周りの括弧の組で決まる。</p>
+<p>実際に描画させるとやたらスペースをとるノード形状がいくつかある。そういうものはテキストを設定しないで利用するのが本来想定されている用途なのだろう。</p>
+<div align="center" class="mermaid align-center">
+            ---
+title: Node shapes
+---
+flowchart LR
+    nodeA(A node with round edges)
+    nodeB([A stadium-shaped node])
+    nodeC[[A node in a subroutine shape]]
+    nodeD[(A node in a cylindrical shape)]
+    nodeE((A node in the form of a circle))
+    nodeF&gt;A node in an asymmetric shape]
+    nodeG{A node rhombus}
+    nodeH{{A hexagon node}}
+    nodeI[/Parallelogram/]
+    nodeJ[\Parallelogram alt\]
+    nodeK[/Trapezoid\]
+    nodeL[\Trapezoid alt/]
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="n">title</span><span class="p">:</span> <span class="n">Node</span> <span class="n">shapes</span>
+<span class="o">---</span>
+<span class="n">flowchart</span> <span class="n">LR</span>
+    <span class="n">nodeA</span><span class="p">(</span><span class="n">A</span> <span class="n">node</span> <span class="k">with</span> <span class="nb">round</span> <span class="n">edges</span><span class="p">)</span>
+    <span class="n">nodeB</span><span class="p">([</span><span class="n">A</span> <span class="n">stadium</span><span class="o">-</span><span class="n">shaped</span> <span class="n">node</span><span class="p">])</span>
+    <span class="n">nodeC</span><span class="p">[[</span><span class="n">A</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">subroutine</span> <span class="n">shape</span><span class="p">]]</span>
+    <span class="n">nodeD</span><span class="p">[(</span><span class="n">A</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">cylindrical</span> <span class="n">shape</span><span class="p">)]</span>
+    <span class="n">nodeE</span><span class="p">((</span><span class="n">A</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">form</span> <span class="n">of</span> <span class="n">a</span> <span class="n">circle</span><span class="p">))</span>
+    <span class="n">nodeF</span><span class="o">&gt;</span><span class="n">A</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">asymmetric</span> <span class="n">shape</span><span class="p">]</span>
+    <span class="n">nodeG</span><span class="p">{</span><span class="n">A</span> <span class="n">node</span> <span class="n">rhombus</span><span class="p">}</span>
+    <span class="n">nodeH</span><span class="p">{{</span><span class="n">A</span> <span class="n">hexagon</span> <span class="n">node</span><span class="p">}}</span>
+    <span class="n">nodeI</span><span class="p">[</span><span class="o">/</span><span class="n">Parallelogram</span><span class="o">/</span><span class="p">]</span>
+    <span class="n">nodeJ</span><span class="p">[</span>\<span class="n">Parallelogram</span> <span class="n">alt</span>\<span class="p">]</span>
+    <span class="n">nodeK</span><span class="p">[</span><span class="o">/</span><span class="n">Trapezoid</span>\<span class="p">]</span>
+    <span class="n">nodeL</span><span class="p">[</span>\<span class="n">Trapezoid</span> <span class="n">alt</span><span class="o">/</span><span class="p">]</span>
+</pre></div>
 </div>
-<section id="a-node-with-round-edges">
-<h3>A node with round edges<a class="headerlink" href="#a-node-with-round-edges" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1(This is the text in the box)
-        </div></section>
-<section id="a-stadium-shaped-node">
-<h3>A stadium-shaped node<a class="headerlink" href="#a-stadium-shaped-node" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1([This is the text in the box])
-        </div></section>
-<section id="a-node-in-a-subroutine-shape">
-<h3>A node in a subroutine shape<a class="headerlink" href="#a-node-in-a-subroutine-shape" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1[[This is the text in the box]]
-        </div></section>
-<section id="a-node-in-a-cylindrical-shape">
-<h3>A node in a cylindrical shape<a class="headerlink" href="#a-node-in-a-cylindrical-shape" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1[(Database)]
-        </div></section>
-<section id="a-node-in-the-form-of-a-circle">
-<h3>A node in the form of a circle<a class="headerlink" href="#a-node-in-the-form-of-a-circle" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1((This is the text in the circle))
-        </div></section>
-<section id="a-node-in-an-asymmetric-shape">
-<h3>A node in an asymmetric shape<a class="headerlink" href="#a-node-in-an-asymmetric-shape" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1&gt;This is the text in the box]
-        </div><p>Currently only the shape above is possible and not its mirror. This might change
-with future releases.</p>
-</section>
-<section id="a-node-rhombus">
-<h3>A node (rhombus)<a class="headerlink" href="#a-node-rhombus" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1{This is the text in the box}
-        </div></section>
-<section id="a-hexagon-node">
-<h3>A hexagon node<a class="headerlink" href="#a-hexagon-node" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
-    id1{{This is the text in the box}}
-        </div></section>
-<section id="parallelogram">
-<h3>Parallelogram<a class="headerlink" href="#parallelogram" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart TD
-    id1[/This is the text in the box/]
-        </div></section>
-<section id="parallelogram-alt">
-<h3>Parallelogram alt<a class="headerlink" href="#parallelogram-alt" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart TD
-    id1[\This is the text in the box\]
-        </div></section>
-<section id="trapezoid">
-<h3>Trapezoid<a class="headerlink" href="#trapezoid" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart TD
-    A[/Christmas\]
-        </div></section>
-<section id="trapezoid-alt">
-<h3>Trapezoid alt<a class="headerlink" href="#trapezoid-alt" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart TD
-    B[\Go shopping/]
-        </div></section>
 </section>
 <section id="links-between-nodes">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">Links between nodes</a><a class="headerlink" href="#links-between-nodes" title="Permalink to this heading">¶</a></h2>
-<p>Nodes can be connected with links/edges. It is possible to have different types
-of links or attach a text string to a link.</p>
 <section id="a-link-with-arrow-head">
 <h3>A link with arrow head<a class="headerlink" href="#a-link-with-arrow-head" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A--&gt;B
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p>これは有向グラフに用いるといいだろう。</p>
+</section>
 <section id="an-open-link">
 <h3>An open link<a class="headerlink" href="#an-open-link" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A --- B
-        </div></section>
+</pre></div>
+</div>
+<p>こちらは無向グラフに用いたい。</p>
+</section>
 <section id="text-on-links">
 <h3>Text on links<a class="headerlink" href="#text-on-links" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<p>次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現れる：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A-- This is the text! ---B
-        </div><p>or</p>
-<div class="mermaid">
-            flowchart LR
+</pre></div>
+</div>
+</div></blockquote>
+<p>または：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A---|This is the text|B
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="a-link-with-arrow-head-and-text">
 <h3>A link with arrow head and text<a class="headerlink" href="#a-link-with-arrow-head-and-text" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<p>次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現れる：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A--&gt;|text|B
-        </div><p>or</p>
-<div class="mermaid">
-            flowchart LR
+</pre></div>
+</div>
+</div></blockquote>
+<p>もしくは：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A-- text --&gt;B
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="dotted-link">
 <h3>Dotted link<a class="headerlink" href="#dotted-link" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR;
+<p>点線スタイルはしばしば採用したくなるので記法を覚えておく。ドットしか使わないわけではない。</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR;
    A-.-&gt;B;
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="dotted-link-with-text">
 <h3>Dotted link with text<a class="headerlink" href="#dotted-link-with-text" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<p>記憶しにくい記法だ：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
    A-. text .-&gt; B
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="thick-link">
 <h3>Thick link<a class="headerlink" href="#thick-link" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<p>太い線を描く場合には文字 <code class="docutils literal notranslate"><span class="pre">=</span></code> をつなげる。これは自然な記法だ。</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
    A ==&gt; B
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="thick-link-with-text">
 <h3>Thick link with text<a class="headerlink" href="#thick-link-with-text" title="Permalink to this heading">¶</a></h3>
-<div class="mermaid">
-            flowchart LR
+<p>こちらも自然：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
    A == text ==&gt; B
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="an-invisible-link">
+<h3>An invisible link<a class="headerlink" href="#an-invisible-link" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This can be a useful tool in some instances where you want to alter the default
+positioning of a node.</p>
+</div></blockquote>
+<p>昔のバージョンにはなかったリンクのスタイルだ。</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
+    A ~~~ B
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="chaining-of-links">
 <h3>Chaining of links<a class="headerlink" href="#chaining-of-links" title="Permalink to this heading">¶</a></h3>
-<p>It is possible declare many links in the same line as per below:</p>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><p>It is possible declare many links in the same line as per below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
    A -- text --&gt; B -- text2 --&gt; C
-        </div><p>It is also possible to declare multiple nodes links in the same line as per
-below:</p>
-<div class="mermaid">
-            flowchart LR
-   a --&gt; b &amp; c--&gt; d
-        </div><p>You can then describe dependencies in a very expressive way. Like the one-liner
-below:</p>
-<div class="mermaid">
-            flowchart TB
-    A &amp; B--&gt; C &amp; D
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Bash で <code class="docutils literal notranslate"><span class="pre">{A,B}{C,D}</span></code> を評価させるのに似ている。</p>
+</pre></div>
 </div>
-<p>If you describe the same diagram using the the basic syntax, it will take four
-lines. A word of warning, one could go overboard with this making the flowchart
-harder to read in markdown form. The Swedish word <code class="docutils literal notranslate"><span class="pre">lagom</span></code> comes to mind. It
-means, not too much and not too little. This goes for expressive syntaxes as
-well.</p>
-<div class="mermaid">
-            flowchart TB
-    A --&gt; C
-    A --&gt; D
-    B --&gt; C
-    B --&gt; D
-        </div></section>
+</div></blockquote>
+<p>人間にはエッジラベルとノードの見分けがすぐにはつかない。視認性がかなり悪い。</p>
+<blockquote>
+<div><p>It is also possible to declare multiple nodes links in the same line as per
+below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
+   a --&gt; b &amp; c--&gt; d
+</pre></div>
+</div>
+<p>You can then describe dependencies in a very expressive way. Like the
+one-liner below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart TB
+    A &amp; B--&gt; C &amp; D
+</pre></div>
+</div>
+</div></blockquote>
+<p>Bash における brace expansion, e.g. <code class="docutils literal notranslate"><span class="pre">{A,B}{C,D}</span></code> 等々に類似する記法か。</p>
+</section>
 <section id="new-arrow-types">
 <h3>New arrow types<a class="headerlink" href="#new-arrow-types" title="Permalink to this heading">¶</a></h3>
-<p>There are new types of arrows supported as per below:</p>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><p>There are new types of arrows supported as per below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A --o B
     B --x C
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p>ベタ塗り●とバツジルシ✕がそれぞれ終端にマークされる。</p>
+</section>
 <section id="multi-directional-arrows">
 <h3>Multi directional arrows<a class="headerlink" href="#multi-directional-arrows" title="Permalink to this heading">¶</a></h3>
-<p>There is the possibility to use multidirectional arrows.</p>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><p>There is the possibility to use multidirectional arrows.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A o--o B
     B &lt;--&gt; C
     C x--x D
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p>想像どおりの印が両端点に描画される。</p>
+</section>
 <section id="minimum-length-of-a-link">
 <h3>Minimum length of a link<a class="headerlink" href="#minimum-length-of-a-link" title="Permalink to this heading">¶</a></h3>
-<p>Each node in the flowchart is ultimately assigned to a rank in the rendered
-graph, i.e. to a vertical or horizontal level (depending on the flowchart
-orientation), based on the nodes to which it is linked. By default, links can
-span any number of ranks, but you can ask for any link to be longer than the
-others by adding extra dashes in the link definition.</p>
+<blockquote>
+<div><p>By default, links can span any number of ranks, but you can ask for any link to
+be longer than the others by adding extra dashes in the link definition.</p>
 <p>In the following example, two extra dashes are added in the link from node <em>B</em>
 to node <em>E</em>, so that it spans two more ranks than regular links:</p>
-<div class="mermaid">
-            flowchart TD
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart TD
     A[Start] --&gt; B{Is it?}
     B --&gt;|Yes| C[OK]
     C --&gt; D[Rethink]
     D --&gt; B
     B ----&gt;|No| E[End]
-        </div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Links may still be made longer than the requested number of ranks by
-the rendering engine to accommodate other requests.</p>
+</pre></div>
 </div>
-<p>When the link label is written in the middle of the link, the extra dashes must
+</div></blockquote>
+<p>これによりエッジ BE が長めに描画される。</p>
+<blockquote>
+<div><p>When the link label is written in the middle of the link, the extra dashes must
 be added on the right side of the link. The following example is equivalent to
 the previous one:</p>
-<div class="mermaid">
-            flowchart TD
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart TD
     A[Start] --&gt; B{Is it?}
     B -- Yes --&gt; C[OK]
     C --&gt; D[Rethink]
     D --&gt; B
     B -- No ----&gt; E[End]
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>リンクラベル <code class="docutils literal notranslate"><span class="pre">No</span></code> とノード <code class="docutils literal notranslate"><span class="pre">E</span></code> の間の部分を長くしろと言っている。</p>
+</pre></div>
 </div>
-<p>For dotted or thick links, the characters to add are equals signs or dots, as
+</div></blockquote>
+<p>ラベル <code class="docutils literal notranslate"><span class="pre">No</span></code> とノード <code class="docutils literal notranslate"><span class="pre">E</span></code> の間の部分を長くしろと言っている。</p>
+<blockquote>
+<div><p>For dotted or thick links, the characters to add are equals signs or dots, as
 summed up in the following table:</p>
 <table class="docutils align-default">
 <thead>
@@ -404,62 +415,61 @@ summed up in the following table:</p>
 </tr>
 </tbody>
 </table>
+</div></blockquote>
+<p>点線のときだけ注意すればいいだろう。中程を反復する。</p>
 </section>
 </section>
 <section id="special-characters-that-break-syntax">
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">Special characters that break syntax</a><a class="headerlink" href="#special-characters-that-break-syntax" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to put text within quotes in order to render more troublesome
-characters. As in the example below:</p>
-<div class="mermaid">
-            flowchart LR
-    id1[&quot;This is the (text) in the box&quot;]
-        </div><section id="entity-codes-to-escape-characters">
+<blockquote>
+<div><p>It is possible to put text within quotes in order to render more troublesome
+characters.</p>
+</div></blockquote>
+<p>怪しいノード形状を採用する場合には引用符を予防的に入れておくことにしよう。</p>
+<section id="entity-codes-to-escape-characters">
 <h3>Entity codes to escape characters<a class="headerlink" href="#entity-codes-to-escape-characters" title="Permalink to this heading">¶</a></h3>
-<p>It is possible to escape characters using the syntax exemplified here.</p>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><p>It is possible to escape characters using the syntax exemplified here.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A[&quot;A double quote:#quot;&quot;] --&gt;B[&quot;A dec char:#9829;&quot;]
-        </div><p>Numbers given are base 10, so <code class="docutils literal notranslate"><span class="pre">#</span></code> can be encoded as <code class="docutils literal notranslate"><span class="pre">#35;</span></code>. It is also
+</pre></div>
+</div>
+<p>Numbers given are base 10, so <code class="docutils literal notranslate"><span class="pre">#</span></code> can be encoded as <code class="docutils literal notranslate"><span class="pre">#35;</span></code>. It is also
 supported to use HTML character names.</p>
+</div></blockquote>
+<p>これは HTML 上で何かを表現するコードを規定するものにしては異例の仕様だと思う。
+<code class="docutils literal notranslate"><span class="pre">&amp;quot;</span></code> を不採用にする理由が何かあったはずだ。</p>
 </section>
 </section>
 <section id="subgraphs">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">Subgraphs</a><a class="headerlink" href="#subgraphs" title="Permalink to this heading">¶</a></h2>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>部分グラフの構文は次のとおりだ。</p>
-</div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>subgraph title
+<p>部分グラフの構文は次のとおりだ：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>subgraph title
     graph definition
 end
 </pre></div>
 </div>
-<p>An example below:</p>
-<div class="mermaid">
-            flowchart TB
-    c1--&gt;a2
-    subgraph one
-    a1--&gt;a2
-    end
-    subgraph two
-    b1--&gt;b2
-    end
-    subgraph three
-    c1--&gt;c2
-    end
-        </div><p>You can also set an explicit id for the subgraph.</p>
-<div class="mermaid">
-            flowchart TB
+</div></blockquote>
+<p>上記 <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">definition</span></code> 部分に Flowchat の中身の文法と同じコードが来る。</p>
+<blockquote>
+<div><p>You can also set an explicit id for the subgraph.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart TB
     c1--&gt;a2
     subgraph ide1 [one]
     a1--&gt;a2
     end
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p>こうすると部分グラフの描画領域に <code class="docutils literal notranslate"><span class="pre">one</span></code> というラベルテキストが描画される。</p>
+</section>
 <section id="flowcharts">
 <h2><a class="toc-backref" href="#id9" role="doc-backlink">flowcharts</a><a class="headerlink" href="#flowcharts" title="Permalink to this heading">¶</a></h2>
-<p>With the graphtype flowchart it is also possible to set edges to and from
+<blockquote>
+<div><p>With the graphtype flowchart it is also possible to set edges to and from
 subgraphs as in the flowchart below.</p>
-<div class="mermaid">
+<div align="center" class="mermaid align-center">
             flowchart TB
     c1--&gt;a2
     subgraph one
@@ -474,61 +484,100 @@ subgraphs as in the flowchart below.</p>
     one --&gt; two
     three --&gt; two
     two --&gt; c2
-        </div></section>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flowchart</span> <span class="n">TB</span>
+    <span class="n">c1</span><span class="o">--&gt;</span><span class="n">a2</span>
+    <span class="n">subgraph</span> <span class="n">one</span>
+    <span class="n">a1</span><span class="o">--&gt;</span><span class="n">a2</span>
+    <span class="n">end</span>
+    <span class="n">subgraph</span> <span class="n">two</span>
+    <span class="n">b1</span><span class="o">--&gt;</span><span class="n">b2</span>
+    <span class="n">end</span>
+    <span class="n">subgraph</span> <span class="n">three</span>
+    <span class="n">c1</span><span class="o">--&gt;</span><span class="n">c2</span>
+    <span class="n">end</span>
+    <span class="n">one</span> <span class="o">--&gt;</span> <span class="n">two</span>
+    <span class="n">three</span> <span class="o">--&gt;</span> <span class="n">two</span>
+    <span class="n">two</span> <span class="o">--&gt;</span> <span class="n">c2</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>エッジの端点がノードではなく部分グラフ領域に接することが可能だということだ。最後の三つのエッジがその例になっている。</p>
+</section>
 <section id="direction-in-subgraphs">
 <h2><a class="toc-backref" href="#id10" role="doc-backlink">Direction in subgraphs</a><a class="headerlink" href="#direction-in-subgraphs" title="Permalink to this heading">¶</a></h2>
-<p>With the graphtype flowcharts you can use the direction statement to set the
+<blockquote>
+<div><p>With the graphtype flowcharts you can use the direction statement to set the
 direction which the subgraph will render like in this example.</p>
-<div class="mermaid">
-            flowchart LR
-  subgraph TOP
-    direction TB
-    subgraph B1
-        direction RL
-        i1 --&gt;f1
-    end
-    subgraph B2
-        direction BT
-        i2 --&gt;f2
-    end
-  end
-  A --&gt; TOP --&gt; B
-  B1 --&gt; B2
-        </div></section>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">LR</span></code> などの方向指定を部分グラフ間でも可能ではあるのだが、グラフ描画エンジンはその指定すべてを達成することができない場合には遠慮せずに無視するようだ。</p>
+</section>
+<section id="markdown-strings">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Markdown Strings</a><a class="headerlink" href="#markdown-strings" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>The “Markdown Strings” feature enhances flowcharts and mind maps by offering a
+more versatile string type, which supports text formatting options such as bold
+and italics, and automatically wraps text within labels.</p>
+</div></blockquote>
+<p>これは最近のバージョンで追加された機能だ。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;flowchart&quot;: {&quot;htmlLabels&quot;: false}} }%%
+flowchart LR
+subgraph &quot;One&quot;
+  a(&quot;`The **cat**
+  in the hat`&quot;) -- &quot;edge label&quot; --&gt; b{{&quot;`The **dog** in the hog`&quot;}}
+end
+subgraph &quot;`**Two**`&quot;
+  c(&quot;`The **cat**
+  in the hat`&quot;) -- &quot;`Bold **edge label**`&quot; --&gt; d(&quot;The dog in the hog&quot;)
+end
+</pre></div>
+</div>
+<p>こんなふうに初期化時設定さえあれば Markdown のインライン装飾文字が使える。</p>
+<blockquote>
+<div><p>This feature is applicable to node labels, edge labels, and subgraph labels.</p>
+</div></blockquote>
+<p>Flowchart 本体のほとんどのテキストで適用可能ということだ。</p>
+</section>
 <section id="interaction">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">Interaction</a><a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to bind a click event to a node, the click can lead to either a
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Interaction</a><a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>It is possible to bind a click event to a node, the click can lead to either a
 javascript callback or to a link which will be opened in a new browser tab.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This functionality is disabled when using <code class="docutils literal notranslate"><span class="pre">securityLevel='strict'</span></code>
 and enabled when using <code class="docutils literal notranslate"><span class="pre">securityLevel='loose'</span></code>.</p>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>click nodeId callback
+</div></blockquote>
+<p>Markdown 設定により Flowchart ノードに対してはクリックイベントを実装することができる。</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>click nodeId callback
 click nodeId call callback()
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>nodeId is the id of the node</p></li>
-<li><p>callback is the name of a javascript function defined on the page displaying
-the graph, the function will be called with the nodeId as parameter.</p></li>
+</div></blockquote>
+<p>このようなコード片を Flowchart に追加して、クリックイベントを <code class="docutils literal notranslate"><span class="pre">callback</span></code> に処理させる。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nodeId</span></code> is the id of the node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">callback</span></code> is the name of a javascript function defined on the page
+displaying the graph, the function will be called with the <code class="docutils literal notranslate"><span class="pre">nodeId</span></code> as
+parameter.</p></li>
 </ul>
-<p>Examples of tooltip usage below:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span>
-<span class="w">      </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;A callback was triggered&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
+</div></blockquote>
+<p>イベントハンドラーは Markdown コードの外部に別途実装する：</p>
+<blockquote>
+<div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;A callback was triggered&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>モダンな JavaScript コードを書いても問題ない。</p>
-</div>
 <p>The tooltip text is surrounded in double quotes. The styles of the tooltip are
 set by the class <code class="docutils literal notranslate"><span class="pre">.mermaidTooltip</span></code>.</p>
-<div class="mermaid">
-            flowchart LR
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A--&gt;B
     B--&gt;C
     C--&gt;D
@@ -536,19 +585,15 @@ set by the class <code class="docutils literal notranslate"><span class="pre">.m
     click B &quot;http://www.github.com&quot; &quot;This is a tooltip for a link&quot;
     click A call callback() &quot;Tooltip for a callback&quot;
     click B href &quot;http://www.github.com&quot; &quot;This is a tooltip for a link&quot;
-        </div><div class="admonition-success admonition">
-<p class="admonition-title">Success</p>
-<p>The tooltip functionality and the ability to link to urls are
-available from version 0.5.2.</p>
+</pre></div>
 </div>
-<p>Due to limitations with how Docsify handles JavaScript callback functions, an
-alternate working demo for the above code can be viewed at <a class="reference external" href="https://jsfiddle.net/s37cjoau/3/">this
-jsfiddle</a>.</p>
-<p>Links are opened in the same browser tab/window by default. It is possible to
+</div></blockquote>
+<p>ツールチップ表示も URL ジャンプも有用だ。前者はクリックイベントというよりマウスオーバーで表示される。公式 Live Editor では発動しない。</p>
+<blockquote>
+<div><p>Links are opened in the same browser tab/window by default. It is possible to
 change this by adding a link target to the click definition (<code class="docutils literal notranslate"><span class="pre">_self</span></code>,
 <code class="docutils literal notranslate"><span class="pre">_blank</span></code>, <code class="docutils literal notranslate"><span class="pre">_parent</span></code> and <code class="docutils literal notranslate"><span class="pre">_top</span></code> are supported):</p>
-<div class="mermaid">
-            flowchart LR
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A--&gt;B
     B--&gt;C
     C--&gt;D
@@ -557,85 +602,91 @@ change this by adding a link target to the click definition (<code class="docuti
     click B &quot;http://www.github.com&quot; &quot;Open this in a new tab&quot; _blank
     click C href &quot;http://www.github.com&quot; _blank
     click D href &quot;http://www.github.com&quot; &quot;Open this in a new tab&quot; _blank
-        </div><p>Beginners tip, a full example using interactive links in a html context:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;mermaid&quot;</span><span class="p">&gt;</span>
-    flowchart LR
-        A--&gt;B
-        B--&gt;C
-        C--&gt;D
-        click A callback &quot;Tooltip&quot;
-        click B &quot;http://www.github.com&quot; &quot;This is a link&quot;
-        click C call callback() &quot;Tooltip&quot;
-        click D href &quot;http://www.github.com&quot; &quot;This is a link&quot;
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span>
-<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;A callback was triggered&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">flowchart</span><span class="o">:</span><span class="p">{</span>
-<span class="w">            </span><span class="nx">useMaxWidth</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nx">htmlLabels</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nx">curve</span><span class="o">:</span><span class="s1">&#39;cardinal&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nx">securityLevel</span><span class="o">:</span><span class="s1">&#39;loose&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
-<span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>環境によっては対話的操作が制限される。例えば VS Code の Markdown Preview
-Mermaid Support ではツールチップは表示されない。</p>
+</div></blockquote>
+<p>初心者向けコード例のうち、設定部分を引用する：</p>
+<blockquote>
+<div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;A callback was triggered&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">flowchart</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useMaxWidth</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">htmlLabels</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">curve</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cardinal&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">securityLevel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;loose&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
 </div>
+</div></blockquote>
 <section id="comments">
 <h3>Comments<a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h3>
-<p>Comments can be entered within a flow diagram, which will be ignored by the
-parser. Comments need to be on their own line, and must be prefaced with <code class="docutils literal notranslate"><span class="pre">%%</span></code>
-(double percent signs). Any text after the start of the comment to the next
-newline will be treated as a comment, including any flow syntax</p>
-<div class="mermaid">
-            flowchart LR
+<blockquote>
+<div><p>Comments need to be on their own line, and must be prefaced with <code class="docutils literal notranslate"><span class="pre">%%</span></code>
+(double percent signs).</p>
+</div></blockquote>
+<p>コメントは一行丸々を必要とすることに注意。コード行末にコメントすることはできない。</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
 %% this is a comment A -- text --&gt; B{node}
    A -- text --&gt; B -- text2 --&gt; C
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 </section>
 <section id="styling-and-classes">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">Styling and classes</a><a class="headerlink" href="#styling-and-classes" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Styling and classes</a><a class="headerlink" href="#styling-and-classes" title="Permalink to this heading">¶</a></h2>
 <section id="styling-links">
 <h3>Styling links<a class="headerlink" href="#styling-links" title="Permalink to this heading">¶</a></h3>
-<p>It is possible to style links. For instance you might want to style a link that
-is going backwards in the flow. As links have no ids in the same way as nodes,
-some other way of deciding what style the links should be attached to is
-required. Instead of ids, the order number of when the link was defined in the
-graph is used. In the example below the style defined in the linkStyle statement
-will belong to the fourth link in the graph:</p>
+<blockquote>
+<div><p>It is possible to style links. For instance you might want to style a link
+that is going backwards in the flow. As links have no ids in the same way as
+nodes, some other way of deciding what style the links should be attached to
+is required. Instead of ids, the order number of when the link was defined in
+the graph is used. In the example below the style defined in the <code class="docutils literal notranslate"><span class="pre">linkStyle</span></code>
+statement will belong to the fourth link in the graph:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>linkStyle 3 stroke:#ff3,stroke-width:4px,color:red;
 </pre></div>
 </div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>リンクには ID の概念がないので、指定するには定義順による。順序数をゼロから数えるものとする。</p>
+</div></blockquote>
+<p>エッジには ID の概念がないので、指定するにはその定義順を用いる。順序数をゼロから数えるものとする。</p>
+</section>
+<section id="styling-line-curves">
+<h3>Styling line curves<a class="headerlink" href="#styling-line-curves" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>It is possible to style the type of curve used for lines between items, if the
+default method does not meet your needs.</p>
+</div></blockquote>
+<p>エッジの曲線的形状を指定する術があり、次のような設定により有効になる：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%%{ init: { &#39;flowchart&#39;: { &#39;curve&#39;: &#39;stepBefore&#39; } } }%%
+</pre></div>
 </div>
+<p>For a full list of available curves, including an explanation of custom curves,
+refer to the <a class="reference external" href="https://github.com/d3/d3-shape/blob/main/README.md#curves">Shapes</a>
+documentation in the d3-shape project.</p>
+</div></blockquote>
+<p>こちらの JavaScript ライブラリーはモデリングソフト開発経験者としては興味深い。</p>
 </section>
 <section id="styling-a-node">
 <h3>Styling a node<a class="headerlink" href="#styling-a-node" title="Permalink to this heading">¶</a></h3>
-<p>It is possible to apply specific styles such as a thicker border or a different
+<blockquote>
+<div><p>It is possible to apply specific styles such as a thicker border or a different
 background color to a node.</p>
-<div class="mermaid">
-            flowchart LR
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     id1(Start)--&gt;id2(Stop)
     style id1 fill:#f9f,stroke:#333,stroke-width:4px
     style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
-        </div><section id="classes">
-<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h4>
-<p>More convenient than defining the style every time is to define a class of
+</pre></div>
+</div>
+</div></blockquote>
+<p>この仕様は紛れがない。</p>
+<p>次に、ノードそれぞれに対してスタイルを与えるというよりは、スタイルを先に定義して、ノードがどのスタイルを持つのかを決めるという方法を述べる。</p>
+<blockquote>
+<div><p>More convenient than defining the style every time is to define a class of
 styles and attach this class to the nodes that should have a different look.</p>
 <p>A class definition looks like the example below:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDef className fill:#f9f,stroke:#333,stroke-width:4px;
@@ -645,28 +696,29 @@ styles and attach this class to the nodes that should have a different look.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>class nodeId1 className;
 </pre></div>
 </div>
-<p>It is also possible to attach a class to a list of nodes in one statement:</p>
+</div></blockquote>
+<p>スタイル定義を先に行い、ノードに対してスタイルを指定するという方法だ。これにより、異なるノードが同じスタイルをコードの複製なしに共有することができる。</p>
+<blockquote>
+<div><p>It is also possible to attach a class to a list of nodes in one statement:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>class nodeId1,nodeId2 className;
 </pre></div>
 </div>
-<p>A shorter form of adding a class is to attach the classname to the node using
-the <code class="docutils literal notranslate"><span class="pre">:::</span></code> operator as per below:</p>
-<div class="mermaid">
-            flowchart LR
+</div></blockquote>
+<p>この方式ではノードスタイルをグラフ定義コードでインラインで指定する記法もある：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A:::someclass --&gt; B
     classDef someclass fill:#f96;
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>クラス名がコロンの後に来るので違和感がある。</p>
+</pre></div>
 </div>
-</section>
+</div></blockquote>
+<p>クラス名がコロンの後に来るので違和感がある。</p>
 </section>
 <section id="css-classes">
 <h3>CSS classes<a class="headerlink" href="#css-classes" title="Permalink to this heading">¶</a></h3>
-<p>It is also possible to predefine classes in css styles that can be applied from
+<blockquote>
+<div><p>It is also possible to predefine classes in css styles that can be applied from
 the graph definition as in the example below:</p>
-<section id="example-style">
-<h4>Example style<a class="headerlink" href="#example-style" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
 <span class="w">    </span><span class="p">.</span><span class="nc">cssClass</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">rect</span><span class="p">{</span>
 <span class="w">        </span><span class="k">fill</span><span class="p">:</span><span class="mh">#FF0000</span><span class="p">;</span>
@@ -676,77 +728,93 @@ the graph definition as in the example below:</p>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-</section>
-<section id="example-definition">
-<h4>Example definition<a class="headerlink" href="#example-definition" title="Permalink to this heading">¶</a></h4>
-<div class="mermaid">
-            flowchart LR;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart LR
     A--&gt;B[AAA&lt;span&gt;BBB&lt;/span&gt;]
     B--&gt;D
     class A cssClass
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><code class="docutils literal notranslate"><span class="pre">span</span></code> タグが活きていない？</p>
+</pre></div>
 </div>
-</section>
+</div></blockquote>
+<p>手順としては、先に CSS 側にスタイル規則を決める。次に Flowchart 側で規則名称をスタイル定義の代わりに書く。</p>
+<p>Flowchart 例の <code class="docutils literal notranslate"><span class="pre">span</span></code> タグに意味はあるのか？</p>
 </section>
 <section id="default-class">
 <h3>Default class<a class="headerlink" href="#default-class" title="Permalink to this heading">¶</a></h3>
-<p>If a class is named default it will be assigned to all classes without specific
-class definitions.</p>
+<blockquote>
+<div><p>If a class is named <code class="docutils literal notranslate"><span class="pre">default</span></code> it will be assigned to all classes without
+specific class definitions.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDef default fill:#f9f,stroke:#333,stroke-width:4px;
 </pre></div>
 </div>
+</div></blockquote>
+<p>図式が一つしかない場合にこの使い方が最も多く用いられると思われる。複数ある場合には外部 CSS ファイルの手法を採用したい。</p>
 </section>
 </section>
 <section id="basic-support-for-fontawesome">
-<h2><a class="toc-backref" href="#id13" role="doc-backlink">Basic support for fontawesome</a><a class="headerlink" href="#basic-support-for-fontawesome" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to add icons from fontawesome.</p>
-<p>The icons are accessed via the syntax <cite>fa:#icon class name#</cite>.</p>
-<div class="mermaid">
-            flowchart TD
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Basic support for fontawesome</a><a class="headerlink" href="#basic-support-for-fontawesome" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>It is possible to add icons from fontawesome.</p>
+<p>The icons are accessed via the syntax <code class="docutils literal notranslate"><span class="pre">fa:#icon</span> <span class="pre">class</span> <span class="pre">name#</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>flowchart TD
     B[&quot;fa:fa-twitter for peace&quot;]
     B--&gt;C[fa:fa-ban forbidden]
     B--&gt;D(fa:fa-spinner);
     B--&gt;E(A fa:fa-camera-retro perhaps?)
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><a class="reference external" href="https://fontawesome.com/">Font Awesome</a> のことは深入りしないことにする。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>Oh My Posh で見られるような特殊記号のためのフォントをどう得るのかが不明。
+<a class="reference external" href="https://fontawesome.com/">Font Awesome</a> をどうにかするのだろうが。</p>
 </section>
 <section id="graph-declarations-with-spaces-between-vertices-and-link-and-without-semicolon">
-<h2><a class="toc-backref" href="#id14" role="doc-backlink">Graph declarations with spaces between vertices and link and without semicolon</a><a class="headerlink" href="#graph-declarations-with-spaces-between-vertices-and-link-and-without-semicolon" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Graph declarations with spaces between vertices and link and without semicolon</a><a class="headerlink" href="#graph-declarations-with-spaces-between-vertices-and-link-and-without-semicolon" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
 <li><p>In graph declarations, the statements also can now end without a semicolon.
 After release 0.2.16, ending a graph statement with semicolon is just
 optional. So the below graph declaration is also valid along with the old
 declarations of the graph.</p></li>
-<li><p>A single space is allowed between vertices and the link. However there should
-not be any space between a vertex and its text and a link and its text. The
-old syntax of graph declaration will also work and hence this new feature is
-optional and is introduced to improve readability.</p></li>
+<li><p>A single space is allowed between vertices and the link. However there
+should not be any space between a vertex and its text and a link and its
+text. The old syntax of graph declaration will also work and hence this new
+feature is optional and is introduced to improve readability.</p></li>
 </ul>
-<p>Below is the new declaration of the graph edges which is also valid along with
-the old declaration of the graph edges.</p>
-<div class="mermaid">
-            flowchart LR
-    A[Hard edge] --&gt;|Link text| B(Round edge)
-    B --&gt; C{Decision}
-    C --&gt;|One| D[Result one]
-    C --&gt;|Two| E[Result two]
-        </div></section>
+</div></blockquote>
+<p>空白文字を下手に入れるのは有害である可能性があることを覚えておく。</p>
+</section>
 <section id="configuration">
-<h2><a class="toc-backref" href="#id15" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
-<p>Is it possible to adjust the width of the rendered flowchart.</p>
-<p>This is done by defining <strong>mermaid.flowchartConfig</strong> or by the CLI to use a json
-file with the configuration. How to use the CLI is described in the mermaidCLI
-page. mermaid.flowchartConfig can be set to a JSON string with config parameters
-or the corresponding object.</p>
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<section id="renderer">
+<h3>Renderer<a class="headerlink" href="#renderer" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Starting with Mermaid version 9.4, you can use an alternate renderer named elk.
+The elk renderer is better for larger and/or more complex diagrams.</p>
+<p>The elk renderer is an experimenal feature. You can change the renderer to elk
+by adding this directive:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;flowchart&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+</pre></div>
+</div>
+<p>Note that the site needs to use mermaid version 9.4+ for this to work and have
+this featured enabled in the lazy-loading configuration.</p>
+</div></blockquote>
+<p>Mermaid の遅延ロードの手法はどこに記載があったか？</p>
+</section>
+<section id="width">
+<h3>Width<a class="headerlink" href="#width" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Is it possible to adjust the width of the rendered flowchart.</p>
+<p>This is done by defining <code class="docutils literal notranslate"><span class="pre">mermaid.flowchartConfig</span></code> or by the CLI to use a
+json file with the configuration. How to use the CLI is described in the
+mermaidCLI page. <code class="docutils literal notranslate"><span class="pre">mermaid.flowchartConfig</span></code> can be set to a JSON string with
+config parameters or the corresponding object.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">flowchartConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="o">%</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div></blockquote>
+<p>Mermaid の描画は SVG のようなものなので、ブラウザーのウィンドウを拡縮すると描画も自然に拡縮される。したがって、ブロック要素の図式ならば 100 パーにしておくのはありだろう。</p>
+</section>
 </section>
 </section>
 

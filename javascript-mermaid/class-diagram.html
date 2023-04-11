@@ -48,10 +48,6 @@
             
   <section id="class-diagrams">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">Class diagrams</a><a class="headerlink" href="#class-diagrams" title="Permalink to this heading">¶</a></h1>
-<p>《In software engineering, a class diagram in the Unified Modeling Language
-(UML) is a type of static structure diagram that describes the structure of a
-system by showing the system’s classes, their attributes, operations (or
-methods), and the relationships among objects.》 (<a class="reference external" href="https://en.wikipedia.org/wiki/Class_diagram">Wikipedia</a>)</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -70,24 +66,20 @@ methods), and the relationships among objects.》 (<a class="reference external"
 </li>
 </ul>
 </nav>
-<p>The class diagram is the main building block of object-oriented modeling. It is
-used for general conceptual modeling of the structure of the application, and
-for detailed modeling translating the models into programming code. Class
-diagrams can also be used for data modeling. The classes in a class diagram
-represent both the main elements, interactions in the application, and the
-classes to be programmed.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>UML におけるクラス図の定義だが、いちおう確認する。</p>
-</div>
-<p>Mermaid can render class diagrams.</p>
-<div class="mermaid">
-            classDiagram
+<blockquote>
+<div><p>Mermaid can render class diagrams.</p>
+<div align="center" class="mermaid align-center">
+            ---
+title: Animal example
+---
+classDiagram
+    note &quot;From Duck till Zebra&quot;
     Animal &lt;|-- Duck
+    note for Duck &quot;can fly\ncan swim\ncan dive\ncan help in debugging&quot;
     Animal &lt;|-- Fish
     Animal &lt;|-- Zebra
-    Animal : +int age
-    Animal : +String gender
+    Animal: +int age
+    Animal: +String gender
     Animal: +isMammal()
     Animal: +mate()
     class Duck{
@@ -103,146 +95,184 @@ classes to be programmed.</p>
         +bool is_wild
         +run()
     }
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>この図式からクラス名、属性、操作、クラス同士の派生関係が読み取れる。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="n">title</span><span class="p">:</span> <span class="n">Animal</span> <span class="n">example</span>
+<span class="o">---</span>
+<span class="n">classDiagram</span>
+    <span class="n">note</span> <span class="s2">&quot;From Duck till Zebra&quot;</span>
+    <span class="n">Animal</span> <span class="o">&lt;|--</span> <span class="n">Duck</span>
+    <span class="n">note</span> <span class="k">for</span> <span class="n">Duck</span> <span class="s2">&quot;can fly</span><span class="se">\n</span><span class="s2">can swim</span><span class="se">\n</span><span class="s2">can dive</span><span class="se">\n</span><span class="s2">can help in debugging&quot;</span>
+    <span class="n">Animal</span> <span class="o">&lt;|--</span> <span class="n">Fish</span>
+    <span class="n">Animal</span> <span class="o">&lt;|--</span> <span class="n">Zebra</span>
+    <span class="n">Animal</span><span class="p">:</span> <span class="o">+</span><span class="nb">int</span> <span class="n">age</span>
+    <span class="n">Animal</span><span class="p">:</span> <span class="o">+</span><span class="n">String</span> <span class="n">gender</span>
+    <span class="n">Animal</span><span class="p">:</span> <span class="o">+</span><span class="n">isMammal</span><span class="p">()</span>
+    <span class="n">Animal</span><span class="p">:</span> <span class="o">+</span><span class="n">mate</span><span class="p">()</span>
+    <span class="k">class</span> <span class="nc">Duck</span><span class="p">{</span>
+        <span class="o">+</span><span class="n">String</span> <span class="n">beakColor</span>
+        <span class="o">+</span><span class="n">swim</span><span class="p">()</span>
+        <span class="o">+</span><span class="n">quack</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Fish</span><span class="p">{</span>
+        <span class="o">-</span><span class="nb">int</span> <span class="n">sizeInFeet</span>
+        <span class="o">-</span><span class="n">canEat</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Zebra</span><span class="p">{</span>
+        <span class="o">+</span><span class="nb">bool</span> <span class="n">is_wild</span>
+        <span class="o">+</span><span class="n">run</span><span class="p">()</span>
+    <span class="p">}</span>
+</pre></div>
 </div>
+</div></blockquote>
 <section id="syntax">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">Syntax</a><a class="headerlink" href="#syntax" title="Permalink to this heading">¶</a></h2>
 <section id="class">
 <h3>Class<a class="headerlink" href="#class" title="Permalink to this heading">¶</a></h3>
-<p>UML provides mechanisms to represent class members, such as attributes and
-methods, and additional information about them. A single instance of a class in
-the diagram contains three compartments:</p>
+<p>まず、クラス部分の描画構成について述べている。</p>
+<blockquote>
+<div><p>A single instance of a class in the diagram contains three compartments:</p>
 <ul class="simple">
-<li><p>The top compartment contains the name of the class. It is printed in bold and
-centered, and the first letter is capitalized. It may also contain optional
-annotation text describing the nature of the class.</p></li>
+<li><p>The top compartment contains the name of the class. It is printed in bold
+and centered, and the first letter is capitalized. It may also contain
+optional annotation text describing the nature of the class.</p></li>
 <li><p>The middle compartment contains the attributes of the class. They are
 left-aligned and the first letter is lowercase.</p></li>
-<li><p>The bottom compartment contains the operations the class can execute. They are
-also left-aligned and the first letter is lowercase.</p></li>
+<li><p>The bottom compartment contains the operations the class can execute. They
+are also left-aligned and the first letter is lowercase.</p></li>
 </ul>
-<div class="mermaid">
-            classDiagram
+</div></blockquote>
+<p>クラスノードの中が区画三つで垂直に分割されていて、それらは上からクラス名、属性リスト、操作リストを含む。テキストのスタイルはある程度固定されている。</p>
+<p>次のように <code class="docutils literal notranslate"><span class="pre">classDiagram</span></code> 行でクラス図を宣言する。これはクラス一つを含む。</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>---
+title: Bank example
+---
+classDiagram
     class BankAccount
     BankAccount : +String owner
     BankAccount : +Bigdecimal balance
     BankAccount : +deposit(amount)
     BankAccount : +withdrawl(amount)
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>UML の仕様どおりに描かれているということだ。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>タイトルはあってもなくても構わない。</p>
 </section>
 <section id="define-a-class">
 <h3>Define a class<a class="headerlink" href="#define-a-class" title="Permalink to this heading">¶</a></h3>
-<p>There are two ways to define a class:</p>
+<blockquote>
+<div><p>There are two ways to define a class:</p>
 <ul class="simple">
-<li><p>Explicitly defining a class using keyword <strong>class</strong> like <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">Animal</span></code>.
-This defines the Animal class.</p></li>
-<li><p>Define two classes via a <strong>relationship</strong> between them <code class="docutils literal notranslate"><span class="pre">Vehicle</span> <span class="pre">&lt;|--</span> <span class="pre">Car</span></code>.
-This defines two classes Vehicle and Car along with their relationship.</p></li>
+<li><p>Explicitly using keyword <code class="docutils literal notranslate"><span class="pre">class</span></code> like <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">Animal</span></code> which would define
+the <code class="docutils literal notranslate"><span class="pre">Animal</span></code> class.</p></li>
+<li><p>Via a relationship which defines two classes at a time along with their
+relationship. For instance, <code class="docutils literal notranslate"><span class="pre">Vehicle</span> <span class="pre">&lt;|--</span> <span class="pre">Car</span></code>.</p></li>
 </ul>
-<div class="mermaid">
-            classDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
     class Animal
     Vehicle &lt;|-- Car
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
+</pre></div>
+</div>
+</div></blockquote>
 <p>第二の定義法はクラス二つをその関連と同時に定義すると取れる。</p>
-</div>
-<p>Naming convention: a class name should be composed of alphanumeric (unicode
-allowed) and underscore characters.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
+<blockquote>
+<div><p>Naming convention: a class name should be composed only of alphanumeric
+characters (including unicode), and underscores.</p>
+</div></blockquote>
 <p>SHOULD であって MUST ではないことに注意。</p>
+<section id="class-labels">
+<h4>Class labels<a class="headerlink" href="#class-labels" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>In case you need to provide a label for a class, you can use the following syntax:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
+    class Animal[&quot;Animal with a label&quot;]
+    class Car[&quot;Car with *! symbols&quot;]
+    Animal --&gt; Car
+</pre></div>
 </div>
+<p>You can also use backticks to escape special characters in the label:</p>
+</div></blockquote>
+<p>この構文はクラス図を模式的に用いるときに使えるか。</p>
+</section>
 </section>
 <section id="defining-members-of-a-class">
 <h3>Defining Members of a class<a class="headerlink" href="#defining-members-of-a-class" title="Permalink to this heading">¶</a></h3>
-<p>UML provides mechanisms to represent class members, such as attributes and
-methods, and additional information about them.</p>
-<p>Mermaid distinguishes between attributes and functions/methods based on if the
-<strong>parenthesis</strong> <code class="docutils literal notranslate"><span class="pre">()</span></code> are present or not. The ones with <code class="docutils literal notranslate"><span class="pre">()</span></code> are treated as
-functions/methods, and others as attributes.</p>
-<p>There are two ways to define the members of a class, and regardless of whichever
-syntax is used to define the members, the output will still be same. The two
-different ways are:</p>
-<ul class="simple">
-<li><p>Associate a member of a class using <strong>:</strong> (colon) followed by member name,
-useful to define one member at a time. For example:</p></li>
-</ul>
-<div class="mermaid">
-            classDiagram
+<blockquote>
+<div><p>Mermaid distinguishes between attributes and functions/methods based on if the
+parenthesis <code class="docutils literal notranslate"><span class="pre">()</span></code> are present or not. The ones with <code class="docutils literal notranslate"><span class="pre">()</span></code> are treated as
+functions/methods, and all others as attributes.</p>
+<p>There are two ways to define the members of a class, and regardless of
+whichever syntax is used to define the members, the output will still be same.
+The two different ways are:</p>
+<ul>
+<li><p>Associate a member of a class using <code class="docutils literal notranslate"><span class="pre">:</span></code> (colon) followed by member name,
+useful to define one member at a time. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
     class BankAccount
     BankAccount : +String owner
     BankAccount : +BigDecimal balance
     BankAccount : +deposit(amount)
     BankAccount : +withdrawal(amount)
-        </div><ul class="simple">
-<li><p>Associate members of a class using <strong>{}</strong> brackets, where members are grouped
-within curly brackets. Suitable for defining multiple members at once. For
-example:</p></li>
-</ul>
-<div class="mermaid">
-            classDiagram
+</pre></div>
+</div>
+</li>
+<li><p>Associate members of a class using <code class="docutils literal notranslate"><span class="pre">{}</span></code> brackets, where members are
+grouped within curly brackets. Suitable for defining multiple members at
+once. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
 class BankAccount{
     +String owner
     +BigDecimal balance
     +deposit(amount)
     +withdrawl(amount)
 }
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>後者の記法のほうがコード量が少なくて済む。あと、インデントをどうするかは取り決めた方がいい。</p>
+</pre></div>
 </div>
+</li>
+</ul>
+</div></blockquote>
+<p>後者の記法のほうがコード量が少なくて済む。あと、インデントをどうするかは取り決めた方がいい。</p>
 <section id="return-type">
 <h4>Return Type<a class="headerlink" href="#return-type" title="Permalink to this heading">¶</a></h4>
-<p>Optionally you can end the method/function definition with the data type that
-will be returned (note: there must be a space between the final <code class="docutils literal notranslate"><span class="pre">)</span></code> of the
-method definition and return type</p>
-<p>example:</p>
-<div class="mermaid">
-            classDiagram
-class BankAccount{
-    +String owner
-    +BigDecimal balance
-    +deposit(amount) bool
-    +withdrawl(amount) int
-}
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
+<blockquote>
+<div><p>Optionally you can end a method/function definition with the data type that
+will be returned (note: there must be a space between the final <code class="docutils literal notranslate"><span class="pre">)</span></code> and the
+return type).</p>
+</div></blockquote>
 <p>戻り値の言明はオプショナル。</p>
-</div>
 </section>
 <section id="generic-types">
 <h4>Generic Types<a class="headerlink" href="#generic-types" title="Permalink to this heading">¶</a></h4>
-<p>Members can be defined using generic types, such as <code class="docutils literal notranslate"><span class="pre">List&lt;int&gt;</span></code>, for fields,
-parameters and return types by enclosing the type within <code class="docutils literal notranslate"><span class="pre">~</span></code> (<strong>tilde</strong>).
-Note: <strong>nested</strong> type declarations (such as <code class="docutils literal notranslate"><span class="pre">List&lt;List&lt;int&gt;&gt;</span></code>) are not
-currently supported.</p>
-<p>This can be done as part of either class definition method:</p>
-<div class="mermaid">
-            classDiagram
-class Square~Shape~{
-    int id
-    List~int~ position
-    setPoints(List~int~ points)
-    getPoints() List~int~
-}
+<blockquote>
+<div><p>Members can be defined using generic types, such as <code class="docutils literal notranslate"><span class="pre">List&lt;int&gt;</span></code>, for fields,
+parameters, and return types by enclosing the type within <code class="docutils literal notranslate"><span class="pre">~</span></code> (tilde).
+Nested type declarations such as <code class="docutils literal notranslate"><span class="pre">List&lt;List&lt;int&gt;&gt;</span></code> are supported.</p>
+<p>Generics can be represented as part of a class definition and also in the
+parameters or the return value of a method/function:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
+  class Square~Shape~{
+      int id
+      List~int~ position
+      setPoints(List~int~ points)
+      getPoints() List~int~
+  }
 
-Square : -List~string~ messages
-Square : +setMessages(List~string~ messages)
-Square : +getMessages() List~string~
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>完全ではないが、C++ でいうクラステンプレートを対応している。プログラミング言語によっては上記の対応で事足りるのだろう。</p>
+  Square : -List~string~ messages
+  Square : +setMessages(List~string~ messages)
+  Square : +getMessages() List~string~
+  Square : +getDistanceMatrix() List~List~int~~
+</pre></div>
 </div>
+</div></blockquote>
+<p>完全ではないが、C++ でいうクラステンプレートを対応している。プログラミング言語によっては上記の対応で事足りるのだろう。</p>
 </section>
 <section id="visibility">
 <h4>Visibility<a class="headerlink" href="#visibility" title="Permalink to this heading">¶</a></h4>
-<p>To specify the visibility of a class member (i.e. any attribute or method),
+<p>UML 準拠の記号が使える：</p>
+<blockquote>
+<div><p>To specify the visibility of a class member (i.e. any attribute or method),
 these notations may be placed before the member’s name, but it is optional:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> Public</p></li>
@@ -250,39 +280,31 @@ these notations may be placed before the member’s name, but it is optional:</p
 <li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> Protected</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> Package/Internal</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can also include additional <em>classifiers</em> to a method definition
-by adding the following notations to the end of the method, i.e.: after the
-<code class="docutils literal notranslate"><span class="pre">()</span></code>:</p>
+</div></blockquote>
+<p>抽象メソッド、静的メソッドの表現方法は次のようにする。後者の記法はフィールドにも適用可能：</p>
+<blockquote>
+<div><p>You can also include additional <em>classifiers</em> to a method definition by adding
+the following notations to the end of the method, i.e.: after the <code class="docutils literal notranslate"><span class="pre">()</span></code>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> Abstract e.g.: <code class="docutils literal notranslate"><span class="pre">someAbstractMethod()*</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$</span></code> Static e.g.: <code class="docutils literal notranslate"><span class="pre">someStaticMethod()$</span></code></p></li>
 </ul>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can also include additional <em>classifiers</em> to a field definition by
-adding the following notations to the end of the field name:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">$</span></code> Static e.g.: <code class="docutils literal notranslate"><span class="pre">String</span> <span class="pre">someField$</span></code></p></li>
-</ul>
-</div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>抽象メソッドを表現したいことはあるかもしれない。</p>
-</div>
+</div></blockquote>
 </section>
 </section>
 </section>
 <section id="defining-relationship">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">Defining Relationship</a><a class="headerlink" href="#defining-relationship" title="Permalink to this heading">¶</a></h2>
-<p>A relationship is a general term covering the specific types of logical
+<blockquote>
+<div><p>A relationship is a general term covering the specific types of logical
 connections found on class and object diagrams.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[classA][Arrow][ClassB]
 </pre></div>
 </div>
-<p>There are different types of relations defined for classes under UML which are
+</div></blockquote>
+<p>何の説明もなしに構文らしきものが記されている。クラス名とクラス名の間に矢印を指定するということだ。</p>
+<blockquote>
+<div><p>There are different types of relations defined for classes under UML which are
 currently supported:</p>
 <table class="docutils align-default">
 <thead>
@@ -317,247 +339,200 @@ currently supported:</p>
 </tr>
 </tbody>
 </table>
-<div class="mermaid">
+</div></blockquote>
+<p>欲しい矢印は全部あると思う。各種 association の理解に自身がない場合は UML の仕様書を参照すること。ここに書き写してもいいか？</p>
+<blockquote>
+<div><p>We can use the labels to describe nature of relation between two classes.
+Also, arrowheads can be used in opposite directions as well:</p>
+<div align="center" class="mermaid align-center">
             classDiagram
-classA &lt;|-- classB
-classC *-- classD
-classE o-- classF
-classG &lt;-- classH
-classI -- classJ
-classK &lt;.. classL
-classM &lt;|.. classN
-classO .. classP
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>各種 association の理解に自身がない場合は UML の仕様書を参照すること。 ここに書き写してもいいか？</p>
+    classA --|&gt; classB : Inheritance
+    classC --* classD : Composition
+    classE --o classF : Aggregation
+    classG --&gt; classH : Association
+    classI -- classJ : Link(Solid)
+    classK ..&gt; classL : Dependency
+    classM ..|&gt; classN : Realization
+    classO .. classP : Link(Dashed)
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classDiagram</span>
+    <span class="n">classA</span> <span class="o">--|&gt;</span> <span class="n">classB</span> <span class="p">:</span> <span class="n">Inheritance</span>
+    <span class="n">classC</span> <span class="o">--*</span> <span class="n">classD</span> <span class="p">:</span> <span class="n">Composition</span>
+    <span class="n">classE</span> <span class="o">--</span><span class="n">o</span> <span class="n">classF</span> <span class="p">:</span> <span class="n">Aggregation</span>
+    <span class="n">classG</span> <span class="o">--&gt;</span> <span class="n">classH</span> <span class="p">:</span> <span class="n">Association</span>
+    <span class="n">classI</span> <span class="o">--</span> <span class="n">classJ</span> <span class="p">:</span> <span class="n">Link</span><span class="p">(</span><span class="n">Solid</span><span class="p">)</span>
+    <span class="n">classK</span> <span class="o">..&gt;</span> <span class="n">classL</span> <span class="p">:</span> <span class="n">Dependency</span>
+    <span class="n">classM</span> <span class="o">..|&gt;</span> <span class="n">classN</span> <span class="p">:</span> <span class="n">Realization</span>
+    <span class="n">classO</span> <span class="o">..</span> <span class="n">classP</span> <span class="p">:</span> <span class="n">Link</span><span class="p">(</span><span class="n">Dashed</span><span class="p">)</span>
+</pre></div>
 </div>
-<p>We can use the labels to describe nature of relation between two classes. Also,
-arrowheads can be used in opposite directions as well:</p>
-<div class="mermaid">
-            classDiagram
-classA --|&gt; classB : Inheritance
-classC --* classD : Composition
-classE --o classF : Aggregation
-classG --&gt; classH : Association
-classI -- classJ : Link(Solid)
-classK ..&gt; classL : Dependency
-classM ..|&gt; classN : Realization
-classO .. classP : Link(Dashed)
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>この「矢印を逆向きにも使える」というのはたいへん興味深い仕様だ。</p>
-</div>
+</div></blockquote>
+<p>関係の名前を矢印の中央に描画することが可能だ。「矢印を逆向きにも使える」というのはたいへん興味深い仕様だ。</p>
 <section id="labels-on-relations">
 <h3>Labels on Relations<a class="headerlink" href="#labels-on-relations" title="Permalink to this heading">¶</a></h3>
-<p>It is possible to add a label text to a relation:</p>
+<p>前節でのラベル機能をなぜか繰り返して述べる。</p>
+<blockquote>
+<div><p>It is possible to add a label text to a relation:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[classA][Arrow][ClassB]:LabelText
 </pre></div>
 </div>
-<div class="mermaid">
-            classDiagram
-classA &lt;|-- classB : implements
-classC *-- classD : composition
-classE o-- classF : association
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
+</div></blockquote>
 <p>この用法を採用するのは珍しいかもしれない。</p>
-</div>
 </section>
 <section id="two-way-relations">
 <h3>Two-way relations<a class="headerlink" href="#two-way-relations" title="Permalink to this heading">¶</a></h3>
-<p>Relations can go in multiple ways:</p>
-<div class="mermaid">
-            classDiagram
+<blockquote>
+<div><p>Relations can logically represent an N:M association:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
     Animal &lt;|--|&gt; Zebra
-        </div><p>Here is the syntax:</p>
+</pre></div>
+</div>
+<p>Here is the syntax:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Relation Type][Link][Relation Type]
 </pre></div>
 </div>
-<p>Where <code class="docutils literal notranslate"><span class="pre">Relation</span> <span class="pre">Type</span></code> can be one of:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|</span></code></p></td>
-<td><p>Inheritance</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
-<td><p>Composition</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
-<td><p>Aggregation</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
-<td><p>Association</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
-<td><p>Association</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">|&gt;</span></code></p></td>
-<td><p>Realization</p></td>
-</tr>
-</tbody>
-</table>
-<p>And <code class="docutils literal notranslate"><span class="pre">Link</span></code> can be one of:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><cite>-</cite></p></td>
-<td><p>Solid</p></td>
-</tr>
-<tr class="row-odd"><td><p><cite>..</cite></p></td>
-<td><p>Dashed</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>この表現も珍しいかもしれない。私は使わない。</p>
-</div>
+</div></blockquote>
+<p>多方向関係の表現は難解なところがあるので私は使わないが、いちおうチェックする。矢印の記法は単方向に準じる。</p>
 </section>
 </section>
 <section id="cardinality-multiplicity-on-relations">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Cardinality / Multiplicity on relations</a><a class="headerlink" href="#cardinality-multiplicity-on-relations" title="Permalink to this heading">¶</a></h2>
-<p>Multiplicity or cardinality in class diagrams indicates the number of instances
-of one class linked to one instance of the other class. For example, one company
-will have one or more employees, but each employee works for just one company.</p>
-<p>Multiplicity notations are placed near the ends of an association.</p>
+<blockquote>
+<div><p>Multiplicity notations are placed near the ends of an association.</p>
 <p>The different cardinality options are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> Only 1</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">0..1</span></code> Zero or One</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">1..*</span></code> One or more</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> Many</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> n {where n&gt;1}</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">0..n</span></code> zero to n {where n&gt;1}</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1..n</span></code> one to n {where n&gt;1}</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> n</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0..n</span></code> zero to n</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1..n</span></code> one to n</p></li>
 </ul>
-<p>Cardinality can be easily defined by placing cardinality text within quotes
-<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> before(optional) and after(optional) a given arrow.</p>
+<p>Cardinality can be easily defined by placing the text option within quotes
+<code class="docutils literal notranslate"><span class="pre">&quot;</span></code> before or after a given arrow. For example:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[classA] &quot;cardinality1&quot; [Arrow] &quot;cardinality2&quot; [ClassB]:LabelText
 </pre></div>
 </div>
-<div class="mermaid">
+</div></blockquote>
+<p>多重度の表現は基本的なので習得する。</p>
+<blockquote>
+<div><div align="center" class="mermaid align-center">
             classDiagram
     Customer &quot;1&quot; --&gt; &quot;*&quot; Ticket
     Student &quot;1&quot; --&gt; &quot;1..*&quot; Course
     Galaxy --&gt; &quot;many&quot; Star : Contains
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>多重度の表現は基本的なので習得する。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classDiagram</span>
+    <span class="n">Customer</span> <span class="s2">&quot;1&quot;</span> <span class="o">--&gt;</span> <span class="s2">&quot;*&quot;</span> <span class="n">Ticket</span>
+    <span class="n">Student</span> <span class="s2">&quot;1&quot;</span> <span class="o">--&gt;</span> <span class="s2">&quot;1..*&quot;</span> <span class="n">Course</span>
+    <span class="n">Galaxy</span> <span class="o">--&gt;</span> <span class="s2">&quot;many&quot;</span> <span class="n">Star</span> <span class="p">:</span> <span class="n">Contains</span>
+</pre></div>
 </div>
+</div></blockquote>
+<p>描画が怪しい。</p>
 </section>
 <section id="annotations-on-classes">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">Annotations on classes</a><a class="headerlink" href="#annotations-on-classes" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to annotate classes with a specific marker text which is like
+<blockquote>
+<div><p>It is possible to annotate classes with a specific marker text which is like
 meta-data for the class, giving a clear indication about its nature. Some common
 annotations examples could be:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;Interface&gt;&gt;</span></code> To represent an Interface class</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;abstract&gt;&gt;</span></code> To represent an abstract class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;Abstract&gt;&gt;</span></code> To represent an abstract class</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;Service&gt;&gt;</span></code> To represent a service class</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;enumeration&gt;&gt;</span></code> To represent an enum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;Enumeration&gt;&gt;</span></code> To represent an enum</p></li>
 </ul>
 <p>Annotations are defined within the opening <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> and closing <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>. There are
 two ways to add an annotation to a class and regardless of the syntax used
 output will be same. The two ways are:</p>
-<ul class="simple">
-<li><p>In a <strong>separate line</strong> after a class is defined. For example:</p></li>
-</ul>
-<div class="mermaid">
-            classDiagram
-class Shape
-&lt;&lt;interface&gt;&gt; Shape
-Shape : noOfVertices
-Shape : draw()
-        </div><ul class="simple">
-<li><p>In a <strong>nested structure</strong> along with class definition. For example:</p></li>
-</ul>
-<div class="mermaid">
-            classDiagram
-class Shape{
-    &lt;&lt;interface&gt;&gt;
-    noOfVertices
-    draw()
-}
-class Color{
-    &lt;&lt;enumeration&gt;&gt;
-    RED
-    BLUE
-    GREEN
-    WHITE
-    BLACK
-}
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>クラス記法（と勝手に呼んでいる）の場合にはクラス名の直後？に annotation を宣言する。</p>
+<ul>
+<li><p>In a <em>separate line</em> after a class is defined. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
+  class Shape
+    &lt;&lt;interface&gt;&gt; Shape
+    Shape : noOfVertices
+    Shape : draw()
+</pre></div>
 </div>
+</li>
+<li><p>In a <em>nested structure</em> along with class definition. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
+    class Shape{
+        &lt;&lt;interface&gt;&gt;
+        noOfVertices
+        draw()
+    }
+    class Color{
+        &lt;&lt;enumeration&gt;&gt;
+        RED
+        BLUE
+        GREEN
+        WHITE
+        BLACK
+    }
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<p>クラス記法（と勝手に呼んでいる）の場合にはクラス名の直後？に annotation を宣言する。</p>
 </section>
 <section id="comments">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">Comments</a><a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h2>
-<p>Comments can be entered within a class diagram, which will be ignored by the
-parser. Comments need to be on their own line, and must be prefaced with <code class="docutils literal notranslate"><span class="pre">%%</span></code>
-(double percent signs). Any text after the start of the comment to the next
-newline will be treated as a comment, including any class diagram syntax</p>
-<div class="mermaid">
-            classDiagram
-%% This whole line is a comment classDiagram class Shape &lt;&lt;interface&gt;&gt;
-class Shape{
-    &lt;&lt;interface&gt;&gt;
-    noOfVertices
-    draw()
-}
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Sequence diagram でも利用可能だったものだ。</p>
-</div>
+<p>Sequence diagram のコメントと同じ仕様だ。<code class="docutils literal notranslate"><span class="pre">%%</span></code> マーカーを行頭に置くと行全体がコメントとなり、行の途中からコメントを入れることはできない。</p>
 </section>
 <section id="setting-the-direction-of-the-diagram">
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">Setting the direction of the diagram</a><a class="headerlink" href="#setting-the-direction-of-the-diagram" title="Permalink to this heading">¶</a></h2>
-<p>With class diagrams you can use the direction statement to set the direction
-which the diagram will render like in this example.</p>
-<div class="mermaid">
+<blockquote>
+<div><p>With class diagrams you can use the direction statement to set the direction in
+which the diagram will render:</p>
+<div align="center" class="mermaid align-center">
             classDiagram
-  direction RL
-  class Student {
-    -idCard : IdCard
-  }
-  class IdCard{
-    -id : int
-    -name : string
-  }
-  class Bike{
-    -id : int
-    -name : string
-  }
-  Student &quot;1&quot; --o &quot;1&quot; IdCard : carries
-  Student &quot;1&quot; --o &quot;1&quot; Bike : rides
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">RL</span></code> を <code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">LR</span></code> やその他に書き換えて表示を確認するといい。</p>
+    direction RL
+    class Student {
+      -idCard : IdCard
+    }
+    class IdCard{
+      -id : int
+      -name : string
+    }
+    class Bike{
+      -id : int
+      -name : string
+    }
+    Student &quot;1&quot; --o &quot;1&quot; IdCard : carries
+    Student &quot;1&quot; --o &quot;1&quot; Bike : rides
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classDiagram</span>
+    <span class="n">direction</span> <span class="n">RL</span>
+    <span class="k">class</span> <span class="nc">Student</span> <span class="p">{</span>
+      <span class="o">-</span><span class="n">idCard</span> <span class="p">:</span> <span class="n">IdCard</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">IdCard</span><span class="p">{</span>
+      <span class="o">-</span><span class="nb">id</span> <span class="p">:</span> <span class="nb">int</span>
+      <span class="o">-</span><span class="n">name</span> <span class="p">:</span> <span class="n">string</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Bike</span><span class="p">{</span>
+      <span class="o">-</span><span class="nb">id</span> <span class="p">:</span> <span class="nb">int</span>
+      <span class="o">-</span><span class="n">name</span> <span class="p">:</span> <span class="n">string</span>
+    <span class="p">}</span>
+    <span class="n">Student</span> <span class="s2">&quot;1&quot;</span> <span class="o">--</span><span class="n">o</span> <span class="s2">&quot;1&quot;</span> <span class="n">IdCard</span> <span class="p">:</span> <span class="n">carries</span>
+    <span class="n">Student</span> <span class="s2">&quot;1&quot;</span> <span class="o">--</span><span class="n">o</span> <span class="s2">&quot;1&quot;</span> <span class="n">Bike</span> <span class="p">:</span> <span class="n">rides</span>
+</pre></div>
 </div>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">RL</span></code> を <code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">LR</span></code> やその他に書き換えて表示を確認するといい。</p>
 </section>
 <section id="interaction">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">Interaction</a><a class="headerlink" href="#interaction" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to bind a click event to a node, the click can lead to either a
-javascript callback or to a link which will be opened in a new browser tab.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This functionality is disabled when using <code class="docutils literal notranslate"><span class="pre">securityLevel='strict'</span></code>
-and enabled when using <code class="docutils literal notranslate"><span class="pre">securityLevel='loose'</span></code>.</p>
-</div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Sequence diagram が対応しているのと同じ機能だ。</p>
-</div>
-<p>You would define these actions on a separate line after all classes have been
+<p>Sequence diagram が対応しているのと同じ機能だ。現在私のブラウザーでツールチップが表示されないのも同じ。</p>
+<blockquote>
+<div><p>You would define these actions on a separate line after all classes have been
 declared.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action className &quot;reference&quot; &quot;tooltip&quot;
 click className call callback() &quot;tooltip&quot;
@@ -573,110 +548,37 @@ interaction you want to have called</p></li>
 (note: The styles of the tooltip are set by the class .mermaidTooltip.)</p></li>
 <li><p>note: callback function will be called with the nodeId as parameter.</p></li>
 </ul>
+</div></blockquote>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
-<p>URL Link:</p>
-<div class="mermaid">
-            classDiagram
-class Shape
-link Shape &quot;http://www.github.com&quot; &quot;This is a tooltip for a link&quot;
-class Shape2
-click Shape2 href &quot;http://www.github.com&quot; &quot;This is a tooltip for a link&quot;
-        </div><p>Callback:</p>
-<div class="mermaid">
-            classDiagram
-class Shape
-callback Shape &quot;callbackFunction&quot; &quot;This is a tooltip for a callback&quot;
-class Shape2
-click Shape2 call callbackFunction() &quot;This is a tooltip for a callback&quot;
-        </div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">callbackFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span>
-        alert(&#39;A callback was triggered&#39;);
-    }
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</pre></div>
-</div>
-<div class="mermaid">
-            classDiagram
-    class Class01
-    class Class02
-    callback Class01 &quot;callbackFunction&quot; &quot;Callback tooltip&quot;
-    link Class02 &quot;http://www.github.com&quot; &quot;This is a link&quot;
-    class Class03
-    class Class04
-    click Class03 call callbackFunction() &quot;Callback tooltip&quot;
-    click Class04 href &quot;http://www.github.com&quot; &quot;This is a link&quot;
-        </div><div class="admonition-success admonition">
-<p class="admonition-title">Success</p>
-<p>The tooltip functionality and the ability to link to urls are
-available from version 0.5.2.</p>
-</div>
-<p>Beginners tip, a full example using interactive links in an html context:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;mermaid&quot;</span><span class="p">&gt;</span>
-    classDiagram
-    Animal <span class="err">&lt;</span>|-- Duck
-    Animal <span class="err">&lt;</span>|-- Fish
-    Animal <span class="err">&lt;</span>|-- Zebra
-    Animal: +int age
-    Animal: +String gender
-    Animal: +isMammal()
-    Animal: +mate()
-    class Duck{
-      +String beakColor
-      +swim()
-      +quack()
-      }
-    class Fish{
-      -int sizeInFeet
-      -canEat()
-      }
-    class Zebra{
-      +bool is_wild
-      +run()
-      }
-
-      callback Duck callback &quot;Tooltip&quot;
-      link Zebra &quot;http://www.github.com&quot; &quot;This is a link&quot;
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span>
-<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;A callback was triggered&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">startOnLoad</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">securityLevel</span><span class="o">:</span><span class="s1">&#39;loose&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
-<span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</pre></div>
-</div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>以前も見たように <code class="docutils literal notranslate"><span class="pre">securityLevel:'loose'</span></code> の指定が急所となる。</p>
-</div>
+<p>Sequence diagram で見たように <code class="docutils literal notranslate"><span class="pre">securityLevel:'loose'</span></code> の指定が急所となる。例は本文を参照。当ノートでは割愛。</p>
 </section>
 </section>
 <section id="styling">
 <h2><a class="toc-backref" href="#id9" role="doc-backlink">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
 <section id="styling-a-node">
 <h3>Styling a node<a class="headerlink" href="#styling-a-node" title="Permalink to this heading">¶</a></h3>
-<p>It is possible to apply specific styles such as a thicker border or a different
-background color to individual nodes. This is done by predefining classes in css
-styles that can be applied from the graph definition as in the example below:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="w">    </span><span class="p">.</span><span class="nc">cssClass</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">rect</span><span class="p">{</span>
-<span class="w">        </span><span class="k">fill</span><span class="p">:</span><span class="mh">#FF0000</span><span class="p">;</span>
-<span class="w">        </span><span class="k">stroke</span><span class="p">:</span><span class="mh">#FFFF00</span><span class="p">;</span>
-<span class="w">        </span><span class="k">stroke-width</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+<blockquote>
+<div><p>It is possible to apply specific styles such as a thicker border or a
+different background color to individual nodes. This is done by predefining
+classes in css styles that can be applied from the graph definition using the
+<code class="docutils literal notranslate"><span class="pre">cssClass</span></code> statement or the <code class="docutils literal notranslate"><span class="pre">:::</span></code> short hand.</p>
+</div></blockquote>
+<p>Flowchart の要領でクラスを表現する四角いオブジェクトにスタイルを与えることができる。</p>
+<blockquote>
+<div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">styleClass</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">rect</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="mh">#ff0000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="mh">#ffff00</span><span class="p">;</span>
+<span class="w">    </span><span class="k">stroke-width</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>Then attaching that class to a specific node as per below:</p>
+</div></blockquote>
+<p>何回見ても SVG のスタイルに見える。</p>
+<blockquote>
+<div><p>Then attaching that class to a specific node:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cssClass &quot;nodeId1&quot; cssClass;
 </pre></div>
 </div>
@@ -685,167 +587,43 @@ styles that can be applied from the graph definition as in the example below:</p
 </pre></div>
 </div>
 <p>A shorter form of adding a class is to attach the classname to the node using
-the <code class="docutils literal notranslate"><span class="pre">:::</span></code> operator as per below:</p>
+the <code class="docutils literal notranslate"><span class="pre">:::</span></code> operator:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
-    class Animal:::cssClass
+    class Animal:::styleClass
 </pre></div>
 </div>
 <p>Or:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDiagram
-    class Animal:::cssClass {
+    class Animal:::styleClass {
         -int sizeInFeet
         -canEat()
     }
 </pre></div>
 </div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>VS Code の Markdown Preview Mermaid Support は上二つを Mermaid オブジェクトとして描画しない。</p>
-</div>
-<p>cssClasses cannot be added using this shorthand method at the same time as a
-relation statement.</p>
-<p>Due to limitations with existing markup for class diagrams, it is not currently
-possible to define css classes within the diagram itself. Coming soon!</p>
+<p><code class="docutils literal notranslate"><span class="pre">cssClasses</span></code> cannot be added using this shorthand method at the same time as
+a relation statement.</p>
+<p>Due to limitations with existing markup for class diagrams, it is not
+currently possible to define css classes within the diagram itself. Coming
+soon!</p>
+</div></blockquote>
+<p>スタイル定義を図式単品に対して書き込めないのは、ちょっとしたクラス図を示したい場合には不便かもしれない。そういう状況で凝ったスタイリングをしようとは考えないだろうが。</p>
 </section>
 <section id="default-styles">
 <h3>Default Styles<a class="headerlink" href="#default-styles" title="Permalink to this heading">¶</a></h3>
-<p>The main styling of the class diagram is done with a preset number of css
+<blockquote>
+<div><p>The main styling of the class diagram is done with a preset number of css
 classes. During rendering these classes are extracted from the file located at
-src/themes/class.scss. The classes used here are described below:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Class</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>g.classGroup text</p></td>
-<td><p>Styles for general class text</p></td>
-</tr>
-<tr class="row-odd"><td><p>classGroup .title</p></td>
-<td><p>Styles for general class title</p></td>
-</tr>
-<tr class="row-even"><td><p>g.classGroup rect</p></td>
-<td><p>Styles for class diagram rectangle</p></td>
-</tr>
-<tr class="row-odd"><td><p>g.classGroup line</p></td>
-<td><p>Styles for class diagram line</p></td>
-</tr>
-<tr class="row-even"><td><p>.classLabel .box</p></td>
-<td><p>Styles for class label box</p></td>
-</tr>
-<tr class="row-odd"><td><p>.classLabel .label</p></td>
-<td><p>Styles for class label text</p></td>
-</tr>
-<tr class="row-even"><td><p>composition</p></td>
-<td><p>Styles for composition arrow head and arrow line</p></td>
-</tr>
-<tr class="row-odd"><td><p>aggregation</p></td>
-<td><p>Styles for aggregation arrow head and arrow
-line(dashed or solid)</p></td>
-</tr>
-<tr class="row-even"><td><p>dependency</p></td>
-<td><p>Styles for dependency arrow head and arrow line</p></td>
-</tr>
-</tbody>
-</table>
-<section id="sample-stylesheet">
-<h4>Sample stylesheet<a class="headerlink" href="#sample-stylesheet" title="Permalink to this heading">¶</a></h4>
-<div class="highlight-scss notranslate"><div class="highlight"><pre><span></span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">background</span><span class="nd">:</span><span class="w"> </span><span class="nt">white</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nt">g</span><span class="nc">.classGroup</span><span class="w"> </span><span class="nt">text</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="nt">none</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">font-family</span><span class="nd">:</span><span class="w"> </span><span class="s1">&#39;trebuchet ms&#39;</span><span class="o">,</span><span class="w"> </span><span class="nt">verdana</span><span class="o">,</span><span class="w"> </span><span class="nt">arial</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">font-family</span><span class="nd">:</span><span class="w"> </span><span class="nt">var</span><span class="o">(</span><span class="nt">--mermaid-font-family</span><span class="o">);</span>
-<span class="w">    </span><span class="nt">font-size</span><span class="nd">:</span><span class="w"> </span><span class="nt">10px</span><span class="o">;</span>
-
-<span class="w">    </span><span class="nc">.title</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">font-weight</span><span class="nd">:</span><span class="w"> </span><span class="nt">bolder</span><span class="o">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="nt">g</span><span class="nc">.classGroup</span><span class="w"> </span><span class="nt">rect</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBkg</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nt">g</span><span class="nc">.classGroup</span><span class="w"> </span><span class="nt">line</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke-width</span><span class="nd">:</span><span class="w"> </span><span class="nt">1</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nc">.classLabel</span><span class="w"> </span><span class="nc">.box</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="nt">none</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke-width</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBkg</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">opacity</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="nc">.5</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nc">.classLabel</span><span class="w"> </span><span class="nc">.label</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">font-size</span><span class="nd">:</span><span class="w"> </span><span class="nt">10px</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nc">.relation</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke-width</span><span class="nd">:</span><span class="w"> </span><span class="nt">1</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="nt">none</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="k">@mixin</span><span class="nf"> composition</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke-width</span><span class="nd">:</span><span class="w"> </span><span class="nt">1</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nn">#compositionStart</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> composition</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nn">#compositionEnd</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> composition</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">@mixin</span><span class="nf"> aggregation</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">fill</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBkg</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nodeBorder</span><span class="o">;</span>
-<span class="w">    </span><span class="nt">stroke-width</span><span class="nd">:</span><span class="w"> </span><span class="nt">1</span><span class="o">;</span>
-<span class="p">}</span>
-
-<span class="nn">#aggregationStart</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> aggregation</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nn">#aggregationEnd</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> aggregation</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nn">#dependencyStart</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> composition</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nn">#dependencyEnd</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> composition</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nn">#extensionStart</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> composition</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nn">#extensionEnd</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">@include</span><span class="nd"> composition</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
+<code class="file docutils literal notranslate"><span class="pre">src/themes/class.scss</span></code>.</p>
+</div></blockquote>
+<p>事情は Sequence diagram のときと同じだ。本ノートでは割愛。本文を参照。</p>
 </section>
 </section>
 <section id="configuration">
 <h2><a class="toc-backref" href="#id10" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
-<p>Coming soon</p>
+<blockquote>
+<div><p>Coming soon</p>
+</div></blockquote>
+<p>いつになったら来るのだ。</p>
 </section>
 </section>
 

@@ -48,9 +48,6 @@
             
   <section id="sequence-diagrams">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">Sequence Diagrams</a><a class="headerlink" href="#sequence-diagrams" title="Permalink to this heading">¶</a></h1>
-<p>A Sequence diagram is an interaction diagram that shows how processes operate
-with one another and in what order.</p>
-<p>Mermaid can render sequence diagrams.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -63,83 +60,144 @@ with one another and in what order.</p>
 <li><p><a class="reference internal" href="#loops" id="id6">Loops</a></p></li>
 <li><p><a class="reference internal" href="#alt" id="id7">Alt</a></p></li>
 <li><p><a class="reference internal" href="#parallel" id="id8">Parallel</a></p></li>
-<li><p><a class="reference internal" href="#background-highlighting" id="id9">Background Highlighting</a></p></li>
-<li><p><a class="reference internal" href="#comments" id="id10">Comments</a></p></li>
-<li><p><a class="reference internal" href="#entity-codes-to-escape-characters" id="id11">Entity codes to escape characters</a></p></li>
-<li><p><a class="reference internal" href="#sequencenumbers" id="id12">sequenceNumbers</a></p></li>
-<li><p><a class="reference internal" href="#actor-menus" id="id13">Actor Menus</a></p></li>
-<li><p><a class="reference internal" href="#styling" id="id14">Styling</a></p></li>
-<li><p><a class="reference internal" href="#configuration" id="id15">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#critical-region" id="id9">Critical Region</a></p></li>
+<li><p><a class="reference internal" href="#break" id="id10">Break</a></p></li>
+<li><p><a class="reference internal" href="#background-highlighting" id="id11">Background Highlighting</a></p></li>
+<li><p><a class="reference internal" href="#comments" id="id12">Comments</a></p></li>
+<li><p><a class="reference internal" href="#entity-codes-to-escape-characters" id="id13">Entity codes to escape characters</a></p></li>
+<li><p><a class="reference internal" href="#sequencenumbers" id="id14"><code class="docutils literal notranslate"><span class="pre">sequenceNumbers</span></code></a></p></li>
+<li><p><a class="reference internal" href="#actor-menus" id="id15">Actor Menus</a></p></li>
+<li><p><a class="reference internal" href="#styling" id="id16">Styling</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id17">Configuration</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
-<div class="mermaid">
+<blockquote>
+<div><p>Mermaid can render sequence diagrams.</p>
+<div align="center" class="mermaid align-center">
             sequenceDiagram
     Alice-&gt;&gt;John: Hello John, how are you?
     John--&gt;&gt;Alice: Great!
     Alice-)John: See you later!
-        </div><p>A note on nodes, the word “end” could potentially break the diagram, due to the
-way that the mermaid language is scripted. If unavoidable, one must use
-parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code>, quotation marks <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>, or brackets <code class="docutils literal notranslate"><span class="pre">{},[]</span></code>, to enclose
-the word “end”. i.e : <code class="docutils literal notranslate"><span class="pre">(end),</span> <span class="pre">[end],</span> <span class="pre">{end}</span></code>.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>フローチャートと同様に、<code class="docutils literal notranslate"><span class="pre">end</span></code> という単語は予約語のように扱え。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    Alice-&gt;&gt;John: Hello John, how are you?
+    John--&gt;&gt;Alice: Great!
+    Alice-)John: See you later!
+</pre></div>
 </div>
+</div></blockquote>
+<p>UML シーケンス図は使い所が多いのでありがたい。</p>
 <section id="syntax">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">Syntax</a><a class="headerlink" href="#syntax" title="Permalink to this heading">¶</a></h2>
 <section id="participants">
 <h3>Participants<a class="headerlink" href="#participants" title="Permalink to this heading">¶</a></h3>
-<p>The participants can be defined implicitly as in the first example on this page.
-The participants or actors are rendered in order of appearance in the diagram
-source text. Sometimes you might want to show the participants in a different
-order than how they appear in the first message. It is possible to specify the
-actor’s order of appearance by doing the following:</p>
-<div class="mermaid">
-            sequenceDiagram
+<blockquote>
+<div><p>The participants can be defined implicitly as in the first example on this
+page. The participants or actors are rendered in order of appearance in the
+diagram source text. Sometimes you might want to show the participants in a
+different order than how they appear in the first message. It is possible to
+specify the actor’s order of appearance by doing the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     participant Alice
     participant Bob
     Alice-&gt;&gt;Bob: Hi Bob
     Bob-&gt;&gt;Alice: Hi Alice
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><code class="docutils literal notranslate"><span class="pre">participant</span></code> の行を入れ替えて描画結果を見比べると検証できる。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>参加者を明示的に宣言しておくことの利点は、図式中のライフラインの配列を調整できるということだ。コード中の <code class="docutils literal notranslate"><span class="pre">participant</span></code> の行を入れ替えて描画結果を見比べると検証できる。</p>
 </section>
 <section id="actors">
 <h3>Actors<a class="headerlink" href="#actors" title="Permalink to this heading">¶</a></h3>
-<p>If you specifically want to use the actor symbol instead of a rectangle with
+<blockquote>
+<div><p>If you specifically want to use the actor symbol instead of a rectangle with
 text you can do so by using actor statements as per below.</p>
-<div class="mermaid">
-            sequenceDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     actor Alice
     actor Bob
     Alice-&gt;&gt;Bob: Hi Bob
     Bob-&gt;&gt;Alice: Hi Alice
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>棒人間を描けるのなら Use Case Diagram も対応して欲しい。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>棒人間を描けるのなら Use Case Diagram も Mermaid には対応して欲しいものだ。</p>
 </section>
 <section id="aliases">
 <h3>Aliases<a class="headerlink" href="#aliases" title="Permalink to this heading">¶</a></h3>
-<p>The actor can have a convenient identifier and a descriptive label.</p>
-<div class="mermaid">
-            sequenceDiagram
+<blockquote>
+<div><p>The actor can have a convenient identifier and a descriptive label.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     participant A as Alice
     participant J as John
     A-&gt;&gt;J: Hello John, how are you?
     J-&gt;&gt;A: Great!
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><code class="docutils literal notranslate"><span class="pre">as</span></code> のほうがラベルとして描画される。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>この機能は <code class="docutils literal notranslate"><span class="pre">as</span></code> の後ろにある単語のほうがラベルとして描画される。</p>
+</section>
+<section id="grouping-box">
+<h3>Grouping / Box<a class="headerlink" href="#grouping-box" title="Permalink to this heading">¶</a></h3>
+<p>この機能はシーケンス図を水平に区切ることで部分シーケンス図を形成する。</p>
+<blockquote>
+<div><p>The actor(s) can be grouped in vertical boxes. You can define a color (if not,
+it will be transparent) and/or a descriptive label using the following
+notation:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>box Aqua Group Description
+... actors ...
+end
+box Group without description
+... actors ...
+end
+box rgb(33,66,99)
+... actors ...
+end
+</pre></div>
+</div>
+</div></blockquote>
+<p>次の例は正常に描画される実践的なものだ：</p>
+<blockquote>
+<div><div align="center" class="mermaid align-center">
+            sequenceDiagram
+    box Purple Alice &amp; John
+      participant A
+      participant J
+    end
+    box Another Group
+      participant B
+      participant C
+    end
+    A-&gt;&gt;J: Hello John, how are you?
+    J-&gt;&gt;A: Great!
+    A-&gt;&gt;B: Hello Bob, how is Charly?
+    B-&gt;&gt;C: Hello Charly, how are you?
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    box Purple Alice &amp; John
+      participant A
+      participant J
+    end
+    box Another Group
+      participant B
+      participant C
+    end
+    A-&gt;&gt;J: Hello John, how are you?
+    J-&gt;&gt;A: Great!
+    A-&gt;&gt;B: Hello Bob, how is Charly?
+    B-&gt;&gt;C: Hello Charly, how are you?
+</pre></div>
+</div>
+</div></blockquote>
 </section>
 </section>
 <section id="messages">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">Messages</a><a class="headerlink" href="#messages" title="Permalink to this heading">¶</a></h2>
-<p>Messages can be of two displayed either solid or with a dotted line.</p>
+<blockquote>
+<div><p>Messages can be of two displayed either solid or with a dotted line.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Actor][Arrow][Actor]:Message text
 </pre></div>
 </div>
@@ -177,62 +235,84 @@ text you can do so by using actor statements as per below.</p>
 </tr>
 </tbody>
 </table>
+</div></blockquote>
+<p>シーケンス図では実線と点線は要求と応答をそれぞれ表す。閉じた矢印と開いた矢印は同期的か非同期的かをそれぞれ表す。バツジルシの矢印は不明。</p>
 </section>
 <section id="activations">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Activations</a><a class="headerlink" href="#activations" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to activate and deactivate an actor. <code class="docutils literal notranslate"><span class="pre">(de)activation</span></code> can be
+<blockquote>
+<div><p>It is possible to activate and deactivate an actor. <code class="docutils literal notranslate"><span class="pre">(de)activation</span></code> can be
 dedicated declarations:</p>
-<div class="mermaid">
-            sequenceDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     Alice-&gt;&gt;John: Hello John, how are you?
     activate John
     John--&gt;&gt;Alice: Great!
     deactivate John
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>UML の仕様としては、activation 要素は、オブジェクトがメッセージに応答していることを示すものだ。メッセージを受信したときに開始し、オブジェクトがメッセージの処理を終了したときに終了する。</p>
+</pre></div>
 </div>
-<p>There is also a shortcut notation by appending <code class="docutils literal notranslate"><span class="pre">+</span></code>/<code class="docutils literal notranslate"><span class="pre">-</span></code> suffix to the message
-arrow:</p>
-<div class="mermaid">
-            sequenceDiagram
+</div></blockquote>
+<p>UML の仕様としては、activation 要素は、オブジェクトがメッセージに応答していることを示すものだ。メッセージを受信したときに開始し、オブジェクトがメッセージの処理を終了したときに終了する。</p>
+<blockquote>
+<div><p>There is also a shortcut notation by appending <code class="docutils literal notranslate"><span class="pre">+</span></code>/<code class="docutils literal notranslate"><span class="pre">-</span></code> suffix to the
+message arrow:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     Alice-&gt;&gt;+John: Hello John, how are you?
     John--&gt;&gt;-Alice: Great!
-        </div><p>Activations can be stacked for same actor:</p>
-<div class="mermaid">
+</pre></div>
+</div>
+</div></blockquote>
+<p>同じ見てくれの図式が得られる。</p>
+<blockquote>
+<div><p>Activations can be stacked for same actor:</p>
+<div align="center" class="mermaid align-center">
             sequenceDiagram
     Alice-&gt;&gt;+John: Hello John, how are you?
     Alice-&gt;&gt;+John: John, can you hear me?
     John--&gt;&gt;-Alice: Hi Alice, I can hear you!
     John--&gt;&gt;-Alice: I feel great!
-        </div></section>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    Alice-&gt;&gt;+John: Hello John, how are you?
+    Alice-&gt;&gt;+John: John, can you hear me?
+    John--&gt;&gt;-Alice: Hi Alice, I can hear you!
+    John--&gt;&gt;-Alice: I feel great!
+</pre></div>
+</div>
+</div></blockquote>
+<p>活性区間が重なり合うように描画される。</p>
+</section>
 <section id="notes">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">Notes</a><a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to add notes to a sequence diagram. This is done by the notation
+<blockquote>
+<div><p>It is possible to add notes to a sequence diagram. This is done by the notation
 <code class="docutils literal notranslate"><span class="pre">Note</span> <span class="pre">[</span> <span class="pre">right</span> <span class="pre">of</span> <span class="pre">|</span> <span class="pre">left</span> <span class="pre">of</span> <span class="pre">|</span> <span class="pre">over</span> <span class="pre">]</span> <span class="pre">[Actor]:</span> <span class="pre">Text</span></code> in note content</p>
 <p>See the example below:</p>
-<div class="mermaid">
-            sequenceDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     participant John
     Note right of John: Text in note
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>注釈要素は他の図式にも対応して欲しい。</p>
+</pre></div>
 </div>
-<p>It is also possible to create notes spanning two participants:</p>
-<div class="mermaid">
-            sequenceDiagram
+</div></blockquote>
+<p>実際に注釈要素が描画される位置は、John 全体に対して決まるようだ。垂直方向座標はシーケンスのその時点に対応して決まる。</p>
+<blockquote>
+<div><p>It is also possible to create notes spanning two participants:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     Alice-&gt;John: Hello John, how are you?
     Note over Alice,John: A typical interaction
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>キーワード <code class="docutils literal notranslate"><span class="pre">over</span></code> の引数に Participants
-をカンマ区切りで与えればいい。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>キーワード <code class="docutils literal notranslate"><span class="pre">over</span></code> の引数に参加者をカンマ区切りで与えればいい。注釈要素が両者全体にまたがるように描画される。</p>
+<blockquote>
+<div><p>It is also possible to add a line break (applies to text input in general)</p>
+</div></blockquote>
+<p>HTML タグ <code class="docutils literal notranslate"><span class="pre">&lt;br/&gt;</span></code> をテキスト中に直接記入すればいい。</p>
 </section>
 <section id="loops">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">Loops</a><a class="headerlink" href="#loops" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to express loops in a sequence diagram. This is done by the
+<blockquote>
+<div><p>It is possible to express loops in a sequence diagram. This is done by the
 notation</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>loop Loop text
 ... statements ...
@@ -240,22 +320,21 @@ end
 </pre></div>
 </div>
 <p>See the example below:</p>
-<div class="mermaid">
-            sequenceDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     Alice-&gt;John: Hello John, how are you?
     loop Every minute
         John--&gt;Alice: Great!
     end
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>キーワード <code class="docutils literal notranslate"><span class="pre">loop</span></code>
-の引数は反復条件を表すテキストということだ。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>キーワード <code class="docutils literal notranslate"><span class="pre">loop</span></code> の引数は反復条件を表すテキストということだ。</p>
 </section>
 <section id="alt">
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">Alt</a><a class="headerlink" href="#alt" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to express alternative paths in a sequence diagram. This is done
-by the notation</p>
+<blockquote>
+<div><p>It is possible to express alternative paths in a sequence diagram. This is
+done by the notation</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>alt Describing text
 ... statements ...
 else
@@ -263,14 +342,19 @@ else
 end
 </pre></div>
 </div>
-<p>or if there is sequence that is optional (if without else).</p>
+</div></blockquote>
+<p>当然だが、<code class="docutils literal notranslate"><span class="pre">alt</span></code> 節だけでなく <code class="docutils literal notranslate"><span class="pre">else</span></code> 節の右側にも describing text を指定することが許される。</p>
+<blockquote>
+<div><p>or if there is sequence that is optional (if without else).</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>opt Describing text
 ... statements ...
 end
 </pre></div>
 </div>
-<p>See the example below:</p>
-<div class="mermaid">
+</div></blockquote>
+<p>これらの両方のブロックを用いた例：</p>
+<blockquote>
+<div><div align="center" class="mermaid align-center">
             sequenceDiagram
     Alice-&gt;&gt;Bob: Hello Bob, how are you?
     alt is sick
@@ -281,15 +365,29 @@ end
     opt Extra response
         Bob-&gt;&gt;Alice: Thanks for asking
     end
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Sequence 図の <code class="docutils literal notranslate"><span class="pre">alt</span></code> はプログラミング言語でいう <code class="docutils literal notranslate"><span class="pre">if</span></code> 文のような構文だが、
-<code class="docutils literal notranslate"><span class="pre">elif</span></code> に相当するものがない。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    Alice-&gt;&gt;Bob: Hello Bob, how are you?
+    alt is sick
+        Bob-&gt;&gt;Alice: Not so good :(
+    else is well
+        Bob-&gt;&gt;Alice: Feeling fresh like a daisy
+    end
+    opt Extra response
+        Bob-&gt;&gt;Alice: Thanks for asking
+    end
+</pre></div>
 </div>
+</div></blockquote>
+<p>シーケンス図の <code class="docutils literal notranslate"><span class="pre">alt</span></code> はプログラミング言語でいう <code class="docutils literal notranslate"><span class="pre">if</span></code> 文のような構文だが、
+<code class="docutils literal notranslate"><span class="pre">elif</span></code> に相当するものがない。</p>
 </section>
 <section id="parallel">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">Parallel</a><a class="headerlink" href="#parallel" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to show actions that are happening in parallel.</p>
+<p>これもよく使いたくなるので覚えておく。</p>
+<blockquote>
+<div><p>It is possible to show actions that are happening in parallel.</p>
 <p>This is done by the notation</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>par [Action 1]
 ... statements ...
@@ -300,22 +398,11 @@ and [Action N]
 end
 </pre></div>
 </div>
-<p>See the example below:</p>
-<div class="mermaid">
-            sequenceDiagram
-    par Alice to Bob
-        Alice-&gt;&gt;Bob: Hello guys!
-    and Alice to John
-        Alice-&gt;&gt;John: Hello guys!
-    end
-    Bob--&gt;&gt;Alice: Hi Alice!
-    John--&gt;&gt;Alice: Hi Alice!
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>キーワード <code class="docutils literal notranslate"><span class="pre">par</span></code> の引数は実行条件を表すテキストなのだが、実際はこの例のように意味のない指定もあり得る。</p>
-</div>
-<p>It is also possible to nest parallel blocks.</p>
-<div class="mermaid">
+</div></blockquote>
+<p>自然な文法だ。キーワード <code class="docutils literal notranslate"><span class="pre">par</span></code> の引数は実行条件を表すテキストなのだが、ない場合は空でいい。</p>
+<blockquote>
+<div><p>It is also possible to nest parallel blocks.</p>
+<div align="center" class="mermaid align-center">
             sequenceDiagram
     par Alice to Bob
         Alice-&gt;&gt;Bob: Go help John
@@ -327,11 +414,97 @@ end
             John-&gt;&gt;Diana: Can you help us today?
         end
     end
-        </div></section>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    par Alice to Bob
+        Alice-&gt;&gt;Bob: Go help John
+    and Alice to John
+        Alice-&gt;&gt;John: I want this done today
+        par John to Charlie
+            John-&gt;&gt;Charlie: Can we do this today?
+        and John to Diana
+            John-&gt;&gt;Diana: Can you help us today?
+        end
+    end
+</pre></div>
+</div>
+</div></blockquote>
+<p>異種の構造化ブロックを入れ子にしたい場合がよくあるし、Mermaid はそれを対応しているはずだ。</p>
+</section>
+<section id="critical-region">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Critical Region</a><a class="headerlink" href="#critical-region" title="Permalink to this heading">¶</a></h2>
+<p>最近になってシーケンス図で対応されるブロックの種類が拡充されたようだ。</p>
+<blockquote>
+<div><p>It is possible to show actions that must happen automatically with conditional
+handling of circumstances.</p>
+<p>This is done by the notation</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>critical [Action that must be performed]
+... statements ...
+option [Circumstance A]
+... statements ...
+option [Circumstance B]
+... statements ...
+end
+</pre></div>
+</div>
+<p>See the example below:</p>
+<div align="center" class="mermaid align-center">
+            sequenceDiagram
+    critical Establish a connection to the DB
+        Service--&gt;DB: connect
+    option Network timeout
+        Service--&gt;Service: Log error
+    option Credentials rejected
+        Service--&gt;Service: Log different error
+    end
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sequenceDiagram</span>
+    <span class="n">critical</span> <span class="n">Establish</span> <span class="n">a</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">the</span> <span class="n">DB</span>
+        <span class="n">Service</span><span class="o">--&gt;</span><span class="n">DB</span><span class="p">:</span> <span class="n">connect</span>
+    <span class="n">option</span> <span class="n">Network</span> <span class="n">timeout</span>
+        <span class="n">Service</span><span class="o">--&gt;</span><span class="n">Service</span><span class="p">:</span> <span class="n">Log</span> <span class="n">error</span>
+    <span class="n">option</span> <span class="n">Credentials</span> <span class="n">rejected</span>
+        <span class="n">Service</span><span class="o">--&gt;</span><span class="n">Service</span><span class="p">:</span> <span class="n">Log</span> <span class="n">different</span> <span class="n">error</span>
+    <span class="n">end</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>主要機能説明時に言及されていなかったが、矢印を自身に向けることも許されている。</p>
+</section>
+<section id="break">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Break</a><a class="headerlink" href="#break" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>It is possible to indicate a stop of the sequence within the flow (usually used
+to model exceptions).</p>
+<p>This is done by the notation</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>break [something happened]
+... statements ...
+end
+</pre></div>
+</div>
+</div></blockquote>
+<p>なお、ブロック <code class="docutils literal notranslate"><span class="pre">break</span></code> を用いるのは、例外処理をモデル化するためであることが多い。</p>
+<blockquote>
+<div><p>See the example below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    Consumer--&gt;API: Book something
+    API--&gt;BookingService: Start booking process
+    break when the booking process fails
+        API--&gt;Consumer: show failure
+    end
+    API--&gt;BillingService: Start billing process
+</pre></div>
+</div>
+</div></blockquote>
+<p>このコードはコンパクトだが、描画すると比較的複雑で驚く。</p>
+</section>
 <section id="background-highlighting">
-<h2><a class="toc-backref" href="#id9" role="doc-backlink">Background Highlighting</a><a class="headerlink" href="#background-highlighting" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to highlight flows by providing colored background rects. This is
-done by the notation</p>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Background Highlighting</a><a class="headerlink" href="#background-highlighting" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>It is possible to highlight flows by providing colored background rects. This
+is done by the notation</p>
 <p>The colors are defined using rgb and rgba syntax.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rect rgb(0, 255, 0)
 ... content ...
@@ -341,13 +514,12 @@ rect rgba(0, 0, 255, .1)
 end
 </pre></div>
 </div>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>このブロックの着想は HTML を手書きするときの <code class="docutils literal notranslate"><span class="pre">div</span></code> タグの利用と一緒だろう。</p>
-</div>
-<p>See the examples below:</p>
-<div class="mermaid">
-            sequenceDiagram
+</div></blockquote>
+<p>ブロック <code class="docutils literal notranslate"><span class="pre">rect</span></code> はシーケンス図を垂直に区切る。この要素の着想は HTML における
+<code class="docutils literal notranslate"><span class="pre">div</span></code> タグの利用と一緒だろう。</p>
+<blockquote>
+<div><p>See the examples below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     participant Alice
     participant John
 
@@ -362,38 +534,43 @@ end
     end
     Alice -&gt;&gt;+ John: Did you want to go to the game tonight?
     John --&gt;&gt;- Alice: Yeah! See you there.
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p>背景色が強い <code class="docutils literal notranslate"><span class="pre">rect</span></code> を過剰に入れ子を構成すると見苦しくなることがわかる。</p>
+</section>
 <section id="comments">
-<h2><a class="toc-backref" href="#id10" role="doc-backlink">Comments</a><a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h2>
-<p>Comments can be entered within a sequence diagram, which will be ignored by the
-parser. Comments need to be on their own line, and must be prefaced with <code class="docutils literal notranslate"><span class="pre">%%</span></code>
-(double percent signs). Any text after the start of the comment to the next
-newline will be treated as a comment, including any diagram syntax.</p>
-<div class="mermaid">
-            sequenceDiagram
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Comments</a><a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Comments can be entered within a sequence diagram, which will be ignored by
+the parser. Comments need to be on their own line, and must be prefaced with
+<code class="docutils literal notranslate"><span class="pre">%%</span></code> (double percent signs). Any text after the start of the comment to the
+next newline will be treated as a comment, including any diagram syntax.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     Alice-&gt;&gt;John: Hello John, how are you?
     %% this is a comment
     John--&gt;&gt;Alice: Great!
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>これはフローチャートにもある機能だ。このコメント要素は図式クラス全てに対して有効な構文であって欲しい。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>これは <code class="docutils literal notranslate"><span class="pre">flowchart</span></code> にもある機能だ。このコメント要素は図式クラス全てに対して有効な構文であって欲しい。</p>
 </section>
 <section id="entity-codes-to-escape-characters">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">Entity codes to escape characters</a><a class="headerlink" href="#entity-codes-to-escape-characters" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to escape characters using the syntax exemplified here.</p>
-<div class="mermaid">
-            sequenceDiagram
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Entity codes to escape characters</a><a class="headerlink" href="#entity-codes-to-escape-characters" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     A-&gt;&gt;B: I #9829; you!
     B-&gt;&gt;A: I #9829; you #infin; times more!
-        </div><p>Numbers given are base 10, so <code class="docutils literal notranslate"><span class="pre">#</span></code> can be encoded as <code class="docutils literal notranslate"><span class="pre">#35;</span></code>. It is also
-supported to use HTML character names.</p>
-<p>Because semicolons can be used instead of line breaks to define the markup, you
-need to use <code class="docutils literal notranslate"><span class="pre">#59;</span></code> to include a semicolon in message text.</p>
+</pre></div>
+</div>
+</div></blockquote>
+<p>これも <code class="docutils literal notranslate"><span class="pre">flowchart</span></code> 同様の運用となる。</p>
 </section>
 <section id="sequencenumbers">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">sequenceNumbers</a><a class="headerlink" href="#sequencenumbers" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to get a sequence number attached to each arrow in a sequence
+<h2><a class="toc-backref" href="#id14" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">sequenceNumbers</span></code></a><a class="headerlink" href="#sequencenumbers" title="Permalink to this heading">¶</a></h2>
+<p>手順に番号を振りたい場合には有用な機能だ。</p>
+<blockquote>
+<div><p>It is possible to get a sequence number attached to each arrow in a sequence
 diagram. This can be configured when adding mermaid to the website as shown
 below:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -403,9 +580,10 @@ below:</p>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>It can also be be turned on via the diagram code as in the diagram:</p>
-<div class="mermaid">
-            sequenceDiagram
+</div></blockquote>
+<p>図式単位で番号機能の有無を分ける場合には <code class="docutils literal notranslate"><span class="pre">sequenceDiagram</span></code> に <code class="docutils literal notranslate"><span class="pre">autonumber</span></code> と書くことでそうする：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     autonumber
     Alice-&gt;&gt;John: Hello John, how are you?
     loop Healthcheck
@@ -415,48 +593,51 @@ below:</p>
     John--&gt;&gt;Alice: Great!
     John-&gt;&gt;Bob: How about you?
     Bob--&gt;&gt;John: Jolly good!
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>この図式にはなぜか見覚えがある。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>この図式にはなぜか見覚えがある。</p>
 </section>
 <section id="actor-menus">
-<h2><a class="toc-backref" href="#id13" role="doc-backlink">Actor Menus</a><a class="headerlink" href="#actor-menus" title="Permalink to this heading">¶</a></h2>
-<p>Actors can have popup-menus containing individualized links to external pages.
-For example, if an actor represented a web service, useful links might include a
-link to the service health dashboard, repo containing the code for the service,
-or a wiki page describing the service.</p>
-<p>This can be configured by adding one or more link lines with the format:</p>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Actor Menus</a><a class="headerlink" href="#actor-menus" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Actors can have popup-menus containing individualized links to external pages.</p>
+</div></blockquote>
+<p>いきなりジャンプするのではなく、リンクを含むメニューをポップアップがあり得るという。</p>
+<blockquote>
+<div><p>This can be configured by adding one or more link lines with the format:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>link &lt;actor&gt;: &lt;link-label&gt; @ &lt;link-url&gt;
 </pre></div>
 </div>
-<div class="mermaid">
-            sequenceDiagram
+</div></blockquote>
+<p>単一の参加者に複数のリンクを割り当てるには、このパターンを複数書くことになる：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     participant Alice
     participant John
-    link Alice: Dashboard &#64; https://dashboard.contoso.com/alice
-    link Alice: Wiki &#64; https://wiki.contoso.com/alice
-    link John: Dashboard &#64; https://dashboard.contoso.com/john
-    link John: Wiki &#64; https://wiki.contoso.com/john
+    link Alice: Dashboard @ https://dashboard.contoso.com/alice
+    link Alice: Wiki @ https://wiki.contoso.com/alice
+    link John: Dashboard @ https://dashboard.contoso.com/john
+    link John: Wiki @ https://wiki.contoso.com/john
     Alice-&gt;&gt;John: Hello John, how are you?
     John--&gt;&gt;Alice: Great!
     Alice-)John: See you later!
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>マウスを Participant 要素の上に持っていくとメニューが出現する。そこには
-Dashboard と Wiki の項目がある。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>マウスを参加者要素の上に動かすとメニューが出現する。そこには Dashboard と Wiki
+の項目がある。と以前記したが、これを加筆している時点で機能していない。</p>
 <section id="advanced-menu-syntax">
 <h3>Advanced Menu Syntax<a class="headerlink" href="#advanced-menu-syntax" title="Permalink to this heading">¶</a></h3>
-<p>There is an advanced syntax that relies on JSON formatting. If you are
+<blockquote>
+<div><p>There is an advanced syntax that relies on JSON formatting. If you are
 comfortable with JSON format, then this exists as well.</p>
 <p>This can be configured by adding the links lines with the format:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>links &lt;actor&gt;: &lt;json-formatted link-name link-url pairs&gt;
 </pre></div>
 </div>
 <p>An example is below:</p>
-<div class="mermaid">
-            sequenceDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
     participant Alice
     participant John
     links Alice: {&quot;Dashboard&quot;: &quot;https://dashboard.contoso.com/alice&quot;, &quot;Wiki&quot;: &quot;https://wiki.contoso.com/alice&quot;}
@@ -464,159 +645,33 @@ comfortable with JSON format, then this exists as well.</p>
     Alice-&gt;&gt;John: Hello John, how are you?
     John--&gt;&gt;Alice: Great!
     Alice-)John: See you later!
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>この例は前の例と同じメニューを実装している。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>この例は前の例と同じメニューを実装している。こちらもこのメモを加筆している時点で機能していない。</p>
 </section>
 </section>
 <section id="styling">
-<h2><a class="toc-backref" href="#id14" role="doc-backlink">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
-<p>Styling of a sequence diagram is done by defining a number of css classes.
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Styling of a sequence diagram is done by defining a number of css classes.
 During rendering these classes are extracted from the file located at
 <code class="file docutils literal notranslate"><span class="pre">src/themes/sequence.scss</span></code>.</p>
+</div></blockquote>
+<p>この SCSS ファイルパスの言及が唐突な感じがする。</p>
 <section id="classes-used">
 <h3>Classes used<a class="headerlink" href="#classes-used" title="Permalink to this heading">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Class</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>actor</p></td>
-<td><p>Style for the actor box at the top of the diagram.</p></td>
-</tr>
-<tr class="row-odd"><td><p>text.actor</p></td>
-<td><p>Styles for text in the actor box at the top of the diagram.</p></td>
-</tr>
-<tr class="row-even"><td><p>actor-line</p></td>
-<td><p>The vertical line for an actor.</p></td>
-</tr>
-<tr class="row-odd"><td><p>messageLine0</p></td>
-<td><p>Styles for the solid message line.</p></td>
-</tr>
-<tr class="row-even"><td><p>messageLine1</p></td>
-<td><p>Styles for the dotted message line.</p></td>
-</tr>
-<tr class="row-odd"><td><p>messageText</p></td>
-<td><p>Defines styles for the text on the message arrows.</p></td>
-</tr>
-<tr class="row-even"><td><p>labelBox</p></td>
-<td><p>Defines styles label to left in a loop.</p></td>
-</tr>
-<tr class="row-odd"><td><p>labelText</p></td>
-<td><p>Styles for the text in label for loops.</p></td>
-</tr>
-<tr class="row-even"><td><p>loopText</p></td>
-<td><p>Styles for the text in the loop box.</p></td>
-</tr>
-<tr class="row-odd"><td><p>loopLine</p></td>
-<td><p>Defines styles for the lines in the loop box.</p></td>
-</tr>
-<tr class="row-even"><td><p>note</p></td>
-<td><p>Styles for the note box.</p></td>
-</tr>
-<tr class="row-odd"><td><p>noteText</p></td>
-<td><p>Styles for the text on in the note boxes.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>フローチャートのときのような、Mermaid ブロック中で即席でスタイルを定義する方式はないだろうか。</p>
-</div>
+<p>Flowchart のような、Mermaid ブロック中で即席でスタイルを定義する方式はないだろうか。</p>
 </section>
 <section id="sample-stylesheet">
 <h3>Sample stylesheet<a class="headerlink" href="#sample-stylesheet" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">actor</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="mh">#ccccff</span><span class="p">;</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="mh">#ececff</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">text</span><span class="p">.</span><span class="nc">actor</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">Helvetica</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">actor-line</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">grey</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">messageLine0</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke-width</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke-dasharray</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2 2&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">marker-end</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;url(#arrowhead)&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">messageLine1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke-width</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke-dasharray</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2 2&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">#</span><span class="nn">arrowhead</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">messageText</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;trebuchet ms&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">verdana</span><span class="p">,</span><span class="w"> </span><span class="n">arial</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">labelBox</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="mh">#ccccff</span><span class="p">;</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="mh">#ececff</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">labelText</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;trebuchet ms&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">verdana</span><span class="p">,</span><span class="w"> </span><span class="n">arial</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">loopText</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;trebuchet ms&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">verdana</span><span class="p">,</span><span class="w"> </span><span class="n">arial</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">loopLine</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke-width</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke-dasharray</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2 2&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">marker-end</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;url(#arrowhead)&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="mh">#ccccff</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">note</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="mh">#decc93</span><span class="p">;</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="mh">#fff5ad</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">noteText</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fill</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
-<span class="w">    </span><span class="k">stroke</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;trebuchet ms&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">verdana</span><span class="p">,</span><span class="w"> </span><span class="n">arial</span><span class="p">;</span>
-<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<p>この例を見ると CSS とは規則が違う。</p>
 </section>
 </section>
 <section id="configuration">
-<h2><a class="toc-backref" href="#id15" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
-<p>Is it possible to adjust the margins for rendering the sequence diagram.</p>
-<p>This is done by defining <code class="docutils literal notranslate"><span class="pre">mermaid.sequenceConfig</span></code> or by the CLI to use a json
-file with the configuration. How to use the CLI is described in the mermaidCLI
-page. <code class="docutils literal notranslate"><span class="pre">mermaid.sequenceConfig</span></code> can be set to a JSON string with config
-parameters or the corresponding object.</p>
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Is it possible to adjust the margins for rendering the sequence diagram.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">mermaid</span><span class="p">.</span><span class="nx">sequenceConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">diagramMarginX</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">diagramMarginY</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span>
@@ -627,96 +682,11 @@ parameters or the corresponding object.</p>
 <span class="p">};</span>
 </pre></div>
 </div>
+</div></blockquote>
+<p>マージン調整くらいしかカスタマイズがないように読めてしまうが、次の節で示されるようにフォントの指定も可能だ。</p>
 <section id="possible-configuration-parameters">
 <h3>Possible configuration parameters<a class="headerlink" href="#possible-configuration-parameters" title="Permalink to this heading">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default value</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>mirrorActors</p></td>
-<td><p>Turns on/off the
-rendering of actors
-below the diagram as
-well as above it</p></td>
-<td><p>false</p></td>
-</tr>
-<tr class="row-odd"><td><p>bottomMarginAdj</p></td>
-<td><p>Adjusts how far down
-the graph ended. Wide
-borders styles with css
-could generate unwanted
-clipping which is why
-this config param
-exists.</p></td>
-<td><p>1</p></td>
-</tr>
-<tr class="row-even"><td><p>actorFontSize</p></td>
-<td><p>Sets the font size for
-the actor’s description</p></td>
-<td><p>14</p></td>
-</tr>
-<tr class="row-odd"><td><p>actorFontFamily</p></td>
-<td><p>Sets the font family
-for the actor’s
-description</p></td>
-<td><p>“Open-Sans”, “sans-serif”</p></td>
-</tr>
-<tr class="row-even"><td><p>actorFontWeight</p></td>
-<td><p>Sets the font weight
-for the actor’s
-description</p></td>
-<td><p>“Open-Sans”, “sans-serif”</p></td>
-</tr>
-<tr class="row-odd"><td><p>noteFontSize</p></td>
-<td><p>Sets the font size for
-actor-attached notes</p></td>
-<td><p>14</p></td>
-</tr>
-<tr class="row-even"><td><p>noteFontFamily</p></td>
-<td><p>Sets the font family
-for actor-attached
-notes</p></td>
-<td><p>“trebuchet ms”, verdana,
-arial</p></td>
-</tr>
-<tr class="row-odd"><td><p>noteFontWeight</p></td>
-<td><p>Sets the font weight
-for actor-attached
-notes</p></td>
-<td><p>“trebuchet ms”, verdana,
-arial</p></td>
-</tr>
-<tr class="row-even"><td><p>noteAlign</p></td>
-<td><p>Sets the text alignment
-for text in
-actor-attached notes</p></td>
-<td><p>center</p></td>
-</tr>
-<tr class="row-odd"><td><p>messageFontSize</p></td>
-<td><p>Sets the font size for
-actor&lt;-&gt;actor messages</p></td>
-<td><p>16</p></td>
-</tr>
-<tr class="row-even"><td><p>messageFontFamily</p></td>
-<td><p>Sets the font family
-for actor&lt;-&gt;actor
-messages</p></td>
-<td><p>“trebuchet ms”, verdana,
-arial</p></td>
-</tr>
-<tr class="row-odd"><td><p>messageFontWeight</p></td>
-<td><p>Sets the font weight
-for actor&lt;-&gt;actor
-messages</p></td>
-<td><p>“trebuchet ms”, verdana,
-arial</p></td>
-</tr>
-</tbody>
-</table>
+<p>長いので本書を参照。</p>
 </section>
 </section>
 </section>

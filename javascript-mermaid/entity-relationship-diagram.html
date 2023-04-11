@@ -48,10 +48,6 @@
             
   <section id="entity-relationship-diagrams">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">Entity Relationship Diagrams</a><a class="headerlink" href="#entity-relationship-diagrams" title="Permalink to this heading">¶</a></h1>
-<p>《An entity-relationship model (or ER model) describes interrelated things of
-interest in a specific domain of knowledge. A basic ER model is composed of
-entity types (which classify the things of interest) and specifies relationships
-that can exist between entities (instances of those entity types)》 (<a class="reference external" href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">Wikipedia</a>)</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -63,32 +59,32 @@ that can exist between entities (instances of those entity types)》 (<a class="
 </li>
 </ul>
 </nav>
-<p>Note that practitioners of ER modelling almost always refer to <em>entity types</em>
-simply as <em>entities</em>. For example the <code class="docutils literal notranslate"><span class="pre">CUSTOMER</span></code> entity <em>type</em> would be
-referred to simply as the <code class="docutils literal notranslate"><span class="pre">CUSTOMER</span></code> entity. This is so common it would be
-inadvisable to do anything else, but technically an entity is an abstract
-<em>instance</em> of an entity type, and this is what an ER diagram shows - abstract
-instances, and the relationships between them. This is why entities are always
-named using singular nouns.</p>
-<p>Mermaid can render ER diagrams</p>
-<div class="mermaid">
-            erDiagram
+<blockquote>
+<div><p>Mermaid can render ER diagrams</p>
+<div align="center" class="mermaid align-center">
+            ---
+title: Order example
+---
+erDiagram
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--|{ LINE-ITEM : contains
     CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
-        </div><p>Entity names are often capitalised, although there is no accepted standard on
-this, and it is not required in Mermaid.</p>
-<p>Relationships between entities are represented by lines with end markers
+        </div>
+        </div></blockquote>
+<p>他の図式同様に、Markdown 式記法でタイトルを指定することが可能になった。</p>
+<blockquote>
+<div><p>Relationships between entities are represented by lines with end markers
 representing cardinality. Mermaid uses the most popular crow’s foot notation.
 The crow’s foot intuitively conveys the possibility of many instances of the
 entity that it connects to.</p>
-<p>ER diagrams can be used for various purposes, ranging from abstract logical
-models devoid of any implementation details, through to physical models of
-relational database tables. It can be useful to include attribute definitions on
-ER diagrams to aid comprehension of the purpose and meaning of entities. These
-do not necessarily need to be exhaustive; often a small subset of attributes is
-enough. Mermaid allows to be defined in terms of their <em>type</em> and <em>name</em>.</p>
-<div class="mermaid">
+</div></blockquote>
+<p>カラスの足の爪側のほうがインスタンスの複数存在性を示唆する。</p>
+<blockquote>
+<div><p>It can be useful to include attribute definitions on ER diagrams to aid
+comprehension of the purpose and meaning of entities. These do not necessarily
+need to be exhaustive; often a small subset of attributes is enough. Mermaid
+allows to be defined in terms of their <em>type</em> and <em>name</em>.</p>
+<div align="center" class="mermaid align-center">
             erDiagram
     CUSTOMER ||--o{ ORDER : places
     CUSTOMER {
@@ -106,80 +102,103 @@ enough. Mermaid allows to be defined in terms of their <em>type</em> and <em>nam
         int quantity
         float pricePerUnit
     }
-        </div><p>When including attributes on ER diagrams, you must decide whether to include
-foreign keys as attributes. This probably depends on how closely you are trying
-to represent relational table structures. If your diagram is a <em>logical</em> model
-which is not meant to imply a relational implementation, then it is better to
-leave these out because the associative relationships already convey the way
-that entities are associated. For example, a JSON data structure can implement a
-one-to-many relationship without the need for foreign key properties, using
-arrays. Similarly an object-oriented programming language may use pointers or
-references to collections. Even for models that are intended for relational
-implementation, you might decide that inclusion of foreign key attributes
-duplicates information already portrayed by the relationships, and does not add
-meaning to entities. Ultimately, it’s your choice.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>ここまでが ER 図が何であるかについての記述だ。名前は大文字で記すことや、単数形名詞であることなどを語っている。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">erDiagram</span>
+    <span class="n">CUSTOMER</span> <span class="o">||--</span><span class="n">o</span><span class="p">{</span> <span class="n">ORDER</span> <span class="p">:</span> <span class="n">places</span>
+    <span class="n">CUSTOMER</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">name</span>
+        <span class="n">string</span> <span class="n">custNumber</span>
+        <span class="n">string</span> <span class="n">sector</span>
+    <span class="p">}</span>
+    <span class="n">ORDER</span> <span class="o">||--|</span><span class="p">{</span> <span class="n">LINE</span><span class="o">-</span><span class="n">ITEM</span> <span class="p">:</span> <span class="n">contains</span>
+    <span class="n">ORDER</span> <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">orderNumber</span>
+        <span class="n">string</span> <span class="n">deliveryAddress</span>
+    <span class="p">}</span>
+    <span class="n">LINE</span><span class="o">-</span><span class="n">ITEM</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">productCode</span>
+        <span class="nb">int</span> <span class="n">quantity</span>
+        <span class="nb">float</span> <span class="n">pricePerUnit</span>
+    <span class="p">}</span>
+</pre></div>
 </div>
+<p>When including attributes on ER diagrams, you must decide whether to include
+foreign keys as attributes. This probably depends on how closely you are
+trying to represent relational table structures. If your diagram is a
+<em>logical</em> model which is not meant to imply a relational implementation, then
+it is better to leave these out because the associative relationships already
+convey the way that entities are associated.</p>
+</div></blockquote>
+<p>ER 図に属性を記載するかどうかを決定するのは、図式で説明したいことが設計と実装のどちらにより軸足を置くのかということか。</p>
+<p>ここまでが ER 図が何であるかについての記述だ。名前は大文字で記すことや、単数形名詞であることなどを語っている。</p>
 <section id="syntax">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">Syntax</a><a class="headerlink" href="#syntax" title="Permalink to this heading">¶</a></h2>
 <section id="entities-and-relationships">
 <h3>Entities and Relationships<a class="headerlink" href="#entities-and-relationships" title="Permalink to this heading">¶</a></h3>
-<p>Mermaid syntax for ER diagrams is compatible with PlantUML, with an extension to
-label the relationship. Each statement consists of the following parts:</p>
+<blockquote>
+<div><p>Mermaid syntax for ER diagrams is compatible with PlantUML, with an extension
+to label the relationship. Each statement consists of the following parts:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;first-entity&gt; [&lt;relationship&gt; &lt;second-entity&gt; : &lt;relationship-label&gt;]
 </pre></div>
 </div>
 <p>Where:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">first-entity</span></code> is the name of an entity. Names must begin with an alphabetic
-character and may also contain digits, hyphens, and underscores.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">relationship</span></code> describes the way that both entities inter-relate. See below.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">first-entity</span></code> is the name of an entity. Names must begin with an
+alphabetic character and may also contain digits, hyphens, and underscores.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relationship</span></code> describes the way that both entities inter-relate. See
+below.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">second-entity</span></code> is the name of the other entity.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">relationship-label</span></code> describes the relationship from the perspective of the
-first entity.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relationship-label</span></code> describes the relationship from the perspective of
+the first entity.</p></li>
 </ul>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>ER 図に関しては PlantUML 用に書いた図式を Mermaid で描画できるということになる。</p>
-</div>
-<p>For example:</p>
+</div></blockquote>
+<p>ER 図に関しては PlantUML 用に書いた図式を Mermaid で描画できるということになる。関係性にラベルを付加した場合、逆にその Mermaid コードを PlantUML が処理することは不能ということだ。</p>
+<blockquote>
+<div><p>For example:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PROPERTY ||--|{ ROOM : contains
 </pre></div>
 </div>
-<p>This statement can be read as <em>a property contains one or more rooms, and a room
-is part of one and only one property</em>. You can see that the label here is from
-the first entity’s perspective: a property contains a room, but a room does not
-contain a property. When considered from the perspective of the second entity,
-the equivalent label is usually very easy to infer. (Some ER diagrams label
-relationships from both perspectives, but this is not supported here, and is
-usually superfluous).</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>上記の関係 <code class="docutils literal notranslate"><span class="pre">contains</span></code> は対称律を満たさないと解釈するのだ。</p>
-</div>
-<p>Only the <code class="docutils literal notranslate"><span class="pre">first-entity</span></code> part of a statement is mandatory. This makes it
+<p>This statement can be read as <em>a property contains one or more rooms, and a
+room is part of one and only one property</em>. You can see that the label here
+is from the first entity’s perspective: a property contains a room, but a
+room does not contain a property. When considered from the perspective of the
+second entity, the equivalent label is usually very easy to infer. (Some ER
+diagrams label relationships from both perspectives, but this is not
+supported here, and is usually superfluous).</p>
+</div></blockquote>
+<p>上記の関係 <code class="docutils literal notranslate"><span class="pre">contains</span></code> は対称律を満たさないと解釈するのだ。反対に <code class="docutils literal notranslate"><span class="pre">ROOM</span></code> からすれば <code class="docutils literal notranslate"><span class="pre">PROPERTY</span></code> は be contained という関係性があると自然に推論できる。両側の立場から関係性を示すラベルがある ER 図もあるが、通常は余計だ。</p>
+<blockquote>
+<div><p>Only the <code class="docutils literal notranslate"><span class="pre">first-entity</span></code> part of a statement is mandatory. This makes it
 possible to show an entity with no relationships, which can be useful during
 iterative construction of diagrams. If any other parts of a statement are
 specified, then all parts are mandatory.</p>
+</div></blockquote>
+<p>関係性のない実体に意味はある。</p>
 </section>
 <section id="relationship-syntax">
 <h3>Relationship Syntax<a class="headerlink" href="#relationship-syntax" title="Permalink to this heading">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">relationship</span></code> part of each statement can be broken down into three
+<blockquote>
+<div><p>The relationship part of each statement can be broken down into three
 sub-components:</p>
 <ul class="simple">
 <li><p>the cardinality of the first entity with respect to the second,</p></li>
 <li><p>whether the relationship confers identity on a ‘child’ entity</p></li>
 <li><p>the cardinality of the second entity with respect to the first</p></li>
 </ul>
-<p>Cardinality is a property that describes how many elements of another entity can
-be related to the entity in question. In the above example a <code class="docutils literal notranslate"><span class="pre">PROPERTY</span></code> can
-have one or more <code class="docutils literal notranslate"><span class="pre">ROOM</span></code> instances associated to it, whereas a <code class="docutils literal notranslate"><span class="pre">ROOM</span></code> can
-only be associated with one <code class="docutils literal notranslate"><span class="pre">PROPERTY</span></code>. In each cardinality marker there are
-two haracters. The outermost character represents a maximum value, and the
-innermost character represents a minimum value. The table below summarises
-possible cardinalities.</p>
+</div></blockquote>
+<p>関係性自身にも属性があるわけだ。まずは cardinarity から述べられる：</p>
+<blockquote>
+<div><p>Cardinality is a property that describes how many elements of another entity
+can be related to the entity in question. In the above example a <code class="docutils literal notranslate"><span class="pre">PROPERTY</span></code>
+can have one or more <code class="docutils literal notranslate"><span class="pre">ROOM</span></code> instances associated to it, whereas a <code class="docutils literal notranslate"><span class="pre">ROOM</span></code>
+can only be associated with one <code class="docutils literal notranslate"><span class="pre">PROPERTY</span></code>.</p>
+</div></blockquote>
+<p>とあるのだが、集合の要素数というよりは「一対一」「一対他」などを表すクラスだと解釈するほうが理解しやすい。</p>
+<blockquote>
+<div><p>In each cardinality marker there are two characters. The outermost character
+represents a maximum value, and the innermost character represents a minimum
+value. The table below summarises possible cardinalities.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Value (left)</p></th>
@@ -206,42 +225,50 @@ possible cardinalities.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>UML と比較すると、この多重度の表記法はピンと来ない。</p>
-</div>
+</div></blockquote>
+<p>UML と比較するとこの多重度の表記法はピンと来ない。覚えにくい。</p>
 </section>
 <section id="identification">
 <h3>Identification<a class="headerlink" href="#identification" title="Permalink to this heading">¶</a></h3>
-<p>Relationships may be classified as either <em>identifying</em> or <em>non-identifying</em> and
-these are rendered with either solid or dashed lines respectively. This is
-relevant when one of the entities in question can not have independent existence
-without the other. For example a firm that insures people to drive cars might
-need to store data on <code class="docutils literal notranslate"><span class="pre">NAMED-DRIVER</span></code> s. In modelling this we might start out
-by observing that a <code class="docutils literal notranslate"><span class="pre">CAR</span></code> can be driven by many <code class="docutils literal notranslate"><span class="pre">PERSON</span></code> instances, and a
-<code class="docutils literal notranslate"><span class="pre">PERSON</span></code> can drive many <code class="docutils literal notranslate"><span class="pre">CAR</span></code> s - both entities can exist without the other,
-so this is a non-identifying relationship that we might specify in Mermaid as:
+<p>関係の分類について重要なことを説明している。</p>
+<blockquote>
+<div><p>Relationships may be classified as either <em>identifying</em> or <em>non-identifying</em>
+and these are rendered with either solid or dashed lines respectively. This is
+relevant when one of the entities in question can not have independent
+existence without the other.</p>
+</div></blockquote>
+<p>Class diagram の用語でいう composition と aggrigation の概念と類似しているように思う。エッジのスタイルで見分ける。実線で描かれている関係は、両側の実体は同時にしか存在しないと解釈できる。</p>
+<blockquote>
+<div><p>For example a firm that insures people to drive cars might need to store data
+on <code class="docutils literal notranslate"><span class="pre">NAMED-DRIVER</span></code> s. In modelling this we might start out by observing that
+a <code class="docutils literal notranslate"><span class="pre">CAR</span></code> can be driven by many <code class="docutils literal notranslate"><span class="pre">PERSON</span></code> instances, and a <code class="docutils literal notranslate"><span class="pre">PERSON</span></code> can
+drive many <code class="docutils literal notranslate"><span class="pre">CAR</span></code> s - both entities can exist without the other, so this is a
+non-identifying relationship that we might specify in Mermaid as:
 <code class="docutils literal notranslate"><span class="pre">PERSON}|..|{CAR</span> <span class="pre">:</span> <span class="pre">&quot;driver&quot;</span></code>. Note the two dots in the middle of the
 relationship that will result in a dashed line being drawn between the two
-entities. But when this many-to-many relationship is resolved into two
-one-to-many relationships, we observe that a <code class="docutils literal notranslate"><span class="pre">NAMED-DRIVER</span></code> cannot exist
-without both a <code class="docutils literal notranslate"><span class="pre">PERSON</span></code> and a <code class="docutils literal notranslate"><span class="pre">CAR</span></code> - the relationships become identifying
-and would be specified using hyphens, which translate to a solid line:</p>
-<div class="mermaid">
-            erDiagram
+entities.</p>
+</div></blockquote>
+<p>車の保険のことは全く知らないので何とも言えないが、この状況は一般的なのか。</p>
+<blockquote>
+<div><p>But when this many-to-many relationship is resolved into two one-to-many
+relationships, we observe that a <code class="docutils literal notranslate"><span class="pre">NAMED-DRIVER</span></code> cannot exist without both a
+<code class="docutils literal notranslate"><span class="pre">PERSON</span></code> and a <code class="docutils literal notranslate"><span class="pre">CAR</span></code> - the relationships become identifying and would be
+specified using hyphens, which translate to a solid line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     PERSON ||--o{ NAMED-DRIVER : is
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>関係の分類について重要なことを説明している。実線で描かれている関係は、両側の実体は同時にしか存在しないと解釈できる。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>多対多を一対多に分解したい。これにより相方がないインスタンスというものがなくなる。</p>
 </section>
 <section id="attributes">
 <h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h3>
-<p>Attributes can be defined for entities by specifying the entity name followed by
-a block containing multiple <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">name</span></code> pairs, where a block is delimited by
-an opening <code class="docutils literal notranslate"><span class="pre">{</span></code> and a closing <code class="docutils literal notranslate"><span class="pre">}</span></code>. For example:</p>
-<div class="mermaid">
+<blockquote>
+<div><p>Attributes can be defined for entities by specifying the entity name followed
+by a block containing multiple <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">name</span></code> pairs, where a block is delimited
+by an opening <code class="docutils literal notranslate"><span class="pre">{</span></code> and a closing <code class="docutils literal notranslate"><span class="pre">}</span></code>. For example:</p>
+<div align="center" class="mermaid align-center">
             erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
@@ -255,117 +282,119 @@ an opening <code class="docutils literal notranslate"><span class="pre">{</span>
         string lastName
         int age
     }
-        </div><p>The attributes are rendered inside the entity boxes.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> values must begin with an alphabetic character and may
-contain digits, hyphens or underscores. Other than that, there are no
-restrictions, and there is no implicit set of valid data types.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>RDB におけるテーブル設計を意識した記法だ。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">erDiagram</span>
+    <span class="n">CAR</span> <span class="o">||--</span><span class="n">o</span><span class="p">{</span> <span class="n">NAMED</span><span class="o">-</span><span class="n">DRIVER</span> <span class="p">:</span> <span class="n">allows</span>
+    <span class="n">CAR</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">registrationNumber</span>
+        <span class="n">string</span> <span class="n">make</span>
+        <span class="n">string</span> <span class="n">model</span>
+    <span class="p">}</span>
+    <span class="n">PERSON</span> <span class="o">||--</span><span class="n">o</span><span class="p">{</span> <span class="n">NAMED</span><span class="o">-</span><span class="n">DRIVER</span> <span class="p">:</span> <span class="ow">is</span>
+    <span class="n">PERSON</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">firstName</span>
+        <span class="n">string</span> <span class="n">lastName</span>
+        <span class="nb">int</span> <span class="n">age</span>
+    <span class="p">}</span>
+</pre></div>
 </div>
+<p>The attributes are rendered inside the entity boxes.</p>
+</div></blockquote>
+<p>RDB におけるテーブル設計を意識した記法だ。</p>
 <section id="attribute-keys-and-comments">
 <h4>Attribute Keys and Comments<a class="headerlink" href="#attribute-keys-and-comments" title="Permalink to this heading">¶</a></h4>
-<p>Attributes may also have a <code class="docutils literal notranslate"><span class="pre">key</span></code> or comment defined. Keys can be “PK” or “FK”,
-for Primary Key or Foreign Key. And a <code class="docutils literal notranslate"><span class="pre">comment</span></code> is defined by double quotes at
-the end of an attribute. Comments themselves cannot have double-quote characters
-in them.</p>
-<div class="mermaid">
+<p>主キー、外部キー、一意キーも使える。</p>
+<blockquote>
+<div><p>Attributes may also have a <code class="docutils literal notranslate"><span class="pre">key</span></code> or comment defined. Keys can be <code class="docutils literal notranslate"><span class="pre">PK</span></code>,
+<code class="docutils literal notranslate"><span class="pre">FK</span></code> or <code class="docutils literal notranslate"><span class="pre">UK</span></code>, for Primary Key, Foreign Key or Unique Key.</p>
+</div></blockquote>
+<p>キーを複合させても構わない：</p>
+<blockquote>
+<div><p>To specify multiple key constraints on a single attribute, separate them with
+a comma (e.g. <code class="docutils literal notranslate"><span class="pre">PK,</span> <span class="pre">FK</span></code>).</p>
+</div></blockquote>
+<p>コメントはいつもの <code class="docutils literal notranslate"><span class="pre">%%</span></code> ではなく、属性宣言の終端に文字列のようにして記す：</p>
+<blockquote>
+<div><p>And a <code class="docutils literal notranslate"><span class="pre">comment</span></code> is defined by double quotes at the end of an attribute.
+Comments themselves cannot have double-quote characters in them.</p>
+</div></blockquote>
+<p>本書ではやや実践的な例を挙げている：</p>
+<blockquote>
+<div><div align="center" class="mermaid align-center">
             erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
-        string allowedDriver FK &quot;The license of the allowed driver&quot;
-        string registrationNumber
+        string registrationNumber PK
         string make
         string model
+        string[] parts
     }
     PERSON ||--o{ NAMED-DRIVER : is
     PERSON {
         string driversLicense PK &quot;The license #&quot;
-        string firstName
+        string(99) firstName &quot;Only 99 characters are allowed&quot;
         string lastName
+        string phone UK
         int age
     }
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>こちらも RDB のテーブルを意識した記法だ。</p>
+    NAMED-DRIVER {
+        string carRegistrationNumber PK, FK
+        string driverLicence PK, FK
+    }
+    MANUFACTURER only one to zero or more CAR : makes
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">erDiagram</span>
+    <span class="n">CAR</span> <span class="o">||--</span><span class="n">o</span><span class="p">{</span> <span class="n">NAMED</span><span class="o">-</span><span class="n">DRIVER</span> <span class="p">:</span> <span class="n">allows</span>
+    <span class="n">CAR</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">registrationNumber</span> <span class="n">PK</span>
+        <span class="n">string</span> <span class="n">make</span>
+        <span class="n">string</span> <span class="n">model</span>
+        <span class="n">string</span><span class="p">[]</span> <span class="n">parts</span>
+    <span class="p">}</span>
+    <span class="n">PERSON</span> <span class="o">||--</span><span class="n">o</span><span class="p">{</span> <span class="n">NAMED</span><span class="o">-</span><span class="n">DRIVER</span> <span class="p">:</span> <span class="ow">is</span>
+    <span class="n">PERSON</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">driversLicense</span> <span class="n">PK</span> <span class="s2">&quot;The license #&quot;</span>
+        <span class="n">string</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span> <span class="n">firstName</span> <span class="s2">&quot;Only 99 characters are allowed&quot;</span>
+        <span class="n">string</span> <span class="n">lastName</span>
+        <span class="n">string</span> <span class="n">phone</span> <span class="n">UK</span>
+        <span class="nb">int</span> <span class="n">age</span>
+    <span class="p">}</span>
+    <span class="n">NAMED</span><span class="o">-</span><span class="n">DRIVER</span> <span class="p">{</span>
+        <span class="n">string</span> <span class="n">carRegistrationNumber</span> <span class="n">PK</span><span class="p">,</span> <span class="n">FK</span>
+        <span class="n">string</span> <span class="n">driverLicence</span> <span class="n">PK</span><span class="p">,</span> <span class="n">FK</span>
+    <span class="p">}</span>
+    <span class="n">MANUFACTURER</span> <span class="n">only</span> <span class="n">one</span> <span class="n">to</span> <span class="n">zero</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">CAR</span> <span class="p">:</span> <span class="n">makes</span>
+</pre></div>
 </div>
+</div></blockquote>
 </section>
 </section>
 <section id="other-things">
 <h3>Other Things<a class="headerlink" href="#other-things" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li><p>If you want the relationship label to be more than one word, you must use
 double quotes around the phrase</p></li>
 <li><p>If you don’t want a label at all on a relationship, you must use an empty
 double-quoted string</p></li>
 </ul>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
+</div></blockquote>
 <p>ラベル文字列に関する、わりと自明な制限だ。</p>
-</div>
 </section>
 </section>
 <section id="styling">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
 <section id="config-options">
 <h3>Config options<a class="headerlink" href="#config-options" title="Permalink to this heading">¶</a></h3>
-<p>For simple color customization:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Used as</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fill</span></code></p></td>
-<td><p>Background color of an entity or attribute</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stroke</span></code></p></td>
-<td><p>Border color of an entity or attribute, line color of a relationship</p></td>
-</tr>
-</tbody>
-</table>
+<p>単純に、<code class="docutils literal notranslate"><span class="pre">fill</span></code> と <code class="docutils literal notranslate"><span class="pre">stroke</span></code> という、色指定のための二種類しかない。</p>
 </section>
 <section id="classes-used">
 <h3>Classes used<a class="headerlink" href="#classes-used" title="Permalink to this heading">¶</a></h3>
-<p>The following CSS class selectors are available for richer styling:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Selector</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.er.attributeBoxEven</span></code></p></td>
-<td><p>The box containing attributes on
-even-numbered rows</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.er.attributeBoxOdd</span></code></p></td>
-<td><p>The box containing attributes on
-odd-numbered rows</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.er.entityBox</span></code></p></td>
-<td><p>The box representing an entity</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.er.entityLabel</span></code></p></td>
-<td><p>The label for an entity</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.er.relationshipLabel</span></code></p></td>
-<td><p>The label for a relationship</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.er.relationshipLabelBox</span></code></p></td>
-<td><p>The box surrounding a relationship label</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.er.relationshipLine</span></code></p></td>
-<td><p>The line representing a relationship between
-entities</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">Wikipedia の ER 図のページ</a> にあるような図式を表現するときにこれらを利用する。</p>
-</div>
+<p>CSS クラスセレクターの形式でユーザーが独自にスタイリングを指定することが可能だ。
+<a class="reference external" href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">Wikipedia の ER 図のページ</a> にあるような図式を描画したいときにこれらを指定する。</p>
+<p>セレクター名一覧は本書参照。</p>
 </section>
 </section>
 </section>

@@ -48,11 +48,6 @@
             
   <section id="state-diagrams">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">State diagrams</a><a class="headerlink" href="#state-diagrams" title="Permalink to this heading">¶</a></h1>
-<p>《A state diagram is a type of diagram used in computer science and related
-fields to describe the behavior of systems. State diagrams require that the
-system described is composed of a finite number of states; sometimes, this is
-indeed the case, while at other times this is a reasonable abstraction.》
-(<a class="reference external" href="https://en.wikipedia.org/wiki/State_diagram">Wikipedia</a>)</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -68,15 +63,16 @@ indeed the case, while at other times this is a reasonable abstraction.》
 <li><p><a class="reference internal" href="#concurrency" id="id9">Concurrency</a></p></li>
 <li><p><a class="reference internal" href="#setting-the-direction-of-the-diagram" id="id10">Setting the direction of the diagram</a></p></li>
 <li><p><a class="reference internal" href="#comments" id="id11">Comments</a></p></li>
-<li><p><a class="reference internal" href="#styling" id="id12">Styling</a></p></li>
+<li><p><a class="reference internal" href="#styling-with-classdefs" id="id12">Styling with classDefs</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
-<p>Mermaid can render state diagrams. The syntax tries to be compliant with the
-syntax used in PlantUml as this will make it easier for users to share diagrams
-between mermaid and PlantUml.</p>
-<div class="mermaid">
+<blockquote>
+<div><p>Mermaid can render state diagrams. The syntax tries to be compliant with the
+syntax used in PlantUml as this will make it easier for users to share
+diagrams between mermaid and PlantUml.</p>
+<div align="center" class="mermaid align-center">
             stateDiagram-v2
     [*] --&gt; Still
     Still --&gt; [*]
@@ -85,120 +81,92 @@ between mermaid and PlantUml.</p>
     Moving --&gt; Still
     Moving --&gt; Crash
     Crash --&gt; [*]
-        </div><p>Older renderer:</p>
-<div class="mermaid">
-            stateDiagram
-    [*] --&gt; Still
-    Still --&gt; [*]
-
-    Still --&gt; Moving
-    Moving --&gt; Still
-    Moving --&gt; Crash
-    Crash --&gt; [*]
-        </div><p>In state diagrams systems are described in terms of its states and how the
-systems state can change to another state via a transitions. The example diagram
-above shows three states <strong>Still</strong>, <strong>Moving</strong> and <strong>Crash</strong>. You start in the
-state of Still. From Still you can change the state to Moving. In Moving you can
-change the state either back to Still or to Crash. There is no transition from
-Still to Crash.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>State diagram については図式名が <code class="docutils literal notranslate"><span class="pre">stateDiagram</span></code> と <code class="docutils literal notranslate"><span class="pre">stateDiagram-v2</span></code> の二つ用意されている。上のグラフに関しては描画結果に差は認められない。</p>
-</div>
+        </div>
+        </div></blockquote>
+<p>State diagram については図式名が <code class="docutils literal notranslate"><span class="pre">stateDiagram</span></code> と <code class="docutils literal notranslate"><span class="pre">stateDiagram-v2</span></code> の二つ用意されている。以下、後者を用いる。</p>
 <section id="states">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">States</a><a class="headerlink" href="#states" title="Permalink to this heading">¶</a></h2>
-<p>A state can be declared in multiple ways. The simplest way is to define a state
-id as a description.</p>
-<div class="mermaid">
-            stateDiagram-v2
-    s1
-        </div><p>Another way is by using the state keyword with a description as per below:</p>
-<div class="mermaid">
-            stateDiagram-v2
-    state &quot;This is a state description&quot; as s2
-        </div><p>Another way to define a state with a description is to define the state id
-followed by a colon and the description:</p>
-<div class="mermaid">
-            stateDiagram-v2
-    s2 : This is a state description
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Flowchart のノードの定義法とは異なるようだが、その差を伝えにくい。</p>
+<blockquote>
+<div><p>A state can be declared in multiple ways. The simplest way is to define a
+state with just an id:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
+    stateId
+</pre></div>
 </div>
+<p>Another way is by using the <code class="docutils literal notranslate"><span class="pre">state</span></code> keyword with a description as per below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
+    state &quot;This is a state description&quot; as s2
+</pre></div>
+</div>
+<p>Another way to define a state with a description is to define the state id
+followed by a colon and the description:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
+    s2 : This is a state description
+</pre></div>
+</div>
+</div></blockquote>
+<p>Flowchart のノードの定義法とは異なるようだが、実現したいことは同じようだ。</p>
 </section>
 <section id="transitions">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">Transitions</a><a class="headerlink" href="#transitions" title="Permalink to this heading">¶</a></h2>
-<p>Transitions are path/edges when one state passes into another. This is
+<blockquote>
+<div><p>Transitions are path/edges when one state passes into another. This is
 represented using text arrow, <code class="docutils literal notranslate"><span class="pre">--&gt;</span></code>.</p>
 <p>When you define a transition between two states and the states are not already
 defined the undefined states are defined with the id from the transition. You
 can later add descriptions to states defined this way.</p>
-<div class="mermaid">
-            stateDiagram-v2
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     s1 --&gt; s2
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Class diagram の構文でも見られた、ノード二つとリンクを同時に定義する記法だ。</p>
+</pre></div>
 </div>
-<p>It is possible to add text to a transition. To describe what it represents.</p>
-<div class="mermaid">
-            stateDiagram-v2
+</div></blockquote>
+<p>Class diagram の構文でも見られた、ノード二つとリンクを同時に定義する記法だ。</p>
+<blockquote>
+<div><p>It is possible to add text to a transition. To describe what it represents.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     s1 --&gt; s2: A transition
-        </div></section>
+</pre></div>
+</div>
+</div></blockquote>
+<p>矢印にテキストをオーバーレイしたい状況がない。</p>
+</section>
 <section id="start-and-end">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Start and End</a><a class="headerlink" href="#start-and-end" title="Permalink to this heading">¶</a></h2>
-<p>There are two special states indicating the start and stop of the diagram. These
-are written with the <code class="docutils literal notranslate"><span class="pre">[*]</span></code> syntax and the direction of the transition to it
-defines it either as a start or a stop state.</p>
-<div class="mermaid">
-            stateDiagram-v2
+<blockquote>
+<div><p>There are two special states indicating the start and stop of the diagram.
+These are written with the <code class="docutils literal notranslate"><span class="pre">[*]</span></code> syntax and the direction of the transition
+to it defines it either as a start or a stop state.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     [*] --&gt; s1
     s1 --&gt; [*]
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>開始状態と停止状態を同じ記号で指定することに注意。UML では両者を異なる記号で表現すると規定していることを考えると、Mermaid のそれは興味深い。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>開始状態と停止状態を同じ記号で指定することに注意。描画では UML 様式になる。</p>
 </section>
 <section id="composite-states">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">Composite states</a><a class="headerlink" href="#composite-states" title="Permalink to this heading">¶</a></h2>
-<p>In a real world use of state diagrams you often end up with diagrams that are
-multi-dimensional as one state can have several internal states. These are
+<p>入れ子を定義する <code class="docutils literal notranslate"><span class="pre">state</span></code> 構文を学習する。</p>
+<blockquote>
+<div><p>In a real world use of state diagrams you often end up with diagrams that are
+multidimensional as one state can have several internal states. These are
 called composite states in this terminology.</p>
-<p>In order to define a composite state you need to use the state keyword followed
-by an id and the body of the composite state between <code class="docutils literal notranslate"><span class="pre">{}</span></code>. See the example
-below:</p>
-<div class="mermaid">
-            stateDiagram-v2
+<p>In order to define a composite state you need to use the state keyword
+followed by an id and the body of the composite state between <code class="docutils literal notranslate"><span class="pre">{}</span></code>. See the
+example below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     [*] --&gt; First
     state First {
         [*] --&gt; second
         second --&gt; [*]
     }
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>入れ子を定義する <code class="docutils literal notranslate"><span class="pre">state</span></code> 構文を学習すること。</p>
+</pre></div>
 </div>
-<p>You can do this in several layers:</p>
-<div class="mermaid">
-            stateDiagram-v2
-    [*] --&gt; First
-
-    state First {
-        [*] --&gt; Second
-
-        state Second {
-            [*] --&gt; second
-            second --&gt; Third
-
-            state Third {
-                [*] --&gt; third
-                third --&gt; [*]
-            }
-        }
-    }
-        </div><p>You can also define transitions also between composite states:</p>
-<div class="mermaid">
-            stateDiagram-v2
+</div></blockquote>
+<p>入れ子を多段にすることもできる（引用省略）。</p>
+<blockquote>
+<div><p>You can also define transitions also between composite states:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     [*] --&gt; First
     First --&gt; Second
     First --&gt; Third
@@ -215,57 +183,71 @@ below:</p>
         [*] --&gt; thi
         thi --&gt; [*]
     }
-        </div><p><em>You cannot define transitions between internal states belonging to different
-composite states</em></p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>その CANNOT は UML の規則か。</p>
+</pre></div>
 </div>
+<p><em>You cannot define transitions between internal states belonging to different
+composite states</em></p>
+</div></blockquote>
+<p>その CANNOT は UML の規則か。</p>
 </section>
 <section id="choice">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">Choice</a><a class="headerlink" href="#choice" title="Permalink to this heading">¶</a></h2>
-<p>Sometimes you need to model a choice between two or more paths, you can do so
+<p>次は状態分岐の構文を習う。</p>
+<blockquote>
+<div><p>Sometimes you need to model a choice between two or more paths, you can do so
 using <code class="docutils literal notranslate"><span class="pre">&lt;&lt;choice&gt;&gt;</span></code>.</p>
-<div class="mermaid">
-            stateDiagram-v2
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     state if_state &lt;&lt;choice&gt;&gt;
     [*] --&gt; IsPositive
     IsPositive --&gt; if_state
     if_state --&gt; False: if n &lt; 0
     if_state --&gt; True : if n &gt;= 0
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>状態図内の条件分岐の指定はコード量が多くなりがちだ。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>状態図内の条件分岐の指定はコード量が多くなりがちだ。</p>
 </section>
 <section id="forks">
 <h2><a class="toc-backref" href="#id7" role="doc-backlink">Forks</a><a class="headerlink" href="#forks" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to specify a fork in the diagram using <code class="docutils literal notranslate"><span class="pre">&lt;&lt;fork&gt;&gt;</span></code>.</p>
-<div class="mermaid">
+<p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;fork&gt;&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">&lt;&lt;join&gt;&gt;</span></code> を学習する。図式内で暗い棒として表現される。</p>
+<blockquote>
+<div><p>It is possible to specify a fork in the diagram using <code class="docutils literal notranslate"><span class="pre">&lt;&lt;fork&gt;&gt;</span></code>.</p>
+</div></blockquote>
+<div align="center" class="mermaid align-center">
             stateDiagram-v2
- state fork_state &lt;&lt;fork&gt;&gt;
-   [*] --&gt; fork_state
-   fork_state --&gt; State2
-   fork_state --&gt; State3
+  state fork_state &lt;&lt;fork&gt;&gt;
+    [*] --&gt; fork_state
+    fork_state --&gt; State2
+    fork_state --&gt; State3
 
-   state join_state &lt;&lt;join&gt;&gt;
-   State2 --&gt; join_state
-   State3 --&gt; join_state
-   join_state --&gt; State4
-   State4 --&gt; [*]
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;fork&gt;&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">&lt;&lt;join&gt;&gt;</span></code> を学習する。</p>
+  state join_state &lt;&lt;join&gt;&gt;
+    State2 --&gt; join_state
+    State3 --&gt; join_state
+    join_state --&gt; State4
+    State4 --&gt; [*]
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stateDiagram</span><span class="o">-</span><span class="n">v2</span>
+  <span class="n">state</span> <span class="n">fork_state</span> <span class="o">&lt;&lt;</span><span class="n">fork</span><span class="o">&gt;&gt;</span>
+    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">fork_state</span>
+    <span class="n">fork_state</span> <span class="o">--&gt;</span> <span class="n">State2</span>
+    <span class="n">fork_state</span> <span class="o">--&gt;</span> <span class="n">State3</span>
+
+  <span class="n">state</span> <span class="n">join_state</span> <span class="o">&lt;&lt;</span><span class="n">join</span><span class="o">&gt;&gt;</span>
+    <span class="n">State2</span> <span class="o">--&gt;</span> <span class="n">join_state</span>
+    <span class="n">State3</span> <span class="o">--&gt;</span> <span class="n">join_state</span>
+    <span class="n">join_state</span> <span class="o">--&gt;</span> <span class="n">State4</span>
+    <span class="n">State4</span> <span class="o">--&gt;</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span>
+</pre></div>
 </div>
 </section>
 <section id="notes">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">Notes</a><a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
-<p>Sometimes nothing says it better then a Post-it note. That is also the case in
-state diagrams.</p>
-<p>Here you can choose to put the note to the <em>right of</em> or to the <em>left of</em> a
+<p>UML 仕様書で言うところのコメントに相当するものを定義することが可能だ。次の例のように <code class="docutils literal notranslate"><span class="pre">note</span> <span class="pre">...</span> <span class="pre">of</span> <span class="pre">...</span></code> と <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">note</span></code> の間にテキストを指示する。</p>
+<blockquote>
+<div><p>Here you can choose to put the note to the <em>right of</em> or to the <em>left of</em> a
 node.</p>
-<div class="mermaid">
-            stateDiagram-v2
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     State1: The state with a note
     note right of State1
         Important information! You can write
@@ -273,15 +255,19 @@ node.</p>
     end note
     State1 --&gt; State2
     note left of State2 : This is the note to the left.
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Sequence diagram にある構文と同様だ。しかし、これは left なのか？</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>Sequence diagram にある構文と同様だ。しかし、これは left なのか？</p>
 </section>
 <section id="concurrency">
 <h2><a class="toc-backref" href="#id9" role="doc-backlink">Concurrency</a><a class="headerlink" href="#concurrency" title="Permalink to this heading">¶</a></h2>
-<p>As in PlantUml you can specify concurrency using the <code class="docutils literal notranslate"><span class="pre">--</span></code> symbol.</p>
-<div class="mermaid">
+<blockquote>
+<div><p>As in PlantUml you can specify concurrency using the <code class="docutils literal notranslate"><span class="pre">--</span></code> symbol.</p>
+</div></blockquote>
+<p>遷移指定の間に水平罫線のイメージでこれを記す。コードから連想されるように図式内の部分状態が区画に分かれる。</p>
+<blockquote>
+<div><div align="center" class="mermaid align-center">
             stateDiagram-v2
     [*] --&gt; Active
 
@@ -298,39 +284,57 @@ node.</p>
         ScrollLockOff --&gt; ScrollLockOn : EvScrollLockPressed
         ScrollLockOn --&gt; ScrollLockOff : EvScrollLockPressed
     }
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Mermaid コードから連想されるようにして、図式内の部分状態が区画に分かれる。</p>
+
+        </div>
+        <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stateDiagram</span><span class="o">-</span><span class="n">v2</span>
+    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">Active</span>
+
+    <span class="n">state</span> <span class="n">Active</span> <span class="p">{</span>
+        <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">NumLockOff</span>
+        <span class="n">NumLockOff</span> <span class="o">--&gt;</span> <span class="n">NumLockOn</span> <span class="p">:</span> <span class="n">EvNumLockPressed</span>
+        <span class="n">NumLockOn</span> <span class="o">--&gt;</span> <span class="n">NumLockOff</span> <span class="p">:</span> <span class="n">EvNumLockPressed</span>
+        <span class="o">--</span>
+        <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">CapsLockOff</span>
+        <span class="n">CapsLockOff</span> <span class="o">--&gt;</span> <span class="n">CapsLockOn</span> <span class="p">:</span> <span class="n">EvCapsLockPressed</span>
+        <span class="n">CapsLockOn</span> <span class="o">--&gt;</span> <span class="n">CapsLockOff</span> <span class="p">:</span> <span class="n">EvCapsLockPressed</span>
+        <span class="o">--</span>
+        <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">ScrollLockOff</span>
+        <span class="n">ScrollLockOff</span> <span class="o">--&gt;</span> <span class="n">ScrollLockOn</span> <span class="p">:</span> <span class="n">EvScrollLockPressed</span>
+        <span class="n">ScrollLockOn</span> <span class="o">--&gt;</span> <span class="n">ScrollLockOff</span> <span class="p">:</span> <span class="n">EvScrollLockPressed</span>
+    <span class="p">}</span>
+</pre></div>
 </div>
+</div></blockquote>
 </section>
 <section id="setting-the-direction-of-the-diagram">
 <h2><a class="toc-backref" href="#id10" role="doc-backlink">Setting the direction of the diagram</a><a class="headerlink" href="#setting-the-direction-of-the-diagram" title="Permalink to this heading">¶</a></h2>
-<p>With state diagrams you can use the direction statement to set the direction
+<blockquote>
+<div><p>With state diagrams you can use the direction statement to set the direction
 which the diagram will render like in this example.</p>
-<div class="mermaid">
-            stateDiagram
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram
     direction LR
     [*] --&gt; A
     A --&gt; B
     B --&gt; C
     state B {
-      direction LR
-      a --&gt; b
+        direction LR
+        a --&gt; b
     }
     B --&gt; D
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p><code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">RL</span></code> を <code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">LR</span></code> やその他に書き換えて表示を確認するといい。</p>
+</pre></div>
 </div>
+</div></blockquote>
+<p>Class diagram と同じ仕様だ。<code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">RL</span></code> を <code class="docutils literal notranslate"><span class="pre">direction</span> <span class="pre">LR</span></code> やその他に書き換えて表示を確認するといい。</p>
 </section>
 <section id="comments">
 <h2><a class="toc-backref" href="#id11" role="doc-backlink">Comments</a><a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h2>
-<p>Comments can be entered within a state diagram chart, which will be ignored by
+<p>Sequence diagram や Class diagram のコメントと同じ仕様と思いきや：</p>
+<blockquote>
+<div><p>Comments can be entered within a state diagram chart, which will be ignored by
 the parser. Comments need to be on their own line, and must be prefaced with
 <code class="docutils literal notranslate"><span class="pre">%%</span></code> (double percent signs). Any text after the start of the comment to the
 next newline will be treated as a comment, including any diagram syntax</p>
-<div class="mermaid">
-            stateDiagram-v2
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stateDiagram-v2
     [*] --&gt; Still
     Still --&gt; [*]
 %% this is a comment
@@ -338,20 +342,79 @@ next newline will be treated as a comment, including any diagram syntax</p>
     Moving --&gt; Still %% another comment
     Moving --&gt; Crash
     Crash --&gt; [*]
-        </div><div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>Sequence diagram でも利用可能だったものだ。</p>
+</pre></div>
+</div>
+</div></blockquote>
+<p>本文の記述と異なり、この例の <code class="docutils literal notranslate"><span class="pre">%%</span> <span class="pre">another</span> <span class="pre">comment</span></code> 部分も描画を見るとコメント扱いだ。</p>
+</section>
+<section id="styling-with-classdefs">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Styling with classDefs</a><a class="headerlink" href="#styling-with-classdefs" title="Permalink to this heading">¶</a></h2>
+<p>最近になってこの節が執筆されたようだ。</p>
+<blockquote>
+<div><p>As with other diagrams (like flowcharts), you can define a style in the
+diagram itself and apply that named style to a state or states in the diagram.</p>
+<p>These are the current limitations with state diagram classDefs:</p>
+<ol class="arabic simple">
+<li><p>Cannot be applied to start or end states</p></li>
+<li><p>Cannot be applied to or within composite states</p></li>
+</ol>
+</div></blockquote>
+<p>入れ子構造の内側にはスタイルを指定しにくいということだろう。</p>
+<blockquote>
+<div><p>You define a style using the <code class="docutils literal notranslate"><span class="pre">classDef</span></code> keyword, which is short for “class
+definition” (where “class” means something like a CSS class) followed by a
+name for the style, and then one or more property-value pairs. Each
+property-value pair is a valid CSS property name followed by a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>)
+and then a value.</p>
+</div></blockquote>
+<p>次の定義例は <code class="docutils literal notranslate"><span class="pre">movement</span></code> という名前のスタイルを定義しており、テキストを斜体で描画する：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDef movement font-style:italic;
+</pre></div>
+</div>
+</div></blockquote>
+<p>次の定義例はプロパティーを複数指定する：</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>classDef badBadEvent fill:#f00,color:white,font-weight:bold,stroke-width:2px,stroke:yellow
+</pre></div>
+</div>
+</div></blockquote>
+<section id="apply-classdef-styles-to-states">
+<h3>Apply classDef styles to states<a class="headerlink" href="#apply-classdef-styles-to-states" title="Permalink to this heading">¶</a></h3>
+<p>定義した <code class="docutils literal notranslate"><span class="pre">classDef</span></code> を状態ノードなどに割り当てる方法を習得しよう。</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>use the <code class="docutils literal notranslate"><span class="pre">class</span></code> keyword to apply a <code class="docutils literal notranslate"><span class="pre">classDef</span></code> style to one or more
+states in a single statement, or</p></li>
+<li><p>use the <code class="docutils literal notranslate"><span class="pre">:::</span></code> operator to apply a <code class="docutils literal notranslate"><span class="pre">classDef</span></code> style to a state as it is
+being used in a transition statement (e.g. with an arrow to/from another
+state)</p></li>
+</ol>
+</div></blockquote>
+<p>State diagram コード片の例。<code class="docutils literal notranslate"><span class="pre">movement</span></code> および `` badBadEvent`` を <code class="docutils literal notranslate"><span class="pre">classDef</span></code>
+名とする。まずキーワード記法では次のようになる：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>class Crash badBadEvent
+class Moving, Crash movement
+</pre></div>
+</div>
+<p>トリプルコロン記法では次のように、エッジ指定行のノードの右側に <code class="docutils literal notranslate"><span class="pre">classDef</span></code> 名を付加すればいい：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[*] --&gt; Still:::notMoving
+Still --&gt; [*]
+Still --&gt; Moving:::movement
+Moving --&gt; Still
+Moving --&gt; Crash:::movement
+Crash:::badBadEvent --&gt; [*]
+</pre></div>
 </div>
 </section>
-<section id="styling">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">Styling</a><a class="headerlink" href="#styling" title="Permalink to this heading">¶</a></h2>
-<p>Styling of the a state diagram is done by defining a number of css classes.
-During rendering these classes are extracted from the file located at
-<code class="file docutils literal notranslate"><span class="pre">src/themes/state.scss</span></code>.</p>
-<div class="admonition- admonition">
-<p class="admonition-title">学習者ノート</p>
-<p>この章ではスタイル付けについての文書がほとんど用意されていないようだ。</p>
-</div>
+<section id="spaces-in-state-names">
+<h3>Spaces in state names<a class="headerlink" href="#spaces-in-state-names" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Spaces can be added to a state by first defining the state with an id and then
+referencing the id later.</p>
+</div></blockquote>
+<p>States 節で述べた仕様とスタイル指定の複合が成立するという記述だ。</p>
+</section>
 </section>
 </section>
 

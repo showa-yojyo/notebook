@@ -1,211 +1,137 @@
-=======================================================================
+======================================================================
 Requirement Diagram
-=======================================================================
-
-A Requirement diagram provides a visualization for requirements and their
-connections, to each other and other documented elements. The modeling specs
-follow those defined by SysML v1.6.
+======================================================================
 
 .. contents::
    :depth: 2
 
-.. admonition:: 学習者ノート
+..
 
-   SysML は UML と同じく OMG が策定する言語仕様の一つだ。
+  A Requirement diagram provides a visualization for requirements and their
+  connections, to each other and other documented elements. The modeling specs
+  follow those defined by SysML v1.6.
 
-Rendering requirements is straightforward.
+SysML は UML と同じく OMG が策定する言語仕様の一つだ。
 
-.. mermaid::
+  Rendering requirements is straightforward.
 
-   requirementDiagram
+  .. mermaid::./r-first.mmd
+     :align: center
+  .. literalinclude::./r-first.mmd
 
-       requirement test_req {
-       id: 1
-       text: the test text.
-       risk: high
-       verifymethod: test
-       }
-
-       element test_entity {
-       type: simulation
-       }
-
-       test_entity - satisfies -> test_req
-
-.. admonition:: 学習者ノート
-
-   この図式だけ見れば「要素 ``test_entity`` は要求 ``test_req`` を満足する」と読
-   める。
+この図式だけ見れば「要素 ``test_entity`` は要求 ``test_req`` を満足する」と読め
+る。
 
 Syntax
-=======================================================================
+======================================================================
 
-There are three types of components to a requirement diagram: requirement,
-element, and relationship.
+  There are three types of components to a requirement diagram: requirement,
+  element, and relationship.
 
-The grammar for defining each is defined below. Words denoted in angle brackets,
-such as ``<word>``, are enumerated keywords that have options elaborated in a
-table. ``user_defined_...`` is use in any place where user input is expected.
+  The grammar for defining each is defined below. Words denoted in angle
+  brackets, such as ``<word>``, are enumerated keywords that have options
+  elaborated in a table. ``user_defined_...`` is use in any place where user
+  input is expected.
 
-An important note on user text: all input can be surrounded in quotes or not.
-For example, both ``Id: "here is an example"`` and ``Id: here is an example``
-are both valid. However, users must be careful with unquoted input. The parser
-will fail if another keyword is detected.
+  An important note on user text: all input can be surrounded in quotes or not.
+  For example, both ``Id: "here is an example"`` and ``Id: here is an example``
+  are both valid. However, users must be careful with unquoted input. The parser
+  will fail if another keyword is detected.
 
-.. admonition:: 学習者ノート
-
-   諸注意は自然なものだ。特段問題はない。
+諸注意は自然なものだ。特段問題はない。
 
 Requirement
 -----------------------------------------------------------------------
 
-A requirement definition contains a requirement type, name, id, text, risk, and
-verification method. The syntax follows:
+  A requirement definition contains a requirement ``type``, ``name``, ``id``,
+  ``text``, ``risk``, and ``verification`` method. The syntax follows:
 
-.. code:: text
+  .. code:: text
 
-   <type> user_defined_name {
-       id: user_defined_id
-       text: user_defined text
-       risk: <risk>
-       verifymethod: <method>
-   }
+     <type> user_defined_name {
+         id: user_defined_id
+         text: user_defined text
+         risk: <risk>
+         verifymethod: <method>
+     }
 
-.. admonition:: 学習者ノート
+おそらくこれらの要素全てを指定する必要がある。
 
-   おそらくこれらの要素全てを指定する必要がある。
+  Type, risk, and method are enumerations defined in SysML.
 
-Type, risk, and method are enumerations defined in SysML.
+  +---------------------+---------------------------------------+
+  | Keyword             | Options                               |
+  +=====================+=======================================+
+  | Type                | requirement, functionalRequirement,   |
+  |                     | interfaceRequirement,                 |
+  |                     | performanceRequirement,               |
+  |                     | physicalRequirement, designConstraint |
+  +---------------------+---------------------------------------+
+  | Risk                | Low, Medium, High                     |
+  +---------------------+---------------------------------------+
+  | VerificationMethod  | Analysis, Inspection, Test,           |
+  |                     | Demonstration                         |
+  +---------------------+---------------------------------------+
 
-+---------------------------------------+---------------------------------------+
-| Keyword                               | Options                               |
-+=======================================+=======================================+
-| Type                                  | requirement, functionalRequirement,   |
-|                                       | interfaceRequirement,                 |
-|                                       | performanceRequirement,               |
-|                                       | physicalRequirement, designConstraint |
-+---------------------------------------+---------------------------------------+
-| Risk                                  | Low, Medium, High                     |
-+---------------------------------------+---------------------------------------+
-| VerificationMethod                    | Analysis, Inspection, Test,           |
-|                                       | Demonstration                         |
-+---------------------------------------+---------------------------------------+
+大文字小文字は区別されないようだ。
 
 Element
 -----------------------------------------------------------------------
 
-An element definition contains an element name, type, and document reference.
-These three are all user defined. The element feature is intended to be
-lightweight but allow requirements to be connected to portions of other
-documents.
+  An element definition contains an element name, type, and document reference.
+  These three are all user defined. The element feature is intended to be
+  lightweight but allow requirements to be connected to portions of other
+  documents.
 
-.. code:: text
+  .. code:: text
 
-   element user_defined_name {
-       type: user_defined_type
-       docref: user_defined_ref
-   }
+     element user_defined_name {
+         type: user_defined_type
+         docref: user_defined_ref
+     }
 
-.. admonition:: 学習者ノート
-
-   おそらくこれらの要素全てを指定する必要がある。
+おそらくこれらの要素全てを指定する必要がある。
 
 Relationship
 -----------------------------------------------------------------------
 
-Relationships are comprised of a source node, destination node, and relationship
-type.
+  Relationships are comprised of a source node, destination node, and
+  relationship type.
 
-Each follows the definition format of
+  Each follows the definition format of
 
-.. code:: text
+  .. code:: text
 
-   {name of source} - <type> -> {name of destination}
+     {name of source} - <type> -> {name of destination}
 
-or
+  or
 
-.. code:: text
+  .. code:: text
 
-   {name of destination} <- <type> - {name of source}
+     {name of destination} <- <type> - {name of source}
 
-"name of source" and "name of destination" should be names of requirement or
-element nodes defined elsewhere.
+実際は左向きか右向きかを一つの図式の中で統一して用いるのが整合性があり良いと考え
+られる。
 
-A relationship type can be one of contains, copies, derives, satisfies,
-verifies, refines, or traces.
+  "name of source" and "name of destination" should be names of requirement or
+  element nodes defined elsewhere.
 
-Each relationship is labeled in the diagram.
+  A relationship type can be one of contains, copies, derives, satisfies,
+  verifies, refines, or traces.
+
+英語の SVO を意識する。
+
+  Each relationship is labeled in the diagram.
+
+矢印の線部分に重なり合うようにラベルが示される。
 
 Larger Example
-=======================================================================
+======================================================================
 
-This example uses all features of the diagram.
+  This example uses all features of the diagram.
 
-.. mermaid::
+  .. mermaid::./r-all-features.mmd
+     :align: center
+  .. literalinclude::./r-all-features.mmd
 
-   requirementDiagram
-
-       requirement test_req {
-           id: 1
-           text: the test text.
-           risk: high
-           verifymethod: test
-       }
-
-       functionalRequirement test_req2 {
-           id: 1.1
-           text: the second test text.
-           risk: low
-           verifymethod: inspection
-       }
-
-       performanceRequirement test_req3 {
-           id: 1.2
-           text: the third test text.
-           risk: medium
-           verifymethod: demonstration
-       }
-
-       interfaceRequirement test_req4 {
-           id: 1.2.1
-           text: the fourth test text.
-           risk: medium
-           verifymethod: analysis
-       }
-
-       physicalRequirement test_req5 {
-           id: 1.2.2
-           text: the fifth test text.
-           risk: medium
-           verifymethod: analysis
-       }
-
-       designConstraint test_req6 {
-           id: 1.2.3
-           text: the sixth test text.
-           risk: medium
-           verifymethod: analysis
-       }
-
-       element test_entity {
-           type: simulation
-       }
-
-       element test_entity2 {
-           type: word doc
-           docRef: reqs/test_entity
-       }
-
-       element test_entity3 {
-           type: "test suite"
-           docRef: github.com/all_the_tests
-       }
-
-       test_entity - satisfies -> test_req2
-       test_req - traces -> test_req2
-       test_req - contains -> test_req3
-       test_req3 - contains -> test_req4
-       test_req4 - derives -> test_req5
-       test_req5 - refines -> test_req6
-       test_entity3 - verifies -> test_req5
-       test_req <- copies - test_entity2
+内容が実践的だともっとありがたい。

@@ -1,666 +1,552 @@
-=======================================================================
+======================================================================
 Sequence Diagrams
-=======================================================================
-
-A Sequence diagram is an interaction diagram that shows how processes operate
-with one another and in what order.
-
-Mermaid can render sequence diagrams.
+======================================================================
 
 .. contents::
    :depth: 2
 
-.. mermaid::
+..
 
-   sequenceDiagram
-       Alice->>John: Hello John, how are you?
-       John-->>Alice: Great!
-       Alice-)John: See you later!
+  Mermaid can render sequence diagrams.
 
-A note on nodes, the word “end” could potentially break the diagram, due to the
-way that the mermaid language is scripted. If unavoidable, one must use
-parentheses ``()``, quotation marks ``""``, or brackets ``{},[]``, to enclose
-the word “end”. i.e : ``(end), [end], {end}``.
+  .. mermaid:: ./sd-first.mmd
+     :align: center
+  .. literalinclude:: ./sd-first.mmd
 
-.. admonition:: 学習者ノート
-
-   フローチャートと同様に、``end`` という単語は予約語のように扱え。
+UML シーケンス図は使い所が多いのでありがたい。
 
 Syntax
-=======================================================================
+======================================================================
 
 Participants
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-The participants can be defined implicitly as in the first example on this page.
-The participants or actors are rendered in order of appearance in the diagram
-source text. Sometimes you might want to show the participants in a different
-order than how they appear in the first message. It is possible to specify the
-actor's order of appearance by doing the following:
+  The participants can be defined implicitly as in the first example on this
+  page. The participants or actors are rendered in order of appearance in the
+  diagram source text. Sometimes you might want to show the participants in a
+  different order than how they appear in the first message. It is possible to
+  specify the actor's order of appearance by doing the following:
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       participant Alice
-       participant Bob
-       Alice->>Bob: Hi Bob
-       Bob->>Alice: Hi Alice
+     sequenceDiagram
+         participant Alice
+         participant Bob
+         Alice->>Bob: Hi Bob
+         Bob->>Alice: Hi Alice
 
-.. admonition:: 学習者ノート
-
-   ``participant`` の行を入れ替えて描画結果を見比べると検証できる。
+参加者を明示的に宣言しておくことの利点は、図式中のライフラインの配列を調整できる
+ということだ。コード中の ``participant`` の行を入れ替えて描画結果を見比べると検
+証できる。
 
 Actors
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-If you specifically want to use the actor symbol instead of a rectangle with
-text you can do so by using actor statements as per below.
+  If you specifically want to use the actor symbol instead of a rectangle with
+  text you can do so by using actor statements as per below.
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       actor Alice
-       actor Bob
-       Alice->>Bob: Hi Bob
-       Bob->>Alice: Hi Alice
+     sequenceDiagram
+         actor Alice
+         actor Bob
+         Alice->>Bob: Hi Bob
+         Bob->>Alice: Hi Alice
 
-.. admonition:: 学習者ノート
-
-   棒人間を描けるのなら Use Case Diagram も対応して欲しい。
+棒人間を描けるのなら Use Case Diagram も Mermaid には対応して欲しいものだ。
 
 Aliases
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-The actor can have a convenient identifier and a descriptive label.
+  The actor can have a convenient identifier and a descriptive label.
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       participant A as Alice
-       participant J as John
-       A->>J: Hello John, how are you?
-       J->>A: Great!
+     sequenceDiagram
+         participant A as Alice
+         participant J as John
+         A->>J: Hello John, how are you?
+         J->>A: Great!
 
-.. admonition:: 学習者ノート
+この機能は ``as`` の後ろにある単語のほうがラベルとして描画される。
 
-   ``as`` のほうがラベルとして描画される。
+Grouping / Box
+----------------------------------------------------------------------
+
+この機能はシーケンス図を水平に区切ることで部分シーケンス図を形成する。
+
+  The actor(s) can be grouped in vertical boxes. You can define a color (if not,
+  it will be transparent) and/or a descriptive label using the following
+  notation:
+
+  .. code:: text
+
+     box Aqua Group Description
+     ... actors ...
+     end
+     box Group without description
+     ... actors ...
+     end
+     box rgb(33,66,99)
+     ... actors ...
+     end
+
+次の例は正常に描画される実践的なものだ：
+
+  .. mermaid:: ./sd-boxes.mmd
+     :align: center
+  .. literalinclude:: ./sd-boxes.mmd
 
 Messages
-=======================================================================
+======================================================================
 
-Messages can be of two displayed either solid or with a dotted line.
+  Messages can be of two displayed either solid or with a dotted line.
 
-.. code:: text
+  .. code:: text
 
-   [Actor][Arrow][Actor]:Message text
+     [Actor][Arrow][Actor]:Message text
 
-There are six types of arrows currently supported:
+  There are six types of arrows currently supported:
 
-======== ================================================
-Type     Description
-======== ================================================
-``->``   Solid line without arrow
-``-->``  Dotted line without arrow
-``->>``  Solid line with arrowhead
-``-->>`` Dotted line with arrowhead
-``-x``   Solid line with a cross at the end
-``--x``  Dotted line with a cross at the end.
-``-)``   Solid line with an open arrow at the end (async)
-``--)``  Dotted line with a open arrow at the end (async)
-======== ================================================
+  ======== ================================================
+  Type     Description
+  ======== ================================================
+  ``->``   Solid line without arrow
+  ``-->``  Dotted line without arrow
+  ``->>``  Solid line with arrowhead
+  ``-->>`` Dotted line with arrowhead
+  ``-x``   Solid line with a cross at the end
+  ``--x``  Dotted line with a cross at the end.
+  ``-)``   Solid line with an open arrow at the end (async)
+  ``--)``  Dotted line with a open arrow at the end (async)
+  ======== ================================================
+
+シーケンス図では実線と点線は要求と応答をそれぞれ表す。閉じた矢印と開いた矢印は同
+期的か非同期的かをそれぞれ表す。バツジルシの矢印は不明。
 
 Activations
-=======================================================================
+======================================================================
 
-It is possible to activate and deactivate an actor. ``(de)activation`` can be
-dedicated declarations:
+  It is possible to activate and deactivate an actor. ``(de)activation`` can be
+  dedicated declarations:
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       Alice->>John: Hello John, how are you?
-       activate John
-       John-->>Alice: Great!
-       deactivate John
+     sequenceDiagram
+         Alice->>John: Hello John, how are you?
+         activate John
+         John-->>Alice: Great!
+         deactivate John
 
-.. admonition:: 学習者ノート
+UML の仕様としては、activation 要素は、オブジェクトがメッセージに応答しているこ
+とを示すものだ。メッセージを受信したときに開始し、オブジェクトがメッセージの処理
+を終了したときに終了する。
 
-   UML の仕様としては、activation 要素は、オブジェクトがメッセージに応答している
-   ことを示すものだ。メッセージを受信したときに開始し、オブジェクトがメッセージ
-   の処理を終了したときに終了する。
+  There is also a shortcut notation by appending ``+``/``-`` suffix to the
+  message arrow:
 
-There is also a shortcut notation by appending ``+``/``-`` suffix to the message
-arrow:
+  .. code:: text
 
-.. mermaid::
+     sequenceDiagram
+         Alice->>+John: Hello John, how are you?
+         John-->>-Alice: Great!
 
-   sequenceDiagram
-       Alice->>+John: Hello John, how are you?
-       John-->>-Alice: Great!
+同じ見てくれの図式が得られる。
 
-Activations can be stacked for same actor:
+  Activations can be stacked for same actor:
 
-.. mermaid::
+  .. mermaid:: ./sd-activation.mmd
+     :align: center
+  .. literalinclude:: ./sd-activation.mmd
 
-   sequenceDiagram
-       Alice->>+John: Hello John, how are you?
-       Alice->>+John: John, can you hear me?
-       John-->>-Alice: Hi Alice, I can hear you!
-       John-->>-Alice: I feel great!
+活性区間が重なり合うように描画される。
 
 Notes
-=======================================================================
+======================================================================
 
-It is possible to add notes to a sequence diagram. This is done by the notation
-``Note [ right of | left of | over ] [Actor]: Text`` in note content
+  It is possible to add notes to a sequence diagram. This is done by the notation
+  ``Note [ right of | left of | over ] [Actor]: Text`` in note content
 
-See the example below:
+  See the example below:
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       participant John
-       Note right of John: Text in note
+     sequenceDiagram
+         participant John
+         Note right of John: Text in note
 
-.. admonition:: 学習者ノート
+実際に注釈要素が描画される位置は、John 全体に対して決まるようだ。垂直方向座標は
+シーケンスのその時点に対応して決まる。
 
-   注釈要素は他の図式にも対応して欲しい。
+  It is also possible to create notes spanning two participants:
 
-It is also possible to create notes spanning two participants:
+  .. code:: text
 
-.. mermaid::
+     sequenceDiagram
+         Alice->John: Hello John, how are you?
+         Note over Alice,John: A typical interaction
 
-   sequenceDiagram
-       Alice->John: Hello John, how are you?
-       Note over Alice,John: A typical interaction
+キーワード ``over`` の引数に参加者をカンマ区切りで与えればいい。注釈要素が両者全
+体にまたがるように描画される。
 
-.. admonition:: 学習者ノート
+  It is also possible to add a line break (applies to text input in general)
 
-   キーワード ``over`` の引数に Participants
-   をカンマ区切りで与えればいい。
+HTML タグ ``<br/>`` をテキスト中に直接記入すればいい。
 
 Loops
-=======================================================================
+======================================================================
 
-It is possible to express loops in a sequence diagram. This is done by the
-notation
+  It is possible to express loops in a sequence diagram. This is done by the
+  notation
 
-.. code:: text
+  .. code:: text
 
-   loop Loop text
-   ... statements ...
-   end
+     loop Loop text
+     ... statements ...
+     end
 
-See the example below:
+  See the example below:
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       Alice->John: Hello John, how are you?
-       loop Every minute
-           John-->Alice: Great!
-       end
+     sequenceDiagram
+         Alice->John: Hello John, how are you?
+         loop Every minute
+             John-->Alice: Great!
+         end
 
-.. admonition:: 学習者ノート
-
-   キーワード ``loop``
-   の引数は反復条件を表すテキストということだ。
+キーワード ``loop`` の引数は反復条件を表すテキストということだ。
 
 Alt
-=======================================================================
+======================================================================
 
-It is possible to express alternative paths in a sequence diagram. This is done
-by the notation
+  It is possible to express alternative paths in a sequence diagram. This is
+  done by the notation
 
-.. code:: text
+  .. code:: text
 
-   alt Describing text
-   ... statements ...
-   else
-   ... statements ...
-   end
+     alt Describing text
+     ... statements ...
+     else
+     ... statements ...
+     end
 
-or if there is sequence that is optional (if without else).
+当然だが、``alt`` 節だけでなく ``else`` 節の右側にも describing text を指定する
+ことが許される。
 
-.. code:: text
+  or if there is sequence that is optional (if without else).
 
-   opt Describing text
-   ... statements ...
-   end
+  .. code:: text
 
-See the example below:
+     opt Describing text
+     ... statements ...
+     end
 
-.. mermaid::
+これらの両方のブロックを用いた例：
 
-   sequenceDiagram
-       Alice->>Bob: Hello Bob, how are you?
-       alt is sick
-           Bob->>Alice: Not so good :(
-       else is well
-           Bob->>Alice: Feeling fresh like a daisy
-       end
-       opt Extra response
-           Bob->>Alice: Thanks for asking
-       end
+  .. mermaid:: ./sd-alt-opt.mmd
+     :align: center
+  .. literalinclude:: ./sd-alt-opt.mmd
 
-.. admonition:: 学習者ノート
-
-   Sequence 図の ``alt`` はプログラミング言語でいう ``if`` 文のような構文だが、
-   ``elif`` に相当するものがない。
+シーケンス図の ``alt`` はプログラミング言語でいう ``if`` 文のような構文だが、
+``elif`` に相当するものがない。
 
 Parallel
-=======================================================================
+======================================================================
 
-It is possible to show actions that are happening in parallel.
+これもよく使いたくなるので覚えておく。
 
-This is done by the notation
+  It is possible to show actions that are happening in parallel.
 
-.. code:: text
+  This is done by the notation
 
-   par [Action 1]
-   ... statements ...
-   and [Action 2]
-   ... statements ...
-   and [Action N]
-   ... statements ...
-   end
+  .. code:: text
 
-See the example below:
+     par [Action 1]
+     ... statements ...
+     and [Action 2]
+     ... statements ...
+     and [Action N]
+     ... statements ...
+     end
 
-.. mermaid::
+自然な文法だ。キーワード ``par`` の引数は実行条件を表すテキストなのだが、ない場
+合は空でいい。
 
-   sequenceDiagram
-       par Alice to Bob
-           Alice->>Bob: Hello guys!
-       and Alice to John
-           Alice->>John: Hello guys!
-       end
-       Bob-->>Alice: Hi Alice!
-       John-->>Alice: Hi Alice!
+  It is also possible to nest parallel blocks.
 
-.. admonition:: 学習者ノート
+  .. mermaid:: ./sd-par.mmd
+     :align: center
+  .. literalinclude:: ./sd-par.mmd
 
-   キーワード ``par`` の引数は実行条件を表すテキストなのだが、
-   実際はこの例のように意味のない指定もあり得る。
+異種の構造化ブロックを入れ子にしたい場合がよくあるし、Mermaid はそれを対応してい
+るはずだ。
 
-It is also possible to nest parallel blocks.
+Critical Region
+======================================================================
 
-.. mermaid::
+最近になってシーケンス図で対応されるブロックの種類が拡充されたようだ。
 
-   sequenceDiagram
-       par Alice to Bob
-           Alice->>Bob: Go help John
-       and Alice to John
-           Alice->>John: I want this done today
-           par John to Charlie
-               John->>Charlie: Can we do this today?
-           and John to Diana
-               John->>Diana: Can you help us today?
-           end
-       end
+  It is possible to show actions that must happen automatically with conditional
+  handling of circumstances.
+
+  This is done by the notation
+
+  .. code:: text
+
+     critical [Action that must be performed]
+     ... statements ...
+     option [Circumstance A]
+     ... statements ...
+     option [Circumstance B]
+     ... statements ...
+     end
+
+  See the example below:
+
+  .. mermaid:: ./sd-critical.mmd
+     :align: center
+  .. literalinclude:: ./sd-critical.mmd
+
+主要機能説明時に言及されていなかったが、矢印を自身に向けることも許されている。
+
+Break
+======================================================================
+
+  It is possible to indicate a stop of the sequence within the flow (usually used
+  to model exceptions).
+
+  This is done by the notation
+
+  .. code:: text
+
+     break [something happened]
+     ... statements ...
+     end
+
+なお、ブロック ``break`` を用いるのは、例外処理をモデル化するためであることが多
+い。
+
+  See the example below:
+
+  .. code:: text
+
+     sequenceDiagram
+         Consumer-->API: Book something
+         API-->BookingService: Start booking process
+         break when the booking process fails
+             API-->Consumer: show failure
+         end
+         API-->BillingService: Start billing process
+
+このコードはコンパクトだが、描画すると比較的複雑で驚く。
 
 Background Highlighting
-=======================================================================
+======================================================================
 
-It is possible to highlight flows by providing colored background rects. This is
-done by the notation
+  It is possible to highlight flows by providing colored background rects. This
+  is done by the notation
 
-The colors are defined using rgb and rgba syntax.
+  The colors are defined using rgb and rgba syntax.
 
-.. code:: text
+  .. code:: text
 
-   rect rgb(0, 255, 0)
-   ... content ...
-   end
-   rect rgba(0, 0, 255, .1)
-   ... content ...
-   end
+     rect rgb(0, 255, 0)
+     ... content ...
+     end
+     rect rgba(0, 0, 255, .1)
+     ... content ...
+     end
 
-.. admonition:: 学習者ノート
+ブロック ``rect`` はシーケンス図を垂直に区切る。この要素の着想は HTML における
+``div`` タグの利用と一緒だろう。
 
-   このブロックの着想は HTML を手書きするときの ``div`` タグの利用と一緒だろう。
+  See the examples below:
 
-See the examples below:
+  .. code:: text
 
-.. mermaid::
+     sequenceDiagram
+         participant Alice
+         participant John
 
-   sequenceDiagram
-       participant Alice
-       participant John
+         rect rgb(191, 223, 255)
+         note right of Alice: Alice calls John.
+         Alice->>+John: Hello John, how are you?
+         rect rgb(200, 150, 255)
+         Alice->>+John: John, can you hear me?
+         John-->>-Alice: Hi Alice, I can hear you!
+         end
+         John-->>-Alice: I feel great!
+         end
+         Alice ->>+ John: Did you want to go to the game tonight?
+         John -->>- Alice: Yeah! See you there.
 
-       rect rgb(191, 223, 255)
-       note right of Alice: Alice calls John.
-       Alice->>+John: Hello John, how are you?
-       rect rgb(200, 150, 255)
-       Alice->>+John: John, can you hear me?
-       John-->>-Alice: Hi Alice, I can hear you!
-       end
-       John-->>-Alice: I feel great!
-       end
-       Alice ->>+ John: Did you want to go to the game tonight?
-       John -->>- Alice: Yeah! See you there.
+背景色が強い ``rect`` を過剰に入れ子を構成すると見苦しくなることがわかる。
 
 Comments
-=======================================================================
+======================================================================
 
-Comments can be entered within a sequence diagram, which will be ignored by the
-parser. Comments need to be on their own line, and must be prefaced with ``%%``
-(double percent signs). Any text after the start of the comment to the next
-newline will be treated as a comment, including any diagram syntax.
+  Comments can be entered within a sequence diagram, which will be ignored by
+  the parser. Comments need to be on their own line, and must be prefaced with
+  ``%%`` (double percent signs). Any text after the start of the comment to the
+  next newline will be treated as a comment, including any diagram syntax.
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       Alice->>John: Hello John, how are you?
-       %% this is a comment
-       John-->>Alice: Great!
+     sequenceDiagram
+         Alice->>John: Hello John, how are you?
+         %% this is a comment
+         John-->>Alice: Great!
 
-.. admonition:: 学習者ノート
-
-   これはフローチャートにもある機能だ。このコメント要素は図式クラス全てに対して
-   有効な構文であって欲しい。
+これは ``flowchart`` にもある機能だ。このコメント要素は図式クラス全てに対して有
+効な構文であって欲しい。
 
 Entity codes to escape characters
-=======================================================================
+======================================================================
 
-It is possible to escape characters using the syntax exemplified here.
+  .. code:: text
 
-.. mermaid::
+     sequenceDiagram
+         A->>B: I #9829; you!
+         B->>A: I #9829; you #infin; times more!
 
-   sequenceDiagram
-       A->>B: I #9829; you!
-       B->>A: I #9829; you #infin; times more!
+これも ``flowchart`` 同様の運用となる。
 
-Numbers given are base 10, so ``#`` can be encoded as ``#35;``. It is also
-supported to use HTML character names.
+``sequenceNumbers``
+======================================================================
 
-Because semicolons can be used instead of line breaks to define the markup, you
-need to use ``#59;`` to include a semicolon in message text.
+手順に番号を振りたい場合には有用な機能だ。
 
-sequenceNumbers
-=======================================================================
+  It is possible to get a sequence number attached to each arrow in a sequence
+  diagram. This can be configured when adding mermaid to the website as shown
+  below:
 
-It is possible to get a sequence number attached to each arrow in a sequence
-diagram. This can be configured when adding mermaid to the website as shown
-below:
+  .. code:: html
 
-.. code:: html
+     <script>
+       mermaid.initialize({
+         sequence: { showSequenceNumbers: true },
+       });
+     </script>
 
-       <script>
-         mermaid.initialize({
-           sequence: { showSequenceNumbers: true },
-         });
-       </script>
+図式単位で番号機能の有無を分ける場合には ``sequenceDiagram`` に ``autonumber`` と
+書くことでそうする：
 
-It can also be be turned on via the diagram code as in the diagram:
+  .. code:: text
 
-.. mermaid::
+     sequenceDiagram
+         autonumber
+         Alice->>John: Hello John, how are you?
+         loop Healthcheck
+             John->>John: Fight against hypochondria
+         end
+         Note right of John: Rational thoughts!
+         John-->>Alice: Great!
+         John->>Bob: How about you?
+         Bob-->>John: Jolly good!
 
-   sequenceDiagram
-       autonumber
-       Alice->>John: Hello John, how are you?
-       loop Healthcheck
-           John->>John: Fight against hypochondria
-       end
-       Note right of John: Rational thoughts!
-       John-->>Alice: Great!
-       John->>Bob: How about you?
-       Bob-->>John: Jolly good!
-
-.. admonition:: 学習者ノート
-
-   この図式にはなぜか見覚えがある。
+この図式にはなぜか見覚えがある。
 
 Actor Menus
-=======================================================================
+======================================================================
 
-Actors can have popup-menus containing individualized links to external pages.
-For example, if an actor represented a web service, useful links might include a
-link to the service health dashboard, repo containing the code for the service,
-or a wiki page describing the service.
+  Actors can have popup-menus containing individualized links to external pages.
 
-This can be configured by adding one or more link lines with the format:
+いきなりジャンプするのではなく、リンクを含むメニューをポップアップがあり得るとい
+う。
 
-.. code:: text
+  This can be configured by adding one or more link lines with the format:
 
-   link <actor>: <link-label> @ <link-url>
+  .. code:: text
 
-.. mermaid::
+     link <actor>: <link-label> @ <link-url>
 
-   sequenceDiagram
-       participant Alice
-       participant John
-       link Alice: Dashboard @ https://dashboard.contoso.com/alice
-       link Alice: Wiki @ https://wiki.contoso.com/alice
-       link John: Dashboard @ https://dashboard.contoso.com/john
-       link John: Wiki @ https://wiki.contoso.com/john
-       Alice->>John: Hello John, how are you?
-       John-->>Alice: Great!
-       Alice-)John: See you later!
+単一の参加者に複数のリンクを割り当てるには、このパターンを複数書くことになる：
 
-.. admonition:: 学習者ノート
+  .. code:: text
 
-   マウスを Participant 要素の上に持っていくとメニューが出現する。そこには
-   Dashboard と Wiki の項目がある。
+     sequenceDiagram
+         participant Alice
+         participant John
+         link Alice: Dashboard @ https://dashboard.contoso.com/alice
+         link Alice: Wiki @ https://wiki.contoso.com/alice
+         link John: Dashboard @ https://dashboard.contoso.com/john
+         link John: Wiki @ https://wiki.contoso.com/john
+         Alice->>John: Hello John, how are you?
+         John-->>Alice: Great!
+         Alice-)John: See you later!
+
+マウスを参加者要素の上に動かすとメニューが出現する。そこには Dashboard と Wiki
+の項目がある。と以前記したが、これを加筆している時点で機能していない。
 
 Advanced Menu Syntax
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-There is an advanced syntax that relies on JSON formatting. If you are
-comfortable with JSON format, then this exists as well.
+  There is an advanced syntax that relies on JSON formatting. If you are
+  comfortable with JSON format, then this exists as well.
 
-This can be configured by adding the links lines with the format:
+  This can be configured by adding the links lines with the format:
 
-.. code:: text
+  .. code:: text
 
-   links <actor>: <json-formatted link-name link-url pairs>
+     links <actor>: <json-formatted link-name link-url pairs>
 
-An example is below:
+  An example is below:
 
-.. mermaid::
+  .. code:: text
 
-   sequenceDiagram
-       participant Alice
-       participant John
-       links Alice: {"Dashboard": "https://dashboard.contoso.com/alice", "Wiki": "https://wiki.contoso.com/alice"}
-       links John: {"Dashboard": "https://dashboard.contoso.com/john", "Wiki": "https://wiki.contoso.com/john"}
-       Alice->>John: Hello John, how are you?
-       John-->>Alice: Great!
-       Alice-)John: See you later!
+     sequenceDiagram
+         participant Alice
+         participant John
+         links Alice: {"Dashboard": "https://dashboard.contoso.com/alice", "Wiki": "https://wiki.contoso.com/alice"}
+         links John: {"Dashboard": "https://dashboard.contoso.com/john", "Wiki": "https://wiki.contoso.com/john"}
+         Alice->>John: Hello John, how are you?
+         John-->>Alice: Great!
+         Alice-)John: See you later!
 
-.. admonition:: 学習者ノート
-
-   この例は前の例と同じメニューを実装している。
+この例は前の例と同じメニューを実装している。こちらもこのメモを加筆している時点で
+機能していない。
 
 Styling
-=======================================================================
+======================================================================
 
-Styling of a sequence diagram is done by defining a number of css classes.
-During rendering these classes are extracted from the file located at
-:file:`src/themes/sequence.scss`.
+  Styling of a sequence diagram is done by defining a number of css classes.
+  During rendering these classes are extracted from the file located at
+  :file:`src/themes/sequence.scss`.
+
+この SCSS ファイルパスの言及が唐突な感じがする。
 
 Classes used
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-============ ===========================================================
-Class        Description
-============ ===========================================================
-actor        Style for the actor box at the top of the diagram.
-text.actor   Styles for text in the actor box at the top of the diagram.
-actor-line   The vertical line for an actor.
-messageLine0 Styles for the solid message line.
-messageLine1 Styles for the dotted message line.
-messageText  Defines styles for the text on the message arrows.
-labelBox     Defines styles label to left in a loop.
-labelText    Styles for the text in label for loops.
-loopText     Styles for the text in the loop box.
-loopLine     Defines styles for the lines in the loop box.
-note         Styles for the note box.
-noteText     Styles for the text on in the note boxes.
-============ ===========================================================
-
-.. admonition:: 学習者ノート
-
-   フローチャートのときのような、Mermaid ブロック中で即席でスタイルを定義する方
-   式はないだろうか。
+Flowchart のような、Mermaid ブロック中で即席でスタイルを定義する方式はないだろう
+か。
 
 Sample stylesheet
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-.. code:: css
-
-   body {
-       background: white;
-   }
-
-   .actor {
-       stroke: #ccccff;
-       fill: #ececff;
-   }
-   text.actor {
-       fill: black;
-       stroke: none;
-       font-family: Helvetica;
-   }
-
-   .actor-line {
-       stroke: grey;
-   }
-
-   .messageLine0 {
-       stroke-width: 1.5;
-       stroke-dasharray: '2 2';
-       marker-end: 'url(#arrowhead)';
-       stroke: black;
-   }
-
-   .messageLine1 {
-       stroke-width: 1.5;
-       stroke-dasharray: '2 2';
-       stroke: black;
-   }
-
-   #arrowhead {
-       fill: black;
-   }
-
-   .messageText {
-       fill: black;
-       stroke: none;
-       font-family: 'trebuchet ms', verdana, arial;
-       font-size: 14px;
-   }
-
-   .labelBox {
-       stroke: #ccccff;
-       fill: #ececff;
-   }
-
-   .labelText {
-       fill: black;
-       stroke: none;
-       font-family: 'trebuchet ms', verdana, arial;
-   }
-
-   .loopText {
-       fill: black;
-       stroke: none;
-       font-family: 'trebuchet ms', verdana, arial;
-   }
-
-   .loopLine {
-       stroke-width: 2;
-       stroke-dasharray: '2 2';
-       marker-end: 'url(#arrowhead)';
-       stroke: #ccccff;
-   }
-
-   .note {
-       stroke: #decc93;
-       fill: #fff5ad;
-   }
-
-   .noteText {
-       fill: black;
-       stroke: none;
-       font-family: 'trebuchet ms', verdana, arial;
-       font-size: 14px;
-   }
+この例を見ると CSS とは規則が違う。
 
 Configuration
-=======================================================================
+======================================================================
 
-Is it possible to adjust the margins for rendering the sequence diagram.
+  Is it possible to adjust the margins for rendering the sequence diagram.
 
-This is done by defining ``mermaid.sequenceConfig`` or by the CLI to use a json
-file with the configuration. How to use the CLI is described in the mermaidCLI
-page. ``mermaid.sequenceConfig`` can be set to a JSON string with config
-parameters or the corresponding object.
+  .. code:: javascript
 
-.. code:: javascript
+     mermaid.sequenceConfig = {
+         diagramMarginX: 50,
+         diagramMarginY: 10,
+         boxTextMargin: 5,
+         noteMargin: 10,
+         messageMargin: 35,
+         mirrorActors: true
+     };
 
-   mermaid.sequenceConfig = {
-       diagramMarginX: 50,
-       diagramMarginY: 10,
-       boxTextMargin: 5,
-       noteMargin: 10,
-       messageMargin: 35,
-       mirrorActors: true
-   };
+マージン調整くらいしかカスタマイズがないように読めてしまうが、次の節で示されるよ
+うにフォントの指定も可能だ。
 
 Possible configuration parameters
------------------------------------------------------------------------
+----------------------------------------------------------------------
 
-+---------------------+-------------------------+-----------------------------+
-| Parameter           | Description             | Default value               |
-+=====================+=========================+=============================+
-| mirrorActors        | Turns on/off the        | false                       |
-|                     | rendering of actors     |                             |
-|                     | below the diagram as    |                             |
-|                     | well as above it        |                             |
-+---------------------+-------------------------+-----------------------------+
-| bottomMarginAdj     | Adjusts how far down    | 1                           |
-|                     | the graph ended. Wide   |                             |
-|                     | borders styles with css |                             |
-|                     | could generate unwanted |                             |
-|                     | clipping which is why   |                             |
-|                     | this config param       |                             |
-|                     | exists.                 |                             |
-+---------------------+-------------------------+-----------------------------+
-| actorFontSize       | Sets the font size for  | 14                          |
-|                     | the actor's description |                             |
-+---------------------+-------------------------+-----------------------------+
-| actorFontFamily     | Sets the font family    | “Open-Sans”, “sans-serif”   |
-|                     | for the actor's         |                             |
-|                     | description             |                             |
-+---------------------+-------------------------+-----------------------------+
-| actorFontWeight     | Sets the font weight    | “Open-Sans”, “sans-serif”   |
-|                     | for the actor's         |                             |
-|                     | description             |                             |
-+---------------------+-------------------------+-----------------------------+
-| noteFontSize        | Sets the font size for  | 14                          |
-|                     | actor-attached notes    |                             |
-+---------------------+-------------------------+-----------------------------+
-| noteFontFamily      | Sets the font family    | “trebuchet ms”, verdana,    |
-|                     | for actor-attached      | arial                       |
-|                     | notes                   |                             |
-+---------------------+-------------------------+-----------------------------+
-| noteFontWeight      | Sets the font weight    | “trebuchet ms”, verdana,    |
-|                     | for actor-attached      | arial                       |
-|                     | notes                   |                             |
-+---------------------+-------------------------+-----------------------------+
-| noteAlign           | Sets the text alignment | center                      |
-|                     | for text in             |                             |
-|                     | actor-attached notes    |                             |
-+---------------------+-------------------------+-----------------------------+
-| messageFontSize     | Sets the font size for  | 16                          |
-|                     | actor<->actor messages  |                             |
-+---------------------+-------------------------+-----------------------------+
-| messageFontFamily   | Sets the font family    | “trebuchet ms”, verdana,    |
-|                     | for actor<->actor       | arial                       |
-|                     | messages                |                             |
-+---------------------+-------------------------+-----------------------------+
-| messageFontWeight   | Sets the font weight    | “trebuchet ms”, verdana,    |
-|                     | for actor<->actor       | arial                       |
-|                     | messages                |                             |
-+---------------------+-------------------------+-----------------------------+
+長いので本書を参照。
