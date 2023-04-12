@@ -18,8 +18,8 @@ Git 利用ノート
 
    執筆時の動作環境を次に示す。
 
-   * OS: Windows 10 Home x64
-   * Git: version 2.6.0.windows.1 (`Git for Windows`_)
+   :OS: Windows 10 Home x64
+   :Git: version 2.6.0.windows.1 (`Git for Windows`_) / git version 2.34.1
 
 参考文献
 ======================================================================
