@@ -243,6 +243,20 @@ Git にもある。方法はファイル :file:`$HOME/.gitconfig` での設定�
 ``sw = switch``
   ``br``, ``co``, ``st``, etc. と同様の主旨だ。
 
+エイリアスを確認する
+======================================================================
+
+次のコマンドが基本的で、好みでソートしたり ``alias.`` を削ったりすればいい。そし
+て、そのコマンドを別名にしておくのもいいし、ダサい気もするがシェルの
+:command:`alias` にしてもいい。
+
+.. code:: console
+
+   $bash git config git config --get-regexp ^alias\.
+   $bash git config --global alias.alias "! git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ / | sort -k1"
+
+出典：[GA5]
+
 出典
 ======================================================================
 
@@ -250,5 +264,6 @@ Git にもある。方法はファイル :file:`$HOME/.gitconfig` での設定�
 .. [GA2] `Aliases <https://git.wiki.kernel.org/index.php/Aliases>`_
 .. [GA3] `Git How To, 11. Aliases <https://githowto.com/aliases>`_
 .. [GA4] `Matplotlib, Configure git <http://matplotlib.org/devel/gitwash/configure_git.html>`_
+.. [GA5] `terminal - List Git aliases - Stack Overflow <https://stackoverflow.com/questions/7066325/list-git-aliases>`__
 
 .. include:: /_include/git-refs.txt
