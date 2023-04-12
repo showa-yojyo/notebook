@@ -76,52 +76,59 @@
 Git 利用者の必修コマンドのようなものか。ヘルプドキュメントによる一覧を見てみる
 と、私が利用したことがないコマンドが多数ある。
 
-まずはメインとされているコマンド群の名称を記す。
+まずはメインとされているコマンド群の名称を記す。このテキストはコマンド ``git
+help -a`` の出力による：
 
-.. code:: text
+  .. code:: text
 
-   add,
-   am,
-   archive,
-   bisect,
-   branch,
-   bundle,
-   checkout,
-   cherry-pick,
-   citool,
-   clean,
-   clone,
-   commit,
-   describe,
-   diff,
-   fetch,
-   format-patch,
-   gc,
-   grep,
-   gui,
-   init,
-   log,
-   merge,
-   mv,
-   notes,
-   pull,
-   push,
-   rebase,
-   reset,
-   revert,
-   rm,
-   shortlog,
-   show,
-   stash,
-   status,
-   submodule,
-   tag,
-   worktree.
+     add                  Add file contents to the index
+     am                   Apply a series of patches from a mailbox
+     archive              Create an archive of files from a named tree
+     bisect               Use binary search to find the commit that introduced a bug
+     branch               List, create, or delete branches
+     bundle               Move objects and refs by archive
+     checkout             Switch branches or restore working tree files
+     cherry-pick          Apply the changes introduced by some existing commits
+     citool               Graphical alternative to git-commit
+     clean                Remove untracked files from the working tree
+     clone                Clone a repository into a new directory
+     commit               Record changes to the repository
+     describe             Give an object a human readable name based on an available ref
+     diff                 Show changes between commits, commit and working tree, etc
+     fetch                Download objects and refs from another repository
+     format-patch         Prepare patches for e-mail submission
+     gc                   Cleanup unnecessary files and optimize the local repository
+     gitk                 The Git repository browser
+     grep                 Print lines matching a pattern
+     gui                  A portable graphical interface to Git
+     init                 Create an empty Git repository or reinitialize an existing one
+     log                  Show commit logs
+     maintenance          Run tasks to optimize Git repository data
+     merge                Join two or more development histories together
+     mv                   Move or rename a file, a directory, or a symlink
+     notes                Add or inspect object notes
+     pull                 Fetch from and integrate with another repository or a local branch
+     push                 Update remote refs along with associated objects
+     range-diff           Compare two commit ranges (e.g. two versions of a branch)
+     rebase               Reapply commits on top of another base tip
+     reset                Reset current HEAD to the specified state
+     restore              Restore working tree files
+     revert               Revert some existing commits
+     rm                   Remove files from the working tree and from the index
+     shortlog             Summarize 'git log' output
+     show                 Show various types of objects
+     sparse-checkout      Initialize and modify the sparse-checkout
+     stash                Stash the changes in a dirty working directory away
+     status               Show the working tree status
+     submodule            Initialize, update or inspect submodules
+     switch               Switch branches
+     tag                  Create, list, delete or verify a tag object signed with GPG
+     worktree             Manage multiple working trees
 
 そして私が常用するものと利用したいもののコマンドライン群、「呪文表」を次に示す。
 よくあるチートシートである。
 
-以下、コマンドライン内の :command:`git [common-options]` の部分は省略する。あ
+以下、コマンドライン内の ``git [common-options]`` の部分は省略する。あ
 と、Git 特有の符牒ではなく、実際にありがちな名前を例に使うかもしれない。例えば
 ``<tree-ish>`` ではなく ``master`` とか ``HEAD`` とかを敢えて使う。
 
@@ -139,10 +146,10 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 ``add .``
   カレントディレクトリー以下の対象ファイルをインデックスに追加する。
 
-:command:`add -p <pathspec>`
+``add -p <pathspec>``
   指定したファイルの内部から追加部分を対話的に指示し、インデックスに追加する。
 
-:command:`add -i`
+``add -i``
   コンソールで対話的にファイルをインデックス追加処理する。
 
 ``add -u [<pathspec>...]``
@@ -241,6 +248,7 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
   敗してくれる。
 
   * ``-D`` is ``-d --force``.
+  * リモートブランチを削除するのはまったく別のコマンドを用いる。``push`` 参照。
 
 :command:`branch -dr <remote/branchname>`
   リモート追跡ブランチを削除する。マージ済みが条件。
@@ -256,9 +264,13 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 :command:`checkout <branch>`
   カレントブランチを既存のブランチ ``branch`` に切り替える。
 
+  * cf. ``switch <branch>``
+
 :command:`checkout -b <branch> [<start-point>]`
   ブランチ ``branch`` を作成して、同時にカレントブランチを切り替える。明示的に
   ``start-point`` が指定されていれば、そこからブランチする。
+
+  * cf. ``switch -c <branch>``
 
 :command:`checkout -b <branch> <remote>/<branch>`
   リモートブランチをローカルブランチとして作成する。
@@ -288,8 +300,8 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 :command:`clean -n`
   仮に :command:`clean` を実行すると、何が起こるのかをプレビューする。
 
-  オプション ``-n`` は他のコマンドでも dry run の意味でサポートされている場合がある。
-  まとめたほうがよいかも。
+  オプション ``-n`` は他のコマンドでも dry run の意味でサポートされている場合が
+  ある。まとめたほうがよいかも。
 
 :command:`clean -f`
   Git の構成に依らず、とにかく削除する。
@@ -358,8 +370,8 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
   別名 ``--staged`` がある。
 
 :command:`diff --no-index <file1> <file2>`
-  ファイルの差分をバージョン管理の文脈と無関係に表示する。
-  単に GNU diff を利用するのが素直だ。
+  ファイルの差分をバージョン管理の文脈と無関係に表示する。単に GNU diff を利用す
+  るのが素直だ。
 
 呪文表 :command:`fetch`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -382,18 +394,6 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
   ランチがあれば、それに対応するリモート追跡ブランチをローカルにおいて削除する。
 
   * ``--prune`` is ``-p``.
-
-呪文表 :command:`format-patch`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-パッチを作成するコマンド。滅多に使わない。
-
-:command:`format-patch HEAD^`
-  最新のコミットのパッチを生成する。これは別のクローンまたはブランチにコマンド
-  :command:`am` が適用する。
-
-:command:`format-patch <rev>^..<rev>`
-  単一リビジョンにおけるパッチを作成する。
 
 呪文表 :command:`gc`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -686,6 +686,29 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
   カレントブランチの ``HEAD`` をコミット ``commit`` 直後の時点にリセットする。そ
   れ以降になされた作業コピーにおいてファイル変更があれば、リセットを中止する。
 
+呪文表 ``restore``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+コマンド ``restore`` は作業コピー内の指定ファイルを復元するのに用いる。内容は復
+元源のものを使用する。指定ファイルが追跡されている状態で、復元源に対応物が存在し
+ない場合、作業コピーから削除される。``git status`` の説明文にチラつくコマンドだ。
+
+``restore <pathspec>``
+  作業コピー内 ``<pathspec>`` をインデックスのそれと同等の内容に復元する。
+  ``<pathspec>`` が変更済みファイルだったり、ディレクトリーだったり、
+  作業コピーだけで削除したファイルだったりする場合に有効だ。
+
+``restore .``
+  上の呪文の系で、現在ディレクトリーの状態をインデックスから復元する。
+
+``restore --staged <pathspec>``
+  ``HEAD`` の ``<pathspec>`` 内容と一致するようにインデックス内の ``<pathspec>``
+  を復元する。コマンド ``git reset <pathspec>`` と同じことだ。
+
+``restore --source=HEAD --staged --worktree <pathspec>``
+  インデックスと作業コピーの両方を復元する。コマンド ``git checkout <pathspec>``
+  と同じことだ。
+
 呪文表 :command:`revert`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -774,19 +797,22 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
   管理外のファイルの情報は要らない。つまり ``Untracked files:`` のセクションを表
   示させない。
 
-呪文表 :command:`submodule`
+呪文表 ``switch``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`submodule` はサブモジュールを管理するのに用いる。
+コマンド ``switch`` は作業ブランチを切り替えるのに用いる。
 
-:command:`submodule add <repository> [<path>]`
-  リモートリポジトリー ``repository`` を ``path`` に追加する。
+``switch main``
+  作業ブランチを既存ブランチ ``main`` に切り替える。
+``switch -``
+  作業ブランチをその直前の作業ブランチに切り替える。コマンド ``cd -`` のアナロ
+  ジーだ。
+``switch -c new-branch``
+  新規ブランチ ``new-branch`` を現在ブランチから開始し、さらに作業ブランチを切り
+  替える。
 
-:command:`submodule update [--init]`
-  登録済みサブモジュールを更新する。
-
-:command:`submodule foreach <command>`
-  シェルコマンド :command:`command` を各サブモジュールに対して実行する。
+コマンド ``switch`` の切り替え先と衝突するような変更ファイルが作業ブランチに存在
+する場合、専用フラグを指定しない限り処理は失敗して、作業ブランチは変わらない。
 
 呪文表 :command:`tag`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -810,41 +836,39 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
 次のコマンド群が操作用とされている：
 
-.. code:: text
+  .. code:: text
 
-   config,
-   fast-export,
-   fast-import,
-   filter-branch,
-   mergetool,
-   pack-refs,
-   prune,
-   reflog,
-   relink,
-   remote,
-   repack,
-   replace.
+     config               Get and set repository or global options
+     fast-export          Git data exporter
+     fast-import          Backend for fast Git data importers
+     filter-branch        Rewrite branches
+     mergetool            Run merge conflict resolution tools to resolve merge conflicts
+     pack-refs            Pack heads and tags for efficient repository access
+     prune                Prune all unreachable objects from the object database
+     reflog               Manage reflog information
+     remote               Manage set of tracked repositories
+     repack               Pack unpacked objects in a repository
+     replace              Create, list, delete refs to replace objects
 
 そして次のコマンド群が問い合わせ用とされている：
 
-.. code:: text
+  .. code:: text
 
-   annotate,
-   blame,
-   cherry,
-   count-objects,
-   difftool,
-   fsck,
-   get-tar-commit-id,
-   help,
-   instaweb,
-   merge-tree,
-   rerere,
-   rev-parse,
-   show-branch,
-   verify-commit,
-   verify-tag,
-   whatchanged.
+     annotate             Annotate file lines with commit information
+     blame                Show what revision and author last modified each line of a file
+     bugreport            Collect information for user to file a bug report
+     count-objects        Count unpacked number of objects and their disk consumption
+     difftool             Show changes using common diff tools
+     fsck                 Verifies the connectivity and validity of the objects in the database
+     gitweb               Git web interface (web frontend to Git repositories)
+     help                 Display help information about Git
+     instaweb             Instantly browse your working repository in gitweb
+     merge-tree           Show three-way merge without touching index
+     rerere               Reuse recorded resolution of conflicted merges
+     show-branch          Show branches and their commits
+     verify-commit        Check the GPG signature of commits
+     verify-tag           Check the GPG signature of tags
+     whatchanged          Show logs with difference each commit introduces
 
 呪文表 :command:`config`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -951,18 +975,18 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 バージョン管理システムとのデータ変換という意味と、他の利用者とのリポジトリーデー
 タの交換という意味があるようだ。
 
-.. code:: text
+  .. code:: text
 
-   archimport,
-   cvsexportcommit,
-   cvsimport,
-   cvsserver,
-   imap-send,
-   p4,
-   quiltimport,
-   request-pull,
-   send-email,
-   svn.
+     archimport           Import a GNU Arch repository into Git
+     cvsexportcommit      Export a single commit to a CVS checkout
+     cvsimport            Salvage your data out of another SCM people love to hate
+     cvsserver            A CVS server emulator for Git
+     imap-send            Send a collection of patches from stdin to an IMAP folder
+     p4                   Import from and submit to Perforce repositories
+     quiltimport          Applies a quilt patchset onto the current branch
+     request-pull         Generates a summary of pending changes
+     send-email           Send a collection of patches as emails
+     svn                  Bidirectional operation between a Subversion repository and Git
 
 コマンド名には CVS やら Perforce やら、懐かしいバージョン管理システムの名前が見
 受けられる。私個人が自由に管理できた Subversion のリポジトリーはすべて Git に変
@@ -979,25 +1003,27 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
 リポジトリーにあるオブジェクトやインデックスを操作するコマンド群である。
 
-.. code:: text
+  .. code:: text
 
-   apply,
-   checkout-index,
-   commit-tree,
-   hash-object,
-   index-pack,
-   merge-file,
-   merge-index,
-   mktag,
-   mktree,
-   pack-objects,
-   prune-packed,
-   read-tree,
-   symbolic-ref,
-   unpack-objects,
-   update-index,
-   update-ref,
-   write-tree.
+     apply                Apply a patch to files and/or to the index
+     checkout-index       Copy files from the index to the working tree
+     commit-graph         Write and verify Git commit-graph files
+     commit-tree          Create a new commit object
+     hash-object          Compute object ID and optionally creates a blob from a file
+     index-pack           Build pack index file for an existing packed archive
+     merge-file           Run a three-way file merge
+     merge-index          Run a merge for files needing merging
+     mktag                Creates a tag object with extra validation
+     mktree               Build a tree-object from ls-tree formatted text
+     multi-pack-index     Write and verify multi-pack-indexes
+     pack-objects         Create a packed archive of objects
+     prune-packed         Remove extra objects that are already in pack files
+     read-tree            Reads tree information into the index
+     symbolic-ref         Read, modify and delete symbolic refs
+     unpack-objects       Unpack objects from a packed archive
+     update-index         Register file contents in the working tree to the index
+     update-ref           Update the object name stored in a ref safely
+     write-tree           Create a tree object from the current index
 
 呪文表 :command:`hash-object`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1010,29 +1036,33 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 問い合わせコマンド
 ----------------------------------------------------------------------
 
-ヘルプによると、次のコマンド群は問い合わせるのに用いるものとして位置づけられている。
-原則的にこれらは作業コピーのファイルを :command:`touch` しないコマンドということ
-になっているので、安心して実行してよさそうだ。
+ヘルプによると、次のコマンド群は問い合わせるのに用いるものとして位置づけられてい
+る。原則的にこれらは作業コピーのファイルを :command:`touch` しないコマンドという
+ことになっているので、安心して実行してよさそうだ。
 
-.. code:: text
+  .. code:: text
 
-   cat-file,
-   diff-files,
-   diff-index,
-   diff-tree,
-   for-each-ref,
-   ls-files,
-   ls-remote,
-   ls-tree,
-   merge-base,
-   name-rev,
-   pack-redundant,
-   rev-list,
-   show-index,
-   show-ref,
-   unpack-file,
-   var,
-   verify-pack.
+     cat-file             Provide content or type and size information for repository objects
+     cherry               Find commits yet to be applied to upstream
+     diff-files           Compares files in the working tree and the index
+     diff-index           Compare a tree to the working tree or index
+     diff-tree            Compares the content and mode of blobs found via two tree objects
+     for-each-ref         Output information on each ref
+     for-each-repo        Run a Git command on a list of repositories
+     get-tar-commit-id    Extract commit ID from an archive created using git-archive
+     ls-files             Show information about files in the index and the working tree
+     ls-remote            List references in a remote repository
+     ls-tree              List the contents of a tree object
+     merge-base           Find as good common ancestors as possible for a merge
+     name-rev             Find symbolic names for given revs
+     pack-redundant       Find redundant pack files
+     rev-list             Lists commit objects in reverse chronological order
+     rev-parse            Pick out and massage parameters
+     show-index           Show packed archive index
+     show-ref             List references in a local repository
+     unpack-file          Creates a temporary file with a blob's contents
+     var                  Show a Git logical variable
+     verify-pack          Validate packed Git archive files
 
 呪文表 :command:`ls-files`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1076,50 +1106,38 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
 次のコマンド群が操作用とされている：
 
-.. code:: text
+  .. code:: text
 
-   daemon,
-   fetch-pack,
-   http-backend,
-   send-pack,
-   update-server-info.
-
-次のコマンド群が実装用とされている：
-
-.. code:: text
-
-   http-fetch,
-   http-push,
-   parse-remote,
-   receive-pack,
-   shell,
-   upload-archive,
-   upload-pack.
+     daemon               A really simple server for Git repositories
+     fetch-pack           Receive missing objects from another repository
+     http-backend         Server side implementation of Git over HTTP
+     send-pack            Push objects over Git protocol to another repository
+     update-server-info   Update auxiliary info file to help dumb servers
 
 内部コマンド
 ----------------------------------------------------------------------
 
 ヘルプによると、次のコマンド群は内部コマンドとして位置づけられている：
 
-.. code:: text
+  .. code:: text
 
-   check-attr,
-   check-ignore,
-   check-mailmap,
-   check-ref-format,
-   column,
-   credential,
-   credential-cache,
-   credential-store,
-   fmt-merge-msg,
-   interpret-trailers,
-   mailinfo,
-   mailsplit,
-   merge-one-file,
-   patch-id,
-   sh-i18n,
-   sh-setup,
-   stripspace.
+     check-attr           Display gitattributes information
+     check-ignore         Debug gitignore / exclude files
+     check-mailmap        Show canonical names and email addresses of contacts
+     check-ref-format     Ensures that a reference name is well formed
+     column               Display data in columns
+     credential           Retrieve and store user credentials
+     credential-cache     Helper to temporarily store passwords in memory
+     credential-store     Helper to store credentials on disk
+     fmt-merge-msg        Produce a merge commit message
+     interpret-trailers   Add or parse structured information in commit messages
+     mailinfo             Extracts patch and authorship from a single e-mail message
+     mailsplit            Simple UNIX mbox splitter program
+     merge-one-file       The standard helper program to use with git-merge-index
+     patch-id             Compute unique ID for a patch
+     sh-i18n              Git's i18n setup code for shell scripts
+     sh-setup             Common Git shell script setup code
+     stripspace           Remove unnecessary whitespace
 
 もっとも <end users typically do not use them directly> とのことなので、私も当然
 利用しない。
