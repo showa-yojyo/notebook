@@ -3,8 +3,8 @@
 ======================================================================
 
 本節では Git_ のコマンドを、よくあるチートシートの形式で記していく。私にとって利
-用価値が高いコマンドの用例を優先して掲載する。 Git はコマンドもオプションも数が
-多くてとにかく憶えにくい。
+用価値が高いコマンドの用例を優先して掲載する。Git はコマンドもオプションも数が多
+くてとにかく憶えにくい。
 
 .. contents::
 
@@ -26,13 +26,14 @@
 
 .. option:: --version
 
-   Git 自身のバージョンを表示する。ほとんど全ての引数とオプションを無視するようだ。
+   Git 自身のバージョンを表示する。ほとんど全ての引数とオプションを無視するよう
+   だ。
 
 .. option:: --help
 
    引数がない場合は、共通オプション一覧、いくつかの常用コマンド、特殊なヘルプの
    表示方法を出力する。引数がある場合は、それに関するヘルプをおそらくブラウザー
-   で表示する。この場合は :command:`git help arg` と同等の動きをする。
+   で表示する。この場合は ``git help arg`` と同等の動きをする。
 
 .. option:: -C <path>
 
@@ -42,9 +43,9 @@
    リポジトリーを操作するスクリプトを書くときに、いちいち :command:`cd` 系コマン
    ドを実行しなくて済む。このオプションは明らかに有用なので活用したい。
 
-   * オプション :option:`--git-dir` や :option:`--work-tree` と組み合わせるとき
-     に、これらが相対パスの形でディレクトリーを指定する場合には :option:`-C` か
-     らの相対パスとしてみなされる点に注意。
+   オプション :option:`--git-dir` や :option:`--work-tree` と組み合わせるとき
+   に、これらが相対パスの形でディレクトリーを指定する場合には :option:`-C` か
+   らの相対パスとしてみなされる点に注意。
 
 .. option:: --no-pager
 
@@ -52,8 +53,8 @@
    ション。利用例としては、まとまった量のコミットログを出力するようなスクリプト
    を作成するときに適用を考える。
 
-   * ページャーは定義されていれば環境変数 ``PAGER`` が、そうでなければ
-     :command:`less` が使われる。
+   ページャーは定義されていれば環境変数 ``PAGER`` が、そうでなければ
+   :command:`less` が使われる。
 
 .. option:: --git-dir=<path>
 
@@ -76,73 +77,79 @@
 Git 利用者の必修コマンドのようなものか。ヘルプドキュメントによる一覧を見てみる
 と、私が利用したことがないコマンドが多数ある。
 
-まずはメインとされているコマンド群の名称を記す。
+まずはメインとされているコマンド群の名称を記す。このテキストはコマンド ``git
+help -a`` の出力による：
 
-.. code:: text
+  .. code:: text
 
-   add,
-   am,
-   archive,
-   bisect,
-   branch,
-   bundle,
-   checkout,
-   cherry-pick,
-   citool,
-   clean,
-   clone,
-   commit,
-   describe,
-   diff,
-   fetch,
-   format-patch,
-   gc,
-   grep,
-   gui,
-   init,
-   log,
-   merge,
-   mv,
-   notes,
-   pull,
-   push,
-   rebase,
-   reset,
-   revert,
-   rm,
-   shortlog,
-   show,
-   stash,
-   status,
-   submodule,
-   tag,
-   worktree.
+     add                  Add file contents to the index
+     am                   Apply a series of patches from a mailbox
+     archive              Create an archive of files from a named tree
+     bisect               Use binary search to find the commit that introduced a bug
+     branch               List, create, or delete branches
+     bundle               Move objects and refs by archive
+     checkout             Switch branches or restore working tree files
+     cherry-pick          Apply the changes introduced by some existing commits
+     citool               Graphical alternative to git-commit
+     clean                Remove untracked files from the working tree
+     clone                Clone a repository into a new directory
+     commit               Record changes to the repository
+     describe             Give an object a human readable name based on an available ref
+     diff                 Show changes between commits, commit and working tree, etc
+     fetch                Download objects and refs from another repository
+     format-patch         Prepare patches for e-mail submission
+     gc                   Cleanup unnecessary files and optimize the local repository
+     gitk                 The Git repository browser
+     grep                 Print lines matching a pattern
+     gui                  A portable graphical interface to Git
+     init                 Create an empty Git repository or reinitialize an existing one
+     log                  Show commit logs
+     maintenance          Run tasks to optimize Git repository data
+     merge                Join two or more development histories together
+     mv                   Move or rename a file, a directory, or a symlink
+     notes                Add or inspect object notes
+     pull                 Fetch from and integrate with another repository or a local branch
+     push                 Update remote refs along with associated objects
+     range-diff           Compare two commit ranges (e.g. two versions of a branch)
+     rebase               Reapply commits on top of another base tip
+     reset                Reset current HEAD to the specified state
+     restore              Restore working tree files
+     revert               Revert some existing commits
+     rm                   Remove files from the working tree and from the index
+     shortlog             Summarize 'git log' output
+     show                 Show various types of objects
+     sparse-checkout      Initialize and modify the sparse-checkout
+     stash                Stash the changes in a dirty working directory away
+     status               Show the working tree status
+     submodule            Initialize, update or inspect submodules
+     switch               Switch branches
+     tag                  Create, list, delete or verify a tag object signed with GPG
+     worktree             Manage multiple working trees
 
 そして私が常用するものと利用したいもののコマンドライン群、「呪文表」を次に示す。
 よくあるチートシートである。
 
-以下、コマンドライン内の :command:`git [common-options]` の部分は省略する。あ
-と、Git 特有の符牒ではなく、実際にありがちな名前を例に使うかもしれない。例えば
-``<tree-ish>`` ではなく ``master`` とか ``HEAD`` とかを敢えて使う。
+以下、コマンドライン内の ``git [common-options]`` の部分は省略する。Git 特有の符
+牒ではなく、実際にありがちな名前を例に使うかもしれない。例えば ``<tree-ish>`` で
+はなく ``master`` とか ``HEAD`` とかを敢えて使う。
 
-呪文表 :command:`add`
+呪文表 ``add``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`add` はインデックスにファイルおよびその変更を追加するのに用い
-る。
+コマンド ``add`` はインデックスにファイルおよびその変更を追加するのに用いる。
 
 ``add [<pathspec>...]``
   指定したファイルだけをインデックスに追加する。
 
-  引数なしの場合に何が起こるのかは知らない。
+  引数なしの場合に何が起こるのかは設定によるが、基本的には次の呪文と同じ効果だ。
 
 ``add .``
-  カレントディレクトリー以下の対象ファイルをインデックスに追加する。
+  現在ディレクトリー以下のファイルをインデックスに再帰的に追加する。
 
-:command:`add -p <pathspec>`
+``add -p <pathspec>``
   指定したファイルの内部から追加部分を対話的に指示し、インデックスに追加する。
 
-:command:`add -i`
+``add -i``
   コンソールで対話的にファイルをインデックス追加処理する。
 
 ``add -u [<pathspec>...]``
@@ -159,10 +166,10 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
   デフォルトの ``-a`` オプションとの違いに注意。
 
-呪文表 :command:`archive`
+呪文表 ``archive``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`archive` は作業コピーのファイル全部から圧縮ファイルを作成する
+コマンド ``archive`` は作業コピーのファイル全部から圧縮ファイルを作成する
 のに利用できる。
 
 ``archive --format=tar.gz --prefix=prjname/ master > prjname-master.tar.gz``
@@ -174,163 +181,162 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 ``archive --format=zip --prefix=projname/ master > projname.zip``
   ツリー ``master`` から zip 形式の圧縮ファイルを作る。
 
-呪文表 :command:`bisect`
+呪文表 ``bisect``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`bisect` は異色のコマンドで、コミットを二分探索法によって検索
+コマンド ``bisect`` は異色のコマンドで、コミットを二分探索法によって検索
 するものだ。
 
-:command:`bisect help`
+``bisect help``
   当コマンドの利用法の概要をコンソールに出力する。詳細を見たい場合はやはり
-  :command:`help bisect` である。
+  ``help bisect`` である。
 
-:command:`bisect start HEAD v1.2`
+``bisect start HEAD v1.2``
   二分探索セッションを開始する。これは ``HEAD`` で何かマズいことになっているが、
   確か ``v1.2`` 時点では正常だった、の例。
 
-:command:`bisect good [<rev>]`
+``bisect good [<rev>]``
   このリビジョンは正常だという印をセッション情報に付ける。
 
-:command:`bisect bad [<rev>]`
+``bisect bad [<rev>]``
   このリビジョンは何かマズイという印をセッション情報に付ける。
 
-:command:`bisect visualize`
-  現時点で残っている疑わしいものを :command:`gitk` で表示する。
+``bisect visualize``
+  現時点で残っている疑わしいものを :command:`gitk` で表示する。最近はこのビュー
+  ワーをインストールしていないが。
 
-  * :command:`bisect view` とタイプしても同じ。短いほうが良い。
+  ``bisect view`` とタイプしても同じ。短いほうが良い。
 
-:command:`bisect reset`
-  セッションを終了して、作業コピーの状態を :command:`bisect start` 直前のものに
-  戻す。
+``bisect reset``
+  セッションを終了して、作業コピーの状態を ``bisect start`` 直前のものに戻す。
 
-呪文表 :command:`branch`
+呪文表 ``branch``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`branch` はブランチを管理するのに用いる。
+コマンド ``branch`` はブランチを管理するのに用いる。
 
-:command:`branch <new> [<existing>]`
-  新規ブランチ ``new`` を既存ブランチ ``existing`` から作成する。既存ブランチの
-  指定を省略すると、カレントブランチから作成する。
+``branch <new> [<existing>]``
+  新規ブランチ ``<new>`` を既存ブランチ ``<existing>`` から作成する。既存ブラン
+  チの指定を省略すると、現在ブランチから作成する。
 
-:command:`branch -r`
-  リモート追跡ブランチだけをリストする。
+``branch -r``
+  リモート追跡ブランチしかを一覧に示さない。
 
-:command:`branch -a`
-  ローカルとリモート追跡の両方のブランチをリストする。
+``branch -a``
+  ローカルとリモート追跡の両方のブランチを一覧する。
 
-  * ``-v`` でより詳しく。
+  オプション ``-v`` でより詳しく。
 
-:command:`branch --merged`
-  カレントブランチに対して完全にマージ済みのブランチ全てをリストする。
+``branch --merged``
+  現在ブランチに対して完全にマージ済みのブランチ全てを一覧に示す。
 
-:command:`branch --track <branchname> [<start-point>]`
-  リモート追跡ブランチ ``branchname`` を作成する。意味としてはリモートにある
+``branch --track <branchname> [<start-point>]``
+  リモート追跡ブランチ ``<branchname>`` を作成する。意味としてはリモートにある
   ``start-point`` からブランチするイメージか。
 
-:command:`branch --set-upstream <branch> <start-point>`
-  既存のブランチ ``branch`` を ``start-point`` のリモート追跡ブランチにする。
-
-:command:`branch -m [oldbranch] <newbranch>`
-  ブランチ ``oldbranch`` の名前を ``newbranch`` に変更する。引数 ``oldbranch``
-  の指定を省略すると、カレントブランチを改名する。
-
-  * ``-M`` is ``-m --force``.
-
-:command:`branch -d <branchname>`
-  ブランチ ``branchname`` を削除する。ただし、別のブランチにマージ済みであると失
-  敗してくれる。
-
-  * ``-D`` is ``-d --force``.
-
-:command:`branch -dr <remote/branchname>`
-  リモート追跡ブランチを削除する。マージ済みが条件。
-
-  * 影響を受けるのはローカルの状態だけ。
-
-呪文表 :command:`checkout`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-コマンド :command:`checkout` にはブランチを切り替える用法と、作業コピーのファイ
-ルを復元する用法の両方があることに注意したい。
-
-:command:`checkout <branch>`
-  カレントブランチを既存のブランチ ``branch`` に切り替える。
-
-:command:`checkout -b <branch> [<start-point>]`
-  ブランチ ``branch`` を作成して、同時にカレントブランチを切り替える。明示的に
-  ``start-point`` が指定されていれば、そこからブランチする。
-
-:command:`checkout -b <branch> <remote>/<branch>`
-  リモートブランチをローカルブランチとして作成する。
-
-:command:`checkout --track <remote>/<branch>`
-  リモートブランチからリモート追跡ブランチを作成する。
-
-:command:`checkout HEAD <file>`
-  ファイル ``file`` のローカルでの変更を破棄する。
-
-:command:`checkout -- <file>`
-  ファイル ``file`` のローカルでの変更を破棄する。
-
-:command:`checkout .`
-  カレントディレクトリー以下のローカルでの変更をすべて破棄する。
-
-:command:`checkout <branch> <file>`
-  別のブランチ ``branch`` にあるファイル ``file`` をカレントブランチへ持ってく
+``branch --set-upstream <branch> <start-point>``
+  既存のブランチ ``<branch>`` を ``<start-point>`` のリモート追跡ブランチにす
   る。
 
-呪文表 :command:`clean`
+``branch -m [<oldbranch>] <newbranch>``
+  ブランチ ``<oldbranch>`` の名前を ``<newbranch>`` に変更する。引数
+  ``oldbranch`` の指定を省略すると、現在ブランチを改名する。
+
+  オプション ``-M`` は ``-m --force`` と同じ。
+
+``branch -d <branchname>``
+  ブランチ ``<branchname>`` を削除する。ただし、別のブランチにマージ済みであると
+  失敗してくれる。
+
+  * ``-D`` is ``-d --force``.
+  * リモートブランチを削除するのはまったく別のコマンドを用いる。``push`` 参照。
+
+``branch -dr <remote/branchname>``
+  リモート追跡ブランチを削除する。マージ済みが条件。
+
+  影響を受けるのはローカルの状態だけ。
+
+呪文表 ``checkout``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`clean` の役割は、バージョン管理されていないファイルを消去する
+コマンド ``checkout`` にはブランチを切り替える用法と、作業コピーのファイルを復元
+する用法の両方があることに注意したい。
+
+``checkout <branch>``
+  現在ブランチを既存のブランチ ``<branch>`` に切り替える。cf. ``switch
+  <branch>``.
+
+``checkout -b <branch> [<start-point>]``
+  ブランチ ``<branch>`` を作成して、同時に現在ブランチを切り替える。明示的に
+  ``<start-point>`` が指定されていれば、そこからブランチする。cf. ``switch -c
+  <branch>``.
+
+``checkout -b <branch> <remote>/<branch>``
+  リモートブランチをローカルブランチとして作成する。
+
+``checkout --track <remote>/<branch>``
+  リモートブランチからリモート追跡ブランチを作成する。
+
+``checkout HEAD <file>``, ``checkout -- <file>``
+  ファイル ``<file>`` のローカルでの変更を破棄する。cf. ``restore``.
+
+``checkout .``
+  現在いるディレクトリー以下のローカルでの変更をすべて破棄する。cf. ``restore``.
+
+``checkout <branch> <file>``
+  別のブランチ ``<branch>`` にあるファイル ``<file>`` を現在ブランチへ持ってく
+  る。
+
+呪文表 ``clean``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+コマンド ``clean`` の役割は、バージョン管理されていないファイルを消去する
 ことである。
 
-:command:`clean -n`
-  仮に :command:`clean` を実行すると、何が起こるのかをプレビューする。
+``clean -n``
+  仮に ``clean`` を実行すると、何が起こるのかをプレビューする。
 
-  オプション ``-n`` は他のコマンドでも dry run の意味でサポートされている場合がある。
-  まとめたほうがよいかも。
+  オプション ``-n`` は他のコマンドでも dry run の意味でサポートされている場合が
+  ある。まとめたほうがよいかも。
 
-:command:`clean -f`
+``clean -f``
   Git の構成に依らず、とにかく削除する。
 
-呪文表 :command:`clone`
+呪文表 ``clone``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`clone` はリポジトリーを新規ディレクトリーに複製する。これによ
+コマンド ``clone`` はリポジトリーを新規ディレクトリーに複製する。これによ
 り作業コピーができる。
 
-:command:`clone <repository> [<directory>]`
-  リポジトリー ``repository`` の作業コピーを ``directory`` に作成する。
+``clone <repository> [<directory>]``
+  リポジトリー ``<repository>`` の作業コピーを ``<directory>`` に作成する。
 
-  ``repository`` には普通なんちゃら ``.git`` のような文字列が来る。
-  たまにローカルにある作業コピーのパスを指示するような場合もある。
+  ``<repository>`` には普通なんちゃら ``.git`` のような文字列が来る。たまにロー
+  カルにある作業コピーのパスを指示するような場合もある。
 
-呪文表 :command:`commit`
+呪文表 ``commit``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`commit` はリポジトリーの変更を確定するために用いる。そしてコ
-ミットを修正することもできる。
+コマンド ``commit`` はリポジトリーの変更を確定するために用いる。そしてコミットを
+修正することもできる。
 
-:command:`commit -a`
+``commit -a``
   自動的に変更ファイルと削除ファイルをステージに置いてコミットする。
 
-:command:`commit -m <msg>`
-  コミットログメッセージを ``msg`` としてコミットする。
+``commit -m <msg>``
+  コミットログメッセージを ``<msg>`` としてコミットする。もっとも普通のコミット
+  コマンドの形式。ログメッセージは普通は引用符で囲む。
 
-  * もっとも普通のコミットコマンドの形式。
-  * ログメッセージは普通は引用符で囲む。
-
-:command:`commit -v`
+``commit -v``
   リポジトリーの変更情報を表示しながらコミットする。
 
-:command:`commit --amend`
+``commit --amend``
   直前のコミットを修正する。
 
-:command:`commit --amend <file> ...`
+``commit --amend <file> ...``
   直前のコミットに変更ファイルを追加してコミットをやり直す。
 
-:command:`commit --amend --reset-author [--no-edit]`
+``commit --amend --reset-author [--no-edit]``
   直前のコミットの作業者情報を上書きする。
 
   * タイムスタンプを更新することに注意。
@@ -341,73 +347,59 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
    * タイムスタンプが 2 種類あることについて言及する。
    * タイムスタンプを任意のタイミングに指定する方法について言及する。
 
-呪文表 :command:`diff`
+呪文表 ``diff``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`diff` は相異なるコミット間の差分や、特定コミットと作業コピー
-との差分を表示する。ファイル単位で差分を確認することができるが、ここに挙げる例は
-対象ファイル全部になる。
+コマンド ``diff`` は相異なるコミット間の差分や、特定コミットと作業コピーとの差分
+を表示する。ファイル単位で差分を確認することができるが、ここに挙げる例は対象ファ
+イル全部になる。
 
-:command:`diff HEAD`
+``diff HEAD``
   指定ファイル群について、作業コピーとレポジトリーの最新リビジョン ``HEAD`` との
   差分を表示する。
 
-:command:`diff --cached`
+``diff --cached``
   作業コピーとステージとの差分を表示する。
 
   別名 ``--staged`` がある。
 
-:command:`diff --no-index <file1> <file2>`
-  ファイルの差分をバージョン管理の文脈と無関係に表示する。
-  単に GNU diff を利用するのが素直だ。
+``diff --no-index <file1> <file2>``
+  ファイルの差分をバージョン管理の文脈と無関係に表示する。単に GNU
+  :command:`diff` を利用するのが素直だ。
 
-呪文表 :command:`fetch`
+呪文表 ``fetch``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`fetch` はよそにあるリポジトリーからデータをダウンロードする。
+コマンド ``fetch`` はよそにあるリポジトリーからデータをダウンロードする。
 
-:command:`fetch [bookmark]`
-  リポジトリブックマークからすべての履歴をダウンロードします。
+``fetch [<bookmark>]``
+  リポジトリブックマークからすべての履歴をダウンロードする。
 
-:command:`fetch <repository> [<branch>]`
+``fetch <repository> [<branch>]``
   リモートリポジトリー ``repository`` からブランチ ``branch`` をダウンロードす
   る。
 
-:command:`fetch <remote> -p`
-  リモート ``remote`` に関してデータをダウンロードし、削除済みリモートブランチが
-  あれば、それに対応するリモート追跡ブランチをローカルにおいて削除する。
+``fetch <remote> -p``
+  リモート ``<remote>`` に関してデータをダウンロードし、削除済みリモートブランチ
+  があれば、それに対応するリモート追跡ブランチをローカルにおいて削除する。
 
-:command:`fetch --all --prune`
+``fetch --all --prune``
   すべてのリモートリポジトリーからダウンロードする。なおかつ、削除済みリモートブ
   ランチがあれば、それに対応するリモート追跡ブランチをローカルにおいて削除する。
 
-  * ``--prune`` is ``-p``.
-
-呪文表 :command:`format-patch`
+呪文表 ``gc``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-パッチを作成するコマンド。滅多に使わない。
+コマンド ``gc`` は不要ファイルを削除してローカルリポジトリーの最適化をする。気分
+転換の意味で実行することが多い。
 
-:command:`format-patch HEAD^`
-  最新のコミットのパッチを生成する。これは別のクローンまたはブランチにコマンド
-  :command:`am` が適用する。
-
-:command:`format-patch <rev>^..<rev>`
-  単一リビジョンにおけるパッチを作成する。
-
-呪文表 :command:`gc`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-コマンド :command:`gc` は不要ファイルを削除してローカルリポジトリーの最適化をす
-る。気分転換の意味で実行することが多い。
-
-:command:`gc [--prune[=<date>]]`
+``gc [--prune[=<date>]]``
   リポジトリーのゴミ掃除を行う。
 
   オプション ``--prune`` は未参照オブジェクトを削除するかどうかのフラグだ。これ
   は既定で on である。
 
-呪文表 :command:`grep`
+呪文表 ``grep``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 オプションにもよるが、リポジトリー管理対象ファイル限定版 :command:`grep` と表現
@@ -415,212 +407,204 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
 と言うわけで、ここにはコマンドラインを記さない。
 
-呪文表 :command:`init`
+呪文表 ``init``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`init` はリポジトリーを（再）作成する。
+コマンド ``init`` はリポジトリーを（再）作成する。
 
-:command:`init [directory]`
-  ディレクトリー ``directory`` を Git リポジトリーとして初期化する。
+``init [<directory>]``
+  ディレクトリー ``<directory>`` を Git リポジトリーとして初期化する。
 
-:command:`init --bare [directory]`
-  ディレクトリー ``directory`` に生リポジトリーを作成する。理解としてはディレク
-  トリー :file:`.git` の初期状態を生成するものだ。
+``init --bare [<directory>]``
+  ディレクトリー ``<directory>`` に生リポジトリーを作成する。管理ディレクトリー
+  である :file:`.git` の初期状態を生成するものだ。
 
-呪文表 :command:`log`
+呪文表 ``log``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`log` はコミットログを出力する。構文はたいへん単純だが、オプ
-ションが多いので実は憶えにくい。
+コマンド ``log`` はコミットログを出力する。構文はたいへん単純だが、オプションが
+多いので実は憶えにくい。
 
-:command:`log`
+``log``
   引数オプション一切なしでは全ログを出力することになる。新しい順。
 
-:command:`log --decorate`
+``log --decorate``
   関係するブランチとタグがあれば、そのコミットのログにはそれらの名前を一緒に出力
   する。
 
-:command:`log <ref>..<ref>`
+``log <ref>..<ref>``
   指定リビジョン範囲におけるコミットに限定してログを出力する。
 
-:command:`log [--] <path>...`
+``log [--] <path>...``
   指定したファイルやディレクトリーに関係するコミットに限定してログを出力する。
 
-:command:`log -<number>`
+``log -<number>``
   指定したコミット数だけログを出力する。
 
   別名 ``-n <number>`` および ``--max-count <number>`` がある。
 
-:command:`log --after="MMM DD YYYY"`
+``log --after="MMM DD YYYY"``
   指定期日よりも新しいコミットに限定してログを出力する。
 
   別名 ``--since`` がある。
 
-:command:`log --before="MMM DD YYYY"`
+``log --before="MMM DD YYYY"``
   指定期日よりも古いコミットに限定してログを出力する。
 
   別名 ``--until`` がある。
 
-:command:`log --author=<pattern>`
+``log --author=<pattern>``
   執筆者がパターン ``pattern`` にマッチするコミットに限定してログを出力する。
 
-:command:`log --grep=<pattern>`
+``log --grep=<pattern>``
   ログメッセージがパターンにマッチするコミットに限定してログを出力する。
 
-:command:`log --merge`
+``log --merge``
   マージで衝突があったものに限定してログを出力する。
 
-:command:`log --pretty=short`
+``log --pretty=short``
   短いフォーマットでログを出力する。
 
-:command:`log --format=oneline`
+``log --format=oneline``
   コミット当たり一行でログを出力する。先頭に SHA-1 付き。
 
-:command:`log --oneline`
+``log --oneline``
   コミット当たり一行でログを出力する。
 
-:command:`log --oneline --graph --all --decorate`
+``log --oneline --graph --all --decorate``
   色んな物をログとして出力する。
 
-:command:`log --graph`
+``log --graph``
   アスキーアートによるコミットグラフをメッセージの左に添える。
 
-:command:`log -p`
+``log -p``
   変更内容を表示する。
 
-:command:`log -p <file>`
-  ファイル ``file`` が関係するコミットに限定して、変更内容を込めてログを出力する。
+``log -p <file>``
+  ファイル ``<file>`` が関係するコミットに限定して、変更内容を込めてログを出力す
+  る。
 
-:command:`log --stat`
+``log --stat``
   差分に関する統計を添えてログを出力する。
 
-:command:`log --summary`
+``log --summary``
   ファイルの作成、移動、削除に関する概要を添えてログを出力する。
 
-:command:`log --color`
-  差分に色を付けてログを出力する。
-  オプション単体では意味がないようだ。
+``log --color``
+  差分に色を付けてログを出力する。オプション単体では意味がないようだ。
 
-呪文表 :command:`merge`
+呪文表 ``merge``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`merge` はカレントブランチに別のブランチのコミット履歴を取り込
-む。
+コマンド ``merge`` は現在ブランチに別のブランチのコミット履歴を取り込む。
 
-:command:`merge <branch>`
-  ブランチ ``branch`` のコミット履歴をカレントブランチに統合する。
+``merge <branch>``
+  ブランチ ``<branch>`` のコミット履歴を現在ブランチに統合する。
 
-:command:`merge --no-commit <branch>`
-  ブランチ ``branch`` をカレントブランチにマージするが、新しいコミットを自動的に
-  作らない。
+``merge --no-commit <branch>``
+  ブランチ ``<branch>`` を現在ブランチにマージするが、新しいコミットを自動的に作
+  らない。
 
-:command:`merge -s ours <branch>`
-  ブランチ ``branch`` をカレントブランチにマージするが、何か衝突がある場合はこち
-  ら側の変更を採用する。
+``merge -s ours <branch>``
+  ブランチ ``<branch>`` を現在ブランチにマージするが、何か衝突がある場合はこちら
+  側の変更を採用する。
 
-:command:`merge --no-ff <branch>`
-  ブランチ ``branch`` をカレントブランチにマージするが、それが fast-forward で解
-  決してもマージコミットを生成する。
+``merge --no-ff <branch>``
+  ブランチ ``<branch>`` を現在ブランチにマージするが、それが fast-forward で解決
+  してもマージコミットを生成する。
 
-:command:`merge -ff-only <branch>`
+  当ノートリポジトリーの通常マージ呪文とする。ログメッセージは Git の生成する既
+  定値でいいので、さらにオプション ``--no-edit`` を加える。
+
+``merge -ff-only <branch>``
   次のような場合はマージしないで異常終了とする。
 
   * カレントの ``HEAD`` が既に最新である
   * マージが fast-forward で解決する
 
-:command:`merge --abort`
+``merge --abort``
   現在のマージが衝突したら処理を中止して、状態をマージ直前に復元することを試み
   る。
 
-呪文表 :command:`mv`
+呪文表 ``mv``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`mv` はファイルを移動する、もしくは名前を変える。ファイルは
-ディレクトリーとシンボリックリンクを含む。
+コマンド ``mv`` はファイルを移動する、もしくは名前を変える。ファイルはディレクト
+リーとシンボリックリンクを含む。
 
-:command:`mv <source> <destination>`
-  ファイル ``source`` を ``destination`` に移動するか、名前を変える。
+``mv <source> <destination>``
+  ファイル ``<source>`` を ``<destination>`` に移動するか、名前を変える。
 
-  引数 ``source`` が複数ファイルの場合は、引数 ``destination`` は既存のディレク
-  トリーであるものとする。
+  引数 ``<source>`` が複数ファイルの場合は、引数 ``<destination>`` は既存のディ
+  レクトリーであるものとする。
 
-呪文表 :command:`pull`
+呪文表 ``pull``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`pull` は :command:`fetch` と :command:`merge` を同時に行うよ
-うなものだ。
+コマンド ``pull`` は ``fetch`` と ``merge`` を同時に行うようなものだ。
 
-:command:`pull [<repository>]`
-  カレントブランチのリモートリポジトリー ``repository`` のコピーをダウンロードし
+``pull [<repository>]``
+  現在ブランチのリモートリポジトリー ``<repository>`` のコピーをダウンロードし
   て、それを直ちにローカルの ``HEAD`` にマージする。
 
-:command:`pull [<repository> [<refspec> ...]]`
-  リモートリポジトリー ``repository`` のブランチ ``refspec`` に対して、そのコ
-  ピーをダウンロードしてローカルの ``HEAD`` にマージする。
+``pull [<repository> [<refspec> ...]]``
+  リモートリポジトリー ``<repository>`` のブランチ ``<refspec>`` に対して、その
+  コピーをダウンロードしてローカルの ``HEAD`` にマージする。
 
-  ところで ``repository`` や ``refspec`` のデフォルト値は、カレントブランチの構
-  成に依存する。
+  ところで ``<repository>`` や ``<refspec>`` の既定値は、現在ブランチの構成に依
+  存する。
 
-:command:`pull --rebase <repository>`
-  これは :command:`fetch` と :command:`rebase` を同時に行うようなものだ。上手い
-  人向けのコマンド。
+``pull --rebase <repository>``
+  これは ``fetch`` と ``rebase`` を同時に行うようなものだ。上手い人向けのコマン
+  ド。
 
-呪文表 :command:`push`
+呪文表 ``push``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`push` はローカルのコミットをリモートにアップロードする。
+コマンド ``push`` はローカルのコミットをリモートにアップロードする。
 
-:command:`push [<repository> [<refspec> ...]]`
-  ローカルの ``refspec`` をリモートリポジトリー ``repository`` にアップロードす
-  る。
+``push [<repository> [<refspec> ...]]``
+  ローカルの ``<refspec>`` をリモートリポジトリー ``<repository>`` にアップロー
+  ドする。これらの引数の既定値は現在ブランチの構成に従う。
 
-  なお、これらの引数のデフォルト値はカレントブランチの構成に従う。
-
-:command:`push --all [<repository>]`
+``push --all [<repository>]``
   ローカルのすべてのブランチをリモートリポジトリー ``repository`` にアップロード
-  する。
+  する。言い換えると ``refs/heads/`` 配下の refs をリモートリポジトリーにアップ
+  ロードする。
 
-  言い換えると ``refs/heads/`` 配下の refs をリモートリポジトリーにアップロード
-  する。
-
-:command:`push --mirror`
+``push --mirror``
   ローカルのすべての状態とリモートリポジトリーの状態が同一となるようにアップロー
-  ドする。
+  ドする。言い換えると ``refs/`` 配下をリモートリポジトリーにコピーする。
 
-  言い換えると ``refs/`` 配下をリモートリポジトリーにコピーする。
-
-:command:`push --tags`
+``push --tags``
   ``refs/tags`` 配下にあるすべての refs をアップロードする。
 
-:command:`push -n`
-  コマンド実行時のプレビューができる。
+``push -n``
+  コマンド実行時のプレビューができる。別名 ``--dry-run`` がある。
 
-  別名 ``--dry-run`` がある。
+``push --force <repository>``
+  マージが fast-forward にならない ``push`` であっても、強引にアップロードする。
 
-:command:`push --force <repository>`
-  マージが fast-forward にならない :command:`push` であっても、強引にアップロー
-  ドする。
+``push <repository> :<pattern>``
+  リモートリポジトリー ``<repository>`` にパターン ``<pattern>`` にマッチする
+  ref があれば、それを削除する。
 
-:command:`push <repository> :<pattern>`
-  リモートリポジトリー ``repository`` にパターン ``pattern`` にマッチする ref が
-  あれば、それを削除する。
+``push -d origin <branch>``
+  リモートリポジトリー ``origin`` のブランチ ``<branch>`` を削除する。
 
-:command:`push --delete <repository> <pattern>`
-  同上。
+``push <repository> <start-point>:refs/heads/<branch>``
+  リモートリポジトリー ``<repository>`` にブランチ ``<branch>`` を作成する。ブラ
+  ンチの基点はリモートの ``<start-point>`` とする。
 
-:command:`push <repository> <start-point>:refs/heads/<branch>`
-  リモートリポジトリー ``repository`` にブランチ ``branch`` を作成する。ブランチ
-  の基点はリモートの ``start-point`` とする。
-
-呪文表 :command:`rebase`
+呪文表 ``rebase``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`rebase` は私にとってはコミット履歴の修正ツールだ。
+コマンド ``rebase`` は私にとってはコミット履歴の修正ツールだ。
 
-:command:`rebase [<upstream> [<branch>]]`
-  ブランチ ``upstream`` をブランチ ``branch`` に :command:`rebase` する。
+``rebase [<upstream> [<branch>]]``
+  ブランチ ``<upstream>`` をブランチ ``<branch>`` に ``rebase`` する。
 
-:command:`rebase -i [<upstream> [<branch>]]`
+``rebase -i [<upstream> [<branch>]]``
   テキストエディター上でコミット履歴の操作を行う。
 
   テキストエディター上にはコミット履歴が各行にリストされている。そこで各行の先頭
@@ -634,172 +618,199 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
   * 複数のコミットを合併する
   * コミットをキャンセルする
 
-  :command:`rebase -i HEAD~5`
+  ``rebase -i HEAD~5``
     直近 5 コミットの履歴の改竄を開始する。
 
-:command:`rebase --continue`
-  手動による衝突を解消してインデックスが望み通りの状態になったとき
-  に、:command:`rebase` 処理の対象を次のコミットへ進ませる。
+``rebase --continue``
+  手動による衝突を解消してインデックスが望み通りの状態になったときに、``rebase``
+  処理の対象を次のコミットへ進ませる。
 
-:command:`rebase --abort`
-  手動による衝突解消が上手くいかなかったときに、:command:`rebase` 開始直前の状態
-  に戻す。
+``rebase --abort``
+  手動による衝突解消が上手くいかなかったときに、``rebase`` 開始直前の状態に戻
+  す。
 
-:command:`rebase --skip`
-  衝突したままだが、とにかく次のコミットへ :command:`rebase` 処理を進ませる。
+``rebase --skip``
+  衝突したままだが、とにかく次のコミットへ ``rebase`` 処理を進ませる。
 
-呪文表 :command:`reset`
+呪文表 ``reset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`reset` はカレントの HEAD を指定した状態へ戻すのに用いる。用法
-にはファイルに作用するものと、コミットに作用するものがある。
+コマンド ``reset`` は現在の ``HEAD`` を指定した状態へ戻すのに用いる。用法には
+ファイルに作用するものと、コミットに作用するものがある。
 
-:command:`reset <paths>...`
-  インデックスでファイル ``paths`` に関する項目をリセットする。
+``reset <paths>...``
+  インデックスでファイル ``<paths>`` に関する項目をリセットする。
 
   ヘルプでは ``add <paths>...`` の逆操作だと表現している。
 
-:command:`reset <commit>`
-  カレントブランチの HEAD をコミット ``commit`` にリセットする。インデックスの状
-  態もそれに応じてリセットする
+``reset <commit>``
+  現在ブランチの ``HEAD`` をコミット ``<commit>`` にリセットする。インデックスの
+  状態もそれに応じてリセットする
 
-:command:`reset --soft HEAD^`
-  カレントブランチの状態を直前のコミット直後の状態にリセットする。ローカルでの作
-  業はインデックス外に作業コピーに残る。
+``reset --soft HEAD^``
+  現在ブランチの状態を直前のコミット直後の状態にリセットする。ローカルでの作業は
+  インデックス外に作業コピーに残る。
 
-:command:`reset --hard`
+``reset --hard``
   衝突したパッチを破棄する。
 
-:command:`reset --hard <commit>`
-  カレントブランチの ``HEAD`` をコミット ``commit`` 直後の時点にリセットする。そ
-  れ以降になされた作業コピーにおけるファイル変更は破棄される。
+``reset --hard <commit>``
+  現在ブランチの ``HEAD`` をコミット ``<commit>`` 直後の時点にリセットする。それ
+  以降になされた作業コピーにおけるファイル変更は破棄される。
 
-:command:`reset --hard HEAD`
-  カレントブランチの状態を直前のコミット直後の状態にリセットする。コミット以後の
-  ローカルでの作業があれば、それは破棄される。
+``reset --hard HEAD``
+  現在ブランチの状態を直前のコミット直後の状態にリセットする。コミット以後のロー
+  カルでの作業があれば、それは破棄される。
 
-:command:`reset --hard ORIG_HEAD`
+``reset --hard ORIG_HEAD``
   マージが成功したコミットのうち最新のものをアンドゥする。例によってそれ以降の作
   業コピーでのファイル変更は破棄される。
 
-:command:`reset --keep <commit>`
-  カレントブランチの ``HEAD`` をコミット ``commit`` 直後の時点にリセットする。そ
-  れ以降になされた作業コピーにおいてファイル変更があれば、リセットを中止する。
+``reset --keep <commit>``
+  現在ブランチの ``HEAD`` をコミット ``<commit>`` 直後の時点にリセットする。それ
+  以降になされた作業コピーにおいてファイル変更があれば、リセットを中止する。
 
-呪文表 :command:`revert`
+呪文表 ``restore``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`revert` は既存のコミットを無効にするのに用いる。
+コマンド ``restore`` は作業コピー内の指定ファイルを復元するのに用いる。内容は復
+元源のものを使用する。指定ファイルが追跡されている状態で、復元源に対応物が存在し
+ない場合、作業コピーから削除される。``git status`` の説明文にチラつくコマンド
+だ。
 
-:command:`revert <commit>`
-  コミット ``comit`` をなかったことにする。方法はそのコミットの内容を打ち消すよ
-  うな新しいコミットを生み出すことによる。
+``restore <pathspec>``
+  作業コピー内 ``<pathspec>`` をインデックスのそれと同等の内容に復元する。
+  ``<pathspec>`` が変更済みファイルだったり、ディレクトリーだったり、作業コピー
+  だけで削除したファイルだったりする場合に有効だ。
 
-``-n`` または ``--no-commit`` オプションというのがあり、これは新しいコミットを生
-じない。
+``restore .``
+  上の呪文の系で、現在ディレクトリーの状態をインデックスから復元する。
 
-呪文表 :command:`rm`
+``restore --staged <pathspec>``
+  ``HEAD`` の ``<pathspec>`` 内容と一致するようにインデックス内の ``<pathspec>``
+  を復元する。コマンド ``git reset <pathspec>`` と同じことだ。
+
+``restore --source=HEAD --staged --worktree <pathspec>``
+  インデックスと作業コピーの両方を復元する。コマンド ``git checkout <pathspec>``
+  と同じことだ。
+
+呪文表 ``revert``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`rm` はリポジトリーからファイルを削除する。
+コマンド ``revert`` は既存のコミットを無効にするのに用いる。
 
-:command:`rm [--] <file>...`
-  ファイル ``file`` を削除する。
+``revert <commit>``
+  コミット ``<comit>`` をなかったことにする。方法はそのコミットの内容を打ち消す
+  ような新しいコミットを生み出すことによる。
 
-:command:`rm -n`
+オプション ``-n`` または ``--no-commit`` は新しいコミットを生じない。
+
+呪文表 ``rm``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+コマンド ``rm`` はリポジトリーからファイルを削除する。
+
+``rm [--] <file>...``
+  ファイル ``<file>`` を削除する。
+
+``rm -n``
   コマンド実行時のプレビューができる。
 
   別名 ``--dry-run`` がある。
 
-:command:`rm -r [--] <directory>`
-  ディレクトリー ``directory`` 以下にあるすべてのファイルを削除する。
+``rm -r [--] <directory>``
+  ディレクトリー ``<directory>`` 以下にあるすべてのファイルを削除する。
 
-:command:`rm --cached [--] <file>`
-  ファイル ``file`` をインデックスからのみ削除する。
+``rm --cached [--] <file>``
+  ファイル ``<file>`` をインデックスからのみ削除する。
 
-呪文表 :command:`show`
+呪文表 ``show``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`show` はあらゆる Git オブジェクトを表示する。
+コマンド ``show`` はあらゆる Git オブジェクトを表示する。
 
-:command:`show <commit>`
-  コミット ``commit`` との現在の差分を表示する。
+``show <commit>``
+  コミット ``<commit>`` との現在の差分を表示する。
 
-:command:`show <commit>:<file>`
-  コミット ``commit`` でのファイル ``file`` の内容を表示する。
+``show <commit>:<file>``
+  コミット ``<commit>`` でのファイル ``<file>`` の内容を表示する。
 
-:command:`show --name-only`
+``show --name-only``
   変更ファイルの名前だけを表示する。差分は表示しない。
 
-:command:`show <branch> -- <file>`
-  ブランチ ``branch`` でのファイル ``file`` の内容を表示する。
+``show <branch> -- <file>``
+  ブランチ ``<branch>`` でのファイル ``<file>`` の内容を表示する。
 
-呪文表 :command:`stash`
+呪文表 ``stash``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`stash` は作業コピーでのファイル変更を一時的に退避するのに用い
-る。スタックのイメージだと思う。
+コマンド ``stash`` は作業コピーでのファイル変更を一時的に退避するのに用いる。ス
+タックのイメージだと思う。
 
-:command:`stash list`
+``stash list``
   退避領域の内容を一覧で示す。
 
-:command:`stash show <stash> -p`
+``stash show <stash> -p``
   退避領域の内容物を表示する。差分形式で表示できる。
 
-:command:`stash drop`
+``stash drop``
   直近に一時保存された変更セットを破棄する。
 
-:command:`stash pop`
+``stash pop``
   直近に一時保存されたファイルを作業コピーへ復元する。
 
-:command:`stash apply`
+``stash apply``
   直近に一時保存されたファイルを作業コピーへ復元する。ただし保存データはまだ退避
   領域にある。
 
-:command:`stash save <message>`
+``stash save <message>``
   現在の作業コピーでの変更ファイルを退避する。この退避には名前が付く。
 
-:command:`stash clear`
+``stash clear``
   退避領域を完全に消去する。退避内容は失われる。
 
-呪文表 :command:`status`
+呪文表 ``status``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`status` は作業コピーの状態を表示するのに用いる。
+コマンド ``status`` は作業コピーの状態を表示するのに用いる。出力結果の読み方を別
+途習得する必要がある。
 
-:command:`status`
+``status``
   引数なしでも色々と情報が得られる。
 
-:command:`status -uno`
+``status -uno``
   管理外のファイルの情報は要らない。つまり ``Untracked files:`` のセクションを表
   示させない。
 
-呪文表 :command:`submodule`
+呪文表 ``switch``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`submodule` はサブモジュールを管理するのに用いる。
+コマンド ``switch`` は作業ブランチを切り替えるのに用いる。
 
-:command:`submodule add <repository> [<path>]`
-  リモートリポジトリー ``repository`` を ``path`` に追加する。
+``switch main``
+  作業ブランチを既存ブランチ ``main`` に切り替える。
+``switch -``
+  作業ブランチをその直前の作業ブランチに切り替える。UNIX コマンド ``cd -`` のア
+  ナロジーだ。
+``switch -c <new-branch>``
+  新規ブランチ ``<new-branch>`` を現在ブランチから開始し、さらに作業ブランチを切
+  り替える。
 
-:command:`submodule update [--init]`
-  登録済みサブモジュールを更新する。
+コマンド ``switch`` の切り替え先と衝突するような変更ファイルが作業ブランチに存在
+する場合、専用フラグを指定しない限り処理は失敗して、作業ブランチは変わらない。
 
-:command:`submodule foreach <command>`
-  シェルコマンド :command:`command` を各サブモジュールに対して実行する。
-
-呪文表 :command:`tag`
+呪文表 ``tag``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`tag` はタグを管理するのに用いる。
+コマンド ``tag`` はタグを管理するのに用いる。
 
-:command:`tag <tagname> [<commit>|<object>]`
+``tag <tagname> [<commit>|<object>]``
   コミットや何かにタグを付ける。
 
-:command:`tag -d <tagname>`
+``tag -d <tagname>``
   名前を指定してタグを削除する。
 
-:command:`tag -l [<pattern>]`
+``tag -l [<pattern>]``
   パターンにマッチするタグをリストする。
 
 補助コマンド
@@ -810,139 +821,139 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
 次のコマンド群が操作用とされている：
 
-.. code:: text
+  .. code:: text
 
-   config,
-   fast-export,
-   fast-import,
-   filter-branch,
-   mergetool,
-   pack-refs,
-   prune,
-   reflog,
-   relink,
-   remote,
-   repack,
-   replace.
+     config               Get and set repository or global options
+     fast-export          Git data exporter
+     fast-import          Backend for fast Git data importers
+     filter-branch        Rewrite branches
+     mergetool            Run merge conflict resolution tools to resolve merge conflicts
+     pack-refs            Pack heads and tags for efficient repository access
+     prune                Prune all unreachable objects from the object database
+     reflog               Manage reflog information
+     remote               Manage set of tracked repositories
+     repack               Pack unpacked objects in a repository
+     replace              Create, list, delete refs to replace objects
 
 そして次のコマンド群が問い合わせ用とされている：
 
-.. code:: text
+  .. code:: text
 
-   annotate,
-   blame,
-   cherry,
-   count-objects,
-   difftool,
-   fsck,
-   get-tar-commit-id,
-   help,
-   instaweb,
-   merge-tree,
-   rerere,
-   rev-parse,
-   show-branch,
-   verify-commit,
-   verify-tag,
-   whatchanged.
+     annotate             Annotate file lines with commit information
+     blame                Show what revision and author last modified each line of a file
+     bugreport            Collect information for user to file a bug report
+     count-objects        Count unpacked number of objects and their disk consumption
+     difftool             Show changes using common diff tools
+     fsck                 Verifies the connectivity and validity of the objects in the database
+     gitweb               Git web interface (web frontend to Git repositories)
+     help                 Display help information about Git
+     instaweb             Instantly browse your working repository in gitweb
+     merge-tree           Show three-way merge without touching index
+     rerere               Reuse recorded resolution of conflicted merges
+     show-branch          Show branches and their commits
+     verify-commit        Check the GPG signature of commits
+     verify-tag           Check the GPG signature of tags
+     whatchanged          Show logs with difference each commit introduces
 
-呪文表 :command:`config`
+呪文表 ``config``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`config` は各種構成オプションを設定するのに用いる。ユーザー固
-有の設定、リポジトリー固有の設定、グローバル設定すべてをこれでまかなう。
+コマンド ``config`` は各種構成オプションを設定するのに用いる。ユーザー固有の設
+定、リポジトリー固有の設定、グローバル設定すべてをこれでまかなう。
 
-:command:`config --global user.name <name>`
+``config --global user.name <name>``
   コミットログに含まれる著者の名前を設定する。
 
-:command:`config --global user.email <address>`
+``config --global user.email <address>``
   コミットログに含まれるメールアドレスを設定する。
 
-:command:`config --global color.ui auto`
+``config --global color.ui auto``
   コマンドラインの出力を見やすくする色を設定する。
 
-:command:`config --list`
+``config --list``
   すべてのオプションを表示する。何かテキトーな順番で表示されるので、ソートにパイ
   プしたい。
 
-:command:`config -e [--global]`
+``config -e [--global]``
   テキストエディターでファイル :file:`.git/config` や :file:`~/.gitconfig` を編
   集する。
 
-呪文表 :command:`reflog`
+呪文表 ``reflog``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`reflog` は Git 操作自体の履歴情報を管理するのに用いる。履歴の
-改竄作業のヒントになる。
+コマンド ``reflog`` は Git 操作自体の履歴情報を管理するのに用いる。履歴の改竄作
+業のヒントになる。
 
-:command:`reflog [show] --relative-date`
-  番号の代わりに現在からの時間差を表示する。
-  例えば ``HEAD@{7}`` などではなく ``HEAD@{8 days ago}`` などのような表示になる。
+``reflog [show] --relative-date``
+  番号の代わりに現在からの時間差を表示する。例えば ``HEAD@{7}`` などではなく
+  ``HEAD@{8 days ago}`` などのような表示になる。
 
-:command:`reflog [show] --all`
-  すべての ref を表示する。
+``reflog [show] --all``
+  すべての refs を表示する。
 
-呪文表 :command:`remote`
+呪文表 ``remote``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`remote` はリモートリポジトリーおよびそれに関係のあるブランチ
-の管理をする。
+コマンド ``remote`` はリモートリポジトリーおよびそれに関係のあるブランチの管理を
+する。
 
-:command:`remote -v`
+``remote -v``
   饒舌オプション。
 
-:command:`remote add <name> <url>`
-  リモートリポジトリー ``url`` を追加して、ここでは ``name`` と呼ぶ。
+``remote add <name> <url>``
+  リモートリポジトリー ``<url>`` を追加して、ここでは ``<name>`` と呼ぶ。
 
-:command:`remote add -t master -m master origin <url>`
-  リモートリポジトリー ``url`` を追加する。ブランチ ``master`` の追跡ブランチを
-  ``origin`` という名前で追加する。
+``remote add -t master -m master origin <url>``
+  URL が ``<url>`` にあるリモートリポジトリーを追加する。ブランチ ``master`` の
+  追跡ブランチを ``origin`` という名前で追加する。
 
-:command:`remote set-url origin newurl`
-  ``origin`` のリモートリポジトリーの URL が ``newurl`` に変更されたので、ローカ
-  ル側で管理している URL 情報を更新する。
+``remote get-url origin``
+  リモートリポジトリー ``origin`` の URL を得る。
 
-:command:`remote show <repository>`
-  リモートリポジトリー ``repository`` の情報を表示する。
+``remote set-url origin <newurl>``
+  ``origin`` のリモートリポジトリーの URL が ``<newurl>`` に変更されたので、ロー
+  カル側で管理している URL 情報を更新する。
 
-:command:`remote prune <repository>`
-  リモートリポジトリー ``repository`` 側では既に存在しないブランチに対応するリ
+``remote show <repository>``
+  リモートリポジトリー ``<repository>`` の情報を表示する。
+
+``remote prune <repository>``
+  リモートリポジトリー ``<repository>`` 側では既に存在しないブランチに対応するリ
   モート追跡ブランチを削除する。
 
-:command:`remote -v update`
+``remote -v update``
   リモートリポジトリーから更新データをダウンロードする。
 
-呪文表 :command:`blame`
+呪文表 ``blame``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`blame` はあるファイルの各行について、リビジョンと著者を表示す
-るというものだ。変なソースコードだなと思ったらこれを使うのもよいだろう。
+コマンド ``blame`` はあるファイルの各行について、リビジョンと著者を表示するとい
+うものだ。変なソースコードだなと思ったらこれを使うのもよいだろう。
 
-:command:`blame [<rev>] <file>`
-  リビジョン ``rev`` 時点でのファイル ``file`` の各行の著者を表示する。
+``blame [<rev>] <file>``
+  リビジョン ``<rev>`` 時点でのファイル ``<file>`` の各行の著者を表示する。
 
-呪文表 :command:`help`
+呪文表 ``help``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`help` は当然ながらヘルプ機能を供するものだ。
+コマンド ``help`` は当然ながらヘルプ機能を供するものだ。
 
-:command:`help [-w] [<command>]`
-  コマンド :command:`command` のヘルプドキュメントをブラウザーで開く。
+``help [-w] [<command>]``
+  コマンド ``<command>`` のヘルプドキュメントをブラウザーで開く。
 
-:command:`help -a`
+``help -a``
   一度は試すことを勧める。
 
-:command:`help -g`
+``help -g``
   一度は試すことを勧める。
 
-呪文表 :command:`whatchanged`
-
+呪文表 ``whatchanged``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`whatchanged` は :command:`log` に似ているが、よくわからない。
+コマンド ``whatchanged`` は ``log`` に似ているが、よくわからない。
 
-:command:`whatchanged <file>`
-  ファイル ``file`` のコミットログと、何かの変更を表示する。
+``whatchanged <file>``
+  ファイル ``<file>`` のコミットログと、何かの変更を表示する。
 
 外部連携コマンド
 ----------------------------------------------------------------------
@@ -951,18 +962,18 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 バージョン管理システムとのデータ変換という意味と、他の利用者とのリポジトリーデー
 タの交換という意味があるようだ。
 
-.. code:: text
+  .. code:: text
 
-   archimport,
-   cvsexportcommit,
-   cvsimport,
-   cvsserver,
-   imap-send,
-   p4,
-   quiltimport,
-   request-pull,
-   send-email,
-   svn.
+     archimport           Import a GNU Arch repository into Git
+     cvsexportcommit      Export a single commit to a CVS checkout
+     cvsimport            Salvage your data out of another SCM people love to hate
+     cvsserver            A CVS server emulator for Git
+     imap-send            Send a collection of patches from stdin to an IMAP folder
+     p4                   Import from and submit to Perforce repositories
+     quiltimport          Applies a quilt patchset onto the current branch
+     request-pull         Generates a summary of pending changes
+     send-email           Send a collection of patches as emails
+     svn                  Bidirectional operation between a Subversion repository and Git
 
 コマンド名には CVS やら Perforce やら、懐かしいバージョン管理システムの名前が見
 受けられる。私個人が自由に管理できた Subversion のリポジトリーはすべて Git に変
@@ -971,76 +982,82 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 低水準コマンド
 ======================================================================
 
-ここから先に記すコマンドは、ドキュメントでは低水準コマンドという括りになっている。
-一般利用者にとっては実行頻度が低いものということだ。
+ここから先に記すコマンドは、ドキュメントでは低水準コマンドという括りになってい
+る。一般利用者にとっては実行頻度が低いものということだ。
 
 操作コマンド
 ----------------------------------------------------------------------
 
 リポジトリーにあるオブジェクトやインデックスを操作するコマンド群である。
 
-.. code:: text
+  .. code:: text
 
-   apply,
-   checkout-index,
-   commit-tree,
-   hash-object,
-   index-pack,
-   merge-file,
-   merge-index,
-   mktag,
-   mktree,
-   pack-objects,
-   prune-packed,
-   read-tree,
-   symbolic-ref,
-   unpack-objects,
-   update-index,
-   update-ref,
-   write-tree.
+     apply                Apply a patch to files and/or to the index
+     checkout-index       Copy files from the index to the working tree
+     commit-graph         Write and verify Git commit-graph files
+     commit-tree          Create a new commit object
+     hash-object          Compute object ID and optionally creates a blob from a file
+     index-pack           Build pack index file for an existing packed archive
+     merge-file           Run a three-way file merge
+     merge-index          Run a merge for files needing merging
+     mktag                Creates a tag object with extra validation
+     mktree               Build a tree-object from ls-tree formatted text
+     multi-pack-index     Write and verify multi-pack-indexes
+     pack-objects         Create a packed archive of objects
+     prune-packed         Remove extra objects that are already in pack files
+     read-tree            Reads tree information into the index
+     symbolic-ref         Read, modify and delete symbolic refs
+     unpack-objects       Unpack objects from a packed archive
+     update-index         Register file contents in the working tree to the index
+     update-ref           Update the object name stored in a ref safely
+     write-tree           Create a tree object from the current index
 
-呪文表 :command:`hash-object`
+呪文表 ``hash-object``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`hash-object` はファイルのオブジェクト ID を計算する。
+コマンド ``hash-object`` はファイルのオブジェクト ID を計算する。
 
-:command:`hash-object <file>`
-  ファイル ``file`` のオブジェクト ID を計算して SHA1 値として出力する。
+``hash-object <file>``
+  ファイル ``<file>`` のオブジェクト ID を計算して SHA1 値として出力する。
 
 問い合わせコマンド
 ----------------------------------------------------------------------
 
-ヘルプによると、次のコマンド群は問い合わせるのに用いるものとして位置づけられている。
-原則的にこれらは作業コピーのファイルを :command:`touch` しないコマンドということ
-になっているので、安心して実行してよさそうだ。
+ヘルプによると、次のコマンド群は問い合わせるのに用いるものとして位置づけられてい
+る。原則的にこれらは作業コピーのファイルを :command:`touch` しないコマンドという
+ことになっているので、安心して実行してよさそうだ。
 
-.. code:: text
+  .. code:: text
 
-   cat-file,
-   diff-files,
-   diff-index,
-   diff-tree,
-   for-each-ref,
-   ls-files,
-   ls-remote,
-   ls-tree,
-   merge-base,
-   name-rev,
-   pack-redundant,
-   rev-list,
-   show-index,
-   show-ref,
-   unpack-file,
-   var,
-   verify-pack.
+     cat-file             Provide content or type and size information for repository objects
+     cherry               Find commits yet to be applied to upstream
+     diff-files           Compares files in the working tree and the index
+     diff-index           Compare a tree to the working tree or index
+     diff-tree            Compares the content and mode of blobs found via two tree objects
+     for-each-ref         Output information on each ref
+     for-each-repo        Run a Git command on a list of repositories
+     get-tar-commit-id    Extract commit ID from an archive created using git-archive
+     ls-files             Show information about files in the index and the working tree
+     ls-remote            List references in a remote repository
+     ls-tree              List the contents of a tree object
+     merge-base           Find as good common ancestors as possible for a merge
+     name-rev             Find symbolic names for given revs
+     pack-redundant       Find redundant pack files
+     rev-list             Lists commit objects in reverse chronological order
+     rev-parse            Pick out and massage parameters
+     show-index           Show packed archive index
+     show-ref             List references in a local repository
+     unpack-file          Creates a temporary file with a blob's contents
+     var                  Show a Git logical variable
+     verify-pack          Validate packed Git archive files
 
-呪文表 :command:`ls-files`
+呪文表 ``ls-files``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`ls-files` はインデックスと作業コピーに限定した :command:`ls`
+コマンド ``ls-files`` はインデックスと作業コピーに限定した :command:`ls`
 のようなものである。テキスト一括処理の対象ファイルを絞るツールとして活用したい。
 
-:command:`ls-files --other --ignored --exclude-standard`
+``ls-files --other --ignored --exclude-standard``
   作業コピーにあるすべての管理対象外ファイルをリストする。
 
 次のものはシェルでインデックスから削除されたファイルを本当に削除するときのコマン
@@ -1058,14 +1075,14 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
    bash$ git ls-files -z | xargs -0 sed -i -e 's/OLD_PATTERN/NEW_PATTERN/g'
 
-呪文表 :command:`ls-remote`
+呪文表 ``ls-remote``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-コマンド :command:`ls-remote` はリモートリポジトリーの参照をリストする。
+コマンド ``ls-remote`` はリモートリポジトリーの参照をリストする。
 
-:command:`ls-remote <repositry> [HEAD]`
-  リモートリポジトリー ``repository`` の ``HEAD`` 時点での参照をリストする。左列
-  が ID で右列がブランチとタグ。
+``ls-remote <repositry> [HEAD]``
+  リモートリポジトリー ``<repository>`` の ``HEAD`` 時点での参照をリストする。左
+  列が ID で右列がブランチとタグ。
 
 同期コマンド
 ----------------------------------------------------------------------
@@ -1076,50 +1093,38 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 
 次のコマンド群が操作用とされている：
 
-.. code:: text
+  .. code:: text
 
-   daemon,
-   fetch-pack,
-   http-backend,
-   send-pack,
-   update-server-info.
-
-次のコマンド群が実装用とされている：
-
-.. code:: text
-
-   http-fetch,
-   http-push,
-   parse-remote,
-   receive-pack,
-   shell,
-   upload-archive,
-   upload-pack.
+     daemon               A really simple server for Git repositories
+     fetch-pack           Receive missing objects from another repository
+     http-backend         Server side implementation of Git over HTTP
+     send-pack            Push objects over Git protocol to another repository
+     update-server-info   Update auxiliary info file to help dumb servers
 
 内部コマンド
 ----------------------------------------------------------------------
 
 ヘルプによると、次のコマンド群は内部コマンドとして位置づけられている：
 
-.. code:: text
+  .. code:: text
 
-   check-attr,
-   check-ignore,
-   check-mailmap,
-   check-ref-format,
-   column,
-   credential,
-   credential-cache,
-   credential-store,
-   fmt-merge-msg,
-   interpret-trailers,
-   mailinfo,
-   mailsplit,
-   merge-one-file,
-   patch-id,
-   sh-i18n,
-   sh-setup,
-   stripspace.
+     check-attr           Display gitattributes information
+     check-ignore         Debug gitignore / exclude files
+     check-mailmap        Show canonical names and email addresses of contacts
+     check-ref-format     Ensures that a reference name is well formed
+     column               Display data in columns
+     credential           Retrieve and store user credentials
+     credential-cache     Helper to temporarily store passwords in memory
+     credential-store     Helper to store credentials on disk
+     fmt-merge-msg        Produce a merge commit message
+     interpret-trailers   Add or parse structured information in commit messages
+     mailinfo             Extracts patch and authorship from a single e-mail message
+     mailsplit            Simple UNIX mbox splitter program
+     merge-one-file       The standard helper program to use with git-merge-index
+     patch-id             Compute unique ID for a patch
+     sh-i18n              Git's i18n setup code for shell scripts
+     sh-setup             Common Git shell script setup code
+     stripspace           Remove unnecessary whitespace
 
 もっとも <end users typically do not use them directly> とのことなので、私も当然
 利用しない。
