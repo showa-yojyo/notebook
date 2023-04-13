@@ -255,7 +255,7 @@ Git にもある。方法はファイル :file:`$HOME/.gitconfig` での設定�
    $bash git config git config --get-regexp ^alias\.
    $bash git config --global alias.alias "! git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ / | sort -k1"
 
-出典：[GA5]
+出典：[GA5]_
 
 出典
 ======================================================================
