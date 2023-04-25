@@ -20,7 +20,7 @@ Pytube 利用ノート
 
      * Windows 10 Home x64
 
-       * WSL2: Ubuntu 20.04.2 LTS
+       * WSL 2: Ubuntu 20.04.2 LTS
 
    * Python 環境
 
