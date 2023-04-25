@@ -85,7 +85,7 @@ Windows Terminal の設定は上述の JSON ファイルを直接的に編集す
 :guilabel:`Startup`
     Windows Terminal 起動時に影響するオプションを決定する。
 
-    * :guilabel:`Default profile`: :guilabel:`Bash (WSL2)`
+    * :guilabel:`Default profile`: :guilabel:`Bash (WSL 2)`
     * :guilabel:`When Terminal starts`: :guilabel:`Open a tab with the default profile`
     * :guilabel:`Launch size` で列数（横）と行数を適宜指定する。
 :guilabel:`Interaction`
@@ -148,10 +148,10 @@ Profiles
         * :guilabel:`Profile termination behavior`: 場合によっては無条件に閉じる
           でいいかもしれない。
 プロファイル個別画面
-    私の現在の環境では Bash (WSL2), Windows Powershell, cmd, etc. と並んでいる。
+    私の現在の環境では Bash (WSL 2), Windows Powershell, cmd, etc. と並んでいる。
     どの設定画面も項目の構造に差異はないので、まとめて説明する。
 
-    * :guilabel:`Command Line` は念入りに確認しておく。WSL2 の場合には
+    * :guilabel:`Command Line` は念入りに確認しておく。WSL 2 の場合には
       :code:`wsl.exe ~ -d Ubuntu` のように指定しておく。
     * :guilabel:`Icon` は適宜指定しておく。見てくれに関する項目ではあるが、他人
       に画面を見せるときにわかりやすさが圧倒的に良くなるので、明示的にファイルパ

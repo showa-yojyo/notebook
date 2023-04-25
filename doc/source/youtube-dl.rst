@@ -18,7 +18,7 @@ youtube-dl_ について記す。
     Windows or on macOS. It is released to the public domain, which means you
     can modify it, redistribute it or use it however you like.
 
-私の場合は Windows の WSL2 (Ubuntu) で動作させることが可能だ。
+私の場合は Windows の WSL 2 (Ubuntu) で動作させることが可能だ。
 コンソールから次の形式のコマンドラインを実行することで、上述の操作を遂行できる：
 
 .. code:: console
@@ -28,7 +28,7 @@ youtube-dl_ について記す。
 インストール
 ======================================================================
 
-最初から :program:`youtube-dl` が WSL2 に入っていたのをそのまま使う。実態は
+最初から :program:`youtube-dl` が WSL 2 に入っていたのをそのまま使う。実態は
 Python スクリプトなので、仮にシステムになかったとしてもどうにでもインストールで
 きただろう。
 
