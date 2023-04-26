@@ -2,14 +2,54 @@
 Chapter 1. Quick Start
 ======================================================================
 
-自分で作ってはみたが、後半に行くほど納得していない。
-Google Chrome や Firefox だと SVG ファイルをそのまま閲覧できるようだ。
+自分で作ってはみたが、後半に行くほど納得していない。Google Chrome や Firefox な
+ど、現代的なウェブブラウザーならば SVG ファイルをそのまま表示するので、そのまま
+掲載しよう：
 
-* <https://dl.dropbox.com/u/61006529/inkscape/swedish-flag.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/eu-flag.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/fhmc.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/northern-pacific-railway.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/isometric.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/soup.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/grapevine.svg>
-* <https://dl.dropbox.com/u/61006529/inkscape/button.svg>
+.. figure:: /_images/inkscape/swedish-flag.svg
+   :align: center
+   :alt: The Swedish Flag
+
+   The Swedish Flag
+
+.. figure:: /_images/inkscape/eu-flag.svg
+   :align: center
+   :alt: The European Flag
+
+   The European Flag
+
+.. figure:: /_images/inkscape/fhmc.svg
+   :align: center
+   :alt: A Hiking Club Logo
+
+   A Hiking Club Logo
+
+.. figure:: /_images/inkscape/northern-pacific-railway.svg
+   :align: center
+   :alt: The Northern Pacific Railway Logo
+
+   The Northern Pacific Railway Logo
+
+.. figure:: /_images/inkscape/isometric.svg
+   :align: center
+   :alt: A Box for Cards
+
+   A Box for Cards
+
+.. figure:: /_images/inkscape/soup.svg
+   :align: center
+   :alt: A Can of Soup
+
+   A Can of Soup
+
+.. figure:: /_images/inkscape/grapevine.svg
+   :align: center
+   :alt: A Vine Design
+
+   A Vine Design
+
+.. figure:: /_images/inkscape/button.svg
+   :align: center
+   :alt: An SVG Button
+
+   An SVG Button
