@@ -3,34 +3,27 @@ Inkscape 利用ノート
 ======================================================================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 4
 
    tips
    manual
 
 .. note::
 
-   * OS
+   環境は次のとおり。最終確認環境はそれぞれの最後の項目：
 
-     * Windows XP Home Edition SP3
-     * Windows 7 Home Premium x64 SP1
-
-   * 本稿において、利用したバージョンは次のとおり。
-
-     * Inkscape_: 0.48, 0.48.5 (x64)
+   :OS: * Windows XP Home Edition SP3
+        * Windows 7 Home Premium x64 SP1
+        * Windows 10 Home (Build 19045.2908)
+   :Version: 0.48, 0.48.5, 1.2.2 (x64)
 
 関連リンク
 ======================================================================
 
 Inkscape_
-  Inkscape 本家。ダウンロードページはここからたどったところにある。
-
-`GIMP & Related Musings <http://www.partha.com/>`_
-  Windows 64 bit 版ビルドをダウンロードできる。詳細は後述。
-
+  Inkscape 本拠地。
 `Inkscape Guide to a Vector Drawing`_
   Inkscape のヘルプそのもの。詳細は後述。
-
 `Inkscape Wiki`_
   開発者向けのドキュメント群。まだ読んでいない。
 
