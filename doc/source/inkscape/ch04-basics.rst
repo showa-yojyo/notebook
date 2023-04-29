@@ -158,7 +158,13 @@ UNIX でいうと :command:`cp` に対する :command:`ln -s` の考え方に相
    :menuselection:`Edit --> Clone --> Relink to Copied` # n/a # 後述
    :menuselection:`Edit --> Clone --> Select Original` # :kbd:`Shift` + :kbd:`D` # 複製元を選択する。
 
+.. admonition:: 利用者ノート
+
+   :kbd:`Alt` + :kbd:`D` が効かない？
+
 コマンド Relink to Copied は複製の参照元を自身の別の複製に設定し直すものらしい。
+UNIX の例えを繰り返すと、:command:`ln -s` からの :command:`ln -fs` に相当する。
+別のオブジェクトを指定するのに :menuselection:`Edit --> Copy` を要し、操作に癖がある。
 用途がわからないので、私が使うことはなさそうだ。
 
 複製オブジェクトと元オブジェクトを同時に操作するとややこしいことになるから控える。
@@ -269,25 +275,19 @@ Layers Menu
    :widths: auto
 
    :menuselection:`Layer --> Layers and Objects...` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`L` # 前述
-
    :menuselection:`Layer --> Add Layer...` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`N` # レイヤー作成ダイアログボックスが出現する
    :menuselection:`Layer --> Rename Layer...` # n/a # ミニダイアログボックス出現
-
    :menuselection:`Layer --> Show/Hide Current Layer` # n/a #
    :menuselection:`Layer --> Lock/Unlock Current Layer` # n/a #
-
    :menuselection:`Layer --> Switch to Layer Above` # :kbd:`Ctrl` + :kbd:`PgUp` # 現在レイヤーを変更
    :menuselection:`Layer --> Switch to Layer Below` # :kbd:`Ctrl` + :kbd:`PgDn` #
-
    :menuselection:`Layer --> Move Selection to Layer Above` # :kbd:`Shift` + :kbd:`PgUp` # オブジェクトの所属レイヤーを変更
    :menuselection:`Layer --> Move Selection to Layer Below` # :kbd:`Shift` + :kbd:`PgDn` #
    :menuselection:`Layer --> Move Selection to...` # n/a # :guilabel:`Move to Layer` ダイアログ出現
-
    :menuselection:`Layer --> Layer to Top` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`Home` # レイヤー z-order 操作
    :menuselection:`Layer --> Raise Layer` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`PgUp` #
    :menuselection:`Layer --> Lower Layer` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`PgDn` #
    :menuselection:`Layer --> Layer to Bottom` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`End` #
-
    :menuselection:`Layer --> Duplicate Current Layer` # n/a #
    :menuselection:`Layer --> Delete Current Layer` # n/a #
 
