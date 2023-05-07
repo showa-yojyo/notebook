@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Chapter 5. Positioning and Transforming &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="../_static/mathjax-v3.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="Chapter 6. Geometric Shapes" href="ch06-shapes.html" />
+    <link rel="prev" title="Chapter 4. Editing Basics" href="ch04-basics.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch04-basics.html" title="Previous document">Chapter 4. Editing Basics</a>
+        </li>
+        <li>
+          <a href="ch06-shapes.html" title="Next document">Chapter 6. Geometric Shapes</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="chapter-5-positioning-and-transforming">
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Chapter 5. Positioning and Transforming</a><a class="headerlink" href="#chapter-5-positioning-and-transforming" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#chapter-5-positioning-and-transforming" id="id3">Chapter 5. Positioning and Transforming</a></p>
+<ul>
+<li><p><a class="reference internal" href="#inkscape-coordinates" id="id4">Inkscape Coordinates</a></p></li>
+<li><p><a class="reference internal" href="#transformations" id="id5">Transformations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#transforms-with-the-mouse" id="id6">Transforms with the Mouse</a></p>
+<ul>
+<li><p><a class="reference internal" href="#translations" id="id7">Translations</a></p></li>
+<li><p><a class="reference internal" href="#scaling-rotating-and-skewing" id="id8">Scaling, Rotating, and Skewing</a></p>
+<ul>
+<li><p><a class="reference internal" href="#scaling" id="id9">Scaling</a></p></li>
+<li><p><a class="reference internal" href="#rotating-and-skewing" id="id10">Rotating and Skewing</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#transforms-with-the-keyboard" id="id11">Transforms with the Keyboard</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id12">Translations</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id13">Scaling</a></p></li>
+<li><p><a class="reference internal" href="#rotation" id="id14">Rotation</a></p></li>
+<li><p><a class="reference internal" href="#flipping" id="id15">Flipping</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#transforms-with-the-tool-controls-bar" id="id16">Transforms with the Tool Controls Bar</a></p></li>
+<li><p><a class="reference internal" href="#transforms-with-the-object-drop-down-menu" id="id17">Transforms with the Object Drop-Down Menu</a></p></li>
+<li><p><a class="reference internal" href="#transforms-with-the-transform-dialog" id="id18">Transforms with the Transform Dialog</a></p>
+<ul>
+<li><p><a class="reference internal" href="#move-tab" id="id19">Move Tab</a></p></li>
+<li><p><a class="reference internal" href="#scale-tab" id="id20">Scale Tab</a></p></li>
+<li><p><a class="reference internal" href="#rotate-tab" id="id21">Rotate Tab</a></p></li>
+<li><p><a class="reference internal" href="#skew-tab" id="id22">Skew Tab</a></p></li>
+<li><p><a class="reference internal" href="#matrix-tab" id="id23">Matrix Tab</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#transforms-with-paste-size-commands" id="id24">Transforms with Paste Size Commands</a></p></li>
+<li><p><a class="reference internal" href="#transforms-with-the-xml-editor" id="id25">Transforms with the XML Editor</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#snapping" id="id26">Snapping</a></p>
+<ul>
+<li><p><a class="reference internal" href="#snapping-objects" id="id27">Snapping Objects</a></p></li>
+<li><p><a class="reference internal" href="#guides" id="id28">Guides</a></p>
+<ul>
+<li><p><a class="reference internal" href="#guide-creation" id="id29">Guide Creation</a></p></li>
+<li><p><a class="reference internal" href="#guide-adjustment" id="id30">Guide Adjustment</a></p></li>
+<li><p><a class="reference internal" href="#guides-created-from-objects" id="id31">Guides Created from Objects</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#grid" id="id32">Grid</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#alignment-and-distribution-of-objects" id="id33">Alignment and Distribution of Objects</a></p>
+<ul>
+<li><p><a class="reference internal" href="#align" id="id34">Align</a></p></li>
+<li><p><a class="reference internal" href="#distribute-uniform" id="id35">Distribute: Uniform</a></p></li>
+<li><p><a class="reference internal" href="#distribute-non-uniform" id="id36">Distribute: Non-Uniform</a></p></li>
+<li><p><a class="reference internal" href="#distribute-remove-overlaps" id="id37">Distribute: Remove Overlaps</a></p></li>
+<li><p><a class="reference internal" href="#rows-and-columns" id="id38">Rows and Columns</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>Inkscape はオブジェクトとそれに適用する座標変換を区別して管理していると理解できる。</p>
+<blockquote>
+<div><p>One key thing to know is that transforming a <em>Regular Shape</em> object or a
+<em>Group</em> of objects by the methods described in this chapter does not
+(usually) change the underlying description of the object(s).</p>
+<p>For example, suppose you have an ellipse that is 100 pixels wide but you need
+it to have a width of 50 pixels. There are two different ways to achieve the
+required width. The first is to scale the object by 50% in the horizontal (x)
+direction. The underlying definition of the ellipse width remains 100 pixels
+but when the ellipse is drawn a scale factor of 50% is applied in the
+horizontal direction. The second way to change the ellipse is to use the
+<em>Ellipse</em> Tool to resize the ellipse. In this case, the underlying description
+of the ellipse changes and no scale factor is applied.</p>
+</div></blockquote>
+<p>前者は楕円と縮尺変換で表現し、後者は楕円自身の定義を変更するというものだ。</p>
+<blockquote>
+<div><p>An exception to this rule is for <em>Rectangle</em> objects. Inkscape will attempt
+to change the description of the rectangle itself when a simple
+transformation is applied.</p>
+</div></blockquote>
+<p><span class="guilabel">Rectangle</span> の拡縮変換は例外で、Inkscape はなるべく矩形自身を変更しようとする。</p>
+<section id="inkscape-coordinates">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Inkscape Coordinates</a><a class="headerlink" href="#inkscape-coordinates" title="Permalink to this heading">¶</a></h2>
+<p>数学と違い、座標系の距離単位を確認するのが重要だ。</p>
+<blockquote>
+<div><p>When you open the main Inkscape window, <em>Rulers</em> are drawn by default at the
+top and left edges of the canvas. -略- The units of the <em>Rulers</em> are the same
+as the default units of the canvas. If you hover the pointer over a <em>Ruler</em>,
+a tool tip will show the current unit.</p>
+</div></blockquote>
+<p>単位系の変換は次にように定められている。Inkscape 以外でも通用するので記憶しておくと便利だ：</p>
+<blockquote>
+<div><p>Conversion between the units is fairly straightforward: 1 inch = 1/12 ft =
+2.54 cm = 25.4 mm = 0.0254 m = 6 pc = 72 pt.</p>
+</div></blockquote>
+<p>キャンバス座標系と SVG 標準座標系は異なることを理解する：</p>
+<blockquote>
+<div><p>One confusing aspect is that Inkscape uses a different scale internally. On
+the canvas, the x and y coordinates increase as one moves right or up.
+Internally the y coordinate is flipped as per the SVG standard. Thus, (0, 0)
+is defined from the upper-left corner of the page region internally but at
+the bottom-left corner in the canvas window.</p>
+</div></blockquote>
+<p>キャンバスのほうが右手座標系であることに注意したい。すると角度の測量も Inkscape
+の画面上ではそれに準じる向きを正とする。</p>
+<p>以上のシステムは既定値についての記述であり、ユーザー設定でオプションを変更できる。</p>
+</section>
+<section id="transformations">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Transformations</a><a class="headerlink" href="#transformations" title="Permalink to this heading">¶</a></h2>
+<p>対象に座標変換を適用するには、それをまず選択状態にしておく必要がある：</p>
+<blockquote>
+<div><p>Each method begins by selecting an object or group of objects to be
+transformed. The Select Tool must be active for making transformations with
+the mouse or keyboard.</p>
+</div></blockquote>
+<p>座標変換に関して注意点がいくつかある。箇条書きにしてまとめておく：</p>
+<ol class="arabic simple">
+<li><p>SVG 画素と画面画素の区別がある。後者を使う変換操作はズームレベルに依存する。</p></li>
+<li><p>オブジェクトの bounding box (BB) に二つの定義がある。視覚的か幾何的かで区別される。</p></li>
+<li><p>先述のとおり、座標変換対象は通常その定義を変更されない</p></li>
+<li><p><em>Select</em> ツール使用時に <em>Tools</em> コントロールでオンオフを切り替えられるオプションが多数ある。</p></li>
+<li><p>回転変換と傾斜変換には中心点の概念がある。</p></li>
+</ol>
+<p>項目 4. は描線の太さ、矩形の丸角、グラデーション、パターンに対する拡縮変換、移動変換に影響する。</p>
+<section id="transforms-with-the-mouse">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Transforms with the Mouse</a><a class="headerlink" href="#transforms-with-the-mouse" title="Permalink to this heading">¶</a></h3>
+<section id="translations">
+<h4><a class="toc-backref" href="#id7" role="doc-backlink">Translations</a><a class="headerlink" href="#translations" title="Permalink to this heading">¶</a></h4>
+<p>左ボタンドラッグでオブジェクトを直観的に移動する。</p>
+<p><kbd class="kbd docutils literal notranslate">Alt</kbd> を押しながらドラッグすると、開始位置に関係なく選択オブジェクトを移動する。開始位置のオブジェクトを選択しない。</p>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> を押しながらドラッグすると、座標軸に対して平行に移動するようになる。</p>
+<p><kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらドラッグすると、<em>Grids</em> に対するスナップが一時的に無効になる。</p>
+<p>上記のキーを伴う操作は組み合わせても機能する。</p>
+</section>
+<section id="scaling-rotating-and-skewing">
+<h4><a class="toc-backref" href="#id8" role="doc-backlink">Scaling, Rotating, and Skewing</a><a class="headerlink" href="#scaling-rotating-and-skewing" title="Permalink to this heading">¶</a></h4>
+<p>Inkscape オブジェクトを選択すると、座標変換制御用の UI が描画される。それを操作することで表題の座標変換を大まかに指定する。</p>
+<blockquote>
+<div><p>When an object or objects are first selected, eight double-headed arrows will
+appear in a rectangle around the selection. A <em>Left Mouse Drag</em> of any handle
+will rescale the selection. The corner arrows will scale both in the
+horizontal (x) and vertical (y) directions. The side arrows will scale in
+only one direction.</p>
+</div></blockquote>
+<p>オブジェクトを選択すると、最初に拡縮変換指定用のハンドルが現れ、もう一度クリックするか、特定のキー操作によりハンドルが回転変換指定用に切り替わる：</p>
+<blockquote>
+<div><p>Clicking a second time on a selected object or using the keyboard shortcut
+<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">S</kbd> will change the direction of the double-headed
+arrows. Now, a <em>Left Mouse Drag</em> of a handle will rotate the selection if
+used on a corner arrow, or skew the selection if used on a side arrow. Click
+again to revert to the scaling mode.</p>
+</div></blockquote>
+<p>また、回転中心ハンドルも指定可能だ：</p>
+<blockquote>
+<div><p>Rotation takes place around the <em>Rotation</em> center indicated by a
+“plus”-shaped handle.</p>
+</div></blockquote>
+<p>回転中心の配置方法は本書参照（細かくてまとめるのが億劫だ）。</p>
+<p>移動変換同様に、修飾キーを伴うドラッグ操作が用意されている：</p>
+<blockquote>
+<div><p>The <kbd class="kbd docutils literal notranslate">Shift</kbd>, <kbd class="kbd docutils literal notranslate">Ctrl</kbd>, and <kbd class="kbd docutils literal notranslate">Alt</kbd> keys can be used with the <em>Left
+Mouse Drag</em>. They can be used in combination when scaling, rotating, or
+skewing.</p>
+</div></blockquote>
+<section id="scaling">
+<h5><a class="toc-backref" href="#id9" role="doc-backlink">Scaling</a><a class="headerlink" href="#scaling" title="Permalink to this heading">¶</a></h5>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> 押しドラッグは縦横比を維持して拡縮する。</p>
+<p><kbd class="kbd docutils literal notranslate">Shift</kbd> 押しドラッグは選択中心に関して対称的に拡縮する。</p>
+<p><kbd class="kbd docutils literal notranslate">Alt</kbd> 押しドラッグは縮尺を整数倍または分子が 1 の単純な分数に制限する。縮尺が負の値の場合、図形は反転する。</p>
+</section>
+<section id="rotating-and-skewing">
+<h5><a class="toc-backref" href="#id10" role="doc-backlink">Rotating and Skewing</a><a class="headerlink" href="#rotating-and-skewing" title="Permalink to this heading">¶</a></h5>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> 押しドラッグは回転や傾斜を回転スナップ角の倍数に拘束する。</p>
+<p><kbd class="kbd docutils literal notranslate">Shift</kbd> 押しドラッグは回転の場合は反対側の角を、傾斜の場合は反対側の辺を固定する。拡縮操作の挙動と対照的であることに注意。</p>
+</section>
+</section>
+</section>
+<section id="transforms-with-the-keyboard">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Transforms with the Keyboard</a><a class="headerlink" href="#transforms-with-the-keyboard" title="Permalink to this heading">¶</a></h3>
+<p>キーボードで座標変換を実行する場合、キーの組み合わせによっては、変換の大きさはユーザー設定の <span class="guilabel">Steps</span> タブで設定できるパラメーターによって決まる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>設定ダイアログには検索欄があるので、そこに <code class="docutils literal notranslate"><span class="pre">Steps</span></code> と入力すればいい。その他の設定項目についても同じ方法が使える。</p>
+</div>
+<section id="id1">
+<h4><a class="toc-backref" href="#id12" role="doc-backlink">Translations</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+<p>矢印キーで選択オブジェクトを上下左右に動かすことができる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>挙動</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>矢印キー</p></td>
+<td><p><span class="guilabel">Arrow Keys move by</span> 量だけ移動</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + 矢印キー</p></td>
+<td><p>矢印キー単発だけのときの十倍移動</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + 矢印キー</p></td>
+<td><p>画面画素一個分だけ移動</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + 矢印キー</p></td>
+<td><p>画面画素十個分だけ移動</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h4><a class="toc-backref" href="#id13" role="doc-backlink">Scaling</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<p>拡縮変換は対象オブジェクトの BB の重心周りになされる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>挙動</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">.</kbd> or <kbd class="kbd docutils literal notranslate">&gt;</kbd></p></td>
+<td><p>拡大</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">,</kbd> or <kbd class="kbd docutils literal notranslate">&lt;</kbd></p></td>
+<td><p>縮小</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">.</kbd> or <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">&gt;</kbd></p></td>
+<td><p>二倍の大きさになる</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">,</kbd> or <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">&lt;</kbd></p></td>
+<td><p>半分の大きさになる</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">.</kbd> or <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">&gt;</kbd></p></td>
+<td><p>画面画素単位ずつ拡大</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">,</kbd> or <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">&lt;</kbd></p></td>
+<td><p>画面画素単位ずつ縮小</p></td>
+</tr>
+</tbody>
+</table>
+<p>修飾キーなしの拡縮はユーザー設定の <span class="guilabel">&gt; and &lt; scale</span> 値だけ大きさが変わる。</p>
+<p><kbd class="kbd docutils literal notranslate">Alt</kbd> 押しの拡縮変換では、画面画素一つの長さを BB 中心から最も遠い端までの距離で割った値を係数とする。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>例えば <kbd class="kbd docutils literal notranslate">&gt;</kbd> は <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">.</kbd> のことだが、要するに <kbd class="kbd docutils literal notranslate">Shift</kbd>
+を押しても押さなくてもかまわないということだ。</p>
+</div>
+</section>
+<section id="rotation">
+<h4><a class="toc-backref" href="#id14" role="doc-backlink">Rotation</a><a class="headerlink" href="#rotation" title="Permalink to this heading">¶</a></h4>
+<p>先述のとおり、回転変換の中心を BB 中心以外であるようにもできる。ここでのユーザー設定値とは <span class="guilabel">Rotation snaps every</span> が適用される。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">[</kbd></p></td>
+<td><p>左にユーザー設定値だけ回転</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">]</kbd></p></td>
+<td><p>右にユーザー設定値だけ回転</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">[</kbd></p></td>
+<td><p>左に 90 度回転</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">]</kbd></p></td>
+<td><p>右に 90 度回転</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">[</kbd></p></td>
+<td><p>左に画面画素一つ分だけ回転</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">]</kbd></p></td>
+<td><p>右に画面画素一つ分だけ回転</p></td>
+</tr>
+</tbody>
+</table>
+<p><kbd class="kbd docutils literal notranslate">Alt</kbd> 押しの回転変換の量がわかりにくいが、画面画素長を BB 中心からその頂点までの距離で割った値の正接とある。</p>
+</section>
+<section id="flipping">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Flipping</a><a class="headerlink" href="#flipping" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Flip around center point of bounding box if in scaling mode or around
+horizontal/vertical line passing through <em>Rotation</em> center if in
+rotation/skewing mode.</p>
+</div></blockquote>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">H</kbd></p></td>
+<td><p>水平に反転</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">V</kbd></p></td>
+<td><p>垂直に反転</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="transforms-with-the-tool-controls-bar">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Transforms with the Tool Controls Bar</a><a class="headerlink" href="#transforms-with-the-tool-controls-bar" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Tool Controls Bar</span> の <span class="guilabel">X</span>, <span class="guilabel">Y</span>, <span class="guilabel">W</span>,
+<span class="guilabel">H</span> でも移動や寸法変更を適用できる。錠前アイコンをクリックすると、縦横比を固定したまま変換できるようになる。</p>
+</section>
+<section id="transforms-with-the-object-drop-down-menu">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Transforms with the Object Drop-Down Menu</a><a class="headerlink" href="#transforms-with-the-object-drop-down-menu" title="Permalink to this heading">¶</a></h3>
+<p>メインメニュー <span class="menuselection">Object</span> にある項目でも一部の変換操作を実行できる：</p>
+<ul class="simple">
+<li><p><span class="menuselection">Object ‣ Rotate 90°CW</span></p></li>
+<li><p><span class="menuselection">Object ‣ Rotate 90°CCW</span></p></li>
+<li><p><span class="menuselection">Object ‣ Flip Horizontal</span></p></li>
+<li><p><span class="menuselection">Object ‣ Flip Vertical</span></p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>キーボードのほうが早い。</p>
+</div>
+</section>
+<section id="transforms-with-the-transform-dialog">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Transforms with the Transform Dialog</a><a class="headerlink" href="#transforms-with-the-transform-dialog" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Objects can be moved, scaled, rotated, and skewed using the
+<span class="guilabel">Transform</span> dialog (<span class="menuselection">Object ‣ Transform…</span>
+<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">M</kbd>). There is a different tab in the
+dialog for each of these transforms. In addition, there is a
+<span class="guilabel">Matrix</span> tab that allows the application of a <em>Transformation
+Matrix</em> to a selection.</p>
+</div></blockquote>
+<p>細かい数値入力で座標変換する場合にはこの UI を利用する。行列成分を直接指定することも可能だ。</p>
+<blockquote>
+<div><p>The <span class="guilabel">Transform</span> dialog contains an option to apply the chosen
+transformation to a selection as a group or to the individual objects within
+the selection. (This option has no effect for the <span class="guilabel">Matrix</span> tab.)</p>
+</div></blockquote>
+<p>変換の適用先がグループ全体なのか、グループを構成する要素一つ一つなのかを決められる。<span class="guilabel">Apply to each object separately</span> にチェックを入れると後者を指定することになる。</p>
+<section id="move-tab">
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">Move Tab</a><a class="headerlink" href="#move-tab" title="Permalink to this heading">¶</a></h4>
+<p><span class="guilabel">Relative move</span> だけ注意。入力値が移動量なのか、移動先座標なのかを指定するものだ。変換対象が複数ある場合に挙動の違いが顕著になる。</p>
+</section>
+<section id="scale-tab">
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">Scale Tab</a><a class="headerlink" href="#scale-tab" title="Permalink to this heading">¶</a></h4>
+<p><span class="guilabel">Scale proportionally</span> をオンにすると、対象の BB 縦横比を固定しつつ拡縮する。</p>
+</section>
+<section id="rotate-tab">
+<h4><a class="toc-backref" href="#id21" role="doc-backlink">Rotate Tab</a><a class="headerlink" href="#rotate-tab" title="Permalink to this heading">¶</a></h4>
+<p>UI が単純なので見ればわかる。回転の向きを切り替えるボタンもあるが、正が左周りを意味するのが Inkscape では基本だ。</p>
+</section>
+<section id="skew-tab">
+<h4><a class="toc-backref" href="#id22" role="doc-backlink">Skew Tab</a><a class="headerlink" href="#skew-tab" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>You can skew in the horizontal and vertical directions separately. The
+skewing is relative to the center of the bounding box. The magnitude of the
+skew can be specified as a distance, percentage, or angle. In all cases, the
+skew is relative to the size of the bounding box.</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>馴染みのない変換なので後回しにする。</p>
+</div>
+</section>
+<section id="matrix-tab">
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">Matrix Tab</a><a class="headerlink" href="#matrix-tab" title="Permalink to this heading">¶</a></h4>
+<p>このタブでは同次変換行列を直接設定することができる。行列の形は次のとおり：</p>
+<div class="math notranslate nohighlight">
+\begin{aligned}
+\begin{pmatrix}
+A &amp; C &amp; E\\
+B &amp; D &amp; F\\
+0 &amp; 0 &amp; 1
+\end{pmatrix}
+\end{aligned}</div><p>行列は点に対して左から作用する。</p>
+<blockquote>
+<div><p>The tab includes the option <span class="guilabel">Edit current matrix</span> to select if the
+entered matrix should post-multiply the existing transformation matrix
+(option not selected) or if it should replace the current matrix (option
+selected).</p>
+</div></blockquote>
+<p>問題は次の仕様だ。どちらの行列を編集するかによって、座標変換が基づく座標系が異なるという：</p>
+<blockquote>
+<div><p>the transformation matrix is with respect to the point <span class="math notranslate nohighlight">\((0, 0)\)</span> in
+screen coordinates if not editing the current matrix. If editing the current
+matrix, the transformation is with respect to the <em>User Coordinate System</em>
+which, if an object is not in a <em>Group</em>, is equivalent to the SVG coordinate
+system (<em>Initial View Port</em>) where the origin is at the top-left corner of the
+page. See the SVG standard for more details.</p>
+</div></blockquote>
+<p>さらに、ダイアログ上で見えている数値と、SVG に記述されるそれとがユーザー設定により異なる場合があることに注意する：</p>
+<blockquote>
+<div><p>Second, Inkscape will modify the matrix and other parameters of an object
+internally so that the internal E and F terms are zero if the
+<span class="guilabel">Store transformation</span> parameter under the <span class="guilabel">Transforms</span>
+section in the <span class="guilabel">Inkscape Preferences</span> dialog is set to
+<span class="guilabel">Optimized</span>. This means, for example, that for a horizontal skew of
+a rectangle, the internal height parameter may change. The displayed object
+will still look correct.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="transforms-with-paste-size-commands">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Transforms with Paste Size Commands</a><a class="headerlink" href="#transforms-with-paste-size-commands" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection">Edit ‣ Paste Size ‣ Paste something</span> 系コマンドについて。クリップボードにいったん基準となるオブジェクトを置く必要がある。</p>
+<blockquote>
+<div><p>To use the commands, first copy (or cut) a selection with the desired
+dimension(s) to load the selection into the clipboard.</p>
+</div></blockquote>
+<p>次のコマンドは、クリップボードに合わせて選択範囲を全体的に拡縮する：</p>
+<ul class="simple">
+<li><p><span class="menuselection">Edit ‣ Paste Size ‣ Paste Size</span></p></li>
+<li><p><span class="menuselection">Edit ‣ Paste Size ‣ Paste Width</span></p></li>
+<li><p><span class="menuselection">Edit ‣ Paste Size ‣ Paste Height</span></p></li>
+</ul>
+<p>次のコマンドは、クリップボードに合わせてオブジェクトそれぞれを拡縮する：</p>
+<ul class="simple">
+<li><p><span class="menuselection">Edit ‣ Paste Size ‣ Paste Size Separately</span></p></li>
+<li><p><span class="menuselection">Edit ‣ Paste Size ‣ Paste Width Separately</span></p></li>
+<li><p><span class="menuselection">Edit ‣ Paste Size ‣ Paste Height Separately</span></p></li>
+</ul>
+<p>寸法は BB によって決まる。</p>
+</section>
+<section id="transforms-with-the-xml-editor">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Transforms with the XML Editor</a><a class="headerlink" href="#transforms-with-the-xml-editor" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Full control over the transformation of an object is available through the
+<span class="guilabel">XML Editor</span> dialog (<span class="menuselection">Edit ‣ XML Editor…</span>
+(<span class="guilabel">Shift</span> + <span class="guilabel">Ctrl</span> + <span class="guilabel">X</span>)).</p>
+</div></blockquote>
+<p>文書の本体である XML を直接編集することで座標変換を完全に調整することが可能だ。特に行列成分を編集するときには、その出現順序を正確に理解しておく必要がある：</p>
+<blockquote>
+<div><p>Any transform an object is subject to is described by the <code class="docutils literal notranslate"><span class="pre">transform</span></code>
+attribute. A transform can be of type <code class="docutils literal notranslate"><span class="pre">translate</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate</span></code>,
+<code class="docutils literal notranslate"><span class="pre">skewX</span></code>, <code class="docutils literal notranslate"><span class="pre">skewY</span></code>, or <code class="docutils literal notranslate"><span class="pre">matrix</span></code>. In most cases, the transform will be of the
+<code class="docutils literal notranslate"><span class="pre">matrix</span></code> type. A matrix entry contains the Transformation Matrix in the order
+(A, B, C, D, E, F) where (ACE) is the first row of the matrix.</p>
+</div></blockquote>
+<p>前述の適用座標系が何であるかに関する注意をここでも意識すること。</p>
+</section>
+</section>
+<section id="snapping">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">Snapping</a><a class="headerlink" href="#snapping" title="Permalink to this heading">¶</a></h2>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>前半のパラグラフの内容が Inkscape 1.2 に即していないので、自分で調べてまとめるしかない。</p>
+</div>
+<p><span class="guilabel">Preferences</span> の <span class="menuselection">Behavior ‣ Snapping</span> 内の設定項目として流用できる記述がある：</p>
+<dl class="simple">
+<dt><span class="guilabel">Delay (in seconds)</span></dt><dd><p>マウスカーソルの移動が停止してからスナップが行われるまでの遅延時間。スナップ対象が多い場合に効果的だ。</p>
+</dd>
+<dt><span class="guilabel">Only snap the node closest to pointer</span></dt><dd><p>読んで字のごとく。ノード数が多い場合に効果的。</p>
+</dd>
+<dt><span class="guilabel">Weight factor</span></dt><dd><p>複数のスナップが可能な場合、この値がスナップ点とスナップ対象の間の最小距離を優先するか、カーソルに最も近いスナップ点を使用するようなスナップを優先するかを決定する。0 に近いほど前者に、1 に近いほど後者に強くスナップする。</p>
+</dd>
+</dl>
+<section id="snapping-objects">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Snapping Objects</a><a class="headerlink" href="#snapping-objects" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Snap Controls Bar</span> に様々なスナップ点や対象のオンオフを切り替えるボタンがある。この UI はいくつかの区画からなる。</p>
+<ol class="arabic simple">
+<li><p>チェックボックス <span class="guilabel">Enable snapping</span> のみの区画。スナップ（ガイド線とグリッドをも含む）のオンオフを大域的に切り替える。</p></li>
+<li><p>チェックボックス <span class="guilabel">Bounding boxes</span> が先頭にある区画。BB で定義された点へのスナップと、その点からのスナップに関するものだ。</p></li>
+<li><p>チェックボックス <span class="guilabel">Nodes</span> が先頭にある区画。ノードとハンドルへのスナップのオプションで構成される。</p></li>
+<li><p>チェックボックス <span class="guilabel">Other points</span> が先頭にある区画。</p></li>
+<li><p>チェックボックス <span class="guilabel">Alignment</span> が先頭にある区画。</p></li>
+<li><p>残るは、グリッド、ガイド線、ページ境界へのスナップのオンとオフを切り替えるためのチェックボックスそれぞれがある。</p></li>
+</ol>
+<p><span class="guilabel">Enable snapping</span> はキーバインド <kbd class="kbd docutils literal notranslate">%</kbd> を叩くほうが早い。</p>
+<p>本書で解説があるのは 2. と 3. だ。BB のスナップで注意するのは <span class="guilabel">Edges</span>
+だろうか：</p>
+<blockquote>
+<div><p>Note that edges are never snap points.</p>
+</div></blockquote>
+<p>ノード系は CAD でよく世話になっていたから大丈夫。</p>
+</section>
+<section id="guides">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Guides</a><a class="headerlink" href="#guides" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Guide Lines are individual lines that can be arbitrarily placed. They are
+defined by an x-y anchor (origin point) through which the line passes and an
+angle. The anchor is shown as a small circle on the line.</p>
+</div></blockquote>
+<p>グリッドが規則性を特徴とするのに対して、ガイド線は任意に配置できる。</p>
+<p>ガイド線の表示切り替えはメインメニューから <span class="menuselection">View ‣ Guides</span> を選択するか、キーバインド <kbd class="kbd docutils literal notranslate">|</kbd> を押す。ガイド線は表示状態でなければ有効にならない。</p>
+<section id="guide-creation">
+<h4><a class="toc-backref" href="#id29" role="doc-backlink">Guide Creation</a><a class="headerlink" href="#guide-creation" title="Permalink to this heading">¶</a></h4>
+<p>ガイド線は水平や垂直のものならワープロソフトの感覚で引ける。</p>
+<blockquote>
+<div><p>To create a <em>Guide Line</em>, <em>Left Mouse Drag</em> from the left <em>Ruler</em> onto the
+canvas for a vertical <em>Guide Line</em> or from the top <em>Ruler</em> for a horizontal
+<em>Guide Line</em>.</p>
+</div></blockquote>
+<p>定規部分からキャンバスにドラッグするとガイド線が追加されていく。</p>
+<blockquote>
+<div><p>An angled <em>Guide Line</em> can be created by dragging from the end
+of a <em>Ruler</em>. By default, the angle is set to 45° if a rectangular <em>Grid</em> is
+displayed or parallel to the angled lines if an axonometric <em>Grid</em> is
+displayed.</p>
+</div></blockquote>
+<p>後者の状況がわからない。</p>
+</section>
+<section id="guide-adjustment">
+<h4><a class="toc-backref" href="#id30" role="doc-backlink">Guide Adjustment</a><a class="headerlink" href="#guide-adjustment" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Guide Lines can be translated and rotated using the mouse</p>
+</div></blockquote>
+<p>いったんガイド線を引くと、それをマウスでずらしたり回したりできる。</p>
+<ul>
+<li><p>左ボタンドラッグで直線とアンカーを並進移動。ページの外にドラッグすると削除。</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらだとアンカーを中心にガイド線を回転。ドラッグ開始位置をアンカーと一致させないようにすること。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> を押しながらだとアンカーをガイド線上に拘束しつつ移動。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらだと 15 度（既定値）の整数倍だけガイド線を回転。</p></li>
+</ul>
+</li>
+<li><p><kbd class="kbd docutils literal notranslate">Del</kbd>: ガイド線上にある限り、それを削除。</p>
+<blockquote>
+<div><p><em>Guide Lines</em> can be precisely placed by using the <span class="guilabel">Guide Line</span>
+dialog, called up by double-clicking on a <em>Guide Line</em>. A check box toggles
+between absolute and relative placement.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>ラベルを設定可能であるなど、UI がバージョン 1.2 では本書のスクリーンショットと異なる。</p>
+</section>
+<section id="guides-created-from-objects">
+<h4><a class="toc-backref" href="#id31" role="doc-backlink">Guides Created from Objects</a><a class="headerlink" href="#guides-created-from-objects" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Guide Lines can be created from objects using the <span class="menuselection">Object ‣
+Object to Guides</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">G</kbd>) command. -略- In each case, the
+selected objects are deleted unless the <span class="guilabel">Keep objects after
+conversion to guides entry</span> is checked in the <span class="guilabel">Tools</span> section of
+the <span class="guilabel">Inkscape Preferences</span> dialog.</p>
+</div></blockquote>
+<p>ガイド線をオブジェクトから生成する状況では、用済みになったオブジェクトを削除するのが一般的であるようだ。</p>
+<p>本書では矩形、三角形、円などから生成されるガイド線の仕様を説明している。当ノートでは割愛。</p>
+<p>グループを選択する場合には、その構成要素それぞれに対してガイド線が生成される。</p>
+</section>
+</section>
+<section id="grid">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">Grid</a><a class="headerlink" href="#grid" title="Permalink to this heading">¶</a></h3>
+<p>グリッドといっても正方形以外にも正三角形からなるものもある：</p>
+<blockquote>
+<div><p>A <em>Grid</em> is composed of two or three sets of evenly spaced parallel lines. A
+<em>Rectangular Grid</em> consists of horizontal and vertical lines, much like a
+sheet of ordinary graph paper. An <em>Axonometric Grid</em> consists of three sets
+of parallel lines, typically one vertical and two at 30° angles from the
+horizontal. It is often used to draw three-dimensional objects.</p>
+</div></blockquote>
+<p>グリッドは編集中の文書に関連付けられていて、アプリケーションの設定ではない：</p>
+<blockquote>
+<div><p><em>Grids</em> can be created and edited on the <span class="guilabel">Grids</span> tab of the
+<span class="guilabel">Document Properties</span> dialog. To create a <em>Grid</em>, select the type
+(<span class="guilabel">Rectangular</span> or <span class="guilabel">Axonometric</span>) from the drop-down menu
+at the top of the dialog and then click on the <span class="guilabel">New</span> button. The
+parameters for the new <em>Grid</em> will then be editable under a tab in the bottom
+of the dialog. It is possible to have more than one <em>Grid</em> defined (and in
+use). Each <em>Grid</em> will have a tab entry.</p>
+</div></blockquote>
+<p>実際に設定画面の UI を見ると、CAD の作業平面のそれと共通する属性もいくつかある。新規グリッドの属性の初期値はアプリケーション設定で決まる：</p>
+<blockquote>
+<div><p>The default <em>Grid</em> parameters can be modified in the <em>Grids</em> section of the
+<span class="guilabel">Inkscape Preferences</span> dialog.</p>
+</div></blockquote>
+<p>複数のグリッドを文書に追加することが可能なのは、図面を異なるウィンドウで表示することを念頭に置いていることによる。グリッドごとに表示状態や有効状態を切り替えられることに注意：</p>
+<blockquote>
+<div><p>Different “views” of the same drawing share the same <em>Grids</em> but the <em>Grids</em>
+can be enabled or made visible independently for each view.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="alignment-and-distribution-of-objects">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">Alignment and Distribution of Objects</a><a class="headerlink" href="#alignment-and-distribution-of-objects" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">Align and Distribute</span> ダイアログの表示方法をまず記憶する：</p>
+<ul>
+<li><p><span class="menuselection">Object ‣ Align and Distribute</span></p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">A</kbd></p>
+<blockquote>
+<div><p>Two types of positioning are available: alignment where the centers or edges
+of objects are aligned to one another, and distributing where objects are
+distributed in some direction based on their centers or edges.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>以下、<span class="guilabel">Align</span> タブ UI と操作の記述がしばらく続く。</p>
+<section id="align">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Align</a><a class="headerlink" href="#align" title="Permalink to this heading">¶</a></h3>
+<p>オブジェクトの位置を揃えるには、<span class="guilabel">Relative to</span> で揃える基準となるものを指定する。次のような選択肢からなる：</p>
+<ul class="simple">
+<li><p>オブジェクト：最初の選択、最後の選択、最大寸法のもの、最小寸法のもの。</p></li>
+<li><p>ページ</p></li>
+<li><p>図面</p></li>
+<li><p>選択範囲</p></li>
+</ul>
+<p><span class="guilabel">Move selection as group</span> をチェックすると、選択オブジェクト全体が位置合わせ中にだけグループ化されて扱われる。これは手動でグループ化したり解除したりする手間を省く。</p>
+<p>どこに揃えるかを対応するボタンを押して指定する。アイコンを見ればどうなるかわかる。</p>
+</section>
+<section id="distribute-uniform">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">Distribute: Uniform</a><a class="headerlink" href="#distribute-uniform" title="Permalink to this heading">¶</a></h3>
+<p>オブジェクトを水平または垂直方向に一様にばらけさせる。</p>
+<blockquote>
+<div><p>The distribution of objects is between the two objects at the extremes (i.e.,
+the leftmost and rightmost objects for horizontal distribution). The
+definition of which is the leftmost and rightmost object is made using the
+objects’ bounding boxes, and it may depend on the type of distribution
+selected. For example, if a distribution is based on the rightmost edge of
+the objects, then the objects rightmost edge will be used to determine which
+objects are at the extremes.</p>
+</div></blockquote>
+<p>わかりやすいアイコンの付いたボタンを押して選択オブジェクトを配置する。</p>
+</section>
+<section id="distribute-non-uniform">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Distribute: Non-Uniform</a><a class="headerlink" href="#distribute-non-uniform" title="Permalink to this heading">¶</a></h3>
+<p>バージョン 1.2 では <span class="guilabel">Rearrange</span> という区画にさらなる操作とともに整理されている。ツールボタン左から：</p>
+<ul class="simple">
+<li><p>グラフ構造のノードをいい感じに配置する</p></li>
+<li><p>オブジェクトの位置を入れ替える</p>
+<ul>
+<li><p>選択順</p></li>
+<li><p>z-order</p></li>
+<li><p>巡回</p></li>
+</ul>
+</li>
+<li><p>中心からランダムに配置する</p></li>
+<li><p>オブジェクトの塊を解く（端から端までの距離をより均等にするようにを移動させる）</p></li>
+</ul>
+</section>
+<section id="distribute-remove-overlaps">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Distribute: Remove Overlaps</a><a class="headerlink" href="#distribute-remove-overlaps" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Two entry boxes, one for the horizontal direction and the other for the
+vertical direction, allow the addition of a minimum space between adjacent
+objects.</p>
+</div></blockquote>
+</section>
+<section id="rows-and-columns">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">Rows and Columns</a><a class="headerlink" href="#rows-and-columns" title="Permalink to this heading">¶</a></h3>
+<p>この節の記述は <span class="guilabel">Grid</span> タブの UI に相当する。複数オブジェクトを行列に配置するためのものだ。次のような方法で配置しようとする：</p>
+<blockquote>
+<div><p>The algorithm for determining the order the objects are placed in the array
+attempts to preserve any existing rows. For this algorithm, the bounding box
+of each object is used. Technically, the objects are first sorted by their
+vertical positions. Then objects that overlap vertically are sorted by their
+horizontal positions. Finally, the objects are placed from left to right and
+from top to bottom in the array.</p>
+</div></blockquote>
+<p>ここまでの手順はオブジェクトの並び順しか決めない。座標の調整にまだ指定が要る：</p>
+<blockquote>
+<div><p>For placing objects, the grid is divided into cells. First, the cell size and
+placement is determined and then the objects are positioned inside the cells,
+one object to one cell.</p>
+<p>Cells are given the height of the tallest object if the <span class="guilabel">Equal
+height</span> box is checked; otherwise, they are given the height of the tallest
+object in their row. A similar policy is followed for width.</p>
+</div></blockquote>
+<p>セル間隔を等間隔にするのか、手動で距離を指定するのかを選択しなければいけない：</p>
+<blockquote>
+<div><p>If the <span class="guilabel">Fit into selection</span> option is selected, the rows and
+columns of cells are evenly spaced with the edge rows and columns flush
+against the bounding box of the selection. If the <span class="guilabel">Set spacing</span>
+option is selected, the rows and columns are separated by the amount entered
+in the <span class="guilabel">Row</span> spacing and <span class="guilabel">Column</span> spacing entry boxes.
+The spacing can be negative.</p>
+</div></blockquote>
+<p><span class="guilabel">Alignment</span> のラジオボタンを押して、各セルにあるオブジェクトをどの辺に揃えるのかを決める。その際、注意点がある：</p>
+<blockquote>
+<div><p>Note that the bounding box of all the objects after alignment may not be the
+same as the bounding box of the selection prior to alignment even though the
+<span class="guilabel">Fit to selection</span> option has been chosen. This is because the
+selection bounding box has been used to place the cells. The objects within
+the cells may not touch the cell walls.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch04-basics.html" title="Previous document">Chapter 4. Editing Basics</a>
+        </li>
+        <li>
+          <a href="ch06-shapes.html" title="Next document">Chapter 6. Geometric Shapes</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ou23/index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v5.html">What’s New In Bash 5 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wslg.html">Windows Subsystem for Linux GUI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../oh-my-posh.html">Oh My Posh 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Inkscape 利用ノート</a><ul>
+  <li><a href="manual.html">Inkscape Manual 読書ノート</a><ul>
+      <li>Previous: <a href="ch04-basics.html" title="previous chapter">Chapter 4. Editing Basics</a></li>
+      <li>Next: <a href="ch06-shapes.html" title="next chapter">Chapter 6. Geometric Shapes</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Chapter 8. Live Path Effects (LPEs) &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="Chapter 9. Text" href="ch09-text.html" />
+    <link rel="prev" title="Chapter 7. Paths" href="ch07-paths.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch07-paths.html" title="Previous document">Chapter 7. Paths</a>
+        </li>
+        <li>
+          <a href="ch09-text.html" title="Next document">Chapter 9. Text</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="chapter-8-live-path-effects-lpes">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 8. Live Path Effects (LPEs)</a><a class="headerlink" href="#chapter-8-live-path-effects-lpes" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#chapter-8-live-path-effects-lpes" id="id1">Chapter 8. Live Path Effects (LPEs)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bend" id="id2">Bend</a></p></li>
+<li><p><a class="reference internal" href="#construct-grid" id="id3">Construct Grid</a></p></li>
+<li><p><a class="reference internal" href="#envelope-deformation" id="id4">Envelope Deformation</a></p></li>
+<li><p><a class="reference internal" href="#gears" id="id5">Gears</a></p></li>
+<li><p><a class="reference internal" href="#hatches-rough" id="id6">Hatches (Rough)</a></p></li>
+<li><p><a class="reference internal" href="#interpolate-sub-paths" id="id7">Interpolate Sub-Paths</a></p></li>
+<li><p><a class="reference internal" href="#knot" id="id8">Knot</a></p></li>
+<li><p><a class="reference internal" href="#pattern-along-path-lpe" id="id9">Pattern Along Path (LPE)</a></p></li>
+<li><p><a class="reference internal" href="#ruler" id="id10">Ruler</a></p></li>
+<li><p><a class="reference internal" href="#sketch" id="id11">Sketch</a></p></li>
+<li><p><a class="reference internal" href="#spiro-spline" id="id12">Spiro Spline</a></p></li>
+<li><p><a class="reference internal" href="#stitch-sub-paths" id="id13">Stitch Sub-Paths</a></p></li>
+<li><p><a class="reference internal" href="#vonkoch" id="id14">VonKoch</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p><em>Live Path Effects</em> は Inkscape 独自のシステムであり、他の SVG ビューワーで表示されないことがある。最終結果パスは SVG パスとして表現される：</p>
+<blockquote>
+<div><p><em>Live Path Effects</em>, or <em>LPEs</em> for short, is a system for applying some kind
+of effect to a path. Inkscape stores the original path data in the Inkscape
+<em>Name Space</em> so that it can be modified at a later time (it will not be
+displayed by other SVG renderers). If the original path is modified, the
+<em>LPE</em> will be regenerated. The resulting path is stored as a normal SVG path.</p>
+</div></blockquote>
+<p>拡張フィルターにあるパス効果を LPE に移行する計画がある：</p>
+<blockquote>
+<div><p>Inkscape includes a handful of <em>LPEs</em>. With a solid framework in place, it is
+planned to migrate most of the path effects found under the
+<span class="menuselection">Extensions</span> menu to <em>LPEs</em>.</p>
+</div></blockquote>
+<p>LPE 使用手順が述べられている：</p>
+<blockquote>
+<div><p>To use an <em>LPE</em>, select a path (the skeleton path), call up the
+<span class="guilabel">Path Effect Editor</span> dialog (<span class="menuselection">Path ‣ Path Effect
+Editor…</span> <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">7</kbd>), select the desired effect
+from the drop-down menu in the dialog, and then click the
+<span class="menuselection">Add</span> button.</p>
+</div></blockquote>
+<p>Inkscape 1.2 では UI が変化しており、効果はダイアログ下部の <span class="guilabel">+</span> を押すことで表示される <span class="guilabel">Live Path Effects Selector</span> ウィンドウに一覧が現れる。</p>
+<p>パス効果は「重ね掛け」可能だ。重ねる順序の変更や、効果のオンオフを指示する UI がある：</p>
+<blockquote>
+<div><p>Multiple effects can be chained (stacked) together. The order in which each
+effect is applied can be changed using the arrow icons. Each effect can be
+temporarily “turned off” by clicking on the <span class="guilabel">目</span> icon next to the
+effect name. This is handy if you want to edit the skeleton path (or a
+<em>Group</em> of skeleton paths).</p>
+</div></blockquote>
+<p>LPE が生成したオブジェクトを選択し、<em>Node Tool</em> がアクティブならば元パスも表示される：</p>
+<blockquote>
+<div><p>When an object is selected that was generated by an <em>LPE</em> and the <em>Node Tool</em>
+is enabled, the original skeleton path nodes are displayed.</p>
+</div></blockquote>
+<p>効果の中には追加的に制御パスを要求するものもある。その場合、必要パスは自動的に生成される（緑の直線）：</p>
+<blockquote>
+<div><p>To see these paths, either click on the node editing icon in the dialog or
+press <kbd class="kbd docutils literal notranslate">7</kbd> while the object is selected and the <em>Node Tool</em> is active.</p>
+</div></blockquote>
+<p>この次の記述が今のところわからない：</p>
+<blockquote>
+<div><p>A control path is fully editable like any other path. The path can be
+replaced by another through pasting from the clipboard using the paste icon
+in the dialog. You may need to translate the control path (select all nodes
+then drag with the <em>Node Tool</em>). The path can also be copied to the clipboard
+by using the copy icon in the dialog.</p>
+</div></blockquote>
+<p>制御パスはすでに持っているパスを使ってもよい：</p>
+<blockquote>
+<div><p>An existing path can be used as a control path through linking. To create a
+link, first copy the path (<span class="menuselection">Edit ‣ Copy</span> (<kbd class="kbd docutils literal notranslate">Ctrl</kbd> +
+<kbd class="kbd docutils literal notranslate">C</kbd>)) to the clipboard and then click the link icon. Note that the
+linked path must be copied and not cut.</p>
+</div></blockquote>
+<p>通常、LPE はグループ内のオブジェクトすべてに対して再帰的に適用される。しかし例外が二つは知られている：</p>
+<blockquote>
+<div><p><em>LPEs</em> are normally applied recursively to all objects in a <em>Group</em>. The <em>Bend</em>
+and <em>Deformation</em> LPEs, however, are applied to the whole <em>Group</em> once.</p>
+</div></blockquote>
+<p>LPE を通常パスに変換することができる。<span class="menuselection">Path ‣ Object to Path</span>,
+<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> でいい。</p>
+<p>LPE を消し去るには <span class="menuselection">Path ‣ Remove Path Effect</span> を実行する。</p>
+<p>LPE はあるオブジェクトから別のオブジェクトに複製することが可能だ：</p>
+<blockquote>
+<div><p>An LPE can be copied from one object to another using the
+<span class="menuselection">Path ‣ Paste Path Effect</span> (<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">7</kbd>) command.
+To do so, first copy the object with the LPE you wish to paste using the
+<span class="menuselection">Edit ‣ Copy</span> (<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd>) command.</p>
+</div></blockquote>
+<p>LPE はある種の不具合が多い：</p>
+<blockquote>
+<div><p>The implementation of <em>LPEs</em> has many bugs, especially if removing effects
+from a path or chaining <em>LPEs</em>. Paths can be left with <em>LPE</em> cruft in their
+attributes and without a valid SVG path.</p>
+</div></blockquote>
+<p>予防策は、編集中の図面をこまめに上書き保存したり、クリーンコマンドで余分な定義を削除したりするしかない。</p>
+<section id="bend">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Bend</a><a class="headerlink" href="#bend" title="Permalink to this heading">¶</a></h2>
+<p>曲線をさらに曲げるコマンドは CAD でも見かけられる操作だ：</p>
+<blockquote>
+<div><p>This effect takes an existing path (<em>skeleton</em>) and allows one to “bend” it
+in a well-defined way via a <em>control</em> path. The <em>control</em> path is
+automatically created. The style of the bent path is taken from the style of
+the original path.</p>
+</div></blockquote>
+<p>Bend の実行手順を見ていこう：</p>
+<blockquote>
+<div><p>To apply the effect, with the source path selected, and using the <em>Node Tool</em>
+select the <span class="guilabel">Bend</span> option from the drop-down menu in the
+<span class="guilabel">Path Effect Editor</span> dialog. Click on the <span class="guilabel">Add</span> button.</p>
+</div></blockquote>
+<p>Inkscape 1.2 ではドロップダウンメニューではなく、専用のウィンドウが表示される。そこで <span class="guilabel">Bend</span> アイコンの下三角をクリックすると、元ダイアログに項目が追加される。これがアクティブだと、制御 UI も下部に表示される。</p>
+<blockquote>
+<div><p>Next, click on the node icon in the <span class="guilabel">Path Effect Editor</span> dialog. A
+green, horizontal path will appear in place of the red path. This path
+controls the bending. It can be manipulated in all the ways that a regular
+path can be including adding new nodes and dragging the path.</p>
+</div></blockquote>
+<p>緑の制御用パスが表示される。このパスを変形させて曲がり具合を指示するのだ。</p>
+<blockquote>
+<div><p>The effect assumes that the <em>skeleton</em> path is orientated in the horizontal
+direction. If it is in the vertical orientation, one can check the
+<span class="guilabel">Original path is vertical</span> box. This distorts the aspect ratio.
+Restore the aspect ratio by checking the <span class="guilabel">Width in units of length</span>
+box. The size of the bent path can be changed by changing the size of the
+control path.</p>
+</div></blockquote>
+<p>骨格パスの縦横比によっては、UI チェックボックスをいくつか ON にする必要がある。</p>
+<blockquote>
+<div><p>The width of the bent path can be altered with the <span class="guilabel">Width</span> entry
+box.</p>
+</div></blockquote>
+<p>ここでの幅は制御パスの進行方向に対して直交する方向に計測する。</p>
+</section>
+<section id="construct-grid">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Construct Grid</a><a class="headerlink" href="#construct-grid" title="Permalink to this heading">¶</a></h2>
+<p>作図平面のような格子パターンを生成するコマンドだ。</p>
+<blockquote>
+<div><p>This effect uses the first three nodes of a path to define a two dimension
+grid. The center node defines the origin, the first and third nodes define
+the direction and length of the two adjacent sides of the first cell. If a
+path has more than three nodes, the other nodes are ignored. One can select
+the number of cells in the two orthogonal directions.</p>
+</div></blockquote>
+<p>UI は単純なので見ればわかる。<span class="guilabel">Size X</span> および <span class="guilabel">Size Y</span> で格子数を制御する。</p>
+</section>
+<section id="envelope-deformation">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Envelope Deformation</a><a class="headerlink" href="#envelope-deformation" title="Permalink to this heading">¶</a></h2>
+<p>福本伸行先生作品的ぐにゃあを再現するのに最適のパス効果だ。</p>
+<blockquote>
+<div><p>This effect deforms a path by using four <em>control</em> paths, one for each side
+of the bounding box. Each control path can be edited individually by clicking
+on the corresponding icon.</p>
+</div></blockquote>
+<p>初期状態だと制御パスが線分なので、ノードを一、二個追加して曲げるのが良い。</p>
+</section>
+<section id="gears">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Gears</a><a class="headerlink" href="#gears" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This effect draws a series of intermeshed gears. It is more of a toy effect,
+designed to demonstrate the possibilities of <em>LPEs</em>. The <em>Gear</em> extension can
+also be used to draw gears with a bit more control.</p>
+</div></blockquote>
+<p>Gears コマンドはデモ用途で存在するものだ。実践的ではない。次へ急ぐ。</p>
+</section>
+<section id="hatches-rough">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Hatches (Rough)</a><a class="headerlink" href="#hatches-rough" title="Permalink to this heading">¶</a></h2>
+<p><em>Hatches</em> はペン画のハッチングを模した効果と思われる。</p>
+<blockquote>
+<div><p>This effect fills the area inside a path with a squiggly line that simulates
+quick, hand-drawn shading. Shapes are automatically converted to paths.</p>
+</div></blockquote>
+<p>しかし、メモリーも CPU も食う仕様であるようだ：</p>
+<blockquote>
+<div><p>Note: the squiggly line is constructed like a calligraphic stroke, that is by
+two almost parallel lines. This allows for variations in line thickness. You
+may get better results by adding a <em>Fill</em> and removing the <em>Stroke</em> (not
+automatically done by the effect). Warning: this effect appears to make heavy
+demands on the CPU.</p>
+</div></blockquote>
+<p>他のパス効果 UI と同様、<em>Nodee Tool</em> バーがアクティブなときに利用可能だ：</p>
+<blockquote>
+<div><p>There are a great many options to control the way the hatches are drawn. The
+spacing, direction, and amount of bend are determined by on-canvas nodes,
+visible when the <em>Node Tool</em> is in use. The other options are controlled in
+the <span class="guilabel">Path Effect Editor</span> dialog.</p>
+</div></blockquote>
+<p>一度その UI を見るとうんざりするほど入力項目が多い。この効果は乱数を多用する。</p>
+<blockquote>
+<div><p>Many of the options have a random factor. One can “re-roll the dice” by
+clicking on the randomize icon.</p>
+</div></blockquote>
+<p>本書の図解を Inkscape 本体に組み込んで欲しい。</p>
+<p>設定項目の解説文は見慣れぬ言葉が多い。精選して引用する：</p>
+<blockquote>
+<div><p><span class="guilabel">Growth</span>: The change in spacing between wiggles from right to left.
+The last wiggle will be about a factor of the Growth term times wider than
+the first wiggle.</p>
+</div></blockquote>
+<p>右から左への間の揺らぎ間隔の変化。最後の揺らぎは最初のそれよりも
+<span class="guilabel">Growth</span> で指定された値で乗算された幅くらいになる。</p>
+<blockquote>
+<div><p><span class="guilabel">Magnitude jitter: 1st side</span>: Magnitude of randomness of hatch
+bottom extents (in pixels).</p>
+</div></blockquote>
+<p>ハッチ下部付近における線の震えのランダム性の大きさとでも解釈できようか。</p>
+<blockquote>
+<div><p><span class="guilabel">Parallelism jitter: 1st side</span>: Magnitude of randomness of hatch
+bottom positions left to right (in pixels).</p>
+</div></blockquote>
+<p>ハッチ下部付近における左から右への位置のランダム性の大きさ。</p>
+<blockquote>
+<div><p><span class="guilabel">Half-turns smoothness: 1st side, in</span>: How straight or curved are
+the right side of the hatch bottoms (zero is straight).</p>
+</div></blockquote>
+<p>折り返しの滑らかさ（入り）ハッチの下部右側がどのくらいまっすぐか、曲がっているか。ラベルの <span class="guilabel">1st side</span> と <span class="guilabel">2nd side</span> がそれぞれ下部と上部を表すようだ。以下同様。</p>
+</section>
+<section id="interpolate-sub-paths">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Interpolate Sub-Paths</a><a class="headerlink" href="#interpolate-sub-paths" title="Permalink to this heading">¶</a></h2>
+<p>サブパス補間は compound パスが対象。パス二つをあらかじめ <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd>
+しておく。</p>
+<blockquote>
+<div><p>This effect creates additional paths by interpolating between two sub-paths.
+A <span class="guilabel">Trajectory</span> (<em>control</em>) path dictates where the additional paths
+are placed.</p>
+</div></blockquote>
+<p>個人的には CAD の曲面スイープコマンドと仕様が酷似していることに注意したい。</p>
+<blockquote>
+<div><p>The total number of paths (including the two sub-paths) can be specified by
+the <span class="guilabel">Steps</span> parameter. An additional option <span class="guilabel">Equidistant
+spacing</span> determines if the nodes of the <span class="guilabel">Trajectory</span> path are used
+in the interpolation. If the option <span class="guilabel">Equidistant spacing</span> is
+checked, the additional paths are spaced evenly along the
+<span class="guilabel">Trajectory</span> path. If it is not checked, the additional paths are
+divided between the intermediate nodes (see following figure).</p>
+</div></blockquote>
+<p>本書の図解では等間隔にサブパスを生成するほうが自然に思えるが、制御パスのノードをきめ細かく追加、配列するような用例が考えられ、そのときは等間隔をオフにするだろう。</p>
+</section>
+<section id="knot">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Knot</a><a class="headerlink" href="#knot" title="Permalink to this heading">¶</a></h2>
+<p>自己交差のあるパスを、結び目理論の教科書によくある図式風に表現するパス効果だ。</p>
+<blockquote>
+<div><p>This effect attempts to turn a path into a knot. That is, at each point where
+the path crosses itself, part of the path is hidden so it appears that that
+part is below the other part. As one follows the path, the effect attempts to
+alternate between going above and below.</p>
+</div></blockquote>
+<p>交差の調整を <em>Switcher</em> なるハンドルで指定する。クリックするたびに回転方向を示す矢印の向きが変わる。<em>Switcher</em> 自身を別の交差に配置することもできる。</p>
+<blockquote>
+<div><p>You can set which path crosses the other or remove the gap completely by
+using the <em>Switcher</em>. The <em>Switcher</em> is visible when the <em>Node Tool</em> is
+active. It consists of a circular arrow centered around the crossing point.
+Clicking on the diamond node at the crossing point toggles between the three
+states. To change another crossing, drag the diamond node to that crossing;
+the <em>Switcher</em> will follow.</p>
+</div></blockquote>
+</section>
+<section id="pattern-along-path-lpe">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Pattern Along Path (LPE)</a><a class="headerlink" href="#pattern-along-path-lpe" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This effect puts one or more copies of one path (<em>pattern</em>) along a second,
+<em>control</em> or <em>skeleton</em> path. The resulting object takes the attributes (<em>Fill</em>,
+etc.) of the <em>skeleton</em> path.</p>
+</div></blockquote>
+<p>同名のコマンドが Extensions にもある。本書では LPE 版を先に紹介している。</p>
+<blockquote>
+<div><p>The advantage of using the LPE version is that both the pattern and the
+<em>skeleton</em> path can be edited at a later time. The disadvantages are that only
+paths can be used for the pattern and that there are fewer options.</p>
+</div></blockquote>
+<p>この短所は手動で <span class="menuselection">Path ‣ Object to Path</span> を適用することでカバーすればいい。</p>
+<p>操作手順。クリップボードがわかりにくい：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Copy the pattern:  Select the pattern and copy it to the clipboard
+(<span class="menuselection">Edit ‣ Copy</span> <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd>). The pattern must
+be a single path.</p></li>
+<li><p>Select the skeleton path:  Only one can be selected.</p></li>
+<li><p>Apply the effect to skeleton path:  In the <span class="guilabel">Path Effect Editor</span>
+dialog, select <span class="guilabel">Pattern Along Path</span> and click on the
+<span class="guilabel">Add</span> button.</p></li>
+<li><p>Paste pattern:  Click on the <span class="guilabel">Paste</span> icon in dialog.</p></li>
+</ol>
+</div></blockquote>
+<p>本書のイラストだとトカゲをまずクリックして <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> する。次に線分に同相であるほうの曲線をクリックする。それからエディターダイアログ操作の順でいい。</p>
+<blockquote>
+<div><p>The <span class="guilabel">Pattern copies</span> drop-down menu has options to stretch the
+pattern to the path length and/or to put multiple copies along the skeleton
+path.</p>
+</div></blockquote>
+<p><span class="guilabel">Repeat</span> 系オプションで複数複製すると面白い。</p>
+<p>残りは間隔調整、オフセット調整、端点を融合させるかどうか、等のオプションだ。</p>
+</section>
+<section id="ruler">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Ruler</a><a class="headerlink" href="#ruler" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This effect turns a path into a ruler.</p>
+</div></blockquote>
+<p>パスに定規よろしく目盛を付ける効果だ。パスの長さが図面から読み取れるということだ。以下、UI の意味をいくつか記しておく。</p>
+<dl class="simple">
+<dt><span class="guilabel">Unit</span></dt><dd><p>UI で指定可能なオプションすべてに適用される長さ単位。</p>
+</dd>
+<dt><span class="guilabel">Mark distance</span></dt><dd><p>隣接する目盛間の距離。</p>
+</dd>
+<dt><span class="guilabel">Major steps</span></dt><dd><p>何目盛おきに目盛を大きくするか。</p>
+</dd>
+<dt><span class="guilabel">Shift marks by</span></dt><dd><p>パス始点から何目盛目から大目盛にするか。パス端点の大目盛は例外扱い。</p>
+</dd>
+<dt><span class="guilabel">Offset</span></dt><dd><p>パス始点からの最初の目盛までのオフセット。</p>
+</dd>
+<dt><span class="guilabel">Mark direction</span></dt><dd><p>パスの方向から見て、パスの左右両側のどれに目盛を付けるか。</p>
+</dd>
+<dt><span class="guilabel">Border marks</span></dt><dd><p>パス端点における大目盛の処遇を指定する。</p>
+</dd>
+</dl>
+</section>
+<section id="sketch">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Sketch</a><a class="headerlink" href="#sketch" title="Permalink to this heading">¶</a></h2>
+<p>手描きの線を模す効果だが、骨格パスに対する付加的線の引き方というか、付け方が二種類ある。</p>
+<blockquote>
+<div><p>The first are <em>Strokes</em> that follow the curvature of the path. The second are
+<em>Construction lines</em> that are straight and tangent to the path.</p>
+</div></blockquote>
+<p>オプションが <em>Stokes</em> 系と <em>Construction lines</em> 系に大別されているということでもある。</p>
+</section>
+<section id="spiro-spline">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Spiro Spline</a><a class="headerlink" href="#spiro-spline" title="Permalink to this heading">¶</a></h2>
+<p>曲線の（継ぎ目での）滑らかさを追求するための効果と考えられる：</p>
+<blockquote>
+<div><p>This effect turns a series of nodes into a silky-smooth path defined entirely
+by the position of the nodes. The method was devised by Raph Levien for use
+in designing fonts. Spiro curves have splines that are joined together
+smoothly.</p>
+</div></blockquote>
+<p><em>Spiro Spline LPE</em> では三つのノード型を扱う：</p>
+<dl class="simple">
+<dt>Smooth node</dt><dd><p>ここにおいて曲率が連続するようなノード。両ハンドルが一直線上にある□または◇のノードで示される。</p>
+</dd>
+<dt>Corner node</dt><dd><p>異なるスプラインを角で接続するようなノード。ハンドルの一方または両方が引っ込んでいるか、ハンドルが一直線上にないノードで示される。</p>
+</dd>
+<dt>Tangent node (also called a left or right node)</dt><dd><p>線分を曲線に滑らかに接続する。接線ノードを作るには、その片側が直線で構成されていることを確認する（当該線分の両端点ノードを選択し、一例として <kbd class="kbd docutils literal notranslate">Shift</kbd>
++ <kbd class="kbd docutils literal notranslate">L</kbd> を押すことで線形化する）。</p>
+</dd>
+</dl>
+<p>スケルトンパスの見てくれはあまり意味がない。描画させなくていい：</p>
+<blockquote>
+<div><p>Visualization of the <em>skeleton</em> path is probably not very useful. It can be
+toggled off by clicking on the icon in the <em>Tool Controls</em>.</p>
+</div></blockquote>
+<p>ハンドルは有用なので作業中は表示しておきたい：</p>
+<blockquote>
+<div><p>It is sometimes useful to see the node handles. They can be toggled on by
+clicking on the icon. They are only shown for selected nodes and nodes
+adjacent to selected nodes.</p>
+</div></blockquote>
+<p>ハンドルにせよ補助線にせよ、描画更新がおかしいときがあるのは確かに見たことがある：</p>
+<blockquote>
+<div><p>Bug: If the handles are not visible when they should be, toggle off, then
+back on the node handles.</p>
+</div></blockquote>
+<p>Spiro の急所：</p>
+<blockquote>
+<div><p>Note that what is important for a <em>Spiro</em> spline is the collinearity of the
+handles with each other (smooth vs. corner node) or with a line segment
+(corner vs. tangent node). The actual directions of the handles for a smooth
+or corner node are irrelevant.</p>
+</div></blockquote>
+<p>Spiro パッケージは図面を描くには必要以上に強力な機能を有しているが、Inkscape では G2 連続性まで対応している（それで十分）：</p>
+<blockquote>
+<div><p>For the technically inclined, in a Spiro curve, splines are joined such that
+the curve is smooth and the curvature is continuous. Although the <em>Spiro</em>
+package allows for <em>G4</em> nodes (continuous to the fourth derivative), Inkscape
+uses only <em>G2</em> nodes (continuous to the second derivative).</p>
+</div></blockquote>
+</section>
+<section id="stitch-sub-paths">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Stitch Sub-Paths</a><a class="headerlink" href="#stitch-sub-paths" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This effect draws a series of <em>Stroke</em> paths between points on sub-paths.
+Some of the things it is useful for are drawing hatched shading and for
+drawing hair.</p>
+</div></blockquote>
+<p>手順：</p>
+<ol class="arabic simple">
+<li><p>サブパス群を描く。パス群の向きを揃えてから <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> を押すなどして複合パスにする。</p></li>
+<li><p>複合パスに対して <span class="guilabel">Path Effect Editor</span> で <span class="guilabel">Stitch
+Sub-Paths</span> を追加する。</p></li>
+<li><p>Stroke パスを補正する。</p></li>
+</ol>
+<p>新しいパスは直線的にしかならない？</p>
+<blockquote>
+<div><p>The <em>Stitch Sub-Paths</em> effect can be used to create the hatchings typically
+used in engravings as shown in the following example.</p>
+</div></blockquote>
+<p>次の記述は実践的な作業手順中に現れる本ツールの用途だ：</p>
+<blockquote>
+<div><p>By varying both the sub-paths and the <em>Stroke</em> path quite complicated
+hatchings can be created. The hatchings can be clipped to limit their range.
+The <em>Tweak Tool</em> could also be used to refine the hatchings if the hatchings
+are converted to stroked paths (see Chapter 11, Tweak Tool).</p>
+</div></blockquote>
+<p>正多角形から完全グラフを描くようなツールとして用いる例が本書で示されている。</p>
+</section>
+<section id="vonkoch">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">VonKoch</a><a class="headerlink" href="#vonkoch" title="Permalink to this heading">¶</a></h2>
+<p>自己の部分が再帰的複製であるような曲線を生成する効果だ。</p>
+<blockquote>
+<div><p>This effect creates fractals. The most classic fractal is perhaps the Von
+Koch snowflake. -略-</p>
+<p>Applying this effect to a path creates two additional control paths: a
+<span class="guilabel">Reference segment</span> and a <span class="guilabel">Generating path</span>. The
+structure of the fractal is completely determined by these control paths. The
+first generation is created by placing copies of the skeleton path so that
+the <span class="guilabel">Reference segment</span> of each copy lies on top of one of the
+sub-path segments of the <span class="guilabel">Generating path</span>. Each additional
+generation is created in the same way, using the <span class="guilabel">Generating path</span>
+of each copy of the previous generation.</p>
+</div></blockquote>
+<p>この後に比較的詳細な計算法が述べられているが、読んで理解できる性質のものではない。Sierpinski triangle を作図してみたり、本節後半のチュートリアルで修練するといい。</p>
+<p>本文で言及されているが <span class="guilabel">Nr of generations</span> に大きい数を指定すると
+Inkscape が描画できない。</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch07-paths.html" title="Previous document">Chapter 7. Paths</a>
+        </li>
+        <li>
+          <a href="ch09-text.html" title="Next document">Chapter 9. Text</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../omg15/index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ou23/index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v5.html">What’s New In Bash 5 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wslg.html">Windows Subsystem for Linux GUI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../oh-my-posh.html">Oh My Posh 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Inkscape 利用ノート</a><ul>
+  <li><a href="manual.html">Inkscape Manual 読書ノート</a><ul>
+      <li>Previous: <a href="ch07-paths.html" title="previous chapter">Chapter 7. Paths</a></li>
+      <li>Next: <a href="ch09-text.html" title="next chapter">Chapter 9. Text</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

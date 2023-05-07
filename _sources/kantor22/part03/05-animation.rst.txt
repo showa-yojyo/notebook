@@ -336,6 +336,7 @@ Steps
    この表現がわかりにくい。
 
 .. code:: css
+   :force:
 
    #stripe.animate{
        transform: translate(-90%);
