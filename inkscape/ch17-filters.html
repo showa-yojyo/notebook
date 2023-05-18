@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 17. Filter Effects - Custom &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Chapter 18. XML Editor" href="ch18-xml.html" />
     <link rel="prev" title="Chapter 16. Filter Effects - Preset" href="ch16-filters-preset.html" />
@@ -46,85 +47,844 @@
           <div class="body" role="main">
             
   <section id="chapter-17-filter-effects-custom">
-<h1>Chapter 17. Filter Effects - Custom<a class="headerlink" href="#chapter-17-filter-effects-custom" title="Permalink to this heading">¶</a></h1>
-<section id="basic-use">
-<h2>Basic Use<a class="headerlink" href="#basic-use" title="Permalink to this heading">¶</a></h2>
+<h1><a class="toc-backref" href="#id3" role="doc-backlink">Chapter 17. Filter Effects - Custom</a><a class="headerlink" href="#chapter-17-filter-effects-custom" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>ガウスぼかしフィルターはいつもの色ダイアログでも設定できる。</p></li>
-<li><p>ブレンドフィルターはレイヤーダイアログでも設定できる。</p></li>
-<li><p>フィルター削除はそれ用のメニューがある。</p></li>
-<li><p><span class="guilabel">Filter Effects Region</span>: <code class="docutils literal notranslate"><span class="pre">-0.1:1.1</span></code></p></li>
+<li><p><a class="reference internal" href="#chapter-17-filter-effects-custom" id="id3">Chapter 17. Filter Effects - Custom</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basic-use" id="id4">Basic Use</a></p></li>
+<li><p><a class="reference internal" href="#filter-effects-dialog" id="id5">Filter Effects Dialog</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adding-a-filter" id="id6">Adding a Filter</a></p></li>
+<li><p><a class="reference internal" href="#defining-a-filter" id="id7">Defining a Filter</a></p></li>
+<li><p><a class="reference internal" href="#applying-a-filter" id="id8">Applying a Filter</a></p></li>
 </ul>
+</li>
+<li><p><a class="reference internal" href="#mini-tutorial-a-drop-shadow" id="id9">Mini Tutorial - A Drop Shadow</a></p></li>
+<li><p><a class="reference internal" href="#color-filter-primitives" id="id10">Color Filter Primitives</a></p>
+<ul>
+<li><p><a class="reference internal" href="#color-matrix" id="id11">Color Matrix</a></p></li>
+<li><p><a class="reference internal" href="#component-transfer" id="id12">Component Transfer</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#compositing-filter-primitives" id="id13">Compositing Filter Primitives</a></p>
+<ul>
+<li><p><a class="reference internal" href="#blend" id="id14">Blend</a></p></li>
+<li><p><a class="reference internal" href="#composite" id="id15">Composite</a></p></li>
+<li><p><a class="reference internal" href="#merge" id="id16">Merge</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fill-filter-primitives" id="id17">Fill Filter Primitives</a></p>
+<ul>
+<li><p><a class="reference internal" href="#flood" id="id18">Flood</a></p></li>
+<li><p><a class="reference internal" href="#image" id="id19">Image</a></p></li>
+<li><p><a class="reference internal" href="#tile" id="id20">Tile</a></p></li>
+<li><p><a class="reference internal" href="#turbulence" id="id21">Turbulence</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#lighting-filters-primitives" id="id22">Lighting Filters Primitives</a></p>
+<ul>
+<li><p><a class="reference internal" href="#distant-light-source" id="id23">Distant Light Source</a></p></li>
+<li><p><a class="reference internal" href="#point-light-source" id="id24">Point Light Source</a></p></li>
+<li><p><a class="reference internal" href="#spot-light-source" id="id25">Spot Light Source</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#pixel-manipulation-filter-primitives" id="id26">Pixel Manipulation Filter Primitives</a></p>
+<ul>
+<li><p><a class="reference internal" href="#convolve-matrix" id="id27">Convolve Matrix</a></p>
+<ul>
+<li><p><a class="reference internal" href="#examples" id="id28">Examples</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#displacement-map" id="id29">Displacement Map</a></p></li>
+<li><p><a class="reference internal" href="#gaussian-blur" id="id30">Gaussian Blur</a></p>
+<ul>
+<li><p><a class="reference internal" href="#blurring-with-the-fill-and-stroke-dialog" id="id31">Blurring with the Fill and Stroke Dialog</a></p></li>
+<li><p><a class="reference internal" href="#blurring-with-the-filter-effects-dialog" id="id32">Blurring with the Filter Effects dialog</a></p></li>
+<li><p><a class="reference internal" href="#blurring-examples" id="id33">Blurring Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#gradient-blurring" id="id34">Gradient Blurring</a></p></li>
+<li><p><a class="reference internal" href="#clipping-and-masking" id="id35">Clipping and Masking</a></p></li>
+<li><p><a class="reference internal" href="#tile-clones" id="id36">Tile Clones</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#morphology" id="id37">Morphology</a></p></li>
+<li><p><a class="reference internal" href="#offset" id="id38">Offset</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#complex-examples" id="id39">Complex Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#emboss" id="id40">Emboss</a></p></li>
+<li><p><a class="reference internal" href="#neon" id="id41">Neon</a></p></li>
+<li><p><a class="reference internal" href="#stereoscopic-pictures" id="id42">Stereoscopic Pictures</a></p></li>
+<li><p><a class="reference internal" href="#solar-flare" id="id43">Solar Flare</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="basic-use">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Basic Use</a><a class="headerlink" href="#basic-use" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p><em>Filters</em> can be defined and applied through the <span class="guilabel">Filter Effects</span>
+dialog. The <span class="guilabel">Gaussian Blur</span> filter can also be used directly
+through the <span class="guilabel">Fill and Stroke</span> dialog. The <span class="guilabel">Blend</span> filter
+can also be applied to an entire <em>Layer</em> through the <span class="guilabel">Layers</span>
+dialog.</p>
+</div></blockquote>
+<p>メインメニューから <span class="menuselection">Filters ‣ Filter Editor…</span> を選択すると、このダイアログが出現する。ここに挙げられた二つのフィルターは、他の UI からも操作可能ということで先に述べられているのだろう。</p>
+<blockquote>
+<div><p>The <span class="guilabel">Fill and Stroke</span> dialog has a <span class="guilabel">Blur</span> slider that
+when moved from zero, creates and attaches a <em>Gaussian Blur</em> filter to
+selected objects. If the slider is reset to zero, the filter is automatically
+removed and deleted.</p>
+</div></blockquote>
+<p>ぼかし効果は <span class="guilabel">Fill and Stroke</span> ダイアログの下にある専用スライダーで設定可能。値をゼロにすればフィルターが削除されたことになる。使い勝手が良い。</p>
+<blockquote>
+<div><p>The same principle works on the <span class="guilabel">Layers</span> dialog where a choosing
+anything but <span class="guilabel">Normal</span> creates a <em>Blend</em> filter and attaches it to
+the <em>Layer</em>. Setting the drop-down menu back to <span class="menuselection">Normal</span>
+deletes the filter.</p>
+</div></blockquote>
+<p>そもそも <span class="guilabel">Layers</span> ダイアログが存在しない。</p>
+<p>フィルターを削除するためのメニュー項目がある：</p>
+<blockquote>
+<div><p><em>Filters</em> can also be removed from an object by using the menu entry
+<span class="menuselection">Filters ‣ Remove Filters</span>.</p>
+</div></blockquote>
+<p><span class="guilabel">Filter Effects</span> ダイアログの用途は二つある：</p>
+<ol class="arabic simple">
+<li><p>原始的フィルターから複雑なフィルターを組み立てる</p></li>
+<li><p>オブジェクトにフィルターをかける</p></li>
+</ol>
+<p>原始的 <em>Filter</em> に対する入力として使用されるグラフィックの源は、別の原始的
+<em>Filter</em> による出力または次のいずれかとある：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="guilabel">Source Graphic</span>. Use the object as the source for the <em>Filter</em>
+primitive.</p></li>
+<li><p><span class="guilabel">Source Alpha</span>. Use the <em>Alpha</em> of the object as the source for
+the Filter primitive.</p></li>
+<li><p><span class="guilabel">Background Image</span>. Use the region under the <em>Filter</em> at the time
+the <em>Filter</em> is invoked.</p></li>
+<li><p><span class="guilabel">Background Alpha</span>. Use the <em>Alpha</em> of the region under the
+<em>Filter</em> at the time the <em>Filter</em> is invoked.</p></li>
+<li><p><span class="guilabel">Fill Paint</span>: Not implemented. Use the <em>Fill</em> of the target
+object as the input to a <em>Filter</em> primitive as if the object had an
+infinite extent. Useful if the <em>Fill</em> is a <em>Gradient</em> or <em>Pattern</em> with
+transparent or semitransparent regions.</p></li>
+<li><p><span class="guilabel">Stroke Paint</span>: Not implemented. Use the <em>Stroke</em> of the target
+object as the input to a <em>Filter</em> primitive (see <span class="guilabel">Fill Paint</span>
+above).</p></li>
+</ul>
+</div></blockquote>
+<p>フィルターは対象オブジェクトの占める領域そのものではなく、それに対して相対的に定まるある領域にかかる。これを本文では <em>Filter Effects Region</em> と呼んでいる：</p>
+<blockquote>
+<div><p>By default, the <em>Filter Effects Region</em> ranges from -0.1 to 1.1 in units of
+the object’s bounding box width and height. This area may not always be
+sufficient. For example, if a large shift is prescribed in the <em>Offset</em>
+filter, the area must be increased.</p>
+</div></blockquote>
+<p>フィルター効果領域を数値指定することが可能だ：</p>
+<blockquote>
+<div><p>The area can be adjusted under the <span class="guilabel">Filter General Settings</span> tab of
+the <span class="guilabel">Filter Effects</span> dialog. (It can also be set through the
+<span class="guilabel">XML Editor</span> dialog, attributes <em>x</em>, <em>y</em>, <em>width</em>, and <em>height</em>.)</p>
+</div></blockquote>
 </section>
 <section id="filter-effects-dialog">
-<h2>Filter Effects Dialog<a class="headerlink" href="#filter-effects-dialog" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>新規とエフェクト追加がややこしい。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Filter Effects Dialog</a><a class="headerlink" href="#filter-effects-dialog" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">Filter Effects</span> ダイアログの操作方法が述べられている。新規とエフェクト追加がややこしい。</p>
+<section id="adding-a-filter">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Adding a Filter</a><a class="headerlink" href="#adding-a-filter" title="Permalink to this heading">¶</a></h3>
+<p>新規作成ボタンを押してフィルター項目を追加するか、既存のフィルターを複製して名前を変えて（現在の図面で利用可能な）フィルターを追加する。</p>
+<blockquote>
+<div><p>Click on the <span class="guilabel">New</span> button on the left to add a new filter.
+Alternatively, right-click on an existing filter in the <span class="guilabel">Filter</span>
+list to duplicate it. The name of the filter can also be changed by clicking
+on the name.</p>
+</div></blockquote>
+</section>
+<section id="defining-a-filter">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Defining a Filter</a><a class="headerlink" href="#defining-a-filter" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Filter Effects</span> 右下区間のヘッダー部分はボタンとドロップダウンリストからなることに注意。Inkscape の UI はボタンがわかりにくいことが多い。</p>
+<blockquote>
+<div><p>A filter is defined by selecting filter primitives from the drop-down list
+next to the <span class="guilabel">Add Effect</span> button. A short description of the filter
+is displayed when a filter is selected. The description can be toggled on or
+off under the <span class="guilabel">Filters</span> tab of the Inkscape <span class="guilabel">Preferences</span>
+dialog.</p>
+</div></blockquote>
+<p>適当な原始的フィルターをドロップダウンリストから選んで左のボタンを押すと、ダイアログ右上区画の内容が更新する：</p>
+<blockquote>
+<div><p>Once a primitive is selected, click on the <span class="guilabel">Add Effect</span> button to
+add it to the filter. The input(s) of the filters are automatically attached
+to the <span class="guilabel">Source Graphic</span> or the output of a previously added filter
+primitive.</p>
+</div></blockquote>
+<p>次の記述がまだわからない：</p>
+<blockquote>
+<div><p>The default connections are shown as gray lines originating from a triangle
+right of the filter primitive name. Explicitly defined connections are shown
+in black.</p>
+</div></blockquote>
+<p>矢印の三角部分をドラッグすると、なぜか始点部分を右にある別の列に割り当て直せる：</p>
+<blockquote>
+<div><p>The inputs of a filter can be reassigned by click-dragging from the triangle
+at the right of the filter name to one of the columns on the right (e.g.,
+<span class="guilabel">Source Graphic</span>), or by click-dragging to another of the filter
+primitives.</p>
+</div></blockquote>
+<p>原始的フィルターの順序入れ替えを直感的な操作で行える：</p>
+<blockquote>
+<div><p>The filter primitives can be reordered by click-dragging a filter primitive
+in the list to another place in the list.</p>
+</div></blockquote>
+<p>フィルター効果を微調整することが図面の描画の乱れを生じた場合には、適当に再描画させてやればよいようだ：</p>
+<blockquote>
+<div><p>Inkscape may fail to update the display when tweaking <em>Filter Effects</em>
+parameters. Nudging the object up and down is sufficient to force an update.</p>
+</div></blockquote>
+</section>
+<section id="applying-a-filter">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Applying a Filter</a><a class="headerlink" href="#applying-a-filter" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>To apply a filter to an object(s), select the object(s) and check the box
+next to the filter name. Uncheck the box to remove a filter. If multiple
+objects are selected with different filters, all the boxes corresponding to
+those filters will be checked.</p>
+</div></blockquote>
+<p>選択状態のオブジェクトが存在しないとチェックボックスは操作不能であり続けるようだ。</p>
+</section>
 </section>
 <section id="mini-tutorial-a-drop-shadow">
-<h2>Mini Tutorial - A Drop Shadow<a class="headerlink" href="#mini-tutorial-a-drop-shadow" title="Permalink to this heading">¶</a></h2>
-<p>&lt;<a class="reference external" href="https://dl.dropbox.com/u/61006529/inkscape/dropshadow.svg">https://dl.dropbox.com/u/61006529/inkscape/dropshadow.svg</a>&gt;</p>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Mini Tutorial - A Drop Shadow</a><a class="headerlink" href="#mini-tutorial-a-drop-shadow" title="Permalink to this heading">¶</a></h2>
+<p>この節に関して気になることがあれば、もう本書を再読して欲しい。</p>
+<blockquote>
+<div><p>Drop shadows are a perfect use for filters. The shadow automatically updates
+when the source object changes. Here is a step-by-step tutorial on creating a
+drop shadow:</p>
+</div></blockquote>
+<figure class="align-center" id="id1">
+<img alt="Drop Shadow" src="../_images/dropshadow.svg" /><figcaption>
+<p><span class="caption-text">Drop Shadow</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <ul class="simple">
 <li><p><span class="guilabel">Source</span> が変更された場合、自動的にドロップシャドウも更新がかかる。</p></li>
-<li><p>テキストに対して compound filter を作成することになる。</p></li>
-<li><p><span class="guilabel">Gaussian blur</span>, <span class="guilabel">Offset</span>, <span class="guilabel">Merge</span> の 3 つを使う。矢印の設定に注意。</p></li>
+<li><p>テキストに対して複合フィルターを作成することになる。</p></li>
+<li><p><span class="guilabel">Gaussian blur</span>, <span class="guilabel">Offset</span>, <span class="guilabel">Merge</span> の三つを使う。矢印の設定に注意。</p></li>
 </ul>
 </section>
 <section id="color-filter-primitives">
-<h2>Color Filter Primitives<a class="headerlink" href="#color-filter-primitives" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>RGBA 値の行列による変換と考えてよい。OpenGL のアレっぽい。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Color Filter Primitives</a><a class="headerlink" href="#color-filter-primitives" title="Permalink to this heading">¶</a></h2>
+<p>RGBA 値の行列による変換と考えてよい。OpenGL のアレっぽい。</p>
+<section id="color-matrix">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Color Matrix</a><a class="headerlink" href="#color-matrix" title="Permalink to this heading">¶</a></h3>
+<p>色行列は RGBA 列ベクトルに左から乗じて別の RGBA 列ベクトルに変換するような五次正方行列だ（本書参照）。座標変換行列の類比で言うと並進移動項があるので、本書のような成分構成になる。</p>
+<blockquote>
+<div><p>Four types of transformations are defined, of which three are special classes
+of the first.</p>
+</div></blockquote>
+<p>というわけで見ていこう：</p>
+<dl class="simple">
+<dt>Matrix</dt><dd><p>行列の有効成分全てを完全に指定する。一般的な場合。</p>
+</dd>
+<dt>Saturate</dt><dd><p>彩度を下げるには、数 <span class="math notranslate nohighlight">\({s \in [0, 1]}\)</span> を一つ指定する。<em>RGB</em> 値のみが変化する。公式は本書参照。</p>
+</dd>
+<dt>Hue Rotate</dt><dd><p>数値一つを指定することで色相をずらす。これもまた <em>RGB</em> 値のみが変化する。正確な計算式はかなり複雑で、赤→黄→緑→右…と回転していくだけではない。</p>
+</dd>
+<dt>Luminance to Alpha</dt><dd><p>輝度は一定の計算式でアルファーに変換される。公式は本書参照。</p>
+</dd>
+</dl>
+<p><em>RGB</em> 対角行列の要素 <span class="math notranslate nohighlight">\(a_{00}, a_{11}, a_{22}\)</span> を <span class="math notranslate nohighlight">\(-1\)</span> にし、五列目の上位三要素 <span class="math notranslate nohighlight">\(a_{04}, a_{14}, a_{24}\)</span> を <span class="math notranslate nohighlight">\(1\)</span> とすることで明暗を逆転した変換を作成することができる。</p>
+</section>
+<section id="component-transfer">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Component Transfer</a><a class="headerlink" href="#component-transfer" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Partially implemented, No user interface.</p>
+</div></blockquote>
+<p>概要を覚えるに留める：</p>
+<blockquote>
+<div><p>The <em>Component Transfer</em> primitive changes the <em>RGB</em> and <em>Alpha</em> of an object
+by applying independent functions to each of the <em>RGB</em> and <em>Alpha</em> input
+values. The following modes for defining the functions are available:
+<em>Identity</em>, <em>Table</em>, <em>Discrete</em>, <em>Linear</em>, and <em>Gamma</em>.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="compositing-filter-primitives">
-<h2>Compositing Filter Primitives<a class="headerlink" href="#compositing-filter-primitives" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Compositing Filter Primitives</a><a class="headerlink" href="#compositing-filter-primitives" title="Permalink to this heading">¶</a></h2>
+<p>原始フィルターは複数組み合わせて graphics を合成するものだ。</p>
+<blockquote>
+<div><p>These primitives composite two or more graphics. The graphics may be from an
+object, a background, or the output of another primitive.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">enable-background</span></code> タグの扱いにバグがあるらしい。しかし、下記の回避策はレイヤーダイアログが存在しない Inkscape 1.2 では採用不能か：</p>
+<blockquote>
+<div><p>Inkscape has a problem in using one of these filters. When using either
+<span class="guilabel">Background Image</span> or <span class="guilabel">Background Alpha</span> as an input to
+the filter, the <code class="docutils literal notranslate"><span class="pre">enabled-background</span></code> tag must be added to the SVG file
+(this tells SVG renderers to keep a copy of the background in memory). This
+is not done. A work-around is to use the <span class="guilabel">Layers</span> dialog to add a
+<em>Blend</em> filter to a <em>Layer</em>. The <em>Layer</em> blend can then be removed, leaving
+the necessary tag in place.</p>
+</div></blockquote>
+<p>SVG 1.1 の仕様にバグがあって、透明度のある背景で合成すると、それが二重になるというものだ。それを回避する方法を自明な回避策を含め三つ紹介している：</p>
+<blockquote>
+<div><p>The first is to avoid using a <span class="guilabel">Background Image</span> or
+<span class="guilabel">Background Alpha</span> as a filter input.</p>
+</div></blockquote>
+<p>第二の方法は、アルファー値最大の RGBA 値を持つ色で置き換えることだ。この方法はフィルター合成問題に関係なく、知っていて損はない：</p>
+<blockquote>
+<div><p>The second is to replace a transparent background with a solid background
+(you can use the <em>Dropper Tool</em> to replace a transparent <span class="guilabel">Fill</span>
+with an equivalent solid <span class="guilabel">Fill</span> [turn off <span class="guilabel">Pick alpha</span> in
+the Tool Controls]).</p>
+</div></blockquote>
+<p>第三の方法は白背景からマージフィルターで開始するものだ。最終出力に透過部分を含ませたい場合には使えない：</p>
+<blockquote>
+<div><p>The third is to use the <em>Flood</em> filter to create a solid white background and
+include this as the first input to a <em>Merge</em> filter (if using a <em>Merge</em>
+filter, include the flood first; if using a <em>Blend</em> or <em>Composite</em> filter,
+add a <em>Merge</em> filter with the first input being the output from the <em>Flood</em>
+filter and the second input being the output from the <em>Blend</em> or <em>Composite</em>
+filter). This solution runs into trouble when it is desired that the overall
+image have transparency.</p>
+<p>The SVG 1.2 standard corrects this deficiency.</p>
+</div></blockquote>
+<p>Inkscape が出力する SVG ファイルはエディターで確認すると 1.1 のままのはず。</p>
+<section id="blend">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Blend</a><a class="headerlink" href="#blend" title="Permalink to this heading">¶</a></h3>
+<p>真っ先に習うべき原始フィルターはブレンドで間違いない。</p>
+<blockquote>
+<div><p>The <em>Blend</em> primitive blends two overlapping objects or an object with its
+background by doing a pixel-by-pixel combination using one of five defined
+blend modes. The five modes are listed below. Except for the <em>Normal</em> mode,
+the result is independent of which object is on top.</p>
+</div></blockquote>
+<p>まず記号を定義しておく：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">enable-background</span></code> タグの扱いにバグがあるらしい。</p></li>
-<li><p>SVG 1.1 の仕様にもバグがあって、とにかく background 周りは不安定。1.2 で修正された。</p></li>
-<li><p><span class="guilabel">Blend</span></p>
-<ul>
-<li><p><span class="guilabel">Normal</span>, <span class="guilabel">Multiply</span>, <span class="guilabel">Screen</span>,
-<span class="guilabel">Darken</span>, <span class="guilabel">Lighten</span> の 5 種類。</p></li>
+<li><p>添字 <span class="math notranslate nohighlight">\(a\)</span> および <span class="math notranslate nohighlight">\(b\)</span> を重なるオブジェクト同士のそれぞれ上下のものを指すのに用いる。</p></li>
+<li><p>添字 <span class="math notranslate nohighlight">\(r\)</span> で結果を表す。</p></li>
+<li><p><span class="math notranslate nohighlight">\({c \in [0, 1]}\)</span> をオブジェクトの RGB 値とする。A 値は込められている。</p></li>
+<li><p><span class="math notranslate nohighlight">\({q \in [0, 1]}\)</span> をオブジェクトの A 値とする。</p></li>
 </ul>
-</li>
-<li><p><span class="guilabel">Composite</span></p>
-<ul>
-<li><p><span class="guilabel">Over</span>, <span class="guilabel">In</span>, <span class="guilabel">Out</span>, <span class="guilabel">Atop</span>,
-<span class="guilabel">Xor</span>, <span class="guilabel">Arithmetic</span></p></li>
-</ul>
-</li>
-<li><p><span class="guilabel">Merge</span>: Z-order ベースのマージ。</p></li>
-</ul>
+<dl>
+<dt><span class="guilabel">Normal</span></dt><dd><p>フィルターが存在しないかのように、上のオブジェクトは下のオブジェクトの前にある。</p>
+<div class="math notranslate nohighlight">
+\[c_r = (1 - q_a)c_b + c_a.\]</div>
+</dd>
+<dt><span class="guilabel">Multiply</span></dt><dd><p>上オブジェクト色が下オブジェクト色になっている透明なものを通して見える。</p>
+<div class="math notranslate nohighlight">
+\[c_r = (1 - q_a)c_b + (1 - q_b)c_a + c_a c_b.\]</div>
+</dd>
+<dt><span class="guilabel">Screen</span></dt><dd><p>上オブジェクト色が下のそれに光を加える。上下のオブジェクトがそれぞれ独立してスクリーンに投影されているようなもの。</p>
+<div class="math notranslate nohighlight">
+\[c_r = c_b + c_a - c_a c_b.\]</div>
+</dd>
+<dt><span class="guilabel">Darken</span></dt><dd><p>上のオブジェクトが下のオブジェクトを暗くする。</p>
+<div class="math notranslate nohighlight">
+\[c_r = \min\{(1 - q_a)c_b + c_a, (1 - q_b)c_a + c_b\}.\]</div>
+</dd>
+<dt><span class="guilabel">Lighten</span></dt><dd><p>上のオブジェクトが下のオブジェクトを明るくする。</p>
+<div class="math notranslate nohighlight">
+\[c_r = \max\{(1 - q_a)c_b + c_a, (1 - q_b)c_a + c_b\}.\]</div>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>本書のイラスト二つを自分で再現して納得なり理解なりすること。</p>
+<p><span class="guilabel">Screen</span> と <span class="guilabel">Lighten</span> が似ている理由を説明できるようになること。</p>
+</div>
+</section>
+<section id="composite">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Composite</a><a class="headerlink" href="#composite" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The <em>Composite</em> filter primitive allows two overlapping objects or an object
+and background to be merged pixel-by-pixel according to a mode-dependent
+rule.</p>
+</div></blockquote>
+<p>このモードでは前述の背景が二重に考慮される不具合に注意すること：</p>
+<blockquote>
+<div><p>See the introduction to this section for problems when using a background as
+one of the inputs.</p>
+</div></blockquote>
+<dl>
+<dt><span class="guilabel">Over</span></dt><dd><p>The upper object is placed over the lower object. This is equivalent to the
+normal way overlapping objects are drawn.</p>
+</dd>
+<dt><span class="guilabel">In</span></dt><dd><p>下オブジェクトが上オブジェクトの残留部分を決める。</p>
+</dd>
+<dt><span class="guilabel">Out</span></dt><dd><p>下オブジェクトが上オブジェクトの消滅部分を決める。</p>
+</dd>
+<dt><span class="guilabel">Atop</span></dt><dd><p><span class="guilabel">In</span> かつそうでない下オブジェクト部分が見える。</p>
+</dd>
+<dt><span class="guilabel">Xor</span></dt><dd><p>上下オブジェクトの非共通部分が見える。</p>
+</dd>
+<dt><span class="guilabel">Arithmetic</span></dt><dd><p><span class="math notranslate nohighlight">\(i_1, i_2\)</span> をオブジェクトの入力値とし、さらに値 <span class="math notranslate nohighlight">\(K_k\)</span> を指定して次の式で決める：</p>
+<div class="math notranslate nohighlight">
+\[K_1 i_1 i_2 + K_2 i_1 + K_3 i_2 + K_4.\]</div>
+</dd>
+</dl>
+</section>
+<section id="merge">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Merge</a><a class="headerlink" href="#merge" title="Permalink to this heading">¶</a></h3>
+<p><em>Merge</em> は特に三つ以上の原始フィルターの結合を z-order に従って順次行うフィルターだ。その原理は単純だ：</p>
+<blockquote>
+<div><p>The <em>Merge</em> filter allows the combining of two or more objects or outputs of
+filter primitives. It works by layering one image on top of another, much as
+regular objects are layered on top of each other in z-order, or, for the case
+of two inputs, as the <em>Composite</em> filter primitive using the <span class="guilabel">Over</span>
+mode.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="fill-filter-primitives">
-<h2>Fill Filter Primitives<a class="headerlink" href="#fill-filter-primitives" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><span class="guilabel">Flood</span>: バウンディング塗りつぶし？</p></li>
-<li><p>その他は未実装だったり、よくわからなかったり。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Fill Filter Primitives</a><a class="headerlink" href="#fill-filter-primitives" title="Permalink to this heading">¶</a></h2>
+<p>フィルター領域に対して何らかの塗りつぶしを施す原始フィルターをいくつか見ていく。</p>
+<section id="flood">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Flood</a><a class="headerlink" href="#flood" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The <em>Flood</em> primitive fills the <em>Filter Effects Region</em> with a specified
+color and opacity. This filter primitive is most useful when combined with
+other filters primitives.</p>
+</div></blockquote>
+<p>せっかくフィルター加工した領域をベタ塗りするのかと感じられる。そこで本書で例示されている工程は、前節で紹介された <em>Composite In</em> とパターン塗りつぶしなどを組み合わせて意味のある効果を実現していることがわかる。</p>
+</section>
+<section id="image">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Image</a><a class="headerlink" href="#image" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Partially Implemented.</p>
+</div></blockquote>
+<p>Inkscape 1.2 でも未完全実装であるかを確認したい。</p>
+<blockquote>
+<div><p>The <em>Image</em> primitive renders an external graphics file or an internal SVG
+object. It allows more than one object to be referenced in a complex filter
+(the first being the object attached to the filter).</p>
+</div></blockquote>
+<p>JPEG ファイルや PNG ファイルを描画させることが可能であるのはもちろん、同一図面内の SVG オブジェクトでもよい。</p>
+<blockquote>
+<div><p>Unfortunately, this very useful filter primitive is not yet fully implemented
+in Inkscape with only external images supported.</p>
+</div></blockquote>
+<p>「部分的に実装されていない」というのは、この SVG 参照の機能のことだろう。</p>
+<blockquote>
+<div><p>The GUI will create a reference with an absolute path to the external image.
+Use the <span class="guilabel">XML Editor</span> to change an absolute path to a relative one
+if required.</p>
+</div></blockquote>
+<p>相対パスが実は指定可能であることをよく憶えておく。<em>Image</em> フィルターを使っている
+SVG ファイルをバージョン管理するなら変更必須だ。</p>
+<p>画像は対象の BB に収まるように拡縮されるのが普通だ：</p>
+<blockquote>
+<div><p>By default, the image is shrunk or stretched to fit inside the bounding box
+of the object to which the filter is attached.</p>
+<p>The placement of the image within the bounding box can be controlled using
+the parameters <em>x</em>, <em>y</em>, <em>width</em>, and <em>height</em>. The coordinate system is the
+same as used for the object. The <span class="guilabel">XML Editor</span> must be used to
+modify these parameters. An additional parameter, <em>preserveAspectRatio</em>, is
+not supported by Inkscape.</p>
+</div></blockquote>
+<p>縦横比固定オプションらしきものも未対応だ。残念。</p>
+<blockquote>
+<div><p>The <em>Image</em> implementation in Inkscape does not correctly position images.
+Other SVG renderers will display the image differently from Inkscape as a
+result.</p>
+</div></blockquote>
+<p>これはブラウザーで試験できる。</p>
+</section>
+<section id="tile">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Tile</a><a class="headerlink" href="#tile" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Not implemented.</p>
+<p>The <em>Tile</em> primitive fills a rectangular region with a repeated input image.</p>
+</div></blockquote>
+<p>CSS でいう <code class="docutils literal notranslate"><span class="pre">background-image:</span> <span class="pre">repeat</span></code> に相当するものだ。</p>
+</section>
+<section id="turbulence">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Turbulence</a><a class="headerlink" href="#turbulence" title="Permalink to this heading">¶</a></h3>
+<p><em>Turbulence</em> は大理石の表面や雲のような人工的テクスチャーを作成する用途の原始フィルターだ。</p>
+<blockquote>
+<div><p>The <em>Turbulence</em> primitive allows the creation of artificial textures such as
+marble surfaces or clouds. It is based on the work of Ken Perlin who won an
+Academy Award for creating realistic textures with computers.</p>
+</div></blockquote>
+<p>Perlin 氏の方法を簡略化したものを実装しているようで、ある区間でランダムな強度を生成し、その点を滑らかにつなげるというものだそうだ：</p>
+<blockquote>
+<div><p>Perlin solved the problem of using random numbers to produce smooth random
+fluctuations in color. A simplified version of his method is to generate
+random intensities at given intervals and then connect these points smoothly
+together.</p>
+</div></blockquote>
+<p>ブラウザーの一部はフィルターの特定の属性を修正しないと Inkscape と異なる描画結果を生じる：</p>
+<blockquote>
+<div><p>Note that Firefox, Opera, and Batik will render this filter differently than
+Inkscape if the attribute <code class="docutils literal notranslate"><span class="pre">color-interpolation-filters=&quot;sRGB&quot;</span></code> is not added
+to the filter definition.</p>
+<p>The <em>RGB</em> and <em>Alpha</em> components are each derived separately.</p>
+</div></blockquote>
+<p><span class="guilabel">Type</span> では二つから選択する：</p>
+<blockquote>
+<div><p>The <span class="guilabel">Type</span> menu can be set to either <span class="guilabel">Fractal Noise</span> or
+<span class="guilabel">Turbulence</span>. <span class="guilabel">Turbulence</span> tends to have more dramatic
+dark regions as the absolute values of the noise terms are used, creating
+“visual cusps”.</p>
+</div></blockquote>
+<p>ノイズ項の絶対値が大きくなるにつれ暗部を劇的に有するようになり、視覚的尖りが生じがちだ。</p>
+<p>ノイズは画面解像度に依存する：</p>
+<blockquote>
+<div><p>The <em>Base Frequency</em> is defined by default in terms of inverse <em>Screen</em>
+pixels. For example, a frequency of 0.1 would have a “wave length” of 10
+pixels. Inkscape cannot yet create resolution independent noise.</p>
+</div></blockquote>
+<p>まるで音楽理論を読んでいるようだ。和音が多いと調和が失せるようなもので、空間と色の変化が見えなくなるほど小さくなり過ぎる。CPU にもやさしくない：</p>
+<blockquote>
+<div><p>The number of <em>Octaves</em> determines the complexity of the noise, the more
+<em>Octaves</em>, the more complex. Each <em>Octave</em> adds a term with twice the
+<em>Frequency</em> but half the amplitude. Using more than four or five <em>Octaves</em>
+isn’t so useful as the spatial and color variations become too small to be
+seen (and increases the CPU load).</p>
+</div></blockquote>
+<p>このフィルターは疑似乱数生成器を用いる。原理的には SVG ビューワーが異なっていても同じ生成器をなるべく使い、同じ模様をなるべく生じるようにする：</p>
+<blockquote>
+<div><p>If you use the filter twice on two identical objects, the textures should be
+the same. Changing the seed will force the random-number sequence to be
+different and thus the textures will be different too.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="lighting-filters-primitives">
-<h2>Lighting Filters Primitives<a class="headerlink" href="#lighting-filters-primitives" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">Lighting Filters Primitives</a><a class="headerlink" href="#lighting-filters-primitives" title="Permalink to this heading">¶</a></h2>
+<p>ここで扱うフィルターを記述するのに 3D グラフィックス理論の Phong 照光処理の術語を用いる。</p>
+<blockquote>
+<div><p>Two primitives, <em>Diffuse Lighting</em> and <em>Specular Lighting</em>, are included to
+simulate light shining on objects. They represent two of the three parts of
+the Phong reflection model for modeling light in computer graphics.</p>
+</div></blockquote>
+<p>環境光、拡散光、鏡面光の説明を見ていく。環境光だけは SVG との関係が述べられている：</p>
+<blockquote>
+<div><p>Ambient light: The light present everywhere in a scene. In SVG this would be
+represented by a solid <em>Fill</em>.</p>
+</div></blockquote>
+<p>拡散光と鏡面光の説明は、一般の CG 理論のそれと同じように述べられている。本ノートでは割愛。</p>
+<blockquote>
+<div><p>An illustration of the components of the Phong model.</p>
+</div></blockquote>
+<p>このドーナツのイラストで注意することは、拡散と鏡面の赤い光源が画面左上の無限遠点にあるらしいということだ。ここでは背景は無視する。</p>
+<p>Phong モデルは ray tracing をしない。</p>
+<blockquote>
+<div><p>The contour of an object in the z (out of the drawing) direction is described
+by a <em>bump map</em> that is defined by the <em>Alpha</em> channel of an object. The
+values of the pixel and the neighboring pixels in the <em>bump map</em> define the
+normal to the surface for the pixel.</p>
+</div></blockquote>
+<p>バンプマップとしてオブジェクトのアルファー値を利用する。これが照光処理の急所である法線方向を決定する。</p>
+<blockquote>
+<div><p>The two lighting filters share in common most of their attributes such as the
+type of light source, its color, and its position; thus we’ll discuss them
+together.</p>
+</div></blockquote>
+<dl>
+<dt><em>Diffuse Color</em>, <em>Specular Color</em></dt><dd><p>光源色。</p>
+</dd>
+<dt><em>Surface Scale</em></dt><dd><p>表面への法線を計算するための縮尺。数値は表面の最大高（アルファー値 1 に対応）を座標系単位で表す。</p>
+</dd>
+<dt><em>Diffuse or Specular Reflection Constant</em></dt><dd><p>表面に当たった光のうち、どの程度が拡散 or 鏡面反射されるか。</p>
+</dd>
+<dt><em>Exponent</em></dt><dd><p>（鏡面照光のみ）鏡面反射の鋭さすなわち狭さを決定する。最小値は 1.0 で、反射が広く鈍い表面となり、反対に値が大きくなると反射が狭くなり、より洗練された表面となる。</p>
+</dd>
+<dt><em>Kernel Unit Length</em></dt><dd><p>未使用らしい。</p>
+</dd>
+<dt><em>Light Source</em></dt><dd><p>次のいずれか：</p>
 <ul class="simple">
-<li><p>フォーンシェーディングっぽく絵を描くフィルターらしい。</p></li>
+<li><p><em>Distant Light</em></p></li>
+<li><p><em>Point Light</em></p></li>
+<li><p><em>Spot Light</em></p></li>
 </ul>
+<p>When applying a lighting filter with a large <em>Surface Scale</em>, the limited
+resolution of the <em>bump map</em> may create artifacts. These can be removed by
+applying a small amount of <em>Gaussian blur</em> to the image.</p>
+</dd>
+</dl>
+<p>ちらつきをごまかすちょっとした手筋だ。本書次のイラストはその採用例を示している。</p>
+<section id="distant-light-source">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Distant Light Source</a><a class="headerlink" href="#distant-light-source" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>無限遠点からの光線を表現するには、次の属性二つを定義する：</p>
+</div></blockquote>
+<dl class="simple">
+<dt><em>Azimuth</em></dt><dd><p>方位角。描画面における光源の方向角。角度は水平軸 (x) から右回りに定義するという、Inkscape ではイレギュラーな測定方法による。</p>
+</dd>
+<dt><em>Elevation</em></dt><dd><p>標高。図面平面上方にあるとされる光源の方向角。</p>
+</dd>
+</dl>
+<p>イラストでは球を模したオブジェクトが列になっている。無限遠点からの光を浴びているので、どれもハイライトとシェードが同じような見てくれになる。結果的に球全体も同じ見てくれになる。</p>
+</section>
+<section id="point-light-source">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Point Light Source</a><a class="headerlink" href="#point-light-source" title="Permalink to this heading">¶</a></h3>
+<p>光源の座標を z 成分も含めて直接指定する。本書のイラストで十分説明できている。</p>
+</section>
+<section id="spot-light-source">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Spot Light Source</a><a class="headerlink" href="#spot-light-source" title="Permalink to this heading">¶</a></h3>
+<p>点光源に円錐の傘をかぶせたようなモデルだと考えていい。円錐の幾何データを設定する必要がある：</p>
+<blockquote>
+<div><p>This light source simulates a point light source near an illuminated object
+but with a limited cone of light. One triple set of numbers (x, y, z) is
+required to set the <em>Location</em> of the light and another to set the direction
+the center of the cone points (<em>Points At</em>).</p>
+<p>The <em>Specular Exponent</em> sets how well-focused is the light; the higher the
+value, the more sharply focused the light. The <em>Cone Angle</em> (degrees) defines
+the maximum angle for the light.</p>
+</div></blockquote>
+<p>本書のイラストにスポットライトの傘をオーバーレイしたいところだ。</p>
+</section>
 </section>
 <section id="pixel-manipulation-filter-primitives">
-<h2>Pixel Manipulation Filter Primitives<a class="headerlink" href="#pixel-manipulation-filter-primitives" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><span class="guilabel">Convolve</span></p></li>
-<li><p><span class="guilabel">Displacement Map</span></p></li>
-<li><p><span class="guilabel">Gaussian Blur</span>: クリッピングやマスキングと絡める場合は適用順序に注意。</p></li>
-<li><p><span class="guilabel">Morphology</span></p></li>
-<li><p><span class="guilabel">Offset</span></p></li>
-</ul>
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">Pixel Manipulation Filter Primitives</a><a class="headerlink" href="#pixel-manipulation-filter-primitives" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>These primitives move pixels or blend adjacent pixels.</p>
+</div></blockquote>
+<p>ということはこの節の原始フィルターは畳み込みではないかと思う。</p>
+<section id="convolve-matrix">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Convolve Matrix</a><a class="headerlink" href="#convolve-matrix" title="Permalink to this heading">¶</a></h3>
+<p>やはりそうだった。</p>
+<blockquote>
+<div><p>The <em>Convolve Matrix</em> primitive uses neighboring pixels to modify the color
+of a pixel. How the pixel is changed is determined by an <span class="math notranslate nohighlight">\({N \times M}\)</span>
+matrix with one entry for each neighboring pixel.</p>
+</div></blockquote>
+<p>この数式を見ると、行列の中身の和に違和感があるが読み進める。</p>
+<blockquote>
+<div><p>The following is an example of a “Gaussian Blur” that uses a <span class="math notranslate nohighlight">\({5 \times
+5}\)</span> matrix around the center pixel. The <span class="guilabel">Kernel</span> is an integer
+representation of a 2-dimensional <em>Gaussian</em> with a standard deviation of 1.4
+pixels. It is normalized by the <span class="guilabel">Divisor</span>.</p>
+</div></blockquote>
+<p>当フィルターの <span class="guilabel">Effect parameters</span> の構成は次のとおり：</p>
+<dl>
+<dt><span class="guilabel">Size</span></dt><dd><p>行列 <em>Kernel</em> の寸法。</p>
+</dd>
+<dt><span class="guilabel">Target</span></dt><dd><p>どの行列成分が対象画素に対応するか、既定では対象画素に <em>Kernel</em> を中央合わせする。</p>
+</dd>
+<dt><span class="guilabel">Kernel</span></dt><dd><p>行列 <em>Kernel</em> の全成分。</p>
+</dd>
+<dt><span class="guilabel">Divisor</span></dt><dd><p>行列 <em>Kernel</em> の全成分をこの値で除算する。</p>
+</dd>
+<dt><span class="guilabel">Bias</span></dt><dd><p>行列乗算の後に加算する値。</p>
+</dd>
+<dt><span class="guilabel">Edge Mode</span></dt><dd><p>入力画像を拡張して、境界部分の画素を評価できるようにする方式。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>名前</p></th>
+<th class="head"><p>方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">Duplicate</span></p></td>
+<td><p>全端の画素を複製</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Wrap</span></p></td>
+<td><p>足りない画素を入力画像の逆側から取得</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">none</span></p></td>
+<td><p>ゼロ画素を使う</p></td>
+</tr>
+</tbody>
+</table>
+<p>Inkscape 1.2 でもこうか：</p>
+<blockquote>
+<div><p>At the moment Inkscape does not use this parameter despite it being in the
+user interface.</p>
+</div></blockquote>
+</dd>
+<dt><span class="guilabel">Preserve Alpha</span></dt><dd><p>アルファー値を入力から直接複写するか、<em>RGB</em> と同じように計算するかのどちらか。</p>
+</dd>
+</dl>
+<p>このフィルターは画素評価と結びついていて、像が解像度に依存して決定することを意味する：</p>
+<blockquote>
+<div><p>The <em>Convolve Matrix</em> primitive is necessarily linked to evaluating pixels.
+By default, the pixel size is that of the display. This means that the
+resulting image is not resolution independent.</p>
+</div></blockquote>
+<section id="examples">
+<h4><a class="toc-backref" href="#id28" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>割愛。</p>
+</div>
+</section>
+</section>
+<section id="displacement-map">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Displacement Map</a><a class="headerlink" href="#displacement-map" title="Permalink to this heading">¶</a></h3>
+<p>変位写像はビットマップを二つ用いる原始フィルターだ。一方が他方を歪ませる。次の式で新しい座標に変換する：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+x^{\prime} &amp;= s C_X(x, y) - \frac{1}{2}.\\
+y^{\prime} &amp;= s C_Y(x, y) - \frac{1}{2}.
+\end{aligned}\end{split}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(s\)</span> は縮尺であり、<span class="math notranslate nohighlight">\(C_X, C_Y\)</span> は <em>RGB</em> 成分または <em>A</em> 成分のいずれかで、X チャンネル属性および Y チャンネル属性で選択可能だ。両チャンネルは異なる色に写像することができる。</p>
+<p>本書の赤と緑のイラストがこのフィルターの意味をよく説明している。</p>
+<blockquote>
+<div><p>In the following examples, the <em>x</em> displacement is set to red and the <em>y</em>
+displacement is set to green. The olive green background corresponds to red
+and green values of 127, which corresponds (almost) to no displacement.</p>
+</div></blockquote>
+</section>
+<section id="gaussian-blur">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Gaussian Blur</a><a class="headerlink" href="#gaussian-blur" title="Permalink to this heading">¶</a></h3>
+<p>Photoshop でおなじみのガウスぼかしが Inkscape でも実現できる。原理は：</p>
+<blockquote>
+<div><p>The primitive creates an output image by using a Gaussian weighted average of
+the input pixels around the location of each corresponding output pixel.</p>
+<p>Internally, the amount of blur is defined in terms of the <em>blur radius</em>,
+which for the mathematically inclined is just the standard deviation of the
+Gaussian. Technically, a Gaussian function extends to infinity. For practical
+reasons, the limit of an object’s blur is two times the <em>blur radius</em> outside
+the <em>bounding box</em> at maximum blur.</p>
+</div></blockquote>
+<p>ぼかし半径という引数が効果のほとんどを決定する。</p>
+<p>このフィルターは CPU を酷使する。アプリケーション設定で品質を下げて楽にさせる：</p>
+<blockquote>
+<div><p>The <em>Gaussian Blur</em> primitive is highly CPU intensive. The output is a
+trade-off between speed and quality. One can set the <em>Blur</em> quality for the
+screen display in the Inkscape <span class="guilabel">Preferences</span> dialog
+(<span class="menuselection">File ‣ Inkscape Preferences…</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> +
+<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd>)) under the <span class="guilabel">Filter</span> entry. Choosing a
+low-quality option will affect blurring of thin objects the most. Bitmap
+export is always done at the highest quality (and thus may be slow).</p>
+</div></blockquote>
+<p>このフィルターは人気があるので、他の UI からも利用可能だ：</p>
+<blockquote>
+<div><p>A <em>Gaussian Blur</em> filter can be created through both the <span class="guilabel">Filter
+Effects</span> and the <span class="guilabel">Fill and Stroke</span> dialogs.</p>
+</div></blockquote>
+<section id="blurring-with-the-fill-and-stroke-dialog">
+<h4><a class="toc-backref" href="#id31" role="doc-backlink">Blurring with the Fill and Stroke Dialog</a><a class="headerlink" href="#blurring-with-the-fill-and-stroke-dialog" title="Permalink to this heading">¶</a></h4>
+<p><span class="guilabel">Fill and Stroke</span> でのぼかし指定が簡潔で良い。スライダー操作が楽だ。ただし、ぼかし半径の指定法が異なる：</p>
+<blockquote>
+<div><p>In this dialog, the amount of blurring is defined in terms of a percentage. A
+blurring of 100% (the maximum blurring allowed) is equivalent to a blur
+radius of 1/8 of the bounding box perimeter. For a square bounding box, this
+would be half of a side.</p>
+</div></blockquote>
+<p>対称的なぼかししか適用できないが、単純な方がいい場合が多いので問題ない：</p>
+<blockquote>
+<div><p>Only a symmetric blur can be applied with this dialog.</p>
+</div></blockquote>
+<p>ぼかしを後から調整する方法がある：</p>
+<blockquote>
+<div><p>Blurs created through the <span class="guilabel">Fill and Stroke</span> dialog depend on the
+size of the blurred object. To get the exact same amount of blur on different
+size objects, you can either use the <span class="menuselection">Edit ‣ Paste Style</span>
+(<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">V</kbd>) command (if all the attributes are to
+be the same) or use the <span class="guilabel">Filter Effects</span> dialog to set the <em>blur
+radius</em> (standard deviation) to the same values.</p>
+</div></blockquote>
+</section>
+<section id="blurring-with-the-filter-effects-dialog">
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">Blurring with the Filter Effects dialog</a><a class="headerlink" href="#blurring-with-the-filter-effects-dialog" title="Permalink to this heading">¶</a></h4>
+<p>専用ダイアログを用いると、当然ながらよりぼかし指定を精緻に行える：</p>
+<blockquote>
+<div><p>Through this dialog you can create asymmetric blurs as well as have precise
+control over the <em>blur radius</em>. You can also build more complicated filters
+as demonstrated in the <em>Drop Shadow</em> example earlier in this chapter.</p>
+</div></blockquote>
+</section>
+<section id="blurring-examples">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">Blurring Examples</a><a class="headerlink" href="#blurring-examples" title="Permalink to this heading">¶</a></h4>
+<section id="gradient-blurring">
+<h5><a class="toc-backref" href="#id34" role="doc-backlink">Gradient Blurring</a><a class="headerlink" href="#gradient-blurring" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>A Rectangle with a radial Gradient</p>
+</div></blockquote>
+<p>昔のビートマニアでこんなアニメーションを見た記憶がある。</p>
+</section>
+<section id="clipping-and-masking">
+<h5><a class="toc-backref" href="#id35" role="doc-backlink">Clipping and Masking</a><a class="headerlink" href="#clipping-and-masking" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>The <em>Gaussian Blur</em> primitive is applied to an object before any <em>Clipping</em>
+or <em>Masking</em>. This will give a sharp edge along the clipping path to a
+blurred object. If you wish the clipped edge to be blurred, put it in a
+<em>Group</em> by itself and then blur the <em>Group</em>. If you want a feathered edge to
+an object like a bitmap, create a white transparency mask with the edge
+blurred.</p>
+</div></blockquote>
+<p>ぼかしを入れたオブジェクトを切り抜くか、切り抜いたオブジェクトにぼかしを入れるかということで、無論どちらも実現可能だ。</p>
+</section>
+<section id="tile-clones">
+<h5><a class="toc-backref" href="#id36" role="doc-backlink">Tile Clones</a><a class="headerlink" href="#tile-clones" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>The <span class="guilabel">Create Tiled Clones</span> dialog has an option to vary the
+<span class="guilabel">Blur Radius</span> under the <span class="guilabel">Blur and opacity</span> tab.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="morphology">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Morphology</a><a class="headerlink" href="#morphology" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The <em>Morphology</em> primitive “fattens” or “thins” an object. The <em>Operator</em>
+attribute can either be <em>Dilate</em> or <em>Erode</em>. The amount of change is
+controlled by the <em>Radius</em> attribute. It can have independent <em>x</em> and <em>y</em>
+values.</p>
+</div></blockquote>
+<p>Dilate と Erode で Google 検索すると、類似アプリケーションがたくさん存在するようだ。</p>
+</section>
+<section id="offset">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">Offset</a><a class="headerlink" href="#offset" title="Permalink to this heading">¶</a></h3>
+<p>オブジェクトを上下左右にずらすだけのフィルターだ。</p>
+<blockquote>
+<div><p>If the specified offset is large, the filter region needs to be enlarged. You
+can increase the filter region under the <span class="guilabel">Filter General Settings</span>
+tab at the bottom of the <span class="guilabel">Filter Effects</span> dialog.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="complex-examples">
-<h2>Complex Examples<a class="headerlink" href="#complex-examples" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>NEON の例を試した。&lt;<a class="reference external" href="https://dl.dropbox.com/u/61006529/inkscape/neon.svg">https://dl.dropbox.com/u/61006529/inkscape/neon.svg</a>&gt;</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">Complex Examples</a><a class="headerlink" href="#complex-examples" title="Permalink to this heading">¶</a></h2>
+<p>原始フィルターから組み立てた複雑なフィルターの例。</p>
+<section id="emboss">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">Emboss</a><a class="headerlink" href="#emboss" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This example uses the <em>Color Matrix</em> to convert a photograph into an <em>Alpha</em>
+layer. The <em>Alpha</em> layer is then embossed by the <em>Diffuse Lighting</em> filter.</p>
+</div></blockquote>
+</section>
+<section id="neon">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">Neon</a><a class="headerlink" href="#neon" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This example uses the <em>Morphology</em> primitive to create the glow around a neon
+tube. The glow color is derived from the neon color using the <em>Color Matrix</em>
+primitive. A couple <em>Gaussian Blur</em> primitives create the soft feel of the
+neon and a <em>Merge</em> primitive combines the neon and glow together.</p>
+</div></blockquote>
+<p>試した：</p>
+<figure class="align-center" id="id2">
+<img alt="Neon" src="../_images/neon.svg" /><figcaption>
+<p><span class="caption-text">Neon</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="stereoscopic-pictures">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">Stereoscopic Pictures</a><a class="headerlink" href="#stereoscopic-pictures" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This example uses the <em>Displacement Map</em> filter primitive to create a
+stereoscopic picture. The <em>Turbulence</em> primitive is used to generate a
+picture that is distorted with the <em>Displacement Map</em> primitive.</p>
+</div></blockquote>
+</section>
+<section id="solar-flare">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">Solar Flare</a><a class="headerlink" href="#solar-flare" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This example uses the <em>Turbulence</em> primitive to modify a radial <em>Gradient</em>,
+thus simulating a solar flare during an eclipse.</p>
+</div></blockquote>
+</section>
 </section>
 </section>
 

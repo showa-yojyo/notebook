@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 18. XML Editor &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -46,21 +46,183 @@
           <div class="body" role="main">
             
   <section id="chapter-18-xml-editor">
-<h1>Chapter 18. XML Editor<a class="headerlink" href="#chapter-18-xml-editor" title="Permalink to this heading">¶</a></h1>
-<section id="basic-usage">
-<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h2>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 18. XML Editor</a><a class="headerlink" href="#chapter-18-xml-editor" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd> で起動できる。</p></li>
-<li><p><span class="guilabel">Set</span> ボタン押しと <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd> が同じ。</p></li>
-<li><p>属性 &lt;<a class="reference external" href="http://www.w3.org/TR/SVG/">http://www.w3.org/TR/SVG/</a>&gt; に仕様がある。</p></li>
+<li><p><a class="reference internal" href="#chapter-18-xml-editor" id="id1">Chapter 18. XML Editor</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basic-usage" id="id2">Basic Usage</a></p></li>
+<li><p><a class="reference internal" href="#editing-xml-nodes" id="id3">Editing XML Nodes</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id4">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adding-color-to-a-marker-arrow" id="id5">Adding Color to a Marker Arrow</a></p></li>
+<li><p><a class="reference internal" href="#underlined-text" id="id6">Underlined Text</a></p></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>Inkscape は SVG という XML データを編集するアプリケーションであるので、利便性を高めるべくテキストエディターのように編集するための GUI も備えている。</p>
+<blockquote>
+<div><p>The <span class="guilabel">XML Editor</span> dialog allows one to directly edit the <em>XML</em>
+description of an <em>SVG</em> drawing. (Recall that Inkscape is an <em>SVG</em>-based
+drawing program and that <em>SVG</em> is an <em>XML</em>-based file format.)</p>
+<p>The ability to directly edit an <em>SVG</em> <em>XML</em> file is very powerful. It allows
+the user more control over objects in their drawing such as specifying the
+exact size or position of an object and by giving access to <em>SVG</em> parameters
+that are not directly or easily available through the Inkscape interface.</p>
+</div></blockquote>
+<section id="basic-usage">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">XML Editor</span> ダイアログを開くには次のいずれかを行う：</p>
+<ul class="simple">
+<li><p><span class="menuselection">Edit ‣ XML Editor…</span> を選択する</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd></p></li>
+</ul>
+<p>ダイアログ内にはツリーコントロールを含む UI が示される。特に、オブジェクトを表現する <em>SVG</em> ノードを選択すると、右側にその属性一覧が出力される：</p>
+<blockquote>
+<div><p>Upon adding an ellipse to the drawing, an entry (node) is added for the new
+ellipse under the formerly empty <em>Layer</em> (see next figure). The line is
+highlighted and the ellipse’s parameters are shown on the right. Note that
+the name of the object is given in the highlighted line (in this case,
+<code class="docutils literal notranslate"><span class="pre">path1599</span></code>).</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Inkscape 1.2 ではダイアログ右下のレイアウトボタンでビュー分割方式を垂直か水平に選択可能。本書の記述は水平方式に対応している。</p>
+<p>属性の表示自体もダイアログ左下の <span class="guilabel">Show attributes</span> スイッチで切替可能。</p>
+</div>
+<p>楕円オブジェクトを編集するのに GUI に戻って <em>Ellipse Tool</em> を起動しなくても、この属性一覧 UI から編集することが可能だ：</p>
+<blockquote>
+<div><p>Now, suppose you would like the ellipse to have a width of 400 pixels (i.e.,
+a radius of 200 pixels in the <em>x</em> direction). You can specify this by
+clicking on the <code class="docutils literal notranslate"><span class="pre">sodipodi:rx</span></code> attribute. The attribute is shown below with
+the current value in the attribute entry box.</p>
+</div></blockquote>
+<p>編集確定操作は本書の記述とは異なり、即時反映される。以降同様。</p>
+<p>ここにない属性を追加することも可能だ：</p>
+<blockquote>
+<div><p>To add a new attribute, type the name of the new attribute in the upper entry
+box, enter the value in the lower entry box, and then either click the
+<span class="guilabel">Set</span> button or use <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd>.</p>
+</div></blockquote>
+<p>ここでも明示的な確定処理は現存しない。</p>
+<p>属性を追加するのなら意味があるものにしたいが、Inkscape はそういう入力支援を対応していないようだ。<em>SVG</em> 仕様を自分で確認するしかないか：</p>
+<blockquote>
+<div><p>Sometimes it is useful to know what the allowed attributes are for a given
+type of object. The <em>SVG</em> standard is described in detail at the <a class="reference external" href="http://www.w3.org/TR/SVG/">Official
+W3C SVG</a> website.</p>
+</div></blockquote>
+<p>しかも、Inkscape は SVG 仕様のすべてに対応しているわけではないので、なおさら欲しい：</p>
+<blockquote>
+<div><p>Note that not all the <em>SVG</em> standard is currently supported in Inkscape. It
+is possible, however, to add nonsupported attributes via the <span class="guilabel">XML
+Editor</span>. These attributes may not be displayed by Inkscape but will appear in
+any program that supports those attributes.</p>
+</div></blockquote>
+<p>Inkscape が生成する <em>SVG</em> データ <em>SVG</em> 標準部分と Inkscape 独自部分に分類される。特に、よく見かける <code class="docutils literal notranslate"><span class="pre">sodipodi</span></code> 要素についてその意味が述べられている：</p>
+<blockquote>
+<div><p>In the above example, the attributes with the <code class="docutils literal notranslate"><span class="pre">sodipodi</span></code> tag are internal
+to Inkscape (the <code class="docutils literal notranslate"><span class="pre">sodipodi</span></code> tag is the result of Inkscape being branched
+from the Sodipodi program). These attributes are used to calculate the “real”
+<em>SVG</em> path definition given by the <code class="docutils literal notranslate"><span class="pre">d</span></code> attribute.</p>
+</div></blockquote>
+<p>Inkscape の <em>Export</em> コマンドは独自データを含まない可能性があると述べている：</p>
+<blockquote>
+<div><p>The Inkscape internal elements should be ignored by other SVG rendering
+programs. This may not always be true, thus Inkscape includes the possibility
+to export a drawing without the Inkscape internal elements.</p>
+</div></blockquote>
+<p>利用者としてはむしろその挙動を期待している。</p>
+</section>
+<section id="editing-xml-nodes">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Editing XML Nodes</a><a class="headerlink" href="#editing-xml-nodes" title="Permalink to this heading">¶</a></h2>
+<p><span class="guilabel">XML Editor</span> ダイアログのツールバーアイコンの説明。必要に応じて本書の記述を Inkscape 1.2 に合わせるように修正して記す。</p>
+<dl class="simple">
+<dt><span class="guilabel">New element node</span></dt><dd><p>属性が何もない空のノードを追加する。したがって役に立たない。</p>
+</dd>
+<dt><span class="guilabel">New text node</span></dt><dd><p>空文字列を追加する（内容を編集するのは右ビューで）。テキストオブジェクトの文字列を編集する場合にも使える。</p>
+</dd>
+<dt><span class="guilabel">Duplicate node</span></dt><dd><p>選択ノードを深く複製する。複製ノードは元ノードの次ノードになる。ID が新規に割り振られる。これを利用者が決めてもかまわない。</p>
+</dd>
+<dt><span class="guilabel">Delete node</span></dt><dd><p>選択ノードをその子孫ノード全てを込みで削除する。</p>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="simple">
+<dt><span class="guilabel">Unindent node</span></dt><dd><p>ノードを一階層上に移動する。グループ内のオブジェクトの場合、オブジェクトをグループから削除することに相当する。</p>
+</dd>
+<dt><span class="guilabel">Indent node</span></dt><dd><p>ノードを一階層下に移動する。同階層で上にある最も近いノードの下に移動する。</p>
+</dd>
+<dt><span class="guilabel">Raise node</span></dt><dd><p>同じ親を持つ前のノードのその前にノードを移動する。描画オブジェクトで言えば
+z-order を上げることに相当する。</p>
+</dd>
+<dt><span class="guilabel">Lower node</span></dt><dd><p>同じ親を持つ次のノードのその次にノードを移動する。描画オブジェクトで言えば
+z-order を下げることに相当する。</p>
+</dd>
+</dl>
+<p>属性一つを削除するにはポリバケツをクリック。</p>
 </section>
 <section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>マーカーに色を与える例があるが、普通はエクステンションで達成する。</p></li>
-<li><p>Inkscape はテキストの下線装飾 <code class="docutils literal notranslate"><span class="pre">text-decoration:</span> <span class="pre">underline</span></code> を実装していない。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>A few examples are given here to show the possibilities of “hand” editing the
+<em>X*ML</em> file.</p>
+</div></blockquote>
+<p>手で編集することの可能性のほうが高いはずなのだが。</p>
+<section id="adding-color-to-a-marker-arrow">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Adding Color to a Marker Arrow</a><a class="headerlink" href="#adding-color-to-a-marker-arrow" title="Permalink to this heading">¶</a></h3>
+<p>現行の Inkscape ではマーカーの色は線のそれと一致するように描画されるが：</p>
+<blockquote>
+<div><p>This section is kept for pedagogical reasons.</p>
+</div></blockquote>
+<p>逆にマーカーの色をパスの色と変えることを試せる。XML Editor で対応ノードを探索することから始める：</p>
+<blockquote>
+<div><p>To add color to a marker, open up the <span class="guilabel">XML Editor</span>. Select the path
+with the marker in the canvas window. In the <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute for the
+line, locate the marker entry (<code class="docutils literal notranslate"><span class="pre">marker-end:url(#Arrow2Lend)</span></code>, for example).</p>
+</div></blockquote>
+<p>マーカーの ID が判明したので、それをツリーの特定のノードの子から探索する：</p>
+<blockquote>
+<div><p>Then expand the <code class="docutils literal notranslate"><span class="pre">&lt;svg:defs&gt;</span></code> line by clicking on the triangle at the
+beginning of the line (if not already expanded). You should see an entry for
+the marker. Select that entry.</p>
+</div></blockquote>
+<p>パスの属性一覧と似たような画面が右側に出るので、<code class="docutils literal notranslate"><span class="pre">style</span></code> 定義文字列を次のように編集する：</p>
+<blockquote>
+<div><p>The attributes for the marker should be displayed on the right. Select the
+<code class="docutils literal notranslate"><span class="pre">style</span></code> attribute. Add <code class="docutils literal notranslate"><span class="pre">fill:#rrggbb</span></code> to the attributes in the entry box
+at the bottom right, where <code class="docutils literal notranslate"><span class="pre">#rrggbb</span></code> is the RGB color in hexadecimal form
+(obtainable from the attributes for the path).</p>
+</div></blockquote>
+<p>これで色が変わるが、初期値の色に戻すために定義を消してもいい：</p>
+<blockquote>
+<div><p>The marker should change color. If it doesn’t, then expand the
+<code class="docutils literal notranslate"><span class="pre">&lt;svg:marker&gt;</span></code> line. Select the path entry and remove any Fill and/or
+Stroke paint. For this change to show up, you must save and reopen the <em>SVG</em>
+file.</p>
+</div></blockquote>
+</section>
+<section id="underlined-text">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Underlined Text</a><a class="headerlink" href="#underlined-text" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Underlined text cannot be added through the normal Inkscape interface, nor
+will Inkscape display underlines. But you can add underlined text that will
+be displayed properly by another <em>SVG</em> program.</p>
+</div></blockquote>
+<p>確かに Inkscape はテキストに下線を装飾するための GUI を備えていない。</p>
+<blockquote>
+<div><p>To underline text, open the <span class="guilabel">XML Editor</span>. Select the text you wish
+underlined. Go to the <code class="docutils literal notranslate"><span class="pre">&lt;svg:tspan&gt;</span></code> object found inside an <code class="docutils literal notranslate"><span class="pre">&lt;svg:text&gt;</span></code>
+tag. If you are selecting part of the text, you may need to add some
+attribute temporarily (color for example) to create a corresponding <code class="docutils literal notranslate"><span class="pre">tspan</span></code>
+object; the color can be removed later. Add to the style: <code class="docutils literal notranslate"><span class="pre">text-decoration:</span>
+<span class="pre">underline</span></code>.</p>
+</div></blockquote>
+<p>うれしいことに、Inkscape の図面描画においても下線が描かれる。同様のスタイル追加で下線の色を指定する (e.g. <code class="docutils literal notranslate"><span class="pre">text-decoration-color:#rrggbb</span></code>) なども可能だろう。</p>
+</section>
 </section>
 </section>
 

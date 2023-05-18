@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 15. Clipping and Masking &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -46,38 +46,130 @@
           <div class="body" role="main">
             
   <section id="chapter-15-clipping-and-masking">
-<h1>Chapter 15. Clipping and Masking<a class="headerlink" href="#chapter-15-clipping-and-masking" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 15. Clipping and Masking</a><a class="headerlink" href="#chapter-15-clipping-and-masking" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>クリッピングとマスキングは「オブジェクトのどの部分を見せる」のかという方法だ。</p></li>
-<li><p>クリッピングはパスが形状を定義する。</p></li>
-<li><p>マスキングは透明度を定義する。</p></li>
-</ul>
-<section id="clipping">
-<h2>Clipping<a class="headerlink" href="#clipping" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>パス・レギュラーシェイプ・レギュラーテキストがクリッピングパスたり得る。</p></li>
-<li><p>オブジェクトまたはグループをクリップできる。</p></li>
-<li><p>クリッピングパスはクリップされるオブジェクトの「上」にある必要がある。</p></li>
-<li><p>両者を選択してクリップコマンド発動。</p></li>
-</ul>
-</section>
-<section id="masking">
-<h2>Masking<a class="headerlink" href="#masking" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>任意の要素をマスキング要素として使える。</p></li>
-<li><p>マスキング要素の opacity がマスクされる側の opacity を決める。</p></li>
-<li><p>次のルールで透明具合色が決まる</p>
+<li><p><a class="reference internal" href="#chapter-15-clipping-and-masking" id="id1">Chapter 15. Clipping and Masking</a></p>
 <ul>
-<li><p>マスクで黒い部分は完全に透明になる。</p></li>
-<li><p>マスクでアルファ値の弱い部分は完全に透明になる。</p></li>
-<li><p>マスクの外側は完全に透明になる。</p></li>
+<li><p><a class="reference internal" href="#clipping" id="id2">Clipping</a></p></li>
+<li><p><a class="reference internal" href="#masking" id="id3">Masking</a></p></li>
 </ul>
 </li>
-<li><p>マスク要素がマスクされる側の「上」にある。</p></li>
-<li><p>両者選択でマスク発動。</p></li>
-<li><p>マスク解除コマンドもある。</p></li>
 </ul>
-<p>マスクイメージは普通モノクロで十分間に合う。適用後は被マスク要素の色味がむしろ生き残る。</p>
+</nav>
+<p>クリップとマスクはオブジェクトの見える部分を制限するという振る舞いが共通している。では前者と後者の違いは何か：</p>
+<blockquote>
+<div><p>Clipping and masking are methods for restricting what part of an object (or
+<em>Group</em> of objects) is visible. For clipping, a <em>clipping path</em> defines the
+visible part of the object, while for masking, the <em>transparency</em> or
+<em>lightness</em> of one object determines the opacity of a second object. In both
+cases, the target object is not changed and can be unclipped or unmasked if
+needed.</p>
+</div></blockquote>
+<p>どちらの操作もいつでもキャンセル可能であるというのは安心だ。</p>
+<blockquote>
+<div><p>Example of clipping and masking.</p>
+</div></blockquote>
+<p>マスクには馴染みがないのでここで概要をつかみたい。暗い部分がより透明になるという理解で今はいいことにする。</p>
+<p>クリップまたはマスク対象のオブジェクトはいつでも編集可能だ：</p>
+<blockquote>
+<div><p>A clipped or masked object can be edited (transformed, style changed, nodes
+edited, etc.) while clipped or masked. Objects within a clipped or masked
+<em>Group</em> can also be moved relative to the clipping path or masking object if
+the <em>Group</em> is entered.</p>
+</div></blockquote>
+<p>反対に、クリップまたマスクを定義するパスのほうも後から編集可能だ：</p>
+<blockquote>
+<div><p>The clipping or masking path can be edited without unclipping or unmasking.
+With the clipped or masked object selected and the <em>Node Tool</em> active, click
+on either the (clipping) or (masking) icons in the <em>Tool Controls</em>. New in
+v0.48: The clip or mask path and the object can be edited at the same time.
+(This only works if the mask path is an actual path and not a shape.)</p>
+</div></blockquote>
+<p>複数オブジェクトが選択されたとき、クリップまたはマスク操作は個別に機能する。この挙動を設定画面で変更できる：</p>
+<blockquote>
+<div><p>By default, Inkscape will clip or mask each object separately if several
+objects are selected. In the Clippaths and masks section of the Inkscape
+<span class="guilabel">Preferences</span> dialog you can change this to have Inkscape first
+group the objects before applying a single clip or mask.</p>
+</div></blockquote>
+<p>既定値至上主義者でもこれに関しては設定を変更する可能性があるので、ノートにつづっておく。</p>
+<section id="clipping">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Clipping</a><a class="headerlink" href="#clipping" title="Permalink to this heading">¶</a></h2>
+<p>クリップパスとして使えるものは、基本的には普通のオブジェクトが何でも使える：</p>
+<blockquote>
+<div><p>Any path, regular shape, or regular text object can be used as a clipping
+path.</p>
+</div></blockquote>
+<p>クリップの設定と解除の方法をセットで習得する。設定時には関係オブジェクトをいっぺんに選択してコマンドを実行する。このとき、オブジェクト間の z-order が本質的だ：</p>
+<blockquote>
+<div><p>To clip an object (or <em>Group</em>), select both the object and the clipping path.
+The clipping path must be above the object to be clipped in z-order. Then use
+the <span class="menuselection">Object ‣ Clip ‣ Set</span> command.</p>
+</div></blockquote>
+<p>クリップ解除を実行すると、設定直前の状態が復元されると期待していい：</p>
+<blockquote>
+<div><p>To unclip a clipped object, select the object and use the
+<span class="menuselection">Object ‣ Clip ‣ Release</span> command. The clipping path is
+then restored as a regular object, placed just above the formerly clipped
+object in z-order.</p>
+</div></blockquote>
+<p>前述のとおり、複数オブジェクト（グループ）を対象にクリップすることも可能だ。SVG
+ファイルでの構成が述べられている：</p>
+<blockquote>
+<div><p>More than one object (or <em>Group</em>) can be clipped at the same time. Just
+follow the above instructions but include all the objects to be clipped in
+the selection (with the clipping path on top). Inkscape will store one copy
+of the clipping path in the <code class="docutils literal notranslate"><span class="pre">&lt;defs&gt;</span></code> section of the SVG file for each
+clipped object; thus, the clipped objects can be edited separately.</p>
+</div></blockquote>
+<p>クリップ済みオブジェクトの BB は、元オブジェクトの BB とクリッピングパスの BB の
+$cap$ となる。</p>
+<blockquote>
+<div><p>The bounding box of the clipped object is defined by the intersection of the
+bounding box of the unclipped object with the bounding box of the clipping
+path. (However, if an object inside a clipped <em>Group</em> is selected, the
+unclipped bounding box of that object will be displayed.)</p>
+</div></blockquote>
+<p>クリップ済みグループの内部のオブジェクトを選択して、クリップ前の BB が表示されても混乱しないこと。</p>
+</section>
+<section id="masking">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Masking</a><a class="headerlink" href="#masking" title="Permalink to this heading">¶</a></h2>
+<p>マスクの概要から。まず、マスクパスとなるオブジェクトは何でもいい。マスクパスで重要なのは遮光度と明度も影響するという点にある：</p>
+<blockquote>
+<div><p>Any object can be used to mask another object. The opacity and lightness of
+the mask determines the opacity of the masked objects.</p>
+</div></blockquote>
+<p>マスク済みオブジェクトで色が完全に発色する部分を理解する：</p>
+<blockquote>
+<div><p>A masked object will be fully opaque only at places that are: inside the mask
+path, where the mask has maximum lightness (i.e., white), and the mask has
+maximum <em>Alpha</em>.</p>
+</div></blockquote>
+<p>反対に、完全に見えなくなる部分を理解する：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Regions with minimum lightness (i.e., black) will be fully transparent.</p></li>
+<li><p>Regions with minimum Alpha (zero alpha) will be fully transparent.</p></li>
+<li><p>Regions outside the mask will be fully transparent.</p></li>
+</ul>
+</div></blockquote>
+<p>操作としては、マスク設定もマスク解除もクリップにおける対応物それぞれと同じだ：</p>
+<blockquote>
+<div><p>To mask an object (or <em>Group</em>), select both the object to be masked and the
+object to be used as a mask. The mask must be above the object to be masked
+in z-order. Then use the <span class="menuselection">Object ‣ Mask ‣ Set</span> command. To
+unmask a masked object, select the object and use the <span class="menuselection">Object
+‣ Mask ‣ Release</span> command. The mask is then restored as a regular object
+and is placed just above the formerly masked object in z-order.</p>
+</div></blockquote>
+<p>複数オブジェクトに対するマスクがあるときの SVG ファイルでの表現もクリップの事情と同様だ。</p>
+<blockquote>
+<div><p>The bounding box of the masked object is the same as that of the unmasked
+object.</p>
+</div></blockquote>
+<p>とあるが、手許の Inkscape 1.2 ではそんなことはないように見える。</p>
 </section>
 </section>
 

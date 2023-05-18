@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 12. Spray Tool &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -46,14 +46,81 @@
           <div class="body" role="main">
             
   <section id="chapter-12-spray-tool">
-<h1>Chapter 12. Spray Tool<a class="headerlink" href="#chapter-12-spray-tool" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 12. Spray Tool</a><a class="headerlink" href="#chapter-12-spray-tool" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>モードが 3 つある。copy, clone, single path.</p></li>
+<li><p><a class="reference internal" href="#chapter-12-spray-tool" id="id1">Chapter 12. Spray Tool</a></p></li>
+</ul>
+</nav>
+<p>「オブジェクトの複写を吹き付けるエアブラシ」という表現は優れていると思う：</p>
+<blockquote>
+<div><p>The <em>Spray Tool</em> is used to distribute copies of an object (or objects) much
+like an airbrush would paint drops.</p>
+</div></blockquote>
+<p>マリオペイントのスタンプツールと言われたほうがわかりやすい。</p>
+<p>モードは四つある。最初の三つは本書に記述があるが、最後のものは自分で調べる。</p>
+<dl>
+<dt><span class="guilabel">Spray copies of the initial selection</span></dt><dd><p>互いに独立した個別のオブジェクトとして複製を巻き散らす。一つのオブジェクトの属性を別のオブジェクトから独立して変更できる。</p>
+<p>このモードは、特に <em>Tweak Tool</em> で操作するオブジェクトを作成するときに便利です。</p>
+</dd>
+<dt><span class="guilabel">Spray clones of the initial selection</span></dt><dd><p>ツールチップの文言が上のものと酷似しているが、複製がシンボリックリンク的であるという違いがある。元オブジェクトの属性を変更すると、複製すべての属性が変化する。</p>
+<p>このモードは先のモードよりもレンダラーへの負荷が中程度に低い。</p>
+</dd>
+<dt><span class="guilabel">Spray objects in a single path</span></dt><dd><p>このモードだけは本書のイラストで挙動を理解するしかない：</p>
+<blockquote>
+<div><p>The copies are merged into one path with overlaps removed.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>元オブジェクトの型によっては、それを最初にパスに変換する必要がある。</p></li>
+<li><p>オブジェクトの重なりは削除される。</p></li>
+<li><p>このモードは CPU をより酷使する。</p></li>
+</ul>
+</dd>
+<dt><span class="guilabel">Delete sprayed items from selection</span></dt><dd><p>おそらくスプレー元オブジェクトを指定してからドラッグすることで、スプレーオブジェクトをドラッグで消去する。</p>
+</dd>
+</dl>
+<ul class="simple">
 <li><p>copy mode は <span class="guilabel">Tweak</span> tool と組み合わせて使うと便利。</p></li>
 <li><p>clone mode は文字通り。copy mode よりも描画がかなり少ない。</p></li>
 <li><p>single path mode はオブジェクトが一体化する。CPU に負荷がかかる。</p></li>
 <li><p>選択後 a or <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F3</kbd> で起動。</p></li>
 </ul>
+<p><em>Spray Tool</em> の起動方法は次のどれか：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Toolbox</span> から <span class="guilabel">Spray copy or clone objects</span> アイコンをクリックする。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F3</kbd> を押すか <kbd class="kbd docutils literal notranslate">A</kbd> を押す。</p></li>
+</ul>
+<p>他のツール同様、起動中は <kbd class="kbd docutils literal notranslate">Space</kbd> 押しで <em>Select Tool</em> と往復できる。</p>
+<p><em>Spray Tool</em> のパラメーター、オプションは次のツールバー内の UI で制御する：</p>
+<dl>
+<dt><span class="guilabel">Width</span></dt><dd><p>スプレーの範囲。この円内にオブジェクトが散布される。</p>
+<p>数値周りの仕様は <em>Tweak Tool</em> の <span class="guilabel">Width</span> と同様。</p>
+</dd>
+<dt><span class="guilabel">Amount</span></dt><dd><p>オブジェクトをどれくらい多くスプレーするか。</p>
+<p>数値周りの仕様は <em>Tweak Tool</em> の <span class="guilabel">Force</span> と同様。</p>
+</dd>
+<dt><span class="guilabel">Rotation</span></dt><dd><p>当ツールは各コピーにランダムな回転を加えるのだが、その最大回転量を指定する。</p>
+<ul class="simple">
+<li><p>値は 0 から 100 までが有効。0 は回転しない。</p></li>
+<li><p>値 100 が ±180°に相当する。</p></li>
+</ul>
+</dd>
+<dt><span class="guilabel">Scale</span></dt><dd><p>当ツールは各コピーをランダムに拡縮するのだが、その最大倍率を指定する。</p>
+<ul class="simple">
+<li><p>値は 0 から 100 までが有効。1 は拡縮しない。</p></li>
+<li><p>値 100 が最大二倍に相当する。</p></li>
+</ul>
+</dd>
+<dt><span class="guilabel">Scatter</span></dt><dd><p>オブジェクトをどのように散布するかを指定する。</p>
+<p>値は 1 から 100 までが有効。1 はポインターの下にあるオブジェクトすべてがスプレーされることを表し、100 はスプレー領域に均等に分布することを表す。</p>
+</dd>
+<dt><span class="guilabel">Focus</span></dt><dd><p>散布されるオブジェクトの広がりを指定する。</p>
+<p>値は 0 から 100 までが有効。0 はポインターの下にあるアイテムすべてが散布され、100 は散布領域の境界にあるオブジェクトが散布される。</p>
+</dd>
+</dl>
+<p>一部 UI 項目は感圧式入力装置に対応しているが、私は使わないのでノートを省略。</p>
+<p><span class="guilabel">Scatter</span> と <span class="guilabel">Focus</span> の違いが文面からだとわかりにくいが、前者はスプレー噴射口、後者はスプレーを持つ手の振り方を制御するものだと思う。</p>
 </section>
 
 

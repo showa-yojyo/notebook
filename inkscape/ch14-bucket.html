@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 14. Paint Bucket Tool &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -46,41 +46,149 @@
           <div class="body" role="main">
             
   <section id="chapter-14-paint-bucket-tool">
-<h1>Chapter 14. Paint Bucket Tool<a class="headerlink" href="#chapter-14-paint-bucket-tool" title="Permalink to this heading">¶</a></h1>
-<p>閉領域を塗りつぶす機能。</p>
-<section id="simple-use">
-<h2>Simple Use<a class="headerlink" href="#simple-use" title="Permalink to this heading">¶</a></h2>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 14. Paint Bucket Tool</a><a class="headerlink" href="#chapter-14-paint-bucket-tool" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F7</kbd></p></li>
-<li><p><span class="guilabel">Fill</span> カラーが参照される。</p></li>
-<li><p>実は閉領域の定義は各種閾値から決まる。</p></li>
-<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> キーを押しながらクリック→バケツが違うところに適用。</p></li>
+<li><p><a class="reference internal" href="#chapter-14-paint-bucket-tool" id="id1">Chapter 14. Paint Bucket Tool</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simple-use" id="id2">Simple Use</a></p></li>
+<li><p><a class="reference internal" href="#filling-fidelity" id="id3">Filling Fidelity</a></p></li>
+<li><p><a class="reference internal" href="#filling-multiple-regions" id="id4">Filling Multiple Regions</a></p></li>
+<li><p><a class="reference internal" href="#closing-gaps" id="id5">Closing Gaps</a></p></li>
+<li><p><a class="reference internal" href="#adding-to-a-fill" id="id6">Adding to a Fill</a></p></li>
 </ul>
+</li>
+</ul>
+</nav>
+<p>Photoshop などのバケツツールと同じだが、SVG ならではの挙動があることに注意する。</p>
+<blockquote>
+<div><p>Inspired by the need for cartoonists to color their drawings, the <em>Paint
+Bucket Tool</em> flood fills a region with a color. True to an SVG drawing
+program, the new object is defined by vectors and thus is fully scalable. The
+region to be filled, however, is defined by the pixels on the screen at the
+time of the fill.</p>
+</div></blockquote>
+<section id="simple-use">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Simple Use</a><a class="headerlink" href="#simple-use" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>The simplest use is to fill an area defined by two different objects.</p>
+</div></blockquote>
+<p>起動方法は次のいずれか：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Toolbox</span> にある <span class="guilabel">Fill bounded areas</span> をクリックする。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F7</kbd> または <kbd class="kbd docutils literal notranslate">U</kbd> を押す。</p></li>
+</ul>
+<p>それから、</p>
+<blockquote>
+<div><p>click in the overlapping region. A new object is created with the current
+Fill color.</p>
+</div></blockquote>
+<p>塗りつぶしの計算法をいちおう確認しておく：</p>
+<blockquote>
+<div><p>The filling algorithm recursively adds neighboring areas to the region until
+pixels are found that don’t meet the criteria determined by the parameters in
+the <em>Tool Controls</em>.</p>
+</div></blockquote>
+<p>対象領域の色合いがグラデーションのように一様でない場合に、クリック位置の色にどれだけ近ければ出力領域に含まれるかを指定する入力欄がツールバーにある：</p>
+<blockquote>
+<div><p>The <span class="guilabel">Threshold</span> parameter controls how close a color must match the
+color (or <em>Alpha</em>) under the cursor. Lower thresholds will match a smaller
+range.</p>
+</div></blockquote>
+<p>Photoshop と考え方は一緒のようで、色のどの成分を閾値と比較するのかを指定することができる：</p>
+<blockquote>
+<div><p>The <span class="guilabel">Fill by</span> parameter controls what color value is used to
+determine the the color matching. Choices are: <span class="guilabel">Visible Colors</span>
+(default), <span class="guilabel">Red</span>, <span class="guilabel">Blue</span>, <span class="guilabel">Green</span>,
+<span class="guilabel">Hue</span>, <span class="guilabel">Saturation</span>, <span class="guilabel">Lightness</span>, and
+<span class="guilabel">Alpha</span>.</p>
+</div></blockquote>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> 押しクリックで、そこにあるオブジェクトを単に現在のスタイルにするという操作もある：</p>
+<blockquote>
+<div><p>Holding the <kbd class="kbd docutils literal notranslate">Ctrl</kbd> down while clicking on an object with the <em>Paint
+Bucket Tool</em> will set the <em>Fill</em> and <em>Stroke</em> to the current style without
+preforming any filling.</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><kbd class="kbd docutils literal notranslate">Shift</kbd> 押しクリックも実装されている。塗りつぶして生成されるオブジェクトが順次前回のそれに $cup$ される。</p>
+</div>
 </section>
 <section id="filling-fidelity">
-<h2>Filling Fidelity<a class="headerlink" href="#filling-fidelity" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>ビューのズーム具合によって、バケツの塗り部分の忠実度が異なる。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Filling Fidelity</a><a class="headerlink" href="#filling-fidelity" title="Permalink to this heading">¶</a></h2>
+<p>塗りつぶしの原理を確認しよう：</p>
+<blockquote>
+<div><p>The filling process works first by determining which pixels should be filled
+and then tracing those pixels to produce a vectorized path. The tracing
+process has limited precision which can result in inaccuracies in the filled
+region.</p>
+</div></blockquote>
+<p>したがって、塗りつぶし領域を精巧に表示するためにズームインするのが有効な手段となる：</p>
+<blockquote>
+<div><p>The first way is to zoom in on the region you are filling. Zooming in
+increases the number of screen pixels in the filled region which results in a
+more accurate tracing.</p>
+</div></blockquote>
+<p>もう一つの方法は、塗りつぶし領域専用のレイヤーを定義し、元の線を前面からかぶせるようにするものだ：</p>
+<blockquote>
+<div><p>The second way to improve the filling accuracy is to expand the fill region
+slightly in a process akin to “trapping” that printers use to account for
+small misalignments in their printing plates. This works especially well for
+cartoons where the fills can be put on a separate <em>Layer</em> beneath a <em>Layer</em>
+containing the black lines.</p>
+</div></blockquote>
+<p>このとき、塗りつぶし領域を膨張、収縮させることが考えられる。それを制御するのがツールバーの <span class="guilabel">Grow/shrink by</span> 欄だ：</p>
+<blockquote>
+<div><p>The amount of expansion is controlled by the <span class="guilabel">Grow/shrink by</span>
+parameter. As the name suggests, one can both expand and reduce the fill
+area.</p>
+</div></blockquote>
 </section>
 <section id="filling-multiple-regions">
-<h2>Filling Multiple Regions<a class="headerlink" href="#filling-multiple-regions" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><kbd class="kbd docutils literal notranslate">Alt</kbd> キーを押しながらドラッグ→ヒモ選択された領域群がバケツ塗り。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Filling Multiple Regions</a><a class="headerlink" href="#filling-multiple-regions" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Click-dragging the <em>Paint Bucket Tool</em> while holding the <kbd class="kbd docutils literal notranslate">Alt</kbd> key down
+across several noncontiguous regions will cause all the regions to be filled.
+(Not holding the <kbd class="kbd docutils literal notranslate">Alt</kbd> down will cause the borders to also be filled.)</p>
+</div></blockquote>
+<p><kbd class="kbd docutils literal notranslate">Alt</kbd> キーを押しながらドラッグすると、ヒモ選択された領域群が塗りつぶされる。これらの領域は群全体として連結である必要はない。</p>
+<p><kbd class="kbd docutils literal notranslate">Shift</kbd> + クリックでのバケツ塗りで代用可能と考えられる。</p>
 </section>
 <section id="closing-gaps">
-<h2>Closing Gaps<a class="headerlink" href="#closing-gaps" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>破線で囲まれたような形状もバケツ塗りできるオプションがある。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Closing Gaps</a><a class="headerlink" href="#closing-gaps" title="Permalink to this heading">¶</a></h2>
+<p>破線で囲まれたような形状もバケツ塗りできるオプションがある。バケツツールあるあるに、塗りつぶそうとした領域の境界が微妙に閉じていなくて、色が漏れる失敗がある。これを防止できる。</p>
+<blockquote>
+<div><p>Small gaps in borders can be “filled” by setting the <span class="guilabel">Close gaps</span>
+to a value other than <span class="guilabel">None</span>. This prevents fills from leaking into
+undesired areas just because there is a small break in a line (as might
+happen in tracing a cartoon).</p>
+</div></blockquote>
+<p>このオプションは画面画素を使うので、ズームレベルによって結果が異なることなどに注意する。</p>
 </section>
 <section id="adding-to-a-fill">
-<h2>Adding to a Fill<a class="headerlink" href="#adding-to-a-fill" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>アルゴリズムの都合上「塗り漏れ」がスクリーン外に生じることがある。</p></li>
-<li><p>その場合は <kbd class="kbd docutils literal notranslate">Shift</kbd> + クリックで、バケツ塗り領域を「追加」できる。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Adding to a Fill</a><a class="headerlink" href="#adding-to-a-fill" title="Permalink to this heading">¶</a></h2>
+<p>アルゴリズムの都合上「塗り漏れ」がスクリーン外に生じることがある。</p>
+<blockquote>
+<div><p>Since the <em>Paint Bucket Tool</em> uses pixels to calculate the area to be
+enclosed, Inkscape will clip the region off-screen to prevent the number of
+pixels that go into the filling algorithm from becoming too large.</p>
+</div></blockquote>
+<p>その場合は手作業でバケツ塗り領域を追加する。そうすると継ぎ目が生じる可能性があるので、対応策が二つ紹介されている：</p>
+<blockquote>
+<div><p>If this happens you can either zoom out to do the fill or you can do the fill
+in pieces. By holding the <kbd class="kbd docutils literal notranslate">Shift</kbd> down while clicking you can add to an
+existing fill. Unfortunately, this can lead to rendering artifacts between
+adjacent pieces even though they are part of the same path. Two solutions:</p>
+<ol class="arabic simple">
+<li><p>Set the <span class="guilabel">Grow/shrink by</span> parameter to 0.10. This will ensure a
+slight overlap during the filling process. The overlap is removed in the
+unioning step.</p></li>
+<li><p>Use the Node Tool to adjust the nodes to overlap areas and then use the
+<span class="guilabel">Path –&gt; Union</span> (<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">+</kbd>) command to remove the
+overlap.</p></li>
+</ol>
+</div></blockquote>
 </section>
 </section>
 

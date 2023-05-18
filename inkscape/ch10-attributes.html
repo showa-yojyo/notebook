@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 10. Attributes &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -46,72 +46,994 @@
           <div class="body" role="main">
             
   <section id="chapter-10-attributes">
-<h1>Chapter 10. Attributes<a class="headerlink" href="#chapter-10-attributes" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 10. Attributes</a><a class="headerlink" href="#chapter-10-attributes" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><span class="guilabel">Fill</span> は内側、<span class="guilabel">Stroke</span> はパス自身。</p></li>
-<li><p>テキストに対しては色は各文字に設定できるが、グラデーションやパターンは全体設定。</p></li>
-<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">W</kbd> でスウォッチダイアログ。縦長だと使いづらい。</p></li>
+<li><p><a class="reference internal" href="#chapter-10-attributes" id="id1">Chapter 10. Attributes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fill-and-stroke-paint" id="id2">Fill and Stroke Paint</a></p>
+<ul>
+<li><p><a class="reference internal" href="#flat-solid-colors" id="id3">Flat (Solid) Colors</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fill-and-stroke-dialogcolor" id="id4">Fill and Stroke Dialog—Color</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rgb" id="id5">RGB</a></p></li>
+<li><p><a class="reference internal" href="#hsl" id="id6">HSL</a></p></li>
+<li><p><a class="reference internal" href="#cmyk" id="id7">CMYK</a></p></li>
+<li><p><a class="reference internal" href="#wheel" id="id8">Wheel</a></p></li>
+<li><p><a class="reference internal" href="#cms" id="id9">CMS</a></p></li>
 </ul>
+</li>
+<li><p><a class="reference internal" href="#palette-and-swatches-dialog" id="id10">Palette and Swatches Dialog</a></p></li>
+<li><p><a class="reference internal" href="#style-indicator" id="id11">Style Indicator</a></p>
+<ul>
+<li><p><a class="reference internal" href="#display" id="id12">Display</a></p></li>
+<li><p><a class="reference internal" href="#fill-indicator-pop-up-menu" id="id13">Fill Indicator Pop-up Menu</a></p></li>
+<li><p><a class="reference internal" href="#color-gestures" id="id14">Color Gestures</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#dropper-tool" id="id15">Dropper Tool</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#gradients" id="id16">Gradients</a></p>
+<ul>
+<li><p><a class="reference internal" href="#attaching-gradients-to-objects" id="id17">Attaching Gradients to Objects</a></p></li>
+<li><p><a class="reference internal" href="#editing-stops" id="id18">Editing Stops</a></p>
+<ul>
+<li><p><a class="reference internal" href="#onscreen-editing" id="id19">Onscreen Editing</a></p></li>
+<li><p><a class="reference internal" href="#using-the-gradient-editor-dialog" id="id20">Using the Gradient Editor Dialog</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#adjusting-gradients" id="id21">Adjusting Gradients</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#meshes" id="id22">Meshes</a></p></li>
+<li><p><a class="reference internal" href="#patterns" id="id23">Patterns</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-patterns" id="id24">Creating Patterns</a></p></li>
+<li><p><a class="reference internal" href="#using-patterns" id="id25">Using Patterns</a></p></li>
+<li><p><a class="reference internal" href="#adjusting-patterns" id="id26">Adjusting Patterns</a></p></li>
+<li><p><a class="reference internal" href="#hatchings" id="id27">Hatchings</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#custom-swatches" id="id28">Custom Swatches</a></p></li>
+<li><p><a class="reference internal" href="#fill-rule" id="id29">Fill Rule</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#stroke-style" id="id30">Stroke Style</a></p>
+<ul>
+<li><p><a class="reference internal" href="#stroke-width" id="id31">Stroke Width</a></p></li>
+<li><p><a class="reference internal" href="#join-style" id="id32">Join Style</a></p></li>
+<li><p><a class="reference internal" href="#cap-style" id="id33">Cap Style</a></p></li>
+<li><p><a class="reference internal" href="#dashes" id="id34">Dashes</a></p></li>
+<li><p><a class="reference internal" href="#markers" id="id35">Markers</a></p></li>
+<li><p><a class="reference internal" href="#complex-strokes" id="id36">Complex Strokes</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>章見出しは Attributes と大きく構えているが、実際は塗りつぶしと筆跡だ。</p>
+<blockquote>
+<div><p>An object has attributes such as color and line style. An attribute can apply
+to the <em>Fill</em> or to the <em>Stroke</em> of the object. The <em>Fill</em> refers to how the
+area inside an object’s boundary path is painted while the <em>Stroke</em> refers to
+the path itself. The <em>Fill</em> or <em>Stroke</em> (<em>Stroke</em> paint) can be a single
+color, a <em>Gradient</em> of colors, a <em>Pattern</em>, or nothing at all. With the
+exception of a few small differences, <em>Fill</em> and <em>Stroke</em> paint have the same
+properties and are treated together in the following discussion.</p>
+</div></blockquote>
+<p>テキストに関しては事情が若干異なる。色は各文字に設定できる。</p>
+<blockquote>
+<div><p>Text can be given the same attributes as other objects with a few small
+differences: Individual letters, words, or phrases can be given different
+solid colors, but <em>Gradients</em> and <em>Patterns</em> must be assigned to an entire
+text object.</p>
+</div></blockquote>
+<p>Inkscape はオブジェクトに属性を与える手段をいくつも用意している。</p>
+<dl>
+<dt><span class="guilabel">Fill and Stroke</span> ダイアログ</dt><dd><p><span class="menuselection">Object ‣ Fill and Stroke</span> または <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd>
++ <kbd class="kbd docutils literal notranslate">F</kbd> で出現。</p>
+<blockquote>
+<div><p>Three tabs in the dialog allow the setting of the <em>Fill</em>, <em>Stroke paint</em>,
+and <em>Stroke style</em>. At the very bottom of the dialog is a slider and entry
+box for the <em>Opacity</em> to set the overall opacity (or transparency) of an
+object.</p>
+</div></blockquote>
+</dd>
+<dt><span class="guilabel">Palette</span></dt><dd><p><span class="menuselection">View ‣ Show/Hide ‣ Palette</span> または <kbd class="kbd docutils literal notranslate">Shift</kbd> +
+<kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd> で UI 表示を切り替える。</p>
+<ul class="simple">
+<li><p>クリックで <em>Fill</em> を変更。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + クリックで <em>Stroke paint</em> を変更。</p></li>
+</ul>
+</dd>
+<dt><span class="guilabel">Swatches</span> ダイアログ</dt><dd><p><span class="menuselection">View ‣ Swatches…</span> または <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> +
+<kbd class="kbd docutils literal notranslate">W</kbd> で出現。</p>
+<p><span class="guilabel">Palette</span> と同様にしてオブジェクトの色を指定する。</p>
+</dd>
+<dt><em>Style Indicator</em> メニュー</dt><dd><p>ステータスバー左の <span class="guilabel">Fill</span>, <span class="guilabel">Stroke</span> ラベルの右側を右クリックするとメニューが何か表示される。</p>
+</dd>
+<dt><em>Color Gestures</em> と <em>Stroke Width Gestures</em></dt><dd><p><em>Style Indicator</em> から左ボタンドラッグで色味が動的に変わるようだ。</p>
+</dd>
+<dt><em>Dropper Tool</em></dt><dd><p>他のオブジェクトから <em>Fill</em> と <em>Stroke paint</em> をピックする。この手のソフトによくあるスポイトツールだ。</p>
+</dd>
+<dt><em>Gradient Tool</em></dt><dd><p>グラデーションを作成したり編集したりする。</p>
+</dd>
+<dt><span class="menuselection">Edit ‣ Paste Style</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">V</kbd>)</dt><dd><p>別のオブジェクトの属性を適用する。元オブジェクトは <span class="menuselection">Edit ‣
+Copy</span> (<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd>) でクリップボードに複製してから、対象オブジェクトを選択してこのコマンドを使う。</p>
+</dd>
+<dt>XML Editor</dt><dd><p>属性を編集するというよりは、SVG 標準に定義されているが、Inkscape UI で直接アクセスできない属性に便利だ。</p>
+</dd>
+</dl>
 <section id="fill-and-stroke-paint">
-<h2>Fill and Stroke Paint<a class="headerlink" href="#fill-and-stroke-paint" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Fill and Stroke Paint</a><a class="headerlink" href="#fill-and-stroke-paint" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>The use of these options for the <em>Fill</em> and the <em>Stroke paint</em> is basically
+the same, so we’ll use the word fill to talk about both at the same time.</p>
+</div></blockquote>
+<p><span class="guilabel">Fill and Stroke</span> ダイアログの <span class="guilabel">Fill</span> タブおよび
+<span class="guilabel">Stroke paint</span> タブの下にある UI を見ていく。タブの真下にあるアイコン列を左から列挙すると：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ボタン</p></th>
+<th class="head"><p>塗り</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">No paint</span></p></td>
+<td><p>透明</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Flat</span></p></td>
+<td><p>ベタ塗り</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Linear Gradient</span></p></td>
+<td><p>線形グラデーション</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Radial Gradient</span></p></td>
+<td><p>放射状グラデーション</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Mesh Gradient</span></p></td>
+<td><p>OpenGL のようなグラデーション？</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Pattern</span></p></td>
+<td><p>反復するパターンで埋め尽くす</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Custom Swatch</span></p></td>
+<td><p>文書依存の swatch</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Unset paint</span></p></td>
+<td><p>未設定にする</p></td>
+</tr>
+</tbody>
+</table>
+<p>グラデーションは <em>Gradient Tool</em> でも取り扱われる。</p>
+<section id="flat-solid-colors">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Flat (Solid) Colors</a><a class="headerlink" href="#flat-solid-colors" title="Permalink to this heading">¶</a></h3>
+<p>Inkscape は色を <code class="docutils literal notranslate"><span class="pre">#RRGGBB</span></code> または <code class="docutils literal notranslate"><span class="pre">#RRGGBBAA</span></code> の形式で内部的に取り扱う。</p>
+<blockquote>
+<div><p>Inkscape supports base ICC profile functionality through the use of
+<a class="reference external" href="http://www.littlecms.com/">LittleCMS</a>. Setting up color management can be done under the
+<span class="guilabel">Color</span> management section in the <span class="guilabel">Inkscape Preferences</span>
+dialog. You can declare multiple ICC profiles for a document in the
+<span class="guilabel">Color Management</span> tab of the <span class="guilabel">Document Properties</span>
+dialog. If everything is setup properly the “Color Managed View” can be
+toggled on/off via <span class="menuselection">View ‣ Color-managed View</span> or by
+clicking on the icon in the lower right corner of the window.</p>
+</div></blockquote>
+<p>上級者向けの ICC プロファイル機能というものがあるが、深く立ち入らない。</p>
+<section id="fill-and-stroke-dialogcolor">
+<h4><a class="toc-backref" href="#id4" role="doc-backlink">Fill and Stroke Dialog—Color</a><a class="headerlink" href="#fill-and-stroke-dialogcolor" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>When the use of a flat (or solid) color is specified for the <em>Fill</em> and
+<em>Stroke paint</em> of an object, the corresponding tab of the <span class="guilabel">Fill and
+Stroke</span> dialog will show five sub-tabs, each one corresponding to a different
+method of specifying the color plus one for color management.</p>
+</div></blockquote>
+<p>文の後半の意味がまだわからないが先に進む。</p>
+<p>ホイールコントロールではない方の色成分指定 UI の記述だ：</p>
+<blockquote>
+<div><p>Except for the <span class="guilabel">Wheel</span> tab, each color parameter can be set by
+either dragging a slider (small triangles), typing the desired value into the
+entry box, using the up/down arrows in the widget (<em>Right Mouse Click</em> on an
+arrow causes the value to change to the minimum or maximum, <em>Middle Mouse
+Click</em> cause the value to increment or decrement by 10), or the
+<kbd class="kbd docutils literal notranslate">Up/Down</kbd> Arrow keys after the entry box is selected. The slider
+bar shows the current value (triangles) and what the color will look like as
+that slider is dragged.</p>
+</div></blockquote>
+<p>第四成分、アルファー値は 0 ほど透明に近い：</p>
+<blockquote>
+<div><p>The A or <em>Alpha</em> attribute specifies how transparent the fill should be, 0 for
+completely transparent and 255 (100) for completely opaque in the case of the
+<em>RGB</em>, <em>HSL</em>, and <em>Wheel</em> (<em>CMYK</em>) methods.</p>
+</div></blockquote>
+<section id="rgb">
+<h5><a class="toc-backref" href="#id5" role="doc-backlink">RGB</a><a class="headerlink" href="#rgb" title="Permalink to this heading">¶</a></h5>
+<p>これはさすがにノート不要。</p>
+<blockquote>
+<div><p>This is the native method for computer screens.</p>
+</div></blockquote>
+</section>
+<section id="hsl">
+<h5><a class="toc-backref" href="#id6" role="doc-backlink">HSL</a><a class="headerlink" href="#hsl" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>HSL (Hue, Saturation, Lightness) is a method for specifying color in terms of
+hue (color in optical spectrum), saturation (intensity-purity), and
+lightness. The range for saturation is from a pure color to gray. The range
+for lightness is from black to pure color to white.</p>
+</div></blockquote>
+<p>HSL は虹色を作るときに便利な色モデルだ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>Inkscape 1.2 では HSV も利用可能。</p>
+</div>
+</section>
+<section id="cmyk">
+<h5><a class="toc-backref" href="#id7" role="doc-backlink">CMYK</a><a class="headerlink" href="#cmyk" title="Permalink to this heading">¶</a></h5>
+<p>CMYK は減色法に基づく印刷用色モデルだ。次が囲み記事で注意されている：</p>
+<blockquote>
+<div><p>Inkscape stores color internally in the RGB format. This is the only color
+specification supported by SVG. Furthermore, the entry boxes are set up so
+that the value in one is always zero. (Any color in RGB color space can be
+defined using only three of the CMYK terms. The definition is not unique.)</p>
+</div></blockquote>
+</section>
+<section id="wheel">
+<h5><a class="toc-backref" href="#id8" role="doc-backlink">Wheel</a><a class="headerlink" href="#wheel" title="Permalink to this heading">¶</a></h5>
+<p>本節の記述はおそらく現行バージョンの HSL モードに吸収されている。
+<span class="guilabel">Color Wheel</span> ボタンでこの UI の表示を切り替える。</p>
+<p>次の記述はその UI のそれとしてはなお有効のようだ：</p>
+<blockquote>
+<div><p>Dragging the line around the circle changes the <em>Hue</em>. Dragging the small
+circle within the triangle parallel to the edge that varies from white to
+black changes the <em>Lightness</em> and dragging perpendicular to that edge changes
+the <em>Saturation</em>.</p>
+</div></blockquote>
+<p>○マーカーを底辺上またはその垂線上に沿ってドラッグすると、色成分コントロールの
+<span class="guilabel">L</span> や <span class="guilabel">S</span> が変化することが確認できる。</p>
+</section>
+<section id="cms">
+<h5><a class="toc-backref" href="#id9" role="doc-backlink">CMS</a><a class="headerlink" href="#cms" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>This tab allows editing of colors managed by an icc profile if enabled.</p>
+</div></blockquote>
+<p>それゆえ、既定設定だと <code class="docutils literal notranslate"><span class="pre">&lt;none&gt;</span></code> しか一覧にない。</p>
+</section>
+</section>
+<section id="palette-and-swatches-dialog">
+<h4><a class="toc-backref" href="#id10" role="doc-backlink">Palette and Swatches Dialog</a><a class="headerlink" href="#palette-and-swatches-dialog" title="Permalink to this heading">¶</a></h4>
+<p><span class="guilabel">Swatches</span> ダイアログを表示するには：</p>
 <ul class="simple">
-<li><p>Inkscape の色は RGBA で表現。各成分は 8 ビットの情報量。</p></li>
-<li><p>HSV のことを HSL と呼んでいる。</p></li>
-<li><p>スウォッチ</p>
-<ul>
-<li><p>LB クリックで選択要素の <span class="guilabel">Fill</span> 色変更</p></li>
-<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + LB クリックで選択要素の <span class="guilabel">Stroke</span> 色変更</p></li>
-<li><p>マウスジェスチャーで落ちる。</p></li>
+<li><p>メニュー <span class="menuselection">View ‣ Swatches…</span></p></li>
+<li><p>キーバインド <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">W</kbd></p></li>
 </ul>
-</li>
-<li><p>スタイルインジケーター</p>
-<ul>
-<li><p>MB クリックで色を <span class="guilabel">None</span> にする。もう一回クリックで黒。</p></li>
+<p><em>Palette</em> の表示を切り替えるのは</p>
+<ul class="simple">
+<li><p><span class="menuselection">View ‣ Show/Hide ‣ Palette</span></p></li>
+<li><p>キーバインド <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd></p></li>
 </ul>
-</li>
-<li><p>スポイトツールのことを <span class="guilabel">Dropper Tool</span> と呼ぶ。</p>
+<p>次のマウス操作が <em>Palette</em> と <em>Swatches</em> で有効：</p>
 <ul>
-<li><p><span class="guilabel">F7</span> or <span class="guilabel">D</span> で起動。</p></li>
-<li><p>opacity との絡みもあって、わかりにくい？</p></li>
+<li><p>左クリックすると、選択オブジェクトまたは選択グラデーション止の色を変える。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + 左クリックすると、選択オブジェクトの描線色を変える。現在色も変わる（オブジェクト選択は不要）。</p></li>
+<li><p>左ボタンドラッグをオブジェクトの <em>Fill</em>, <em>Stroke</em>, グラデーション止のどれかへ行うと、それが swatch 色に変わる。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + 左ボタンドラッグをオブジェクトの任意の場所にすると <em>Stroke</em> 色を設定する（オブジェクト選択は不要）。現在色はそのまま。</p></li>
+<li><p>右クリックすると、小さなダイアログが開き、選択オブジェクトの <em>Fill</em> または
+<em>Stroke</em> に swatch 色を割り当てる。現在色も変わる。</p>
+<p>操作しているのがカスタムスウォッチならば、swatch 色を編集または削除することもできる。</p>
+</li>
 </ul>
-</li>
-<li><p><span class="guilabel">Gradient Tool</span></p>
+<p>パレットの自作を設定ファイルから行うこともできる。詳細は別の章で述べられる：</p>
+<blockquote>
+<div><p>Inkscape has a variety of built-in palettes (some copied from Gimp). More
+palettes can be added by installing palette files in the directory
+<code class="file docutils literal notranslate"><span class="pre">share/palettes</span></code>. The files use the Gimp palette file structure where
+colors are defined in terms of a triplet of numbers in a RGB format.</p>
+</div></blockquote>
+<p><em>Palette</em> と <em>Swatches</em> の隅にある▲▼アイコンとハンバーガーアイコンは便利だ：</p>
+<blockquote>
+<div><p>Both the <em>Palette</em> and the <span class="guilabel">Swatches</span> dialog have a pull-down menu
+(far right, small arrow) where you can set the size and shape of the
+swatches, if the colors should be displayed in one row or in multiple rows,
+and which palette should be used. Hovering the pointer over a swatch will
+display a color’s name in a tool tip and in the <em>Status Bar</em>. A scroll bar
+gives access to colors in a palette that are not displayed when there are too
+many colors to fit.</p>
+</div></blockquote>
+</section>
+<section id="style-indicator">
+<h4><a class="toc-backref" href="#id11" role="doc-backlink">Style Indicator</a><a class="headerlink" href="#style-indicator" title="Permalink to this heading">¶</a></h4>
+<p><em>Style Indicator</em> とはステータスバーの左にある選択オブジェクトなどの情報表示領域を言う：</p>
+<blockquote>
+<div><p>The <em>Style Indicator</em> located on the left side of the <em>Status Bar</em> displays
+information on selected objects, text fragments, or <em>Gradient</em> stops. The
+indicator includes a number of methods to alter style, including: pop-up
+menus, targets for <em>Drag and Drop</em> colors, and <em>Color Gestures</em>.</p>
+</div></blockquote>
+<section id="display">
+<h5><a class="toc-backref" href="#id12" role="doc-backlink">Display</a><a class="headerlink" href="#display" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>The <em>Style Indicator</em> has three parts showing <span class="guilabel">Fill</span>,
+<span class="guilabel">Stroke</span> paint, and opacity (<span class="guilabel">O</span>), which show attributes
+for selected objects or text fragments. The <span class="guilabel">Fill</span> and
+<span class="guilabel">Stroke</span> paint parts are referred to as the <em>fill indicators</em>.</p>
+</div></blockquote>
+<p><span class="guilabel">Fill:</span> 矩形の内容と意味は次のとおり：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>表示</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>実際の色</p></td>
+<td><p>左側と右側がそれぞれアルファーなしありの色</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">N/A</span></p></td>
+<td><p>オブジェクトが選択されていない</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">None</span></p></td>
+<td><p>定義されている塗りつぶしがない</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Unset</span></p></td>
+<td><p>塗りつぶしが未設定</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">L</span></p></td>
+<td><p>線形グラデーション</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">R</span></p></td>
+<td><p>放射グラデーション</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Pattern</span></p></td>
+<td><p>塗りつぶしはパターンである</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">≠</span></p></td>
+<td><p>オブジェクトが複数選択されていて異なる塗りつぶしである</p></td>
+</tr>
+</tbody>
+</table>
+<p>オブジェクトが複数選択されていて、すべてに塗りつぶしが定義されている場合、次のような表示になる：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>表示</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">m</span></p></td>
+<td><p>すべてが同じ塗りつぶし色だ</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">a</span></p></td>
+<td><p>異なる塗りつぶし色がある（平均色を表示）</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Style Indicator</em> は三部分それぞれに固有の機能がある。</p>
+<dl class="simple">
+<dt><em>Fill Indicator</em></dt><dd><ul class="simple">
+<li><p>左クリックで <span class="guilabel">Fill and Stroke</span> ダイアログ <span class="guilabel">Fill</span> タブを開く。</p></li>
+<li><p>中クリックで、選択オブジェクトの塗りを定義されている場合は削除、そうでない場合は黒に設定。</p></li>
+<li><p>右クリックで <em>Fill</em> 操作コマンドからなるポップアップメニューを開く。</p></li>
+</ul>
+</dd>
+<dt><em>Stroke indicator</em></dt><dd><ul class="simple">
+<li><p>左クリックで <span class="guilabel">Fill and Stroke</span> ダイアログ <span class="guilabel">Stroke
+paint</span> タブを開く。</p></li>
+<li><p>右クリックで <em>Stroke paint</em> 操作コマンドからなるポップアップメニューを開く。</p></li>
+</ul>
+</dd>
+<dt><em>Opacity</em></dt><dd><ul class="simple">
+<li><p>数値欄を右クリックで 25% 刻みのプリセット値からなるポップアップメニューを表示する。</p></li>
+<li><p><span class="guilabel">O</span> ラベルを中クリックすると、0%, 50%, 100% の値を循環する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="fill-indicator-pop-up-menu">
+<h5><a class="toc-backref" href="#id13" role="doc-backlink">Fill Indicator Pop-up Menu</a><a class="headerlink" href="#fill-indicator-pop-up-menu" title="Permalink to this heading">¶</a></h5>
+<p>上で「操作コマンドからなるポップアップメニュー」と記したものの説明。<em>Fill</em> 版と
+<em>Stroke paint</em> 版はそっくりなので、片方を理解すれば十分だろう。</p>
+</section>
+<section id="color-gestures">
+<h5><a class="toc-backref" href="#id14" role="doc-backlink">Color Gestures</a><a class="headerlink" href="#color-gestures" title="Permalink to this heading">¶</a></h5>
+<p>この機能をどう活用していいのかわからない。</p>
+<blockquote>
+<div><p><em>Color Gestures</em> is the name given to changing the color of a <em>Fill</em>,
+<em>Stroke</em>, or <em>Gradient Stop</em> by dragging the mouse from a fill indicator into
+the Inkscape window.</p>
+</div></blockquote>
+<p>マウス操作が独特だ：</p>
+<blockquote>
+<div><p>The principle is that as you drag the mouse, the color will change
+proportionally to the distance from a 45° line from the indicator. The
+farther away you are, the more subtle the changes can be. Changes are made in
+the HSL color space.</p>
+</div></blockquote>
+<p>HSL モデルは極座標に基づくものだからこういう動作を考案したのだろうか。</p>
 <ul>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらドラッグすると彩度が変化。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> を押しながらドラッグすると明度が変化。</p>
+<blockquote>
+<div><p>When a key modifier is changed, the “zero” line (normally at 45°) changes to
+pass through the current cursor position. This is to avoid abrupt changes in
+color when changing modifiers. The <kbd class="kbd docutils literal notranslate">Alt</kbd> modifier disables changes to
+the color so that the cursor can be repositioned.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>そんな細やかなマウス捌きはできない。</p>
+<p>念のために複数オブジェクトやグラデーション選択時の挙動について述べられている：</p>
+<blockquote>
+<div><p>If more than one object or <em>Gradient Stop</em> is selected, the starting color
+will be the average color of the selected items and the final color will be
+the same. If you wish to shift the color in the same way for a number of
+objects but preserve the relative differences use the <em>Tweak Tool</em>.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="dropper-tool">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Dropper Tool</a><a class="headerlink" href="#dropper-tool" title="Permalink to this heading">¶</a></h4>
+<p>この手のソフトによくあるスポイトツールだ。</p>
+<blockquote>
+<div><p>The <em>Fill</em> and <em>Stroke paint</em> color of an object can be changed by using the
+<em>Dropper Tool</em> to grab an existing color in the drawing. Options allow for
+grabbing the average color over a circular region, inverting the grabbed
+color, and saving the grabbed color to the system clipboard (as a RGBA
+hexadecimal number).</p>
+</div></blockquote>
+<p>スポイトツールは選択ツールと反復して使うことになるので、この操作を習得しておく：</p>
+<blockquote>
+<div><p>To use the <em>Dropper Tool</em>, first select the object that you want to modify
+with a tool other than the <em>Dropper Tool</em>. Recall that you can switch
+temporarily to the <em>Select Tool</em> by using the <kbd class="kbd docutils literal notranslate">Space</kbd> Bar.</p>
+<p>Then select the <em>Dropper Tool</em> by clicking on the icon (<kbd class="kbd docutils literal notranslate">F7</kbd> or
+<kbd class="kbd docutils literal notranslate">D</kbd>) in the <em>Tool Controls</em>. Finally click with the <em>Dropper Tool</em> on
+the desired color. The shortcut <kbd class="kbd docutils literal notranslate">D</kbd> will toggle between the <em>Dropper
+Tool</em> and any other tool.</p>
+</div></blockquote>
+<p>例によって修飾キーと絡める操作もある：</p>
+<blockquote>
+<div><p>The <kbd class="kbd docutils literal notranslate">Shift</kbd> causes the chosen color to be applied to the object’s
+<em>Stroke paint</em> rather than the <em>Fill</em>. The <kbd class="kbd docutils literal notranslate">Alt</kbd> causes the inverse
+color to be applied. The <kbd class="kbd docutils literal notranslate">Shift</kbd> and <kbd class="kbd docutils literal notranslate">Alt</kbd> keys can be used in
+combination.</p>
+</div></blockquote>
+<p>反転色というのは文字通りで、例えば桃色をスポイトすると緑を取れる。</p>
+<dl class="simple">
+<dt>左クリック</dt><dd><p><em>Fill</em> 色を採取する。</p>
+</dd>
+<dt>左ボタンドラッグ</dt><dd><p>ドラッグ中にできた円の <em>Fill</em> 色を採取した平均値を得る。</p>
+</dd>
+<dt><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd></dt><dd><p>ポインター下の色を 8 桁の 16 進数 rrggbbaa 形式でシステムクリップボードにコピーする。</p>
+</dd>
+</dl>
+<p><em>Dropper Tool</em> のツールバーにはラジオボタンが二つあるだけだ。</p>
+<blockquote>
+<div><p>The <em>Dropper Tool</em> <em>Tool Controls</em> has two buttons that determine if the
+opacity (<em>Alpha</em>) of a color should be <span class="guilabel">Picked</span> and/or
+<span class="guilabel">Assigned</span>. These settings affect the way a color is picked if the
+“Picked” object has an opacity different from 100% (or 1.0).</p>
+</div></blockquote>
+<p>ボタンの状態は次の三通り：</p>
+<dl class="simple">
+<dt>Pick opacity disabled</dt><dd><p>例えば、塗りが濃紺で遮光度が 50% のオブジェクトから色をピックすると、遮光度が
+100% の水色になる。設定されたオブジェクトの遮光度はそのまま。</p>
+</dd>
+<dt>Pick opacity enabled, Assign alpha disabled</dt><dd><p>選択された色は、そのオブジェクトの遮光度が 100% だった場合の色。例えば濃紺のオブジェクトの遮光度が 50% であれば、濃紺・遮光度 100% の色になる。設定されたオブジェクトの遮光度はそのまま。</p>
+</dd>
+<dt>Pick opacity enabled, Assign opacity enabled</dt><dd><p>色と遮光度は、いずれもピックしたオブジェクトからコピーされる。遮光度 50% の濃紺のオブジェクトは、遮光度 50% の濃紺の塗りで構成される水色になる。設定されたオブジェクトの遮光度が変更される。</p>
+</dd>
+</dl>
+<p>最後の場合だけは、他のオブジェクトの上にない遮光度を持つオブジェクトから色をピックした場合にのみ適用される。</p>
+</section>
+</section>
+<section id="gradients">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Gradients</a><a class="headerlink" href="#gradients" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>There are three parts to using a <em>Gradient</em>; each treated in the next three
+sections:</p>
+<ol class="arabic simple">
+<li><p>Attach a <em>Gradient</em> to an object.</p></li>
+<li><p>Edit the <em>Stops</em>.</p></li>
+<li><p>Adjust the orientation and extent of the <em>Gradient</em>.</p></li>
+</ol>
+<p>The use of linear and radial <em>Gradients</em> is essentially the same and both
+will be treated together.</p>
+</div></blockquote>
+<p>グラデーションをオブジェクトと一緒に変形させたい場合は、選択ツールが使用されているときにツールコントロールにある <span class="guilabel">Move gradients (in fill or stroke)
+along with the objects</span> ボタンをオンにする。</p>
+<ul class="simple">
 <li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">F1</kbd> or <kbd class="kbd docutils literal notranslate">G</kbd> で起動。</p></li>
 <li><p><kbd class="kbd docutils literal notranslate">Stop</kbd> 挿入 <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + LB クリック</p></li>
 <li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">L</kbd> で冗長なノードを消すらしい。</p></li>
 <li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">R</kbd> で逆転。</p></li>
 </ul>
-</li>
-<li><p><kbd class="kbd docutils literal notranslate">Pattern</kbd></p>
+<section id="attaching-gradients-to-objects">
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">Attaching Gradients to Objects</a><a class="headerlink" href="#attaching-gradients-to-objects" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p><em>Gradients</em> can be attached to an object either with the <span class="guilabel">Fill and
+Stroke</span> dialog or through the use of the <em>Gradient Tool</em>.</p>
+</div></blockquote>
+<p>まず <span class="guilabel">Fill and Stroke</span> ダイアログでグラデーションを定義する方法を知る：</p>
+<blockquote>
+<div><p>To attach a <em>Gradient</em> with the <span class="guilabel">Fill and Stroke</span> dialog, simply
+select an object and click on either the linear icon or radial <em>Gradient</em>
+icons in the dialog. A <em>Gradient</em> with two <em>Stops</em> will automatically be
+created and applied to the object. The <em>Stops</em> will have the color of the
+previous <em>Fill</em> with one <em>Stop</em> having full opacity and the other full
+transparency.</p>
+</div></blockquote>
+<p>二つの停止位置はどちらも前の塗りつぶし色で初期化される。一方は遮光度が 100% で、他方は 0% で初期化される。</p>
+<p>一度作成したグラデーションは再利用できるし、描線にも割り当てられる：</p>
+<blockquote>
+<div><p>An already defined <em>Gradient</em> can be assigned to the object by selecting the
+<em>Gradient</em> from the drop-down menu under the <span class="guilabel">Fill</span> tab of the
+<span class="guilabel">Fill and Stroke</span> dialog. A <em>Gradient</em> can also be assigned to the
+<em>Stroke</em> of an object under the <span class="guilabel">Stroke paint</span> tab.</p>
+</div></blockquote>
+<p><em>Gradient Tool</em> を使うには、次の方法がある：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Toolbox</span> の <span class="guilabel">Create and edit gradients</span> ボタンを押す。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">F1</kbd> を押すか <kbd class="kbd docutils literal notranslate">G</kbd> を押す。</p></li>
+</ul>
+<p><em>Gradient Tool</em> の操作方法：</p>
+<blockquote>
+<div><p>The <em>Gradient Tool</em> <em>Tool Controls</em> has options to choose a linear icon or a
+radial icon <em>Gradient</em> and the application of the <em>Gradient</em> to the <em>Fill</em>
+icon or <em>Stroke</em> icon of an object. Once the options are selected, <em>Left
+Mouse Drag</em> across an object to attach a <em>Gradient</em>. The start and stop point
+of the drag will define the range of the <em>Gradient</em> (where the start and end
+<em>Stops</em> are placed, see below). If an already defined <em>Gradient</em> has been
+chosen from the drop-down menu in the <em>Tool Controls</em> it will be applied to
+the object. Otherwise a two <em>Stop Gradient</em> will automatically be created
+with both <em>Stops</em> the color of the objects existing <em>Fill</em> and with one
+<em>Stop</em> full opacity and the other with full transparency.</p>
+</div></blockquote>
+</section>
+<section id="editing-stops">
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">Editing Stops</a><a class="headerlink" href="#editing-stops" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>They can be edited onscreen. This is much more convenient than using the
+<span class="guilabel">Gradient Editor</span> dialog.</p>
+</div></blockquote>
+<section id="onscreen-editing">
+<h5><a class="toc-backref" href="#id19" role="doc-backlink">Onscreen Editing</a><a class="headerlink" href="#onscreen-editing" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>An object with a <em>Gradient</em> displays <em>Gradient</em> handles when the <em>Gradient
+Tool</em>, <em>Node Tool</em>, or one of the shape tools is active (the latter two if
+enabled in the <span class="guilabel">Inkscape Preferences</span> dialog). Some editing actions
+work when any of these tools is active, others work only with the <em>Gradient
+Tool</em>.</p>
+</div></blockquote>
+<p>ハンドルの意味は次のとおり：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ハンドル</p></th>
+<th class="head"><p>停止点</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>○</p></td>
+<td><p>開始</p></td>
+</tr>
+<tr class="row-odd"><td><p>◇</p></td>
+<td><p>中間</p></td>
+</tr>
+<tr class="row-even"><td><p>□</p></td>
+<td><p>終了</p></td>
+</tr>
+</tbody>
+</table>
+<p>停止点は、グラデーションツール、ノードツール、シェイプツールのいずれかを使ってクリックすることで選択できる。パスのノードの感覚で操作する。</p>
+<p>新しい中間停止を追加するには、オブジェクトを選択してグラデーションツールを開き、次のいずれかを実行する（パスにノードを追加する操作と類似しているものがあることに注意）：</p>
+<ul class="simple">
+<li><p>グラデーションパスをダブルクリックする</p></li>
+<li><p>グラデーションの上で <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> を押しつつ左クリック</p></li>
+<li><p>隣り同士の停止点を選択してから <kbd class="kbd docutils literal notranslate">Insert</kbd> を押す（中点に中間色で生成される）</p></li>
+<li><p><em>Palette</em> または <span class="guilabel">Swatches</span> ダイアログからグラデーションパスへ色をドラッグする</p></li>
+</ul>
+<p>中間の停止点を削除するには、グラデーションツールを開いた状態で次を行う：</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> を押しつつ対象停止点上を左クリック</p></li>
+<li><p>選択停止点に対して <kbd class="kbd docutils literal notranslate">Del</kbd> を押す</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">L</kbd> を押すとグラデーション単純化を試みる（パス単純化と類比的に）</p></li>
+</ul>
+<p>中間の停止点を移動するには：</p>
+<ul class="simple">
+<li><p><em>Gradient Tool</em>, <em>Node Tool</em>, 図形ツールのいずれかを使ってドラッグする。</p>
 <ul>
-<li><p>備え付けのパターンには実はライセンスがある。</p></li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">patterns/patterns.svg</span></code> に定義がある？</p></li>
-<li><p>パターンを用意する、パターンを割り当てる、パターンの位置等を調整する、の三段階。</p></li>
-<li><p>パターンを定義するには、適当なオブジェクトを選択して <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">I</kbd>
-で OK.</p></li>
-<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">I</kbd>: <span class="guilabel">Pattern to Objects</span></p></li>
-<li><p>パターンの変形がわかりにくい。</p></li>
-<li><p>ハッチングはパターン機能を応用して実現する。</p></li>
+<li><p>複数の停止点が選択されている場合、すべて一緒に移動する。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> 押しドラッグすると、選択されていない最も近い停止点間の距離の 1/10 の倍数で停止点がスナップされる。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Alt</kbd> 押しドラッグすると、選択されている停止点がドラッグしたものからどれだけ離れているかに応じて移動する。</p></li>
 </ul>
 </li>
-<li><p><span class="guilabel">Fill Rule</span> (even-odd rule) は押さえておいたほうがよい。</p></li>
+<li><p>停止点を選択し、<em>Gradient Tool</em> を開いた状態で、矢印キーを押す。</p>
+<ul>
+<li><p>複数の停止点が選択されている場合、すべて一緒に移動する。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> を併用すると移動が十倍に加速する。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Alt</kbd> を併用すると、選択停止点が画面画素一個分ずつ移動する。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> を使用すると、選択停止点が画面画素十個分ずつ移動する。</p></li>
 </ul>
+</li>
+</ul>
+<p>停止点は前後の停止点を超えて動かすことはできない。</p>
+<p>停止点の色や遮光度を編集する方法も複数ある：</p>
+<blockquote>
+<div><p>In general, if no <em>Stop</em> is selected, indicators and changes apply to the
+whole object; if one <em>Stop</em> is selected, indicators and changes apply to that
+<em>Stop</em>; and if multiple <em>Stops</em> are selected, indicators show an average
+value for the selected <em>Stops</em> and changes apply to all selected <em>Stops</em>.</p>
+</div></blockquote>
+<p>場合分けが複雑なのでいつもと違うやり方をすると忘れる。</p>
+<dl class="simple">
+<dt><span class="guilabel">Fill and Stroke</span> ダイアログ</dt><dd><p>停止点が選択されていない場合、グラデーションは <span class="guilabel">Fill</span> または
+<span class="guilabel">Stroke paint</span> タブでプレビュー。選択停止点がある場合は、その現在の色と遮光度の値が表示されまる。変更は選択停止点すべてに適用される。</p>
+</dd>
+<dt><em>Style Indicator</em></dt><dd><p>停止点が選択されていない場合、インジケータはグラデーションを <em>Fill</em> と
+<em>Stroke</em> の両方についてプレビュー。選択されている場合にはその停止点の現在の値が表示される。変更は選択停止点すべてに適用される。</p>
+</dd>
+<dt>ドラッグ＆ドロップ</dt><dd><p><em>Palette</em> または <span class="guilabel">Swatches</span> ダイアログから停止点へ色をドラッグ可能。またはグラデーションパス上にドラッグすると停止点が追加。</p>
+</dd>
+<dt>コピー＆ペースト</dt><dd><p>色はクリップボードで読み書きできる。<span class="menuselection">Edit ‣ Copy</span> を選ぶか
+<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> を押すと、停止点が一つだけ選択されているならばその色と遮光度が、複数選択されているならば平均色が複写される。<span class="menuselection">Edit
+‣ Paste Style</span> を選ぶか <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">V</kbd> を押すと、選択停止点すべてに対してクリップボードから色と遮光度が複写される。</p>
+</dd>
+</dl>
+</section>
+<section id="using-the-gradient-editor-dialog">
+<h5><a class="toc-backref" href="#id20" role="doc-backlink">Using the Gradient Editor Dialog</a><a class="headerlink" href="#using-the-gradient-editor-dialog" title="Permalink to this heading">¶</a></h5>
+<blockquote>
+<div><p>It is envisioned that this dialog be removed as redundant in the future.</p>
+</div></blockquote>
+<p>ということらしいので割愛。</p>
+</section>
+</section>
+<section id="adjusting-gradients">
+<h4><a class="toc-backref" href="#id21" role="doc-backlink">Adjusting Gradients</a><a class="headerlink" href="#adjusting-gradients" title="Permalink to this heading">¶</a></h4>
+<p>グラデーションは色だけではなくて向きや大きさを変えられる。</p>
+<blockquote>
+<div><p>Once a <em>Gradient</em> has been applied to an object, the orientation and extent
+of the <em>Gradient</em> can be changed via dragging the outer two <em>Gradient Stops</em>
+indicated by the square and circle handles.</p>
+</div></blockquote>
+<p>線形グラデーションのハンドルの意味はよく知っているとおりだ：</p>
+<blockquote>
+<div><p>For linear <em>Gradients</em>, one set of handles define the range of the
+<em>Gradient</em>. The <em>Gradient</em> is parallel to the line connecting the two
+handles.</p>
+</div></blockquote>
+<p>放射グラデーションのハンドルは少し複雑だ：</p>
+<blockquote>
+<div><p>For radial <em>Gradients</em>, there are two sets of handles (or <em>Stops</em>) at right
+angles to each other, sharing the square center handle. The center, handle
+controls the origin of the <em>Gradient</em> (one “edge”), while the two circular
+handles control the range of the <em>Gradient</em> in orthogonal directions. This
+allows a radial <em>Gradient</em> to have an elliptical shape.</p>
+</div></blockquote>
+<p>グラデーションハンドル自体が特別な移動をすることがある：</p>
+<blockquote>
+<div><p><em>Gradient</em> handles from two different objects will snap together if one is
+placed over the other. This facilitates aligning <em>Gradients</em> between different
+objects. The handles will then move together.</p>
+</div></blockquote>
+<p>複数オブジェクトがグラデーションを共有することもある：</p>
+<blockquote>
+<div><p>If multiple objects are selected when a <em>Gradient</em> is created, all the
+objects will share a common <em>Gradient</em>.</p>
+</div></blockquote>
+<p>指定可能な UI がここにしかないというオプションもある：</p>
+<blockquote>
+<div><p>An option only accessible through the <em>Gradient</em> tabs of the <span class="guilabel">Fill
+and Stroke</span> dialog is defining how the area outside the <em>Gradient</em> range is
+filled.</p>
+</div></blockquote>
+<p><span class="guilabel">Repeat</span> というドロップダウンリストには次の三つの選択肢がある：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>モード</p></th>
+<th class="head"><p>グラデーション</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">None</span></p></td>
+<td><p>停止点の色で塗りつぶす</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">Direct</span></p></td>
+<td><p>同じグラデーションを反復</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Reflected</span></p></td>
+<td><p>同じグラデーションを反射</p></td>
+</tr>
+</tbody>
+</table>
+<p>グラデーション反転操作が可能だ：</p>
+<blockquote>
+<div><p>The keyboard shortcut <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">R</kbd> reverses the <em>Gradient</em>
+direction when the <em>Gradient Tool</em> is active. This is especially useful for
+radial <em>Gradients</em> where one cannot just drag the <em>Gradient</em> handles to
+reverse the <em>Gradient</em>.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="meshes">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Meshes</a><a class="headerlink" href="#meshes" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Like <em>Gradients</em>, <em>Meshes</em> have a smooth blending from one color to
+another… FIXME</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>本書には記述が一切ないので、読者が試すしかない。</p>
+<p>おそらく Bezier 曲線からなる四辺が現れる。Bezier 曲面か。この各頂点◇にこれまで見てきた方法で色と遮光度を指定する。曲面上の UV 座標で最終的な色と遮光度が決まるはずだ。それが対象オブジェクトの点の色と遮光度として割り当てられると考えられる。</p>
+<p>ということは、Bezier 曲面も学習しなければならないということか。</p>
+</div>
+</section>
+<section id="patterns">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Patterns</a><a class="headerlink" href="#patterns" title="Permalink to this heading">¶</a></h3>
+<p>ベタ塗りやグラデーションの他に「柄」で塗りつぶすこともできる。ぶどうのチュートリアルを思い出せ：</p>
+<blockquote>
+<div><p>Any object or set of objects can be turned into a <em>Pattern</em> and used in the
+fill of an object. The <em>Pattern</em> can be shifted, rotated, and stretched as
+necessary. Inkscape includes a set of <em>Patterns</em> accessible through the
+<span class="guilabel">Fill and Stroke</span> dialog. The Vine Design tutorial covers creating
+and using <em>Patterns</em>.</p>
+</div></blockquote>
+<p>Inkscape 備え付けのパターンには実はライセンスがある。勝手に public license だと思い込まぬこと。そして、同梱パターンと自作パターンは同一設定ファイルに位置する：</p>
+<blockquote>
+<div><p>The <em>Patterns</em> included with Inkscape are defined in the file
+<code class="file docutils literal notranslate"><span class="pre">patterns/patterns.svg</span></code> located in the Inkscape <code class="file docutils literal notranslate"><span class="pre">share</span></code>
+directory. Edit or replace this file to include your own stock <em>Patterns</em>.</p>
+</div></blockquote>
+<p>パターン使用手順は二、三段階からなる：</p>
+<blockquote>
+<div><p>The first, optional step, is to create a <em>Pattern</em>. The second is to apply
+the newly created <em>Pattern</em> or an Inkscape provided <em>Pattern</em> to an object.
+And the third is to adjust the <em>Pattern</em> position and scaling as necessary.</p>
+</div></blockquote>
+<section id="creating-patterns">
+<h4><a class="toc-backref" href="#id24" role="doc-backlink">Creating Patterns</a><a class="headerlink" href="#creating-patterns" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Simply select the object or objects you wish to use as a <em>Pattern</em> and then
+use the <span class="guilabel">Object –&gt; Pattern –&gt; Objects to Pattern</span> (<kbd class="kbd docutils literal notranslate">Alt</kbd> +
+<kbd class="kbd docutils literal notranslate">I</kbd>) command.</p>
+</div></blockquote>
+<p>パターンを定義するためだけにオブジェクトを作成しただけであれば、それは削除してもかまわない：</p>
+<blockquote>
+<div><p>After converting the selection to a <em>Pattern</em>, the original selection is
+replaced by a <em>Rectangle</em> shape object filled with the new <em>Pattern</em> (and
+with an invisible stroke). This new object can be deleted but the <em>Pattern</em>
+will remain. <em>Patterns</em> have a life of their own.</p>
+</div></blockquote>
+<p>パターンの反復単位寸法はパターンオブジェクト全ての BB とする。</p>
+<p>ではパターン内のオブジェクトを編集したい場合にはどうするか。</p>
+<blockquote>
+<div><p>The object(s) in any <em>Pattern</em> can be edited by selecting an object that is
+filled with that <em>Pattern</em> and then using the <span class="guilabel">Object –&gt; Pattern
+–&gt; Pattern to Objects</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">I</kbd>) command. The
+original objects will reappear in their original place (built-in <em>Patterns</em>
+will appear in the upper-left corner).</p>
+</div></blockquote>
+<p>編集後はパターンに戻る。新旧どちらのパターンも利用可能な状態になる。したがって、旧パターンを適用していたオブジェクトの見てくれは変わらない。</p>
+<blockquote>
+<div><p>The new <em>Pattern</em> must be “reapplied” to the object the <em>Pattern</em> came from.</p>
+</div></blockquote>
+</section>
+<section id="using-patterns">
+<h4><a class="toc-backref" href="#id25" role="doc-backlink">Using Patterns</a><a class="headerlink" href="#using-patterns" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>To change the fill of an object to a <em>Pattern</em>, simply click on the
+<span class="guilabel">Pattern</span> icon in the <span class="guilabel">Fill and Stroke</span> dialog. Then
+select the required <em>Pattern</em> from the pull-down menu. User created
+<em>Patterns</em> will be listed first.</p>
+</div></blockquote>
+<p>出来合いのパターンは縞々が多い。水増しか。</p>
+<p>オブジェクトの座標変換に関するパターンの挙動はツールバーの <span class="guilabel">Move
+patterns (in fill or stroke) along with the objects</span> でオンオフを指示する。</p>
+</section>
+<section id="adjusting-patterns">
+<h4><a class="toc-backref" href="#id26" role="doc-backlink">Adjusting Patterns</a><a class="headerlink" href="#adjusting-patterns" title="Permalink to this heading">¶</a></h4>
+<p>パターン自体へ座標変換を施すことが可能だ：</p>
+<blockquote>
+<div><p>Adjusting <em>Patterns</em> is done by a set of handles. The handles will appear
+when an object with a <em>Pattern</em> fill is selected and the node or one of the
+shape tools is active. The handles will appear on the original objects that
+defined the <em>Pattern</em>, or the former location of those objects if they have
+been moved or deleted (unless the <em>Pattern</em> has been previously adjusted).</p>
+</div></blockquote>
+<p>出来合いのパターンに対してはハンドル位置がどこに出るのかというと、</p>
+<p>パターンのハンドルによる座標変換操作方法は、図形オブジェクトのそれと同様のようだ：</p>
+<blockquote>
+<div><p>To adjust the origin, scale, and orientation of the <em>Pattern</em>, drag the
+translation handle (×), scale handle (square), and rotation handle (circle).</p>
+</div></blockquote>
+<p>これは憶えておくと便利：</p>
+<blockquote>
+<div><p>For SVG viewers that don’t support clipping, you can crop a bitmap by turning
+the bitmap into a <em>Pattern</em> and using it to fill an arbitrary path.</p>
+</div></blockquote>
+</section>
+<section id="hatchings">
+<h4><a class="toc-backref" href="#id27" role="doc-backlink">Hatchings</a><a class="headerlink" href="#hatchings" title="Permalink to this heading">¶</a></h4>
+<p>パターン機能を応用したハッチング実装例。縞々を巧みに使う。</p>
+</section>
+</section>
+<section id="custom-swatches">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Custom Swatches</a><a class="headerlink" href="#custom-swatches" title="Permalink to this heading">¶</a></h3>
+<p><em>Custom Swatches</em> は <span class="guilabel">Auto</span> パレットに単色とグラデーションを自動的に追加して生成される。</p>
+<blockquote>
+<div><p><em>Custom Swatches</em> allow per document palettes with swatches of solid colors
+and <em>Gradients</em>. <em>Custom Swatches</em> are automatically added to a special
+<span class="guilabel">Auto</span> palette as they are created (selectable in the <em>Palette</em> or
+<span class="guilabel">Swatches</span> dialog). Solid color swatches are implemented as
+one-stop <em>Gradients</em>.</p>
+</div></blockquote>
+<p>最初は空だが、色指定中の <span class="guilabel">Swatch</span> ボタンを押すと追加される。手動ではないか：</p>
+<blockquote>
+<div><p>To create a <em>Custom Swatch</em>, with an object selected that has the desired
+solid fill or <em>Gradient</em>, click on the icon in the <span class="guilabel">Fill and
+Stroke</span> dialog (in the <span class="guilabel">Fill</span> or <span class="guilabel">Stroke paint</span> tab as
+appropriate).</p>
+</div></blockquote>
+<p><span class="guilabel">Swatch fill</span> 画面で色を編集すると、図面内でそれを参照しているオブジェクトが更新されて変色する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>プログラミング技法で言うと定数を宣言するようなものだ。したがって、この機能を多用するべきかもしれない。</p>
+</div>
+<p><em>Custom Swatch</em> をオブジェクトの塗りに割り当てる方法は見ればわかるだろう。削除したい場合は、右クリックメニューを使う：</p>
+<blockquote>
+<div><p>To delete a swatch, select <span class="menuselection">Delete</span> from the menu that pops up
+when you <em>Right Click</em> on the swatch in the <em>Palette</em> or <span class="guilabel">Swatches</span>
+dialog (the <span class="guilabel">Auto</span> palette must be selected).</p>
+<p>Note that using <span class="menuselection">File ‣ Vacuum Defs</span> will not remove unused
+swatches.</p>
+</div></blockquote>
+<p>Inkscape 1.2 で相当するコマンド <span class="menuselection">File ‣ Clean Up Document</span> は未使用の swatch を削除するように見える。</p>
+</section>
+<section id="fill-rule">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Fill Rule</a><a class="headerlink" href="#fill-rule" title="Permalink to this heading">¶</a></h3>
+<p>ここで述べられている塗りつぶし法則は Inkscape 以外でも応用が効くので習得するべきだ。</p>
+<p>パスが自己交差しているときなどに、どの領域を塗りつぶすかを決定する計算法だ。この規則オブジェクトの <em>Fill</em> にのみ適用され <em>Stroke paint</em> には適用されない。選択肢は右側のボタン二つだ。</p>
+<dl class="simple">
+<dt><span class="guilabel">Any path self-intersections or… (fill-rule: evenodd)</span></dt><dd><p>パスに対して、それを横断するような直線を脳内で引いて考える。交点が生じるたびにカウンターを増やしていき、その値が奇数か偶数かで閉領域を塗るか否かを決定する。</p>
+</dd>
+<dt><span class="guilabel">Fill is solid unless… (fill-rule: nonzero)</span></dt><dd><p>これも同様に横断直線との交点を考える。こちらは交点におけるパスの向き（左右）でカウンターの増減を決める。カウンターが非ゼロの領域は内部とみなして塗る。</p>
+</dd>
+</dl>
+</section>
 </section>
 <section id="stroke-style">
-<h2>Stroke Style<a class="headerlink" href="#stroke-style" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">Stroke Style</a><a class="headerlink" href="#stroke-style" title="Permalink to this heading">¶</a></h2>
+<p>描線については属性が色以外にもいくつかある：</p>
+<blockquote>
+<div><p>In addition to <em>Stroke paint</em>, discussed in the previous section, <em>Stroke</em>
+attributes include stroke <em>Width</em>, <em>Join</em> style, <em>Cap</em> style, <em>Dashes</em>, and
+<em>Markers</em>.</p>
+</div></blockquote>
+<p>これらの属性値を指定する場所は今までと同じだ：</p>
+<blockquote>
+<div><p>All of these attributes can be set using the <span class="guilabel">Stroke style</span> tab in
+the <span class="guilabel">Fill and Stroke</span> dialog. <em>Stroke width</em> can also be set using
+the <em>Style Indicator</em> (see below).</p>
+</div></blockquote>
+<section id="stroke-width">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">Stroke Width</a><a class="headerlink" href="#stroke-width" title="Permalink to this heading">¶</a></h3>
+<p>描線の太さを指定する場所および方法は以下に述べる三つだ。</p>
+<dl>
+<dt><span class="guilabel">Stroke style</span> タブ</dt><dd><p>これは UI を見れば一目瞭然。単位指定用ドロップダウンリストが併設。</p>
+</dd>
+<dt><em>Style Indicator</em></dt><dd><p>描線色欄の右側に記されている数字に注目する：</p>
+<blockquote>
+<div><p>A <em>Right Mouse Click</em> on the <em>Stroke width</em> part of the <em>Style Indicator</em>
+opens a pop-up menu that allows the stroke width unit to be changed as
+well as a preset width to be selected. The stroke can also be removed with
+this menu.</p>
+</div></blockquote>
+<p>プリセット数値がキリ番なので、入力欄とキーボードを使うよりは手軽だ。</p>
+</dd>
+<dt><em>Stroke Gestures</em></dt><dd><p><em>Style Indicator</em> の <em>Fill Indicator</em> でやったマウスジェスチャーと同様の操作で描線の太さをおおまかに変更できる。ドラッグ開始位置は描線太さ欄とする。</p>
+<blockquote>
+<div><p>The principle is that as you drag the mouse, the line width will change
+proportionally to the distance from a 45° line from the indicator. The
+farther away you are, the more subtle the changes can be. The maximum
+width increase is a factor of 4 and the minimum width is zero.</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>描線を有するオブジェクトが座標変換するときの、線の太さの変更オプションもある。意味はグラデーションとパターンそれぞれの対応オプションと同様だ：</p>
+<blockquote>
+<div><p>If you want the line width to transform with an object, you must toggle on
+this option using the <span class="guilabel">When scaling objects, scale the stroke width
+by the same proportion</span> icon that is in the <em>Tool Controls</em> when the <em>Select
+Tool</em> is in use.</p>
+</div></blockquote>
+</section>
+<section id="join-style">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">Join Style</a><a class="headerlink" href="#join-style" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The Join style is how two lines meeting at a corner should be joined
+together. The options are:</p>
 <ul class="simple">
-<li><p><span class="guilabel">Join</span>: miter/round/bevel</p></li>
-<li><p><span class="guilabel">Cap</span>: butt/round/square; ストローク両端だけでなく、ダッシュ各線分にも影響する。</p></li>
-<li><p><span class="guilabel">Marker</span></p>
-<ul>
-<li><p><span class="guilabel">Object to Marker</span> コマンドがある。</p></li>
-<li><p>マーカーはストローク色を引き継がない。エクステンションで逃れられるらしい。</p></li>
-<li><p>マーカーのサイズはストローク幅に影響される。SVG 直編集。</p></li>
-<li><p>線を同一位置に複製して、複雑なマーカー線を描ける。</p></li>
+<li><p><span class="guilabel">Miter join</span></p></li>
+<li><p><span class="guilabel">Round join</span></p></li>
+<li><p><span class="guilabel">Bevel join</span></p></li>
 </ul>
-</li>
+</div></blockquote>
+<p>Miter と Bevel の使い分けのコツが次の記述から読み取れる。また、交点の状況によっては Miter 指定でも Bevel として描かれることがある：</p>
+<blockquote>
+<div><p>When the <em>Miter</em> option is selected, the length of the projection can become
+quite long if the two lines intersect at a small angle. In this case, it may
+be preferable to use the <em>Bevel</em> style. The <em>Miter limit</em> controls the point
+at which a <em>Miter join</em> automatically is converted to a <em>Bevel join</em>. If the
+distance from the inner intersection point to the tip of the triangle (<code class="docutils literal notranslate"><span class="pre">m</span></code>
+in the following figure) measured in stroke widths is more than the <em>Miter
+limit</em>, the join will be drawn in the <em>Bevel</em> style.</p>
+</div></blockquote>
+</section>
+<section id="cap-style">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Cap Style</a><a class="headerlink" href="#cap-style" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The <em>Cap</em> style determines how the end of a line is drawn. The options are:</p>
+<ul class="simple">
+<li><p><span class="guilabel">Butt cap</span></p></li>
+<li><p><span class="guilabel">Round cap</span></p></li>
+<li><p><span class="guilabel">Square cap</span></p></li>
 </ul>
+</div></blockquote>
+<p>この属性は描線両端だけでなく、ダッシュ各線分にも影響する。</p>
+</section>
+<section id="dashes">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Dashes</a><a class="headerlink" href="#dashes" title="Permalink to this heading">¶</a></h3>
+<p>UI は <span class="guilabel">Dash pattern</span> ドロップダウンリストと <span class="guilabel">pattern offset</span>
+欄で構成される。</p>
+<blockquote>
+<div><p>The patterns scale with the stroke width.</p>
+<p>The offset shifts the Dash pattern along the path. The units are in stroke
+width.</p>
+</div></blockquote>
+</section>
+<section id="markers">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">Markers</a><a class="headerlink" href="#markers" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p><em>Markers</em> are objects like arrow heads placed along a path. Different
+<em>Markers</em> can be specified for the start, middle, and end of a path. <em>Middle
+Markers</em> are placed at the location of every non-end node.</p>
+</div></blockquote>
+<p>マーカー描画を考慮すると、形状に関係のない中間ノードを配置することもある？</p>
+<p>マーカーを自作する方法がある：</p>
+<blockquote>
+<div><p>A custom <em>Marker</em> can be created by selecting the object or objects that you
+wish to use as a <em>Marker</em> and then using the <span class="menuselection">Object ‣
+Object to Marker</span> command. The selected objects will disappear and a new
+entry will appear in the <em>Marker</em> pull-down menus of the <span class="menuselection">Fill
+and Stroke</span> dialog.</p>
+</div></blockquote>
+<p>マーカーの幾何的仕様：</p>
+<blockquote>
+<div><p>The <em>Marker</em> is created assuming a horizontal orientation for the path. The
+point of attachment to a node is the center of the bounding box for the
+<em>Marker</em>.</p>
+</div></blockquote>
+<p>マーカーには問題が二点あるそうだ：</p>
+<blockquote>
+<div><p>Two problems exist with Markers. The first is that Markers do not take the
+color of the stroke.</p>
+</div></blockquote>
+<p>これに関しては 1.2 では修正されているように見える。ハサミの色が描線と一致する。以前は確かに記述されているとおりだった。</p>
+<blockquote>
+<div><p>The second problem is that <em>Markers</em> scale with line width. The line width
+had to be reduced in the above figure for the scissors examples, to give the
+scissors a reasonable size. Again, one could edit the SVG file to adjust the
+<em>Marker</em> size.</p>
+</div></blockquote>
+<p>これはこのとおり。SVG 直接編集という最終手段が使える。</p>
+</section>
+<section id="complex-strokes">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Complex Strokes</a><a class="headerlink" href="#complex-strokes" title="Permalink to this heading">¶</a></h3>
+<p>異なるストローク属性を持つパスを重ね合わせることで、複雑なマーカー付きの線を描ける。クローン系コマンドを巧妙に応用するといい。</p>
+</section>
 </section>
 </section>
 

@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 19. Tiling &#8212; 読書ノート 1.5dev documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Chapter 20. Tracing Bitmaps" href="ch20-trace.html" />
     <link rel="prev" title="Chapter 18. XML Editor" href="ch18-xml.html" />
@@ -46,41 +47,311 @@
           <div class="body" role="main">
             
   <section id="chapter-19-tiling">
-<h1>Chapter 19. Tiling<a class="headerlink" href="#chapter-19-tiling" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 19. Tiling</a><a class="headerlink" href="#chapter-19-tiling" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>クローンの応用である。</p></li>
-<li><p>編集コマンドのクローンのサブメニューになっている。</p></li>
+<li><p><a class="reference internal" href="#chapter-19-tiling" id="id1">Chapter 19. Tiling</a></p>
+<ul>
+<li><p><a class="reference internal" href="#symmetry-tab" id="id2"><span class="guilabel">Symmetry</span> Tab</a></p></li>
+<li><p><a class="reference internal" href="#shift-tab" id="id3"><span class="guilabel">Shift</span> Tab</a></p></li>
+<li><p><a class="reference internal" href="#scale-tab" id="id4"><span class="guilabel">Scale</span> Tab</a></p></li>
+<li><p><a class="reference internal" href="#rotation-tab" id="id5"><span class="guilabel">Rotation</span> Tab</a></p></li>
+<li><p><a class="reference internal" href="#blur-and-opacity-tab" id="id6"><span class="guilabel">Blur and Opacity</span> Tab</a></p>
+<ul>
+<li><p><a class="reference internal" href="#blur" id="id7">Blur</a></p></li>
+<li><p><a class="reference internal" href="#opacity" id="id8">Opacity</a></p></li>
 </ul>
+</li>
+<li><p><a class="reference internal" href="#color-tab" id="id9"><span class="guilabel">Color</span> Tab</a></p></li>
+<li><p><a class="reference internal" href="#trace" id="id10"><span class="guilabel">Trace</span></a></p></li>
+<li><p><a class="reference internal" href="#tricks" id="id11">Tricks</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>私がいた世界と tessellation の意味合いが若干異なるので、注意する意味で引用する：</p>
+<blockquote>
+<div><p>Tiling or tessellation is the covering of a surface with the repeated use of
+the same shape tile. A typical example is the tiling in a bathroom.</p>
+</div></blockquote>
+<p>同一のタイルを反復するだけではつまらないので、Inkscape では工夫を入れる：</p>
+<blockquote>
+<div><p>In Inkscape, this concept is expanded to include a multitude of options,
+including progressively changing the tile size, spacing, and orientation.</p>
+</div></blockquote>
+<p>この手法の基本は複製パターンにある。第四章を復習しておくといい。</p>
+<blockquote>
+<div><p>While random use of the <span class="guilabel">Tile Clones</span> dialog can produce exquisite
+patterns, it is useful to understand the fundamentals of tessellation in
+order to have more control over the final design.</p>
+</div></blockquote>
+<p>基本は大切だ。</p>
+<blockquote>
+<div><p>To construct a tiling, open up the <span class="guilabel">Create Tiled Clones</span> dialog
+(<span class="menuselection">Edit ‣ Clone ‣ Create Tiled Clones…</span>).</p>
+</div></blockquote>
+<p>このコマンドが複製メニューの下にあることが面白い。</p>
+<p>当分 <span class="guilabel">Create Tiled Clones</span> ダイアログのスクリーンショットに基づいて解説が続く。ダイアログ下部がモードに依らない固定 UI になっている。</p>
+<dl class="simple">
+<dt><span class="guilabel">Rows, columns</span></dt><dd><p>矩形タイルの敷き詰め時にしか適切でない。</p>
+</dd>
+<dt><span class="guilabel">Width, height</span></dt><dd><p>被覆対象領域の寸法。</p>
+</dd>
+<dt><span class="guilabel">Used saved size and position of the tile</span></dt><dd><p>オンにすると前回コマンド実行時における基礎タイルの寸法と位置を使用するようになる。後で基礎タイルを更新して BB が変更された場合にもタイル間の間隔が保たれる。</p>
+</dd>
+<dt><span class="guilabel">Reset</span></dt><dd><p>タブの下にある項目を既定値に戻す。</p>
+</dd>
+<dt><span class="guilabel">Remove</span></dt><dd><p>基礎タイル選択中に押すとコマンドを undo する。</p>
+</dd>
+<dt><span class="guilabel">Unclump</span></dt><dd><p>複製タイルをある程度ランダムに撒き散らす。反復実行可能。</p>
+</dd>
+<dt><span class="guilabel">Create</span></dt><dd><p>敷き詰めコマンドを実行する</p>
+</dd>
+</dl>
+<p>単純な例が示されている。円を P1 モードで 2x2 に敷き詰めした結果だ。元オブジェクトがまだそこにあることと、BB に基づいて配置されていることを理解する。</p>
 <section id="symmetry-tab">
-<h2><span class="guilabel">Symmetry</span> Tab<a class="headerlink" href="#symmetry-tab" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>タイリングのメイン設定である。</p></li>
-<li><p>全 17 タイプ。</p></li>
-<li><p>bounding box には geometric のほうを考慮される。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="guilabel">Symmetry</span> Tab</a><a class="headerlink" href="#symmetry-tab" title="Permalink to this heading">¶</a></h2>
+<p>対称性が基本中の基本ということで、このタブが先頭にある。</p>
+<blockquote>
+<div><p>The Symmetry tab is at the heart of the tiling process. Understanding the
+different symmetries is necessary to have full control over the outcome of a
+tiling.</p>
+<p>It is known that there are 17 such tiling symmetries. (See: Wikipedia entry.)
+All 17 symmetries are included in the Inkscape <span class="guilabel">Create Tiled
+Clones</span> dialog.</p>
+</div></blockquote>
+<p>矩形モノと六角形モノがそれぞれ 12 個、5 個ある。後者のタイプでは基礎タイルの BB
+が問題になる。三角形のほうが BB より真に小さいので、場合によってはタイルが重なり合う：</p>
+<blockquote>
+<div><p>Inkscape uses the bounding box of an object to determine the basic tile size.
+For rectangular base tiles, the bounding box corresponds to the base tile.
+However, for triangular base tiles, the base tile covers only part of the
+bounding box area. This can result in tiles “overlapping” if an object
+extends outside the base tile shape (but is still within the bounding box) as
+in the tiling in the introduction to this chapter.</p>
+</div></blockquote>
+<p>敷き詰め実行後に基礎タイルを変更してもタイル同士が重なり合うことが起こり得る。</p>
+<p>敷き詰め後に基礎タイルの寸法を変更する場合には <span class="guilabel">XML Editor</span> ダイアログを使うなどして、SVG データを直接修正する：</p>
+<blockquote>
+<div><p>If you need to adjust the base tile size after having created a tiling, you
+can use the XML Editor dialog to change the parameters <code class="docutils literal notranslate"><span class="pre">inkscape:tile-h</span></code>
+and <code class="docutils literal notranslate"><span class="pre">inkscape:tile-w</span></code> (these will appear after you have cloned the object
+and are used only if the Use saved size and position of the tile button is
+checked).</p>
+</div></blockquote>
 </section>
 <section id="shift-tab">
-<h2><span class="guilabel">Shift</span> Tab<a class="headerlink" href="#shift-tab" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>タイルのズレを設定する。</p></li>
-<li><p>六角形をタイルするには (50%, -25%) とすればよい。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="guilabel">Shift</span> Tab</a><a class="headerlink" href="#shift-tab" title="Permalink to this heading">¶</a></h2>
+<p>ここでは敷き詰めたタイルをさまざまな方式でずらす。次のオプションがある：</p>
+<dl class="simple">
+<dt><span class="guilabel">Shift X</span>, <span class="guilabel">Shift Y</span></dt><dd><p>BB の幅と高さを単位として、タイルの間隔をずらす。ランダムな変異を与えるオプションもある。</p>
+</dd>
+<dt><span class="guilabel">Exponent</span></dt><dd><p>各タイルの位置が <span class="math notranslate nohighlight">\({(1 + s_x)^{p_x},}{(1 + s_y)^{p_y}}\)</span> となるように
+<span class="math notranslate nohighlight">\(p_x, p_y\)</span> を与える。</p>
+</dd>
+<dt><span class="guilabel">Alternate</span></dt><dd><p>加算と減算を交互に行ってずらす。</p>
+</dd>
+<dt><span class="guilabel">Cumulate</span></dt><dd><p>例えば上述のずらし量が 10% である場合、通常、後続のタイル間隔は 10%, 20%,
+30%, … となる。このオプションを使うと、間隔が 10%, (10+20)%, (10+20+30)%,
+… となる。タイルの拡縮も行うときにタイル間隔を一定に保つのに便利だ。</p>
+</dd>
+<dt><span class="guilabel">Exclude tile</span></dt><dd><p>タイルの幅または高さをタイル間隔の計算で除外する。これは回転オプションを使用してタイルを円周上に配置する場合に便利だ。</p>
+</dd>
+</dl>
+<p>ここにある四枚の P1 ベースの Shift は理解できる。</p>
+<blockquote>
+<div><p>Question: What is the symmetry of closely packed hexagons? The answer is P1
+as can be seen below. One can use this fact to trivially generate the board
+for the game Hex invented independently by the mathematicians Piet Hein and
+John Nash.</p>
+</div></blockquote>
+<p>前節で注意されたように、P1 で平行四辺形を敷き詰められる。平面を六角形で敷き詰めることは、イラストのように平行四辺形を分割したものを P1 で敷き詰めることと同じだから、これも可能だ：</p>
+<blockquote>
+<div><p>Closely packed hexagons have a P1 symmetry tiling as shown on the left. On
+the right is the board for the game Hex. To generate both tilings, a hexagon
+was tiled using a shift in x of 50% and a shift in y of -25% per row.</p>
+</div></blockquote>
+<p>六角形を敷き詰めるには (x, y) に対するずらし量を (50%, -25%) とすればよい。</p>
+</section>
+<section id="scale-tab">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="guilabel">Scale</span> Tab</a><a class="headerlink" href="#scale-tab" title="Permalink to this heading">¶</a></h2>
+<p>行と列の位置に応じてタイルの寸法を増減させる。</p>
+<dl class="simple">
+<dt><span class="guilabel">Scale X</span>, <span class="guilabel">Scale Y</span></dt><dd><p>各タイルを百分率指定で拡縮する。ランダム因数を追加するのもあり。</p>
+</dd>
+<dt><span class="guilabel">Exponent</span></dt><dd><p><span class="math notranslate nohighlight">\(S\)</span> が <span class="math notranslate nohighlight">\(S^p\)</span> となるように <span class="math notranslate nohighlight">\(p\)</span> を指定してタイルを拡縮する。</p>
+</dd>
+<dt><span class="guilabel">Base</span></dt><dd><p>対数渦を作成するために用いられるオプション。
+<span class="math notranslate nohighlight">\(S\)</span> が <span class="math notranslate nohighlight">\(b^{S-1}\)</span> となるように <span class="math notranslate nohighlight">\(b\)</span> を指定する。つまり
+<span class="math notranslate nohighlight">\({b = 1}\)</span> の場合は拡縮変更なし。収束する渦には 1 より小さい値を、発散する渦には 1 より大きい値を指定する。真の対数渦は、<span class="math notranslate nohighlight">\(2.718\)</span> またはその逆数 <span class="math notranslate nohighlight">\(0.368\)</span> で <span class="math notranslate nohighlight">\(b\)</span> を指定する。</p>
+</dd>
+<dt><span class="guilabel">Alternate</span></dt><dd><p>タイルの拡大・縮小を交互に行うかどうか。</p>
+</dd>
+<dt><span class="guilabel">Cumulate</span></dt><dd><p>拡縮が累積的であるかどうか（前節参照）。</p>
+</dd>
+</dl>
+<p>イラスト二枚目の隙間を潰す技法を習得しておきたい：</p>
+<blockquote>
+<div><p>A general rule is that to keep scaled tiles just touching, specify a
+cumulative shift that is half of the scaling (in percent).</p>
+</div></blockquote>
+</section>
+<section id="rotation-tab">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="guilabel">Rotation</span> Tab</a><a class="headerlink" href="#rotation-tab" title="Permalink to this heading">¶</a></h2>
+<p>行と列の位置に応じてタイルが回転する。それぞれの回転中心はオブジェクト編集時の回転操作における中心だ。</p>
+<dl class="simple">
+<dt><span class="guilabel">Angle</span></dt><dd><p>回転角度。ランダム因数を追加するのもあり。</p>
+</dd>
+<dt><span class="guilabel">Alternate</span></dt><dd><p>回転の向きを交互に入れ替えるかどうか。</p>
+</dd>
+<dt><span class="guilabel">Cumulate</span></dt><dd><p>回転量が累積的であるかどうか（前節参照）。</p>
+</dd>
+</dl>
+<p>イラストを見てオプションが想像できるので問題ない。</p>
+</section>
+<section id="blur-and-opacity-tab">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="guilabel">Blur and Opacity</span> Tab</a><a class="headerlink" href="#blur-and-opacity-tab" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>The <span class="guilabel">Blur and opacity</span> tab allows one to change the <em>blur</em> and/or
+<em>transparency</em> of each tile depending on the row and column position.</p>
+</div></blockquote>
+<section id="blur">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Blur</a><a class="headerlink" href="#blur" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A <em>Gaussian Blur</em> filter can be applied to each clone with different blurring
+values.</p>
+</div></blockquote>
+<p>カモーンカカカモーンの仕上げに利用することが考えられる。</p>
+<blockquote>
+<div><p>The blur change is specified in percent. The change in blur can be specified
+to <span class="guilabel">Alternate</span> between a positive and negative value; however, a
+negative blur value can be entered in the <span class="guilabel">Per row</span> and
+<span class="guilabel">Per column</span> boxes. A <span class="guilabel">Randomizer</span> factor can also be
+specified.</p>
+</div></blockquote>
+<p>いつもと同じオプションだが、ぼかしの値を負にするということは、いったん正にした値を元に直そうとするということだ。</p>
+</section>
+<section id="opacity">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Opacity</a><a class="headerlink" href="#opacity" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The opacity change is specified in percent. The change in opacity can be
+specified to <span class="guilabel">Alternate</span> between a positive and negative value. A
+<span class="guilabel">Randomizer</span> factor can also be specified.</p>
+</div></blockquote>
+<p>こちらも同じことが言える。</p>
+</section>
 </section>
 <section id="color-tab">
-<h2><span class="guilabel">Color</span> Tab<a class="headerlink" href="#color-tab" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><span class="guilabel">Fill</span>, <span class="guilabel">Stroke</span> は両方共に unset としておく。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink"><span class="guilabel">Color</span> Tab</a><a class="headerlink" href="#color-tab" title="Permalink to this heading">¶</a></h2>
+<p>行と列の位置に応じて各タイルの色を変更する。ただし、色空間は HSL 固定で百分率指定とする：</p>
+<blockquote>
+<div><p>The <em>Hue</em> repeats itself after a change of 100%. The full scale for
+<em>Saturation</em> and <em>Lightness</em> components are each 100%. The changes in the
+three parameters can be specified to <span class="guilabel">Alternate</span> between a positive
+and negative change. A <span class="guilabel">Randomizer</span> factor can also be specified.</p>
+</div></blockquote>
+<p>Hue が境界値で何色になるのかを調べておくほうがいいだろう。残りのオプションはよそのタブと同様。</p>
+<p>このタブでの指定を有効にするには、オブジェクトの地の属性を <em>Unset</em> にしておくなど、準備が要る：</p>
+<blockquote>
+<div><p>Two key points: First, the <span class="guilabel">Fill</span> and/or <span class="guilabel">Stroke paint</span>
+must be specified as <em>Unset</em> ( icon ) (see the section called “Fill and
+Stroke Paint”). Second, an <em>Initial color</em> must be specified by using the
+<span class="guilabel">Initial color of tiled clones</span> dialog accessible by clicking on
+the color button next to the <span class="guilabel">Initial Color</span> label.</p>
+</div></blockquote>
+<p>グレースケールのタイルを作成したくとも、白や黒の初期色を設定することは不可能だ：</p>
+<blockquote>
+<div><p>Note that it is meaningless to have only a shift in <em>Hue</em> with a starting
+color of black or white. This is like trying to walk east from the North
+Pole.</p>
+</div></blockquote>
 </section>
 <section id="trace">
-<h2>Trace<a class="headerlink" href="#trace" title="Permalink to this heading">¶</a></h2>
-<p>これは理解できない。</p>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink"><span class="guilabel">Trace</span></a><a class="headerlink" href="#trace" title="Permalink to this heading">¶</a></h2>
+<p>最後のタブだ。これまでのタブではタイルの描画属性を行と列の番号で決定するのが基本的だったが、このモードはタイルの場所にあるオブジェクトやビットマップの描画属性が決定する：</p>
+<blockquote>
+<div><p>The <span class="guilabel">Trace</span> tab allows one to set the color, size, and transparency
+of the tiles by the color or transparency of the objects (including bitmaps)
+that are placed under the location of the tiling. To enable this feature, the
+<span class="guilabel">Trace the drawing under the tiles</span> box must be checked.</p>
+</div></blockquote>
+<p>このタブは三区画ある。</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Pick from the drawing</span></p></li>
+<li><p><span class="guilabel">Tweak the picked value</span></p></li>
+<li><p><span class="guilabel">Apply the value to the clones</span></p></li>
+</ol>
+<p>区画 1 では下絵の属性を指定する。色の場合には HSL または RGB から成分指定方式を選択できる。</p>
+<p>区画 2 では入力値を補正する：</p>
+<blockquote>
+<div><p>One can specify a Gamma correction or add a randomization factor to the
+input. One can also invert the input.</p>
+</div></blockquote>
+<p>区画 3 ではタイルのどの属性に影響を与えるかを指定する：</p>
+<blockquote>
+<div><p>Options include <em>Presence</em> (the probability that a given tile will be drawn),
+color, size, and opacity.</p>
+</div></blockquote>
+<p>色変更については <span class="guilabel">Color</span> タブと同じ理由で <em>Unset</em> 属性が要る。</p>
+<blockquote>
+<div><p>The color will only be changed for regions of the base tile that have <em>Unset</em>
+fill.</p>
+</div></blockquote>
+<p>み変更される。</p>
+<p>最後の虹背景のデモでは、アルファー値が放射グラデーションで定義されていることに注意して観察すること：</p>
+<blockquote>
+<div><p>The inside of the rainbow is defined as a white gradient stop with zero
+<em>Alpha</em>. The last outside stop is defined with a red color and with zero
+<em>Alpha</em>. For most figures, a star inside an unfilled rectangle is used as the
+base tile. The star has been given an <em>Unset</em> fill when color is selected in
+the output.</p>
+</div></blockquote>
 </section>
 <section id="tricks">
-<h2>Tricks<a class="headerlink" href="#tricks" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>オブジェクトを円環状にも渦巻状にも配列することに応用できる。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Tricks</a><a class="headerlink" href="#tricks" title="Permalink to this heading">¶</a></h2>
+<p>これまで見てきたデモはタイルを縦横に配列するものが多かったが、円環状にも渦巻状にも配列することも可能だ：</p>
+<blockquote>
+<div><p>To put a tile along an arc use the P1 symmetry with one row of tiles. Check
+the <span class="guilabel">Exclude</span> tile box. The <em>Rotation center</em> is used as the center
+of rotation.</p>
+</div></blockquote>
+<p>最初の二つのデモは EU 旗で見たデザインと似ているようだが、☆の姿勢が異なる：</p>
+<blockquote>
+<div><p>The base tile is drawn on the left, showing the <em>Rotation center</em> of the tile.
+On the right is after a P1 tiling with a per column shift removed by checking
+the <span class="guilabel">Exclude</span> tile box and with a rotation of 60%.</p>
+<p>The next figure shows how 12 stars can be put in a circle. This would have
+been an alternative way of placing the stars in the European Union flag if
+the stars did not need to be placed with one of their points straight up.</p>
+</div></blockquote>
+<p>同じ技法を用いて螺旋曲線上にオブジェクトを配列することが可能だ。螺旋曲線なので、数値の指定をそれらしくしないと不格好になることに注意する：</p>
+<blockquote>
+<div><p>Stars on a logarithmic spiral. The tile size is increased by 2.5% with
+<span class="guilabel">Base</span> set to 2.7. Each tile is rotated 20°.</p>
+<p>Stars on a logarithmic spiral. The tile size is increased by 2.5% with
+<span class="guilabel">Base</span> set to 2.7. Each tile is rotated 20°. The per column shift
+has been set to 60% (with the <span class="guilabel">Exclude</span> tile box checked).</p>
+</div></blockquote>
+<p>VJ GYO 的なデザインの解説を読んでいく。</p>
+<blockquote>
+<div><p>A “P1 symmetry” tiling. 8 rows, 21 columns. <em>Rotation</em> of −11.5° per row and
+20.6° per column, <em>Scale</em> of 39.3% per row and 24.2% per column with a
+<span class="guilabel">Base</span> of 2.7 for both <em>x</em> and <em>y</em>. The pattern matches that for a
+pine cone with 8 rows in one direction and 13 in the other.</p>
+<p>For the mathematicians: note that 13 times the per column scaling is equal to
+8 times the per row scaling and that 13 times the per column rotation minus 8
+times the per row rotation is equal to 360°. This is due to the constraint
+that the 14th star in the first row is the same as the 9th star in the first
+column.</p>
+</div></blockquote>
+<p>8 行 21 列の敷き詰め。行方向でも列方向でも回転および縮小がかかる。最初から数えて
+9 番目のタイルが二行目の最初のタイルに相当するように角度を調整しているようだ。</p>
+<blockquote>
+<div><p>A circle tiled on an arc. The red circle with the Rotation center moved off
+center was the source tile.</p>
+</div></blockquote>
+<p>これはノーヒントで再現したい。</p>
 </section>
 </section>
 
