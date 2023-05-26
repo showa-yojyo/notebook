@@ -6,6 +6,8 @@
    height="100"
    id="svg2"
    version="1.1"
+   role="button"
+   aria-pressed="false"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    sodipodi:docname="button.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -24,7 +26,10 @@
       <stop
          id="stop3786"
          offset="0"
-         style="stop-color:#000000;stop-opacity:0;" />
+         style="stop-color:#000000;stop-opacity:0;">
+         <animate attributeName="stop-opacity" values="0;0.5;0"
+           dur="2s" repeatCount="indefinite"/>
+      </stop>
       <stop
          id="stop3784"
          offset="1"
@@ -62,6 +67,35 @@
        gradientTransform="matrix(-3.6619383e-6,-0.72727274,1.5454545,0,-127.27229,177.27273)"
        gradientUnits="userSpaceOnUse" />
   </defs>
+  <script>
+    function buttonEvent(event) {
+      if ((event.type == "click" &amp;&amp; event.button == 0) ||
+          (event.type == "keydown" &amp;&amp;
+          (event.keyCode == 32 || event.keyCode ==13))) {
+
+        let SVGDocument = event.target.ownerDocument;
+        let SVGRoot     = SVGDocument.documentElement;
+        let ButtonBase  = SVGDocument.getElementById("ButtonBase");
+        let Text        = SVGDocument.getElementById("Text");
+        let TextShadow  = SVGDocument.getElementById("TextShadow");
+
+        let pressed = false;
+        let fill = "red";
+        let text = "OFF";
+
+        if ("false" == SVGRoot.getAttribute("aria-pressed")) {
+          pressed = true;
+          fill = "green";
+          text = "ON";
+        }
+
+        SVGRoot.setAttribute("aria-pressed", pressed);
+        ButtonBase.style.setProperty("fill", fill, "");
+        Text.firstChild.nodeValue = text;
+        TextShadow.firstChild.nodeValue = text;
+      }
+    }
+  </script>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -107,10 +141,12 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="レイヤー 1"
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-952.36218)">
+     transform="translate(0,-952.36218)"
+     onkeydown="return buttonEvent(evt);"
+     onclick="return buttonEvent(evt);">
     <rect
        style="color:#000000;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="ButtonBase"

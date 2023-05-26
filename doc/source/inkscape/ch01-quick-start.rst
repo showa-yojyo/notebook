@@ -20,6 +20,11 @@ The Swedish Flag—A Short Example
    Chrome や Firefox など、現代的なウェブブラウザーならば SVG ファイルをそのまま
    表示するので、本ノートにそのまま掲載していく。
 
+   当ノートは Sphinx で HTML を生成しているが、``image`` や ``figure`` ディレク
+   ティブではなく（これらでも描画できる）、本書の終盤で推奨されているように、
+   ``raw`` ディレクティブで HTML ``object`` タグを直接入力して SVG ファイルを
+   描画させるようにしている。右クリックで SVG コードを確認できる。
+
 例として単純な意匠の国旗を SVG で再現している。次のような事項を扱う：
 
    This example will cover: setting a custom drawing size, setting up a Grid to
@@ -30,11 +35,9 @@ The Swedish Flag—A Short Example
 すべての内容が重要だ。特に、寸法や座標を厳密に制御する方法を習得するのを優先する
 べきだ。
 
-.. figure:: /_images/inkscape/swedish-flag.svg
-   :align: center
-   :alt: The Swedish Flag
+.. raw:: html
 
-   The Swedish Flag
+   <object class="svg" data="../_images/swedish-flag.svg" type="image/svg+xml"></object>
 
 The European Flag—A More Elaborate Example
 ======================================================================
@@ -42,11 +45,9 @@ The European Flag—A More Elaborate Example
 この演習では複製操作が重要だ。回転などの基本的な変換操作を含む。また、ガイド線の
 追加という珍しい操作も教えてくれる。
 
-.. figure:: /_images/inkscape/eu-flag.svg
-   :align: center
-   :alt: The European Flag
+.. raw:: html
 
-   The European Flag
+   <object class="svg" data="../_images/eu-flag.svg" type="image/svg+xml"></object>
 
 A Hiking Club Logo—An Exercise in Paths
 ======================================================================
@@ -54,11 +55,9 @@ A Hiking Club Logo—An Exercise in Paths
 テキストとパスの操作を理解する。テキストをパスに変換することができることを覚えて
 おく。
 
-.. figure:: /_images/inkscape/fhmc.svg
-   :align: center
-   :alt: A Hiking Club Logo
+.. raw:: html
 
-   A Hiking Club Logo
+   <object class="svg" data="../_images/fhmc.svg" type="image/svg+xml"></object>
 
 The Northern Pacific Railway Logo—A Tracing Example
 ======================================================================
@@ -69,11 +68,9 @@ The Northern Pacific Railway Logo—A Tracing Example
 本節の例では比較的単純な図形をトレースしているが、実写画像なども資源が潤沢にあり
 さえすれば可能だ。
 
-.. figure:: /_images/inkscape/northern-pacific-railway.svg
-   :align: center
-   :alt: The Northern Pacific Railway Logo
+.. raw:: html
 
-   The Northern Pacific Railway Logo
+   <object class="svg" data="../_images/northern-pacific-railway.svg" type="image/svg+xml"></object>
 
 A Box for Cards—An Isometric Projection
 ======================================================================
@@ -85,11 +82,9 @@ A Box for Cards—An Isometric Projection
 
 EU 旗の節で利用した機能と同じものを用いてアイソメ図を描く。
 
-.. figure:: /_images/inkscape/isometric.svg
-   :align: center
-   :alt: A Box for Cards
+.. raw:: html
 
-   A Box for Cards
+   <object class="svg" data="../_images/isometric.svg" type="image/svg+xml"></object>
 
 .. admonition:: 読者ノート
 
@@ -101,11 +96,9 @@ A Can of Soup—A Three-Dimensional Drawing with Gradients
 グラデーションを主に習得する。この例はモノクロだが、Inkscape では何色でも構成可
 能だ。
 
-.. figure:: /_images/inkscape/soup.svg
-   :align: center
-   :alt: A Can of Soup
+.. raw:: html
 
-   A Can of Soup
+   <object class="svg" data="../_images/soup.svg" type="image/svg+xml"></object>
 
 A Vine Design—A Tiling Example
 ======================================================================
@@ -113,23 +106,19 @@ A Vine Design—A Tiling Example
 :menuselection:`Edit --> Clone --> Create Tiled Clones...` を使った複製。対称性
 がキモだ。
 
-.. figure:: /_images/inkscape/grapevine.svg
-   :align: center
-   :alt: A Vine Design
+.. raw:: html
 
-   A Vine Design
+   <object class="svg" data="../_images/grapevines.svg" type="image/svg+xml"></object>
 
 An SVG Button—SVG and the Web
 ======================================================================
 
-イベントハンドラーを SVG に仕込む方法を紹介している。当ノートでは JavaScript を
-Sphinx のページ個別に組み込むのが面倒なので省略する。
+ボタン色アニメーションおよび JavaScript コードでのイベントハンドラーを SVG に仕
+込む方法を紹介している。
 
-.. figure:: /_images/inkscape/button.svg
-   :align: center
-   :alt: An SVG Button (without events)
+.. raw:: html
 
-   An SVG Button (without events)
+   <object class="svg" data="../_images/button.svg" type="image/svg+xml"></object>
 
 A Neon Sign—Animation
 ======================================================================

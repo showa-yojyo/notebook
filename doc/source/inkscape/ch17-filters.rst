@@ -156,11 +156,9 @@ Mini Tutorial - A Drop Shadow
    when the source object changes. Here is a step-by-step tutorial on creating a
    drop shadow:
 
-.. figure:: /_images/inkscape/dropshadow.svg
-   :align: center
-   :alt: Drop Shadow
+.. raw:: html
 
-   Drop Shadow
+   <object class="svg" data="../_images/dropshadow.svg" type="image/svg+xml"></object>
 
 * :guilabel:`Source` が変更された場合、自動的にドロップシャドウも更新がかかる。
 * テキストに対して複合フィルターを作成することになる。
@@ -820,11 +818,9 @@ Neon
 
 試した：
 
-.. figure:: /_images/inkscape/neon.svg
-   :align: center
-   :alt: Neon
+.. raw:: html
 
-   Neon
+   <object class="svg" data="../_images/neon.svg" type="image/svg+xml"></object>
 
 Stereoscopic Pictures
 ----------------------------------------------------------------------
