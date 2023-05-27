@@ -100,7 +100,20 @@ Bitmaps Files
 Vector Files
 ----------------------------------------------------------------------
 
-TBW
+   Some vector file formats can include bitmap graphics.
+
+例えば次の形式だ：
+
+* .dxf (AutoCAD)
+* .emf (Enhanced Meta File)
+* .eps (Encapsulated PostScript)
+* .pdf (Adobe Portable Document Format)
+* .ps (PostScript)
+* .svg (SVG)
+* .svgz (SVG Compressed)
+* .vsd, .vdx, .vsdm, .vsdx (Visio)
+* .wmf (Windows Meta File)
+* .xaml (Microsoft Application eXtensible Markup Language).
 
 Open Clip Art Library
 ----------------------------------------------------------------------
@@ -108,7 +121,8 @@ Open Clip Art Library
 :menuselection:`File --> Import Web Image...` を選択すると、かなり長い時間待たさ
 れた挙げ句にダイアログボックスが表示される。
 
-1. 右上のドロップダウンリストから :guilabel:`Open Clipart Library` などを選択する。
+1. 右上のドロップダウンリストから :guilabel:`Open Clipart Library` などを選択す
+   る。
 2. 検索欄で適当な単語を入力する。:kbd:`Enter` で実行。
 3. 検索結果に画像と作品名が一覧される。
 4. 所望の項目を選択する。
@@ -119,8 +133,8 @@ Open Clip Art Library
 Exporting Files
 ======================================================================
 
-   Exporting methods are divided between exporting PNG (Portable Network
-   Graphics) files and exporting to all other file formats. The PNG graphics
+   Exporting methods are divided between exporting *PNG* (Portable Network
+   Graphics) files and exporting to all other file formats. The *PNG* graphics
    standard is a patent unencumbered standard that is supported natively by all
    major web browsers and graphics programs.
 
@@ -162,8 +176,8 @@ Vacuuming Files
 ======================================================================
 
    The command :menuselection:`File --> Vacuum Defs` removes unused definitions
-   from the ``<defs>`` section of the SVG file. This includes things like unused
-   gradients, patterns, markers, and filters.
+   from the ``<defs>`` section of the *SVG* file. This includes things like
+   unused gradients, patterns, markers, and filters.
 
 現在の UI では :menuselection:`File --> Clean Up Document` に名称変更されている
 ようだ。
