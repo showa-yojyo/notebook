@@ -6,11 +6,12 @@ Chapter 16. Filter Effects - Preset
 
 本章の最初のパラグラフ：
 
-   *Filter Effects* (Filters) are a feature of SVG that allow an SVG viewer to
-   change the presentation of an object in a well-defined manner such as adding
-   texture to a *Fill*, giving an object a blurred shadow, or modifying the
-   object's color. Inkscape supports almost all SVG Filter primitives (see next
-   chapter) and includes many *Preset* (predefined) filters.
+   *Filter Effects* (Filters) are a feature of :abbr:`SVG` that allow an
+   :abbr:`SVG` viewer to change the presentation of an object in a well-defined
+   manner such as adding texture to a *Fill*, giving an object a blurred shadow,
+   or modifying the object's color. Inkscape supports almost all :abbr:`SVG`
+   Filter primitives (see next chapter) and includes many *Preset* (predefined)
+   filters.
 
 から、フィルター効果という概念の存在と、Inkscape ではそのオブジェクトを原始フィ
 ルターと既製フィルターの二段構えで用意していることを推察する。
@@ -42,7 +43,7 @@ Use of Preset Filters
 自作フィルターをメニューに組み込むことができる。
 
    If you have developed your own *Filters*, you can add them as *Presets* by
-   SVG files with the *Filters* defined to the filters directory (Linux
+   :abbr:`SVG` files with the *Filters* defined to the filters directory (Linux
    :file:`~/.config/inkscape/filters`).
 
 Windows ならば :file:`%APPDATA%\\inkscape\\filters` なのだろう。しかし、このパス
@@ -56,14 +57,14 @@ Windows ならば :file:`%APPDATA%\\inkscape\\filters` なのだろう。しか�
    * ``inkscape:menu``: Submenu name
    * ``inkscape:menu-tooltip``: Tool tip (for *Notification Region*).
 
-   Inkscape includes an SVG file with samples of all the *Preset Filters*. The
-   file, :file:`filters.svg`, is located in the examples directory that can be
-   found in the *File* :guilabel:`Open` dialog. Be prepared to wait as the file
-   requires processing hundreds of *Filters*.
+   Inkscape includes an :abbr:`SVG` file with samples of all the *Preset
+   Filters*. The file, :file:`filters.svg`, is located in the examples directory
+   that can be found in the *File* :guilabel:`Open` dialog. Be prepared to wait
+   as the file requires processing hundreds of *Filters*.
 
-実際に当該ファイルをテキストエディターで開くと、内容は 2600 行くらいの SVG ファ
-イルだ。これを精査すれば自作フィルターの XML 要素を定義する方法を解読できるだろ
-う。
+実際に当該ファイルをテキストエディターで開くと、内容は 2600 行くらいの
+:abbr:`SVG` ファイルだ。これを精査すれば自作フィルターの :abbr:`XML` 要素を定義
+する方法を解読できるだろう。
 
 ABCs
 ======================================================================
@@ -79,13 +80,14 @@ Bevels
 
 .. admonition:: 読者ノート
 
-   以降の表は前述の SVG ファイルから :program:`xsltproc` で抽出して作成した。本
-   文で少し触れているように、メニューは組み込みコマンドと :file:`filters.svg` か
-   らロード（起動時？）したものがマージされたものだ。前者のコマンド名を自動抽出
-   する方法が現在わからないので、せめて後者の一覧だけでもここに残しておく：
+   以降の表は前述の :abbr:`SVG` ファイルから :program:`xsltproc` で抽出して作成
+   した。本文で少し触れているように、メニューは組み込みコマンドと
+   :file:`filters.svg` からロード（起動時？）したものがマージされたものだ。前者
+   のコマンド名を自動抽出する方法が現在わからないので、せめて後者の一覧だけでも
+   ここに残しておく：
 
-   :menuselection:`Filters --> Bevels -->` で言えば、次が組み込みコマンドで Inkscape にあっ
-   て :file:`filters.svg` にないメニュー項目だ：
+   :menuselection:`Filters --> Bevels -->` で言えば、次が組み込みコマンドで
+   Inkscape にあって :file:`filters.svg` にないメニュー項目だ：
 
    * :menuselection:`Diffuse Light...`
    * :menuselection:`Matte Jelly...`

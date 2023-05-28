@@ -4,7 +4,8 @@ Chapter 5. Positioning and Transforming
 
 .. contents::
 
-Inkscape はオブジェクトとそれに適用する座標変換を区別して管理していると理解できる。
+Inkscape はオブジェクトとそれに適用する座標変換を区別して管理していると理解でき
+る。
 
    One key thing to know is that transforming a *Regular Shape* object or a
    *Group* of objects by the methods described in this chapter does not
@@ -16,8 +17,8 @@ Inkscape はオブジェクトとそれに適用する座標変換を区別し�
    direction. The underlying definition of the ellipse width remains 100 pixels
    but when the ellipse is drawn a scale factor of 50% is applied in the
    horizontal direction. The second way to change the ellipse is to use the
-   *Ellipse* Tool to resize the ellipse. In this case, the underlying description
-   of the ellipse changes and no scale factor is applied.
+   *Ellipse* Tool to resize the ellipse. In this case, the underlying
+   description of the ellipse changes and no scale factor is applied.
 
 前者は楕円と縮尺変換で表現し、後者は楕円自身の定義を変更するというものだ。
 
@@ -44,13 +45,13 @@ Inkscape Coordinates
    Conversion between the units is fairly straightforward: 1 inch = 1/12 ft =
    2.54 cm = 25.4 mm = 0.0254 m = 6 pc = 72 pt.
 
-キャンバス座標系と SVG 標準座標系は異なることを理解する：
+キャンバス座標系と :abbr:`SVG` 標準座標系は異なることを理解する：
 
    One confusing aspect is that Inkscape uses a different scale internally. On
    the canvas, the x and y coordinates increase as one moves right or up.
-   Internally the y coordinate is flipped as per the SVG standard. Thus, (0, 0)
-   is defined from the upper-left corner of the page region internally but at
-   the bottom-left corner in the canvas window.
+   Internally the y coordinate is flipped as per the :abbr:`SVG` standard. Thus,
+   (0, 0) is defined from the upper-left corner of the page region internally
+   but at the bottom-left corner in the canvas window.
 
 キャンバスのほうが右手座標系であることに注意したい。すると角度の測量も Inkscape
 の画面上ではそれに準じる向きを正とする。
@@ -64,12 +65,13 @@ Transformations
 対象に座標変換を適用するには、それをまず選択状態にしておく必要がある：
 
    Each method begins by selecting an object or group of objects to be
-   transformed. The Select Tool must be active for making transformations with
+   transformed. The *Select Tool* must be active for making transformations with
    the mouse or keyboard.
 
 座標変換に関して注意点がいくつかある。箇条書きにしてまとめておく：
 
-1. SVG 画素と画面画素の区別がある。後者を使う変換操作はズームレベルに依存する。
+1. :abbr:`SVG` 画素と画面画素の区別がある。後者を使う変換操作はズームレベルに依
+   存する。
 2. オブジェクトの bounding box (BB) に二つの定義がある。視覚的か幾何的かで区別さ
    れる。
 3. 先述のとおり、座標変換対象は通常その定義を変更されない
@@ -88,8 +90,8 @@ Translations
 
 左ボタンドラッグでオブジェクトを直観的に移動する。
 
-:kbd:`Alt` を押しながらドラッグすると、開始位置に関係なく選択オブジェクトを移動す
-る。開始位置のオブジェクトを選択しない。
+:kbd:`Alt` を押しながらドラッグすると、開始位置に関係なく選択オブジェクトを移動
+する。開始位置のオブジェクトを選択しない。
 
 :kbd:`Ctrl` を押しながらドラッグすると、座標軸に対して平行に移動するようになる。
 
@@ -341,12 +343,12 @@ Matrix Tab
    the transformation matrix is with respect to the point :math:`(0, 0)` in
    screen coordinates if not editing the current matrix. If editing the current
    matrix, the transformation is with respect to the *User Coordinate System*
-   which, if an object is not in a *Group*, is equivalent to the SVG coordinate
-   system (*Initial View Port*) where the origin is at the top-left corner of the
-   page. See the SVG standard for more details.
+   which, if an object is not in a *Group*, is equivalent to the :abbr:`SVG`
+   coordinate system (*Initial View Port*) where the origin is at the top-left
+   corner of the page. See the :abbr:`SVG` standard for more details.
 
-さらに、ダイアログ上で見えている数値と、SVG に記述されるそれとがユーザー設定によ
-り異なる場合があることに注意する：
+さらに、ダイアログ上で見えている数値と、:abbr:`SVG` に記述されるそれとがユーザー
+設定により異なる場合があることに注意する：
 
    Second, Inkscape will modify the matrix and other parameters of an object
    internally so that the internal E and F terms are zero if the
@@ -386,14 +388,15 @@ Transforms with the XML Editor
    :guilabel:`XML Editor` dialog (:menuselection:`Edit --> XML Editor...`
    (:guilabel:`Shift` + :guilabel:`Ctrl` + :guilabel:`X`)).
 
-文書の本体である XML を直接編集することで座標変換を完全に調整することが可能だ。
-特に行列成分を編集するときには、その出現順序を正確に理解しておく必要がある：
+文書の本体である :abbr:`XML` を直接編集することで座標変換を完全に調整することが
+可能だ。特に行列成分を編集するときには、その出現順序を正確に理解しておく必要があ
+る：
 
    Any transform an object is subject to is described by the ``transform``
    attribute. A transform can be of type ``translate``, ``scale``, ``rotate``,
-   ``skewX``, ``skewY``, or ``matrix``. In most cases, the transform will be of the
-   ``matrix`` type. A matrix entry contains the Transformation Matrix in the order
-   (A, B, C, D, E, F) where (ACE) is the first row of the matrix.
+   ``skewX``, ``skewY``, or ``matrix``. In most cases, the transform will be of
+   the ``matrix`` type. A matrix entry contains the *Transformation Matrix* in
+   the order (A, B, C, D, E, F) where (ACE) is the first row of the matrix.
 
 前述の適用座標系が何であるかに関する注意をここでも意識すること。
 
@@ -444,7 +447,7 @@ Snapping Objects
 
    Note that edges are never snap points.
 
-ノード系は CAD でよく世話になっていたから大丈夫。
+ノード系は :abbr:`CAD` でよく世話になっていたから大丈夫。
 
 Guides
 ----------------------------------------------------------------------
@@ -539,8 +542,8 @@ Grid
    of the dialog. It is possible to have more than one *Grid* defined (and in
    use). Each *Grid* will have a tab entry.
 
-実際に設定画面の UI を見ると、CAD の作業平面のそれと共通する属性もいくつかある。
-新規グリッドの属性の初期値はアプリケーション設定で決まる：
+実際に設定画面の UI を見ると、:abbr:`CAD` の作業平面のそれと共通する属性もいくつ
+かある。新規グリッドの属性の初期値はアプリケーション設定で決まる：
 
    The default *Grid* parameters can be modified in the *Grids* section of the
    :guilabel:`Inkscape Preferences` dialog.

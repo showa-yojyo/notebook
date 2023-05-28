@@ -65,8 +65,8 @@ Inkscape はオブジェクトに属性を与える手段をいくつも用意�
    トを選択してこのコマンドを使う。
 
 XML Editor
-   属性を編集するというよりは、SVG 標準に定義されているが、Inkscape UI で直接ア
-   クセスできない属性に便利だ。
+   属性を編集するというよりは、:abbr:`SVG` 標準に定義されているが、Inkscape UI
+   で直接アクセスできない属性に便利だ。
 
 Fill and Stroke Paint
 ======================================================================
@@ -127,15 +127,15 @@ Fill and Stroke Dialog—Color
    entry box, using the up/down arrows in the widget (*Right Mouse Click* on an
    arrow causes the value to change to the minimum or maximum, *Middle Mouse
    Click* cause the value to increment or decrement by 10), or the
-   :kbd:`Up/Down` Arrow keys after the entry box is selected. The slider
+   :kbd:`Up`/:kbd:`Down` Arrow keys after the entry box is selected. The slider
    bar shows the current value (triangles) and what the color will look like as
    that slider is dragged.
 
 第四成分、アルファー値は 0 ほど透明に近い：
 
-   The A or *Alpha* attribute specifies how transparent the fill should be, 0 for
-   completely transparent and 255 (100) for completely opaque in the case of the
-   *RGB*, *HSL*, and *Wheel* (*CMYK*) methods.
+   The A or *Alpha* attribute specifies how transparent the fill should be, 0
+   for completely transparent and 255 (100) for completely opaque in the case of
+   the :abbr:`RGB`, :abbr:`HSL`, and *Wheel* (:abbr:`CMYK`) methods.
 
 RGB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -147,31 +147,32 @@ RGB
 HSL
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   HSL (Hue, Saturation, Lightness) is a method for specifying color in terms of
-   hue (color in optical spectrum), saturation (intensity-purity), and
+   :abbr:`HSL` (Hue, Saturation, Lightness) is a method for specifying color in
+   terms of hue (color in optical spectrum), saturation (intensity-purity), and
    lightness. The range for saturation is from a pure color to gray. The range
    for lightness is from black to pure color to white.
 
-HSL は虹色を作るときに便利な色モデルだ。
+:abbr:`HSL` は虹色を作るときに便利な色モデルだ。
 
 .. admonition:: 利用者ノート
 
-   Inkscape 1.2 では HSV も利用可能。
+   Inkscape 1.2 では :abbr:`HSV` も利用可能。
 
 CMYK
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-CMYK は減色法に基づく印刷用色モデルだ。次が囲み記事で注意されている：
+:abbr:`CMYK` は減色法に基づく印刷用色モデルだ。次が囲み記事で注意されている：
 
-   Inkscape stores color internally in the RGB format. This is the only color
-   specification supported by SVG. Furthermore, the entry boxes are set up so
-   that the value in one is always zero. (Any color in RGB color space can be
-   defined using only three of the CMYK terms. The definition is not unique.)
+   Inkscape stores color internally in the :abbr:`RGB` format. This is the only
+   color specification supported by :abbr:`SVG`. Furthermore, the entry boxes
+   are set up so that the value in one is always zero. (Any color in :abbr:`RGB`
+   color space can be defined using only three of the :abbr:`CMYK` terms. The
+   definition is not unique.)
 
 Wheel
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-本節の記述はおそらく現行バージョンの HSL モードに吸収されている。
+本節の記述はおそらく現行バージョンの :abbr:`HSL` モードに吸収されている。
 :guilabel:`Color Wheel` ボタンでこの UI の表示を切り替える。
 
 次の記述はその UI のそれとしてはなお有効のようだ：
@@ -224,7 +225,7 @@ Palette and Swatches Dialog
    Inkscape has a variety of built-in palettes (some copied from Gimp). More
    palettes can be added by installing palette files in the directory
    :file:`share/palettes`. The files use the Gimp palette file structure where
-   colors are defined in terms of a triplet of numbers in a RGB format.
+   colors are defined in terms of a triplet of numbers in a :abbr:`RGB` format.
 
 *Palette* と *Swatches* の隅にある▲▼アイコンとハンバーガーアイコンは便利だ：
 
@@ -320,9 +321,9 @@ Color Gestures
    The principle is that as you drag the mouse, the color will change
    proportionally to the distance from a 45° line from the indicator. The
    farther away you are, the more subtle the changes can be. Changes are made in
-   the HSL color space.
+   the :abbr:`HSL` color space.
 
-HSL モデルは極座標に基づくものだからこういう動作を考案したのだろうか。
+:abbr:`HSL` モデルは極座標に基づくものだからこういう動作を考案したのだろうか。
 
 * :kbd:`Shift` を押しながらドラッグすると彩度が変化。
 * :kbd:`Ctrl` を押しながらドラッグすると明度が変化。
@@ -349,8 +350,8 @@ Dropper Tool
    The *Fill* and *Stroke paint* color of an object can be changed by using the
    *Dropper Tool* to grab an existing color in the drawing. Options allow for
    grabbing the average color over a circular region, inverting the grabbed
-   color, and saving the grabbed color to the system clipboard (as a RGBA
-   hexadecimal number).
+   color, and saving the grabbed color to the system clipboard (as a
+   :abbr:`RGBA` hexadecimal number).
 
 スポイトツールは選択ツールと反復して使うことになるので、この操作を習得しておく：
 
@@ -512,7 +513,8 @@ Onscreen Editing
 
 * :kbd:`Ctrl` + :kbd:`Alt` を押しつつ対象停止点上を左クリック
 * 選択停止点に対して :kbd:`Del` を押す
-* :kbd:`Ctrl` + :kbd:`L` を押すとグラデーション単純化を試みる（パス単純化と類比的に）
+* :kbd:`Ctrl` + :kbd:`L` を押すとグラデーション単純化を試みる（パス単純化と類比
+  的に）
 
 中間の停止点を移動するには：
 
@@ -558,8 +560,8 @@ Onscreen Editing
    色はクリップボードで読み書きできる。:menuselection:`Edit --> Copy` を選ぶか
    :kbd:`Ctrl` + :kbd:`C` を押すと、停止点が一つだけ選択されているならばその色と
    遮光度が、複数選択されているならば平均色が複写される。:menuselection:`Edit
-   --> Paste Style` を選ぶか :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`V` を押すと、選択
-   停止点すべてに対してクリップボードから色と遮光度が複写される。
+   --> Paste Style` を選ぶか :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`V` を押すと、選
+   択停止点すべてに対してクリップボードから色と遮光度が複写される。
 
 Using the Gradient Editor Dialog
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -594,8 +596,8 @@ Adjusting Gradients
 グラデーションハンドル自体が特別な移動をすることがある：
 
    *Gradient* handles from two different objects will snap together if one is
-   placed over the other. This facilitates aligning *Gradients* between different
-   objects. The handles will then move together.
+   placed over the other. This facilitates aligning *Gradients* between
+   different objects. The handles will then move together.
 
 複数オブジェクトがグラデーションを共有することもある：
 
@@ -732,8 +734,8 @@ Adjusting Patterns
 
 これは憶えておくと便利：
 
-   For SVG viewers that don't support clipping, you can crop a bitmap by turning
-   the bitmap into a *Pattern* and using it to fill an arbitrary path.
+   For :abbr:`SVG` viewers that don't support clipping, you can crop a bitmap by
+   turning the bitmap into a *Pattern* and using it to fill an arbitrary path.
 
 Hatchings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -917,18 +919,18 @@ Markers
 
 マーカーには問題が二点あるそうだ：
 
-   Two problems exist with Markers. The first is that Markers do not take the
-   color of the stroke.
+   Two problems exist with *Markers*. The first is that *Markers* do not take
+   the color of the stroke.
 
 これに関しては 1.2 では修正されているように見える。ハサミの色が描線と一致する。
 以前は確かに記述されているとおりだった。
 
    The second problem is that *Markers* scale with line width. The line width
    had to be reduced in the above figure for the scissors examples, to give the
-   scissors a reasonable size. Again, one could edit the SVG file to adjust the
-   *Marker* size.
+   scissors a reasonable size. Again, one could edit the :abbr:`SVG` file to
+   adjust the *Marker* size.
 
-これはこのとおり。SVG 直接編集という最終手段が使える。
+これはこのとおり。:abbr:`SVG` 直接編集という最終手段が使える。
 
 Complex Strokes
 ----------------------------------------------------------------------
@@ -936,4 +938,4 @@ Complex Strokes
 異なるストローク属性を持つパスを重ね合わせることで、複雑なマーカー付きの線を描け
 る。クローン系コマンドを巧妙に応用するといい。
 
-.. _LittleCMS: http://www.littlecms.com/
+.. _LittleCMS: https://www.littlecms.com/

@@ -26,9 +26,6 @@ Panning the Canvas
 
 :kbd:`Ctrl` を押しながら :kbd:`↑` などの矢印キーを押すとその方向にパンする。
 
-いろいろといじっていて気づいたことだが、:kbd:`Space` を押すと、マウス移動でワン
-スロークだけパンとなるようだ。
-
 Zooming the Canvas
 ======================================================================
 
@@ -142,12 +139,12 @@ Hide/Show Dialogs
 Outline Mode
 ----------------------------------------------------------------------
 
-   Inkscape has an Outline or Wire-frame mode. In this mode, all paths and
+   Inkscape has an *Outline* or *Wire-frame* mode. In this mode, all paths and
    shapes are drawn as outlines with a one screen-pixel-wide stroke and no fill,
    regardless of zoom level. Text is drawn with an inverse fill and no stroke.
    Images are outlined in red, clip paths in green, and masks in blue.
 
-   The Outline mode is useful for seeing the overall structure of a drawing,
+   The *Outline* mode is useful for seeing the overall structure of a drawing,
    precise node editing, and for finding and selecting those pesky, hidden
    objects that may have been created by accident. The mode is marginally faster
    than the normal mode.
@@ -160,17 +157,18 @@ Outline Mode
 * :menuselection:`Visible Hairlines`
 * :menuselection:`Outline Overlay`
 
-:menuselection:`View --> Display Mode --> Cycle` または :kbd:`Ctrl` + :kbd:`Num 5`
+:menuselection:`View --> Display Mode --> Cycle` または :kbd:`Ctrl` + :kbd:`Num5`
 でこの五つの描画モードを巡回するように切り替える。
-:menuselection:`View --> Display Mode --> Toggle` または :kbd:`Ctrl` + :kbd:`Num 5`
-で通常モードとそれ以外の四つの描画モードで前回適用したものを切り替える。
+:menuselection:`View --> Display Mode --> Toggle` または :kbd:`Ctrl` +
+:kbd:`Num5` で通常モードとそれ以外の四つの描画モードで前回適用したものを切り替え
+る。
 
 No Filters Mode
 ----------------------------------------------------------------------
 
-   Inkscape also has an No Filters mode where the rendering of Filters is turned
-   off. This is useful for working on complicated drawings where the use of
-   Filters causes the rendering to be too slow.
+   Inkscape also has an *No Filters* mode where the rendering of *Filters* is
+   turned off. This is useful for working on complicated drawings where the use
+   of *Filters* causes the rendering to be too slow.
 
 とあるのだが、キャンバス回転と絡めるとぼかしが無効にならないのを確認してしまった。
 再描画が不適切であるように感じられる。
