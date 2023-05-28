@@ -77,13 +77,13 @@ Chapter 19. Tiling
 敷き詰め実行後に基礎タイルを変更してもタイル同士が重なり合うことが起こり得る。
 
 敷き詰め後に基礎タイルの寸法を変更する場合には :guilabel:`XML Editor` ダイアログ
-を使うなどして、SVG データを直接修正する：
+を使うなどして、:abbr:`SVG` データを直接修正する：
 
    If you need to adjust the base tile size after having created a tiling, you
-   can use the XML Editor dialog to change the parameters ``inkscape:tile-h``
-   and ``inkscape:tile-w`` (these will appear after you have cloned the object
-   and are used only if the Use saved size and position of the tile button is
-   checked).
+   can use the :abbr:`XML` Editor dialog to change the parameters
+   ``inkscape:tile-h`` and ``inkscape:tile-w`` (these will appear after you have
+   cloned the object and are used only if the Use saved size and position of the
+   tile button is checked).
 
 :guilabel:`Shift` Tab
 ======================================================================
@@ -199,8 +199,8 @@ Opacity
 :guilabel:`Color` Tab
 ======================================================================
 
-行と列の位置に応じて各タイルの色を変更する。ただし、色空間は HSL 固定で百分率指
-定とする：
+行と列の位置に応じて各タイルの色を変更する。ただし、色空間は :abbr:`HSL` 固定で
+百分率指定とする：
 
    The *Hue* repeats itself after a change of 100%. The full scale for
    *Saturation* and *Lightness* components are each 100%. The changes in the
@@ -214,8 +214,8 @@ Hue が境界値で何色になるのかを調べておくほうがいいだろ�
 ど、準備が要る：
 
    Two key points: First, the :guilabel:`Fill` and/or :guilabel:`Stroke paint`
-   must be specified as *Unset* ( icon ) (see the section called “Fill and
-   Stroke Paint”). Second, an *Initial color* must be specified by using the
+   must be specified as *Unset* (see the section called “Fill and Stroke
+   Paint”). Second, an *Initial color* must be specified by using the
    :guilabel:`Initial color of tiled clones` dialog accessible by clicking on
    the color button next to the :guilabel:`Initial Color` label.
 
@@ -243,8 +243,8 @@ Hue が境界値で何色になるのかを調べておくほうがいいだろ�
 2. :guilabel:`Tweak the picked value`
 3. :guilabel:`Apply the value to the clones`
 
-区画 1 では下絵の属性を指定する。色の場合には HSL または RGB から成分指定方式を
-選択できる。
+区画 1 では下絵の属性を指定する。色の場合には :abbr:`HSL` または :abbr:`RGB` か
+ら成分指定方式を選択できる。
 
 区画 2 では入力値を補正する：
 
@@ -304,7 +304,7 @@ Tricks
 
 VJ GYO 的なデザインの解説を読んでいく。
 
-   A “P1 symmetry” tiling. 8 rows, 21 columns. *Rotation* of −11.5° per row and
+   A “P1 symmetry” tiling. 8 rows, 21 columns. *Rotation* of -11.5° per row and
    20.6° per column, *Scale* of 39.3% per row and 24.2% per column with a
    :guilabel:`Base` of 2.7 for both *x* and *y*. The pattern matches that for a
    pine cone with 8 rows in one direction and 13 in the other.

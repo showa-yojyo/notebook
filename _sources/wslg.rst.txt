@@ -213,5 +213,3 @@ ImageMagick をインストールすれば、コマンド :command:`display` で
 `Enabling the Windows Subsystem for Linux to include support for Wayland and X server related scenarios <https://github.com/microsoft/wslg>`__
   GitHub にある当開発サイトの README に目を通しておけば、少なくとも正常動作時に
   欲しい情報は十分得られる。異常時には Wiki の関連項目を当たること。
-
-.. [wslg] https://github.com/microsoft/wslg

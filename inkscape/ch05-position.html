@@ -127,8 +127,8 @@ required width. The first is to scale the object by 50% in the horizontal (x)
 direction. The underlying definition of the ellipse width remains 100 pixels
 but when the ellipse is drawn a scale factor of 50% is applied in the
 horizontal direction. The second way to change the ellipse is to use the
-<em>Ellipse</em> Tool to resize the ellipse. In this case, the underlying description
-of the ellipse changes and no scale factor is applied.</p>
+<em>Ellipse</em> Tool to resize the ellipse. In this case, the underlying
+description of the ellipse changes and no scale factor is applied.</p>
 </div></blockquote>
 <p>前者は楕円と縮尺変換で表現し、後者は楕円自身の定義を変更するというものだ。</p>
 <blockquote>
@@ -151,13 +151,13 @@ a tool tip will show the current unit.</p>
 <div><p>Conversion between the units is fairly straightforward: 1 inch = 1/12 ft =
 2.54 cm = 25.4 mm = 0.0254 m = 6 pc = 72 pt.</p>
 </div></blockquote>
-<p>キャンバス座標系と SVG 標準座標系は異なることを理解する：</p>
+<p>キャンバス座標系と <abbr>SVG</abbr> 標準座標系は異なることを理解する：</p>
 <blockquote>
 <div><p>One confusing aspect is that Inkscape uses a different scale internally. On
 the canvas, the x and y coordinates increase as one moves right or up.
-Internally the y coordinate is flipped as per the SVG standard. Thus, (0, 0)
-is defined from the upper-left corner of the page region internally but at
-the bottom-left corner in the canvas window.</p>
+Internally the y coordinate is flipped as per the <abbr>SVG</abbr> standard. Thus,
+(0, 0) is defined from the upper-left corner of the page region internally
+but at the bottom-left corner in the canvas window.</p>
 </div></blockquote>
 <p>キャンバスのほうが右手座標系であることに注意したい。すると角度の測量も Inkscape
 の画面上ではそれに準じる向きを正とする。</p>
@@ -168,12 +168,12 @@ the bottom-left corner in the canvas window.</p>
 <p>対象に座標変換を適用するには、それをまず選択状態にしておく必要がある：</p>
 <blockquote>
 <div><p>Each method begins by selecting an object or group of objects to be
-transformed. The Select Tool must be active for making transformations with
+transformed. The <em>Select Tool</em> must be active for making transformations with
 the mouse or keyboard.</p>
 </div></blockquote>
 <p>座標変換に関して注意点がいくつかある。箇条書きにしてまとめておく：</p>
 <ol class="arabic simple">
-<li><p>SVG 画素と画面画素の区別がある。後者を使う変換操作はズームレベルに依存する。</p></li>
+<li><p><abbr>SVG</abbr> 画素と画面画素の区別がある。後者を使う変換操作はズームレベルに依存する。</p></li>
 <li><p>オブジェクトの bounding box (BB) に二つの定義がある。視覚的か幾何的かで区別される。</p></li>
 <li><p>先述のとおり、座標変換対象は通常その定義を変更されない</p></li>
 <li><p><em>Select</em> ツール使用時に <em>Tools</em> コントロールでオンオフを切り替えられるオプションが多数ある。</p></li>
@@ -442,11 +442,11 @@ selected).</p>
 <div><p>the transformation matrix is with respect to the point <span class="math notranslate nohighlight">\((0, 0)\)</span> in
 screen coordinates if not editing the current matrix. If editing the current
 matrix, the transformation is with respect to the <em>User Coordinate System</em>
-which, if an object is not in a <em>Group</em>, is equivalent to the SVG coordinate
-system (<em>Initial View Port</em>) where the origin is at the top-left corner of the
-page. See the SVG standard for more details.</p>
+which, if an object is not in a <em>Group</em>, is equivalent to the <abbr>SVG</abbr>
+coordinate system (<em>Initial View Port</em>) where the origin is at the top-left
+corner of the page. See the <abbr>SVG</abbr> standard for more details.</p>
 </div></blockquote>
-<p>さらに、ダイアログ上で見えている数値と、SVG に記述されるそれとがユーザー設定により異なる場合があることに注意する：</p>
+<p>さらに、ダイアログ上で見えている数値と、<abbr>SVG</abbr> に記述されるそれとがユーザー設定により異なる場合があることに注意する：</p>
 <blockquote>
 <div><p>Second, Inkscape will modify the matrix and other parameters of an object
 internally so that the internal E and F terms are zero if the
@@ -486,13 +486,13 @@ dimension(s) to load the selection into the clipboard.</p>
 <span class="guilabel">XML Editor</span> dialog (<span class="menuselection">Edit ‣ XML Editor…</span>
 (<span class="guilabel">Shift</span> + <span class="guilabel">Ctrl</span> + <span class="guilabel">X</span>)).</p>
 </div></blockquote>
-<p>文書の本体である XML を直接編集することで座標変換を完全に調整することが可能だ。特に行列成分を編集するときには、その出現順序を正確に理解しておく必要がある：</p>
+<p>文書の本体である <abbr>XML</abbr> を直接編集することで座標変換を完全に調整することが可能だ。特に行列成分を編集するときには、その出現順序を正確に理解しておく必要がある：</p>
 <blockquote>
 <div><p>Any transform an object is subject to is described by the <code class="docutils literal notranslate"><span class="pre">transform</span></code>
 attribute. A transform can be of type <code class="docutils literal notranslate"><span class="pre">translate</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rotate</span></code>,
-<code class="docutils literal notranslate"><span class="pre">skewX</span></code>, <code class="docutils literal notranslate"><span class="pre">skewY</span></code>, or <code class="docutils literal notranslate"><span class="pre">matrix</span></code>. In most cases, the transform will be of the
-<code class="docutils literal notranslate"><span class="pre">matrix</span></code> type. A matrix entry contains the Transformation Matrix in the order
-(A, B, C, D, E, F) where (ACE) is the first row of the matrix.</p>
+<code class="docutils literal notranslate"><span class="pre">skewX</span></code>, <code class="docutils literal notranslate"><span class="pre">skewY</span></code>, or <code class="docutils literal notranslate"><span class="pre">matrix</span></code>. In most cases, the transform will be of
+the <code class="docutils literal notranslate"><span class="pre">matrix</span></code> type. A matrix entry contains the <em>Transformation Matrix</em> in
+the order (A, B, C, D, E, F) where (ACE) is the first row of the matrix.</p>
 </div></blockquote>
 <p>前述の適用座標系が何であるかに関する注意をここでも意識すること。</p>
 </section>
@@ -529,7 +529,7 @@ attribute. A transform can be of type <code class="docutils literal notranslate"
 <blockquote>
 <div><p>Note that edges are never snap points.</p>
 </div></blockquote>
-<p>ノード系は CAD でよく世話になっていたから大丈夫。</p>
+<p>ノード系は <abbr>CAD</abbr> でよく世話になっていたから大丈夫。</p>
 </section>
 <section id="guides">
 <h3><a class="toc-backref" href="#id28" role="doc-backlink">Guides</a><a class="headerlink" href="#guides" title="Permalink to this heading">¶</a></h3>
@@ -615,7 +615,7 @@ parameters for the new <em>Grid</em> will then be editable under a tab in the bo
 of the dialog. It is possible to have more than one <em>Grid</em> defined (and in
 use). Each <em>Grid</em> will have a tab entry.</p>
 </div></blockquote>
-<p>実際に設定画面の UI を見ると、CAD の作業平面のそれと共通する属性もいくつかある。新規グリッドの属性の初期値はアプリケーション設定で決まる：</p>
+<p>実際に設定画面の UI を見ると、<abbr>CAD</abbr> の作業平面のそれと共通する属性もいくつかある。新規グリッドの属性の初期値はアプリケーション設定で決まる：</p>
 <blockquote>
 <div><p>The default <em>Grid</em> parameters can be modified in the <em>Grids</em> section of the
 <span class="guilabel">Inkscape Preferences</span> dialog.</p>

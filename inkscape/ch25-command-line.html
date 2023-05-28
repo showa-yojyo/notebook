@@ -12,7 +12,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/mermaid.js"></script>
-    <link rel="next" title="FFmpeg 利用ノート" href="../ffmpeg/index.html" />
+    <link rel="next" title="Chapter 26. Challenges" href="ch26-challenges.html" />
     <link rel="prev" title="Chapter 24. Customization" href="ch24-customize.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -35,7 +35,7 @@
           <a href="ch24-customize.html" title="Previous document">Chapter 24. Customization</a>
         </li>
         <li>
-          <a href="../ffmpeg/index.html" title="Next document">FFmpeg 利用ノート</a>
+          <a href="ch26-challenges.html" title="Next document">Chapter 26. Challenges</a>
           &rarr;
         </li>
     </ul>
@@ -46,12 +46,410 @@
           <div class="body" role="main">
             
   <section id="chapter-25-using-the-command-line">
-<h1>Chapter 25. Using the Command Line<a class="headerlink" href="#chapter-25-using-the-command-line" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 25. Using the Command Line</a><a class="headerlink" href="#chapter-25-using-the-command-line" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>Inkscape はコマンドラインでも利用可能。</p></li>
-<li><p>PDF も開けるが、最初の 1 ページだけ。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--shell</span></code> でシェルモード（対話操作モード）として起動する。</p></li>
+<li><p><a class="reference internal" href="#chapter-25-using-the-command-line" id="id1">Chapter 25. Using the Command Line</a></p>
+<ul>
+<li><p><a class="reference internal" href="#general-command-line-options" id="id2">General Command Line Options</a></p></li>
+<li><p><a class="reference internal" href="#export-command-line-options" id="id3">Export Command Line Options</a></p>
+<ul>
+<li><p><a class="reference internal" href="#format-options" id="id4">Format Options</a></p></li>
+<li><p><a class="reference internal" href="#export-region-options" id="id5">Export Region Options</a></p></li>
+<li><p><a class="reference internal" href="#export-property-options" id="id6">Export Property Options</a></p></li>
 </ul>
+</li>
+<li><p><a class="reference internal" href="#query-command-line-options" id="id7">Query Command Line Options</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>コマンドラインで Inkscape を操縦できればたいへんうれしい。何ができるのか見ていこう。</p>
+<blockquote>
+<div><p>Inkscape has the ability to batch process <abbr>SVG</abbr> files without opening
+up the Graphics User Interface (<abbr>GUI</abbr>). The available options can be
+divided into a few categories: general commands, exporting commands
+(including printing), and query commands.</p>
+</div></blockquote>
+<p>コマンドラインからならば <abbr>PDF</abbr> の最初のページは読めるようだ。</p>
+<blockquote>
+<div><p>Most Inkscape commands are attached to verbs. Any verb can be called from the
+command line with the <code class="docutils literal notranslate"><span class="pre">--verb</span></code> argument, allowing complex processing to
+take place. However, it is not possible to set parameters. A list of all
+verbs can be obtained using <code class="docutils literal notranslate"><span class="pre">--verb-list</span></code>. It does not appear possible to
+suppress the <abbr>GUI</abbr> when using the <code class="docutils literal notranslate"><span class="pre">--verb</span></code> argument.</p>
+</div></blockquote>
+<p>インターフェイスにクセがあるように感じられる。とにかくオプション <code class="docutils literal notranslate"><span class="pre">--verb</span></code> を指定すると Inkscape のウィンドウが出現されることは憶えておこう。</p>
+<blockquote>
+<div><p>Here is a simple example of opening a file, selecting an object, flipping it,
+and then saving the file. The Star has an id of <code class="docutils literal notranslate"><span class="pre">MyStar</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>inkscape<span class="w"> </span>--select<span class="o">=</span>MyStar<span class="w"> </span>--verb<span class="w"> </span>ObjectFlipVertically<span class="w"> </span>--verb<span class="w"> </span>FileSave<span class="w"> </span>--verb<span class="w"> </span>FileClose<span class="w"> </span>MyStar.svg
+</pre></div>
+</div>
+</div></blockquote>
+<p>このコマンド例から次のことが推測される：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--select=&lt;ID&gt;</span></code> で図面内にある ID が <code class="docutils literal notranslate"><span class="pre">&lt;ID&gt;</span></code> であるオブジェクトを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verb</span> <span class="pre">&lt;COMMAND&gt;</span></code> で Inkscape のコマンド <code class="docutils literal notranslate"><span class="pre">&lt;COMMAND&gt;</span></code> を実行する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verb</span> <span class="pre">&lt;COMMAND&gt;</span></code> を複数与えることが可能。おそらく順次実行する。</p></li>
+<li><p>最後の引数が入力 <abbr>SVG</abbr> ファイルパス。</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<ul class="simple">
+<li><p>Windows 版の場合は <strong class="program">inkscape.com</strong> に対してコマンドライン実行をすること。</p></li>
+<li><p>後述するようにこのコマンド形式は古い。もう通用しない。</p></li>
+</ul>
+</div>
+<p>コマンドラインオプションの書き方は GNU 様式だ：</p>
+<blockquote>
+<div><p>Most options have two forms: a short form preceded by one dash and a long
+form proceeded by two dashes. Some options take parameters that can (usually)
+be attached to the option with an <code class="docutils literal notranslate"><span class="pre">=</span></code> sign (e.g., <code class="docutils literal notranslate"><span class="pre">--export-png=my.png</span></code>)
+or separated by a space (e.g., <code class="docutils literal notranslate"><span class="pre">--export-png</span> <span class="pre">my.png</span></code>).</p>
+</div></blockquote>
+<p>対話モードも実装されている。即時実行モードと同じコマンドが利用可能だ：</p>
+<blockquote>
+<div><p>Inkscape has a shell mode, entered by calling Inkscape from the command line
+with the <code class="docutils literal notranslate"><span class="pre">--shell</span></code> option. There are no new capabilities using this
+command; it is simply to allow one to execute multiple independent commands
+without restarting Inkscape each time. Here is an example of exporting the
+<code class="file docutils literal notranslate"><span class="pre">MyStar.svg</span></code> to a <abbr>PNG</abbr>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>inkscape<span class="w"> </span>--shell
+<span class="go">Inkscape 0.48 interactive shell mode. Type &#39;quit&#39; to quit.</span>
+<span class="go">&gt; MyStar.svg --export-png=MyStar.png</span>
+<span class="go">Background RRGGBBAA: ffffff00</span>
+<span class="go">Area 0:0:150:150 exported to 150 x 150 pixels (90 dpi)</span>
+<span class="go">Bitmap saved as: MyStar.png</span>
+<span class="go">&gt; quit</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>入力 <abbr>SVG</abbr> ファイルの指定方法はこれでいいのか。</p>
+<section id="general-command-line-options">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">General Command Line Options</a><a class="headerlink" href="#general-command-line-options" title="Permalink to this heading">¶</a></h2>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この節の内容は読み替えないと Inkscape 1.2 で通じない。以下では読み替えたものを記す。</p>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-0">
+<span id="cmdoption-help"></span><span class="sig-name descname"><span class="pre">-?</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>コマンドラインオプションの一覧と各オプションの簡単な説明を出力する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-V">
+<span id="cmdoption-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-V" title="Permalink to this definition">¶</a></dt>
+<dd><p>バージョンを出力する。<abbr>GUI</abbr> 版の <span class="menuselection">Help ‣ About
+Inkscape</span> コマンドが表示する情報と同一。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-system-data-directory">
+<span class="sig-name descname"><span class="pre">--system-data-directory</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-system-data-directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Windows 10 ならパス <code class="file docutils literal notranslate"><span class="pre">%PROGRAMFILES%\Inkscape\share</span></code> を出力する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-user-data-directory">
+<span class="sig-name descname"><span class="pre">--user-data-directory</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-user-data-directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Windows 10 ならパス <code class="file docutils literal notranslate"><span class="pre">%APPDATA%\inkscape</span></code> を出力する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-actions">
+<span class="sig-name descname"><span class="pre">--actions</span></span><span class="sig-prename descclassname"><span class="pre">=ACTION(:ARG)[;ACTION(:ARG)]*</span></span><a class="headerlink" href="#cmdoption-actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>実行するコマンド列を指定する。指定順に実行する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-action-list">
+<span class="sig-name descname"><span class="pre">--action-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-action-list" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#cmdoption-actions"><code class="xref std std-option docutils literal notranslate"><span class="pre">--actions</span></code></a> として有効なコマンドすべてを出力する。簡単な説明も付く。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-select">
+<span class="sig-name descname"><span class="pre">--select</span></span><span class="sig-prename descclassname"><span class="pre">=OBJECT-ID[,OBJECT-ID]*</span></span><a class="headerlink" href="#cmdoption-select" title="Permalink to this definition">¶</a></dt>
+<dd><p>指定された ID を持つオブジェクトを選択する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-vacuum-defs">
+<span class="sig-name descname"><span class="pre">--vacuum-defs</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-vacuum-defs" title="Permalink to this definition">¶</a></dt>
+<dd><p><abbr>SVG</abbr> ファイルの <code class="docutils literal notranslate"><span class="pre">&lt;defs&gt;</span></code> から未使用の定義を削除する。<abbr>GUI</abbr> で言う <span class="menuselection">File ‣ Clean Up Document</span> コマンドに相当する。新しいファイルを作成するものではない。</p>
+</dd></dl>
+
+</section>
+<section id="export-command-line-options">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Export Command Line Options</a><a class="headerlink" href="#export-command-line-options" title="Permalink to this heading">¶</a></h2>
+<p><abbr>GUI</abbr> で使われるエクスポートコマンドはコマンドラインでも利用可能だ。</p>
+<blockquote>
+<div><p>Inkscape can be used to convert <abbr>SVG</abbr> files to another form. Right now,
+the command line can be used to generate Portable Network Graphic
+(<abbr>PNG</abbr>), PostScript (<em>PS</em>), Encapsulated PostScript (<em>EPS</em>), Portable
+Document Files (<abbr>PDF</abbr>), Enhanced Metafile Files (<abbr>EMF</abbr>-Windows
+only), and plain <abbr>SVG</abbr> files. More options are available from within
+Inkscape using the <span class="guilabel">Save As</span> or <span class="guilabel">Export Bitmap</span> dialogs.</p>
+<p>The export options can be divided into three classes: those that specify the
+output format, those that specify the region to export, and those that
+specify properties such as background color in the exported image.</p>
+</div></blockquote>
+<p>以下、この三類型それぞれのコマンドラインオプションを見ていく。</p>
+<section id="format-options">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Format Options</a><a class="headerlink" href="#format-options" title="Permalink to this heading">¶</a></h3>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Inkscape 1.2 の仕様と本書の記述を折衷したノートを以下では綴る。</p>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-export-type">
+<span class="sig-name descname"><span class="pre">--export-type</span></span><span class="sig-prename descclassname"><span class="pre">=TYPE[,TYPE]*</span></span><a class="headerlink" href="#cmdoption-export-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>エクスポートするファイルの形式を指定する。次の値のいずれかを指定する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">svg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">png</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eps</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">emf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wmf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xam</span></code></p></li>
+</ul>
+<p>カンマ区切りで指定形式を可能。その場合はファイルが複数保存される？</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-o">
+<span id="cmdoption-export-filename"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-filename</span></span><span class="sig-prename descclassname"><span class="pre">=FILENAME</span></span><a class="headerlink" href="#cmdoption-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>出力ファイルパスを指定する。ファイル種類は拡張子があればそれから推測される。
+<code class="docutils literal notranslate"><span class="pre">FILENAME</span></code> を <code class="docutils literal notranslate"><span class="pre">-</span></code> にすると標準出力に書き出す。</p>
+</dd></dl>
+
+<p>例えば Linux では出力を PostScript ファイルに送るコマンドは次のようなものだ（他にも考えられる）：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>inkscape<span class="w"> </span>-o<span class="w"> </span>test.ps<span class="w"> </span>test.svg
+</pre></div>
+</div>
+</section>
+<section id="export-region-options">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Export Region Options</a><a class="headerlink" href="#export-region-options" title="Permalink to this heading">¶</a></h3>
+<p>基本的にはビットマップ形式でエクスポートしたい。</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-a">
+<span id="cmdoption-export-area"></span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-area</span></span><span class="sig-prename descclassname"><span class="pre">=x0:y0:x1:y1</span></span><a class="headerlink" href="#cmdoption-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>エクスポートする矩形領域を指定する。左下隅と右上隅の座標を指定する。単位は図面のユーザー単位だ。</p>
+<p>次は図面が 200×100 だとしたら、その左半分を PNG に書き出すコマンドラインの例だ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>inkscape<span class="w"> </span>--export-area<span class="o">=</span><span class="m">0</span>:0:100:100<span class="w"> </span>-o<span class="w"> </span>test.png<span class="w"> </span>test.svg
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-C">
+<span id="cmdoption-export-area-page"></span><span class="sig-name descname"><span class="pre">-C</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-area-page</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-C" title="Permalink to this definition">¶</a></dt>
+<dd><p>ページ領域をエクスポートする。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-D">
+<span id="cmdoption-export-area-drawing"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-area-drawing</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-D" title="Permalink to this definition">¶</a></dt>
+<dd><p>図面内のオブジェクトすべての BB 内部をエクスポートする。</p>
+<blockquote>
+<div><p>Note that <a class="reference internal" href="#cmdoption-C"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-area-page</span></code></a> overides
+<a class="reference internal" href="#cmdoption-D"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-area-drawing</span></code></a>.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-export-area-snap">
+<span class="sig-name descname"><span class="pre">--export-area-snap</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-export-area-snap" title="Permalink to this definition">¶</a></dt>
+<dd><p>このオプションはエクスポート領域を微調整するためのものだ。次の効果を期待できる：</p>
+<blockquote>
+<div><p>This option has two effects: (1) If you have aligned all your objects to a
+pixel grid (to reduce anti-aliasing effects) but the export area bounding
+box is not aligned to the grid, it will ensure that the exported pixmap
+will be aligned to the same grid. (2) It will ensure that the edges of the
+drawing will not be clipped.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-i">
+<span id="cmdoption-export-id"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-id</span></span><span class="sig-prename descclassname"><span class="pre">=OBJECT-ID[;OBJECT-ID]*</span></span><a class="headerlink" href="#cmdoption-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>The area exported will be defined by the bounding box of the named object.
+The exported drawing will include the parts of any other objects that fall
+within this bounding box.</p>
+<p>指定オブジェクトの BB 領域をエクスポートする。出力図面にはこの BB に含まれる他のオブジェクトの部分も含む。したがって、このオプションは使いにくいと考えられる：</p>
+<blockquote>
+<div><p>The name of a given object can be found by selecting the object from
+within Inkscape and looking at the <span class="guilabel">XML Editor</span>. (Of course, if
+you do this, you may as well export using the <span class="guilabel">Export Bitmap</span>
+dialog.)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-j">
+<span id="cmdoption-export-id-only"></span><span class="sig-name descname"><span class="pre">-j</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-id-only</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-j" title="Permalink to this definition">¶</a></dt>
+<dd><p>指定オブジェクトしかエクスポートしない。ただし上述の <a class="reference internal" href="#cmdoption-i"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-id</span></code></a> と同時に指定する必要がある。</p>
+</dd></dl>
+
+</section>
+<section id="export-property-options">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Export Property Options</a><a class="headerlink" href="#export-property-options" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The first few options are for bitmap exports, while the last few are for <em>PS</em>
+and <em>EPS</em> export.</p>
+</div></blockquote>
+<p>ビットマップオプションをより重視したい。</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-d">
+<span id="cmdoption-export-dpi"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-dpi</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>エクスポート形式がビットマップか否かで指定方法を分ける。</p>
+<p>ビットマップの場合は、エクスポート画像は与えられた数値とユーザー単位との比で拡縮されたものだ：</p>
+<p>The default value is 90, which matches the internal scale used by Inkscape;
+that is, a value of 90 means that one Inkscape pixel corresponds to one
+exported pixel. A value of 72 means that one Inkscape point corresponds to
+one exported pixel. (See the section called “Inkscape Coordinates”.) This
+option overrides the <a class="reference internal" href="#cmdoption-t"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-use-hints</span></code></a> option.</p>
+<p>ビットマップでない場合にはフィルターをドット絵に変換する際の解像度を意味する。こちらもやはり：</p>
+<blockquote>
+<div><p>The default values is 90 dpi.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-w">
+<span id="cmdoption-export-width"></span><span class="sig-name descname"><span class="pre">-w</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-width</span></span><span class="sig-prename descclassname"><span class="pre">=WIDTH</span></span><a class="headerlink" href="#cmdoption-w" title="Permalink to this definition">¶</a></dt>
+<dd><p>エクスポート画像の横寸法をこの値になるように拡縮する。<a class="reference internal" href="#cmdoption-d"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-dpi</span></code></a>
+指定を上書きする。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-h">
+<span id="cmdoption-export-height"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-height</span></span><span class="sig-prename descclassname"><span class="pre">=HEIGHT</span></span><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>エクスポート画像の縦寸法をこの値になるように拡縮する。<a class="reference internal" href="#cmdoption-d"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-dpi</span></code></a>
+指定を上書きする。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-b">
+<span id="cmdoption-export-background"></span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-background</span></span><span class="sig-prename descclassname"><span class="pre">=COLOR</span></span><a class="headerlink" href="#cmdoption-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>ビットマップエクスポートの背景色を指定する。<abbr>SVG</abbr> が対応していれば色文字列を使用できる。</p>
+<p>If this option is not used, the color specified by the <code class="docutils literal notranslate"><span class="pre">pagecolor</span></code>
+attribute in the section <code class="docutils literal notranslate"><span class="pre">sodipodi:namedview</span></code> of the <abbr>SVG</abbr> file will
+be used (if it is defined).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-y">
+<span id="cmdoption-export-background-opacity"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-background-opacity</span></span><span class="sig-prename descclassname"><span class="pre">=VALUE</span></span><a class="headerlink" href="#cmdoption-y" title="Permalink to this definition">¶</a></dt>
+<dd><p>エクスポート画像の背景色のアルファー値を指定する。</p>
+<blockquote>
+<div><p>Either a number between 0.0 and 1.0 or an integer from 0 to 255 can be
+used, where the smaller number in both cases corresponds to full
+transparency and the larger number corresponds to full opacity.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-t">
+<span id="cmdoption-export-use-hints"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-use-hints</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>何度も同じオブジェクトをエクスポートする状況で便利なオプションだ：</p>
+<blockquote>
+<div><p>If you have previously saved an object to a bitmap image from within
+Inkscape (and saved the file afterward), you can use this option to export
+the object to a bitmap file with the same name and resolution. Must be
+used with the <a class="reference internal" href="#cmdoption-i"><code class="xref std std-option docutils literal notranslate"><span class="pre">--export-id</span></code></a> option.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-T">
+<span id="cmdoption-export-text-to-path"></span><span class="sig-name descname"><span class="pre">-T</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--export-text-to-path</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-T" title="Permalink to this definition">¶</a></dt>
+<dd><p>テキストをパスに変換する。最重要オプションの可能性まである：</p>
+<blockquote>
+<div><p>The text objects should be converted to paths prior to export to a <em>PS</em> or
+<em>EPS</em> export. Then ensures that the text will be rendered properly
+regardless of which fonts are installed on a computer that displays or a
+printer that prints the resulting file.</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+</section>
+<section id="query-command-line-options">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Query Command Line Options</a><a class="headerlink" href="#query-command-line-options" title="Permalink to this heading">¶</a></h2>
+<p><abbr>SVG</abbr> ファイル内のオブジェクトの位置、寸法を確認するコマンドがある。</p>
+<blockquote>
+<div><p>The key here is knowing the ID (name) of the object for which you desire the
+information. The ID name must be given. The exported numbers use the
+<abbr>SVG</abbr> coordinate system.</p>
+</div></blockquote>
+<p>対象オブジェクトの ID を実行時に知っている必要があるという点が急所だ。</p>
+<blockquote>
+<div><p>Here is an example of finding the <em>x</em> position of the zoom-in icon in the
+default icon file on a Linux system:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>inkscape<span class="w"> </span>--query-id<span class="o">=</span>zoom-in<span class="w"> </span>-X<span class="w"> </span>/usr/share/inkscape/icons/icons.svg
+</pre></div>
+</div>
+</div></blockquote>
+<p>本題とは無関係だが、上記の <code class="file docutils literal notranslate"><span class="pre">icons.svg</span></code> に相当するファイルが Windows 版
+Inkscape 1.2 のディレクトリー以下に見当たらない。試したい。</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-I">
+<span id="cmdoption-query-id"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--query-id</span></span><span class="sig-prename descclassname"><span class="pre">=OBJECT-ID[,OBJECT-ID]*</span></span><a class="headerlink" href="#cmdoption-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>オブジェクト ID を指定する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-S">
+<span id="cmdoption-query-all"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--query-all</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>全オブジェクト表示に相当する：</p>
+<blockquote>
+<div><p>Return a comma separated list of id, x, y, w, and h for all objects
+(including <abbr>SVG</abbr> file, <em>Layers</em>, and <em>Groups</em>) in file. Each object
+is on its own line.</p>
+</div></blockquote>
+<p>以下のオプションを複数組み合わせて数字を出力すると改行で区切られるので使い勝手が悪いが、このオプションは一行に一オブジェクトのデータが出力される。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-X">
+<span id="cmdoption-query-x"></span><span class="sig-name descname"><span class="pre">-X</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--query-x</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-X" title="Permalink to this definition">¶</a></dt>
+<dd><p>オブジェクトの x 座標を得る。なお、いずれの問い合わせオプションでも座標系は
+<abbr>SVG</abbr> 座標系が使われる。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Y">
+<span id="cmdoption-query-y"></span><span class="sig-name descname"><span class="pre">-Y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--query-y</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-Y" title="Permalink to this definition">¶</a></dt>
+<dd><p>オブジェクトの y 座標を得る。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-W">
+<span id="cmdoption-query-width"></span><span class="sig-name descname"><span class="pre">-W</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--query-width</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-W" title="Permalink to this definition">¶</a></dt>
+<dd><p>オブジェクトの横幅を得る。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-H">
+<span id="cmdoption-query-height"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--query-height</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-H" title="Permalink to this definition">¶</a></dt>
+<dd><p>オブジェクトの縦幅を得る。</p>
+</dd></dl>
+
+<p>最後の四つのオプションはテキスト処理の観点から使いにくい：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>inkscape<span class="w"> </span>-I<span class="w"> </span>rect312645<span class="w"> </span>-XYWH<span class="w"> </span>drawing.svg
+<span class="go">134.17</span>
+<span class="go">398.69</span>
+<span class="go">14.1732</span>
+<span class="go">14.1732</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -65,7 +463,7 @@
           <a href="ch24-customize.html" title="Previous document">Chapter 24. Customization</a>
         </li>
         <li>
-          <a href="../ffmpeg/index.html" title="Next document">FFmpeg 利用ノート</a>
+          <a href="ch26-challenges.html" title="Next document">Chapter 26. Challenges</a>
           &rarr;
         </li>
     </ul>
@@ -230,7 +628,7 @@
   <li><a href="index.html">Inkscape 利用ノート</a><ul>
   <li><a href="manual.html">Inkscape Manual 読書ノート</a><ul>
       <li>Previous: <a href="ch24-customize.html" title="previous chapter">Chapter 24. Customization</a></li>
-      <li>Next: <a href="../ffmpeg/index.html" title="next chapter">FFmpeg 利用ノート</a></li>
+      <li>Next: <a href="ch26-challenges.html" title="next chapter">Chapter 26. Challenges</a></li>
   </ul></li>
   </ul></li>
   </ul></li>

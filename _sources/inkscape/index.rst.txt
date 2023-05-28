@@ -27,6 +27,6 @@ Inkscape_
 `Inkscape Wiki`_
   開発者向けのドキュメント群。まだ読んでいない。
 
-.. _Inkscape: http://inkscape.org/
+.. _Inkscape: https://inkscape.org/
 .. _Inkscape Guide to a Vector Drawing: http://tavmjong.free.fr/INKSCAPE/MANUAL/html/index.php
-.. _Inkscape Wiki: http://wiki.inkscape.org/wiki/index.php/Inkscape
+.. _Inkscape Wiki: https://wiki.inkscape.org/wiki/index.php/Inkscape

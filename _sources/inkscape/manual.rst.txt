@@ -35,3 +35,4 @@ Inkscape Manual 読書ノート
    ch23-web
    ch24-customize
    ch25-command-line
+   ch26-challenges

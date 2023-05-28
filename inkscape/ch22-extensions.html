@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Chapter 23. SVG and the Web" href="ch23-web.html" />
     <link rel="prev" title="Chapter 21. Connectors" href="ch21-connectors.html" />
@@ -46,63 +47,1562 @@
           <div class="body" role="main">
             
   <section id="chapter-22-extensions">
-<h1>Chapter 22. Extensions<a class="headerlink" href="#chapter-22-extensions" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 22. Extensions</a><a class="headerlink" href="#chapter-22-extensions" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>Inkscape の内部で動作するスクリプト (Perl pr Python)</p></li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">share/inkscape/extensions</span></code> directory</p></li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">src/extension/internal</span></code></p></li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">extensions-errors.log</span></code></p></li>
-<li><p>Live Preview</p></li>
+<li><p><a class="reference internal" href="#chapter-22-extensions" id="id1">Chapter 22. Extensions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#arrange" id="id2">Arrange</a></p>
+<ul>
+<li><p><a class="reference internal" href="#restack" id="id3">Restack</a></p></li>
 </ul>
+</li>
+<li><p><a class="reference internal" href="#color" id="id4">Color</a></p>
+<ul>
+<li><p><a class="reference internal" href="#black-and-white" id="id5">Black and White</a></p></li>
+<li><p><a class="reference internal" href="#brighter" id="id6">Brighter</a></p></li>
+<li><p><a class="reference internal" href="#custom" id="id7">Custom</a></p></li>
+<li><p><a class="reference internal" href="#darker" id="id8">Darker</a></p></li>
+<li><p><a class="reference internal" href="#desaturate" id="id9">Desaturate</a></p></li>
+<li><p><a class="reference internal" href="#grayscale" id="id10">Grayscale</a></p></li>
+<li><p><a class="reference internal" href="#less-hue" id="id11">Less Hue</a></p></li>
+<li><p><a class="reference internal" href="#less-light" id="id12">Less Light</a></p></li>
+<li><p><a class="reference internal" href="#less-saturation" id="id13">Less Saturation</a></p></li>
+<li><p><a class="reference internal" href="#more-hue" id="id14">More Hue</a></p></li>
+<li><p><a class="reference internal" href="#more-light" id="id15">More Light</a></p></li>
+<li><p><a class="reference internal" href="#more-saturation" id="id16">More Saturation</a></p></li>
+<li><p><a class="reference internal" href="#negative" id="id17">Negative</a></p></li>
+<li><p><a class="reference internal" href="#randomize" id="id18">Randomize</a></p></li>
+<li><p><a class="reference internal" href="#remove-blue" id="id19">Remove Blue</a></p></li>
+<li><p><a class="reference internal" href="#remove-green" id="id20">Remove Green</a></p></li>
+<li><p><a class="reference internal" href="#remove-red" id="id21">Remove Red</a></p></li>
+<li><p><a class="reference internal" href="#replace-color" id="id22">Replace color</a></p></li>
+<li><p><a class="reference internal" href="#rgb-barrel" id="id23">RGB Barrel</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#generate-from-path" id="id24">Generate from Path</a></p>
+<ul>
+<li><p><a class="reference internal" href="#extrude" id="id25">Extrude</a></p></li>
+<li><p><a class="reference internal" href="#inset-outset-halo" id="id26">Inset/Outset Halo</a></p></li>
+<li><p><a class="reference internal" href="#interpolate" id="id27">Interpolate</a></p></li>
+<li><p><a class="reference internal" href="#motion" id="id28">Motion</a></p></li>
+<li><p><a class="reference internal" href="#pattern-along-path-extension" id="id29">Pattern Along Path (Extension)</a></p></li>
+<li><p><a class="reference internal" href="#scatter" id="id30">Scatter</a></p></li>
+<li><p><a class="reference internal" href="#voronoi" id="id31">Voronoi</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#images" id="id32">Images</a></p>
+<ul>
+<li><p><a class="reference internal" href="#extract-one-image" id="id33">Extract One Image</a></p></li>
+<li><p><a class="reference internal" href="#embed-all-images" id="id34">Embed All Images</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#jessyink-presentations" id="id35">JessyInk (Presentations)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#master-slide" id="id36">Master Slide</a></p></li>
+<li><p><a class="reference internal" href="#transitions" id="id37">Transitions</a></p></li>
+<li><p><a class="reference internal" href="#effects" id="id38">Effects</a></p></li>
+<li><p><a class="reference internal" href="#views" id="id39">Views</a></p></li>
+<li><p><a class="reference internal" href="#miscellaneous" id="id40">Miscellaneous</a></p></li>
+<li><p><a class="reference internal" href="#presenting" id="id41">Presenting</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#modify-path" id="id42">Modify Path</a></p>
+<ul>
+<li><p><a class="reference internal" href="#add-nodes" id="id43">Add Nodes</a></p></li>
+<li><p><a class="reference internal" href="#color-markers-to-match-stroke" id="id44">Color Markers to Match Stroke</a></p></li>
+<li><p><a class="reference internal" href="#convert-to-dashes" id="id45">Convert to Dashes</a></p></li>
+<li><p><a class="reference internal" href="#edge-3d" id="id46">Edge 3D</a></p></li>
+<li><p><a class="reference internal" href="#envelope" id="id47">Envelope</a></p></li>
+<li><p><a class="reference internal" href="#flatten-bezier" id="id48">Flatten Bezier</a></p></li>
+<li><p><a class="reference internal" href="#fractalize" id="id49">Fractalize</a></p></li>
+<li><p><a class="reference internal" href="#interpolate-attribute-in-a-group" id="id50">Interpolate Attribute in a Group</a></p></li>
+<li><p><a class="reference internal" href="#jitter-nodes" id="id51">Jitter Nodes</a></p></li>
+<li><p><a class="reference internal" href="#perspective" id="id52">Perspective</a></p></li>
+<li><p><a class="reference internal" href="#pixelsnap" id="id53">Pixelsnap</a></p></li>
+<li><p><a class="reference internal" href="#rubber-stretch" id="id54">Rubber Stretch</a></p></li>
+<li><p><a class="reference internal" href="#straighten-segments" id="id55">Straighten Segments</a></p></li>
+<li><p><a class="reference internal" href="#whirl" id="id56">Whirl</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#raster" id="id57">Raster</a></p></li>
+<li><p><a class="reference internal" href="#render" id="id58">Render</a></p>
+<ul>
+<li><p><a class="reference internal" href="#d-polyhedrons" id="id59">3D Polyhedrons</a></p></li>
+<li><p><a class="reference internal" href="#alphabet-soup" id="id60">Alphabet Soup</a></p></li>
+<li><p><a class="reference internal" href="#barcode" id="id61">Barcode</a></p></li>
+<li><p><a class="reference internal" href="#barcode-datamatrix" id="id62">Barcode — Datamatrix</a></p></li>
+<li><p><a class="reference internal" href="#calendar" id="id63">Calendar</a></p></li>
+<li><p><a class="reference internal" href="#cartesian-grid" id="id64">Cartesian Grid</a></p></li>
+<li><p><a class="reference internal" href="#draw-from-triangle" id="id65">Draw From Triangle</a></p></li>
+<li><p><a class="reference internal" href="#foldable-box" id="id66">Foldable Box</a></p></li>
+<li><p><a class="reference internal" href="#function-plotter" id="id67">Function Plotter</a></p></li>
+<li><p><a class="reference internal" href="#gear" id="id68">Gear</a></p></li>
+<li><p><a class="reference internal" href="#grid" id="id69">Grid</a></p></li>
+<li><p><a class="reference internal" href="#guides-creator" id="id70">Guides Creator</a></p></li>
+<li><p><a class="reference internal" href="#latex-formula" id="id71">LaTeX Formula</a></p></li>
+<li><p><a class="reference internal" href="#l-system-fractal-lindenmayer" id="id72">L-System (Fractal-Lindenmayer)</a></p></li>
+<li><p><a class="reference internal" href="#parametric-curves" id="id73">Parametric Curves</a></p></li>
+<li><p><a class="reference internal" href="#perfect-bound-cover-template" id="id74">Perfect-Bound Cover Template</a></p></li>
+<li><p><a class="reference internal" href="#polar-grid" id="id75">Polar Grid</a></p></li>
+<li><p><a class="reference internal" href="#printing-marks" id="id76">Printing Marks</a></p></li>
+<li><p><a class="reference internal" href="#random-tree" id="id77">Random Tree</a></p></li>
+<li><p><a class="reference internal" href="#spirograph" id="id78">Spirograph</a></p></li>
+<li><p><a class="reference internal" href="#triangle" id="id79">Triangle</a></p></li>
+<li><p><a class="reference internal" href="#wireframe-sphere" id="id80">Wireframe Sphere</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#text" id="id81">Text</a></p>
+<ul>
+<li><p><a class="reference internal" href="#convert-to-braille" id="id82">Convert to Braille</a></p></li>
+<li><p><a class="reference internal" href="#lorem-ipsum" id="id83">Lorem Ipsum</a></p></li>
+<li><p><a class="reference internal" href="#replace-text" id="id84">Replace Text</a></p></li>
+<li><p><a class="reference internal" href="#split-text" id="id85">Split Text</a></p></li>
+<li><p><a class="reference internal" href="#change-case" id="id86">Change Case</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#visualize-path" id="id87">Visualize Path</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dimensions" id="id88">Dimensions</a></p></li>
+<li><p><a class="reference internal" href="#draw-handles" id="id89">Draw Handles</a></p></li>
+<li><p><a class="reference internal" href="#measure-path" id="id90">Measure Path</a></p></li>
+<li><p><a class="reference internal" href="#number-nodes" id="id91">Number Nodes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#web" id="id92">Web</a></p>
+<ul>
+<li><p><a class="reference internal" href="#javascript" id="id93">JavaScript</a></p>
+<ul>
+<li><p><a class="reference internal" href="#set-attributes" id="id94">Set Attributes</a></p></li>
+<li><p><a class="reference internal" href="#transmit-attributes" id="id95">Transmit Attributes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#web-slicer" id="id96">Web Slicer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#create-a-rectangle-dialog" id="id97">Create a rectangle dialog</a></p></li>
+<li><p><a class="reference internal" href="#export-layout-pieces-and-html-css-code-dialog" id="id98">Export layout pieces and HTML+CSS code dialog</a></p></li>
+<li><p><a class="reference internal" href="#set-a-layout-group-dialog" id="id99">Set a layout group dialog</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>Inkscape の拡張システムはプロセス内部から Python などのスクリプトを実行する形式をとる。</p>
+<blockquote>
+<div><p>Some of the included <em>Extensions</em> might be of marginal use to the average
+user. However, much can be learned by examining the code in order to write
+your own scripts. Look in the <code class="file docutils literal notranslate"><span class="pre">share/inkscape/extensions</span></code> directory for
+the code.</p>
+</div></blockquote>
+<p>確かに Python スクリプトファイルがいくつも置いてある。Inkscape API のようなものがあり、それを呼び出すようなものか、フレームワークになっていて特定のメソッドを上書きするようなものか。</p>
+<blockquote>
+<div><p>Often, an <em>Extension</em> can be used to quickly prototype a feature that may be
+included natively in a future version of Inkscape. <em>Extensions</em> are also a
+good way to add a feature that may have limited use by the general Inkscape
+community and thus not warrant the long-term commitment of adding the feature
+to the main code base.</p>
+</div></blockquote>
+<p>玉石混淆という言葉が思い出される。拡張が動かない場合はログファイルを確認する：</p>
+<blockquote>
+<div><p>If an extension doesn’t work, it may be that you are missing some external
+dependency. You can check if this is the case by looking at the log file
+<code class="file docutils literal notranslate"><span class="pre">extensions-errors.log</span></code> in your Inkscape preferences directory (Linux:
+<code class="file docutils literal notranslate"><span class="pre">.config/inkscape</span></code>, Windows: <code class="file docutils literal notranslate"><span class="pre">Documents</span> <span class="pre">and</span>
+<span class="pre">Settings\USER\Application</span> <span class="pre">Data\Inkscape</span></code>).</p>
+</div></blockquote>
+<p>拡張は同期的にも非同期的にも実行可能だ：</p>
+<blockquote>
+<div><p><em>Extensions</em> can be run live, that is, the script code can be run
+automatically in the background, responding immediately to changes in
+parameters. This can both be good (see results of parameter changes
+immediately) or bad (updating before a parameter is fully modified). Each
+<em>Extension</em> dialog has a button to toggle on and off this <span class="guilabel">Live
+Preview</span>.</p>
+</div></blockquote>
+<p>拡張コマンドは大分類されている：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>分類</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Arrange</p></td>
+<td><p>オブジェクトを配列し直す</p></td>
+</tr>
+<tr class="row-odd"><td><p>Color</p></td>
+<td><p>オブジェクトの色を変える</p></td>
+</tr>
+<tr class="row-even"><td><p>Generate from Path</p></td>
+<td><p>パスオブジェクトからオブジェクトを新しく作成する</p></td>
+</tr>
+<tr class="row-odd"><td><p>Images</p></td>
+<td><p>Inkscape ファイルに画像を埋め込む</p></td>
+</tr>
+<tr class="row-even"><td><p>JessyInk</p></td>
+<td><p>ウェブブラウザーで表示できる表現を用意する</p></td>
+</tr>
+<tr class="row-odd"><td><p>Modify Path</p></td>
+<td><p>既存パスを変更する</p></td>
+</tr>
+<tr class="row-even"><td><p>Raster</p></td>
+<td><p>ビットマップの色を操作する</p></td>
+</tr>
+<tr class="row-odd"><td><p>Render</p></td>
+<td><p>オブジェクトを新しく作成する</p></td>
+</tr>
+<tr class="row-even"><td><p>Text</p></td>
+<td><p>テキストを操作する</p></td>
+</tr>
+<tr class="row-odd"><td><p>Visualize Path</p></td>
+<td><p>パスに関する情報を表現する</p></td>
+</tr>
+<tr class="row-even"><td><p>Web</p></td>
+<td><p>JavaScript 引数を追加したり描画をビットマップにスライスしたりする</p></td>
+</tr>
+</tbody>
+</table>
+<p>そして、直前に実行した拡張を実行するためのコマンドがある：</p>
+<blockquote>
+<div><p>Two entries under the <span class="menuselection">Extensions</span> menu allow you quick access
+to the previously used extension. The first, <span class="menuselection">Extensions ‣
+Previous Extension</span>, will run the extension with the same parameters. The
+second, <span class="menuselection">Extensions ‣ Previous Extension Settings…</span>, will
+pop up the parameters dialog.</p>
+</div></blockquote>
 <section id="arrange">
-<h2>Arrange<a class="headerlink" href="#arrange" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Arrange</a><a class="headerlink" href="#arrange" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This category rearranges objects in a drawing. At the moment there is just
+one extension in this category.</p>
+</div></blockquote>
+<p>ここに記述がある <span class="menuselection">Restack…</span> の他に、Inkscape 1.2 では
+<span class="menuselection">Deep ungroup…</span> もある。</p>
+<section id="restack">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Restack</a><a class="headerlink" href="#restack" title="Permalink to this heading">¶</a></h3>
+<p>オブジェクト群の z-order を変更するコマンドだ。</p>
+<dl>
+<dt><span class="guilabel">Restack Direction</span></dt><dd><p>本書とは違って <span class="guilabel">Preset</span> か <span class="guilabel">Custom</span> かをまず指定する。前者ならば次のメニューから指定する：</p>
 <ul class="simple">
-<li><p><span class="guilabel">Restack</span>: オブジェクトの Z-order をその位置に基づいて変える。</p></li>
+<li><p>Left to Right</p></li>
+<li><p>Bottom to Top</p></li>
+<li><p>Right to Left</p></li>
+<li><p>Top to Bottom</p></li>
+<li><p>Radial Outward</p></li>
+<li><p>Radial Inward</p></li>
 </ul>
+<p>後者ならば <span class="guilabel">Angle</span> を指定する：</p>
+<p>In the last case the angle is given in the <span class="guilabel">Angle</span> entry box where
+the angle is defined counterclockwise with zero corresponding to left to
+right.</p>
+</dd>
+<dt><span class="guilabel">Object Reference Point</span></dt><dd><p>オブジェクト BB のどこに基づいて z-order 再配置に利用するかを指定する。</p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>スライスハムのデモを見ると、この機能の目的は理解できるが、角度指定の挙動が理解できない。</p>
+</div>
+</section>
 </section>
 <section id="color">
-<h2>Color<a class="headerlink" href="#color" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>色変更各種。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Color</a><a class="headerlink" href="#color" title="Permalink to this heading">¶</a></h2>
+<p>この分類にある拡張はオブジェクトやグループの色を操作するものだ。</p>
+<blockquote>
+<div><p>The color mapping is calculated in the <abbr>RGB</abbr> color space except for the
+extensions that modify <abbr>HSL</abbr> values, which are calculated in
+<abbr>HSL</abbr> color space.</p>
+</div></blockquote>
+<p>オブジェクトやグループが選択されていなくてもこの機能は働き、その場合は図面全体に作用する：</p>
+<blockquote>
+<div><p>If no objects are selected, the color change will be applied to the entire
+drawing. An object’s <em>Stroke</em> and any <em>Gradient</em> are also changed.</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>ビットマップには効かない。<span class="menuselection">Filters ‣ Color</span> を当たる。</p>
+</div>
+<section id="black-and-white">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Black and White</a><a class="headerlink" href="#black-and-white" title="Permalink to this heading">¶</a></h3>
+<p>デモイラストを見れば機能は一目瞭然だ。計算方法は、</p>
+<blockquote>
+<div><p>The extension first calculates brightness (luma) using the <a class="reference external" href="https://en.wikipedia.org/wiki/YUV">YUV</a> color space
+(for NTSC and PAL standard definition television) and then applies a
+threshold of 50%.</p>
+</div></blockquote>
+<p>ということで、ビデオ映像でよく使われる色空間で操作される。また、現行バージョンでは閾値を指定可能だ。</p>
+</section>
+<section id="brighter">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Brighter</a><a class="headerlink" href="#brighter" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension has the property of making dark colors more intense but
+washing out light colors. The effect is subtle so multiple applications may
+be required.</p>
+</div></blockquote>
+<p>上記の性質があるので、効き目を弱くしてあり、複数実行を前提とする設計になっていると考えられる。</p>
+</section>
+<section id="custom">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Custom</a><a class="headerlink" href="#custom" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension allows color custom transformation functions to be defined.
+Standard math operations are allowed such as <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, and <code class="docutils literal notranslate"><span class="pre">/</span></code>.
+If a resulting value is outside the allowed limits, it is set at the minimum
+or maximum allowed value.</p>
+</div></blockquote>
+<p>Python コードの <code class="docutils literal notranslate"><span class="pre">ast.parse</span></code> で評価される。シフト演算やべき乗、Python 組み込み関数も利用可能ということだ。</p>
+</section>
+<section id="darker">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Darker</a><a class="headerlink" href="#darker" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Darken the color of an object or Group of objects. Each R, G, and B component
+of a color is set to 90% of its previous value. The effect is subtle so
+multiple applications may be required.</p>
+</div></blockquote>
+<p>Brighter 機能と同じ注意が当てはまる。</p>
+</section>
+<section id="desaturate">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Desaturate</a><a class="headerlink" href="#desaturate" title="Permalink to this heading">¶</a></h3>
+<p>脱色という珍しい操作だ。</p>
+<blockquote>
+<div><p>This sets the values of R, G, and B to the average of the maximum of R, G,
+and B; and the minimum of R, G, and B. For example, R would be set to <code class="docutils literal notranslate"><span class="pre">(max(</span>
+<span class="pre">R,</span> <span class="pre">G,</span> <span class="pre">B)</span> <span class="pre">+</span> <span class="pre">min(R,</span> <span class="pre">G,</span> <span class="pre">B))/2</span></code>.</p>
+</div></blockquote>
+</section>
+<section id="grayscale">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Grayscale</a><a class="headerlink" href="#grayscale" title="Permalink to this heading">¶</a></h3>
+<p>こちらも彩度が失せる操作だ。この数式には馴染みがある。</p>
+<blockquote>
+<div><p>Change the color to a gray using the formula for Luminance used by the NTSC
+and PAL television standards. This sets the color to a lightness (Y) defined
+by: <code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">0.229</span> <span class="pre">×</span> <span class="pre">R</span> <span class="pre">+</span> <span class="pre">0.587;</span> <span class="pre">×</span> <span class="pre">G</span> <span class="pre">+</span> <span class="pre">0.114</span> <span class="pre">×</span> <span class="pre">B</span></code>.</p>
+</div></blockquote>
+</section>
+<section id="less-hue">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Less Hue</a><a class="headerlink" href="#less-hue" title="Permalink to this heading">¶</a></h3>
+<p>色相の値を 18 度下げる機能だ（ゼロで実行すると 343 度になる）。</p>
+<blockquote>
+<div><p>The hue is decreased by 5% (of the full hue range) or equivalently, a
+rotation of 18° around the color circle. This, for example, means that a pure
+red picks up a touch of blue in the <abbr>RGB</abbr> color space.</p>
+</div></blockquote>
+</section>
+<section id="less-light">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Less Light</a><a class="headerlink" href="#less-light" title="Permalink to this heading">¶</a></h3>
+<p>輝度を現在の 5% だけ下げる。100 から開始するならば 95, 91, 86, … のように推移するという意味だ。</p>
+<blockquote>
+<div><p>The lightness is decreased by 5% (of the full lightness range). If the
+lightness is already less than 5%, it is set to 0%. The effect is subtle so
+multiple applications may be required.</p>
+</div></blockquote>
+</section>
+<section id="less-saturation">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Less Saturation</a><a class="headerlink" href="#less-saturation" title="Permalink to this heading">¶</a></h3>
+<p>彩度を最大値の 5% だけ下げる。</p>
+<blockquote>
+<div><p>The saturation is decreased by 5% (of the full saturation range). If the
+saturation is already less than 5%, it is set to 0%. The effect is subtle so
+multiple applications may be required.</p>
+</div></blockquote>
+</section>
+<section id="more-hue">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">More Hue</a><a class="headerlink" href="#more-hue" title="Permalink to this heading">¶</a></h3>
+<p>Less Hue の逆機能。</p>
+</section>
+<section id="more-light">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">More Light</a><a class="headerlink" href="#more-light" title="Permalink to this heading">¶</a></h3>
+<p>Less Light の逆機能。</p>
+</section>
+<section id="more-saturation">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">More Saturation</a><a class="headerlink" href="#more-saturation" title="Permalink to this heading">¶</a></h3>
+<p>Less Staturation の逆機能。</p>
+</section>
+<section id="negative">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Negative</a><a class="headerlink" href="#negative" title="Permalink to this heading">¶</a></h3>
+<p><abbr>RGB</abbr> の各成分に対して、その補数で置き換える。</p>
+<blockquote>
+<div><p>For example, an R value of 64 (25%) becomes an R value of 191 (255 - 64, or
+75%).</p>
+</div></blockquote>
+</section>
+<section id="randomize">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Randomize</a><a class="headerlink" href="#randomize" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Randomize the color of selected objects or all objects if no object is
+selected. You can choose which of the <abbr>HSL</abbr> color parameters to
+randomize (hue, saturation, and/or lightness).</p>
+</div></blockquote>
+<p>Opacity も操作可能。スライダーバーで指定する値は振れ幅のような値と考えられる。</p>
+</section>
+<section id="remove-blue">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Remove Blue</a><a class="headerlink" href="#remove-blue" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Set the B value in <abbr>RGB</abbr> to 0.</p>
+</div></blockquote>
+</section>
+<section id="remove-green">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Remove Green</a><a class="headerlink" href="#remove-green" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Set the G value in <abbr>RGB</abbr> to 0.</p>
+</div></blockquote>
+</section>
+<section id="remove-red">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Remove Red</a><a class="headerlink" href="#remove-red" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Set the R value in <abbr>RGB</abbr> to 0.</p>
+</div></blockquote>
+</section>
+<section id="replace-color">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Replace color</a><a class="headerlink" href="#replace-color" title="Permalink to this heading">¶</a></h3>
+<p>完全マッチによる色置換だ。イラスト作成ソフトだから意味がある。</p>
+<blockquote>
+<div><p>Color to be replaced must match exactly.</p>
+</div></blockquote>
+</section>
+<section id="rgb-barrel">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">RGB Barrel</a><a class="headerlink" href="#rgb-barrel" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Rotates color (hue) by 120° around the color circle.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="generate-from-path">
-<h2>Generate from Path<a class="headerlink" href="#generate-from-path" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">Generate from Path</a><a class="headerlink" href="#generate-from-path" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This group of extensions creates new objects from one or more existing paths.</p>
+</div></blockquote>
+<section id="extrude">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Extrude</a><a class="headerlink" href="#extrude" title="Permalink to this heading">¶</a></h3>
+<p>3D モデリングのそれとは毛色が異なる。</p>
+<p>プロファイルパスの対応するノード同士を線分でつなぐだけと思われる。オプションによっては塗りつぶす。イラストは星型から星型に押し出しているのでわかりやすい。滑らかな曲線で試すと最後のオプションの意味がわかりやすくなる。</p>
+</section>
+<section id="inset-outset-halo">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Inset/Outset Halo</a><a class="headerlink" href="#inset-outset-halo" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Why would you want to use this extension when Inkscape now supports filters?</p>
+</div></blockquote>
+<p><span class="menuselection">Filters ‣ Shadows ang Glows ‣ In and Out</span> のことだろうか。</p>
+</section>
+<section id="interpolate">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Interpolate</a><a class="headerlink" href="#interpolate" title="Permalink to this heading">¶</a></h3>
+<p>いわゆる「中割り」を生成する機能だ：</p>
+<blockquote>
+<div><p>Draws a series of lines that interpolate the space between two paths. The
+options include setting the number of <span class="guilabel">Interpolation Steps</span>
+(in-between lines), an <span class="guilabel">Exponent</span> factor that controls the spacing
+between interpolated paths (zero for even spacing), specifying if the
+original paths should be duplicated (<span class="guilabel">Duplicate Endpaths</span>), and
+specifying that the path style should also be interpolated.</p>
+</div></blockquote>
+<p>試したところ、簡単なパスでも計算時間を比較的要するようだ。</p>
+<p>補間処理はノード同士の対応を見るので、実行前にパスの向きを確認しておくといい。以前習った手筋が使える：</p>
+<blockquote>
+<div><p>The starting point of a path can be found by selecting the path with the
+<em>Node Tool</em> and then using the <kbd class="kbd docutils literal notranslate">Tab</kbd> key. If no node is already
+selected, the first node in the path will be selected.</p>
+</div></blockquote>
+<p>凝ったグラデーションを描くのにこの機能を応用することも可能だ：</p>
+<blockquote>
+<div><p>The interpolation extension can also be used to simulate gradients of
+different symmetries. When calling the extension, the smaller path should be
+selected first.</p>
+</div></blockquote>
+<p>星型のイラストはこの応用例が重要である可能性を示している。線形と放射だけで間に合わない場合はこれだ。</p>
+</section>
+<section id="motion">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Motion</a><a class="headerlink" href="#motion" title="Permalink to this heading">¶</a></h3>
+<p>実行してみると、これこそ私の思う Extrude コマンドだ：</p>
+<blockquote>
+<div><p>Simulates motion. Draws a copy of the selected object behind the original and
+then connects corresponding nodes with lines to form a group of closed paths.
+The direction and offset of the copied object can be specified. The new
+objects inherit the attributes of the original but can be edited as a group.</p>
+</div></blockquote>
+<p>パス操作に自信があれば押し出し先の図形を縮小するなどして遠近法を表現することも可能：</p>
+<blockquote>
+<div><p>One can also use this extension to simulate perspective by reducing the size
+of the copy along with the associated nodes.</p>
+</div></blockquote>
+</section>
+<section id="pattern-along-path-extension">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Pattern Along Path (Extension)</a><a class="headerlink" href="#pattern-along-path-extension" title="Permalink to this heading">¶</a></h3>
+<p>Live Path Effects にある同名の機能を参照。パターンパス、軌跡パスの順に選択してから拡張コマンドを起動し、実行する。</p>
+<p>パターンを反復する場合、その配列原則は次のとおり：</p>
+<blockquote>
+<div><p>The bounding box of the pattern is used for placing the pattern along the
+path, with the bounding box of one pattern copy touching the bounding box of
+the next copy (if no additional spacing is specified).</p>
+</div></blockquote>
+<p><span class="guilabel">Pattern Along Path</span> ダイアログで指定可能なオプションのうち、注意の要る項目だけノート：</p>
+<dl>
+<dt><span class="guilabel">Deformation type</span></dt><dd><p>次の二つから選択する：</p>
+<dl>
+<dt><span class="guilabel">Snake</span></dt><dd><p>幼いころに遊んだ蛇のおもちゃのような変形および配列をする。英語による記述のほうがいい：</p>
+<blockquote>
+<div><p>The pattern is rotated and deformed to follow the path such that all
+points with the same horizontal (x) position in the pattern will be on
+the same normal (perpendicular line) to the path, and all points with
+the same vertical (y) position in the pattern will be placed the same
+distance from the path.</p>
+</div></blockquote>
+</dd>
+<dt><span class="guilabel">Ribbon</span></dt><dd><p>こちらは軌跡パスに沿う法線方向か接線方向のいずれかのみ変形する。</p>
+</dd>
+</dl>
+<p>どちらの選択肢も <span class="guilabel">Pattern is vertical</span> 指定の有無を参照する。</p>
+</dd>
+<dt><span class="guilabel">Pattern is vertical</span></dt><dd><p>パターンの向きを 90 度回転して処理する。</p>
+<p>The Pattern along Path is a very useful extension but it does have a few
+quirks. One is that if the pattern is moved before use, the results may be
+less than ideal. Another is that different parts of the pattern can be
+distorted in different ways as seen in figures that follow.</p>
+</dd>
+</dl>
+<p>イラストの青チェッカフラグパターンをどう定義したのかも気になる。</p>
+<blockquote>
+<div><p>The following example shows a pattern placed on both straight and curved
+paths. If the radius of curvature is too small, the pattern may be grossly
+distorted.</p>
+</div></blockquote>
+<p>要するに、激しく曲がっているパスにパターンを配列すると大きく歪む可能性が高い。</p>
+<p>ラーメン丼の雷紋などを作図するのにもこの機能は利用できる。少し高度な技術を要する：</p>
+<blockquote>
+<div><p>Care must be taken that the pattern lines up at the corners. This can be done
+by making the distance between the corner nodes multiples of the pattern
+width or by breaking the path into disconnected pieces at the corners (use
+the <span class="guilabel">Break Path at Selected Nodes</span> option in the <em>Node Tool</em> <em>Tool
+Controls</em>) and using the <span class="guilabel">Repeated, stretched</span> option.</p>
+</div></blockquote>
+<p>デモイラスト (5a) を見る。どちらも中央のパターンをパスに変換した矩形に乗せたものだ。</p>
 <ul class="simple">
-<li><p><span class="guilabel">Pattern Along Path</span> がここにもいる。</p></li>
+<li><p>左側：矩形の辺の長さがパターンの幅の倍数になるように設定。</p></li>
+<li><p>右側：各コーナーノードで Break 済み。</p></li>
 </ul>
+<p>デモイラスト (5b) では辺の長さがパターン幅の倍数でないため、角でパターンが一直線にならない。<span class="guilabel">Copies of the pattern</span> の選択肢を適切に変えてパターンが角で不連続にならないようにする。</p>
+<p>太陽のデモはグラデーションの赤がどこから出てきたのか示されていないが、パターンにあらかじめ設定しておくと考えるのが自然だ。</p>
+<p>テキストをパスに沿って配列する応用はよくある：</p>
+<blockquote>
+<div><p>One use of <span class="guilabel">the Single, stretched</span> option is to put text on a path.
+The text must be converted to a path first (<span class="menuselection">Path ‣ Object
+to Path</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd>)).</p>
+</div></blockquote>
+<p>花柄を作図するのにも使えないことはない：</p>
+<blockquote>
+<div><p>Another use of the <span class="guilabel">Single, stretched</span> option is to create
+flourishes. (As of v0.47, this is better done by applying the “teardrop” as a
+custom shape with the <em>Bezier Tool</em>. One would not need to add the extra
+nodes.)</p>
+</div></blockquote>
+</section>
+<section id="scatter">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Scatter</a><a class="headerlink" href="#scatter" title="Permalink to this heading">¶</a></h3>
+<p>前項の機能と類似したものだ：</p>
+<blockquote>
+<div><p>This extension places a pattern along one or more target paths. It is almost
+identical to the <em>Pattern along Path</em> extension except that the pattern is
+not deformed.</p>
+</div></blockquote>
+<p>固有オプション説明：</p>
+<dl class="simple">
+<dt><span class="guilabel">Follow path orientation</span></dt><dd><p>変形なしの <span class="guilabel">Snake</span> と思っていい。</p>
+</dd>
+<dt><span class="guilabel">Stretch spaces to fit skeleton length</span></dt><dd><p>軌跡パスを均等に埋めるようにパターン分身間に空間を追加する。</p>
+</dd>
+<dt><span class="guilabel">Original pattern will be</span></dt><dd><p><em>Pattern along Path</em> とは違って変形の可能性がないのでこれらの選択肢がある：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Moved</span></p></li>
+<li><p><span class="guilabel">Copied</span></p></li>
+<li><p><span class="guilabel">Cloned</span></p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="voronoi">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">Voronoi</a><a class="headerlink" href="#voronoi" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The line segments are derived by distributing sites (points) semi-randomly in
+an area and then constructing line segments where each point on the segment
+is equal distance to the two closest sites forming cells around each site.</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Inkscape 1.2 の <span class="menuselection">Extensions ‣ Generate from Path ‣ Voronoi
+Pattern…</span> に相当する。</p>
+</div>
+<p>利用方法は単純だ：</p>
+<blockquote>
+<div><p>To use this extension, select a path or object and then call up the
+extension. There are two settings:</p>
+</div></blockquote>
+<dl class="simple">
+<dt><span class="guilabel">Average size of cell (px)</span></dt><dd><p>平均細胞寸法。</p>
+</dd>
+<dt><span class="guilabel">Size of Border (px)</span>:</dt><dd><p>平均細胞寸法より大きい正の数を指定すると、滑らかにタイル化できるパターンになる。負の数を指定すると、辺付近の点集合が削除され、境界付近の細胞が大きくなる。</p>
+</dd>
+</dl>
+<p>この拡張で重要なことは、生じたパターンが <em>Fill</em> として指定可能であることだ：</p>
+<blockquote>
+<div><p>After applying this extension, you will have a <em>Pattern</em> that is applied to
+the <em>Fill</em> of the object that was selected. The <em>Pattern</em> can be shifted,
+scaled, and rotated like any other <em>Pattern</em>. It can also be applied to other
+objects through the <span class="guilabel">Fill</span> tab of the <span class="guilabel">Fill and Stroke</span>
+dialog.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="images">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">Images</a><a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h2>
+<section id="extract-one-image">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Extract One Image</a><a class="headerlink" href="#extract-one-image" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection">Extensions ‣ Images ‣ Extract Images</span> に統合されたと思われる。</p>
+<blockquote>
+<div><p>This extension will extract the selected bitmap image from the drawing. The
+destination filename must be given (and not just the path [Bug]). The
+filename extension (e.g., “.png”) is automatically added. As of v0.48,
+relative paths are relative to the user’s home directory.</p>
+</div></blockquote>
+<p>この文章からわかるようにこの拡張は使い物にならない。出力先を指定する UI がまともでない。</p>
+</section>
+<section id="embed-all-images">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Embed All Images</a><a class="headerlink" href="#embed-all-images" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>It is possible to embed the images inside an Inkscape <abbr>SVG</abbr> file with
+this extension. Simply call this extension to embed all bitmap images in the
+file. This may make your <abbr>SVG</abbr> file quite large. Only <abbr>PNG</abbr> and
+<abbr>JPEG</abbr> files may be embedded.</p>
+</div></blockquote>
+<p>この機能は <abbr>SVG</abbr> を gist.github.com などにアップロードする場合には使えるかもしれない。Markdown に <abbr>PNG</abbr>/<abbr>JPEG</abbr> を埋め込むようなものだろう。</p>
+</section>
 </section>
 <section id="jessyink-presentations">
-<h2>JessyInk (Presentations)<a class="headerlink" href="#jessyink-presentations" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Web ブラウザー用のスライドショーを作る機能？</p></li>
+<h2><a class="toc-backref" href="#id35" role="doc-backlink">JessyInk (Presentations)</a><a class="headerlink" href="#jessyink-presentations" title="Permalink to this heading">¶</a></h2>
+<p>Web ブラウザー用のスライドショーを作る機能のようだ。</p>
+<blockquote>
+<div><p>The JessyInk package of extensions allows one to use Inkscape to produce a
+sophisticated web-based presentation, complete with master slides, automatic
+page numbering, transitions between slides and within slides, and page
+zooming. JessyInk works by embedding JavaScript into your <abbr>SVG</abbr> file.
+The JavaScript then manipulates Inkscape <em>Layers</em> to run the presentation.</p>
+</div></blockquote>
+<p><abbr>SVG</abbr> はその仕様上 JavaScript コードを抱える能力があり、それを利用した拡張だ。</p>
+<blockquote>
+<div><p>Perhaps the best way to see what JessyInk can do is to run the demonstration
+that can be found in the Featured downloads section on the JessyInk Home
+Page.</p>
+</div></blockquote>
+<p>それらしいページをインターネットから検索することができない。</p>
+<p>使い方を見ていく。</p>
+<blockquote>
+<div><p>To use JessyInk you first need to add the JessyInk JavaScript code to your
+<abbr>SVG</abbr> file. This is done by calling up the <span class="guilabel">Install/Update…</span>
+dialog and clicking on the <span class="guilabel">Apply</span> button. The code can be removed
+by using the <span class="guilabel">Uninstall/remove</span> dialog.</p>
+</div></blockquote>
+<p>前者のダイアログは Python などのパッケージ更新処理に類似している。後者は一覧の中から不要な効果を選択して図面から取り除くというものだ。</p>
+<blockquote>
+<div><p>Once the code is installed, each <em>Layer</em> becomes a slide in the presentation.
+The order of the <em>Layers</em> in the drawing corresponds to the order of the
+slides in the presentation. One slide can be designated as the <em>Master slide</em>
+which will be displayed as background to all the other slides.</p>
+</div></blockquote>
+<p>背景付き紙芝居と解釈できる。</p>
+<section id="master-slide">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Master Slide</a><a class="headerlink" href="#master-slide" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>To create a master slide, first create a layer with all the objects you wish
+to appear on all slides. Give the slide a name using the <span class="guilabel">Layer</span>
+dialog (<code class="docutils literal notranslate"><span class="pre">Master</span> <span class="pre">Slide</span></code> is a good choice). Then call up the
+<span class="guilabel">Master Slide</span> dialog via the <span class="menuselection">Master Slide…</span> menu
+entry. Enter the slide name and click the <span class="guilabel">Apply</span> button.</p>
+</div></blockquote>
+<p>マスタースライド用レイヤーを指定するには、上記専用ダイアログからレイヤー名をキーボードで入力する。したがって、対象レイヤーをひねくれた名前にできない。</p>
+<p>マスタースライドは単なる背景ではない。連番（ページ）付与などの便利な機能がある。</p>
+<blockquote>
+<div><p>You can add a few special Auto-texts to the <em>Master Slide</em>. The most useful
+is the <em>Slide number</em> which will automatically display the correct slide
+number on each slide. You can also display the total number of slides
+(excluding the <em>Master Slide</em> and the title (<em>Layer</em>) name of each slide.</p>
+</div></blockquote>
+<p>ページ番号を表示する手順を見ていく。マスターレイヤーにダミーテキストを配置してから自動テキストダイアログで操作する：</p>
+<blockquote>
+<div><p>To add Auto-text, put dummy text on the <em>Master Slide</em> where you want the
+Auto-text to be located. The Auto-text will be displayed with the style of
+the dummy text. Select the dummy text and then on the <span class="guilabel">Auto-texts</span>
+dialog select the desired type and hit the <span class="guilabel">Apply</span> button. You will
+not see any change to the text in Inkscape but when viewing the presentation
+in a Web browser, the correct Auto-text will be displayed.</p>
+</div></blockquote>
+<p>デモの記述からすると、次のことが読める：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>文字列 <code class="docutils literal notranslate"><span class="pre">Slide</span> <span class="pre">Title</span></code> が各スライドのレイヤー名に置換される。</p></li>
+<li><p>文字列 <code class="docutils literal notranslate"><span class="pre">#/#</span></code> が総ページ数付き現在ページに置換される。</p></li>
 </ul>
+</div></blockquote>
+</section>
+<section id="transitions">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Transitions</a><a class="headerlink" href="#transitions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Transitions between slides can be added with the <span class="guilabel">Transitions</span>
+dialog. Each slide can have a transition before (in) and after (out) its
+display.</p>
+</div></blockquote>
+<p>FFmpeg でよくやるからわかりやすい。次の仕様が便利だ：</p>
+<blockquote>
+<div><p>A default transition type can be assigned to the <em>Master Slide</em> which will
+then be used by all slides that don’t have an explicit transition assigned to
+them.</p>
+</div></blockquote>
+<p>必要なスライド（レイヤー）ごとに in と out の両方を指定する：</p>
+<blockquote>
+<div><p>There are three types of transitions: <span class="guilabel">appear</span>, where the slide
+appears instantly; <span class="guilabel">fade</span>, where the slide fades in or out; and
+<span class="guilabel">pop</span> where the slide fades in or out and grows or shrinks. The
+transition time for <span class="guilabel">fade</span> and <span class="guilabel">pop</span> can be set in the
+dialog.</p>
+<p>To set a transition effect, call up the <span class="guilabel">Transition</span> dialog and the
+enter the <em>Layer</em> name that you which the transition to apply to. Select the
+transition type and click the <span class="guilabel">Apply</span> button. No visible change
+will be seen in Inkscape.</p>
+</div></blockquote>
+<p>実際に処理するのはウェブブラウザーだが、スライド（レイヤー）が含む画像によってはこの処理は <abbr>CPU</abbr> を食う：</p>
+<blockquote>
+<div><p>They can eat up a lot of <abbr>CPU</abbr>, especially if using large bitmap images
+or <em>Gradients</em> and <em>Filters</em>.</p>
+</div></blockquote>
+</section>
+<section id="effects">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">Effects</a><a class="headerlink" href="#effects" title="Permalink to this heading">¶</a></h3>
+<p>同一レイヤー内でのオブジェクトまたはグループ表示操作を実現する。</p>
+<blockquote>
+<div><p>For example, you can have a series of bullet points that appear one at a
+time. The same types of effects as for transitions are available:
+<span class="guilabel">appear</span>, <span class="guilabel">fade</span>, and <span class="guilabel">pop</span>. The order in which
+different effects are applied during a presentation is determined by the
+Order parameter. Effects with the same order number will appear at the same
+time.</p>
+</div></blockquote>
+<p>例によって UI が良くない。手作業が多くて面倒そうだ：</p>
+<blockquote>
+<div><p>To add an effect, select an object or a <em>Group</em> and then call up the
+<span class="guilabel">Effects</span> dialog. Select the type of effect and specify an order.
+Finally, click on the <span class="guilabel">Apply</span> button.</p>
+</div></blockquote>
+</section>
+<section id="views">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">Views</a><a class="headerlink" href="#views" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Views are away to zoom in and out to part of a slide. Rotation is also
+possible. Views can be mixed with effects. The order is determined by the
+<span class="guilabel">Order</span> parameter.</p>
+</div></blockquote>
+<p>ビュー範囲を指定するのに Inkscape の矩形オブジェクトを用いる：</p>
+<blockquote>
+<div><p>To set a view, add a <em>Rectangle</em> to a slide. Removing the <em>Fill</em> and adding a
+light color <em>Stroke</em> allows viewing the rest of the slide easily. With the
+<em>Rectangle</em> selected, call up the <span class="guilabel">View</span> dialog, set the
+<span class="guilabel">Order</span> parameter and click <span class="guilabel">Apply</span>.</p>
+</div></blockquote>
+<p>ビューを取り消したい場合にはダイアログの <span class="guilabel">Remove View</span> をチェック。</p>
+</section>
+<section id="miscellaneous">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Permalink to this heading">¶</a></h3>
+<p>他の機能をまとめて紹介：</p>
+<dl class="simple">
+<dt><span class="menuselection">Keys bindings</span></dt><dd><p>再生中の使用するキーバインドを設定する。</p>
+</dd>
+<dt><span class="menuselection">Mouse handler</span></dt><dd><p>再生中のマウスイベントハンドラーを設定する（三択）。</p>
+</dd>
+<dt><span class="menuselection">Summary</span></dt><dd><p><abbr>SVG</abbr> ファイルに埋め込まれた JessyInk スクリプトの概要を作成する。</p>
+</dd>
+<dt><span class="menuselection">Video</span></dt><dd><p><abbr>HTML</abbr> の <code class="docutils literal notranslate"><span class="pre">video</span></code> タグを追加するスライドショーに埋め込めるようにする。</p>
+</dd>
+</dl>
+</section>
+<section id="presenting">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">Presenting</a><a class="headerlink" href="#presenting" title="Permalink to this heading">¶</a></h3>
+<p>完成したスライドショーは <abbr>SVG</abbr> 対応ウェブブラウザーで開くことが可能だ。最初のページは自動で表示され、次のキー操作でスライドを変える：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>キーバインド</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">→</kbd> or <kbd class="kbd docutils literal notranslate">PgDn</kbd></p></td>
+<td><p>進む</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">←</kbd> or <kbd class="kbd docutils literal notranslate">PgUp</kbd></p></td>
+<td><p>戻る</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">↑</kbd> or <kbd class="kbd docutils literal notranslate">↓</kbd></p></td>
+<td><p>Effect 抜きで進行</p></td>
+</tr>
+</tbody>
+</table>
+<p>再生中に利用できる特別機能：</p>
+<dl class="simple">
+<dt>Index Sheet</dt><dd><p><kbd class="kbd docutils literal notranslate">I</kbd> を押すことで発動。スライドのサムネイルを九枚表示し、矢印キーでスライドを移動できる。もう一度 <kbd class="kbd docutils literal notranslate">I</kbd> を押すと、強調表示されたスライドの冒頭に戻る。</p>
+</dd>
+<dt>Drawing Mode</dt><dd><p><kbd class="kbd docutils literal notranslate">D</kbd> を押すと描画モードのオンオフを切り替える。マウスポインターがペンになってお絵描きができる。</p>
+<ul class="simple">
+<li><p>ストローク属性はキーで制御する。詳しくは <span class="guilabel">Key bindings</span> ダイアログを開いて:guilabel:<cite>Drawing mode</cite> タブにある（ここの UI もどうかしている）。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">Z</kbd> を押すと線が一本元に戻る。</p></li>
+</ul>
+</dd>
+<dt>White Board Slides</dt><dd><p><kbd class="kbd docutils literal notranslate">N</kbd> キーを押すと空白スライドが挿入される。この上記のモードで白板として利用するといい。</p>
+</dd>
+</dl>
+</section>
 </section>
 <section id="modify-path">
-<h2>Modify Path<a class="headerlink" href="#modify-path" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>ノード追加</p></li>
-<li><p>マーカーに色を着ける</p></li>
-<li><p>etc.</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">Modify Path</a><a class="headerlink" href="#modify-path" title="Permalink to this heading">¶</a></h2>
+<section id="add-nodes">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">Add Nodes</a><a class="headerlink" href="#add-nodes" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Adds nodes to a path, leaving the shape of the path unchanged. The nodes are
+added evenly spaced. The number of nodes is either specified or by setting a
+minimum specified spacing.</p>
+</div></blockquote>
+<p>形状を変えずにパスにノードを等間隔に追加すると、マーカーを付けるのに役に立つ。</p>
+</section>
+<section id="color-markers-to-match-stroke">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">Color Markers to Match Stroke</a><a class="headerlink" href="#color-markers-to-match-stroke" title="Permalink to this heading">¶</a></h3>
+<p>これは現行バージョンの <span class="menuselection">Extensions ‣ Modify Path ‣ Color
+Markers</span> に相当する。マーカーの <em>Fill</em> と <em>Stroke color</em> をどちらも編集できる。</p>
+</section>
+<section id="convert-to-dashes">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">Convert to Dashes</a><a class="headerlink" href="#convert-to-dashes" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The extension takes a <em>Path</em> with <em>Dashes</em> and converts each <em>Dash</em> into a
+separate sub-path. This is to allow desktop cutting plotters to cut dashed
+lines.</p>
+</div></blockquote>
+<p>部分パスで構成される複合パスに変換する。</p>
+</section>
+<section id="edge-3d">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">Edge 3D</a><a class="headerlink" href="#edge-3d" title="Permalink to this heading">¶</a></h3>
+<p>この拡張コマンドは、パスが定義する領域を立体的に見せるためのハイライトと影を表現するためのパスオブジェクトを追加する：</p>
+<blockquote>
+<div><p>Adds highlights and shadows to simulate 3D objects like buttons. The
+extension works by adding paths that are blurred via the <em>Gaussian Blur</em>
+filter and then clipped. The paths have partial transparency, with white for
+highlights and black for shadows.</p>
+</div></blockquote>
+<p>対象オブジェクトは厳密にパス型である必要があり、場合によってはノードを追加して見栄えを良くすることになる。</p>
+</section>
+<section id="envelope">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">Envelope</a><a class="headerlink" href="#envelope" title="Permalink to this heading">¶</a></h3>
+<p>こういう操作を envelop というのか：</p>
+<blockquote>
+<div><p>Distorts a path so that the path’s original <em>bounding box</em> is mapped to the
+edges of a quadrilateral.</p>
+</div></blockquote>
+<p>変形させたいパスと、対応先四角形パスをこの順に選択してからコマンドを実行する。</p>
+<blockquote>
+<div><p>To use the extension, select the path to transform first, then add the
+quadrilateral path to the selection. Regular shape objects must be converted
+to a path before transformation.</p>
+</div></blockquote>
+<p>対応先四角形パスの向きが重要だ。必要に応じてパスを逆向きにする。</p>
+</section>
+<section id="flatten-bezier">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">Flatten Bezier</a><a class="headerlink" href="#flatten-bezier" title="Permalink to this heading">¶</a></h3>
+<p>Bezier 曲線パスを近似ポリラインに変換する拡張コマンドだ。</p>
+<blockquote>
+<div><p>This extension converts selected Bezier curves to an approximation composed
+of straight-line paths. The number of line segments used is determined by the
+<span class="guilabel">Flatness</span> parameter. The smaller the <span class="guilabel">Flatness</span>, the
+more line segments are used.</p>
+</div></blockquote>
+<p>平坦度が小さいほど細やかなポリラインに変換される。つまり近似精度が高い。</p>
+</section>
+<section id="fractalize">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">Fractalize</a><a class="headerlink" href="#fractalize" title="Permalink to this heading">¶</a></h3>
+<p><abbr>CAD</abbr> 出身のプログラマーからすると異色のコマンドに見える：</p>
+<blockquote>
+<div><p>This extension turns a straight-line segment into a crooked segment. It works
+by finding the midpoint of the line segment, adding a node at that point, and
+then moving the node a random distance perpendicular to the original path
+direction. This division routine is called recursively depending on the
+setting of the <span class="guilabel">Subdivisions</span> entry in the dialog, doubling the
+number of resulting segments for each increase by one.</p>
+</div></blockquote>
+<p>入力欄の数は折れ線数を意味しない。二分法で折れ線が生じるのでこのような仕様なのだ。</p>
+<blockquote>
+<div><p>The <span class="guilabel">Smoothness</span> of the path can also be specified. The magnitude
+of the perpendicular displacement is a random function with the limits
+determined by ±(Segment length)/(1 + Smoothness).</p>
+</div></blockquote>
+<p>平滑度が大きいほど「揺らぎ」が小さくなる。</p>
+<blockquote>
+<div><p>The extension will also work on a curved path by turning the path into a
+series of line segments between the path’s nodes.</p>
+</div></blockquote>
+<p>この場合にはポリラインの断片それぞれに対して再帰的細分を施す。</p>
+</section>
+<section id="interpolate-attribute-in-a-group">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">Interpolate Attribute in a Group</a><a class="headerlink" href="#interpolate-attribute-in-a-group" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension takes the objects in a <em>Group</em> or a selection and assigns a
+value to some attribute of each object, interpolating between two extremes to
+determine the value. Note that the order of the objects in the <abbr>SVG</abbr>
+file determines the order in which the interpolated attributes are assigned.</p>
+</div></blockquote>
+<p>この拡張コマンドの意味は本書のデモ二つを見れば理解できる。</p>
+<blockquote>
+<div><p>Options include interpolating color, width, height, scale, and position.</p>
+</div></blockquote>
+<p>試したところ、色の補間はおそらく <abbr>HSL</abbr> 色空間が用いられるのではないかと思う。</p>
+</section>
+<section id="jitter-nodes">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">Jitter Nodes</a><a class="headerlink" href="#jitter-nodes" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Randomly shift nodes and/or node handles.</p>
+</div></blockquote>
+<p>著しい偶発的効果をもたらす拡張コマンドは使いこなせない。</p>
+</section>
+<section id="perspective">
+<h3><a class="toc-backref" href="#id52" role="doc-backlink">Perspective</a><a class="headerlink" href="#perspective" title="Permalink to this heading">¶</a></h3>
+<p>Envelop と同じだが、</p>
+<blockquote>
+<div><p>This extension requires the Numpy (Numerical Python) package.</p>
+</div></blockquote>
+<p>という凝った物になっている。四角形パスの操作方法が参考になるので習得しよう：</p>
+<blockquote>
+<div><p>-略- in most cases, the quadrilateral path should be started from the
+lower-left corner and proceed in a clockwise direction. The <kbd class="kbd docutils literal notranslate">Tab</kbd> key
+will cycle through the nodes in order when the <em>Node Tool</em> is in use. If no
+node is selected, then the starting node will be highlighted on the first use
+of the <kbd class="kbd docutils literal notranslate">Tab</kbd> key. To change the starting node, break the path at the
+desired start node (v0.47) or one node before (v0.48) and then rejoin.</p>
+</div></blockquote>
+</section>
+<section id="pixelsnap">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink">Pixelsnap</a><a class="headerlink" href="#pixelsnap" title="Permalink to this heading">¶</a></h3>
+<p>ビットマップ書き出しをするときに絵がにじまないように補正する拡張コマンドだ。このように数値を精密に編集する：</p>
+<blockquote>
+<div><p>Filled objects are adjusted so that their edges are aligned with pixel
+boundaries. Paths are first adjusted to have an integer pixel width, and then
+adjusted so the stroke edges align with the boundaries.</p>
+</div></blockquote>
+<p>一般的にはオブジェクトの移動を伴う。このコマンドを実行したら、そのオブジェクトにはもう触らないようにする。</p>
+</section>
+<section id="rubber-stretch">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">Rubber Stretch</a><a class="headerlink" href="#rubber-stretch" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Distorts a path as if the path was stretched vertically or the path was
+squeezed horizontally. The amount of the distortion is controlled by the
+Strength and Curve parameters. Adding extra nodes may produce a better
+result.</p>
+</div></blockquote>
+<p>圧縮オチの作画の補助になるだろう。</p>
+</section>
+<section id="straighten-segments">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">Straighten Segments</a><a class="headerlink" href="#straighten-segments" title="Permalink to this heading">¶</a></h3>
+<p>Flatten Bezier コマンドと似ているが、こちらは接線を変える：</p>
+<blockquote>
+<div><p>The amount of straightening can be specified. A <span class="guilabel">Behavior</span> value of
+1 moves the node handles toward the nodes, a value of 2 moves the node
+handles to a point one-third of the distance between the node and the
+neighboring node. There is little visual difference between these two
+options.</p>
+</div></blockquote>
+<p>接線の長さを短くすることでノード間の曲線を平坦にしていくという考え方だ。</p>
+</section>
+<section id="whirl">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">Whirl</a><a class="headerlink" href="#whirl" title="Permalink to this heading">¶</a></h3>
+<p>パスオブジェクトを点の周りにねじる。</p>
+<blockquote>
+<div><p>This extension twists an object around a point, like what might happen if you
+dropped things in whirling water (except the farther away from the center,
+the greater the displacement for this extension).</p>
+<p>The center of view is used for the center of the whirl. To whirl around the
+center of an object, select the object and then use <span class="menuselection">View ‣
+Zoom ‣ Zoom Selection</span> (<kbd class="kbd docutils literal notranslate">3</kbd>) to center the view on the object.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="raster">
-<h2>Raster<a class="headerlink" href="#raster" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>ビットマップのピクセルを操作する。</p></li>
+<h2><a class="toc-backref" href="#id57" role="doc-backlink">Raster</a><a class="headerlink" href="#raster" title="Permalink to this heading">¶</a></h2>
+<p>Raster 系拡張機能群はビットマップを操作する。</p>
+<ul>
+<li><p>GIMP のような本格的なビットマップエディターを使いたくないときに便利だ。</p></li>
+<li><p>拡張機能はすべて ImageMagick に依存している。</p></li>
+<li><p>拡張機能を適用すると、ビットマップは、変更された内部ビットマップに置き換わる。</p>
+<blockquote>
+<div><p>Note that these extensions only work on a bitmap. Some of the extensions can
+be duplicated by using <em>Filters</em> which also work on all objects and don’t
+permanently change the bitmap file.</p>
+</div></blockquote>
+</li>
 </ul>
+<p>多重にラスター操作をする場合には、バックアップに何らかのフィルターを利用するということか。</p>
 </section>
 <section id="render">
-<h2>Render<a class="headerlink" href="#render" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id58" role="doc-backlink">Render</a><a class="headerlink" href="#render" title="Permalink to this heading">¶</a></h2>
+<section id="d-polyhedrons">
+<h3><a class="toc-backref" href="#id59" role="doc-backlink">3D Polyhedrons</a><a class="headerlink" href="#d-polyhedrons" title="Permalink to this heading">¶</a></h3>
+<p>照光処理があったからもしやと思ったら、やはりポリゴン（のイラスト）を描画する機能がある。</p>
+<blockquote>
+<div><p>Selecting this extension pops up a dialog with three tabs. The first tab,
+<span class="guilabel">Model file</span>, controls the type of polyhedron that is specified in
+the <span class="guilabel">Object</span> drop-down menu. If <span class="guilabel">Load From</span> file is
+selected, the description in the file specified in the <span class="guilabel">Filename:</span>
+entry box is used. In the <span class="guilabel">Object Type</span> tab you can specify if the
+source file describes the object with edges or faces.</p>
+</div></blockquote>
+<p>デモイラスト 1 のように出来合いのポリゴンを生成することも、上にあるように STL
+ファイルなどを解釈して記述されているポリゴンを描画することも可能だ（いつものティーポットで確認）。</p>
+<blockquote>
+<div><p>The second tab, <span class="guilabel">View</span>, allows you to rotate the polyhedron. Up to
+six rotations are allowed (for the mathematicians: why six when any unique
+rotation can be specified by only three orthogonal rotations?).</p>
+</div></blockquote>
+<p>確かにクセのある UI だ。もっとも回転を三つ指定させるとしても筋が良いとは言えない。座標系が気になるが、その都度確認すればいいだろう。</p>
+<blockquote>
+<div><p>The third tab, <span class="guilabel">Style</span>, allows you to set all kinds of style
+parameters</p>
+</div></blockquote>
+<p>この辺のオプションは 3D をやっている利用者ならば一見して見てわかる。問題ない。</p>
+</section>
+<section id="alphabet-soup">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">Alphabet Soup</a><a class="headerlink" href="#alphabet-soup" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension generates exotic-looking text by recombining parts of
+characters from mostly the Latin alphabet in a way that the original text is
+discernible.</p>
+</div></blockquote>
+<p>画像生成 AI が描きそうな文字を生成する拡張コマンドだ。入力文字列によっては
+discernible でない出力が得られる。</p>
+</section>
+<section id="barcode">
+<h3><a class="toc-backref" href="#id61" role="doc-backlink">Barcode</a><a class="headerlink" href="#barcode" title="Permalink to this heading">¶</a></h3>
+<p>この節の説明は <span class="menuselection">Extensions ‣ Render ‣ Barcode ‣ Classic…</span>
+のもので、Inkscape 1.2 では <span class="menuselection">Datamatrix…</span> と <span class="menuselection">QR
+Code…</span> が存在する。</p>
+</section>
+<section id="barcode-datamatrix">
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">Barcode — Datamatrix</a><a class="headerlink" href="#barcode-datamatrix" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension generates a Datamatrix barcode.</p>
+</div></blockquote>
+<p>ダンジョンマスターの階層マップのような図像を生成するコマンドだ。</p>
+</section>
+<section id="calendar">
+<h3><a class="toc-backref" href="#id63" role="doc-backlink">Calendar</a><a class="headerlink" href="#calendar" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>祝日以外の全てが構成可能なカレンダー。その気になれば特定の日だけ色を手作業で変えればいいので、オリジナルグッズを作成したい人には有用か。</p>
+</div></blockquote>
+</section>
+<section id="cartesian-grid">
+<h3><a class="toc-backref" href="#id64" role="doc-backlink">Cartesian Grid</a><a class="headerlink" href="#cartesian-grid" title="Permalink to this heading">¶</a></h3>
+<p>方眼紙を生成する。対数方眼紙も対応。両軸指定可。</p>
+<blockquote>
+<div><p>This extension generates Cartesian grids. Options include number of
+subdivisions, number of sub-subdivisions, linear versus logarithmic
+divisions, and line widths. For polar coordinates see <em>Polar Grid</em> extension.</p>
+</div></blockquote>
+<p>メニュー項目は <span class="menuselection">Extensions ‣ Render ‣ Grids ‣ Cartesian
+Grid…</span> だ。</p>
+</section>
+<section id="draw-from-triangle">
+<h3><a class="toc-backref" href="#id65" role="doc-backlink">Draw From Triangle</a><a class="headerlink" href="#draw-from-triangle" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension is a geometrician’s dream. It allows you to create an almost
+infinite number of constructions based on a triangle. The triangle is defined
+by the first three nodes in a path (even if the path is not a triangle). The
+path must be closed and the nodes connected by straight lines.</p>
+</div></blockquote>
+<p>実際にコマンドを起動して <span class="guilabel">Draw From Triangle</span> ダイアログの各ダブを見ると感動する。作図ツールとしての価値が高まった。</p>
+</section>
+<section id="foldable-box">
+<h3><a class="toc-backref" href="#id66" role="doc-backlink">Foldable Box</a><a class="headerlink" href="#foldable-box" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension draws the pattern for a foldable box as one might use for the
+input in a desktop cutting plotter (after modifying the paths). The
+individual sides and tabs are each represented by separate paths which are
+all in a <em>Group</em>.</p>
+</div></blockquote>
+<p>直方体紙パックの寸法を指定してその展開図を作図するコマンドだ。同時に変なガイド線も生じる。</p>
+</section>
+<section id="function-plotter">
+<h3><a class="toc-backref" href="#id67" role="doc-backlink">Function Plotter</a><a class="headerlink" href="#function-plotter" title="Permalink to this heading">¶</a></h3>
+<p>Matplotlib を引っ張り出す機会が減るか？</p>
+<ul>
+<li><p>先に自分で矩形を描く。それからこのコマンドを起動する。</p></li>
+<li><p>横軸を <span class="math notranslate nohighlight">\(2\pi\)</span> の整数倍に整えるオプションがある。周期関数をプロットしやすい。</p></li>
+<li><p>関数の一次微分を与えるオプションがあるのが興味深い。</p>
+<blockquote>
+<div><p>The function is plotted in the <abbr>SVG</abbr> coordinate system, which has the
+y-axis upside down. The extension inserts a minus sign automatically to
+correct for this.</p>
+</div></blockquote>
+</li>
+</ul>
+<p><span class="guilabel">Y value of rectangle’s bottom</span> 値などで調整する。</p>
+<blockquote>
+<div><p>All Python math functions are allowed (as long as they return a single
+value), including Python random number functions. The <span class="guilabel">Help</span> Tab
+has a list of some of the available functions.</p>
+</div></blockquote>
+<p>それよりもその左の <span class="guilabel">Functions</span> タブのほうがいい。</p>
+<p>指定矩形を単位円の外接矩形とする極座標プロットも可能。その際の作法を知っている必要がある：</p>
+<blockquote>
+<div><p>When the <span class="guilabel">Use polar coordinates</span> option is selected, the x-range is
+set to -1 at the left of the rectangle and +1 at the right side. The x values
+entered in the extension’s dialog are used for the angle domain (in radians).
+The <span class="guilabel">Isotropic scaling</span> parameter is ignored. <span class="guilabel">Calculate
+first derivative numerically</span> must also be selected.</p>
+</div></blockquote>
+<p>現代の環境で Python 2 系である可能性はもうゼロだと思う：</p>
+<blockquote>
+<div><p>Note that depending on the version, Python may return an integer if you
+divide two integers: thus, 4/5 = 0, while 4.0/5.0 = 0.8.</p>
+</div></blockquote>
+</section>
+<section id="gear">
+<h3><a class="toc-backref" href="#id68" role="doc-backlink">Gear</a><a class="headerlink" href="#gear" title="Permalink to this heading">¶</a></h3>
+<p>イラストに示されているが、<span class="guilabel">Number of Teeth</span> を <span class="math notranslate nohighlight">\(N\)</span>,
+<span class="guilabel">Circular Pitch</span> を <span class="math notranslate nohighlight">\(P\)</span>, ピッチ円半径を <span class="math notranslate nohighlight">\(R\)</span> とすると次の等式が成り立つ：</p>
+<div class="math notranslate nohighlight">
+\[2\pi R = NP.\]</div>
+<p>圧力角の普通の値は三つだ：</p>
+<blockquote>
+<div><p>14.5, 20, and 25 degrees.</p>
+</div></blockquote>
+</section>
+<section id="grid">
+<h3><a class="toc-backref" href="#id69" role="doc-backlink">Grid</a><a class="headerlink" href="#grid" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection">Extensions ‣ Render ‣ Grids ‣ Grid…</span> コマンドだ。</p>
+<blockquote>
+<div><p>This extension fills the bounding box of an object with a grid. The grid
+spacing and offset can be independently set in the horizontal and vertical
+directions. The grid line width can also be set.</p>
+</div></blockquote>
+<p>後から方眼紙を敷くという手順前後感がある。</p>
+</section>
+<section id="guides-creator">
+<h3><a class="toc-backref" href="#id70" role="doc-backlink">Guides Creator</a><a class="headerlink" href="#guides-creator" title="Permalink to this heading">¶</a></h3>
+<p>ページ寸法に基づいて一定の規則でガイド線を引く拡張コマンドだ。等間隔だったり黄金比だったり。比率だったり。</p>
+</section>
+<section id="latex-formula">
+<h3><a class="toc-backref" href="#id71" role="doc-backlink">LaTeX Formula</a><a class="headerlink" href="#latex-formula" title="Permalink to this heading">¶</a></h3>
+<p>これは重要。利用する機会が必ずまた訪れる。しかし利用可能条件が Inkscape の外部にある：</p>
+<blockquote>
+<div><p>This extension turns a LaTeX string into a path. The string is typed into a
+dialog box. The extension requires that Ghostscript, LaTeX, and <a class="reference external" href="https://www.pstoedit.com/">Pstoedit</a> to
+be installed and in the execution path. <a class="reference external" href="https://www.pstoedit.com/">Pstoedit</a> must include the GNU
+libplot <abbr>SVG</abbr> driver or the shareware <abbr>SVG</abbr> plug-in, available
+for Windows at the <a class="reference external" href="https://www.pstoedit.com/">Pstoedit</a> website. The resulting formula is rendered as a
+path.</p>
+</div></blockquote>
+</section>
+<section id="l-system-fractal-lindenmayer">
+<h3><a class="toc-backref" href="#id72" role="doc-backlink">L-System (Fractal-Lindenmayer)</a><a class="headerlink" href="#l-system-fractal-lindenmayer" title="Permalink to this heading">¶</a></h3>
+<p>これは使いこなせない。</p>
+</section>
+<section id="parametric-curves">
+<h3><a class="toc-backref" href="#id73" role="doc-backlink">Parametric Curves</a><a class="headerlink" href="#parametric-curves" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension generates parametric curves. It was derived from the <em>Function
+Plotter</em> extension and shares many of its parameters.</p>
+</div></blockquote>
+<p>ダイアログの UI がほとんど同じだ。</p>
+</section>
+<section id="perfect-bound-cover-template">
+<h3><a class="toc-backref" href="#id74" role="doc-backlink">Perfect-Bound Cover Template</a><a class="headerlink" href="#perfect-bound-cover-template" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection">Extensions ‣ Render ‣ Layout ‣ Perfect-Bound Cover
+Template…</span> で起動する。製本の表紙テンプレートを作成する拡張コマンドだ。ガイド線を引く。</p>
+<blockquote>
+<div><p>The template sets the document to the correct size and creates guides for the
+front cover, back cover, and spine of the book, including the specified
+bleed.</p>
+</div></blockquote>
+<p>ダイアログからいろいろと指定できるようでいて、長さ単位が固定の項目がある：</p>
+<blockquote>
+<div><p>The dialog allows for specifying a variety of parameters including the number
+of pages in the book and the thickness of each page. The extension is biased
+toward English measurements.</p>
+</div></blockquote>
+</section>
+<section id="polar-grid">
+<h3><a class="toc-backref" href="#id75" role="doc-backlink">Polar Grid</a><a class="headerlink" href="#polar-grid" title="Permalink to this heading">¶</a></h3>
+<p>メニュー項目は <span class="menuselection">Extensions ‣ Render ‣ Grids ‣ Polar
+Grid…</span> にある。</p>
+<blockquote>
+<div><p>This extension generates polar grids. Options include number of subdivisions,
+linear versus logarithmic divisions, line widths, and angle labels. For
+Cartesian coordinates see <em>Cartesian Grid</em> extension.</p>
+</div></blockquote>
+</section>
+<section id="printing-marks">
+<h3><a class="toc-backref" href="#id76" role="doc-backlink">Printing Marks</a><a class="headerlink" href="#printing-marks" title="Permalink to this heading">¶</a></h3>
+<p>メニュー項目は <span class="menuselection">Extensions ‣ Render ‣ Layout ‣ Printing
+Marks…</span> にある。印刷物の隅に目にすることがあるマークを生成する拡張機能だ。次のオプションからなる：</p>
+<blockquote>
+<div><p>Options include generating crop marks, bleed marks, registration marks, star
+target, color bars, and page information.</p>
+<p>At the moment, the marks are generated “off” the page. The
+<span class="guilabel">Selection</span> option in the <span class="guilabel">Set crop marks to</span> drop-down
+menu in the <span class="guilabel">Positioning</span> tab does not work.</p>
+</div></blockquote>
+<p>Inkscape 1.2 では選択オブジェクトに対しても機能する。</p>
+<blockquote>
+<div><p>Note that the printing marks are created on a locked <em>Layer</em> named
+<span class="guilabel">Printing Marks</span>.</p>
+</div></blockquote>
+<p>なお、このコマンドには Live Preview 機能がない。</p>
+</section>
+<section id="random-tree">
+<h3><a class="toc-backref" href="#id77" role="doc-backlink">Random Tree</a><a class="headerlink" href="#random-tree" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Draw a random tree made of straight-line segments. This is a classic from
+<em>Turtle Geometry</em>. This implementation is rather limited.</p>
+</div></blockquote>
+<p>使わない。</p>
+</section>
+<section id="spirograph">
+<h3><a class="toc-backref" href="#id78" role="doc-backlink">Spirograph</a><a class="headerlink" href="#spirograph" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Draw a Spirograph; that is, an epitrochoid or hypotrochoid curve.</p>
 <ul class="simple">
-<li><p><span class="guilabel">Gear</span> があるのはここ。</p></li>
+<li><p><a class="reference external" href="https://mathworld.wolfram.com/Epitrochoid.html">Epitrochoid – from Wolfram MathWorld</a></p></li>
+<li><p><a class="reference external" href="https://mathworld.wolfram.com/Hypotrochoid.html">Hypotrochoid – from Wolfram MathWorld</a></p></li>
+</ul>
+</div></blockquote>
+<p>使う半径は三つある：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>引数</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">R - Ring Radius</span></p></td>
+<td><p>固定円の半径</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">r - Gear Radius</span></p></td>
+<td><p>運動円の半径</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">d - Pen Radius</span></p></td>
+<td><p>描画点の半径</p></td>
+</tr>
+</tbody>
+</table>
+<p>次に hypotrochoid か epitrochoid かを指定する：</p>
+<blockquote>
+<div><p>In addition, one must choose if the <em>Gear</em> travels <em>Inside</em> or <em>Outside</em> the
+<em>Ring</em>.</p>
+</div></blockquote>
+<p>残りのオプションは適当に。</p>
+<blockquote>
+<div><p>The ratio of “r” to “R” determines the structure of the curve. Take, for
+example, an “r” of 36 and an “R” of 48. The ratio reduced to its simplest
+form is 3/4. This indicates that the <em>Gear</em> will make a total of four “loops”
+as it circles the <em>Ring</em> three times. Simple ratios make simple curves.</p>
+</div></blockquote>
+<p>この手の周期的パラメトリック曲線によく見られる比の考え方だ。この分母が偶数のものについては図形の中央が塗りつぶされない：</p>
+<blockquote>
+<div><p>If you use an Even-odd fill rule, the center of the figure will be unfilled
+if the denominator is even.</p>
+</div></blockquote>
+<p>無理数になることはないのだが、それに近づけることは当然可能だ。そうなるとなかなかループが一周しない。その際、この拡張機能は次のように振る舞う：</p>
+<blockquote>
+<div><p>Unlike the case with a real Spirograph that utilizes plastic gears, it is
+possible to specify values of “r” and “R” that don’t form a rational number
+ratio. In this case, the curve never closes on itself and is of infinite
+length. To avoid such infinities, the extension limits the number of nodes to
+1000. If the numerator or denominator of the ratio in the simplest form is a
+large integer, the <em>Spirograph</em> may run out of nodes.</p>
+</div></blockquote>
+<p>対処法は：</p>
+<blockquote>
+<div><p>In this case, decreasing the <span class="guilabel">Quality</span> may help.</p>
+</div></blockquote>
+<p>実機では作図できないような半径を与えて作図することも可能だ：</p>
+<blockquote>
+<div><p>Also, unlike a “real” Spirograph, the <em>Spirograph</em> extension allows “d” to be
+greater than “r”. This results in small loops along the <em>Ring</em>.</p>
+</div></blockquote>
+</section>
+<section id="triangle">
+<h3><a class="toc-backref" href="#id79" role="doc-backlink">Triangle</a><a class="headerlink" href="#triangle" title="Permalink to this heading">¶</a></h3>
+<p>辺の長さ and/or 頂点の角度を必要なだけ指定して三角形を作図する拡張機能だ。</p>
+<blockquote>
+<div><p>Although there are six parameter entry boxes, only three are used at any one
+time. Which three are used is specified in the <span class="guilabel">Mode</span> drop-down
+menu. Side <em>c</em> is always at the bottom.</p>
+</div></blockquote>
+<p><span class="guilabel">From Three Sides</span> や <span class="guilabel">From Sides a, b and Angle c</span> などのモードがある。一意に定まらなそうな選択肢が紛れ込んでいる気がする。</p>
+</section>
+<section id="wireframe-sphere">
+<h3><a class="toc-backref" href="#id80" role="doc-backlink">Wireframe Sphere</a><a class="headerlink" href="#wireframe-sphere" title="Permalink to this heading">¶</a></h3>
+<p>球を緯線や経線を描くことで表現する機能だ。</p>
+<blockquote>
+<div><p>This extension generates a wire frame sphere using ellipses to represent
+lines of latitude and longitude. The number of lines can be specified as well
+as the orientation of the sphere. An option allows the removal of hidden
+lines.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="text">
+<h2><a class="toc-backref" href="#id81" role="doc-backlink">Text</a><a class="headerlink" href="#text" title="Permalink to this heading">¶</a></h2>
+<section id="convert-to-braille">
+<h3><a class="toc-backref" href="#id82" role="doc-backlink">Convert to Braille</a><a class="headerlink" href="#convert-to-braille" title="Permalink to this heading">¶</a></h3>
+<p>ASCII テキストを点字に置換する拡張コマンドだ。正常に機能するためには環境が整っている必要がある：</p>
+<blockquote>
+<div><p>Note: you must have a font that has Unicode Braille glyphs installed on your
+system (e.g. Deja Vu Sans). Windows users may need to explicitly select that
+font.</p>
+</div></blockquote>
+<p>確かに DejaVu Sans 系字体を指定するとそれらしい点字が出力される。</p>
+</section>
+<section id="lorem-ipsum">
+<h3><a class="toc-backref" href="#id83" role="doc-backlink">Lorem Ipsum</a><a class="headerlink" href="#lorem-ipsum" title="Permalink to this heading">¶</a></h3>
+<p>Lorem Ipsum 文字列を生成して矩形に流し込むコマンドだ。</p>
+<blockquote>
+<div><p>The text is generated into a <em>flowed text box</em>. If no <em>flowed text box</em> has
+been defined, one is created on a new <em>Layer</em> with the size of the page.</p>
+</div></blockquote>
+<p>前者の方式がコマンド用途からすれば自然だ。</p>
+</section>
+<section id="replace-text">
+<h3><a class="toc-backref" href="#id84" role="doc-backlink">Replace Text</a><a class="headerlink" href="#replace-text" title="Permalink to this heading">¶</a></h3>
+<p>文字列置換コマンド。図面内にあるテキストオブジェクトすべてに対して一括置換する場合に使える。</p>
+</section>
+<section id="split-text">
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">Split Text</a><a class="headerlink" href="#split-text" title="Permalink to this heading">¶</a></h3>
+<p>この拡張コマンドに関しては、次の助言に従うべきだろう：</p>
+<blockquote>
+<div><p>The use of this extension is normally not recommended. By splitting text into
+separate parts, the semantics of the text is lost. For example, it can no
+longer be selected as one unit in a web browser or indexed by search engines.
+<abbr>SVG</abbr> has been designed to allow text to be manipulated (e.g.
+individual letters or words having different styles) without losing the
+semantic value. It is better to rely on these <abbr>SVG</abbr> features than to
+break apart text.</p>
+</div></blockquote>
+</section>
+<section id="change-case">
+<h3><a class="toc-backref" href="#id86" role="doc-backlink">Change Case</a><a class="headerlink" href="#change-case" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection">Extensions ‣ Render ‣ Text ‣ Change Case</span> サブメニューにコマンドがある。一般的なテキストエディターにない変換があるのは創作用途か。</p>
+<ul class="simple">
+<li><p><span class="menuselection">fLIP cASE</span></p></li>
+<li><p><span class="menuselection">lower case</span></p></li>
+<li><p><span class="menuselection">rANdOm CasE</span></p></li>
+<li><p><span class="menuselection">Sentense case</span></p></li>
+<li><p><span class="menuselection">Title Case</span></p></li>
+<li><p><span class="menuselection">UPPER CASE</span></p></li>
 </ul>
 </section>
+</section>
+<section id="visualize-path">
+<h2><a class="toc-backref" href="#id87" role="doc-backlink">Visualize Path</a><a class="headerlink" href="#visualize-path" title="Permalink to this heading">¶</a></h2>
+<section id="dimensions">
+<h3><a class="toc-backref" href="#id88" role="doc-backlink">Dimensions</a><a class="headerlink" href="#dimensions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Adds <abbr>CAD</abbr>-style dimension arrows to an object. In v0.47, this
+extension only works on paths; in v0.48, it also works on <em>Shapes</em> and
+<em>Groups</em>. It uses an object’s bounding box to determine placement of arrows.
+The arrows and original object are placed inside a <em>Group</em>.</p>
+</div></blockquote>
+<p>矢印だけが描かれるので、長さそのものを表すテキストが欲しいならば自前で用意せねばならない。それなら本当に <abbr>CAD</abbr> を使えという話だ。</p>
+</section>
+<section id="draw-handles">
+<h3><a class="toc-backref" href="#id89" role="doc-backlink">Draw Handles</a><a class="headerlink" href="#draw-handles" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension draws the handle lines that one would see if editing the nodes
+of a path. It would be of more use if it included the drawing of the handle
+and node symbols.</p>
+</div></blockquote>
+<p>接線ベクトルだけを作図すると考えていい。</p>
+</section>
+<section id="measure-path">
+<h3><a class="toc-backref" href="#id90" role="doc-backlink">Measure Path</a><a class="headerlink" href="#measure-path" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension measures the length or area (added in v0.48) of a path,
+printing the length or area alongside the path</p>
+</div></blockquote>
+<p>Dimensions はこれと組み合わせて使えばいい。</p>
+</section>
+<section id="number-nodes">
+<h3><a class="toc-backref" href="#id91" role="doc-backlink">Number Nodes</a><a class="headerlink" href="#number-nodes" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension numbers the nodes of a path. It is useful for creating an
+old-fashioned <em>Connect-the-Dots</em> puzzle. (It is also an example of how to
+access the path data in an <abbr>SVG</abbr> file for writing your own extension.)
+The original path is turned into a path with no stroke but with dot markers.
+The dots are then numbered.</p>
+</div></blockquote>
+<p>パスを添字付き点列に変換するコマンドとして捉えたい。</p>
+</section>
+</section>
 <section id="web">
-<h2>Web<a class="headerlink" href="#web" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Web Slicer が明らかに面白そう。</p></li>
-</ul>
+<h2><a class="toc-backref" href="#id92" role="doc-backlink">Web</a><a class="headerlink" href="#web" title="Permalink to this heading">¶</a></h2>
+<p>Web で使用する <abbr>SVG</abbr> を用意するのに使いたい拡張コマンドだ。</p>
+<section id="javascript">
+<h3><a class="toc-backref" href="#id93" role="doc-backlink">JavaScript</a><a class="headerlink" href="#javascript" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This submenu has two entries. The first allows events linked to one object
+(mouse over, clicking on, etc.) to control the attributes of another object.
+The second allows events linked to one object to transmit that object’s
+attributes to another. These extensions embed JavaScript into the <abbr>SVG</abbr>
+file. The JavaScript comes from the InkWeb package.</p>
+</div></blockquote>
+<p>イベントハンドラーを実装する機能を期待しているのだが、この記述からはそう読み切れない。</p>
+<section id="set-attributes">
+<h4><a class="toc-backref" href="#id94" role="doc-backlink">Set Attributes</a><a class="headerlink" href="#set-attributes" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>This extension creates the JavaScript so that an action (clicking on, mouse
+passing over, etc.) with one object changes the attributes of another object.</p>
+</div></blockquote>
+<p>オブジェクトが二つ関係することを押さえる。</p>
+<blockquote>
+<div><p>The list of attributes to change is entered, separated by spaces, in the
+<span class="guilabel">Attribute to set</span> entry box (e.g., <code class="docutils literal notranslate"><span class="pre">fill</span> <span class="pre">stroke</span> <span class="pre">stroke-width</span></code>).</p>
+</div></blockquote>
+<p><abbr>SVG</abbr> 要素の属性名を指定すればいいようだ。</p>
+<blockquote>
+<div><p>The action that will cause the change is set in the <span class="guilabel">When the set
+must be done</span> drop-down menu.</p>
+</div></blockquote>
+<p>メニューは <code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">click</span></code> や <code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">mouse</span> <span class="pre">over</span></code> のように、JavaScript イベントに明ら対応している名前の項目からなる。</p>
+<blockquote>
+<div><p>The list of new values is entered, separated by spaces, in the
+<span class="guilabel">Value to set</span> entry box. The list of values must match the
+<span class="guilabel">Attributes to set line</span> (e.g., <code class="docutils literal notranslate"><span class="pre">green</span> <span class="pre">black</span> <span class="pre">2px</span></code>).</p>
+</div></blockquote>
+<p>この UI ならそうだろう。</p>
+<blockquote>
+<div><p>The next option specifies if this action should come before, after, or
+replace any previously defined actions. The final option determines, in the
+case where more than two objects are selected, if the first selected object
+controls all the other selected objects or if the last selected object is
+controlled by actions on all the other selected objects.</p>
+</div></blockquote>
+<p>この記述の意味がわからない。</p>
+<hr class="docutils" />
+<p>デモを検証する。オブジェクト二つを選択してから当コマンドを起動する。それから次のように指定する：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="guilabel">Attribute to set</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fill</span> <span class="pre">stroke</span> <span class="pre">stroke-width</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="guilabel">When the set must be done</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">click</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="guilabel">Value to set</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">green</span> <span class="pre">black</span> <span class="pre">5px</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>すると最初のオブジェクトをクリックすると、次のオブジェクトの色が緑に変わり、境界線の幅が 5px に変わるという。</p>
+<p>図面を XML Editor で確認すると、それを実装している JavaScript コードを含む
+<code class="docutils literal notranslate"><span class="pre">svg:script</span></code> 要素ができている。コードの品質は高いとは言えない。そして選択オブジェクトに対応する図形ノードに <code class="docutils literal notranslate"><span class="pre">onclick</span></code> 属性が付与されている。値は短い
+JavaScript コードだ。</p>
+</section>
+<section id="transmit-attributes">
+<h4><a class="toc-backref" href="#id95" role="doc-backlink">Transmit Attributes</a><a class="headerlink" href="#transmit-attributes" title="Permalink to this heading">¶</a></h4>
+<p><em>Set Attributes</em> 拡張コマンドの属性値複製版だ。</p>
+<blockquote>
+<div><p>This extension creates the JavaScript so that an action (clicking on, mouse
+passing over, etc.) with one object changes specified attributes of another
+object to have the same value as the first.</p>
+</div></blockquote>
+<p>UI もほぼ同じ。</p>
+</section>
+</section>
+<section id="web-slicer">
+<h3><a class="toc-backref" href="#id96" role="doc-backlink">Web Slicer</a><a class="headerlink" href="#web-slicer" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension facilitates slicing a drawing into rectangular bitmaps for use
+in Web pages. It will optionally export <abbr>CSS</abbr> and <abbr>HTML</abbr> code for
+use with the bitmaps.</p>
+</div></blockquote>
+<p>Inkscape で製図した <abbr>SVG</abbr> を丸ごと使うのではなく、ウェブブラウザーに乗せるために部分を切り出すということか。</p>
+<blockquote>
+<div><p>There are two steps in using this extension. First, the <span class="guilabel">Create a
+slicer rectangle</span> dialog is used to define a set of named rectangles for the
+areas that are to be exported.</p>
+</div></blockquote>
+<p>矩形は複数定義できる。それぞれ別のフォーマットを指定することもできる：</p>
+<blockquote>
+<div><p>Each rectangle can specify a different target format (<abbr>PNG</abbr>,
+<abbr>JPEG</abbr>, or <abbr>GIF</abbr>) and optionally, a background color. The
+rectangles are stored in a separate <em>Layer</em> named <span class="guilabel">Web Slicer</span>.</p>
+</div></blockquote>
+<p>矩形が完成したらエクスポートを専用ダイアログで実施する：</p>
+<blockquote>
+<div><p>After defining the rectangles, the rectangle regions are exported using the
+<span class="guilabel">Export layout pieces and HTML+CSS code</span> dialog. A third dialog can
+be used to add attributes in the HTML.</p>
+</div></blockquote>
+<section id="create-a-rectangle-dialog">
+<h4><a class="toc-backref" href="#id97" role="doc-backlink">Create a rectangle dialog</a><a class="headerlink" href="#create-a-rectangle-dialog" title="Permalink to this heading">¶</a></h4>
+<p>矩形を二段階で定義することになる。</p>
+<blockquote>
+<div><p>The dialog consists of a number of entry boxes for specifying export
+rectangles. Note that the placement of the rectangle is not defined in this
+dialog. After clicking the <span class="guilabel">Apply</span> button, a partially opaque
+rectangle will be created. You move and resize this rectangle to cover the
+area that should be exported.</p>
+</div></blockquote>
+<p>ダイアログ主要部分の入力項目は次のとおり：</p>
+<dl class="simple">
+<dt><span class="guilabel">Name</span></dt><dd><p>エクスポート矩形の名前。</p>
+</dd>
+<dt><span class="guilabel">Format</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">PNG</span></code>, <code class="docutils literal notranslate"><span class="pre">JPG</span></code>, <code class="docutils literal notranslate"><span class="pre">GIF</span></code> から指定。</p>
+</dd>
+<dt><span class="guilabel">DPI</span></dt><dd><p>ビットマップ解像度。</p>
+</dd>
+<dt><span class="guilabel">Force dimension</span></dt><dd><p>ビットマップの正確な寸法（ピクセル単位）。これを指定すると DPI は無視される。</p>
+</dd>
+<dt><span class="guilabel">Background color</span></dt><dd><p>矩形背景色。Inkscape の図面画面では塗りつぶし色としては使われない。</p>
+</dd>
+</dl>
+<p>ダイアログ副部分にはタブが三つある：</p>
+<blockquote>
+<div><p>Three tabs allow additional parameters to be specified. Note that the
+<span class="guilabel">HTML</span> tab specifies attributes that apply to the export rectangle.</p>
+</div></blockquote>
+</section>
+<section id="export-layout-pieces-and-html-css-code-dialog">
+<h4><a class="toc-backref" href="#id98" role="doc-backlink">Export layout pieces and HTML+CSS code dialog</a><a class="headerlink" href="#export-layout-pieces-and-html-css-code-dialog" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>This dialog allows you to specify where the output files should be stored and
+if <abbr>HTML</abbr> and <abbr>CSS</abbr> code should be produced. Note that the
+<abbr>HTML</abbr> and <abbr>CSS</abbr> code is not intended to be the final product but
+instead allows you to quickly check the output and to generate code that can
+be pasted into other files. Clicking the <span class="guilabel">Apply</span> button does the
+actual export.</p>
+</div></blockquote>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>手許の Inkscape 1.2 では残念ながら Python がエラーで終了する。検証不能。</p>
+</div>
+</section>
+<section id="set-a-layout-group-dialog">
+<h4><a class="toc-backref" href="#id99" role="doc-backlink">Set a layout group dialog</a><a class="headerlink" href="#set-a-layout-group-dialog" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>All of the attributes applied to the rectangles and <abbr>HTML</abbr> export are
+stored in <code class="docutils literal notranslate"><span class="pre">&lt;svg:desc&gt;</span></code> tags. These tags are not easy to edit via the
+<span class="guilabel">XML Editor</span> dialog. It may be easier to edit the <abbr>SVG</abbr> file
+in a text editor.</p>
+</div></blockquote>
+<p>どう難しいのかわからない。右側のテキストエリアで普通に編集できそうだが。</p>
+</section>
+</section>
 </section>
 </section>
 

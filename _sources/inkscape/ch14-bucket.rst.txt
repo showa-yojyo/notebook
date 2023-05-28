@@ -4,13 +4,14 @@ Chapter 14. Paint Bucket Tool
 
 .. contents::
 
-Photoshop などのバケツツールと同じだが、SVG ならではの挙動があることに注意する。
+Photoshop などのバケツツールと同じだが、:abbr:`SVG` ならではの挙動があることに注
+意する。
 
    Inspired by the need for cartoonists to color their drawings, the *Paint
-   Bucket Tool* flood fills a region with a color. True to an SVG drawing
-   program, the new object is defined by vectors and thus is fully scalable. The
-   region to be filled, however, is defined by the pixels on the screen at the
-   time of the fill.
+   Bucket Tool* flood fills a region with a color. True to an :abbr:`SVG`
+   drawing program, the new object is defined by vectors and thus is fully
+   scalable. The region to be filled, however, is defined by the pixels on the
+   screen at the time of the fill.
 
 Simple Use
 ======================================================================
@@ -59,7 +60,7 @@ Photoshop と考え方は一緒のようで、色のどの成分を閾値と比�
 .. admonition:: 利用者ノート
 
    :kbd:`Shift` 押しクリックも実装されている。塗りつぶして生成されるオブジェクト
-   が順次前回のそれに $\cup$ される。
+   が順次前回のそれに :math:`\cup` される。
 
 Filling Fidelity
 ======================================================================

@@ -17,11 +17,13 @@ Chapter 12. Spray Tool
    互いに独立した個別のオブジェクトとして複製を巻き散らす。一つのオブジェクトの
    属性を別のオブジェクトから独立して変更できる。
 
-   このモードは、特に *Tweak Tool* で操作するオブジェクトを作成するときに便利です。
+   このモードは、特に *Tweak Tool* で操作するオブジェクトを作成するときに便利
+   だ。
 
 :guilabel:`Spray clones of the initial selection`
    ツールチップの文言が上のものと酷似しているが、複製がシンボリックリンク的であ
-   るという違いがある。元オブジェクトの属性を変更すると、複製すべての属性が変化する。
+   るという違いがある。元オブジェクトの属性を変更すると、複製すべての属性が変化
+   する。
 
    このモードは先のモードよりもレンダラーへの負荷が中程度に低い。
 
@@ -32,7 +34,7 @@ Chapter 12. Spray Tool
 
    * 元オブジェクトの型によっては、それを最初にパスに変換する必要がある。
    * オブジェクトの重なりは削除される。
-   * このモードは CPU をより酷使する。
+   * このモードは :abbr:`CPU` をより酷使する。
 
 :guilabel:`Delete sprayed items from selection`
    おそらくスプレー元オブジェクトを指定してからドラッグすることで、スプレーオブ
@@ -40,7 +42,7 @@ Chapter 12. Spray Tool
 
 * copy mode は :guilabel:`Tweak` tool と組み合わせて使うと便利。
 * clone mode は文字通り。copy mode よりも描画がかなり少ない。
-* single path mode はオブジェクトが一体化する。CPU に負荷がかかる。
+* single path mode はオブジェクトが一体化する。:abbr:`CPU` に負荷がかかる。
 * 選択後 a or :kbd:`Shift` + :kbd:`F3` で起動。
 
 *Spray Tool* の起動方法は次のどれか：

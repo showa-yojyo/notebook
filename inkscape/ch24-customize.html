@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="../_static/mathjax-v3.js"></script>
     <script src="../_static/mermaid.js"></script>
     <link rel="next" title="Chapter 25. Using the Command Line" href="ch25-command-line.html" />
     <link rel="prev" title="Chapter 23. SVG and the Web" href="ch23-web.html" />
@@ -46,31 +47,369 @@
           <div class="body" role="main">
             
   <section id="chapter-24-customization">
-<h1>Chapter 24. Customization<a class="headerlink" href="#chapter-24-customization" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 24. Customization</a><a class="headerlink" href="#chapter-24-customization" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p>設定ダイアログを利用する方法と、フォルダーにあるファイルを修正する方法。</p>
+<li><p><a class="reference internal" href="#chapter-24-customization" id="id1">Chapter 24. Customization</a></p>
 <ul>
-<li><p>all users: <code class="file docutils literal notranslate"><span class="pre">share/inkscape</span></code></p></li>
-<li><p>personal changes: <code class="file docutils literal notranslate"><span class="pre">~/.config/inkscape</span></code> または
-<code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Application</span> <span class="pre">Data\Inkscape</span></code></p></li>
+<li><p><a class="reference internal" href="#inkscape-preferences-dialog" id="id2">Inkscape Preferences Dialog</a></p></li>
+<li><p><a class="reference internal" href="#inkscape-configuration-files" id="id3">Inkscape Configuration Files</a></p>
+<ul>
+<li><p><a class="reference internal" href="#preferences" id="id4">Preferences</a></p>
+<ul>
+<li><p><a class="reference internal" href="#alternative-alt-key" id="id5">Alternative Alt Key</a></p></li>
+<li><p><a class="reference internal" href="#outline-mode-colors" id="id6">Outline Mode Colors</a></p></li>
+<li><p><a class="reference internal" href="#svg-output" id="id7">SVG Output</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#custom-templates" id="id8">Custom Templates</a></p></li>
+<li><p><a class="reference internal" href="#custom-swatches-or-palettes" id="id9">Custom Swatches or Palettes</a></p></li>
+<li><p><a class="reference internal" href="#custom-markers" id="id10">Custom Markers</a></p></li>
+<li><p><a class="reference internal" href="#custom-keyboard-shortcuts" id="id11">Custom Keyboard Shortcuts</a></p></li>
 </ul>
 </li>
 </ul>
-<section id="inkscape-preferences-dialog">
-<h2>Inkscape Preferences Dialog<a class="headerlink" href="#inkscape-preferences-dialog" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd></p></li>
-<li><p>設定内容はフォルダーにある <code class="file docutils literal notranslate"><span class="pre">preference.xml</span></code> に保存される。</p></li>
+</li>
 </ul>
+</nav>
+<p>この章はもっと前に持ってきてもいいかもしれない。</p>
+<blockquote>
+<div><p>The easiest way to make customizations is through the Inkscape
+<span class="guilabel">Preferences</span> dialog. More extensive customizations can be made by
+modifying files in or adding files to the Inkscape preferences directories.
+The directory for changes shared by all users is <code class="file docutils literal notranslate"><span class="pre">share/inkscape</span></code>. The
+directory for personal changes is <code class="file docutils literal notranslate"><span class="pre">~/.config/inkscape/</span></code> on Linux or
+<code class="file docutils literal notranslate"><span class="pre">%userprofile%\Application</span> <span class="pre">Data\Inkscape\</span></code> on Windows.</p>
+</div></blockquote>
+<p>Windows 10 の場合のパスは <code class="file docutils literal notranslate"><span class="pre">%APPDATA%\Roaming\inkscape</span></code> だと思う。</p>
+<section id="inkscape-preferences-dialog">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Inkscape Preferences Dialog</a><a class="headerlink" href="#inkscape-preferences-dialog" title="Permalink to this heading">¶</a></h2>
+<p>これまでざんざん言及されている設定ダイアログだ：</p>
+<blockquote>
+<div><p>Inkscape is most easily customizable through the Inkscape
+<span class="guilabel">Preferences</span> dialog (<code class="file docutils literal notranslate"><span class="pre">File</span> <span class="pre">--&gt;</span> <span class="pre">Inkscape</span> <span class="pre">Preferences...</span></code>
+(<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd>)).</p>
+</div></blockquote>
+<p>重要なオプションの復習：</p>
+<blockquote>
+<div><p>It is worthwhile to scan through the options under each entry. The most
+important options have already been mentioned in the text. They include:
+Setting the <span class="guilabel">Rotation snap angle</span> and other scaling parameters
+under the <span class="guilabel">Step</span> entry;</p>
+</div></blockquote>
+<p>Inkscape 1.2 では <span class="menuselection">Behavior ‣ Steps</span> ページの
+<span class="guilabel">Rotation snaps every</span> ドロップダウンメニューに相当する。値は 90 の約数にするのが自然だと思うが、一覧をチェックしたところ 36 とかある。</p>
+<blockquote>
+<div><p>determining if transformations should be <span class="guilabel">Optimized</span> or
+<span class="guilabel">Preserved</span> under the <span class="guilabel">Transforms</span> entry;</p>
+</div></blockquote>
+<p>同じく <span class="menuselection">Behavior ‣ Transforms</span> ページの <span class="guilabel">Store
+transformation</span> オプションのことだ。属性 <code class="docutils literal notranslate"><span class="pre">transforms</span></code> を割り当てるか否かを決めるものだ。</p>
+<blockquote>
+<div><p>and setting the <span class="guilabel">Default export resolution</span> under the
+<span class="guilabel">Misc</span> entry.</p>
+</div></blockquote>
+<p>これは <span class="menuselection">Imported Images</span> ページの <span class="guilabel">Export</span> 区画にある。</p>
+<blockquote>
+<div><p>All the preferences are stored in the file <code class="file docutils literal notranslate"><span class="pre">preferences.xml</span></code> located on
+Linux at <code class="file docutils literal notranslate"><span class="pre">~/.config/inkscape/</span></code> and on Windows at
+<code class="file docutils literal notranslate"><span class="pre">%userprofile%\Application</span> <span class="pre">Data\Inkscape\</span></code>.</p>
+</div></blockquote>
+<p>設定内容は上記のフォルダーにある <code class="file docutils literal notranslate"><span class="pre">preference.xml</span></code> に保存される。冒頭に記したように、Windows 10 の場合のパスはそことは異なる。</p>
+<blockquote>
+<div><p>There are quite a few preferences, some undocumented, that are accessible
+only by hand-editing this file.</p>
+</div></blockquote>
+<p>この手の項目を多く知っているといいことがあるだろうか。</p>
 </section>
 <section id="inkscape-configuration-files">
-<h2>Inkscape Configuration Files<a class="headerlink" href="#inkscape-configuration-files" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Inkscape Configuration Files</a><a class="headerlink" href="#inkscape-configuration-files" title="Permalink to this heading">¶</a></h2>
+<ul>
 <li><p><code class="file docutils literal notranslate"><span class="pre">templates</span></code> サブフォルダーに新テンプレを追加することができる。</p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">palettes</span></code> サブフォルダーに新スウォッチを追加することができる。ファイルフォーマットは GIMP と共通のもの。</p></li>
 <li><p><code class="file docutils literal notranslate"><span class="pre">markers/markers.svg</span></code> マーカー追加</p></li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">share/keys/defaults.xml</span></code> ショートカットキー。</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">share/keys/defaults.xml</span></code> ショートカットキー。</p>
+<blockquote>
+<div><p>Inkscape can be fully customized through the configuration files, usually
+located in the <code class="file docutils literal notranslate"><span class="pre">share/inkscape</span></code> directory (<code class="file docutils literal notranslate"><span class="pre">/usr/share/inkscape</span></code>
+in Linux).</p>
+</div></blockquote>
+</li>
 </ul>
+<p>システムレベルカスタマイズということだな。</p>
+<section id="preferences">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Preferences</a><a class="headerlink" href="#preferences" title="Permalink to this heading">¶</a></h3>
+<p>設定ダイアログでは設定不能なオプションを見ていく。</p>
+<section id="alternative-alt-key">
+<h4><a class="toc-backref" href="#id5" role="doc-backlink">Alternative Alt Key</a><a class="headerlink" href="#alternative-alt-key" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Some window managers use <kbd class="kbd docutils literal notranslate">Alt</kbd> + Left Mouse Drag and <kbd class="kbd docutils literal notranslate">Alt</kbd> + Left
+Mouse Click for their own purposes, thereby preventing Inkscape from
+receiving the mouse input.</p>
+</div></blockquote>
+<p>Windows 版 Inkscape は上記操作に関して変なことが起こらない。気にしない。</p>
+</section>
+<section id="outline-mode-colors">
+<h4><a class="toc-backref" href="#id6" role="doc-backlink">Outline Mode Colors</a><a class="headerlink" href="#outline-mode-colors" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>You can specify the colors used in the <em>Outline Mode</em> in the group
+<code class="docutils literal notranslate"><span class="pre">id=&quot;wireframecolors&quot;</span></code> section. Colors are specified in decimal form
+(converted from a rgba hexadecimal value to base ten).</p>
+</div></blockquote>
+<p><code class="file docutils literal notranslate"><span class="pre">preferences.xml</span></code> の実際の内容を記すとわかりやすい：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;group</span>
+<span class="w">   </span><span class="na">id=</span><span class="s">&quot;wireframecolors&quot;</span>
+<span class="w">   </span><span class="na">onlight=</span><span class="s">&quot;255&quot;</span>
+<span class="w">   </span><span class="na">ondark=</span><span class="s">&quot;4294967295&quot;</span>
+<span class="w">   </span><span class="na">images=</span><span class="s">&quot;4278190335&quot;</span>
+<span class="w">   </span><span class="na">clips=</span><span class="s">&quot;16711935&quot;</span>
+<span class="w">   </span><span class="na">masks=</span><span class="s">&quot;65535&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>属性</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">onlight</span></code></p></td>
+<td><p>描線が明るい背景をまたぐときの色</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ondark</span></code></p></td>
+<td><p>描線が暗い背景をまたぐときの色</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">images</span></code></p></td>
+<td><p>像の輪郭色</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clips</span></code></p></td>
+<td><p>クリップパス色</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">masks</span></code></p></td>
+<td><p>マスク色</p></td>
+</tr>
+</tbody>
+</table>
+<p>面白いのは、Inkscape 起動時点でアウトラインモードにする設定方法があることだ：</p>
+<blockquote>
+<div><p>You can force Inkscape to start up in <em>Outline Mode</em> by changing the value of
+outline in the group <code class="docutils literal notranslate"><span class="pre">id=&quot;startmode&quot;</span></code> to 1.</p>
+</div></blockquote>
+</section>
+<section id="svg-output">
+<h4><a class="toc-backref" href="#id7" role="doc-backlink">SVG Output</a><a class="headerlink" href="#svg-output" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A number of preferences control the way content is written to the <abbr>SVG</abbr>
+files. They can be found in the group <code class="docutils literal notranslate"><span class="pre">id=&quot;svgoutput&quot;</span></code> section. Most can
+also be found in the <abbr>SVG</abbr> output section of the Inkscape
+<span class="guilabel">Preferences</span> dialog.</p>
+</div></blockquote>
+<p>こちらは <code class="file docutils literal notranslate"><span class="pre">preferences.xml</span></code> をテキストエディターで編集する必要性は低いようだ。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>属性</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">usenamedcolors</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">blue</span></code>, <code class="docutils literal notranslate"><span class="pre">black</span></code> などのキーワードを使うか 16 進数表記を使うか</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">numericalprecision</span></code></p></td>
+<td><p>数値に対して書き出される有効数字の桁数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minimumexponent</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\({10^x}\)</span> までの正の値をゼロとみなす（指数は負）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">indent</span></code></p></td>
+<td><p><abbr>SVG</abbr> ファイル内タグの入れ子レベルの空白文字数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inlineattrs</span></code></p></td>
+<td><p>属性を同じ行に置くか改行で区切るか</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="custom-templates">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Custom Templates</a><a class="headerlink" href="#custom-templates" title="Permalink to this heading">¶</a></h3>
+<p>テンプレートは重要なので習得すること。</p>
+<blockquote>
+<div><p>New drawing templates can be added by adding new files to the directory
+<code class="file docutils literal notranslate"><span class="pre">share/inkscape/templates</span></code> (for system-wide use) or to the
+<code class="file docutils literal notranslate"><span class="pre">templates</span></code> subdirectory in your Inkscape preferences directory.</p>
+</div></blockquote>
+<p>まずは後者のディレクトリーだけを使えばいい。</p>
+<blockquote>
+<div><p>The <code class="file docutils literal notranslate"><span class="pre">templates</span></code> directory is listed under the <span class="guilabel">Places</span> part
+of the <span class="guilabel">Save As</span> dialog.</p>
+</div></blockquote>
+<p>この UI は少なくとも Windows 版では確認できない。</p>
+<p>既定のテンプレートは特別に扱われる：</p>
+<blockquote>
+<div><p>You can directly save any <abbr>SVG</abbr> file to this directory. Saving the file as
+<code class="file docutils literal notranslate"><span class="pre">default.svg</span></code> will replace your current default template.</p>
+</div></blockquote>
+<p>よく使う描画要素の集合をあらかじめ作成しておいたものをテンプレートファイルとして配置するのが基本的だ：</p>
+<blockquote>
+<div><p>Objects, gradients, patterns, and so forth, can be added to an empty Inkscape
+<abbr>SVG</abbr> file and then saved and placed in the <code class="file docutils literal notranslate"><span class="pre">templates</span></code>
+directory. When that file is selected in the list of templates, you will have
+access to all the objects, gradients, and patterns you previously defined.</p>
+</div></blockquote>
+</section>
+<section id="custom-swatches-or-palettes">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Custom Swatches or Palettes</a><a class="headerlink" href="#custom-swatches-or-palettes" title="Permalink to this heading">¶</a></h3>
+<p>ただしパレットはテンプレートファイルではなく、専用形式でカスタマイズを配置できる：</p>
+<blockquote>
+<div><p>You can add custom <em>Swatches</em> (<em>Palettes</em>) to Inkscape by adding the
+appropriate files under the <code class="file docutils literal notranslate"><span class="pre">share/inkscape/palettes</span></code> directory.</p>
+</div></blockquote>
+<p>GIMP とファイル形式が同じなので、シンボリックリンクで共有させる管理方法が考えられる：</p>
+<blockquote>
+<div><p>The file format follows the Gimp palettes file format so palettes can be
+shared between the two programs.</p>
+<p>The file format is very simple, as the following example five-color palette
+file shows.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GIMP Palette
+Name: MyPalette
+#
+  0   0   0 Black
+255   0   0 Red
+  0 255   0 Green
+  0   0 255 Blue
+255 255 255 White
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>一行目は <code class="docutils literal notranslate"><span class="pre">GIMP</span> <span class="pre">Palette</span></code> 固定。</p></li>
+<li><p>二行目はパレット名を示す。この名前が Inkscape UI で使われる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> から始まる行は行末までコメント。</p></li>
+<li><p>あとはスウォッチ定義が続く。</p>
+<blockquote>
+<div><p>There is one color per line. Each color is defined as three numbers
+representing the values of red, green, and blue followed by a name (shown
+when the cursor hovers over the swatch). The range of values is 0-255,
+where 255 means that the corresponding color is fully turned on.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="custom-markers">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Custom Markers</a><a class="headerlink" href="#custom-markers" title="Permalink to this heading">¶</a></h3>
+<p>オリジナル描線マーカーを使う方法もある：</p>
+<blockquote>
+<div><p>It is possible to add custom markers to Inkscape by editing the file
+containing the marker definitions <code class="file docutils literal notranslate"><span class="pre">share/inkscape/markers/markers.svg</span></code>.</p>
+</div></blockquote>
+<p>本書のデモ。おそらく Inkscape であらかじめ well-defined なパスオブジェクトを作成し、その <abbr>SVG</abbr> タグ以下を <code class="docutils literal notranslate"><span class="pre">&lt;marker&gt;...&lt;/marker&gt;</span></code> 部分にコピー＆ペーストして用意すると考えられる：</p>
+<blockquote>
+<div><p>Here is the definition needed to add a “diamond node” marker. It differs from
+the diamond markers included with Inkscape in that the center of the diamond
+is gray and the orientation doesn’t depend on the slope of the lines.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;marker</span><span class="w"> </span><span class="na">style=</span><span class="s">&quot;overflow:visible;&quot;</span>
+<span class="w">   </span><span class="na">id=</span><span class="s">&quot;DiamondNode&quot;</span>
+<span class="w">   </span><span class="na">refX=</span><span class="s">&quot;0.0&quot;</span>
+<span class="w">   </span><span class="na">refY=</span><span class="s">&quot;0.0&quot;</span>
+<span class="w">   </span><span class="na">orient=</span><span class="s">&quot;0.0&quot;</span>
+<span class="w">   </span><span class="na">inkscape:stockid=</span><span class="s">&quot;DiamondNode&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;path</span>
+<span class="w">     </span><span class="na">transform=</span><span class="s">&quot;scale(0.8) rotate(180)&quot;</span>
+<span class="w">     </span><span class="na">style=</span><span class="s">&quot;fill-rule:evenodd;stroke:#000000;fill:#BFBFBF;</span>
+<span class="s">            stroke-width:0.5pt;marker-start:none;&quot;</span>
+<span class="w">     </span><span class="na">d=</span><span class="s">&quot;M 0.0,2.5 L 2.5,0.0 L 0.0,-2.5 L -2.5,0.0 L 0.0,2.5 z &quot;</span>
+<span class="w">     </span><span class="na">id=</span><span class="s">&quot;path1234&quot;</span>
+<span class="w">     </span><span class="na">sodipodi:nodetypes=</span><span class="s">&quot;ccccc&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/marker&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>マーカーの構造を知るには <abbr>SVG</abbr> 仕様書を当たる。</p>
+</section>
+<section id="custom-keyboard-shortcuts">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Custom Keyboard Shortcuts</a><a class="headerlink" href="#custom-keyboard-shortcuts" title="Permalink to this heading">¶</a></h3>
+<p>キーバインドも設定ファイルでカスタマイズ可能。</p>
+<blockquote>
+<div><p>You can change the keyboard shortcuts used by Inkscape by editing or
+replacing the file <code class="file docutils literal notranslate"><span class="pre">share/keys/defaults.xml</span></code>.</p>
+</div></blockquote>
+<p>既定のキーバインド集合をファイル名置換により挿げ替える方法でカスタマイズする：</p>
+<blockquote>
+<div><p>There are a number of alternative shortcuts available. To use them, simply
+rename the file to <code class="file docutils literal notranslate"><span class="pre">defaults.xml</span></code>.</p>
+</div></blockquote>
+<p>Inkscape が用意しているキーバインド定義 <abbr>XML</abbr> ファイルは Windows ならば
+<code class="file docutils literal notranslate"><span class="pre">%PROGRAMFILES%\Inkscape\share\inkscape\keys</span></code> 以下にある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ファイル</p></th>
+<th class="head"><p>キーバインド</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="file docutils literal notranslate"><span class="pre">acd-canvas.xml</span></code></p></td>
+<td><p>ACD Systems Canvas 11</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="file docutils literal notranslate"><span class="pre">adobe-illustrator-cs2.xml</span></code></p></td>
+<td><p>Adobe Illustrator</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="file docutils literal notranslate"><span class="pre">carbon.xml</span></code></p></td>
+<td><p>Inkscape carbon MacOSX</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="file docutils literal notranslate"><span class="pre">corel-draw-x4.xml</span></code></p></td>
+<td><p>Corel DRAW</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="file docutils literal notranslate"><span class="pre">corel-draw-x8.xml</span></code></p></td>
+<td><p>Corel DRAW X8</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="file docutils literal notranslate"><span class="pre">default.xml</span></code></p></td>
+<td><p>Inkscape default</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="file docutils literal notranslate"><span class="pre">inkscape.xml</span></code></p></td>
+<td><p>Inkscape default</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="file docutils literal notranslate"><span class="pre">macromedia-freehand-mx.xml</span></code></p></td>
+<td><p>Macromedia Freehand</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="file docutils literal notranslate"><span class="pre">right-handed-illustration.xml</span></code></p></td>
+<td><p>Right Handed Illustration</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="file docutils literal notranslate"><span class="pre">xara.xml</span></code></p></td>
+<td><p>Xara</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="file docutils literal notranslate"><span class="pre">zoner-draw.xml</span></code></p></td>
+<td><p>Zoner Draw</p></td>
+</tr>
+</tbody>
+</table>
+<p>Right Handed Illustration が面白い：</p>
+<blockquote>
+<div><p>for use in drawing on a tablet with a stylus held by the right hand; most
+commonly keyboard shortcuts are accessible with the left hand</p>
+</div></blockquote>
+<p>ところで、ユーザー設定はシステム設定に優先する。使いたいキーバインドを自分の設定ファイルに定義するのは安全だ：</p>
+<blockquote>
+<div><p>You can also add shortcuts to a <code class="file docutils literal notranslate"><span class="pre">keys/defaults.xml</span></code> in your Inkscape
+preferences directory. These will override any shortcuts defined in the
+system-wide <code class="file docutils literal notranslate"><span class="pre">defaults.xml</span></code> file. See the comments in the default file
+for more details.</p>
+</div></blockquote>
+<p>キーバインドカスタマイズの枠組みがあるということは、コマンドを文字列で表現する手段が用意されているということでもある：</p>
+<blockquote>
+<div><p>One particularly handy shortcut customization is to bind often-used
+<em>Extensions</em> to keys. Here is an example of binding the / key to the <em>Add
+Nodes</em> extension:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;keys</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;My Customization&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;bind</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;slash&quot;</span><span class="w"> </span><span class="na">action=</span><span class="s">&quot;org.ekips.filter.addnodes&quot;</span><span class="w"> </span><span class="na">display=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/keys&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">action</span></code> の有効な値一覧が個人的に欲しい。</p>
+</section>
 </section>
 </section>
 

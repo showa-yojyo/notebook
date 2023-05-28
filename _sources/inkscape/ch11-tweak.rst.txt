@@ -140,7 +140,7 @@ Tweaking Paths
 
 本節最後のイラストのハッチングは、:menuselection:`Extensions --> Generate from
 Path --> Interpolate` を二度使用して、「直交」する線の集合を作成し、それを円で切
-り取ることで作成したとある。この複合パスを:kbd:`Shift` + :kbd:`Ctrl` + :kbd:`K`
+り取ることで作成したとある。この複合パスを :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`K`
 と :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`C` した。最後に *Tweak Tool* の *Shrink*
 モードで線を引き締めてシェーディング効果を表現しているとある。
 
@@ -165,10 +165,10 @@ Tweaking Colors
 共通オプション：
 
    The *Tweak Tool* in a color mode has four options. It can act independently
-   on a color's hue, saturation, lightness (HSL) and opacity. The options can be
-   toggled on independently by the :guilabel:`H`, :guilabel:`S`, :guilabel:`L`,
-   and :guilabel:`O` icons next to the :guilabel:`Channel` label in the *Tool
-   Controls*.
+   on a color's hue, saturation, lightness (:abbr:`HSL`) and opacity. The
+   options can be toggled on independently by the :guilabel:`H`, :guilabel:`S`,
+   :guilabel:`L`, and :guilabel:`O` icons next to the :guilabel:`Channel` label
+   in the *Tool Controls*.
 
 .. admonition:: 利用者ノート
 

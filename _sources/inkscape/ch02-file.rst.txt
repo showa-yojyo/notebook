@@ -10,8 +10,8 @@ Chapter 2. Files
    inconsistent rendering between Inkscape and web browsers when lengths with
    absolute units were used. Inkscape v0.92 uses the correct 96 pixels per inch
    value. Recent versions of Inkscape do not save lengths with absolute units
-   but will instead convert them to user units even when the GUI shows lengths
-   with units. The normal user should never have to worry about this.
+   but will instead convert them to user units even when the :abbr:`GUI` shows
+   lengths with units. The normal user should never have to worry about this.
 
 絶対単位には近づいてはいけないということを覚えておこう。
 
@@ -39,9 +39,9 @@ Inkscape を起動すると真っ白いキャンバスが表示されるが、�
 示され、そこから封筒や DVD などの項目を選択して文書の初期状態を決定する。テンプ
 レートに関しては別の章で述べられる。
 
-既存のファイルを開くときに、それが旧バージョンの Inkscape で作成された SVG であ
-る場合には単位系の変換機会が与えられる。興味がある場合には本書を当たるようにす
-る。
+既存のファイルを開くときに、それが旧バージョンの Inkscape で作成された
+:abbr:`SVG` である場合には単位系の変換機会が与えられる。興味がある場合には本書を
+当たるようにする。
 
 コマンド :menuselection:`Revert` は GIMP などのソフトと同じ意味だ。これまでの編
 集をすべて破棄してファイルを開き直すようなものだ。
@@ -100,7 +100,20 @@ Bitmaps Files
 Vector Files
 ----------------------------------------------------------------------
 
-TBW
+   Some vector file formats can include bitmap graphics.
+
+例えば次の形式だ：
+
+* .dxf (AutoCAD)
+* .emf (Enhanced Meta File)
+* .eps (Encapsulated PostScript)
+* .pdf (Adobe Portable Document Format)
+* .ps (PostScript)
+* .svg (:abbr:`SVG`)
+* .svgz (:abbr:`SVG` Compressed)
+* .vsd, .vdx, .vsdm, .vsdx (Visio)
+* .wmf (Windows Meta File)
+* .xaml (Microsoft Application eXtensible Markup Language).
 
 Open Clip Art Library
 ----------------------------------------------------------------------
@@ -108,21 +121,22 @@ Open Clip Art Library
 :menuselection:`File --> Import Web Image...` を選択すると、かなり長い時間待たさ
 れた挙げ句にダイアログボックスが表示される。
 
-1. 右上のドロップダウンリストから :guilabel:`Open Clipart Library` などを選択する。
+1. 右上のドロップダウンリストから :guilabel:`Open Clipart Library` などを選択す
+   る。
 2. 検索欄で適当な単語を入力する。:kbd:`Enter` で実行。
 3. 検索結果に画像と作品名が一覧される。
 4. 所望の項目を選択する。
 5. ダイアログボックス右下の :kbd:`Import` ボタンを押す。
 
-以上の手順で、出来合いの SVG が編集中の文書にインポートされる。
+以上の手順で、出来合いの :abbr:`SVG` が編集中の文書にインポートされる。
 
 Exporting Files
 ======================================================================
 
-   Exporting methods are divided between exporting PNG (Portable Network
-   Graphics) files and exporting to all other file formats. The PNG graphics
-   standard is a patent unencumbered standard that is supported natively by all
-   major web browsers and graphics programs.
+   Exporting methods are divided between exporting :abbr:`PNG (Portable Network
+   Graphics)` files and exporting to all other file formats. The :abbr:`PNG`
+   graphics standard is a patent unencumbered standard that is supported
+   natively by all major web browsers and graphics programs.
 
 もちろん PNG へのエクスポートが重要だ。
 
@@ -148,12 +162,12 @@ Printing Files
    Printing your drawing can be done through the :menuselection:`File -->
    Print...` (:kbd:`Ctrl` + :kbd:`P`) dialog. The standard GTK print dialog is
    used. This allows printing to any PostScript-capable printer as well as to
-   either a PostScript or PDF file. Printing uses Cairo-based routines. The
-   PostScript back-end makes heavy use of rasterizing the image. This is partly
-   due to the fact that PostScript does not support transparency.
+   either a PostScript or :abbr:`PDF` file. Printing uses Cairo-based routines.
+   The PostScript back-end makes heavy use of rasterizing the image. This is
+   partly due to the fact that PostScript does not support transparency.
 
-Windows 版 Inkscape の場合には標準印刷ダイアログボックスが出現する（ように見える）。
-PDF や XPS 形式で「印刷」することも可能だ。
+Windows 版 Inkscape の場合には標準印刷ダイアログボックスが出現する（ように見え
+る）。:abbr:`PDF` や XPS 形式で「印刷」することも可能だ。
 
 :guilabel:`Rendering` タブの :guilabel:`Backend` オプションにも注目。普通は
 :guilabel:`Vector` のほうを想定しているはずだ。
@@ -162,8 +176,8 @@ Vacuuming Files
 ======================================================================
 
    The command :menuselection:`File --> Vacuum Defs` removes unused definitions
-   from the ``<defs>`` section of the SVG file. This includes things like unused
-   gradients, patterns, markers, and filters.
+   from the ``<defs>`` section of the :abbr:`SVG` file. This includes things
+   like unused gradients, patterns, markers, and filters.
 
 現在の UI では :menuselection:`File --> Clean Up Document` に名称変更されている
 ようだ。
@@ -187,5 +201,5 @@ File Metadata and License
    such as author and copyright date. A license for the document can be selected
    on the :guilabel:`License` tab of the same dialog.
 
-GitHub などの公開リポジトリーに SVG ファイルを格納する場合には可能な限りこれらの
-値を入力しておきたい。
+GitHub などの公開リポジトリーに :abbr:`SVG` ファイルを格納する場合には可能な限り
+これらの値を入力しておきたい。

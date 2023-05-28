@@ -46,8 +46,698 @@
           <div class="body" role="main">
             
   <section id="chapter-23-svg-and-the-web">
-<h1>Chapter 23. SVG and the Web<a class="headerlink" href="#chapter-23-svg-and-the-web" title="Permalink to this heading">¶</a></h1>
-<p>TBW</p>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Chapter 23. SVG and the Web</a><a class="headerlink" href="#chapter-23-svg-and-the-web" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#chapter-23-svg-and-the-web" id="id1">Chapter 23. SVG and the Web</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simple-svg-display" id="id2">Simple SVG Display</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-object-tag" id="id3">The <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> Tag</a></p></li>
+<li><p><a class="reference internal" href="#the-embed-tag" id="id4">The <code class="docutils literal notranslate"><span class="pre">&lt;embed&gt;</span></code> Tag</a></p></li>
+<li><p><a class="reference internal" href="#the-iframe-tag" id="id5">The <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> Tag</a></p></li>
+<li><p><a class="reference internal" href="#the-img-tag" id="id6">The <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> Tag</a></p></li>
+<li><p><a class="reference internal" href="#inline-svg" id="id7">Inline SVG</a></p></li>
+<li><p><a class="reference internal" href="#css-background" id="id8">CSS Background</a></p></li>
+<li><p><a class="reference internal" href="#supporting-older-browsers" id="id9">Supporting Older Browsers</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#positioning-svg" id="id10">Positioning SVG</a></p></li>
+<li><p><a class="reference internal" href="#adding-links" id="id11">Adding Links</a></p></li>
+<li><p><a class="reference internal" href="#using-style-sheets" id="id12">Using Style Sheets</a></p></li>
+<li><p><a class="reference internal" href="#adding-javascript" id="id13">Adding JavaScript</a></p></li>
+<li><p><a class="reference internal" href="#simple-animation" id="id14">Simple Animation</a></p></li>
+<li><p><a class="reference internal" href="#inkscape-for-the-web" id="id15">Inkscape for the Web</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>ページ右側の囲み記事 The origins of HTML5 では <abbr>XHTML</abbr> の衰亡と
+<abbr>HTML5</abbr> の契機について述べている。読まなくていいはずだ。</p>
+<p>章本文の冒頭に行こう。</p>
+<blockquote>
+<div><p><abbr>SVG</abbr> plays nicely with other web technologies: <abbr>SVG</abbr> files can
+be embedded into web pages, they can contain hypertext links, and they can be
+can be scripted and animated. And now with <abbr>HTML5</abbr>, <abbr>SVG</abbr> will be
+everywhere.</p>
+</div></blockquote>
+<p>前章で見たように、<abbr>SVG</abbr> ファイルをウェブブラウザーで表示するか、それ以上のことが可能だ。</p>
+<blockquote>
+<div><p>Inkscape has mostly been developed as a tool for artists and not for web
+graphics but it is still possible with a little work and knowledge to use
+Inkscape to create web graphics.</p>
+</div></blockquote>
+<p>この事実は意外かもしれないが、そのことは囲み記事の前半で述べられている事実から窺える。</p>
+<blockquote>
+<div><p>Current versions of Firefox, Opera, Safari, and Chrome include almost
+complete support (Firefox doesn’t handle <abbr>SVG</abbr> fonts and Safari 5
+doesn’t handle filters). Internet Explorer 9 will offer almost full
+<abbr>SVG</abbr> support (missing <abbr>SVG</abbr> fonts, <abbr>SMIL</abbr> animation, and
+filters).</p>
+</div></blockquote>
+<p>Web ブラウザーが <abbr>SVG</abbr> に対応しているかどうかを心配する必要は基本的にはなさそうだ。</p>
+<p>現代的なブラウザーにおいてはインライン <abbr>SVG</abbr> もアリだ：</p>
+<blockquote>
+<div><p>The upcoming <abbr title="Hypertext Markup Language, version 5">HTML5</abbr>
+specification allows “inline SVG”. <abbr>HTML5</abbr> defines two different
+syntaxes: <abbr>HTML</abbr> and XML. All major Web browsers will support
+<abbr>HTML</abbr> syntax in the very near future. All major browsers except
+Internet Explorer (prior to version 9) already support inline <abbr>SVG</abbr>
+with <abbr>XML</abbr> syntax as well as in <abbr>XHTML</abbr> proper.</p>
+</div></blockquote>
+<p>ブラウザー各種の最新状況一覧を提供する者がいるようだ。下記リンク先の検索欄に
+<code class="docutils literal notranslate"><span class="pre">svg</span></code> とか入力して結果を見るといい。</p>
+<blockquote>
+<div><p>For an up-to-date list of which browsers support what, take a look at the
+<a class="reference external" href="https://caniuse.com/">When can I use…</a> website. Chrome is frequently
+updated (every six weeks!), Firefox, Opera, Safari less so, and, well you
+probably already know about Internet Explorer.</p>
+<p>A web page displaying the examples discussed here is available at the <a class="reference external" href="http://tavmjong.free.fr/INKSCAPE/">book’s
+website</a>. Several web pages for testing
+browser support of <abbr>SVG</abbr> can also be found there.</p>
+</div></blockquote>
+<p>この章の題名と同じリンクをクリックすると、ささやかな例が示される。できれば複数のブラウザーで確認するのがいい。それよりもトップページの時計がよくできていて感心する。</p>
+<section id="simple-svg-display">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Simple SVG Display</a><a class="headerlink" href="#simple-svg-display" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>There are many different ways to display <abbr>SVG</abbr> files in a web page. The
+simplest way is just to link to an <abbr>SVG</abbr> file with the <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> tag. Web
+browsers that support <abbr>SVG</abbr> will display the drawing by itself.</p>
+</div></blockquote>
+<p>したがって、Inkscape で作成した <abbr>SVG</abbr> ファイルをブラウザーにドラッグアンドドロップすると、その内容が表示される。</p>
+<blockquote>
+<div><p>To include <abbr>SVG</abbr> content as part of a web page one can use one of the
+following options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> tag.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;embed&gt;</span></code> tag.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> tag.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag.</p></li>
+<li><p>Inline SVG.</p></li>
+<li><p>CSS <code class="docutils literal notranslate"><span class="pre">background</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>このうち <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> を使うのは当ノートでも適用している。<code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> と CSS
+<code class="docutils literal notranslate"><span class="pre">background</span></code> も良さそうだ。</p>
+<section id="the-object-tag">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">The <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> Tag</a><a class="headerlink" href="#the-object-tag" title="Permalink to this heading">¶</a></h3>
+<p>このタグはブラウザーが <abbr>SVG</abbr> ファイルを扱えない場合の対応策を用意している。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> tag is the primary way to include an external <abbr>SVG</abbr>
+file. The main advantage of using this tag is that there is a natural
+mechanism for displaying a fallback in case the <abbr>SVG</abbr> is not rendered.</p>
+</div></blockquote>
+<p><abbr>SVG</abbr> を読み込むための <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> タグの書き方はこうなる：</p>
+<blockquote>
+<div><p>The tag requires defining a <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute which is the location of the
+<abbr>SVG</abbr> file, normally a relative path. Defining the <code class="docutils literal notranslate"><span class="pre">type</span></code> attribute
+is highly recommended as it allows browsers to avoid downloading content they
+do not support. For <abbr>SVG</abbr> the type is <code class="docutils literal notranslate"><span class="pre">&quot;image/svg+xml&quot;</span></code>.</p>
+</div></blockquote>
+<p>古いブラウザーのために、対応する PNG ファイルを Inkscape のエクスポート機能で用意して、そこに置くのが親切だ：</p>
+<blockquote>
+<div><p>If the <abbr>SVG</abbr> is not rendered, the browser will try to render the
+content between the opening <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> and closing <code class="docutils literal notranslate"><span class="pre">&lt;/object&gt;</span></code> tags. A
+<abbr>PNG</abbr> version of the <abbr>SVG</abbr> would normally be a good choice to put
+here.</p>
+</div></blockquote>
+<p>タグの定義例から急所の <abbr>HTML</abbr> コードを次に抜粋する。上記の記述に沿っていることを確認できる：</p>
+<blockquote>
+<div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">object</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;image/svg+xml&quot;</span> <span class="na">data</span><span class="o">=</span><span class="s">&quot;web_square.svg&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;web_square.png&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Blue Square&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">object</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="the-embed-tag">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">The <code class="docutils literal notranslate"><span class="pre">&lt;embed&gt;</span></code> Tag</a><a class="headerlink" href="#the-embed-tag" title="Permalink to this heading">¶</a></h3>
+<p>この馴染みのないタグの説明から：</p>
+<blockquote>
+<div><p>It is intended for including content that needs an external plug-in to work.
+The Adobe plug-in requires the use of the <code class="docutils literal notranslate"><span class="pre">&lt;embed&gt;</span></code> tag and supporting this
+tag is the only real reason for its use with <abbr>SVG</abbr>. There is no
+fallback mechanism if the <abbr>SVG</abbr> content is not displayed. Note that
+Chrome 8 and Safari 5 may require width and height attributes to avoid scroll
+bars. Safari 5 also incorrectly displays <abbr>SVGs</abbr> with non-transparent
+backgrounds.</p>
+</div></blockquote>
+<p>ならば使う理由がない。</p>
+<blockquote>
+<div><p>Here is an example of using the <code class="docutils literal notranslate"><span class="pre">&lt;embed&gt;</span></code> tag. Only the src attribute is
+required.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">embed</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;web_square.svg&quot;</span><span class="p">/&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="the-iframe-tag">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">The <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> Tag</a><a class="headerlink" href="#the-iframe-tag" title="Permalink to this heading">¶</a></h3>
+<p>まず <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> タグの歴史から：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> tag, deprecated in <abbr>HTML4</abbr> and <abbr>XHTML</abbr>, has
+resurfaced in <abbr>HTML5</abbr> with the purpose of “sandboxing” content that
+might pose a security risk.</p>
+</div></blockquote>
+<p>このタグを利用して <abbr>SVG</abbr> ファイルを描画するときの性質：</p>
+<blockquote>
+<div><p>There is no fallback if the <abbr>SVG</abbr> content cannot be displayed. A frame
+will be drawn around the <abbr>SVG</abbr>. It can be removed by setting the
+attribute frameborder to 0 (note that this is not valid <abbr>HTML5</abbr>). The
+size of the frame can be set using the width and height attributes. If the
+size of the frame is too small to contain the <abbr>SVG</abbr>, scroll bars will
+be used. Safari 5 incorrectly displays <abbr>SVGs</abbr> with non-transparent
+backgrounds.</p>
+</div></blockquote>
+<p>枠が描かれたり、スクロールバーが付いたりするのは WebGL の学習時にも体験しているが、<abbr>SVG</abbr> ファイル読み込み描画に対しても事情は同じか。</p>
+<p>こちらは終了タグが必要となる：</p>
+<blockquote>
+<div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;web_square.svg&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="the-img-tag">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">The <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> Tag</a><a class="headerlink" href="#the-img-tag" title="Permalink to this heading">¶</a></h3>
+<p>使い慣れている <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> タグで <abbr>SVG</abbr> ファイルを指定することが可能だ。しかし、そうすると <abbr>SVG</abbr> が備えている利点を活かせないことになる：</p>
+<blockquote>
+<div><p>There are two reasons not to use the <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag with <abbr>SVGs</abbr>. The
+first is that there is no fallback mechanism if the browser cannot render the
+image. The second is an <abbr>SVG</abbr> rendered this way is not allowed to run
+any scripts or have any interaction (e.g. links).</p>
+</div></blockquote>
+</section>
+<section id="inline-svg">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Inline SVG</a><a class="headerlink" href="#inline-svg" title="Permalink to this heading">¶</a></h3>
+<p>インライン <abbr>SVG</abbr> は基本的には HTML5 でやるほうがいいようだ：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>To include <abbr>SVG</abbr> using <abbr>HTML</abbr> syntax you must use a browser
+with an <abbr>HTML5</abbr> parser.</p></li>
+<li><p>All the major web browsers except Internet Explorer already support SVG
+with <abbr>XML</abbr> syntax (as well as in <abbr>XHTML</abbr>).</p></li>
+<li><p>An <abbr>HTML5</abbr> file normally ends with <code class="docutils literal notranslate"><span class="pre">.html</span></code> when using <abbr>HTML</abbr>
+syntax and <code class="docutils literal notranslate"><span class="pre">.xhtml</span></code> or <code class="docutils literal notranslate"><span class="pre">.xml</span></code>; when using <abbr>XML</abbr> syntax.</p></li>
+</ul>
+</div></blockquote>
+<p>次はインライン <abbr>SVG</abbr> の例だ。名前空間周りで苦労するのはどこでも一緒か：</p>
+<blockquote>
+<div><p>Note that the two Name Space declarations are optional with <abbr>HTML5</abbr>
+syntax. The <abbr>SVG</abbr> has been stripped of all unnecessary parts such as
+items in the Inkscape Name Space.</p>
+</div></blockquote>
+<p>コードは急所を抜粋：</p>
+<blockquote>
+<div><div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">svg</span>
+   <span class="na">xmlns</span><span class="o">=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
+   <span class="na">version</span><span class="o">=</span><span class="s">&quot;1.1&quot;</span>
+   <span class="na">width</span><span class="o">=</span><span class="s">&quot;150&quot;</span>
+   <span class="na">height</span><span class="o">=</span><span class="s">&quot;150&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">rect</span>
+        <span class="na">width</span><span class="o">=</span><span class="s">&quot;90&quot;</span>
+        <span class="na">height</span><span class="o">=</span><span class="s">&quot;90&quot;</span>
+        <span class="na">x</span><span class="o">=</span><span class="s">&quot;30&quot;</span>
+        <span class="na">y</span><span class="o">=</span><span class="s">&quot;30&quot;</span>
+        <span class="na">style</span><span class="o">=</span><span class="s">&quot;fill:#0000ff;fill-opacity:0.75;stroke:#000000&quot;</span><span class="p">/&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">xmlns</span></code> の行は «Required for <abbr>XHTML</abbr>, optional for <abbr>HTML5</abbr>»だ。</p>
+</section>
+<section id="css-background">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">CSS Background</a><a class="headerlink" href="#css-background" title="Permalink to this heading">¶</a></h3>
+<p>古いブラウザーのための fallback も込めた定義例：</p>
+<blockquote>
+<div><div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background-image</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;background.png&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">background-image</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">,</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;background.svg&#39;</span><span class="p">),</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;background.png&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">background-size</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="supporting-older-browsers">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Supporting Older Browsers</a><a class="headerlink" href="#supporting-older-browsers" title="Permalink to this heading">¶</a></h3>
+<p>古いブラウザーなんか全部無視で構わず、次のことを実践すればもう十分だ：</p>
+<blockquote>
+<div><p>At the moment, the best way to include <abbr>SVG</abbr> content in a web page is
+to use the <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> tag with a <abbr>PNG</abbr> fallback. This is a simple
+method that will automatically take care of support for older versions of
+Internet Explorer.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="positioning-svg">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Positioning SVG</a><a class="headerlink" href="#positioning-svg" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This section is based on current browser behaviour and the <abbr>SVG</abbr>
+specification. There is active discussion on changing the specification by
+the <abbr>SVG</abbr> standards group.</p>
+</div></blockquote>
+<p>それでも真剣に読む。</p>
+<blockquote>
+<div><p>There are two steps. The first is to determine the viewport or area allocated
+to the <abbr>SVG</abbr> by the web page, the second is to determine how the
+<abbr>SVG</abbr> fits into the viewport. For this discussion we will assume the
+<abbr>SVG</abbr> is being inserted via the <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> tag.</p>
+</div></blockquote>
+<p>最初の段階はこういう感じだという：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> タグに <code class="docutils literal notranslate"><span class="pre">width</span></code> または <code class="docutils literal notranslate"><span class="pre">height</span></code> 属性が定義されている場合、これがビューポートの寸法となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> に固定した <code class="docutils literal notranslate"><span class="pre">width</span></code> と <code class="docutils literal notranslate"><span class="pre">height</span></code> がなく、かつ <abbr>SVG</abbr> に固定した <code class="docutils literal notranslate"><span class="pre">width</span></code> と <code class="docutils literal notranslate"><span class="pre">height</span></code> があれば、その <abbr>SVG</abbr> 値によってビューポート寸法を決定する</p></li>
+<li><p>それでもビューポートが決定されない場合、<abbr>SVG</abbr> の幅と高さが 100% であれば、ビューポートは <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> タグが利用できる空間を埋め尽くす。</p></li>
+</ol>
+<p>寸法の信頼性については次の助言がある：</p>
+<blockquote>
+<div><p>Think of the <abbr>SVG</abbr> <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> attributes as
+recommendations to the renderer about the size of the viewport if the
+<abbr>HTML</abbr> doesn’t define the size. They are not(!) always the width and
+height of the drawing.</p>
+</div></blockquote>
+<p>第二段階は想像がつかないのでよく読む：</p>
+<blockquote>
+<div><p>Now that the viewport is defined, how the <abbr>SVG</abbr> is fitted inside that
+viewport must be determined. Again this is a several step process:</p>
+</div></blockquote>
+<p>これも長いのでまとめる：</p>
+<ul class="simple">
+<li><p><abbr>SVG</abbr> 側にもビューポートを指定する属性 <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> があることがある。</p>
+<ul>
+<li><p>値はおそらく矩形。</p></li>
+<li><p>さらに属性 <code class="docutils literal notranslate"><span class="pre">preserveAspectRatio</span></code> というものがあり、縦横比を維持するかどうかを決める以上のことを指定する。</p></li>
+<li><p>この二つの属性により、<abbr>SVG</abbr> ビューポートを第一段階で決定したビューポートに写像する。</p></li>
+</ul>
+</li>
+<li><p><abbr>SVG</abbr> に <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> が定義されていない場合は決め打ち：</p>
+<ul>
+<li><p>ビューポートの左上隅が <abbr>SVG</abbr> 原点（通常は左上隅）に写像。</p></li>
+<li><p><abbr>SVG</abbr> はユーザー単位（画素）が画面画素に対応するように拡縮される。</p></li>
+<li><p><abbr>SVG</abbr> が（属性 <code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code> が定義する）ビューポートより大きい場合、スクロールバーが表示されることがある。</p></li>
+</ul>
+</li>
+</ul>
+<p>本書イラストは <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> による <abbr>SVG</abbr> 配置方法の違いを示している。黒枠以内の絵を注目する。一つ目のイラストはビューポートを比較するためのものだ。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>case</p></th>
+<th class="head"><p>object width</p></th>
+<th class="head"><p>object height</p></th>
+<th class="head"><p>svg width</p></th>
+<th class="head"><p>svg height</p></th>
+<th class="head"><p>viewBox</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>120</p></td>
+<td><p>120</p></td>
+<td><p>150</p></td>
+<td><p>100</p></td>
+<td><p>undef</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>120</p></td>
+<td><p>120</p></td>
+<td><p>undef</p></td>
+<td><p>undef</p></td>
+<td><p>0 0 150 100</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>undef</p></td>
+<td><p>undef</p></td>
+<td><p>150</p></td>
+<td><p>100</p></td>
+<td><p>undef</p></td>
+</tr>
+<tr class="row-odd"><td><p>3’</p></td>
+<td><p>undef</p></td>
+<td><p>undef</p></td>
+<td><p>undef</p></td>
+<td><p>undef</p></td>
+<td><p>0 0 150 100</p></td>
+</tr>
+</tbody>
+</table>
+<p>いちばん自然に描画されているのは case 3 = case 3’ で、余計な部分が見えていなく、かつ絵の伸縮が生じていない。Case 1 では図形の伸縮はなく、原点も一致している。図形の右側が見えない。図形の下側もブラウザーが描画する。Case 2 では図形全体が縮小されて描画され、外側が見える。ブラウザー側ビューポート中央に収まっている。</p>
+<p>二つ目のイラストは <code class="docutils literal notranslate"><span class="pre">preserveAspectRatio</span></code> の値の違いを説明するものだ。</p>
+<blockquote>
+<div><p>One possible value, not shown, is none in which case the <abbr>SVG</abbr> is
+stretched to fit the viewport. The other possible values take the form:
+<code class="docutils literal notranslate"><span class="pre">xAYB</span> <span class="pre">C</span></code>, where <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> can have the values <code class="docutils literal notranslate"><span class="pre">Min</span></code>, <code class="docutils literal notranslate"><span class="pre">Mid</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">Max</span></code>; and <code class="docutils literal notranslate"><span class="pre">C</span></code> can have the value <code class="docutils literal notranslate"><span class="pre">meet</span></code> or <code class="docutils literal notranslate"><span class="pre">slice</span></code>. The values <code class="docutils literal notranslate"><span class="pre">A</span></code>
+and <code class="docutils literal notranslate"><span class="pre">B</span></code> determine which part of the viewport and <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> are aligned
+while the value of <code class="docutils literal notranslate"><span class="pre">C</span></code> determines if the image is scaled so that two edges
+of the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> coincide with the viewport while the other two are inside
+(<code class="docutils literal notranslate"><span class="pre">meet</span></code>) or if two edges of the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> coincide with the viewport
+while the other two are outside (<code class="docutils literal notranslate"><span class="pre">slice</span></code>).</p>
+</div></blockquote>
+<p>上の段はすべて <code class="docutils literal notranslate"><span class="pre">meet</span></code> 型なので、指定辺でないほうの辺に関する描画は縦横比を維持しつつ縮小されて <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> ビューポートに収まる。下の段はすべて <code class="docutils literal notranslate"><span class="pre">slice</span></code> 型なので、拡大されてビューポートに収まらない図形の一部が切り落とされる。</p>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> を設定する専用 UI は Inkscape に備わっていないが、XML Editor を上手く使えば設定可能だ。</p>
+<blockquote>
+<div><p>To set the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> attribute in Inkscape: Open the <span class="guilabel">XML Editor</span>
+dialog and select the <abbr>SVG</abbr> root element (<code class="docutils literal notranslate"><span class="pre">&lt;svg:svg...&gt;</span></code>). In an
+Inkscape created file, the <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> attributes will have been
+defined while the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> will not have been defined. -略- If it is not
+defined, click on the text entry box near the bottom of the window, in the
+same line as the <span class="guilabel">Set</span> button. Type in <code class="docutils literal notranslate"><span class="pre">viewBox</span></code>. Then in the box
+below, type in four numbers separated by spaces, the <em>x</em> and <em>y</em> values of
+the upper-left corner (normally <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">0</span></code>) and the <em>width</em> and
+<em>height</em>. The values are in user units (pixels). Click on the <span class="guilabel">Set</span>
+button or use <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd> to register your values. Once the
+<code class="docutils literal notranslate"><span class="pre">viewBox</span></code> is defined, you can modify the <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code>
+attributes including deleting them or changing them to <code class="docutils literal notranslate"><span class="pre">100%</span></code>.</p>
+</div></blockquote>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> を定義したことで、他の属性変更により値が連動するようになる：</p>
+<blockquote>
+<div><p>Modifying the Width and Height in the <span class="guilabel">Document Properties</span> dialog
+will now modify the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> if <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> attributes are
+not defined in fixed units, otherwise it will modify the <code class="docutils literal notranslate"><span class="pre">width</span></code> and
+<code class="docutils literal notranslate"><span class="pre">height</span></code> attributes as well as proportionally modify the <code class="docutils literal notranslate"><span class="pre">viewBox</span></code>
+attribute.</p>
+</div></blockquote>
+</section>
+<section id="adding-links">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Adding Links</a><a class="headerlink" href="#adding-links" title="Permalink to this heading">¶</a></h2>
+<p><abbr>SVG</abbr> にもハイパーリンクの概念があり、<abbr>HTML</abbr> のそれよりも複雑であるとのことだ。</p>
+<blockquote>
+<div><p>The <abbr>SVG</abbr> specification uses XLinks, which are more powerful but also
+more complicated than the original <abbr>HTML</abbr> links. We’ll cover only the
+most simple use of <em>XLinks</em> here and refer you to the <em>XLink</em> specification
+from the <em>W3C</em> consortium for more details.</p>
+</div></blockquote>
+<p>オブジェクトにリンクを追加することができるようだ。操作方法にクセがある：</p>
+<blockquote>
+<div><p>To add a link to an object, Right-Mouse Click on the object. Select
+<span class="menuselection">Add link</span> from the pop-up menu. Although nothing will seem to
+have happened, this will put an <code class="docutils literal notranslate"><span class="pre">&lt;svg:a&gt;</span></code> wrapper around the object
+(viewable with the <span class="menuselection">Edit ‣ XML Editor…</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> +
+<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd>) dialog).</p>
+<p>The link wrapper <code class="docutils literal notranslate"><span class="pre">&lt;svg:a&gt;</span></code> acts as a group. To edit a wrapped object, you
+must double-click on the object to enter the wrapper. It is also possible to
+create a wrapper within a wrapper by accident. Pay attention to the
+<em>Notification Region</em> or use the <span class="menuselection">Edit ‣ XML Editor…</span>
+(<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd>) dialog to keep track of what level
+you are at.</p>
+</div></blockquote>
+<p>リンクがグループの構造であることを知らなければ、マウス操作時に混乱するところだった。</p>
+<blockquote>
+<div><p>The attributes of an object’s links can be modified through the
+<span class="guilabel">Link attributes</span> dialog that can be opened by selecting the
+<span class="menuselection">Link Properties</span> entry from the menu that pops up from a
+second Right-Mouse Click on the object (this time, you are clicking on the
+wrapper).</p>
+</div></blockquote>
+<p><span class="guilabel">Link</span> ダイアログを出して、オブジェクトにウェブページへのリンクを追加するには：</p>
+<blockquote>
+<div><p>To link an object to another web page, only the <span class="guilabel">Href</span> attribute
+must be supplied. An example reference is <code class="docutils literal notranslate"><span class="pre">http://www.w3.org/</span></code> which is a
+link to the World Wide Web consortium.</p>
+</div></blockquote>
+<p>本書のデモが壊れている。</p>
+<blockquote>
+<div><p>The following listing shows an <abbr>SVG</abbr> file with a link from the blue
+square. It can be directly displayed in a web browser or included via the
+<code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> tag in an <abbr>HTML</abbr> or <abbr>XHTML</abbr> file.</p>
+</div></blockquote>
+<p><abbr>SVG</abbr> ファイルとして保存して、ブラウザーにドラッグアンドドロップして手軽に試すといい。</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;</span>
+<span class="nt">&lt;svg</span>
+<span class="w">   </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="w">   </span><span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+<span class="w">   </span><span class="na">version=</span><span class="s">&quot;1.1&quot;</span>
+<span class="w">   </span><span class="na">width=</span><span class="s">&quot;150&quot;</span>
+<span class="w">   </span><span class="na">height=</span><span class="s">&quot;150&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;a</span><span class="w"> </span><span class="na">xlink:href=</span><span class="s">&quot;http://www.w3.org/&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rect</span>
+<span class="w">     </span><span class="na">width=</span><span class="s">&quot;90&quot;</span>
+<span class="w">     </span><span class="na">height=</span><span class="s">&quot;90&quot;</span>
+<span class="w">     </span><span class="na">x=</span><span class="s">&quot;30&quot;</span>
+<span class="w">     </span><span class="na">y=</span><span class="s">&quot;30&quot;</span>
+<span class="w">     </span><span class="na">style=</span><span class="s">&quot;fill:#0000ff;fill-opacity:0.75;stroke:#000000&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/svg&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><span class="guilabel">Link attributes</span> ダイアログの項目を見ていく。</p>
+<blockquote>
+<div><p>Although the <span class="guilabel">Link attributes</span> dialog contains many entries, only a
+few are of great use. A couple have only one allowed value.</p>
+</div></blockquote>
+<p>先述の XLink 仕様書を参照すれば正式な説明が確認できる。</p>
+</section>
+<section id="using-style-sheets">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Using Style Sheets</a><a class="headerlink" href="#using-style-sheets" title="Permalink to this heading">¶</a></h2>
+<p>ここで言うスタイルシートとは <abbr>HTML</abbr> を書くときに使うものと同じだ：</p>
+<blockquote>
+<div><p><abbr>SVG</abbr> drawings can use <abbr>CSS</abbr> (Cascading Style Sheets) to control
+the presentation of the drawing objects. Support for style sheets is in its
+infancy in Inkscape. One can, however, do a few simple useful things.</p>
+</div></blockquote>
+<p>コード例を引用する：</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;svg</span>
+<span class="w">   </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="w">   </span><span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+<span class="w">   </span><span class="na">version=</span><span class="s">&quot;1.1&quot;</span>
+<span class="w">   </span><span class="na">width=</span><span class="s">&quot;150&quot;</span>
+<span class="w">   </span><span class="na">height=</span><span class="s">&quot;150&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;style</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span>rect:hover<span class="w"> </span>{fill-opacity:1.0}
+<span class="w">  </span><span class="nt">&lt;/style&gt;</span>
+<span class="w">  </span><span class="nt">&lt;a</span><span class="w"> </span><span class="na">xlink:href=</span><span class="s">&quot;http://www.w3.org/&quot;</span>
+<span class="w">     </span><span class="na">style=</span><span class="s">&quot;fill-opacity:0.75&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rect</span>
+<span class="w">     </span><span class="na">width=</span><span class="s">&quot;90&quot;</span>
+<span class="w">     </span><span class="na">height=</span><span class="s">&quot;90&quot;</span>
+<span class="w">     </span><span class="na">x=</span><span class="s">&quot;30&quot;</span>
+<span class="w">     </span><span class="na">y=</span><span class="s">&quot;30&quot;</span>
+<span class="w">     </span><span class="na">style=</span><span class="s">&quot;fill:#0000ff;stroke:#000000&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/svg&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>このコード中の <code class="docutils literal notranslate"><span class="pre">&lt;style&gt;...&lt;/style&gt;</span></code> 部分では <code class="docutils literal notranslate"><span class="pre">&lt;rect&gt;</span></code> 要素のマウスホバーで
+<code class="docutils literal notranslate"><span class="pre">fill-opacity</span></code> が最大になるようにしている。</p>
+<p>一方、リンク要素 <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;...&lt;/a&gt;</span></code> 全体に（グループであるかのように考える）対して属性 <code class="docutils literal notranslate"><span class="pre">style</span></code> で通常の <code class="docutils literal notranslate"><span class="pre">fill-opacity</span></code> が 75 パーセントであるように指示している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;rect/&gt;</span></code> 要素ノードに対して属性 <code class="docutils literal notranslate"><span class="pre">style</span></code> で <code class="docutils literal notranslate"><span class="pre">fill</span></code> と <code class="docutils literal notranslate"><span class="pre">stroke</span></code> を直接設定している。</p>
+<p>では <code class="docutils literal notranslate"><span class="pre">style</span></code> 属性をどう設定するのか：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute can either be added through a text editor or with a
+bit of difficulty through the Inkscape <span class="guilabel">XML Editor</span>
+(<span class="menuselection">Edit ‣ XML Editor…</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> +
+<kbd class="kbd docutils literal notranslate">X</kbd>)) dialog.</p>
+</div></blockquote>
+<p>上の例では属性の移動が必要だ：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">fill-opacity</span></code> attribute must be moved from the rectangle and put into
+a wrapper of the rectangle (in this case the <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> tag).</p>
+</div></blockquote>
+<p>本書では XML Editor ダイアログでスタイルシートを追加する手順を挙げている。この節をそのままチュートリアルとして利用できる。しかし最後の</p>
+<blockquote>
+<div><p>Save, but do NOT save as a plain <abbr>SVG</abbr> file as this removes the <code class="docutils literal notranslate"><span class="pre">hover</span></code>
+attribute from the <abbr>CSS</abbr> style node. (Bug)</p>
+</div></blockquote>
+<p>が気になる。</p>
+</section>
+<section id="adding-javascript">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Adding JavaScript</a><a class="headerlink" href="#adding-javascript" title="Permalink to this heading">¶</a></h2>
+<p>オブジェクトの属性に JavaScript コードを置ける？</p>
+<blockquote>
+<div><p><abbr>SVG</abbr> drawings can use JavaScript (ECMAScript) to do complex
+manipulation of the objects in the drawing. In this example, the style sheet
+of the last example is replaced by simple JavaScript calls. The
+<span class="guilabel">Object Properties</span> dialog (<span class="menuselection">Object ‣ Object
+Properties…</span> (<kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">O</kbd>)) can be used to add
+the calls.</p>
+</div></blockquote>
+<p>ダイアログのいちばん下に <span class="guilabel">Interactivity</span> という区画がある。</p>
+<blockquote>
+<div><p>To modify the previous example to use JavaScript, first remove the style
+section (use the <span class="guilabel">XML Editor</span> dialog). Next, open the
+<span class="guilabel">Object Properties</span> dialog. Select the square (make sure the square
+is selected and not the <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> wrapper, you can do this by first
+double-clicking the square and then clicking on it again). Then click on the
+triangle next to <span class="guilabel">Interactivity</span> in the <span class="guilabel">Object
+Properties</span> dialog to expose the JavaScript options.</p>
+</div></blockquote>
+<p>マウスイベントハンドラー項目などが列挙されているので、JavaScript コードを直接記入する：</p>
+<blockquote>
+<div><p>Add the following to <code class="docutils literal notranslate"><span class="pre">onmouseover</span></code>: <code class="docutils literal notranslate"><span class="pre">setAttribute('fill-opacity','1.0')</span></code>
+and the following to <code class="docutils literal notranslate"><span class="pre">onmouseout</span></code>: <code class="docutils literal notranslate"><span class="pre">setAttribute('fill-opacity','0.75')</span></code>.</p>
+</div></blockquote>
+<p>仕上げは図面のファイル保存で、保存オプションを表示する保存コマンド、例えば
+<span class="menuselection">File ‣ Save As…</span> などを実行して次のようにする：</p>
+<blockquote>
+<div><p>That’s it! Do not save as <span class="guilabel">Plain SVG</span> as the JavaScript commands
+will be (erroneously) stripped out. You can save it as <span class="guilabel">Optimized
+SVG</span>.</p>
+</div></blockquote>
+<p>ダイアログ画面。<span class="guilabel">Title</span> と <span class="guilabel">Description</span> を埋めておくのはいい習慣だ：</p>
+<blockquote>
+<div><p>While the <span class="guilabel">Object Properties</span> dialog is open we can fill the
+<code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">desc</span></code> attributes. These attributes can be specified for any
+object in an <abbr>SVG</abbr> document, including <em>Groups</em>. The <code class="docutils literal notranslate"><span class="pre">title</span></code>
+attribute is intended to be used for a tool tip. This is only implemented in
+some <abbr>SVG</abbr> browsers like Opera. (Firefox 3.5 will put in the window
+title area the first title found in the document). The <code class="docutils literal notranslate"><span class="pre">desc</span></code>
+(<span class="guilabel">Description</span>) attribute is used to store a description of the
+object. It is not normally intended for display.</p>
+</div></blockquote>
+<p>ID も機械的なものから変えるのが良い：</p>
+<blockquote>
+<div><p>One final touch is to change the <span class="guilabel">Id</span> to a more descriptive name.</p>
+</div></blockquote>
+</section>
+<section id="simple-animation">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Simple Animation</a><a class="headerlink" href="#simple-animation" title="Permalink to this heading">¶</a></h2>
+<p>まともな JavaScript コードを書く題材が来た。アニメーションだ。</p>
+<blockquote>
+<div><p>The <abbr>SVG</abbr> standard provides support for animating drawings both
+internally through animation elements and externally through scripts. This
+section will demonstrate a simple animation using ECMAscript (a standard that
+JavaScript and JScript are dialects of).</p>
+</div></blockquote>
+<p>ただし、Inkscape にはその対応がない。テキスト編集をすることにする。また、これまで述べられたように、簡単なものならば既存の機能が対応している：</p>
+<blockquote>
+<div><p>Note that Inkscape added some limited support for scripts in v0.47 through
+the <em>Set Attributes</em> and <em>Transmit Attributes</em> extensions.</p>
+</div></blockquote>
+<p>本書の例は正方形が左右に振動し続けるアニメーションだ。その上、これまでの機能も併せ持つ：</p>
+<blockquote>
+<div><p>In the following <abbr>SVG</abbr> drawing, the blue square oscillates back and
+forth (in a supporting <abbr>SVG</abbr> viewer). The square still changes opacity
+when the mouse is over it and it still contains a hypertext link.</p>
+</div></blockquote>
+<p>完全な <abbr>SVG</abbr> コードが掲載されているが、要所に絞って見ていく。まずルート要素だ：</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;svg</span>
+<span class="w">   </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
+<span class="w">   </span><span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+<span class="w">   </span><span class="na">version=</span><span class="s">&quot;1.1&quot;</span>
+<span class="w">   </span><span class="na">onload=</span><span class="s">&quot;Start(evt)&quot;</span>
+<span class="w">   </span><span class="na">width=</span><span class="s">&quot;150&quot;</span>
+<span class="w">   </span><span class="na">height=</span><span class="s">&quot;150&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>属性 <code class="docutils literal notranslate"><span class="pre">onload</span></code> は <abbr>HTML</abbr> と同じ意味。このコードを実行する。関数 <code class="docutils literal notranslate"><span class="pre">Start</span></code>
+本体はこの次にある：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;script</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;text/ecmascript&quot;</span><span class="nt">&gt;</span>
+<span class="cp">&lt;![CDATA[</span>
+<span class="cp">  // -略-</span>
+<span class="cp">  function Start(evt) {</span>
+<span class="cp">    // -略-</span>
+<span class="cp">    the_rect = evt.target.ownerDocument.getElementById(&quot;BlueRect&quot;);</span>
+<span class="cp">    Oscillate();</span>
+<span class="cp">  }</span>
+
+<span class="cp">  function Oscillate() {</span>
+<span class="cp">    // -略-</span>
+<span class="cp">    the_rect.setAttribute(&quot;transform&quot;, &quot;translate(&quot; +x_pos+ &quot;, 0.0 )&quot;);</span>
+<span class="cp">    setTimeout(&quot;Oscillate()&quot;, delta_time)</span>
+<span class="cp">  }</span>
+
+<span class="cp">  window.Oscillate = Oscillate</span>
+<span class="cp">]]&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;svg&gt;</span></code> 要素の子要素に <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> を定義し、JavaScript コードを普通に書く。</p>
+</section>
+<section id="inkscape-for-the-web">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Inkscape for the Web</a><a class="headerlink" href="#inkscape-for-the-web" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>This section focuses on ways to prepare Inkscape <abbr>SVGs</abbr> for the web.</p>
+<p>A number of items have already been covered in this chapter. This section
+covers cleaning up the <abbr>SVG</abbr> source.</p>
+</div></blockquote>
+<dl>
+<dt>掃除</dt><dd><p>最終的に未使用になったデータを削除するコマンドがある。プログラミングで言うガベージコレクションのような操作を利用者自身で行う。</p>
+<blockquote>
+<div><p>As a drawing is created, items like <em>Gradients</em>, <em>Patterns</em>, <em>Markers</em>,
+and <em>Filters</em> are stored in the <code class="docutils literal notranslate"><span class="pre">&lt;defs&gt;</span></code> section of the <abbr>SVG</abbr>
+file. If you later delete an object with, for example, a <em>Gradient</em>, the
+<em>Gradient</em> is not deleted.</p>
+</div></blockquote>
+<p>現行版では <span class="menuselection">File ‣ Clean Up Document</span> コマンドが相当する。</p>
+</dd>
+<dt>Save as Plain SVG</dt><dd><p>図面を Inkscape 上でもはや編集しないのであればこのコマンドを使える。Inkscape
+固有のデータを削った上で <abbr>SVG</abbr> ファイルを保存する。</p>
+<blockquote>
+<div><p>It can be removed by choosing the <span class="guilabel">Plain SVG</span> option in the
+drop-down menu in the <span class="guilabel">Save As</span> dialog.</p>
+</div></blockquote>
+</dd>
+<dt>Save as Optimized SVG</dt><dd><p>保存オプションを細かく指定できる。</p>
+<blockquote>
+<div><p>Choosing <span class="guilabel">Optimized SVG</span> in the drop-down menu in the
+<span class="guilabel">Save As</span> dialog will pop-up a dialog that allows you to
+customize the saved <abbr>SVG</abbr> file.</p>
+</div></blockquote>
+<p><span class="guilabel">Optimized SVG Output</span> というダイアログが現れる。オプション名は本書と Inkscape 1.2 で異なるものがある。ここでは後者に合わせる。</p>
+<dl>
+<dt><span class="guilabel">Shorten color values</span></dt><dd><p>色全てを <code class="docutils literal notranslate"><span class="pre">#rrggbb</span></code> 形式、可能ならば <code class="docutils literal notranslate"><span class="pre">#rgb</span></code> 形式に書き換える。</p>
+</dd>
+<dt><span class="guilabel">Convert CSS attributes to XML attributes</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">style=&quot;fill:#ff0000&quot;</span></code> のような定義を <code class="docutils literal notranslate"><span class="pre">fill=&quot;#ff0000&quot;</span></code> に書き換える。しかし：</p>
+<blockquote>
+<div><p>It will probably result in slightly larger files. If you plan on using
+<abbr>CSS</abbr> to style objects, don’t enable this option.</p>
+</div></blockquote>
+</dd>
+<dt><span class="guilabel">Embed rasters images</span></dt><dd><p><abbr>SVG</abbr> ファイルにビットマップデータを符号化して直接埋め込む。</p>
+</dd>
+<dt><span class="guilabel">Keep editor data</span></dt><dd><p>Inkscape 固有のデータを残すかどうか。</p>
+</dd>
+<dt><span class="guilabel">Enable viewboxing</span></dt><dd><p>これはオンにすると最適化方向からは離れるが、有用であることがある：</p>
+<blockquote>
+<div><p>If a <code class="docutils literal notranslate"><span class="pre">viewBox</span></code> attribute is not present, creates one using the
+<code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> attributes, and then sets both <code class="docutils literal notranslate"><span class="pre">width</span></code> and
+<code class="docutils literal notranslate"><span class="pre">height</span></code> attributes to <code class="docutils literal notranslate"><span class="pre">100%</span></code>. This is useful if you wish your
+<abbr>SVG</abbr> file to automatically scale to use all available space on a
+web page.</p>
+</div></blockquote>
+</dd>
+<dt><span class="guilabel">Remove the XML declaration</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">&lt;?xml</span> <span class="pre">version=&quot;1.0&quot;?&gt;</span></code> を削るかどうかだった。</p>
+</dd>
+<dt><span class="guilabel">Number of significant digits for coordinates</span></dt><dd><p>Web 用途ではそこまで高精度の値は必要ない。</p>
+<blockquote>
+<div><p>Sets numerical precision on all coordinates and attributes. Drawings
+meant for the web rarely need precision greater than three or four
+decimal places.</p>
+</div></blockquote>
+<p>アプリケーション設定で低精度にしておく方法もある：</p>
+<blockquote>
+<div><p>You can also set the default numerical precision used by Inkscape in
+the Inkscape <span class="guilabel">Preferences</span> dialog in the <abbr>SVG</abbr> output
+section (Numerical precision).</p>
+</div></blockquote>
+</dd>
+<dt><span class="guilabel">Indentation characters</span></dt><dd><p><abbr>XML</abbr> タグのインデント文字を選べる。</p>
+<blockquote>
+<div><p>Options are <span class="guilabel">Space</span>, <span class="guilabel">Tab</span>, and <span class="guilabel">None</span>.
+In all cases, each tag with attributes is placed on one line.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+<dt>複製を優先する</dt><dd><p>シンボリックリンク的複製は安い。</p>
+<blockquote>
+<div><p>References usually take up less file space than copies.</p>
+</div></blockquote>
+</dd>
+<dt>図面を単純にする</dt><dd><p>微小オブジェクトを削除したり、描画領域の外部にオブジェクトを置かぬようにしたり、パスのノード数を間引いたりしてデータ量を減らす。次のコマンドを利用しよう：</p>
+<ul class="simple">
+<li><p><span class="menuselection">View ‣ DisplayMode ‣ Outline</span></p></li>
+<li><p><span class="menuselection">Path ‣ Simplify</span></p></li>
+</ul>
+</dd>
+</dl>
+</section>
 </section>
 
 
