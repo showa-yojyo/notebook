@@ -168,34 +168,34 @@ Mini Tutorial - A Drop Shadow
 Color Filter Primitives
 ======================================================================
 
-RGBA 値の行列による変換と考えてよい。OpenGL のアレっぽい。
+:abbr:`RGBA` 値の行列による変換と考えてよい。OpenGL のアレっぽい。
 
 Color Matrix
 ----------------------------------------------------------------------
 
-色行列は RGBA 列ベクトルに左から乗じて別の RGBA 列ベクトルに変換するような五次正
-方行列だ（本書参照）。座標変換行列の類比で言うと並進移動項があるので、本書のよう
-な成分構成になる。
+色行列は :abbr:`RGBA` 列ベクトルに左から乗じて別の :abbr:`RGBA` 列ベクトルに変換
+するような五次正方行列だ（本書参照）。座標変換行列の類比で言うと並進移動項がある
+ので、本書のような成分構成になる。
 
    Four types of transformations are defined, of which three are special classes
    of the first.
 
 というわけで見ていこう：
 
-Matrix
+:guilabel:`Matrix`
    行列の有効成分全てを完全に指定する。一般的な場合。
-Saturate
-   彩度を下げるには、数 :math:`{s \in [0, 1]}` を一つ指定する。*RGB* 値のみが変
-   化する。公式は本書参照。
-Hue Rotate
-   数値一つを指定することで色相をずらす。これもまた *RGB* 値のみが変化する。正確
-   な計算式はかなり複雑で、赤→黄→緑→右…と回転していくだけではない。
-Luminance to Alpha
+:guilabel:`Saturate`
+   彩度を下げるには、数 :math:`{s \in [0, 1]}` を一つ指定する。:abbr:`RGB` 値の
+   みが変化する。公式は本書参照。
+:guilabel:`Hue Rotate`
+   数値一つを指定することで色相をずらす。これもまた :abbr:`RGB` 値のみが変化す
+   る。正確な計算式はかなり複雑で、赤→黄→緑→右…と回転していくだけではない。
+:guilabel:`Luminance to Alpha`
    輝度は一定の計算式でアルファーに変換される。公式は本書参照。
 
-*RGB* 対角行列の要素 :math:`a_{00}, a_{11}, a_{22}` を :math:`-1` にし、五列目の
-上位三要素 :math:`a_{04}, a_{14}, a_{24}` を :math:`1` とすることで明暗を逆転した
-変換を作成することができる。
+:abbr:`RGB` 対角行列の要素 :math:`a_{00}, a_{11}, a_{22}` を :math:`-1` にし、五
+列目の上位三要素 :math:`a_{04}, a_{14}, a_{24}` を :math:`1` とすることで明暗を
+逆転した変換を作成することができる。
 
 Component Transfer
 ----------------------------------------------------------------------
@@ -204,10 +204,10 @@ Component Transfer
 
 概要を覚えるに留める：
 
-   The *Component Transfer* primitive changes the *RGB* and *Alpha* of an object
-   by applying independent functions to each of the *RGB* and *Alpha* input
-   values. The following modes for defining the functions are available:
-   *Identity*, *Table*, *Discrete*, *Linear*, and *Gamma*.
+   The *Component Transfer* primitive changes the :abbr:`RGB` and *Alpha* of an
+   object by applying independent functions to each of the :abbr:`RGB` and
+   *Alpha* input values. The following modes for defining the functions are
+   available: *Identity*, *Table*, *Discrete*, *Linear*, and *Gamma*.
 
 Compositing Filter Primitives
 ======================================================================
@@ -222,25 +222,25 @@ Compositing Filter Primitives
 
    Inkscape has a problem in using one of these filters. When using either
    :guilabel:`Background Image` or :guilabel:`Background Alpha` as an input to
-   the filter, the ``enabled-background`` tag must be added to the SVG file
-   (this tells SVG renderers to keep a copy of the background in memory). This
-   is not done. A work-around is to use the :guilabel:`Layers` dialog to add a
-   *Blend* filter to a *Layer*. The *Layer* blend can then be removed, leaving
-   the necessary tag in place.
+   the filter, the ``enabled-background`` tag must be added to the :abbr:`SVG`
+   file (this tells :abbr:`SVG` renderers to keep a copy of the background in
+   memory). This is not done. A work-around is to use the :guilabel:`Layers`
+   dialog to add a *Blend* filter to a *Layer*. The *Layer* blend can then be
+   removed, leaving the necessary tag in place.
 
-SVG 1.1 の仕様にバグがあって、透明度のある背景で合成すると、それが二重になるとい
-うものだ。それを回避する方法を自明な回避策を含め三つ紹介している：
+:abbr:`SVG` 1.1 の仕様にバグがあって、透明度のある背景で合成すると、それが二重に
+なるというものだ。それを回避する方法を自明な回避策を含め三つ紹介している：
 
    The first is to avoid using a :guilabel:`Background Image` or
    :guilabel:`Background Alpha` as a filter input.
 
-第二の方法は、アルファー値最大の RGBA 値を持つ色で置き換えることだ。この方法は
-フィルター合成問題に関係なく、知っていて損はない：
+第二の方法は、アルファー値最大の :abbr:`RGBA` 値を持つ色で置き換えることだ。この
+方法はフィルター合成問題に関係なく、知っていて損はない：
 
    The second is to replace a transparent background with a solid background
    (you can use the *Dropper Tool* to replace a transparent :guilabel:`Fill`
    with an equivalent solid :guilabel:`Fill` [turn off :guilabel:`Pick alpha` in
-   the Tool Controls]).
+   the *Tool Controls*]).
 
 第三の方法は白背景からマージフィルターで開始するものだ。最終出力に透過部分を含ま
 せたい場合には使えない：
@@ -253,9 +253,10 @@ SVG 1.1 の仕様にバグがあって、透明度のある背景で合成する
    filter). This solution runs into trouble when it is desired that the overall
    image have transparency.
 
-   The SVG 1.2 standard corrects this deficiency.
+   The :abbr:`SVG` 1.2 standard corrects this deficiency.
 
-Inkscape が出力する SVG ファイルはエディターで確認すると 1.1 のままのはず。
+Inkscape が出力する :abbr:`SVG` ファイルはエディターで確認すると 1.1 のままのは
+ず。
 
 Blend
 ----------------------------------------------------------------------
@@ -272,7 +273,8 @@ Blend
 * 添字 :math:`a` および :math:`b` を重なるオブジェクト同士のそれぞれ上下のものを
   指すのに用いる。
 * 添字 :math:`r` で結果を表す。
-* :math:`{c \in [0, 1]}` をオブジェクトの RGB 値とする。A 値は込められている。
+* :math:`{c \in [0, 1]}` をオブジェクトの :abbr:`RGB` 値とする。A 値は込められて
+  いる。
 * :math:`{q \in [0, 1]}` をオブジェクトの A 値とする。
 
 :guilabel:`Normal`
@@ -385,24 +387,24 @@ Image
 
 Inkscape 1.2 でも未完全実装であるかを確認したい。
 
-   The *Image* primitive renders an external graphics file or an internal SVG
-   object. It allows more than one object to be referenced in a complex filter
-   (the first being the object attached to the filter).
+   The *Image* primitive renders an external graphics file or an internal
+   :abbr:`SVG` object. It allows more than one object to be referenced in a
+   complex filter (the first being the object attached to the filter).
 
 JPEG ファイルや PNG ファイルを描画させることが可能であるのはもちろん、同一図面内
-の SVG オブジェクトでもよい。
+の :abbr:`SVG` オブジェクトでもよい。
 
    Unfortunately, this very useful filter primitive is not yet fully implemented
    in Inkscape with only external images supported.
 
-「部分的に実装されていない」というのは、この SVG 参照の機能のことだろう。
+「部分的に実装されていない」というのは、この :abbr:`SVG` 参照の機能のことだろう。
 
-   The GUI will create a reference with an absolute path to the external image.
-   Use the :guilabel:`XML Editor` to change an absolute path to a relative one
-   if required.
+   The :abbr:`GUI` will create a reference with an absolute path to the external
+   image. Use the :guilabel:`XML Editor` to change an absolute path to a
+   relative one if required.
 
 相対パスが実は指定可能であることをよく憶えておく。*Image* フィルターを使っている
-SVG ファイルをバージョン管理するなら変更必須だ。
+:abbr:`SVG` ファイルをバージョン管理するなら変更必須だ。
 
 画像は対象の BB に収まるように拡縮されるのが普通だ：
 
@@ -418,8 +420,8 @@ SVG ファイルをバージョン管理するなら変更必須だ。
 縦横比固定オプションらしきものも未対応だ。残念。
 
    The *Image* implementation in Inkscape does not correctly position images.
-   Other SVG renderers will display the image differently from Inkscape as a
-   result.
+   Other :abbr:`SVG` renderers will display the image differently from Inkscape
+   as a result.
 
 これはブラウザーで試験できる。
 
@@ -436,7 +438,7 @@ Turbulence
 ----------------------------------------------------------------------
 
 *Turbulence* は大理石の表面や雲のような人工的テクスチャーを作成する用途の原始
-フィルターだ。
+vフィルターだ。
 
    The *Turbulence* primitive allows the creation of artificial textures such as
    marble surfaces or clouds. It is based on the work of Ken Perlin who won an
@@ -457,7 +459,7 @@ Perlin 氏の方法を簡略化したものを実装しているようで、あ�
    Inkscape if the attribute ``color-interpolation-filters="sRGB"`` is not added
    to the filter definition.
 
-   The *RGB* and *Alpha* components are each derived separately.
+   The :abbr:`RGB` and *Alpha* components are each derived separately.
 
 :guilabel:`Type` では二つから選択する：
 
@@ -476,16 +478,16 @@ Perlin 氏の方法を簡略化したものを実装しているようで、あ�
    pixels. Inkscape cannot yet create resolution independent noise.
 
 まるで音楽理論を読んでいるようだ。和音が多いと調和が失せるようなもので、空間と色
-の変化が見えなくなるほど小さくなり過ぎる。CPU にもやさしくない：
+の変化が見えなくなるほど小さくなり過ぎる。:abbr:`CPU` にもやさしくない：
 
    The number of *Octaves* determines the complexity of the noise, the more
    *Octaves*, the more complex. Each *Octave* adds a term with twice the
    *Frequency* but half the amplitude. Using more than four or five *Octaves*
    isn't so useful as the spatial and color variations become too small to be
-   seen (and increases the CPU load).
+   seen (and increases the :abbr:`CPU` load).
 
-このフィルターは疑似乱数生成器を用いる。原理的には SVG ビューワーが異なっていて
-も同じ生成器をなるべく使い、同じ模様をなるべく生じるようにする：
+このフィルターは疑似乱数生成器を用いる。原理的には :abbr:`SVG` ビューワーが異
+なっていても同じ生成器をなるべく使い、同じ模様をなるべく生じるようにする：
 
    If you use the filter twice on two identical objects, the textures should be
    the same. Changing the seed will force the random-number sequence to be
@@ -501,10 +503,11 @@ Lighting Filters Primitives
    simulate light shining on objects. They represent two of the three parts of
    the Phong reflection model for modeling light in computer graphics.
 
-環境光、拡散光、鏡面光の説明を見ていく。環境光だけは SVG との関係が述べられている：
+環境光、拡散光、鏡面光の説明を見ていく。環境光だけは :abbr:`SVG` との関係が述べ
+られている：
 
-   Ambient light: The light present everywhere in a scene. In SVG this would be
-   represented by a solid *Fill*.
+   Ambient light: The light present everywhere in a scene. In :abbr:`SVG` this
+   would be represented by a solid *Fill*.
 
 拡散光と鏡面光の説明は、一般の CG 理論のそれと同じように述べられている。本ノート
 では割愛。
@@ -528,25 +531,25 @@ Phong モデルは ray tracing をしない。
    type of light source, its color, and its position; thus we'll discuss them
    together.
 
-*Diffuse Color*, *Specular Color*
+:dfn:`Diffuse Color`, :dfn:`Specular Color`
    光源色。
-*Surface Scale*
+:dfn:`Surface Scale`
    表面への法線を計算するための縮尺。数値は表面の最大高（アルファー値 1 に対応）
    を座標系単位で表す。
-*Diffuse or Specular Reflection Constant*
+:dfn:`Diffuse` or :dfn:`Specular Reflection Constant`
    表面に当たった光のうち、どの程度が拡散 or 鏡面反射されるか。
-*Exponent*
+:dfn:`Exponent`
    （鏡面照光のみ）鏡面反射の鋭さすなわち狭さを決定する。最小値は 1.0 で、反射が
    広く鈍い表面となり、反対に値が大きくなると反射が狭くなり、より洗練された表面
    となる。
-*Kernel Unit Length*
+:dfn:`Kernel Unit Length`
    未使用らしい。
-*Light Source*
+:dfn:`Light Source`
    次のいずれか：
 
-   * *Distant Light*
-   * *Point Light*
-   * *Spot Light*
+   * :dfn:`Distant Light`
+   * :dfn:`Point Light`
+   * :dfn:`Spot Light`
 
    When applying a lighting filter with a large *Surface Scale*, the limited
    resolution of the *bump map* may create artifacts. These can be removed by
@@ -559,10 +562,10 @@ Distant Light Source
 
    無限遠点からの光線を表現するには、次の属性二つを定義する：
 
-*Azimuth*
+:dfn:`Azimuth`
    方位角。描画面における光源の方向角。角度は水平軸 (x) から右回りに定義す
    るという、Inkscape ではイレギュラーな測定方法による。
-*Elevation*
+:dfn:`Elevation`
    標高。図面平面上方にあるとされる光源の方向角。
 
 イラストでは球を模したオブジェクトが列になっている。無限遠点からの光を浴びている
@@ -645,7 +648,7 @@ Convolve Matrix
       user interface.
 
 :guilabel:`Preserve Alpha`
-   アルファー値を入力から直接複写するか、*RGB* と同じように計算するかのどちらか。
+   アルファー値を入力から直接複写するか、:abbr:`RGB` と同じように計算するかのどちらか。
 
 このフィルターは画素評価と結びついていて、像が解像度に依存して決定することを意味
 する：
@@ -674,7 +677,7 @@ Displacement Map
    y^{\prime} &= s C_Y(x, y) - \frac{1}{2}.
    \end{aligned}
 
-ここで :math:`s` は縮尺であり、:math:`C_X, C_Y` は *RGB* 成分または *A* 成分のい
+ここで :math:`s` は縮尺であり、:math:`C_X, C_Y` は :abbr:`RGB` 成分または *A* 成分のい
 ずれかで、X チャンネル属性および Y チャンネル属性で選択可能だ。両チャンネルは異
 なる色に写像することができる。
 
@@ -700,10 +703,11 @@ Photoshop でおなじみのガウスぼかしが Inkscape でも実現できる
 
 ぼかし半径という引数が効果のほとんどを決定する。
 
-このフィルターは CPU を酷使する。アプリケーション設定で品質を下げて楽にさせる：
+このフィルターは :abbr:`CPU` を酷使する。アプリケーション設定で品質を下げて楽に
+させる：
 
-   The *Gaussian Blur* primitive is highly CPU intensive. The output is a
-   trade-off between speed and quality. One can set the *Blur* quality for the
+   The *Gaussian Blur* primitive is highly :abbr:`CPU` intensive. The output is
+   a trade-off between speed and quality. One can set the *Blur* quality for the
    screen display in the Inkscape :guilabel:`Preferences` dialog
    (:menuselection:`File --> Inkscape Preferences...` (:kbd:`Shift` +
    :kbd:`Ctrl` + :kbd:`P`)) under the :guilabel:`Filter` entry. Choosing a

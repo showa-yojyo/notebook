@@ -126,9 +126,9 @@ Outline Mode Colors
 SVG Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   A number of preferences control the way content is written to the *SVG*
+   A number of preferences control the way content is written to the :abbr:`SVG`
    files. They can be found in the group ``id="svgoutput"`` section. Most can
-   also be found in the *SVG* output section of the Inkscape
+   also be found in the :abbr:`SVG` output section of the Inkscape
    :guilabel:`Preferences` dialog.
 
 こちらは :file:`preferences.xml` をテキストエディターで編集する必要性は低いよう
@@ -142,7 +142,7 @@ SVG Output
    ``usenamedcolors`` | ``blue``, ``black`` などのキーワードを使うか 16 進数表記を使うか
    ``numericalprecision`` | 数値に対して書き出される有効数字の桁数
    ``minimumexponent`` | :math:`{10^x}` までの正の値をゼロとみなす（指数は負）
-   ``indent`` | SVG ファイル内タグの入れ子レベルの空白文字数
+   ``indent`` | :abbr:`SVG` ファイル内タグの入れ子レベルの空白文字数
    ``inlineattrs`` | 属性を同じ行に置くか改行で区切るか
 
 Custom Templates
@@ -163,16 +163,16 @@ Custom Templates
 
 既定のテンプレートは特別に扱われる：
 
-   You can directly save any *SVG* file to this directory. Saving the file as
+   You can directly save any :abbr:`SVG` file to this directory. Saving the file as
    :file:`default.svg` will replace your current default template.
 
 よく使う描画要素の集合をあらかじめ作成しておいたものをテンプレートファイルとして
 配置するのが基本的だ：
 
    Objects, gradients, patterns, and so forth, can be added to an empty Inkscape
-   *SVG* file and then saved and placed in the :file:`templates` directory. When
-   that file is selected in the list of templates, you will have access to all
-   the objects, gradients, and patterns you previously defined.
+   :abbr:`SVG` file and then saved and placed in the :file:`templates`
+   directory. When that file is selected in the list of templates, you will have
+   access to all the objects, gradients, and patterns you previously defined.
 
 Custom Swatches or Palettes
 ----------------------------------------------------------------------
@@ -222,8 +222,8 @@ Custom Markers
    containing the marker definitions :file:`share/inkscape/markers/markers.svg`.
 
 本書のデモ。おそらく Inkscape であらかじめ well-defined なパスオブジェクトを作成
-し、その SVG タグ以下を ``<marker>...</marker>`` 部分にコピー＆ペーストして用意す
-ると考えられる：
+し、その :abbr:`SVG` タグ以下を ``<marker>...</marker>`` 部分にコピー＆ペースト
+して用意すると考えられる：
 
    Here is the definition needed to add a “diamond node” marker. It differs from
    the diamond markers included with Inkscape in that the center of the diamond
@@ -246,7 +246,7 @@ Custom Markers
            sodipodi:nodetypes="ccccc" />
       </marker>
 
-マーカーの構造を知るには SVG 仕様書を当たる。
+マーカーの構造を知るには :abbr:`SVG` 仕様書を当たる。
 
 Custom Keyboard Shortcuts
 ----------------------------------------------------------------------
@@ -261,7 +261,7 @@ Custom Keyboard Shortcuts
    There are a number of alternative shortcuts available. To use them, simply
    rename the file to :file:`defaults.xml`.
 
-Inkscape が用意しているキーバインド定義 XML ファイルは Windows ならば
+Inkscape が用意しているキーバインド定義 :abbr:`XML` ファイルは Windows ならば
 :file:`%PROGRAMFILES%\\Inkscape\\share\\inkscape\\keys` 以下にある。
 
 .. csv-table::

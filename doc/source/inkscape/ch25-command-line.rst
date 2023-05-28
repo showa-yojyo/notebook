@@ -7,18 +7,18 @@ Chapter 25. Using the Command Line
 コマンドラインで Inkscape を操縦できればたいへんうれしい。何ができるのか見ていこ
 う。
 
-   Inkscape has the ability to batch process *SVG* files without opening up the
-   Graphics User Interface (*GUI*). The available options can be divided into a
-   few categories: general commands, exporting commands (including printing),
-   and query commands.
+   Inkscape has the ability to batch process :abbr:`SVG` files without opening
+   up the Graphics User Interface (:abbr:`GUI`). The available options can be
+   divided into a few categories: general commands, exporting commands
+   (including printing), and query commands.
 
-コマンドラインからならば PDF の最初のページは読めるようだ。
+コマンドラインからならば :abbr:`PDF` の最初のページは読めるようだ。
 
    Most Inkscape commands are attached to verbs. Any verb can be called from the
    command line with the ``--verb`` argument, allowing complex processing to
    take place. However, it is not possible to set parameters. A list of all
    verbs can be obtained using ``--verb-list``. It does not appear possible to
-   suppress the *GUI* when using the ``--verb`` argument.
+   suppress the :abbr:`GUI` when using the ``--verb`` argument.
 
 インターフェイスにクセがあるように感じられる。とにかくオプション ``--verb`` を指
 定すると Inkscape のウィンドウが出現されることは憶えておこう。
@@ -35,7 +35,7 @@ Chapter 25. Using the Command Line
 * ``--select=<ID>`` で図面内にある ID が ``<ID>`` であるオブジェクトを指定する。
 * ``--verb <COMMAND>`` で Inkscape のコマンド ``<COMMAND>`` を実行する。
 * ``--verb <COMMAND>`` を複数与えることが可能。おそらく順次実行する。
-* 最後の引数が入力 SVG ファイルパス。
+* 最後の引数が入力 :abbr:`SVG` ファイルパス。
 
 .. admonition:: 読者ノート
 
@@ -56,7 +56,7 @@ Chapter 25. Using the Command Line
    with the ``--shell`` option. There are no new capabilities using this
    command; it is simply to allow one to execute multiple independent commands
    without restarting Inkscape each time. Here is an example of exporting the
-   :file:`MyStar.svg` to a *PNG*:
+   :file:`MyStar.svg` to a :abbr:`PNG`:
 
    .. code:: console
 
@@ -68,7 +68,7 @@ Chapter 25. Using the Command Line
       Bitmap saved as: MyStar.png
       > quit
 
-入力 SVG ファイルの指定方法はこれでいいのか。
+入力 :abbr:`SVG` ファイルの指定方法はこれでいいのか。
 
 General Command Line Options
 ======================================================================
@@ -84,8 +84,8 @@ General Command Line Options
 
 .. option:: -V, --version
 
-   バージョンを出力する。GUI 版の :menuselection:`Help --> About Inkscape` が表
-   示する情報と同一。
+   バージョンを出力する。:abbr:`GUI` 版の :menuselection:`Help --> About
+   Inkscape` コマンドが表示する情報と同一。
 
 .. option:: --system-data-directory
 
@@ -109,21 +109,21 @@ General Command Line Options
 
 .. option:: --vacuum-defs
 
-   *SVG* ファイルの ``<defs>`` から未使用の定義を削除する。GUI で言う
-   :menuselection:`File --> Clean Up Document` コマンドに相当する。新しいファイ
-   ルを作成するものではない。
+   :abbr:`SVG` ファイルの ``<defs>`` から未使用の定義を削除する。:abbr:`GUI` で
+   言う :menuselection:`File --> Clean Up Document` コマンドに相当する。新しい
+   ファイルを作成するものではない。
 
 Export Command Line Options
 ======================================================================
 
-GUI で使われるエクスポートコマンドは CUI でも利用可能だ。
+:abbr:`GUI` で使われるエクスポートコマンドはコマンドラインでも利用可能だ。
 
-   Inkscape can be used to convert *SVG* files to another form. Right now, the
-   command line can be used to generate Portable Network Graphic (*PNG*),
-   PostScript (*PS*), Encapsulated PostScript (*EPS*), Portable Document Files
-   (*PDF*), Enhanced Metafile Files (*EMF*-Windows only), and plain *SVG* files.
-   More options are available from within Inkscape using the :guilabel:`Save As`
-   or :guilabel:`Export Bitmap` dialogs.
+   Inkscape can be used to convert :abbr:`SVG` files to another form. Right now,
+   the command line can be used to generate Portable Network Graphic
+   (:abbr:`PNG`), PostScript (*PS*), Encapsulated PostScript (*EPS*), Portable
+   Document Files (:abbr:`PDF`), Enhanced Metafile Files (:abbr:`EMF`-Windows
+   only), and plain :abbr:`SVG` files. More options are available from within
+   Inkscape using the :guilabel:`Save As` or :guilabel:`Export Bitmap` dialogs.
 
    The export options can be divided into three classes: those that specify the
    output format, those that specify the region to export, and those that
@@ -262,12 +262,12 @@ Export Property Options
 
 .. option:: -b, --export-background=COLOR
 
-   ビットマップエクスポートの背景色を指定する。SVG が対応していれば色文字列を使
-   用できる。
+   ビットマップエクスポートの背景色を指定する。:abbr:`SVG` が対応していれば色文
+   字列を使用できる。
 
    If this option is not used, the color specified by the ``pagecolor``
-   attribute in the section ``sodipodi:namedview`` of the SVG file will be used
-   (if it is defined).
+   attribute in the section ``sodipodi:namedview`` of the :abbr:`SVG` file will
+   be used (if it is defined).
 
 .. option:: -y, --export-background-opacity=VALUE
 
@@ -298,11 +298,11 @@ Export Property Options
 Query Command Line Options
 ======================================================================
 
-SVG ファイル内のオブジェクトの位置、寸法を確認するコマンドがある。
+:abbr:`SVG` ファイル内のオブジェクトの位置、寸法を確認するコマンドがある。
 
    The key here is knowing the ID (name) of the object for which you desire the
-   information. The ID name must be given. The exported numbers use the SVG
-   coordinate system.
+   information. The ID name must be given. The exported numbers use the
+   :abbr:`SVG` coordinate system.
 
 対象オブジェクトの ID を実行時に知っている必要があるという点が急所だ。
 
@@ -325,8 +325,8 @@ Inkscape 1.2 のディレクトリー以下に見当たらない。試したい�
    全オブジェクト表示に相当する：
 
       Return a comma separated list of id, x, y, w, and h for all objects
-      (including *SVG* file, *Layers*, and *Groups*) in file. Each object is on
-      its own line.
+      (including :abbr:`SVG` file, *Layers*, and *Groups*) in file. Each object
+      is on its own line.
 
    以下のオプションを複数組み合わせて数字を出力すると改行で区切られるので使い勝
    手が悪いが、このオプションは一行に一オブジェクトのデータが出力される。
@@ -334,7 +334,7 @@ Inkscape 1.2 のディレクトリー以下に見当たらない。試したい�
 .. option:: -X, --query-x
 
    オブジェクトの x 座標を得る。なお、いずれの問い合わせオプションでも座標系は
-   SVG 座標系が使われる。
+   :abbr:`SVG` 座標系が使われる。
 
 .. option:: -Y, --query-y
 

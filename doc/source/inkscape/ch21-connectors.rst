@@ -124,4 +124,4 @@ Routing
 :guilabel:`Do not allow overlapped shapes`
    移動時にオブジェクトが重ならないようにする要件のオンオフを切り替える。
 
-.. _Kamada-Kawai: http://www.boost.org/libs/graph/doc/kamada_kawai_spring_layout.html
+.. _Kamada-Kawai: https://www.boost.org/libs/graph/doc/kamada_kawai_spring_layout.html

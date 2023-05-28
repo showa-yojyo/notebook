@@ -27,7 +27,7 @@ Chapter 6. Geometric Shapes
 
 現在スタイルが更新されるのは、直前に行われたスタイル操作の結果としてそうなる：
 
-   A component of the Current style is changed when that component is modified
+   A component of the *Current* style is changed when that component is modified
 
    By default, the shape tools (except the *Spiral Tool* and *Box Tool*) as well
    as the *Calligraphy Tool* are drawn with a global *Current* style. Changing
@@ -61,7 +61,8 @@ Rectangles and Squares
 
   * 特例として、辺が「黄金比」に拘束された長方形も :kbd:`Ctrl` キーで描画可能。
 
-* :kbd:`Shift` キーを押しながらドラッグすると、開始点を中心とするように矩形を描く。
+* :kbd:`Shift` キーを押しながらドラッグすると、開始点を中心とするように矩形を描
+  く。
 
 矩形を編集するには、*Rectangle Tool* で矩形を左クリックし、矩形を選択する必要が
 ある。選択されると、その角の一部にハンドル（小四角と円）が表示される。左上または
@@ -88,9 +89,9 @@ Rectangles and Squares
 *Box Tool* は三次元の箱の絵を描くツールで、次の記述から Inkscape 固有のオブジェ
 クトであるように読める：
 
-    A box is composed of an SVG *Group* of six paths. Information about the
-    vanishing points, and so forth are stored in the Inkscape *Name Space*. This
-    extra information is only used by the *Box Tool*.
+    A box is composed of an :abbr:`SVG` *Group* of six paths. Information about
+    the vanishing points, and so forth are stored in the Inkscape *Name Space*.
+    This extra information is only used by the *Box Tool*.
 
 *Box Tool* の起動法は：
 
@@ -207,9 +208,9 @@ X および Z 方向の消失点を適宜ドラッグして設定する。おそ
 
 等角図法の再現方法もある：
 
-   Boxes can be drawn with an *Isometric Projection* by toggling on all “Parallel
-   Line” buttons in the *Tool Controls* and setting the x, y, and z angles to be:
-   150°, 90°, and 30°, respectively.
+   Boxes can be drawn with an *Isometric Projection* by toggling on all
+   “Parallel Line” buttons in the *Tool Controls* and setting the x, y, and z
+   angles to be: 150°, 90°, and 30°, respectively.
 
 Attributes
 ----------------------------------------------------------------------
@@ -217,7 +218,7 @@ Attributes
 箱を構成する面それぞれのスタイルを変更することが可能だが、面を選択するにはダブル
 クリックは使えない。箱全体が選択されてしまうからだ。そうではなく、いったんグルー
 プに入り、それから面をクリックすればよい。この辺の事情がピンと来なければ、グルー
-プ選択や z-orderが絡む選択方法の記述を再確認すること。
+プ選択や z-order が絡む選択方法の記述を再確認すること。
 
 最後に、箱はいつも同じ色で塗られるのが気になるかもしれない。実際はユーザー設定が
 関係している。
@@ -340,8 +341,8 @@ Controls* 上の設定を使用することで変形できる。ここでは重�
 
 編集し過ぎて手に負えなくなったら形状をリセットすることも可能だ：
 
-   And lastly, there is a *Defaults* button to reset all of the settings to their
-   default values.
+   And lastly, there is a *Defaults* button to reset all of the settings to
+   their default values.
 
 Spirals
 ======================================================================
@@ -358,7 +359,8 @@ Spirals
 
    The start of the drag will be the spiral's center. Holding down the
    :kbd:`Ctrl` key while dragging will constrain the position of the spiral end
-   point to a multiple of the :guilabel:`Rotation snap` angle (default 15 degrees).
+   point to a multiple of the :guilabel:`Rotation snap` angle (default 15
+   degrees).
 
 渦巻きは曲線の両端点それぞれ編集ハンドル◇がある。通常のドラッグでは、渦巻きの長
 さが変化するだけだ：

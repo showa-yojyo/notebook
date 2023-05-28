@@ -30,7 +30,7 @@ Bezier Curves
 
    Two or more Bezier curves can be joined to form a more complex path. The node
    where they are joined may be smooth, indicated by a square (normal) or circle
-   (auto-smooth node, see Auto-smooth Nodes).
+   (auto-smooth node, see *Auto-smooth Nodes*).
 
    Or the node may be a corner node, also referred to as a cusp node, indicated
    by a diamond, where an abrupt change in direction is allowed.
@@ -109,13 +109,6 @@ The Pencil Tool
 本書では言及されていない B-Spline 曲線を試しに引いてみると、端点以外のハンドルす
 べてが制御点となっている。
 
-.. todo::
-
-   次のボタンは本書に記述がないので自分で調べる：
-
-   * :guilabel:`Flatten Spiro or BSpline LPE`
-   * :guilabel:`Use pressure input`
-
 :guilabel:`Smoothing` は単純化のパラメーターを指定する欄。有効な値は 1 から 100
 までだ。大きいほど曲線が滑らかになる。
 
@@ -131,9 +124,9 @@ The Pencil Tool
    Single dots can be created by using :kbd:`Ctrl` + *Left Mouse Click*. The
    size of the dot can be set in the *Pencil* section of the :guilabel:`Inkscape
    Preferences` dialog as a multiple of the current *Stroke* width. The dot is
-   represented in SVG as a filled path. Adding the :kbd:`Shift` key doubles the
-   dot size (and prevents snapping) while adding the :kbd:`Alt` creates a
-   random-size dot. The *Bezier Tool* has the same options.
+   represented in :abbr:`SVG` as a filled path. Adding the :kbd:`Shift` key
+   doubles the dot size (and prevents snapping) while adding the :kbd:`Alt`
+   creates a random-size dot. The *Bezier Tool* has the same options.
 
 修飾キーで点の寸法を倍々にしていったり、ランダムにしたりすることもできる。
 
@@ -423,7 +416,8 @@ Handles
 左ボタンドラッグ
    ハンドルを移動する。
 :kbd:`Shift` + 左ボタンドラッグ
-   ハンドルとその反対のハンドルを同時に回転する（両ハンドルとノードが直線上にある）。
+   ハンドルとその反対のハンドルを同時に回転する（両ハンドルとノードが直線上にあ
+   る）。
 :kbd:`Ctrl` + 左ボタンドラッグ
    ハンドルを次のいずれかにスナップする：
 
@@ -484,7 +478,7 @@ Scaling Handles
 
 :kbd:`.` or :kbd:`>`
    選択ノードの両側のハンドルを :guilabel:`> and < scale by` の値だけ伸ばす（既
-   定値は 2 SVG 画素）。
+   定値は 2 :abbr:`SVG` 画素）。
 :kbd:`Ctrl` + :kbd:`.` or :kbd:`Ctrl` + :kbd:`>`
    選択ノードの片側にあるハンドルを :guilabel:`> and < scale by` の値だけ伸ば
    す。
@@ -707,7 +701,7 @@ Sculpting Nodes
 
 .. admonition:: 読者ノート
 
-   このベルカーブのイラストを自分で作図して再現するとノード操作の練習にもなる。
+   この鐘曲線のイラストを自分で作図して再現するとノード操作の練習にもなる。
 
 Path Offset Commands
 ----------------------------------------------------------------------
@@ -741,7 +735,7 @@ Path Offset Commands
    パスを内側または外側に動かす。
 
    * *Node Tool* がある状態で表示されるハンドルでオフセットの大きさを制御する。
-   * 元のパスは保存される。オフセットを変更してもパスは劣化しません。
+   * 元のパスは保存される。オフセットを変更してもパスは劣化しない。
    * 元のパスは変換後は編集不可。編集するには、:menuselection:`Path --> Object
      to Path` (:kbd:`Shift` + :kbd:`Ctrl` + :kbd:`C`) で、オフセットパスを通常の
      パスに変換すればいい。

@@ -96,10 +96,10 @@ Windows 版 Inkscape は既定ではフォルダー :file:`%APPDATA%\\inkscape\\
 その他諸々
 ======================================================================
 
-* :program:`inkview.exe` は SVG ファイルのビューワープログラムだ。拡張子が
+* :program:`inkview.exe` は :abbr:`SVG` ファイルのビューワープログラムだ。拡張子が
   ``.svg``, ``.svgz``, etc. のファイルを開ける。
 * ダイアログ表示のショートカット一覧ページは便利だ。
 
-.. _Inkscape Wiki: http://wiki.inkscape.org/wiki/index.php/Inkscape
+.. _Inkscape Wiki: https://wiki.inkscape.org/wiki/index.php/Inkscape
 .. _The Open Clip Art Library: http://openclipart.org/
-.. _The Noun Project : http://thenounproject.com/
+.. _The Noun Project : https://thenounproject.com/

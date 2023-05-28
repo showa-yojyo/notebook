@@ -16,21 +16,22 @@ The Swedish Flag—A Short Example
 
 .. admonition:: 読者ノート
 
-   本章の SVG は本文を読みながら作ったが、後半に行くほど納得していない。Google
-   Chrome や Firefox など、現代的なウェブブラウザーならば SVG ファイルをそのまま
-   表示するので、本ノートにそのまま掲載していく。
+   本章の :abbr:`SVG` は本文を読みながら作ったが、後半に行くほど納得していな
+   い。Google Chrome や Firefox など、現代的なウェブブラウザーならば :abbr:`SVG`
+   ファイルをそのまま表示するので、本ノートにそのまま掲載していく。
 
-   当ノートは Sphinx で HTML を生成しているが、``image`` や ``figure`` ディレク
-   ティブではなく（これらでも描画できる）、本書の終盤で推奨されているように、
-   ``raw`` ディレクティブで HTML ``object`` タグを直接入力して SVG ファイルを
-   描画させるようにしている。右クリックで SVG コードを確認できる。
+   当ノートは Sphinx で :abbr:`HTML` を生成しているが、``image`` や ``figure``
+   ディレクティブではなく（これらでも描画できる）、本書の終盤で推奨されているよ
+   うに、``raw`` ディレクティブで :abbr:`HTML` ``object`` タグを直接入力して
+   :abbr:`SVG` ファイルを描画させるようにしている。右クリックで :abbr:`SVG` コー
+   ドを確認できる。
 
-例として単純な意匠の国旗を SVG で再現している。次のような事項を扱う：
+例として単純な意匠の国旗を :abbr:`SVG` で再現している。次のような事項を扱う：
 
-   This example will cover: setting a custom drawing size, setting up a Grid to
-   help precisely place objects, the use of the Rectangle Tool, changing the
-   color of objects, and finally saving a drawing and exporting the drawing into
-   a form suitable for use on a web page.
+   This example will cover: setting a custom drawing size, setting up a *Grid*
+   to help precisely place objects, the use of the *Rectangle Tool*, changing
+   the color of objects, and finally saving a drawing and exporting the drawing
+   into a form suitable for use on a web page.
 
 すべての内容が重要だ。特に、寸法や座標を厳密に制御する方法を習得するのを優先する
 べきだ。
@@ -63,7 +64,7 @@ The Northern Pacific Railway Logo—A Tracing Example
 ======================================================================
 
    Inkscape's auto-tracing capability is very useful for turning existing
-   artwork into SVG drawings.
+   artwork into :abbr:`SVG` drawings.
 
 本節の例では比較的単純な図形をトレースしているが、実写画像なども資源が潤沢にあり
 さえすれば可能だ。
@@ -75,7 +76,7 @@ The Northern Pacific Railway Logo—A Tracing Example
 A Box for Cards—An Isometric Projection
 ======================================================================
 
-   Inkscape includes axonometric Grids that can be used to rapidly draw
+   Inkscape includes axonometric *Grids* that can be used to rapidly draw
    isometrically projected boxes. However, the method described here works best
    when drawings are included on the sides of the boxes as distorting the sides
    requires two precise transformations (scaling and skewing).
@@ -113,8 +114,8 @@ A Vine Design—A Tiling Example
 An SVG Button—SVG and the Web
 ======================================================================
 
-ボタン色アニメーションおよび JavaScript コードでのイベントハンドラーを SVG に仕
-込む方法を紹介している。
+ボタン色アニメーションおよび JavaScript コードでのイベントハンドラーを
+:abbr:`SVG` に仕込む方法を紹介している。
 
 .. raw:: html
 
@@ -131,8 +132,8 @@ A Neon Sign—Animation
 
 バージョン 1.2 でもそうなのか、後で確認したい。
 
-   The full tutorial can be found in the print and PDF versions of the book. For
-   more information, check the book's web site.
+   The full tutorial can be found in the print and :abbr:`PDF` versions of the
+   book. For more information, check the book's web site.
 
 本節および以降の節におけるチュートリアルは本に記載があるようだ。
 
@@ -148,8 +149,8 @@ A Bottle—Photorealism
 ======================================================================
 
    Inkscape can be used to produce photo-realistic drawings. Inkscape features
-   that are useful for this include: Gradients, the Gaussian Blur filter, and
-   Bitmap Tracing. This tutorial uses all of these to produce a realistic
+   that are useful for this include: *Gradients*, the *Gaussian Blur* filter,
+   and *Bitmap Tracing*. This tutorial uses all of these to produce a realistic
    drawing of an old seltzer bottle. The source photograph is available on the
    book's website.
 

@@ -4,17 +4,18 @@ Chapter 23. SVG and the Web
 
 .. contents::
 
-ページ右側の囲み記事 The origins of HTML5 では XHTML の衰亡と HTML5 の契機につい
-て述べている。読まなくていいはずだ。
+ページ右側の囲み記事 The origins of HTML5 では :abbr:`XHTML` の衰亡と
+:abbr:`HTML5` の契機について述べている。読まなくていいはずだ。
 
 章本文の冒頭に行こう。
 
-   *SVG* plays nicely with other web technologies: *SVG* files can be embedded
-   into web pages, they can contain hypertext links, and they can be can be
-   scripted and animated. And now with HTML5, *SVG* will be everywhere.
+   :abbr:`SVG` plays nicely with other web technologies: :abbr:`SVG` files can
+   be embedded into web pages, they can contain hypertext links, and they can be
+   can be scripted and animated. And now with :abbr:`HTML5`, :abbr:`SVG` will be
+   everywhere.
 
-前章で見たように、SVG ファイルをウェブブラウザーで表示するか、それ以上のことが可
-能だ。
+前章で見たように、:abbr:`SVG` ファイルをウェブブラウザーで表示するか、それ以上の
+ことが可能だ。
 
    Inkscape has mostly been developed as a tool for artists and not for web
    graphics but it is still possible with a little work and knowledge to use
@@ -24,31 +25,34 @@ Chapter 23. SVG and the Web
 える。
 
    Current versions of Firefox, Opera, Safari, and Chrome include almost
-   complete support (Firefox doesn't handle *SVG* fonts and Safari 5 doesn't
-   handle filters). Internet Explorer 9 will offer almost full *SVG* support
-   (missing *SVG* fonts, *SMIL* animation, and filters).
+   complete support (Firefox doesn't handle :abbr:`SVG` fonts and Safari 5
+   doesn't handle filters). Internet Explorer 9 will offer almost full
+   :abbr:`SVG` support (missing :abbr:`SVG` fonts, :abbr:`SMIL` animation, and
+   filters).
 
-Web ブラウザーが SVG に対応しているかどうかを心配する必要は基本的にはなさそうだ。
+Web ブラウザーが :abbr:`SVG` に対応しているかどうかを心配する必要は基本的にはな
+さそうだ。
 
-現代的なブラウザーにおいてはインライン SVG もアリだ：
+現代的なブラウザーにおいてはインライン :abbr:`SVG` もアリだ：
 
-   The upcoming *HTML5* (Hypertext Markup Language, version 5) specification
-   allows “inline SVG”. *HTML5* defines two different syntaxes: HTML and XML.
-   All major Web browsers will support *HTML* syntax in the very near future.
-   All major browsers except Internet Explorer (prior to version 9) already
-   support inline *SVG* with *XML* syntax as well as in *XHTML* proper.
+   The upcoming :abbr:`HTML5 (Hypertext Markup Language, version 5)`
+   specification allows “inline SVG”. :abbr:`HTML5` defines two different
+   syntaxes: :abbr:`HTML` and XML. All major Web browsers will support
+   :abbr:`HTML` syntax in the very near future. All major browsers except
+   Internet Explorer (prior to version 9) already support inline :abbr:`SVG`
+   with :abbr:`XML` syntax as well as in :abbr:`XHTML` proper.
 
 ブラウザー各種の最新状況一覧を提供する者がいるようだ。下記リンク先の検索欄に
 ``svg`` とか入力して結果を見るといい。
 
    For an up-to-date list of which browsers support what, take a look at the
-   `When can I use... <http://caniuse.com/>`__ website. Chrome is frequently
+   `When can I use... <https://caniuse.com/>`__ website. Chrome is frequently
    updated (every six weeks!), Firefox, Opera, Safari less so, and, well you
    probably already know about Internet Explorer.
 
    A web page displaying the examples discussed here is available at the `book's
    website <http://tavmjong.free.fr/INKSCAPE/>`__. Several web pages for testing
-   browser support of SVG can also be found there.
+   browser support of :abbr:`SVG` can also be found there.
 
 この章の題名と同じリンクをクリックすると、ささやかな例が示される。できれば複数の
 ブラウザーで確認するのがいい。それよりもトップページの時計がよくできていて感心す
@@ -57,14 +61,14 @@ Web ブラウザーが SVG に対応しているかどうかを心配する必�
 Simple SVG Display
 ======================================================================
 
-   There are many different ways to display *SVG* files in a web page. The
-   simplest way is just to link to an *SVG* file with the ``<a>`` tag. Web
-   browsers that support *SVG* will display the drawing by itself.
+   There are many different ways to display :abbr:`SVG` files in a web page. The
+   simplest way is just to link to an :abbr:`SVG` file with the ``<a>`` tag. Web
+   browsers that support :abbr:`SVG` will display the drawing by itself.
 
-したがって、Inkscape で作成した SVG ファイルをブラウザーにドラッグアンドドロップ
-すると、その内容が表示される。
+したがって、Inkscape で作成した :abbr:`SVG` ファイルをブラウザーにドラッグアンド
+ドロップすると、その内容が表示される。
 
-   To include *SVG* content as part of a web page one can use one of the
+   To include :abbr:`SVG` content as part of a web page one can use one of the
    following options:
 
    * ``<object>`` tag.
@@ -80,28 +84,29 @@ Simple SVG Display
 The ``<object>`` Tag
 ----------------------------------------------------------------------
 
-このタグはブラウザーが SVG ファイルを扱えない場合の対応策を用意している。
+このタグはブラウザーが :abbr:`SVG` ファイルを扱えない場合の対応策を用意している。
 
-   The ``<object>`` tag is the primary way to include an external *SVG* file.
-   The main advantage of using this tag is that there is a natural mechanism for
-   displaying a fallback in case the *SVG* is not rendered.
+   The ``<object>`` tag is the primary way to include an external :abbr:`SVG`
+   file. The main advantage of using this tag is that there is a natural
+   mechanism for displaying a fallback in case the :abbr:`SVG` is not rendered.
 
-SVG を読み込むための ``<object>`` タグの書き方はこうなる：
+:abbr:`SVG` を読み込むための ``<object>`` タグの書き方はこうなる：
 
    The tag requires defining a ``data`` attribute which is the location of the
-   *SVG* file, normally a relative path. Defining the ``type`` attribute is
-   highly recommended as it allows browsers to avoid downloading content they do
-   not support. For *SVG* the type is ``"image/svg+xml"``.
+   :abbr:`SVG` file, normally a relative path. Defining the ``type`` attribute
+   is highly recommended as it allows browsers to avoid downloading content they
+   do not support. For :abbr:`SVG` the type is ``"image/svg+xml"``.
 
 古いブラウザーのために、対応する PNG ファイルを Inkscape のエクスポート機能で用
 意して、そこに置くのが親切だ：
 
-   If the *SVG* is not rendered, the browser will try to render the content
-   between the opening ``<object>`` and closing ``</object>`` tags. A *PNG*
-   version of the *SVG* would normally be a good choice to put here.
+   If the :abbr:`SVG` is not rendered, the browser will try to render the
+   content between the opening ``<object>`` and closing ``</object>`` tags. A
+   :abbr:`PNG` version of the :abbr:`SVG` would normally be a good choice to put
+   here.
 
-タグの定義例から急所の HTML コードを次に抜粋する。上記の記述に沿っていることを確認でき
-る：
+タグの定義例から急所の :abbr:`HTML` コードを次に抜粋する。上記の記述に沿っている
+ことを確認できる：
 
    .. code:: html
 
@@ -116,10 +121,11 @@ The ``<embed>`` Tag
 
    It is intended for including content that needs an external plug-in to work.
    The Adobe plug-in requires the use of the ``<embed>`` tag and supporting this
-   tag is the only real reason for its use with *SVG*. There is no fallback
-   mechanism if the *SVG* content is not displayed. Note that Chrome 8 and
-   Safari 5 may require width and height attributes to avoid scroll bars. Safari
-   5 also incorrectly displays *SVGs* with non-transparent backgrounds.
+   tag is the only real reason for its use with :abbr:`SVG`. There is no
+   fallback mechanism if the :abbr:`SVG` content is not displayed. Note that
+   Chrome 8 and Safari 5 may require width and height attributes to avoid scroll
+   bars. Safari 5 also incorrectly displays :abbr:`SVGs` with non-transparent
+   backgrounds.
 
 ならば使う理由がない。
 
@@ -135,20 +141,22 @@ The ``<iframe>`` Tag
 
 まず ``<iframe>`` タグの歴史から：
 
-   The <iframe> tag, deprecated in HTML 4 and XHTML, has resurfaced in HTML5
-   with the purpose of “sandboxing” content that might pose a security risk.
+   The ``<iframe>`` tag, deprecated in :abbr:`HTML4` and :abbr:`XHTML`, has
+   resurfaced in :abbr:`HTML5` with the purpose of “sandboxing” content that
+   might pose a security risk.
 
-このタグを利用して SVG ファイルを描画するときの性質：
+このタグを利用して :abbr:`SVG` ファイルを描画するときの性質：
 
-   There is no fallback if the *SVG* content cannot be displayed. A frame will
-   be drawn around the *SVG*. It can be removed by setting the attribute
-   frameborder to 0 (note that this is not valid *HTML5*). The size of the frame
-   can be set using the width and height attributes. If the size of the frame is
-   too small to contain the *SVG*, scroll bars will be used. Safari 5
-   incorrectly displays SVGs with non-transparent backgrounds.
+   There is no fallback if the :abbr:`SVG` content cannot be displayed. A frame
+   will be drawn around the :abbr:`SVG`. It can be removed by setting the
+   attribute frameborder to 0 (note that this is not valid :abbr:`HTML5`). The
+   size of the frame can be set using the width and height attributes. If the
+   size of the frame is too small to contain the :abbr:`SVG`, scroll bars will
+   be used. Safari 5 incorrectly displays :abbr:`SVGs` with non-transparent
+   backgrounds.
 
 枠が描かれたり、スクロールバーが付いたりするのは WebGL の学習時にも体験している
-が、SVG ファイル読み込み描画に対しても事情は同じか。
+が、:abbr:`SVG` ファイル読み込み描画に対しても事情は同じか。
 
 こちらは終了タグが必要となる：
 
@@ -159,31 +167,31 @@ The ``<iframe>`` Tag
 The ``<img>`` Tag
 ----------------------------------------------------------------------
 
-使い慣れている ``<img>`` タグで SVG ファイルを指定することが可能だ。しかし、そう
-するとSVG が備えている利点を活かせないことになる：
+使い慣れている ``<img>`` タグで :abbr:`SVG` ファイルを指定することが可能だ。しか
+し、そうすると :abbr:`SVG` が備えている利点を活かせないことになる：
 
-   There are two reasons not to use the ``<img>`` tag with *SVG*s. The first is
-   that there is no fallback mechanism if the browser cannot render the image.
-   The second is an *SVG* rendered this way is not allowed to run any scripts or
-   have any interaction (e.g. links).
+   There are two reasons not to use the ``<img>`` tag with :abbr:`SVGs`. The
+   first is that there is no fallback mechanism if the browser cannot render the
+   image. The second is an :abbr:`SVG` rendered this way is not allowed to run
+   any scripts or have any interaction (e.g. links).
 
 Inline SVG
 ----------------------------------------------------------------------
 
-インライン SVG は基本的には HTML5 でやるほうがいいようだ：
+インライン :abbr:`SVG` は基本的には HTML5 でやるほうがいいようだ：
 
-   * To include *SVG* using *HTML* syntax you must use a browser with an *HTML5*
-     parser.
+   * To include :abbr:`SVG` using :abbr:`HTML` syntax you must use a browser
+     with an :abbr:`HTML5` parser.
    * All the major web browsers except Internet Explorer already support SVG
-     with XML syntax (as well as in *XHTML*).
-   * An *HTML5* file normally ends with ``.html`` when using *HTML* syntax and
-     ``.xhtml`` or ``.xml``; when using *XML* syntax.
+     with :abbr:`XML` syntax (as well as in :abbr:`XHTML`).
+   * An :abbr:`HTML5` file normally ends with ``.html`` when using :abbr:`HTML`
+     syntax and ``.xhtml`` or ``.xml``; when using :abbr:`XML` syntax.
 
-次はインライン SVG の例だ。名前空間周りで苦労するのはどこでも一緒か：
+次はインライン :abbr:`SVG` の例だ。名前空間周りで苦労するのはどこでも一緒か：
 
-   Note that the two Name Space declarations are optional with HTML5 syntax. The
-   SVG has been stripped of all unnecessary parts such as items in the Inkscape
-   Name Space.
+   Note that the two Name Space declarations are optional with :abbr:`HTML5`
+   syntax. The :abbr:`SVG` has been stripped of all unnecessary parts such as
+   items in the Inkscape Name Space.
 
 コードは急所を抜粋：
 
@@ -201,7 +209,8 @@ Inline SVG
    	      y="30"
    	      style="fill:#0000ff;fill-opacity:0.75;stroke:#000000"/>
 
-ここで ``xmlns`` の行は «Required for *XHTML*, optional for *HTML5»* だ。
+ここで ``xmlns`` の行は «Required for :abbr:`XHTML`, optional for :abbr:`HTML5`»
+だ。
 
 CSS Background
 ----------------------------------------------------------------------
@@ -221,63 +230,66 @@ Supporting Older Browsers
 
 古いブラウザーなんか全部無視で構わず、次のことを実践すればもう十分だ：
 
-   At the moment, the best way to include *SVG* content in a web page is to use
-   the ``<object>`` tag with a *PNG* fallback. This is a simple method that will
-   automatically take care of support for older versions of Internet Explorer.
+   At the moment, the best way to include :abbr:`SVG` content in a web page is
+   to use the ``<object>`` tag with a :abbr:`PNG` fallback. This is a simple
+   method that will automatically take care of support for older versions of
+   Internet Explorer.
 
 Positioning SVG
 ======================================================================
 
-   This section is based on current browser behaviour and the *SVG*
+   This section is based on current browser behaviour and the :abbr:`SVG`
    specification. There is active discussion on changing the specification by
-   the *SVG* standards group.
+   the :abbr:`SVG` standards group.
 
 それでも真剣に読む。
 
    There are two steps. The first is to determine the viewport or area allocated
-   to the *SVG* by the web page, the second is to determine how the *SVG* fits
-   into the viewport. For this discussion we will assume the *SVG* is being
-   inserted via the ``<object>`` tag.
+   to the :abbr:`SVG` by the web page, the second is to determine how the
+   :abbr:`SVG` fits into the viewport. For this discussion we will assume the
+   :abbr:`SVG` is being inserted via the ``<object>`` tag.
 
 最初の段階はこういう感じだという：
 
 #. ``<object>`` タグに ``width`` または ``height`` 属性が定義されている場合、こ
    れがビューポートの寸法となる。
-#. ``<object>`` に固定した ``width`` と ``height`` がなく、かつ *SVG* に固定した
-   ``width`` と ``height`` があれば、その *SVG* 値によってビューポート寸法を決定する
-#. それでもビューポートが決定されない場合、SVG の幅と高さが 100% であれば、
-   ビューポートは ``<object>`` タグが利用できる空間を埋め尽くす。
+#. ``<object>`` に固定した ``width`` と ``height`` がなく、かつ :abbr:`SVG` に固
+   定した ``width`` と ``height`` があれば、その :abbr:`SVG` 値によってビュー
+   ポート寸法を決定する
+#. それでもビューポートが決定されない場合、:abbr:`SVG` の幅と高さが 100% であれ
+   ば、ビューポートは ``<object>`` タグが利用できる空間を埋め尽くす。
 
 寸法の信頼性については次の助言がある：
 
-   Think of the *SVG* ``width`` and ``height`` attributes as recommendations to
-   the renderer about the size of the viewport if the ``HTML`` doesn't define
-   the size. They are not(!) always the width and height of the drawing.
+   Think of the :abbr:`SVG` ``width`` and ``height`` attributes as
+   recommendations to the renderer about the size of the viewport if the
+   :abbr:`HTML` doesn't define the size. They are not(!) always the width and
+   height of the drawing.
 
 第二段階は想像がつかないのでよく読む：
 
-   Now that the viewport is defined, how the *SVG* is fitted inside that
+   Now that the viewport is defined, how the :abbr:`SVG` is fitted inside that
    viewport must be determined. Again this is a several step process:
 
 これも長いのでまとめる：
 
-* SVG 側にもビューポートを指定する属性 ``viewBox`` があることがある。
+* :abbr:`SVG` 側にもビューポートを指定する属性 ``viewBox`` があることがある。
 
   * 値はおそらく矩形。
-  * さらに属性 ``preserveAspectRatio`` というものがあり、縦横比を維持するかどうか
-    を決める以上のことを指定する。
-  * この二つの属性により、SVG ビューポートを第一段階で決定したビューポートに写像す
-    る。
+  * さらに属性 ``preserveAspectRatio`` というものがあり、縦横比を維持するかどう
+    かを決める以上のことを指定する。
+  * この二つの属性により、:abbr:`SVG` ビューポートを第一段階で決定したビューポー
+    トに写像する。
 
-* SVG に ``viewBox`` が定義されていない場合は決め打ち：
+* :abbr:`SVG` に ``viewBox`` が定義されていない場合は決め打ち：
 
-  * ビューポートの左上隅が *SVG* 原点（通常は左上隅）に写像。
-  * *SVG* はユーザー単位（画素）が画面画素に対応するように拡縮される。
-  * *SVG* が（属性 ``width``, ``height`` が定義する）ビューポートより大きい場
-    合、スクロールバーが表示されることがある。
+  * ビューポートの左上隅が :abbr:`SVG` 原点（通常は左上隅）に写像。
+  * :abbr:`SVG` はユーザー単位（画素）が画面画素に対応するように拡縮される。
+  * :abbr:`SVG` が（属性 ``width``, ``height`` が定義する）ビューポートより大き
+    い場合、スクロールバーが表示されることがある。
 
-本書イラストは ``<object>`` による SVG 配置方法の違いを示している。黒枠以内の絵
-を注目する。一つ目のイラストはビューポートを比較するためのものだ。
+本書イラストは ``<object>`` による :abbr:`SVG` 配置方法の違いを示している。黒枠
+以内の絵を注目する。一つ目のイラストはビューポートを比較するためのものだ。
 
 .. csv-table::
    :delim: |
@@ -296,13 +308,13 @@ Positioning SVG
 
 二つ目のイラストは ``preserveAspectRatio`` の値の違いを説明するものだ。
 
-   One possible value, not shown, is none in which case the *SVG* is stretched
-   to fit the viewport. The other possible values take the form: ``xAYB C``,
-   where ``A`` and ``B`` can have the values ``Min``, ``Mid``, or ``Max``; and
-   ``C`` can have the value ``meet`` or ``slice``. The values ``A`` and ``B``
-   determine which part of the viewport and ``viewBox`` are aligned while the
-   value of ``C`` determines if the image is scaled so that two edges of the
-   ``viewBox`` coincide with the viewport while the other two are inside
+   One possible value, not shown, is none in which case the :abbr:`SVG` is
+   stretched to fit the viewport. The other possible values take the form:
+   ``xAYB C``, where ``A`` and ``B`` can have the values ``Min``, ``Mid``, or
+   ``Max``; and ``C`` can have the value ``meet`` or ``slice``. The values ``A``
+   and ``B`` determine which part of the viewport and ``viewBox`` are aligned
+   while the value of ``C`` determines if the image is scaled so that two edges
+   of the ``viewBox`` coincide with the viewport while the other two are inside
    (``meet``) or if two edges of the ``viewBox`` coincide with the viewport
    while the other two are outside (``slice``).
 
@@ -314,17 +326,17 @@ Positioning SVG
 上手く使えば設定可能だ。
 
    To set the ``viewBox`` attribute in Inkscape: Open the :guilabel:`XML Editor`
-   dialog and select the *SVG* root element (``<svg:svg...>``). In an Inkscape
-   created file, the ``width`` and ``height`` attributes will have been defined
-   while the ``viewBox`` will not have been defined. -略- If it is not defined,
-   click on the text entry box near the bottom of the window, in the same line
-   as the :guilabel:`Set` button. Type in ``viewBox``. Then in the box below,
-   type in four numbers separated by spaces, the *x* and *y* values of the
-   upper-left corner (normally ``0`` and ``0``) and the *width* and *height*.
-   The values are in user units (pixels). Click on the :guilabel:`Set` button or
-   use :kbd:`Ctrl` + :kbd:`Enter` to register your values. Once the ``viewBox``
-   is defined, you can modify the ``width`` and ``height`` attributes including
-   deleting them or changing them to ``100%``.
+   dialog and select the :abbr:`SVG` root element (``<svg:svg...>``). In an
+   Inkscape created file, the ``width`` and ``height`` attributes will have been
+   defined while the ``viewBox`` will not have been defined. -略- If it is not
+   defined, click on the text entry box near the bottom of the window, in the
+   same line as the :guilabel:`Set` button. Type in ``viewBox``. Then in the box
+   below, type in four numbers separated by spaces, the *x* and *y* values of
+   the upper-left corner (normally ``0`` and ``0``) and the *width* and
+   *height*. The values are in user units (pixels). Click on the :guilabel:`Set`
+   button or use :kbd:`Ctrl` + :kbd:`Enter` to register your values. Once the
+   ``viewBox`` is defined, you can modify the ``width`` and ``height``
+   attributes including deleting them or changing them to ``100%``.
 
 属性 ``viewBox`` を定義したことで、他の属性変更により値が連動するようになる：
 
@@ -337,12 +349,13 @@ Positioning SVG
 Adding Links
 ======================================================================
 
-SVG にもハイパーリンクの概念があり、HTML のそれよりも複雑であるとのことだ。
+:abbr:`SVG` にもハイパーリンクの概念があり、:abbr:`HTML` のそれよりも複雑である
+とのことだ。
 
-   The SVG specification uses XLinks, which are more powerful but also more
-   complicated than the original *HTML* links. We'll cover only the most simple
-   use of *XLinks* here and refer you to the *XLink* specification from the
-   *W3C* consortium for more details.
+   The :abbr:`SVG` specification uses XLinks, which are more powerful but also
+   more complicated than the original :abbr:`HTML` links. We'll cover only the
+   most simple use of *XLinks* here and refer you to the *XLink* specification
+   from the *W3C* consortium for more details.
 
 オブジェクトにリンクを追加することができるようだ。操作方法にクセがある：
 
@@ -377,12 +390,12 @@ SVG にもハイパーリンクの概念があり、HTML のそれよりも複�
 
 本書のデモが壊れている。
 
-   The following listing shows an *SVG* file with a link from the blue square.
-   It can be directly displayed in a web browser or included via the
-   ``<object>`` tag in an *HTML* or *XHTML* file.
+   The following listing shows an :abbr:`SVG` file with a link from the blue
+   square. It can be directly displayed in a web browser or included via the
+   ``<object>`` tag in an :abbr:`HTML` or :abbr:`XHTML` file.
 
-SVG ファイルとして保存して、ブラウザーにドラッグアンドドロップして手軽に試すとい
-い。
+:abbr:`SVG` ファイルとして保存して、ブラウザーにドラッグアンドドロップして手軽に
+試すといい。
 
    .. code:: xml
 
@@ -413,10 +426,10 @@ SVG ファイルとして保存して、ブラウザーにドラッグアンド�
 Using Style Sheets
 ======================================================================
 
-ここで言うスタイルシートとは HTML を書くときに使うものと同じだ：
+ここで言うスタイルシートとは :abbr:`HTML` を書くときに使うものと同じだ：
 
-   *SVG* drawings can use *CSS* (Cascading Style Sheets) to control the
-   presentation of the drawing objects. Support for style sheets is in its
+   :abbr:`SVG` drawings can use :abbr:`CSS` (Cascading Style Sheets) to control
+   the presentation of the drawing objects. Support for style sheets is in its
    infancy in Inkscape. One can, however, do a few simple useful things.
 
 コード例を引用する：
@@ -446,8 +459,9 @@ Using Style Sheets
 このコード中の ``<style>...</style>`` 部分では ``<rect>`` 要素のマウスホバーで
 ``fill-opacity`` が最大になるようにしている。
 
-一方、リンク要素 ``<a>...</a>`` 全体に（グループであるかのように考える）対して
-属性 ``style`` で通常の ``fill-opacity`` が 75 パーセントであるように指示している。
+一方、リンク要素 ``<a>...</a>`` 全体に（グループであるかのように考える）対して属
+性 ``style`` で通常の ``fill-opacity`` が 75 パーセントであるように指示してい
+る。
 
 ``<rect/>`` 要素ノードに対して属性 ``style`` で ``fill`` と ``stroke`` を直接設
 定している。
@@ -467,8 +481,8 @@ Using Style Sheets
 本書では XML Editor ダイアログでスタイルシートを追加する手順を挙げている。この節
 をそのままチュートリアルとして利用できる。しかし最後の
 
-   Save, but do NOT save as a plain *SVG* file as this removes the ``hover``
-   attribute from the *CSS* style node. (Bug)
+   Save, but do NOT save as a plain :abbr:`SVG` file as this removes the ``hover``
+   attribute from the :abbr:`CSS` style node. (Bug)
 
 が気になる。
 
@@ -477,11 +491,12 @@ Adding JavaScript
 
 オブジェクトの属性に JavaScript コードを置ける？
 
-   *SVG* drawings can use JavaScript (ECMAScript) to do complex manipulation of
-   the objects in the drawing. In this example, the style sheet of the last
-   example is replaced by simple JavaScript calls. The :guilabel:`Object
-   Properties` dialog (:menuselection:`Object --> Object Properties...`
-   (:kbd:`Shift` + :kbd:`Ctrl` + :kbd:`O`)) can be used to add the calls.
+   :abbr:`SVG` drawings can use JavaScript (ECMAScript) to do complex
+   manipulation of the objects in the drawing. In this example, the style sheet
+   of the last example is replaced by simple JavaScript calls. The
+   :guilabel:`Object Properties` dialog (:menuselection:`Object --> Object
+   Properties...` (:kbd:`Shift` + :kbd:`Ctrl` + :kbd:`O`)) can be used to add
+   the calls.
 
 ダイアログのいちばん下に :guilabel:`Interactivity` という区画がある。
 
@@ -511,12 +526,12 @@ Adding JavaScript
 
    While the :guilabel:`Object Properties` dialog is open we can fill the
    ``title`` and ``desc`` attributes. These attributes can be specified for any
-   object in an *SVG* document, including *Groups*. The ``title`` attribute is
-   intended to be used for a tool tip. This is only implemented in some *SVG*
-   browsers like Opera. (Firefox 3.5 will put in the window title area the first
-   title found in the document). The ``desc`` (:guilabel:`Description`)
-   attribute is used to store a description of the object. It is not normally
-   intended for display.
+   object in an :abbr:`SVG` document, including *Groups*. The ``title``
+   attribute is intended to be used for a tool tip. This is only implemented in
+   some :abbr:`SVG` browsers like Opera. (Firefox 3.5 will put in the window
+   title area the first title found in the document). The ``desc``
+   (:guilabel:`Description`) attribute is used to store a description of the
+   object. It is not normally intended for display.
 
 ID も機械的なものから変えるのが良い：
 
@@ -527,10 +542,10 @@ Simple Animation
 
 まともな JavaScript コードを書く題材が来た。アニメーションだ。
 
-   The *SVG* standard provides support for animating drawings both internally
-   through animation elements and externally through scripts. This section will
-   demonstrate a simple animation using ECMAscript (a standard that JavaScript
-   and JScript are dialects of).
+   The :abbr:`SVG` standard provides support for animating drawings both
+   internally through animation elements and externally through scripts. This
+   section will demonstrate a simple animation using ECMAscript (a standard that
+   JavaScript and JScript are dialects of).
 
 ただし、Inkscape にはその対応がない。テキスト編集をすることにする。また、これま
 で述べられたように、簡単なものならば既存の機能が対応している：
@@ -541,11 +556,12 @@ Simple Animation
 本書の例は正方形が左右に振動し続けるアニメーションだ。その上、これまでの機能も併
 せ持つ：
 
-   In the following SVG drawing, the blue square oscillates back and forth (in a
-   supporting *SVG* viewer). The square still changes opacity when the mouse is
-   over it and it still contains a hypertext link.
+   In the following :abbr:`SVG` drawing, the blue square oscillates back and
+   forth (in a supporting :abbr:`SVG` viewer). The square still changes opacity
+   when the mouse is over it and it still contains a hypertext link.
 
-完全な SVG コードが掲載されているが、要所に絞って見ていく。まずルート要素だ：
+完全な :abbr:`SVG` コードが掲載されているが、要所に絞って見ていく。まずルート要
+素だ：
 
    .. code:: xml
 
@@ -557,8 +573,8 @@ Simple Animation
          width="150"
          height="150">
 
-属性 ``onload`` は HTML と同じ意味。このコードを実行する。関数 ``Start`` 本体は
-この次にある：
+属性 ``onload`` は :abbr:`HTML` と同じ意味。このコードを実行する。関数 ``Start``
+本体はこの次にある：
 
 .. code:: xml
 
@@ -586,25 +602,25 @@ Simple Animation
 Inkscape for the Web
 ======================================================================
 
-   This section focuses on ways to prepare Inkscape *SVGs* for the web.
+   This section focuses on ways to prepare Inkscape :abbr:`SVGs` for the web.
 
    A number of items have already been covered in this chapter. This section
-   covers cleaning up the *SVG* source.
+   covers cleaning up the :abbr:`SVG` source.
 
 掃除
    最終的に未使用になったデータを削除するコマンドがある。プログラミングで言うガ
    ベージコレクションのような操作を利用者自身で行う。
 
       As a drawing is created, items like *Gradients*, *Patterns*, *Markers*,
-      and *Filters* are stored in the ``<defs>`` section of the *SVG* file. If
-      you later delete an object with, for example, a *Gradient*, the *Gradient*
-      is not deleted.
+      and *Filters* are stored in the ``<defs>`` section of the :abbr:`SVG`
+      file. If you later delete an object with, for example, a *Gradient*, the
+      *Gradient* is not deleted.
 
    現行版では :menuselection:`File --> Clean Up Document` コマンドが相当する。
 
 Save as Plain SVG
    図面を Inkscape 上でもはや編集しないのであればこのコマンドを使える。Inkscape
-   固有のデータを削った上で SVG ファイルを保存する。
+   固有のデータを削った上で :abbr:`SVG` ファイルを保存する。
 
       It can be removed by choosing the :guilabel:`Plain SVG` option in the
       drop-down menu in the :guilabel:`Save As` dialog.
@@ -614,7 +630,7 @@ Save as Optimized SVG
 
       Choosing :guilabel:`Optimized SVG` in the drop-down menu in the
       :guilabel:`Save As` dialog will pop-up a dialog that allows you to
-      customize the saved *SVG* file.
+      customize the saved :abbr:`SVG` file.
 
    :guilabel:`Optimized SVG Output` というダイアログが現れる。オプション名は本書
    と Inkscape 1.2 で異なるものがある。ここでは後者に合わせる。
@@ -626,9 +642,9 @@ Save as Optimized SVG
       しかし：
 
          It will probably result in slightly larger files. If you plan on using
-         CSS to style objects, don't enable this option.
+         :abbr:`CSS` to style objects, don't enable this option.
    :guilabel:`Embed rasters images`
-      SVG ファイルにビットマップデータを符号化して直接埋め込む。
+      :abbr:`SVG` ファイルにビットマップデータを符号化して直接埋め込む。
    :guilabel:`Keep editor data`
       Inkscape 固有のデータを残すかどうか。
    :guilabel:`Enable viewboxing`
@@ -637,8 +653,8 @@ Save as Optimized SVG
          If a ``viewBox`` attribute is not present, creates one using the
          ``width`` and ``height`` attributes, and then sets both ``width`` and
          ``height`` attributes to ``100%``. This is useful if you wish your
-         *SVG* file to automatically scale to use all available space on a web
-         page.
+         :abbr:`SVG` file to automatically scale to use all available space on a
+         web page.
    :guilabel:`Remove the XML declaration`
       ``<?xml version="1.0"?>`` を削るかどうかだった。
    :guilabel:`Number of significant digits for coordinates`
@@ -651,10 +667,10 @@ Save as Optimized SVG
       アプリケーション設定で低精度にしておく方法もある：
 
          You can also set the default numerical precision used by Inkscape in
-         the Inkscape :guilabel:`Preferences` dialog in the SVG output section
-         (Numerical precision).
+         the Inkscape :guilabel:`Preferences` dialog in the :abbr:`SVG` output
+         section (Numerical precision).
    :guilabel:`Indentation characters`
-      XML タグのインデント文字を選べる。
+      :abbr:`XML` タグのインデント文字を選べる。
 
          Options are :guilabel:`Space`, :guilabel:`Tab`, and :guilabel:`None`.
          In all cases, each tag with attributes is placed on one line.

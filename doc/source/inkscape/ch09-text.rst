@@ -17,7 +17,8 @@ Chapter 9. Text
    Individual characters can be kerned. Text can be put on a path or flowed into
    an arbitrarily shaped path.
 
-テキストはオブジェクトとしては三種類存在する：
+テキストはオブジェクトとしては三種類存在する。通常テキスト、流し込みテキスト、リ
+ンク付き流し込みテキストだ：
 
    There are three types of text objects in Inkscape. The first is regular text.
    The second is flowed text; this is a text object that includes a rectangular
@@ -62,9 +63,9 @@ Creating Text
 * テキスト入力モードではキーバインドの多くが機能しない。テンキーの符号キーは
   :kbd:`NumLock` がオフのときにはズーム機能が効く。
 * 特別な文字に対する入力方法が二つある（ノート割愛）。
-* 対応フォントがないと、テキストが表示されないことがある。この問題を回避するため
-  に、テキストをパスに変換などすると、テキスト編集の機会が失われる。次のようなコ
-  ツが知られている：
+* 対応字体がないと、テキストが表示されないことがある。この問題を回避するために、
+  テキストをパスに変換などすると、テキスト編集の機会が失われる。次のようなコツが
+  知られている：
 
      Make a duplicate of the text before you convert the text to a path. Put the
      copy on a separate layer and make that layer invisible. Then if you ever
@@ -87,11 +88,11 @@ Entering Regular Text
 Entering Flowed Text
 ----------------------------------------------------------------------
 
-本題に入る前に *flowed* text は SVG 規格に採用されてない場合の対処法について述べ
-られている：
+本題に入る前に *flowed* text は :abbr:`SVG` 規格に採用されてない場合の対処法につ
+いて述べられている：
 
-   Flowed text was a draft SVG 1.2 specification that will not in the end be
-   adopted. The text is not likely to be viewable by other renderers. In
+   Flowed text was a draft :abbr:`SVG` 1.2 specification that will not in the
+   end be adopted. The text is not likely to be viewable by other renderers. In
    addition, some programs will not render any of a file with flowed text
    (Squiggle, for example). You can convert the flowed text to a regular text
    object before saving to avoid this problem.
@@ -109,8 +110,8 @@ Entering Flowed Text
    Instead the rectangle will turn red to indicate that not all the text is
    displayed. The box can be enlarged or the proportions changed by dragging on
    the handle at the lower-right side with the *Text Tool*, *Node Tool*, or any
-   of the shape tools; however, the text box will only be shown when using the*
-   Text Tool*.
+   of the shape tools; however, the text box will only be shown when using the
+   *Text Tool*.
 
 流し込みテキストではこの矩形の操作が急所になるようだ。箱の変形に合わせて内容物も
 一緒に移動する。
@@ -184,17 +185,17 @@ Formatting Text
 Font Family
 ----------------------------------------------------------------------
 
-*Font Family* の設定はキーバインド以外の方法で行える。二つは挙動が若干異なる。
+字体族の設定はキーバインド以外の方法で行える。二つは挙動が若干異なる。
 
 ツールバーから設定する場合、いちばん左にあるドロップダウンリストを使う。
-Inkscape で利用可能なフォントが一覧される。
+Inkscape で利用可能な字体が一覧される。
 
-* フォントプレビューが重い場合、:guilabel:`Inkscape Preferences` ダイアログ
+* 字体プレビューが重い場合、:guilabel:`Inkscape Preferences` ダイアログ
   :menuselection:`Tools --> Text --> Show font samples in the
   drop-down menu` をオフにして無効にする。
 * :file:`preference.xml` でサンプルテキストを独自設定することができる。
 * :kbd:`Alt` + :kbd:`X` でドロップダウンリストにフォーカスが行く。
-* エディットコントロールは編集可能。フォントのインクリメンタルサーチ欄。
+* エディットコントロールは編集可能。字体のインクリメンタルサーチ欄。
 
 :guilabel:`Text and Font` ダイアログから設定する場合、:guilabel:`Apply` ボタンを
 明示的に押さないと図面内のテキストが更新されない。
@@ -205,8 +206,8 @@ Font Size
    In both cases, the font size (in pixels) can be selected from a drop-down
    menu.
 
-とあるのだが、ツールバーのほうはフォントサイズの単位を別のドロップダウンリストか
-ら選択できる。
+とあるのだが、ツールバーのほうは字体寸法の単位を別のドロップダウンリストから選択
+できる。
 
    The change takes effect upon selection or hitting :guilabel:`Enter` in the
    case of the *Tool Controls* and upon clicking :guilabel:`Apply` in the case
@@ -267,14 +268,16 @@ Superscripts and Subscripts
 Line Spacing
 ----------------------------------------------------------------------
 
-行間の（横書きなら）高さを調整する。SVG 標準でない属性を内部的に保持することで実
-現しているようだ：
+行間の（横書きなら）高さを調整する。:abbr:`SVG` 標準でない属性を内部的に保持する
+ことで実現しているようだ：
 
    Note that although Inkscape uses the attribute ``line-spacing`` to store the
-   line spacing value, it is not part of the SVG standard (it is, however, part
-   of the CSS standard). Inkscape uses the value to position lines of text.
+   line spacing value, it is not part of the :abbr:`SVG` standard (it is,
+   however, part of the :abbr:`CSS` standard). Inkscape uses the value to
+   position lines of text.
 
-ツールバーの :guilabel:`Spaces between baselines` 欄に数値を入力することで調整する。
+ツールバーの :guilabel:`Spaces between baselines` 欄に数値を入力することで調整す
+る。
 
 キーバインドによる調整が可能。量が画面ズームに依存する：
 
@@ -387,8 +390,8 @@ Text on a Path
 
    To place text on a path, enter the text as a *Regular* text or *Flowed* text.
    Draw the desired path. Select both text and path, then use the
-   :menuselection:`Text --> Put on Path` command. The text should now appear along
-   the path.
+   :menuselection:`Text --> Put on Path` command. The text should now appear
+   along the path.
 
 次の事実は他のコマンドでも通用するので心得ておく：
 
@@ -447,4 +450,5 @@ Text in a Shape
    The :menuselection:`Text --> Convert to Text` command converts *link-flowed*
    text to a *regular* text object while preserving the appearance of the text.
    The text is still editable but will no longer reflow inside the shape or path
-   frame. This is necessary for display of the drawing in another SVG renderer.
+   frame. This is necessary for display of the drawing in another :abbr:`SVG`
+   renderer.

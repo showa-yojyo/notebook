@@ -7,14 +7,14 @@ Chapter 4. Editing Basics
 Undo and Redo
 ======================================================================
 
-:guilabel:`Undo`
+*Undo*
   :メニュー: :menuselection:`Edit --> Undo`
   :キーバインド: :kbd:`Ctrl` + :kbd:`Z` または :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`Y`
-  :ツールバー: Commands Bar
-:guilabel:`Redo`
+  :ツールバー: *Commands Bar*
+*Redo*
   :メニュー: :menuselection:`Edit --> Redo`
   :キーバインド: :kbd:`Ctrl` + :kbd:`Y` or :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`Z`
-  :ツールバー: Commands Bar
+  :ツールバー: *Commands Bar*
 
 キーバインドの対称性に注目したい。ズーム操作のマウスクリックでも同様の設計が見ら
 れる。
@@ -34,8 +34,8 @@ Undo and Redo
    group. Clicking on the triangle collapses (left) or uncollapses (right) the
    list.
 
-文書全体に対する変更を取り消すという意味で :guilabel:`Revert` コマンドの存在を思
-い出せるようにすること。
+文書全体に対する変更を取り消すという意味で *Revert* コマンドの存在を思い出せるよ
+うにすること。
 
 Selecting Objects
 ======================================================================
@@ -59,18 +59,20 @@ Selecting Objects
 Selecting with the Mouse
 ----------------------------------------------------------------------
 
-CAD アプリケーションと同様に、オブジェクトの絵にマウスカーソルを移動させてクリッ
-クしたりドラッグしたりすることで、その位置や領域にあるオブジェクトを選択したり解
-除したりする。まずはクリックから見ていく。
+:abbr:`CAD` アプリケーションと同様に、オブジェクトの絵にマウスカーソルを移動させ
+てクリックしたりドラッグしたりすることで、その位置や領域にあるオブジェクトを選択
+したり解除したりする。まずはクリックから見ていく。
 
 * 単純なクリックでオブジェクト一つを選択する。
-* :kbd:`Shift` を押しながらのクリックは、選択状態を反転する。選択と解除を繰り返す。
+* :kbd:`Shift` を押しながらのクリックは、選択状態を反転する。選択と解除を繰り返
+  す。
 * :kbd:`Alt` を押しながらのクリックは、「下」オブジェクトを選択する。このような
   選択を繰り返して最下層まで到達すると、選択対象が最上層オブジェクトに戻る。
 
 次にドラッグによる選択を下にまとめる。
 
-* 左ボタンドラッグで矩形領域選択。この矩形内に完全に含まれているオブジェクトが選択される。
+* 左ボタンドラッグで矩形領域選択。この矩形内に完全に含まれているオブジェクトが選
+  択される。
 * :kbd:`Shift` を押しながらの左ボタンドラッグは上記の「追加的」版。
 * :kbd:`Alt` を押しながらの左ボタンドラッグは矩形選択ではない。マウスの軌跡に交
   差するオブジェクトを順次選択していく。
@@ -104,9 +106,9 @@ Selecting with the Keyboard
 Selecting with the Find Dialog
 ----------------------------------------------------------------------
 
-Inkscape は文書が SVG つまり XML であることを利用した検索機能も用意している。
-:menuselection:`Edit --> Find...` や :kbd:`Ctrl` + :kbd:`F` で検索ダイアログを表
-示できる。UI を見れば機能は理解できると思うので、ノートは省略。
+Inkscape は文書が :abbr:`SVG` つまり :abbr:`XML` であることを利用した検索機能も
+用意している。:menuselection:`Edit --> Find...` や :kbd:`Ctrl` + :kbd:`F` で検索
+ダイアログを表示できる。UI を見れば機能は理解できると思うので、ノートは省略。
 
 Copying, Pasting, and Deleting Objects
 ======================================================================
@@ -114,9 +116,9 @@ Copying, Pasting, and Deleting Objects
    Inkscape uses the system-wide clipboard (a place where a description of one
    or more objects is stored temporarily in memory). You can copy and paste
    between different instances of Inkscape and other applications that support
-   SVG.
+   :abbr:`SVG`.
 
-クリップボード系コマンドは異なる SVG を編集していたり、例えばテキストエディター
+クリップボード系コマンドは異なる :abbr:`SVG` を編集していたり、例えばテキストエディター
 で編集していたりするときにその活用が考えられる。
 
 次のコマンドだけは通常編集時にも有用なので、記しておく：
@@ -162,10 +164,10 @@ UNIX でいうと :command:`cp` に対する :command:`ln -s` の考え方に相
 
    :kbd:`Alt` + :kbd:`D` が効かない？
 
-コマンド Relink to Copied は複製の参照元を自身の別の複製に設定し直すものらしい。
-UNIX の例えを繰り返すと、:command:`ln -s` からの :command:`ln -fs` に相当する。
-別のオブジェクトを指定するのに :menuselection:`Edit --> Copy` を要し、操作に癖がある。
-用途がわからないので、私が使うことはなさそうだ。
+コマンド *Relink to Copied* は複製の参照元を自身の別の複製に設定し直すものらし
+い。UNIX の例えを繰り返すと、:command:`ln -s` からの :command:`ln -fs` に相当す
+る。別のオブジェクトを指定するのに :menuselection:`Edit --> Copy` を要し、操作に
+癖がある。用途がわからないので、私が使うことはなさそうだ。
 
 複製オブジェクトと元オブジェクトを同時に操作するとややこしいことになるから控える。
 
@@ -175,9 +177,10 @@ Ordering Objects (Z-Order)
    The z-order determines the order in which objects are drawn on the canvas.
    Those object with high z-order are drawn last and therefore drawn on top of
    objects with lower z-order. The order is determined by the order that the
-   objects are listed in the SVG file.
+   objects are listed in the :abbr:`SVG` file.
 
-後半の記述が特に重要だ。SVG の直接編集で z-order を調整できることを意味する。
+後半の記述が特に重要だ。:abbr:`SVG` の直接編集で z-order を調整できることを意味
+する。
 
 オブジェクトの z-order を画面で操作するにはキーボードを使うのが最良と思われる：
 
@@ -207,8 +210,8 @@ Groups
 
 グループ内のオブジェクトを、キー操作と左クリックを絡めて選択することが可能だ。
 
-* :kbd:`Ctrl` を押しながら左クリックで、グループ内のオブジェクトを選択する。このコ
-  マンドは、オブジェクトが何階層のグループに埋もれていても機能する。
+* :kbd:`Ctrl` を押しながら左クリックで、グループ内のオブジェクトを選択する。この
+  コマンドは、オブジェクトが何階層のグループに埋もれていても機能する。
 * :kbd:`Ctrl` + :kbd:`Alt` を押しながら左クリックで、グループ内に下のオブジェク
   トを選択する。例によって、最下層のオブジェクトでは最上層のオブジェクトを選択す
   る。
@@ -233,9 +236,9 @@ Layers
 Inkscape におけるレイヤー概念は、Photoshop などのアプリケーションにおけるそれと
 似ている。同じと言ってもいいかもしれない。
 
-   Internally, *Layers* are just SVG *Groups* with a few extra Inkscape specific
-   parameters that Inkscape uses to control the *Layer* interface. Like
-   *Groups*, Layers can contain sub-*Layers*.
+   Internally, *Layers* are just :abbr:`SVG` *Groups* with a few extra Inkscape
+   specific parameters that Inkscape uses to control the *Layer* interface. Like
+   *Groups*, *Layers* can contain sub-*Layers*.
 
 Layers Dialog
 ----------------------------------------------------------------------

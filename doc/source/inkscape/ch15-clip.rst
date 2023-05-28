@@ -69,14 +69,14 @@ Clipping
    then restored as a regular object, placed just above the formerly clipped
    object in z-order.
 
-前述のとおり、複数オブジェクト（グループ）を対象にクリップすることも可能だ。SVG
-ファイルでの構成が述べられている：
+前述のとおり、複数オブジェクト（グループ）を対象にクリップすることも可能
+だ。:abbr:`SVG` ファイルでの構成が述べられている：
 
    More than one object (or *Group*) can be clipped at the same time. Just
    follow the above instructions but include all the objects to be clipped in
    the selection (with the clipping path on top). Inkscape will store one copy
-   of the clipping path in the ``<defs>`` section of the SVG file for each
-   clipped object; thus, the clipped objects can be edited separately.
+   of the clipping path in the ``<defs>`` section of the :abbr:`SVG` file for
+   each clipped object; thus, the clipped objects can be edited separately.
 
 クリップ済みオブジェクトの BB は、元オブジェクトの BB とクリッピングパスの BB の
 $\cap$ となる。
@@ -119,8 +119,8 @@ Masking
    --> Mask --> Release` command. The mask is then restored as a regular object
    and is placed just above the formerly masked object in z-order.
 
-複数オブジェクトに対するマスクがあるときの SVG ファイルでの表現もクリップの事情
-と同様だ。
+複数オブジェクトに対するマスクがあるときの :abbr:`SVG` ファイルでの表現もクリッ
+プの事情と同様だ。
 
    The bounding box of the masked object is the same as that of the unmasked
    object.

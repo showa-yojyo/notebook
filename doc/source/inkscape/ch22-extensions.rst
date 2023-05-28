@@ -110,8 +110,9 @@ Color
 
 この分類にある拡張はオブジェクトやグループの色を操作するものだ。
 
-   The color mapping is calculated in the RGB color space except for the
-   extensions that modify HSL values, which are calculated in HSL color space.
+   The color mapping is calculated in the :abbr:`RGB` color space except for the
+   extensions that modify :abbr:`HSL` values, which are calculated in
+   :abbr:`HSL` color space.
 
 オブジェクトやグループが選択されていなくてもこの機能は働き、その場合は図面全体に
 作用する：
@@ -128,7 +129,7 @@ Black and White
 
 デモイラストを見れば機能は一目瞭然だ。計算方法は、
 
-   The extension first calculates brightness (luma) using the YUV color space
+   The extension first calculates brightness (luma) using the YUV_ color space
    (for NTSC and PAL standard definition television) and then applies a
    threshold of 50%.
 
@@ -190,7 +191,7 @@ Less Hue
 
    The hue is decreased by 5% (of the full hue range) or equivalently, a
    rotation of 18° around the color circle. This, for example, means that a pure
-   red picks up a touch of blue in the RGB color space.
+   red picks up a touch of blue in the :abbr:`RGB` color space.
 
 Less Light
 ----------------------------------------------------------------------
@@ -229,7 +230,7 @@ Less Staturation の逆機能。
 Negative
 ----------------------------------------------------------------------
 
-RGB の各成分に対して、その補数で置き換える。
+:abbr:`RGB` の各成分に対して、その補数で置き換える。
 
    For example, an R value of 64 (25%) becomes an R value of 191 (255 - 64, or
    75%).
@@ -238,25 +239,25 @@ Randomize
 ----------------------------------------------------------------------
 
    Randomize the color of selected objects or all objects if no object is
-   selected. You can choose which of the HSL color parameters to randomize (hue,
-   saturation, and/or lightness).
+   selected. You can choose which of the :abbr:`HSL` color parameters to
+   randomize (hue, saturation, and/or lightness).
 
 Opacity も操作可能。スライダーバーで指定する値は振れ幅のような値と考えられる。
 
 Remove Blue
 ----------------------------------------------------------------------
 
-   Set the B value in RGB to 0.
+   Set the B value in :abbr:`RGB` to 0.
 
 Remove Green
 ----------------------------------------------------------------------
 
-   Set the G value in RGB to 0.
+   Set the G value in :abbr:`RGB` to 0.
 
 Remove Red
 ----------------------------------------------------------------------
 
-   Set the R value in RGB to 0.
+   Set the R value in :abbr:`RGB` to 0.
 
 Replace color
 ----------------------------------------------------------------------
@@ -394,7 +395,8 @@ Live Path Effects にある同名の機能を参照。パターンパス、軌�
    the :guilabel:`Break Path at Selected Nodes` option in the *Node Tool* *Tool
    Controls*) and using the :guilabel:`Repeated, stretched` option.
 
-デモイラスト (5a) を見る。どちらも中央のパターンをパスに変換した矩形に乗せたものだ。
+デモイラスト (5a) を見る。どちらも中央のパターンをパスに変換した矩形に乗せたもの
+だ。
 
 * 左側：矩形の辺の長さがパターンの幅の倍数になるように設定。
 * 右側：各コーナーノードで Break 済み。
@@ -496,13 +498,13 @@ Extract One Image
 Embed All Images
 ----------------------------------------------------------------------
 
-   It is possible to embed the images inside an Inkscape *SVG* file with this
-   extension. Simply call this extension to embed all bitmap images in the file.
-   This may make your *SVG* file quite large. Only *PNG* and *JPEG* files may be
-   embedded.
+   It is possible to embed the images inside an Inkscape :abbr:`SVG` file with
+   this extension. Simply call this extension to embed all bitmap images in the
+   file. This may make your :abbr:`SVG` file quite large. Only :abbr:`PNG` and
+   :abbr:`JPEG` files may be embedded.
 
-この機能は SVG を gist.github.com などにアップロードする場合には使えるかもしれな
-い。Markdown に PNG/JPEG を埋め込むようなものだろう。
+この機能は :abbr:`SVG` を gist.github.com などにアップロードする場合には使えるか
+もしれない。Markdown に :abbr:`PNG`/:abbr:`JPEG` を埋め込むようなものだろう。
 
 JessyInk (Presentations)
 ======================================================================
@@ -512,10 +514,11 @@ Web ブラウザー用のスライドショーを作る機能のようだ。
    The JessyInk package of extensions allows one to use Inkscape to produce a
    sophisticated web-based presentation, complete with master slides, automatic
    page numbering, transitions between slides and within slides, and page
-   zooming. JessyInk works by embedding JavaScript into your *SVG* file. The
-   JavaScript then manipulates Inkscape *Layers* to run the presentation.
+   zooming. JessyInk works by embedding JavaScript into your :abbr:`SVG` file.
+   The JavaScript then manipulates Inkscape *Layers* to run the presentation.
 
-SVG はその仕様上 JavaScript コードを抱える能力があり、それを利用した拡張だ。
+:abbr:`SVG` はその仕様上 JavaScript コードを抱える能力があり、それを利用した拡張
+だ。
 
    Perhaps the best way to see what JessyInk can do is to run the demonstration
    that can be found in the Featured downloads section on the JessyInk Home
@@ -526,7 +529,7 @@ SVG はその仕様上 JavaScript コードを抱える能力があり、それ�
 使い方を見ていく。
 
    To use JessyInk you first need to add the JessyInk JavaScript code to your
-   *SVG* file. This is done by calling up the :guilabel:`Install/Update...`
+   :abbr:`SVG` file. This is done by calling up the :guilabel:`Install/Update...`
    dialog and clicking on the :guilabel:`Apply` button. The code can be removed
    by using the :guilabel:`Uninstall/remove` dialog.
 
@@ -601,10 +604,10 @@ FFmpeg でよくやるからわかりやすい。次の仕様が便利だ：
    will be seen in Inkscape.
 
 実際に処理するのはウェブブラウザーだが、スライド（レイヤー）が含む画像によっては
-この処理は CPU を食う：
+この処理は :abbr:`CPU` を食う：
 
-   They can eat up a lot of CPU, especially if using large bitmap images or
-   *Gradients* and *Filters*.
+   They can eat up a lot of :abbr:`CPU`, especially if using large bitmap images
+   or *Gradients* and *Filters*.
 
 Effects
 ----------------------------------------------------------------------
@@ -650,15 +653,15 @@ Miscellaneous
 :menuselection:`Mouse handler`
    再生中のマウスイベントハンドラーを設定する（三択）。
 :menuselection:`Summary`
-   SVG ファイルに埋め込まれた JessyInk スクリプトの概要を作成する。
+   :abbr:`SVG` ファイルに埋め込まれた JessyInk スクリプトの概要を作成する。
 :menuselection:`Video`
-   HTML の ``video`` タグを追加するスライドショーに埋め込めるようにする。
+   :abbr:`HTML` の ``video`` タグを追加するスライドショーに埋め込めるようにする。
 
 Presenting
 ----------------------------------------------------------------------
 
-完成したスライドショーは SVG 対応ウェブブラウザーで開くことが可能だ。最初のペー
-ジは自動で表示され、次のキー操作でスライドを変える：
+完成したスライドショーは :abbr:`SVG` 対応ウェブブラウザーで開くことが可能だ。最
+初のページは自動で表示され、次のキー操作でスライドを変える：
 
 .. csv-table::
    :delim: |
@@ -760,7 +763,7 @@ Bezier 曲線パスを近似ポリラインに変換する拡張コマンドだ�
 Fractalize
 ----------------------------------------------------------------------
 
-CAD 出身のプログラマーからすると異色のコマンドに見える：
+:abbr:`CAD` 出身のプログラマーからすると異色のコマンドに見える：
 
    This extension turns a straight-line segment into a crooked segment. It works
    by finding the midpoint of the line segment, adding a node at that point, and
@@ -787,14 +790,15 @@ Interpolate Attribute in a Group
 
    This extension takes the objects in a *Group* or a selection and assigns a
    value to some attribute of each object, interpolating between two extremes to
-   determine the value. Note that the order of the objects in the *SVG* file
-   determines the order in which the interpolated attributes are assigned.
+   determine the value. Note that the order of the objects in the :abbr:`SVG`
+   file determines the order in which the interpolated attributes are assigned.
 
 この拡張コマンドの意味は本書のデモ二つを見れば理解できる。
 
    Options include interpolating color, width, height, scale, and position.
 
-試したところ、色の補間はおそらく HSL 色空間が用いられるのではないかと思う。
+試したところ、色の補間はおそらく :abbr:`HSL` 色空間が用いられるのではないかと思
+う。
 
 Jitter Nodes
 ----------------------------------------------------------------------
@@ -986,12 +990,13 @@ Function Plotter
 Matplotlib を引っ張り出す機会が減るか？
 
 * 先に自分で矩形を描く。それからこのコマンドを起動する。
-* 横軸を :math:`2\pi` の整数倍に整えるオプションがある。周期関数をプロットしやすい。
+* 横軸を :math:`2\pi` の整数倍に整えるオプションがある。周期関数をプロットしやす
+  い。
 * 関数の一次微分を与えるオプションがあるのが興味深い。
 
-   The function is plotted in the SVG coordinate system, which has the y-axis
-   upside down. The extension inserts a minus sign automatically to correct for
-   this.
+   The function is plotted in the :abbr:`SVG` coordinate system, which has the
+   y-axis upside down. The extension inserts a minus sign automatically to
+   correct for this.
 
 :guilabel:`Y value of rectangle's bottom` 値などで調整する。
 
@@ -1056,8 +1061,9 @@ LaTeX Formula
    This extension turns a LaTeX string into a path. The string is typed into a
    dialog box. The extension requires that Ghostscript, LaTeX, and Pstoedit_ to
    be installed and in the execution path. Pstoedit_ must include the GNU
-   libplot *SVG* driver or the shareware *SVG* plug-in, available for Windows at
-   the Pstoedit_ website. The resulting formula is rendered as a path.
+   libplot :abbr:`SVG` driver or the shareware :abbr:`SVG` plug-in, available
+   for Windows at the Pstoedit_ website. The resulting formula is rendered as a
+   path.
 
 L-System (Fractal-Lindenmayer)
 ----------------------------------------------------------------------
@@ -1219,7 +1225,7 @@ ASCII テキストを点字に置換する拡張コマンドだ。正常に機�
    system (e.g. Deja Vu Sans). Windows users may need to explicitly select that
    font.
 
-確かに DejaVu Sans 系フォントを指定するとそれらしい点字が出力される。
+確かに DejaVu Sans 系字体を指定するとそれらしい点字が出力される。
 
 Lorem Ipsum
 ----------------------------------------------------------------------
@@ -1245,9 +1251,10 @@ Split Text
    The use of this extension is normally not recommended. By splitting text into
    separate parts, the semantics of the text is lost. For example, it can no
    longer be selected as one unit in a web browser or indexed by search engines.
-   *SVG* has been designed to allow text to be manipulated (e.g. individual
-   letters or words having different styles) without losing the semantic value.
-   It is better to rely on these *SVG* features than to break apart text.
+   :abbr:`SVG` has been designed to allow text to be manipulated (e.g.
+   individual letters or words having different styles) without losing the
+   semantic value. It is better to rely on these :abbr:`SVG` features than to
+   break apart text.
 
 Change Case
 ----------------------------------------------------------------------
@@ -1268,13 +1275,13 @@ Visualize Path
 Dimensions
 ----------------------------------------------------------------------
 
-   Adds CAD-style dimension arrows to an object. In v0.47, this extension only
-   works on paths; in v0.48, it also works on *Shapes* and *Groups*. It uses an
-   object's bounding box to determine placement of arrows. The arrows and
-   original object are placed inside a *Group*.
+   Adds :abbr:`CAD`-style dimension arrows to an object. In v0.47, this
+   extension only works on paths; in v0.48, it also works on *Shapes* and
+   *Groups*. It uses an object's bounding box to determine placement of arrows.
+   The arrows and original object are placed inside a *Group*.
 
 矢印だけが描かれるので、長さそのものを表すテキストが欲しいならば自前で用意せねば
-ならない。それなら本当に CAD を使えという話だ。
+ならない。それなら本当に :abbr:`CAD` を使えという話だ。
 
 Draw Handles
 ----------------------------------------------------------------------
@@ -1298,16 +1305,16 @@ Number Nodes
 
    This extension numbers the nodes of a path. It is useful for creating an
    old-fashioned *Connect-the-Dots* puzzle. (It is also an example of how to
-   access the path data in an *SVG* file for writing your own extension.) The
-   original path is turned into a path with no stroke but with dot markers. The
-   dots are then numbered.
+   access the path data in an :abbr:`SVG` file for writing your own extension.)
+   The original path is turned into a path with no stroke but with dot markers.
+   The dots are then numbered.
 
 パスを添字付き点列に変換するコマンドとして捉えたい。
 
 Web
 ======================================================================
 
-Web で使用する *SVG* を用意するのに使いたい拡張コマンドだ。
+Web で使用する :abbr:`SVG` を用意するのに使いたい拡張コマンドだ。
 
 JavaScript
 ----------------------------------------------------------------------
@@ -1315,8 +1322,8 @@ JavaScript
    This submenu has two entries. The first allows events linked to one object
    (mouse over, clicking on, etc.) to control the attributes of another object.
    The second allows events linked to one object to transmit that object's
-   attributes to another. These extensions embed JavaScript into the *SVG* file.
-   The JavaScript comes from the InkWeb package.
+   attributes to another. These extensions embed JavaScript into the :abbr:`SVG`
+   file. The JavaScript comes from the InkWeb package.
 
 イベントハンドラーを実装する機能を期待しているのだが、この記述からはそう読み切れ
 ない。
@@ -1332,7 +1339,7 @@ Set Attributes
    The list of attributes to change is entered, separated by spaces, in the
    :guilabel:`Attribute to set` entry box (e.g., ``fill stroke stroke-width``).
 
-SVG 要素の属性名を指定すればいいようだ。
+:abbr:`SVG` 要素の属性名を指定すればいいようだ。
 
    The action that will cause the change is set in the :guilabel:`When the set
    must be done` drop-down menu.
@@ -1391,11 +1398,11 @@ Web Slicer
 ----------------------------------------------------------------------
 
    This extension facilitates slicing a drawing into rectangular bitmaps for use
-   in Web pages. It will optionally export *CSS* and *HTML* code for use with
-   the bitmaps.
+   in Web pages. It will optionally export :abbr:`CSS` and :abbr:`HTML` code for
+   use with the bitmaps.
 
-Inkscape で製図した SVG を丸ごと使うのではなく、ウェブブラウザーに乗せるために部
-分を切り出すということか。
+Inkscape で製図した :abbr:`SVG` を丸ごと使うのではなく、ウェブブラウザーに乗せる
+ために部分を切り出すということか。
 
    There are two steps in using this extension. First, the :guilabel:`Create a
    slicer rectangle` dialog is used to define a set of named rectangles for the
@@ -1403,9 +1410,9 @@ Inkscape で製図した SVG を丸ごと使うのではなく、ウェブブラ
 
 矩形は複数定義できる。それぞれ別のフォーマットを指定することもできる：
 
-   Each rectangle can specify a different target format (*PNG*, *JPEG*, or
-   *GIF*) and optionally, a background color. The rectangles are stored in a
-   separate *Layer* named :guilabel:`Web Slicer`.
+   Each rectangle can specify a different target format (:abbr:`PNG`,
+   :abbr:`JPEG`, or :abbr:`GIF`) and optionally, a background color. The
+   rectangles are stored in a separate *Layer* named :guilabel:`Web Slicer`.
 
 矩形が完成したらエクスポートを専用ダイアログで実施する：
 
@@ -1446,10 +1453,11 @@ Export layout pieces and HTML+CSS code dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    This dialog allows you to specify where the output files should be stored and
-   if *HTML* and *CSS* code should be produced. Note that the *HTML* and *CSS*
-   code is not intended to be the final product but instead allows you to
-   quickly check the output and to generate code that can be pasted into other
-   files. Clicking the :guilabel:`Apply` button does the actual export.
+   if :abbr:`HTML` and :abbr:`CSS` code should be produced. Note that the
+   :abbr:`HTML` and :abbr:`CSS` code is not intended to be the final product but
+   instead allows you to quickly check the output and to generate code that can
+   be pasted into other files. Clicking the :guilabel:`Apply` button does the
+   actual export.
 
 .. admonition:: 読者ノート
 
@@ -1458,11 +1466,13 @@ Export layout pieces and HTML+CSS code dialog
 Set a layout group dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   All of the attributes applied to the rectangles and *HTML* export are stored
-   in ``<svg:desc>`` tags. These tags are not easy to edit via the
-   :guilabel:`XML Editor` dialog. It may be easier to edit the *SVG* file in a
-   text editor.
+   All of the attributes applied to the rectangles and :abbr:`HTML` export are
+   stored in ``<svg:desc>`` tags. These tags are not easy to edit via the
+   :guilabel:`XML Editor` dialog. It may be easier to edit the :abbr:`SVG` file
+   in a text editor.
 
 どう難しいのかわからない。右側のテキストエリアで普通に編集できそうだが。
 
-.. _Pstoedit: http://www.pstoedit.com/
+.. _Pstoedit: https://www.pstoedit.com/
+.. _YUV: https://en.wikipedia.org/wiki/YUV
+
