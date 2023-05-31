@@ -587,6 +587,25 @@ Align
 どこに揃えるかを対応するボタンを押して指定する。アイコンを見ればどうなるかわか
 る。
 
+.. admonition:: 読書ノート
+
+   次の便利なキーバインドが定義されている。配列操作には :guilabel:`Relative to`
+   での指示が反映されるのだが、状況次第ではダイアログを表示せずともオブジェクト
+   を配列することができることが期待できる。
+
+   .. csv-table::
+      :delim: |
+      :header: キーバインド,操作
+      :widths: auto
+
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`H` | Center on vertical axis
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`T` | Center on horizontal axis
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Num5` | 上記の操作の合成
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Num4` | Align left edges
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Num8` | Align top edges
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Num6` | Align right edges
+      :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Num2` | Align bottom edges
+
 Distribute: Uniform
 ----------------------------------------------------------------------
 
