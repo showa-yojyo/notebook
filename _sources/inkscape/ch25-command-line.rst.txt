@@ -41,7 +41,9 @@ Chapter 25. Using the Command Line
 
    * Windows 版の場合は :program:`inkscape.com` に対してコマンドライン実行をする
      こと。
-   * 後述するようにこのコマンド形式は古い。もう通用しない。
+   * 後述するようにこのコマンド形式は古い。もう通用しない。Windows 版利用者は
+     ``man inkscape`` ができないので、次を確認するといい：
+     `MAN PAGE <https://inkscape.org/doc/inkscape-man.html>`__
 
 コマンドラインオプションの書き方は GNU 様式だ：
 
@@ -98,6 +100,13 @@ General Command Line Options
 .. option:: --actions=ACTION(:ARG)[;ACTION(:ARG)]*
 
    実行するコマンド列を指定する。指定順に実行する。
+
+   例えば後述する :abbr:`PNG` エクスポートをこれで実行するには、例えば次のように
+   指定する：
+
+   .. code:: console
+
+      $ inkscape --actions="file-new:/path/to/input.svg;export-area-page;export-filename:/path/to/output.png;export-do"
 
 .. option:: --action-list
 

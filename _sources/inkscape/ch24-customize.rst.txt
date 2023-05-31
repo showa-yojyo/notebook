@@ -213,6 +213,15 @@ GIMP とファイル形式が同じなので、シンボリックリンクで共
      when the cursor hovers over the swatch). The range of values is 0-255,
      where 255 means that the corresponding color is fully turned on.
 
+.. admonition:: 読者ノート
+
+   :file:`share/inkscape/palettes` にある既存のパレットファイルの内容を参考にし
+   てユーザー固有の :file:`inkscape/palettes` にテキストファイルを作ればいい。
+
+   * パレットファイルの拡張子は ``.gpl`` とする。
+   * RGB 値指定の右側文字列は Inkscape 利用時にツールチップ表示される文言とな
+     る。
+
 Custom Markers
 ----------------------------------------------------------------------
 
@@ -308,4 +317,4 @@ Right Handed Illustration が面白い：
         <bind key="slash" action="org.ekips.filter.addnodes" display="true"/>
       </keys>
 
-属性 ``action`` の有効な値一覧が個人的に欲しい。
+属性 ``action`` の有効な値を一覧する方法を次の章で見る。

@@ -118,8 +118,8 @@ Copying, Pasting, and Deleting Objects
    between different instances of Inkscape and other applications that support
    :abbr:`SVG`.
 
-クリップボード系コマンドは異なる :abbr:`SVG` を編集していたり、例えばテキストエディター
-で編集していたりするときにその活用が考えられる。
+クリップボード系コマンドは異なる :abbr:`SVG` を編集していたり、例えばテキストエ
+ディターで編集していたりするときにその活用が考えられる。
 
 次のコマンドだけは通常編集時にも有用なので、記しておく：
 
