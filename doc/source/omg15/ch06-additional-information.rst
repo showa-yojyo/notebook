@@ -34,8 +34,8 @@ UML 2.5 pp. 11-20 に関するノート。全体的に英単語の訳し方に�
 * UML の抽象構文は UML メタモデルと呼ばれる UML モデルを用いて仕様化されている。
 
   * メタモデル内のクラスはメタクラスと呼ばれる。
-  * 例えば次章 (:doc:`./common-structure`) で仕様化するメタクラス Element は UML
-    メタモデル内の抽象クラスである。
+  * 例えば次章 (:doc:`./ch07-common-structure`) で仕様化するメタクラス Element
+    は UMLメタモデル内の抽象クラスである。
 
 * UML が UML 自身で定義されているということは、プログラミング言語の多くにその言
   語自身で書かれたコンパイラーがあるという事実や、再帰関数（階乗関数のような）が
@@ -97,52 +97,52 @@ UML 2.5 pp. 11-20 に関するノート。全体的に英単語の訳し方に�
     Common Structure
       型、名前空間、関係、依存といった基本的概念共通の土台。
 
-      :doc:`./common-structure` で議論する。
+      :doc:`./ch07-common-structure` で議論する。
 
       Values
-        :doc:`./values` で議論する。
+        :doc:`./ch08-values` で議論する。
 
       Classifiers
         データ型、クラス、シグナル、インターフェイス、コンポーネント等を指す。
 
-        :doc:`./classification`, :doc:`./simple-classifiers`,
-        :doc:`./structured-classifiers` で議論する。
+        :doc:`./ch09-classification`, :doc:`./ch10-simple-classifiers`,
+        :doc:`./ch11-structured-classifiers` で議論する。
 
       Packages
         パッケージおよびプロファイルという概念がある。
 
-        :doc:`./packages` で議論する。
+        :doc:`./ch12-packages` で議論する。
 
   Behavioral Modeling
     Common Behavior
       挙動の実行・処理のための枠組みを与える基礎構造。
 
-      :doc:`./common-behavior` で議論する。
+      :doc:`./ch13-common-behavior` で議論する。
 
       Actions
         UML での挙動の基本構成単位である。より細やかな挙動を定義するのに用いられ
         る。
 
-        :doc:`./actions` で議論する。
+        :doc:`./ch16-actions` で議論する。
 
         State Machines
-          :doc:`./statemachines` で議論する。
+          :doc:`./ch14-statemachines` で議論する。
         Activities
-          :doc:`./activities` で議論する。
+          :doc:`./ch15-activities` で議論する。
         Interactions
-          :doc:`./interactions` で議論する。
+          :doc:`./ch17-interactions` で議論する。
 
   Supplemental Modeling
     その他の補助的な構成概念。構造的でも挙動的でもある。
 
     Use Cases
-      :doc:`./usecases` で議論する。
+      :doc:`./ch18-usecases` で議論する。
 
     Deployments
-      :doc:`./deployments` で議論する。
+      :doc:`./ch19-deployments` で議論する。
 
     Information Flows
-      :doc:`./informationflows` で議論する。
+      :doc:`./ch20-informationflows` で議論する。
 
 6.3.3 Stable and Transient Behavioral Semantics
 ----------------------------------------------------------------------
@@ -179,12 +179,12 @@ UML 2.5 pp. 11-20 に関するノート。全体的に英単語の訳し方に�
 
   Operational behaviors
     * 操作とは、クラスのオブジェクトで直接発動 (invoke) されてよい、クラスの挙動
-      に関する機能である。:doc:`./classification` 参照。
+      に関する機能である。:doc:`./ch09-classification` 参照。
     * 操作の定義には操作の入力および出力引数の型を含み、モデル化されようとしてい
       るシステムの状態にまつわる操作の発動前後での事前条件、事後条件といった概念
       を含んでもよい。
     * 操作にはメソッドがあることも許されているが、それは要求される挙動の詳細な定
-      義である。:doc:`./common-behavior` 参照。
+      義である。:doc:`./ch13-common-behavior` 参照。
     * クラスには、その操作の実行の前後において成り立つ必要があるが、その実行中は
       成り立つかどうか問われない不変条件があることも許されている。
 
@@ -199,9 +199,9 @@ UML 2.5 pp. 11-20 に関するノート。全体的に英単語の訳し方に�
   Active class behaviors
     * アクティブクラスの意味は、オブジェクトが生成するときに、そのオブジェクトが
       生成の直接の帰結としてそれの挙動の実行を開始するようなクラスのこと。
-      :doc:`./structured-classifiers` 参照。
+      :doc:`./ch11-structured-classifiers` 参照。
     * オブジェクト生成作用は、いかなる関連された挙動の実行をも開始することのない
-      オブジェクトを生成するように指定されている。:doc:`./actions` 参照。
+      オブジェクトを生成するように指定されている。:doc:`./ch16-actions` 参照。
 
 6.4 How to Read this Specification
 ======================================================================
@@ -273,7 +273,7 @@ UML 2.5 pp. 11-20 に関するノート。全体的に英単語の訳し方に�
   端点の所有権に関する情報を示しているようだ。私が誤読していなければ、ドットの反
   対側にあるクラスが所有者を意味するはず。
 
-  * 詳しくは :doc:`./structured-classifiers` の該当する節で述べられている。
+  * 詳しくは :doc:`./ch11-structured-classifiers` の該当する節で述べられている。
   * 当ノートでは association end を関連端（点）と書くことにする。
 
 * 矢印記法。関連端点の navigability を示すのに用いる。この英単語は日本語に訳すと

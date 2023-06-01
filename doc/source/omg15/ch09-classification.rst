@@ -81,7 +81,7 @@ UML 2.5 pp. 97-164 に関するノート。
   * Classifier から CollaborationUse への composite 関連。
   * Classifier は、それを Collaborations に関係させる CollaborationUses を所有し
     てもよい。その Collaborations はこの Classifier の外観を描写する。
-    :doc:`./structured-classifiers` で述べる。
+    :doc:`./ch11-structured-classifiers` で述べる。
   * ``A_ownedElement_owner`` を subsets する。
 
   ``A_representation_classifier``
@@ -91,7 +91,7 @@ UML 2.5 pp. 97-164 に関するノート。
 
 ``A_ownedUseCase_classifier``
   * Classifier から UseCase への composite 関連（単方向）。
-  * Classifier は UseCases を所有してもよい。:doc:`./usecases` で述べる。
+  * Classifier は UseCases を所有してもよい。:doc:`./ch18-usecases` で述べる。
   * ``A_ownedMember_namespace`` を subsets する。
 
 ``A_generalization_specific``
@@ -143,7 +143,7 @@ UML 2.5 pp. 97-164 に関するノート。
 
 * Classifier には Features の集合があり、それらのいくつかは Classifier の
   ``attributes`` と呼ばれる Properties である。 Features のそれぞれは Classifier
-  の ``member`` である（:doc:`./common-structure` を参照）。
+  の ``member`` である（:doc:`./ch07-common-structure` を参照）。
 * Classifier によって分類される値をその Classifier のインスタンスと呼ぶ。
 
   * 以降、私のノートでは英単語 instance を訳すときは一律オブジェクトとする。
@@ -151,8 +151,8 @@ UML 2.5 pp. 97-164 に関するノート。
 * Classifier を再定義することが許される（後述）。
 * Classifier は、Classifier を Collaborations に結びつける CollaborationUses を
   所有してよい。 Collaborations はこの Classifier の様子を記述する。
-  :doc:`./structured-classifiers` 参照。
-* Classifier は UseCases を所有してよい。:doc:`./usecases` 参照。
+  :doc:`./ch11-structured-classifiers` 参照。
+* Classifier は UseCases を所有してよい。:doc:`./ch18-usecases` 参照。
 
 9.2.3.2 Generalization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,7 +221,7 @@ UML 2.5 pp. 97-164 に関するノート。
 * Classifier に対して既定の表記法を用いるならば、Classifier のメタクラスに対応す
   るキーワードを ``name`` の上部に guillemets で括って示すものとする。
 
-  * キーワードについては :doc:`./keywords` 参照。
+  * キーワードについては :doc:`./anc-keywords` 参照。
 
 * キーワード（ステレオタイプ名を含む）は Classifier ``name`` の上部に guillemets
   で括られ、プレーンな字面で中央寄せとするべきでもある。
@@ -329,13 +329,13 @@ UML 2.5 pp. 97-164 に関するノート。
 9.3.3.1 Template and Bound Classifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* テンプレートと被束縛要素の用語の意味は :doc:`./common-structure` で定義されて
-  いる。
+* テンプレートと被束縛要素の用語の意味は :doc:`./ch07-common-structure` で定義さ
+  れている。
 * RedefinableTemplateSignature を使って引数化された Classifier はテンプレート
   Classifier と呼ばれる。一方、一つまたはそれを超える TemplateBindings がある
   Classifier は被束縛 Classifier と呼ばれる。
-* テンプレートの一般的な意味は :doc:`./common-structure` で定義されているとおり
-  である。
+* テンプレートの一般的な意味は :doc:`./ch07-common-structure` で定義されていると
+  おりである。
 * 拡張被束縛 Classifier のメンバーを束縛において実引数として用いてよい。
 * 被束縛 Classifier には束縛の結果生じるものに加えて中身があってよい。
 * テンプレート Classifier の引数は TemplateParameter のどんな種類の可能性もあ
@@ -343,7 +343,7 @@ UML 2.5 pp. 97-164 に関するノート。
 * 引数が Classifier のときには、ClassifierTemplateParameter で表現され、意味と表
   記法はこの章で定義される。
 * 引数が LiteralSpecification のときには、意味と表記法は
-  :doc:`./common-structure` で定義されているとおりである。
+  :doc:`./ch07-common-structure` で定義されているとおりである。
 * 引数が Operation であるときには、意味と表記法は 9.6 にあるとおりである。
 * 引数が Property であるときには、意味と表記法は 9.5 にあるとおりである。
 
@@ -393,7 +393,7 @@ UML 2.5 pp. 97-164 に関するノート。
 9.3.4 Notation
 ----------------------------------------------------------------------
 
-これは :doc:`./common-structure` の Templates の記法の焼き直しのようだ。
+これは :doc:`./ch07-common-structure` の Templates の記法の焼き直しのようだ。
 
 * ClassifierTemplateParameter は TemplateParameter が選択自由な型制約を含むように
   表記法を拡張する。
@@ -610,7 +610,7 @@ UML 2.5 pp. 97-164 に関するノート。
 * ``isStream`` 特性は、``true`` であるときに、ストリーミング Parameter を示す。
   ストリーミング Parameter はこの機能を実装する Behavior のどれもが、この
   Parameter 上でストリーミングな挙動を呈するという期待を表す。
-  :doc:`./common-behavior` で述べる。
+  :doc:`./ch13-common-behavior` で述べる。
 
 * BehavioralFeature が所有する ParameterSet とは、その BehavioralFeature を実装
   する Behaviors が使ってよい入力または出力の代用の集合を与える要素である。
@@ -620,7 +620,7 @@ UML 2.5 pp. 97-164 に関するノート。
   * すべてが入力の ParameterSet は入力 ParameterSet と呼ばれ、すべてが出力の
     ParameterSet は出力 ParameterSet と呼ばれる。
 
-* ParameterSets のより詳細な意味と見本は :doc:`./actions` で見つけられる。
+* ParameterSets のより詳細な意味と見本は :doc:`./ch16-actions` で見つけられる。
 
 9.4.4 Notation
 ----------------------------------------------------------------------
@@ -643,8 +643,8 @@ UML 2.5 pp. 97-164 に関するノート。
     ``ordered``, ``unordered``, ``unique``, ``nonunique``, ``seq`` の文字列から
     任意個選べる。
 
-* Activity 図の ParameterSets の表記法は :doc:`./actions` で見つけられる。他の図
-  式での ParameterSets の表記法はない。
+* Activity 図の ParameterSets の表記法は :doc:`./ch16-actions` で見つけられる。
+  他の図式での ParameterSets の表記法はない。
 
 9.5 Properties
 ======================================================================
@@ -686,7 +686,7 @@ UML 2.5 pp. 97-164 に関するノート。
   * ``A_member_memberNamespace`` を subsets する。
 
 ``A_ownedEnd_owningAssociation``
-  これは :doc:`./structured-classifiers` で説明する。
+  これは :doc:`./ch11-structured-classifiers` で説明する。
 
 ``A_qualifier_associationEnd``
   * Property から Property への composite 関連（両方向）。
@@ -794,8 +794,9 @@ UML 2.5 pp. 97-164 に関するノート。
 
   * 個人的には prop-modifier がいつも気になっている。
 
-* 限定子 (qualifiers) を表す表記法は :doc:`./structured-classifiers` で定義する。
-* Property の集約を表す表記法は :doc:`./structured-classifiers` で定義する。
+* 限定子 (qualifiers) を表す表記法は :doc:`./ch11-structured-classifiers` で定義
+  する。
+* Property の集約を表す表記法は :doc:`./ch11-structured-classifiers` で定義する。
 * Classifier では、型、可視性、既定値、多重度、特性文字列を、モデルに存在すると
   きであっても、表示しないようにしてよい。
 * Classifier では、属性の個々の特性を連続的な文字列としてではなく、列で示してよ

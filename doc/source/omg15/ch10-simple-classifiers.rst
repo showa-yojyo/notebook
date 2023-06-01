@@ -32,10 +32,10 @@ UML 2.5 pp. 165-180 に関するノート。
     る。
 
 ``A_ownedAttribute_datatype``
-  :doc:`./classification` Figure 9.10 で見た。
+  :doc:`./ch09-classification` Figure 9.10 で見た。
 
 ``A_ownedOperation_datatype``
-  :doc:`./classification` Figure 9.13 で見た。
+  :doc:`./ch09-classification` Figure 9.13 で見た。
 
 ``A_ownedLiteral_enumeration``
   * Enumeration から EnumerationLiteral への composite 集約（両方向）。
@@ -126,7 +126,7 @@ UML 2.5 pp. 165-180 に関するノート。
 * Figure 10.4 Enumeration Notation
 
   * Enumeration VisibilityKind の記法例。
-    これは :doc:`./common-structure` で見た覚えがある。
+    これは :doc:`./ch07-common-structure` で見た覚えがある。
 
 10.3 Signals
 ======================================================================
@@ -186,7 +186,7 @@ UML 2.5 pp. 165-180 に関するノート。
 
   * オブジェクトが受信した Signal にどのように応じるかの詳細は、Reception に関連
     づいたと Behavior の種類と、所有する Classifier や Interface に依る。
-    :doc:`./common-behavior` でやる予定。
+    :doc:`./ch13-common-behavior` でやる予定。
 
   * Reception の名前は Signal の名前と同じである。
   * Reception には Signal の属性が名前、型、多重度においてマッチする入力

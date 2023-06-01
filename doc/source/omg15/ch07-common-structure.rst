@@ -28,7 +28,7 @@ UML 2.5 pp. 21-68 に関するノート。
 * Figure 7.1 Root
 
   * 初めて見て意味の分からない記法があるならば、前章
-    (:doc:`./additional-information`) を再読したほうがいい。
+    (:doc:`./ch06-additional-information`) を再読したほうがいい。
 
   * 登場するクラスは 4 つ。Element, Relationship, DirectedRelationship, Comment
     である。Comment を除いてすべて抽象クラスである。
@@ -170,7 +170,7 @@ UML 2.5 pp. 21-68 に関するノート。
 * Templates とは、他のモデル Elements によってパラメーター化されるモデル
   Elements である。
 * この節ではテンプレート周辺の概念を導入するにとどめ、詳細は
-  :doc:`./classification` と :doc:`./packages` に譲る。
+  :doc:`./ch09-classification` と :doc:`./ch12-packages` に譲る。
 
 7.3.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -510,7 +510,7 @@ UML 2.5 pp. 21-68 に関するノート。
 * PackageableElement とは Package が直接所有することのできる NamedElement であ
   る。
 
-  * Package については :doc:`./packages` 参照。
+  * Package については :doc:`./ch12-packages` 参照。
   * かつ ParameterableElement でもあるので、TemplateParameter としても使える。
   * NamedElement から継承した属性 ``visibility`` のデフォルト値は ``public`` で
     ある？
@@ -625,7 +625,7 @@ UML 2.5 pp. 21-68 に関するノート。
 
 ``A_lowerValue_owningLower``, ``A_upperValue_owningUpper``
   * MultiplicityElement から ValueSpecification への composite 関連（単方向）。
-  * ValueSpecification の仕様は :doc:`./values` にて。
+  * ValueSpecification の仕様は :doc:`./ch08-values` にて。
   * ``A_ownedElement_owner`` を subsets する。
   * 属性値の ``lower``, ``upper`` とは別に関連端 ``lowerValue``, ``upperValue``
     がある。
@@ -640,13 +640,13 @@ UML 2.5 pp. 21-68 に関するノート。
   るものである。
 
   * Type の種類に応じて、そのオブジェクトは生成または消滅されてよい。
-  * UML における Types はすべて Classifiers である。:doc:`./classification` 参
-    照。
+  * UML における Types はすべて Classifiers である。:doc:`./ch09-classification`
+    参照。
 
 * TypedElement とは、何らかの手段で特定の値を表現する NamedElement である。
 
   * TypedElement の種類としては ValueSpecification や StructuralFeature がある。
-    :doc:`./values` や :doc:`./classification` を参照。
+    :doc:`./ch08-values` や :doc:`./ch09-classification` を参照。
 
 * TypedElement に関連 Type があれば、TypedElement で表現される値はどれもが与えら
   れた Type のオブジェクトであるものとする。
@@ -833,7 +833,7 @@ UML 2.5 pp. 21-68 に関するノート。
   二個の NamedElements または NamedElements の集合に関係する Dependency である。
 * この関係性は ``suppliers`` と ``clients`` との間の写像として定義してよい。
 * ``«Derive»``, ``«Refine»``, ``«Trace»`` などの定義済みステレオタイプがある。こ
-  れは :doc:`standard-profile` で仕様化する。
+  れは :doc:`./ch22-standard-profile` で仕様化する。
 
 7.7.3.4 Realization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

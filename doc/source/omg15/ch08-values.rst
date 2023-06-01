@@ -55,7 +55,7 @@ UML 2.5 pp. 69-96 に関するノート。
      る。
   #. LiteralReal は PrimitiveType Real の定数値を指定する。
 
-* :doc:`./primitive-types` も併せて参照したい。
+* :doc:`./ch21-primitive-types` も併せて参照したい。
 
 8.2.4 Notation
 ----------------------------------------------------------------------

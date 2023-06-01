@@ -11,7 +11,7 @@ UML 2.5 pp. 371-438 に関するノート。
 ======================================================================
 
 * Activity とは、エッジにより相互接続されるノードのグラフとして決定される
-  Behavior の一種 (:doc:`./common-behavior`) である。
+  Behavior の一種 (:doc:`./ch13-common-behavior`) である。
 
   * そのノードの部分集合は、その Activity 全体の低水準の処理手順を具体化する実行
     可能ノードである。
@@ -30,15 +30,15 @@ UML 2.5 pp. 371-438 に関するノート。
 * この章の残りでは、どのようにして活動モデルが構造化され、さまざまな種類のオブ
   ジェクトと制御ノードが構造化されるのかを述べる。
 
-  * UML では実行可能ノードの唯一の種類は Actions であり、:doc:`./actions` で完全
-    に述べられる。
+  * UML では実行可能ノードの唯一の種類は Actions であり、:doc:`./ch16-actions`
+    で完全に述べられる。
   * Actions を表す具体的構文は Activities を表す具体的構文の部分集合であり、本章
     で指定される Actions を表す具体的構文もある。
 
     * Action 表記法は Activity 図でしか現れない。
 
   * この章では実行可能ノードを使うことで Actions から分離されたある独立性を実現
-    するが、それでもなお :doc:`./actions` と一緒に読む必要がある。
+    するが、それでもなお :doc:`./ch16-actions` と一緒に読む必要がある。
 
 15.2 Activities
 ======================================================================
@@ -205,15 +205,17 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * ObjectFlows は Activity でデータを移動することに対する主な方法をもたらす。
   Variables はデータを間接的に引き渡すことに関する代替法をもたらす。
-* :doc:`./actions` で述べるように、Activity の実行中は、Activity の Variables
-  のそれぞれは一つまたはそれを超える値を保持してよい。Variables に値を書き出し
-  て、続いて値をそれら Variables から読み取る Actions がある。
+* :doc:`./ch16-actions` で述べるように、Activity の実行中は、Activity の
+  Variablesのそれぞれは一つまたはそれを超える値を保持してよい。Variables に値を
+  書き出して、続いて値をそれら Variables から読み取る Actions がある。
 * Variable の使用は、値が Variable に書き出される点からその値が Variable から読
   み取られる点のすべてへの間接的データ流動経路を効率的に実現する。
 * Variable は ConnectableElement の一種であり、それ自体がTypedElement である。
   Variable に保持される値はいずれも Variable の Typed と適合しなければならない。
-  :doc:`./structured-classifiers` および :doc:`./common-structure` 参照。
-* Variable は MultiplicityElement でもある。:doc:`./common-structure` 参照。
+  :doc:`./ch11-structured-classifiers` および :doc:`./ch07-common-structure` 参
+  照。
+* Variable は MultiplicityElement でもある。:doc:`./ch07-common-structure` 参
+  照。
 * Variables は、オブジェクトフロー情報が容易にアクセス可能になることを要求しない
   それら (=Variables?) の応用について、普通のプログラミング言語を活動モデルに翻
   訳することを簡素化するために導入された。
@@ -287,7 +289,7 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.2 Activity notation
 
-  * 図の丸角縁は :doc:`./diagrams` で述べられた枠記法で置き換えてよい。
+  * 図の丸角縁は :doc:`./ana-diagrams` で述べられた枠記法で置き換えてよい。
   * 丸角縁にせよ枠にせよ完全に省略してよい。その場合には ActivityParameterNodes
     は図式内のどの箇所に現れても構わない。
 
@@ -298,8 +300,8 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.4 ActivityNode notation
 
-  * ActivityNodes 各種の記法のカタログ。次の節と :doc:`./actions` で詳しく議論す
-    る。
+  * ActivityNodes 各種の記法のカタログ。次の節と :doc:`./ch16-actions` で詳しく
+    議論する。
 
 * Figure 15.5 ActivityEdge notation
 
@@ -319,8 +321,8 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * Figure 15.7 ActivityEdge notation
 
-  * エッジの重みは中括弧と ValueSpecification の記法を用いる。:doc:`./values` 参
-    照。
+  * エッジの重みは中括弧と ValueSpecification の記法を用い
+    る。:doc:`./ch08-values` 参照。
   * InterruptibleActivityRegion の ``interruptingEdge`` は稲妻型の矢印とする。
 
 * Figure 15.8 ControlFlow notation
@@ -757,7 +759,7 @@ UML 2.5 pp. 371-438 に関するノート。
     DataStoreNodes ばかりでなく、ObjectNode 一般の話を述べる。
 
   * ObjectNode の四番目の種類である Pins は、常に Actions に結び付けられ、
-    :doc:`./actions` で述べられる。
+    :doc:`./ch16-actions` で述べられる。
 
 15.4.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -951,8 +953,8 @@ UML 2.5 pp. 371-438 に関するノート。
 
 * ExecutableNode とは、Activity の所望の挙動全体のうちの一つの段階として実行され
   てよい ActivityNode の一種である。
-* ExecutableNodes の具象型はすべてが Actions であり、:doc:`./actions` で述べる。
-  本節では Activity における ExecutableNodes の一般的な意味と、どの
+* ExecutableNodes の具象型はすべてが Actions であり、:doc:`./ch16-actions` で述
+  べる。本節では Activity における ExecutableNodes の一般的な意味と、どの
   ExecutableNode についても ExceptionHandler を付属させる能力が有することを議論
   する。
 
@@ -1015,8 +1017,8 @@ UML 2.5 pp. 371-438 に関するノート。
 * Figure 15.61 ExecutableNode notation
 
   * ExecutableNode は一般的には丸い角の矩形として描かれる。
-  * Actions のさまざまな種類に対するより特殊化した表記法は :doc:`./actions` で述
-    べる。
+  * Actions のさまざまな種類に対するより特殊化した表記法は :doc:`./ch16-actions`
+    で述べる。
 
 15.5.4.2 Exception Handlers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1061,7 +1063,7 @@ UML 2.5 pp. 371-438 に関するノート。
   * 本節では ActivityGroup の二つの具象型、 ActivityPartitions と
     InterruptibleActivityRegions について述べる。
   * StructuredActivityNode は ActivityGroup の第三種であるが、それらは Actions
-    でもあるから :doc:`./actions` で議論する。
+    でもあるから :doc:`./ch16-actions` で議論する。
 
 15.6.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -1133,7 +1135,7 @@ UML 2.5 pp. 371-438 に関するノート。
   AcceptEventAction に向かっていないときでさえ、その領域にトークンが入場するとき
   にしか使用可能にはならない。
 
-  * AcceptEventActions の完全な記述については :doc:`./actions` を参照。
+  * AcceptEventActions の完全な記述については :doc:`./ch16-actions` を参照。
 
 * もし何らかの場合に領域内の流れの全てを中止するのを望まないならば、
   InterruptibleActivityRegion は使わない。

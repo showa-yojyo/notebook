@@ -543,10 +543,10 @@ UML 2.5 pp. 303-370 に関するノート。
 14.2.3.9.1 The run-to-completion paradigm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* StateMachine 実行による Event 出来事の処理手順は、:doc:`./common-behavior` で
-  定義した一般的な意味に従う。
-* StateMachine は完了事象に対してだけではなく、:doc:`./common-behavior` で記述し
-  た Event の種類のどれに対しても応答することができる。
+* StateMachine 実行による Event 出来事の処理手順
+  は、:doc:`./ch13-common-behavior` で定義した一般的な意味に従う。
+* StateMachine は完了事象に対してだけではなく、:doc:`./ch13-common-behavior` で
+  記述した Event の種類のどれに対しても応答することができる。
 * 上で説明したように、完了事象には優先権があり、事象プールにある未決 Event 出来
   事のどれよりも早く送達されるものである。
 * Event 出来事は StateMachine 実行によって一つずつ検知、送達、処理される。
@@ -941,7 +941,7 @@ UML 2.5 pp. 303-370 に関するノート。
   Behavior を記述する Activity の部分であるSendSignalAction へ直接写像する。
 
   * Signal 送信シンボルの記法は SendSignalAction の記法に対応する。
-    :doc:`./actions` 参照。
+    :doc:`./ch16-actions` 参照。
 
 14.2.4.9.4 Choice point symbol
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
