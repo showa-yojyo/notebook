@@ -2,8 +2,6 @@
 6 Additional Information
 ======================================================================
 
-UML 2.5.1 pp. 11-20 に関するノート。
-
 .. contents::
 
 6.1 Specification Simplification

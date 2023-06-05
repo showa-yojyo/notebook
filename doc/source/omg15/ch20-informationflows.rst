@@ -2,9 +2,11 @@
 20 InformationFlows
 ======================================================================
 
-UML 2.5 pp. 667-674 に関するノート。
+.. admonition:: 読者ノート
 
-.. contents:: ノート目次
+   現在ノート修正中。
+
+.. contents::
    :depth: 2
 
 20.1 Information Flows
