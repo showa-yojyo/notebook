@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>7 Common Structure &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="8 Values" href="ch08-values.html" />
+    <link rel="prev" title="6 Additional Information" href="ch06-additional-information.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch06-additional-information.html" title="Previous document">6 Additional Information</a>
+        </li>
+        <li>
+          <a href="ch08-values.html" title="Next document">8 Values</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="common-structure">
+<h1><a class="toc-backref" href="#id31" role="doc-backlink">7 Common Structure</a><a class="headerlink" href="#common-structure" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#common-structure" id="id31">7 Common Structure</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id32">7.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#root" id="id33">7.2 Root</a></p></li>
+<li><p><a class="reference internal" href="#templates" id="id34">7.3 Templates</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id35">7.4 Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#types-and-multiplicity" id="id36">7.5 Types and Multiplicity</a></p></li>
+<li><p><a class="reference internal" href="#constraints" id="id37">7.6 Constraints</a></p></li>
+<li><p><a class="reference internal" href="#dependencies" id="id38">7.7 Dependencies</a></p></li>
+<li><p><a class="reference internal" href="#classifier-descriptions" id="id39">7.8 Classifier Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#association-descriptions" id="id40">7.9 Association Descriptions</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="summary">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">7.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+<p>この章で仕様化するのは UML の全ての構造的モデリングの礎となるモデリング概念。後続の章で定義していく諸概念の基底となる抽象概念ばかり。</p>
+<blockquote>
+<div><p>However, in order to provide examples of how these basic concepts are applied
+in UML, it is necessary to use these concrete modeling constructs, even
+though they are specified in later clauses. Appropriate forward references
+are provided as necessary</p>
+</div></blockquote>
+</section>
+<section id="root">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">7.2 Root</a><a class="headerlink" href="#root" title="Permalink to this heading">¶</a></h2>
+<section id="id1">
+<h3>7.2.1 Summary<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The root concepts of Element and Relationship provide the basis for all other
+modeling concepts in UML.</p>
+</div></blockquote>
+</section>
+<section id="abstract-syntax">
+<h3>7.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.1 Root</p>
+</div></blockquote>
+<p>初めて見て意味の分からない記法があるならば、前章
+(<a class="reference internal" href="ch06-additional-information.html"><span class="doc">6 Additional Information</span></a>) を再読したほうがいい。</p>
+<p>登場するクラスは Element, Relationship, DirectedRelationship, Comment だ。
+Comment を除いてすべて抽象クラスだ。</p>
+<p>白い鏃の関連はクラスの継承のようなものという解釈で問題ない。いわゆる is-a 関係、is-a-kind-of 関係だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>クラス間の関連、図式中の各種矢印が相当する、について、仕様説明が済んでいない要素もある。より独立性の高い関連からノートを取っていく。</p>
+</div>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code></dt><dd><p>Element から Element への複合関連（双方向）。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>両関連端に点が描画されているので、両方向に所有関係がある。</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Element は他の Element を所有することができるという性質を表現する関連だ。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedElement</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">*</span></code> となっている。任意の Element は、ゼロ個を含む任意の個数の Element を所有できることを意味する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">owner</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">0..1</span></code> となっている。任意の Element について、その所有者がないか、または一個だけあることを意味する。</p></li>
+<li><p>両関連端共通</p>
+<ul>
+<li><p>制約が <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> となっている。これらについては仕様説明が当分ないまま話が進む。</p></li>
+<li><p>関連端名の前に付いている <code class="docutils literal notranslate"><span class="pre">+</span></code> についてはアクセスレベルが公開ということ。</p></li>
+<li><p>関連端名の前に付いている <code class="docutils literal notranslate"><span class="pre">/</span></code> については、「この関連端は別の関連端が継承するだろう」という意味だった (p. 18)。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{union}</span></code> と <code class="docutils literal notranslate"><span class="pre">/</span></code> が常に同時に関連端に現れることに気づいた。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedComment_owningElement</span></code></dt><dd><p>Element から Comment への複合関連（単方向）。</p>
+<ul>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedComment</span></code> にだけ開いた鏃がある。これは <code class="docutils literal notranslate"><span class="pre">owningComment</span></code> からだけ回航可能であることを意味する。<code class="docutils literal notranslate"><span class="pre">ownedComment</span></code> から <code class="docutils literal notranslate"><span class="pre">owningComment</span></code>
+には回航不能だ。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedComment</span></code> にだけ点がある。ゆえに <code class="docutils literal notranslate"><span class="pre">owningComment</span></code> によって所有されていることを意味する。</p></li>
+<li><p>あるモデリング要素がコメントされていることを表す関連。</p></li>
+<li><p>両側関連端に <code class="docutils literal notranslate"><span class="pre">{subsets}</span></code> 制約がある。例えば <code class="docutils literal notranslate"><span class="pre">ownedComment</span></code> は <code class="docutils literal notranslate"><span class="pre">{subsets</span>
+<span class="pre">ownedElement}</span></code> となっている。これは «<code class="docutils literal notranslate"><span class="pre">ownedComment</span></code> is a subset of
+<code class="docutils literal notranslate"><span class="pre">ownedElement</span></code>» の意味に取る。反対に «<code class="docutils literal notranslate"><span class="pre">ownedElement</span></code> is a superset of
+<code class="docutils literal notranslate"><span class="pre">ownedComment</span></code>» が成り立つと推理したい。巧いことに <code class="docutils literal notranslate"><span class="pre">ownedElement</span></code> には
+<code class="docutils literal notranslate"><span class="pre">{union}</span></code> という制約があったのだった。</p>
+<p>以下、このような条件を当ノートでは「<code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する」のように簡略して表記する。</p>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_annotatedElement_comment</span></code></dt><dd><p>Comment から Element への関連（単方向）。</p>
+<ul class="simple">
+<li><p>コメントには必ず何かモデリング要素が関連付けられている。</p></li>
+<li><p>多重度が両側 <code class="docutils literal notranslate"><span class="pre">*</span></code> なので、一つの要素に複数のコメントが付されていてよいし、複数要素に対して一つのコメントが付されていてもよい。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_relatedElement_relationship</span></code></dt><dd><p>Relationship から Element への関連（単方向）。</p>
+<ul class="simple">
+<li><p>この関連の意味は上記 Relationship を参照。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">relatedElement</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">1..*</span></code> なので、空でない要素の集まりに関係性を定義できる。</p></li>
+<li><p>両関連端共通</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> だ。</p></li>
+<li><p>プラス記号とスラッシュ記号が関連端名の前に付いている。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code>, <code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code></dt><dd><p>DirectedRelationship から Element への関連。二つの関連をまとめて記す。</p>
+<ul class="simple">
+<li><p>この関連の意味は上記 DirectedRelationship を参照。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">source</span></code> または <code class="docutils literal notranslate"><span class="pre">target</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">1..*</span></code> なので、開始点のない関係もあり得ないし、終了点のない関係もあり得ない。また、一つの関係において開始点が複数あってよいし、終了点が複数あってもよいし、両方共に複数あってもよい。</p></li>
+</ul>
+</dd>
+</dl>
+<p>これ以降の各 Abstract Syntax の節で示される図式については、必要に応じてここでやったような方法で新規モデリング要素の意味を汲んでいくことにする。</p>
+</section>
+<section id="semantics">
+<h3>7.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
+<section id="elements">
+<h4>7.2.3.1 Elements<a class="headerlink" href="#elements" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>An Element is a constituent of a model. Descendants of Element provide
+semantics appropriate to the concept they represent.</p>
+</div></blockquote>
+<p>Element はすべて、他の Elements を所有する能力を有する。ある Element がモデルから取り除かれると、その <code class="docutils literal notranslate"><span class="pre">ownedElements</span></code> のすべてもまた必然的にモデルから取り除かれる。</p>
+<blockquote>
+<div><p>Every Element in a model must be owned by exactly one other Element of that
+model, with the exception of the top-level Packages of the model (see also
+Clause 12 on Packages).</p>
+</div></blockquote>
+<p>孤立したモデル要素があるのは無意味ということだろうか。</p>
+</section>
+<section id="comments">
+<h4>7.2.3.2 Comments<a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Every kind of Element may own Comments.</p>
+</div></blockquote>
+<p>Element に対する <code class="docutils literal notranslate"><span class="pre">ownedComments</span></code> に追加的な意味はないが、モデルの読者にとって有用な情報を表現することがある。</p>
+</section>
+<section id="relationships">
+<h4>7.2.3.3 Relationships<a class="headerlink" href="#relationships" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A Relationship is an Element that specifies some kind of relationship between
+other Elements. Descendants of Relationship provide semantics appropriate to
+the concept they represent.</p>
+</div></blockquote>
+<p>「子孫がそれらのより具体的な概念に応じた意味を与える」という規則は基本規則のようだ。以下、省略する。</p>
+<blockquote>
+<div><p>A DirectedRelationship represents a Relationship between a collection of
+<code class="docutils literal notranslate"><span class="pre">source</span></code> model elements and a collection of target model elements. A
+DirectedRelationship is said to be directed from the <code class="docutils literal notranslate"><span class="pre">source</span></code> elements to
+the <code class="docutils literal notranslate"><span class="pre">target</span></code> elements.</p>
+</div></blockquote>
+<p>無向グラフと有向グラフの違いと同じと考えることにする。</p>
+</section>
+</section>
+<section id="notation">
+<h3>7.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<p>この仕様書では Abstract Syntax の節で示した図式の各要素の記法を Notation の節で仕様化することになっている。しかし、今回は Comment 以外全て抽象クラスなので、記法が存在しない。それゆえ Comment のみ記法の仕様を述べている。</p>
+<p>Comment は「右上が折れた紙切れ」のような図形の中に文字列を記すことで示す。
+Comment 記号と <code class="docutils literal notranslate"><span class="pre">annotatedElements</span></code> の記号それぞれとを破線で結ぶ。周囲の状況から明らかな場合、または図式中で重要でない場合は、この破線を省略してもよい。</p>
+</section>
+<section id="examples">
+<h3>7.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.2 Comment notation</p>
+</div></blockquote>
+<p>特筆すべき事項なし。いちおう断っておくと Account と書かれていないほうが Comment
+記号だ。</p>
+</section>
+</section>
+<section id="templates">
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">7.3 Templates</a><a class="headerlink" href="#templates" title="Permalink to this heading">¶</a></h2>
+<p>原始的なモデリング要素の仕様の直後でなんとテンプレートの話題になる。UML でのテンプレートは C++ 等の一部プログラミング言語の定義するそれと似た概念なのだろうか。</p>
+<section id="id2">
+<h3>7.3.1 Summary<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Templates are model Elements that are parameterized by other model Elements.</p>
+</div></blockquote>
+<p>この節ではテンプレートすべてに適用される概念を規定するに留め、特定の種類のテンプレートについては <a class="reference internal" href="ch09-classification.html"><span class="doc">9 Classification</span></a> と <a class="reference internal" href="ch12-packages.html"><span class="doc">12 Packages</span></a> で記述される。</p>
+</section>
+<section id="id3">
+<h3>7.3.2 Abstract Syntax<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>図表が二つに分割されているが、頭の中で混ぜて覚えてよい。以下雑感。</p>
+<blockquote>
+<div><p>Figure 7.3 Templates</p>
+</div></blockquote>
+<p>TemplateableElement, ParameterableElement, TemplateParameter, TemplateSignature
+が新登場。すべて Element から直接派生。</p>
+<blockquote>
+<div><p>Figure 7.4 Template bindings</p>
+</div></blockquote>
+<p>TemplateParameterSubstitution, TemplateBinding が新登場。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedTemplateSignature_template</span></code></dt><dd><p>TemplateableElement から TemplateSignature への複合関連（双方向）。</p>
+<ul class="simple">
+<li><p>テンプレートの TemplateSignature はある被束縛要素（複数形）内の実際のモデル要素に束縛されるTemplateParameters の集合を定義する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedTemplateSignature</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_parameter_templateSignature</span></code></dt><dd><p>TemplateSignature から TemplateParameter への関連（単方向）。</p>
+<ul class="simple">
+<li><p>他の関連のベースとなる関連だ。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">parameter</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">1..*</span></code> だ。</p></li>
+<li><p>制約 <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> が parameter の方についている。つまり個々の
+TemplateParameter が厳密に順序付けられている。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameter_signature</span></code></dt><dd><ul class="simple">
+<li><p>TemplateSignature から TemplateParameter への複合関連（双方向）。</p></li>
+<li><p>端的に言えば TemplateSignature とは TemplateParameter の順序付き合成集約である。この関連はまさにそのことを示す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> と <code class="docutils literal notranslate"><span class="pre">A_parameter_templateSignature</span></code> を subsets
+する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedParameter</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> だ。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_default_templateParameter</span></code></dt><dd><p>TemplateParameter から ParameterableElement への関連（単方向）。</p>
+<ul class="simple">
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">default</span></code> は仮引数 TemplateParameter の既定値？だ。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedDefault_templateParameter</span></code></dt><dd><p>TemplateParameter から ParameterableElement への複合関連（単方向）。</p>
+<ul class="simple">
+<li><p>TemplateParameter がデフォルト値を与える目的で ParameterableElement を所有することを示す関連。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> と <code class="docutils literal notranslate"><span class="pre">A_default_templateParameter</span></code> を subsets する。</p></li>
+<li><p>両関連端の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_parameteredElement_templateParameter</span></code></dt><dd><p>TemplateParameter から ParameterableElement への関連（両方向）。</p>
+<ul class="simple">
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> は、この TemplateParameter が晒す (expose) ものであることを示す。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameteredElement_owningTemplateParameter</span></code></dt><dd><ul class="simple">
+<li><p>TemplateParameter から ParameterableElement への複合関連（両方向）。</p></li>
+<li><p>TemplateParameter がそれを晒す目的で ParameterableElement を所有することを示す関連。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_parameteredElement_templateParameter</span></code> を片側だけ subsets する。もう片側の <code class="docutils literal notranslate"><span class="pre">templateParameter</span></code> には制約 <code class="docutils literal notranslate"><span class="pre">{redefines}</span></code> が付いている。</p></li>
+<li><p>両関連端の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_formal_templateParameterSubstitution</span></code></dt><dd><p>TemplateParameterSubstitution から TemplateParameter への関連（単方向）。</p>
+<ul class="simple">
+<li><p>ある TemplateBinding におけるテンプレート引数代入の仮引数のようなものへの参照。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">formal</span></code> の多重度は 1 だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_actual_templateParameterSubstitution</span></code></dt><dd><ul class="simple">
+<li><p>TemplateParameterSubstitution から ParameterableElement への関連（単方向）。</p></li>
+<li><p>ある TemplateBinding におけるテンプレート引数代入の実引数のようなものへの参照。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">actual</span></code> の多重度は 1 だ。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedActual_owningTemplateParameterSubstitution</span></code></dt><dd><p>TemplateParameterSubstitution から ParameterableElement への複合関連（単方向）。</p>
+<ul class="simple">
+<li><p>実際に ParameterableElement オブジェクトを所有する意味がある関連。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_actual_templateParameterSubstitution</span></code> の <code class="docutils literal notranslate"><span class="pre">actual</span></code> と
+<code class="docutils literal notranslate"><span class="pre">templateParameterSubstitution</span></code> をそれぞれ subsets と redefines する。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_parameterSubstitution_templateBinding</span></code></dt><dd><p>TemplateBinding から TemplateParameterSubstitution への複合関連（双方向）。</p>
+<ul class="simple">
+<li><p>TemplateBinding は TemplateParameterSubstitution を一つ所有する。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_templateBinding_boundElement</span></code></dt><dd><p>TemplateableElement から TemplateBinding への複合関連（双方向）。</p>
+<ul class="simple">
+<li><p>TemplateableElement がこの TemplateBinding による束縛要素であることを示す。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> と <code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code> を
+subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_signature_templateBinding</span></code></dt><dd><p>TemplateParameterSubstitution から TemplateSignature への関連（単方向）。</p>
+<ul class="simple">
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">signature</span></code> はこの TemplateBinding のターゲットテンプレートのためのものだ。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h3>7.3.3 Semantics<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<section id="id5">
+<h4>7.3.3.1 Templates<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A TemplateableElement is an Element that can optionally be defined as a
+template and bound to other templates. A template is a TemplateableElement
+that is parameterized using a TemplateSignature. Such a template can be used
+to generate other model Elements using TemplateBinding relationships.</p>
+</div></blockquote>
+<p><em class="dfn">テンプレート</em> とは TemplateSignature を用いて TemplateableElement を引数化したものだ。このようなテンプレートは TemplateBinding 関係を用いて、他のモデル要素を生成するのに利用することが可能だ。</p>
+<p>テンプレートは同種の非テンプレート Element と同じやり方で利用することが不可能。（例：テンプレート Class は TypedElement の <code class="docutils literal notranslate"><span class="pre">type</span></code> としては使用不能）。</p>
+<blockquote>
+<div><p>The template Element can only be used to generate bound Elements or as part
+of the specification of another template (e.g., a template Class may
+specialize another template Class).</p>
+</div></blockquote>
+<p>テンプレートの TemplateSignature は、テンプレートの被束縛要素で実際のモデル
+Elements に束縛されてよい TemplateParameter の集合を定義する。</p>
+<p><em class="dfn">被束縛要素 (a bound element)</em> とは、一つまたはそれ以上のそのような
+TemplateBindings を有する TemplateableElement のことだ。</p>
+<p><em class="dfn">完全被束縛要素 (completely bound element)</em> とは、その TemplateBinding すべてが、束縛されているテンプレートの TemplateParameter すべてを束縛する被束縛要素だ。</p>
+<blockquote>
+<div><p>A completely bound element is an ordinary element and can be used in the same
+manner as a non-bound (and non-template) element of the same kind. For
+example, a completely bound element of a Class template may be used as the
+type of a Typed Element.</p>
+</div></blockquote>
+<p>A partially bound element is a bound element at least one of whose
+TemplateBindings does not bind a TemplateParameter of the template being bound.
+A partially bound element is still considered to be a template, parameterized by
+the remaining TemplateParameters left unbound by its TemplateBindings.</p>
+<p><em class="dfn">部分的被束縛要素 (partially bound element)</em> とは、TemplateBindings のうち少なくとも一つは束縛されるテンプレートの TemplateParameter を束縛しない被束縛要素だ。</p>
+<blockquote>
+<div><p>A partially bound element is still considered to be a template, parameterized
+by the remaining TemplateParameters left unbound by its TemplateBindings.</p>
+</div></blockquote>
+</section>
+<section id="template-signature">
+<h4>7.3.3.2 Template Signature<a class="headerlink" href="#template-signature" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>The TemplateParameters for a TemplateSignature specify the formal parameters
+that will be substituted by actual parameters (or the default) in a binding.</p>
+</div></blockquote>
+<p>TemplateParameter は、その TemplateParameter が含まれる TemplateSignature を所有するテンプレート内にある ParameterableElement という観点から定義されている。このような要素は TemplateParameter によって公開されている (<em>exposed</em>) と言う。</p>
+<ul>
+<li><p>露出した ParameterableElement を、そのテンプレートが直接間接を問わず所有することもあれば、テンプレートモデル内で所有関係がない場合には TemplateParameter 自身が所有することもある。</p></li>
+<li><p>ParameterableElement はテンプレートの文脈でしか意味を持たず、束縛の文脈では実際の Element に置換される。したがって、TemplateParameter によって公開される
+ParameterableElement は、その所有するテンプレートや、元のテンプレートの内部にアクセスできる他のテンプレート（テンプレートが特殊化されている場合など）の外部で参照することは不可能だ。</p>
+<blockquote>
+<div><p>Subclasses of TemplateSignature can also add additional rules that constrain
+what sort of ParameterableElement can be used for a TemplateParameter in the
+context of a particular kind of template.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>これはテンプレートプログラミングを考えると納得が行く仕様だ。</p>
+<blockquote>
+<div><p>A TemplateParameter may also reference a ParameterableElement as the <code class="docutils literal notranslate"><span class="pre">default</span></code>
+for this formal parameter in any TemplateBinding that does not provide an
+explicit TemplateParameterSubstitution for the parameter.</p>
+</div></blockquote>
+<p>公開された ParameterableElement 同様、既定の ParameterableElement は、テンプレートが直接所有するか、TemplateParameter 自身が所有するか、どちらかだ。公開されている ParameterableElement が TemplateParameter によって所有されていない場合でも、TemplateParameter はこの <code class="docutils literal notranslate"><span class="pre">default</span></code> ParameterableElement を所有することが許される。</p>
+</section>
+<section id="templatebinding">
+<h4>7.3.3.3 TemplateBinding<a class="headerlink" href="#templatebinding" title="Permalink to this heading">¶</a></h4>
+<p>TemplateBinding の定義は次のとおり。実引数と仮引数に関わる：</p>
+<blockquote>
+<div><p>A TemplateBinding is a relationship between a TemplateableElement and a
+template that specifies the substitutions of <code class="docutils literal notranslate"><span class="pre">actual</span></code> ParameterableElements
+for the <code class="docutils literal notranslate"><span class="pre">formal</span></code> TemplateParameters of the template.</p>
+</div></blockquote>
+<p>A TemplateParameterSubstitution の定義だ：</p>
+<blockquote>
+<div><p>A TemplateParameterSubstitution specifies the <code class="docutils literal notranslate"><span class="pre">actual</span></code> parameter to be
+substituted for a <code class="docutils literal notranslate"><span class="pre">formal</span></code> TemplateParameter within the context of a
+TemplateBinding. If no actual parameter is specified in this binding for a
+formal parameter, then the default ParameterableElement for that formal
+TemplateParameter (if specified) is used.</p>
+</div></blockquote>
+<p>束縛で <code class="docutils literal notranslate"><span class="pre">formal</span></code> 引数に <code class="docutils literal notranslate"><span class="pre">actual</span></code> 引数が指定されない場合、その仮
+TemplateParameter の <code class="docutils literal notranslate"><span class="pre">default</span></code> ParameterableElement が指定されていれば用いられる。</p>
+<p>テンプレート展開の一般原則：</p>
+<blockquote>
+<div><p>The details of how the expansions of multiple bindings, and any other
+Elements owned by the bound element, are combined together to fully specify
+the bound element are specific to the subclasses of TemplateableElement. The
+general principle is that one evaluates the bindings in isolation to produce
+intermediate results (one for each binding), which are then merged to produce
+the final result. It is the way the merging is done that is specific to each
+kind of TemplateableElement.</p>
+</div></blockquote>
+<p>TemplateableElement は TemplateSignature と TemplateBindings の両方を含んでよい。それゆえ TemplateableElement はテンプレートと被束縛要素の両方であってよい。</p>
+<p>適合性のあるツールは <code class="docutils literal notranslate"><span class="pre">formal</span></code> TemplateParameters のすべてが TemplateBinding の一部として束縛されねばならない（完全束縛）ことを求めてもよいか、<code class="docutils literal notranslate"><span class="pre">formal</span></code>
+TemplateParameters の部分集合だけを束縛する（部分束縛）ことを認めるかもしれない。</p>
+<blockquote>
+<div><p>In the case of complete binding, the bound element may have its own
+TemplateSignature, and the TemplateParameters from this can be provided as
+actual parameters of the TemplateBinding. In the case of partial binding, the
+unbound formal TemplateParameters act as formal TemplateParameters of the
+bound element, which is thus still a template.</p>
+</div></blockquote>
+<p>注意として、<code class="docutils literal notranslate"><span class="pre">default</span></code> がある TemplateParameter は、それに対する暗黙の束縛があるので、明示的に TemplateParameterSubstitution が与えられていなくてもいつでも束縛されている。</p>
+</section>
+<section id="bound-element-semantics">
+<h4>7.3.3.4 Bound Element Semantics<a class="headerlink" href="#bound-element-semantics" title="Permalink to this heading">¶</a></h4>
+<p>TemplateBinding は、対象 TemplateSignature を所有するテンプレートの内容が被束縛要素に複製され、正式な TemplateParameters として公開された ParameterableElement
+が、TemplateBinding で実際のテンプレート引数として指定された対応する
+ParameterableElement で置き換えられるかのような整形制約と意味を持つことを含意する。しかし：</p>
+<blockquote>
+<div><p>However, a bound element does not explicitly contain the model Elements
+implied by expanding the templates to which it binds. Nevertheless, it is
+possible to define an <em>expanded bound element</em> that results from actually
+applying the TemplateParameterSubstitution for a bound element to the target
+templates.</p>
+</div></blockquote>
+<p>形式上、単一の TemplateBinding を使い、その束縛以外の Elements のない被束縛要素に対する拡張被束縛要素は次のように構成される：</p>
+<ol class="arabic">
+<li><p>TemplateBinding の対象である TemplateSignature に関連付けられたテンプレートを複製する。モデル Element の複製は、元モデル Element と同じメタクラスのインスタンスで次の状態のものだ：</p>
+<ol class="loweralpha simple">
+<li><p>すべての複合プロパティーの値で、元 Element の対応する値の複製（同じ意味）であるもの。</p></li>
+<li><p>ただし、元要素が（直接または間接的に）所有する要素への参照は、上記の規定に従って作成された要素の複製への参照に置き換え、元要素自体への参照は、複製への参照に置き換えられる。</p></li>
+</ol>
+</li>
+<li><p>複製にテンプレートである Elements がある場合は、同じ TemplateBinding を使用して、Generalization 関係を <code class="docutils literal notranslate"><span class="pre">general</span></code> 要素の等価な被束縛要素に転送する。複製先がテンプレートである関連メソッドを持つ Operation である場合、その
+<code class="docutils literal notranslate"><span class="pre">method</span></code> を同じテンプレート束縛を使用して、同等の被束縛要素に置き換える。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">types</span></code> of the <code class="docutils literal notranslate"><span class="pre">method</span></code> Parameters thus need to be separately
+templated to match the template parameterization of the Operation.</p>
+</div></blockquote>
+</li>
+<li><p>複製が直接または間接的に所有する各 Element に対して、複製の TemplateParameter
+の <code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> への参照を、TemplateBinding の引数に関連付けられた
+<code class="docutils literal notranslate"><span class="pre">actual</span></code> Element への参照に置き換える。もし <code class="docutils literal notranslate"><span class="pre">actual</span></code> Element がそれ自体
+TemplateBinding を持つ場合、同等の被束縛 Element を参照する。</p></li>
+<li><p>複製 TemplateSignature から TemplateBinding で参照されているすべての
+TemplateParameters を削除する。もしこれで TemplateSignature からすべての
+TemplateParameters が削除されるようならば、TemplateSignature を完全に削除する。</p></li>
+</ol>
+<p>被束縛要素に一個を超える TemplateBinding があれば、それぞれの TemplateBinding に基づいて特定の拡張被束縛 Element を定義することが可能だ：</p>
+<blockquote>
+<div><p>The overall expanded bound element is then constructed by merging all the
+TemplateBinding-specific expanded bound elements with any other Elements
+contained by the original bound element.</p>
+</div></blockquote>
+<p>前述のように、このマージは被束縛 TemplateableElement の種類に依存する。</p>
+<p>被束縛要素をモデルに含めることは、対応する拡張結合要素が自動的にモデルに含まれることを要求しない。</p>
+<p>他方で、Namespace テンプレートの被束縛要素では、Namespace そのものとみなされる被束縛要素の <code class="docutils literal notranslate"><span class="pre">members</span></code> が参照可能である必要があるかもしれない。</p>
+<blockquote>
+<div><p>For example, for a bound element of a Class template, it may be necessary to
+reference Operations of that Class, e.g., from a CallOperationAction.</p>
+</div></blockquote>
+<p>こういう状況に対応するために、被束縛要素自身に加えて、被束縛要素の拡張被束縛要素をモデルに含めても差し支えない。</p>
+</section>
+</section>
+<section id="id6">
+<h3>7.3.4 Notation<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p>TemplateableElement の記法。TemplateableElement に TemplateParameter があれば、まずは小さい破線の矩形をその要素の右上に置く。破線矩形は TemplateParameter の仮引数リストを含む。空であってはならない。</p>
+<hr class="docutils" />
+<p>TemplateParameter の記法。CSV で記すか、一行に一つの仮引数を示す。</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">template-parameter</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">template-param-name</span><span class="p">&gt;</span> [&#39;:&#39; <span class="p">&lt;</span><span class="nc">parameter-kind</span><span class="p">&gt;</span> ] [&#39;=&#39; <span class="p">&lt;</span><span class="nc">default</span><span class="p">&gt;</span>]
+</pre></div>
+</div>
+<p>ここで <em>&lt;parameter-kind&gt;</em> は公開要素のメタクラス名。 <em>&lt;template-param-name&gt;</em> と
+<em>&lt;default&gt;</em> の構文は ParameteredElement の種類による。</p>
+<hr class="docutils" />
+<p>被束縛要素の記法は、その種類の他の要素のそれと同じ表記とする。</p>
+<hr class="docutils" />
+<p>TemplateBinding の記法。破線矢印で示す。</p>
+<ul class="simple">
+<li><p>始点は被束縛要素</p></li>
+<li><p>終点はテンプレート</p></li>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">«bind»</span></code> を付す。</p></li>
+</ul>
+<p>束縛情報を CSV で記してよい：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">template-param-substitution</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">template-param-name</span><span class="p">&gt;</span> ‘-&gt;’ <span class="p">&lt;</span><span class="nc">actual-template-parameter</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>この構文は仮 TemplateParameter の <code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> の <code class="docutils literal notranslate"><span class="pre">name</span></code> または
+<code class="docutils literal notranslate"><span class="pre">qualifiedName</span></code> であり、 <code class="docutils literal notranslate"><span class="pre">&lt;actual-template-parameter&gt;</span></code> の種類はその
+TemplateParameter に対する ParameteredElement の種類によって異なる。</p>
+<p>被束縛要素の束縛の代替表現</p>
+<blockquote>
+<div><p>An alternative presentation for the bindings for a bound element is to
+include the binding information within the notation for the bound element.
+The name of the bound element is extended to contain binding expressions with
+the following syntax:</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span>[<span class="p">&lt;</span><span class="nc">element-name</span><span class="p">&gt;</span> ‘:’] <span class="p">&lt;</span><span class="nc">binding-expression</span><span class="p">&gt;</span> [‘,’ <span class="p">&lt;</span><span class="nc">binding-expression</span><span class="p">&gt;</span>]*
+<span class="p">&lt;</span><span class="nc">binding-expression</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">template-element-name</span><span class="p">&gt;</span> ‘&lt;‘ <span class="p">&lt;</span><span class="nc">template-param-substitution</span><span class="p">&gt;</span> [‘,’&lt;template-param-substitution]*‘&gt;’
+</pre></div>
+</div>
+<p>and <em>&lt;template-param-substitution&gt;</em> is defined as above.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="namespaces">
+<h2><a class="toc-backref" href="#id35" role="doc-backlink">7.4 Namespaces</a><a class="headerlink" href="#namespaces" title="Permalink to this heading">¶</a></h2>
+<section id="id7">
+<h3>7.4.1 Summary<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A Namespace is an Element in a model that contains a set of NamedElements
+that can be identified by <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+</div></blockquote>
+<p>Namespace には次のようなものがある：</p>
+<ul class="simple">
+<li><p>Package</p></li>
+<li><p>名前付き Feature</p></li>
+<li><p>入れ子になっている Classifier</p></li>
+<li><p>名前付き Parameter を含む BehavioralFeature</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>7.4.2 Abstract Syntax<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.5 Namespaces</p>
+</div></blockquote>
+<p>新登場の記号がいくつかある。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>VisibilityKind 内の <code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code> という記法</p></li>
+<li><p>PackageableElement 内の属性 <code class="docutils literal notranslate"><span class="pre">visibility</span></code> の説明が込み入っている。</p></li>
+</ul>
+</div></blockquote>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_member_memberNamespace</span></code></dt><dd><p>Namespace から NamedElement への関連（単方向）。</p>
+<p>いずれの関連端も <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> かつ多重度が <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code></dt><dd><p>Namespace から NamedElement への複合関連（双方向）。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_member_memberNamespace</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets している。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">namespace</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> になっている。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedRule_context</span></code></dt><dd><ul class="simple">
+<li><p>Namespace から Constraint への複合関連（双方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">context</span></code> の多重度 <code class="docutils literal notranslate"><span class="pre">0..1</span></code> に対して、関連端 <code class="docutils literal notranslate"><span class="pre">ownedRule</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">*</span></code> の関係がある。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_importedMember_namespace</span></code></dt><dd><p>Namespace から PackageableElement への関連（単方向）。</p>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_elementImport_importingNamespace</span></code>, <code class="docutils literal notranslate"><span class="pre">A_packageImport_importingNamespace</span></code></dt><dd><p>Namespace から ElementImport, PackageImport それぞれへの複合関連（双方向）。</p>
+<ul class="simple">
+<li><p>Namespace は他の Namespaces から NamedElements をインポートしてよい。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code>, <code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code> を subsets している。関連端 <code class="docutils literal notranslate"><span class="pre">importingNamespace</span></code> 側が <code class="docutils literal notranslate"><span class="pre">source</span></code> かつ <code class="docutils literal notranslate"><span class="pre">owner</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_importedElement_import</span></code>, <code class="docutils literal notranslate"><span class="pre">A_importedPackage_packageImport</span></code></dt><dd><p>前者は ElementImport から PackageableElement への関連（単方向）、後者は
+PackageImport から Package への関連（単方向）。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code> を subsets している。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_nameExpression_namedElement</span></code></dt><dd><p>NamedElement から StringExpression への複合関連（単方向）</p>
+<ul class="simple">
+<li><p>NamedElement は高々一個の StringExpression を所有できる。</p>
+<ul>
+<li><p>テンプレート中では NamedElement には、その subexpressions が
+TemplateParameters が晒す ParameterableElement である関連 StringExpression
+があってよい。</p></li>
+</ul>
+</li>
+</ul>
+<p>NamedElement には特性の <code class="docutils literal notranslate"><span class="pre">name</span></code> と関連端の <code class="docutils literal notranslate"><span class="pre">nameExpression</span></code> の両方があってもよい。この場合 <code class="docutils literal notranslate"><span class="pre">name</span></code> はその NamedElement の別名として用いることが可能。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+<p>同時に VisibilityKind を仕様化している。四つの可視性タイプからなる。</p>
+</section>
+<section id="id9">
+<h3>7.4.3 Semantics<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<section id="id10">
+<h4>7.4.3.1 Namespaces<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<p>Namespace は NamedElements の入れ物を与えるものであり、これを <code class="docutils literal notranslate"><span class="pre">ownedMembers</span></code>
+と呼ぶ。</p>
+<ul class="simple">
+<li><p>Namespace は他のそれから NamedElement をインポートすることが許される。その場合、
+<code class="docutils literal notranslate"><span class="pre">ownedMembers</span></code> とともにインポート対象 Namespace の <code class="docutils literal notranslate"><span class="pre">members</span></code> となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code> という <code class="docutils literal notranslate"><span class="pre">name</span></code> の Namespace の <code class="docutils literal notranslate"><span class="pre">member</span></code> が <code class="docutils literal notranslate"><span class="pre">x</span></code> という <code class="docutils literal notranslate"><span class="pre">name</span></code> を持つNamedElement であるとする。このとき、その <code class="docutils literal notranslate"><span class="pre">member</span></code> を <code class="docutils literal notranslate"><span class="pre">N::x</span></code> の形式の修飾名 (<em>qualified name</em>) により参照することが可能だ。</p></li>
+</ul>
+<p>区別が必要なときには、Namespace 名で修飾されていない簡素な名前を非修飾名と呼ぶ。</p>
+<ul class="simple">
+<li><p>Namespace 内部では、ここにある構成員や外部にある非隠蔽名を非修飾名で用いることが許される。</p></li>
+<li><p>外部名とは、NamedElement の名前であり、Namespace に隣接する非修飾名で参照されることが許される。外部名は内側の Namespace のすべてのメンバーから区別できるものでない限り、隠蔽される。</p></li>
+</ul>
+<p>Namespace はそれ自身 NamedElement であるので、NamedElement の完全修飾名は、例えば <code class="docutils literal notranslate"><span class="pre">N1::N2::x</span></code> のように Namespace 名を複数含んでよい。</p>
+<p>Namespace に対する <code class="docutils literal notranslate"><span class="pre">ownRule</span></code> Constraints は、制約付き要素に対する整形規則を表す。</p>
+<blockquote>
+<div><p>These constraints are evaluated when determining if the constrained elements
+are well-formed.</p>
+</div></blockquote>
+</section>
+<section id="named-elements">
+<h4>7.4.3.2 Named Elements<a class="headerlink" href="#named-elements" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A NamedElement is an Element in a model that may have a <code class="docutils literal notranslate"><span class="pre">name</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">name</span></code> may be used for identification of the NamedElement within Namespaces
+where its name is accessible.</p>
+</div></blockquote>
+<p>NamedElement の <code class="docutils literal notranslate"><span class="pre">name</span></code> はオプションであり、名前がない可能性を与える（空の名前とは異なる）。</p>
+<p>NamedElement を他のものと区別する方法を指定する規則に従えば、Namespace 内に
+NamedElement を表示することができる。既定規則では、</p>
+<ul class="simple">
+<li><p>二つの <code class="docutils literal notranslate"><span class="pre">member</span></code> が異なる <code class="docutils literal notranslate"><span class="pre">name</span></code> を持っているか、</p></li>
+<li><p>同じ <code class="docutils literal notranslate"><span class="pre">name</span></code> であってもそれらのメタクラスが異なり、</p></li>
+<li><p>どちらも他方の（直接または間接）サブクラスでない</p></li>
+</ul>
+<p>場合に区別可能だ。 この規則は、署名によって区別される Operation などの特定のケースで上書きすることが許される。</p>
+<p>NamedElement の可視性は Namespace または Elementへのアクセスにおいて、Element の使用法を制限する手段を与えるものだ。これは、インポート、一般化、およびアクセス機構と組み合わせて用いることを意図している。</p>
+<p>NamedElement には明示的な <code class="docutils literal notranslate"><span class="pre">name</span></code> があることに加えて、NamedElement を表す計算された名前を指定するのに用いられる StringExpression に関連付けてもかまわない。テンプレートでは、NamedElement は関連する StringExpression を持ち、その部分式は
+TemplateParameters によって公開される ParameteredElement であることが許される。テンプレートが束縛されるとき、公開された部分式は TemplateParameters に代入された実際の式で置換される。StringExpression の値は部分式の値を連結した結果の文字列となり、NamedElement の名前となる。</p>
+<p>NamedElement には <code class="docutils literal notranslate"><span class="pre">name</span></code> と <code class="docutils literal notranslate"><span class="pre">nameExpression</span></code> の両方が関連付けられていてもよい。この場合、<code class="docutils literal notranslate"><span class="pre">name</span></code> のほうは NamedElement の別名として使用することができ、例えば Constraint 式でその要素を参照する際に使用することができる。</p>
+<blockquote>
+<div><p>This avoids the need to use StringExpressions in textual surface notation,
+which is often cumbersome, although it does not preclude it.</p>
+</div></blockquote>
+</section>
+<section id="packageable-elements-and-imports">
+<h4>7.4.3.3 Packageable Elements and Imports<a class="headerlink" href="#packageable-elements-and-imports" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A PackageableElement is a NamedElement that may be owned directly by a
+Package (see Clause 12 on Packages). Any such element may serve as a
+TemplateParameter (see sub clause 7.3 on Templates).</p>
+</div></blockquote>
+<ul>
+<li><p>Package については <a class="reference internal" href="ch12-packages.html"><span class="doc">12 Packages</span></a> 参照。</p></li>
+<li><p>ParameterableElement でもあるので、TemplateParameter としても使える。</p>
+<blockquote>
+<div><p>An ElementImport is a DirectedRelationship between an importing Namespace and
+a PackageableElement.</p>
+</div></blockquote>
+</li>
+<li><p>ElementImport はその PackageableElement の名前をインポート対象 Namespace に追加するものだ。</p></li>
+<li><p>ElementImport の可視性は、インポートしている側の要素のそれと同じか、より制限される。</p></li>
+</ul>
+<p>インポートする側の Namespace の外部名と名前が衝突する場合、外部名は
+ElementImport によって隠蔽され、非修飾名はインポートした要素を指す。外部名は修飾名でアクセス可能。</p>
+<blockquote>
+<div><p>A PackageImport is a DirectedRelationship between an importing Namespace and
+a Package, indicating that the importing Namespace adds the names of the
+<code class="docutils literal notranslate"><span class="pre">members</span></code> of the Package to its own Namespace.</p>
+</div></blockquote>
+<p>概念的には Package のインポートは、別に定義された ElementImport がない限り、インポートされた Namespace の <code class="docutils literal notranslate"><span class="pre">member</span></code> それぞれに対して ElementImport があるのと同じだ。</p>
+<p>ある Element に対する ElementImport がある場合、PackageImport による同じ Element
+のインポートの可能性よりも優先される。</p>
+<p>ElementImports または PackageImports の結果として、区別できない Element が
+Namespace にインポートされる場合、その Element はインポートする Namespace に追加されず、その Namespace で使用するためにそれらの Element の <code class="docutils literal notranslate"><span class="pre">name</span></code> を修飾する必要がある。また、</p>
+<blockquote>
+<div><p>If the <code class="docutils literal notranslate"><span class="pre">name</span></code> of an imported Element is indistinguishable from an Element
+owned by the importing Namespace, that Element is not added to the importing
+Namespace and the <code class="docutils literal notranslate"><span class="pre">name</span></code> of that Element must be qualified in order to be
+used.</p>
+</div></blockquote>
+<p>インポート形態で構成員の可視性が変わる。</p>
+<blockquote>
+<div><p>An Element that is publicly imported is a public member of the importing
+Namespace.</p>
+</div></blockquote>
+<p>Namespace が Package である場合、他の Namespace がそれを PackageImportすると、Package の公開 <code class="docutils literal notranslate"><span class="pre">ownedMembers</span></code> に加えて、それらの公開 import された構成員が他の Namespace に追加的にインポートされることを意味する。</p>
+<p>Namespace はそれ自身をインポートすることはできず、またそれ自身の <code class="docutils literal notranslate"><span class="pre">ownMembers</span></code>
+をインポートすることもできない。これは、NamedElement がその所有 Namespace で別名を取得することは不可能であることを意味する。</p>
+</section>
+</section>
+<section id="id11">
+<h3>7.4.4 Notation<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<section id="id12">
+<h4>7.4.4.1 Namespaces<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<p>Namespace には一般的な記法はない。特別な種類のものに固有の記法がある。</p>
+</section>
+<section id="name-expressions">
+<h4>7.4.4.2 Name Expressions<a class="headerlink" href="#name-expressions" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>The nameExpression associated with a NamedElement can be shown in two ways,
+depending on whether an alias is required or not.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>別名なしの場合、StringExpression がモデル Element の名前として現れる。</p></li>
+<li><p>別名ありの場合、StringExpression と別名の両方が現れる。別名、StringExpression
+の順に上下に並ぶ。</p></li>
+</ul>
+<p>いずれの場合も StringExpression はドルマーク <code class="docutils literal notranslate"><span class="pre">$</span></code> に挟んで表す。</p>
+</section>
+<section id="imports">
+<h4>7.4.4.3 Imports<a class="headerlink" href="#imports" title="Permalink to this heading">¶</a></h4>
+<p>PackageImport または ElementImport は頭が開いた破線矢印で表現する。</p>
+<ul class="simple">
+<li><p>可視性が公開の場合は <code class="docutils literal notranslate"><span class="pre">«import»</span></code> を付す。さもなくば <code class="docutils literal notranslate"><span class="pre">«access»</span></code> を付す。</p></li>
+<li><p>このキーワードの後または下に <code class="docutils literal notranslate"><span class="pre">alias</span></code> を示してもよい。</p></li>
+<li><p>ElementImport のインポートされた要素が Package の場合、キーワードの前に
+<code class="docutils literal notranslate"><span class="pre">«element</span> <span class="pre">import»</span></code> を任意に付けることができる。</p></li>
+</ul>
+<p>破線による表記の代替として、一意に識別するテキストを示せる。PackageImport のテキスト記法は：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span>‘{import ’ <span class="p">&lt;</span><span class="nc">qualified-name</span><span class="p">&gt;</span> ‘}’ | ‘{access ’ <span class="p">&lt;</span><span class="nc">qualified-name</span><span class="p">&gt;</span> ‘}’
+</pre></div>
+</div>
+<p>ElementImport のテキスト記法は：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span>‘{element import’ <span class="p">&lt;</span><span class="nc">qualified-name</span><span class="p">&gt;</span> ‘}’ | ‘{element access ’ <span class="p">&lt;</span><span class="nc">qualified-name</span><span class="p">&gt;</span> ‘}’
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">alias</span></code> がある場合には、それを示してもよい：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span>‘{element import ’ <span class="p">&lt;</span><span class="nc">qualified-name</span><span class="p">&gt;</span> ‘ as ’ <span class="p">&lt;</span><span class="nc">alias</span><span class="p">&gt;</span> ‘}’ | ‘{element access ’ <span class="p">&lt;</span><span class="nc">qualified-name</span><span class="p">&gt;</span> ‘as’ <span class="p">&lt;</span><span class="nc">alias</span><span class="p">&gt;</span> ‘}’
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id13">
+<h3>7.4.5 Examples<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<section id="id14">
+<h4>7.4.5.1 Name Expressions<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Figure 7.6 Template package with string parameters</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>テンプレートの記法例も兼ねている。</p></li>
+<li><p>図の上側大枠が Package テンプレート ResourceAllocation というものを示す。</p></li>
+<li><p>パッケージ右上の三行が TemplateParameter の記法例。</p>
+<ul>
+<li><p>パラメーター Resource と ResourceKind の型？が StringExpression だ。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$a&lt;Resource&gt;Allocation$</span></code> 等のテキストが NamedElement/StringExpression の記法例。</p></li>
+<li><p>図の下側の <code class="docutils literal notranslate"><span class="pre">«bind»</span></code> リストが TemplateParameterSubstitution の記法例。
+StringExpression の値は普通の文字列のようだ。</p></li>
+</ul>
+</section>
+<section id="id15">
+<h4>7.4.5.2 Imports<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Figure 7.7 Example of element import</p>
+</div></blockquote>
+<p>下側の矢印およびその付随記号が ElementImport の記法例となる。</p>
+<blockquote>
+<div><p>Figure 7.8 Example of element import with aliasing</p>
+</div></blockquote>
+<p>こちらも ElementImport の記法例で「別名付き」だ。</p>
+<blockquote>
+<div><p>Figure 7.9 Examples of public and private package imports</p>
+</div></blockquote>
+<p>PackageImport の記法例だ。矢印の頭の位置が先程と異なる。</p>
+</section>
+</section>
+</section>
+<section id="types-and-multiplicity">
+<h2><a class="toc-backref" href="#id36" role="doc-backlink">7.5 Types and Multiplicity</a><a class="headerlink" href="#types-and-multiplicity" title="Permalink to this heading">¶</a></h2>
+<p>型と多重度を同じタイミングで仕様化する。</p>
+<section id="id16">
+<h3>7.5.1 Summary<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<p>型と多重度は値を含む Element の宣言において、含まれることが許される値の種類と個数に制約をかけるために用いられる。</p>
+</section>
+<section id="id17">
+<h3>7.5.2 Abstract Syntax<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.10 Abstract syntax of types and multiplicity elements</p>
+</div></blockquote>
+<p>新規クラス TypedElement, Type, MultiplicityElement はすべて抽象。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_type_typedElement</span></code></dt><dd><p>TypedElement から Type への関連（単方向）。</p>
+<ul class="simple">
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">type</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+<li><p>これは TypedElement のとる値の Type が与えられているかどうかを意味する。言語にもよるだろうが、ゼロの場合は任意の型の値になれるようだ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_lowerValue_owningLower</span></code>, <code class="docutils literal notranslate"><span class="pre">A_upperValue_owningUpper</span></code></dt><dd><p>MultiplicityElement から ValueSpecification への複合関連（単方向）。</p>
+<ul class="simple">
+<li><p>ValueSpecification の仕様は <a class="reference internal" href="ch08-values.html"><span class="doc">8 Values</span></a> にて。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>属性値の <code class="docutils literal notranslate"><span class="pre">lower</span></code>, <code class="docutils literal notranslate"><span class="pre">upper</span></code> とは別に関連端 <code class="docutils literal notranslate"><span class="pre">lowerValue</span></code>, <code class="docutils literal notranslate"><span class="pre">upperValue</span></code>
+がある。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id18">
+<h3>7.5.3 Semantics<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<section id="types-and-typed-elements">
+<h4>7.5.3.1 Types and Typed Elements<a class="headerlink" href="#types-and-typed-elements" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A Type specifies a set of allowed values known as the instances of the Type.</p>
+</div></blockquote>
+<ul>
+<li><p>Type の種類に応じて、そのオブジェクトは生成されたり破壊されたりする。</p></li>
+<li><p>UML における Type はすべて Classifiers だ。<a class="reference internal" href="ch09-classification.html"><span class="doc">9 Classification</span></a> 参照。</p>
+<blockquote>
+<div><p>A TypedElement is a NamedElement that, in some way, represents particular values.</p>
+</div></blockquote>
+</li>
+<li><p>TypedElement の種類としては ValueSpecification や StructuralFeature などがある。<a class="reference internal" href="ch08-values.html"><span class="doc">8 Values</span></a> や <a class="reference internal" href="ch09-classification.html"><span class="doc">9 Classification</span></a> を参照。</p></li>
+<li><p>TypedElement に関連 Type があれば、TypedElement が表現する値は与えられた Type
+のオブジェクトであるものとする。関連 Type がない TypedElement はどんな値でも表現してよい。</p></li>
+</ul>
+</section>
+<section id="multiplicities">
+<h4>7.5.3.2 Multiplicities<a class="headerlink" href="#multiplicities" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A MultiplicityElement is an Element that may be instantiated in some way to
+represent a collection of values.</p>
+</div></blockquote>
+<p>MultiplicityElement の例としては StructuralFeature や Variable がある。</p>
+<ul class="simple">
+<li><p>MultiplicityElement の多重度とは、それが表す集まりの有効な濃度を指定する（数だ）。</p></li>
+<li><p>多重度は濃度に対する制約であり、多重度に対して指定された下限・上限より小さく・大きくはならない（多重度が無制限の場合、つまり上限に対する制約がない場合を除く）。</p></li>
+</ul>
+<p>MultiplicityElement の多重度を表す <code class="docutils literal notranslate"><span class="pre">lower</span></code> および <code class="docutils literal notranslate"><span class="pre">upper</span></code> は
+ValueSpecifications により指定され、<code class="docutils literal notranslate"><span class="pre">lowerBound</span></code> に対しては Integer 値を、
+<code class="docutils literal notranslate"><span class="pre">upperBound</span></code> に対しては UnlimitedNatural 値を評価する必要がある。</p>
+<blockquote>
+<div><p>A MultiplicityElement is multivalued if it has an upperBound greater than 1
+(including unbounded). A MultiplicityElement that is not multivalued can
+represent at most a single value.</p>
+</div></blockquote>
+<p>MultiplicityElement は境界値が両方ともゼロである多重度を定義することが可能だ。この要素のオブジェクト化には値を含まないことが要求される。</p>
+<blockquote>
+<div><p>If the MultiplicityElement is specified as ordered (i.e., <code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> is
+true), then the collection of values in an instantiation of this Element is
+ordered. This ordering implies that there is a mapping from positive integers
+to the elements of the collection of values.</p>
+</div></blockquote>
+<p>MultiplicityElement が多値でない場合、<code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> の値は意味的に影響を及ぼさない。</p>
+<blockquote>
+<div><p>If the MultiplicityElement is specified as unique (i.e., <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> is
+true), then the collection of values in an instantiation of this Element must
+be unique.</p>
+</div></blockquote>
+<p>MultiplicityElement が多値でない場合、<code class="docutils literal notranslate"><span class="pre">isUniqueOrdered</span></code> の値は意味的に影響を及ぼさない。</p>
+<blockquote>
+<div><p>Table 7.1 Collection types for MultiplicityElements</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">isOrdered</span></code> と <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> の値の組み合わせと、それらに対応するコレクションの型 (e.g. Set, OrderedSet) との対応表だ。詳しくないが Java のクラス名だろうか。</p>
+</section>
+</section>
+<section id="id19">
+<h3>7.5.4 Notation<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<section id="multiplicity-element">
+<h4>7.5.4.1 Multiplicity Element<a class="headerlink" href="#multiplicity-element" title="Permalink to this heading">¶</a></h4>
+<p>MultiplicityElement の記法は体が覚えていると思う：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">lower-bound</span><span class="p">&gt;</span> ‘..’ <span class="p">&lt;</span><span class="nc">upper-bound</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>厳密に言えば MultiplicityElement は抽象クラスなので記法はないとみなしたい。その各具象サブクラス固有の記法の定義があるというのが正しい。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;lower-bound&gt;</span></code> は Integer 型の ValueSpecification で、<code class="docutils literal notranslate"><span class="pre">&lt;upper-bound&gt;</span></code> は
+UnlimitedNatural 型の ValueSpecification だ。星形文字 <code class="docutils literal notranslate"><span class="pre">*</span></code> は、無制限の上限を表す多重度指定の一部として使用される。</p>
+<blockquote>
+<div><p>If the lower bound is equal to the upper bound, then an alternate notation is
+to use a string containing just the upper bound.</p>
+</div></blockquote>
+<ul>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">1</span></code> は <code class="docutils literal notranslate"><span class="pre">1..1</span></code> の意味に取る。</p></li>
+<li><p>例：<code class="docutils literal notranslate"><span class="pre">*</span></code> は <code class="docutils literal notranslate"><span class="pre">0..*</span></code> の意味に取る。</p>
+<blockquote>
+<div><p>The specific notation for the ordering and uniqueness specifications may vary
+depending on the specific kind of MultiplicityElement. A general notation is
+to use a textual annotation containing “ordered” or “unordered” to define the
+ordering, and “unique” or “nonunique” to define the uniqueness.</p>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">multiplicity</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">multiplicity-range</span><span class="p">&gt;</span> [ [ ‘{‘ <span class="p">&lt;</span><span class="nc">order-designator</span><span class="p">&gt;</span> [‘,’ <span class="p">&lt;</span><span class="nc">uniqueness-designator</span><span class="p">&gt;</span> ] ‘}’ ] |
+[ ‘{‘ <span class="p">&lt;</span><span class="nc">uniqueness-designator</span><span class="p">&gt;</span> [‘,’ <span class="p">&lt;</span><span class="nc">order-designator</span><span class="p">&gt;</span> ] ‘}’ ] ]
+<span class="p">&lt;</span><span class="nc">multiplicity-range</span><span class="p">&gt;</span> <span class="o">::=</span> [ <span class="p">&lt;</span><span class="nc">lower</span><span class="p">&gt;</span> ‘..’ ] <span class="p">&lt;</span><span class="nc">upper</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nc">lower</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">value-specification</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nc">upper</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">value-specification</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nc">order-designator</span><span class="p">&gt;</span> <span class="o">::=</span> ‘ordered’ | ‘unordered’
+<span class="p">&lt;</span><span class="nc">uniqueness-designator</span><span class="p">&gt;</span> <span class="o">::=</span> ‘unique’ | ‘nonunique’
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id20">
+<h3>7.5.5 Examples<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.11 Multiplicity within a textual specification</p>
+</div></blockquote>
+<p>Customer というクラス記号の図式。</p>
+<ul>
+<li><p>属性名のすぐ後ろに多重度テキストが現れる見本。</p></li>
+<li><p>角括弧に多重度を書き込む記法は、まるで配列のそれに見える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{ordered,</span> <span class="pre">unique}</span></code> 等にも注意したい。</p>
+<blockquote>
+<div><p>Figure 7.12 Multiplicity as an adornment to a symbol</p>
+</div></blockquote>
+</li>
+</ul>
+<p>上述の図式と等価なモデルを関連で表記したもの。こちらのほうが見やすい。</p>
+</section>
+</section>
+<section id="constraints">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">7.6 Constraints</a><a class="headerlink" href="#constraints" title="Permalink to this heading">¶</a></h2>
+<section id="id21">
+<h3>7.6.1 Summary<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A Constraint is an assertion that indicates a restriction that must be
+satisfied by any valid realization of the model containing the Constraint. A
+Constraint is attached to a set of <code class="docutils literal notranslate"><span class="pre">constrainedElements</span></code>, and it represents
+additional semantic information about those Elements.</p>
+</div></blockquote>
+<p>よくわからない記述だ。</p>
+</section>
+<section id="id22">
+<h3>7.6.2 Abstract Syntax<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.13 Abstract Syntax of Constraints</p>
+</div></blockquote>
+<p>クラス Constraint とその関連だけを仕様化するようだ。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_constrainedElement_constraint</span></code></dt><dd><p>Constraint から Element への関連（単方向）。</p>
+<ul class="simple">
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p></li>
+<li><p>この <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> が「制約が付随する対象」だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_specification_owningConstraint</span></code></dt><dd><p>Constraint から ValueSpecification への複合関連（単方向）。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>一つの Constraint が一つの ValueSpecification を所有する。具体的に言うと
+<code class="docutils literal notranslate"><span class="pre">specification</span></code> は「制約が満足されているかどうかを示す値」なので、値としては <code class="docutils literal notranslate"><span class="pre">true</span></code> か <code class="docutils literal notranslate"><span class="pre">false</span></code> をとる。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedRule_context</span></code></dt><dd><p>前述の通り。</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h3>7.6.3 Semantics<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The specification of a Constraint is given by a ValueSpecification (see
+Clause 8) of type Boolean. The computation of the specification may reference
+the <code class="docutils literal notranslate"><span class="pre">constrainedElements</span></code> of the Constraint and also the context of the
+Constraint.</p>
+</div></blockquote>
+<p>一般に、Constraint の <code class="docutils literal notranslate"><span class="pre">context</span></code> には種類が多くある。Constraint の <code class="docutils literal notranslate"><span class="pre">context</span></code>
+は Constraint <code class="docutils literal notranslate"><span class="pre">specification</span></code> が評価されるタイミングを決定する。例えば、
+Operation の <code class="docutils literal notranslate"><span class="pre">precondition</span></code> である Constraint は Operation の呼び出しの開始時に評価され、<code class="docutils literal notranslate"><span class="pre">postcondition</span></code> である Constraint は、呼び出しの終了時に評価される。(9.6)</p>
+<blockquote>
+<div><p>A Constraint is evaluated by evaluating its <code class="docutils literal notranslate"><span class="pre">specification</span></code>.</p>
+</div></blockquote>
+<p>それが真と評価された場合、その時点で Constraint が満たされる。偽と評価された場合、Constraint は満たされず、評価が行われたモデルの実現は有効ではない。</p>
+</section>
+<section id="id24">
+<h3>7.6.4 Notation<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Certain kinds of Constraints are predefined in UML, others may be
+user-defined.</p>
+</div></blockquote>
+<p>基本的には中括弧とブーリアン式を組み合わせた表記になる：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">constraint</span><span class="p">&gt;</span> <span class="o">::=</span> ‘{‘ [ <span class="p">&lt;</span><span class="nc">name</span><span class="p">&gt;</span> ‘:’ ] <span class="p">&lt;</span><span class="nc">boolean-expression</span><span class="p">&gt;</span> ‘ }’
+</pre></div>
+</div>
+<p>ここで、<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> は Constraint の名前、<code class="docutils literal notranslate"><span class="pre">&lt;boolean-expression&gt;</span></code> は Constraint
+<code class="docutils literal notranslate"><span class="pre">specification</span></code> に適したテキスト表記だ。</p>
+<p>最も一般的には、制約文字列をノート記号の中に配置して、それを
+<code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> の各記号に破線で結ぶという表記法をとる。</p>
+<p>単一の <code class="docutils literal notranslate"><span class="pre">constrainedElement``（単一の</span> <span class="pre">Class</span> <span class="pre">または</span> <span class="pre">Association</span> <span class="pre">など）に適用され</span>
+<span class="pre">るConstraint</span> <span class="pre">の場合、制約文字列は</span> <span class="pre">``constrainedElement</span></code> の記号の近く、できれば名前の近くに直接配置してもよい（ある場合）。ツールは <code class="docutils literal notranslate"><span class="pre">constrainedElement</span></code> を決定することができるようにしなければならない。</p>
+<p>属性など、テキスト文字列の記法をとる Element の場合はその文字列のすぐ後に配置してもよい。そのように注釈された Element は Constraint の単一 constrainedElement
+となる。</p>
+<blockquote>
+<div><p>For a Constraint that applies to two Elements (such as two Classes or two
+Associations), the Constraint may be shown as a dashed line between the
+Elements labeled by the constraint string. (See Figure 7.16 for an example.)</p>
+</div></blockquote>
+<p>Constraint が二つの Elements の間の破線として示される場合には、一方の端点に鏃を置いてもかまわない。矢印の方向の意味はこうだ：</p>
+<blockquote>
+<div><p>The direction of the arrow is relevant information within the Constraint. The
+Element at the tail of the arrow is mapped to the first position and the
+element at the head of the arrow is mapped to the second position in the
+constrainedElement collection.</p>
+</div></blockquote>
+<p>同種のパスが三つ以上ある場合 (Generalization, Association, etc.) は、制約文字列はそのパスすべてを横断する破線に添えてもかまわない。</p>
+</section>
+<section id="id25">
+<h3>7.6.5 Examples<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.14 Constraint in a note symbol</p>
+</div></blockquote>
+<p>ノート記号による Constraint 表記例。</p>
+<blockquote>
+<div><p>Figure 7.15 Constraint attached to an attribute</p>
+</div></blockquote>
+<p>クラスのある属性にその Constraint を示す例。</p>
+<blockquote>
+<div><p>Figure 7.16 {xor} constraint</p>
+</div></blockquote>
+<p>二つの関連に共通する Constraint を示す例。</p>
+</section>
+</section>
+<section id="dependencies">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">7.7 Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h2>
+<section id="id26">
+<h3>7.7.1 Summary<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A Dependency signifies a supplier/client relationship between model elements
+where the modification of a supplier may impact the client model elements.</p>
+</div></blockquote>
+<p>影響が一方通行であることが読める。</p>
+</section>
+<section id="id27">
+<h3>7.7.2 Abstract Syntax<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.17 Abstract syntax of dependencies</p>
+</div></blockquote>
+<p>一部テキストが欠けている。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_supplier_supplierDependency</span></code></dt><dd><p>Dependency から NamedElement への関連（単方向）。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code> を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">supplier</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> だ。ゼロではあり得ない。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_clientDependency_client</span></code></dt><dd><p>Dependency と NamedElement との間の関連（双方向）。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code> を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">client</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">1..*</span></code> だ。ゼロではあり得ない。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">clientDependency</span></code> は subsets される予定があるようだ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_mapping_abstraction</span></code></dt><dd><p>Abstraction から OpaqueExpression への複合関連（単方向）。</p>
+<ul class="simple">
+<li><p>図を見る限り OpaqueExpression によって <code class="docutils literal notranslate"><span class="pre">mapping</span></code> を表現する、と解釈できる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id28">
+<h3>7.7.3 Semantics<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
+<section id="dependency">
+<h4>7.7.3.1 Dependency<a class="headerlink" href="#dependency" title="Permalink to this heading">¶</a></h4>
+<p>Dependency は <code class="docutils literal notranslate"><span class="pre">clients</span></code> の意味が <code class="docutils literal notranslate"><span class="pre">suppliers</span></code> なしには完全ではないことを含意している。</p>
+<p>モデル内の Dependency 関係の存在には、いかなる実行時の意味には影響しない。そういうものはすべて関連している NamedElement (<code class="docutils literal notranslate"><span class="pre">client</span></code>/<code class="docutils literal notranslate"><span class="pre">supplier</span></code>) の観点から与える。</p>
+</section>
+<section id="usage">
+<h4>7.7.3.2 Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A Usage is a Dependency in which one NamedElement requires another
+NamedElement (or set of NamedElements) for its full implementation or
+operation.</p>
+</div></blockquote>
+<p>Usage は <code class="docutils literal notranslate"><span class="pre">client</span></code> の定義または実装による <code class="docutils literal notranslate"><span class="pre">supplier</span></code> が用いられるという事実以外には、<code class="docutils literal notranslate"><span class="pre">client</span></code> が <code class="docutils literal notranslate"><span class="pre">supplier</span></code> をどう用いるかを特定することはない。</p>
+</section>
+<section id="abstraction">
+<h4>7.7.3.3 Abstraction<a class="headerlink" href="#abstraction" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>An Abstraction is a Dependency that relates two NamedElements or sets of
+NamedElements that represent the same concept at different levels of
+abstraction or from different viewpoints.</p>
+</div></blockquote>
+<p>この関係性は <code class="docutils literal notranslate"><span class="pre">suppliers</span></code> と <code class="docutils literal notranslate"><span class="pre">clients</span></code> の間の写像として定義してよい。</p>
+<p><code class="docutils literal notranslate"><span class="pre">«Derive»</span></code>, <code class="docutils literal notranslate"><span class="pre">«Refine»</span></code>, <code class="docutils literal notranslate"><span class="pre">«Trace»</span></code> などの定義済みステレオタイプがある。これは <a class="reference internal" href="ch22-standard-profile.html"><span class="doc">22 Standard Profile</span></a> で仕様化する。</p>
+<blockquote>
+<div><p>If an Abstraction has more than one client, the <code class="docutils literal notranslate"><span class="pre">supplier</span></code> maps into the
+set of <code class="docutils literal notranslate"><span class="pre">clients</span></code> as a group.</p>
+</div></blockquote>
+<p>例えば、分析水準 Class は設計水準 Class に分割されるかもしれない。このような写像の状況は <code class="docutils literal notranslate"><span class="pre">supplier</span></code> が複数存在する場合も同様だ。</p>
+</section>
+<section id="realization">
+<h4>7.7.3.4 Realization<a class="headerlink" href="#realization" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Realization is a specialized Abstraction dependency between two sets of
+NamedElements, one representing a specification (the <code class="docutils literal notranslate"><span class="pre">supplier</span></code>) and the
+other representing an implementation of that specification (the <code class="docutils literal notranslate"><span class="pre">client</span></code>).</p>
+</div></blockquote>
+<p>Realization を段階的な洗練、最適化、変換、テンプレート、モデル合成、フレームワーク合成などをモデル化するために使用することができる。</p>
+<p>Realization は <code class="docutils literal notranslate"><span class="pre">client</span></code> の集合が、仕様として機能する <code class="docutils literal notranslate"><span class="pre">supplier</span></code> の集合の実装であることを意味する。</p>
+<p>「実装」の意味は厳密に定義されているわけではなく、特定のモデリングコンテキストに関して、より洗練された、または精巧な形式を意味する。</p>
+<blockquote>
+<div><p>It is possible to specify a mapping between the specification and
+implementation elements, although this is not necessarily computable.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="id29">
+<h3>7.7.4 Notation<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h3>
+<p>Dependency は破線矢印として示す。</p>
+<ul class="simple">
+<li><p>矢印は <code class="docutils literal notranslate"><span class="pre">client</span></code> から <code class="docutils literal notranslate"><span class="pre">supplier</span></code> に向く。</p></li>
+<li><p>矢印のラベルにはオプションとしてキーワード・ステレオタイプを付けてよい。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">clients</span></code> または <code class="docutils literal notranslate"><span class="pre">suppliers</span></code> に対する Element の集合を持つことが可能だ。この場合、一つ以上の矢印の始点と終点が <code class="docutils literal notranslate"><span class="pre">clients</span></code> と <code class="docutils literal notranslate"><span class="pre">suppliers</span></code> に接続する。お望みなら破線の接合部に置くことができる。そこに Dependency に関するノートをなるべく添える。</p>
+<blockquote>
+<div><p>A Usage is shown as a Dependency with a «use» keyword attached to it.</p>
+<p>An Abstraction is shown as a Dependency with an «abstraction» keyword or the
+specific predefined stereotype attached to it.</p>
+<p>A Realization is shown as a dashed line with a triangular arrowhead at the
+end that corresponds to the realized Element.</p>
+</div></blockquote>
+</section>
+<section id="id30">
+<h3>7.7.5 Examples<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 7.19 An example of an <code class="docutils literal notranslate"><span class="pre">«Instantiate»</span></code> Dependency</p>
+</div></blockquote>
+<p>標準ステレオタイプである <code class="docutils literal notranslate"><span class="pre">«Instantiate»</span></code> を適用した Dependency (Usage) だ。
+CarFactory のオブジェクトが Car のオブジェクトを作成することを示している。</p>
+<blockquote>
+<div><p>Figure 7.20 An example of a <code class="docutils literal notranslate"><span class="pre">«use»</span></code> Dependency</p>
+</div></blockquote>
+<p>Usage の記法例。Order の完全な実装には Line Item を必要とする。</p>
+<blockquote>
+<div><p>Figure 7.21 An example of a realization Dependency</p>
+</div></blockquote>
+<p>Realization の記法例。Business を Owner と Employee の組み合わせで実現した例。見慣れたクラス図だ。</p>
+</section>
+</section>
+<section id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">7.8 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
+<p>機械生成による節。</p>
+</section>
+<section id="association-descriptions">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">7.9 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
+<p>機械生成による節。</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch06-additional-information.html" title="Previous document">6 Additional Information</a>
+        </li>
+        <li>
+          <a href="ch08-values.html" title="Next document">8 Values</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ou23/index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v5.html">What’s New In Bash 5 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wslg.html">Windows Subsystem for Linux GUI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../oh-my-posh.html">Oh My Posh 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Unified Modeling Language 2.5 読書ノート</a><ul>
+      <li>Previous: <a href="ch06-additional-information.html" title="previous chapter">6 Additional Information</a></li>
+      <li>Next: <a href="ch08-values.html" title="next chapter">8 Values</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

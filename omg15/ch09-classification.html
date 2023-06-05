@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9 Classification &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="10 Simple Classifiers" href="ch10-simple-classifiers.html" />
+    <link rel="prev" title="8 Values" href="ch08-values.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch08-values.html" title="Previous document">8 Values</a>
+        </li>
+        <li>
+          <a href="ch10-simple-classifiers.html" title="Next document">10 Simple Classifiers</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="classification">
+<h1><a class="toc-backref" href="#id35" role="doc-backlink">9 Classification</a><a class="headerlink" href="#classification" title="Permalink to this heading">¶</a></h1>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>現在ノート修正中。</p>
+</div>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#classification" id="id35">9 Classification</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id36">9.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#classifiers" id="id37">9.2 Classifiers</a></p></li>
+<li><p><a class="reference internal" href="#classifier-templates" id="id38">9.3 Classifier Templates</a></p></li>
+<li><p><a class="reference internal" href="#features" id="id39">9.4 Features</a></p></li>
+<li><p><a class="reference internal" href="#properties" id="id40">9.5 Properties</a></p></li>
+<li><p><a class="reference internal" href="#operations" id="id41">9.6 Operations</a></p></li>
+<li><p><a class="reference internal" href="#generalization-sets" id="id42">9.7 Generalization Sets</a></p></li>
+<li><p><a class="reference internal" href="#instances" id="id43">9.8 Instances</a></p></li>
+<li><p><a class="reference internal" href="#classifier-descriptions" id="id44">9.9 Classifier Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#association-descriptions" id="id45">9.10 Association Descriptions</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="summary">
+<h2><a class="toc-backref" href="#id36" role="doc-backlink">9.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+<p>分類は組織化において重要な技法だ。この章では分類に関する概念を規定する。中核概念は Classifier すなわちその具象サブクラスが値の異なる種類の値を分類するのに用いられる抽象メタクラスだ。</p>
+<p>この章のその他のメタクラスは Classifiers の構成要素、InstanceSpecifications を使った Classifiers のオブジェクト化モデル、そしてこれらの概念すべての間にあるさまざまな関係を表現する。</p>
+</section>
+<section id="classifiers">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">9.2 Classifiers</a><a class="headerlink" href="#classifiers" title="Permalink to this heading">¶</a></h2>
+<section id="id1">
+<h3>9.2.1 Summary<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A Classifier represents a classification of instances according to their
+Features.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Classifier は Generalization によって階層的構造に組織化されている。</p></li>
+<li><p>RedefinableElements は Generalization の階層の文脈で再定義してもよい。</p></li>
+</ul>
+</section>
+<section id="abstract-syntax">
+<h3>9.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 9.1 Classifiers</p>
+</div></blockquote>
+<p>Classifier を中心とした図式だが、大量の関連が記されている。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_inheritedMember_inheritingClassifier</span></code></dt><dd><p>Classifier から NamedElement への関連（単方向）。</p>
+<ul class="simple">
+<li><p>継承されたメンバーの集合のことをその <code class="docutils literal notranslate"><span class="pre">inheritedMember</span></code> と呼ぶ。特に断りのない限り、private な可視性ではない <code class="docutils literal notranslate"><span class="pre">member</span></code> だ。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_member_memberNamespace</span></code> を subsets する。</p>
+<ul>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">inheritedMember</span></code> は制約 <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> がある。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_redefinedElement_redefinableElement</span></code></dt><dd><p>RedefinableElement から RedefinableElement への関連（単方向）。</p>
+<ul class="simple">
+<li><p>両関連端とも <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> であり、多重度は <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_redefinedClassifier_classifier</span></code></dt><dd><p>Classifier から Classifier への関連（単方向）。</p>
+<ul class="simple">
+<li><p>上記関連を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_redefinitionContext_redefinableElement</span></code></dt><dd><p>RedefinableElement から Classifier への単方向関連。</p>
+<ul class="simple">
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">redefinitionContext</span></code> は「メンバーがそこから再定義されてもよいような Classifier」を表す。</p></li>
+<li><p>両関連端とも <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> であり、多重度は <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p>
+<ul>
+<li><p>とは言え、UML の仕様書では <code class="docutils literal notranslate"><span class="pre">redefinitionContext</span></code> が一つを超える事例はない。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_feature_featuringClassifier</span></code></dt><dd><p>Classifier と Feature との間の関連（双方向）。</p>
+<ul class="simple">
+<li><p>Classifier は Features の集合、そのうちのいくつかはその Classifier の
+<code class="docutils literal notranslate"><span class="pre">attributes</span></code> と呼ばれる Properties だ。下記関連のコメント参照。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_member_memberNamespace</span></code> を subsets する。</p>
+<ul>
+<li><p>両関連端にはさらに <code class="docutils literal notranslate"><span class="pre">{readOnly,</span> <span class="pre">union}</span></code> も付く。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_attribute_classifier</span></code></dt><dd><p>Classifier から Property への関連（単方向）。</p>
+<ul class="simple">
+<li><p>上記の関連と <code class="docutils literal notranslate"><span class="pre">A_redefinitionContext_redefinableElement</span></code> を subsets する。</p>
+<ul>
+<li><p>両関連端にはさらに <code class="docutils literal notranslate"><span class="pre">readOnly</span></code> と <code class="docutils literal notranslate"><span class="pre">union</span></code> も付く。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">attribute</span></code> のほうにはさらに <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> が加わっている。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_collaborationUse_classifier</span></code></dt><dd><p>Classifier から CollaborationUse への複合関連。</p>
+<ul class="simple">
+<li><p>Classifier は、それを Collaborations に関係させる CollaborationUses を所有してもよい。その Collaborations はこの Classifier の外観を描写する。
+<a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> で述べる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_representation_classifier</span></code></dt><dd><p>Classifier から CollaborationUse への関連（単方向）。</p>
+<ul class="simple">
+<li><p>上記関連を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">representation</span></code> の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedUseCase_classifier</span></code></dt><dd><p>Classifier から UseCase への複合関連（単方向）。</p>
+<ul class="simple">
+<li><p>Classifier は UseCases を所有してもよい。<a class="reference internal" href="ch18-usecases.html"><span class="doc">18 UseCases</span></a> で述べる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_generalization_specific</span></code></dt><dd><p>Generalization から Classifier への複合関連（両方向）。</p>
+<ul class="simple">
+<li><p>各 Generalization は <code class="docutils literal notranslate"><span class="pre">specific</span></code> を <code class="docutils literal notranslate"><span class="pre">general</span></code> と関係させる。</p></li>
+<li><p>与えられた Classifier に対し、その <code class="docutils literal notranslate"><span class="pre">specific</span></code> の推移閉包（グラフ論等で頻用する用語）をその specializations と呼ぶ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> と <code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_general_generalization</span></code></dt><dd><p>Generalization から Classifier への関連（単方向）。</p>
+<ul class="simple">
+<li><p>与えられた Classifier に対し、その <code class="docutils literal notranslate"><span class="pre">general</span></code> の推移閉包をその
+<code class="docutils literal notranslate"><span class="pre">generalizations</span></code> と呼ぶ。特に直接の <code class="docutils literal notranslate"><span class="pre">generalizations</span></code> はその親と呼ばれる。もっと言えば Classifier が Class のときには <code class="docutils literal notranslate"><span class="pre">superClasses</span></code> となる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_general_classifier</span></code></dt><dd><p>Classifier から Classifier への関連（単方向）。</p>
+<ul class="simple">
+<li><p>説明が見当たらないが、子クラスは親クラスに依存する、くらいの意味か。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_generalizationSet_generalization</span></code></dt><dd><p>後述。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_contract_substitution</span></code></dt><dd><p>Substitution から Classifier への関連（単方向）。</p>
+<ul class="simple">
+<li><p>意味は上述の Substitution のノートを参照。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_supplier_supplierDependency</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_substitution_substitutingClassifier</span></code></dt><dd><p>Classifier から Substitution への複合関連（両方向）。</p>
+<ul class="simple">
+<li><p>意味は上述の Substitution のノートを参照。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contract</span></code> が実装する Interfaces は上記関連の <code class="docutils literal notranslate"><span class="pre">substitutingClassifier</span></code>
+もまた実装する必要があるか、あるいは <code class="docutils literal notranslate"><span class="pre">substitutingClassifier</span></code> がより特殊な
+Interface 型を実装する必要がある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contract</span></code> が所有するどんな Port も上記関連の <code class="docutils literal notranslate"><span class="pre">substitutingClassifier</span></code>
+が所有するある Port に match することが必要だ。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_clientDependency_client</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="semantics">
+<h3>9.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
+<section id="id2">
+<h4>9.2.3.1 Classifiers<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A Classifier has a set of Features, some of which are Properties called the
+<code class="docutils literal notranslate"><span class="pre">attributes</span></code> of the Classifier. Each of the Features is a <code class="docutils literal notranslate"><span class="pre">member</span></code> of the
+Classifier (see sub clause 7.4 Namespaces).</p>
+</div></blockquote>
+<p>Classifier によって分類される値をその Classifier のインスタンスと呼ぶ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>私の UML ノートでは英単語 instance をオブジェクトと訳している。</p>
+</div>
+<p>Classifier を再定義することが許される。</p>
+<p>Classifier は、Classifier を Collaborations に関連付ける CollaborationUses を所有してもよい。Collaborations はこの Classifier の様子を記述するものだ。
+<a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> 参照。</p>
+<p>Classifier は UseCases を所有してよい。<a class="reference internal" href="ch18-usecases.html"><span class="doc">18 UseCases</span></a> 参照。</p>
+</section>
+<section id="generalization">
+<h4>9.2.3.2 Generalization<a class="headerlink" href="#generalization" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Generalizations define generalization/specialization relationships between
+Classifiers. Each Generalization relates a <code class="docutils literal notranslate"><span class="pre">specific</span></code> Classifier to a more
+<code class="docutils literal notranslate"><span class="pre">general</span></code> Classifier. Given a Classifier, the transitive closure of its
+<code class="docutils literal notranslate"><span class="pre">general</span></code> Classifiers is often called its <em class="dfn">generalizations</em>, and the
+transitive closure of its <code class="docutils literal notranslate"><span class="pre">specific</span></code> Classifiers is called its
+<em class="dfn">specializations</em>. The immediate <code class="docutils literal notranslate"><span class="pre">generalizations</span></code> are also called the
+Classifier’s parents, and where the Classifier is a Class, its
+<code class="docutils literal notranslate"><span class="pre">superClasses</span></code> (see 11.4).</p>
+</div></blockquote>
+<p>汎化関係と特化関係の定義でもある。</p>
+<blockquote>
+<div><p>An instance of a Classifier is also an (indirect) instance of each of its
+generalizations. Any Constraints applying to instances of the generalizations
+also apply to instances of the Classifier.</p>
+</div></blockquote>
+<p>チワワのオブジェクトは犬のオブジェクトでもあると言っている。</p>
+<blockquote>
+<div><p>When a Classifier is generalized, certain members of its generalizations are
+<em class="dfn">inherited</em>, that is they behave as though they were defined in the
+inheriting Classifier itself. For example, an inherited member that is an
+<code class="docutils literal notranslate"><span class="pre">attribute</span></code> may have a value or collection of values in any instance of the
+inheriting Classifier, and an inherited member that is an Operation may be
+invoked on an instance of the inheriting Classifier.</p>
+</div></blockquote>
+<p>チワワは犬の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> を持ったり、犬の Operation メンバーを呼ぶことが許される。</p>
+<blockquote>
+<div><p>The set of members that are inherited is called the <code class="docutils literal notranslate"><span class="pre">inheritedMembers</span></code>.
+Unless specified differently for a particular kind of Classifier, the
+<code class="docutils literal notranslate"><span class="pre">inheritedMembers</span></code> are <code class="docutils literal notranslate"><span class="pre">members</span></code> that do not have private visibility.</p>
+</div></blockquote>
+<p>継承メンバーは private でない。</p>
+<blockquote>
+<div><p>Type conformance means that if one Type conforms to another, then any
+instance of the first Type may be used as the value of a TypedElement whose
+<code class="docutils literal notranslate"><span class="pre">type</span></code> is declared to be the second Type.</p>
+</div></blockquote>
+<p>Classifier は Type であり、それ自身とその一般化のすべてに対して適合する。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">isAbstract</span></code> property of Classifier, when true, specifies that the
+Classifier is abstract, i.e., has no direct instances:</p>
+</div></blockquote>
+<p>抽象 Classifier のオブジェクトはすべて、その特殊化の一つのオブジェクトでなければならない。</p>
+<p>ある分類子（親）が別の分類子（子）を一般化する場合、子のオブジェクトがあらゆる状況下で親のインスタンスと置換可能であるとは限らない：</p>
+<blockquote>
+<div><p>For example, Circle may be defined as a specialization of Ellipse, and its
+instances would be substitutable in every circumstance involving accessing
+the properties of an Ellipse. However, if Ellipse were to define a stretch
+behavior that modifies the length of its major axis only, then a Circle
+object would be unable to implement such a behavior.</p>
+</div></blockquote>
+<p>特性 <code class="docutils literal notranslate"><span class="pre">isSubstitutable</span></code> を、特定の Classifier が一般 Classifier が用いられる状況すべてにおいて使用可能かどうかを示すのに用いてよい。</p>
+</section>
+<section id="redefinition">
+<h4>9.2.3.3 Redefinition<a class="headerlink" href="#redefinition" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Any <code class="docutils literal notranslate"><span class="pre">member</span></code> (that is a kind of RedefinableElement) of a generalization of
+a specializing Classifier may be redefined instead of being inherited.
+Redefinition is done in order to augment, constrain, or override the
+redefined <code class="docutils literal notranslate"><span class="pre">member(s)</span></code> in the context of instances of the specializing
+Classifier.</p>
+</div></blockquote>
+<p>この場合、再定義 <code class="docutils literal notranslate"><span class="pre">member</span></code> は、再定義された <code class="docutils literal notranslate"><span class="pre">member</span></code> の代わりに特化Classifier
+の構造または動作に与する。特化 Classifier のオブジェクトの文脈で再定義された
+<code class="docutils literal notranslate"><span class="pre">member</span></code> への参照は、再定義された <code class="docutils literal notranslate"><span class="pre">member</span></code> に解決されるものとする。</p>
+<blockquote>
+<div><p>The Classifier from which the member may be redefined is called the
+<code class="docutils literal notranslate"><span class="pre">redefinitionContext</span></code>.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">redefinitionContext</span></code> は RedefinableElement の種類ごとに定義され、<code class="docutils literal notranslate"><span class="pre">member</span></code>
+の <code class="docutils literal notranslate"><span class="pre">owner</span></code> であることが多いが、常にそうとは限らない。</p>
+<p>再定義要素一つが RedefinableElements 複数を再定義してもよい。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">isLeaf</span></code> property, when true for a particular RedefinableElement,
+specifies that it shall have no redefinitions.</p>
+<p>The detailed semantics of redefinition vary for each specialization of
+RedefinableElement.</p>
+</div></blockquote>
+<p>再定義された要素とその再定義要素との間には、次のようなさまざまな種類の互換性がある：</p>
+<ul>
+<li><p>名前互換性（再定義要素が被再定義要素と同じ <code class="docutils literal notranslate"><span class="pre">name</span></code> を持つ）</p></li>
+<li><p>構造的互換性（被再定義要素のクライアントに見えるプロパティーが再定義要素のプロパティーでもある）</p></li>
+<li><p>動作的互換性（再定義要素が被再定義要素の代替となる）</p>
+<blockquote>
+<div><p>Classifier is itself a RedefinableElement. This can come into play when a
+Classifier is nested in a Class or Interface, which becomes the
+<code class="docutils literal notranslate"><span class="pre">redefinitionContext</span></code>.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>特化クラスまたはインターフェイスの文脈で Classifier を再定義すると、特化クラスまたはインターフェイスのインスタンスから再定義された Classifier への参照が、再定義された Classifier に解決される効果がある。</p>
+</section>
+<section id="substitution">
+<h4>9.2.3.4 Substitution<a class="headerlink" href="#substitution" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A Substitution is a relationship between two Classifiers which signifies that
+the <code class="docutils literal notranslate"><span class="pre">substitutingClassifier</span></code> complies with the contract specified by the
+<code class="docutils literal notranslate"><span class="pre">contract</span></code> Classifier. This implies that instances of the
+<code class="docutils literal notranslate"><span class="pre">substitutingClassifier</span></code> are runtime substitutable where instances of the
+<code class="docutils literal notranslate"><span class="pre">contract</span></code> Classifier are expected.</p>
+</div></blockquote>
+<p>これは <code class="docutils literal notranslate"><span class="pre">contact</span></code> Classifier のオブジェクトが期待されるところでは
+<code class="docutils literal notranslate"><span class="pre">substitutingClassifier</span></code> のオブジェクトが実行時に置換可能であることを含意する。</p>
+<p>Substitution は Specialization とは異なり、構造の継承を意味しない。公開された契約の遵守のみを意味する。そのことは次を必要とする：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">contract</span></code> Classifier が実装する Interface は <code class="docutils literal notranslate"><span class="pre">substutingClassifier</span></code> も実装するか、<code class="docutils literal notranslate"><span class="pre">substutingClassifier</span></code> がより特殊な Interface 型を実装する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contract</span></code> Classifier が所有する Port は <code class="docutils literal notranslate"><span class="pre">substutingClassifier</span></code> が所有する
+Port と合致する。</p></li>
+</ul>
+</section>
+</section>
+<section id="notation">
+<h3>9.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<section id="id3">
+<h4>9.2.4.1 Classifiers<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<p>Classifier は抽象メタクラスだ。それでもやはり、Classifier の具象サブクラスのどれにとっても利用可能な既定の表記法を一箇所で定義しておくことは都合が良い。</p>
+<p>Classifier の既定の表記法は、Classifier の <code class="docutils literal notranslate"><span class="pre">name</span></code> を含む実線矩形であり、
+<code class="docutils literal notranslate"><span class="pre">name</span></code> の下部にある水平線により分離された区画がある。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> of the Classifier should be centered in boldface. For those
+languages that distinguish between uppercase and lowercase characters,
+Classifier <code class="docutils literal notranslate"><span class="pre">names</span></code> should begin with an uppercase character.</p>
+</div></blockquote>
+<p>Classifier に対して既定の表記法を用いるならば、Classifier のメタクラスに対応するキーワードを <code class="docutils literal notranslate"><span class="pre">name</span></code> の上部に guillemets で括って示すものとする。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>キーワードについては <a class="reference internal" href="anc-keywords.html"><span class="doc">Annex C: Keywords</span></a> 参照。</p></li>
+<li><p>メタクラスが Class であることを示すキーワードは必要ない。</p></li>
+</ul>
+</div></blockquote>
+<p>キーワード（ステレオタイプ名を含む）はなるべく Classifier <code class="docutils literal notranslate"><span class="pre">name</span></code> の上部に
+guillemets で括られ、プレーンな字面で中央寄せとする。</p>
+<p>抽象 Classifier の <code class="docutils literal notranslate"><span class="pre">name</span></code> は利用フォントが許す限りイタリック体で示す。あるいは <code class="docutils literal notranslate"><span class="pre">name</span></code> の後か下に <code class="docutils literal notranslate"><span class="pre">{abstract}</span></code> というテキスト注釈付きで示すことも認められる。</p>
+<p>Classifier 形状にある区画のいくらかは必須であり、具象構文に対する適合性があるツールで対応されるものとする。それ以外はオプション。</p>
+<p>どの区画も非表示にしてよい。抑制された区画には、区切り線は引かれない。非表示の場合、その中の要素の有無について推論を行うことはできない。</p>
+<p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> と名付けられた区画はその <code class="docutils literal notranslate"><span class="pre">attribute</span></code> 特性を介して到達される
+Properties を示す表記法を含む。この区画は必須で、非表示でなければ常に他の区画の上部に現れる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">operations</span></code> と名付けられた区画は Operations を示す表記法を含む。
+<code class="docutils literal notranslate"><span class="pre">attributes</span></code> 区画のすぐ下に表示される。この区画は Operation を所有する
+Classifier のために使用される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">receptions</span></code> と名付けられた区画は Receptions を示す表記法を含む。この区画は必須で、<code class="docutils literal notranslate"><span class="pre">operations</span></code> 区画のすぐ下にある。この区画は Receptions を所有する
+Classifier のために使用される。</p>
+<blockquote>
+<div><p>Any compartment which contains notation for Features may show those Features
+grouped under the literals public, private and protected, representing their
+<code class="docutils literal notranslate"><span class="pre">visibility</span></code>.</p>
+</div></blockquote>
+<p>Classifier が Constraints を所有するならば、適合性があるツールは所有する
+Classifier の矩形の別の区画内にリストされた所有 Constraints を示す区画を実装してよい。その場合、区画名は <code class="docutils literal notranslate"><span class="pre">constraints</span></code> だ。</p>
+</section>
+<section id="other-elements">
+<h4>9.2.4.2 Other elements<a class="headerlink" href="#other-elements" title="Permalink to this heading">¶</a></h4>
+<p>汎化の矢印では鏃は白かと思っていたが、塗りなしが正解だ：</p>
+<blockquote>
+<div><p>A Generalization is shown as a line with a hollow triangle as an arrowhead
+between the symbols representing the involved Classifiers. The arrowhead
+points to the symbol representing the <code class="docutils literal notranslate"><span class="pre">general</span></code> Classifier.</p>
+</div></blockquote>
+<p>同一の <code class="docutils literal notranslate"><span class="pre">general</span></code> Classifier を参照する複数の Generalizations を表すのに、それらの別々の矢印で表現しても共有して示しても、鏃を共有する様式の矢印で示してもかまわない。</p>
+<p>RedefinableElement を表す一般的な表記法はない。</p>
+<p>Substitution は Dependency の記法を用いる。キーワードは <code class="docutils literal notranslate"><span class="pre">«substitute»</span></code> とする。</p>
+<p>Classifier が継承した <code class="docutils literal notranslate"><span class="pre">members</span></code> を仮に <code class="docutils literal notranslate"><span class="pre">member</span></code> が継承されていなかったら示されたであろうテキスト的表現に対して先頭にキャレット記号を付けることで Classifier
+の図式上に示してよい。継承されたプロパティーの記法は次のように定義される：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">inherited-property</span><span class="p">&gt;</span> <span class="o">::=</span> ’^’ <span class="p">&lt;</span><span class="nc">property</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>同様に、継承された Connectorの表記は：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">inherited-connector</span><span class="p">&gt;</span> <span class="o">::=</span> ’^’ <span class="p">&lt;</span><span class="nc">connector</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Classifier の <code class="docutils literal notranslate"><span class="pre">inheritedMembers</span></code> である NamedElements のすべてに対して、継承されたものであることを示すのに、これと類比的な表記を用いてよい。</p>
+</section>
+</section>
+<section id="examples">
+<h3>9.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<p>いずれも矢印の向きとスタイルの規約を了解するだけで十分だ。</p>
+<blockquote>
+<div><p>Figure 9.2 Generalization notation showing different target styles</p>
+</div></blockquote>
+<p>よくあるクラス継承図。個人的には shared target style の方が好みだ。</p>
+<blockquote>
+<div><p>Figure 9.3 Example of Substitution notation</p>
+</div></blockquote>
+<p>Substitution の記法例。この図式は一般的な Window クラスが特定の環境において
+Resizable Window クラスで代用可能であることを表現する。</p>
+</section>
+</section>
+<section id="classifier-templates">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">9.3 Classifier Templates</a><a class="headerlink" href="#classifier-templates" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h3>9.3.1 Summary<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Classifier は引数として扱えることを知らせる TemplateableElement の一種だ。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>9.3.2 Abstract Syntax<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.4 Classifier Templates</p>
+<ul>
+<li><p>字が潰れて読みにくい。閲覧にはズームを 150% にはしたい。</p></li>
+<li><p>この図では Classifier が間接的に ParameterableElement の一種であることがすぐに思い出せない。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedTemplateSignature_classifier</span></code></dt><dd><ul class="simple">
+<li><p>Classifier から RedefinableTemplateSignature への複合関連（両方向）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_redefinitionContext_redefinableElement</span></code> を subsets する。</p></li>
+<li><p>さらに <code class="docutils literal notranslate"><span class="pre">A_ownedTemplateSignature_template</span></code> を redefines する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_extendedSignature_redefinableTemplateSignature</span></code></dt><dd><ul class="simple">
+<li><p>RedefinableTemplateSignature 間の関連（単方向）。</p></li>
+<li><p>RedefinableTemplateSignature はテンプレートである親 Classifier 全ての
+RedefinableTemplateSignature を再定義する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_redefinedElement_redefinableElement</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_inheritedParameter_redefinableTemplateSignature</span></code></dt><dd><ul class="simple">
+<li><p>RedefinableTemplateSignature から TemplateParameter への関連（単方向）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_parameter_templateSignature</span></code> を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">inheritedMember</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_parameteredElement_templateParameter</span></code></dt><dd><ul class="simple">
+<li><p>ClassifierTemplateParameter と Classifier との間の関連（両方向）。</p></li>
+<li><p>先述の ClassifierTemplateParameter のノート参照。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> が存在して抽象でなければ、引数として用いられる Classifier は抽象であってはならない。</p></li>
+</ul>
+</li>
+<li><p>これは既存の同名の関連を redefines する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_constrainingClassifier_classifierTemplateParameter</span></code></dt><dd><ul class="simple">
+<li><p>ClassifierTemplateParameter から Classifier への関連（単方向）。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>9.3.3 Semantics<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<section id="template-and-bound-classifiers">
+<h4>9.3.3.1 Template and Bound Classifiers<a class="headerlink" href="#template-and-bound-classifiers" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>テンプレートと被束縛要素の用語の意味は <a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> で定義されている。</p></li>
+<li><p>RedefinableTemplateSignature を使って引数化された Classifier はテンプレート
+Classifier と呼ばれる。一方、一つまたはそれを超える TemplateBindings がある
+Classifier は被束縛 Classifier と呼ばれる。</p></li>
+<li><p>テンプレートの一般的な意味は <a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> で定義されているとおりだ。</p></li>
+<li><p>拡張被束縛 Classifier のメンバーを束縛において実引数として用いてよい。</p></li>
+<li><p>被束縛 Classifier には束縛の結果生じるものに加えて中身があってよい。</p></li>
+<li><p>テンプレート Classifier の引数は TemplateParameter のどんな種類の可能性もある。</p></li>
+<li><p>引数が Classifier のときには、ClassifierTemplateParameter で表現され、意味と表記法はこの章で定義される。</p></li>
+<li><p>引数が LiteralSpecification のときには、意味と表記法は
+<a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> で定義されているとおりだ。</p></li>
+<li><p>引数が Operation であるときには、意味と表記法は 9.6 にあるとおりだ。</p></li>
+<li><p>引数が Property であるときには、意味と表記法は 9.5 にあるとおりだ。</p></li>
+</ul>
+</section>
+<section id="template-classifier-specialization">
+<h4>9.3.3.2 Template Classifier specialization<a class="headerlink" href="#template-classifier-specialization" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>RedefinableTemplateSignature は特殊化するテンプレート Classifier の状況で新たな仮 TemplateParameters の追加を許すためにRedefinableElement と
+TemplateSignature の両方を特殊化する。</p></li>
+<li><p>RedefinableTemplateSignature はテンプレートである親 Classifiers のすべての
+RedefinableTemplateSignatures を再定義する。</p></li>
+</ul>
+</section>
+<section id="classifier-template-parameters">
+<h4>9.3.3.3 Classifier Template Parameters<a class="headerlink" href="#classifier-template-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>ClassifierTemplateParameter とは、<code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> が
+ParameterableElement の一種であるという能力で Classifier である
+TemplateParameter の一種だ。</p></li>
+<li><p>Class, Collaboration, Component, DataType, Interface, Signal, UseCase などの
+Classifier のサブクラスはすべて引数として、束縛して、TemplateParameters として用いてもよい。同様のことが Class のサブクラスとしての Behavior に対しても成り立ち、それにより Activity, Interaction, StateMachine などのBehavior のサブクラスすべてもそのようにしてよい。</p></li>
+<li><p>ClassifierTemplateParameter の <code class="docutils literal notranslate"><span class="pre">constrainingClassifier</span></code> 特性は引数として用いることが可能な実引数を制約するClassifiers の集合を指定する。この集合に何か
+Classifiers があれば、実引数はそれらのすべてと互換性が次の意味であるものとする：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">allowSubstitutable</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> ならば、互換性は <code class="docutils literal notranslate"><span class="pre">contract</span></code> が
+<code class="docutils literal notranslate"><span class="pre">constrainingClassifier</span></code> である Substitution をさらに許す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allowSubstitutable</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> ならば、互換性とはその集合のすべてと同じであることか、<code class="docutils literal notranslate"><span class="pre">constrainingClassifiers</span></code> のすべての特殊化であることを意味する。</p></li>
+</ul>
+</li>
+<li><p>なお、<code class="docutils literal notranslate"><span class="pre">constrainingClassifiers</span></code> があれば、<code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> は次のように制約が付くものとする：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">allowSubstitutable</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> ならば、互換性は <code class="docutils literal notranslate"><span class="pre">contract</span></code> が
+<code class="docutils literal notranslate"><span class="pre">constrainingClassifier</span></code> であるSubstitution をさらに許す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allowSubstitutable</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> ならば、互換性とはその集合のすべてと同じであることか、<code class="docutils literal notranslate"><span class="pre">constrainingClassifiers</span></code> のすべての直接的特殊化であることを意味し、さらなる機能はない。</p></li>
+</ul>
+</li>
+<li><p>すべての場合で、<code class="docutils literal notranslate"><span class="pre">parameteredElement</span></code> が抽象的でなければ、実引数として用いられる Classifier は抽象的ではないものとする。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h3>9.3.4 Notation<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>これは <a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> の Templates の記法の焼き直しのようだ。</p>
+<ul class="simple">
+<li><p>ClassifierTemplateParameter は TemplateParameter が選択自由な型制約を含むように表記法を拡張する。</p></li>
+<li><p>錯覚かもしれないが p. 103 の BNF と p. 104 の例題とで <code class="docutils literal notranslate"><span class="pre">&lt;constraint&gt;</span></code> の
+prefix が異なる気がする。</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>9.3.5 Examples<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.5 Template Class and Bound Class</p>
+<ul>
+<li><p>クラステンプレート <code class="docutils literal notranslate"><span class="pre">FArray</span></code> の図式か。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code>, <code class="docutils literal notranslate"><span class="pre">k</span></code> がそれぞれ TemplateParameter だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> は制約なしクラスの、<code class="docutils literal notranslate"><span class="pre">k</span></code> は LiteralInteger の TemplateParameter だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code> の方にはデフォルト値の指定が付いている。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AddressList</span></code> は bound Class だ。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.6 Anonymous Bound Class</p>
+<ul>
+<li><p>無名被束縛 Class の見本。C++ 風に書くと <code class="docutils literal notranslate"><span class="pre">FArray&lt;Point&gt;</span></code> を表現する図。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.7 Template Class with constrained Class parameter</p>
+<ul>
+<li><p>クラステンプレート <code class="docutils literal notranslate"><span class="pre">Car</span></code> の図式。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CarEngine</span></code> と <code class="docutils literal notranslate"><span class="pre">n</span></code> が TemplateParameter だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CarEngine</span></code> には制約が指定されている。読み方は「Engine と呼ばれる Class に適合する」だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> は「LiteralInteger である」という制約が指定されている。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.8 Bound Class</p>
+<ul>
+<li><p>これは被束縛 Class の記法の見本。</p></li>
+<li><p>被束縛 Class の名前は <code class="docutils literal notranslate"><span class="pre">DieselCar</span></code> だ。</p></li>
+<li><p>TemplateParameter である <code class="docutils literal notranslate"><span class="pre">CarEngine</span></code> と <code class="docutils literal notranslate"><span class="pre">n</span></code> に対して <code class="docutils literal notranslate"><span class="pre">DieselEngine</span></code> と
+<code class="docutils literal notranslate"><span class="pre">2</span></code> をそれぞれ束縛している。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="features">
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">9.4 Features</a><a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h2>
+<section id="id9">
+<h3>9.4.1 Summary<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Features は Classifiers の構造的特徴と挙動の特徴を表現する。</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3>9.4.2 Abstract Syntax<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.9 Features</p>
+<ul>
+<li><p>クラスの他に列挙体がある。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_feature_featuringClassifier</span></code></dt><dd><p>先述の通り。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_raisedException_behavioralFeature</span></code></dt><dd><ul class="simple">
+<li><p>BehavioralFeature から Type への関連（単方向）。</p></li>
+<li><p>BehavioralFeature はその呼出期間中に例外を送出してもよい。この関連はその例外の型を指定する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_method_specification</span></code></dt><dd><ul class="simple">
+<li><p>BehavioralFeature と Behavior の間の関連（両方向）。</p></li>
+<li><p>多重度は <code class="docutils literal notranslate"><span class="pre">specification</span></code> <code class="docutils literal notranslate"><span class="pre">0..1</span></code> に対して <code class="docutils literal notranslate"><span class="pre">method</span></code> <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p></li>
+<li><p>BehavioralFeature の挙動の応答を定義する一つの方法は、それを実装するような
+Behavior を一つまたは複数指定することだ。この関連はその指定を示す。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameter_ownerFormalParam</span></code></dt><dd><ul class="simple">
+<li><p>BehavioralFeature から Parameter への複合関連（単方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedParameter</span></code> はその BehavioralFeature が呼び出されるときに与えられる引数の順序、型、入出力方向の特徴を述べるものだ。</p>
+<ul>
+<li><p>それゆえ <code class="docutils literal notranslate"><span class="pre">ownedParameter</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> だ。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameterSet_behavioralFeature</span></code></dt><dd><ul class="simple">
+<li><p>BehavioralFeature から ParameterSet への複合関連（単方向）。</p></li>
+<li><p>上述関連の代替？</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_defaultValue_owningParameter</span></code></dt><dd><ul class="simple">
+<li><p>Parameter から ValueSpecification への複合関連（単方向）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">defaultValue</span></code> が指定されていれば、その BehavioralFeature の呼び出し時に実引数が与えらていない場合に限り、この Parameter として評価されて用いられる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>多重度は両端ともに <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_parameterSet_parameter</span></code></dt><dd><ul class="simple">
+<li><p>Parameter と ParameterSet の間の関連（両方向）。</p></li>
+<li><p>多重度は <code class="docutils literal notranslate"><span class="pre">parameter</span></code> <code class="docutils literal notranslate"><span class="pre">1..*</span></code> に対して <code class="docutils literal notranslate"><span class="pre">parameterSet</span></code> <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_condition_parameterSet</span></code></dt><dd><ul class="simple">
+<li><p>ParameterSet から Constraint への複合関連（単方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">condition</span></code> の意味は、入力 ParameterSet のそれが Operation における
+<code class="docutils literal notranslate"><span class="pre">preconditions</span></code> と、出力 ParameterSet のそれが Operation における
+<code class="docutils literal notranslate"><span class="pre">postconditions</span></code> とそれぞれ同じだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h3>9.4.3 Semantics<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<section id="id12">
+<h4>9.4.3.1 Features<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Feature それぞれは、それの <code class="docutils literal notranslate"><span class="pre">featuringClassifier</span></code> と呼ばれる Classifier と関連付けられている。 Feature は <code class="docutils literal notranslate"><span class="pre">qualifiers</span></code> として振る舞う Properties を除いて、それの <code class="docutils literal notranslate"><span class="pre">featuringClassifier</span></code> を表すある構造的または挙動的特徴を表現する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isStatic</span></code> 特性はその特徴が Classifier 自身に関係する (<code class="docutils literal notranslate"><span class="pre">true</span></code>) のか、
+Classifier のオブジェクトそれぞれに関係するのかを指定する。</p></li>
+</ul>
+</section>
+<section id="structural-features">
+<h4>9.4.3.2 Structural Features<a class="headerlink" href="#structural-features" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>StructuralFeature とは Classifier のオブジェクトの構造を指定する Classifier の型の付いた Feature だ。</p></li>
+<li><p>Properties である Classifier の StructuralFeature は Classifier の
+<code class="docutils literal notranslate"><span class="pre">attributes</span></code> と呼ばれる。UML では Property は StructuralFeature の唯一の種類であるので、Classifier の StructuralFeatures の全部は Properties, したがって
+<code class="docutils literal notranslate"><span class="pre">attributes</span></code> だ。</p></li>
+<li><p>Classifier のオブジェクトごとに直接または継承した非静的な Classifier の
+<code class="docutils literal notranslate"><span class="pre">attribute</span></code> に対する値または値の集まりがある。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">attribute</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">0..1</span></code> であれば、値が一つもないか、Type が
+<code class="docutils literal notranslate"><span class="pre">attribute</span></code> の Type に適合する単一の値のどちらかがあるものとする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attribute</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">1..1</span></code> であれば、Type が <code class="docutils literal notranslate"><span class="pre">attribute</span></code> の Type に適合する単一の値があるものとする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attribute</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">j..k</span></code> であれば、Types のそれぞれが <code class="docutils literal notranslate"><span class="pre">attribute</span></code>
+の Type に適合する <code class="docutils literal notranslate"><span class="pre">j</span></code> 個以上 <code class="docutils literal notranslate"><span class="pre">k</span></code> 個以下の値の集まりがあるものとする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attribute</span></code> の多重度が <code class="docutils literal notranslate"><span class="pre">0</span></code> であれば、値がないものとする。</p></li>
+</ul>
+</li>
+<li><p>StructuralFeature に <code class="docutils literal notranslate"><span class="pre">isStatic</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> であると、上記の点はオブジェクトの個々に対してではなく、ある実行スコープの範囲内にある見分けられる個体とみなされる Classifier 自身に関係する。</p></li>
+<li><p>意味論的に準拠しているツールで、継承した静的 StructuralFeature それぞれは二者択一の意味のうち一つがあるものとする：</p>
+<ol class="arabic simple">
+<li><p>実行スコープ内では StructuralFeature の値または値の集まりは、継承する
+Classifier のどれに対しても、所有する Classifier の値または値の集まりといつも同じだ。これらの意味は Java や C# での静的メンバーに対応する。</p></li>
+<li><p>実行スコープ内では所有する Classifier とそれを継承する Classifier それぞれに、StructuralFeature には別々かつ独立した値または値の集まりがある。これらの意味は Ruby や Smalltalk でのクラスインスタンス変数に対応する。</p></li>
+</ol>
+</li>
+<li><p>StructuralFeature に <code class="docutils literal notranslate"><span class="pre">isReadOnly</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> であるならば、いったんそれが初期値を割り当てられると、更新されてはならない。</p></li>
+</ul>
+</section>
+<section id="behavioral-features">
+<h4>9.4.3.3 Behavioral Features<a class="headerlink" href="#behavioral-features" title="Permalink to this heading">¶</a></h4>
+<ul>
+<li><p>非静的 BehavioralFeature はそれの <code class="docutils literal notranslate"><span class="pre">featuringClassifier</span></code> のオブジェクトが、固有の挙動の応答を実施することによって、BehavioralFeature の発動 (invocation)
+に反応することを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ownedParameters</span></code> のリストは、BehavioralFeature が発動されるときに与えられ得る、または発動が完了するときに出力されたり返されたりする引数の順序、型、方向を記述する。</p></li>
+<li><p>方向が <code class="docutils literal notranslate"><span class="pre">in</span></code> または <code class="docutils literal notranslate"><span class="pre">inout</span></code> である <code class="docutils literal notranslate"><span class="pre">ownedParameters</span></code> は、引数は
+BehavioralFeature を発動するときに与えられるものとすることを定義する。</p></li>
+<li><p>BehavioralFeature はその発動の間に例外を送出することが許される。</p></li>
+<li><p>BehavioralFeature の挙動の応答を定義する方法の一つは、BehavioralFeature を実装する <code class="docutils literal notranslate"><span class="pre">methods</span></code> として、一つまたはそれを超える Behaviors を指定することである。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">isAbstract</span></code> 特性が <code class="docutils literal notranslate"><span class="pre">true</span></code> のときには、BehavioralFeature にはそれを実装する <code class="docutils literal notranslate"><span class="pre">methods</span></code> が何もないことを指定する。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">concurrency</span></code> 特性は同一オブジェクトに対する同時に起こる呼び出しの意味を指定する。その型とは CallConcurrencyKind という列挙体で、次のリテラル値をとる。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">sequential</span></code></dt><dd><p>並行性を管理する仕組みは一つも BehavioralFeature に関連しない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">guarderd</span></code></dt><dd><p>時間的に重なり合う BehavioralFeature の複数発動が一つのオブジェクトに対して起こることが許されるが、一つしか開始することを許されない。残りは現在実行中の BehavioralFeature が完了するまでブロックされる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">concurrent</span></code></dt><dd><p>時間的に重なり合う BehavioralFeature の複数発動が一つのオブジェクトに対して起こることが許されて、それらのすべてを同時に進行することが許される。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="parameters">
+<h4>9.4.3.4 Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Parameter は情報を BehavioralFeature の発動に引き渡したり、発動から受け取ったりするのに使われる引数の仕様だ。</p></li>
+<li><p>Parameter に <code class="docutils literal notranslate"><span class="pre">defaultValue</span></code> が指定されているならば、BehavioralFeature の発動時に実引数が何も渡されないときに限り、それは発動時に評価され、この Parameterの実引数として使われる。</p></li>
+<li><p>Parameter に <code class="docutils literal notranslate"><span class="pre">name</span></code> を与えることが許されており、そのときには同じ
+BehavioralFeature の Parameters の中からParameter を一意に特定する。</p>
+<ul>
+<li><p>Parameter に <code class="docutils literal notranslate"><span class="pre">name</span></code> がない場合、引数リストの位置で識別される。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">direction</span></code> 特性は所有する BehavioralFeature に対して値が入力なのか出力なのかその両方なのかを指定する。その型は ParameterDirectionKind という列挙体で、次のリテラル値からなる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inout</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span></code></p></li>
+</ul>
+</li>
+<li><p>BehavioralFeature は、一つを超える Parameter に対して、その方向を <code class="docutils literal notranslate"><span class="pre">return</span></code>
+にセットするという手段により、<code class="docutils literal notranslate"><span class="pre">return</span></code> Parameter と特徴づけることは許されない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">effect</span></code> 特性は、Parameter に入出力されたオブジェクトに何を起こすかを指定するのに用いてよい。型は ParameterEffectKind という列挙体であり、次のリテラル値からなる。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">create</span></code>: <code class="docutils literal notranslate"><span class="pre">out</span></code>, <code class="docutils literal notranslate"><span class="pre">inut</span></code>, <code class="docutils literal notranslate"><span class="pre">return</span></code> な Parameter 限定。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete</span></code>: <code class="docutils literal notranslate"><span class="pre">in</span></code> または <code class="docutils literal notranslate"><span class="pre">input</span></code> な Parameter 限定。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isException</span></code> 特性は出力 Parameters に適用する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isStream</span></code> 特性は、<code class="docutils literal notranslate"><span class="pre">true</span></code> であるときに、ストリーミング Parameter を示す。ストリーミング Parameter はこの機能を実装する Behavior のどれもが、この
+Parameter 上でストリーミングな挙動を呈するという期待を表す。
+<a class="reference internal" href="ch13-common-behavior.html"><span class="doc">13 Common Behavior</span></a> で述べる。</p></li>
+<li><p>BehavioralFeature が所有する ParameterSet とは、その BehavioralFeature を実装する Behaviors が使ってよい入力または出力の代用の集合を与える要素だ。</p>
+<ul>
+<li><p>ParameterSet にある Parameters はすべてが同じ BehavioralFeature の入力であるか、すべてが同じ BehavioralFeature の出力であるものとする。</p></li>
+<li><p>すべてが入力の ParameterSet は入力 ParameterSet と呼ばれ、すべてが出力の
+ParameterSet は出力 ParameterSet と呼ばれる。</p></li>
+</ul>
+</li>
+<li><p>ParameterSets のより詳細な意味と見本は <a class="reference internal" href="ch16-actions.html"><span class="doc">16 Actions</span></a> で見つけられる。</p></li>
+</ul>
+</section>
+</section>
+<section id="id13">
+<h3>9.4.4 Notation<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Feature に対する一般的な表記法はない。サブクラスはそれらに特有の表記法を定義する。</p></li>
+<li><p>静的 Features は下線を付ける。</p></li>
+<li><p>Features がリストで示されるところでは、Features のリストの最終要素として省略記号 <code class="docutils literal notranslate"><span class="pre">(...)</span></code> をさらなる Features が存在するがそのリストには示されていないことを示すのに用いてよい。</p></li>
+<li><p>読み取り専用 StructuralFeature はその StructuralFeature の表記法の一部として
+<code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> を使って示す。</p></li>
+<li><p>Feature 再定義は Feature 上に <code class="docutils literal notranslate"><span class="pre">{redefines</span> <span class="pre">&lt;x&gt;}</span></code> 特性文字列を使用して明示的に表記するか、別の Feature と <code class="docutils literal notranslate"><span class="pre">isDistinguishableFrom()</span></code> を使っても区別できない
+Feature を所有 Classifier のより一般な Classifiers のうちの一つにあることをもって暗に示すかのどちらかでよい。</p></li>
+<li><p>Parameter は p. 108 の BNF の形式のテキスト文字列として示す。</p>
+<ul>
+<li><p>目を引くのは <code class="docutils literal notranslate"><span class="pre">&lt;perm-propery&gt;</span></code> だ。付加的な情報を示すのに用いる。値は
+<code class="docutils literal notranslate"><span class="pre">ordered</span></code>, <code class="docutils literal notranslate"><span class="pre">unordered</span></code>, <code class="docutils literal notranslate"><span class="pre">unique</span></code>, <code class="docutils literal notranslate"><span class="pre">nonunique</span></code>, <code class="docutils literal notranslate"><span class="pre">seq</span></code> の文字列から任意個選べる。</p></li>
+</ul>
+</li>
+<li><p>Activity 図の ParameterSets の表記法は <a class="reference internal" href="ch16-actions.html"><span class="doc">16 Actions</span></a> で見つけられる。他の図式での ParameterSets の表記法はない。</p></li>
+</ul>
+</section>
+</section>
+<section id="properties">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">9.5 Properties</a><a class="headerlink" href="#properties" title="Permalink to this heading">¶</a></h2>
+<section id="id14">
+<h3>9.5.1 Summary<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Property は次のものを表現する StructuralFeature だ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Classifier::attributes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Association::memberEnds</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StructuralFeature::parts</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id15">
+<h3>9.5.2 Abstract Syntax<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.10 Properties</p>
+<ul>
+<li><p>Property を中心とした図式だ。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_interface</span></code>, <code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_datatype</span></code>, <code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_class</span></code></dt><dd><ul class="simple">
+<li><p>それぞれ Interface, DataType, Class から Property への複合関連（両方向）。</p></li>
+<li><p>関連端 ownedAttribute は Classifier の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> であるということを表している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_attribute_classifier</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。さらに Class 版関連だけはまだ説明されていない関連を subsets または redefines
+する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_memberEnd_association</span></code></dt><dd><ul class="simple">
+<li><p>Association と Property 間の関連（両方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> は Association の一方の関連端であることを表す。</p>
+<ul>
+<li><p>二項関連においては、Property は同時に <code class="docutils literal notranslate"><span class="pre">ownedAttribute</span></code> と <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code>
+であってもよい。どちらか一方の場合、生成されたときに Property は関連の位数に従った個数の Classifier のオブジェクトに関連したある値・値の集まりを表現する。この Classifiers の集まりをその Property の <code class="docutils literal notranslate"><span class="pre">context</span></code> と呼ぶ。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_member_memberNamespace</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedEnd_owningAssociation</span></code></dt><dd><p>これは <a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> で説明する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_qualifier_associationEnd</span></code></dt><dd><ul class="simple">
+<li><p>Property から Property への複合関連（両方向）。</p></li>
+<li><p>上述の関連端 <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> な Property にはそれ自身が <code class="docutils literal notranslate"><span class="pre">qualifiers</span></code> として働くような他の Properties があってもよい。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">qualifier</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_defaultValue_owningProperty</span></code></dt><dd><ul class="simple">
+<li><p>Propery から ValueSpecification への複合関連（単方向）。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>多重度は両端ともに <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_opposite_property</span></code></dt><dd><ul class="simple">
+<li><p>Property から Property への関連（単方向）。</p></li>
+<li><p>説明なし。</p></li>
+<li><p>多重度は両端ともに <code class="docutils literal notranslate"><span class="pre">0..1</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_subsettedProperty_property</span></code></dt><dd><ul class="simple">
+<li><p>Property から Property への関連（単方向）。</p></li>
+<li><p>これは Property が集約であるときに、<code class="docutils literal notranslate"><span class="pre">subsetttedProperty</span></code> が <code class="docutils literal notranslate"><span class="pre">property</span></code>
+から重複構成要素を除外した集合であることを表す。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_redefinedProperty_property</span></code></dt><dd><ul class="simple">
+<li><p>Property から Property への関連（単方向）。</p></li>
+<li><p>説明なし。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_redefinedElement_redefinableElement</span></code> を subsets する。</p></li>
+<li><p>多重度は両端ともに <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h3>9.5.3 Semantics<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p>Property は Classifier の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> か、<code class="docutils literal notranslate"><span class="pre">Association::memberEnd</span></code> か、場合によっては両者を同時に表現することが許される。</p></li>
+<li><p>一般的なモデリングのシナリオで便利な慣習は、型が Class の一種の Property が
+Association 端であることで、それに対して型が DataType の一種の Property はそうではない。</p></li>
+<li><p>Property は一つまたはそれを超えるオブジェクトの宣言された状態を、値への名前のついた関係に関して表現する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> である Property にはそれ自身が <code class="docutils literal notranslate"><span class="pre">qualifiers</span></code> の役に立つ他の
+Property があってよい。</p></li>
+<li><p>Property が <code class="docutils literal notranslate"><span class="pre">ownedAttribute</span></code> を介して Association 以外の Classifier によって所有されるときに、それは Classifier の <code class="docutils literal notranslate"><span class="pre">attribute</span></code> を表す。</p></li>
+<li><p>Property に <code class="docutils literal notranslate"><span class="pre">defaultValue</span></code> が指定されていると、Property に対して特定の設定が不在であるか、Property に特定の値であることを要求する制約がモデルにあれば、
+Property のオブジェクトが生成されるときにこの既定値が評価される。</p></li>
+<li><p>Property の <code class="docutils literal notranslate"><span class="pre">isDerived</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> であると、それは派生されたものであり、その値は他の情報から計算されてもよい。</p></li>
+<li><p>Property は間接的に RedefinableElement の一種であるので、Properties を再定義してよい。</p></li>
+<li><p>派生された Property は派生されていないものを再定義してよい。</p></li>
+<li><p>Property に指定された既定値があり、Property が別の Property を指定された既定値で再定義するならば、再定義された Property から得られるより一般的な既定値の代わりに再定義する Property の既定値が使われる。</p></li>
+<li><p>時々 Property はあるオブジェクトがオブジェクトの集合をグループ化するのに使われる情況をモデル化するのに用いられる。これは集約 (aggregation) と呼ばれる。</p>
+<ul>
+<li><p>AggregationKind は次のリテラル値からなる列挙型だ。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">none</span></code></dt><dd><p>Property には集約の意味はない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">shared</span></code></dt><dd><p>Property の集約の意味は「共有」だ。共有集約の正確な意味は応用領域と設計者によって異なる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">composite</span></code></dt><dd><p>Property が複合的に集約されている。これは集約の強い形であり、全体・部分の関係を表現していると解釈する。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><p>合成集約とは、<code class="docutils literal notranslate"><span class="pre">part</span></code> オブジェクトが高々一つの合成オブジェクトに同時に含まれることを必要とする集約の強い形式だ。合成オブジェクトが削除されれば、その
+<code class="docutils literal notranslate"><span class="pre">part</span></code> オブジェクトのすべてが一緒に削除される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>原文は instance と object を明らかに使い分けている。私は両者のニュアンスの差を全く理解していない。</p>
+</div>
+</li>
+<li><p>合成は推移的削除性の有向非循環グラフにつなげてよい。つまり、グラフの部品であるオブジェクトを一つ削除すると、その結果そのオブジェクト下のサブグラフのオブジェクトすべての削除をも生じる。</p></li>
+<li><p>Property は別の <code class="docutils literal notranslate"><span class="pre">subsetttedProperty</span></code> の部分集合として特徴づけてよい。</p></li>
+<li><p>Property は <code class="docutils literal notranslate"><span class="pre">isDerivedUnion</span></code> を <code class="docutils literal notranslate"><span class="pre">true</span></code> に設定することで導出和集合 (derived
+union) であると特徴づけてよい。</p>
+<ul class="simple">
+<li><p>ある Property が、そのすべての <code class="docutils literal notranslate"><span class="pre">{subsets}</span></code> である Properties の和集合と一致するとき、その Property は導出和集合であると呼ぶのだろう。</p></li>
+</ul>
+</li>
+<li><p>導出和集合として特徴付けられた属性が <code class="docutils literal notranslate"><span class="pre">isOrded</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> であり、特定の状況においてそれの部分集合である特性のすべてが順序付けられているか、上限が 1 であると特徴づけられていて、<code class="docutils literal notranslate"><span class="pre">Classifier::allAttributes()</span></code> 操作のその状況での値が well-defined な順序付けを与えるときには、和集合の順序は部分集合の特性を
+<code class="docutils literal notranslate"><span class="pre">allAttributes()</span></code> の結果に出現する順序により評価することと、結果を連結することで定義される。</p></li>
+<li><p>Property は <code class="docutils literal notranslate"><span class="pre">isID</span></code> 特性を通じて、それが <code class="docutils literal notranslate"><span class="pre">member</span></code> である Classifiers を見分ける識別子である（または部分である）と特徴づけてよい。</p></li>
+<li><p>Property は ParameterableElement を特殊化して、Property が仮の
+ConnectableElementTemplateParameter とて露出されてよいことと、テンプレートの束縛で実引数として与えられてよいことを指定する。</p></li>
+</ul>
+</section>
+<section id="id17">
+<h3>9.5.4 Notation<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Property の一般的な記法が BNF 記法で仕様化されている。</p>
+<ul>
+<li><p>個人的には prop-modifier がいつも気になっている。</p></li>
+</ul>
+</li>
+<li><p>限定子 (qualifiers) を表す表記法は <a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> で定義する。</p></li>
+<li><p>Property の集約を表す表記法は <a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> で定義する。</p></li>
+<li><p>Classifier では、型、可視性、既定値、多重度、特性文字列を、モデルに存在するときであっても、表示しないようにしてよい。</p></li>
+<li><p>Classifier では、属性の個々の特性を連続的な文字列としてではなく、列で示してよい。</p></li>
+<li><p>Classifier では、属性は関連の表記法を使って示してもよいが、そこには集約の修飾物（白または黒塗りダイヤモンド）しか矢印の末尾に示してはいけない。</p></li>
+<li><p>Property によるテンプレート Classifier を引数化するのに用いられる
+ConnectableElementTemplateParameter を表す表記法は p. 112 末端の BNF 記法が指定するもので与えられる。</p></li>
+</ul>
+</section>
+<section id="id18">
+<h3>9.5.5 Examples<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.11 Examples of attributes</p>
+<ul>
+<li><p>スラッシュの使い方が複数ある？</p></li>
+</ul>
+</li>
+<li><p>Figure 9.12 Association-like notation for attributes</p>
+<ul>
+<li><p>属性が関連の記法でどう示されるのかを示す。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="operations">
+<h2><a class="toc-backref" href="#id41" role="doc-backlink">9.6 Operations</a><a class="headerlink" href="#operations" title="Permalink to this heading">¶</a></h2>
+<section id="id19">
+<h3>9.6.1 Summary<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Operation とは、Interface, DataType, または Class が所有することが許される
+BehavioralFeature だ。 Operations はテンプレート化することもテンプレート引数として使うことも許される。</p></li>
+</ul>
+</section>
+<section id="id20">
+<h3>9.6.2 Abstract Syntax<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.13 Operations</p>
+<ul>
+<li><p>Operation を中心とした図式。</p></li>
+<li><p>左側は Property の図式とそっくり。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedOperation_interface</span></code>, <code class="docutils literal notranslate"><span class="pre">A_ownedOperation_datatype</span></code>, <code class="docutils literal notranslate"><span class="pre">A_ownedOperation_class</span></code></dt><dd><ul class="simple">
+<li><p>Interface, DataType, Class いずれかから Operation への複合関連（双方向）。</p></li>
+<li><p>各 Classifier が Operation(s) を所有してもよいという意味。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ownedOperation</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_feature_featuringClassifier</span></code> を subsets する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_redefinitionContext_redefinableElement</span></code> を subsets する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameter_operation</span></code></dt><dd><ul class="simple">
+<li><p>Operation から Parameter への複合関連（双方向）。</p></li>
+<li><p>Parameter は Operation の構成要素の一つだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedParameter_ownerFormalParam</span></code> を subsets する。</p>
+<ul>
+<li><p>ownedParameter の方は <code class="docutils literal notranslate"><span class="pre">{ordered,</span> <span class="pre">redefines</span> <span class="pre">ownedParameter}</span></code> となっている。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_precondition_preContext</span></code>, <code class="docutils literal notranslate"><span class="pre">A_postcondition_postContext</span></code>, <code class="docutils literal notranslate"><span class="pre">A_bodyCondition_bodyContext</span></code></dt><dd><ul class="simple">
+<li><p>Operation から Constraint への複合関連（単方向）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">precondition</span></code> と <code class="docutils literal notranslate"><span class="pre">postcondition</span></code> は Operation の呼び出しに関する事前条件と事後条件をそれぞれ意味する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bodyCondition</span></code> は Operation の戻す結果をその仕様が計算する値によって縛りをかける。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedRule_context</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_raisedException_operation</span></code></dt><dd><ul class="simple">
+<li><p>Operation から Type への関連（単方向）。</p></li>
+<li><p>Operation はその呼出期間中に例外を送出してもよい。そういう場合は上述の
+<code class="docutils literal notranslate"><span class="pre">postcondition</span></code> や <code class="docutils literal notranslate"><span class="pre">bodyCondition</span></code> は成立していると仮定するべきではない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_raisedException_behavioralFeature</span></code> を subsets する。</p>
+<ul>
+<li><p>図では <code class="docutils literal notranslate"><span class="pre">operation</span></code> が <code class="docutils literal notranslate"><span class="pre">{subsets}</span></code> で <code class="docutils literal notranslate"><span class="pre">raisedException</span></code> が
+<code class="docutils literal notranslate"><span class="pre">{redefines}</span></code> になっている？</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_redefinedOperation_operation</span></code></dt><dd><ul class="simple">
+<li><p>Operation から Operation への関連（単方向）。</p></li>
+<li><p>Operation を継承クラスで再定義することを示す関連だろうか。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_redefinedElement_redefinableElement</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_parameteredElement_templateParameter</span></code></dt><dd><ul class="simple">
+<li><p>OperationTemplateParameter と Operation の間の関連（双方向）。</p></li>
+<li><p>同名関連の redefines だ。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id21">
+<h3>9.6.3 Semantics<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<section id="id22">
+<h4>9.6.3.1 Operations<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Operation は Interface, DataType, または Class の BehavioralFeature だ。</p></li>
+<li><p>戻り値があれば、Operation の型はこの Parameter の方と同じだ。そうでなければ Operation には型がない。</p></li>
+<li><p>Operation の <code class="docutils literal notranslate"><span class="pre">precondition</span></code> は Operation が発動されるときに <code class="docutils literal notranslate"><span class="pre">true</span></code> であるとする条件を定義する。</p></li>
+<li><p>Operation の <code class="docutils literal notranslate"><span class="pre">postcondition</span></code> は Operation の発動が成功裡に完了するときに
+<code class="docutils literal notranslate"><span class="pre">true</span></code> である条件を定義する。</p></li>
+<li><p>Operation の <code class="docutils literal notranslate"><span class="pre">bodyCondition</span></code> は <code class="docutils literal notranslate"><span class="pre">bodyCondition</span></code> の仕様により計算される値に対し返る結果を抑制する。</p></li>
+<li><p>Operation は発動の間に例外を送出してよい。</p></li>
+<li><p>Operation は <code class="docutils literal notranslate"><span class="pre">featuringClassifier</span></code> の特殊化で再定義してよい。</p></li>
+<li><p>Operation が特殊化で再定義されるときに、異なる型適合システムは、引数と結果の型がどのように変わってよいのかを決める、異なる概略を採用する。</p>
+<ul>
+<li><p>型が異なってはならないときは、それは不変性 (invariance) と呼ばれる。</p></li>
+<li><p>引数型が特殊型に特殊化されてよいときは、それは共変性 (covariance) と呼ばれる。</p></li>
+<li><p>引数型が特殊型で一般化されてよいときは、それは反変性 (contravariance) と呼ばれる。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isQuery</span></code> 特性が <code class="docutils literal notranslate"><span class="pre">true</span></code> であると、Operation の発動はオブジェクトまたはモデル内の他のどんな要素の状態を修正しないものとする。</p>
+<ul>
+<li><p>C++ で言うところの <code class="docutils literal notranslate"><span class="pre">const</span></code> メンバー関数のような概念だろう。それより条件が強いように見える。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="template-operations">
+<h4>9.6.3.2 Template Operations<a class="headerlink" href="#template-operations" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Operation はテンプレート Operations と被束縛 Operations の特殊化を支援するためにTemplateableElement を特殊化する。</p></li>
+</ul>
+</section>
+<section id="operation-template-parameters">
+<h4>9.6.3.3 Operation Template Parameters<a class="headerlink" href="#operation-template-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Operation はテンプレートによって OperationTemplateParameter を通じて、仮テンプレート引数として露出してよい。</p></li>
+<li><p>OperationTemplateParameter のための既定値は露出された Operation と同じ引数型、方向、多重度であるOperation でなければならない。</p></li>
+</ul>
+</section>
+</section>
+<section id="id23">
+<h3>9.6.4 Notation<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Operation のテキストによる表現形式を BNF 記法で仕様化している。ザッと見た感じでは Parameter の記法に準じているように見受けられる。</p></li>
+<li><p>次に <code class="docutils literal notranslate"><span class="pre">template</span></code> Operation の TemplateParameter の記法を仕様化している。
+Operation の名前と Parameters の間に山括弧でリストするというものだ。</p></li>
+<li><p>さらに OperationTemplateParameter の記法を仕様化している。これは
+TemplateParameter の記法を拡張することでなされる。</p></li>
+<li><p>例外とストリーミング Parameters およびストリーミング Operations のクラス図における表記法には、特性文字列にキーワード <code class="docutils literal notranslate"><span class="pre">execption</span></code> および <code class="docutils literal notranslate"><span class="pre">stream</span></code> がある。</p></li>
+</ul>
+</section>
+<section id="id24">
+<h3>9.6.5 Examples<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>テンプレートが絡む記法は山括弧がダブって読みにくくなる。まるで C++ のコード。</p></li>
+</ul>
+</section>
+</section>
+<section id="generalization-sets">
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">9.7 Generalization Sets</a><a class="headerlink" href="#generalization-sets" title="Permalink to this heading">¶</a></h2>
+<section id="id25">
+<h3>9.7.1 Summary<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>GeneralizationSet は Generalizations を直交する寸法にグループ分けする手段を与える。 GeneralizationSet はその <code class="docutils literal notranslate"><span class="pre">powertype</span></code> と呼ばれる Classifier と結びつけてよい。これらの技法は分類階層を組織化にさらなる表現力を与える。</p></li>
+</ul>
+</section>
+<section id="id26">
+<h3>9.7.2 Abstract Syntax<a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.14 Generalization Sets</p>
+<ul>
+<li><p>Figure 9.1 の一部を詳細にしたもの。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_generalizationSet_generalization</span></code></dt><dd><ul class="simple">
+<li><p>Generalization と GeneralizationSet の間の関連（両方向）。</p></li>
+<li><p>Generalization がどの GeneralizationSet に所属するのかを示す。</p></li>
+<li><p>両関連端は多重度 <code class="docutils literal notranslate"><span class="pre">*</span></code> だ。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_powertypeExtent_powertype</span></code></dt><dd><ul class="simple">
+<li><p>Classifier と GeneralizationSet との間の関連（両方向）。</p></li>
+<li><p>この関連が意味するのは、GeneralizationSet の各 Generalization に対して、特殊化 Classifier が <code class="docutils literal notranslate"><span class="pre">powertype</span></code> のオブジェクトに一意に関連している、ということだ。</p>
+<ul>
+<li><p>すなわち <code class="docutils literal notranslate"><span class="pre">powertype</span></code> オブジェクトと対応する Classifiers が意味的に等価であると扱われる。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id27">
+<h3>9.7.3 Semantics<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Generalizations は一般化の直交寸法を表現するのにグループ化されてよい。グループのそれぞれは GeneralizationSet により表現される。</p></li>
+<li><p>GeneralizationSet の <code class="docutils literal notranslate"><span class="pre">isCovering</span></code> 特性は、その集合にある Generalizations の特定の Classifiers が完全であるかどうかを示す。つまり、Classifier の任意の派生型オブジェクトは、ここにある Classifiers の少なくとも一つのもののそれであることが常に成り立つ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isDisjoint</span></code> 特性はその集合にある Generalizations の特定の Classifiers に部分的に重なりがある (<code class="docutils literal notranslate"><span class="pre">false</span></code>) かどうかを指定する。</p></li>
+<li><p>GeneralizationSet は任意で <code class="docutils literal notranslate"><span class="pre">powertype</span></code> と呼ばれる Classifier と結びつけてよい。</p></li>
+</ul>
+</section>
+<section id="id28">
+<h3>9.7.4 Notation<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Generalization 関係の線分に名前があるとき、その名前は Generalization が所属する GeneralizationSet を指名する。</p></li>
+<li><p>Figure 9.15 GeneralizationSets designated by name</p>
+<ul>
+<li><p>Generalization の名前をいつもの矢印のラベルに記している。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.16 GeneralizationSets designated by shared target</p>
+<ul>
+<li><p>以前にも見た shared target style による記法。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.17 GeneralizationSet designated by dashed line spanning
+Generalization arrows</p>
+<ul>
+<li><p>破線を矢印群に交差させることで GeneralizationSet を示す。</p></li>
+<li><p>ラベルを省略しても GeneralizationSet の存在を示唆できるというささやかな利点がある。</p></li>
+</ul>
+</li>
+<li><p>Table 9.1 GeneralizationSet constraints</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">isCovering</span></code> と <code class="docutils literal notranslate"><span class="pre">isDisjoint</span></code> の記法は制約の記法に準じる。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.18 GeneralizationSet constraint notation with shared target style</p></li>
+<li><p>Figure 9.19 GeneralizationSet constraint notation with dashed line style</p>
+<ul>
+<li><p>制約はラベル内に記す。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.20 Power type notation with shared target style</p></li>
+<li><p>Figure 9.21 Power type notation with dashed line style</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">powertype</span></code> の記法は GeneralizationSet のそれに準じる。名前の前にコロンを付す。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id29">
+<h3>9.7.5 Examples<a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h3>
+<p>ここの見本が分かりやすいので、GeneralizationSet の概念を誤解しにくくなっている。</p>
+<ul class="simple">
+<li><p>Figure 9.22 GeneralizationSet notation options</p>
+<ul>
+<li><p>抽象クラス <code class="docutils literal notranslate"><span class="pre">Person</span></code> が <code class="docutils literal notranslate"><span class="pre">Woman</span></code> および <code class="docutils literal notranslate"><span class="pre">Man</span></code> に特殊化されている。独立して、<code class="docutils literal notranslate"><span class="pre">Employee</span></code> に特殊化されている。<code class="docutils literal notranslate"><span class="pre">Woman</span></code> と <code class="docutils literal notranslate"><span class="pre">Man</span></code> への特殊化が
+GeneralizationSet を一つ、Employee への特殊化が別の GeneralizationSet を構成している。この見本はさまざまな表記法形式を使って (employs) いる。</p></li>
+<li><p>抽象型 <code class="docutils literal notranslate"><span class="pre">Person</span></code> を異なる基準で特殊化していることがよくわかる。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.23 GeneralizationSets and constraints</p>
+<ul>
+<li><p>男か女かにしか分類できないし、これらは互いに排他的な概念なので、ラベルに
+<code class="docutils literal notranslate"><span class="pre">{complete,</span> <span class="pre">disjoint}</span></code> と記してよい。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.24 Power type example</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">powertype</span></code> TreeSpecies による Tree の派生モデル。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.25 More power type examples</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">powertype</span></code> いろいろ。</p></li>
+<li><p>GeneralizationSet でコロンで始まる名前は <code class="docutils literal notranslate"><span class="pre">powertype</span></code> であることを示す。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.26 More than one powertype</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">powertype</span></code> が複数存在するときには、<code class="docutils literal notranslate"><span class="pre">powertypes</span></code> と共にサブタイプの集まりにラベルを付けることがますます重要になってくる。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="instances">
+<h2><a class="toc-backref" href="#id43" role="doc-backlink">9.8 Instances</a><a class="headerlink" href="#instances" title="Permalink to this heading">¶</a></h2>
+<section id="id30">
+<h3>9.8.1 Summary<a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>InstanceSpecifications はモデル化されたシステムで Classifiers のオブジェクトを表現する。</p></li>
+</ul>
+</section>
+<section id="id31">
+<h3>9.8.2 Abstract Syntax<a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.27 Instances</p>
+<ul>
+<li><p>InstanceSpecification, Slot, InstanceValue をやる。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_slot_owningInstance</span></code></dt><dd><ul class="simple">
+<li><p>InstanceSpecification から Slot への複合関連。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_classifier_instanceSpecification</span></code></dt><dd><ul class="simple">
+<li><p>InstanceSpecification から Classifier への関連（単方向）。</p></li>
+<li><p>InstanceSpecification のオブジェクトの種類として参照する。</p></li>
+<li><p>例えば <code class="docutils literal notranslate"><span class="pre">classifier</span></code> が</p>
+<ul>
+<li><p>Class ならばその Class のオブジェクトの特徴を述べ、</p></li>
+<li><p>Association ならばその Association のリンクの特徴を述べ、</p></li>
+<li><p>空ならば表現されているオブジェクトの種類を強制しない。</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_definingFeature_slot</span></code></dt><dd><ul class="simple">
+<li><p>Slot から StructuralFeature への関連（単方向）。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_value_owningSlot</span></code></dt><dd><ul class="simple">
+<li><p>Slot から ValueSpecification への複合関連（単方向）。</p></li>
+<li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> は型、多重度、等々において前述の <code class="docutils literal notranslate"><span class="pre">definingFeature</span></code> と適合する必要がある。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_specification_owningInstanceSpec</span></code></dt><dd><ul class="simple">
+<li><p>InstanceSpecification から ValueSpecification への複合関連（単方向）。</p></li>
+<li><p>もし specification があれば、InstanceSpecification の値を与えるために
+ValueSpecification が評価される。</p></li>
+<li><p>もし InstanceSpecification の参照する classifiers が一つ以上ある場合、
+ValueSpecification の型は少なくとも classifiers の一つには適合する必要がある。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_instance_instanceValue</span></code></dt><dd><ul class="simple">
+<li><p>InstanceValue から InstanceSpecification への関連（単方向）。</p></li>
+<li><p>InstanceValue は参照する InstanceSpecification を所有しない。複数の
+InstanceValues が同じ InstanceSpecification を参照してもよい。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id32">
+<h3>9.8.3 Semantics<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>InstanceSpecification はモデル化されたシステムであり得るまたはオブジェクトの現実の存在を表し、それらのオブジェクトを完全にまたは部分的に記述する。</p></li>
+<li><p>Slot は InstanceSpecification により模されるオブジェクトが特定の
+StructuralFeature のために値であることを指定する。それは <code class="docutils literal notranslate"><span class="pre">classifier</span></code> が再定義された StructuralFeatures を除いた Association であるならば、直接の属性、継承された属性、一般化において <code class="docutils literal notranslate"><span class="pre">private</span></code> な属性、または <code class="docutils literal notranslate"><span class="pre">memberEnd</span></code> であるということによりSlot を所有する InstanceSpecification の <code class="docutils literal notranslate"><span class="pre">classifier</span></code> に関する
+StructuralFeature であるものとする。</p></li>
+<li><p>InstanceSpecification は次のものを表現してよい。</p>
+<ul>
+<li><p>一つまたはそれを超える Classifiers によるオブジェクトの分類。いずれも抽象でよい。</p></li>
+<li><p>それの <code class="docutils literal notranslate"><span class="pre">classifiers</span></code> に基づくオブジェクトの種類。</p></li>
+<li><p>オブジェクトの StructuralFeatures の値の仕様。値は Slots に含まれる。</p></li>
+<li><p>ValueSpecification による、オブジェクトの計算方法、導出方法、構築方法の選択自由の仕様。</p></li>
+</ul>
+</li>
+<li><p>InstanceSpecification はある時点におけるオブジェクト、スナップショットを表してよい。</p></li>
+<li><p>InstanceSpecification はモデル要素であって、モデル化しているオブジェクトと混同するべきではないということを留意することは重要だ。</p></li>
+<li><p>InstanceValue とは、値が InstanceSpecification を用いて指定される
+ValueSpecification の一種だ。</p></li>
+<li><p>InstanceValue はそれが参照する InstanceSpecification を所有しない。それに対して InstanceValues は同じ InstanceSpecification を参照してよい。</p></li>
+</ul>
+</section>
+<section id="id33">
+<h3>9.8.4 Notation<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>InstanceSpecification はその <code class="docutils literal notranslate"><span class="pre">classifiers</span></code> と似た記法を用いて描かれるが、
+Classifier の名前が現れる代わりに、もしあればオブジェクト名、コロン、
+Classifier の名前（たち）を連結し、下線を引く。</p></li>
+<li><p>InstanceSpecification の <code class="docutils literal notranslate"><span class="pre">classifier</span></code> が Association であるものはリンクを表現し、Association の同じ記法を用いて示すが、実線のパスは Classifiers ではなく
+InstanceSpecifications を接続する。</p></li>
+<li><p>Classifiers と InstanceSpecifications では名前はオプションだ。</p></li>
+<li><p>無名 (unnamed) Classifier の無名 (anonymous) InstanceSpecification 標準表記は下線のついたコロンだ。</p></li>
+<li><p>Slots は対応する StructuralFeatures のそれに似た記法を用いて示す。</p></li>
+<li><p>InstanceValue はテキストによる記法または図表的な表記法を用いて現れてよい。</p></li>
+<li><p>InstanceValue である Slot 値は代わりにリンクのそれに似た図式的表記法を用いて示してよい。</p></li>
+<li><p>StructuredClassifier により分類される InstanceSpecification では、それはその役目を演じるオブジェクトを表す、入れ子の矩形を含んでよい。</p></li>
+<li><p>InstanceSpecification の名前にオブジェクトが演じる役目の名前を続けてよい。</p></li>
+<li><p>InstanceSpecification が Slot 値と役目を描写する入れ子の矩形の両方を含むところでは、それは属性に類する区画と対応する StructuredClassifier の内部構造区画に分割される。</p></li>
+</ul>
+</section>
+<section id="id34">
+<h3>9.8.5 Examples<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 9.28 Specification of an Instance of String</p>
+<ul>
+<li><p>String 型オブジェクト <code class="docutils literal notranslate"><span class="pre">streetName</span></code> の図式に見える。</p></li>
+<li><p>これが InstanceSpecification の記法の一つの見本となる。</p></li>
+<li><p>識別子の下にある引用符で括られた文字列が値だ。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.29 Slots with values</p>
+<ul>
+<li><p>Slots 付き InstanceSpecification の記法例。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.30 InstanceSpecifications representing two objects connected by a
+link</p>
+<ul>
+<li><p>リンク付き InstanceSpecifications の記法例。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.31 InstanceValue represented textually</p>
+<ul>
+<li><p>InstanceValue の記法例。Slot から参照して欲しいようだ。</p></li>
+</ul>
+</li>
+<li><p>Figure 9.32 InstanceValue represented graphically</p>
+<ul>
+<li><p>上記例題を関連の記法？で書き直した。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">9.9 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
+<p>機械生成による節。</p>
+</section>
+<section id="association-descriptions">
+<h2><a class="toc-backref" href="#id45" role="doc-backlink">9.10 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
+<p>機械生成による節。</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch08-values.html" title="Previous document">8 Values</a>
+        </li>
+        <li>
+          <a href="ch10-simple-classifiers.html" title="Next document">10 Simple Classifiers</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ou23/index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v5.html">What’s New In Bash 5 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wslg.html">Windows Subsystem for Linux GUI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../oh-my-posh.html">Oh My Posh 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Unified Modeling Language 2.5 読書ノート</a><ul>
+      <li>Previous: <a href="ch08-values.html" title="previous chapter">8 Values</a></li>
+      <li>Next: <a href="ch10-simple-classifiers.html" title="next chapter">10 Simple Classifiers</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

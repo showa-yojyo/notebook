@@ -2,16 +2,13 @@
 Unified Modeling Language 2.5 読書ノート
 ======================================================================
 
-`OMG Unified Modeling Language Version 2.5 <http://www.omg.org/spec/UML/2.5>`_
+`OMG Unified Modeling Language Version 2.5.1 <http://www.omg.org/spec/UML/2.5.1>`_
 を時間を書けても構わないので読み込み、ここにノートを残していく。
 
 ノートの対象は章で言えば 1 章から 22 章および付録の A 章から E 章までに相当す
-る。ちなみに本文では私が章と呼ぶ物を clause と呼んでいる。 1 章から数章は短い内
-容が続くので単一の reST/HTML ファイルにノートをまとめるが、それ以降は基本的には
-一章当たり一個のファイルを割り当てる予定でいる。本格的に UML の仕様を記述する 7
-章から 22 章はそれぞれに専用のファイルを割り当てる予定だ。もっとも中盤付近に一章
-の内容としては情報量がたいへん多いものがいくつかあるので、そこは分割することを考
-えるかもしれない。
+る。ちなみに本文では私が章と呼ぶ物を clause と呼んでいる。基本的には一章当たり一
+個のファイルを割り当てる予定でいる。もっとも中盤付近に一章の内容としては情報量が
+たいへん多いものがいくつかあるので、そこは分割することを考えるかもしれない。
 
 .. note::
 
@@ -21,29 +18,33 @@ Unified Modeling Language 2.5 読書ノート
 .. toctree::
    :maxdepth: 2
 
-   scope
-   additional-information
-   common-structure
-   values
-   classification
-   simple-classifiers
-   structured-classifiers
-   packages
-   common-behavior
-   statemachines
-   activities
-   actions
-   interactions
-   usecases
-   deployments
-   informationflows
-   primitive-types
-   standard-profile
-   diagrams
-   interchange
-   keywords
-   tabular-notation
-   serialization
+   ch01-scope
+   ch02-conformance
+   ch03-normative
+   ch04-terms
+   ch05-conventions
+   ch06-additional-information
+   ch07-common-structure
+   ch08-values
+   ch09-classification
+   ch10-simple-classifiers
+   ch11-structured-classifiers
+   ch12-packages
+   ch13-common-behavior
+   ch14-statemachines
+   ch15-activities
+   ch16-actions
+   ch17-interactions
+   ch18-usecases
+   ch19-deployments
+   ch20-informationflows
+   ch21-primitive-types
+   ch22-standard-profile
+   ana-diagrams
+   anb-interchange
+   anc-keywords
+   and-tabular-notation
+   ane-serialization
 
 .. todo::
 
@@ -59,8 +60,9 @@ Unified Modeling Language 2.5 読書ノート
    * automaton (n.) ここはそのままカタカナで。「状態機械」は state machine に使
      いたい。原文では複数形の automata で記されていたとしてもここでは「オートマ
      トン」と書くかもしれない。
-   * behavior (n.) 「振る舞い」「挙動」「行動」を気まぐれに使い分ける。字数を費
-     やしたくない都合上、「挙動」を多用する。
+   * behavior (n.) 「振る舞い」「挙動」「動作」「行動」を気まぐれに使い分ける。
+     字数を費やしたくない都合上、「挙動」を多用する。
+   * classifier (n.) DeepL に従い「分類子」を使う。
    * component profile (n.)
    * concurrent (adj.) 本文中にあるように、必ずしも「同時に起こる」とは限らな
      い。
@@ -81,6 +83,7 @@ Unified Modeling Language 2.5 読書ノート
      い。
    * lifeline (n.) 某文書では「生存線」という用語を採用しているようなので拝借す
      る。
+   * navigate (v.) 航行・回航する。ひねらない。
    * occurrence(s) (n.) これは instance(s) の Event 版と言える。「出来事」か「発
      生」か気分次第。
    * offer (v.) 語源は「～の方へ運ぶ」を意味するラテン語らしいのだが、まさにこの

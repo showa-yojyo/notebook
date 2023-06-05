@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>12 Packages &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/mermaid.js"></script>
+    <link rel="next" title="13 Common Behavior" href="ch13-common-behavior.html" />
+    <link rel="prev" title="11 Structured Classifiers" href="ch11-structured-classifiers.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch11-structured-classifiers.html" title="Previous document">11 Structured Classifiers</a>
+        </li>
+        <li>
+          <a href="ch13-common-behavior.html" title="Next document">13 Common Behavior</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="packages">
+<h1><a class="toc-backref" href="#id9" role="doc-backlink">12 Packages</a><a class="headerlink" href="#packages" title="Permalink to this heading">¶</a></h1>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>現在ノート修正中。</p>
+</div>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#packages" id="id9">12 Packages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id10">12.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id11">12.2 Packages</a></p></li>
+<li><p><a class="reference internal" href="#profiles" id="id12">12.3 Profiles</a></p></li>
+<li><p><a class="reference internal" href="#classifier-descriptions" id="id13">12.4 Classifier Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#association-descriptions" id="id14">12.5 Association Descriptions</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="summary">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">12.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Packages は UML の主な包括的な構造化および組織化能力を与える。Models に関する特殊化および UML に対する拡張を組織化する Profiles に関する特殊化がある。</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">12.2 Packages</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="id2">
+<h3>12.2.1 Summary<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>この節では Packages と Models の仕様を与える。</p></li>
+</ul>
+</section>
+<section id="abstract-syntax">
+<h3>12.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 12.1 Packages</p>
+<ul>
+<li><p>Package, Model, PackageMerge が新しく現れた。</p></li>
+<li><p>Type も PackageableElement の一種であることが図では省略してある。</p></li>
+</ul>
+</li>
+</ul>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_packagedElement_owningPackage</span></code></dt><dd><ul class="simple">
+<li><p>Package から PackageableElement への composite 関連（単方向）。</p></li>
+<li><p>Package は Namespace であり、所有要素を関連端 <code class="docutils literal notranslate"><span class="pre">packagedElement</span></code> で表現する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedType_package</span></code></dt><dd><ul class="simple">
+<li><p>Package から Type への composite 関連（双方向）。</p></li>
+<li><p>Type である内容物への参照を表現する関連。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_packagedElement_owningPackage</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_nestedPackage_nestingPackage</span></code></dt><dd><ul class="simple">
+<li><p>Package から Package への composite 関連（双方向）。</p></li>
+<li><p>Package である内容物への参照を表現する関連。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_packagedElement_owningPackage</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_packageMerge_receivingPackage</span></code></dt><dd><ul class="simple">
+<li><p>Package から PackageMerge への composite 関連（双方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">receivingPackage</span></code> 側の Package が合併前後で構成要素が増える方を指す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> と <code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code> を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">receivingPackage</span></code> の多重度はちょうど 1 である。</p></li>
+<li><p>cf. <code class="docutils literal notranslate"><span class="pre">A_mergedPackage_packageMerge</span></code></p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_mergedPackage_packageMerge</span></code></dt><dd><ul class="simple">
+<li><p>PackageMerge から Package への関連（単方向）。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">mergedPackage</span></code> は合併前後でその構成内容物が変わらない方を指す。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code> を subsets する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">mergedPackage</span></code> の多重度はちょうど 1 である。</p></li>
+<li><p>cf. <code class="docutils literal notranslate"><span class="pre">A_packageMerge_receivingPackage</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="semantics">
+<h3>12.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
+<section id="package">
+<h4>12.2.3.1 Package<a class="headerlink" href="#package" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Package はそれの <code class="docutils literal notranslate"><span class="pre">members</span></code> についての名前空間であり、<code class="docutils literal notranslate"><span class="pre">packagedElement</span></code> で結び付けられた構成員の要素を含み、インポートされたものを含む。</p></li>
+<li><p>Package の定義は他の Packages の内容を、自分の包含要素の合併 (merging) により拡張することが可能である。</p></li>
+<li><p>Package をテンプレートとして定義してよく、他のテンプレートに対して束縛してもよい。</p>
+<ul>
+<li><p>詳しくは <a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> を参照。</p></li>
+</ul>
+</li>
+<li><p>URI を Package にとって一意な識別子を与えるように指定することが可能である。
+UML 内部では、プロファイルを除いた場合では、前もって決定されたこれにとっての利用法はない。</p></li>
+</ul>
+</section>
+<section id="packagemerge">
+<h4>12.2.3.2 PackageMerge<a class="headerlink" href="#packagemerge" title="Permalink to this heading">¶</a></h4>
+<ul>
+<li><p>PackageMerge とは、下で定義される規則集に従って、対象の <code class="docutils literal notranslate"><span class="pre">mergedPackage</span></code> の内容が出処の <code class="docutils literal notranslate"><span class="pre">receivingPackage</span></code> に結合されることを示す二つの Packages 間の有向関係である。</p></li>
+<li><p>Generalization と同じように、Package は自分自身を合併することは直接的、間接的を問わず許されない。</p></li>
+<li><p>この能力は、さまざまな Packages で定義された要素が同じ <code class="docutils literal notranslate"><span class="pre">name</span></code> であり、同じ概念を意図するときに用いられるべく設計されている。</p></li>
+<li><p>受け手側 Package に含まれるモデル要素に対する参照のどれもが、Package に含まれる増分に対してではなく、合併結果に対する参照を含意する。</p></li>
+<li><p>Figure 12.2 Illustration of the Meaning of Package Merge</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P2::A</span></code> は <code class="docutils literal notranslate"><span class="pre">P1::A</span></code> の増分を定義する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P3::SubA</span></code> は <code class="docutils literal notranslate"><span class="pre">P2::A</span></code> のサブクラスの定義である。<code class="docutils literal notranslate"><span class="pre">P3</span></code> から見ると、
+<code class="docutils literal notranslate"><span class="pre">P2::A</span></code> は <code class="docutils literal notranslate"><span class="pre">P1</span></code> と <code class="docutils literal notranslate"><span class="pre">P2</span></code> の間のマージ結果の <code class="docutils literal notranslate"><span class="pre">A</span></code> を表現していると解釈する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P1</span></code>: <code class="docutils literal notranslate"><span class="pre">mergedPackage</span></code> (<code class="docutils literal notranslate"><span class="pre">target</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P2</span></code>: <code class="docutils literal notranslate"><span class="pre">receivingPackage</span></code> (<code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">owner</span></code>) であると同時に
+<code class="docutils literal notranslate"><span class="pre">resultingPackage</span></code></p>
+<ul>
+<li><p>マージの <code class="docutils literal notranslate"><span class="pre">before</span></code>/<code class="docutils literal notranslate"><span class="pre">after</span></code> で同じところにあるものの呼び方が変わる
+(<code class="docutils literal notranslate"><span class="pre">receiving</span></code>/<code class="docutils literal notranslate"><span class="pre">resulting</span></code>) ことがわかればとりあえず読める。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>PackageMerge は合併される Package の内容を受け手側の内容と結合することによって、（それ自身が変換の集合である）操作として考察することができる。</p></li>
+<li><p>PackageMerge の規則を理解するには、三種の別個の実体の間をはっきりと見分ける必要がある：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mergedPackage</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">receivingPackage</span></code></p></li>
+<li><p>合併変換の結果</p></li>
+</ol>
+</li>
+<li><p>この専門用語は Figure 12.3 の図解により表される PackageMerge の概念上の見方に基づく。</p>
+<dl class="simple">
+<dt>併合されたパッケージ (merged package)</dt><dd><p>受領パッケージに併合されることになるパッケージ。</p>
+</dd>
+<dt>受領パッケージ (receiving package)</dt><dd><p>概念上の、併合の結果を含むパッケージであるのだが、この用語は併合変換が実施される前のパッケージおよびそれの中身を参照するのに用いる。</p>
+</dd>
+<dt>結果パッケージ (resulting package)</dt><dd><p>概念上の、併合の結果を含むパッケージである。モデルでは当然ながらこれは受領パッケージと同じであるが、この特別の用語は併合変換が実施された後のパッケージおよびそれの中身を参照するのに用いる。</p>
+</dd>
+<dt>併合された要素 (merged element)</dt><dd><p>併合されたパッケージに存在するモデル要素。</p>
+</dd>
+<dt>受領要素 (receiving element)</dt><dd><p>受領パッケージにあるモデル要素。</p>
+</dd>
+<dt>結果要素 (resulting element)</dt><dd><p>併合が実施された後の結果パッケージにあるモデル要素。</p>
+</dd>
+<dt>要素型 (element type)</dt><dd><p>Parameter や StructuralFeature の <code class="docutils literal notranslate"><span class="pre">type</span></code> のような、TypedElement のどんな種類の <code class="docutils literal notranslate"><span class="pre">type</span></code> をも指す。</p>
+</dd>
+<dt>要素メタタイプ (element metatype)</dt><dd><p>モデル要素の MOF 型である。例えば Classifier, Association, Feature である。</p>
+</dd>
+</dl>
+</li>
+<li><p>Figure 12.3 Conceptual View of the Package Merge Semantics</p>
+<ul class="simple">
+<li><p>図の右側は UML の図式ではない。</p></li>
+<li><p>この <code class="docutils literal notranslate"><span class="pre">B</span></code> ダッシュを意識することがコツだと言っている。</p></li>
+</ul>
+</li>
+<li><p>PackageMerge の意味は制約と変換の集合で定義される。制約は有効な PackageMergeにとっての事前条件を指定し、それに対して、変換はその意味的な効果（事後条件）を記述する。制約のいくつかが破られていれば PackageMerge は ill-formed であり、それを含むモデルは無効ある。</p>
+<ul class="simple">
+<li><p>その「集合」が pp. 240-245 で文書化されている。もしマージの仕様を詳しく把握する状況になったら、ここを参照すること。</p></li>
+</ul>
+</li>
+<li><p>この仕様では、他の種類の要素メタタイプ（例えば状態機械や相互作用）の意味が複雑かつ領域固有であるので、明示的な合併変換は一定の一般的メタモデル (Packages,
+Classes, Associations, Properties, etc.) にたいてい見出される要素メタタイプについてしか定義されていない。</p></li>
+</ul>
+</section>
+<section id="general-package-merge-rules">
+<h4>12.2.3.3 General Package Merge Rules<a class="headerlink" href="#general-package-merge-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>合併される要素と受領要素が一致する (match) とは、それらがそれらのメタタイプについての一致規則を満足することを言う。</p></li>
+</ul>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">«merge»</span></code> 有向グラフに閉路はあり得ない。</p></li>
+<li><p>Package はそれに含まれている Package を合併することはできない。</p></li>
+<li><p>Package はそれが含む Package を合併することはできない。</p></li>
+<li><p>メタタイプが Package, Class, DataType, Property, Association, Operation,
+Constraint, Enumeration または EnumerationLiteral の一種ではないような併合された要素には、その受領要素が併合された要素のそのままのコピーではない限りは、同じ名前とメタタイプの受領要素はあり得ない。</p></li>
+<li><p>PackageMerge は併合を実施するのに要求される制約のすべてが成り立つとき、かつそのときに限って有効である。</p></li>
+<li><p>型付けられた要素の一致は適合する型である必要がある。Classes または
+DataTypesである型の場合、適合型は同一の型あるいは共通する上位型のいずれかである。他のすべての場合では、適合とは型が同一であることを意味する。</p></li>
+<li><p>受領要素は併合された要素のどれに対しても明示的な参照があることはあり得ない。</p></li>
+<li><p>一致する RedefinableElements に結び付いた再定義はいずれも矛盾してはならない。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>（既定の規則）一致する要素のない合併された要素または受領要素は結果のパッケージの中に deep copy される。</p></li>
+<li><p>二つの要素を一致するお互いのそっくりなコピーである名前とメタタイプに合併する結果が受領要素になる。</p></li>
+<li><p>一致する要素はそれらのメタタイプに固有の変換規則に従って連結され、結果は生じる Package に含まれる。</p></li>
+<li><p>結果パッケージに行き着く型の付いた要素に対する型参照のすべては対応する結果
+TypedElements への参照に変換される。</p></li>
+<li><p>一致する要素全ての場合、一致する要素の両方とも private <code class="docutils literal notranslate"><span class="pre">visibility</span></code> であると、結果要素は private <code class="docutils literal notranslate"><span class="pre">visibility</span></code> である。そうでなければ、結果要素は
+public <code class="docutils literal notranslate"><span class="pre">visibility</span></code> である。</p></li>
+<li><p>一致する Classifier 要素全ての場合、一致する要素の両方とも <code class="docutils literal notranslate"><span class="pre">isAbstract</span></code>
+が <code class="docutils literal notranslate"><span class="pre">true</span></code> だと、結果要素は <code class="docutils literal notranslate"><span class="pre">isAbstract</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> である。そうでなければ、結果要素は <code class="docutils literal notranslate"><span class="pre">isAbstract</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> である。</p></li>
+<li><p>一致する Classifier 要素全ての場合、一致する要素の両方とも
+<code class="docutils literal notranslate"><span class="pre">isFinalSpecialization</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> だと、結果要素は
+<code class="docutils literal notranslate"><span class="pre">isFinalSpecialization</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> である。そうでなければ、結果要素は
+<code class="docutils literal notranslate"><span class="pre">isFinalSpecialization</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> である。</p></li>
+<li><p>一致する要素全ての場合、一致する要素の両方とも導出されないならば、結果要素もまた導出されない。そうでなければ、結果要素は導出される。</p></li>
+<li><p>一致する MultiplicityElements 全ての場合、結果要素の <code class="docutils literal notranslate"><span class="pre">lower</span></code> は一致する要素の <code class="docutils literal notranslate"><span class="pre">lower</span></code> の小さいほうである。</p></li>
+<li><p>一致する MultiplicityElements 全ての場合、結果要素の <code class="docutils literal notranslate"><span class="pre">upper</span></code> は一致する要素の <code class="docutils literal notranslate"><span class="pre">upper</span></code> の大きいほうである。</p></li>
+<li><p>併合された要素か受領要素の一方にあるモデル要素に適用されたステレオタイプはどれもが対応する結果要素にも適用される。</p></li>
+<li><p>一致する RedefinableElements の場合、一致する RedefinableElements の異なる再定義はすべてが結果要素に適用される。</p></li>
+<li><p>一致する RedefinableElements の場合、一致する要素の両方とも <code class="docutils literal notranslate"><span class="pre">isLeaf</span></code> が
+<code class="docutils literal notranslate"><span class="pre">true</span></code> だと、結果要素も <code class="docutils literal notranslate"><span class="pre">isLeaf</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> である。そうでなければ、結果要素は <code class="docutils literal notranslate"><span class="pre">isLeaf</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> である。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="package-rules">
+<h4>12.2.3.4 Package Rules<a class="headerlink" href="#package-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Package の種類の Elements は <code class="docutils literal notranslate"><span class="pre">name</span></code> およびメタタイプにより一致する。</p></li>
+</ul>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p>合併された Package にある Classifiers のすべてに空でない <code class="docutils literal notranslate"><span class="pre">qualifiedName</span></code>
+がある必要があり、合併された Package で <code class="docutils literal notranslate"><span class="pre">isDistinguishableFrom()</span></code> の値が
+<code class="docutils literal notranslate"><span class="pre">true</span></code> となる。</p></li>
+<li><p>受領 Package にある Classifiers のすべてに空でない <code class="docutils literal notranslate"><span class="pre">qualifiedName</span></code> がある必要があり、受領 Package で <code class="docutils literal notranslate"><span class="pre">isDistinguishableFrom()</span></code> の値が <code class="docutils literal notranslate"><span class="pre">true</span></code> となる。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>併合された Package からの <code class="docutils literal notranslate"><span class="pre">nestedPackage</span></code> は受領 Package が一致する
+<code class="docutils literal notranslate"><span class="pre">nestedPackage</span></code> をまだ含まない限り、同じ <code class="docutils literal notranslate"><span class="pre">name</span></code> と内容が結果の Package
+にある <code class="docutils literal notranslate"><span class="pre">nestedPackage</span></code> に変換される。</p></li>
+<li><p>受領 Package の <code class="docutils literal notranslate"><span class="pre">elementImport</span></code> である ElementImport は生じる Package の対応する ElementImport に変換される。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="class-and-datatype-rules">
+<h4>12.2.3.5 Class and DataType Rules<a class="headerlink" href="#class-and-datatype-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Class や DataType の種類の Elements は <code class="docutils literal notranslate"><span class="pre">name</span></code> およびメタタイプにより一致する。</p></li>
+</ul>
+<dl class="simple">
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>併合された Classifier の <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> である Properties はすべてが受領 Classifier に併合されて、下に指定される Property 変換規則に従って、結果の Classifier を生じる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nestedClassifiers</span></code> は同じ規則に従って再帰的に併合される。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="property-rules">
+<h4>12.2.3.6 Property Rules<a class="headerlink" href="#property-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Property の種類の Elements は <code class="docutils literal notranslate"><span class="pre">name</span></code> およびメタタイプにより一致する。</p></li>
+</ul>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p>一致する Properties の <code class="docutils literal notranslate"><span class="pre">isStatic</span></code> の値が同じである必要がある。</p></li>
+<li><p>一致する Properties の <code class="docutils literal notranslate"><span class="pre">isUnique</span></code> の値が同じである必要がある。</p></li>
+<li><p>一致する Properties に結び付いた Constraints のいずれも矛盾があってはならない。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>一致する受領 Property のない併合された Properties の場合は、結果 Property
+は併合された Property と同じ結果 Classifier にある Property である。</p></li>
+<li><p>一致する受領 Property を有する併合された Properties の場合は、結果 Property
+は同じ名前と特徴が異なるものを除いた特徴があるProperty である。</p></li>
+<li><p>（以下略）</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="association-rules">
+<h4>12.2.3.7 Association Rules<a class="headerlink" href="#association-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Association の種類の Elements は <code class="docutils literal notranslate"><span class="pre">name</span></code> およびメタタイプにより一致する。</p></li>
+</ul>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p>これらの規則は二項 Association にしか適用しない。</p></li>
+<li><p>一致する併合された関連端の <code class="docutils literal notranslate"><span class="pre">aggregation</span></code> が composite であると、受領関連端の <code class="docutils literal notranslate"><span class="pre">aggregation</span></code> が composite である必要がある。</p></li>
+<li><p>一致する併合された関連端が Association により所有されていると、受領関連端はその Association により所有されている必要がある。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>一致する Associations の併合は、Properties についての規則に従い、かつ関連端についての規則に従って、Association classifiers の併合とそれらの対応する
+<code class="docutils literal notranslate"><span class="pre">ownedEnd</span></code> Properties の併合によって達成される。</p></li>
+<li><p>一致する関連端の場合、もしどの関連端も <code class="docutils literal notranslate"><span class="pre">ownedNavigableEnd</span></code> になければ、結果の関連端もまた <code class="docutils literal notranslate"><span class="pre">ownedNavigableEnd</span></code> にない。他の場合のすべてにおいては、結果の関連端は <code class="docutils literal notranslate"><span class="pre">ownedNavigableEnd</span></code> にある。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="operation-rules">
+<h4>12.2.3.8 Operation Rules<a class="headerlink" href="#operation-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Operation の種類の Elements は <code class="docutils literal notranslate"><span class="pre">name</span></code>, Parameter の順序および Parameter の型により一致する。戻り値の型のいずれも含まない。</p></li>
+</ul>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p>Operation Parameters とその型は、Properties に対して定義されたかのように、型と多重度に対する同じ規則に適合する必要がある。</p></li>
+<li><p>一致する合併された Operation の <code class="docutils literal notranslate"><span class="pre">isQuery</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> だと、受領
+Operation は <code class="docutils literal notranslate"><span class="pre">isQuery</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> である必要がある。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>一致する受領 Operation のない併合された Operations の場合は、結果 Operation
+は同じ名前と同じ signature が結果 classifier にある Operation である。</p></li>
+<li><p>一致する受領 Operation を有する併合された Operations の場合は、結果
+Operation は一致する併合された Operations と受領 Operations の併合の結果であり、 Parameter 変換が上で定義された Property 変換に従って実施されている。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="enumeration-rules">
+<h4>12.2.3.9 Enumeration Rules<a class="headerlink" href="#enumeration-rules" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>EnumerationLiteral の種類の Elements は所有する Enumeration およびリテラル
+<code class="docutils literal notranslate"><span class="pre">name</span></code> により一致する。</p></li>
+</ul>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p>一致する EnumerationLiterals は同じ順序である必要がある。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>併合された Enumeration 由来の一致しない EnumerationLiterals は受領
+Enumeration に含まれる。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="constraint-rules">
+<h4>12.2.3.10 Constraint Rules<a class="headerlink" href="#constraint-rules" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt>CONSTRAINTS</dt><dd><ol class="arabic simple">
+<li><p>Constraints は互いに矛盾がないようにする必要がある。</p></li>
+</ol>
+</dd>
+<dt>TRANSFORATIONS</dt><dd><ol class="arabic simple">
+<li><p>併合されたモデル要素の Constraints はすべて受領モデル要素の Constraints に加わる。</p></li>
+</ol>
+</dd>
+</dl>
+</section>
+<section id="model">
+<h4>12.2.3.11 Model<a class="headerlink" href="#model" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Model とはシステムの記述である。ここでシステムは、最も幅広い意味で意図されていて、ソフトウェアやハードウェアだけでなく、組織や工程をも含んでよい。</p></li>
+<li><p>Package と同じように、Model にはモデル化されているシステムを協力して記述する
+<code class="docutils literal notranslate"><span class="pre">members</span></code> の集合がある。</p></li>
+<li><p>種々の Models を同じシステムに対して定義することが可能であり、典型的にはこの種々の Models は相補的であり、種々のシステム利害関係者の観点から定義されている。</p></li>
+<li><p>Model には次のものの間にある Abstraction Dependencies があることが可能。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">refinement</span></code> （標準プロファイル <code class="docutils literal notranslate"><span class="pre">«Refine»</span></code> でステレオタイプされる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mapping</span></code> （例えば標準プロファイル <code class="docutils literal notranslate"><span class="pre">«Trace»</span></code> でステレオタイプされる）</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="notation">
+<h3>12.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Package は大きい矩形の左上に小さい矩形（タブ）を付けた形状で示す。</p>
+<ul>
+<li><p>Package の内容物は大きい矩形の内部に示してよい。</p></li>
+<li><p>マルにプラスを付けた記号を使って、 Package の外部から要素に線を引くような記法がある。</p></li>
+<li><p>PackageImport や ElementImport を通じて持ち込んだ要素は、色を変えて描かれることがある。</p></li>
+<li><p>Package の名前は内容物が大きい矩形内にあるかどうかで、場所が異なる。タブに記される場合と、大矩形内に記される場合がある。</p></li>
+<li><p>要素の可視性はいつものように要素名の前に <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code> 等の記号を付して示してもよい。</p>
+<ul>
+<li><p>Packages の可視性が protected や package であることは許されない。</p></li>
+</ul>
+</li>
+<li><p>URI を <code class="docutils literal notranslate"><span class="pre">{uri</span> <span class="pre">=</span> <span class="pre">&lt;uri&gt;}</span></code> の形式でパッケージ名の後に示してよい。</p></li>
+</ul>
+</li>
+<li><p>PackageMerge は開いた矢先の破線矢印を用いて示す。</p>
+<ul>
+<li><p>矢印の向きは <code class="docutils literal notranslate"><span class="pre">receivingPackage</span></code> から <code class="docutils literal notranslate"><span class="pre">mergedPackage</span></code> である。</p></li>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">«merge»</span></code> を破線のそばに示す。</p></li>
+</ul>
+</li>
+<li><p>Model は通常の Package シンボルに小さな三角を大矩形の右上隅に描いたもので記す。</p>
+<ul>
+<li><p>大矩形内部に要素が示されているならば、小三角はタブの右側に描いてよい。</p></li>
+<li><p>またはキーワード <code class="docutils literal notranslate"><span class="pre">«model»</span></code> をモデル名の上に付記することで、あとは通常の
+Package の記法を用いることもまた許される。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="examples">
+<h3>12.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 12.5 Examples of a Package with Members</p>
+<ul>
+<li><p>どの図式でも Package の内容物がすべて記されているとは限らないようだ。</p></li>
+<li><p>マルプラスの見本によると、線のスタイルは実線。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.6 Simple Example of Package Merge</p>
+<ul>
+<li><p>もっとも基本的な見本と思われる。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.7 Simple Example of Transformed Packages Following the Merges</p>
+<ul>
+<li><p>上述の結果、各パッケージがどういう構成になるかを模式化したもの。各要素の意味が明記されていないので、このマージ結果の表現が妥当かどうか納得するには、先程読み飛ばした規則集を当たらねばならない。</p></li>
+<li><p>ここで用いられている記法は UML の一部ではないので注意。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.8 Introducing Additional Package Merges</p>
+<ul>
+<li><p>空の Package <code class="docutils literal notranslate"><span class="pre">T</span></code> が上述の <code class="docutils literal notranslate"><span class="pre">R</span></code> と <code class="docutils literal notranslate"><span class="pre">S</span></code> をマージする図式。<code class="docutils literal notranslate"><span class="pre">T</span></code> が空であるというのは、図式外で説明されているに過ぎない。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.9 Result of the Additional Package Merges</p>
+<ul>
+<li><p>上述の <code class="docutils literal notranslate"><span class="pre">T</span></code> のマージ状態を模式化したもの。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.10 Three Models Representing Parts of a System</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Client</span></code>, <code class="docutils literal notranslate"><span class="pre">Business</span></code>, <code class="docutils literal notranslate"><span class="pre">Data</span></code> からなる三層構造システムの Models の図式。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.11 Two Views of One System Collected in a Container Model</p>
+<ul>
+<li><p>Models-in-Model な図式。同一図式内にあえて異なる記法（キーワード or 小三角）を併用している。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="profiles">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">12.3 Profiles</a><a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h3>12.3.1 Summary<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>この章では、メタクラスが種々の目的に適合するように拡張できるようになる能力を記述する。</p></li>
+<li><p>これは UML メタモデルを J2EE や .NET 等のさまざまなプラットフォームや領域（リアルタイムまたはサービス志向様式）に合わせる能力も含む。</p></li>
+<li><p>この章は OMG <a class="reference external" href="http://www.omg.org/spec/MOF/2.5">MOF</a> に対して一貫性がある。</p></li>
+</ul>
+<section id="positioning-profiles-versus-metamodels-mof-and-uml">
+<h4>12.3.1.1 Positioning Profiles versus Metamodels, MOF and UML<a class="headerlink" href="#positioning-profiles-versus-metamodels-mof-and-uml" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>UML はモデリングを取り扱うさまざまな OMG の仕様書で別々のメタレベルで再利用される。</p></li>
+<li><p>Profiles は第一等の拡張能力ではない。すなわち、新たなメタモデルを創造することは考慮に入れていない。</p></li>
+<li><p>第一等の拡張性は <a class="reference external" href="http://www.omg.org/spec/MOF/2.5">MOF</a> で扱われるが、メタモデルレベルにおける制限は一つもない。サブクラスと関連を必要に応じて追加することができる。</p></li>
+<li><p>UML を拡張するのがよいかもしれない理由がいくつかある。</p>
+<ul>
+<li><p>特定のプラットフォームやドメインに適合される用語法 (a terminology) を与える。</p></li>
+<li><p>記法のない諸構成概念に構文を与える。</p></li>
+<li><p>既存の諸記号に異なる記法を与える。</p></li>
+<li><p>UML や特定のメタクラス（複数形）にさらなる意味を追加する。</p></li>
+<li><p>UML に存在しない型を追加する。</p></li>
+<li><p>UML の諸構成概念で用いられるやり方に制限を加える Constraints を追加する。</p></li>
+<li><p>あるモデルを別のモデルやコードに変換する際に用いることが可能な情報を追加する。例えばモデルと Java コードの間の対応規則の定義など。</p></li>
+</ul>
+</li>
+<li><p>いつ新しいメタモデルを作成するべきか、いつプロファイルを作成するべきか、あるいはいつ両者を（一方は UML ツール利用の場合に、もう一方は MOF ベースのツールの場合に）作成するべきかという問いに対する簡単な答えはない。</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<h3>12.3.2 Abstract Syntax<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 12.12 Profiles</p>
+<ul>
+<li><p>一見するとグラフの構造がいつもより込み入っている。</p></li>
+<li><p>新クラスは Profile, ProfileApplication, Stereotype, Image, Extension,
+ExtensionEnd と、いつもより多く登場する。</p></li>
+</ul>
+</li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">A_metaclassReference_profile</span></code></dt><dd><ul class="simple">
+<li><p>Profile から PackageImport への composite 関連（単方向）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_packageImport_importingNamespace</span></code> を subsets する。</p></li>
+<li><p>cf. <code class="docutils literal notranslate"><span class="pre">A_metamodelReference_profile</span></code></p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_metamodelReference_profile</span></code></dt><dd><ul class="simple">
+<li><p>Profile から ElementImport への composite 関連（単方向）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_elementImport_importingNamespace</span></code> を subsets する。</p></li>
+<li><p>cf. <code class="docutils literal notranslate"><span class="pre">A_metaclassReference_profile</span></code></p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_appliedProfile_profileApplication</span></code></dt><dd><ul class="simple">
+<li><p>ProfileApplication から Profile への関連（単方向）。</p></li>
+<li><p>Package に適用されている Profile を参照する関連である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_target_directedRelationship</span></code> を subsets する。</p></li>
+<li><p>cf. <code class="docutils literal notranslate"><span class="pre">A_profileApplication_applyingPackage</span></code></p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_profileApplication_applyingPackage</span></code></dt><dd><ul class="simple">
+<li><p>Package から ProfileApplication への composite 関連（双方向）。</p></li>
+<li><p>Package が Profile 適用情報を所有する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_source_directedRelationship</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+<li><p>cf. <code class="docutils literal notranslate"><span class="pre">A_appliedProfile_profileApplication</span></code></p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_profile_stereotype</span></code></dt><dd><ul class="simple">
+<li><p>Stereotype から Profile への関連（単方向）。</p></li>
+<li><p>自らを直接的にまたは間接的に含む Profile への参照を示す。</p></li>
+<li><p>関連端 profile は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
+<li><p>関連端 profile の多重度は 1 である。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_icon_stereotype</span></code></dt><dd><ul class="simple">
+<li><p>Stereotype から Image への composite 関連（単方向）。</p></li>
+<li><p>Stereotype を図式内でアイコンイメージを用いて表示する際、その中身の場所を参照する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedStereotype_owningPackage</span></code></dt><dd><ul class="simple">
+<li><p>Package から Stereotype への composite 関連（単方向）。</p></li>
+<li><p>ある適用済み Profile が直接る Stereotype を所有するという意味か。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_packagedElement_owningPackage</span></code> を subsets/redefines する。</p></li>
+<li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedStereotype</span></code> は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedEnd_extension</span></code></dt><dd><ul class="simple">
+<li><p>Extension から ExtensionEnd への composite 関連（単方向）。</p></li>
+<li><p>拡張されているメタクラスへの参照する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_ownedEnd_owningAssociation</span></code> を redefines/subsets する。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_extension_metaclass</span></code></dt><dd><ul class="simple">
+<li><p>Class から Extension への関連（双方向）。</p></li>
+<li><p>メタクラスを拡張する Stereotype を参照する関連端を所有する。</p></li>
+<li><p>関連端は両方とも <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である。</p></li>
+<li><p>関連端の多重度は <code class="docutils literal notranslate"><span class="pre">metaclass</span></code> が 1 に対して <code class="docutils literal notranslate"><span class="pre">extension</span></code> が <code class="docutils literal notranslate"><span class="pre">*</span></code> である。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_type_extensionEnd</span></code></dt><dd><ul class="simple">
+<li><p>ExtensionEnd から Stereotype への関連（単方向）。</p></li>
+<li><p>メタクラスを拡張する Stereotype を参照する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_type_typedElement</span></code> を redefines/subsets する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>12.3.3 Semantics<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<section id="id6">
+<h4>12.3.3.1 Profiles<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Profile とは、下に述べるように、UML を拡張するのに用いることができるメタモデルの制限された形式である。その主要な拡張構成要素は Stereotype である。</p></li>
+</ul>
+<section id="restricting-availability-of-uml-elements">
+<h5>12.3.3.1.1 Restricting Availability of UML Elements<a class="headerlink" href="#restricting-availability-of-uml-elements" title="Permalink to this heading">¶</a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> ElementImports と <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code>
+PackageElementsは Profile の選別規則を指定するのに用いることが許される。この選別規則は Profile が適用されるときにどの要素が利用可能であり、どの要素が隠れるのかを決定づける。</p></li>
+<li><p>モデルに Profile を適用することはそのモデルを決して変化させるものではない。根底にあるモデルの眺めを単に定義するものである。</p></li>
+<li><p>メタクラスが隠されている（利用不能となる）ことの影響は次のとおり：</p>
+<ul>
+<li><p>当該メタクラス（またはそのサブクラス）の新たなオブジェクトを生成することはできない。</p></li>
+<li><p>当該メタクラス（またはそのサブクラス）の既存のオブジェクトはもはや図式上で見ることができなくなるか、ブラウザー枠内を含む、リストで選択できなくなる。</p></li>
+<li><p>当該メタクラス（またはそのサブクラス）の既存のオブジェクトに関する
+Relationships はもはや図式上で見ることができなくなるか、ブラウザー枠内を含む、リストで選択できなくなる。</p></li>
+</ul>
+</li>
+<li><p>上記をどのように実装するかはツールによって異なってよい。</p></li>
+<li><p>選別規則が Profile で活動的になるためには、Profile が厳格モードで適用される必要がある。これには ProfileApplication の <code class="docutils literal notranslate"><span class="pre">isStrict</span></code> 属性を明示的に <code class="docutils literal notranslate"><span class="pre">true</span></code>
+とする必要がある。さもなければ選別規則はこの ProfileApplication に関して無視される。</p></li>
+<li><p>もっともありがちなことは、Profile が UML 自身を <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> を使ってインポートするときである。</p></li>
+<li><p>ElementImports の <code class="docutils literal notranslate"><span class="pre">visibility</span></code> および <code class="docutils literal notranslate"><span class="pre">alias</span></code> 特性は
+<code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> として用いられるときには無視される。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> と <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> の両方が Profile に存在すると、後者は無視されて特定のメタクラスだけが使用可能になる。</p></li>
+<li><p>詳しくは、次の規則が使われて、Profile が厳格モードで適用された後にモデル要素が利用可能なのかどうかを決定づける。メタクラスおよびそのオブジェクトが利用可能であるとは、それらが</p>
+<ol class="arabic simple">
+<li><p>明示的な <code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> により参照されるか、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> がないときは、明示的な <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> により参照されるPackage の直接的または推移的な <code class="docutils literal notranslate"><span class="pre">members</span></code> であるか、</p></li>
+<li><p>適用された Profile の <code class="docutils literal notranslate"><span class="pre">member</span></code> である Stereotype により拡張されているときである。</p></li>
+</ol>
+</li>
+<li><p>Profile が厳格モードで適用されているときは他のモデル要素のすべてが隠蔽、利用不能にされる。</p></li>
+<li><p>このことは利用可能なメタクラスの互いに素な集合らを指定する適用 Profile の組み合わせを無効にする。</p></li>
+<li><p>Profile <code class="docutils literal notranslate"><span class="pre">P1</span></code> が別の Profile <code class="docutils literal notranslate"><span class="pre">P2</span></code> をインポートすると、
+<code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> と``metamodelReference`` の関連すべてが <code class="docutils literal notranslate"><span class="pre">P1</span></code> の高さで結合されることになり、選別規則がこの和集合に適用する。</p></li>
+<li><p>Profile は Stereotypes ばかりでなく Classes, Associations, DataTypes,
+PrimitiveTypes そして Enumerations を定義またはインポートすることができる。</p></li>
+<li><p>Profile 定義の Types はその Profile の Properties の型としてか、別の Profile
+定義の Type の一般化 classifier としてしか用いることはできない。</p></li>
+<li><p>Stereotypes は二項 Associations にしか参加することができない。</p></li>
+<li><p>ツールが与えることが可能な Profile の能力のもっとも真っ直ぐな実装は、Profile
+メタモデルと同じように、実装を基にしたメタモデルを持つことである。</p></li>
+</ul>
+</section>
+<section id="integrating-and-extending-profiles">
+<h5>12.3.3.1.2 Integrating and Extending Profiles<a class="headerlink" href="#integrating-and-extending-profiles" title="Permalink to this heading">¶</a></h5>
+<ul>
+<li><p>Profiles を生成、拡張、統合する方法はいくつかある。</p></li>
+<li><p>Profile 統合のもっとも簡素な形式は、単に複数 Profiles を同じ Package に適用することである。</p></li>
+<li><p>一つの Profile が別のものの全部または一部を再利用したり、他の Profiles を拡張したりすることも可能である。</p></li>
+<li><p>例えば the <em>Unified Profile for DoDAF and MODAF</em> (UPDM) Profile は Requirement
+や ViewPoint のような Stereotypes を再利用するために SysML Profile に統合することも可能であった。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この文から始まるパラグラフは面白そうだが、パッと見 could や would を含む文が多いので、どうも現実にある状況の話題ではなさそうだ。</p>
+</div>
+</li>
+</ul>
+</section>
+<section id="mof-equivalent-semantics">
+<h5>12.3.3.1.3 MOF-Equivalent Semantics<a class="headerlink" href="#mof-equivalent-semantics" title="Permalink to this heading">¶</a></h5>
+<ul class="simple">
+<li><p>この節では Stereotypes とそのオブジェクトの意味を <a class="reference external" href="http://www.omg.org/spec/MOF/2.5">MOF</a> を使って明確に述べる。</p></li>
+<li><p>MOF に対する同じ写像がどのように適用プロファイルを XMI を使って直列化するのかを決定するために用いられる。</p></li>
+<li><p>Profile の場合、Package から継承した <cite>URI</cite> Property が用いられて、XMI の
+Profile のオブジェクトを識別するのに用いられる <code class="docutils literal notranslate"><span class="pre">nsURI</span></code> を決定付ける。</p></li>
+<li><p>UML Standard Profile のような OMG に規範的な Profiles は、URI に対して OMG に規範的な名前付け戦略に追随する。</p></li>
+<li><p>Profile はちょうど任意のモデルのように XMI ファイルとして交換可能であり、適用された Profile があるモデルもまた交換可能である。</p></li>
+</ul>
+<ul class="simple">
+<li><p>Figure 12.13 Using the HomeExample Profile to Extend a Model</p>
+<ul>
+<li><p>ステレオタイプ <code class="docutils literal notranslate"><span class="pre">Home</span></code> で拡張された Interface のオブジェクトを含むモデル。</p></li>
+</ul>
+</li>
+<li><p>ゼロまたはそれを超える Profiles が適用されているモデルの XMI 直列化は二つの論理部分に（物理的に組織化されていてもよい）組織化された XMI ファイルである。</p>
+<ol class="arabic simple">
+<li><p>モデルの XMI 直列化</p></li>
+<li><p>モデルまたはそのある部分に対する Profile の適用それぞれに対応するオブジェクトの XMI 直列化</p></li>
+</ol>
+</li>
+<li><p>モデルまたはそのある部分に対する Profile の適用を削除することがモデル自身の
+XMI 直列化を修正してはならないので、 Part (1) にある XMI 要素はどれもがPart
+(2) にある XMI 要素のどれに対する参照もできない。</p></li>
+</ul>
+</section>
+</section>
+<section id="defining-profiles-for-non-uml-metamodels">
+<h4>12.3.3.2 Defining Profiles for Non-UML Metamodels<a class="headerlink" href="#defining-profiles-for-non-uml-metamodels" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>理論上、この能力はまれにしか、あったとしても、実用上では使われてこなかったが、
+Profiles の能力は UML 以外のメタモデルについての拡張を定義することが可能である。</p></li>
+<li><p>UML に加えて、Profile は別の MOF 準拠の参照メタモデルに関係してよい。一般に参照メタモデルは、典型的にはインポートされたか局地的に所有されたかのどちらかであるメタクラスからなる。</p></li>
+<li><p>Profile を適用することはそのモデルを決して変化させるものではない。根底にあるモデルの眺めを単に定義するものである。</p>
+<ul>
+<li><p>先にもこれを記した気がする。</p></li>
+</ul>
+</li>
+<li><p>一般には、プロファイルが適用されると、インポートされた参照メタモデルのオブジェクトであるモデル要素しか見えないはずである。</p></li>
+<li><p>次の規則が使われることで、Profile 適用後にモデル要素が利用可能か隠蔽されるかを決定づける。モデル要素が利用可能であるとは、それらが以下のどれかのメタクラスのオブジェクトである</p>
+<ol class="arabic simple">
+<li><p>明示的な <code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> により参照されるか、</p></li>
+<li><p>明示的な <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> により参照される Package に（直接的または推移的に）含まれるか、</p></li>
+<li><p>適用された Profile により所有される Stereotype により拡張される。</p></li>
+</ol>
+</li>
+<li><p>Profile が適用されていると他のモデルはすべてが隠蔽される（利用不能となる）。</p></li>
+<li><p>もっとも普通の場合は、Profile がメタモデル丸ごとを <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> を使って単にインポートするときである。</p></li>
+<li><p>Figure 12.14 Specification of an Available Metaclass</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">MyMetamodel</span></code> は二つのメタクラス <code class="docutils literal notranslate"><span class="pre">Metaclass1</span></code> と <code class="docutils literal notranslate"><span class="pre">Metaclass2</span></code> を含むメタモデルである。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MyProfile</span></code> は <code class="docutils literal notranslate"><span class="pre">MyMetamodel</span></code> と <code class="docutils literal notranslate"><span class="pre">Metaclass2</span></code> を参照する Profile である。</p></li>
+<li><p>しかし、<code class="docutils literal notranslate"><span class="pre">Metaclass2</span></code> に対する明示的なメタクラス参照もある。これはメタモデル参照を上書きする。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="profileapplication">
+<h4>12.3.3.3 ProfileApplication<a class="headerlink" href="#profileapplication" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>ProfileApplication はどの Profiles が Package に適用されているのかを記録するのに用いる。</p></li>
+<li><p>UML を拡張する一つまたはそれを超える Profiles は思いのままにモデル Package
+に適用して構わない。</p>
+<ul>
+<li><p>Profile を適用するということは、Profile の部分として定義された Stereotypes
+を適用することが可能であることを意味する。</p></li>
+</ul>
+</li>
+<li><p>Profile が適用されると、適当な Stereotypes のオブジェクトが ExtensionEnds が
+<code class="docutils literal notranslate"><span class="pre">isRequired</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> であるメタクラスのオブジェクトであるものの要素に対して生成される必要がある。</p></li>
+<li><p>一度 Profile が Package に適用されると、適用された Profile を自由に取り除くことが許される。</p>
+<ul>
+<li><p>Profile を取り除くことは、Profile で定義される Stereotypes のオブジェクトである要素すべてが、それらが合成集約する Profile 定義の Classes のオブジェクトとそれらをリンクする Profile 定義の合成 Associations とを含めて、削除されることを意味する。</p></li>
+</ul>
+</li>
+<li><p>別の Profile の <code class="docutils literal notranslate"><span class="pre">packagedElement</span></code> である Profile を個々に適用することができる。とは言うものの、入れ子の Profile が Stereotypes を含み、他の Profiles が共に適用されていることを示すために PackageImport を使うことができると、その
+Profile は必要とされるメタクラス・メタモデル参照をどれも指定する必要がある。</p></li>
+</ul>
+</section>
+<section id="stereotypes">
+<h4>12.3.3.4 Stereotypes<a class="headerlink" href="#stereotypes" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Stereotype は一つまたはそれを超えるメタクラスについての拡張を定義し、固有の用語または記法の用途が拡張メタクラスに対して用いられるものを上書きや追加できるようにする。</p>
+<ul>
+<li><p>Stereotype がメタクラスをいくつか拡張すると、どの時点においてもメタクラスのうち正確に一つのオブジェクトにしか適用することができない。</p></li>
+</ul>
+</li>
+<li><p>Stereotype とは、それ自身により使われることがあり得ないが、それを拡張するメタクラスのうちの一つと一緒に常に用いられる必要がある、メタクラスの限定された一種である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code> により参照されるか、Stereotype を直接または間接的に含むもっとも近い Profile の <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> により参照される Package に含まれるメタクラスはいずれもその Stereotype によって拡張することができる。</p>
+<ul>
+<li><p>例えば、その <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> が UML ならば、States, Transitions,
+Activities, UseCases, Components, Properties, Dependencies, etc. はすべて
+Stereotypes で拡張が可能である。</p></li>
+</ul>
+</li>
+<li><p>Class と同じようにして、Stereotype に Properties があることが許されるが、それは習慣的に Tag Definitions と呼ばれてきた。Stereotype がモデル要素に適用されているとき、Tag Definitions の値のことを慣習的に <cite>tag values</cite> という呼び方をする。</p></li>
+<li><p>それの Profile または Package は Stereotype にとっての名前空間を定義する。</p>
+<ul>
+<li><p>Profiles が Package に適用されていると、利用可能な Stereotypes は適用された
+Profiles により定義され、必要ならば、異なる Profiles や Packages にある同じ
+<code class="docutils literal notranslate"><span class="pre">name</span></code> のStereotypes を見分けるために、完全限定名を使ってこれらの
+Stereotypes を表示することができる。</p></li>
+<li><p>PackageImport と ElementImport を限定されていない <code class="docutils literal notranslate"><span class="pre">names</span></code> の使用を許すために用いることができる。</p></li>
+<li><p>適用された Profile が直接所有する Stereotypes (<code class="docutils literal notranslate"><span class="pre">ownedStereotypes</span></code>) を限定名を用いずに用いてよい。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="images">
+<h4>12.3.3.5 Images<a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Image クラスは図式中の画像を表示するのに必要な情報を与える。Icons は典型的には
+Image クラスで扱われる。</p></li>
+<li><p>物理的配置や画像形式のような情報は Image クラスにより与えられる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code> 特性は内容の形式を示し、文字列 <code class="docutils literal notranslate"><span class="pre">content</span></code> がどのように解釈されるべきかである。</p>
+<ul>
+<li><p>値 <code class="docutils literal notranslate"><span class="pre">SVG</span></code>, <code class="docutils literal notranslate"><span class="pre">GIF</span></code>, <code class="docutils literal notranslate"><span class="pre">PNG</span></code>, etc. が予約されている。</p></li>
+<li><p>加えて <code class="docutils literal notranslate"><span class="pre">MINE:</span></code> から始まる何らかの値も予約済みとする。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="extensions">
+<h4>12.3.3.6 Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Extension はメタクラスの特性が Stereotype で拡張されていることを示すために用いられ、クラスに対してステレオタイプを柔軟に追加（そしてあとで除去）する能力を与える。</p></li>
+<li><p>Extension は Association の一種である。Extension の一端はふつうの Property であり、他方は ExtensionEnd である。前者は Extension と Class とを結び付け、対して後者は Extension とその Class を拡張する Stereotype とを結びつける。</p></li>
+<li><p>必要 Extension (<code class="docutils literal notranslate"><span class="pre">isRequired</span> <span class="pre">==</span> <span class="pre">true</span></code>) とは、この Stereotype のオブジェクトが、それが含んでいる Profile が適用されているモデル内の拡張メタクラスのオブジェクトそれぞれにリンクされる必要があることを意味する。</p></li>
+<li><p>不要 Extension (<code class="docutils literal notranslate"><span class="pre">isRequired</span> <span class="pre">==</span> <span class="pre">false</span></code>) とは、この Stereotype のオブジェクトが、拡張メタクラスのオブジェクトに自由にリンクし、またあとで自由に削除されることが許されることを意味する。</p></li>
+<li><p>Figure 12.15 MOF Model Equivalent to Extending “Interface” by the “Home”
+Stereotype</p>
+<ul>
+<li><p>単一メタクラス拡張について同値な MOF 構成を示す図。</p></li>
+<li><p>Figure 12.19 で示される場合を図解する。</p></li>
+</ul>
+</li>
+<li><p>Constraints は Stereotypes によく追加される。</p></li>
+<li><p>Figure 12.16 Example of Multiple Metaclass Extension</p>
+<ul>
+<li><p>複数メタクラス拡張の例。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.17 MOF Model Equivalent to Multiple Metaclass Extension</p>
+<ul>
+<li><p>複数メタクラス拡張に対応する同等な MOF 構成の図。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="extensionend">
+<h4>12.3.3.7 ExtensionEnd<a class="headerlink" href="#extensionend" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>ExtensionEnd はメタクラスを拡張する際に Extension と Stereotype を結ぶのに用いられる。</p></li>
+<li><p>ExtensionEnd の既定の多重度は <code class="docutils literal notranslate"><span class="pre">0..1</span></code> である。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h3>12.3.4 Notation<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 12.18 The Notation for an Extension</p>
+<ul>
+<li><p>Extension の記法は矢印である。</p></li>
+<li><p>矢先は黒塗の三角。</p></li>
+<li><p>向きは Stereotype から拡張 Class とする。</p></li>
+<li><p>Association と同じ修飾をしてもよいが、通常は省略し、航行可能の矢印は決して示さない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isRequired</span></code> == <code class="docutils literal notranslate"><span class="pre">true</span></code> ならば ExtensionEnd の近くに <code class="docutils literal notranslate"><span class="pre">{required}</span></code> と記す。</p>
+<ul>
+<li><p>多重度の明記とも関係している。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Profile は Package と同じ記法を用いる。ただし名前の前または上にキーワード
+<code class="docutils literal notranslate"><span class="pre">«profile»</span></code> をつける。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">metaclassReference</span></code>, <code class="docutils literal notranslate"><span class="pre">metamodelReference</span></code> は <code class="docutils literal notranslate"><span class="pre">elementImport</span></code>,
+<code class="docutils literal notranslate"><span class="pre">packageImport</span></code> とそれぞれ同じ記法プラスキーワード <code class="docutils literal notranslate"><span class="pre">«reference»</span></code>。</p></li>
+</ul>
+</li>
+<li><p>ProfileApplication は破線矢印で示す。</p>
+<ul>
+<li><p>矢先は開く。</p></li>
+<li><p>向きは Package から各 <code class="docutils literal notranslate"><span class="pre">appiled</span></code> Profile に向かう。</p></li>
+<li><p>キーワード <code class="docutils literal notranslate"><span class="pre">«apply»</span></code> か、<code class="docutils literal notranslate"><span class="pre">isStrict</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> ならばキーワード
+<code class="docutils literal notranslate"><span class="pre">«strict»</span></code> を矢印のラベルとする。</p></li>
+</ul>
+</li>
+<li><p>複数の <code class="docutils literal notranslate"><span class="pre">appliedProfiles</span></code> に同名の Stereotypes があれば、必要に応じてその
+Stereotype の名前を限定 (qualify) する。</p></li>
+<li><p>Stereotype は Class と同じ記法を用いる。ただし名前の前または上にキーワード
+<code class="docutils literal notranslate"><span class="pre">«stereotype»</span></code> をつける。</p>
+<ul>
+<li><p>モデル要素が図式的に表示されているとき、カッコ対が要素の右上に現れる。</p></li>
+<li><p>複数の Stereotypes が適用されているならば、それらの名前をカッコ内に CSV として示す。</p></li>
+<li><p>拡張モデル要素にキーワードがあるときは、ステレオタイプ名はそのキーワードの近くに表示されるだろう。一つのカッコに名前をまとめてもよいし、別々のカッコを用いてもよい。</p></li>
+</ul>
+</li>
+<li><p>Stereotype の <code class="docutils literal notranslate"><span class="pre">name</span></code> はクラスの命名規約に従い大文字で始めるのが普通。しかし
+Profiles は異なる規約を用いてよい。</p></li>
+<li><p>ツールは Stereotypes を表示するのかしないのかを選ぶことができる。</p></li>
+<li><p>モデル要素に適用された Stereotype またはその一般化の <code class="docutils literal notranslate"><span class="pre">ownedAttributes</span></code> の値は次の三者の方法のうちの一つでわかる。</p>
+<ol class="arabic simple">
+<li><p>モデル要素を表す図表ノードに接続された註釈記号の部分として</p></li>
+<li><p>モデル要素を表す図表ノードの分かれた区画で</p></li>
+<li><p>図表ノードで <code class="docutils literal notranslate"><span class="pre">name</span></code> 文字列の上または名前文字列の前に</p></li>
+</ol>
+</li>
+<li><p>区画または註釈記号が使われていると、ステレオタイプの名前を区画や註釈に含まれているのみならず、<code class="docutils literal notranslate"><span class="pre">name</span></code> 文字列の前に guillemets で示してよい。</p></li>
+<li><p>Stereotype Property が多価値ならば、<code class="docutils literal notranslate"><span class="pre">&lt;valuestring&gt;</span></code> は CSV として表示する。</p></li>
+<li><p>Stereotype Property の値を表示するのに区画が使われていれば、適用された
+Stereotype それぞれに対してその Property の値が表示されることになる追加区画が必要となる。</p></li>
+<li><p>註釈記号の場合、またはもしモデル要素の <code class="docutils literal notranslate"><span class="pre">name</span></code> の前か上に表示されるならば、特定の Stereotype からの Property の値は適用された Stereotype の名前が
+guillemetsの対に括られた状態で任意で先に来る。</p></li>
+<li><p>区画または註釈記号で表示されているときは、名前文字列と値文字列の高々一対が単一行に現れることができる。</p></li>
+</ul>
+<section id="icon-presentation">
+<h4>12.3.4.1 Icon presentation<a class="headerlink" href="#icon-presentation" title="Permalink to this heading">¶</a></h4>
+<ul>
+<li><p>Stereotype に Images を添えることが、その Stereotype が適用されたモデル要素の記法の代わりに、またはさらなる普通の記法として可能である。</p></li>
+<li><p>Stereotype に <code class="docutils literal notranslate"><span class="pre">icon</span></code> に対する値があると、参照された Image をStereotype が適用されたモデル要素に対して図式的に添えることができる。</p></li>
+<li><p>図表的表現を有するすべてのモデル要素がアイコンを付けることが可能。モデル要素が</p>
+<ul>
+<li><p>箱として図表的に表現されると、箱が Image に取って代わられ、モデル要素の
+<code class="docutils literal notranslate"><span class="pre">name</span></code> が Image の下に現れる。この表現の選択は、モデル要素に単一の
+Stereotype が適用されており、モデル要素の Properties がない場合だけ可能である。</p>
+<p>また別の選択として、Image の縮小版をモデル要素を表現する箱の内側上部に表示してもよい。複数の Stereotypes が適用されているときは、複数の Images を箱で表示してよい。</p>
+</li>
+<li><p>線として図表的に表現されると、Image を線の近くに置いてよい。</p></li>
+<li><p>テキスト記法として図表的に表現されると、Image をテキスト表記の左に表示してよい。</p></li>
+</ul>
+</li>
+<li><p>Images のいくつかは Stereotype の <code class="docutils literal notranslate"><span class="pre">icon</span></code> Property によって参照されてよい。</p></li>
+<li><p>モデル要素には既定の表現をするための <code class="docutils literal notranslate"><span class="pre">icon</span></code> をすでに使うものもある。この典型的な例には Actor モデル要素があり、これは「棒人間」のアイコンを用いる。</p></li>
+</ul>
+</section>
+</section>
+<section id="id8">
+<h3>12.3.5 Examples<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Figure 12.19 Example of Using an Extension</p>
+<ul>
+<li><p>ここで <code class="docutils literal notranslate"><span class="pre">Home</span></code> はメタクラス Interface を拡張するステレオタイプである。</p></li>
+<li><p>ステレオタイプ <code class="docutils literal notranslate"><span class="pre">Home</span></code> のオブジェクトはクラス Interface のオブジェクトに追加することとオブジェクトから除去することが意のままにできる。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.20 Example of a Required Extension</p>
+<ul>
+<li><p>Profile が適用されるモデルにあるメタクラス Component のオブジェクトはそれぞれが、Extension の <code class="docutils literal notranslate"><span class="pre">isRequired</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> であるので、ステレオタイプ
+<code class="docutils literal notranslate"><span class="pre">Bean</span></code> のオブジェクトに適用するはずである。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{required}</span></code> が付いているので、その Profile が適用されている Component の各オブジェクトは、ステレオタイプ <code class="docutils literal notranslate"><span class="pre">Bean</span></code> のオブジェクトを適用するはずである。</p></li>
+<li><p>モデルはそのような Stereotype が適用されなければ well-formed でない。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.21 Defining a Simple EJB Profile</p>
+<ul>
+<li><p>ある EJB Profile の簡単な見本。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bean</span></code> がメタクラス Component に適用されていることを必要とする。<code class="docutils literal notranslate"><span class="pre">Bean</span></code>
+は抽象的なので、具象サブクラスである <code class="docutils literal notranslate"><span class="pre">Entity</span></code> か <code class="docutils literal notranslate"><span class="pre">Session</span></code> のどちらかのオブジェクトが Component の各オブジェクトにリンクされていなければならない。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.22 Importing a Package from a Profile</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Types</span></code> と <code class="docutils literal notranslate"><span class="pre">Factory</span></code> は素の Package である一方、<code class="docutils literal notranslate"><span class="pre">Manufacturer</span></code> は
+Profileである。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Manufacturer</span></code> は <code class="docutils literal notranslate"><span class="pre">Types</span></code> をインポートしているので、<code class="docutils literal notranslate"><span class="pre">Device</span></code> という
+Stereotype の Properties の <code class="docutils literal notranslate"><span class="pre">type</span></code> として <code class="docutils literal notranslate"><span class="pre">Color</span></code> と <code class="docutils literal notranslate"><span class="pre">JavaInteger</span></code> が用いられる。</p></li>
+<li><p>Profile <code class="docutils literal notranslate"><span class="pre">Manufacturer</span></code> があとで Package に適用されるならば、<code class="docutils literal notranslate"><span class="pre">Types</span></code> 由来の型は Profile が適用される Package では（明示的にパッケージ <code class="docutils literal notranslate"><span class="pre">Types</span></code> をインポートしない限りは）利用できない。この例では <code class="docutils literal notranslate"><span class="pre">Factory</span></code> が <code class="docutils literal notranslate"><span class="pre">Types</span></code> を別個にインポートしているのでその限りである。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.23 Profiles Applied to a Package</p>
+<ul>
+<li><p>プロファイル Java および EJB が与えられると、Package <code class="docutils literal notranslate"><span class="pre">WebShopping</span></code> にどのようにそれらが適用されればよいのかを示す。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.24 Defining a Stereotype</p>
+<ul>
+<li><p>簡単なステレオタイプ <code class="docutils literal notranslate"><span class="pre">Clock</span></code> が、自在にメタクラス Class のオブジェクトに対して（動的に）適用可能であるように定義されている。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.25 Presentation Options for an Extended Class</p>
+<ul>
+<li><p>上記 <code class="docutils literal notranslate"><span class="pre">Clock</span></code> の数通りの表現例。</p></li>
+<li><p>本文中にはこの見本のための言及がない。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.26 An Instance Diagram when Defining a Stereotype</p>
+<ul>
+<li><p>かなり込み入ったオブジェクト図。先ほどの <code class="docutils literal notranslate"><span class="pre">Clock</span></code> の定義を表現している諸オブジェクトを示している。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Clock</span></code> から左側の理解が重要。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.27 Defining Multiple Stereotypes on Multiple Stereotypes</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Clock</span></code> が Component と Class の両方を拡張することを示す。</p></li>
+<li><p>それとは別に <code class="docutils literal notranslate"><span class="pre">Creator</span></code> という、Class を拡張する Stereotype を定義している。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.28 Using a Stereotype</p>
+<ul>
+<li><p>クラス <code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> に <code class="docutils literal notranslate"><span class="pre">Clock</span></code> を適用した。単に <code class="docutils literal notranslate"><span class="pre">«Clock»</span></code> をクラス名の上に付記するだけで示せる。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.29 Showing Values of Stereotypes and a Simple Instance Specification</p>
+<ul>
+<li><p>上記の適用の意味するところを表現する図式。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.30 Using Stereotypes and Showing Values</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> に <code class="docutils literal notranslate"><span class="pre">Clock</span></code> と <code class="docutils literal notranslate"><span class="pre">Creator</span></code> を同時に適用する。</p></li>
+<li><p>ここでは各 Stereotype の Property 値を註釈記法で示してある。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.31 Other Notational Forms for Depicting Stereotype Values</p>
+<ul>
+<li><p>Stereotype の Property 値を記述する代わりの記法の例。</p></li>
+<li><p>属性区画に <code class="docutils literal notranslate"><span class="pre">«Clock»</span></code> と断ってから値を列挙。</p></li>
+<li><p>中括弧記法があるようだ。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.32 Example of a Profile defining Classes and (…)</p>
+<ul>
+<li><p>クラス、二項合成（および非合成）関連を定義する、とある Profile の見本。</p></li>
+<li><p>Profile <code class="docutils literal notranslate"><span class="pre">IssuesProfile</span></code> が Profile <code class="docutils literal notranslate"><span class="pre">uml</span></code> をインポートしていることをわざわざ図式内の上部にて断っている。</p></li>
+<li><p>本文ではこの図に相当する XMI コード全体を掲載している。</p></li>
+</ul>
+</li>
+<li><p>Figure 12.33 Diagram example of applying a profile defining Classes and
+Associations and  (…)</p>
+<ul>
+<li><p>上記 <code class="docutils literal notranslate"><span class="pre">IssuesProfile</span></code> の適用例。</p></li>
+<li><p>Profile <code class="docutils literal notranslate"><span class="pre">IssueExample</span></code> は <code class="docutils literal notranslate"><span class="pre">IssuesProfile</span></code> を適用している。</p></li>
+<li><p>重要なのは矢印のラベルに現れる <code class="docutils literal notranslate"><span class="pre">«IssueTag»</span></code> の意味だ。</p></li>
+<li><p>本文ではこの図のオブジェクト部分を表現する XMI コードと、リンク部分を表現する XMI コードを分けて掲載している。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="classifier-descriptions">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">12.4 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
+<p>機械生成による節。</p>
+</section>
+<section id="association-descriptions">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">12.5 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
+<p>機械生成による節。</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="ch11-structured-classifiers.html" title="Previous document">11 Structured Classifiers</a>
+        </li>
+        <li>
+          <a href="ch13-common-behavior.html" title="Next document">13 Common Behavior</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">読書ノート</a></h1>
+
+
+
+<p class="blurb">個人的な読書、学習、研究ノート。</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../mathseminar72.html">数学 100 の発見 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gamma95/index.html">オブジェクト指向における再利用のためのデザインパターン改訂版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hunt00/index.html">達人プログラマー 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter00.html">Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../alexandrescu01/index.html">Modern C++ Design 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../meyers01.html">Effective STL 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sutter02.html">More Exceptional C++ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../joel04/index.html">Joel on Software 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graham04.html">ハッカーと画家 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angel05/index.html">OpenGL: A Primer Second Edition 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yamamoto05/index.html">入門 xyzzy 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../newham05/index.html">入門 bash 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi05/index.html">幾何学 I 多様体入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../subramaniam06.html">アジャイルプラクティス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asaoka06.html">SE・製造技術者・理工系学生のための技術文書の作り方・書き方 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../levin06/index.html">Shaping Functions 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tsuboi08/index.html">幾何学 III 微分形式 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../loeliger09.html">実用 Git 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../griffiths10.html">プログラミング C# 第 6 版 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../onodera10.html">ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosoda10/index.html">Python 入門［２＆３対応］読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nishiyama12/index.html">幾何学と不変量 読書ノート</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Unified Modeling Language 2.5 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gorelick14.html">ハイパフォーマンス Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stroustrup14.html">C++ のエッセンス 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stepanov15.html">その数式、プログラムできますか？ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos15/index.html">WebGL Specification 1.0 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vivo15/index.html">The Book of Shaders 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saha16.html">Python からはじめる数学入門 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../slatkin16.html">Effective Python 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guntheroth16.html">Optimized C++ 下読みノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../speinellis17.html">Effective Debugging 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bancila18.html">Modern C++ チャレンジ 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haverbeke18/index.html">Eloquent JavaScript 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../khronos18/index.html">OpenGL Shading Language 4.60 Specification 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kantor22/index.html">The Modern JavaScript Tutorial 読書ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ou23/index.html">Modern C++ Tutorial: C++ 11/14/17/20 On the Fly 読書ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2014.html">ノート準備中書籍群 2014 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2015.html">ノート準備中書籍群 2015 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2016.html">ノート準備中書籍群 2016 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2017.html">ノート準備中書籍群 2017 年編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary2018.html">ノート準備中書籍群 2018 年編</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v2.html">What’s New In Bash 2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v3.html">What’s New In Bash 3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v4.html">What’s New In Bash 4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bash-v5.html">What’s New In Bash 5 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp11/index.html">What’s New In C++11 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp14/index.html">What’s New In C++14 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp17/index.html">What’s New In C++17 ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.0.html">What’s New In Python 3.0 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.1.html">What’s New In Python 3.1 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.2.html">What’s New In Python 3.2 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.3.html">What’s New In Python 3.3 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.4.html">What’s New In Python 3.4 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.5.html">What’s New In Python 3.5 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.6.html">What’s New In Python 3.6 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.7.html">What’s New In Python 3.7 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.8.html">What’s New In Python 3.8 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.9.html">What’s New In Python 3.9 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-3.10.html">What’s New In Python 3.10 ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pip.html">pip 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pylint.html">Pylint 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-docutils/index.html">Docutils 解読ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-restview.html">Restview 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-nose.html">Nose 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-ipython.html">IPython 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jupyter.html">Jupyter 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-numpy/index.html">NumPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scipy/index.html">SciPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-sympy/index.html">SymPy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-apgl.html">Another Python Graph Library (APGL) 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pil.html">PIL 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pillow.html">Pillow 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-matplotlib/index.html">Matplotlib 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-networkx/index.html">NetworkX 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-quaternion.html">Quaternion 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-jinja2.html">Jinja2 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygments.html">Pygments 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-bs4.html">BeautifulSoup4 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-selenium.html">Selenium 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-scrapy.html">Scrapy 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-twitter/index.html">Python Twitter Tools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-isbn-hyphenate.html">isbn-hyphenate 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyopengl/index.html">PyOpenGL 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt4.html">PyQt4 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pyqt5.html">PyQt5 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pandas/index.html">Pandas 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pygame.html">Pygame 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-pytube.html">Pytube 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../youtube-dl.html">youtube-dl 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-py2exe.html">Py2exe 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-upgrade.html">Python 移行ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-miniconda.html">Miniconda 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../freeware.html">Windows 用フリーウェア 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google-ime.html">Google 日本語入力利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deepl-translator.html">DeepL Translator 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../winget.html">Windows Package Manager CLI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../powertoys/index.html">Microsoft PowerToys 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-terminal.html">Windows Terminal 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wsl.html">Windows Subsystem for Linux 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wslg.html">Windows Subsystem for Linux GUI 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vscode/index.html">Visual Studio Code 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cygwin.html">Cygwin 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chrome.html">Chrome DevTools 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/index.html">Git 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../oh-my-posh.html">Oh My Posh 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../twitter.html">Twitter 利用ノート [obsolete]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inkscape/index.html">Inkscape 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ffmpeg/index.html">FFmpeg 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mathjax.html">MathJax 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../javascript-mermaid/index.html">Mermaid 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../css-selector.html">CSS セレクター学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xpath.html">XPath 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hxutils.html">HTML-XML-utils 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webgl.html">WebGL 学習ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandoc.html">Pandoc 利用ノート</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zoom.html">Zoom Cloud Meetings 利用ノート</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../milestone09/index.html">ラジルギノア プレイノート</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Unified Modeling Language 2.5 読書ノート</a><ul>
+      <li>Previous: <a href="ch11-structured-classifiers.html" title="previous chapter">11 Structured Classifiers</a></li>
+      <li>Next: <a href="ch13-common-behavior.html" title="next chapter">13 Common Behavior</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
