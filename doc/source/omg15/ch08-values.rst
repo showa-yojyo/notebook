@@ -2,17 +2,16 @@
 8 Values
 ======================================================================
 
-UML 2.5 pp. 69-96 に関するノート。
-
-.. contents:: ノート目次
+.. contents::
    :depth: 2
 
 8.1 Summary
 ======================================================================
 
-* この章では値の仕様を述べる。一般には、ValueSpecification とは意味論的にゼロ個
-  以上の値をもたらすとみなされるモデル要素である。
-* 次の各節で UML で利用可能な ValueSpecifications のさまざまな種類を述べる。
+この章で値の仕様が述べられている。
+
+   In general, a ValueSpecification is a model element that is considered
+   semantically to yield zero or more values.
 
 8.2 Literals
 ======================================================================
@@ -20,59 +19,69 @@ UML 2.5 pp. 69-96 に関するノート。
 8.2.1 Summary
 ----------------------------------------------------------------------
 
-* LiteralSpecification とはリテラル値を指定する ValueSpecification である。UML
-  標準 PrimitiveTypes のそれぞれに対して LiteralSpecification の別々の種類のもの
-  があり、それぞれ対応するテキストによるリテラル表記法に、「値が欠けている」こ
-  とを表現する「空」リテラルを共にする。
+LiteralSpecification とはリテラル値を指定する ValueSpecification である。
+
+UML 標準 PrimitiveTypes のそれぞれに対して LiteralSpecification の異なる種類があ
+り、それぞれ次の対応するテキストによるリテラル表記法がある：
+
+* 「値が欠けている」ことを表現するリテラル
+* 「空」リテラル
 
 8.2.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 8.1 Literals
+   Figure 8.1 Literals
 
-  * ここには 6 種類の LiteralSpecification の具象要素が存在する。次節で意味を仕
-    様化する。
-  * 名前のある関連が一つもない。
+* ここには六種類の LiteralSpecification の具象要素が存在する。
+* 名前のある関連が一つもない。
 
 8.2.3 Semantics
 ----------------------------------------------------------------------
 
-* LiteralSpecifications は 6 種類存在する。
+#. LiteralNull は値の欠損を明示的にモデル化するために用いられることを意図してい
+   る。
 
-  #. LiteralNull は値の欠損を明示的に模すために用いられることを意図されている。
+   下限がゼロである多重度の MultiplicityElement においては、これは空集合に対応す
+   る。Element に対して値がないことを指定することに相当する。
 
-     * 下限がゼロである多重度の MultiplicityElement においては、これは空集合に対
-       応する。 Element に対して値を何も指定しないことと同値である。
+#. LiteralString は PrimitiveType String の定数値を指定する。
 
-  #. LiteralString は PrimitiveType String の定数値を指定する。
+   String は文字の列として指定されるものの、String 値は UML では組み込み型とみな
+   され、ゆえに内部構造は UML 意味論の一部として指定されない。
 
-     * String は文字の列として指定されるものの、String 値は UML では組み込み型と
-       みなされ、ゆえに内部構造は UML 意味論の部分として指定されない。
+#. LiteralInteger は PrimitiveType Integer の定数値を指定する。
+#. LiteralBoolean は PrimitiveType Boolean の定数値を指定する。
+#. LiteralUnlimitedNatural は PrimitiveType UnlimitedNatural の定数値を指定す
+   る。
+#. LiteralReal は PrimitiveType Real の定数値を指定する。
 
-  #. LiteralInteger は PrimitiveType Integer の定数値を指定する。
-  #. LiteralBoolean は PrimitiveType Boolean の定数値を指定する。
-  #. LiteralUnlimitedNatural は PrimitiveType UnlimitedNatural の定数値を指定す
-     る。
-  #. LiteralReal は PrimitiveType Real の定数値を指定する。
-
-* :doc:`./ch21-primitive-types` も併せて参照したい。
+:doc:`./ch21-primitive-types` も併せて参照したい。
 
 8.2.4 Notation
 ----------------------------------------------------------------------
 
-* LiteralSpecifications はテキスト的に表記される。
+   LiteralSpecifications are notated textually.
 
-  * LiteralNull の記法は使用する状況に依るが、たいていは ``"null"`` のように記
-    す。
-  * LiteralString は文字列を二重引用符で囲む。引用符自身はリテラル値に含まれな
-    い。
-  * LiteralInteger は十進数の列として示す。
-  * LiteralBoolean は ``true`` または ``false`` で示す。
-  * LiteralUnlimitedNatural で注意を要するのは、その値が ``unlimited`` な場合の
-    記法と意味である。記法は単にアスタリスク一文字であり、意味は「値の上限に指定
-    がない」と指定されていると解釈する。
-  * LiteralReal の記法は p. 70 の BNF 記法を見る限り、C/C++ 言語の ``double`` の
-    それに酷似している感じ。
+* LiteralNull の記法は使用する状況に依って異なる。たいていは ``"null"`` のように記
+  す。
+* LiteralString は二重引用符で囲まれた一連の文字として示す。引用符自身はリテラル
+  値に含まれない。用いられる文字集合は unspecified とする。
+* LiteralInteger は十進数の列として示す。
+* LiteralBoolean は ``true`` または ``false`` で示す。
+* LiteralUnlimitedNatural で注意を要するのは、その値が ``unlimited`` な場合の記
+  法と意味だ。記法は単にアスタリスク ``*`` 一文字であり、意味は「値の上限に指定
+  がない」と指定されていると解釈する。
+
+     not a value of “infinity”
+
+* LiteralReal の記法は p. 70 の BNF 記法を見る限り、C/C++ 言語の ``double`` の
+  それに酷似している：
+
+     .. code:: bnf
+
+        <natural-literal> ::= ('0'..'9')+
+        <decimal-literal> ::= ['+' | '-' ] <natural-literal> | ['+' | '-' ] [<natural-literal>] '.' <natural-literal>
+        <real-literal> ::= <decimal-literal> [ ('e' | 'E') ['+' | '-' ] <natural-literal> ]
 
 8.3 Expressions
 ======================================================================
@@ -80,18 +89,20 @@ UML 2.5 pp. 69-96 に関するノート。
 8.3.1 Summary
 ----------------------------------------------------------------------
 
-* Expressions とは、計算から生じる値を指定する ValueSpecifications である。
+   Expressions are ValueSpecifications that specify values resulting from a
+   computation.
 
 8.3.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 8.2 Expressions
+   Figure 8.2 Expressions
 
-  * この図式からは 2 系統の Expression が存在することがわかる。
-    Expression 系統と OpaqueExpression である。
+この図式からは二系統の Expression が存在することがわかる。Expression 系統と
+OpaqueExpression だ。
 
 ``A_operand_expression``
-  * Expression から ValueSpecification への composite 関連（単方向）。
+  Expression から ValueSpecification への複合関連（単方向）。
+
   * 関連端 ``operand`` には制約 ``{ordered}`` がある。当然だ。
 
     * もし ``operands`` がないならば、この Expression は端末ノードを表す。
@@ -101,7 +112,8 @@ UML 2.5 pp. 69-96 に関するノート。
   * ``A_ownedElement_owner`` を subsets する。
 
 ``A_subExpression_owningExpression``
-  * StringExpression から StringExpression への composite 関連（双方向）。
+  StringExpression から StringExpression への複合関連（双方向）。
+
   * ``A_ownedElement_owner`` を subsets する。
   * 関連端 ``subExpression`` は ``{ordered}`` である。
 
@@ -116,48 +128,52 @@ UML 2.5 pp. 69-96 に関するノート。
 8.3.3.1 Expression
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Expression は木構造として指定される。
+   An Expression is specified as a tree structure. Each node in this tree
+   structure consists of a ``symbol`` and an ``optional`` set of operands.
 
-  * この木構造の各ノードは ``symbol`` と ``operands`` の任意の集合とで構成され
-    る。
-  * もし ``operands`` がなければ、Expression は終端ノードを表現する。あるなら
-    ば、Expression は ``operands`` に適用する ``symbol`` により与えられる演算子
-    を表現する。
-
-* Expression はまずは ``operands`` のそれぞれを評価し、次に Expression
-  ``symbol`` により描写される演算を実施することで評価されて、その結果
-  ``operand`` 値を生じる。
+Expression はまずは ``operands`` のそれぞれを評価し、その結果に対して Expression
+``symbol`` により描写される演算を実行することで評価される。
 
 8.3.3.2 StringExpression
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* StringExpression とは、部分文字列を連結することで得られる String 値を指定する
-  Expression である。
+   A StringExpression is an Expression that specifies a String value that is
+   derived by concatenating a list of substrings.
 
-  * 部分文字列（複数形）はLiteralString ``operands`` のリストとしてか、
-    StringExpression ``subExpressions`` のリストとしてかの、どちらか一方で与えら
-    れる。両者を混ぜることは許されない。
+部分文字列は LiteralString ``operands`` のリストまたは StringExpression
+``subExpressions`` のリストとして与えられる。両者を混在することは許されない。
 
-* StringExpression の意図は Templates での NamedElements の名前を指定することに
-  利用するものである。
+StringExpression の用途は Template の文脈で NamedElement の名前を指定するもの
+だ。
 
-  * StringExpression 全体か、``subExpressions`` の一つまたはそれを超えるどちらか
-    一方がTemplateParameters の ParameterableElements として用いられてよく、
-    NamedElement の名前がそのテンプレートの内側で引数化されることを許す。
+StringExpression 全体か、``subExpressions`` の一つ以上を TemplateParameters の
+ParameterableElements として利用してよく、NamedElement の名前をそのテンプレート
+内で引数化することを許す。
 
 8.3.3.3 Opaque Expression
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* OpaqueExpression は UML Behavior の言葉によるか、UML 以外の言語でのテキストの
-  言明に基づいたものかのどちらかの値の集合の計算を指定する。
-* OpaqueExpression には値を計算する手段の代替を表現するテキスト Strings の列から
-  なる ``body`` があってよい。
-* OpaqueExpression には戻り値以外の Parameters がないように制限された UML
-  Behavior により定義されてもよい。
-* もし OpaqueExpression に一つを超える ``body`` 文字列があるか、一つまたはそ
-  れを超える ``body`` 文字列に加えて ``behavior`` をもあるならば、``bodies`` や
-  ``behavior`` のうちのどれもが OpaqueExpression を評価するのに用いられてもよ
-  い。UML の仕様としてはこの選択がどのようになされるかは決定しない。
+冒頭から何を言っているのか：
+
+   An OpaqueExpression specifies the computation of a set of values either in
+   terms of a UML Behavior or based on a textual statement in a language other
+   than UML.
+
+OpaqueExpression にはその値を計算する代替手段を表現するテキスト Strings の列で構
+成される本体、``body`` があってもよい。UML はこれがどのような言語に対して解釈さ
+れるかを定義しない。
+
+   An OpaqueExpression may also be defined by a UML Behavior (see sub clause
+   13.2) that is restricted to have only in Parameters and a return Parameter.
+
+OpaqueExpression の値は Behavior を呼び出し、戻り Parameter で値を返すことで与え
+られる。入力 Parameter は Behavior に値を渡すのに用いられる。
+
+   If an OpaqueExpression has more than one ``body`` String, or a ``behavior``
+   in addition to one or more ``body`` Strings, then any one of the ``bodies``
+   or the ``behavior`` may be used to evaluate the OpaqueExpression.
+
+UML はこの選択がどのようになされるかは決定しない。
 
 8.3.4 Notation
 ----------------------------------------------------------------------
@@ -165,23 +181,23 @@ UML 2.5 pp. 69-96 に関するノート。
 8.3.4.1 Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ``operands`` がない Expression は単にその ``symbol`` により表記する。
+``operands`` がない Expression は単にその ``symbol`` により表記する。この場合引
+用符は用いない。
 
-  * この場合引用符は用いない。
-
-* ``operands`` がある Expression は ``symbol`` により表記してよく、続いてその
-  ``operands`` を含む丸括弧を記し、カンマで区切る。
+``operands`` がある Expression はその ``symbol`` とその ``operands`` を含むカン
+マ区切りの丸括弧で表記してもよい。
 
 8.3.4.2 OpaqueExpression
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* OpaqueExpression が一つまたはそれを超える ``body`` Strings を有するとき、こ
-  れらはそれの含む要素の文脈で OpaqueExpression を表示するのに用いられる。
-* OpaqueExpression に対して ``languages`` が指定されていれば、対応する各
-  ``body`` String の前に``language`` の名前を中括弧に入れて表示してよい。
-* ``language`` にその言語名を定義する仕様があるならば、OpaqueExpression で使わ
-  れるその言語名がその言語仕様で現れる通りに正確に綴られ大文字で書かれるべきであ
-  る。
+OpaqueExpression に ``body`` 文字列がある場合、これらの文字列は、その
+OpaqueExpression を含む要素の文脈で表示するのに使用される。``body`` 文字列に対応
+する言語が指定されている場合、適合性のあるツールが許可される言語を制限したり、特
+定の既定言語を想定したりすることもかまわない。
+
+   If ``languages`` are specified for an OpaqueExpression, then a ``language``
+   name may be displayed in braces (``{}``) before the ``body`` String to which
+   it corresponds.
 
 8.3.5 Examples
 ----------------------------------------------------------------------
@@ -189,12 +205,21 @@ UML 2.5 pp. 69-96 に関するノート。
 8.3.5.1 Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* 例えば ``a > 0`` みたいな表記は OpaqueExpression であるようだ。
+   .. code:: text
+
+      xor
+      else
+      plus(x, 1)
+      x + 1
 
 8.3.5.2 Opaque Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ``{OCL} i > j and self.size > i`` のようにするらしい。
+   .. code:: text
+
+      a > 0
+      {OCL} i > j and self.size > i
+      average hours worked per week
 
 8.4 Time
 ======================================================================
@@ -202,22 +227,27 @@ UML 2.5 pp. 69-96 に関するノート。
 8.4.1 Summary
 ----------------------------------------------------------------------
 
-* この節では、簡素な時間モデルに基づいた値を生じる TimeExpression と Duration を
-  定義する。
+この節では、簡素な時間モデルに基づいた値を生じる TimeExpression と Duration を定
+義する。この簡素なモデルは、時間と時間の測定にまつわる複雑な様相を安全に無視でき
+る状況のための近似を意図している。次のことをカバーしていない：
 
-  * この簡素なモデルは、時間と時間の測定にまつわる複雑な様相を安全に無視できる状
-    況のための近似を意図している。
+   For example, in many distributed systems there is no global notion of time,
+   only the notion of local time relative to each distributed element of the
+   system. This relativity of time is not accounted for in the simple time
+   model, nor are the effects resulting from imperfect clocks with finite
+   resolution, overflows, drift, skew, etc.
 
 8.4.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 8.3 Time and Duration
+   Figure 8.3 Time and Duration
 
-  * 一箇所を除いて左右対称なグラフとなっている。
+一箇所を除いて左右対称なグラフとなっている。
 
 ``A_expr_timeExpression``, ``A_expr_duration``
-  * それぞれ TimeExpression, Duration から ValueSpecification への composite な
-    関連（単方向）。
+  それぞれ TimeExpression, Duration から ValueSpecification への複合関連（単方
+  向）。
+
   * ``A_ownedElement_owner`` を subsets する。
   * 関連端 ``expr`` の多重度は ``0..1`` である。
 
@@ -235,13 +265,15 @@ UML 2.5 pp. 69-96 に関するノート。
     TimeExpression (Duration) の値でなければならない。
 
 ``A_observation_timeExpression``, ``A_observation_duration``
-  * それぞれ TimeExpression, Duration から Observation への関連（単方向）。
+  それぞれ TimeExpression, Duration から Observation への関連（単方向）。
+
   * 関連端 ``observation`` の多重度は ``*`` である。
   * 上記関連のノートを参照。
 
 ``A_event_timeObservation``, ``A_event_durationObservation``
-  * それぞれ TimeObservation, DurationObservation から NamedElement への関連（単
-    方向）。
+  それぞれ TimeObservation, DurationObservation から NamedElement への関連（単方
+  向）。
+
   * 関連端 ``event`` の多重度は前者が 1 であり、後者は 1 または 2 である。かつ後
     者の ``event`` は ``{ordered}`` である。「入」「出」の順だろう。
 
@@ -251,65 +283,81 @@ UML 2.5 pp. 69-96 に関するノート。
 8.4.3.1 Time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* UML の構造に関するモデリング構成要素が特定の時点における実体の性質を模すのに用
-  いられる。
+UML の構造に関するモデリング構成は特定の時点における実体の性質をモデル化するのに
+用いられる。これに対して動作モデリング構成は、これらの性質が時間の経過につれてど
+のように変換するかをモデリングするのに用いられる。
 
-  * 事象 (event) とは、Property の値の変化や Activity の実行の開始など、モデル化
-    されようとしている性質と挙動に関して興味のある何かが起こる (happen) 特定の時
-    点に起こり (occur) 得る何かの仕様である。
+   An :dfn:`event` is a specification of something that may occur at a specific
+   point in time when something of interest happens relative to the properties
+   and behaviors being modeled, such as the change in value of a Property or the
+   beginning of execution of an Activity.
 
-* この概念での時間 (time) とは、単に事象の発生を整理する座標である。
-* 期間 (duration) は二つの事象の発生の間の時間の期間 (period) であり、それらの事
-  象の時間座標の差として計算される。
+定義が続く。
 
-  * モデル Element に挙動の効果があれば、この効果はある期間上に起こり得る。この
-    期間の開始事象は Element の入場 (entering) として知られ、終了事象は Element
-    の退場として知られる。
+   :dfn:`Time` in this conception is simply a coordinate that orders the
+   occurrence of events.
+
+順序集合であるほうの時だ。時刻と言ったほうがいいかもしれない。
+
+   A :dfn:`duration` is the period of time between two event occurrences,
+   computed as the difference of the time coordinates of those events.
+
+モデル Element に動作効果があれば、この効果はある持続時間にわたり発生することが
+許される。
+
+   The starting event of this duration is known as :dfn:`entering` the Element
+   and the ending event is known as :dfn:`exiting` the Element.
+
+逆に、この両者が決定されれば持続時間も決定される。
 
 8.4.3.2 Observations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Observation はモデルのある他の部分に相対して起こることがある事象の観測を描写す
-  る。
+   An Observation denotes the observation of events that may occur relative to
+   some other part of a model.
 
-  * 何か NamedElement に関係して起こるイベントの観測を示す。
-  * 興味のある事象は、参照 NamedElement にいつ入場されるのかと退場されるのかであ
-    る。
+Observation はモデル内の NamedElement に対して行われる。関心のある出来事は参照先
+の NamedElement が進入したり退出したりするときだ。参照される NamedElement が動作
+要素でない場合、NamedElement に進入してから退出するまでの持続時間はゼロとみなさ
+れる。
 
-* Observations は二種類あり、TimeObservations と DurationObservations である。
-* TimeObservation は特定の NamedElement への入場か退場のどちらかを観測する。
+   There are two kinds of Observations, TimeObservations and
+   DurationObservations.
 
-  * ``firstEvent`` が ``true`` ならば入場事象を、そうでなければ退場事象を観測す
-    る。
+   A TimeObservation observes either entering or exiting a specific
+   NamedElement.
 
-* DurationObservation は一つか二つどちらかの NamedElements に関する期間を観測す
-  る。
+``firstEvent`` が真ならば進入イベントを、そうでなければ退場イベントを観測する。
+結果は、観測されたイベントが発生した時刻だ。
 
-  * 一つ：観測期間は対象要素の入場事象と退場事象の、この順による出来事の間。
-  * 二つ：観測期間は一つ目の要素の入場事象か退場事象どちらか一方と、続いて起こる
-    二つ目の要素の入場事象か退場事象の間。
-  * 属性 ``firstEvent`` も一つまたは二つある。意味は TimeObservation のそれと同
-    じ。
+   A DurationObservation observes a duration relative to either one or two
+   NamedElements.
+
+* 一つの場合：観測期間は対象要素の進入事象と退出事象の連続して発生する間の期間。
+* 二つの場合：観測期間は最初の要素の進入または退出事象と、それに続く要素の
+  の進入または退出事象との間の持続時間。
 
 8.4.3.3 TimeExpression
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* TimeExpression とは、ある時間的瞬間の時間座標を評価する ValueSpecification で
-  あり、事によると与えられた ``observations`` の集合に関する。
-* TimeExpression に ``expr`` があれば、これが TimeExpression の結果を生じるため
-  に評価される。
-* TimeExpression に ``expr`` がなければ、それには単一の TimeObservation が必要で
-  あり、その ``observation`` の結果は ``TimeExpression`` の値である。
+   A TimeExpression is a ValueSpecification that evaluates to the time
+   coordinate for an instant in time, possibly relative to some given set of
+   observations.
+
+TimeExpression に ``expr`` があれば、これが評価されて TimeExpression の結果を生
+じる。TimeExpression に ``expr`` あるが ``observation`` がない場合、``expr`` は
+ある定時間値に評価される。
+
+TimeExpression に ``expr`` がない場合、単一の TimeObservation を持ち、その観測の
+結果がその TimeExpression の値でなければならない。
 
 8.4.3.4 Duration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Duration とは、何らかの期間を時間で評価する ValueSpecification であり、事によ
-  ると与えられた ``observations`` の集合に関する。
-* Duration に ``expr`` があれば、これが DurationExpression の結果を生じるために
-  評価される。
-* Duration に ``expr`` がなければ、それは単一の DurationObservation が必要であ
-  り、その ``observation`` の結果は ``Duration`` の値である。
+   A Duration is a ValueSpecification that evaluates to some duration in time,
+   possibly relative to some given set of ``observations``.
+
+TimeExpression ``expr`` に関する性質が Duration にも当てはまる。前節参照。
 
 8.4.4 Notation
 ----------------------------------------------------------------------
@@ -317,26 +365,26 @@ UML 2.5 pp. 69-96 に関するノート。
 8.4.4.1 Observations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Observation の記法は、それが参照する NamedElement に線分を結べばよい。名前をそ
-  の線分の NamedElement の反対側の端点付近に示す。
+Observation の記法は、それが参照する NamedElement に付けられた線分で示されること
+がある。名前をその線分の NamedElement の反対側の端点付近に示す。
 
 8.4.4.2 Time Expressions and Durations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* TimeExpression または Duration はその ``expr`` が一つあれば、そのテキスト表現
-  により示す。なければ単一の関連 Observation で表現する。
+TimeExpression または Duration はその ``expr`` があれば、そのテキスト表現により
+示す。なければ単一の関連 Observation で表現する。
 
-  * Duration はある実装固有のテキスト的書式で与えられる相対時間の値である。
-  * Duration はしばしば非負整数である「時間目盛」の個数で表現する。
+Duration はある実装固有のテキスト形式で与えられる相対時間の値である。しばしば非
+負整数である「時間目盛」の個数で表現される。
 
 8.4.5 Examples
 ----------------------------------------------------------------------
 
-* Time はよく数値座標を使って表現されるが、TimeExpression の ``expr`` が数値に評
-  価されるべき場合には、モデルでの慣習により当然とされることが認められる単位であ
-  る。
-* Duration は相対時間の値であり、それとして、期間の間を経過した参照時計上の時間
-  目盛の Integer 個数など、しばしば非負の数として表現される。
+Time はよく数値座標を使って表現されるが、TimeExpression の ``expr`` が数値に評
+価される必要があり、単位はモデルの慣習で決まることがある。
+
+Duration は相対時間の値であり、しばしば非負の数として表現される。この場
+合、DurationExpression の ``expr`` は非負の数に評価されなければならない。
 
 8.5 Intervals
 ======================================================================
@@ -344,43 +392,46 @@ UML 2.5 pp. 69-96 に関するノート。
 8.5.1 Summary
 ----------------------------------------------------------------------
 
-* Interval とは値一組で定義される区間、範囲であり、何か他の Element が与えられた
-  範囲にある値であることを断言するConstraints での用途を主とする。
-* Intervals は値の型のどれに対しても定義できるが、対応する TimeConstraints と
-  DurationConstraints の一部としての時間と期間に対して特に便利である。
+   An Interval is a range between two values, primarily for use in Constraints
+   that assert that some other Element has a value in the given range.
+
+Intervals は値の型あらゆるものに対して定義できるが、TimeConstraints と
+DurationConstraints の一部として用いると特に便利だ。
 
 8.5.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 8.4 Intervals
+   Figure 8.4 Intervals
 
-  * 新規登場の抽象クラスはない。
-  * Interval 系と IntervalConstraint 系を仕様化しているのだとわかる。
-    両者の継承階層構造が並行している。
+* 新規登場の抽象クラスはない。
+* Interval 系と IntervalConstraint 系を仕様化しているのだとわかる。両者の継承階
+  層構造が並行している。
 
 ``A_min_interval``, ``A_max_interval``
-  * Interval から ValueSpecification への関連（単方向）。
+  Interval から ValueSpecification への関連（単方向）。
+
   * 関連端 ``min`` と ``max`` の多重度は 1 であり、意味的には ``min`` の評価値は
     ``max`` のそれを超えない。
   * 下記の関連はこれを redefines する。
 
   ``A_min_timeInterval``, ``A_max_timeInterval``
-    * TimeInterval から TimeExpression への関連（単方向）。
+    TimeInterval から TimeExpression への関連（単方向）。
 
   ``A_min_durationInterval``, ``A_max_durationInterval``
-    * DurationInterval から Duration への関連（単方向）。
+    DurationInterval から Duration への関連（単方向）。
 
 ``A_specification_intervalConstraint``
-  * IntervalConstraint から Interval への composite 関連（単方向）。
+  IntervalConstraint から Interval への複合関連（単方向）。
+
   * ``A_specification_owningConstraint`` を redefines する。
   * 関連端 ``specification`` の多重度は 1 である。
   * 以下の関連はこれを redefines する。
 
   ``A_specification_timeConstraint``
-    * TimeConstraint から TimeInterval への composite 関連（単方向）。
+    TimeConstraint から TimeInterval への複合関連（単方向）。
 
   ``A_specification_durationConstraint``
-    * DurationConstraint から DurationInterval への composite 関連（単方向）。
+    DurationConstraint から DurationInterval への複合関連（単方向）。
 
 8.5.3 Semantics
 ----------------------------------------------------------------------
@@ -388,31 +439,39 @@ UML 2.5 pp. 69-96 に関するノート。
 8.5.3.1 Intervals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Interval は他の二つの ValueSpecifications, ``min`` と ``max`` で指定される
-  ValueSpecification である。
+   An Interval is a ValueSpecification specified using two other
+   ValueSpecifications, the ``min`` and the ``max``.
 
-* 時間の制約と一緒に利用する Interval の特殊化が二つある。
+これらの値に収まる値の集合。標準的な意味解釈は ``min`` と ``max`` は同じ型であっ
+て、その型に全順序が定義されている Interval の対してしか与えられない。
 
-  * TimeInterval は TimeExpressions により与えられる二つの時間値の間の範囲を指
-    定する。
-  * DurationInterval は Durations により与えられる二つの期間値の間の範囲を指定
-    する。
+時間の制約と一緒に利用する Interval の特殊化が二つある：
+
+* TimeInterval は TimeExpressions により与えられる二つの時間値の間の範囲を指定す
+  る。
+* DurationInterval は Durations により与えられる二つの期間値の間の範囲を指定す
+  る。
 
 8.5.3.2 IntervalConstraint
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* IntervalConstraint はその詳細が Interval で与えられる Constraint を定義する。
-* 時間の制約を指定するのに利用する IntervalConstraint の特殊化が二つある。
+   An IntervalConstraint defines a Constraint whose specification is given by an
+   Interval (see also sub clause 7.6 on Constraints).
 
-  * TimeConstraint は制約する Interval が TimeInterval である単一の
-    ``constrainedElement`` に対するIntervalConstraint を定義する。
-  * DurationConstraint は制約する Interval が DurationInterval である
-    ``constrainedElements`` の一つまたは二つのどちらか一方に対する
-    IntervalConstraint を定義する。
+IntervalConstraint の ``constrainedElements`` はその Interval で指定された範囲内
+の値を持つことが保証される。``constrainedElement`` がこの範囲外の値を持つ場
+合、IntervalConstraint は違反となる。
 
-    * もし 2 個の ``constrainedElements`` があれば、観測されようとしている期間の
-      開始は、一番目の ``constrainedElement`` にある事象と二番目のそれにある事象
-      の間にあることが許される。
+時間の制約を指定するのに利用する IntervalConstraint の特殊化が二つある。
+
+   A TimeConstraint defines an IntervalConstraint on a single
+   ``constrainedElement`` in which the constraining Interval is a TimeInterval.
+   A DurationConstraint defines an IntervalConstraint on either one or two
+   ``constrainedElements`` in which the constraining Interval is a
+   DurationInterval.
+
+もし ``constrainedElements`` が二つあれば、観測される持続時間の開始は、最初の
+``constrainedElement`` の事象と次のそれの事象の間にあることが許される。
 
 8.5.4 Notation
 ----------------------------------------------------------------------
@@ -420,30 +479,42 @@ UML 2.5 pp. 69-96 に関するノート。
 8.5.4.1 Intervals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Interval の記法は ``<min-value> '..' <max-value>`` である。
-* TimeInterval は ValueSpecification 要素のそれぞれが TimeExpression となる
-  Interval の表記法を使って示される。
-* DurationInterval は ValueSpecification 要素のそれぞれが Duration となる
-  Interval の表記法を使って示される。
+.. code:: bnf
+
+   <interval> ::= <min-value> ‘..’ <max-value>
+
+TimeInterval は Interval の表記法を使って示され、ValueSpecification 要素それぞれ
+が TimeExpression だ。
+
+DurationInterval は ValueSpecification 要素それぞれが Duration である Interval
+の表記法を使って示される。
 
 8.5.4.2 Interval Constraints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* IntervalConstraint はその ``constrainedElement`` の注釈として示される。
-  Constraints の一般的な記法を IntervalConstraint に対して用いてもよいが、上記の
-  ようにテキストで記された Interval の仕様を共にする。
-* 単一の ``constrainedElement`` の TimeConstraint は ``constrainedElement`` の図
-  表的な表現とTimeConstraint の TimeInterval のテキスト表現の間にある小さい線分
-  として示してよい。
+IntervalConstraint はその ``constrainedElement`` の注釈として示される。
+Constraints の一般的な記法を IntervalConstraint に対して用いてもよく、Interval
+の指定は上記のようにテキストで表記される。
+
+単一の ``constrainedElement`` の TimeConstraint は ``constrainedElement`` の図
+表的な表現とTimeConstraint の TimeInterval のテキスト表現の間にある小さい線分
+として示されることがある。
+
+DurationConstraint はその ``constrainedElement`` を関連付ける図表的な表現を使用
+して示されることがある。しかし、使用される記法は DurationConstraint が現れる図式
+型に固有だ。
 
 8.5.5 Examples
 ----------------------------------------------------------------------
 
-* Figure 8.5 Example of DurationConstraints and TimeConstraints
+   Figure 8.5 Example of DurationConstraints and TimeConstraints
 
-  * 何かのシーケンス図で、各 Constraint が設計図でよく見かける寸法のような図式で
-    示されていることが理解できる。長さの代わりに ``{t..t+3}`` のように注釈されて
-    いる。
+Message の持続時間と OccurrenceSpecification 二つの間の持続時間に関連する
+DurationConstraints の図式。Message の受信に関連する TimeConstraints も示されて
+いる。
+
+何かのシーケンス図で、各 Constraint が設計図でよく見かける寸法のような図式で示さ
+れていることが理解できる。長さの代わりに ``{t..t+3}`` のように注釈されている。
 
 8.6 Classifier Descriptions
 ======================================================================
