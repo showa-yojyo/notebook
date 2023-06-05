@@ -2,20 +2,19 @@
 9 Classification
 ======================================================================
 
-UML 2.5 pp. 97-164 に関するノート。
-
-.. contents:: ノート目次
+.. contents::
    :depth: 2
 
 9.1 Summary
 ======================================================================
 
-* 分類は組織化をするのに重要な技法である。この章では分類に関する概念を指定する。
-  核となる概念とは Classifier すなわちその具象サブクラスが値のさまざまな型を分類
-  するのに用いられる抽象メタクラスである。
-* この章にあるその他のメタクラスは Classifiers の構成要素、Classifiers が
-  InstanceSpecifications を使ってオブジェクト化されるモデル、そしてこれらの概念
-  すべての間にあるさまざまな関係を表現する。
+分類は組織化において重要な技法だ。この章では分類に関する概念を規定する。中核概念
+は Classifier すなわちその具象サブクラスが値の異なる種類の値を分類するのに用いら
+れる抽象メタクラスだ。
+
+この章のその他のメタクラスは Classifiers の構成要素、InstanceSpecifications を
+使った Classifiers のオブジェクト化モデル、そしてこれらの概念すべての間にあるさ
+まざまな関係を表現する。
 
 9.2 Classifiers
 ======================================================================
@@ -23,54 +22,61 @@ UML 2.5 pp. 97-164 に関するノート。
 9.2.1 Summary
 ----------------------------------------------------------------------
 
-* Classifier はその Features に応じたオブジェクトの分類（項目）を表現する。
-* Classifiers は Generalizations によって階層的構造に組織化されている。
-* RedefinableElements は Generalization の階層を背景として再定義されてよい。
+   A Classifier represents a classification of instances according to their
+   Features.
+
+* Classifier は Generalization によって階層的構造に組織化されている。
+* RedefinableElements は Generalization の階層の文脈で再定義してもよい。
 
 9.2.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 9.1 Classifiers
+   Figure 9.1 Classifiers
 
-  * Classifier を中心とした図式だが、大量の関連が記されている。
-  * 文字が潰れていて PDF ビューワーでズーム率を上げないと読めない。
+Classifier を中心とした図式だが、大量の関連が記されている。
 
 ``A_inheritedMember_inheritingClassifier``
-  * Classifier から NamedElement への関連（単方向）。
+  Classifier から NamedElement への関連（単方向）。
+
   * 継承されたメンバーの集合のことをその ``inheritedMember`` と呼ぶ。特に断りの
-    ない限り、private な可視性ではない ``member`` である。
+    ない限り、private な可視性ではない ``member`` だ。
   * 関連 ``A_member_memberNamespace`` を subsets する。
 
     * 関連端 ``inheritedMember`` は制約 ``{readOnly}`` がある。
 
 ``A_redefinedElement_redefinableElement``
-  * RedefinableElement から RedefinableElement への関連（単方向）。
-  * 両関連端とも ``{readOnly, union}`` であり、多重度は ``*`` である。
+  RedefinableElement から RedefinableElement への関連（単方向）。
+
+  * 両関連端とも ``{readOnly, union}`` であり、多重度は ``*`` だ。
 
   ``A_redefinedClassifier_classifier``
-    * Classifier から Classifier への関連（単方向）。
+    Classifier から Classifier への関連（単方向）。
+
     * 上記関連を subsets する。
 
 ``A_redefinitionContext_redefinableElement``
-  * RedefinableElement から Classifier への単方向関連。
+  RedefinableElement から Classifier への単方向関連。
+
   * 関連端 ``redefinitionContext`` は「メンバーがそこから再定義されてもよいよう
     な Classifier」を表す。
-  * 両関連端とも ``{readOnly, union}`` であり、多重度は ``*`` である。
+  * 両関連端とも ``{readOnly, union}`` であり、多重度は ``*`` だ。
 
     * とは言え、UML の仕様書では ``redefinitionContext`` が一つを超える事例はな
       い。
 
 ``A_feature_featuringClassifier``
-  * Classifier と Feature との間の関連（双方向）。
+  Classifier と Feature との間の関連（双方向）。
+
   * Classifier は Features の集合、そのうちのいくつかはその Classifier の
-    ``attributes`` と呼ばれる Properties である。下記関連のコメント参照。
+    ``attributes`` と呼ばれる Properties だ。下記関連のコメント参照。
 
   * ``A_member_memberNamespace`` を subsets する。
 
     * 両関連端にはさらに ``{readOnly, union}`` も付く。
 
   ``A_attribute_classifier``
-    * Classifier から Property への関連（単方向）。
+    Classifier から Property への関連（単方向）。
+
     * 上記の関連と ``A_redefinitionContext_redefinableElement`` を subsets す
       る。
 
@@ -78,24 +84,28 @@ UML 2.5 pp. 97-164 に関するノート。
       * 関連端 ``attribute`` のほうにはさらに ``{ordered}`` が加わっている。
 
 ``A_collaborationUse_classifier``
-  * Classifier から CollaborationUse への composite 関連。
+  Classifier から CollaborationUse への複合関連。
+
   * Classifier は、それを Collaborations に関係させる CollaborationUses を所有し
     てもよい。その Collaborations はこの Classifier の外観を描写する。
     :doc:`./ch11-structured-classifiers` で述べる。
   * ``A_ownedElement_owner`` を subsets する。
 
   ``A_representation_classifier``
-    * Classifier から CollaborationUse への関連（単方向）。
+    Classifier から CollaborationUse への関連（単方向）。
+
     * 上記関連を subsets する。
-    * 関連端 ``representation`` の多重度は ``0..1`` である。
+    * 関連端 ``representation`` の多重度は ``0..1`` だ。
 
 ``A_ownedUseCase_classifier``
-  * Classifier から UseCase への composite 関連（単方向）。
+  Classifier から UseCase への複合関連（単方向）。
+
   * Classifier は UseCases を所有してもよい。:doc:`./ch18-usecases` で述べる。
   * ``A_ownedMember_namespace`` を subsets する。
 
 ``A_generalization_specific``
-  * Generalization から Classifier への composite 関連（両方向）。
+  Generalization から Classifier への複合関連（両方向）。
+
   * 各 Generalization は ``specific`` を ``general`` と関係させる。
   * 与えられた Classifier に対し、その ``specific`` の推移閉包（グラフ論等で頻用
     する用語）をその specializations と呼ぶ。
@@ -103,35 +113,36 @@ UML 2.5 pp. 97-164 に関するノート。
     る。
 
 ``A_general_generalization``
-  * Generalization から Classifier への関連（単方向）。
+  Generalization から Classifier への関連（単方向）。
+
   * 与えられた Classifier に対し、その ``general`` の推移閉包をその
     ``generalizations`` と呼ぶ。特に直接の ``generalizations`` はその親と呼ばれ
     る。もっと言えば Classifier が Class のときには ``superClasses`` となる。
   * ``A_target_directedRelationship`` を subsets する。
 
 ``A_general_classifier``
-  * Classifier から Classifier への関連（単方向）。
+  Classifier から Classifier への関連（単方向）。
+
   * 説明が見当たらないが、子クラスは親クラスに依存する、くらいの意味か。
 
 ``A_generalizationSet_generalization``
   後述。
 
 ``A_contract_substitution``
-  * Substitution から Classifier への関連（単方向）。
+  Substitution から Classifier への関連（単方向）。
+
   * 意味は上述の Substitution のノートを参照。
   * 関連 ``A_supplier_supplierDependency`` を subsets する。
 
 ``A_substitution_substitutingClassifier``
-  * Classifier から Substitution への composite 関連（両方向）。
-  * 意味は上述の Substitution のノートを参照。
+  Classifier から Substitution への複合関連（両方向）。
 
+  * 意味は上述の Substitution のノートを参照。
   * ``contract`` が実装する Interfaces は上記関連の ``substitutingClassifier``
     もまた実装する必要があるか、あるいは ``substitutingClassifier`` がより特殊な
     Interface 型を実装する必要がある。
-
   * ``contract`` が所有するどんな Port も上記関連の ``substitutingClassifier``
-    が所有するある Port に match することが必要である。
-
+    が所有するある Port に match することが必要だ。
   * 関連 ``A_clientDependency_client`` と ``A_ownedElement_owner`` を subsets す
     る。
 
@@ -141,72 +152,147 @@ UML 2.5 pp. 97-164 に関するノート。
 9.2.3.1 Classifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Classifier には Features の集合があり、それらのいくつかは Classifier の
-  ``attributes`` と呼ばれる Properties である。 Features のそれぞれは Classifier
-  の ``member`` である（:doc:`./ch07-common-structure` を参照）。
-* Classifier によって分類される値をその Classifier のインスタンスと呼ぶ。
+   A Classifier has a set of Features, some of which are Properties called the
+   ``attributes`` of the Classifier. Each of the Features is a ``member`` of the
+   Classifier (see sub clause 7.4 Namespaces).
 
-  * 以降、私のノートでは英単語 instance を訳すときは一律オブジェクトとする。
+Classifier によって分類される値をその Classifier のインスタンスと呼ぶ。
 
-* Classifier を再定義することが許される（後述）。
-* Classifier は、Classifier を Collaborations に結びつける CollaborationUses を
-  所有してよい。 Collaborations はこの Classifier の様子を記述する。
-  :doc:`./ch11-structured-classifiers` 参照。
-* Classifier は UseCases を所有してよい。:doc:`./ch18-usecases` 参照。
+.. admonition:: 読者ノート
+
+   私の UML ノートでは英単語 instance をオブジェクトと訳している。
+
+Classifier を再定義することが許される。
+
+Classifier は、Classifier を Collaborations に関連付ける CollaborationUses を所
+有してもよい。Collaborations はこの Classifier の様子を記述するものだ。
+:doc:`./ch11-structured-classifiers` 参照。
+
+Classifier は UseCases を所有してよい。:doc:`./ch18-usecases` 参照。
 
 9.2.3.2 Generalization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Generalizations は Classifiers 間の generalization/specialization を定義する。
-  Generalization それぞれは ``specific`` な Classifier をより ``general`` な
-  Classifier に結びつける。
-* Classifier のオブジェクトは、その一般化のそれぞれの（間接的な）オブジェクトで
-  もある。
-* Classifier が一般化されるときには、それの一般化のあるメンバーは継承される。つ
-  まり継承する Classifier 自身で定義されたかのように振る舞う。
-* 継承されたメンバーの集合は ``inheritedMembers`` と呼ばれる。
-* 型の適合とは、ある型が別のものに適合するならば、最初の型のオブジェクトのいずれ
-  もその ``type`` が二番目の型であると宣言されているTypedElement の値として用い
-  られてよいことを意味する。
-* Classifier の ``isAbstract`` 特性は、``true`` のとき、Classifier が抽象、すな
-  わち、直接オブジェクトがないことを指定する。言い換えると、抽象 Classifier のオ
-  ブジェクトはどれもがその特殊化の一つのオブジェクトであるものとする。
-* ある Classifier が別のものを一般化するならば、可能な限りの状況のもとで、子のオ
-  ブジェクトは親のオブジェクトに置き換えられる場合とは必ずしも限らない。
+   Generalizations define generalization/specialization relationships between
+   Classifiers. Each Generalization relates a ``specific`` Classifier to a more
+   ``general`` Classifier. Given a Classifier, the transitive closure of its
+   ``general`` Classifiers is often called its :dfn:`generalizations`, and the
+   transitive closure of its ``specific`` Classifiers is called its
+   :dfn:`specializations`. The immediate ``generalizations`` are also called the
+   Classifier’s parents, and where the Classifier is a Class, its
+   ``superClasses`` (see 11.4).
 
-  * 例えば、Circle を Ellipse の特殊化として定義してよく、そのオブジェクトは
-    Ellipse の特性にアクセスすることを伴う環境のすべてで置換可能となるかもしれな
-    い。だが、もし Ellipse がその長軸の長さしか変更しない挙動を定義しようものな
-    ら、Circle オブジェクトはそのような挙動を実装することはどうしても不可能だろ
-    う。
-  * ``isSubstitutable`` 特性を、特殊な Classifier が一般の Classifier が用いられ
-    る環境すべてで用いられるかどうかを示すのに用いてよい。
+汎化関係と特化関係の定義でもある。
+
+   An instance of a Classifier is also an (indirect) instance of each of its
+   generalizations. Any Constraints applying to instances of the generalizations
+   also apply to instances of the Classifier.
+
+チワワのオブジェクトは犬のオブジェクトでもあると言っている。
+
+   When a Classifier is generalized, certain members of its generalizations are
+   :dfn:`inherited`, that is they behave as though they were defined in the
+   inheriting Classifier itself. For example, an inherited member that is an
+   ``attribute`` may have a value or collection of values in any instance of the
+   inheriting Classifier, and an inherited member that is an Operation may be
+   invoked on an instance of the inheriting Classifier.
+
+チワワは犬の ``attribute`` を持ったり、犬の Operation メンバーを呼ぶことが許され
+る。
+
+   The set of members that are inherited is called the ``inheritedMembers``.
+   Unless specified differently for a particular kind of Classifier, the
+   ``inheritedMembers`` are ``members`` that do not have private visibility.
+
+継承メンバーは private でない。
+
+   Type conformance means that if one Type conforms to another, then any
+   instance of the first Type may be used as the value of a TypedElement whose
+   ``type`` is declared to be the second Type.
+
+Classifier は Type であり、それ自身とその一般化のすべてに対して適合する。
+
+   The ``isAbstract`` property of Classifier, when true, specifies that the
+   Classifier is abstract, i.e., has no direct instances:
+
+抽象 Classifier のオブジェクトはすべて、その特殊化の一つのオブジェクトでなければ
+ならない。
+
+ある分類子（親）が別の分類子（子）を一般化する場合、子のオブジェクトがあらゆる状
+況下で親のインスタンスと置換可能であるとは限らない：
+
+   For example, Circle may be defined as a specialization of Ellipse, and its
+   instances would be substitutable in every circumstance involving accessing
+   the properties of an Ellipse. However, if Ellipse were to define a stretch
+   behavior that modifies the length of its major axis only, then a Circle
+   object would be unable to implement such a behavior.
+
+特性 ``isSubstitutable`` を、特定の Classifier が一般 Classifier が用いられ
+る状況すべてにおいて使用可能かどうかを示すのに用いてよい。
 
 9.2.3.3 Redefinition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* 特殊化する Classifier の一般化の ``member`` のどれでもが継承される代わりに再定
-  義されることが許される。
-* メンバーが再定義されてよい Classifier は ``redefinitionContext`` と呼ばれる。
-* 再定義する要素は、それが再定義する RedefinableElement に対する整合性があるもの
-  とするが、``general`` な状況での制約に矛盾しない、特殊化する
-  ``redefinitionContext`` のオブジェクトに特有の固有の制約や他の詳細を追加してよ
-  い。
-* 再定義する要素一つが RedefinableElements を複数再定義してよい。
-* ``isLeaf`` 特性が ``true`` のとき、その RedefinableElement には再定義を何も
-  あってはならないものとすることを指定する。
-* 再定義の詳細な意味は RedefinableElement の特殊化のそれぞれについて異なる。
-* Classifier 自身は RedefinableElement である。Classifier が Class または
-  Interface で入れ子になるときにこれが働いて、Classifier は
-  ``redefinitionContext`` になる。
+   Any ``member`` (that is a kind of RedefinableElement) of a generalization of
+   a specializing Classifier may be redefined instead of being inherited.
+   Redefinition is done in order to augment, constrain, or override the
+   redefined ``member(s)`` in the context of instances of the specializing
+   Classifier.
+
+この場合、再定義 ``member`` は、再定義された ``member`` の代わりに特化Classifier
+の構造または動作に与する。特化 Classifier のオブジェクトの文脈で再定義された
+``member`` への参照は、再定義された ``member`` に解決されるものとする。
+
+   The Classifier from which the member may be redefined is called the
+   ``redefinitionContext``.
+
+``redefinitionContext`` は RedefinableElement の種類ごとに定義され、``member``
+の ``owner`` であることが多いが、常にそうとは限らない。
+
+再定義要素一つが RedefinableElements 複数を再定義してもよい。
+
+   The ``isLeaf`` property, when true for a particular RedefinableElement,
+   specifies that it shall have no redefinitions.
+
+   The detailed semantics of redefinition vary for each specialization of
+   RedefinableElement.
+
+再定義された要素とその再定義要素との間には、次のようなさまざまな種類の互換性があ
+る：
+
+* 名前互換性（再定義要素が被再定義要素と同じ ``name`` を持つ）
+* 構造的互換性（被再定義要素のクライアントに見えるプロパティーが再定義要素のプロ
+  パティーでもある）
+* 動作的互換性（再定義要素が被再定義要素の代替となる）
+
+   Classifier is itself a RedefinableElement. This can come into play when a
+   Classifier is nested in a Class or Interface, which becomes the
+   ``redefinitionContext``.
+
+特化クラスまたはインターフェイスの文脈で Classifier を再定義すると、特化クラスま
+たはインターフェイスのインスタンスから再定義された Classifier への参照が、再定義
+された Classifier に解決される効果がある。
 
 9.2.3.4 Substitution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Substitution とは、``substitutingClassifier`` が ``contract`` Classifier に指
-  定される契約に従うことを知らせる、二つの Classifiers の間の関係である。これ
-  は ``contact`` Classifier のオブジェクトが期待されるところでは
-  ``substitutingClassifier`` のオブジェクトが実行時に置換可能であることを含意す
-  る。
+
+   A Substitution is a relationship between two Classifiers which signifies that
+   the ``substitutingClassifier`` complies with the contract specified by the
+   ``contract`` Classifier. This implies that instances of the
+   ``substitutingClassifier`` are runtime substitutable where instances of the
+   ``contract`` Classifier are expected.
+
+これは ``contact`` Classifier のオブジェクトが期待されるところでは
+``substitutingClassifier`` のオブジェクトが実行時に置換可能であることを含意す
+る。
+
+Substitution は Specialization とは異なり、構造の継承を意味しない。公開された契
+約の遵守のみを意味する。そのことは次を必要とする：
+
+* ``contract`` Classifier が実装する Interface は ``substutingClassifier`` も実装
+  するか、``substutingClassifier`` がより特殊な Interface 型を実装する。
+* ``contract`` Classifier が所有する Port は ``substutingClassifier`` が所有する
+  Port と合致する。
 
 9.2.4 Notation
 ----------------------------------------------------------------------
@@ -214,69 +300,103 @@ UML 2.5 pp. 97-164 に関するノート。
 9.2.4.1 Classifiers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Classifier は抽象メタクラスである。それでもやはり、Classifier の具象サブクラ
-  スのどれにとっても利用可能な既定の表記法を一箇所で定義することは都合が良い。
-* Classifier の既定の表記法は、Classifier の ``name`` を含む実線矩形であり、
-  ``name`` の下部にある水平線により分離された区画がある。
-* Classifier に対して既定の表記法を用いるならば、Classifier のメタクラスに対応す
-  るキーワードを ``name`` の上部に guillemets で括って示すものとする。
+Classifier は抽象メタクラスだ。それでもやはり、Classifier の具象サブクラスのどれ
+にとっても利用可能な既定の表記法を一箇所で定義しておくことは都合が良い。
+
+Classifier の既定の表記法は、Classifier の ``name`` を含む実線矩形であり、
+``name`` の下部にある水平線により分離された区画がある。
+
+   The ``name`` of the Classifier should be centered in boldface. For those
+   languages that distinguish between uppercase and lowercase characters,
+   Classifier ``names`` should begin with an uppercase character.
+
+Classifier に対して既定の表記法を用いるならば、Classifier のメタクラスに対応する
+キーワードを ``name`` の上部に guillemets で括って示すものとする。
 
   * キーワードについては :doc:`./anc-keywords` 参照。
+  * メタクラスが Class であることを示すキーワードは必要ない。
 
-* キーワード（ステレオタイプ名を含む）は Classifier ``name`` の上部に guillemets
-  で括られ、プレーンな字面で中央寄せとするべきでもある。
-* 抽象 Classifier の ``name`` は利用フォントが許す限りイタリック体で示す。あるい
-  は ``name`` の後か下に ``{abstract}`` と示すことも認められる。
-* Classifier 形状にある区画のいくらかは必須であり、具象構文適合を展示するツール
-  により支援されるものとする。
-* どの区画も非表示にしてよい。
-* ``attributes`` と名付けられた区画はその ``attribute`` 特性を介して到達される
-  Properties を示す表記法を含む。この区画は必須かつ非表示でなければ常に他の区画
-  の上部に現れる。
-* ``operations`` と名付けられた区画は Operations を示す表記法を含む。
-* ``receptions`` と名付けられた区画は Receptions を示す表記法を含む。
-* Features を示す表記法を含む区画はどれもそれらの Features を ``public``,
-  ``private``, ``protected`` の下にグループ分けされて示してよい。
-* 準拠ツールは Features を示す表記法を含む区画の個々の Features を非表示にするオ
-  プションを与えることが許される。
-* 準拠ツールは区画の命名を任意に支援してよい。
-* Classifier に Classifiers である ``ownedMembers`` があれば、準拠ツールは所有さ
-  れる Classifiers とその間の関係を所有する Classifier の矩形の区画の別々の内部
-  に入れ子にして図式的に示すためのオプションを提供してよい。
-* Classifier が Constraints を所有するならば、準拠ツールは所有する Classifier の
-  矩形の区画の別々の内部にリストされた所有される Constraints を示す区画を実装し
-  てよい。
+キーワード（ステレオタイプ名を含む）はなるべく Classifier ``name`` の上部に
+guillemets で括られ、プレーンな字面で中央寄せとする。
+
+抽象 Classifier の ``name`` は利用フォントが許す限りイタリック体で示す。あるい
+は ``name`` の後か下に ``{abstract}`` というテキスト注釈付きで示すことも認めら
+れる。
+
+Classifier 形状にある区画のいくらかは必須であり、具象構文に対する適合性がある
+ツールで対応されるものとする。それ以外はオプション。
+
+どの区画も非表示にしてよい。抑制された区画には、区切り線は引かれない。非表示の場
+合、その中の要素の有無について推論を行うことはできない。
+
+``attributes`` と名付けられた区画はその ``attribute`` 特性を介して到達される
+Properties を示す表記法を含む。この区画は必須で、非表示でなければ常に他の区画の
+上部に現れる。
+
+``operations`` と名付けられた区画は Operations を示す表記法を含む。
+``attributes`` 区画のすぐ下に表示される。この区画は Operation を所有する
+Classifier のために使用される。
+
+``receptions`` と名付けられた区画は Receptions を示す表記法を含む。この区画は必
+須で、``operations`` 区画のすぐ下にある。この区画は Receptions を所有する
+Classifier のために使用される。
+
+   Any compartment which contains notation for Features may show those Features
+   grouped under the literals public, private and protected, representing their
+   ``visibility``.
+
+Classifier が Constraints を所有するならば、適合性があるツールは所有する
+Classifier の矩形の別の区画内にリストされた所有 Constraints を示す区画を実装して
+よい。その場合、区画名は ``constraints`` だ。
 
 9.2.4.2 Other elements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Generalization は関わり合う Classifiers を表現する記号の間を結ぶ白い矢先の矢印
-  として示される。
-* 同一の ``general`` Classifier を参照する複数の Generalizations を表すのに、そ
-  れらの矢印を分離しても共有して示してもよい。
-* RedefinableElement を表す一般的な表記法はない。
-* Substitution は Dependency の記法を用いる。キーワードは ``«substitute»`` とす
-  る。
-* Classifier が継承した ``members`` を仮に ``member`` が継承されていなかったら示
-  されたであろうテキスト的表現に対して先頭にキャレット記号を付けることで
-  Classifier の図式上に示してよい。
-* 類似の表記法を Classifier の ``inheritedMembers`` であるNamedElements のすべて
-  に対して、それらが継承されたものであることを示すのに用いてよい。
-* 継承された ``members`` を非継承 ``members`` と区別しやすくするように明るい色で
-  示してもよい。
+汎化の矢印では鏃は白かと思っていたが、塗りなしが正解だ：
+
+   A Generalization is shown as a line with a hollow triangle as an arrowhead
+   between the symbols representing the involved Classifiers. The arrowhead
+   points to the symbol representing the ``general`` Classifier.
+
+同一の ``general`` Classifier を参照する複数の Generalizations を表すのに、それ
+らの別々の矢印で表現しても共有して示しても、鏃を共有する様式の矢印で示してもかま
+わない。
+
+RedefinableElement を表す一般的な表記法はない。
+
+Substitution は Dependency の記法を用いる。キーワードは ``«substitute»`` とす
+る。
+
+Classifier が継承した ``members`` を仮に ``member`` が継承されていなかったら示さ
+れたであろうテキスト的表現に対して先頭にキャレット記号を付けることで Classifier
+の図式上に示してよい。継承されたプロパティーの記法は次のように定義される：
+
+.. code:: bnf
+
+   <inherited-property> ::= ’^’ <property>
+
+同様に、継承された Connectorの表記は：
+
+.. code:: bnf
+
+   <inherited-connector> ::= ’^’ <connector>
+
+Classifier の ``inheritedMembers`` である NamedElements のすべて
+に対して、継承されたものであることを示すのに、これと類比的な表記を用いてよい。
 
 9.2.5 Examples
 ----------------------------------------------------------------------
 
 いずれも矢印の向きとスタイルの規約を了解するだけで十分だ。
 
-* Figure 9.2 Generalization notation showing different target styles
+   Figure 9.2 Generalization notation showing different target styles
 
-  * よくあるクラス継承図。個人的には shared target style の方が好みだ。
+よくあるクラス継承図。個人的には shared target style の方が好みだ。
 
-* Figure 9.3 Example of Substitution notation
+   Figure 9.3 Example of Substitution notation
 
-  * Substitution の記法例。
+Substitution の記法例。この図式は一般的な Window クラスが特定の環境において
+Resizable Window クラスで代用可能であることを表現する。
 
 9.3 Classifier Templates
 ======================================================================
@@ -284,7 +404,7 @@ UML 2.5 pp. 97-164 に関するノート。
 9.3.1 Summary
 ----------------------------------------------------------------------
 
-* Classifier は引数として扱えることを知らせる TemplateableElement の一種である。
+* Classifier は引数として扱えることを知らせる TemplateableElement の一種だ。
 
 9.3.2 Abstract Syntax
 ----------------------------------------------------------------------
@@ -296,7 +416,7 @@ UML 2.5 pp. 97-164 に関するノート。
     に思い出せない。
 
 ``A_ownedTemplateSignature_classifier``
-  * Classifier から RedefinableTemplateSignature への composite 関連（両方向）。
+  * Classifier から RedefinableTemplateSignature への複合関連（両方向）。
   * ``A_redefinitionContext_redefinableElement`` を subsets する。
   * さらに ``A_ownedTemplateSignature_template`` を redefines する。
 
@@ -309,7 +429,7 @@ UML 2.5 pp. 97-164 に関するノート。
 ``A_inheritedParameter_redefinableTemplateSignature``
   * RedefinableTemplateSignature から TemplateParameter への関連（単方向）。
   * ``A_parameter_templateSignature`` を subsets する。
-  * 関連端 ``inheritedMember`` は ``{readOnly}`` である。
+  * 関連端 ``inheritedMember`` は ``{readOnly}`` だ。
 
 ``A_parameteredElement_templateParameter``
   * ClassifierTemplateParameter と Classifier との間の関連（両方向）。
@@ -335,7 +455,7 @@ UML 2.5 pp. 97-164 に関するノート。
   Classifier と呼ばれる。一方、一つまたはそれを超える TemplateBindings がある
   Classifier は被束縛 Classifier と呼ばれる。
 * テンプレートの一般的な意味は :doc:`./ch07-common-structure` で定義されていると
-  おりである。
+  おりだ。
 * 拡張被束縛 Classifier のメンバーを束縛において実引数として用いてよい。
 * 被束縛 Classifier には束縛の結果生じるものに加えて中身があってよい。
 * テンプレート Classifier の引数は TemplateParameter のどんな種類の可能性もあ
@@ -343,9 +463,9 @@ UML 2.5 pp. 97-164 に関するノート。
 * 引数が Classifier のときには、ClassifierTemplateParameter で表現され、意味と表
   記法はこの章で定義される。
 * 引数が LiteralSpecification のときには、意味と表記法は
-  :doc:`./ch07-common-structure` で定義されているとおりである。
-* 引数が Operation であるときには、意味と表記法は 9.6 にあるとおりである。
-* 引数が Property であるときには、意味と表記法は 9.5 にあるとおりである。
+  :doc:`./ch07-common-structure` で定義されているとおりだ。
+* 引数が Operation であるときには、意味と表記法は 9.6 にあるとおりだ。
+* 引数が Property であるときには、意味と表記法は 9.5 にあるとおりだ。
 
 9.3.3.2 Template Classifier specialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -361,7 +481,7 @@ UML 2.5 pp. 97-164 に関するノート。
 
 * ClassifierTemplateParameter とは、``parameteredElement`` が
   ParameterableElement の一種であるという能力で Classifier である
-  TemplateParameter の一種である。
+  TemplateParameter の一種だ。
 * Class, Collaboration, Component, DataType, Interface, Signal, UseCase などの
   Classifier のサブクラスはすべて引数として、束縛して、TemplateParameters として
   用いてもよい。同様のことが Class のサブクラスとしての Behavior に対しても成り
@@ -406,10 +526,10 @@ UML 2.5 pp. 97-164 に関するノート。
 * Figure 9.5 Template Class and Bound Class
 
   * クラステンプレート ``FArray`` の図式か。
-  * ``T``, ``k`` がそれぞれ TemplateParameter である。
-  * ``T`` は制約なしクラスの、``k`` は LiteralInteger の TemplateParameter である。
+  * ``T``, ``k`` がそれぞれ TemplateParameter だ。
+  * ``T`` は制約なしクラスの、``k`` は LiteralInteger の TemplateParameter だ。
   * ``k`` の方にはデフォルト値の指定が付いている。
-  * ``AddressList`` は bound Class である。
+  * ``AddressList`` は bound Class だ。
 
 * Figure 9.6 Anonymous Bound Class
 
@@ -418,15 +538,15 @@ UML 2.5 pp. 97-164 に関するノート。
 * Figure 9.7 Template Class with constrained Class parameter
 
   * クラステンプレート ``Car`` の図式。
-  * ``CarEngine`` と ``n`` が TemplateParameter である。
+  * ``CarEngine`` と ``n`` が TemplateParameter だ。
   * ``CarEngine`` には制約が指定されている。読み方は「Engine と呼ばれる Class に
-    適合する」である。
+    適合する」だ。
   * ``n`` は「LiteralInteger である」という制約が指定されている。
 
 * Figure 9.8 Bound Class
 
   * これは被束縛 Class の記法の見本。
-  * 被束縛 Class の名前は ``DieselCar`` である。
+  * 被束縛 Class の名前は ``DieselCar`` だ。
   * TemplateParameter である ``CarEngine`` と ``n`` に対して ``DieselEngine`` と
     ``2`` をそれぞれ束縛している。
 
@@ -455,40 +575,40 @@ UML 2.5 pp. 97-164 に関するノート。
 
 ``A_method_specification``
   * BehavioralFeature と Behavior の間の関連（両方向）。
-  * 多重度は ``specification`` ``0..1`` に対して ``method`` ``*`` である。
+  * 多重度は ``specification`` ``0..1`` に対して ``method`` ``*`` だ。
   * BehavioralFeature の挙動の応答を定義する一つの方法は、それを実装するような
-    Behavior を一つまたは複数指定することである。この関連はその指定を示す。
+    Behavior を一つまたは複数指定することだ。この関連はその指定を示す。
 
 ``A_ownedParameter_ownerFormalParam``
-  * BehavioralFeature から Parameter への composite 関連（単方向）。
+  * BehavioralFeature から Parameter への複合関連（単方向）。
   * 関連端 ``ownedParameter`` はその BehavioralFeature が呼び出されるときに与え
-    られる引数の順序、型、入出力方向の特徴を述べるものである。
+    られる引数の順序、型、入出力方向の特徴を述べるものだ。
 
-    * それゆえ ``ownedParameter`` は ``{ordered}`` である。
+    * それゆえ ``ownedParameter`` は ``{ordered}`` だ。
 
   * ``A_ownedMember_namespace`` を subsets する。
 
 ``A_ownedParameterSet_behavioralFeature``
-  * BehavioralFeature から ParameterSet への composite 関連（単方向）。
+  * BehavioralFeature から ParameterSet への複合関連（単方向）。
   * 上述関連の代替？
   * ``A_ownedMember_namespace`` を subsets する。
 
 ``A_defaultValue_owningParameter``
-  * Parameter から ValueSpecification への composite 関連（単方向）。
+  * Parameter から ValueSpecification への複合関連（単方向）。
   * ``defaultValue`` が指定されていれば、その BehavioralFeature の呼び出し時に実
     引数が与えらていない場合に限り、この Parameter として評価されて用いられる。
   * ``A_ownedElement_owner`` を subsets する。
-  * 多重度は両端ともに ``0..1`` である。
+  * 多重度は両端ともに ``0..1`` だ。
 
 ``A_parameterSet_parameter``
   * Parameter と ParameterSet の間の関連（両方向）。
-  * 多重度は ``parameter`` ``1..*`` に対して ``parameterSet`` ``*`` である。
+  * 多重度は ``parameter`` ``1..*`` に対して ``parameterSet`` ``*`` だ。
 
 ``A_condition_parameterSet``
-  * ParameterSet から Constraint への composite 関連（単方向）。
+  * ParameterSet から Constraint への複合関連（単方向）。
   * 関連端 ``condition`` の意味は、入力 ParameterSet のそれが Operation における
     ``preconditions`` と、出力 ParameterSet のそれが Operation における
-    ``postconditions`` とそれぞれ同じである。
+    ``postconditions`` とそれぞれ同じだ。
   * ``A_ownedElement_owner`` を subsets する。
 
 9.4.3 Semantics
@@ -508,11 +628,11 @@ UML 2.5 pp. 97-164 に関するノート。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * StructuralFeature とは Classifier のオブジェクトの構造を指定する Classifier の
-  型の付いた Feature である。
+  型の付いた Feature だ。
 * Properties である Classifier の StructuralFeature は Classifier の
   ``attributes`` と呼ばれる。UML では Property は StructuralFeature の唯一の種類
   であるので、Classifier の StructuralFeatures の全部は Properties, したがって
-  ``attributes`` である。
+  ``attributes`` だ。
 * Classifier のオブジェクトごとに直接または継承した非静的な Classifier の
   ``attribute`` に対する値または値の集まりがある。
 
@@ -532,7 +652,7 @@ UML 2.5 pp. 97-164 に関するノート。
 
   #. 実行スコープ内では StructuralFeature の値または値の集まりは、継承する
      Classifier のどれに対しても、所有する Classifier の値または値の集まりといつ
-     も同じである。これらの意味は Java や C# での静的メンバーに対応する。
+     も同じだ。これらの意味は Java や C# での静的メンバーに対応する。
   #. 実行スコープ内では所有する Classifier とそれを継承する Classifier それぞれ
      に、StructuralFeature には別々かつ独立した値または値の集まりがある。これら
      の意味は Ruby や Smalltalk でのクラスインスタンス変数に対応する。
@@ -576,7 +696,7 @@ UML 2.5 pp. 97-164 に関するノート。
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Parameter は情報を BehavioralFeature の発動に引き渡したり、発動から受け取った
-  りするのに使われる引数の仕様である。
+  りするのに使われる引数の仕様だ。
 * Parameter に ``defaultValue`` が指定されているならば、BehavioralFeature の発動
   時に実引数が何も渡されないときに限り、それは発動時に評価され、この Parameterの
   実引数として使われる。
@@ -613,7 +733,7 @@ UML 2.5 pp. 97-164 に関するノート。
   :doc:`./ch13-common-behavior` で述べる。
 
 * BehavioralFeature が所有する ParameterSet とは、その BehavioralFeature を実装
-  する Behaviors が使ってよい入力または出力の代用の集合を与える要素である。
+  する Behaviors が使ってよい入力または出力の代用の集合を与える要素だ。
 
   * ParameterSet にある Parameters はすべてが同じ BehavioralFeature の入力である
     か、すべてが同じ BehavioralFeature の出力であるものとする。
@@ -652,7 +772,7 @@ UML 2.5 pp. 97-164 に関するノート。
 9.5.1 Summary
 ----------------------------------------------------------------------
 
-* Property は次のものを表現する StructuralFeature である。
+* Property は次のものを表現する StructuralFeature だ。
 
   * ``Classifier::attributes``
   * ``Association::memberEnds``
@@ -663,10 +783,10 @@ UML 2.5 pp. 97-164 に関するノート。
 
 * Figure 9.10 Properties
 
-  * Property を中心とした図式である。
+  * Property を中心とした図式だ。
 
 ``A_ownedAttribute_interface``, ``A_ownedAttribute_datatype``, ``A_ownedAttribute_class``
-  * それぞれ Interface, DataType, Class から Property への composite 関連（両方
+  * それぞれ Interface, DataType, Class から Property への複合関連（両方
     向）。
   * 関連端 ownedAttribute は Classifier の ``attribute`` であるということを表し
     ている。
@@ -689,21 +809,21 @@ UML 2.5 pp. 97-164 に関するノート。
   これは :doc:`./ch11-structured-classifiers` で説明する。
 
 ``A_qualifier_associationEnd``
-  * Property から Property への composite 関連（両方向）。
+  * Property から Property への複合関連（両方向）。
   * 上述の関連端 ``memberEnd`` な Property にはそれ自身が ``qualifiers`` として
     働くような他の Properties があってもよい。
-  * 関連端 ``qualifier`` は ``{ordered}`` である。
+  * 関連端 ``qualifier`` は ``{ordered}`` だ。
   * ``A_ownedElement_owner`` を subsets する。
 
 ``A_defaultValue_owningProperty``
-  * Propery から ValueSpecification への composite 関連（単方向）。
+  * Propery から ValueSpecification への複合関連（単方向）。
   * 関連 ``A_ownedElement_owner`` を subsets する。
-  * 多重度は両端ともに ``0..1`` である。
+  * 多重度は両端ともに ``0..1`` だ。
 
 ``A_opposite_property``
   * Property から Property への関連（単方向）。
   * 説明なし。
-  * 多重度は両端ともに ``0..1`` である。
+  * 多重度は両端ともに ``0..1`` だ。
 
 ``A_subsettedProperty_property``
   * Property から Property への関連（単方向）。
@@ -714,7 +834,7 @@ UML 2.5 pp. 97-164 に関するノート。
   * Property から Property への関連（単方向）。
   * 説明なし。
   * ``A_redefinedElement_redefinableElement`` を subsets する。
-  * 多重度は両端ともに ``*`` である。
+  * 多重度は両端ともに ``*`` だ。
 
 9.5.3 Semantics
 ----------------------------------------------------------------------
@@ -744,19 +864,19 @@ UML 2.5 pp. 97-164 に関するノート。
 * 時々 Property はあるオブジェクトがオブジェクトの集合をグループ化するのに使われ
   る情況をモデル化するのに用いられる。これは集約 (aggregation) と呼ばれる。
 
-  * AggregationKind は次のリテラル値からなる列挙型である。
+  * AggregationKind は次のリテラル値からなる列挙型だ。
 
     ``none``
       Property には集約の意味はない。
     ``shared``
-      Property の集約の意味は「共有」である。共有集約の正確な意味は応用領域と設
+      Property の集約の意味は「共有」だ。共有集約の正確な意味は応用領域と設
       計者によって異なる。
     ``composite``
       Property が複合的に集約されている。これは集約の強い形であり、全体・部分の
       関係を表現していると解釈する。
 
 * 合成集約とは、``part`` オブジェクトが高々一つの合成オブジェクトに同時に含ま
-  れることを必要とする集約の強い形式である。合成オブジェクトが削除されれば、その
+  れることを必要とする集約の強い形式だ。合成オブジェクトが削除されれば、その
   ``part`` オブジェクトのすべてが一緒に削除される。
 
   .. admonition:: 読者ノート
@@ -825,7 +945,7 @@ UML 2.5 pp. 97-164 に関するノート。
 ----------------------------------------------------------------------
 
 * Operation とは、Interface, DataType, または Class が所有することが許される
-  BehavioralFeature である。 Operations はテンプレート化することもテンプレート引
+  BehavioralFeature だ。 Operations はテンプレート化することもテンプレート引
   数として使うことも許される。
 
 9.6.2 Abstract Syntax
@@ -837,24 +957,24 @@ UML 2.5 pp. 97-164 に関するノート。
   * 左側は Property の図式とそっくり。
 
 ``A_ownedOperation_interface``, ``A_ownedOperation_datatype``, ``A_ownedOperation_class``
-  * Interface, DataType, Class いずれかから Operation への composite 関連（双方
+  * Interface, DataType, Class いずれかから Operation への複合関連（双方
     向）。
   * 各 Classifier が Operation(s) を所有してもよいという意味。
-  * ``ownedOperation`` は ``{ordered}`` である。
+  * ``ownedOperation`` は ``{ordered}`` だ。
   * ``A_feature_featuringClassifier`` を subsets する。
   * ``A_redefinitionContext_redefinableElement`` を subsets する。
   * ``A_ownedMember_namespace`` を subsets する。
 
 ``A_ownedParameter_operation``
-  * Operation から Parameter への composite 関連（双方向）。
-  * Parameter は Operation の構成要素の一つである。
+  * Operation から Parameter への複合関連（双方向）。
+  * Parameter は Operation の構成要素の一つだ。
   * ``A_ownedParameter_ownerFormalParam`` を subsets する。
 
     * ownedParameter の方は ``{ordered, redefines ownedParameter}`` となってい
       る。
 
 ``A_precondition_preContext``, ``A_postcondition_postContext``, ``A_bodyCondition_bodyContext``
-  * Operation から Constraint への composite 関連（単方向）。
+  * Operation から Constraint への複合関連（単方向）。
   * ``precondition`` と ``postcondition`` は Operation の呼び出しに関する事前条
     件と事後条件をそれぞれ意味する。
   * ``bodyCondition`` は Operation の戻す結果をその仕様が計算する値によって縛り
@@ -879,7 +999,7 @@ UML 2.5 pp. 97-164 に関するノート。
 
 ``A_parameteredElement_templateParameter``
   * OperationTemplateParameter と Operation の間の関連（双方向）。
-  * 同名関連の redefines である。
+  * 同名関連の redefines だ。
 
 9.6.3 Semantics
 ----------------------------------------------------------------------
@@ -887,8 +1007,8 @@ UML 2.5 pp. 97-164 に関するノート。
 9.6.3.1 Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Operation は Interface, DataType, または Class の BehavioralFeature である。
-* 戻り値があれば、Operation の型はこの Parameter の方と同じである。そうでなけれ
+* Operation は Interface, DataType, または Class の BehavioralFeature だ。
+* 戻り値があれば、Operation の型はこの Parameter の方と同じだ。そうでなけれ
   ば Operation には型がない。
 * Operation の ``precondition`` は Operation が発動されるときに ``true`` である
   とする条件を定義する。
@@ -963,7 +1083,7 @@ UML 2.5 pp. 97-164 に関するノート。
 ``A_generalizationSet_generalization``
   * Generalization と GeneralizationSet の間の関連（両方向）。
   * Generalization がどの GeneralizationSet に所属するのかを示す。
-  * 両関連端は多重度 ``*`` である。
+  * 両関連端は多重度 ``*`` だ。
 
 ``A_powertypeExtent_powertype``
   * Classifier と GeneralizationSet との間の関連（両方向）。
@@ -1074,7 +1194,7 @@ UML 2.5 pp. 97-164 に関するノート。
   * InstanceSpecification, Slot, InstanceValue をやる。
 
 ``A_slot_owningInstance``
-  * InstanceSpecification から Slot への composite 関連。
+  * InstanceSpecification から Slot への複合関連。
 
 ``A_classifier_instanceSpecification``
   * InstanceSpecification から Classifier への関連（単方向）。
@@ -1089,14 +1209,14 @@ UML 2.5 pp. 97-164 に関するノート。
   * Slot から StructuralFeature への関連（単方向）。
 
 ``A_value_owningSlot``
-  * Slot から ValueSpecification への composite 関連（単方向）。
+  * Slot から ValueSpecification への複合関連（単方向）。
   * 関連 ``A_ownedElement_owner`` を subsets する。
-  * ``value`` は ``{ordered}`` である。
+  * ``value`` は ``{ordered}`` だ。
   * ``value`` は型、多重度、等々において前述の ``definingFeature`` と適合する必
     要がある。
 
 ``A_specification_owningInstanceSpec``
-  * InstanceSpecification から ValueSpecification への composite 関連（単方
+  * InstanceSpecification から ValueSpecification への複合関連（単方
     向）。
   * もし specification があれば、InstanceSpecification の値を与えるために
     ValueSpecification が評価される。
@@ -1132,9 +1252,9 @@ UML 2.5 pp. 97-164 に関するノート。
 * InstanceSpecification はある時点におけるオブジェクト、スナップショットを表して
   よい。
 * InstanceSpecification はモデル要素であって、モデル化しているオブジェクトと混同
-  するべきではないということを留意することは重要である。
+  するべきではないということを留意することは重要だ。
 * InstanceValue とは、値が InstanceSpecification を用いて指定される
-  ValueSpecification の一種である。
+  ValueSpecification の一種だ。
 * InstanceValue はそれが参照する InstanceSpecification を所有しない。それに対し
   て InstanceValues は同じ InstanceSpecification を参照してよい。
 
@@ -1147,9 +1267,9 @@ UML 2.5 pp. 97-164 に関するノート。
 * InstanceSpecification の ``classifier`` が Association であるものはリンクを表
   現し、Association の同じ記法を用いて示すが、実線のパスは Classifiers ではなく
   InstanceSpecifications を接続する。
-* Classifiers と InstanceSpecifications では名前はオプションである。
+* Classifiers と InstanceSpecifications では名前はオプションだ。
 * 無名 (unnamed) Classifier の無名 (anonymous) InstanceSpecification 標準表記は
-  下線のついたコロンである。
+  下線のついたコロンだ。
 * Slots は対応する StructuralFeatures のそれに似た記法を用いて示す。
 * InstanceValue はテキストによる記法または図表的な表記法を用いて現れてよい。
 * InstanceValue である Slot 値は代わりにリンクのそれに似た図式的表記法を用いて示
@@ -1168,7 +1288,7 @@ UML 2.5 pp. 97-164 に関するノート。
 
   * String 型オブジェクト ``streetName`` の図式に見える。
   * これが InstanceSpecification の記法の一つの見本となる。
-  * 識別子の下にある引用符で括られた文字列が値である。
+  * 識別子の下にある引用符で括られた文字列が値だ。
 
 * Figure 9.29 Slots with values
 
