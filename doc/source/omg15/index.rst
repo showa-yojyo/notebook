@@ -2,7 +2,7 @@
 Unified Modeling Language 2.5 読書ノート
 ======================================================================
 
-`OMG Unified Modeling Language Version 2.5 <http://www.omg.org/spec/UML/2.5>`_
+`OMG Unified Modeling Language Version 2.5.1 <http://www.omg.org/spec/UML/2.5.1>`_
 を時間を書けても構わないので読み込み、ここにノートを残していく。
 
 ノートの対象は章で言えば 1 章から 22 章および付録の A 章から E 章までに相当す
@@ -60,8 +60,9 @@ Unified Modeling Language 2.5 読書ノート
    * automaton (n.) ここはそのままカタカナで。「状態機械」は state machine に使
      いたい。原文では複数形の automata で記されていたとしてもここでは「オートマ
      トン」と書くかもしれない。
-   * behavior (n.) 「振る舞い」「挙動」「行動」を気まぐれに使い分ける。字数を費
-     やしたくない都合上、「挙動」を多用する。
+   * behavior (n.) 「振る舞い」「挙動」「動作」「行動」を気まぐれに使い分ける。
+     字数を費やしたくない都合上、「挙動」を多用する。
+   * classifier (n.) DeepL に従い「分類子」を使う。
    * component profile (n.)
    * concurrent (adj.) 本文中にあるように、必ずしも「同時に起こる」とは限らな
      い。
@@ -82,6 +83,7 @@ Unified Modeling Language 2.5 読書ノート
      い。
    * lifeline (n.) 某文書では「生存線」という用語を採用しているようなので拝借す
      る。
+   * navigate (v.) 航行・回航する。ひねらない。
    * occurrence(s) (n.) これは instance(s) の Event 版と言える。「出来事」か「発
      生」か気分次第。
    * offer (v.) 語源は「～の方へ運ぶ」を意味するラテン語らしいのだが、まさにこの
