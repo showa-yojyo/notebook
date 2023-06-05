@@ -2,7 +2,9 @@
 Annex A: Diagrams
 ======================================================================
 
-UML 2.5 pp. 681-683 に関するノート。
+.. admonition:: 読者ノート
+
+   現在ノート修正中。
 
 * この付録では UML 図の一般的な特徴および、それらがどのように UML モデルとこの要
   素に関係するのかをを述べる。
@@ -95,19 +97,19 @@ UML 2.5 pp. 681-683 に関するノート。
   ら、異なる種類の図を混ぜることを排除しない。
 * UML 図のおのおのに含まれる構成要素は下に示す章で記述されている：
 
-  * Activity Diagram - :doc:`./activities`
-  * Class Diagram - :doc:`./structured-classifiers`
-  * Communication Diagram - :doc:`./interactions`
-  * Component Diagram - :doc:`./structured-classifiers`
-  * Composite Structure Diagram - :doc:`./structured-classifiers`
-  * Deployment diagram - :doc:`./deployments`
-  * Interaction Overview Diagram - :doc:`./interactions`
-  * Object Diagram - :doc:`./classification`
-  * Package Diagram - :doc:`./packages`
-  * Profile Diagram - :doc:`./packages`
-  * State Machine Diagram - :doc:`./statemachines`
-  * Sequence Diagram - :doc:`./interactions`
-  * Timing Diagram - :doc:`./interactions`
-  * Use Case Diagram - :doc:`./usecases`
+  * Activity Diagram - :doc:`./ch15-activities`
+  * Class Diagram - :doc:`./ch11-structured-classifiers`
+  * Communication Diagram - :doc:`./ch17-interactions`
+  * Component Diagram - :doc:`./ch11-structured-classifiers`
+  * Composite Structure Diagram - :doc:`./ch11-structured-classifiers`
+  * Deployment diagram - :doc:`./ch19-deployments`
+  * Interaction Overview Diagram - :doc:`./ch17-interactions`
+  * Object Diagram - :doc:`./ch09-classification`
+  * Package Diagram - :doc:`./ch12-packages`
+  * Profile Diagram - :doc:`./ch12-packages`
+  * State Machine Diagram - :doc:`./ch14-statemachines`
+  * Sequence Diagram - :doc:`./ch17-interactions`
+  * Timing Diagram - :doc:`./ch17-interactions`
+  * Use Case Diagram - :doc:`./ch18-usecases`
 
 .. include:: /_include/uml-refs.txt

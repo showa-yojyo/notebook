@@ -2,10 +2,11 @@
 13 Common Behavior
 ======================================================================
 
-UML 2.5 pp. 283-302 に関するノート。ノートにあまり時間をかけたくないが、面倒なの
-で見えているテキストを訳す場合がある。
+.. admonition:: 読者ノート
 
-.. contents:: ノート目次
+   現在ノート修正中。
+
+.. contents::
    :depth: 2
 
 13.1 Summary
@@ -50,9 +51,10 @@ UML 2.5 pp. 283-302 に関するノート。ノートにあまり時間をかけ
 
 * UML はいろいろな挙動の仕様の仕組みを支援している：
 
-  * 有限オートマトンをモデル化する StateMachines: :doc:`./statemachines`
-  * Petri ネット的グラフを用いて定義される Activities: :doc:`./activities`
-  * 事象発生の半順序連続列をモデル化する Interactions: :doc:`./interactions`
+  * 有限オートマトンをモデル化する StateMachines: :doc:`./ch14-statemachines`
+  * Petri ネット的グラフを用いて定義される Activities: :doc:`./ch15-activities`
+  * 事象発生の半順序連続列をモデル化する Interactions:
+    :doc:`./ch17-interactions`
 
 * これらの挙動の仕様の仕組みはそれらの表現力および適用性の領域の点で異なる。
 
@@ -247,8 +249,8 @@ UML 2.5 pp. 283-302 に関するノート。ノートにあまり時間をかけ
 ----------------------------------------------------------------------
 
 * Behavior の各種サブクラスの記法は後続の章で定義する。
-* Signals と Receptions の記法は :doc:`./simple-classifiers` で取り扱った。
-* アクティブ Class の記法は :doc:`./structured-classifiers` で取り扱った。
+* Signals と Receptions の記法は :doc:`./ch10-simple-classifiers` で取り扱った。
+* アクティブ Class の記法は :doc:`./ch11-structured-classifiers` で取り扱った。
 
 13.2.5 Examples
 ----------------------------------------------------------------------
@@ -450,7 +452,7 @@ UML 2.5 pp. 283-302 に関するノート。ノートにあまり時間をかけ
   る。
 * AnyReceiveEvent はいずれも ``all`` と記す。
 * ChangeEvent は ``when`` を記し、Boolean ValueSpecification を続ける。
-  :doc:`./values` 参照。
+  :doc:`./ch08-values` 参照。
 * 相対 TimeEvent は ``after`` を記し、``"after 5 seconds"`` のような
   TimeExpressionを続ける。絶対 TimeEvent は ``at`` を記し、``"at Jan. 1, 2000,
   Noon"`` のようなTimeExpression を続けることで指定する。

@@ -2,10 +2,11 @@
 16 Actions
 ======================================================================
 
-UML 2.5 pp. 439-562 に関するノート。本章は記述の分量が多いので、ノート用ファイル
-を分割するのがよいかもしれない。
+.. admonition:: 読者ノート
 
-.. contents:: ノート目次
+   現在ノート修正中。
+
+.. contents::
    :depth: 2
 
 16.1 Summary
@@ -327,7 +328,7 @@ UML 2.5 pp. 439-562 に関するノート。本章は記述の分量が多いの
 * CallAction を実行すると、その ``argument`` Pins にある値を、対応する入力
   Parameters で発動される Behavior または Operation に引き渡す。
 * Parameters のどれもが ``streaming`` (``isStream == true``) ならば、その呼び出
-  しは同期的であるものとする。 :doc:`./common-behavior` も参照。
+  しは同期的であるものとする。 :doc:`./ch13-common-behavior` も参照。
 * Actions についての実行規則に加えて、次の規則が ``streaming`` Parameters を伴
   う、Behavior や Operation を発動する CallAction に適用する。
 

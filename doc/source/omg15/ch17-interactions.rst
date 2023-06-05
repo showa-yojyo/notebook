@@ -2,9 +2,11 @@
 17 Interactions
 ======================================================================
 
-UML 2.5 pp. 563-636 に関するノート。
+.. admonition:: 読者ノート
 
-.. contents:: ノート目次
+   現在ノート修正中。
+
+.. contents::
    :depth: 2
 
 17.1 Summary
@@ -52,7 +54,7 @@ UML 2.5 pp. 563-636 に関するノート。
 17.1.2 Basic trace model
 ----------------------------------------------------------------------
 
-* :doc:`./common-behavior` では Behaviors の実行の一般的な意味を述べた。
+* :doc:`./ch13-common-behavior` では Behaviors の実行の一般的な意味を述べた。
   Interactions とは姿を現す挙動をモデル化する Behaviors の一種である。
 
   * この章では一つの形跡を ``<e1, e2, ..., en>`` のように記すことにする。
@@ -100,7 +102,7 @@ UML 2.5 pp. 563-636 に関するノート。
     る。UML 2.5 に準拠するツールは Timing Diagrams を実装する必要はない。
 
 * 本章にある変種に加えて、Interaction Tables を用いるさらなるオプション記法があ
-  る。 :doc:`./tabular-notation` 参照。
+  る。 :doc:`./and-tabular-notation` 参照。
 
 17.2 Interactions
 ======================================================================

@@ -2,13 +2,11 @@
 11 Structured Classifiers
 ======================================================================
 
-UML 2.5 pp. 181-238 に関するノート。
+.. admonition:: 読者ノート
 
-.. todo::
+   現在ノート修正中。
 
-   最低でもあと一回は編集する。
-
-.. contents:: ノート目次
+.. contents::
    :depth: 2
 
 11.1 Summary
@@ -136,8 +134,8 @@ UML 2.5 pp. 181-238 に関するノート。
 11.2.3.2 Parts and Roles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* StructuredClassifier の Properties は :doc:`./classification` で指定された意味
-  に従う。
+* StructuredClassifier の Properties は :doc:`./ch09-classification` で指定され
+  た意味に従う。
 * Property は ConnectableElement の一種である。StructuredClassifier の
   ``ownedAttributes`` のすべては ``roles`` であり、Connectors を使って接続するこ
   とが可能である。
@@ -574,8 +572,9 @@ UML 2.5 pp. 181-238 に関するノート。
   ごとに対して、``attribute`` の初期値がその生成にとって明示的に指定されていなけ
   れば、既定の ValueSpecification が評価されて、オブジェクトに対する
   ``attribute`` の初期値を設定する。
-* Operation の引数に対する値の特定の集合があれば、:doc:`./classification` で指定
-  された意味に従い、Class の Operations はオブジェクトで発動することが可能でる。
+* Operation の引数に対する値の特定の集合があれば、:doc:`./ch09-classification`
+  で指定された意味に従い、Class の Operations はオブジェクトで発動することが可能
+  でる。
 * Class は別のクラスの非公開 Features や、また、自分の祖先ではない別のクラスの保
   護 Features にはアクセスすることができない。
 * Class はスコープ内部で定義されたさまざまな種類の Classifiers に対する名前空間
@@ -593,7 +592,7 @@ UML 2.5 pp. 181-238 に関するノート。
 * Class のオブジェクトが削除されるときには、その Class の ``parts`` オブジェクト
   と Ports に対応するオブジェクトのすべてが再帰的に削除される。
 * Class は Profiles とメタモデルの定義でメタクラスとして振る舞ってよい。
-  :doc:`./packages` で見ていく。
+  :doc:`./ch12-packages` で見ていく。
 
 11.4.4 Notation
 ----------------------------------------------------------------------
@@ -602,10 +601,10 @@ UML 2.5 pp. 181-238 に関するノート。
   ため、Class を指定するようなキーワードは不要である。
 * 4 つの存在必須な区画 ``attributes``, ``operations``, ``receptions``,
   ``internal structure`` がある。
-* Class の operations 区画は :doc:`./packages` で指定された表記法を使うその
+* Class の operations 区画は :doc:`./ch12-packages` で指定された表記法を使うその
   ``ownedOperations`` を表す表記法を含む。``receptions`` 区画は
-  :doc:`./simple-classifiers` で指定された表記法を使う ``ownedReceptions`` を含
-  む。
+  :doc:`./ch10-simple-classifiers` で指定された表記法を使う ``ownedReceptions``
+  を含む。
 * 使用依存は InstanceSpecification をクラスに対するコンストラクターに関係させて
   よく、コンストラクター Operation により返される単一の値を記述する。
 
@@ -615,7 +614,8 @@ UML 2.5 pp. 181-238 に関するノート。
 * ``isActive`` が ``true`` な Class を箱の枠の垂直辺のどちらとも二重にすることで
   示してよい。
 * メタクラスを表現する Class はオプションのステレオタイプ ``«Metaclass»`` をその
-  名前の上または前に付すことで拡張してよい。:doc:`./standard-profile` を参照。
+  名前の上または前に付すことで拡張してよい。:doc:`./ch22-standard-profile` を参
+  照。
 
 11.4.5 Examples
 ----------------------------------------------------------------------
@@ -1014,9 +1014,9 @@ UML 2.5 pp. 181-238 に関するノート。
   次洗練される。
 
   * Component は一つまたはそれを超える Artifacts によって具現化されてよく、そし
-    て次に、その Artifact が実行環境に配備されてよい。DeploymentSpecification
-    でその Component の実行を引数にする値を定義してよい。 :doc:`./deployments`
-    参照。
+    て次に、その Artifact が実行環境に配備されてよい。DeploymentSpecification で
+    その Component の実行を引数にする値を定義してよい。
+    :doc:`./ch19-deployments` 参照。
 
 * Component の ``required`` および ``provided`` Interfaces は Operations や
   Receptions のような BehavioralFeatures だけではなく、``attributes`` や
@@ -1042,7 +1042,7 @@ UML 2.5 pp. 181-238 に関するノート。
   Components をモデル化する ``«Subsystem»`` や、異なった仕様と実現化の定義で
   Components をモデル化するには ``«Specification»`` と ``«Realization»`` 等があ
   る。ここで、仕様一つに複数の実現化があることが許される。
-  :doc:`./standard-profile` 参照。
+  :doc:`./ch22-standard-profile` 参照。
 * Component はいくらかの Classifiers によって実現（または実装）されてよい。その
   場合、Component はこれらの Classifiers に対する ComponentRealizations の集合を
   所有する。
@@ -1076,7 +1076,7 @@ UML 2.5 pp. 181-238 に関するノート。
   能である。このオプションを使うときには、適切な依存矢印により Interface 矩形を
   Component 矩形に対して接続する。
 
-  * :doc:`./common-structure` や :doc:`./simple-classifiers` を参照。
+  * :doc:`./ch07-common-structure` や :doc:`./ch10-simple-classifiers` を参照。
 
 * 準拠ツールは任意で ``"provided interfaces"`` と ``"required interfaces"`` とい
   う名前の、``provided`` および ``required`` Interfaces を名前で列記する区画を
@@ -1085,8 +1085,8 @@ UML 2.5 pp. 181-238 に関するノート。
   Classifiers および具現化する Artifacts を列記するのに用いてよい。
 * ComponentRealization は Realization 依存と同じ方法で記される。すなわち矢先が白
   抜き三角である一般的な破線矢印である。
-* Component の ``packagedElements`` は、:doc:`./classification` で取り扱った
-  ``ownedMembers`` のオプション区画についての仕様に従って、オプション区画
+* Component の ``packagedElements`` は、:doc:`./ch09-classification` で取り扱っ
+  た ``ownedMembers`` のオプション区画についての仕様に従って、オプション区画
   ``"packaged elements"`` に表示してよい。
 
 11.6.5 Examples
