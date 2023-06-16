@@ -47,10 +47,6 @@
             
   <section id="simple-classifiers">
 <h1><a class="toc-backref" href="#id15" role="doc-backlink">10 Simple Classifiers</a><a class="headerlink" href="#simple-classifiers" title="Permalink to this heading">¶</a></h1>
-<div class="admonition- admonition">
-<p class="admonition-title">読者ノート</p>
-<p>現在ノート修正中。</p>
-</div>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -68,45 +64,40 @@
 </nav>
 <section id="summary">
 <h2><a class="toc-backref" href="#id16" role="doc-backlink">10.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>この章では複雑な内部構造でない Classifier 各種を詳細に記す。</p></li>
-</ul>
+<blockquote>
+<div><p>This clause specifies various kinds of Classifier that do not have complex
+internal structure.</p>
+</div></blockquote>
 </section>
 <section id="datatypes">
 <h2><a class="toc-backref" href="#id17" role="doc-backlink">10.2 DataTypes</a><a class="headerlink" href="#datatypes" title="Permalink to this heading">¶</a></h2>
 <section id="id1">
 <h3>10.2.1 Summary<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>DataTypes はオブジェクトたちが値によってしか区別されない Types をモデル化する。</p>
-<ul>
-<li><p>C/C++ 用語の POD に相当する概念と思われる。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>DataTypes model Types whose instances are distinguished only by their value.</p>
+</div></blockquote>
+<p>C/C++ 用語の POD に相当する概念と思われる。</p>
 </section>
 <section id="abstract-syntax">
 <h3>10.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Figure 10.1: DataTypes</p>
-<ul>
-<li><p>DataType を中心に置いた図式。</p></li>
-<li><p>新登場の要素は DataType, PrimitiveType, Enumeration, EnumerationLiteral である。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Figure 10.1: DataTypes</p>
+</div></blockquote>
+<p>DataType を中心に置いた図式。新登場の要素は DataType, PrimitiveType,
+Enumeration, EnumerationLiteral だ。</p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_datatype</span></code></dt><dd><p><a class="reference internal" href="ch09-classification.html"><span class="doc">9 Classification</span></a> Figure 9.10 で見た。</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">A_ownedOperation_datatype</span></code></dt><dd><p><a class="reference internal" href="ch09-classification.html"><span class="doc">9 Classification</span></a> Figure 9.13 で見た。</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedLiteral_enumeration</span></code></dt><dd><ul class="simple">
-<li><p>Enumeration から EnumerationLiteral への composite 集約（両方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedLiteral_enumeration</span></code></dt><dd><p>Enumeration から EnumerationLiteral への複合集約（双方向）。</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する関連。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ownedLiteral</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ownedLiteral</span></code> は <code class="docutils literal notranslate"><span class="pre">{ordered}</span></code> だ。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_classifier_enumerationLiteral</span></code></dt><dd><ul class="simple">
-<li><p>EnumerationLiteral から Enumeration への関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_classifier_enumerationLiteral</span></code></dt><dd><p>EnumerationLiteral から Enumeration への関連（単方向）。</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_classifier_instanceSpecification</span></code> を redefines する。</p></li>
 <li><p>EnumerationLiterals はその状態を変化することが許されないので、Enumeration の任意の属性は <code class="docutils literal notranslate"><span class="pre">{readOnly}</span></code> である必要がある。</p></li>
 </ul>
@@ -117,111 +108,111 @@
 <h3>10.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
 <section id="id2">
 <h4>10.2.3.1 DataTypes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>DataType とは Classifier の一種である。 DataType は Class とは値によってしか識別されないという点が異なる。</p></li>
-<li><p>DataType に <code class="docutils literal notranslate"><span class="pre">attributes</span></code> があるならば、それは構造化された DataType と呼ばれる。</p>
-<ul>
-<li><p>構造化された DataType のオブジェクト同士は、それらの構造と対応する
-<code class="docutils literal notranslate"><span class="pre">attributes</span></code> の値が等しいとき、かつそのときに限り等しいとみなされる。</p></li>
-</ul>
-</li>
-<li><p>DataType は引数化したり、束縛したり、TemplateParameters として用いてよい。</p></li>
-</ul>
+<blockquote>
+<div><p>A DataType is a kind of Classifier.</p>
+</div></blockquote>
+<p>Class とは異なり、DataType のオブジェクトはその値によってしか識別されない。同じ値である DataType のオブジェクトはすべて等しいとみなされる。</p>
+<blockquote>
+<div><p>If a DataType has <code class="docutils literal notranslate"><span class="pre">attributes</span></code> (i.e., Properties owned by it and in its
+namespace) it is called a <em class="dfn">structured</em> DataType.</p>
+</div></blockquote>
+<p>構造化 DataType のオブジェクトはその <code class="docutils literal notranslate"><span class="pre">attributes</span></code> に合致する属性値を含む。構造化 DataType のオブジェクト同士は、構造が同じで、対応する <code class="docutils literal notranslate"><span class="pre">attributes</span></code> の値が等しいとき、かつそのときに限り等しいとみなされる。</p>
+<blockquote>
+<div><p>A DataType may be parameterized, bound, and used as TemplateParameters.</p>
+</div></blockquote>
 </section>
 <section id="primitive-types">
 <h4>10.2.3.2 Primitive Types<a class="headerlink" href="#primitive-types" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A PrimitiveType defines a predefined DataType, without any substructure.</p>
+</div></blockquote>
+<p>PrimitiveType には UML の外部で定義される代数や演算があってよい。 PrimitiveType
+の実行時オブジェクトは UML の外側で定義された数学的要素に対応する値だ。</p>
 <ul class="simple">
-<li><p>PrimitiveType はあらかじめ定義されている DataType であり、どんな部分構造もない。</p>
-<ul>
-<li><p>PrimitiveType には代数があってよく、演算は UML の外部で定義される。実行時の
-PrimitiveType のオブジェクトは、UML の外側で定義された数学的な要素に対応する値である。</p>
-<ul>
-<li><p>例えば Intergers がそうである。</p></li>
-<li><p>ここで言う代数というのは、数学の一研究分野というよりは、代数的構造があるモデル程度の意味のほうに解釈したい。</p></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><p>例えば Interger がそうだ。</p></li>
+<li><p>ここで言う代数というのは、代数的構造があるモデル程度の意味のほうに解釈したい。</p></li>
 </ul>
 </section>
 <section id="enumerations">
 <h4>10.2.3.3 Enumerations<a class="headerlink" href="#enumerations" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>Enumeration is a kind of DataType. Each value of an Enumeration corresponds
+to one of its user-defined EnumerationLiterals.</p>
+</div></blockquote>
+<p>Classifier の特殊化として、Enumeration は汎化関係に関与することが許される。他のそれを特殊化する Enumeration は、汎化する Enumeration で定義されていない新しい
+EnumerationLiterals を定義できる。この場合、適用できるリテラルは、継承されたリテラルと局所で定義されたリテラルからなる。</p>
+<blockquote>
+<div><p>An EnumerationLiteral defines an element of the run-time extension of an
+Enumeration.</p>
+</div></blockquote>
+<p>EnumerationLiteral に対応する値は不変 (immutable) であり、等価比較をすることが許される。EnumerationLiteral はその存在中に変更することは許されないので、
+Enumeration の属性はすべて読み取り専用でなければならない。</p>
+<blockquote>
+<div><p>An EnumerationLiteral has a name that shall be used to identify it within its
+Enumeration.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>Enumeration は DataType の一種である。 Enumeration の値それぞれがそれのユーザー定義の一つに対応する。</p></li>
-<li><p>Enumeration は Classifier の specialization なので、一般化関係に関与することが可能である。</p>
-<ul>
-<li><p>特殊化された Enumeration には、新しい EnumerationLiteral を定義してよい。</p></li>
-</ul>
-</li>
-<li><p>EnumerationLiteral は Enumeration の実行時拡張の要素を定義する。</p>
-<ul>
-<li><p>EnumerationLiteral に対応する値は不変 (immutable) であり、等価性を調べるために比較してもよい。</p></li>
-</ul>
-</li>
-<li><p>EnumerationLiteral にはその内部で識別するのに用いられる必要がある名前がある。</p>
-<ul>
-<li><p>EnumerationLiteral の名前は一般用途のために限定される (be qualified) ものとする。</p></li>
-</ul>
-</li>
+<li><p>EnumerationLiteral はその Enumeration 内でそれを識別するための名前を持つ。</p></li>
+<li><p>EnumerationLiteral の名前はその Enumeration 内が有効域となり、</p></li>
+<li><p>その Enumeration内で一意でなければならない。</p></li>
+<li><p>EnumerationLiteral の名前は一般的用途には修飾されて（指名される）ものとする。</p></li>
 </ul>
 </section>
 </section>
 <section id="notation">
 <h3>10.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<p>DataType はキーワード <code class="docutils literal notranslate"><span class="pre">«dataType»</span></code> を伴う Classifier の記法（矩形）で指定され、属性などで参照される際には DataType の名前で指定される。</p>
 <ul class="simple">
-<li><p>DataType は Classifier の記法（矩形）を用いて、キーワード <code class="docutils literal notranslate"><span class="pre">«dataType»</span></code> と一緒に指名するか、それが参照される際に DataType の名前で指名する。</p></li>
-<li><p>PrimitiveType はキーワード <code class="docutils literal notranslate"><span class="pre">«primitive»</span></code> を PrimitiveType の名前の上または後ろに記して同様に指名する。</p></li>
-<li><p>Enumeration も同様に指名する。Enumeration の名前をキーワード <code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code>
-を名前の上または後ろに記した区画の上部に置く。</p>
-<ul>
-<li><p>EnumerationLiterals のリストは、操作区画の下にある <code class="docutils literal notranslate"><span class="pre">literals</span></code> と名付けられた区画に、一行当たり一個を列挙してよい。</p></li>
+<li><p>名前区画の下には属性一覧を示す区画が配置される。</p></li>
+<li><p>属性一覧区画の下には Operation 区画が配置される。</p></li>
 </ul>
-</li>
+<blockquote>
+<div><p>A PrimitiveType is similarly designated with the keyword <code class="docutils literal notranslate"><span class="pre">«primitive»</span></code>
+above or before the name of the PrimitiveType.</p>
+<p>An Enumeration is similarly designated.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Enumeration の名前は上部区画に置かれ、キーワード <code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code> を名前の上または前に置かれる。</p></li>
+<li><p>EnumerationLiterals の一覧は操作区画の下にある <code class="docutils literal notranslate"><span class="pre">literals</span></code> という区画に、一行に一個ずつ列挙してよい。</p></li>
+<li><p>属性区間と操作区画を抑制してもよく、典型的には空だ。</p></li>
 </ul>
 </section>
 <section id="examples">
 <h3>10.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Figure 10.2 PrimitiveType Notation</p>
-<ul>
-<li><p>PrimitiveType Integer の記法例。区画なし。</p></li>
-</ul>
-</li>
-<li><p>Figure 10.3 DataType Notation</p>
-<ul>
-<li><p>DataType 二種類の記法例。</p></li>
-<li><p>Person のある属性の型 FullName の仕様が左側のボックスである。</p></li>
-</ul>
-</li>
-<li><p>Figure 10.4 Enumeration Notation</p>
-<ul>
-<li><p>Enumeration VisibilityKind の記法例。これは <a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> で見た覚えがある。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Figure 10.2 PrimitiveType Notation</p>
+</div></blockquote>
+<p>PrimitiveType Integer の記法例。区画なし。</p>
+<blockquote>
+<div><p>Figure 10.3 DataType Notation</p>
+</div></blockquote>
+<p>DataType 二種類の記法例。やはり POD 構造体を指向した概念だと思って良さそうだ。
+Person のある属性の型 FullName の仕様が左側のボックスだ。</p>
+<blockquote>
+<div><p>Figure 10.4 Enumeration Notation</p>
+</div></blockquote>
+<p>Enumeration VisibilityKind の記法例。これは <a class="reference internal" href="ch07-common-structure.html"><span class="doc">7 Common Structure</span></a> で見た覚えがある。</p>
 </section>
 </section>
 <section id="signals">
 <h2><a class="toc-backref" href="#id18" role="doc-backlink">10.3 Signals</a><a class="headerlink" href="#signals" title="Permalink to this heading">¶</a></h2>
 <section id="id3">
 <h3>10.3.1 Summary<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Signals と Receptions はオブジェクト同士の非同期通信をモデル化するのに用いられる。</p></li>
-</ul>
+<p>非同期処理要素を二つ扱う。</p>
+<blockquote>
+<div><p>Signals and Receptions are used to model asynchronous communication between
+objects.</p>
+</div></blockquote>
 </section>
 <section id="id4">
 <h3>10.3.2 Abstract Syntax<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Figure 10.5 Signals</p>
-<ul>
-<li><p>比較的小さな図式。</p></li>
-<li><p>概要にある通り Signal と Reception からなる関連図。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Figure 10.5 Signals</p>
+</div></blockquote>
+<p>比較的小さな図式。概要にある通り Signal と Reception からなる関連図。</p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_owningSignal</span></code></dt><dd><ul class="simple">
-<li><p>Signal から Property への composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_owningSignal</span></code></dt><dd><p>Signal から Property への複合関連（単方向）。</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_attribute_classifier</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
 <li><p>関連端 <code class="docutils literal notranslate"><span class="pre">ownedAttribute</span></code> は通信が伝送するデータを表現する。</p>
 <ul>
@@ -230,9 +221,9 @@ PrimitiveType のオブジェクトは、UML の外側で定義された数学�
 </li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_signal_reception</span></code></dt><dd><ul class="simple">
-<li><p>Reception から Signal への関連（単方向）。</p></li>
-<li><p>Reception が Signal にマッチするのは、受信した Signal が <code class="docutils literal notranslate"><span class="pre">signal</span></code> の特殊化である場合である。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_signal_reception</span></code></dt><dd><p>Reception から Signal への関連（単方向）。</p>
+<ul class="simple">
+<li><p>Reception が Signal にマッチするのは、受信した Signal が <code class="docutils literal notranslate"><span class="pre">signal</span></code> の特殊化である場合だ。</p></li>
 </ul>
 </dd>
 </dl>
@@ -241,123 +232,116 @@ PrimitiveType のオブジェクトは、UML の外側で定義された数学�
 <h3>10.3.3 Semantics<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <section id="id6">
 <h4>10.3.3.1 Signals<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>Signal とは、反応が返信なしに受信者側で非同期的に引き起こされるオブジェクト間の通信の一種の詳細である。</p>
-<ul>
-<li><p>Signal はそれを処理する Classifiers とは独立して定義される。</p></li>
-</ul>
-</li>
-<li><p>Signal の送信者は応答を待機することをブロックしようとはせずに、即時に実行を継続する。</p>
-<ul>
-<li><p>与えられた Signal に結びついた Reception を宣言することで、Classifier はそのオブジェクト（複数形）はその Signal あるいはその派生型を受信する能力のあるということを指定し、指名された Behavior を使ってそれに対して反応するものである。</p></li>
-</ul>
-</li>
-<li><p>Signal は引数化したり、束縛したり、TemplateParameters として用いてよい。</p></li>
-</ul>
+<blockquote>
+<div><p>A Signal is a specification of a kind of communication between objects in
+which a reaction is asynchronously triggered in the receiver without a reply.</p>
+</div></blockquote>
+<p>受信側のオブジェクトは 13.3 節に規定されるとおりに Signal を処理する。</p>
+<p>通信データは Signal の <code class="docutils literal notranslate"><span class="pre">attributes</span></code> として表現される。</p>
+<p>Signal はそれを処理する Classifiers とは独立して定義される。</p>
+<blockquote>
+<div><p>The sender of a Signal will not block waiting for a reply but continue
+execution immediately.</p>
+</div></blockquote>
+<p>Classifier はある Signal に関連する Reception を宣言することで、そのオブジェクトがその Signal またはその部分型を受信し、指定された Behavior で応答することを指定する。</p>
+<blockquote>
+<div><p>A Signal may be parameterized, bound, and used as TemplateParameters.</p>
+</div></blockquote>
 </section>
 <section id="receptions">
 <h4>10.3.3.2 Receptions<a class="headerlink" href="#receptions" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>Reception は、所有する Class または Interface が Signal の受領に反応する支度を整っていることを指定する。</p>
-<ul>
-<li><p>オブジェクトが受信した Signal にどのように応じるかの詳細は、Reception に関連づいたと Behavior の種類と、所有する Classifier や Interface に依る。
-<a class="reference internal" href="ch13-common-behavior.html"><span class="doc">13 Common Behavior</span></a> でやる予定。</p></li>
-<li><p>Reception の名前は Signal の名前と同じである。</p></li>
-<li><p>Reception には Signal の属性が名前、型、多重度においてマッチする入力
-Parameters だけがあることが許される。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>A Reception specifies that its owning Class or Interface is prepared to react
+to the receipt of a Signal.</p>
+</div></blockquote>
+<p>受信した Signal が Reception の <code class="docutils literal notranslate"><span class="pre">signal</span></code> を特殊化したものである場合、Reception
+は Signal に合致する。</p>
+<p>オブジェクトが受信した Signal にどのように反応するかの詳細は、Reception に関連する Behavior の種類と、その所有する Classifier や Interface に依存する。
+<a class="reference internal" href="ch13-common-behavior.html"><span class="doc">13 Common Behavior</span></a> でやる予定。</p>
+<p>Reception の名前は Signal の名前と同じだ。</p>
+<p>Reception には Signal の属性が名前、型、多重度において合致する入力 Parameters を持つことしか許されない。</p>
 </section>
 </section>
 <section id="id7">
 <h3>10.3.4 Notation<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Signal はキーワード <code class="docutils literal notranslate"><span class="pre">«signal»</span></code> の付いた Classifier の記号で描かれる。</p></li>
-<li><p>Reception はキーワード <code class="docutils literal notranslate"><span class="pre">«signal»</span></code> を用いて、Operations を表すのと同じ表記法を使って、受領区画に示される。</p></li>
-</ul>
+<p>Signal はキーワード <code class="docutils literal notranslate"><span class="pre">«signal»</span></code> の付いた Classifier 記号で描かれる。</p>
+<p>Reception はキーワード <code class="docutils literal notranslate"><span class="pre">«signal»</span></code> を用いた、Operation を表すのと同じ記法で受信区画に表現される。</p>
 </section>
 <section id="id8">
 <h3>10.3.5 Examples<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Figure 10.6</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">IAlerm</span></code> が二つの Receptions を定義している。</p></li>
-<li><p>二つの Signals の存在を定義している。</p></li>
-<li><p>Reception の名前が Signal のそれにマッチしていることに注目。さらに、図では表現し切れていないが、パラメーターが Signal の属性にマッチすることにも注意。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Figure 10.6 Reception Notation</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">IAlerm</span></code> は二つの Receptions を定義した Interface であって、同じ図式内に
+Signals も二つ定義している。</p>
+<p>Reception の名前が Signal のそれに合致していることに注目。さらに、図では表現し切れていないが、引数が Signal の属性に合致することにも注意。</p>
 </section>
 </section>
 <section id="interfaces">
 <h2><a class="toc-backref" href="#id19" role="doc-backlink">10.4 Interfaces</a><a class="headerlink" href="#interfaces" title="Permalink to this heading">¶</a></h2>
 <section id="id9">
 <h3>10.4.1 Summary<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Interfaces は InterfaceRealizations を通じて Interfaces を実装する
-BehavioredClassifiers で実装された首尾一貫した (coherent) サービスを宣言する。</p></li>
-</ul>
+<blockquote>
+<div><p>Interfaces declare coherent services that are implemented by
+BehavioredClassifiers that implement the Interfaces via InterfaceRealizations.</p>
+</div></blockquote>
+<p>訳しにくい。</p>
 </section>
 <section id="id10">
 <h3>10.4.2 Abstract Syntax<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Figure 10.7</p>
-<ul>
-<li><p>概要で言及された Interface, InterfaceRealization, BehavioredClassifier を擁する図式。</p></li>
-<li><p>関連端の制約の記述に一部誤りがある。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Figure 10.7 Interfaces</p>
+</div></blockquote>
+<p>概要で言及された Interface, InterfaceRealization, BehavioredClassifier を擁する図式。関連端の制約の記述に一部誤りがある。</p>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">A_ownedAttribute_interface</span></code>, <code class="docutils literal notranslate"><span class="pre">A_ownedOperation_interface</span></code></dt><dd><p>これらの関連は既に述べている。</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedReception_interface</span></code></dt><dd><ul class="simple">
-<li><p>Interface から Reception への composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedReception_interface</span></code></dt><dd><p>Interface から Reception への複合関連（単方向）。</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_feature_featuringClassifier</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を両方
 subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_nestedClassifier_interface</span></code></dt><dd><ul class="simple">
-<li><p>Interface から Classifier への composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_nestedClassifier_interface</span></code></dt><dd><p>Interface から Classifier への複合関連（単方向）。</p>
+<ul class="simple">
 <li><p>Interface 内部で入れ子で定義されたすべての Classifiers への参照。特に説明なし。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code>, <code class="docutils literal notranslate"><span class="pre">A_redefinitionContext_redefinableElement</span></code> を
 subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_redefinedInterface_interface</span></code></dt><dd><ul class="simple">
-<li><p>Interface から Interface への関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_redefinedInterface_interface</span></code></dt><dd><p>Interface から Interface への関連（単方向）。</p>
+<ul class="simple">
 <li><p>Interface が再定義するすべての Interfaces への参照。特に説明なし。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">A_redefinedClassifier_classifier</span></code> を subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_protocol_interface</span></code></dt><dd><ul class="simple">
-<li><p>Interface から ProtocolStateMachine への composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_protocol_interface</span></code></dt><dd><p>Interface から ProtocolStateMachine への複合関連（単方向）。</p>
+<ul class="simple">
 <li><p>関連端 <code class="docutils literal notranslate"><span class="pre">protocol</span></code> がもしあれば、それはイベント列と関連端 <code class="docutils literal notranslate"><span class="pre">interface</span></code> が述べる Operations と Receptions の事前・事後条件を指定する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_contract_interfaceRealization</span></code></dt><dd><ul class="simple">
-<li><p>InterfaceRealization から Interface への関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_contract_interfaceRealization</span></code></dt><dd><p>InterfaceRealization から Interface への関連（単方向）。</p>
+<ul class="simple">
 <li><p>その Interface を実現する Classifier のオブジェクトが果たさなければならない契約を表す。</p></li>
 <li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_supplier_supplierDependency</span></code> を subsets している。図中の制約表示は誤りと思われる。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_interfaceRealization_implementingClassifier</span></code></dt><dd><ul class="simple">
-<li><p>BehavioredClassifier から InterfaceRealization への composite 関連（両方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_interfaceRealization_implementingClassifier</span></code></dt><dd><p>BehavioredClassifier から InterfaceRealization への複合関連（双方向）。</p>
+<ul class="simple">
 <li><p>この BehavioredClassifier が実装である Interfaces へ参照する
 InterfaceRealization の集合。</p></li>
 <li><p>関連 <code class="docutils literal notranslate"><span class="pre">A_clientDependency_client</span></code> と <code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。こちらも図中の制約表示は誤りと思われる。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedBehavior_behavioredClassifier</span></code></dt><dd><ul class="simple">
-<li><p>BehavioredClassifier から Behavior への composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedBehavior_behavioredClassifier</span></code></dt><dd><p>BehavioredClassifier から Behavior への複合関連（単方向）。</p>
+<ul class="simple">
 <li><p>BehavioredClassifier が Behaviors を所有することを示す。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
 </ul>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">A_classifierBehavior_behavioredClassifier</span></code></dt><dd><ul class="simple">
-<li><p>BehavioredClassifier から Behavior への関連（単方向）。</p></li>
-<li><p>BehavioredClassifier 自身の挙動を指定する Behavior である。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_classifierBehavior_behavioredClassifier</span></code></dt><dd><p>BehavioredClassifier から Behavior への関連（単方向）。</p>
+<ul class="simple">
+<li><p>BehavioredClassifier 自身の挙動を指定する Behavior だ。</p></li>
 <li><p>上述の <code class="docutils literal notranslate"><span class="pre">A_ownedBehavior_behavioredClassifier</span></code> を redefines または
 subsets する。</p></li>
 </ul>
@@ -370,90 +354,140 @@ subsets する。</p></li>
 <h3>10.4.3 Semantics<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <section id="id12">
 <h4>10.4.3.1 Interfaces<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>An Interface is a kind of Classifier that represents a declaration of a set
+of public Features and obligations that together constitute a coherent
+service.</p>
+</div></blockquote>
+<p>Interface は契約を指定する。Interface を実現する Classifier のオブジェクトは、その契約を履行するものとする。</p>
+<p>Interface に関連する義務は、制約（事前条件や事後条件など）または儀礼 (protocol)
+仕様の形をしており、Interface を介した相互作用に命令の制限を課すことが許される。</p>
+<blockquote>
+<div><p>Interfaces may not be instantiated. Instead, an Interface specification is
+<em>implemented</em> or <em>realized</em> by a BehavioredClassifier</p>
+</div></blockquote>
+<p>これは、BehavioredClassifier が Interface の仕様に適合する公開正面を設置することを意味する。</p>
+<blockquote>
+<div><p>NOTE. A given BehavioredClassifier may implement more than one Interface and
+that an Interface may be implemented by a number of different
+BehavioredClassifiers.</p>
+</div></blockquote>
+<p>Interface と BehavioredClassifier の対応は一対一対応にならないほうが普通。</p>
+<blockquote>
+<div><p>Interfaces provide a way to partition and characterize groups of public
+Features and obligations that realizing BehavioredClassifiers shall possess.</p>
+</div></blockquote>
+<p>Interface は実装方法を特定するものではなく、単に BehavioredClassifiers を実現するために必要なものを特定するものだ。BehavioredClassifiers は Interface に準拠した <code class="docutils literal notranslate"><span class="pre">attributes</span></code>, Operation, 外部から観測可能な Behavior からなる公開正面を設置するものとする。</p>
 <ul class="simple">
-<li><p>Interface とは、公開 Features の集合と、一体となって首尾一貫したサービスを構成する責務の宣言を表現する Classifier の一種である。</p></li>
-<li><p>Interfaces はオブジェクト化されることは許されない。代わりに Interface 仕様は
-BehavioredClassifier によって実装または実現される。このことは、
-BehavioredClassifier は Interface の仕様に適合する公開の facade を表現することを意味する。</p>
-<ul>
-<li><p>与えられた BehavioredClassifier が複数の Interfaces を実装してもよいし、
-Interface が異なる BehavioredClassifiers のいくつかにより実装されてもよい。</p></li>
+<li><p>Interface が <code class="docutils literal notranslate"><span class="pre">attribute</span></code> を宣言する場合、必ずしも実現 BehavioredClassifier
+に本当にそれらが存在するという意味ではない。外側の観測者に対してはそのように見えるということに過ぎない。</p></li>
 </ul>
-</li>
-<li><p>Interfaces は実現している BehavioredClassifiers が支配 (possess) するものとする公開 Features と責務のグループ（複数形）を、仕切ったり特徴付ける手段を与える。</p>
-<ul>
-<li><p>Interface が <code class="docutils literal notranslate"><span class="pre">attribute</span></code> を宣言するならば、これは必ずしも実現する
-BehavioredClassifier にその実装でそういう <code class="docutils literal notranslate"><span class="pre">attribute</span></code> が必ずあるということを意味しないで、外側の観測者に対してはそのように現れるということにしか過ぎない。</p></li>
+<p>次に provided/required Interface という術語が（初めて？）述べられる：</p>
+<blockquote>
+<div><p>The set of Interfaces realized by a BehavioredClassifier are its <em>provided</em>
+Interfaces, which represent the services and obligations that instances of
+that BehavioredClassifier offer to their clients. Interfaces may also be used
+to specify <em>required</em> Interfaces, which are specified by a Usage dependency
+between the BehavioredClassifier and the corresponding Interfaces.</p>
+</div></blockquote>
+<p>必須 Interfaces は BehavioredClassifier がその機能を発揮し、利用側に対する自らの義務を果たすために必要なサービスを規定する。</p>
+<blockquote>
+<div><p>Properties owned by Interfaces (including Association ends) imply that the
+realizing BehavioredClassifier should maintain information corresponding to
+the type and multiplicity of the Property and facilitate retrieval and
+modification of that information.</p>
+</div></blockquote>
+<p>例によって、Interface 上で宣言された Property は、実現する BehavioredClassifier
+上にそのような Property が存在することを必ずしも意味しない（例えば、同等の get
+および set 操作）。</p>
+<p>ProtocolStateMachine に関する記述：</p>
+<blockquote>
+<div><p>Interfaces may own a ProtocolStateMachine that specifies event sequences and
+pre/post conditions for the Operations and Receptions described by the
+Interface. A BehavioredClassifier realizing an Interface shall comply with
+the ProtocolStateMachine owned by the Interface.</p>
+</div></blockquote>
+<p>Interface は引数化したり、束縛したり、TemplateParameters として用いてよい。</p>
+<blockquote>
+<div><p>An InterfaceRealization relationship between a BehavioredClassifier and an
+Interface implies that the BehavioredClassifier conforms to the contract
+specified by the Interface by supporting the set of Features owned by the
+Interface, and any of its parent Interfaces.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>BehavioralFeatures については、実現する BehavioredClassifier は Interface が定義する Operation または Reception ごとに Operation または Reception をそれぞれ持つことになる。</p></li>
+<li><p>Property については、実現する BehavioredClassifier は Property によって表現される状態を維持する機能を備えることになる。</p></li>
 </ul>
-</li>
-<li><p>BehavioredClassifier により実現される Interfaces の集合はそれの <code class="docutils literal notranslate"><span class="pre">provided</span></code>
-Interfaces であり、それはその BehavioredClassifier のオブジェクトがクライアントに提供するサービスと責務を表現する。Interfaces は <code class="docutils literal notranslate"><span class="pre">required</span></code> Interfaces を指定するのにも用いてよく、BehavioredClassifier と対応する Interfaces との間の
-Usage 依存により指定される。</p></li>
-<li><p>Interfaces により所有される Properties は、実現する BehavioredClassifier が型と Property の多重度の情報を維持し、その情報の取得及び修正を促進するべきであることを暗に示す。</p></li>
-<li><p>Interfaces は、事象列、Operations に関する事前・事後条件、Interface により記述される Receptions を指定する ProtocolStateMachine を所有してよい。</p></li>
-<li><p>Interface は引数化したり、束縛したり、TemplateParameters として用いてよい。</p></li>
-<li><p>BehavioredClassifier と Interface の間の InterfaceRealization 関係は、
-Interface およびその親 Interfaces の任意のものにより所有される Features の集合を支援することで、BehavioredClassifier が Interface により指定される契約に適合することを暗に示す。</p></li>
-</ul>
+<p>実現する BehavioredClassifier の Property に直接写像してもよいが、
+BehavioredClassifier の StateMachine や、状態情報の取得を支援する Operation と状態情報を変更する Operation のペアで支援してもよい。</p>
 </section>
 </section>
 <section id="id13">
 <h3>10.4.4 Notation<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Interface は Classifier の既定の記法をキーワード <code class="docutils literal notranslate"><span class="pre">«interface»</span></code> と共に使って指名してよい。</p></li>
-<li><p>代わりとして、BehavioredClassifier から Interface への InterfaceRealization 依存では、Interface の名前でラベルが付けられ、この Interface を実現する
-BehavioredClassifier への実線で取り付けられた、円つまりボール、しばしばロリポップとも呼ばれるものにより Interface を表現することにより示してよい。</p></li>
-<li><p>Classifier から Interface への Usage 依存は、Interface の名前でラベルが付けられ、この Interface を要求する Classifier への実線で取り付けられた、半円つまりソケットでInterface を表現することにより示してよい。</p></li>
-<li><p>BehavioredClassifier の一般化を継承した Interfaces は、図式ではロリポップを通して記してよい。これらの Interfaces は図式ではキャレット記号が Interface の名前の前に来ることで示される。</p></li>
-<li><p>Dependency がソケットとロリポップを使って表現されている Usage から
-InterfaceRealization へ配線されていれば、依存矢印はソケットをロリポップへ接合して示してよい。</p></li>
-</ul>
+<blockquote>
+<div><p>An Interface may be designated using the default notation for Classifier (see
+9.2.4) with the keyword <code class="docutils literal notranslate"><span class="pre">«interface»</span></code>.</p>
+</div></blockquote>
+<p>特定の特別な依存関係は次の記法も許される：</p>
+<blockquote>
+<div><p>Alternatively an InterfaceRealization dependency from a BehavioredClassifier
+to an Interface may be shown by representing the Interface by a circle or
+<em>ball</em>, often also called <em>lollipop</em>, labeled with the name of the Interface,
+attached by a solid line to the BehavioredClassifier that realizes this
+Interface.</p>
+</div></blockquote>
+<p>Usage にはソケットという記法を用いる：</p>
+<blockquote>
+<div><p>The Usage dependency from a Classifier to an Interface is shown by
+representing the Interface by a half-circle or <em>socket</em>, labeled with the
+name of the Interface, attached by a solid line to the Classifier that
+requires this Interface.</p>
+</div></blockquote>
+<p>BehavioredClassifier の一般化を継承した Interface は、ロリポップで図示することが許される。これらの Interface はそ名前の前にキャレット記号 <code class="docutils literal notranslate"><span class="pre">^</span></code> を付けて図示される。</p>
+<p>ソケットとロリポップを使って表現された Usage から InterfaceRealization に
+Dependency が配線されている場合、両者を結ぶ依存関係矢印を表示してもよい。</p>
 </section>
 <section id="id14">
 <h3>10.4.5 Examples<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 10.8 ISensor is a provided Interface of ProximitySensor</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">ProximitySensor</span></code> から <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> への InterfaceRealization がボール（ロリポップ）記法を使って示されている。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> は <code class="docutils literal notranslate"><span class="pre">ProximitySensor</span></code> の provided Interface だ。</p>
+<blockquote>
+<div><p>Figure 10.9 ISensor, a provided Interface of ProximitySensor, (…)</p>
+</div></blockquote>
+<p>継承された provided Interface に対するロリポップ記法だ。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> の前にキャレット <code class="docutils literal notranslate"><span class="pre">^</span></code> が付いていることに注意。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CapacitiveSensor</span></code> が <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> を継承することを示している？</p>
+<blockquote>
+<div><p>Figure 10.10 ISensor is a required Interface of TheftAlarm</p>
+</div></blockquote>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">TheftAlarm</span></code> から <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> への Usage 依存をソケット記法を使って示している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> とは書いていない（書き忘れだろう）が、このソケットが <code class="docutils literal notranslate"><span class="pre">TheftAlerm</span></code>
+の required Interface だ。</p>
+<blockquote>
+<div><p>Figure 10.11 Alternative notation for required and provided Interface</p>
+</div></blockquote>
+<p>これまで出てきたイラストを矩形記法で表現したもの。情報が増えている。</p>
 <ul class="simple">
-<li><p>Figure 10.8 ISensor is a provided Interface of ProximitySensor</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">ProximitySensor</span></code> から <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> への InterfaceRealization がボール（ロリポップ）表記法を使って示されている。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> は <code class="docutils literal notranslate"><span class="pre">ProximitySensor</span></code> の <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface である。</p></li>
-</ul>
-</li>
-<li><p>Figure 10.9 ISensor, a provided Interface of ProximitySensor, (…)</p>
-<ul>
-<li><p>継承された <code class="docutils literal notranslate"><span class="pre">provided</span></code> Interface に対するロリポップ表記法。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> の前にキャレットが付いていることに注意。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CapacitiveSensor</span></code> が <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> を継承することを示している？</p></li>
-</ul>
-</li>
-<li><p>Figure 10.10 ISensor is a required Interface of TheftAlarm</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">TheftAlarm</span></code> から <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> への Usage 依存をソケット表記法を使って示している。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> とは書いていない（書き忘れだろう）が、このソケットが
-<code class="docutils literal notranslate"><span class="pre">TheftAlerm</span></code> の <code class="docutils literal notranslate"><span class="pre">required</span></code> Interface である。</p></li>
-</ul>
-</li>
-<li><p>Figure 10.11 Alternative notation for required and provided Interface</p>
-<ul>
-<li><p>これまで出てきたイラストを別の表現にし、いくつか情報を加えたもの。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> を長方形記法で表現。キーワード <code class="docutils literal notranslate"><span class="pre">«interface»</span></code> に注意。</p></li>
-<li><p>InterfaceRealization を破線矢印で表現。矢頭は白三角である。</p></li>
-<li><p>Usage を破線矢印で表現。キーワード <code class="docutils literal notranslate"><span class="pre">«use»</span></code> に注意。矢頭は開く。</p></li>
+<li><p>InterfaceRealization を破線矢印で表現。鏃は白三角だ。</p></li>
+<li><p>Usage を破線矢印で表現。キーワード <code class="docutils literal notranslate"><span class="pre">«use»</span></code> に注意。鏃は開く。</p></li>
 </ul>
-</li>
-<li><p>二つまたはそれを超える Interfaces がアプリケーション固有の依存を通じて相互に結合する事例が実際にはよくある。そういう状況では、Interface のそれぞれは多者間の通信規約で特有の役目を表現する。</p></li>
-<li><p>Figure 10.12 A set of collaborating Interfaces</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">IAlerm</span></code> と <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> の間に一対一の関連が付いている。これが意味するところは、</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> のどんな実装も <code class="docutils literal notranslate"><span class="pre">theAlarm</span></code> 特性を実現するのに必要な情報を維持しなければならず、</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IAlerm</span></code> と <code class="docutils literal notranslate"><span class="pre">theSensor</span></code> ついても同様である。</p></li>
-</ol>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IBuzzer</span></code> は <code class="docutils literal notranslate"><span class="pre">IAlarm</span></code> の実装がアクセス可能でなければならない Interface
-の特徴を述べている。</p></li>
+<p>二つ以上の Interfaces がアプリケーション固有の依存関係を通じて相互結合される事例が実際にはよくある。そういう状況では、Interface それぞれは多者間の通信規約における特定の役割を果たす。次の例がそれを示す。</p>
+<blockquote>
+<div><p>Figure 10.12 A set of collaborating Interfaces</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">IAlerm</span></code> と <code class="docutils literal notranslate"><span class="pre">ISensor</span></code> の間に双方向の規約関連が付いている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ISensor</span></code> のどんな実装も <code class="docutils literal notranslate"><span class="pre">theAlarm</span></code> 特性を実現するのに必要な情報を保持しなければならず、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IAlerm</span></code> と <code class="docutils literal notranslate"><span class="pre">theSensor</span></code> ついても同様だ。</p></li>
 </ul>
-</li>
-</ul>
+<p><code class="docutils literal notranslate"><span class="pre">IBuzzer</span></code> は <code class="docutils literal notranslate"><span class="pre">IAlarm</span></code> の実装がアクセス可能でなければならない Interface を記述している。</p>
 </section>
 </section>
 <section id="classifier-descriptions">

@@ -106,6 +106,7 @@ Unified Modeling Language 2.5 読書ノート
      だろう。辞書には儀礼とか典礼ともあり、むしろここではこれらが相応しい？
    * partial ordering (n.) 「半順序」とする。集合論の教科書で現れる用語と同じも
      のだろう。
+   * powertype (n.) 「べき乗型」にしておく。組み合わせに関する用語だと思う。
    * qualifier value (n.)
      何かを限定する値の意だとは思う。
      C++ だと ``const`` や ``volatile`` を qualifier と言うのだが、
@@ -113,6 +114,8 @@ Unified Modeling Language 2.5 読書ノート
    * reduce (v.) 数学とかプログラミングとかでよくある状況での用法での訳。
      ここでは「縮合する」と訳しておく。
    * region (n.) 「領域」「区域」など。
+   * signature (n.) 関数宣言やテンプレート宣言の文脈で、「入力と出力を定義するも
+     の」という意味だが、面倒なので署名と訳す。
    * streaming (n.) これはどうしよう。
    * submachine (n.) 「部分機械」と機械的に訳すことにする。
    * substate (n.) 「部分状態」。
