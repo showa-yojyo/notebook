@@ -10,9 +10,8 @@
 * 作業ファイルはレポジトリー <https://github.com/showa-yojyo/notebook> にアップロードすること。
 * 作業手順については `README <https://github.com/showa-yojyo/notebook/blob/develop/README.rst>`_ を参照すること。
 
-Contents:
-
 .. toctree::
+   :caption: 図書・教科書・仕様書ノート
    :maxdepth: 1
 
    mathseminar72
@@ -54,6 +53,7 @@ Contents:
    ou23/index
 
 .. toctree::
+   :caption: ノートにまとまっていない書籍類一覧
    :maxdepth: 1
 
    preliminary2014
@@ -63,18 +63,21 @@ Contents:
    preliminary2018
 
 .. toctree::
+   :caption: シェルノート
    :glob:
    :maxdepth: 1
 
    bash-v[2-5]
 
 .. toctree::
+   :caption: C++ ノート
    :glob:
    :maxdepth: 1
 
    cpp*/index
 
 .. toctree::
+   :caption: Python ノート
    :glob:
    :maxdepth: 1
 
@@ -115,6 +118,7 @@ Contents:
    python-miniconda
 
 .. toctree::
+   :caption: ソフトウェア・ツール・パッケージ・ライブラリーノート
    :maxdepth: 1
 
    freeware
@@ -143,6 +147,13 @@ Contents:
    zoom
 
 .. toctree::
+   :caption: その他
    :maxdepth: 1
 
    milestone09/index
+
+.. toctree::
+   :caption: テーマ別
+   :maxdepth: 1
+
+   /javascript
