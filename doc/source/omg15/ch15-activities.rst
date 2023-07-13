@@ -2,45 +2,54 @@
 15 Activities
 ======================================================================
 
-.. admonition:: 読者ノート
-
-   現在ノート修正中。
-
 .. contents::
-   :depth: 2
+   :depth: 4
 
 15.1 Summary
 ======================================================================
 
-* Activity とは、エッジにより相互接続されるノードのグラフとして決定される
-  Behavior の一種 (:doc:`./ch13-common-behavior`) である。
+Activity とは Behavior の一種であって、辺により相互接続される節点のグラフとして
+指定される (:doc:`./ch13-common-behavior`)。
 
-  * そのノードの部分集合は、その Activity 全体の低水準の処理手順を具体化する実行
-    可能ノードである。
-  * オブジェクトノードは実行可能ノードに対して入出力するデータを保持し、オブジェ
-    クトフローエッジを端から端まで移動する。
-  * 制御ノードは制御フローエッジを経て、実行可能ノードの配列を決定する。
+* その節点の部分集合は、その Activity 全体の低水準手順を具体化する実行可能節点
+  だ。
+* オブジェクト節点は実行可能節点に入出力するデータを保持し、オブジェクトフロー
+  辺を縦断して移動する。
 
-* Activities は手続きの計算を記述することも許されて、他の Activities を発動する
-  Activities の階層を形成するか、オブジェクト指向モデルでは、直接的に発動される
-  Operations に束縛されたメソッドとして、それらを間接的に発動することも許され
-  る。
+こういう計算モデルが実質的に同時処理であることを理解する：
 
-  * Activities を業務工程工学と仕事の流れに対して組織的モデリングに適用すること
-    が認められている。
+   Activities are essentially what are commonly called “control and data flow”
+   models. Such models of computation are inherently concurrent, as any
+   sequencing of activity node execution is modeled explicitly by activity
+   edges, and no ordering is mandated for any computation not explicitly
+   sequenced.
 
-* この章の残りでは、どのようにして活動モデルが構造化され、さまざまな種類のオブ
-  ジェクトと制御ノードが構造化されるのかを述べる。
+Activities は何を記述するものなのか：
 
-  * UML では実行可能ノードの唯一の種類は Actions であり、:doc:`./ch16-actions`
-    で完全に述べられる。
-  * Actions を表す具体的構文は Activities を表す具体的構文の部分集合であり、本章
-    で指定される Actions を表す具体的構文もある。
+   Activities may be applied to organizational modeling for business process
+   engineering and workflow. In this context, events often originate from inside
+   the system, such as the finishing of a task, but also from outside the
+   system, such as a customer call. Activities can also be used for information
+   system modeling to specify system level processes.
 
-    * Action 表記法は Activity 図でしか現れない。
+この章の残りは、活動モデルがどのように構造化されるのか、さまざまな種類のオブジェ
+クト節点と制御節点について述べられる。
 
-  * この章では実行可能ノードを使うことで Actions から分離されたある独立性を実現
-    するが、それでもなお :doc:`./ch16-actions` と一緒に読む必要がある。
+UML では実行可能節点は Actions (:doc:`./ch16-actions`) しかない。
+
+   Actions are required for any significant capabilities of Activities. Actions
+   invoke other Behaviors and Operations (see above), access and modify objects,
+   as well as link them together, and perform more advanced coordination of
+   other Actions (Structured Actions). They are central to the “data flow”
+   aspects of Activities, introducing a specialized form of object node (Pins)
+   for object flows to get and provide data to Actions.
+
+* Actions を表す具体的構文は Activities を表す具体的構文の部分集合であり、一部は
+  本章で規定される。
+* Action 表記法は Activity 図でしか現れない。
+
+この章では実行可能節点を使うことで Actions からある程度の独立性を実現するが、そ
+れでも :doc:`./ch16-actions` と一緒に読む必要がある。
 
 15.2 Activities
 ======================================================================
@@ -48,28 +57,30 @@
 15.2.1 Summary
 ----------------------------------------------------------------------
 
-* Activity は下位ユニットの配列として指定される Behavior であり、制御およびデー
-  タフローモデルを使う。
+   An Activity is a Behavior specified as sequencing of subordinate units, using
+   a control and data flow model.
 
-  * 実行の流れは ActivityEdges によって接続される ActivityNodes としてモデル化さ
-    れる。
-  * ExecutableNode は、算術計算、操作の呼び出し、オブジェクトの内容物の操縦のよ
-    うな、従属的挙動の実行であることがある。
-  * ActivityNodes は、同期、決定、同時制御のような、制御の流れに関する構成要素を
-    も含む。
+* 実行の流れは ActivityEdges によって接続される ActivityNodes としてモデル化され
+  る。
+* ExecutableNode は、算術計算、操作の呼び出し、オブジェクト内容の操縦など、従属
+  的挙動の実行であることがある。
+* ActivityNodes は、同期、決定、同時制御のような、制御の流れに関する構成要素をも
+  含む。
 
-* この節はノードとエッジのグラフとしての活動モデルの根本的な構造および流れの意味
-  を述べる。それから後続の節ではActivity が含んでよい ActivityNodes 各種を述べ、
-  どのようにこれらのノードを Activity でグループ化してよいのかを述べる。
+..
+
+   This sub clause describes the basic structure and flow semantics of an
+   activity model as a graph of nodes and edges. Subsequent sub clauses then
+   describe the various kinds of ActivityNodes that an Activity may contain and
+   how those nodes may be grouped within the Activity.
 
 15.2.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 15.1 Activities
+   Figure 15.1 Activities
 
-  * Activity, Variable, ActivityNode, ActivityEdge, ObjectFlow, ControlFlow 周り
-    を見ていく。
-  * Flow とは Edge の一種らしい。
+Activity, Variable, ActivityNode, ActivityEdge, ObjectFlow, ControlFlow 周りを見
+ていく。Flow とは Edge の一種らしい。
 
 15.2.3 Semantics
 ----------------------------------------------------------------------
@@ -77,358 +88,672 @@
 15.2.3.1 Activities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Activity における ActivityNode 一つの実行は、その Activity にある他の
-  ActivityNodes の実行に影響を与えることができ、かつ影響されることができる。
+Activity における ActivityNode 一つの実行は、その Activity 内にある他の
+ActivityNodes の実行に影響を与えたり影響されたりすることがある。このような辺はこ
+の ActivityNodes を相互に接続する ActivityEdges で表される。
 
-  * ある ActivityNode の別の ActivityNode に対する効果は、それらの ActivityNodes
-    の間にある ActivityEdges を渡るトークンの流れにより決定される。
+トークンの流れ：
 
-* トークンは Activity で明示的にモデル化されないが、Activity の実行を記述するた
-  めに用いられる。
+   The effect of one ActivityNode on another is specified by the *flow of
+   tokens* over the ActivityEdges between the ActivityNodes.
 
-  * オブジェクトトークンは ObjectFlow エッジ上を流れる値の入れ物である。モノに
-    よっては ControlFlow 上を流れることができる。
-  * 値のないオブジェクトトークンは空トークンと呼ばれる。
-  * 制御トークンは ActivityNodes の実行に影響するが、データはどれも運ばず、
-    ControlFlow 上しか流れない。
+トークン：
 
-* ActivityEdges は有向辺であり、トークンが ``source`` ActivityNode から
-  ``targets`` ActivityNode へ流れる。
-* ActivityNodes と ActivityEdges には名前をつけてもよいが、Activity の ``nodes``
-  と ``edges`` とがその Activity の内部で一意な名前である必要はない。
+   *Tokens* are not explicitly modeled in an Activity, but are used for
+   describing the execution of an Activity.
 
-  * 例えば、同じような ``nodes`` には同じ名前を与えることが許される。
+オブジェクトトークンと ObjectFlow をペアで理解する：
 
-* Activities は Classes であり、次のような Properties を支援することが許される。
+   An :dfn:`object token` is a container for a value that flows over ObjectFlow
+   edges (some object tokens can flow over ControlFlow edges, as specified by
+   the modeler, see ``isControlType`` for ObjectNodes in sub clause 15.4).
 
-  * その工程がどの程度長く実行するか、それがどの程度高く付くのかということ
-  * 実行の行為者、誰に完了を報告するのか、使用中の資源のような、オブジェクトに関
-    するリンクを指定する Associations
-  * 開始、停止、中断、等々のような、それらのオブジェクトの実行を管理するための
-    Operations
-  * 開始、一時停止、等々のような、実行の状態を決定する StateMachines
+空トークンと制御トークン：
+
+   An object token with no value in it is called a *null* token. A *control
+   token* affects execution of ActivityNodes, but does not carry any data, and
+   flows only over ControlFlow edges.
+
+同じ値を含んでいるとしても、トークンは他のトークンとは区別される。
+
+ActivityEdge とトークン：
+
+   ActivityEdges are directed, with tokens flowing from the ``source``
+   ActivityNode to the ``target`` ActivityNode.
+
+トークンが辺を流れるには条件があるらしい：
+
+   However, tokens *offered* to an ActivityEdge by the ``source`` ActivityNode
+   may not immediately flow along the edge. Instead, the tokens only move when
+   the offer is *accepted* by the ActivityEdge, which requires at least the
+   ``target`` ActivityNode to accept them also, which in turn might depend on
+   acceptance of cascading offers of the same tokens to edges and nodes further
+   downstream of the ``target``.
+
+* オブジェクトトークンは ObjectNodes によってしか受理されなければならない。
+* 制御トークンは ExecutableNodes によってしか受理されなければならない。
+
+ControlNode の用途：
+
+   ControlNodes are used to control the routing of offers through a network of
+   ActivityEdges, controlling the flow of accepted tokens.
+
+節点と辺には名前があるが、一意的とは限らない：
+
+   ActivityNodes and ActivityEdges may be named, however, the ``nodes`` and
+   ``edges`` of an Activity are not required to have unique names within that
+   Activity.
+
+類似する節点に同じ名前を付けるなど、便利なことがあるらしい。
+
+Activity は Namespace の一種であり、その ``members`` は区別できる必要があるのだ
+が、Activity の ``nodes`` と ``edges`` は ``ownMembers`` ではなく
+``ownElements`` であるため、この必要性は節点と辺の名前付けに影響しない。
+
+   Even though an Activity is a Namespace (a Behavior is a Class, which is a
+   Classifier, which is a Namespace), and the members of a Namespace are
+   required to be distinguishable (see sub clause 7.4), this constraint does not
+   affect the naming of Activity nodes and edges because the nodes and edges of
+   an Activity are ownedElements but not ownedMembers of the Activity.
+
+Activities は Classes であり、次のような Properties を支援することが許される：
+
+* 工程の実行時間、コストなど。
+* 実行者、完了報告先、使用中の資源のような、オブジェクトに関するリンクを指定する
+  Associations
+* 開始、停止、中断などのオブジェクトの実行を管理する Operations
+* 開始、一時停止などの実行の状態を決定する StateMachines
 
 15.2.3.2 Activity Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ActivityNodes は Activity により指定される挙動の個々の段階をモデル化するのに使
-  われる。
-* ActivityNode が実行を開始することができるようになるのは、指定された条件が
-  ``incoming`` ActivityEdges においてそのノードに与えられたトークンを使って成り
-  立つときである。それに対して、条件はノードの種類に依存する。
-* 複数個の ActivityNodes の相対的な実行順序についての制限は全てが ActivityEdge
-  の関係によって明示的に強制される。二つの ActivityNodes が ActivityEdge によっ
-  て順序付いていないと、それらは同時に実行することが許される。
-* 本文中に出てくる同時実行は、ノードが実行されなければならない順序で必要とされる
-  ものはないということを単に意味する。したがって、Activity の実行をノードを任意
-  の順で逐次実行してもよいし、ノードを並行実行してもよい。
-* ActivityNode は ActivityEdges 複数個の ``source`` でもよいので、同一トークンを
-  ``targets`` 複数個に与えることが可能である。しかしながら、同一トークンは一度に
-  一つの ``target`` でしか受け取れない。
+   ActivityNodes are used to model the individual steps in the behavior
+   specified by an Activity.
 
-  * 複数同時に与えても、受け取るのは高々一つのノードであるし、具体的にどのノード
-    がトークンを得るのかを完全に決定するものはない。
+ActivityNode が実行される条件にはトークンが関係している：
 
-* ActivityNodes には以下の三種類がある。
+   An ActivityNode is enabled to begin execution when specified conditions are
+   satisfied on the tokens offered to it on ``incoming`` ActivityEdges; the
+   conditions depend on the kind of node. When an ActivityNode begins execution,
+   tokens are accepted from some or all of its ``incoming`` ActivityEdges and a
+   token is *placed on* the node.
 
-  #. ControlNodes: ActivityEdges 上のトークンの流動を管理する交通スイッチのよう
-     に振る舞う。
-  #. ObjectNodes: ``incoming`` ObjectFlows から受け取ったオブジェクトトークンを
-     保持して、その後それらを ``outgoing`` ObjectFlows に対して与えてよい。
-  #. ExecutableNodes: Activity の所望の挙動を実際に実施する。
+節点が実行を完了すると、トークンはそこから除去されて、この節点の ``outgoing``
+ActivityEdges の一部または全部に供給される。
 
-* ActivityNodes のこれら三種のそれぞれは後続の節でさらに述べる。
+ActivityNodes の実行順序について：
+
+   All restrictions on the relative execution order of two or more ActivityNodes
+   are explicitly constrained by ActivityEdge relationships. If two
+   ActivityNodes are not ordered by ActivityEdge relationships, -略- they may
+   execute concurrently.
+
+本文で言う concurrent は一貫して there is no required order in which ... の意味
+にとるのがいい。
+
+先のトークン一意性が次の仕様に効いてくる：
+
+   As an ActivityNode may be the ``source`` for multiple ActivityEdges, the same
+   token can be offered to multiple ``targets``. However, the same token can
+   only be accepted at one ``target`` at a time
+
+トークン一つが同時に複数の ActivityNodes に供給された場合、そのうちの高々一つの
+ActivityNode が受理するものとする。どの節点に受理されるかは Activity 流通意味に
+よっては完全には決定されない。
+
+ActivityNodes には以下の三種類がある：
+
+ControlNodes
+   ActivityEdges 上のトークンの流通を管理する交通スイッチとして機能する。トーク
+   ンは ControlNodes 上で休止することは不可能だ。
+ObjectNodes
+   ``incoming`` ObjectFlows から受理したオブジェクトトークンを保持して、その後そ
+   れらを ``outgoing`` ObjectFlows に対して捧げることがある。ControlFlow につい
+   ては設計者が指定した例外がある (15.4)。
+ExecutableNodes
+   Activity の所望の挙動を実際に実施する。
+
+      If an ExecutableNode has ``incoming`` ControlFlows, then there must be
+      tokens *offered* on all these flows that it accepts before beginning
+      execution. While executing, an ExecutableNode is considered to hold a
+      single control token indicating it is executing. When it completes
+      execution, it offers control tokens on all ``outgoing`` ControlFlows. All
+      ``incoming`` and ``outgoing`` ActivityEdges of an ExecutableNode must be
+      ControlFlows.
 
 15.2.3.3 Activity Edges
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ActivityEdges はトークンが流動することができる、二つの ActivityNodes の間の有
-  向接続であり、``source``  ActivityNode から ``target`` ActivityNode へと流れ
-  る。
-* トークンは ActivityEdge の ``source`` ActivityNode によって、そのエッジに向け
-  て与えられる。
-* ActivityEdge には ``guard`` という、エッジに与えられるトークンそれぞれに対して
-  評価される ValueSpecification があることが許される。
+ActivityEdge の定義と言っていい：
 
-  * トークンがこのエッジに与えられたときに評価される。この評価値が ``true`` であ
-    ることが、トークンを渡す条件になる。
+   An ActivityEdge is a directed connection between two ActivityNodes along
+   which tokens may flow, from the ``source`` ActivityNode to the ``target``
+   ActivityNode.
 
-* 任意の個数のトークンを ActivityEdge に渡すことが可能で、一度に複数グループで
-  も、複数回に分割してでもよい。
+トークンと辺の関連：
 
-  * ``weight`` 特性は、同時にエッジを走査する必要のあるトークンの最小個数を命じ
-    る。
+   Tokens are *offered* to an ActivityEdge by the ``source`` ActivityNode of the
+   edge. Offers propagate through ActivityEdges and ControlNodes, according to
+   the rules associated with ActivityEdges (see below) and each kind of
+   ControlNode (see sub clause 15.3) until they reach an ObjectNode (for object
+   tokens) or an ExecutableNode (for control tokens and some object tokens as
+   specified by modelers, see ObjectNodes in sub clause 15.4).
 
-* ``weight`` に対する弱いけれども簡単な代替法は、単一のトークンが必要データを全
-  て運ぶように、情報を大きなオブジェクトたちにグループ分けすることである。
+ObjectNode および ExecutableNode の各種には、供給されたトークンがいつ受理される
+かの規則がある。この種の節点がトークンを受理すると、そのトークンは最初の供給元
+ActivityNode から受理側 ActivityNode に流れる。
 
-* ActivityEdges には以下の二種類がある：
+辺に対するガードの概念：
 
-  * ControlFlow: 制御トークンしか引き渡さない ActivityEdge
-  * ObjectFlow: オブジェクトトークンがそれに沿って引き渡すことができる
-    ActivityEdge
+   An ActivityEdge may have a ``guard``, which is a ValueSpecification that is
+   evaluated for each token offered to the edge. An offer shall only pass along
+   an ActivityEdge if the ``guard`` for the edge evaluates to true for the
+   offered token.
 
-* ControlFlows とは異なり、下に述べるように、ObjectFlows は多重送受信、
-  ObjectNodes からトークンを選択、およびトークンの変換に対しての追加の支援をも備
-  えている。
+ガードのない辺は任意のトークンに対して真と評価されるガードのある辺と等価だ。
+
+ガートは一般的には DecisionNodes で用いられるが、どの ActivityEdge でも用いてよ
+い。
+
+トークンの流通量を辺の ``weight`` が規定することがある：
+
+   Any number of tokens can pass along an ActivityEdge, in groups at one time,
+   or individually at different times. The ``weight`` property dictates the
+   minimum number of tokens that must traverse the edge at the same time. It is
+   a ValueSpecification that is evaluated every time a new token is offered by
+   the ``source`` ActivityNode. It must evaluate to a positive
+   LiteralUnlimitedNatural and may be a constant.
+
+トークン供給が失敗する状況。All or nothing 方式か：
+
+   If the ActivityEdge has a ``guard``, the ``guard`` must evaluate to true for
+   each token offered to the edge that counts towards the minimum. If the
+   ``guard`` fails for any of the tokens, and this reduces the number of tokens
+   that can be offered to the ``target`` to less than the ``weight``, then all
+   the tokens fail to be offered.
+
+* 無制限の場合にはトークンは辺を流れる前にすべて受理されなければならない。
+* 辺に重みが指定されていない場合、それに 1 を指定することと同値とする。
+
+ActivityEdges には以下の二種類がある：
+
+ControlFlow
+   制御トークンしか渡さない ActivityEdge だ。ActivityNodes の実行を明示的に順序
+   立てるために用いられる。
+ObjectFlow
+   オブジェクトトークンがそれに沿って引き渡すことができる ActivityEdge
+   だ。ObjectNodes 間の値の流通をモデル化する。
+
+      Tokens are offered to the ``target`` ActivityNode in the same order as
+      they are offered from the ``source``. If multiple tokens are offered at
+      the same time, then the tokens are offered in the same order as if they
+      had been offered one at a time from the ``source``. If the ``source`` is
+      an ObjectNode with an ordering specified, then tokens from the ``source``
+      are offered to the ObjectFlow in that order and, consequently, are offered
+      from the ObjectFlow to the ``target`` in the same order.
+
+ControlFlows とは異なり、ObjectFlows は多重送受信、ObjectNodes からのトークン選
+択、トークン変換に対しての支援をも備えている。
 
 15.2.3.4 Object Flows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* オブジェクトトークンは ObjectFlow 上を通過し、それらの値を介して Activity を通
-  してデータを運ぶか、またはデータを運ばない（空トークン）。
-* ObjectFlow には単一の入力 Parameter と単一の出力 Parameter がある
-  ``transformation`` Behavior があってよい。
+オブジェクトトークンの立場から ObjectFlow を理解すると：
 
-  * ``transformation`` Behavior が指定されていると、その Behavior が ObjectFlow
-    に与えられたオブジェクトトークンごとに発動されて、トークンの値がその
-    Behavior に対して入力として引き渡された状態になる。
+   Object tokens pass over ObjectFlows, carrying data through an Activity via
+   their values, or carrying no data (*null tokens*).
 
-* ObjectFlow には単一の入力 Parameter と単一の出力 Parameter がある
-  ``selection`` Behavior があってよい。
+空トークンはオプションの値を生成しなかったことを明示的に示す目的などに用いられ
+る。
 
-  * 入力 Parameter は ``unordered``, ``nonunique`` かつ多重度が ``0..*`` である
-    ものとする。
-  * 出力 Parameter は多重度の上限が 1 であるものとする。
-  * オブジェクトトークンを入力として処理して、次のノードに出力を引き渡す。
+ObjectFlow は変換動作を有することがある：
 
-* ObjectFlow に ``transformation`` と ``selection`` の両方があるならば、新しい
-  トークンが ObjectFlow に与えられるときには、まず ``transformation`` Behavior
-  が発動されて、その結果の値が ``selection`` 挙動の発動に用いられる。
-* トークンが ``target`` ノードに向けて与えられる間に ``transformation`` または
-  ``selection`` Behavior が使われるので、そのトークンが ``target`` ノードに受け
-  入れられる前に何度も同じトークンで走らされてよい。この事は、その Behavior に副
-  作用があってはならないことを意味する。
-* 多重送信と多重受信は ActivityPartitions といっしょに使われて、発行購読能力によ
-  り決定されるオブジェクトの責任がある Behaviors の間の流れをモデル化する。
+   An ObjectFlow may have a ``transformation`` Behavior that has a single input
+   Parameter and a single output Parameter. If a ``transformation`` Behavior is
+   specified, then the Behavior is invoked for each object token offered to the
+   ObjectFlow, with the value in the token passed to the Behavior as input (for
+   a null token, the behavior is invoked but no value is passed). The output of
+   the Behavior is put in an object token that is offered to the ``target``
+   ActivityNode instead of the original object token.
+
+* 変換動作の出力引数の多重度上限値が 1 以上であり、この変換が複数値を生成する場
+  合、値それぞれが別々のオブジェクトトークンに入れられ、すべてが ``target`` に渡さ
+  れる。
+* 出力引数の多重度下限値が 0 で、この変換が値を生成しない場合、``target`` に空
+  トークンが供給される。
+
+ObjectFlow は選択動作を有することがある：
+
+   An ObjectFlow may have a ``selection`` Behavior that has a single input
+   Parameter and a single output Parameter. The input Parameter of the Behavior
+   must be unordered, nonunique and have a multiplicity of ``0..*`` (a “bag”),
+   and the output Parameter must have a multiplicity upper bound of 1.
+
+ObjectFlow に新しいトークンが供給されたり撤回されたりするたびに、ObjectFlow に現
+在供給されているオブジェクトトークンすべての値が Behavior の入力 Parameter に渡
+され、``selection`` Behavior が呼び出される。この選択動作は入力された値の中から
+一つ選択し、出力する。この出力値はオブジェクトトークンに入れられ、``target``
+ActivityNode に渡される。``selection`` Behavior が出力を生成しない場合、空トーク
+ンが渡される。
+
+ObjectFlow に ``transformation`` と ``selection`` の両方があるならば：
+
+   then the ``transformation`` Behavior is invoked first when a new token is
+   offered to the ObjectFlow and the resulting value is used in the invocation
+   of the ``selection`` behavior.
+
+トークンが ``target`` 節点に向けて与えられる間に ``transformation`` または
+``selection`` Behavior が使われるので、そのトークンが ``target`` 節点に受け入れ
+られる前に何度も同じトークンで実行されることがある。この事は、その Behavior に副
+作用があってはならないことを意味する。
+
+   but transformations may for example, navigate from one object to another, get
+   an attribute value from an object, or replace a data value with another.
+
+多重送信と多重受信：
+
+   Multicasting and multireceiving are used in conjunction with
+   ActivityPartitions (see sub clause 15.6) to model flows between Behaviors
+   that are the responsibility of objects determined by a publish and subscribe
+   facility. However, the particular publish/subscribe semantics used are not
+   specified in this standard.
 
 15.2.3.5 Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ObjectFlows は Activity でデータを移動することに対する主な方法をもたらす。
-  Variables はデータを間接的に引き渡すことに関する代替法をもたらす。
-* :doc:`./ch16-actions` で述べるように、Activity の実行中は、Activity の
-  Variablesのそれぞれは一つまたはそれを超える値を保持してよい。Variables に値を
-  書き出して、続いて値をそれら Variables から読み取る Actions がある。
-* Variable の使用は、値が Variable に書き出される点からその値が Variable から読
-  み取られる点のすべてへの間接的データ流動経路を効率的に実現する。
-* Variable は ConnectableElement の一種であり、それ自体がTypedElement である。
-  Variable に保持される値はいずれも Variable の Typed と適合しなければならない。
-  :doc:`./ch11-structured-classifiers` および :doc:`./ch07-common-structure` 参
-  照。
-* Variable は MultiplicityElement でもある。:doc:`./ch07-common-structure` 参
-  照。
-* Variables は、オブジェクトフロー情報が容易にアクセス可能になることを要求しない
-  それら (=Variables?) の応用について、普通のプログラミング言語を活動モデルに翻
-  訳することを簡素化するために導入された。
+ObjectFlows が Activity 内でデータを移動するための主な手段であるならば、
+Variables はデータを間接的に引き渡すための代替法だと言える。
+
+* Activity の実行中、この Activity の Variables のそれぞれは一つ以上の値を保持す
+  ることが許される。Variables に値を書き込み、その後 Variables から値を読み取る
+  Actions がある (16.9)。
+* Activity の Variables は Namespace としての Activity の ``ownMembers`` である
+  が、この Activity に対して局所的であり、外部からは見えない。
+
+間接的なデータ移動経路：
+
+   The use of a Variable effectively provides indirect data flow paths from the
+   point at which a value is written to the Variable to all the points at which
+   the value is read from the Variable.
+
+Variable は ConnectableElement の一種であり、それ自体が TypedElement だ。
+Variable に保持される値はいずれも Variable の Type と適合しなければならない。
+:doc:`./ch11-structured-classifiers` および :doc:`./ch07-common-structure` 参
+照。
+
+Variable は MultiplicityElement でもある。:doc:`./ch07-common-structure` 参照。
+
+Variable に値を書き込む唯一の方法が Activity 内の Actions であるため、多重度の強
+制が必ずしも可能とは限らない。
 
 15.2.3.6 Activity Execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Behavior を継承したので、Activity には ``precondition`` と ``postcondition``
-  Constraints があってもよい。これらは Activity の全発動に全体的に適用する。
-* Behavior であるので、Activity には Parameters があってもよい。このような
-  Parameter それぞれに対し、Activity には 対応する ActivityParameterNode という
-  ノードがある。
-* Activity が発動されると、その入力 Parameters に引き渡された値はどれもが、オブ
-  ジェクトトークンに入れられ、Activity に対して対応する入力
-  ActivityParameterNodes に置かれる。これらの ActivityParameterNodes はそれから
-  トークンを ``outgoing`` ActivityEdges に与える。
-* Activity が最初に発動されると、入力 ActivityParameterNodes 以外のノードは何一
-  つどんなトークンも初めに保持しないはずである。
-* Activity の続いて起こる発動それぞれで、``isSingleExecution`` 特性は Activity
-  の同じ実行が発動すべてに対してトークンを処理するのか、または Activity の別々の
-  実行が発動それぞれに対して生成されるのかを示す。
-* Activity の単一実行を発動のすべてに対して利用すると、モデル作者は
-  ActivityNodes と ActivityEdges を移動するトークンの流れ複数の間の相互作用を考
-  慮する必要がある。
-* Activity の別々の実行を発動のそれぞれについて利用すると（これは既定である）、
-  さまざまな発動から来たトークンらは相互に作用しない。
-* もし Activity に ``streaming`` Parameters があるならば、単一実行の途中でさえ
-  あっても、さらなるトークンらがその Activity に（対応する
-  ActivityParameterNodes を経て）流入出してもよい。
-* ``streaming`` Parameters のない Activity の実行が完了するのは、実行している
-  ノードがすでになくなり、実行可能なノードがないときか、ActivityFinalNode を用
-  いることで明示的に停止されたときである。
+   An Activity may have ``precondition`` and ``postcondition`` Constraints, as
+   inherited from Behavior (see sub clause 13.2).
 
-  * ``streaming`` Parameters を有する Activity は、その入出力の累積数が規定値に
-    達するまでは停止してはならない。
+* これらは Activity の全呼び出しに対して大局的に適用される。
+* Activity 内の Actions は局所的 ``precondition`` と ``postcondition`` を持つこ
+  とがある。
 
-* Activity の実行が完了すると、非 ``streaming`` 出力 Parameters に対応する
-  ActivityParameterNodes はすべて、少なくとも対応 Parameter の多重度の下限で与え
-  られたとおりの個数の、空でないオブジェクトトークンを保持するものとする。
-* 出力 Parameter は ``isException`` を ``true`` とすることで、例外 Parameter と
-  みなしてもよい。
-* その Activity にある流れ全てを中断する要望があるときに限り、例外 Parameters を
-  Activities で使うものとする。
+Behavior であるので、Activity には Parameters があってもよい。このような
+Parameter それぞれに対し、Activity には対応する ActivityParameterNode という
+節点がある。
+
+* inout Parameter の場合には入力用と出力用の二つを持つ。
+* ActivityParameterNode は Activity 内で Parameter の値を入手できるようにする
+  ObjectNode だ。
+
+Activity が呼び出されると、入力 Parameters に渡された値がオブジェクトトークンに
+置かれ、Activity の対応する入力 ActivityParameterNode に置かれる。
+
+* 入力 Paramters に値がない場合は空トークンが置かれる。
+* これらの ActivityParameterNodes はトークンを ``outgoing`` ActivityEdges に与え
+  る。
+
+Activity 呼び出しの最初は、一般の節点はトークンを持っていない：
+
+   However, nodes that do not have incoming edges and require no input data to
+   execute are immediately enabled. A single control token is placed on each
+   enabled node and they begin executing concurrently. Such nodes include
+   ExecutableNodes (see sub clause 15.5) with no incoming ControlFlows and no
+   mandatory input data and InitialNodes (see sub clause 15.3).
+
+次はわかりにくい ``isSingleExecution`` の仕様だ：
+
+   On each subsequent invocation of the Activity, the ``isSingleExecution``
+   property indicates whether the same execution of the Activity handles tokens
+   for all invocations, or a separate execution of the Activity is created for
+   each invocation.
+
+単一実行は読んでもよくわからないので飛ばす。既定の個別実行は：
+
+   If a separate execution of the Activity is used for each invocation (this is
+   the default), tokens from the various invocations do not interact. For
+   example, an Activity that is a ``classifierBehavior`` is invoked when the
+   Classifier is instantiated (see sub clause 13.2),
+
+Activity に ``streaming`` Parameters がある場合、単一実行の途中であっても（対応
+する ActivityParameterNodes を経て）トークンがその Activity に出入りすることがあ
+る。
+
+``streaming`` Parameters のない Activity の実行が完了するのは、実行している節点
+がすでになく、実行可能節点がないときか、または ActivityFinalNode (15.3) を用いる
+ことで明示的に停止されたときだ。その他方：
+
+   The execution of an Activity with streaming input Parameters shall not
+   terminate until the cumulative number of values posted to each of those input
+   Parameters (by the invoker of the Activity) is at least equal to the
+   Parameter multiplicity lower bound. The execution of an Activity with
+   streaming output Parameters shall not terminate until the cumulative number
+   of values posted to each of those output Parameters (by the Activity itself)
+   is at least equal to the Parameter multiplicity lower bound.
+
+完了時の出力：
+
+   When the execution of an Activity completes, all ActivityParameterNodes
+   corresponding to non-streaming output Parameters shall hold at least as many
+   non-null object tokens as given by the corresponding Parameter multiplicity
+   lower bound.
+
+各出力 ActivityParameterNode のオブジェクトトークンに関連付けられた値は、対応す
+る出力 Parameter で Activity から渡され、Activity の呼び出し元が利用できるように
+なる。
+
+出力引数が例外の場合：
+
+   An output Parameter may also be identified as an *exception* Parameter by
+   having ``isException`` = true (see sub clause 9.4).
+
+* 例外 Parameter に送られた出力は Behavior の他の出力 Parameters に送られること
+  を妨げる。
+* 例外 Parameter に関連付けられた出力 ActivityParameterNode にオブジェクトトーク
+  ンが到着する場合、Activity の実行は直ちに停止する。トークンの値は例外
+  Parameter に渡されるが、非 streaming Parameter に関連付けられた他の出力
+  ActivityParameterNodes 上のトークンは失われ、その値は関連 Parameters に渡され
+  ない。
+* Activity が停止する前に streaming 出力 Parameters に送られた値は影響を受けな
+  い。
+
+例外を使用する状況は：
+
+   Use exception Parameters on Activities only if it is desired to abort all
+   flows in the Activity. For example, if the same execution of an activity is
+   being used for all its invocations (i.e., ``isSingleExecution`` = true), then
+   multiple streams of tokens will be flowing through the same Activity.
+
+この場合、一つが例外出力に到達したからというだけで、流れのすべてを中断することは
+まず望ましくない。
+
+   Arrange for separate invocations of the Activity to use separate executions
+   of the Activity (i.e., ``isSingleExecution`` = false) when employing
+   exception Parameters, so flows from separate executions will not affect each
+   other.
 
 15.2.3.7 Activity Generalization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Activity は Classifier であり、それ自体として、Generalization 関係に参加してよ
-  い。
-* 一般 Activity から ActivityNode を再定義する特殊 Activity にある ActivityNode
-  は、その再定義された ActivityNode を始点または終点としていた継承 ActivityEdges
-  のどれもを、その再定義された ActivityNode で置き換えるとみなされる。
-* 特殊 Activity を実行するときに使われるノードとエッジの有効な集合は、継承した
-  ノードとエッジ（再定義されたノードとエッジを含まない）と、その特殊 Activity で
-  定義されたノードとエッジ（再定義するノードとエッジをどれをも含む）との和集合か
-  ら構成されている。
+Activity は Classifier であり、Generalization 関係に関与してよい。
+
+   A specialized Activity inherits the ``nodes`` and ``edges`` of its general
+   Activities. ActivityNodes and ActivityEdges are RedefinableElements (see sub
+   clause 9.2) that may be redefined in a specialized Activity.
+
+再定義は置き換えということか：
+
+   An ActivityNode in a specialized Activity that redefines an ActivityNode from
+   a general Activity is considered to replace the redefined ActivityNode for
+   any inherited ActivityEdges that had the redefined ActivityNode as a source
+   or target.
+
+総体的 Activity から ActivityEdge を再定義する ActivityEdge は、再定義先の
+ActivityEdge を到着または出発辺として持っていた継承先 ActivityNode のいずれに対
+しても再定義元 ActivityEdge を置き換えるとみなされる。
+
+   If the redefined ActivityEdge is an incoming or outgoing edge for any
+   ActivityNode that is not inherited but is itself redefined, then the
+   ActivityEdge is replaced for the redefining ActivityNode.
+
+特殊化 Activity の実行に用いられる節点と辺の有効な集合は、継承先節点と辺（再定義
+元節点と辺を含まない）と、その特殊 Activity で定義された節点と辺（再定義先節点と
+辺を含む）との和集合だ。
+
+   The execution of the specialized Activity then proceeds as usual, but using a
+   graph of nodes and edges constructed from the union sets.
 
 15.2.4 Notation
 ----------------------------------------------------------------------
 
-* 本節では Activities を表す図表的表記法を指定する。この表記法は準拠ツールがテキ
-  スト上の具象的構文を代わりに使えるという点で選択自由である。
-* Activity の記法は、それが含む ActivityNodes と ActivityEdges の記法の組み合わ
-  せたものに、境界と左上に表示された名前が加えたものである。
+   This notation is optional in that a conforming tool may use a textual
+   concrete syntax instead.
 
-  * ActivityParameterNodes は Activity の境界上に表示する。
-  * Behavior から継承した事前条件と事後条件を、キーワード ``«precondition»``,
-    ``«postcondition»`` と共にテキスト上の式としてそれぞれ示す。
-  * ``isSingleExecution`` が ``true`` である Activities については、キーワード
-    ``«singleExecution»`` を用いる。
+Activity の記法は ActivityNodes と ActivityEdges の記法の組み合わせに加え、枠線
+と左上に表示される名前を加えたものだ。
 
-* Figure 15.2 Activity notation
+* ActivityParameterNodes は Activity の枠線上に表示する。
+* Behavior から継承した事前条件と事後条件を、キーワード ``«precondition»``,
+  ``«postcondition»`` と共にテキスト上の式としてそれぞれ示す。
+* ``isSingleExecution`` が真 Activities については、キーワード
+  ``«singleExecution»`` を用いる。
 
-  * 図の丸角縁は :doc:`./ana-diagrams` で述べられた枠記法で置き換えてよい。
-  * 丸角縁にせよ枠にせよ完全に省略してよい。その場合には ActivityParameterNodes
-    は図式内のどの箇所に現れても構わない。
+   Figure 15.2 Activity notation
 
-* Figure 15.3 Activity class notation
+* 図の丸角縁は :doc:`./ana-diagrams` で述べられた枠記法で置き換えてよい。
+* 丸角縁にせよ枠にせよ完全に省略してよい。その場合には ActivityParameterNodes
+  は図式内のどこに現れてもよい。
 
-  * Classes を表す表記法を Activity の特徴を図表化するのに利用することもある。
-  * キーワードは ``«activity»`` である。
+   Figure 15.3 Activity class notation
 
-* Figure 15.4 ActivityNode notation
+この図のように Classes を表す表記法を Activity の特徴を図表化するのに利用するこ
+ともある。キーワードは ``«activity»`` だ。
 
-  * ActivityNodes 各種の記法のカタログ。次の節と :doc:`./ch16-actions` で詳しく
-    議論する。
+   Figure 15.4 ActivityNode notation
 
-* Figure 15.5 ActivityEdge notation
+ActivityNodes 各種の記法のカタログ。次の節と :doc:`./ch16-actions` で詳しく議論
+する。
 
-  * ActivityEdges 各種の記法のカタログ。
-  * 矢先はすべて開いた形状を用いる。
-  * イラストにはないが ``guards`` を記すには角括弧を用いる。
+   Figure 15.5 ActivityEdge notation
 
-* ActivityEdge は連結器を使って記すことも許されており、連結器はエッジの名前が中
-  に書かれた小さい丸である。
+ActivityEdges 各種の記法のカタログ。
 
-  * ラベルの付いたすべての接続器は、同一 Activity 図で同一ラベルのついた他のもの
-    の正確に一つに対して対になっていなければならない。
+* 鏃はすべて開いた形状を用いる。
+* 辺に名前がある場合は矢印の近くに表記する。
+* イラストにはないが ``guards`` を記すには矢印末尾にある角括弧の中にテキスト表示
+  する。
 
-* Figure 15.6 ActivityEdge connector notation
+..
 
-  * この記法はまともに描くと矢印が長くなるときに採用すればよい。
+   Figure 15.6 ActivityEdge connector notation
 
-* Figure 15.7 ActivityEdge notation
+ActivityEdge は連結器を使って記すことも許されている。連結器は辺の名前が中に書か
+れた小さい丸だ。この記法はまともに描くと矢印が長くなるときに採用すればよい。
 
-  * エッジの重みは中括弧と ValueSpecification の記法を用い
-    る。:doc:`./ch08-values` 参照。
-  * InterruptibleActivityRegion の ``interruptingEdge`` は稲妻型の矢印とする。
+ラベルの付いたすべての接続器は、同一 Activity 図で同一ラベルのついた他のものの正
+確に一つに対して対になっていなければならない。
 
-* Figure 15.8 ControlFlow notation
+   Figure 15.7 ActivityEdge notation
 
-  * 制御フローは二つの行動を接続する矢印で示す。
+ActivityEdge の重みは中括弧で囲んで表記する：
 
-* Figure 15.9 ObjectFlow notations
+.. code:: bnf
 
-  * オブジェクトフローも矢印として示す。
-  * Pins を用いる記法のほうがよい？
+   <weight-annotation> :: =‘{’ ‘weight’ ‘=’ <value-specification> ‘}’
 
-* Figure 15.10 Specifying selection behavior on an ObjectFlow
+重みは定数であってもよい値仕様であり、ゼロでない無制限の自然数として評価される。
+無制限の重みは ``*`` と表記される。:doc:`ValueSpecifications <./ch08-values>` の
+記法を参照。
 
-  * ``selection`` Behavior の記法にはキーワード ``«selection»`` が註釈記号に置か
-    れ、適切な ObjectFlow 記号に取り付けられた状態で明記される。
-  * ``transformation`` Behavior はキーワードは ``«transformation»`` を使って同様
-    に明記される。
+InterruptibleActivityRegion の ``interruptingEdge`` は稲妻型の矢印とする。
+(15.6) も参照。
 
-* Figure 15.11 Eliding objects flowing on the edge
+   Figure 15.8 ControlFlow notation
 
-  * 複雑な図式では乱雑さを緩和するために、Pins は省略してよい。省略されているこ
-    とをわからせるために、小さい正方形を矢印の少し上あたりに表示する。
+制御フローは二つの行動を接続する矢印で示す。
 
-* 多重送信および多重受信は ObjectFlow を ``«multicast»`` または
-  ``«multireceive»`` で註釈することでそれぞれ明記する。
+   Figure 15.9 ObjectFlow notations
+
+オブジェクトフローも矢印として示す。この図の右上と下は同じ意味。(16.2) も参照。
+Pins を用いる記法のほうがよい？
+
+   Figure 15.10 Specifying selection behavior on an ObjectFlow
+
+``selection`` Behavior の記法にはキーワード ``«selection»`` を註釈記号に入れ、適
+切な ObjectFlow 記号に取り付けて指定する。
+
+``transformation`` Behavior も同様に、キーワードは ``«transformation»`` を使って
+指定する。
+
+コメントとしては Behavior をテキスト表現したもの（例えば OpaqueBehavior の本文な
+ど）やテキスト的に表現されていない Behavior の名前を書いてもよい。
+
+   Figure 15.11 Eliding objects flowing on the edge
+
+複雑な図式では乱雑さを避けるために Pins を省略してよい。省略されていることを
+示唆するために、小さい正方形を矢印の上に表示してよい。
+
+``effect`` のような、通常 Pin の近くにあるような装飾を流線の端子に表示することが
+可能だ。
+
+多重送信および多重受信はそれぞれ ObjectFlow に ``«multicast»`` または
+``«multireceive»`` と註釈を付すことで指定する。
 
 15.2.5 Examples
 ----------------------------------------------------------------------
 
-* Figure 15.12 Activity node example (...)
+   Figure 15.12 Activity node example (where the arrowed lines are the only
+   non-activity node symbols)
 
-  * 次の種類の ActivityNodes の記法の見本となる。
+次の種類の ActivityNodes の記法の見本となる。
 
-    * ExecutableNodes: ``Receive Order``, ``Fill Order``, etc.
-    * ObjectNodes: ``Invoice``
-    * ControlNodes:
+* ExecutableNodes: ``Receive Order``, ``Fill Order``, etc.
+* ObjectNodes: ``Invoice``
+* ControlNodes:
 
-      * InitialNode: 先頭の黒丸
-      * DecisionNode: 始めの方のダイヤモンド
-      * ForkNode, JoinNode: Ship Order 前後の縦棒
-      * MergeNode: 終わりの方のダイヤモンド
-      * ActivityFinalNode: 末尾の目玉
+  * InitialNode: 先頭の黒丸
+  * DecisionNode: 始めの方のダイヤモンド
+  * ForkNode, JoinNode: Ship Order 前後の縦棒
+  * MergeNode: 終わりの方のダイヤモンド
+  * ActivityFinalNode: 末尾の目玉
 
-* Figure 15.13 ActivityEdge examples
+..
 
-  * 矢印は ControlFlow か ObjectFlow である。
-  * 右上。ObjectNode の前後にある矢印は両方 ObjectFlow である。Invoice オブジェ
-    クトの移動を暗示する。
+   Figure 15.13 ActivityEdge examples
 
-* Figure 15.14 ObjectFlow example
+矢印は ControlFlow か ObjectFlow だ。
 
-  * 両者の意味は同じ。オブジェクト ``Order`` の移動を暗示している。
+左上。``Fill Order`` と ``Ship Order`` を結ぶ矢印は ControlFlow 辺だ。``Fill
+Order`` が完了すると ``Ship Order`` に制御が移ることを示している。``Filled`` と
+あるのは辺の名前だ。
 
-* Figure 15.15 Eliding objects flowing on the edge
+左下のも同じ意味。矢印をマル A で接続している。
 
-  * 省略版だとオブジェクトの個数に関わらず小さい正方形が一つになる？
+右上。ObjectNode ``Invoice`` の前後にある矢印は両方 ObjectFlow だ。``Invoice``
+オブジェクトが ``Send Invoice`` から ``Make Payment`` へ移動することを示す。
 
-* Figure 15.16 Specifying selection and transformation Behaviors on an ObjectFlow
+   Figure 15.14 ObjectFlow example
 
-  * ``selection`` および ``transformation`` Behaviors の見本。註釈頼み。
+両者の意味は同じ。オブジェクト ``Order`` の移動を暗示している。目新しいのは右
+側：
 
-* Figure 15.17 Linking a class diagram to an object node
+   The example on the right has one arrowed line starting from a ``Fill Order``
+   OutputPin (an ObjectNode) and ends at a ``Ship Order`` InputPin.
 
-  * アクティビティ図内の ObjectNode ``Order`` と、Class ``Order`` を述べるクラス
-    図とのリンクを表現している。
+左側の ``Order`` が CentralBufferNode ではないという仮定が必要だが。
 
-* Figure 15.18 Specifying multicast and multireceive on the edge
+   Figure 15.15 Eliding objects flowing on the edge
 
-  * キーワード ``«multicast»`` と ``«multireceive»`` の見本。
-  * スイムレーンは送信者と受信者を示す重要な機能である。
+省略版だとオブジェクトの個数に関わらず小さい正方形が一つになる？
 
-* Figure 15.19 ActivityEdge connector example
+   Figure 15.16 Specifying ``selection`` and ``transformation`` Behaviors on an
+   ObjectFlow
 
-  * 図式中の fork と merge の間にまともに矢印を描くのは面倒なので、このような
-    ワープのような記法の支援がある。
+``selection`` および ``transformation`` Behaviors の見本。註釈頼み。
 
-* Figure 15.20 Equivalent model
+* 左の図は ``Order`` が ``Order Priority`` に基づいて出荷され、同じ優先度のもの
+  は FIFO 方式でなるべく ``Filled`` されることを示す。
+* 右の図は ``Close Order`` の結果 ``Closed`` な ``Order`` を生成する。``Send
+  Customer Notice`` は ``Customer`` オブジェクトを必要とする。この変換は
+  ``Order`` を受け取り、関連する ``Customer`` オブジェクトを生成する問い合わせ操
+  作の呼び出しを指定する。
 
-  * ワープ記法不採用版。
+..
 
-* Figure 15.21 ActivityEdge weight examples
+   Figure 15.17 Linking a class diagram to an object node
 
-  * 左上。constant weight を要求する例。
-  * 右上。変数版。
-  * 下。Award Bid に遷移する条件？が weight だけから決定しない例。
-    この凹五角形ノードの記法の意味はまだやっていない？
+Activity 図内の ObjectNode ``Order`` と、Class ``Order`` を述べるクラス図と
+のリンクを表現している。
 
-* Figure 15.22 Example of an activity with input parameter
+   The class diagram shows that filling an order requires order, line item, and
+   the customer’s trim-and-finish requirements.
 
-  * ``Requested Order`` とあるのが入力引数に対応する ActivityParameterNode であ
-    る。
+とあるが、この図式からそこまでは読み取れないだろう？
 
-* Figure 15.23 Part selection workflow example
+   Figure 15.18 Specifying multicast and multireceive on the edge
 
-  * ``Design Part`` におけるノード ``Provide Required Part`` が、下側では
-    Activityとして図解化されている。
+キーワード ``«multicast»`` と ``«multireceive»`` の見本。
 
-* Figure 15.24 Trouble ticket workflow example
+``RFQs`` は特定の複数 ``Seller`` に送信され、各 ``Seller`` による見積もり回答が
+求められる。その後、いくつかの ``Seller`` が ``Quote Responses`` を返す。複数の
+応答を受信することができるため、辺には ``«multireceive»`` オプションのラベルが付
+けられる。
 
-  * よくあるチケット管理の Activity だろう。
+   Publish/subscribe and other brokered mechanisms can be handled using the
+   multicast and multireceive mechanisms.
 
-* Figure 15.25 Activity with attributes and operations
+スイムレーンは送信者と受信者を示す重要な機能だ。
 
-  * Activity のクラスの特徴を Class の記法で示す見本。
+   Figure 15.19 ActivityEdge connector example
+
+図式中の fork と merge の間にまともに矢印を描くのは面倒なので、このようなワープ
+のような記法の支援がある。
+
+   Figure 15.20 Equivalent model
+
+Fig. 15.19 のワープ記法不採用版。
+
+   Figure 15.21 ActivityEdge weight examples
+
+左上。定数 ``weight`` を要求する。11 人いないと Form Cricket Team 不能。
+
+右上。変数 ``weight`` を要求する。
+
+下。入札期間が終わるとイベント ``Ready to award bid`` が発生し、``Award Bid`` が
+入札すべてを一度に受け取り、落札する一件を選ぶ。この凹五角形節点の記法の意味はま
+だやっていない？
+
+   Figure 15.22 Example of an activity with input parameter
+
+``Requested Order`` とあるのが入力引数に対応する ActivityParameterNode だ。呼び
+出しのすべてが同じ実行を使用する。
+
+   Figure 15.23 Part selection workflow example
+
+``Standards Engineer`` は ``Provide Required Part`` の部分段階が指定された順序、
+指定された条件下で実施されることを保証するが、その段階を必ずしも実施するわけでは
+ない。``Standards Engineer`` が工程を管理していても、この部分段階のいくつかは
+``Design Engineer`` が実施する。
+
+``Expert Part Search`` では、部品が見つかる場合と見つからない場合がある。
+見つからない場合は ``Assign Standards Engineer`` が呼び出される。
+
+``Specify Part Mod Workflow`` は、実行される作業を表す ``Activity`` のオブジェク
+トである値を生成する。これらは、スケジューリングと実行のために後続のアクションに
+渡される (e.g. ``Schedule Part Mod Workflow``, ``Execute Part Mod Workflow``,
+``Research Production Possibility``)。
+
+   As Activities are Classes, instances of them can be passed in object tokens
+   and then later be executed. This is an example of runtime Activity
+   instantiation and execution.
+
+..
+
+   Figure 15.24 Trouble ticket workflow example
+
+よくあるチケット管理の Activity だろう。
+
+   Figure 15.25 Activity with attributes and operations
+
+Activity のクラスの特徴を Class の記法で示す見本。
 
 15.3 Control Nodes
 ======================================================================
@@ -436,18 +761,19 @@
 15.3.1 Summary
 ----------------------------------------------------------------------
 
-* ControlNode は ActivityNode の一種で、Activity 内の他のノード間を流れるトーク
-  ンの流れを処理するのに用いる。本節ではInitialNodes, FinalNodes, ForkNodes,
-  JoinNodes, MergeNodes, DecisionNodes を含むさまざまな ControlNode の具象型を述
-  べる。
+   A ControlNode is a kind of ActivityNode (see sub clause 15.2.2) used to
+   manage the flow of tokens between other nodes in an Activity.
+
+InitialNodes, FinalNodes, ForkNodes, JoinNodes, MergeNodes, DecisionNodes など、
+さまざまな ControlNode の具象型について述べられる。
 
 15.3.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 15.26 Control Nodes
+   Figure 15.26 Control Nodes
 
-  * ControlNode は ActivityNode から派生した型で、ControlNode からもかなりの数の
-    クラスが派生している。
+ControlNode は ActivityNode から派生した型で、ControlNode からもかなりの数のクラ
+スが派生している。
 
 15.3.3 Semantics
 ----------------------------------------------------------------------
@@ -455,163 +781,268 @@
 15.3.3.1 Initial Node
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* InitialNode とは、Activity を実行するための開始点として振る舞う ControlNodeで
-  ある。
+InitialNode の定義：
 
-  * Activity に一つを超える InitialNode があっても構わない。Activity に一つを超
-    える InitialNode があれば、InitialNode のそれぞれに対してActivity の発動が複
-    数の同時制御フローを開始する。
+   An InitialNode is a ControlNode that acts as a starting point for executing
+   an Activity.
 
-* InitialNode にはいかなる ``incoming`` ActivityEdges があってはならないものと
-  し、このことは、Activity が実行を開始すると Activity に所有される InitialNodes
-  がいつでも使用可能であるはずであることと、Activity が実行を開始すると単一の制
-  御トークンがそういった InitialNode のそれぞれに置かれるということを意味する。
+Activity に InitialNode が複数あっても構わない。その場合、Activity を呼び出すと
+InitialNode のそれぞれに対して一つずつ、複数の同時制御フローが開始する。
 
-  * InitialNode の ``outgoing`` ActivityEdges はすべてが ControlFlows でなければ
-    ならない。
+   An InitialNode shall not have any ``incoming`` ActivityEdges
 
-* InitialNodes は ControlNodes がトークンを保持することができず、それらの流れの
-  処理しかできないという規則の例外である。
+Activity が所有する InitialNode はこの Activity が実行を開始すると常に有効にな
+り、そのような InitialNode のそれぞれに制御トークンが一つずつ置かれる。
+
+InitialNode の ``outgoing`` ActivityEdges はすべてが ControlFlows でなければなら
+ない。InitialNode に配置された制御トークンはすべて ``outgoing`` ControlFlows に
+同時に供給される。
+
+   InitialNodes are an exception to the rule that ControlNodes cannot “hold”
+   tokens, but only manage their flow.
 
 15.3.3.2 Final Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* FinalNode とは Activity のある流れがそこで停止するような ControlNode である。
+   A FinalNode is a ControlNode at which a flow in an Activity stops.
 
-  * FinalNode には ``outgoing`` ActivityEdges がないものとする。
-  * FinalNode は ``incoming`` ActivityEdges により与えられたトークンすべてを受理
-    する。
+* FinalNode には ``outgoing`` ActivityEdges がないものとする。
+* FinalNode は ``incoming`` ActivityEdges で供給されたトークンすべてを受理する。
 
-* FinalNode には FlowFinalNode と ActivityFinalNode の 2 種類がある。
+FinalNode には FlowFinalNode と ActivityFinalNode の二種類がある。
 
-  #. FlowFinalNode とは、一つの流れを停止する FinalNode である。FlowFinalNode が
-     受理したトークンは全て破壊される。
-  #. ActivityFinalNode とは、Activity のすべての流れを停止するノードである。
-     Activity に所有される ActivityFinalNode に到達するトークンは、その Activity
-     の実行を停止する。
+FlowFinalNode とは一つの流れを停止する FinalNode だ。FlowFinalNode が
+受理したトークンは全て破壊される。Activity 内の他の流れには影響しない。
 
-     * Activity の実行の停止は、出力 ActivityParameterNodes 以外の ObjectNodes
-       のどれもが保持するトークンのすべてを破壊するものとし、かつ、Activity から
-       同期的に呼び出した挙動のどの実行をも停止するものとする。
-     * いったん Activity の実行が停止すると、前節で述べたようにその Activity の
-       発動は完了する。
+ActivityFinalNode とは Activity の流れすべてを停止する節点だ。
 
-* Activity の流れの全てを中止するのが望みでなければ、FlowFinalNode を使う。
-  ActivityFinalNode は使わない。
+* Activity が所有する ActivityFinalNode にトークンが到達すると、その Activity の
+  実行が停止する。
+
+     If an Activity owns more than one ActivityFinalNode, then the first one to
+     accept a token (if any) terminates the execution of the Activity, including
+     the execution of any other ActivityFinalNodes.
+
+* Activity の実行が停止すると、出力 ActivityParameterNodes 以外の ObjectNodes に
+  保持されているトークンをすべて破壊し、かつ、Activity から同期的に呼び出されて
+  いる Behaviors の実行を停止する。ただし非同期的に呼び出されている Behaviors の
+  実行には影響しない。
+* Activity の実行が停止すると、15.2.3 節で述べたようにその Activity の呼び出しが
+  完了する。
+
+Activity の流れの全てを中止するのが望みでなければ、FlowFinalNode を使う。
+ActivityFinalNode は使わない。
 
 15.3.3.3 Fork Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ForkNode とは、流れを同時に発生する複数の流れに分割する ControlNode である。
+ForkNode の定義。前後の辺の本数と性質に注意：
 
-  * ForkNode には ``outgoing`` ActivityEdges を複数あってよいけれども、
-    ``incoming`` ActivityEdge は厳密に一つあるものとする。
-  * ``incoming`` エッジが ControlFlow ならば、``outgoing`` エッジはすべて
-    ControlFlows であるものとし、``incoming`` エッジが ObjectFlow ならば、
-    ``outgoing`` エッジはすべて ObjectFlows であるものとする。
+   A ForkNode is a ControlNode that splits a flow into multiple concurrent
+   flows. A ForkNode shall have exactly one ``incoming`` ActivityEdge, though it
+   may have multiple ``outgoing`` ActivityEdges. If the ``incoming`` edge is a
+   ControlFlow, then all ``outgoing`` edges shall be ControlFlows and, if the
+   ``incoming`` edge is an ObjectFlow, then all ``outgoing`` edges shall be
+   ObjectFlows.
 
-* ForkNode に与えられたトークンは、そのノードの ``outgoing`` ActivityEdges のす
-  べてに与えられる。それらのうちの少なくとも一つが受理されると、与えられたトーク
-  ンは発生元から取り除かれ、受理者はトークンの複製を受け入れる。
-* ``outgoing`` ActivityEdges の目標ではなく、それらの ``guard`` の失敗が原因で供
-  与を受理することに失敗するそれらはどれもが、それらのトークンの複製を受理しない
-  ものとする。
-* ForkNode から生えている ``outgoing`` ActivityEdges で ``guards`` が使われてい
-  ると、防御されたエッジで引き渡されるトークンの到着に依存する下流 JoinNodes が
-  ないことをモデル作者が保証するべきである。それが回避できなければ、トークンが防
-  御が失敗すると下流 JoinNode へ逸れてもよいように、ForkNode とその防御の付いた
-  エッジとの間に DecisionNode を導入するべきである。
+ForkNode とトークンの関係：
+
+   Tokens offered to a ForkNode are offered to all ``outgoing`` ActivityEdges of
+   the node. If at least one of these offers is accepted, the offered tokens are
+   removed from their original source and the acceptor receives a copy of the
+   tokens. Any other offer that was not accepted on an ``outgoing`` edge due to
+   the failure of the target to accept it remains pending from that edge and may
+   be accepted by the target at a later time. These edges effectively accept
+   separate copies of the offered tokens, and offers made to the edges shall
+   stand to their targets in the order in which they were accepted by the edge
+   (first in, first out).
+
+これは ActivityEdges が下流への移動をブロックされている場合、トークンを保持でき
+ないという規則の例外だ。ForkNodes から出る ActivityEdge は保留中の供給がすべて目
+標に受理されるまで、受理したトークンを保持し続ける。
+
+* 目標ではなく、それらの ``guard`` の失敗が原因で供給を受理されなかった
+  ``outgoing`` ActivityEdges は、それらのトークンの複製を受理しないものとする。
+* ForkNode から出発した ActivityEdges に ``guards`` が使われている場合、防御され
+  た辺を通過するトークンの到着に下流 JoinNodes が依存しないように設計する必要が
+  ある。それが回避できない場合には、ForkNode とその防御のある辺の間に
+  DecisionNode をなるべく導入し、防御が失敗する場合にトークンが下流 JoinNode に
+  退避させるようにする。
 
 15.3.3.4 Join Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* JoinNode は複数の流れを同期するノードである。
+   A JoinNode is a ControlNode that synchronizes multiple flows.
 
-  * JoinNode には厳密に一つの ``outgoing`` ActivityEdge があるものとするが、
-    ``incoming`` ActivityEdges が複数あることは許される。
-  * JoinNode の ``incoming`` エッジのどれかが ObjectFlows であると、
-    ``outgoing`` エッジは ObjectFlow であるものとする。そうでなければ
-    ``outgoing`` エッジは ControlFlow であるものとする。
+* JoinNode には厳密に一つの ``outgoing`` ActivityEdge があるが、``incoming``
+  ActivityEdges が複数あることは許される。
+* JoinNode の ``incoming`` 辺のどれかが ObjectFlows である場合、``outgoing`` 辺
+  は ObjectFlow であるものとする。そうでない場合は ``outgoing`` 辺は ControlFlow
+  であるものとする。
 
-* JoinNode には ``joinSpec`` という合流がトークンを放つ条件を決定する
-  ValueSpecification があることが許される。
+次に ``joinSpec`` を理解する：
 
-  * JoinNode に ``joinSpec`` があれば、``incoming`` ActivityEdge のどれからでも
-    新しいトークンが JoinNode に与えられるときにはいつでもこの
-    ValueSpecification が評価される。
-* ``joinSpec`` ValueSpecification がテキストによる式で与えられると、
-  ``incoming`` エッジの名前を次のものを示すために使ってよい：
+   Join nodes may have a ``joinSpec``, which is a ValueSpecification that
+   determines the condition under which the join will emit a token.
 
-  * ControlFlow からの供与の有無を示す Boolean 値
-  * ObjectFlow から与えられたオブジェクトトークンに付随する値
+* JoinNode が ``joinSpec`` を持つ場合、この ValueSpecification は JoinNode に新
+  しいトークンが供給されるたびに評価される。この評価は、評価中に新しいトークンが
+  供給されても中断されないものとし、同時評価が開始されないものとする。
+* ValueSpecification は真偽値で評価されなければならない。
 
-* JoinNode に ``joinSpec`` がなければ、これは Boolean 演算子 ``"and"`` のある
-  ``joinSpec`` 式に同値である。つまり、暗黙の既定の ``joinSpec`` 条件とは、少な
-  くとも一つのトークンで ``incoming`` ActivityEdge のそれぞれで与えられているこ
-  とである。
-* JoinNode の暗黙または明示的な ``joinSpec`` が ``true`` と評価されると、次の規
-  則に従ってトークンが JoinNode の ``outgoing`` ActivityEdge で与えられる。
+``joinSpec`` ValueSpecification がテキスト式で与えられる場合、``incoming`` 辺の
+名前を次のものを示すために使ってよい：
 
-  #. ``incoming`` エッジで与えられるトークンがすべて制御トークンならば、制御トー
-     クンの一つが ``outgoing`` エッジに与えられる。
-  #. ``incoming`` エッジで与えられるトークンで、制御トークンとオブジェクトトーク
-     ンであるものがあれば、オブジェクトトークンのみが ``outgoing`` エッジに与え
-     られる。
+* ControlFlow からの供給の有無を示す真偽値
+* ObjectFlow から供給されたオブジェクトトークンに関連付けられた値（あれば）
 
-     * JoinNode に対して ``isCombinedDuplicate`` が ``true`` ならば、オブジェク
-       トトークンが ``outgoing`` エッジに与えられる前に、それらの含む同じ素性の
-       オブジェクトは一つのトークンに結合される。
+別の方法としては、``joinSpec`` は一つの真偽値演算子の名前を持つ Expression で構
+成され、オペランドは指定されない。
 
-* この規則は、同じ ``incoming`` エッジから与えられる複数トークンの場合を含み、
-  JoinNode に与えられるトークンすべてに適用する。
-* どのトークンでも JoinNode の ``outgoing`` ActivityEdge に与えられると、さらな
-  るトークンが ``outgoing`` エッジに与えられる前に、目標によって受理されるか、ま
-  たはエッジ上を走査するのを拒絶される（例えば失敗した防御のため）ものとする。
+``joinSpec`` を持たない場合：
+
+   If a JoinNode does not have a ``joinSpec``, then this is equivalent to a
+   ``joinSpec`` Expression with the Boolean operator “and.”
+
+つまり、暗黙の既定 ``joinSpec`` 条件は、``incoming`` ActivityEdge のそれぞれに少
+なくとも一つのトークンが与えられていることだ。
+
+JoinNode の ``joinSpec`` が真の場合に何が起こるのか：
+
+   If the (implicit or explicit) ``joinSpec`` of a JoinNode evaluates to true,
+   then tokens are offered on the ``outgoing`` ActivityEdge of the JoinNode
+   according to the following rules:
+
+#. ``incoming`` 辺に供給されるトークンがすべて制御トークンである場合、その一つが
+   ``outgoing`` 辺に供給される。
+#. ``incoming`` 辺に供給されるトークンの一部が制御トークンで、多がオブジェクト
+   トークンである場合、オブジェクトトークンのみが ``outgoing`` 辺に与えられる。
+
+      Tokens are offered on the ``outgoing`` edge in the same order they were
+      offered to the join. If ``isCombinedDuplicate`` is true for the JoinNode,
+      then before object tokens are offered to the ``outgoing`` edge, those
+      containing objects with the same identity are combined into one token.
+
+この規則を同じ ``incoming`` 辺から供給される複数トークンの場合を含め、JoinNode
+に供給されるトークンすべてに適用する。
+
+トークンが出発辺に供給されると何が起こるか：
+
+   If any tokens are offered to the ``outgoing`` ActivityEdge of a JoinNode,
+   they shall be accepted by the target or rejected for traversal over the edge
+   (e.g., due to a failed guard) before any more tokens are offered to the
+   ``outgoing`` edge.
+
+* トークンが縦断拒否された場合、それらはもはや ``outgoing`` 辺に供給されないもの
+  とする。
+* JoinNode がその ``outgoing`` 辺でトークンを供給することを遮断されている場合、
+  不要な ``joinSpec`` 評価を省略することが許される。
 
 15.3.3.5 Merge Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* MergeNode とは、複数の流れを同期なしでまとめる制御ノードである。
+   A MergeNode is a control node that brings together multiple flows without
+   synchronization.
 
-  * MergeNode には厳密に一つの ``outgoing`` ActivityEdge があるものとする。
-  * MergeNode の incoming と outgoing のエッジの型は一致しているものとする。
-  * MergeNode の ``outgoing`` エッジが ControlFlow ならば、``incoming`` エッジは
-    すべて ControlFlows でなければならず、``outgoing`` エッジが ObjectFlow なら
-    ば、``incoming`` エッジはすべて ObjectFlows でなければならない。
+* MergeNode には厳密に一つの ``outgoing`` ActivityEdge があるものとする。
+* MergeNode の ``incoming`` と ``outgoing`` の辺の型は一致しているものとする。
+  MergeNode の ``outgoing`` 辺が ControlFlow ならば ``incoming`` 辺はすべて
+  ControlFlows でなければならず、``outgoing`` 辺が ObjectFlow ならば
+  ``incoming`` 辺はすべて ObjectFlows でなければならない。
 
-* MergeNode の ``incoming`` エッジで与えられたトークンはすべて、``outgoing``
-  エッジに与えられる。流れまたはトークンの合流の同期はない。
+MergeNode の ``incoming`` 辺に供給されたトークンはすべて、``outgoing`` 辺に供給
+される。流れの同期またはトークンの結合はない。
 
 15.3.3.6 Decision Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* DecisionNode とは、``outgoing`` の流れを選択する ControlNode である。
-* DecisionNode は第一 ``incoming`` エッジ上のトークンを受理し、それらを
-  ``outgoing`` エッジすべてに与える。
-* DecisionNode の ``outgoing`` エッジで防御を有するものがあれば、これらが
-  ``incoming`` トークンそれぞれに対して評価される。
-* DecisionNode に ``decisionInputFlow`` があれば、第一 ``incoming`` エッジからの
-  トークンが``outgoing`` エッジに与えられる前に、第一 ``incoming`` エッジと
-  ``decisionInputFlow`` の両方に与えられる必要がある。
-* DecisionNode に ``decisionInput`` があれば、これは戻り Parameter はあるがその
-  他の出力 Parameters はないBehavior でなければならない。
-* DecisionNode の第一 ``incoming`` エッジが ControlFlow であり、DecisionNode に
-  は ``decisionInput`` があるが ``decisionInputFlow`` はないならば、
-  ``decisionInput`` には入力 Parameters がないものとする。
-* DecisionNode の第一 ``incoming`` エッジが ObjectFlow であり、DecisionNode には
-  ``decisionInput`` があるが ``decisionInputFlow`` はないならば、
-  ``decisionInput`` には入力 Parameter があるものとし、Behavior がそのトークンに
-  対して発動されたときには、第一 ``incoming`` エッジで与えられたオブジェクトトー
-  クンに含まれる値は、この Parameter を経て引き渡される。
-* DecisionNode の第一 ``incoming`` エッジで与えられたトークンは、``guard`` が
-  ``false`` に評価される ``outgoing`` エッジのいずれをも走査しないものとする。
-* 非決定的な挙動を回避するべく、モデル作者は ``incoming`` トークンそれぞれに対し
-  て、高々一つの ``guard`` が ``true`` であると評価されるように取り決めるものと
-  する。
-* DecisionNodes 限定で、定義済みの ``guard`` ``"else"`` を高々一つの
-  ``outgoing`` エッジについて用いて構わない。この防御が ``true`` と評価されるの
-  は、DecisionNode から生えている他の ``outgoing`` エッジのどれによってでもトー
-  クンを受理しないときに限る。
+   A DecisionNode is a ControlNode that chooses between ``outgoing`` flows.
+
+DecisionNode は少なくとも一つ、多くても二つの ``incoming`` ActivityEdge と、少な
+くとも一つの ``outgoing`` ActivityEdge を持たなければならない。
+
+二つある到着辺は平等に扱わない：
+
+   If it has two ``incoming`` edges, then one shall be identified as the
+   ``decisionInputFlow``, the other being called the :dfn:`primary incoming
+   edge`.
+
+DecisionNode の ``incoming`` 辺が一つだけの場合、それが主到着辺となる。
+
+* 主到着辺が ControlFlow である場合、``outgoing`` 辺はすべて ControlFlow でなけ
+  ればならない。
+* 主到着辺が ObjectFlow である場合、``outgoing`` 辺はすべて ObjectFlow でなけれ
+  ばならない。
+
+DecisionNode はトークンをどう処理するか：
+
+   A DecisionNode accepts tokens on its primary incoming edge and offers them to
+   all its ``outgoing`` edges. However, each token offered on the primary
+   incoming edge shall traverse at most one ``outgoing`` edge. Tokens are not
+   duplicated.
+
+DecisionNode の ``outgoing`` 辺のいずれかにガードがある場合、これらのガードは各
+到着トークンに対して評価される。
+
+* 評価順序は定義されておらず、同時に評価されることがある。
+* DecisionNode の主到着辺が ObjectFlow で、DecisionNode が ``decisionInput`` ま
+  たは ``decisionInputFlow`` を持っていない場合、到着オブジェクトトークンに含ま
+  れる値は、``outgoing`` ObjectFlow のガードの評価に使用されることがある。
+
+``decisionInputFlow`` の役割：
+
+   If a DecisionNode has a ``decisionInputFlow``, then a token must be offered
+   on both the primary incoming edge and the ``decisionInputFlow`` before the
+   token from the primary incoming edge is offered to the ``outgoing`` edges.
+
+``decisionInput`` という Bahavior があることがある：
+
+   If a DecisionNode has a ``decisionInput``, then this must be a Behavior with
+   a return Parameter and no other output Parameters.
+
+この Behavior はトークンが入力されるたびに呼び出され、Behavior が返す結果は出発
+辺の ``guards`` の評価で利用できる。
+
+``decisionInput`` は副作用を持ってはならない。オブジェクトを修正してはならない
+が、例えば、オブジェクトから属性値を取得するために、あるオブジェクトから別のオブ
+ジェクトに回航することはできる。
+
+   If the primary incoming edge of a DecisionNode is a ControlFlow, and the
+   DecisionNode has a ``decisionInput`` but not a ``decisionInputFlow``, then
+   the ``decisionInput`` shall have no input Parameters.
+
+ところが、DecisionNode に ``decisionInput`` と ``decisionInputFlow`` の両方があ
+る場合、``decisionInput`` には入力 Parameter が一つあり、Behavior が呼び出される
+と、``decisionInputFlow`` で供給されるオブジェクトトークンに含まれる値がこの
+Parameter を介して渡されるものとする。
+
+DecisionNode の主到着辺上に供給されるトークンは流通経路に制限がある：
+
+   A token offered on the primary incoming edge of a DecisionNode shall not
+   traverse any ``outgoing`` edge for which the ``guard`` evaluates to false.
+
+* ``guard`` を持たないか、または真と評価される ``guard`` を持つ出発辺が複数存在す
+  る場合、到着トークンはこれらの辺の高々一つを渡らなければならない。
+* 遮断されていない出発辺のちょうど一つの対象がトークンを受理する場合、トーク
+  ンは対応する辺を通過し、他のすべての供給は撤回される。
+* 複数の複数が同時にトークンを受理した場合、トークンは受理した複数に対応する辺の
+  一つだけを渡る。どの辺を渡るかはこの仕様では決定されない。
+
+非決定的な挙動を回避するべく、設計者は ``incoming`` トークンそれぞれに対して高々
+一つの ``guard`` が真であると評価されるようになるべく取り決めることだ。
+
+真偽テストの短絡評価が認められている：
+
+   If it can be ensured that only one ``guard`` will evaluate to true, a
+   conforming implementation is not required to evaluate the ``guards`` on all
+   outgoing edges once one has been found to evaluate to true.
+
+DecisionNode 限定で ``else`` という定義済み ``guard`` が使われることがある：
+
+   For use only with DecisionNodes, a predefined ``guard`` “else” (represented
+   as an Expression with “else” as its operator and no operands) may be used for
+   at most one ``outgoing`` edge. This guard evaluates to true only if the token
+   is not accepted by any other ``outgoing`` edge from the DecisionNode.
 
 15.3.4 Notation
 ----------------------------------------------------------------------
@@ -619,55 +1050,69 @@
 15.3.4.1 Initial and Final Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.27 InitialNode notation
+   Figure 15.27 InitialNode notation
 
-  * InitialNodes は黒塗りの丸として記す。
-  * 既視感のある黒丸シンボル。
+InitialNodes は黒塗りの丸として記す。
 
-* Figure 15.28 FinalNode notation
+   Figure 15.28 FinalNode notation
 
-  * ActivityFinalNodes は白丸に囲まれた黒丸として記す。
-  * FlowFinalNodes はバツが内側にある丸として記す。
+* ActivityFinalNodes は白丸に囲まれた黒丸として記す。
+* FlowFinalNodes はバツが内側にある丸として記す。
 
 15.3.4.2 Fork and Join Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.29 ForkNode and JoinNode notation
+   Figure 15.29 ForkNode and JoinNode notation
 
-  * ForkNode と JoinNode の両者に対する表記法は、単に線分である。
-  * この線分に ``outgoing``/``incoming`` ActivityEdges のシンボルを必要に応じて
-    接続する。
+ForkNode と JoinNode の両者に対する表記法は、単に線分だ。この線分に
+``outgoing``/``incoming`` ActivityEdges の記号を必要に応じて接続する。
 
-* Figure 15.30 joinSpec notation
+   Figure 15.30 joinSpec notation
 
-  * 位置は線分の付近。
-  * 中括弧に ``joinSpec = ...`` を含める。
+JoinNode 上の ``joinSpec`` は JoinNode 記号の近くの註釈で示される。
 
-* Figure 15.31 Combined JoinNode/ ForkNode notation
+.. code:: bnf
 
-  * JoinNode と ForkNode が隣接？している状況では、両者を癒着できる。
+   <join-spec-annotation> ::= ‘{’ ‘joinSpec’ ‘=’ <value-specification> ‘}’
+
+..
+
+   Figure 15.31 Combined JoinNode/ForkNode notation
+
+JoinNode と ForkNode の機能はこの図のように同じ節点記号を使って組み合わせること
+が可能だ。
+
+   This notation maps to a model containing a JoinNode with all the ``incoming``
+   ActivityEdges shown in the diagram and one ``outgoing`` ActivityEdge to a
+   ForkNode that has all the ``outgoing`` ActivityEdges shown in the diagram.
 
 15.3.4.3 Merge Nodes and Decision Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.32 MergeNode notation
+   Figure 15.32 MergeNode notation
 
-  * MergeNodes と DecisionNodes の両者を表す表記法は、ダイヤモンド記号である。
-  * MergeNode には二つまたはそれを超える ``incoming`` ActivityEdges および単一の
-    ``outgoing`` ActivityEdge が必要である。それに対して、DecisionNode には、あ
-    り得る ``decisionInputFlow`` 以外では、単一の ``incoming`` ActivityEdge と複
-    数の ``outgoing`` ActivityEdges が必要である。
+MergeNodes と DecisionNodes の記法は菱形だ。
 
-* Figure 15.33 DecisionNode notation
+* MergeNode には二つ以上の ``incoming`` ActivityEdges および単一の ``outgoing``
+  ActivityEdge が必要だ。
+* DecisionNode には単一の ``incoming`` ActivityEdge （``decisionInputFlow`` の可
+  能性を除く）と、複数の ``outgoing`` ActivityEdges が必要だ。
 
-  * ``decisionInput`` はキーワード ``«decisionInput»`` と共に註釈の記法で示す。
-  * ``decisionInputFlow`` はキーワード ``«decisionInputFlow»`` をその矢印のそば
-    に添える。
+   Figure 15.33 DecisionNode notation
 
-* Figure 15.34 Combined MergeNode/DecisionNode notation
+* ``decisionInput`` はキーワード ``«decisionInput»`` と共に註釈の記法で示す。
+* ``decisionInputFlow`` はその流れを註釈するキーワード ``«decisionInputFlow»``
+  によって識別される。
 
-  * MergeNode と DecisionNode は記号を共有することがある。
-  * ``incoming``/``outgoing`` ActivityEdges 記号を複数示すことになる。
+   Figure 15.34 Combined MergeNode/DecisionNode notation
+
+MergeNode と DecisionNode の機能は同じ節点記号を用いることで組み合わせることが可
+能だ。``incoming`` 流れの高々一つが ``decisionInputFlow`` として註釈されることが
+ある。
+
+   This notation maps to a model containing a MergeNode with all the
+   ``incoming`` edges shown in the diagram and one ``outgoing`` edge to a
+   DecisionNode that has all the ``outgoing`` edges shown in the diagram.
 
 15.3.5 Examples
 ----------------------------------------------------------------------
@@ -675,78 +1120,111 @@
 15.3.5.1 Initial Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.35 InitialNode example
+黒丸ノード。
 
-  * Activity の実行の開始時点において、InitialNode は ``Receive Order``
-    ExecutableNode に制御を渡す。
+   Figure 15.35 InitialNode example
+
+Activity の実行の開始時点において、InitialNode は ``Receive Order``
+ExecutableNode に制御を渡す。
 
 15.3.5.2 Fork and Join Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.36 ForkNode example
+棒ノード二種。
 
-  * ``Fill Order`` が完了したときに、ForkNode は ``ShipOrder`` と ``SendInvoice``
-    の両方に制御を渡す。
+   Figure 15.36 ForkNode example
 
-* Figure 15.37 JoinNode example
+``Fill Order`` が完了したときに、ForkNode は ``Ship Order`` と ``Send Invoice``
+の両方に制御を渡す。
 
-  * JoinNode は ``ShipOrder`` と ``SendInvoice`` の処理を同期するのに使われる。
-    両方が完了したときに ``Close Order`` に制御を引き渡す。
+   Figure 15.37 JoinNode example
 
-* Figure 15.38 ``joinSpec`` example
+JoinNode は ``Ship Order`` と ``Send Invoice`` の処理を同期するのに使われる。両
+方が完了したときに ``Close Order`` に制御を引き渡す。
 
-  * 自動販売機の制御が ``Dispense Drink`` に引き渡されるには、この ``joinSpec``
-    にある条件が満たされる必要がある。
+   Figure 15.38 ``joinSpec`` example
+
+自動販売機の制御が ``Dispense Drink`` に引き渡されるには、この ``joinSpec`` にあ
+る条件が満たされる必要がある：
+
+   .. code:: text
+
+      {joinSpec =
+       A and B
+       and the total coin value
+       inserted is >= drink price}
 
 15.3.5.3 Merge and Decision Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.39 MergeNode example
+菱形ノード二種。
 
-  * ``Buy Item`` と ``Make Item`` のどちらか一方または両方共が実行されたのかもし
-    れない。
-  * 場合によっては ``Ship Item`` が二度実行される。
+   Figure 15.39 MergeNode example
 
-* Figure 15.40 DecisionNode example
+``Buy Item`` と ``Make Item`` のどちらか一方または両方共が実行されたのかもしれ
+ない。
 
-  * 角括弧を用いることで分岐条件を柔軟に表現できる。
+場合によっては ``Ship Item`` が二度実行される：
 
-* Figure 15.41 DecisionNode example with ``decisionInput``
+   As *each* completes, control is passed to Ship Item. That is, if only one of
+   Buy Item or Make Item completes, then Ship Item is executed only once; if
+   both complete, Ship Item is executed twice
 
-  * ``decisionInput`` の註釈に分岐条件を書き下している。
+   Figure 15.40 DecisionNode example
+
+角括弧を用いることで分岐条件を柔軟に表現できる。
+
+   Figure 15.41 DecisionNode example with ``decisionInput``
+
+``decisionInput`` の註釈に分岐条件を書き下している。
+
+   As the item has been removed from inventory, the reorder level should also be
+   checked; and if the actual level falls below a pre-specified reorder point,
+   more of the same type of item should be reordered.
 
 15.3.5.4 Final Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.42 ActivityFinalNode example
+目玉とマルバツノード。
 
-  * ``Close Order`` 完了時に FinalNode に至る。Activity は停止する。
+   Figure 15.42 ActivityFinalNode example
 
-* Figure 15.43 ActivityFinalNode example
+``Close Order`` 完了時に FinalNode に至る。Activity は停止する。
 
-  * 開始直後の ForkNode で二つの concurrent flows が始まる。
-  * とにかくどちらの流れを経ても FinalNode に至る。
+   Figure 15.43 ActivityFinalNode example
 
-* Figure 15.44 ActivityFinalNode example
+開始直後の ForkNode で二つの concurrent flows が始まる。
 
-  * FinalNode を一つにまとめても図の意味は変わらない。
-  * ``Notify of Modification`` からは FinalNode に至らないことに注意（なぜか）。
+   The first one to reach the ActivityFinalNode aborts the other.
 
-* Figure 15.45 FlowFinalNode example
+とにかくどちらの流れを経ても FinalNode に至る。
 
-  * これは ``Build`` Component が反復的に実行すると解釈する。
-  * それと同時？に ``Install`` Component が実行していることに注意。
+   Figure 15.44 ActivityFinalNode example
 
-* Figure 15.46 FlowFinalNode and ActivityFinalNode example
+* FinalNode を一つにまとめても図の意味は変わらない。
+* ``Notify of Modification`` からは FinalNode に至らないことに注意（なぜか）。
 
-  * ActivityFinalNode に至るとすると、左側のループはもはや実行中ではないはず？
+   Figure 15.45 FlowFinalNode example
+
+これは ``Build`` Component が反復的に実行すると解釈する。それと同時？に
+``Install`` Component が実行していることに注意。
+
+   Figure 15.46 FlowFinalNode and ActivityFinalNode example
+
+* JoinNode は ``Ship Order`` と ``Accept Payment`` の両方が完了したときに
+  MergeNode に制御が渡されることを示す。
+* 注文が拒否されるたびに、制御は ``Close Order`` に渡される。
+* ``Close Order`` が完了すると、制御は ActivityFinalNode に渡される。
+
+ActivityFinalNode に至るとすると、左側のループはもはや実行中ではないはず？
 
 15.3.5.5 Various Control Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.47 ControlNode examples (...)
+   Figure 15.47 ControlNode examples (with accompanying actions and control
+   flows)
 
-  * この Activity には既視感がある。
+この Activity には既視感がある。
 
 15.4 Object Nodes
 ======================================================================
@@ -754,21 +1232,22 @@
 15.4.1 Summary
 ----------------------------------------------------------------------
 
-* ObjectNode とは ActivityNode の一種であり、Activity の実行中に値を含むオブジェ
-  クトトークンを保持するのに用いるものである。
+   An ObjectNode is a kind of ActivityNode (see sub clause 15.2.2) used to hold
+   value-containing object tokens during the course of the execution of an
+   Activity.
 
-  * 本節ではその具象型三種 ActivityParameterNodes, CentralBufferNodes,
-    DataStoreNodes ばかりでなく、ObjectNode 一般の話を述べる。
+本節ではその具象型三種 ActivityParameterNodes, CentralBufferNodes,
+DataStoreNodes ばかりでなく、ObjectNode 一般の話を述べる。
 
-  * ObjectNode の四番目の種類である Pins は、常に Actions に結び付けられ、
-    :doc:`./ch16-actions` で述べられる。
+ObjectNode の四番目の種類である Pins は、常に Actions に関連付けられる。
+:doc:`./ch16-actions` で述べられる。
 
 15.4.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 15.48 Object Nodes
+   Figure 15.48 Object Nodes
 
-  * ObjectNode と関連する要素の役割を理解したい。
+ObjectNode と関連する要素の役割を理解したい。
 
 15.4.3 Semantics
 ----------------------------------------------------------------------
@@ -776,89 +1255,181 @@
 15.4.3.1 Object Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ObjectNode は Activity の実行途中にオブジェクトトークンを保持する。
-* ObjectNode には同じ値である複数のオブジェクトトークンを含んでよい。そのような
-  トークンは通常は結合しない。
-* ObjectNodes は TypedElements である。ObjectNode に ``type`` が指定されている
-  と、ObjectNode が保持するオブジェクトトークンにはどれもObjectNode の ``type``
-  に適合する値があるものとする。
+ObjectNode は Activity の実行中にオブジェクトトークンを保持する。
 
-  * ``type`` が指定されていなければ、値はどのような ``type`` であってもよい。
-  * 空トークンはオブジェクトノードすべての型を満足する。
+* ObjectNode が保持するトークンは ``incoming`` ActivityEdges から到着する。
+* ObjectNode が保持するトークンは ``outgoing`` ActivityEdges を出発することが許
+  される。
+* トークンは ``outgoing`` 辺の一つしか通過していくことが許されない。
 
-* ObjectNodes は States の ``inState`` 集合を指定することも許される。
-* ObjectNode はその ``upperBound`` がある場合、それが指定する値を超える個数の
-  トークンを含むことは許されない。
-* ObjectNode の ``ordering`` は、ノードが保持するトークンを ``outgoing``
-  ActivityEdges に与える順序を指定する。この特性は次の値の一つである：
+ObjectNode は値が同じオブジェクトトークンを複数含められる。そのようなトークンは
+通常は結合しない。
 
-  * ``unordered``: 順序を定義しない。
-  * ``FIFO``: ObjectNode が受理した順番で ``outgoing`` エッジに与える。
-  * ``LIFO``: ObjectNode が受理したのと逆の順番で ``outgoing`` エッジに与える。
-  * ``ordered``: ``selection`` Behavior を用いたモデル作者定義による順序とする。
+   ObjectNodes are TypedElements (see sub clause 7.3).
+
+* ObjectNode に ``type`` が指定されている場合、ObjectNode が保持するオブジェクト
+  トークンはどれも ObjectNode の ``type`` に適合する値でなければならない。
+* 指定されていない場合、値はどんな ``type`` の値であってもよい。
+* 空トークンは任意の型であるとみなせる。
+
+ObjectNodes は States の ``inState`` 集合を指定することも許される。
+
+   If such a set is specified, then any object token held by the ObjectNode
+   shall have a value with a ``type`` that has or inherits a StateMachine as its
+   ``classifierBehavior`` that has all of the states in the ``inState`` set, and
+   whose instance for the given value shall be in a state configuration
+   containing all of the States specified in the ``inState`` set
+
+ObjectNode はその ``upperBound`` で指定されている場合、それを超える個数のトーク
+ンを含むことは許されない。また、この ValueSpecification は UnlimitedNatural 値に
+評価されるものとする。
+
+* ``upperBound`` は、トークンが ObjectNode に供給されるたび、または ObjectNode
+  から削除されるたびに評価される。ObjectNode がすでに保持しているトークンの数が
+  評価された ``upperBound`` 以上である場合、ObjectNode は保持しているトークンの
+  いくつかが削除されるまで、それ以上のトークンを受理しないものとする。一つ以上の
+  トークンが削除された結果、保持しているトークンの数が評価された ``upperBound``
+  値以下になった場合、ObjectNode は ``upperBound`` の限界まで保留中の供給を受理
+  することが許される。
+* ``upperBound`` が ``*`` と評価された場合、ObjectNode が保持できるトークン数に
+  制限はない。
+
+ObjectNode の ``ordering`` は、この節点が保持するトークンを ``outgoing``
+ActivityEdges に供給する順序を指定する。この特性には次の値の一つをとる：
+
+``unordered``
+   順序を定義しない。
+``FIFO``
+   ObjectNode が受理した順番で ``outgoing`` 辺に与える。
+``LIFO``
+   ObjectNode が受理したのと逆の順番で ``outgoing`` 辺に与える。
+``ordered``
+   ``selection`` Behavior を用いた設計者定義による順序とする。
+
+``selection`` の仕様：
 
 * ``ordering == ordered`` であるとき、かつそのときに限って、ObjectNode には
   ``selection`` Behavior があるものとする。
-* ObjectNode の ``selection`` はそのノードの ``outgoing`` エッジにトークンが一つ
-  与えられることになるときにはいつでも実行される。
-* ObjectNode の ``selection`` はその ``outgoing`` ObjectFlows の ``selection``
-  Behavior のどれによっても上書きされる。
-* ``ordering`` のために互いを追い越すトークン（複数形）は、Activity の発動のそれ
-  ぞれがその Activity の別々の実行によって処理される場合からは独立している。
-* ObjectNode に対する ``isControlType`` が ``true`` であると、ControlFlows が
-  ObjectNode に対する ``incoming`` および ``outgoing`` であってよく、オブジェク
-  トトークンは ControlFlows に沿って ObjectNode に出入りすることが可能であり、そ
-  れらのトークンは ObjectNode の下流に到達される ControlFlows に沿って流れること
-  が可能である。
+* ``selection`` は入力 Parameter と出力 Parameter を一つずつ持つものとする。
+
+  * この入力 Parameter は多重度 ``0..*``, unordered, non-unique である必要があ
+    る。
+  * この出力 Parameter は多重度が ``1..1`` である必要がある。
+
+* ObjectNode が型付けられていない場合、これらの Parameters も片付けられていない
+  ものとする。そうでない場合、入力 Parameter と出力 Parameter はそれぞれ
+  ObjectNode と同じ ``type`` か上位型を持つものとする。
+
+``selection`` の実行：
+
+   The ``selection`` Behavior of an ObjectNode is executed whenever a token is
+   to be offered to the ``outgoing`` edges of the node. The values contained in
+   all the object tokens held by the Object Node are passed as input to the
+   Behavior invocation.
+
+この Behavior はこれらの値のいずれかを選択して返す。この値を含むオブジェクトトー
+クンが ObjectNode の ``outgoing`` 辺に供給される。
+
+ObjectNode の ``selection`` Behavior はその ``outgoing`` ObjectFlows の
+``selection`` Behavior によって上書きされる (15.2.3)。
+
+トークンの追い越しに関する記述があるが、よくわからないので省略。
+
+ControlFlow はある性質の ObjectNode に出入りする：
+
+   If ``isControlType`` = true for an ObjectNode, ControlFlows may be
+   ``incoming`` to and ``outgoing`` from the ObjectNode, objects tokens can come
+   into or go out of the ObjectNode along ControlFlows, and these tokens can
+   flow along ControlFlows reached downstream of the ObjectNode.
 
 15.4.3.2 Activity Parameter Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Behavior の一種なので、Activity には Parameters があることが許される。
-  Activity が発動されると、値を入力 Parameters (``in``/``inout``) で Activity の
-  実行の中へ引き渡してよく、値を出力 Parameters (``inout``/``out``/``return``)
-  で Activityの実行の外へ引き渡してよい。
-* Activity では、Activity の入出力は ActivityParameterNodes を用いて処理され
-  る。 ActivityParameterNode それぞれには、そのノードを所有する Activity の
-  Parameter 一つが結び付けられる。
-* ActivityParameterNode はすべてが ``incoming`` ActivityEdges であるか、すべてが
-  ``outgoing`` ActivityEdges であるかのどちらかであるものとする。
-* Activity には入力引数、出力引数、戻り値それぞれに対応する
-  ActivityParameterNode が一つ、入出力引数それぞれに対応する
-  ActivityParameterNodes が二つあるものとする。
-* 入力 ActivityParameterNode が非 ``streaming`` Parameter に結び付けられていれ
-  ば、含む Activity が発動された時に、その Parameter を用いて引き渡された値はい
-  ずれもオブジェクトトークン（複数形）に包み込まれて、Activity 実行の開始点にあ
-  るActivityParameterNode に配置される。
-* Activity の実行途中では、オブジェクトトークン（複数形）はActivity の出力
-  ActivityParameterNodes に流出してよい。
-* 入力 ActivityParameterNode 非 ``streaming`` Paramter に結び付けられていれば、
-  新しい値がその Parameter に post されるときにはいつでも、その値がオブジェクト
-  トークンに包み込まれて、ActivityParameterNode に配置されて、``outgoing`` エッ
-  ジすべてに与えられる。
+Activity は Behavior の一種なので (13.2) Parameters があることがある。
+
+   When the Activity is invoked, values may be passed into the Activity
+   execution on input Parameters (i.e., those with direction in or inout) and
+   values may be passed out of the Activity execution on output Parameters
+   (i.e., those with direction inout, out or return).
+
+Activity ではその入出力は ActivityParameterNodes を用いて処理される。
+
+* ActivityParameterNode それぞれはその節点を所有する Activity の Parameter 一つ
+  に関連付けられる。
+* ActivityParameterNode の ``type`` は関連付けられた Parameter の ``type`` と同
+  じであるものとする。
+
+ActivityParameterNode はすべてが ``incoming`` ActivityEdges であるか、すべてが
+``outgoing`` ActivityEdges であるかのどちらかであるものとする。
+
+   An ActivityParameterNode with ``outgoing`` edges is an input
+   ActivityParameterNode, while an ActivityParameterNode with ``incoming`` edges
+   is an output ActivityParameterNode.
+
+Activity が持つ ActivityParameterNodes の内訳：
+
+   An Activity shall have one ActivityParameterNode corresponding to each in,
+   out, or return Parameter and two ActivityParameterNodes for each inout
+   Parameter.
+
+* 入力 Parameter は 出力 ActivityParameterNode に関連付けてはならない。
+* 出力または戻り Parameter は入力 ActivityParameterNode に関連付けてはならない
+  （辺が接続されていない ActivityParameterNode に関連付けることは許される）。
+* 出力 Parameter は高々一つの入力 ActivityParameterNode と高々一つの出力
+  ActivityParameterNode に関連付けられなければならない。
+
+オブジェクトトークンが出力 ActivityParameterNode に流れ込むことが考えられる：
+
+   An output ActivityParameterNode accepts all tokens offered to it, which are
+   then placed onto the node. If an output ActivityParameterNode is associated
+   with a non-streaming Parameter, then, when the execution of the containing
+   Activity completes, the values contained in the object tokens held by the
+   ActivityParameterNode are passed out of the execution on the Parameter.
+
+この Parameter に順序が付けられている場合、その値は ActivityParameterNode のトー
+クン順序に対応して順序が付けられる。
+
+Parameter が streaming の場合はどうか。入力 ActivityParameterNode の場合は：
+
+   If an input ActivityParameterNode is associated with a streaming Parameter,
+   then, whenever a new value is posted to the Parameter, that value is wrapped
+   in an object token, placed on the ActivityParameterNode and offered to all
+   outgoing edges.
+
+出力 ActivityParameterNode の場合は上記の反対の工程が起こる。
 
 15.4.3.3 Central Buffer Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* CentralBufferNode は ``incoming`` ObjectFlows と ``outgoing`` ObjectFlows の間
-  の緩衝材として振る舞う。
+CentralBufferNode は ``incoming`` ObjectFlows と ``outgoing`` ObjectFlows の間の
+緩衝材として機能する。オブジェクトトークンを溜めこんでおく場所だ。
 
 15.4.3.4 Data Store Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* DataStoreNode とは、Activity が実行している間じゅうそのオブジェクトトークン
-  （複数形）を永続的に保持する CentralBufferNode である。
-* DataStoreNode が保持するオブジェクトトークンについての供与を下流のオブジェクト
-  ノードが受理すると、その与えられたトークンは（通常の CentralBufferNode の意味
-  で） DataStoreNode から取り除かれる。
-* DataStoreNode がオブジェクトトークンを受理すると、もしそのトークンがすでにその
-  ノードによって保持されているトークンに含まれるオブジェクトと同一のオブジェクト
-  を含んでいれば、重複オブジェクトトークンは DataStoreNode 上に配置しないものと
-  する。正規の CentralBufferNode とは異なり、DataStoreNode は一意なオブジェクト
-  群を含む。
-* ``outgoing`` ObjectFlows にある ``selection`` と ``transformation`` Behaviors
-  は、まるで問い合わせが実施されたかのように DataStoreNode の外側に情報を出すの
-  に利用することが可能である。
+   A DataStoreNode is a CentralBufferNode that holds its object tokens
+   persistently while its activity is executing.
+
+DataStoreNode が保持するオブジェクトトークンは下流の ObjectNode が受理すると、そ
+のトークンはまず通常の CentralBufferNode の意味で DataStoreNode から取り除かれ
+る。そのとき、オブジェクトトークンはコピーされてすぐにこの DataStoreNode に戻さ
+れる。
+
+   Thus, the values held by a DataStoreNode appear to persist for the duration
+   of each execution of its containing activity, even as tokens move downstream
+   from the node.
+
+DataStoreNode がオブジェクトトークンを受理するとき、そのトークンがすでにその節点
+が保持するトークンに含まれるオブジェクトと同一の ID を有するオブジェクトを含む場
+合、重複するオブジェクトトークンが DataStoreNode 上に配置されないものとする。正
+規の CentralBufferNode とは異なり、DataStoreNode はオブジェクト群を一意に含む。
+
+   The ``selection`` and ``transformation`` Behaviors on ``outgoing``
+   ObjectFlows can be used to get information out of a DataStoreNode as if a
+   query were being performed.
+
+例えば、``selection`` は取得するオブジェクトを特定し、``transformation`` はその
+オブジェクトの属性値を取得可能だ。
 
 15.4.4 Notation
 ----------------------------------------------------------------------
@@ -866,57 +1437,71 @@
 15.4.4.1 Object Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.49 ObjectNode notations
+   Figure 15.49 ObjectNode notations
 
-  * ObjectNodes は矩形で示す。
-  * ノードを分類する名前を記号の内側に置き、ここで名前とは ObjectNode の``type``
-    または ``"name:type"`` の書式でノードの ``name`` と ``type`` を示す。
-  * コレクションを表現する ObjectNode はそのようにラベルする。
-  * Signal 付きの ObjectNode は矩形ではなく、初心者マークみたいな多角形で示す。
-    左が凹で右が凸。
-
-* ObjectNode に States の集合 ``inState`` があれば、この集合にある States の名前
-  が中括弧付きカンマ区切りリストとして書かれて、ObjectNode の名前の下に置かれ
+* ObjectNodes は矩形で示す。
+* 節点をラベル付ける名前を記号の内側に置き、名前は ObjectNode の ``type`` を示す
+  か、``name:type`` の形式で節点の ``name`` と ``type`` を示す。
+* その型がコレクションを表現する ObjectNode はそのようにラベルすることが許され
   る。
+* 型として Signal を持つ ObjectNode は矩形ではなく、初心者マークみたいな多角形で
+  示す。左が凹で右が凸。
 
-* Figure 15.50 ObjectNode annotations
+..
 
-  * 付随情報の表記法。
+   Figure 15.50 ObjectNode annotations
 
-* Figure 15.51 Specifying selection behavior on an ObjectNode
+ObjectNode に States の ``inState`` 集合がある場合、この集合にある States の名前
+は付きカンマ区切りリストとして ObjectNode の名前の下の中括弧内に記述される。
 
-  * ObjectNode の ``selection`` Behavior はキーワード ``«selection»`` が付いた註
-    釈記号で指定され、ObjectNode 記号に取り付けられる。
+   Values for ``upperBound``, ``ordering`` and ``isControlType`` are notated by
+   placing an annotation with the following form beneath the ObjectNode symbol
+   (as shown in Figure 15.50):
+
+.. code:: bnf
+
+   <object-node-annotation> ::= ‘{’ <object-node-property> ( ‘,’ <object-node-property> )* ‘}’
+   <object-node-property> ::= ‘upperBound’ ‘=’ <value-specification> |
+                              ‘ordering’ ‘=’ <object-node-ordering-kind> |
+                              ‘controlType’
+   <object-node-ordering-kind> ::= ‘unordered’ | ‘ordered’ | ‘FIFO’ | ‘LIFO’
+
+..
+
+   Figure 15.51 Specifying selection behavior on an ObjectNode
+
+ObjectNode の ``selection`` Behavior は ObjectNode 記号に付属するキーワード
+``«selection»`` を持つ註釈記号の中で指定される。
 
 15.4.4.2 Activity Parameter Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ActivityParameterNode は ObjectNode として記されるが、付随する Parameter の完
-  全テキスト仕様が普通の名前・型ラベルの代わりに ActivityParameterNode をラベル
-  付けするのに用いられることは除く。
-* Figure 15.52 Notation for stream and exception parameters
+ActivityParameterNode は ObjectNode として記されるが、付随する Parameter の完
+全テキスト仕様が普通の名前・型ラベルの代わりに ActivityParameterNode をラベル
+付けするのに用いられる。
 
-  * ``streaming`` Parameter に関連する ActivityParameterNode の記法は、文字列
-    ``{stream}`` をノード記号の近くに記すものとする。
-  * 例外 Parameter に関連する ActivityParameterNode の記法は、小さな三角をノード
-    記号の近くに記すものとする。
+   Figure 15.52 Notation for stream and exception parameters
 
-* Figure 15.53 Presentation option for flows between pins and parameter nodes
+* ``streaming`` Parameter に関連する ActivityParameterNode の記法は、文字列
+  ``{stream}`` を節点記号の近くに記すものとする。
+* 例外 Parameter に関連する ActivityParameterNode の記法は、小さな三角を節点
+  記号の近くに記すものとする。
 
-  * Activity の上側の表現と下側の表現は等価である。
-  * Parameters は Activity の境界でやり取りする。
+   Figure 15.53 Presentation option for flows between pins and parameter nodes
+
+* Activity の上側の表現と下側の表現は等価だ。
+* Parameters は Activity の境界でやり取りする。
 
 15.4.4.3 Central Buffer and Data Store Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.54 Optional CentralBufferNode notation
+   Figure 15.54 Optional CentralBufferNode notation
 
-  * CentralBufferNode 記号は ObjectNode の記法に、オプションでキーワード
-    ``«centralBuffer»`` を含んでよい。
+CentralBufferNode 記号はキーワード ``«centralBuffer»`` を含んでもよい。
 
-* Figure 15.55 DataStoreNode notation
+   Figure 15.55 DataStoreNode notation
 
-  * DataStoreNode はキーワード ``«datastore»`` が付いた ObjectNode として記す。
+DataStoreNode はキーワード ``«datastore»`` が付いた ObjectNode として記す。
 
 15.4.5 Examples
 ----------------------------------------------------------------------
@@ -924,28 +1509,39 @@
 15.4.5.1 Activity Parameter Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.56 Example of ActivityParameterNodes for regular and exception
-  Parameters
+   Figure 15.56 Example of ActivityParameterNodes for regular and exception
+   Parameters
 
- * ここで見るべきは境界上のノードのみ。
- * ``Rejected Computer`` に三角が付いているので、このノードが例外である。
+ここで見るべきは境界上の節点のみ。``Rejected Computer`` に三角が付いているので、
+この節点が例外だ。
 
-* Figure 15.57 Example of ActivityParameterNodes for streaming Parameters
+   Figure 15.57 Example of ActivityParameterNodes for streaming Parameters
 
-  * 入出力どちらの ActivityParameterNodes でも ``streaming`` たり得る。
-  * ちなみに ``streaming`` であることと例外であることは両立してはならない。
+Fig. 15.55 と似ているが右側が異なる。
+
+* 入出力どちらの ActivityParameterNodes でも ``streaming`` たり得る。
+* ちなみに ``streaming`` であることと例外であることは両立してはならない。
 
 15.4.5.2 Central Buffer and Data Store Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.58 CentralBufferNode example
+   Figure 15.58 CentralBufferNode example
 
-  * 予備部品と採用部品の区別法を示していないことに注意。
+予備部品と採用部品の区別法を示していないことに注意。
 
-* Figure 15.59 DataStoreNode example
+   All the parts that are not used will be packed as spares, and vice versa,
+   because each token can only be drawn from the CentralBufferNode by one
+   outgoing edge. The choice in this example is non-deterministic.
 
-  * ``selection`` Behavior の説明が欲しい。
-  * ``Once a year`` というシンボルがあるが、これは Timer の類だろう。
+   Figure 15.59 DataStoreNode example
+
+* ``selection`` Behavior の説明が欲しい。
+* ``Once a year`` という記号があるが、これは Timer の類だろう。
+
+AcceptEventAction がその年次制御トークンを生成すると、JoinNode の結合条件が満た
+され、``Personnel Database`` からの出発辺が ``{weight=*}`` であるため、シリアラ
+イズされたすべての従業員レコードのオブジェクトトークンが ``Review Employee`` に
+流れることが可能だ。
 
 15.5 Executable Nodes
 ======================================================================
@@ -953,20 +1549,23 @@
 15.5.1 Summary
 ----------------------------------------------------------------------
 
-* ExecutableNode とは、Activity の所望の挙動全体のうちの一つの段階として実行され
-  てよい ActivityNode の一種である。
-* ExecutableNodes の具象型はすべてが Actions であり、:doc:`./ch16-actions` で述
-  べる。本節では Activity における ExecutableNodes の一般的な意味と、どの
-  ExecutableNode についても ExceptionHandler を付属させる能力が有することを議論
-  する。
+   An ExecutableNode is a kind of ActivityNode that may be executed as a step in
+   the overall desired behavior of the containing Activity.
+
+一般的に、Activity 内の ControlNodes と ObjectNodes は、シーケンスの制御と
+Activity 内の ExecutableNodes 間のデータの流れを管理するために主に存在する。
+
+ExecutableNodes の具象型はすべてが Actions (:doc:`./ch16-actions`) だ。本節では
+Activity 内の ExecutableNodes の一般的な意味と、ExecutableNode に
+ExceptionHandler を付属させる能力について述べられる。
 
 15.5.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 15.60 Executable Nodes
+   Figure 15.60 Executable Nodes
 
-  * ExecutableNode は一つの ObjectNode に関連する ExceptionHandlers を所有する。
-  * ExceptionHandler は Classifiers を例外の型として関連付ける。
+* ExecutableNode は一つの ObjectNode に関連する ExceptionHandlers を所有する。
+* ExceptionHandler は Classifiers を例外の型として関連付ける。
 
 15.5.3 Semantics
 ----------------------------------------------------------------------
@@ -974,41 +1573,115 @@
 15.5.3.1 Executable Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ExecutableNode とは、それを含む Activity の実質的な挙動の一段階を実施する
-  ActivityNode である。
-* ExecutableNode は ``incoming`` ControlFlows すべてがトークンを与えるまで実行し
-  ないものとする。つまり ``incoming`` ControlFlows 上には暗黙の合流が存在する。
-* ExecutableNode が実行を開始する前に、``incoming`` ControlFlows から与えられる
-  トークンすべてを受理する。
-* ExecutableNode が実行している間は、ある単独の制御がそれが実行であることを示し
-  ているとみなされる。
-* ExecutableNode が実行を完了するときは、その実行を表現している制御トークンがそ
-  の ExecutableNode から取り除かれ、制御トークン（複数形）がその ExecutableNode
-  の ``outgoing`` ControlFlows すべてに与えられる。つまり、ExecutableNode から
-  ``outgoing`` ControlFlows への制御の流れの暗黙の分岐点が存在する。
+   An ExecutableNode is an ActivityNode that carries out a substantive
+   behavioral step of the Activity that contains it.
+
+ExecutableNode の ``incoming`` と ``outcoming`` はすべて ControlFlow でなければ
+ならない。
+
+ExecutableNode はデータを消費したり生産したりすることがあるが、そうするには関連
+する ObjectNodes を通じたうえでなければならない。
+
+   An ExecutableNode shall not execute until all ``incoming`` ControlFlows (if
+   any) are offering tokens. That is, there is an implicit join on the
+   ``incoming`` Control Flows.
+
+ExecutableNode は実行を開始する前に、``incoming`` ControlFlows から供給される
+トークンすべてを受理する。複数のトークンが供給されている場合、すべて消費する。
+
+   While the ExecutableNode is executing, it is considered to hold a single
+   control indicating it is execution.
+
+場合によっては ExecutableNode 一つの複数同時実行が一斉に進行することがある
+(16.2)。この場合 ExecutableNode は同時実行それぞれに対して制御トークンを一つ保持
+する。
+
+制御トークンの行方：
+
+   When an ExecutableNode completes an execution, the control token representing
+   that execution is removed from the ExecutableNode and control tokens are
+   offered on all ``outgoing`` ControlFlows of the ExecutableNode.
+
+つまり、ExecutableNode から ``outgoing`` ControlFlows への制御の流れの暗黙の分岐
+が存在する。
 
 15.5.3.2 Exceptions and Exception Handlers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* 例外とは、実行の完了様式が正常ではないことを確認するために用いられる値である。
-* ExecutableNode には ExecutableNode の外側に広まることもある例外（複数形）を対
-  処するために使われる ExceptionHandlers が一つまたはそれを超える個数あることが
-  許される。その例外たちの ``handlers`` の ``protectedNode`` である。
-* ExceptionHandler が例外を捕捉すると、その例外はその処理者に対する
-  ``execptionInput`` ObjectNode に設置されているオブジェクトトークンに包み込ま
-  れる。
-* 例外捕捉後、ExceptionHandler の ``handlerBody`` が実行を完了すると、あたかも
-  ``protectedNode`` が正常に完了したかのごとき正確に同じ方法で、制御トークンが
-  ExceptionHandler の ``protectedNode`` の ``outgoing`` ControlFlows に与えられ
-  る。
-* ExceptionHandler の ``handlerBody`` には、``incoming`` にせよ ``outgoing`` に
-  せよ ActivityEdges はないものとする。
-* ExceptionHandler の ``handlerBody`` には ExceptionHandler の ``protectedNode``
-  と同じ ``owner`` があるものとし、 ExceptionHandler の ``exceptionInput`` を所有
-  するものとする。
-* もし ExecutableNode が例外を広めて、そのノードには ``handlers`` がないか、広
-  まった例外に一致する ``handler`` がないならば、その例外はより外側へと広まり続
-  ける。
+例外は実行の完了様式が正常ではないことを識別するために用いられる値だ。
+ExecutableNode の実行中に例外が発生し、この実行内で処理されない場合、実行は停止
+され、この例外が当 ExecutableNode の外部へと伝わる。
+
+ExecutableNode は例外処理機能を有することがある：
+
+   An ExecutableNode may have one or more ExceptionHandlers that are used to
+   deal with exceptions that may be propagated out of the ExecutableNode, which
+   is the ``protectedNode`` of those ``handlers``.
+
+例外が ``protectedNode`` から伝わると、この ``handlers`` 集合は例外に合致する処
+理者を探す。
+
+* ``handler`` は例外の ``type`` がその ``exceptionTypes`` の一つと同じか、または
+  その派生型である場合に合致する。
+* 合致する場合、``handler`` は例外を捕捉する。
+* 複数の合致がある場合、厳密に一つの ``handler`` が捕捉するが、どれであるのかは
+  定義されない。
+
+例外を捕捉すると何が起こるか：
+
+   If an ExceptionHandler catches an exception, the exception is wrapped in an
+   object token that is placed on the ``exceptionInput`` ObjectNode for the
+   handler. The ``handlerBody`` of the ExceptionHandler is then executed.
+
+``handlerBody`` の実行は ``exceptionInput`` を介して捕捉した例外を入手することが
+許される。
+
+例外が処理されると次のようにして制御トークンが供給される：
+
+   When the ``handlerBody`` of an ExceptionHandler completes execution after an
+   exception is caught, control tokens are offered on the ``outgoing``
+   ControlFlows of the ``protectedNode`` of the ExceptionHandler, in exactly the
+   same way as if the ``protectedNode`` completed normally.
+
+``protectedNode`` が OutputPins を持つ Action (16.2) である場合、``handlerBody``
+も合致する OutputPins を持つ Action でなければならず、``handlerBody`` の
+OutputPins に置かれたトークンはすべて ``protectedNode`` の OutputPins に転送され
+る。
+
+``handlerBody`` は孤立点のようなものだ：
+
+   A ``handlerBody`` shall have no ``incoming`` or ``outgoing`` ActivityEdges.
+   An ExecutableNode acting as a ``handlerBody`` is not enabled to execute in
+   any case other than in response to an exception being caught by its handler.
+
+``handlerBody`` に対する所有権：
+
+   The ``handlerBody`` of an ExceptionHandler shall have the same owner as the
+   ``protectedNode`` of the ExceptionHandler and shall own the
+   ``exceptionInput`` of the ExceptionHandler.
+
+``exceptionInput`` の型は
+
+* 型付けられていないか、
+* ExceptionHandler の ``exceptionTypes`` すべてと同じ型か、
+* ExceptionHandler の ``exceptionTypes`` すべての汎化型だ。
+
+..
+
+   Typically, the ``handlerBody`` will be a StructuredActivityNode and the
+   ``exceptionInput`` will be an InputPin for it (see sub clause 16.11 on
+   StructuredActivityNodes).
+
+例外を処理しないとようにするとこうなる：
+
+   If an ExecutableNode propagates an exception and the node either has no
+   ``handlers``, or no ``handler`` matches the propagated exception, then the
+   exception continues to propagate outward. If the exception is not caught at
+   all within the execution of the containing Activity, then the Activity
+   execution terminates and the exception is propagated out of the Activity.
+
+Activity が同期的に呼び出された場合、例外は呼び出し元に伝わる。非同期的に呼び出
+された場合、例外は失われる。
 
 15.5.4 Notation
 ----------------------------------------------------------------------
@@ -1016,42 +1689,46 @@
 15.5.4.1 Executable Nodes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.61 ExecutableNode notation
+   Figure 15.61 ExecutableNode notation
 
-  * ExecutableNode は一般的には丸い角の矩形として描かれる。
-  * Actions のさまざまな種類に対するより特殊化した表記法は :doc:`./ch16-actions`
-    で述べる。
+ExecutableNode は一般的には丸い角の矩形として描かれる。
+
+Actions のさまざまな種類に対するより特殊な記法は :doc:`./ch16-actions` で述べら
+れる。
 
 15.5.4.2 Exception Handlers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.62 ExceptionHandler notation
+   Figure 15.62 ExceptionHandler notation
 
-  * ExceptionHandler は稲妻記号で描かれる。
+ExceptionHandler は稲妻記号で描かれる。
 
-    * 矢印の始点は ``protectedNode`` である。
-    * ``exceptionType`` の名前を稲妻のそばに記す。
-    * 矢印の終点 ``exceptionInput`` ノードは小さい正方形で示す。
+* 矢印の始点は ``protectedNode`` だ。
+* 稲妻の隣に ``exceptionType`` の名前を記す。
+* 矢印の終点 ``exceptionInput`` 節点は小さい正方形で示す。
+* 複数の ExceptionHandlers を同じ ``protectedNode`` に取り付けてもかまわない。
 
-* Figure 15.63 Alternative ExceptionHandler notation
+   Figure 15.63 Alternative ExceptionHandler notation
 
-  * 矢印自体を稲妻にする代わりに、ジグザグマークを普通の矢印に添えて
-    ExceptionHandler としてもよい。
+矢印自体を稲妻にする代わりに、ジグザグマークを普通の矢印に添えて ExceptionHandle
+を表記としてもよい。
 
 15.5.5 Examples
 ----------------------------------------------------------------------
 
-* Figure 15.64 ExceptionHandler example
+   Figure 15.64 ExceptionHandler example
 
-  * まず逆行列を求め、それからベクトルを乗じることで別のベクトルを得る。
-  * 行列が非正則ならば、逆行列演算は失敗するはずで ``SingularMatrix`` 例外が送出
-    される。この例外は ``exceptionType`` ``SingularMatrix`` に対する
-    ExceptionHandler により処理されるが、それは ``Substitute Vector1 Action`` を
-    含む領域を実行する。
-  * 逆行列演算またはベクトル乗算のどちらかの処理中に ``Overflow`` 例外が発生する
-    と、``Substitute Vector1 Action`` を含む領域が実行される。
-  * 行列演算が例外なしで完了するか、ExceptionHandlers のうちの一つがきっかけと
-    なったかに関わらず、活動 ``Print Results`` は次に実行される。
+まず逆行列を求め、それからベクトルを乗じることで別のベクトルを得る。
+
+行列が非正則ならば、逆行列演算は失敗するはずで ``SingularMatrix`` 例外が送出され
+る。この例外は ``exceptionType`` ``SingularMatrix`` に対する ExceptionHandler に
+より処理されるが、それは ``Substitute Vector1 Action`` を含む領域を実行する。
+
+逆行列演算またはベクトル乗算のどちらかの処理中に ``Overflow`` 例外が発生すると
+``Substitute Vector1 Action`` を含む領域が実行される。
+
+行列演算が例外なしで完了するか、ExceptionHandlers のうちの一つが引き起こしたかに
+関わらず、次に動作 ``Print Results`` が実行される。
 
 15.6 Activity Groups
 ======================================================================
@@ -1059,22 +1736,24 @@
 15.6.1 Summary
 ----------------------------------------------------------------------
 
-* ActivityGroup は ActivityNodes と ActivityEdges に対する集団化構成要素である。
+   ActivityGoups are a grouping constructs for ActivityNodes and ActivityEdges.
 
-  * ノードとエッジは一つを超える集団に所属することが可能である。
-  * 本節では ActivityGroup の二つの具象型、 ActivityPartitions と
-    InterruptibleActivityRegions について述べる。
-  * StructuredActivityNode は ActivityGroup の第三種であるが、それらは Actions
-    でもあるから :doc:`./ch16-actions` で議論する。
+節点と辺は複数の集団に所属することが可能だ。
+
+本節では ActivityGroup の二つの具象型、 ActivityPartitions と
+InterruptibleActivityRegions について述べる。
+
+StructuredActivityNode は ActivityGroup の第三の種類だが、Actions でもある。
+:doc:`./ch16-actions` で議論する。
 
 15.6.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 15.65 ActivityGroups
+   Figure 15.65 ActivityGroups
 
-  * ActivityGroup の特殊型として ActivityPartition と
-    InterruptibleActivityRegion がある。
-  * ActivityGroup は ``subgraph`` を表現するためのものだろう。
+* ActivityGroup の特殊型として ActivityPartition と InterruptibleActivityRegion
+  がある。
+* ActivityGroup は ``subgraph`` を表現するためのものだろう。
 
 15.6.3 Semantics
 ----------------------------------------------------------------------
@@ -1082,65 +1761,169 @@
 15.6.3.1 Activity Partitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ActivityPartition とは、ある共通の性質を有する ActivityNodes を同一視するため
-  に用いるActivityGroup の一種である。
-* ActivityPartitions はモデルのトークンの流れには影響を及ぼさない。それらは仕切
-  りの ``containedNodes`` と ``containedEdges`` の実行のため発動される Behaviors
-  についてのビューを抑制したり、ビューを実現したりする。
+ActivityPartition の定義：
 
-  * Constraints は仕切りが表現する要素 (``represents``) の種類に従い、変化する。
+   An ActivityPartition is a kind of ActivityGroup for identifying ActivityNodes
+   that have some characteristics in common. ActivityPartitions can share
+   contents.
 
-    * Classifier: 仕切りで発動した Behaviors は ``represents`` の Classifier のオ
-      ブジェクトである責任がある。
-    * InstanceSpecification: この仕切りで発動した Behaviors は ``represents`` の
-      InstanceSpecification によりモデル化されるオブジェクトである責任がある。
-    * Property: この仕切りで発動した Behaviors は ``represents`` の Property に
-      より保持されるオブジェクトである責任がある。
+* 多くの場合、業務モデルにおける組織単位に相当する。
+* Activity の節点間で特性や資源を割り当てるために用いられることがある。
 
-* ActivityPartition は上に挙げた以外の他の種類の Elements を表現してもよいが、当
-  仕様書はそれらの意味を定義しない。
-* ActivityPartition には ``subpartitions`` があってもよい。ActivityPartition の
-  ``isDimension`` が ``true`` であれば、それは ``subpartitions`` を収めるための
-  寸法？である。
-* ActivityPartition が Property を表現し、かつその ``subpartitions`` が
-  InstanceSpecifications を表現するならば、InstanceSpecifications は Property が
-  保持する値をモデル化するものとする。
-* ActivityPartition が Classifier の ``attribute`` である Property を表現し、別
-  の仕切りがそれを含むならば、その ``superPartition`` はその Classifier か、
-  ``type`` がその Classifier となる Property を表現するものとする。
-* 非外部 ActivityPartition が Classifier を表現し、別の仕切りに含まれているなら
-  ば、``superPartition`` もまた Classifier を表現するものとし、``subpartition``
-  の Classifier は次のどちらかでなければならない。
+ActivityPartitions はモデルのトークン流通に影響を及ぼさない。役目としては：
 
-  * ``superPartition`` が表現する Classifier の ``nestedClassifier`` または
-    ``ownedBehavior`` であるか、
-  * ``superPartition`` が表現する Classifier に付随した合成 Association の端点末
-    尾に含まれる。
+   They constrain and provide a view on the Behaviors invoked due to the
+   execution of the ``containedNodes`` and ``containedEdges`` of the partition,
+   including Operation calls and Signal sends. This may be due not only to the
+   execution of explicit InvocationActions (see sub clause 16.3) but also the
+   implicit invocation of, e.g., ``transformation`` and ``specification``
+   Behaviors.
 
-* 外部 ActivityPartition とは ``isExternal`` が ``true`` であるものである。これ
-  は仕切りの構造の規則に対する作為的な例外である。
-* ActivityPartitions を実行のそれとしては不十分ではあるが、高水準のモデル作者に
-  よる検討には十分な情報を与えるのに利用してよい。
+この制約は次にあるように、仕切り ``represents`` 要素の種類によって異なる：
+
+Classifier
+   呼び出し先 Behaviors は ``represents`` の Classifier のオブジェクトが担う。
+
+      The ``context`` of all invoked Behaviors shall be the Classifier.
+      Operation calls and Signal sends within the partition shall target objects
+      at runtime that are instances of the Classifier.
+
+InstanceSpecification
+   呼び出し先 Behaviors は ``represents`` の InstanceSpecification によりモデ
+   ル化されるオブジェクトが担う。
+
+   * 呼び出し先 Behaviors すべての ``context`` はこの InstanceSpecification の
+     Classifier であるものとする。
+   * 仕切り内の Operation 呼び出しと Signal 送信は InstanceSpecification によっ
+     てモデル化されたオブジェクトを対象とするものとする。
+
+Property
+   呼び出し先 Behaviors は ``represents`` の Property が保持するオブジェクトが担
+   う。
+
+   * 仕切り内の Operation 呼び出しと Signal 送信は実行時にこの Property が保持す
+     るオブジェクトを対象とする。
+   * 呼び出しは各値に対して同時に行われたものとして扱われ、そのオブジェクトすべ
+     てが完了するまで呼び出しは完了しない。
+
+ActivityPartition は上に挙げた以外の他の種類の Elements を表現してもよいが、当仕
+様書はそれらの意味を定義しない。
+
+ActivityPartition は入れ子になり得る：
+
+   An ActivityPartition may have ``subpartitions``. If an ActivityPartition has
+   ``isDimension`` = true, then it is a dimension partition for its
+   ``subpartitions``.
+
+寸法仕切りは他の ActivityPartitions に含まれてはいけない。
+
+ActivityPartition が Property を表現し、その ``subpartitions`` が
+InstanceSpecifications を表現する場合、この InstanceSpecifications はその
+Property が保持する値をモデル化するものとする。
+
+* ``subpartitions`` で呼び出される Behaviors は、この ``subpartitions`` の
+  InstanceSpecification と包含元 ActivityPartition の両方に対して要求される制約
+  と合致しなければならない。例えば
+
+  * 仕切りは呼び出された Behavior が実行される場所を表す。
+  * ``subpartitions`` はこの Property に関する ``Chicago`` のような特定の値を表
+    す。場所 Property は Activity を包含する ``context`` BehavioredClassifier の
+    ``attribute`` であったり、この Activity 自体の ``attribute`` であったりす
+    る。
+
+ActivityPartition が Classifier の ``attribute`` である Property を表現し、別の
+仕切りがこの Property を含むならば、その ``superPartition`` はその Classifier ま
+たはその Classifier を ``type`` とする Property を表現するものとする。また、
+``superPartition`` の外部でない ``subpartitions`` はすべて Classifier の
+``attributes`` を表すものとする。
+
+* 実行時において、``subpatitions`` にある Behaviors の呼び出しの対象は、
+  ``superPartition`` が表す Classifier のオブジェクトと同じ ``attribute`` の値で
+  なければならない。
+* ``superPartition`` がこの Classifier を ``context`` とする包含 Activitity の
+  ``partition`` である場合、実行時の実行 Activity の context object はこの
+  ``superPartition`` が表す Classifier と同じオブジェクトであるものとする。
+
+非外部 ActivityPartition が Classifier を表現し、別の仕切りに含まれている場合、
+その ``superPartition`` もまた Classifier を表現するものとし、その
+``subpartition`` の Classifier は次のどちらかでなければならない：
+
+* ``superPartition`` が表現する Classifier の
+
+  * ``nestedClassifier`` または
+  * ``ownedBehavior``
+* ``superPartition`` が表現する Classifier に関連付けられた複合 Association の端
+  子
+
+..
+
+   If the latter, then, at runtime, the target for invocations of Behaviors in
+   the ``subpartition``, including Operation calls and Signal sends, shall be
+   considered to be an instance of the Classifier represented by the
+   ``subpartition`` that is linked to an instance of the Classifier represented
+   by the ``superPartition`` by the composition Association.
+
+外部 ActivityPartition とは ``isExternal`` が真であるものだ。これは仕切りの構造
+の規則に対する作為的な例外だ。
+
+   For example, a dimension partition may have partitions showing the parts of a
+   StructuredClassifier. It can then have an external partition that does not
+   represent one of the parts, but a completely separate Classifier.
+
+業務モデリングでは外部仕切りを使用して業務外部の実体を模倣できる。
+
+   ActivityPartitions may be used in a way that provides enough information for
+   review by high-level modelers, though not enough for execution. For example,
+   if a partition represents a Classifier, then Behaviors invoked in that
+   partition are the responsibility of instances of the Classifier, but the
+   model may or may not say which instance in particular.
+
+モデルがどれが特定のオブジェクトであるかを名言しないというのがミソだ。Operation
+の呼び出しはその Classifier 上の Operation に限定されるが、この呼び出しへの入力
+ObjectFlow は稼働中にどのオブジェクトを対象にするべきかを示すのには指定されない
+かもしれない。
+
+   Another option would be to use ActivationPartitions that represent ``parts``.
+   Then, when the Activity executes in the context of a particular object, the
+   parts of that object at runtime will be used as targets for the Operation
+   calls and Signal sends, as described above.
 
 15.6.3.2 Interruptible Activity Regions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* InterruptibleActivityRegion とは、Activity の一部分の停止を支援する
-  ActivityGroup である。
+InterruptibleActivityRegion とは Activity の一部分の停止を支援する ActivityGroup
+だ。
 
-  * InterruptibleActivityRegion は ActivityNodes しか含まない。
-  * また、InterruptibleActivityRegion はその ``source`` が領域内に、その
-    ``target`` が領域外にあるある ActivityEdges を ``interruptingEdge`` として明
-    らかにする。
+* InterruptibleActivityRegion は ActivityNodes しか含まない。
+* InterruptibleActivityRegion はその ``source`` が領域内にあり、その ``target``
+  が領域外にある特定の ActivityEdges を ``interruptingEdge`` として識別する。
 
-* 領域にある AcceptEventActions で ``incoming`` エッジがないものは、トークンが
-  AcceptEventAction に向かっていないときでさえ、その領域にトークンが入場するとき
-  にしか使用可能にはならない。
+..
 
-  * AcceptEventActions の完全な記述については :doc:`./ch16-actions` を参照。
+   When a token offered along an interruptingEdge is accepted and traverses that
+   edge, then the execution of all ``containedNodes`` of the region is
+   terminated and all tokens are removed from them.
 
-* もし何らかの場合に領域内の流れの全てを中止するのを望まないならば、
-  InterruptibleActivityRegion は使わない。
+しかし、``interruptingEdge`` を流れるトークンは依然としてその ``target`` に到着
+し、さらに領域内の ``source`` から領域外の ``target`` へ非割り込み辺を流れる供給
+トークンも、たとえ流れる間に割り込みが起こっても、依然として``target``に到着す
+る。
+
+   AcceptEventActions in the region that do not have ``incoming`` edges are
+   enabled only when a token enters the region, even if the token is not
+   directed at the AcceptEventAction.
+
+   Do not use an InterruptibleActivityRegion if it is not desired to abort all
+   flows in the region in some cases.
+
+例えば ``isSingleExecution`` が真である Activity において、トークンの流れの複数
+が同じ Activity を流れることになる。この場合、トークンの一つが領域から離れるから
+といって、領域内の流れのすべてを中止することはまず望ましくない。
+
+   Arrange for separate invocations of the Activity to use separate executions
+   of the Activity (i.e., ``isSingleExecution`` = false) when employing
+   InterruptibleActivityRegions, so tokens from different invocations will not
+   affect each other.
 
 15.6.4 Notation
 ----------------------------------------------------------------------
@@ -1148,37 +1931,52 @@
 15.6.4.1 Activity Partitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ActivityPartition は、二本の、ふつうは水平か垂直のどちらかの平行な線と、箱の中
-  の一端に仕切りに名前のラベルを付けて記す。
+ActivityPartition は、通常、水平または垂直の二本の平行線で表記され、一方の端の箱
+には仕切りを示す名前を記す。
 
-* Figure 15.66 ActivityPartition notations
+   Figure 15.66 ActivityPartition notations
 
-  a. これらの線に挟まれて置かれる ActivityNodes と ActivityEdges のいずれもがそ
-     の仕切りの中に含まれるとみなされる。この ActivityPartition の表記法は俗に言
-     うswimlane として知られる。
-  b. ``superPartition`` のさらなる仕切りとして ``subpartitions`` を表現すること
-     で階層的な仕切りを表現することができる。
-  c. swim cell のそれぞれは複数の仕切りの交差である。
+これらの線に挟まれて置かれる ActivityNodes と ActivityEdges のいずれもがその仕切
+りの中に含まれるとみなされる。この ActivityPartition の表記法は swimlane と俗に
+言われる (a)。
 
-* 罫線による ActivityPartitions の図式化は実践的ではないことがある。その場合には
-  次に示す代替記法を検討する。
-* Figure 15.67 ActivityPartition notations
+``superPartition`` のさらなる仕切りとして ``subpartitions`` を表現すること
+で階層的な仕切りを表現することができる (b)。
 
-  a. 仕切りの名前を括弧付きで ActivityNode の名前の上に置く。
-  b. 外側の仕切りはキーワード ``«external»`` を付けてラベルする。
+図式は多次元に分割することも可能で、各 swim cell は複数の仕切りの交差となる
+(c)。
+
+   The partitions within each dimension may be grouped into an enclosing
+   activity partition with ``isDimension`` = true, whose name is the dimension
+   name.
+
+状況によっては、罫線による ActivityPartitions の図式化は現実的ではないことがあ
+る。その場合には次に示す代替記法を検討する。
+
+   Figure 15.67 ActivityPartition notations
+
+a. 仕切りの名前を括弧付きで ActivityNode の名前の上に置く。
+b. 外側の仕切りはキーワード ``«external»`` を付けてラベルする。
+
+..
+
+   When ActivityPartition swimlane notation is combined with the frame notation
+   for Activity (see sub clause 15.2.4), the outside edges of the top level
+   partition swimlanes can be merged with the Activity frame.
 
 15.6.4.2 Interruptible Activity Regions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.68 InterruptableActivityRegion
+   Figure 15.68 InterruptableActivityRegion
 
-  * InterruptableActivityRegion は破線丸角矩形で記す。
-  * ``interruptingEdge`` を稲妻 ActivityEdge を使って記す。
+* InterruptableActivityRegion はその領域に含まれる節点の周囲に描かれる破線丸角矩
+  形で記される。
+* ``interruptingEdge`` は稲妻 ActivityEdge で表記される。
 
-* Figure 15.69 InterruptableActivityRegion alternative notation
+   Figure 15.69 InterruptableActivityRegion alternative notation
 
-  * 先述の通り ``interruptingEdge`` の矢印をストレートにしてジグザグマークを添え
-    てもよい。
+先述の通り ``interruptingEdge`` の矢印を真っ直ぐにしてジグザグマークを添えてもよ
+い。
 
 15.6.5 Examples
 ----------------------------------------------------------------------
@@ -1186,33 +1984,40 @@
 15.6.5.1 Activity Partitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.70 ActivityPartitions using swimlane notation
+   Figure 15.70 ActivityPartitions using swimlane notation
 
-  * いつもの例題に swimlanes を明記したもの。上段が ``Order Department`` の担当
-    する Activity の部分を含む。中段が ``Account Department`` で、下段が
-    ``Customer`` である。
-  * ところで仕切りをまたぐ ActivityEdges は、どの ``subpartitions`` にも含まれな
-    い。
+いつもの例題に swimlanes を明記したもの。上段が ``Order Department`` の担当する
+Activity の部分を含む。中段が ``Account Department`` で、下段が ``Customer``
+だ。
 
-* Figure 15.71 ActivityPartitions using annotation
+仕切りをまたぐ ActivityEdges は、どの ``subpartitions`` にも含まれない。
 
-  * 先の見本から swimlane を外したもの。
-  * 丸括弧とキーワード ``«external»`` で所属する ActivityPartition がわかる。
+   Figure 15.71 ActivityPartitions using annotation
 
-* Figure 15.72 ActivityPartitions using multidimensional swimlane notation
+先の見本から swimlane を外したもの。
 
-  * 紙に描くものである以上、多次元と言っても高々 2 である。
+丸括弧とキーワード ``«external»`` で所属する ActivityPartition がわかる。
+
+   Figure 15.72 ActivityPartitions using multidimensional swimlane notation
+
+``Make Payment`` は ``Seattle/Accounting Clerk`` swim cell に含まれているが、そ
+の実行者と場所は指定されていない。キーワード ``«external»`` が付いている。
 
 15.6.5.2 Interruptible Activity Regions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Figure 15.73 InterruptableActivityRegion example
+   Figure 15.73 InterruptableActivityRegion example
 
-  * InterruptableActivityRegion と凹五角形シンボルの組み合わせは使い易そうだ。
-  * 受注、記入、出荷の間に注文取消しが起こると、その流れは停止されて ``Cancel
-    Order`` ノードが実行される。
-  * これが ``Fill Order`` が終了した後に起こると、``Fill Order`` の後の ForkNode
-    のために、請求処理はもう初期化してしまったかもしれない。
+InterruptableActivityRegion と凹五角形記号の組み合わせは使い易そうだ。
+
+受注、記入、出荷の間に注文取消しが起こると、その流れは停止されて ``Cancel
+Order`` が実行される。
+
+   NOTE. If this happens after Fill Order is finished, invoicing might have
+   already been initiated (due to the ForkNode after Fill Order).
+
+このフローは InterruptibleActivityRegion の外側にあるため、``Ship Order`` が終了
+しても ``Cancel Order`` 要求によって終了することはない。
 
 15.7 Classifier Descriptions
 ======================================================================
