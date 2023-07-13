@@ -47,10 +47,6 @@
             
   <section id="common-behavior">
 <h1><a class="toc-backref" href="#id8" role="doc-backlink">13 Common Behavior</a><a class="headerlink" href="#common-behavior" title="Permalink to this heading">¶</a></h1>
-<div class="admonition- admonition">
-<p class="admonition-title">読者ノート</p>
-<p>現在ノート修正中。</p>
-</div>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -67,86 +63,85 @@
 </nav>
 <section id="summary">
 <h2><a class="toc-backref" href="#id9" role="doc-backlink">13.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>この章では UML にある挙動のモデリング全ての根底にある核心の概念を指定する。</p></li>
-<li><p>UML は Behavior, Event そして Trigger という構成要素を与えることで、対応する挙動のモデリングの基礎概念をモデル化する。</p></li>
-<li><p>Behavior は動的な変化をモデリングするための根本的な概念である。</p>
-<ul>
-<li><p>Behavior は直接の発動によってか、挙動を務める (hosts) アクティブオブジェクトの生成によって実行してよい。</p></li>
-<li><p>Behavior はまた突発的であってもよく、それら自身が特有の個々の挙動を実施して、一つまたはそれを超える関与オブジェクトの相互作用から生じるものである。</p></li>
-</ul>
-</li>
-<li><p>動的な挙動は、特定の時点で起こる興味のある事象に帰着する。</p>
-<ul>
-<li><p>そういう事象は暗黙でよく、ある値またはある時間の範囲の経過の変化の際に発生する。</p></li>
-<li><p>それらは明示的でもよく、操作が呼ばれたり、非同期信号が受信されたりすると発生する。</p></li>
-</ul>
-</li>
-<li><p>事象の発生は新しい挙動のきっかけになることができ、または、もう実行しているの挙動の経路を変えてよい。</p>
-<ul>
-<li><p>明示的な事象は挙動間の連絡にとっての根本的な仕組みをこうして与えて、そこでは、例えば操作を呼び出すことや信号を送ることのような、ある挙動で実行に移される行動が、別の挙動での応答のきっかけとなり得る。</p></li>
-</ul>
-</li>
-<li><p>この章の残りは Behaviors, Events そして Triggers の基本的 UML モデリングの仕組みのさらなる詳細を述べる。これらの仕組みは後続の章で仕様化される UML の挙動のモデリング構成要素全部の屋台骨を用意する。</p></li>
-</ul>
+<p>本章では UML における動作モデリングすべての基礎となる中核概念を規定する。挙動モデリングは、Classifier や StructuralFeature のオブジェクトが時間とともにどのように変化するかをモデル化するものだ。</p>
+<blockquote>
+<div><p>UML provides Behavior, Event, and Trigger constructs to model the
+corresponding fundamental concepts of behavioral modeling.</p>
+<p><em class="dfn">Behavior</em> is the basic concept for modeling dynamic change.</p>
+</div></blockquote>
+<p>挙動は直接的にか、挙動を宿す能動的オブジェクト (active object) を生成することによって実行 (execute) されることがある。</p>
+<p>挙動は、それら自体が特有の個々の挙動を実行しているような一つ以上の関与オブジェクトの相互作用から生じるものである (emergent) 場合もある。</p>
+<blockquote>
+<div><p>Dynamic behavior results in <em class="dfn">events</em> of interest that occur at specific
+points in time.</p>
+</div></blockquote>
+<p>動的な挙動は特定の時点で発生する関心のある事象をもたらす。このようなイベントは、何らかの値の変化や時間の経過によって発生する暗黙的なものであったり、操作が呼び出されたときや非同期信号 (signal) を受信したときに発生する明示的なものであったりする。</p>
+<blockquote>
+<div><p>The occurrence of an event may then <em class="dfn">trigger</em> new behavior, or change the
+course of already executing behavior.</p>
+</div></blockquote>
+<p>明示的な事象は、ある挙動で実行に移された操作の呼び出しや信号の送信などの動作が、別の挙動での応答を引き起こすことが可能である、挙動間の通信のための基本的な仕組みを設ける。</p>
+<p>この章の残りは Behaviors, Events, Triggers の基本的 UML モデリングの仕組みのさらなる詳細を述べる。</p>
 </section>
 <section id="behaviors">
 <h2><a class="toc-backref" href="#id10" role="doc-backlink">13.2 Behaviors</a><a class="headerlink" href="#behaviors" title="Permalink to this heading">¶</a></h2>
 <section id="id1">
 <h3>13.2.1 Summary<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>本節では UML での挙動をモデリングするための屋台骨を導入する。Behavior の具象下位型（後続の章で述べる）は、さまざまな仕組みを用意することで挙動を指定する。</p></li>
-<li><p>UML はいろいろな挙動の仕様の仕組みを支援している：</p>
+<blockquote>
+<div><p>This sub clause introduces the framework for modeling behavior in UML. The
+concrete subtypes of Behavior, described in subsequent clauses, then provide
+different mechanisms to specify behaviors.</p>
+</div></blockquote>
+<p>UML はいろいろな挙動の仕様の仕組みを支援している：</p>
 <ul>
 <li><p>有限オートマトンをモデル化する StateMachines: <a class="reference internal" href="ch14-statemachines.html"><span class="doc">14 StateMachines</span></a></p></li>
 <li><p>Petri ネット的グラフを用いて定義される Activities: <a class="reference internal" href="ch15-activities.html"><span class="doc">15 Activities</span></a></p></li>
 <li><p>事象発生の半順序連続列をモデル化する Interactions:
-<a class="reference internal" href="ch17-interactions.html"><span class="doc">17 Interactions</span></a></p></li>
-</ul>
+<a class="reference internal" href="ch17-interactions.html"><span class="doc">17 Interactions</span></a></p>
+<blockquote>
+<div><p>These behavioral specification mechanisms differ in their expressive power
+and domain of applicability. This means that not all behaviors can be
+described by each of the mechanisms.</p>
+</div></blockquote>
 </li>
-<li><p>これらの挙動の仕様の仕組みはそれらの表現力および適用性の領域の点で異なる。</p></li>
 </ul>
+<p>それでも挙動の多くは一つ以上の枠組で記述可能だ。あるいは、枠組を複数使用して、同じ挙動の異なるモデルを与えることも可能だ。</p>
 </section>
 <section id="abstract-syntax">
 <h3>13.2.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 13.1 Behaviors</p>
+</div></blockquote>
+<p>Behavior を中心に据えたクラス図。新登場するクラスにはその他に OpaqueBehavior と
+FunctionBehavior がある。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_classifierBehavior_behavioredClassifier</span></code></dt><dd><p>BehavioredClassifier から Behavior への関連（単方向）。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_method_specification</span></code></dt><dd><p>BehavioralFeature から Behavior への関連（双方向）。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_precondition_behavior</span></code></dt><dd><p>Behavior から Constraint への複合関連（単方向）。</p>
 <ul class="simple">
-<li><p>Figure 13.1 Behaviors</p>
-<ul>
-<li><p>Behavior を中心に据えたクラス図。新登場するクラスにはその他に OpaqueBehavior と FunctionBehavior がある。</p></li>
-</ul>
-</li>
-</ul>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">A_classifierBehavior_behavioredClassifier</span></code></dt><dd><ul class="simple">
-<li><p>BehavioredClassifier から Behavior への関連（単方向）。</p></li>
-</ul>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_method_specification</span></code></dt><dd><ul class="simple">
-<li><p>BehavioralFeature から Behavior への関連（両方向）。</p></li>
-</ul>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_precondition_behavior</span></code></dt><dd><ul class="simple">
-<li><p>Behavior から Constraint への composite 関連（単方向）。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedRule_context</span></code> を subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_postcondition_behavior</span></code></dt><dd><ul class="simple">
-<li><p>Behavior から Constraint への composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_postcondition_behavior</span></code></dt><dd><p>Behavior から Constraint への複合関連（単方向）。</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedRule_context</span></code> を subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameterSet_behavior</span></code></dt><dd><ul class="simple">
-<li><p>Behavior から Parameter への関連 composite 関連（単方向）。</p>
-<ul>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameterSet_behavior</span></code></dt><dd><p>Behavior から Parameter への関連複合関連（単方向）。</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>Behavior が非同期的に発動されたならば、挙動の実行が完了するときにはどんな結果値も失われる。</p></li>
 </ul>
-</li>
+</div></blockquote>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ownedParameter</span></code> は ordered である。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ownedParameter</span></code> は ordered だ。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameterSet_behavior</span></code></dt><dd><ul class="simple">
-<li><p>Behavior から ParameterSet への関連 composite 関連（単方向）。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedParameterSet_behavior</span></code></dt><dd><p>Behavior から ParameterSet への関連複合関連（単方向）。</p>
+<ul class="simple">
 <li><p>入力 ParameterSets を伴う Behavior は一実行当たり、一つの集合の Parameters
 から入力を受け入れられるだけ。</p></li>
 <li><p>出力 ParameterSets を伴う Behavior は一実行当たり、一つの集合の Parameters
@@ -154,13 +149,9 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedMember_namespace</span></code> を subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_ownedBehavior_behavioredClassifier</span></code></dt><dd><ul class="simple">
-<li><p>BehavioredClassifier から Behavior への composite 関連（単方向）。</p></li>
-</ul>
+<dt><code class="docutils literal notranslate"><span class="pre">A_ownedBehavior_behavioredClassifier</span></code></dt><dd><p>BehavioredClassifier から Behavior への複合関連（単方向）。</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_context_behavior</span></code></dt><dd><ul class="simple">
-<li><p>Behavior から BehavioredClassifier への関連（単方向）。</p></li>
-</ul>
+<dt><code class="docutils literal notranslate"><span class="pre">A_context_behavior</span></code></dt><dd><p>Behavior から BehavioredClassifier への関連（単方向）。</p>
 </dd>
 </dl>
 </section>
@@ -168,125 +159,288 @@
 <h3>13.2.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
 <section id="id2">
 <h4>13.2.3.1 Behaviors<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A Behavior is a specification of events that may occur dynamically over time
+(see also sub clause 13.3 on the explicit modeling of Events in UML).</p>
+</div></blockquote>
+<p>この仕様は次のどれでもいい：</p>
 <ul class="simple">
-<li><p>Behavior とは長い時間に亘って動的に発生してよい事象の詳細である。</p>
-<ul>
-<li><p>Behavior はそれが <code class="docutils literal notranslate"><span class="pre">method</span></code> としてか、それが BehavioredClassifier の
-<code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> として実装する BehaviorFeature で直接発動してよい。</p></li>
+<li><p>どのような状況でどのようなイベントが発生するかを具体的に示すもの</p></li>
+<li><p>出現する挙動を示すもの</p></li>
+<li><p>イベントの発生順序を例示するもの</p></li>
 </ul>
-</li>
-<li><p>各発動で、発動のため続いて起こる実際の事象の発生列は、Behavior の詳細に整合性を保っているが、Behavior についての execution trace と呼ばれる。</p>
-<ul>
-<li><p>Behavior は正常に完了してよいか、例外の送出を結果として完了してよい。この場合は、Behavior が同期的に起動されたならば、例外は呼び出し側に伝えられる。</p></li>
-</ul>
-</li>
-<li><p>UML では Behaviors は Classes の一種であり、それは Behaviors をオブジェクト化してよいということを意味する。Behavior のオブジェクトは挙動の実行 (behavior
-execution) として知られる。</p>
-<ul>
-<li><p>Behavior を発動することはその Behavior をオブジェクト化することに相当し、
-Behavior 実行それぞれに対応する固有の execution trace がある。</p></li>
-</ul>
-</li>
-<li><p>Behavior は Class であるがゆえに、それを特殊化してよいし、自身が
-StructuralFeatures や BehavioralFeatures を所有してもよい。</p></li>
-<li><p>Behavioral を複数回発動してよい。再入可能な (reentrant) Behavior は、その直前の発動が完了するよりも先にもう一度発動されてよい。再入可能でない Behavior は、先の発動が完了していなければ再度発動してはならないものとする。</p></li>
-<li><p>Behavior を同期的に、または非同期的に発動してよい。</p></li>
-<li><p>Behavior に対する <code class="docutils literal notranslate"><span class="pre">preconditions</span></code> は Behavior が発動される際に <code class="docutils literal notranslate"><span class="pre">true</span></code> であるものとする条件を定義する。<code class="docutils literal notranslate"><span class="pre">precondition</span></code> が成り立たないときの Behavior の発動の意味は意図的に未定義である。</p></li>
-<li><p>Behavior に対する <code class="docutils literal notranslate"><span class="pre">postconditions</span></code> は <code class="docutils literal notranslate"><span class="pre">preconditions</span></code> が成り立っていたという仮定で、Behavior の発動が成功に完了すると <code class="docutils literal notranslate"><span class="pre">true</span></code> となるはずの条件を定義する。</p></li>
-</ul>
+<p>Behavior はすべて、少なくとも一つのイベント、すなわちその呼び出しのイベントを定義する。</p>
+<blockquote>
+<div><p>A Behavior may be invoked directly, via a BehavioralFeature that it
+implements as a <code class="docutils literal notranslate"><span class="pre">method</span></code> or as the <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> of a
+BehavioredClassifier.</p>
+</div></blockquote>
+<p>実行トレースの概念を定義：</p>
+<blockquote>
+<div><p>On each invocation, the subsequent actual sequence of event occurrences due
+to the invocation, consistent with the specification of the Behavior, is
+called an <em class="dfn">execution trace</em> for the Behavior.</p>
+</div></blockquote>
+<p>実行トレースは常に Behavior の起動から始まり、（終了しない場合）無限に続くこともあれば、終了 (termination) イベントが発生した時点で終わることもあり、その場合、
+Behavior の実行は完了 (complete) したと言われる。</p>
+<p>Behavior は正常に (normally) 完了することもあり、例外の送出をもって完了することもある。後者の場合は、Behavior が同期的に起動されたならば、例外 (15.5.3) は呼び出し側に伝わる。</p>
+<blockquote>
+<div><p>Behaviors in UML are kinds of Classes, which means that they may be
+instantiated as objects. An object that is an instance of a Behavior is known
+as a behavior <em>execution</em>.</p>
+</div></blockquote>
+<p>Bahvior を呼び出すことはそのオブジェクト生成に相当し、各 Behavior の実行に対応する特定の実行トレースが存在する。</p>
+<blockquote>
+<div><p>Since a Behavior is a Class, it may be specialized and may also itself own
+StructuralFeatures and BehavioralFeatures.</p>
+</div></blockquote>
+<p>Behavior を実行すると、その属性の読み取りや変更など、これらの機能にアクセスすることが許される。Behavior の public な構成要素も Class の機能と同様、Behavior 外部から参照することが許される。</p>
+<p>再入可能概念の定義：</p>
+<blockquote>
+<div><p>A Behavior may be invoked many times. A <em class="dfn">reentrant</em> Behavior (i.e., one
+with its <code class="docutils literal notranslate"><span class="pre">isReentrant</span></code> property equal to true) may be invoked again before
+a previous invocation has completed (this is the default). On the other hand,
+a <em class="dfn">non-reentrant</em> Behavior (i.e, one with its <code class="docutils literal notranslate"><span class="pre">isReentrant</span></code> property
+equal to false) shall not be invoked again if a previous invocation has not
+completed.</p>
+</div></blockquote>
+<p>再入可能な Behavior はいつでも実行中 Behaviore を多く持つことが許されるが、再入不能な Behavior は高々一つの未完了の実行をいつでも持たなければならない。</p>
+<p>呼び出し側の Bahvior がすでに未完了の実行を持つ再入不能 Behavior を呼び出そうとした場合、呼び出し側はその実行が完了するまで（実行が完了しない場合は際限なく）ブロックしなければならない。</p>
+<p>Behavior を同期性で二分できる：</p>
+<blockquote>
+<div><p>A Behavior may be invoked <em class="dfn">synchronously</em> or <em class="dfn">asynchronously</em>.</p>
+</div></blockquote>
+<p>事前条件：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">preconditions</span></code> for a Behavior define conditions that shall be true
+when the Behavior is invoked. These <code class="docutils literal notranslate"><span class="pre">preconditions</span></code> may be assumed in the
+detailed specification of the Behavior.</p>
+</div></blockquote>
+<p>事前条件が満たされていない Behavior の呼び出しの意味は意図的に未定義とする。</p>
+<p>事後条件：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">postconditions</span></code> for a Behavior define conditions that will be true
+when the invocation of the Behavior completes successfully, assuming the
+preconditions were satisfied.</p>
+</div></blockquote>
+<p>事後条件はその Bahvior の詳細仕様において満たされるものとする。</p>
 </section>
 <section id="behavior-parameters">
 <h4>13.2.3.2 Behavior Parameters<a class="headerlink" href="#behavior-parameters" title="Permalink to this heading">¶</a></h4>
+<p>Bahvior には Parameters を持つものもある：</p>
+<blockquote>
+<div><p>A Behavior may have Parameters (see sub clause 9.4) that provide the ability
+to pass values into and out of Behavior executions.</p>
+</div></blockquote>
+<p>実引数、既定値：</p>
+<blockquote>
+<div><p>When a Behavior is invoked, <em>argument</em> values may be provided corresponding
+to Parameters with direction “in” or “inout”, as constrained by the
+multiplicity of those Parameters. If such an input Parameter has a
+<code class="docutils literal notranslate"><span class="pre">defaultValue</span></code>, and no explicit argument value is given for it, then the
+<code class="docutils literal notranslate"><span class="pre">defaultValue</span></code> is evaluated to provide argument values for the Parameter
+(even if the Parameter has a multiplicity lower bound of 0, so having no
+value would be valid for it).</p>
+</div></blockquote>
+<p>実引数は呼び出される Behavior の実行経過に影響するのに利用可能だ。</p>
+<p>Behavior は結果を出す：</p>
+<blockquote>
+<div><p>When a Behavior execution completes, it may produce <em>result</em> values
+corresponding to Parameters with direction “inout,” “out,” and “return,” as
+constrained by the multiplicity of those Parameters.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>Behavior には実行に値を引き渡すのと、実行から値を受け取る能力のある Parameters
-があってよい。</p></li>
-<li><p>Behavior が発動されると、入力方向または入出力方向がそれらの多重度によって強制された Parameters に対応している実引数の値が与えられる。</p></li>
-<li><p>Behavior の実行が完了すると、入出力、出力、そして戻り値方向がそれらの多重度によって強制された Parameters に対応している結果の値をもたらしてよい。</p></li>
-<li><p>Parameters はストリーミングとして特徴付けてよい（すなわち <code class="docutils literal notranslate"><span class="pre">isStreaming</span></code> 特性が <code class="docutils literal notranslate"><span class="pre">true</span></code> である）。そのような Parameters は発動時と完了時以外にも、
-Behavior の実行途中の任意の時点で値を入出力することができる。</p></li>
-<li><p>発動者がストリーミング出力 Parameters から値を得ることを可能にするためには、ストリーム出力が発動者で非同期的な応答のきっかけになる可能性があるときでさえ、発動された Behavior は同期的に発動される必要がある。</p></li>
-<li><p>再入可能な Behavior にはストリーミング Parameters がないものとする。複数の実行が同時に進む可能性があり、どの実行がストリーム値を受領したり提示したりしようとするのかがあいまいになろうとするためである。</p></li>
-<li><p>Behavior には <code class="docutils literal notranslate"><span class="pre">isException</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> である出力 Parameters を一つまたはそれを超える個数分あってよい。</p></li>
-<li><p>入力 ParameterSets のある Behavior は実行ごとに集合のうちの一つの Parameters
-からの入力を受け付けるしかできない。</p></li>
+<li><p>出力 Parameter に <code class="docutils literal notranslate"><span class="pre">defaultValue</span></code> がある場合、明示的な結果がなければそれが評価される。</p></li>
+<li><p>多重度の概念があるので、結果が空である場合がある。</p></li>
+<li><p>非同期的に呼び出された場合、完了すると結果値が失われる。</p></li>
 </ul>
+<p>次は引数における streaming の概念だ。現代的なプログラミング言語における
+coroutine や generator の yield 文でやり取りする実体のようなものだろう。</p>
+<blockquote>
+<div><p>Parameters may also be marked as <em class="dfn">streaming</em> (i.e., have the
+<code class="docutils literal notranslate"><span class="pre">isStreaming</span></code> property be true). Such Parameters allow values to be passed
+into and out of a Behavior execution any time during its course, rather than
+just on invocation and completion.</p>
+</div></blockquote>
+<p>呼び出し元が streaming 出力 Parameters から放り込まれた値を取得可能にするためには、呼び出し元 Behavior が同期的に呼び出される必要がある。</p>
+<blockquote>
+<div><p>A reentrant Behavior shall not have streaming Parameters,</p>
+</div></blockquote>
+<p>複数の実行が同時に進む可能性があり、どの実行がストリーム値を送受するかがあいまいになる。</p>
+<blockquote>
+<div><p>A Behavior may have one or more output Parameters marked as <code class="docutils literal notranslate"><span class="pre">isException</span></code> =
+true.</p>
+</div></blockquote>
+<p>この場合、実行が完了したとき、これらの Parameters はいずれも値を持たないか、一つだけ値を持ち、他の引数（例外その他）は値を持たないものとする。</p>
+<p>注意として例外 Parameter の値を返すことは例外の発生 (15.5.3) とはみなされないとある。</p>
+<p>そういえば ParameterSet というものがあった：</p>
+<blockquote>
+<div><p>A Behavior with input ParameterSets can only accept inputs from Parameters in
+one of the sets per execution. A Behavior with output ParameterSets can only
+post outputs to the Parameters in one of the sets per execution.</p>
+</div></blockquote>
+<p>ParameterSet の <code class="docutils literal notranslate"><span class="pre">preconditions</span></code> と <code class="docutils literal notranslate"><span class="pre">postconditions</span></code> の意味は Behavior のそれらそれぞれと同じですが、指定された Parameters からなる集合にしか適用されない。</p>
 </section>
 <section id="opaque-and-function-behaviors">
 <h4>13.2.3.3 Opaque and Function Behaviors<a class="headerlink" href="#opaque-and-function-behaviors" title="Permalink to this heading">¶</a></h4>
+<p>OpaqueBehavior の定義：</p>
+<blockquote>
+<div><p>An OpaqueBehavior is a Behavior whose specification is given in a textual
+language other than UML.</p>
+</div></blockquote>
+<p>したがって、その言葉を含む実体が存在する。何の言葉で述べられているのかを示すものもある：</p>
+<blockquote>
+<div><p>An OpaqueBehavior has a <code class="docutils literal notranslate"><span class="pre">body</span></code> that consists of a sequence of text Strings
+representing alternative means of specifying the required behavior. A
+corresponding sequence of <code class="docutils literal notranslate"><span class="pre">language</span></code> Strings may be used to specify the
+languages in which each of the body Strings is to be interpreted.</p>
+</div></blockquote>
+<p>言語を指定する必要はなく、未指定の場合には解釈は <code class="docutils literal notranslate"><span class="pre">body</span></code> の仕様状況から暗黙的に決まる。</p>
+<p>OpaqueBehavior に一つを超える <code class="docutils literal notranslate"><span class="pre">body</span></code> String があれば、そのうちの任意の一つを
+OpaqueBehavior の挙動を決定するのに使うことが可能だ。</p>
+<p>FunctionBehavior の定義：</p>
+<blockquote>
+<div><p>A FunctionBehavior is an OpaqueBehavior that does not access or modify any
+objects or other external data.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>OpaqueBehavior とはその詳細が UML 以外のテキスト言語で与えられる Behavior である。</p></li>
-<li><p>OpaqueBehavior には要求される挙動を記述する別の手段を表すテキスト Strings の列からなる <code class="docutils literal notranslate"><span class="pre">body</span></code> がある。</p></li>
-<li><p>言語を指定する必要はない。</p></li>
-<li><p>OpaqueBehavior に一つを超える <code class="docutils literal notranslate"><span class="pre">body</span></code> String があれば、<code class="docutils literal notranslate"><span class="pre">bodies</span></code> の任意の一つが OpaqueBehavior の挙動を決定付けるのに使うことができる。</p></li>
-<li><p>FunctionBehavior とはどんなオブジェクトや他の外部データをも、アクセスしたり変更したりしないOpaqueBehavior である。</p>
-<ul>
-<li><p>FunctionBehavior の実行中は、何であれ外部にある物を伴う通信や相互作用は禁止である。</p></li>
+<li><p>FunctionBehavior の実行中は、外部にある物を伴う通信や相互作用は何であれ禁止。</p></li>
 <li><p>計算時間量は定義されない。</p></li>
 <li><p>ある入力値に対しては FunctionBehavior は例外を送出してよい。その場合、計算内容は放棄される。</p></li>
 </ul>
-</li>
-<li><p>FunctionBehaviors はこのように入力実引数の集合を出力結果値の集合に変換するような関数を表現する。</p>
-<ul>
+<p>FunctionBehaviors は入力実引数の集合を出力結果値の集合に変換するような関数を表現する。</p>
+<ul class="simple">
 <li><p>FunctionBehaviors の実行はその実引数にのみ依存して、結果の値を計算すること以外の効果はない。</p></li>
-<li><p>FunctionBehaviors としてモデル化されるかもしれない関数の例として、初等的算術、論理値、文字列関数がある。</p></li>
+<li><p>FunctionBehaviors としてモデル化される関数の例として、初等算術、論理値、文字列関数がある。</p></li>
 </ul>
-</li>
-</ul>
+<p>おそらく副作用のない関数というものだ。</p>
 </section>
 <section id="behaviored-classifiers">
 <h4>13.2.3.4 Behaviored Classifiers<a class="headerlink" href="#behaviored-classifiers" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>BehavioredClassifier とは <code class="docutils literal notranslate"><span class="pre">ownedBehaviors</span></code> があってよい Classifier であり、そのうちの高々一つが BehavioredClassifier 自身の挙動を指定するのに考慮されるものである。</p></li>
-<li><p>BehavioredClassifier の直接の <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> ではない Behavior にはそれでもなお <code class="docutils literal notranslate"><span class="pre">context</span></code> がある。</p></li>
-<li><p>Class により <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> としてではなく、<code class="docutils literal notranslate"><span class="pre">nestedClassifier</span></code> として直接所有される Behavior には、それの <code class="docutils literal notranslate"><span class="pre">context</span></code> としては Class がない。</p></li>
-<li><p>Behavior に <code class="docutils literal notranslate"><span class="pre">context</span></code> があれば、Behavior の実行には <code class="docutils literal notranslate"><span class="pre">context</span></code>
-BehavioredClassifier のオブジェクトである関連脈絡オブジェクトがいつでもある。</p></li>
-<li><p>BehavioredClassifier には、それの <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> と呼ばれる目立った
-<code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> があってよい。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> の正確な意味はそれを所有する BehavioredClassifier の種類に依存する。</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">isActive</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> である Class には <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> がないものとする。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>A BehavioredClassifier is a Classifier that may have <code class="docutils literal notranslate"><span class="pre">ownedBehaviors</span></code>, at
+most one of which may be considered to specify the behavior of the
+BehavioredClassifier itself.</p>
+</div></blockquote>
+<p>逆に、BehavioredClassifier の <code class="docutils literal notranslate"><span class="pre">ownBehavior</span></code> である Behavior は、この
+BehavioredClassifier を <code class="docutils literal notranslate"><span class="pre">context</span></code> として持っている。この仕様は <code class="docutils literal notranslate"><span class="pre">context</span></code>
+BehavioredClassifier の機能とそこから見える他の要素も参照することを許す。</p>
+<p>Behavior の <code class="docutils literal notranslate"><span class="pre">context</span></code> は所有関係の鎖をたどって決まる：</p>
+<blockquote>
+<div><p>A Behavior that is not directly an ownedBehavior of a BehavioredClassifier
+may nevertheless still have a context. To determine the context of a Behavior
+that is not directly an ownedBehavior, find the first BehavioredClassifier
+reached by following the chain of ownership relationships from the Behavior,
+if any. If there is such a BehavioredClassifier, then it is the <code class="docutils literal notranslate"><span class="pre">context</span></code>,
+unless it is itself a Behavior with a non-empty context, in which case this
+is also the <code class="docutils literal notranslate"><span class="pre">context</span></code> for the original Behavior.</p>
+</div></blockquote>
+<p>例えば、BehavioredClassifier が所有する StateMachine の <code class="docutils literal notranslate"><span class="pre">entry</span></code> Behavior の
+<code class="docutils literal notranslate"><span class="pre">context</span></code> は StateMachine ではなく、StateMachine を所有する Classifier だ。</p>
+<blockquote>
+<div><p>A Behavior that is owned directly by a Class as a <code class="docutils literal notranslate"><span class="pre">nestedClassifier</span></code> (see
+sub clause 11.4), rather than as an <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code>, does <em>not</em> have the
+Class as its <code class="docutils literal notranslate"><span class="pre">context</span></code>. The <code class="docutils literal notranslate"><span class="pre">nestedClassifiers</span></code> of a Class are simply
+nested in the Class considered as a Namespace.</p>
+</div></blockquote>
+<p>可視性によっては Behavior 自体が Class の外に見える場合もあるものの、単独の
+Behavior としての意味が Class 内に入れ子になることによって他の影響を受けることはない。</p>
+<p>Behavior に <code class="docutils literal notranslate"><span class="pre">context</span></code> がある場合、その Behavior の実行には <code class="docutils literal notranslate"><span class="pre">context</span></code>
+BehavioredClassifier のオブジェクトである <em>context object</em> が必ず付随する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">context</span></code> BehavioredClassifier を持たない Behavior も単独 Behavior として呼び出すことが許される。この場合、Behavior の実行はそれ自身の context object として機能する。</p>
+<blockquote>
+<div><p>The Behavior execution also serves as its own context object in the case that
+the <code class="docutils literal notranslate"><span class="pre">context</span></code> BehavioredClassifier is not instantiable, that is, if it is a
+Component with <code class="docutils literal notranslate"><span class="pre">isIndirectlyInstantiated</span></code> = true (see sub clause 11.6) or a
+Collaboration (see sub clause 11.7).</p>
+</div></blockquote>
+<p>以上のように、Behavior が明示的にオブジェクト化可能な <code class="docutils literal notranslate"><span class="pre">context</span></code>
+BehavioredClassifier を持っているかどうかにかかわらず、Behavior の実行は常に
+context object を持つ。</p>
+<blockquote>
+<div><p>A BehavioredClassifier may have a distinguished <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> called its
+<code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code>.</p>
+</div></blockquote>
+<p>この挙動には、所有者である Classifier がその存命中に経験する可能性のあることを記述する。</p>
+<p>BehavioredClassifier の <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> は BehavioredClassifier オブジェクトが生成され、それを context object とする実行が行われたときに呼び出されるとみなされる。オブジェクトが破棄されると実行は終了する。</p>
+<blockquote>
+<div><p>The precise semantics of a <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> depend on the kind of
+BehavioredClassifier that owns it.</p>
+</div></blockquote>
+<p>例えば、Collaboration の <code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code> と Class のそれとでは、表現する挙動の意味が異なる。</p>
+<blockquote>
+<div><p>However, a passive Class (with <code class="docutils literal notranslate"><span class="pre">isActive</span></code> = false) shall not have a
+<code class="docutils literal notranslate"><span class="pre">classifierBehavior</span></code>.</p>
+</div></blockquote>
 </section>
 <section id="behavioral-features-and-methods">
 <h4>13.2.3.5 Behavioral Features and Methods<a class="headerlink" href="#behavioral-features-and-methods" title="Permalink to this heading">¶</a></h4>
-<ul>
-<li><p>BehavioralFeatures には二種類、つまり Operations および Receptions がある。</p></li>
-<li><p>Class の BehavioralFeature を一つまたはそれを超える <code class="docutils literal notranslate"><span class="pre">method</span></code> Behaviors が実装してよい。</p></li>
-<li><p>受領オブジェクトは発動された <code class="docutils literal notranslate"><span class="pre">method</span></code> のいずれの実行の間においても脈絡オブジェクトになる。</p></li>
-<li><p>Reception の <code class="docutils literal notranslate"><span class="pre">methods</span></code> はいつでも非同期的に発動され、それに対して Operation
-の <code class="docutils literal notranslate"><span class="pre">method</span></code> は同期的にも非同期的にもどちらにも発動されてよいが、Operation がどう呼び出されたかに依存する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code> の解決手順は要求されている BehavioralFeature と、要求を受信するオブジェクトと、そして要求に結び付いたデータの値のどれでもとに基くものとする。</p></li>
-<li><p>次のものは高々一つの <code class="docutils literal notranslate"><span class="pre">method</span></code> が識別されているように常になる CallEvent に対する簡単なオブジェクト指向な解決手順である：</p>
 <blockquote>
-<div><p>受信オブジェクトの Class が CallEvent で識別された Operation について
-<code class="docutils literal notranslate"><span class="pre">method</span></code> を所有するならば、その <code class="docutils literal notranslate"><span class="pre">method</span></code> は解決の結果である。そうでなければ、受信オブジェクトの Class の基底クラスを Operation についての
-<code class="docutils literal notranslate"><span class="pre">method</span></code> であるか調べ、<code class="docutils literal notranslate"><span class="pre">method</span></code> が見つかるか、階層の根に到達するまではこのようにして一般化の階層を上がっていく。</p>
+<div><p>There are two kinds of BehavioralFeatures: Operations (see sub clause 9.6)
+and Receptions (see sub clause 10.3). Of the different kinds of
+BehavioredClassifiers in UML, only Classes may have BehavioralFeatures and
+only active Classes may have Receptions (see sub clause 11.4).</p>
 </div></blockquote>
-</li>
-<li><p>Operation の <code class="docutils literal notranslate"><span class="pre">method</span></code> には Operation の Parameters に対応する Parameters があるものとする。</p></li>
-<li><p>しかしながら、<code class="docutils literal notranslate"><span class="pre">method</span></code> の Parameters を BehavioralFeature の Parameters に一致することについて特定の扱い方は定義されていない。</p>
+<p>Class のオブジェクトに対して Operation を呼び出したり、Signal オブジェクトを送信したりすることは、特定された BehavioralFeature を実行するようにオブジェクトに対する要求 (request) だ。</p>
+<p>Operation の呼び出しは、呼び出される特定の操作を識別する。一方、Signal のオブジェクトの受信は、この Signal またはその直接的または間接的な一般化を参照する受信オブジェクトのあらゆる Reception に対する要求であると考えられる。</p>
+<blockquote>
+<div><p>A BehavioralFeature of a Class may be implemented by one or more <code class="docutils literal notranslate"><span class="pre">method</span></code>
+Behaviors.</p>
+</div></blockquote>
+<p>このような BehavioralFeature は、所有者である Class のオブジェクトが
+BehavioralFeature の要求に対して、その機能の実装 <code class="docutils literal notranslate"><span class="pre">methods</span></code> の一つを呼び出して応答することを指定する。</p>
 <ul class="simple">
-<li><p>厳密一致。対応する Parameters の <code class="docutils literal notranslate"><span class="pre">type</span></code> が順序正しく同じである必要がある。</p></li>
+<li><p>Behavior は、その <code class="docutils literal notranslate"><span class="pre">specification</span></code> と呼ばれる高々一つの BehavioralFeature の
+<code class="docutils literal notranslate"><span class="pre">method</span></code> でなければならない。</p></li>
+<li><p>Behavior の <code class="docutils literal notranslate"><span class="pre">specification</span></code> は、その Behavior が <code class="docutils literal notranslate"><span class="pre">ownBehavior</span></code> である
+Class の所有または継承された <code class="docutils literal notranslate"><span class="pre">member</span></code> でなければならない。</p></li>
+<li><p>BehavioralFeature に複数の <code class="docutils literal notranslate"><span class="pre">method</span></code> を関連付けることは可能だが、Class
+(Behavior の <code class="docutils literal notranslate"><span class="pre">owner</span></code>) と BehavioralFeature (Behavior の``specification``) の特定のペアに対する Behavior は高々一つでなければならない。つまり、
+BehavioralFeature 一つは、所有する Class とその Class の直接または間接のサブクラスの両方に <code class="docutils literal notranslate"><span class="pre">methods</span></code> を持つことができるが、Class 一つにつき <code class="docutils literal notranslate"><span class="pre">method</span></code> は一つまでとする。</p></li>
+</ul>
+<blockquote>
+<div><p>The receiving object becomes the context object for the execution of any
+invoked methods.</p>
+</div></blockquote>
+<p>Reception の <code class="docutils literal notranslate"><span class="pre">methods</span></code> は常に非同期で起動される。Operation の <code class="docutils literal notranslate"><span class="pre">methods</span></code> は呼び出し方によって、同期的にも非同期的にも起動することがある。</p>
+<blockquote>
+<div><p>The method resolution process shall be based on the BehavioralFeature being
+requested, the object receiving the request and any data values associated
+with the request (i.e., Operation input parameter values or Signal attribute
+values).</p>
+</div></blockquote>
+<p>ただし、UML は適合する UML ツールが特定の解決プロセスをサポートすることを義務づけていない。解決プロセスで <code class="docutils literal notranslate"><span class="pre">methods</span></code> が特定されない場合、何が起こるかは未定義だ。</p>
+<p>CallEvent に対する単純なオブジェクト指向解決過程の記述を割愛。</p>
+<blockquote>
+<div><p>A method of an Operation shall have Parameters corresponding to the
+Parameters of the Operation. Similarly, a <code class="docutils literal notranslate"><span class="pre">method</span></code> of a Reception shall
+have Parameters corresponding to the attributes of the Signal referenced by
+the Reception, which are considered as effective “in” Parameters of the
+Reception.</p>
+</div></blockquote>
+<p>要求に関連するデータ値（入力 Operation 引数値または Signal 属性値）は、
+<code class="docutils literal notranslate"><span class="pre">method</span></code> 引数を介して要求により呼び出された <code class="docutils literal notranslate"><span class="pre">methods</span></code> に渡される。同期的な
+Operation 呼び出しの場合、<code class="docutils literal notranslate"><span class="pre">method</span></code> 実行による出力 Parameter 値は、対応する
+Operation 出力引数を介して Operation 呼び出し元へも引き渡される。</p>
+<blockquote>
+<div><p>However, no specific approach is defined for matching the Parameters of the
+<code class="docutils literal notranslate"><span class="pre">method</span></code> to the Parameters of the BehavioralFeature.</p>
+</div></blockquote>
+<p>可能なものは次のどれかか、その組み合わせとなる：</p>
+<ul class="simple">
+<li><p>完全一致。対応する Parameters の <code class="docutils literal notranslate"><span class="pre">type</span></code> が順序正しく同じである必要がある。</p></li>
 <li><p>共変一致。<code class="docutils literal notranslate"><span class="pre">method</span></code> の Parameter の <code class="docutils literal notranslate"><span class="pre">type</span></code> が BehavioralFeature の
-Parameter の <code class="docutils literal notranslate"><span class="pre">type</span></code> の派生型でよい。</p></li>
+Parameter の <code class="docutils literal notranslate"><span class="pre">type</span></code> の派生型であってもかまわない。</p></li>
 <li><p>反変一致。<code class="docutils literal notranslate"><span class="pre">method</span></code> の Parameter の <code class="docutils literal notranslate"><span class="pre">type</span></code> が BehavioralFeature の
 Parameter の <code class="docutils literal notranslate"><span class="pre">type</span></code> の基底型でよい。</p></li>
-<li><p>またはそれについての組み合わせ。</p></li>
-</ul>
-</li>
 </ul>
 </section>
 </section>
 <section id="notation">
 <h3>13.2.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Behavior の各種サブクラスの記法は後続の章で定義する。</p></li>
-<li><p>Signals と Receptions の記法は <a class="reference internal" href="ch10-simple-classifiers.html"><span class="doc">10 Simple Classifiers</span></a> で取り扱った。</p></li>
-<li><p>アクティブ Class の記法は <a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> で取り扱った。</p></li>
-</ul>
+<p>Behavior の各種サブクラスの記法は後続の章で定義する。</p>
+<p>Signals と Receptions の記法は <a class="reference internal" href="ch10-simple-classifiers.html"><span class="doc">10 Simple Classifiers</span></a> に記載する。</p>
+<p>能動的 Class の記法は <a class="reference internal" href="ch11-structured-classifiers.html"><span class="doc">11 Structured Classifiers</span></a> に記載する。</p>
 </section>
 <section id="examples">
 <h3>13.2.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
@@ -297,59 +451,48 @@ Parameter の <code class="docutils literal notranslate"><span class="pre">type<
 <h2><a class="toc-backref" href="#id11" role="doc-backlink">13.3 Events</a><a class="headerlink" href="#events" title="Permalink to this heading">¶</a></h2>
 <section id="id3">
 <h3>13.3.1 Summary<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>An Event is a something that may occur at a specific instant in time.</p>
+</div></blockquote>
+<p>Event 一つに対して発生は複数ある場合があり、それらは相異なる時刻に起こる場合がある。</p>
+<blockquote>
+<div><p>Of particular importance are Events that trigger a response within a
+Behavior.</p>
+</div></blockquote>
+<p>そのような Events で UML が明示的にモデル化するものは次だ：</p>
 <ul class="simple">
-<li><p>Event とは、ある特定の瞬間に起こり得る何かである。一つの Event にはたくさんの発生があってよく、それらは相異なる時刻において起こってよい。この道理だと、
-Events は実際には UML の Classifiers ではないが、Event をそれの発生の分類項目であるとみなすことができる。</p></li>
-<li><p>とりわけ重要なのは Behavior の内側で応答のきっかけになる Events である。UML で明示的にモデル化してよいそのような Events は次を含む：</p>
-<ul>
-<li><p>TimeEvents: 特定の時刻または期間の後に起こる。</p></li>
-<li><p>ChangeEvents: 特定のブーリアン値が <code class="docutils literal notranslate"><span class="pre">true</span></code> になると起こる。</p></li>
-<li><p>MessageEvents: メッセージの受信で起こる。</p></li>
+<li><p>TimeEvents: 特定の時刻または期間後に起こる。</p></li>
+<li><p>ChangeEvents: 特定の真偽値が真になると起こる。</p></li>
+<li><p>MessageEvents: メッセージ (message) の受信で起こる。</p></li>
 </ul>
-</li>
-</ul>
+<p>メッセージとは «a communication from one Behavior to another requesting an
+Operation call or Signal reception» だ。</p>
 </section>
 <section id="id4">
 <h3>13.3.2 Abstract Syntax<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 13.2 Events</p>
+</div></blockquote>
+<p>Trigger と Event 系のクラス図。Event には直接のサブクラスが先述した三種あり、そのうち一つの MessageEvent にだけはさらに直接のサブクラスがやはり三種ある。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">A_event_trigger</span></code></dt><dd><p>Trigger から Event への関連（単方向）。単一の Event をいくつかの異なる
+Triggers で用いてよい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_port_trigger</span></code></dt><dd><p>Trigger から Port への関連（単方向）。</p>
+<p>その事象が MessageEvent である必要がある場合に、Trigger は一つ以上の Ports を指定してよいこの場合は Trigger は指定 Ports の一つを通じて受信したメッセージのための事象の出来事に単に合致する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_operation_callEvent</span></code></dt><dd><p>CallEvent から Operation への関連（単方向）。メッセージは <code class="docutils literal notranslate"><span class="pre">operation</span></code> の呼び出しを要求する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_signal_signalEvent</span></code></dt><dd><p>SignalEvent から Signal への関連（単方向）。メッセージは <code class="docutils literal notranslate"><span class="pre">signal</span></code> オブジェクトの受信を要求する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">A_changeExpression_changeEvent</span></code></dt><dd><p>ChangeEvent から ValueSpecification への複合関連（単方向）。</p>
 <ul class="simple">
-<li><p>Figure 13.2 Events</p>
-<ul>
-<li><p>Trigger と Event 系のクラス図。Event には直接のサブクラスが先述した三種あり、そのうち一つの MessageEvent にだけはさらに直接のサブクラスがやはり 3
-種ある。</p></li>
-</ul>
-</li>
-</ul>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">A_event_trigger</span></code></dt><dd><ul class="simple">
-<li><p>Trigger から Event への関連（単方向）。</p></li>
-<li><p>単一の Event をいくつかの異なる Triggers で用いてよい。</p></li>
-</ul>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_port_trigger</span></code></dt><dd><ul class="simple">
-<li><p>Trigger から Port への関連（単方向）。</p></li>
-<li><p>その事象が MessageEvent である必要がある場合に、Trigger は一つ以上の Ports
-を指定してよいこの場合は Trigger は指定 Ports の一つを通じて受信したメッセージのための事象の出来事に単に match する。</p></li>
-</ul>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_operation_callEvent</span></code></dt><dd><ul class="simple">
-<li><p>CallEvent から Operation への関連（単方向）。</p></li>
-<li><p>メッセージは <code class="docutils literal notranslate"><span class="pre">operation</span></code> の呼び出しを要求する。</p></li>
-</ul>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_signal_signalEvent</span></code></dt><dd><ul class="simple">
-<li><p>SignalEvent から Signal への関連（単方向）。</p></li>
-<li><p>メッセージは <code class="docutils literal notranslate"><span class="pre">signal</span></code> オブジェクトの受信を要求する。</p></li>
-</ul>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_changeExpression_changeEvent</span></code></dt><dd><ul class="simple">
-<li><p>ChangeEvent から ValueSpecification への composite 関連（単方向）。</p></li>
-<li><p>ChangeEvent は式 <code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> の値が <code class="docutils literal notranslate"><span class="pre">false</span></code> から <code class="docutils literal notranslate"><span class="pre">true</span></code> になるときに起こるものである。</p></li>
+<li><p>ChangeEvent は式 <code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> の値が <code class="docutils literal notranslate"><span class="pre">false</span></code> から <code class="docutils literal notranslate"><span class="pre">true</span></code> になるときに起こるものだ。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
 </ul>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">A_when_timeEvent</span></code></dt><dd><ul class="simple">
-<li><p>TimeEvent から TimeExpression への composite 関連（単方向）。</p></li>
-<li><p>TimeEvent の起こる瞬間を指定する TimeExpression である。</p></li>
+<dt><code class="docutils literal notranslate"><span class="pre">A_when_timeEvent</span></code></dt><dd><p>TimeEvent から TimeExpression への複合関連（単方向）。TimeEvent の起こる瞬間を指定する TimeExpression だ。</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A_ownedElement_owner</span></code> を subsets する。</p></li>
 </ul>
 </dd>
@@ -359,117 +502,176 @@ Events は実際には UML の Classifiers ではないが、Event をそれの�
 <h3>13.3.3 Semantics<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <section id="event-dispatching">
 <h4>13.3.3.1 Event Dispatching<a class="headerlink" href="#event-dispatching" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>Event とは、潜在的に挙動の結果のきっかけとなってよいある出来事の詳細である。</p>
-<ul>
-<li><p>Event は PackageableElement であり、Events がその利用と独立してモデル化されることを可能にする。</p></li>
-<li><p>しかし Trigger は常にある大きな挙動の仕様の一部として現れる。</p></li>
-<li><p>単一の Event はいくつかの異なる Triggers で用いてよい。</p></li>
-</ul>
-</li>
-<li><p>13.2.3 節で論じたように、Behavior の実行にはいつでも関連脈絡オブジェクト（実行それ自身であってよい）がある。</p>
-<ul>
-<li><p>脈絡オブジェクトはそれの関連した Behavior 実行の全てについてEvent 発生の処理を仲介する。</p></li>
-<li><p>ある脈絡オブジェクトが Event 発生を認めると、それは即時効果があるか、それは遅れたきっかけとなった効果のために保存されてよい。</p></li>
-<li><p>即時効果は BehavioralFeature の <code class="docutils literal notranslate"><span class="pre">method</span></code> の発動のような、Behavior の直接発動により、Event により決定付けられるものとして表明される。</p></li>
-<li><p>きっかけとなった効果は、オブジェクトの事象プールにある出来事の保管場と、プールの出来事に対応する Event と一致する Trigger に到達する進行中の Behavior 実行による出来事の遅れた消費とによって表明される。</p></li>
-</ul>
-</li>
-<li><p>一般に、Trigger が続行することを必要とする待機点に Behavior 実行が着くと、それの脈絡オブジェクトの事象プールで残っている Trigger(s) を満足する事象があるか調べられる。</p>
-<ul>
-<li><p>プールが Triggers の中の一つを満足する事象の出来事を含んでいると、その出来事はプールから取り除かれて Behavior に送達され、指定されたようにそれの実行を続行する。</p></li>
-</ul>
-</li>
-<li><p>同じ脈絡オブジェクトを使う Behaviors はすべてがそのオブジェクトの事象プールを共有するが、一つの Behavior しかそのプールにある Event の出来事のどれでもを消費することができない。</p></li>
-<li><p>事象プールにある Event の出来事が調べられるか送達されるかという特別の順序についての要件はない。</p>
-<ul>
-<li><p>事象プールが待機点にある Triggers を何も満足させない出来事を含むならば、
-BehavioredClassifiers の一般的な意味は何がそれに対して起こるかを指定しない。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>An Event is the specification of some occurrence that may potentially trigger
+behavioral effects. A Trigger specifies a specific point in the definition of
+a Behavior at which an Event occurrence may have such an effect.</p>
+</div></blockquote>
+<p>Event は PackageableElement であり、Events がその用途とは独立してモデル化することを可能にする。</p>
+<p>Trigger は常により大きな挙動仕様 (StateMachine Transition, AcceptEventAction,
+etc.) の部分として現れる。</p>
+<blockquote>
+<div><p>A single Event may be used in several different Triggers.</p>
+</div></blockquote>
+<p>Behavior の context object は関連 Behavior 実行の全てについて Event 発生の処理を仲介する。</p>
+<p>Event 発生が context object に認識されると、即時に効果を発揮する場合もあれば、遅れて効果を出すように保存される場合もある。即効性は BehavioralFeature の
+<code class="docutils literal notranslate"><span class="pre">method</span></code> の呼び出しのような、Event により決定付けられる Behavior の直接呼び出しにより表明される。</p>
+<blockquote>
+<div><p>A triggered effect is manifested by the storage of the occurrence in the
+<em>event pool</em> of the object and the later consumption of the occurrence by an
+ongoing Behavior execution that reaches a Trigger that matches the Event
+corresponding to the occurrence in the pool.</p>
+</div></blockquote>
+<p>イベントプールにあるイベントはこのように処理されるのが一般的だ：</p>
+<blockquote>
+<div><p>In general, when a Behavior execution comes to a <em>wait point</em> where it needs
+a Trigger to continue, the event pool of its context object is examined for
+an event that satisfies the outstanding Trigger (or Triggers). If the pool
+contains an event occurrence that satisfies one of the Triggers, the
+occurrence is removed from the pool and <em>dispatched</em> to the Behavior, which
+continues its execution as specified.</p>
+</div></blockquote>
+<p>この Event 発生に関連するデータは、引き起こされた Behavior がさらに実行する際に利用可能になる。</p>
+<p>同じ context object を使う Behaviors すべてはそのオブジェクトのイベントプールを共有するが、プール内の Event 発生は一つの Behavior しか消費することが不可能だ。</p>
+<blockquote>
+<div><p>There is no requirement for a specific order in which Event occurrences in an
+event pool are examined or dispatched.</p>
+</div></blockquote>
+<p>イベントプールに待機点で Triggers を何も満足させない発生がある場合、
+BehavioredClassifiers の一般的な意味上は、その発生をどうするかは指定していない。</p>
 </section>
 <section id="message-events">
 <h4>13.3.3.2 Message Events<a class="headerlink" href="#message-events" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A message is a communication in which a sender makes a request for either an
+Operation call or Signal reception by a receiver.</p>
+</div></blockquote>
+<p>この通信は二つの事象を伴う。メッセージを送信するイベントとメッセージを受信するイイベントだ。</p>
 <ul class="simple">
-<li><p>メッセージとは、送信者が Operation 呼び出しか受信者による Signal 受信のどちらかを要求する通信である。</p>
-<ul>
-<li><p>この通信は二つの事象を伴う。すなわち、メッセージを送信する事象とメッセージを受信する事象である。</p></li>
-<li><p>しかしながら、事象を送信することは、それらが暗に InvaocationActions の実行中にあり、そのような事象の出来事が Interactions でモデル化されることが可能ではあるが、UML にある明示的なモデル要素としてモデル化されていない。その一方で
-MessageEvent はメッセージの受信の明示的なモデルであり、その事象の出来事に応答する Trigger を指定することを可能にするためのものである。</p></li>
+<li><p>送信イベントは UML ではモデル要素ではない。</p></li>
+<li><p>送信イベントは InvaocationActions の実行時に暗黙のうちに存在し、イベントの発生を Interactions でモデル化することが可能だ。</p></li>
 </ul>
-</li>
-<li><p>メッセージは次のものを含む：</p>
-<ul>
-<li><p>要求に結び付くデータ（Operation 引数に対しては実引数、Signal 属性に対しては値）</p></li>
-<li><p>依頼の性質の情報（つまり発動された BehavioralFeature である）</p></li>
-<li><p>同期的な発動に対しては、発動された Behavior からの返信の復帰を可能にさせるのに十分な情報</p></li>
+<p>MessageEvent はメッセージの受信を明白にモデル化したもので、そのイベントの発生に応答する Trigger を指定することを可能にするためのものだ。</p>
+<p>メッセージは次のものを含む：</p>
+<ul class="simple">
+<li><p>要求に関連するデータ（Operation 引数に対する実引数または Signal 属性に対する値）</p></li>
+<li><p>要求の性質についての情報（つまり呼び出された BehavioralFeature の情報）</p></li>
+<li><p>同期呼び出しの場合、呼び出された Behavior からの返信を可能にするのに十分な情報</p></li>
 </ul>
-</li>
-<li><p>各メッセージが正確に一つの受信オブジェクトから対象とされて、正確に一つの送信オブジェクトによって引き起こされる限りは、送信事象の出来事は発生されているメッセージをいくらか生じてよい。</p>
-<ul>
-<li><p>メッセージの受信者は送信者と同じでよく、それが局所的でもよく、遠隔的でもよい。</p></li>
-<li><p>メッセージの伝送の方法、メッセージを伝送するのに必要な時間量、伝送（複数形）がそれらの受信オブジェクトに到着する順序、および受信オブジェクトに到着するための経路は未定義とする。</p></li>
+<blockquote>
+<div><p>While each message is targeted at exactly one receiver object and caused by
+exactly one sending object, an occurrence of a sending event may result in a
+number of messages being generated (as in SignalBroadcastAction, see sub
+clause 16.3).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>メッセージの受信者は、送信者と同一である場合もあれば、現地にある場合もあれば、遠隔地にある場合もある。</p></li>
+<li><p>メッセージの送信方法、送信に要する時間、送信内容がその受信者オブジェクトに到達する順序、受信者オブジェクトに到達するための経路は未定義だ。</p></li>
 </ul>
-</li>
-<li><p>メッセージの受信は MessageEvent の出来事として表明される。</p>
-<ul>
-<li><p>CallEvent とは、特定の Operation が呼び出されることを要求するメッセージのためのMessageEvent である。</p></li>
-<li><p>SignalEvent とは、特定の Signal のオブジェクトの受信を要求するメッセージのためのMessageEvent である。</p></li>
-<li><p>AnyReceiveEvent とは、他の関係 Trigger のどれによっても明示的に処理されることのないメッセージのどれもに対する MessageEvent である。</p></li>
+<p>メッセージの受信は MessageEvent の発生として表明される。</p>
+<ul class="simple">
+<li><p>CallEvent とは、特定の Operation が呼び出されることを要求するメッセージのための MessageEvent だ。</p></li>
+<li><p>SignalEvent とは、特定の Signal のオブジェクトの受信を要求するメッセージのための MessageEvent だ。</p></li>
+<li><p>AnyReceiveEvent とは、他の関係 Trigger のどれによっても明示的に処理されることのないメッセージの MessageEvent だ。</p></li>
 </ul>
-</li>
-<li><p>Operation に対する CallEvent または受信者の Reception に一致する Signal に対する SignalEvent の場合、その Operation なり Reception なりに一つまたはそれを超える <code class="docutils literal notranslate"><span class="pre">methods</span></code> があれば、13.2.3 節で述べた <code class="docutils literal notranslate"><span class="pre">method</span></code> 解決処理が
-MessageEvent の出来事を処理するのに用いられる <code class="docutils literal notranslate"><span class="pre">method</span></code> を決定付けるのに実施されるものとする。</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code> がそうして特定されると、それがメッセージ要求に応答するために発動される。さもなくば、MessageEvent の出来事が受信オブジェクトの事象プールに保存される。</p></li>
-<li><p>MessageEvent の出来事が事象プールから発送されて、受信者についての Behavior
-の仕様で定義された Trigger に一致すると、その Behavior の内部での応答の実行を引き起こす。</p></li>
+<blockquote>
+<div><p>In the case of a CallEvent for an Operation or a SignalEvent for a Signal
+that matches a Reception on the receiver, if the Operation or Reception has
+one or more <code class="docutils literal notranslate"><span class="pre">methods</span></code>, then the <code class="docutils literal notranslate"><span class="pre">method</span></code> resolution process described for
+Behavioral Features and Methods in sub clause 13.2.3 shall be carried out to
+determine a method to be used to handle a MessageEvent occurrence.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>そうして <code class="docutils literal notranslate"><span class="pre">method</span></code> が特定される場合、それがメッセージ要求に応答するために呼び出される。さもなくば、MessageEvent の発生が受信オブジェクトのイベントプールに保存される。</p></li>
+<li><p>イベントプールから発送された MessageEvent の発生が受信側の Behavior 仕様で定義された Trigger に合致すると、この Behavior 内部での応答が実行される。</p></li>
 </ul>
-</li>
-<li><p>AnyReceiveEvent に対する Trigger は、メッセージのどんな受信がきっかけになってもよい。ただし、メッセージに明示的に一致する適切な SignalEvent または
-CallEvent Trigger がある場合には、AnyReceiveEvent の Trigger はそのメッセージによって誘発されない。</p></li>
-<li><p>Trigger は一つまたはそれを超える Ports を指定してもよく、その場合には
-Trigger の事象は MessageEvent であるものとする。この場合、Trigger は指定された
-Ports の一つを通じて受信したメッセージに対する事象の出来事にしか一致しない。</p></li>
+<blockquote>
+<div><p>A Trigger for an AnyReceiveEvent may be triggered by the receipt of any
+message (Signal send or Operation call).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>ただし、メッセージに明示的に合致する適切な SignalEvent または CallEvent
+Trigger がある場合には、AnyReceiveEvent Trigger はそのメッセージによって引き起こされない。</p></li>
+<li><p>AnyReceiveEvent Trigger に関連する他の Triggers は、この Trigger の context に依存する。特に、Transitions に関する 14.2 節と AcceptEventActions に関する
+16.10 節を参照。</p></li>
+<li><p>SendObjectAction によって送信されるような SignalInstance 以外のオブジェクトを含むメッセージの受信によって AnyReceiveEvent が引き起こされることもある
+(16.3.3)。</p></li>
 </ul>
+<p>Trigger は Port を一つ以上指定することもでき、その場合、Trigger のイベントは
+MessageEvent でなければならない。</p>
+<blockquote>
+<div><p>In this case the Trigger only matches event occurrences for messages
+received through one of the specified Ports</p>
+</div></blockquote>
 </section>
 <section id="change-events">
 <h4>13.3.3.3 Change Events<a class="headerlink" href="#change-events" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>ChangeEvent はブーリアン式 <code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> が <code class="docutils literal notranslate"><span class="pre">true</span></code> になると発生する。例えば、これはある Attribute の変化や、ある Association に対応するリンクが参照する値の変化で生じるものである可能性がある。</p>
-<ul>
-<li><p>ChangeEvent は暗黙的に起こるものであり、明示的な作用のどれによる結果でもない。</p></li>
-</ul>
-</li>
-<li><p>ある出来事は <code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> の値が <code class="docutils literal notranslate"><span class="pre">false</span></code> から <code class="docutils literal notranslate"><span class="pre">true</span></code> に変化するどんなときにも発生されるものとみなされる。</p></li>
-</ul>
+<blockquote>
+<div><p>A ChangeEvent occurs when a Boolean changeExpression becomes true.</p>
+</div></blockquote>
+<p>例えば、ある Attribute 値の変化や、ある Association に対応するリンクが参照する値の変化の結果として発生することがある。</p>
+<p>ChangeEvent は暗黙的に発生するものであり、明示的な作用の結果ではない。</p>
+<blockquote>
+<div><p>An occurrence is considered to be generated any time the value of the
+<code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> changes from false to true.</p>
+</div></blockquote>
+<p>ただし、<code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> がいつ評価されるのか、発生が消費される前に関連した
+<code class="docutils literal notranslate"><span class="pre">changeExpression</span></code> 値が偽に戻っても、ChangeEvent 発生が検出可能なまま残っているかのどうかは、特に定義されていない。</p>
 </section>
 <section id="time-events">
 <h4>13.3.3.4 Time Events<a class="headerlink" href="#time-events" title="Permalink to this heading">¶</a></h4>
+<blockquote>
+<div><p>A TimeEvent specifies an instant in time at which it occurs.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>TimeEvent はそれが発生する時間の瞬間を指定する。その瞬間は TimeExpression を使って指定される。</p></li>
-<li><p>13.3.3.1 節で論じたように、事象の出来事が送達されてよいところで利用可能な、ひとつまたはそれを超える Triggers を有する待機点に Behavior は到達してよい。</p>
-<ul>
-<li><p>もしそのような未済 Trigger に相対 TimeEvent があれば、その TimeEvent についての開始時刻は Behavior が待機点に到達した時刻である。</p></li>
+<li><p>その瞬間は TimeExpression (8.4) を使って指定される。</p></li>
+<li><p>TimeEvent が絶対的時刻である場合、TimeExpression の評価から得られる時間が
+TimeEvent が発生する絶対的時刻だ。</p></li>
+<li><p>TimeEvent が相対的時刻である場合、TimeEvent はある Trigger の context で使用されなければならず、発生時刻はこの Trigger のために決定された開始時刻に対して相対的なものでなければならない。</p></li>
 </ul>
-</li>
-</ul>
+<p>Behavior はイベント発生を発送されることがある Triggers が一つ以上ある時点で待機点になることがある。このような未済 Trigger に相対 TimeEvent がある場合、この
+TimeEvent の開始時刻は Behavior が待機点に到達した時刻となる。</p>
 </section>
 </section>
 <section id="id6">
 <h3>13.3.4 Notation<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p>Triggers で使用される文脈以外では Events に関する記法はない。Trigger は Event の種類に基いてテキストで表記される：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">trigger</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">call-event</span><span class="p">&gt;</span> | <span class="p">&lt;</span><span class="nc">signal-event</span><span class="p">&gt;</span> | <span class="p">&lt;</span><span class="nc">any-receive-event</span><span class="p">&gt;</span> | <span class="p">&lt;</span><span class="nc">time-event</span><span class="p">&gt;</span> | <span class="p">&lt;</span><span class="nc">change-event</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ここで各 <code class="docutils literal notranslate"><span class="pre">&lt;xxxx-event&gt;</span></code> は対応する Event の記法だ。</p>
+<p>CallEvent は原因 Operation の名前で示され、その後に代入指定を続けてもよい：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">call-event</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">name</span><span class="p">&gt;</span> [‘(‘ [<span class="p">&lt;</span><span class="nc">assignment-specification</span><span class="p">&gt;</span>] ‘)’]
+<span class="p">&lt;</span><span class="nc">assignment-specification</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">assigned-name</span><span class="p">&gt;</span> [‘,’ <span class="p">&lt;</span><span class="nc">assigned-name</span><span class="p">&gt;</span>]*
+</pre></div>
+</div>
 <ul class="simple">
-<li><p>Triggers での使用の脈絡外での Events に対する表記法はない。Trigger は Event の種類に基いてテキストで記される。</p></li>
-<li><p>CallEvent はきっかけとする Operation の名前で記し、オプションで代入仕様を続ける。</p></li>
-<li><p>SignalEvent はきっかけとする Signal の名前で記し、オプションで代入仕様を続ける。</p></li>
-<li><p>AnyReceiveEvent はいずれも <code class="docutils literal notranslate"><span class="pre">all</span></code> と記す。</p></li>
-<li><p>ChangeEvent は <code class="docutils literal notranslate"><span class="pre">when</span></code> を記し、Boolean ValueSpecification を続ける。
-<a class="reference internal" href="ch08-values.html"><span class="doc">8 Values</span></a> 参照。</p></li>
-<li><p>相対 TimeEvent は <code class="docutils literal notranslate"><span class="pre">after</span></code> を記し、<code class="docutils literal notranslate"><span class="pre">&quot;after</span> <span class="pre">5</span> <span class="pre">seconds&quot;</span></code> のような
-TimeExpressionを続ける。絶対 TimeEvent は <code class="docutils literal notranslate"><span class="pre">at</span></code> を記し、<code class="docutils literal notranslate"><span class="pre">&quot;at</span> <span class="pre">Jan.</span> <span class="pre">1,</span> <span class="pre">2000,</span>
-<span class="pre">Noon&quot;</span></code> のようなTimeExpression を続けることで指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;assigned-name&gt;</span></code> は Operation の対応する Parameter の実引数の、引き起こされる Behavior に対する context object の Property または Variable への暗黙的な代入だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;assignment-specification&gt;</span></code> は Operation に Parameters がある場合でも省略することが許される。</p></li>
 </ul>
+<p>SignalEvent は原因 Signal の名前で示される。その後に代入仕様が続いてもよい：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">signal-event</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">name</span><span class="p">&gt;</span> [‘(‘ [<span class="p">&lt;</span><span class="nc">assignment-specification</span><span class="p">&gt;</span>] ‘)’]
+<span class="p">&lt;</span><span class="nc">assignment-specification</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">attr-name</span><span class="p">&gt;</span> [‘,’<span class="p">&lt;</span><span class="nc">attr-name</span><span class="p">&gt;</span>]*
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;assignment-specification&gt;</span></code> は CallEvent に対して定義されたものだ。</p></li>
+</ul>
+<p>どの AnyReceiveEvent についても <code class="docutils literal notranslate"><span class="pre">all</span></code> と記す：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">any-receive-event</span><span class="p">&gt;</span> <span class="o">::=</span> ‘all’
+</pre></div>
+</div>
+<p>ChangeEventは、<code class="docutils literal notranslate"><span class="pre">when</span></code> の後に真偽 ValueSpecification が続くことで示される。
+<a class="reference internal" href="ch08-values.html"><span class="doc">8 Values</span></a> 参照：</p>
+<p>相対 TimeEvent は <code class="docutils literal notranslate"><span class="pre">after</span></code> の後に TimeExpression を付けて表記する。例えば
+<code class="docutils literal notranslate"><span class="pre">&quot;after</span> <span class="pre">5</span> <span class="pre">seconds&quot;</span></code> など。絶対 TimeEvent は <code class="docutils literal notranslate"><span class="pre">at</span></code> の後に TimeExpression を続けることで指定する。例えば``”at Jan. 1, 2000, Noon”`` など：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">change-event</span><span class="p">&gt;</span> <span class="o">::=</span> ‘when’ <span class="p">&lt;</span><span class="nc">value-specification</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nc">time-event</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">relative-time-event</span><span class="p">&gt;</span> | <span class="p">&lt;</span><span class="nc">absolute-time-event</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nc">relative-time-event</span><span class="p">&gt;</span> <span class="o">::=</span> ‘after’ <span class="p">&lt;</span><span class="nc">time-expression</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nc">absolute-time-event</span><span class="p">&gt;</span> <span class="o">::=</span> ‘at’ <span class="p">&lt;</span><span class="nc">time-expression</span><span class="p">&gt;</span>
+</pre></div>
+</div>
 </section>
 <section id="id7">
 <h3>13.3.5 Examples<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
