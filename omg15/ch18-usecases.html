@@ -47,18 +47,28 @@
             
   <section id="usecases">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">18 UseCases</a><a class="headerlink" href="#usecases" title="Permalink to this heading">¶</a></h1>
-<div class="admonition- admonition">
-<p class="admonition-title">読者ノート</p>
-<p>現在ノート修正中。</p>
-</div>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#usecases" id="id1">18 UseCases</a></p>
 <ul>
-<li><p><a class="reference internal" href="#use-cases" id="id2">18.1 Use Cases</a></p></li>
-<li><p><a class="reference internal" href="#classifier-descriptions" id="id3">18.2 Classifier Descriptions</a></p></li>
-<li><p><a class="reference internal" href="#association-descriptions" id="id4">18.3 Association Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#use-cases" id="id2">18.1 Use Cases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id3">18.1.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#abstract-syntax" id="id4">18.1.2 Abstract Syntax</a></p></li>
+<li><p><a class="reference internal" href="#semantics" id="id5">18.1.3 Semantics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#use-cases-and-actors" id="id6">18.1.3.1 Use Cases and Actors</a></p></li>
+<li><p><a class="reference internal" href="#extends" id="id7">18.1.3.2 Extends</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id8">18.1.3.3 Includes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#notation" id="id9">18.1.4 Notation</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id10">18.1.5 Examples</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#classifier-descriptions" id="id11">18.2 Classifier Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#association-descriptions" id="id12">18.3 Association Descriptions</a></p></li>
 </ul>
 </li>
 </ul>
@@ -66,234 +76,337 @@
 <section id="use-cases">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">18.1 Use Cases</a><a class="headerlink" href="#use-cases" title="Permalink to this heading">¶</a></h2>
 <section id="summary">
-<h3>18.1.1 Summary<a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">18.1.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h3>
+<p>UseCases はシステムの要求、すなわちシステムが何をすることになっているものであるのかを捉える手段の一つだ。主要概念は Actors, UseCases, <code class="docutils literal notranslate"><span class="pre">subjects</span></code> だ。</p>
 <ul class="simple">
-<li><p>UseCases はシステムの要求、すなわちシステムが何をするためのものであるのかを捉える手段の一つである。この章で指定される要の概念は Actors, UseCases,
-<code class="docutils literal notranslate"><span class="pre">subjects</span></code> である。</p>
-<ul>
-<li><p>UseCase の <code class="docutils literal notranslate"><span class="pre">subject</span></code> それぞれはその UseCase が適用する検討中のシステムを表現する。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">subject</span></code> に相互作用する利用者と他のシステムのいずれもが Actors として表現される。</p></li>
+<li><p>UseCase の <code class="docutils literal notranslate"><span class="pre">subject</span></code> それぞれはその UseCase が適用される検討中のシステムを表現する。</p></li>
+<li><p>利用者や <code class="docutils literal notranslate"><span class="pre">subject</span></code> に相互作用することがある他のシステムは Actors として表現される。</p></li>
 </ul>
-</li>
-<li><p>UseCase は挙動の詳細である。</p>
-<ul>
-<li><p>UseCase のオブジェクトは対応する UseCase に適合する出現する挙動の出来事を参照する。こういうオブジェクトは Interactions を用いて記述されることがよくある。</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>A UseCase is a specification of behavior. An instance of a UseCase refers to
+an occurrence of the emergent behavior that conforms to the corresponding
+UseCase.</p>
+</div></blockquote>
+<p>こういうオブジェクトは Interactions を用いて記述されがちだ。</p>
 </section>
 <section id="abstract-syntax">
-<h3>18.1.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">18.1.2 Abstract Syntax</a><a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 18.1 UseCases</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>Figure 18.1 UseCases</p>
+<li><p>Actor と UseCase は BehavioredClassifier の特殊化だ。</p></li>
+<li><p>Extend と Include は NamedElement と DirectedRelationship の両方の特殊化であり、UseCase が所有することがある。</p>
 <ul>
-<li><p>Actor と UseCase は BehavioredClassifier の特殊化である。</p></li>
-<li><p>Extend と Include は NamedElement と DirectedRelationship の両方の特殊化であり、UseCase が所有する可能性がある。</p>
-<ul>
-<li><p>Extend は Constraint を一個だけ所有する可能性がある。</p></li>
+<li><p>Extend は Constraint を一個だけ所有することがある。</p></li>
 </ul>
 </li>
-<li><p>ExtensionPoint を UseCase が複数所有する可能性がある。</p></li>
-</ul>
-</li>
+<li><p>ExtensionPoint を UseCase が複数所有することがある。</p></li>
 </ul>
 </section>
 <section id="semantics">
-<h3>18.1.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">18.1.3 Semantics</a><a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
 <section id="use-cases-and-actors">
-<h4>18.1.3.1 Use Cases and Actors<a class="headerlink" href="#use-cases-and-actors" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id6" role="doc-backlink">18.1.3.1 Use Cases and Actors</a><a class="headerlink" href="#use-cases-and-actors" title="Permalink to this heading">¶</a></h4>
+<p>UseCase は任意の個数の <code class="docutils literal notranslate"><span class="pre">subjects</span></code> に適用してよい。 UseCase が <code class="docutils literal notranslate"><span class="pre">subject</span></code> に適用する場合、その <code class="docutils literal notranslate"><span class="pre">subject</span></code> によって行われる挙動の集合が指定され、その
+<code class="docutils literal notranslate"><span class="pre">subject</span></code> の Actors または他の利害関係者にとって価値のある、目に見える結果が生じる。</p>
+<blockquote>
+<div><p>A UseCase is a kind of BehavioredClassifier that represents a declaration of
+a set of offered Behaviors.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>UseCase は任意の個数の <code class="docutils literal notranslate"><span class="pre">subjects</span></code> に適用してよい。 UseCase が <code class="docutils literal notranslate"><span class="pre">subject</span></code> に適用するときには、その事は <code class="docutils literal notranslate"><span class="pre">subject</span></code> によって行われる挙動の集合を指定し、
-Actors または <code class="docutils literal notranslate"><span class="pre">subject</span></code> の他の利害関係者に対する値である、目に見える結果を生じる。</p></li>
-<li><p>UseCase とは示された Behaviors の集合の宣言を表現する BehavioredClassifier の一種である。UseCase のそれぞれは <code class="docutils literal notranslate"><span class="pre">subject</span></code> が一つまたはそれを超える Actors
-と協調して行うことができる何らかの挙動を指定する。</p></li>
-<li><p>UseCase の <code class="docutils literal notranslate"><span class="pre">subject</span></code> はシステムあるいは挙動を有することができる他の要素のいずれか、例えば Component や Class などである可能性がある。UseCase のそれぞれはその <code class="docutils literal notranslate"><span class="pre">subject</span></code> が利用者に対して実現する有用な機能の構成単位を指定する。</p></li>
-<li><p>UseCases を <code class="docutils literal notranslate"><span class="pre">subject</span></code> の（外部からの）要求の仕様と、<code class="docutils literal notranslate"><span class="pre">subject</span></code> により示される機能の仕様との両方に対して利用することが可能である。</p></li>
-<li><p>UseCase の挙動は事前条件、事後条件、適切な自然言語のテキストによってばかりでなく、（その <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> 関係を通じて） Interactions, Activities,
-StateMachines のようなBehaviors の集合により記述されることが可能である。</p>
-<ul>
-<li><p>型がそれの部分である Classifiers として UseCase とその Actors を使う
-Collaboration によってでも間接的に記述することができる。</p></li>
+<li><p>UseCase のそれぞれは <code class="docutils literal notranslate"><span class="pre">subject</span></code> が一つ以上の Actors と協調して行うことが可能である挙動を指定する。</p></li>
+<li><p>UseCase はその <code class="docutils literal notranslate"><span class="pre">subject</span></code> の内部構造を参照することなしに、その <code class="docutils literal notranslate"><span class="pre">subject</span></code> の供給される Behaviors を定義する。これらの Behaviors はその Actors と
+<code class="docutils literal notranslate"><span class="pre">subject</span></code> の相互作用に関与し、その <code class="docutils literal notranslate"><span class="pre">subject</span></code> の状態の変化とその環境との通信を生じることがある。</p></li>
+<li><p>UseCase には異例の挙動やエラー処理など、基本挙動の変種を含めることが可能だ。</p></li>
 </ul>
-</li>
-<li><p>UseCases には関連した Actors があってもよく、それらは UseCase を実現している
-Classifier のオブジェクトとActor の役割の一つを演じている利用者がどのように影響しあうかを記述する。</p></li>
-<li><p>UseCase が 1 を超える多重度の端に Actor と関連すると、それは一つを超える個数の
-Actor オブジェクトがその UseCase に付随することを意味する。</p>
-<ul>
-<li><p>複数の Actors が UseCase に関与する方法は持ち合わせている特定の状況に依存するものなので、本仕様では定義されない。</p></li>
-</ul>
-</li>
-<li><p>Package または Classifier のどちらも UseCase を所有することが許される。所有する Classifier は所有された UseCases が適用する <code class="docutils literal notranslate"><span class="pre">subject</span></code> を典型的には表すのではあるが、Figure 18.10 で図解されるように、この事は必ずしも当てはまらない。</p></li>
-<li><p>Actor は関連する UseCases の <code class="docutils literal notranslate"><span class="pre">subjects</span></code> と相互に作用する実体が演じる役割の型をモデル化する。 Actors は人間の利用者、外部ソフトウェア、または他のシステムにより演じられる役割を表現してよい。</p>
-<ul>
-<li><p>Actor は必ずしも特定の物理的実体を表現しないが、代わりにその関連する
-UseCases の詳細に関連の何らかの実体についての特定の役割を表現する。</p></li>
-<li><p>役割 (role) という用語をここでは非公式に用いており、本仕様書中の他のどこかに見当たるその用語の技術的な定義のいずれも意味しない。</p></li>
-</ul>
-</li>
-<li><p>UseCase が 1 を超える多重度のある Actor に関連があるときには、その事は与えられた Actor がその型の複数の UseCases に付随する可能性があることを意味する。</p></li>
-</ul>
+<p>UseCase の <code class="docutils literal notranslate"><span class="pre">subject</span></code> はシステム、または Component や Class など、挙動を有することがある他の要素である可能性がある。UseCase のそれぞれはその <code class="docutils literal notranslate"><span class="pre">subject</span></code> が利用者に対して実現する有用な機能の単位（それと相互作用する特定の手段）を指定する。</p>
+<blockquote>
+<div><p>This functionality must always be completed for the UseCase to complete. It
+is deemed complete if, after its execution, the <code class="docutils literal notranslate"><span class="pre">subject</span></code> will be in a
+state in which no further inputs or actions are expected and the UseCase can
+be initiated again, or in an error state.</p>
+</div></blockquote>
+<p>UseCases を <code class="docutils literal notranslate"><span class="pre">subject</span></code> に対する（外部からの）要求の仕様と、<code class="docutils literal notranslate"><span class="pre">subject</span></code> が供給する機能の仕様との両方に対して利用することが可能だ。さらに、UseCases は指定された
+<code class="docutils literal notranslate"><span class="pre">subject</span></code> がそのサービスを行使することが可能であるように、その Actors がその
+<code class="docutils literal notranslate"><span class="pre">subject</span></code> とどのようになるべく相互作用するのかを定義することによって、指定
+<code class="docutils literal notranslate"><span class="pre">subject</span></code> がその環境に対して提示する要件を述べてもよい。</p>
+<blockquote>
+<div><p>The behaviors of a UseCase can be described by a set of Behaviors (through
+its <code class="docutils literal notranslate"><span class="pre">ownedBehavior</span></code> relationship), such as Interactions, Activities, and
+StateMachines, as well as by pre-conditions, post-conditions and natural
+language text where appropriate.</p>
+</div></blockquote>
+<p>また、UseCase とその Actors を、その部分を型付ける Classifiers として使う
+Collaboration を通して間接的に記述することもある。これらの技法のどちらを採用するかは、その UseCase 挙動の性質や読者次第だ。これらの記述は組み合わせることが可能だ (Fig. 18.12)。</p>
+<p>UseCases には関連 Actors があってもよく、UseCase を実現している Classifier のオブジェクトと Actor の役割の一つを演じる利用者がどのように相互作用するかを記述する。二つの UseCases はそれぞれ個別にその <code class="docutils literal notranslate"><span class="pre">subject</span></code> の完全な使用法を記述するため、関連付けることは不可能だ。</p>
+<blockquote>
+<div><p>When a UseCase has an association to an Actor with a multiplicity that is
+greater than one at the Actor end, it means that more than one Actor instance
+is involved in the UseCase.</p>
+</div></blockquote>
+<p>複数の Actors がどのように UseCase に関与するかは、具体的な状況により異なり、本仕様では定義されない。</p>
+<blockquote>
+<div><p>A UseCase may be owned either by a Package or by a Classifier.</p>
+</div></blockquote>
+<p>所有する Classifier は所有される UseCases が適用される <code class="docutils literal notranslate"><span class="pre">subject</span></code> を表すのが普通ではあるが、Fig. 18.10, 18.11 で図解されるように、必ずしも当てはまらない。</p>
+<p>Actor は関連する UseCases の <code class="docutils literal notranslate"><span class="pre">subjects</span></code> と相互作用する物が果たす役割の型のモデルだ。Actors は人間の利用者、外部ソフトウェア、他のシステムが果たす役割を表現することがある。</p>
+<p>Actor は特定の物理的実体を必ずしも表現するものではなく、その関連する UseCases の詳細に関連する、何らかの実体についての特定の役割を表現する。</p>
+<blockquote>
+<div><p>Thus, a single physical instance may play the role of several different
+Actors and, conversely, a given Actor may be played by multiple different
+instances.</p>
+</div></blockquote>
+<p>役割 (role) という用語をここでは非公式に用いており、本仕様書中の他のどこかに見当たるその用語の技術的な定義のいずれをも意味しない。</p>
+<p>Actor が UseCase に関連し、UseCase 側の多重度が 1 を超える場合、ある Actor がその型の複数の UseCases に関与することが可能であることを意味する。</p>
+<blockquote>
+<div><p>The specific nature of this multiple involvement depends on the case on hand
+and is not defined in this specification. Thus, an Actor may initiate
+multiple UseCases in parallel (concurrently) or at different points in time.</p>
+</div></blockquote>
 </section>
 <section id="extends">
-<h4>18.1.3.2 Extends<a class="headerlink" href="#extends" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>Extend とは、拡張している UseCase で定義された挙動が拡張された UseCase で定義された挙動の中にいつ、どのように挿し込まれるのかを指定する、拡張している
-UseCase (<code class="docutils literal notranslate"><span class="pre">extension</span></code>) から拡張された UseCase (<code class="docutils literal notranslate"><span class="pre">extendedCase</span></code>) への関係性である。</p></li>
-<li><p>Extend は一つまたはそれを超える UseCase で定義された挙動に、事によると条件付きで、追加されるべきさらなる挙動があるときに利用されるのを意図されている。</p></li>
-<li><p>拡張された UseCase は拡張している UseCase と独立して定義されるし、拡張している
-UseCase と独立して意味がある。他方では、拡張している UseCase は、それ自身で意味がある必要がなくてもよい挙動を典型的に定義する。</p>
-<ul>
-<li><p>同じ拡張している UseCase は一つより多い UseCase を拡張することが可能である。その上、拡張している UseCase は自身を拡張してよい。</p></li>
-</ul>
-</li>
-<li><p>Extend とは、<code class="docutils literal notranslate"><span class="pre">source</span></code> が拡張している UseCase であり、<code class="docutils literal notranslate"><span class="pre">target</span></code> が拡張されている UseCase であるような DirectedRelationship の一種である。それはまた、所有している UseCase の文脈において``name`` があることが可能であるようにする
-NamedElement の一種でもある。</p>
-<ul>
-<li><p>Extend 関係自身は <code class="docutils literal notranslate"><span class="pre">extension</span></code> によって所有される。</p></li>
-</ul>
-</li>
-<li><p>ExtensionPoint はその挙動が Extend 関係により拡張されることが可能となる
-UseCaseの挙動にある点を識別する。</p></li>
-<li><p>ExtensionPoint の位置を定義する明確なやり方は意図的に未指定である。この事は
-UseCases を自然言語、図表、木、等々のようなさまざまな書式で指定することが認められていることによる。</p></li>
-<li><p>Extend の <code class="docutils literal notranslate"><span class="pre">condition</span></code> が欠けているか、あるいは拡張された UseCase の実行中に到達した初回時に ture と評価するならば、拡張している UseCase の適切な挙動の断片のすべてもまた実行されるはずである。</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">condition</span></code> が <code class="docutils literal notranslate"><span class="pre">false</span></code> であれば、これは起こらない。</p></li>
-</ul>
-</li>
-</ul>
+<h4><a class="toc-backref" href="#id7" role="doc-backlink">18.1.3.2 Extends</a><a class="headerlink" href="#extends" title="Permalink to this heading">¶</a></h4>
+<p>Extend:</p>
+<blockquote>
+<div><p>An Extend is a relationship from an extending UseCase (the <code class="docutils literal notranslate"><span class="pre">extension</span></code>) to
+an extended UseCase (the <code class="docutils literal notranslate"><span class="pre">extendedCase</span></code>) that specifies how and when the
+behavior defined in the extending UseCase can be inserted into the behavior
+defined in the extended UseCase. The extension takes place at one or more
+specific extension points defined in the extended UseCase.</p>
+</div></blockquote>
+<p>Extend は少なくとも一つの UseCase で定義された挙動に、条件付きでなるべく追加されるさらなる挙動がある場合に利用される。</p>
+<p>被拡張 UseCase はその拡張 UseCase と独立して定義され、この拡張 UseCase とは独立して意味を持つ。他方では、拡張 UseCase はそれ自身では必ずしも意味をなさない挙動を定義する。</p>
+<blockquote>
+<div><p>Instead, the extending UseCase defines a set of modular behavior increments
+that augment an execution of the extended UseCase under specific conditions.</p>
+</div></blockquote>
+<p>同じ拡張 UseCase は複数 UseCase を拡張することが可能だ。その上、拡張 UseCase は自身が拡張されることもある。</p>
+<blockquote>
+<div><p>Extend is a kind of DirectedRelationship, such that the <code class="docutils literal notranslate"><span class="pre">source</span></code> is the
+extending UseCase and the <code class="docutils literal notranslate"><span class="pre">target</span></code> is the extended UseCase.</p>
+</div></blockquote>
+<p>また、NamedElement の一種でもあり、所有する UseCase の context において <code class="docutils literal notranslate"><span class="pre">name</span></code>
+を持つことが可能だ。この Extend 関係自体はその <code class="docutils literal notranslate"><span class="pre">extension</span></code> が所有する。</p>
+<blockquote>
+<div><p>An ExtensionPoint identifies a point in the behavior of a UseCase where that
+behavior can be extended by an Extend relationship. Each ExtensionPoint has a
+unique name within a UseCase.</p>
+</div></blockquote>
+<p>ExtensionPoint の位置を定義する明確なやり方は意図的に未指定だ。UseCases は自然言語、図表、樹形図等々、さまざまな形式で指定することが認められているからだ。</p>
+<blockquote>
+<div><p>The intuition behind the notion of <code class="docutils literal notranslate"><span class="pre">extensionLocation</span></code> is best explained
+through the example of a textually described UseCase: Usually, a UseCase with
+ExtensionPoints consists of a set of finer-grained behavioral fragment
+descriptions, which are most often executed in sequence.</p>
+</div></blockquote>
+<p>このように UseCase テキストの断片構造化は、元の断片間の適切な挿入点（拡張点）に補足的な挙動の断片記述を合併することで、元の挙動の記述を拡張してもよい。したがって、拡張 UseCase は通常、被拡張 UseCase の適切な箇所に挿入される一つ以上の挙動断片記述から構成される。</p>
+<blockquote>
+<div><p>An <code class="docutils literal notranslate"><span class="pre">extensionLocation</span></code>, therefore, is a specification of all the various
+ExtensionPoints in a UseCase where supplementary behavioral increments can be
+merged.</p>
+</div></blockquote>
+<p>拡張 UseCase 実行中に最初の ExtensionPoint に到達した時点で、Extend の
+<code class="docutils literal notranslate"><span class="pre">condition</span></code> が欠けているか、あるいは被拡張 UseCase の実行中に到達した初回時に真であると評価される場合、拡張 UseCase の適切な挙動断片のすべてもまた実行される。この <code class="docutils literal notranslate"><span class="pre">condition</span></code> が偽であれば、このようなことは起こらない。</p>
+<blockquote>
+<div><p>The individual fragments are executed as the corresponding ExtensionPoints of
+the extended UseCase are reached. Once a given fragment is completed,
+execution continues with the behavior of the extended UseCase following the
+ExtensionPoint.</p>
+</div></blockquote>
+<p>複数の UseCase があっても、実行される挙動は一つであることに注意。</p>
 </section>
 <section id="includes">
-<h4>18.1.3.3 Includes<a class="headerlink" href="#includes" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>Include は二つの UseCases の間の DirectedRelationship であり、包含される
-UseCase (<code class="docutils literal notranslate"><span class="pre">addition</span></code>) の挙動が包含されている UseCase (<code class="docutils literal notranslate"><span class="pre">includingCase</span></code>) の挙動に挿し込まれるのを示している。</p>
-<ul>
-<li><p>Include はまた、所有する UseCase (<code class="docutils literal notranslate"><span class="pre">includingCase</span></code>) の文脈で <code class="docutils literal notranslate"><span class="pre">name</span></code> があることを可能にするようなNamedElement の一種でもある。</p></li>
-</ul>
-</li>
-<li><p>Include 関係は二つまたはそれを超える UseCases の挙動の共通部分があるときに利用されることを意図されている。この共通部分はそれから別々の UseCase に引き出されて、この部分が共通にある基本 UseCases のすべてによって含まれることになる。</p></li>
-<li><p>包含される UseCase の挙動のすべては、包含している UseCase の実行が再開される前に、包含される UseCase 内の単一の場所で実行される。</p></li>
-<li><p>Include 関係では UseCases の再利用のみならず UseCases の階層的合成ができる。</p></li>
-</ul>
+<h4><a class="toc-backref" href="#id8" role="doc-backlink">18.1.3.3 Includes</a><a class="headerlink" href="#includes" title="Permalink to this heading">¶</a></h4>
+<p>Include:</p>
+<blockquote>
+<div><p>Include is a DirectedRelationship between two UseCases, indicating that the
+behavior of the included UseCase (the <code class="docutils literal notranslate"><span class="pre">addition</span></code>) is inserted into the
+behavior of the including UseCase (the <code class="docutils literal notranslate"><span class="pre">includingCase</span></code>). It is also a kind
+of NamedElement so that it can have a <code class="docutils literal notranslate"><span class="pre">name</span></code> in the context of its owning
+UseCase (the <code class="docutils literal notranslate"><span class="pre">includingCase</span></code>).</p>
+</div></blockquote>
+<p>包括する UseCase は、包括される UseCase の実行によって生じる変更に依存することがある。包括する UseCase の挙動を完全に記述するためには、包括される UseCase が利用可能であることが必要だ。</p>
+<blockquote>
+<div><p>The Include relationship is intended to be used when there are common parts
+of the behavior of two or more UseCases.</p>
+</div></blockquote>
+<p>この共通部分は、別の UseCase に抽出され、この共通部分を持つすべての基底 UseCases
+に包括される。</p>
+<p>Include 関係の主な用途は共通部分の再利用であるため、基底 UseCase に残されたものは、通常、それ自体で完全なものではなく、包括された部分に依存して意味を持つ。これは関係の方向に反射され、基底 UseCase が <code class="docutils literal notranslate"><span class="pre">addtion</span></code> に依存し、その逆はないことを示す。</p>
+<blockquote>
+<div><p>All of the behavior of the included UseCase is executed at a single location
+in the included UseCase before execution of the including UseCase is resumed.</p>
+</div></blockquote>
+<p>Include 関係は UseCases の階層的合成や再利用を可能にする。</p>
 </section>
 </section>
 <section id="notation">
-<h3>18.1.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">18.1.4 Notation</a><a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<p>UseCase の記法：</p>
+<blockquote>
+<div><p>A UseCase is shown as an ellipse, either containing the name of the UseCase
+or with the name of the UseCase placed below the ellipse.</p>
+</div></blockquote>
+<p>ステレオタイプキーワードを名前の上に配置してもかまわない。</p>
+<blockquote>
+<div><p>A <code class="docutils literal notranslate"><span class="pre">subject</span></code> for a set of UseCases (sometimes called a <em class="dfn">system
+boundary</em>) may be shown as a rectangle with its name in the top-left corner,
+with the UseCase ellipses visually located inside this rectangle.</p>
+</div></blockquote>
+<p>同じモデル UseCase は複数の subject 矩形内に別々の楕円として描かれることがある。</p>
+<blockquote>
+<div><p>Where a <code class="docutils literal notranslate"><span class="pre">subject</span></code> is a Classifier with a standard stereotype, the keyword
+for the stereotype shall be shown in guillemets above the name of the
+subject.</p>
+</div></blockquote>
+<p>メタクラスがあいまいな <code class="docutils literal notranslate"><span class="pre">subject</span></code> の場合は Classifier のメタクラスに対する記法に対応するキーワード <code class="docutils literal notranslate"><span class="pre">.</span></code> を、その名前の上に «» で囲んで示すものとする。</p>
+<p>複数のキーワードやステレオタイプ名が適用される場合、(9.2.4) で定義された記法オプションが適用される。</p>
+<blockquote>
+<div><p>The subject notation is illustrated by the example in Figure 18.2 which shows
+a Component with the standard stereotype «Subsystem».</p>
+</div></blockquote>
+<p>上述の <code class="docutils literal notranslate"><span class="pre">subject</span></code> classifier についての記法は通常の Classifier のそれとは異なることに注意する。見出しも区画もない。</p>
+<blockquote>
+<div><p>Note also that the <code class="docutils literal notranslate"><span class="pre">subject</span></code> rectangle does not imply that the <code class="docutils literal notranslate"><span class="pre">subject</span></code>
+classifier owns the contained UseCases, but merely that the UseCases apply to
+that classifier.</p>
+</div></blockquote>
+<p>特に、<code class="docutils literal notranslate"><span class="pre">subject</span></code> である Classifier を表す境界矩形に視覚的には含まれているように見える UseCase と、所有者である Classifier の区画に視覚的には含まれているように見える UseCase との間に混同の余地がある (Fig. 18.9)。</p>
+<p>属性と操作は通常の Classifier 矩形と同じ内容で、UseCase 楕円内部にある区画らに表示されることがある。</p>
+<blockquote>
+<div><p>ExtensionPoints may be listed in a compartment of the UseCase with the
+heading <strong>extension points</strong>.</p>
+</div></blockquote>
+<p>各 ExtensionPoint は、次の構文に従い、UseCase の楕円の記号内の文字列で示される：</p>
+<div class="highlight-bnf notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nc">extension point</span><span class="p">&gt;</span> <span class="o">::=</span> <span class="p">&lt;</span><span class="nc">name</span><span class="p">&gt;</span> [: <span class="p">&lt;</span><span class="nc">explanation</span><span class="p">&gt;</span>]
+</pre></div>
+</div>
+<p>説明（オプション）：</p>
+<blockquote>
+<div><p>Note that <em>explanation</em>, which is optional, may be any informal text or a
+more precise definition of the location in the behavior of the UseCase where
+the extension point occurs, such as the name of a State in a StateMachine, an
+Activity in an activity diagram, a precondition, or a postcondition.</p>
+</div></blockquote>
+<p>UseCases には他の Classifiers に対する Associations や Dependencies を持つことがある。例えば入出力、イベント、挙動を表すのに持つ。</p>
+<p>UseCase で定義された詳細な挙動は、選択された記述手法に従って、別々の図式または文書に記録される。</p>
+<p>Fig. 18.5 のように、UseCase を Classifiers の標準的な矩形記法を用いて示してもよい。その場合は楕円アイコンを矩形右上隅に付ける。この場合、拡張点はオプション区画だ。この描写は拡張点や特徴が多い場合に適している。</p>
+<p>Actor:</p>
+<blockquote>
+<div><p>An Actor is represented by a “stick man” icon with the name of the Actor in
+the vicinity (usually above or below) the icon</p>
+</div></blockquote>
+<p>Actor をすべての区画を通常の記法で、キーワード <code class="docutils literal notranslate"><span class="pre">«actor»</span></code> の付いた Classifier
+矩形で示してもよい (Fig. 18.8)。</p>
+<p>人間以外の Actor には別の図像を使用するなど、Actor の種類を示す他の図像を使用することが許される。</p>
+<p>Classifier による UseCase の入れ子（所有）を、Classifier 矩形内に UseCase 楕円を入れ子にして別の区画で表現してもよい (9.2.4)。</p>
+<p>Extend:</p>
+<blockquote>
+<div><p>An Extend relationship between UseCases is shown by a dashed arrow with an
+open arrowhead pointing from the extending UseCase towards the extended
+UseCase.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p>UseCase は楕円として示される。名前は楕円に入れるか、楕円の下に置くかどちらかにする。</p>
-<ul>
-<li><p>名前の上にオプションでステレオタイプキーワードを配置してよい。</p></li>
+<li><p>矢印のラベルにはキーワード <code class="docutils literal notranslate"><span class="pre">«extend»</span></code> が付く。</p></li>
+<li><p>Extend の条件とその ExtensionPoints への参照は、その対応する矢印に付けられた
+Comment 記号 (7.2.4) で、オプションとして示される (Fig. 18.3)。</p></li>
 </ul>
-</li>
-<li><p>UseCases の集合についての <code class="docutils literal notranslate"><span class="pre">subject</span></code> を左上隅に名前を記した矩形として示してよい。ここで UseCase 楕円はこの矩形の視覚的な内側に位置される。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">subject</span></code> classifier についてのこの記法は通常の Classifier の記法とは異なることに注意する。見出しも区画もない。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">subject</span></code> 矩形は <code class="docutils literal notranslate"><span class="pre">subject</span></code> classifier が包含される UseCases を所有することを意味しないことにも注意する。単に UseCases がその classifier に適用するということだ。</p></li>
-<li><p>属性と操作は UseCase 楕円の内部にある区画らに、それらがあたかも普通の
-Classifier 矩形であるかのように、同じ内容で示してよい。</p></li>
-<li><p>ExtensionPoints は見出しが <strong>extension points</strong> である UseCase の区画に列記してよい。ExtensionPoint それぞれは UseCase 記号内にテキスト文字列で記す。</p></li>
-<li><p>UseCases には他の Associations および他の Classifiers についての Dependencies
-があってよい。</p></li>
-<li><p>UseCase により定義された詳細な挙動は選ばれた記述手法に従って、別々の図式またはテキストの文章に記録される。</p></li>
-<li><p>UseCase を標準の Classifiers 用の矩形記法を用いて示してもよい。その場合は楕円アイコンを矩形右上隅に載せる。</p></li>
-<li><p>Actor は棒人間アイコンにより表現される。Actor の名前はアイコンの近くに書かれる。</p></li>
-<li><p>Actor はキーワード <code class="docutils literal notranslate"><span class="pre">«actor»</span></code> の付いた Classifier 矩形で示してもよい。</p></li>
-<li><p>他の Actor の種類を伝えるアイコンもまた Actor を記すのに用いてよい。</p></li>
-<li><p>Classifier により UseCase の入れ子（所有）を、UseCase 楕円を別々の区画に
-Classifier 矩形内に入れ子にすることにより選択的に表現してもよい。</p></li>
-<li><p>UseCases 間の Extend 関係は先の開いた破線の矢印で示される。矢印の方向は拡張している UseCase から拡張されている UseCase に向いている。矢印のラベルにはキーワード <code class="docutils literal notranslate"><span class="pre">«extend»</span></code> が付く。</p></li>
-<li><p>UseCases 間の Include 関係は先の開いた破線の矢印で示される。矢印の方向は根本の
-UseCase から包含される UseCase に向いている。矢印のラベルにはキーワード
-<code class="docutils literal notranslate"><span class="pre">«include»</span></code> が付く。</p></li>
+<p>Include:</p>
+<blockquote>
+<div><p>An Include relationship between UseCases is shown by a dashed arrow with an
+open arrowhead pointing from the base UseCase to the included UseCase.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>矢印のラベルにはキーワード <code class="docutils literal notranslate"><span class="pre">«include»</span></code> が付く (Fig. 18.4)。</p></li>
 </ul>
 </section>
 <section id="examples">
-<h3>18.1.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">18.1.5 Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 18.2 Class diagram of a Package owning a set of UseCases, Actors, and
+a Subsystem</p>
+</div></blockquote>
+<p>UseCases, Actors および UseCases の <code class="docutils literal notranslate"><span class="pre">subject</span></code> である Subsystem からなる集合を所有する Package <code class="docutils literal notranslate"><span class="pre">ATMtopPkg</span></code> に対応するクラス図だ。</p>
 <ul class="simple">
-<li><p>Figure 18.2 Class diagram of a Package owning a set of UseCases, Actors, and a
-Subsystem</p>
-<ul>
-<li><p>UseCases, Actors および UseCases の <code class="docutils literal notranslate"><span class="pre">subject</span></code> である部分システムの集合を所有するPackage ATMtopPkg に対応するクラス図である。</p></li>
-<li><p>この見本は Customer または Administrator がそれぞれの関連する UseCases のどれを共用することが許される or許されないのかを示す。</p>
-<ul>
-<li><p>多重度の <code class="docutils literal notranslate"><span class="pre">0..1</span></code> からそれが読み取れる。</p></li>
+<li><p>この見本では <code class="docutils literal notranslate"><span class="pre">subject</span></code> は Subsystem 標準ステレオタイプを持つ Component だ。</p></li>
+<li><p>Subsystem ステレオタイプはメタクラスを示す必要はない。その <code class="docutils literal notranslate"><span class="pre">subject</span></code> が必然的に Component であるからだ (<a class="reference internal" href="ch22-standard-profile.html"><span class="doc">22 Standard Profile</span></a>)。</p></li>
 </ul>
-</li>
+<blockquote>
+<div><p>The example shows that a Customer or Administrator may or may not participate
+in any of their associated UseCases (hence the <code class="docutils literal notranslate"><span class="pre">0..1</span></code> multiplicity).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>UseCase としてはこの見本の UseCase すべてにはそれを開始する Actor がなければならない。それゆえ多重度 <code class="docutils literal notranslate"><span class="pre">1</span></code> だ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Deposit</span></code> と <code class="docutils literal notranslate"><span class="pre">Register</span> <span class="pre">ATM</span></code> UseCases は <code class="docutils literal notranslate"><span class="pre">Bank</span></code> の関与を要する。<code class="docutils literal notranslate"><span class="pre">Bank</span></code>
+のほうは同時に多くの <code class="docutils literal notranslate"><span class="pre">Deposit</span></code> と <code class="docutils literal notranslate"><span class="pre">Register</span> <span class="pre">ATM</span></code> UseCases に関与することが可能だ。</p></li>
 </ul>
-</li>
-<li><p>Figure 18.3 Example Extend</p>
+<blockquote>
+<div><p>Figure 18.3 Example Extend</p>
+</div></blockquote>
+<p>UseCase <code class="docutils literal notranslate"><span class="pre">Perform</span> <span class="pre">ATM</span> <span class="pre">Transaction</span></code> に ExtensionPoint <code class="docutils literal notranslate"><span class="pre">selection</span></code> がある。</p>
+<p>この UseCase は <code class="docutils literal notranslate"><span class="pre">Perform</span> <span class="pre">ATM</span> <span class="pre">Transaction</span></code> の発生が <code class="docutils literal notranslate"><span class="pre">selection</span></code> 拡張点によって参照される場所にあり、顧客が <kbd class="kbd docutils literal notranslate">HELP</kbd> キーを選択するたびに UseCase
+<code class="docutils literal notranslate"><span class="pre">On-Line</span> <span class="pre">Help</span></code> によってその拡張点を介して拡張される。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Perform</span> <span class="pre">ATM</span> <span class="pre">Transaction</span></code> UseCase は <code class="docutils literal notranslate"><span class="pre">On-Line</span> <span class="pre">Help</span></code> UseCase とは別に定義される。</p>
+<blockquote>
+<div><p>Figure 18.4 Example Include</p>
+</div></blockquote>
+<p>UseCase <code class="docutils literal notranslate"><span class="pre">Withdraw</span></code> は独立して定義された UseCase <code class="docutils literal notranslate"><span class="pre">Card</span> <span class="pre">Identification</span></code> を含む。</p>
+<blockquote>
+<div><p>Figure 18.5 UseCase using Classifier rectangle notation</p>
+</div></blockquote>
+<p>楕円図像を持つ Classifiers に対する標準矩形記法とオプションの拡張点区画。</p>
 <ul>
-<li><p>UseCase <code class="docutils literal notranslate"><span class="pre">&quot;Perform</span> <span class="pre">ATM</span> <span class="pre">Transaction&quot;</span></code> に ExtensionPoint <code class="docutils literal notranslate"><span class="pre">&quot;selection&quot;</span></code> がある。</p></li>
-<li><p>UseCase <code class="docutils literal notranslate"><span class="pre">&quot;Perform</span> <span class="pre">ATM</span> <span class="pre">Transaction&quot;</span></code> はこの ExtensionPoint を経由して
-UseCase <code class="docutils literal notranslate"><span class="pre">&quot;Online</span> <span class="pre">Help&quot;</span></code> に拡張される。その条件は「顧客が “HELP” を選択する」である。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.4 Example Include</p>
-<ul>
-<li><p>UseCase <code class="docutils literal notranslate"><span class="pre">&quot;Withdraw&quot;</span></code> は独立して定義された UseCase <code class="docutils literal notranslate"><span class="pre">&quot;Card</span>
-<span class="pre">Identification&quot;</span></code> を包含する。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.5 UseCase using Classifier rectangle notation</p>
-<ul>
-<li><p>UseCase <code class="docutils literal notranslate"><span class="pre">&quot;OrderStationery&quot;</span></code> をクラス用の標準矩形表記法で示している。</p></li>
 <li><p>矩形右上隅に楕円を描けばよい。</p></li>
-<li><p>区画 <code class="docutils literal notranslate"><span class="pre">&quot;extension</span> <span class="pre">points&quot;</span></code> は任意だが、記すときはこのようにする。</p></li>
-</ul>
+<li><p>区画 <code class="docutils literal notranslate"><span class="pre">extension</span> <span class="pre">points</span></code> は任意だが、記すときはこのようにする。</p>
+<blockquote>
+<div><p>Figure 18.6 Actor notation using stick-man</p>
+</div></blockquote>
 </li>
-<li><p>Figure 18.6 Actor notation using stick-man</p>
+</ul>
+<p>棒人間を描き、その真下に Actor 名を記す。</p>
+<blockquote>
+<div><p>Figure 18.7 Actor notation using Class rectangle</p>
+</div></blockquote>
+<p>矩形を描き、内部にキーワード <code class="docutils literal notranslate"><span class="pre">«actor»</span></code> 付き Actor 名を記す。</p>
+<blockquote>
+<div><p>Figure 18.8 Actor notation using icon</p>
+</div></blockquote>
+<p>図像で Actor を表現する例。見てくれは PC だが Actor 名は <code class="docutils literal notranslate"><span class="pre">User</span></code> とある。</p>
+<blockquote>
+<div><p>Figure 18.9 Notation for UseCase owned by Classifier</p>
+</div></blockquote>
+<p>オプションの <code class="docutils literal notranslate"><span class="pre">ownedMember</span></code> 区画を使用している Class の <code class="docutils literal notranslate"><span class="pre">ownedUseCase</span></code> の見本。</p>
 <ul>
-<li><p>棒人間を描き、その真下に Actor 名を記す。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.7 Actor notation using Class rectangle</p>
-<ul>
-<li><p>矩形を描き、内部にキーワード  <code class="docutils literal notranslate"><span class="pre">«actor»</span></code> 付き Actor 名を記す。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.8 Actor notation using icon</p>
-<ul>
-<li><p>図像で Actor を表現する例。イメージは PC に見えるが Actor 名は <code class="docutils literal notranslate"><span class="pre">&quot;User&quot;</span></code> とある。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.9 Notation for UseCase owned by Classifier</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Make</span> <span class="pre">Purchase&quot;</span></code> は Class <code class="docutils literal notranslate"><span class="pre">&quot;DepartmentStore&quot;</span></code> の <code class="docutils literal notranslate"><span class="pre">ownedUseCase</span></code> である。</p></li>
-<li><p>区画の名前が <code class="docutils literal notranslate"><span class="pre">&quot;owned</span> <span class="pre">use</span> <span class="pre">cases&quot;</span></code> となっているが、これは特性名
-<code class="docutils literal notranslate"><span class="pre">ownedUseCase</span></code> から得られる。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.10 Example ATM system with UseCases and Actors</p>
-<ul>
-<li><p>これは前掲 Figure 18.10 と同じ機能だが、次の見本で示すように UseCases の所属が別々であったりする。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.11 Example UseCases owned by Packages</p>
-<ul>
-<li><p>Package の中身が UseCases になっている。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;ATM</span> <span class="pre">Services&quot;</span></code> が <code class="docutils literal notranslate"><span class="pre">&quot;TransactionUseCases&quot;</span></code> を import しているので、二つの UseCases が色を変えて描かれている。</p></li>
-</ul>
-</li>
-<li><p>Figure 18.12 Example UseCase with associated StateMachine</p>
-<ul>
-<li><p>左側は UseCase <code class="docutils literal notranslate"><span class="pre">&quot;MakeCall&quot;</span></code> に StateMachine がその <code class="docutils literal notranslate"><span class="pre">ownedBehaviors</span></code> の一つとしてあることを示している。</p>
-<ul>
-<li><p>区画 <code class="docutils literal notranslate"><span class="pre">&quot;owned</span> <span class="pre">behaviors&quot;</span></code> の記載は任意。</p></li>
-<li><p>StateMachine “Call” はここでは矩形プラスキーワード <code class="docutils literal notranslate"><span class="pre">«statemachine»</span></code> のみで示されている。</p></li>
-</ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Make</span> <span class="pre">Purchase</span></code> は Class <code class="docutils literal notranslate"><span class="pre">DepartmentStore</span></code> の <code class="docutils literal notranslate"><span class="pre">ownedUseCase</span></code> だ。</p></li>
+<li><p>区画の名前が <code class="docutils literal notranslate"><span class="pre">owned</span> <span class="pre">use</span> <span class="pre">cases</span></code> となっているが、これは (9.2.4) で規定されている規則に従い、特性名 <code class="docutils literal notranslate"><span class="pre">ownedUseCase</span></code> から導出されるものだ。</p>
+<blockquote>
+<div><p>Figure 18.10 Example ATM system with UseCases and Actors</p>
+<p>UseCases need not be owned by their <code class="docutils literal notranslate"><span class="pre">subject</span></code>.</p>
+</div></blockquote>
 </li>
 </ul>
-</li>
-</ul>
+<p>これは前掲 Fig. 18.10 と同じ機能だ。ここにある UseCases は <code class="docutils literal notranslate"><span class="pre">ATMSystem</span></code>
+Subsystem に適用される。しかし、次の見本で示すように所属が別々のパッケージだ。</p>
+<blockquote>
+<div><p>Figure 18.11 Example UseCases owned by Packages</p>
+</div></blockquote>
+<p>Package の中身が UseCases になっている。</p>
+<p>パッケージ <code class="docutils literal notranslate"><span class="pre">ATM</span> <span class="pre">Services</span></code> がパッケージ <code class="docutils literal notranslate"><span class="pre">TransactionUseCases</span></code> を import しているので、名前が共通する UseCases が色を変えて描かれている。</p>
+<blockquote>
+<div><p>Figure 18.12 Example UseCase with associated StateMachine</p>
+</div></blockquote>
+<p>左側はその <code class="docutils literal notranslate"><span class="pre">ownedBehaviors</span></code> の一つとして StateMachine を持つ UseCase を示す。この StateMachine の Classifier 記号はオプション区画 <code class="docutils literal notranslate"><span class="pre">owned</span> <span class="pre">behaviors</span></code> に示されることがある。</p>
+<p>右側はこの StateMachine 内部の詳細を表した状態機械図だ。</p>
+<p>StateMachine <code class="docutils literal notranslate"><span class="pre">Call</span></code> はここでは矩形プラスキーワード <code class="docutils literal notranslate"><span class="pre">«statemachine»</span></code> で示されている。</p>
 </section>
 </section>
 <section id="classifier-descriptions">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">18.2 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">18.2 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
 <p>機械生成による節。</p>
 </section>
 <section id="association-descriptions">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">18.3 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">18.3 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
 <p>機械生成による節。</p>
 </section>
 </section>

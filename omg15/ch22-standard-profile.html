@@ -47,10 +47,6 @@
             
   <section id="standard-profile">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">22 Standard Profile</a><a class="headerlink" href="#standard-profile" title="Permalink to this heading">¶</a></h1>
-<div class="admonition- admonition">
-<p class="admonition-title">読者ノート</p>
-<p>現在ノート修正中。</p>
-</div>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -65,39 +61,165 @@
 </nav>
 <section id="summary">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">22.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Standard Profile は定義済みの標準ステレオタイプの集合を指定する。UML 準拠ツールは Standard Profile のステレオタイプすべてを支援する必要がある。</p></li>
-</ul>
+<p>Standard Profile は定義済みの標準ステレオタイプの集合を規定する。UML 適合ツールは Standard Profile のステレオタイプすべてを支援するものとする。</p>
 </section>
 <section id="model">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">22.2 Model</a><a class="headerlink" href="#model" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Figure 22.1 Model of StandardProfile</p>
+</div></blockquote>
+<p>このグラフはとにかくノードが多い。</p>
 <ul class="simple">
-<li><p>Figure 22.1 Model of StandardProfile</p>
-<ul>
-<li><p>このグラフはとにかくノードが多い。</p></li>
-<li><p>今まで見てきた UML の各種メタクラスの名前はすべてfully qualified な形式で記されている。</p></li>
+<li><p>今まで見てきた UML の各種メタクラスの名前はすべて fully qualified な形式で記されている。</p></li>
 <li><p>ステレオタイプはキーワード <code class="docutils literal notranslate"><span class="pre">«stereotype»</span></code> が名前の上に付いている。</p></li>
 <li><p>ステレオタイプから UML メタクラスに接続する矢印の先の形状がいつもと違って黒塗り三角であるが、これは気にしなくてよいか？</p></li>
-</ul>
-</li>
 </ul>
 </section>
 <section id="standard-stereotypes">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">22.3 Standard Stereotypes</a><a class="headerlink" href="#standard-stereotypes" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Table 22.1 Description of the Stereotypes in the UML StandardProfile</p>
+</div></blockquote>
+<p>プロファイルに所属するステレオタイプは表形式で記述される。</p>
 <ul class="simple">
-<li><p>Table 22.1 Description of the Stereotypes in the UML StandardProfile</p>
-<ul>
-<li><p>プロファイルに所属するステレオタイプは表形式で記述される。</p>
-<ul>
-<li><p>最初の列はステレオタイプに対応するステレオタイプラベルの名前を与える。ステレオタイプの実際の名前はステレオタイプラベルと同じである。</p></li>
+<li><p>最初の列はステレオタイプに対応するステレオタイプラベルの名前を与える。ステレオタイプの実際の名前はステレオタイプラベルと同じだ。</p></li>
 <li><p>第二の列はステレオタイプが適用するメタクラスを特定する。</p></li>
-<li><p>最後の列はステレオタイプの意味の記述を与える。</p></li>
+<li><p>最後の列はステレオタイプの意味の記述だ。</p></li>
 </ul>
-</li>
-<li><p>ダラダラ見ても仕方がない？</p></li>
-</ul>
-</li>
-</ul>
+<p>Classifier に適用するプロファイル：</p>
+<dl>
+<dt>«Realization»</dt><dd><p>オブジェクトの領域を指定し、それらの物理的実装も定義する分類子だ。</p>
+<blockquote>
+<div><p>For example, a Component stereotyped by «Realization» will only have
+realizing Classifiers that implement behavior specified by a separate
+«Specification» Component.</p>
+</div></blockquote>
+<p>これは «ImplementationClass» とは異なる。そちらはシステム設計者にとって有用な属性やメソッドなどの特徴を持つことができるクラスの実現だからだ。</p>
+</dd>
+<dt>«Specification»</dt><dd><p>オブジェクトの物理的な実装を定義することなく、領域を指定する分類子だ。</p>
+<blockquote>
+<div><p>For example, a Component stereotyped by «Specification» will only have
+provided and required interfaces, and is not intended to have any
+realizingClassifiers as part of its definition.</p>
+</div></blockquote>
+<p>これは «Type» とは異なる。そちらは属性やメソッドなど、分析専門家モデリングシステムにとって有用な機能を持つことができるからだ。</p>
+</dd>
+</dl>
+<p>Artifact に適用するプロファイル：</p>
+<dl class="simple">
+<dt>«File»</dt><dd><p>開発されたシステムを背景とする物理的なファイル。</p>
+</dd>
+<dt>«Document»</dt><dd><p>人が読めるファイル。«File» のサブクラス。</p>
+</dd>
+<dt>«Executable»</dt><dd><p>計算機システム上で実行可能であるプログラムファイル。«File» のサブクラス。</p>
+</dd>
+<dt>«Library»</dt><dd><p>静的または動的ライブラリーファイル。«File» のサブクラス。</p>
+</dd>
+<dt>«Script»</dt><dd><p>計算機システムが解釈できるスクリプトファイル。«File» のサブクラス。</p>
+</dd>
+<dt>«Source»</dt><dd><p>実行ファイルにコンパイルできるソースファイル。«File» のサブクラス。</p>
+</dd>
+</dl>
+<p>Abstraction に適用するプロファイル：</p>
+<dl>
+<dt>«Derive»</dt><dd><p>モデル要素間の導出関係を表すもので、通常は同じ型であるが、必ずしもそうである必要はない。導出依存関係は依頼元が供給元から計算される可能性があることを指定する。その写像は計算を指定する。依頼元は、論理的には冗長であっても、効率性などの設計上の理由で実装されることがある。</p>
+</dd>
+<dt>«Refine»</dt><dd><p>分析と設計など、異なる語義水準でのモデル要素間の改良関係を指定する。その写像二つの要素またはその集合の関係を指定する。写像は計算可能である場合とそうでない場合があり、一方向性である場合と双方向性である場合がある。</p>
+<blockquote>
+<div><p>Refinement can be used to model transformations from analysis to design
+and other such changes.</p>
+</div></blockquote>
+</dd>
+<dt>«Trace»</dt><dd><p>モデル要素間の追跡関係を指定する。Traces はモデル間の要件や変更を追跡するために主に用いる。モデルの変更は両方向に起こる可能性があるため、依存関係の方向性は多くの場合無視することが可能だ。その写像は両者の関係を指定するが、計算可能であることはまれで、通常は略式的だ。</p>
+</dd>
+</dl>
+<p>Package に適用するプロファイル：</p>
+<dl class="simple">
+<dt>«Framework»</dt><dd><p>システムの全部または一部について、再利用可能な建築様式を指定するモデル要素を含むパッケージ。Frameworks には通常、クラス、パターン、テンプレートが含まれる。フレームワークがアプリケーション領域に特化されている場合はアプリケーションフレームワークと呼ばれることもある。</p>
+</dd>
+<dt>«ModelLibrary»</dt><dd><p>他のパッケージで再利用されることを意図したモデル要素を含むパッケージ。これは、いくつかのプログラミング言語におけるクラスライブラリーに類似している。モデルライブラリーには、プロファイルやステレオタイプなど、(12.3) で規定されているメタモデル拡張メタクラスのオブジェクトを含めてはならない。しかし、
+ProfileApplications や Stereotype アプリケーションを含んでよく、モデルライブラリーは適用された Profile と一緒に使われることが多い。</p>
+</dd>
+</dl>
+<p>BehavioralFeature に適用するプロファイル：</p>
+<dl class="simple">
+<dt>«Create»</dt><dd><p>指定された特徴が、それに付属する分類子のオブジェクトを作成することを指定する。</p>
+</dd>
+<dt>«Destroy»</dt><dd><p>指定された特徴が、それに付属する分類子のオブジェクトを破棄することを指定する。</p>
+</dd>
+</dl>
+<p>Usage に適用するプロファイル：</p>
+<dl>
+<dt>«Call»</dt><dd><p>操作から操作への使用依存性。この関係は、その依存関係が適用されるクラス内に操作が存在するという意味で、操作を含むクラスに包含されることもある。</p>
+<blockquote>
+<div><p>A call dependency specifies that the source operation or an operation in
+the source class invokes the target operation or an operation in the
+target class. A call dependency may connect a source operation to any
+target operation that is within scope including, but not limited to,
+operations of the enclosing classifier and operations of other visible
+classifiers.</p>
+</div></blockquote>
+</dd>
+<dt>«Create»</dt><dd><p>依頼元 Classifier が供給元 Classifier のオブジェクトを生成することを意味する使用依存性。</p>
+</dd>
+<dt>«Instantiate»</dt><dd><p>依頼元に対する操作が供給元オブジェクトを生成することを示す分類子間の使用依存関係。</p>
+</dd>
+<dt>«Responsibility»</dt><dd><p>他の要素との関係における、ある要素の契約または義務。</p>
+</dd>
+<dt>«Send»</dt><dd><p>依頼元が Operation で、供給元が Signal である Usage であって、その Operation
+がその Signal を送信することを指定する。</p>
+</dd>
+</dl>
+<p>Model に適用するプロファイル：</p>
+<dl class="simple">
+<dt>«Metamodel»</dt><dd><p>あるモデリング言語（例えば <a class="reference external" href="http://www.omg.org/spec/MOF/2.5">MOF</a> モデル）のモデリング概念を規定するモデル。</p>
+</dd>
+<dt>«SystemModel»</dt><dd><p>SystemModel はステレオタイプ化されたモデルであり、同じシステムのモデルの集団を含む。SystemModel には異なるモデルに含まれるモデル要素間の関係や制約もすべて含まれる。</p>
+</dd>
+</dl>
+<p>Class に適用するプロファイル：</p>
+<dl>
+<dt>«Auxiliary»</dt><dd><p>より中心的なクラスや基本的なクラスを支援するクラスで、二次的な論理や制御フローを実装するのが普通だ。Auxiliary クラスは通常、Focus クラスとともに使用され、設計時に部品の二次的な業務論理や制御フローを指定するのに特に便利だ。</p>
+</dd>
+<dt>«Focus»</dt><dd><p>中核論理または制御フローを定義するクラスで、それを支援する一つ以上の補助クラスを指す。Focus クラスは通常一つ以上の Auxiliary クラスとともに使用され、設計時に部品の中核業務論理や制御フローを指定するのに特に便利だ。</p>
+</dd>
+<dt>«Metaclass»</dt><dd><p>オブジェクトもまたクラスであるクラス。</p>
+</dd>
+<dt>«ImplementationClass»</dt><dd><p>あるプログラミング言語におけるクラスの実装で、オブジェクトは複数のクラスを持つことは許されない。これは、オブジェクトが一度に複数のクラスを持つことができ、時間の経過とともにクラスを獲得したり喪失したりすることがあり、オブジェクトが動的に複数のクラスを持つことがある Class とは対照的だ。</p>
+<blockquote>
+<div><p>An Implementation class is said to realize a Classifier if it provides all
+of the operations defined for the Classifier with the same behavior as
+specified for the Classifier’s operations.</p>
+</div></blockquote>
+<p>実装クラスは、複数の異なる Types を実現することが許される。</p>
+<p>ImplementationClass の物理的な属性と関連は、それが実現する分類子の属性と同じである必要はない。その物理的な属性と関連に関して、その操作のメソッドを設けることが許される。</p>
+</dd>
+<dt>«Type»</dt><dd><p>オブジェクトの物理的な実装を定義することなく、オブジェクトの領域と、そのオブジェクトに適用可能な操作を指定するクラスだ。属性と関連を持つことはある。型操作に対する挙動仕様は、例えば Activity 図を使って表現することがある。オブジェクトは、高々一つの ImplementationClass を持ってよいが、複数の異なる型に適合してもよい。</p>
+</dd>
+<dt>«Utility»</dt><dd><p>オブジェクトを持たないが、静的属性と静的操作の名前付き集団を示すクラス。</p>
+</dd>
+</dl>
+<p>Component に適用するプロファイル：</p>
+<dl>
+<dt>«BuildComponent»</dt><dd><p>コンパイルや版管理など、システム水準の開発活動を目的として定義された要素の集団。</p>
+</dd>
+<dt>«Entity»</dt><dd><p>業務概念を表す永続的な情報部品。</p>
+</dd>
+<dt>«Implement»</dt><dd><p>それ自身が仕様を持つことを意図していない部品定義。むしろ、その部品が
+Dependency を持つ別の «Specification» のための実装だ。</p>
+</dd>
+<dt>«Process»</dt><dd><p>取引に基づいた部品。</p>
+</dd>
+<dt>«Service»</dt><dd><p>状態を持たない関数的部品。</p>
+</dd>
+<dt>«Subsystem»</dt><dd><p>大規模システムの階層分解の単位。部分システムは間接的にオブジェクト化されるのがふつうだ。</p>
+<blockquote>
+<div><p>Definitions of subsystems vary widely among domains and methods, and it is
+expected that domain and method profiles will specialize this construct.</p>
+</div></blockquote>
+<p>部分システムは特化要素と実現要素を持つように定義されることもある。</p>
+</dd>
+</dl>
 </section>
 </section>
 

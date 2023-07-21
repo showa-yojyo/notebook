@@ -47,18 +47,22 @@
             
   <section id="informationflows">
 <h1><a class="toc-backref" href="#id1" role="doc-backlink">20 InformationFlows</a><a class="headerlink" href="#informationflows" title="Permalink to this heading">¶</a></h1>
-<div class="admonition- admonition">
-<p class="admonition-title">読者ノート</p>
-<p>現在ノート修正中。</p>
-</div>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#informationflows" id="id1">20 InformationFlows</a></p>
 <ul>
-<li><p><a class="reference internal" href="#information-flows" id="id2">20.1 Information Flows</a></p></li>
-<li><p><a class="reference internal" href="#classifier-descriptions" id="id3">20.2 Classifier Descriptions</a></p></li>
-<li><p><a class="reference internal" href="#association-descriptions" id="id4">20.3 Association Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#information-flows" id="id2">20.1 Information Flows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id3">20.1.1 Summary</a></p></li>
+<li><p><a class="reference internal" href="#abstract-syntax" id="id4">20.1.2 Abstract Syntax</a></p></li>
+<li><p><a class="reference internal" href="#semantics" id="id5">20.1.3 Semantics</a></p></li>
+<li><p><a class="reference internal" href="#notation" id="id6">20.1.4 Notation</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id7">20.1.5 Examples</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#classifier-descriptions" id="id8">20.2 Classifier Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#association-descriptions" id="id9">20.3 Association Descriptions</a></p></li>
 </ul>
 </li>
 </ul>
@@ -66,27 +70,29 @@
 <section id="information-flows">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">20.1 Information Flows</a><a class="headerlink" href="#information-flows" title="Permalink to this heading">¶</a></h2>
 <section id="summary">
-<h3>20.1.1 Summary<a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>InformationFlows パッケージはシステム実体の間の情報の交換を高水準の抽象度で支援する。</p></li>
-<li><p>InformationFlows はシステムを通じて情報の回覧を一般的な手法で記述する。</p>
-<ul>
-<li><p>同様に InformationItems は実現化の詳細が設計される前でさえ、
-InformationFlows に沿って流れる情報を表現するのに用いられる。</p></li>
-</ul>
-</li>
-<li><p>InformationFlows パッケージの中身は Figure 20.1 で示す。</p></li>
-</ul>
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">20.1.1 Summary</a><a class="headerlink" href="#summary" title="Permalink to this heading">¶</a></h3>
+<p>InformationFlows パッケージはシステム実体の間の情報の交換を高水準の抽象度で支援する。</p>
+<blockquote>
+<div><p>InformationFlows may be useful during top-down model development,
+representing aspects of models not yet fully specified, and for recording
+less detailed, heuristic representations of more complex model areas.</p>
+</div></blockquote>
+<p>InformationFlows は巨大であったり複雑であったりするモデルの意図を明確にしたり、全体的な理解を文書にするのに有用だ。</p>
+<p>InformationFlows はシステムを通じた情報の回覧を一般的な手法で記述する。情報の性質、伝達の仕掛け、交換の順序、制御条件などは規定しない。</p>
+<blockquote>
+<div><p>During more detailed modeling, representation and realization links may be
+added to specify which model elements implement an InformationFlow and to
+show how information is conveyed.</p>
+</div></blockquote>
+<p>同様に InformationItems は実現の詳細が設計前であっても、InformationFlows に沿って流れる情報を表現するのに用いることが可能だ。</p>
 </section>
 <section id="abstract-syntax">
-<h3>20.1.2 Abstract Syntax<a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">20.1.2 Abstract Syntax</a><a class="headerlink" href="#abstract-syntax" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 20.1 Information Flows</p>
+</div></blockquote>
+<p>InformationFlow は PackageableElement と DirectedRelationship の特殊化だ。関連する型がかなり多くある。</p>
 <ul class="simple">
-<li><p>Figure 20.1 Information Flows</p>
-<ul>
-<li><p>InformationFlow は PackageableElement と DirectedRelationship の特殊化である。</p>
-<ul>
-<li><p>関連する型がかなり多くある。</p>
-<ul>
 <li><p>Classifier (<code class="docutils literal notranslate"><span class="pre">conveyed</span></code>)</p></li>
 <li><p>Relationship (<code class="docutils literal notranslate"><span class="pre">realization</span></code>)</p></li>
 <li><p>NamedElement (<code class="docutils literal notranslate"><span class="pre">informationSource</span></code>, <code class="docutils literal notranslate"><span class="pre">informationTarget</span></code>)</p></li>
@@ -94,101 +100,139 @@ InformationFlows に沿って流れる情報を表現するのに用いられる
 <li><p>ActivityEdge (<code class="docutils literal notranslate"><span class="pre">realizingActivityEdge</span></code>)</p></li>
 <li><p>Message (<code class="docutils literal notranslate"><span class="pre">realizingMessage</span></code>)</p></li>
 </ul>
-</li>
-</ul>
-</li>
-<li><p>InformationItem は Classifier の特殊化である。</p>
-<ul>
-<li><p>InformationItem は InformationItem (<code class="docutils literal notranslate"><span class="pre">represented</span></code>) に関連する。</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>InformationItem は Classifier の特殊化だ。</p>
+<p>InformationItem は InformationItem (<code class="docutils literal notranslate"><span class="pre">represented</span></code>) に関連する。</p>
 </section>
 <section id="semantics">
-<h3>20.1.3 Semantics<a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">20.1.3 Semantics</a><a class="headerlink" href="#semantics" title="Permalink to this heading">¶</a></h3>
+<p>InformationFlows は情報品目を一方通行で伝送するべく、ある種の情報経路を必要とする。これらは情報経路の実現を指定し、そこを沿って流れる情報を識別する。この経路に沿って移動する情報を、抽象 InformationItems や具象 Classifiers で表現してもよい。</p>
+<blockquote>
+<div><p>The sources and targets of an InformationFlow designate sets of objects that
+can send (sources) or receive (targets) conveyed InformationItems or
+Classifiers.</p>
+</div></blockquote>
+<p>Fig. 20.1 では sources と targets は NamedElements として見えている。</p>
+<p>実践では InformationFlow の制約により、sources と targets は次の型のいずれかであることが必要だ：</p>
 <ul class="simple">
-<li><p>InformationFlows は情報品目の一方通行なある種の情報経路を必要とする。</p></li>
-<li><p>InformationFlow の <code class="docutils literal notranslate"><span class="pre">sources</span></code> と <code class="docutils literal notranslate"><span class="pre">targets</span></code> は伝達された InformationItems や
-Classifiers を送信 (<code class="docutils literal notranslate"><span class="pre">sources</span></code>) または受信 (<code class="docutils literal notranslate"><span class="pre">targets</span></code>) することが可能なオブジェクトの集合を指定する。</p></li>
-<li><p>InformationFlow の <code class="docutils literal notranslate"><span class="pre">sources</span></code> と <code class="docutils literal notranslate"><span class="pre">targets</span></code> はそれらの型であるか、それらによって含まれている（＝所有されている）かの可能性のあるオブジェクトのすべてを代表する。</p>
-<ul>
-<li><p>例えばもし <code class="docutils literal notranslate"><span class="pre">source</span></code> または <code class="docutils literal notranslate"><span class="pre">target</span></code> が Classifier ならば、それは
-Classifier の潜在的オブジェクトすべてを代表する。</p></li>
+<li><p>Actor</p></li>
+<li><p>Node</p></li>
+<li><p>UseCase</p></li>
+<li><p>Artifact</p></li>
+<li><p>Class</p></li>
+<li><p>Component</p></li>
+<li><p>Port</p></li>
+<li><p>Property</p></li>
+<li><p>Interface</p></li>
+<li><p>Package</p></li>
+<li><p>ActivityNode</p></li>
+<li><p>ActivityPartition</p></li>
+<li><p>Behavior</p></li>
+<li><p>InstanceSpecification</p></li>
 </ul>
-</li>
-<li><p>情報経路は <code class="docutils literal notranslate"><span class="pre">sources</span></code> と <code class="docutils literal notranslate"><span class="pre">targets</span></code> の本質に付随したさまざまな方法により実現化されることが可能である。</p>
-<ul>
-<li><p>Relationships, Connectors, ActivityEdges, Messages によって実現化されることが可能である。</p></li>
+<p>さらに、source か target が InstanceSpecification の場合には、それがリンクであることは不可能だ。InstanceSpecification を Relationship により分類することは許されない。</p>
+<blockquote>
+<div><p>An InformationFlow’s sources and targets represent all potential instances
+typed or contained (i.e., owned) by them.</p>
+</div></blockquote>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">source</span></code> または <code class="docutils literal notranslate"><span class="pre">target</span></code> が</p>
+<ul class="simple">
+<li><p>Classifier である場合、それはその Classifier の潜在的オブジェクトすべてを表現する。</p></li>
+<li><p>Part である場合、その Part によって指定された役割を果たすことが可能であるオブジェクトすべてを表現する。</p></li>
+<li><p>Package である場合、その Package に含まれる直接または間接的に所属する
+Classifiers の潜在的オブジェクトすべてを表現する。</p></li>
 </ul>
-</li>
-<li><p>典型的には InformationFlows は <code class="docutils literal notranslate"><span class="pre">sources</span></code> から <code class="docutils literal notranslate"><span class="pre">targets</span></code> に流れる
-InformationItems を見分けるのだが、Class などの具象 Classifiers もまた伝達されることが許される。</p></li>
-<li><p>InformationItems は <code class="docutils literal notranslate"><span class="pre">sources</span></code> から <code class="docutils literal notranslate"><span class="pre">targets</span></code> に流れることが可能なたくさんの種類の情報をたいへん抽象的なやり方で表現する。</p></li>
-<li><p>InformationItems の重要な用途に早い設計段階の間、おそらくは最終的にそれらを定義するような詳細なモデリングの決定がなされるよりも以前において、情報を表現するというものがある。</p></li>
-<li><p>InformationItems はより明確な InformationItems や Classifiers へと分解されてよい。</p></li>
-<li><p>InformationItems は Classes の全種類、Interfaces, Signals そして他の
-InformationItems によって実現化されることしか認められない。</p></li>
-<li><p>InformationFlows の主要なゴールは情報がモデルのある領域から別の領域へ移動することを伝達することである。</p></li>
-</ul>
+<p>情報経路は sources と targets の性質に応じて、さまざまな方法で実現可能だ。
+Relationships, Connectors, ActivityEdges, Messages により実現可能だ。</p>
+<blockquote>
+<div><p>The types of sources and targets must be compatible with the types of
+information that flow along the information channel.</p>
+</div></blockquote>
+<p>例えば source と target が Collaboration などの複合構造の部分である場合、その情報経路は Connector で表現されがちだ。</p>
+<blockquote>
+<div><p>Multiple sources and targets are allowed, but they must have compatible
+types.</p>
+</div></blockquote>
+<p>InformationFlows は sources から targets に流れる InformationItems を識別するが、Class などの具象 Classifiers も伝達されることがある。</p>
+<p>InformationItems は <code class="docutils literal notranslate"><span class="pre">sources</span></code> から <code class="docutils literal notranslate"><span class="pre">targets</span></code> にたいへん抽象的な方法で移動することが可能な多くの種類の情報を表現する。しかし転送される情報の詳細については
+elaborate しない。</p>
+<blockquote>
+<div><p>InformationItems cannot be instantiated and do not themselves have features,
+generalizations, or associations. In this respect, InformationItems are
+similar to Interfaces – a constraint in the metamodel enforces the inability
+to instantiate them.</p>
+</div></blockquote>
+<p>InformationItems の重要な用途に、おそらくは最終的にそれらを定義する詳細なモデリングの決定がなされる以前の、設計初期段階で情報を表現するというものだ。もう一つの目的は、複雑なモデルの一部を、正確さはやや損なうが、もっと一般的で伝達可能な方法で抽象化することだ。</p>
+<blockquote>
+<div><p>InformationItems may be decomposed into more specific InformationItems or
+Classifiers. Representation links between them express the idea that, in the
+context a particular InformationFlow, specific information is exchanged.</p>
+</div></blockquote>
+<p>InformationItems は Classes の全種類、Interfaces, Signals, その他の
+InformationItems によってしか実現化されることはない。</p>
+<blockquote>
+<div><p>The principal goal of InformationFlows is to convey that information moves
+from one area of a model to another.</p>
+</div></blockquote>
+<p>メタモデルは情報経路の実現と、そこを移動する情報の型に対して寛容だ。
+InformationFlows は複数の型の情報経路によって同時に実現することが可能であり、多様な Classifiers を表現することが可能だ。</p>
 </section>
 <section id="notation">
-<h3>20.1.4 Notation<a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>InformationFlow は Dependency と同じ表記法を用いて表現されるが、キーワード
-<code class="docutils literal notranslate"><span class="pre">«flow»</span></code> を破線に添えておく。</p></li>
-<li><p>InformationItems の表現はそれらが表示される周辺状況により決定される。</p>
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">20.1.4 Notation</a><a class="headerlink" href="#notation" title="Permalink to this heading">¶</a></h3>
+<p>InformationFlow は Dependency と同じ記法を用いて表現されるが、キーワード
+<code class="docutils literal notranslate"><span class="pre">«flow»</span></code> を破線に添えておく。</p>
+<p>InformationItems の表現はそれらが表示される周辺状況により決定される。</p>
 <ul>
-<li><p>InformationFlow の <code class="docutils literal notranslate"><span class="pre">«flow»</span></code> 破線に付属するときには、InformationItem の名前が適切な線の近くに表示される。</p></li>
-<li><p>InformationFlows と独立して表示されるときには、InformationItems はそれらが
-Classifiers であるゆえ、矩形内部の名前として表現されてよい。矩形にはキーワード <code class="docutils literal notranslate"><span class="pre">«information»</span></code> か黒塗りの二等辺三角形を付ける。</p></li>
-<li><p>InformationFlow の情報経路の実現化に付属するときには、情報経路上の黒塗りの二等辺三角形が情報の流れの方向を指示する。</p></li>
-<li><p>InformationItem が他の InformationItems や Classifiers を代表するときには、キーワード <code class="docutils literal notranslate"><span class="pre">«representation»</span></code> を添えられた破線矢印を用いて接続される。</p></li>
-</ul>
+<li><p>InformationFlow の <code class="docutils literal notranslate"><span class="pre">«flow»</span></code> 破線に取り付けられると、InformationItem の名前が適切な <code class="docutils literal notranslate"><span class="pre">«flow»</span></code> 線の近くに表示される。</p></li>
+<li><p>InformationItems はそれらが Classifiers であるゆえ、InformationFlows から独立して表示する場合、矩形内部に名前が現れる。この矩形をキーワード
+<code class="docutils literal notranslate"><span class="pre">«information»</span></code> か黒塗りの二等辺三角形で修飾する。InformationItem 矩形は属性も操作もないので、目に見える部分区画がない。</p></li>
+<li><p>InformationFlow の情報経路の実現化に取り付けられると、この情報経路上の黒塗り二等辺三角形が情報の移動方向を指す。</p>
+<blockquote>
+<div><p>The InformationItem’s name is placed close to the triangle. When
+representing several InformationItems having the same direction, only one
+triangle is shown, with a nearby list of InformationItem names separated by
+commas.</p>
+</div></blockquote>
 </li>
+<li><p>ある InformationItem が他の InformationItems や Classifiers を表す場合、それらはキーワード <code class="docutils literal notranslate"><span class="pre">«representation»</span></code> が添えられた破線矢印で接続される。</p></li>
 </ul>
 </section>
 <section id="examples">
-<h3>20.1.5 Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Figure 20.2 Example of InformationFlows conveying InformationItems</p>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">20.1.5 Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Figure 20.2 Example of InformationFlows conveying InformationItems</p>
+</div></blockquote>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Company</span></code> から <code class="docutils literal notranslate"><span class="pre">Customer</span></code> へ一方的に <code class="docutils literal notranslate"><span class="pre">product</span></code> が流れていく。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Company</span></code> から <code class="docutils literal notranslate"><span class="pre">Employee</span></code> へ一方的に <code class="docutils literal notranslate"><span class="pre">wage</span></code> が流れていく。</p></li>
-</ul>
-</li>
-<li><p>Figure 20.3 Information Item represented as a classifier</p>
-<ul>
-<li><p>独立した InformationItem の表記例。</p></li>
-<li><p>どちらの <code class="docutils literal notranslate"><span class="pre">wage</span></code> も同じ InformationItem を意味する。</p></li>
-</ul>
-</li>
-<li><p>Figure 20.4 Examples of <code class="docutils literal notranslate"><span class="pre">«representation»</span></code> notation</p>
-<ul>
-<li><p>左図では <code class="docutils literal notranslate"><span class="pre">travel</span> <span class="pre">document</span></code> は <code class="docutils literal notranslate"><span class="pre">passport</span></code> と <code class="docutils literal notranslate"><span class="pre">plane</span> <span class="pre">ticket</span></code> の両方を代表している。</p></li>
-<li><p>右図では <code class="docutils literal notranslate"><span class="pre">Wage</span></code> は具象クラス <code class="docutils literal notranslate"><span class="pre">Salary</span></code> と <code class="docutils literal notranslate"><span class="pre">Bonus</span></code> の両方の「代役」として振る舞う。</p></li>
-</ul>
-</li>
-<li><p>Figure 20.5 InformationItems attached to Connectors</p>
-<ul>
-<li><p>図の <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">d</span></code> 黒三角が InformationItems である。</p></li>
-</ul>
-</li>
-<li><p>Figure 20.6 InformationItems attached to Associations</p>
-<ul>
-<li><p>InformationItems が Associations に付属する例。</p></li>
-</ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Company</span></code> から <code class="docutils literal notranslate"><span class="pre">Employee</span></code> へ一方的に <code class="docutils literal notranslate"><span class="pre">wage</span></code> が流れていく。</p>
+<blockquote>
+<div><p>Figure 20.3 Information Item represented as a classifier</p>
+</div></blockquote>
 </li>
 </ul>
+<p>独立した InformationItem の表記例。どちらの <code class="docutils literal notranslate"><span class="pre">wage</span></code> も同じ InformationItem を意味する。この手の黒塗り三角形は単に矩形を InformationItem として識別するだけで、方向の意味はない。</p>
+<blockquote>
+<div><p>Figure 20.4 Examples of <code class="docutils literal notranslate"><span class="pre">«representation»</span></code> notation</p>
+</div></blockquote>
+<p>左図では <code class="docutils literal notranslate"><span class="pre">travel</span> <span class="pre">document</span></code> は <code class="docutils literal notranslate"><span class="pre">passport</span></code> と <code class="docutils literal notranslate"><span class="pre">plane</span> <span class="pre">ticket</span></code> の両方を表している。右図では <code class="docutils literal notranslate"><span class="pre">Wage</span></code> は具象クラス <code class="docutils literal notranslate"><span class="pre">Salary</span></code> と <code class="docutils literal notranslate"><span class="pre">Bonus</span></code> の両方の「代役」として振る舞う。</p>
+<blockquote>
+<div><p>Figure 20.5 InformationItems attached to Connectors</p>
+<p>When InformationItems are displayed on an information channel realizing an
+InformationFlow, triangles indicate the directional flow of information.</p>
+</div></blockquote>
+<p>図の Connector 線上にある <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">d</span></code> 黒塗り三角が InformationItems だ。
+<code class="docutils literal notranslate"><span class="pre">m1:myC1</span></code> か <code class="docutils literal notranslate"><span class="pre">m2:myC</span></code> が InformationItems の source/target だ。</p>
+<blockquote>
+<div><p>Figure 20.6 InformationItems attached to Associations</p>
+</div></blockquote>
+<p>InformationItems <code class="docutils literal notranslate"><span class="pre">product</span></code> と <code class="docutils literal notranslate"><span class="pre">wage</span></code> がそれぞれの InformationFlow の情報経路を実現する Association に取り付けられている。</p>
 </section>
 </section>
 <section id="classifier-descriptions">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">20.2 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">20.2 Classifier Descriptions</a><a class="headerlink" href="#classifier-descriptions" title="Permalink to this heading">¶</a></h2>
 <p>機械生成による節。</p>
 </section>
 <section id="association-descriptions">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">20.3 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">20.3 Association Descriptions</a><a class="headerlink" href="#association-descriptions" title="Permalink to this heading">¶</a></h2>
 <p>機械生成による節。</p>
 </section>
 </section>

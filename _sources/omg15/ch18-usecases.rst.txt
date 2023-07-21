@@ -2,12 +2,8 @@
 18 UseCases
 ======================================================================
 
-.. admonition:: 読者ノート
-
-   現在ノート修正中。
-
 .. contents::
-   :depth: 2
+   :depth: 4
 
 18.1 Use Cases
 ======================================================================
@@ -15,33 +11,34 @@
 18.1.1 Summary
 ----------------------------------------------------------------------
 
-* UseCases はシステムの要求、すなわちシステムが何をするためのものであるのかを捉
-  える手段の一つである。この章で指定される要の概念は Actors, UseCases,
-  ``subjects`` である。
+UseCases はシステムの要求、すなわちシステムが何をすることになっているものである
+のかを捉える手段の一つだ。主要概念は Actors, UseCases, ``subjects`` だ。
 
-  * UseCase の ``subject`` それぞれはその UseCase が適用する検討中のシステムを表
-    現する。
-  * ``subject`` に相互作用する利用者と他のシステムのいずれもが Actors として表現
-    される。
+* UseCase の ``subject`` それぞれはその UseCase が適用される検討中のシステムを表
+  現する。
+* 利用者や ``subject`` に相互作用することがある他のシステムは Actors として表現
+  される。
 
-* UseCase は挙動の詳細である。
+..
 
-  * UseCase のオブジェクトは対応する UseCase に適合する出現する挙動の出来事を参
-    照する。こういうオブジェクトは Interactions を用いて記述されることがよくあ
-    る。
+   A UseCase is a specification of behavior. An instance of a UseCase refers to
+   an occurrence of the emergent behavior that conforms to the corresponding
+   UseCase.
+
+こういうオブジェクトは Interactions を用いて記述されがちだ。
 
 18.1.2 Abstract Syntax
 ----------------------------------------------------------------------
 
-* Figure 18.1 UseCases
+   Figure 18.1 UseCases
 
-  * Actor と UseCase は BehavioredClassifier の特殊化である。
-  * Extend と Include は NamedElement と DirectedRelationship の両方の特殊化であ
-    り、UseCase が所有する可能性がある。
+* Actor と UseCase は BehavioredClassifier の特殊化だ。
+* Extend と Include は NamedElement と DirectedRelationship の両方の特殊化であ
+  り、UseCase が所有することがある。
 
-    * Extend は Constraint を一個だけ所有する可能性がある。
+  * Extend は Constraint を一個だけ所有することがある。
 
-  * ExtensionPoint を UseCase が複数所有する可能性がある。
+* ExtensionPoint を UseCase が複数所有することがある。
 
 18.1.3 Semantics
 ----------------------------------------------------------------------
@@ -49,209 +46,373 @@
 18.1.3.1 Use Cases and Actors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* UseCase は任意の個数の ``subjects`` に適用してよい。 UseCase が ``subject`` に
-  適用するときには、その事は ``subject`` によって行われる挙動の集合を指定し、
-  Actors または ``subject`` の他の利害関係者に対する値である、目に見える結果を生
-  じる。
-* UseCase とは示された Behaviors の集合の宣言を表現する BehavioredClassifier の
-  一種である。UseCase のそれぞれは ``subject`` が一つまたはそれを超える Actors
-  と協調して行うことができる何らかの挙動を指定する。
-* UseCase の ``subject`` はシステムあるいは挙動を有することができる他の要素のい
-  ずれか、例えば Component や Class などである可能性がある。UseCase のそれぞれ
-  はその ``subject`` が利用者に対して実現する有用な機能の構成単位を指定する。
-* UseCases を ``subject`` の（外部からの）要求の仕様と、``subject`` により示され
-  る機能の仕様との両方に対して利用することが可能である。
-* UseCase の挙動は事前条件、事後条件、適切な自然言語のテキストによってばかりでな
-  く、（その ``ownedBehavior`` 関係を通じて） Interactions, Activities,
-  StateMachines のようなBehaviors の集合により記述されることが可能である。
+UseCase は任意の個数の ``subjects`` に適用してよい。 UseCase が ``subject`` に適
+用する場合、その ``subject`` によって行われる挙動の集合が指定され、その
+``subject`` の Actors または他の利害関係者にとって価値のある、目に見える結果が生
+じる。
 
-  * 型がそれの部分である Classifiers として UseCase とその Actors を使う
-    Collaboration によってでも間接的に記述することができる。
+   A UseCase is a kind of BehavioredClassifier that represents a declaration of
+   a set of offered Behaviors.
 
-* UseCases には関連した Actors があってもよく、それらは UseCase を実現している
-  Classifier のオブジェクトとActor の役割の一つを演じている利用者がどのように影
-  響しあうかを記述する。
-* UseCase が 1 を超える多重度の端に Actor と関連すると、それは一つを超える個数の
-  Actor オブジェクトがその UseCase に付随することを意味する。
+* UseCase のそれぞれは ``subject`` が一つ以上の Actors と協調して行うことが可能
+  である挙動を指定する。
+* UseCase はその ``subject`` の内部構造を参照することなしに、その ``subject`` の
+  供給される Behaviors を定義する。これらの Behaviors はその Actors と
+  ``subject`` の相互作用に関与し、その ``subject`` の状態の変化とその環境との通
+  信を生じることがある。
+* UseCase には異例の挙動やエラー処理など、基本挙動の変種を含めることが可能だ。
 
-  * 複数の Actors が UseCase に関与する方法は持ち合わせている特定の状況に依存す
-    るものなので、本仕様では定義されない。
+UseCase の ``subject`` はシステム、または Component や Class など、挙動を有する
+ことがある他の要素である可能性がある。UseCase のそれぞれはその ``subject`` が利
+用者に対して実現する有用な機能の単位（それと相互作用する特定の手段）を指定する。
 
-* Package または Classifier のどちらも UseCase を所有することが許される。所有す
-  る Classifier は所有された UseCases が適用する ``subject`` を典型的には表すの
-  ではあるが、Figure 18.10 で図解されるように、この事は必ずしも当てはまらない。
-* Actor は関連する UseCases の ``subjects`` と相互に作用する実体が演じる役割の型
-  をモデル化する。 Actors は人間の利用者、外部ソフトウェア、または他のシステムに
-  より演じられる役割を表現してよい。
+   This functionality must always be completed for the UseCase to complete. It
+   is deemed complete if, after its execution, the ``subject`` will be in a
+   state in which no further inputs or actions are expected and the UseCase can
+   be initiated again, or in an error state.
 
-  * Actor は必ずしも特定の物理的実体を表現しないが、代わりにその関連する
-    UseCases の詳細に関連の何らかの実体についての特定の役割を表現する。
-  * 役割 (role) という用語をここでは非公式に用いており、本仕様書中の他のどこかに
-    見当たるその用語の技術的な定義のいずれも意味しない。
+UseCases を ``subject`` に対する（外部からの）要求の仕様と、``subject`` が供給す
+る機能の仕様との両方に対して利用することが可能だ。さらに、UseCases は指定された
+``subject`` がそのサービスを行使することが可能であるように、その Actors がその
+``subject`` とどのようになるべく相互作用するのかを定義することによって、指定
+``subject`` がその環境に対して提示する要件を述べてもよい。
 
-* UseCase が 1 を超える多重度のある Actor に関連があるときには、その事は与えられ
-  た Actor がその型の複数の UseCases に付随する可能性があることを意味する。
+   The behaviors of a UseCase can be described by a set of Behaviors (through
+   its ``ownedBehavior`` relationship), such as Interactions, Activities, and
+   StateMachines, as well as by pre-conditions, post-conditions and natural
+   language text where appropriate.
+
+また、UseCase とその Actors を、その部分を型付ける Classifiers として使う
+Collaboration を通して間接的に記述することもある。これらの技法のどちらを採用する
+かは、その UseCase 挙動の性質や読者次第だ。これらの記述は組み合わせることが可能
+だ (Fig. 18.12)。
+
+UseCases には関連 Actors があってもよく、UseCase を実現している Classifier のオ
+ブジェクトと Actor の役割の一つを演じる利用者がどのように相互作用するかを記述す
+る。二つの UseCases はそれぞれ個別にその ``subject`` の完全な使用法を記述するた
+め、関連付けることは不可能だ。
+
+   When a UseCase has an association to an Actor with a multiplicity that is
+   greater than one at the Actor end, it means that more than one Actor instance
+   is involved in the UseCase.
+
+複数の Actors がどのように UseCase に関与するかは、具体的な状況により異なり、本
+仕様では定義されない。
+
+   A UseCase may be owned either by a Package or by a Classifier.
+
+所有する Classifier は所有される UseCases が適用される ``subject`` を表すのが普
+通ではあるが、Fig. 18.10, 18.11 で図解されるように、必ずしも当てはまらない。
+
+Actor は関連する UseCases の ``subjects`` と相互作用する物が果たす役割の型のモデ
+ルだ。Actors は人間の利用者、外部ソフトウェア、他のシステムが果たす役割を表現す
+ることがある。
+
+Actor は特定の物理的実体を必ずしも表現するものではなく、その関連する UseCases の
+詳細に関連する、何らかの実体についての特定の役割を表現する。
+
+   Thus, a single physical instance may play the role of several different
+   Actors and, conversely, a given Actor may be played by multiple different
+   instances.
+
+役割 (role) という用語をここでは非公式に用いており、本仕様書中の他のどこかに
+見当たるその用語の技術的な定義のいずれをも意味しない。
+
+Actor が UseCase に関連し、UseCase 側の多重度が 1 を超える場合、ある Actor がそ
+の型の複数の UseCases に関与することが可能であることを意味する。
+
+   The specific nature of this multiple involvement depends on the case on hand
+   and is not defined in this specification. Thus, an Actor may initiate
+   multiple UseCases in parallel (concurrently) or at different points in time.
 
 18.1.3.2 Extends
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Extend とは、拡張している UseCase で定義された挙動が拡張された UseCase で定義
-  された挙動の中にいつ、どのように挿し込まれるのかを指定する、拡張している
-  UseCase (``extension``) から拡張された UseCase (``extendedCase``) への関係性で
-  ある。
-* Extend は一つまたはそれを超える UseCase で定義された挙動に、事によると条件付き
-  で、追加されるべきさらなる挙動があるときに利用されるのを意図されている。
-* 拡張された UseCase は拡張している UseCase と独立して定義されるし、拡張している
-  UseCase と独立して意味がある。他方では、拡張している UseCase は、それ自身で意
-  味がある必要がなくてもよい挙動を典型的に定義する。
+Extend:
 
-  * 同じ拡張している UseCase は一つより多い UseCase を拡張することが可能である。
-    その上、拡張している UseCase は自身を拡張してよい。
+   An Extend is a relationship from an extending UseCase (the ``extension``) to
+   an extended UseCase (the ``extendedCase``) that specifies how and when the
+   behavior defined in the extending UseCase can be inserted into the behavior
+   defined in the extended UseCase. The extension takes place at one or more
+   specific extension points defined in the extended UseCase.
 
-* Extend とは、``source`` が拡張している UseCase であり、``target`` が拡張されて
-  いる UseCase であるような DirectedRelationship の一種である。それはまた、所有
-  している UseCase の文脈において``name`` があることが可能であるようにする
-  NamedElement の一種でもある。
+Extend は少なくとも一つの UseCase で定義された挙動に、条件付きでなるべく追加され
+るさらなる挙動がある場合に利用される。
 
-  * Extend 関係自身は ``extension`` によって所有される。
+被拡張 UseCase はその拡張 UseCase と独立して定義され、この拡張 UseCase とは独立
+して意味を持つ。他方では、拡張 UseCase はそれ自身では必ずしも意味をなさない挙動
+を定義する。
 
-* ExtensionPoint はその挙動が Extend 関係により拡張されることが可能となる
-  UseCaseの挙動にある点を識別する。
-* ExtensionPoint の位置を定義する明確なやり方は意図的に未指定である。この事は
-  UseCases を自然言語、図表、木、等々のようなさまざまな書式で指定することが認め
-  られていることによる。
-* Extend の ``condition`` が欠けているか、あるいは拡張された UseCase の実行中に
-  到達した初回時に ture と評価するならば、拡張している UseCase の適切な挙動の断
-  片のすべてもまた実行されるはずである。
+   Instead, the extending UseCase defines a set of modular behavior increments
+   that augment an execution of the extended UseCase under specific conditions.
 
-  * ``condition`` が ``false`` であれば、これは起こらない。
+同じ拡張 UseCase は複数 UseCase を拡張することが可能だ。その上、拡張 UseCase は
+自身が拡張されることもある。
+
+   Extend is a kind of DirectedRelationship, such that the ``source`` is the
+   extending UseCase and the ``target`` is the extended UseCase.
+
+また、NamedElement の一種でもあり、所有する UseCase の context において ``name``
+を持つことが可能だ。この Extend 関係自体はその ``extension`` が所有する。
+
+   An ExtensionPoint identifies a point in the behavior of a UseCase where that
+   behavior can be extended by an Extend relationship. Each ExtensionPoint has a
+   unique name within a UseCase.
+
+ExtensionPoint の位置を定義する明確なやり方は意図的に未指定だ。UseCases は自然言
+語、図表、樹形図等々、さまざまな形式で指定することが認められているからだ。
+
+   The intuition behind the notion of ``extensionLocation`` is best explained
+   through the example of a textually described UseCase: Usually, a UseCase with
+   ExtensionPoints consists of a set of finer-grained behavioral fragment
+   descriptions, which are most often executed in sequence.
+
+このように UseCase テキストの断片構造化は、元の断片間の適切な挿入点（拡張点）に
+補足的な挙動の断片記述を合併することで、元の挙動の記述を拡張してもよい。したがっ
+て、拡張 UseCase は通常、被拡張 UseCase の適切な箇所に挿入される一つ以上の挙動断
+片記述から構成される。
+
+   An ``extensionLocation``, therefore, is a specification of all the various
+   ExtensionPoints in a UseCase where supplementary behavioral increments can be
+   merged.
+
+拡張 UseCase 実行中に最初の ExtensionPoint に到達した時点で、Extend の
+``condition`` が欠けているか、あるいは被拡張 UseCase の実行中に到達した初回時に
+真であると評価される場合、拡張 UseCase の適切な挙動断片のすべてもまた実行され
+る。この ``condition`` が偽であれば、このようなことは起こらない。
+
+   The individual fragments are executed as the corresponding ExtensionPoints of
+   the extended UseCase are reached. Once a given fragment is completed,
+   execution continues with the behavior of the extended UseCase following the
+   ExtensionPoint.
+
+複数の UseCase があっても、実行される挙動は一つであることに注意。
 
 18.1.3.3 Includes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Include は二つの UseCases の間の DirectedRelationship であり、包含される
-  UseCase (``addition``) の挙動が包含されている UseCase (``includingCase``) の挙
-  動に挿し込まれるのを示している。
+Include:
 
-  * Include はまた、所有する UseCase (``includingCase``) の文脈で ``name`` があ
-    ることを可能にするようなNamedElement の一種でもある。
+   Include is a DirectedRelationship between two UseCases, indicating that the
+   behavior of the included UseCase (the ``addition``) is inserted into the
+   behavior of the including UseCase (the ``includingCase``). It is also a kind
+   of NamedElement so that it can have a ``name`` in the context of its owning
+   UseCase (the ``includingCase``).
 
-* Include 関係は二つまたはそれを超える UseCases の挙動の共通部分があるときに利用
-  されることを意図されている。この共通部分はそれから別々の UseCase に引き出され
-  て、この部分が共通にある基本 UseCases のすべてによって含まれることになる。
-* 包含される UseCase の挙動のすべては、包含している UseCase の実行が再開される前
-  に、包含される UseCase 内の単一の場所で実行される。
-* Include 関係では UseCases の再利用のみならず UseCases の階層的合成ができる。
+包括する UseCase は、包括される UseCase の実行によって生じる変更に依存することが
+ある。包括する UseCase の挙動を完全に記述するためには、包括される UseCase が利用
+可能であることが必要だ。
+
+   The Include relationship is intended to be used when there are common parts
+   of the behavior of two or more UseCases.
+
+この共通部分は、別の UseCase に抽出され、この共通部分を持つすべての基底 UseCases
+に包括される。
+
+Include 関係の主な用途は共通部分の再利用であるため、基底 UseCase に残されたもの
+は、通常、それ自体で完全なものではなく、包括された部分に依存して意味を持つ。これ
+は関係の方向に反射され、基底 UseCase が ``addtion`` に依存し、その逆はないことを
+示す。
+
+   All of the behavior of the included UseCase is executed at a single location
+   in the included UseCase before execution of the including UseCase is resumed.
+
+Include 関係は UseCases の階層的合成や再利用を可能にする。
 
 18.1.4 Notation
 ----------------------------------------------------------------------
 
-* UseCase は楕円として示される。名前は楕円に入れるか、楕円の下に置くかどちらかに
-  する。
+UseCase の記法：
 
-  * 名前の上にオプションでステレオタイプキーワードを配置してよい。
+   A UseCase is shown as an ellipse, either containing the name of the UseCase
+   or with the name of the UseCase placed below the ellipse.
 
-* UseCases の集合についての ``subject`` を左上隅に名前を記した矩形として示してよ
-  い。ここで UseCase 楕円はこの矩形の視覚的な内側に位置される。
-* ``subject`` classifier についてのこの記法は通常の Classifier の記法とは異なる
-  ことに注意する。見出しも区画もない。
-* ``subject`` 矩形は ``subject`` classifier が包含される UseCases を所有すること
-  を意味しないことにも注意する。単に UseCases がその classifier に適用するという
-  ことだ。
-* 属性と操作は UseCase 楕円の内部にある区画らに、それらがあたかも普通の
-  Classifier 矩形であるかのように、同じ内容で示してよい。
-* ExtensionPoints は見出しが **extension points** である UseCase の区画に列記し
-  てよい。ExtensionPoint それぞれは UseCase 記号内にテキスト文字列で記す。
-* UseCases には他の Associations および他の Classifiers についての Dependencies
-  があってよい。
-* UseCase により定義された詳細な挙動は選ばれた記述手法に従って、別々の図式または
-  テキストの文章に記録される。
-* UseCase を標準の Classifiers 用の矩形記法を用いて示してもよい。その場合は楕円
-  アイコンを矩形右上隅に載せる。
-* Actor は棒人間アイコンにより表現される。Actor の名前はアイコンの近くに書かれ
-  る。
-* Actor はキーワード ``«actor»`` の付いた Classifier 矩形で示してもよい。
-* 他の Actor の種類を伝えるアイコンもまた Actor を記すのに用いてよい。
-* Classifier により UseCase の入れ子（所有）を、UseCase 楕円を別々の区画に
-  Classifier 矩形内に入れ子にすることにより選択的に表現してもよい。
-* UseCases 間の Extend 関係は先の開いた破線の矢印で示される。矢印の方向は拡張し
-  ている UseCase から拡張されている UseCase に向いている。矢印のラベルにはキー
-  ワード ``«extend»`` が付く。
-* UseCases 間の Include 関係は先の開いた破線の矢印で示される。矢印の方向は根本の
-  UseCase から包含される UseCase に向いている。矢印のラベルにはキーワード
-  ``«include»`` が付く。
+ステレオタイプキーワードを名前の上に配置してもかまわない。
+
+   A ``subject`` for a set of UseCases (sometimes called a :dfn:`system
+   boundary`) may be shown as a rectangle with its name in the top-left corner,
+   with the UseCase ellipses visually located inside this rectangle.
+
+同じモデル UseCase は複数の subject 矩形内に別々の楕円として描かれることがある。
+
+   Where a ``subject`` is a Classifier with a standard stereotype, the keyword
+   for the stereotype shall be shown in guillemets above the name of the
+   subject.
+
+メタクラスがあいまいな ``subject`` の場合は Classifier のメタクラスに対する記法
+に対応するキーワード ``.`` を、その名前の上に «» で囲んで示すものとする。
+
+複数のキーワードやステレオタイプ名が適用される場合、(9.2.4) で定義された記法オプ
+ションが適用される。
+
+   The subject notation is illustrated by the example in Figure 18.2 which shows
+   a Component with the standard stereotype «Subsystem».
+
+上述の ``subject`` classifier についての記法は通常の Classifier のそれとは異なる
+ことに注意する。見出しも区画もない。
+
+   Note also that the ``subject`` rectangle does not imply that the ``subject``
+   classifier owns the contained UseCases, but merely that the UseCases apply to
+   that classifier.
+
+特に、``subject`` である Classifier を表す境界矩形に視覚的には含まれているように
+見える UseCase と、所有者である Classifier の区画に視覚的には含まれているように
+見える UseCase との間に混同の余地がある (Fig. 18.9)。
+
+属性と操作は通常の Classifier 矩形と同じ内容で、UseCase 楕円内部にある区画らに表
+示されることがある。
+
+   ExtensionPoints may be listed in a compartment of the UseCase with the
+   heading **extension points**.
+
+各 ExtensionPoint は、次の構文に従い、UseCase の楕円の記号内の文字列で示される：
+
+.. code:: bnf
+
+   <extension point> ::= <name> [: <explanation>]
+
+説明（オプション）：
+
+   Note that *explanation*, which is optional, may be any informal text or a
+   more precise definition of the location in the behavior of the UseCase where
+   the extension point occurs, such as the name of a State in a StateMachine, an
+   Activity in an activity diagram, a precondition, or a postcondition.
+
+UseCases には他の Classifiers に対する Associations や Dependencies を持つことが
+ある。例えば入出力、イベント、挙動を表すのに持つ。
+
+UseCase で定義された詳細な挙動は、選択された記述手法に従って、別々の図式または文
+書に記録される。
+
+Fig. 18.5 のように、UseCase を Classifiers の標準的な矩形記法を用いて示してもよ
+い。その場合は楕円アイコンを矩形右上隅に付ける。この場合、拡張点はオプション区画
+だ。この描写は拡張点や特徴が多い場合に適している。
+
+Actor:
+
+   An Actor is represented by a “stick man” icon with the name of the Actor in
+   the vicinity (usually above or below) the icon
+
+Actor をすべての区画を通常の記法で、キーワード ``«actor»`` の付いた Classifier
+矩形で示してもよい (Fig. 18.8)。
+
+人間以外の Actor には別の図像を使用するなど、Actor の種類を示す他の図像を使用す
+ることが許される。
+
+Classifier による UseCase の入れ子（所有）を、Classifier 矩形内に UseCase 楕円を
+入れ子にして別の区画で表現してもよい (9.2.4)。
+
+Extend:
+
+   An Extend relationship between UseCases is shown by a dashed arrow with an
+   open arrowhead pointing from the extending UseCase towards the extended
+   UseCase.
+
+* 矢印のラベルにはキーワード ``«extend»`` が付く。
+* Extend の条件とその ExtensionPoints への参照は、その対応する矢印に付けられた
+  Comment 記号 (7.2.4) で、オプションとして示される (Fig. 18.3)。
+
+Include:
+
+   An Include relationship between UseCases is shown by a dashed arrow with an
+   open arrowhead pointing from the base UseCase to the included UseCase.
+
+* 矢印のラベルにはキーワード ``«include»`` が付く (Fig. 18.4)。
 
 18.1.5 Examples
 ----------------------------------------------------------------------
 
-* Figure 18.2 Class diagram of a Package owning a set of UseCases, Actors, and a
-  Subsystem
+   Figure 18.2 Class diagram of a Package owning a set of UseCases, Actors, and
+   a Subsystem
 
-  * UseCases, Actors および UseCases の ``subject`` である部分システムの集合を所
-    有するPackage ATMtopPkg に対応するクラス図である。
-  * この見本は Customer または Administrator がそれぞれの関連する UseCases のど
-    れを共用することが許される or許されないのかを示す。
+UseCases, Actors および UseCases の ``subject`` である Subsystem からなる集合を
+所有する Package ``ATMtopPkg`` に対応するクラス図だ。
 
-    * 多重度の ``0..1`` からそれが読み取れる。
+* この見本では ``subject`` は Subsystem 標準ステレオタイプを持つ Component だ。
+* Subsystem ステレオタイプはメタクラスを示す必要はない。その ``subject`` が必然
+  的に Component であるからだ (:doc:`./ch22-standard-profile`)。
 
-* Figure 18.3 Example Extend
+..
 
-  * UseCase ``"Perform ATM Transaction"`` に ExtensionPoint ``"selection"`` があ
-    る。
-  * UseCase ``"Perform ATM Transaction"`` はこの ExtensionPoint を経由して
-    UseCase ``"Online Help"`` に拡張される。その条件は「顧客が "HELP" を選択す
-    る」である。
+   The example shows that a Customer or Administrator may or may not participate
+   in any of their associated UseCases (hence the ``0..1`` multiplicity).
 
-* Figure 18.4 Example Include
+* UseCase としてはこの見本の UseCase すべてにはそれを開始する Actor がなければな
+  らない。それゆえ多重度 ``1`` だ。
+* ``Deposit`` と ``Register ATM`` UseCases は ``Bank`` の関与を要する。``Bank``
+  のほうは同時に多くの ``Deposit`` と ``Register ATM`` UseCases に関与することが
+  可能だ。
 
-  * UseCase ``"Withdraw"`` は独立して定義された UseCase ``"Card
-    Identification"`` を包含する。
+..
 
-* Figure 18.5 UseCase using Classifier rectangle notation
+   Figure 18.3 Example Extend
 
-  * UseCase ``"OrderStationery"`` をクラス用の標準矩形表記法で示している。
-  * 矩形右上隅に楕円を描けばよい。
-  * 区画 ``"extension points"`` は任意だが、記すときはこのようにする。
+UseCase ``Perform ATM Transaction`` に ExtensionPoint ``selection`` がある。
 
-* Figure 18.6 Actor notation using stick-man
+この UseCase は ``Perform ATM Transaction`` の発生が ``selection`` 拡張点によっ
+て参照される場所にあり、顧客が :kbd:`HELP` キーを選択するたびに UseCase
+``On-Line Help`` によってその拡張点を介して拡張される。
 
-  * 棒人間を描き、その真下に Actor 名を記す。
+``Perform ATM Transaction`` UseCase は ``On-Line Help`` UseCase とは別に定義され
+る。
 
-* Figure 18.7 Actor notation using Class rectangle
+   Figure 18.4 Example Include
 
-  * 矩形を描き、内部にキーワード  ``«actor»`` 付き Actor 名を記す。
+UseCase ``Withdraw`` は独立して定義された UseCase ``Card Identification`` を含
+む。
 
-* Figure 18.8 Actor notation using icon
+   Figure 18.5 UseCase using Classifier rectangle notation
 
-  * 図像で Actor を表現する例。イメージは PC に見えるが Actor 名は ``"User"`` と
-    ある。
+楕円図像を持つ Classifiers に対する標準矩形記法とオプションの拡張点区画。
 
-* Figure 18.9 Notation for UseCase owned by Classifier
+* 矩形右上隅に楕円を描けばよい。
+* 区画 ``extension points`` は任意だが、記すときはこのようにする。
 
-  * ``"Make Purchase"`` は Class ``"DepartmentStore"`` の ``ownedUseCase`` であ
-    る。
-  * 区画の名前が ``"owned use cases"`` となっているが、これは特性名
-    ``ownedUseCase`` から得られる。
+   Figure 18.6 Actor notation using stick-man
 
-* Figure 18.10 Example ATM system with UseCases and Actors
+棒人間を描き、その真下に Actor 名を記す。
 
-  * これは前掲 Figure 18.10 と同じ機能だが、次の見本で示すように UseCases の所属
-    が別々であったりする。
+   Figure 18.7 Actor notation using Class rectangle
 
-* Figure 18.11 Example UseCases owned by Packages
+矩形を描き、内部にキーワード ``«actor»`` 付き Actor 名を記す。
 
-  * Package の中身が UseCases になっている。
-  * ``"ATM Services"`` が ``"TransactionUseCases"`` を import しているので、二つ
-    の UseCases が色を変えて描かれている。
+   Figure 18.8 Actor notation using icon
 
-* Figure 18.12 Example UseCase with associated StateMachine
+図像で Actor を表現する例。見てくれは PC だが Actor 名は ``User`` とある。
 
-  * 左側は UseCase ``"MakeCall"`` に StateMachine がその ``ownedBehaviors`` の一
-    つとしてあることを示している。
+   Figure 18.9 Notation for UseCase owned by Classifier
 
-    * 区画 ``"owned behaviors"`` の記載は任意。
-    * StateMachine "Call" はここでは矩形プラスキーワード ``«statemachine»`` のみ
-      で示されている。
+オプションの ``ownedMember`` 区画を使用している Class の ``ownedUseCase`` の見
+本。
+
+* ``Make Purchase`` は Class ``DepartmentStore`` の ``ownedUseCase`` だ。
+* 区画の名前が ``owned use cases`` となっているが、これは (9.2.4) で規定されてい
+  る規則に従い、特性名 ``ownedUseCase`` から導出されるものだ。
+
+   Figure 18.10 Example ATM system with UseCases and Actors
+
+   UseCases need not be owned by their ``subject``.
+
+これは前掲 Fig. 18.10 と同じ機能だ。ここにある UseCases は ``ATMSystem``
+Subsystem に適用される。しかし、次の見本で示すように所属が別々のパッケージだ。
+
+   Figure 18.11 Example UseCases owned by Packages
+
+Package の中身が UseCases になっている。
+
+パッケージ ``ATM Services`` がパッケージ ``TransactionUseCases`` を import して
+いるので、名前が共通する UseCases が色を変えて描かれている。
+
+   Figure 18.12 Example UseCase with associated StateMachine
+
+左側はその ``ownedBehaviors`` の一つとして StateMachine を持つ UseCase を示す。
+この StateMachine の Classifier 記号はオプション区画 ``owned behaviors`` に示さ
+れることがある。
+
+右側はこの StateMachine 内部の詳細を表した状態機械図だ。
+
+StateMachine ``Call`` はここでは矩形プラスキーワード ``«statemachine»`` で示され
+ている。
 
 18.2 Classifier Descriptions
 ======================================================================
