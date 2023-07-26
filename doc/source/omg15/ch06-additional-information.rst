@@ -60,9 +60,9 @@ UML メタクラス Element は
    itself, or that recursive functions (such as the factorial function) can be
    defined using themselves.
 
-バージョン 2.4.1 は MOF 2.x メタモデル、これは UML 2.x メタモデルを含むが、有
-効な UML 2.x モデルである。これは早いバージョンと比較して相当な簡素化と調整が
-なされた。
+バージョン 2.4.1 は MOF 2.x メタモデル、これは UML 2.x メタモデルを含むが、有効
+な UML 2.x モデルだ。これは早いバージョンと比較して相当な簡素化と調整がなされ
+た。
 
    It is expected that future versions of MOF and UML will continue to be
    aligned in this manner.
@@ -172,8 +172,7 @@ Behavioral Modeling
     :doc:`./ch13-common-behavior` で議論する。
 
     Actions
-      UML での動作の基本構成単位である。より細やかな挙動を定義するのに用いられ
-      る。
+      UML での動作の基本構成単位だ。より細やかな挙動を定義するのに用いられる。
 
       :doc:`./ch16-actions` で議論する。
 
@@ -234,8 +233,8 @@ Operational behaviors
   操作の定義には、操作の入力および出力引数の型、モデル化されているシステムの状態
   に関する事前条件、事後条件といった概念を含めることが許される。
 
-  操作にはメソッドがあることも許されているが、それは要求される挙動の詳細な定
-  義である。:doc:`./ch13-common-behavior` 参照。
+  操作にはメソッドがあることも許されているが、それは要求される挙動の詳細な定義
+  だ。:doc:`./ch13-common-behavior` 参照。
 
      It is a modeler responsibility to ensure that the detailed behavior modeled
      by the method of the operation meets the behavioral requirements given by
@@ -247,9 +246,9 @@ Operational behaviors
      be violated during the course of the execution of the operation method.
 
 Property default values
-   特性の意味論では、既定値がある特性がオブジェクト化されるときに、その特性に何ら
-   かの固有設定が不在であれば、既定値が評価されてその特性の初期値を与えることが規
-   定されている (:doc:`./ch09-classification`)。
+   特性の意味論では、既定値がある特性がオブジェクト化されるときに、その特性に何
+   らかの固有設定が不在であれば、既定値が評価されてその特性の初期値を与えること
+   が規定されている (:doc:`./ch09-classification`)。
 
       Thus, when instantiating a classifier, all its attributes (i.e., properties
       of the classifier) with default values should be properly initialized once
@@ -289,8 +288,8 @@ Active class behaviors
 
 この仕様書の構成方法と、各章の構造を説明しているだけ。
 
-UML の諸概念は節に分類した。例えば、状態機械モデリングに関連する概念の全ては状
-態機械節に、活動モデリングに関連する概念のすべては活動節に集約される。
+UML の諸概念は節に分類した。例えば、状態機械モデリングに関連する概念の全ては状態
+機械節に、活動モデリングに関連する概念のすべては活動節に集約される。
 
 前方参照を最小限にするべく各章を配列している。
 
@@ -312,15 +311,13 @@ Examples
 各種文体規約：
 
 * イタリック体は強調のために用いる。
-* メタクラス名は capitalize して表記するものの、テキスト中では名詞であるかのよ
-  うに用いる。必要に応じて複数形にする。
-* プロパティー名は 8 ポイントの Arial フォントを用いる。こちらも必要に応じて複
-  数形にする。PDF で仕様書を見るときにはプロパティー名が「浮いて」見えるので
-  便利。
+* メタクラス名は capitalize して表記するものの、テキスト中では名詞であるかのよう
+  に用いる。必要に応じて複数形にする。
+* プロパティー名は 8 ポイントの Arial フォントを用いる。こちらも必要に応じて複数
+  形にする。PDF で仕様書を見るときにはプロパティー名が「浮いて」見えるので便利。
 
 テキスト表記による図式説明では BNF の変種を用いる。これは記法として潰しが効くの
-で引用したいのだが、reST と相性が悪いので、原文の p. 17 をしょっちゅう参照するこ
-と。
+で引用したい。
 
    Diagrams appearing in the Notation and Examples subdivisions have been
    produced by a variety of tools, and may differ in stylistic details such as
@@ -351,34 +348,26 @@ Notation の節では図式は白地に黒で描画されることを想定し�
 かなり重要な約束なので、読み飛ばすことは考えられない。規約項目からいくつか拾って
 みる：
 
-メタクラスは、多くのダイアグラムに表示されることがありますが、主要な役割を果たす
-のは、メタクラスのセマンティクスが記述されているダイアグラムに隣接する、1つのダ
-イアグラムだけです。主役のメタクラスは、その属性コンパートメントを展開して表示さ
-れ、副役のメタクラスは、そのヘッダー長方形だけで表示されます。
-
 * 一つのメタクラスが色々な図式に現れるが、そのメタクラスが主役を張るものはただ一
-  つだけだ。それはそのメタクラスの意味が記述されている図式に隣接している。主メタ
-  クラスはその属性区画を展開して表記され、副メタクラスはヘッダー矩形だけで表記さ
-  れる。
+  つだけだ。それはそのメタクラスの意味が記述されている図式に隣接している。主役の
+  メタクラスはその属性区画を展開して表記され、助演メタクラスはヘッダー矩形だけで
+  表記される。
+* ドット記法。関連端子の所有権を示すために用いられる。ドットは、それに触れられた
+  クラスを型とする特性を、もう一方の端子のクラスが所有することを示す。
 
-  * 実は同様のことが前節でも書かれている。
+  * 詳しくは :doc:`./ch11-structured-classifiers` の該当する節 (11.5.4),
+    (11.5.5) で述べられている。PDF ビューワーにブックマークするといい。
+  * 当ノートでは association end を関連端と書くことにする。
 
-* ドット記法。関連の末端の所有権を示すために用いられる。ドットは、ドットに触れら
-  れたクラスを型とするプロパティを、もう一方の末端のクラスが所有することを示す。
-
-  * 詳しくは :doc:`./ch11-structured-classifiers` の該当する節で述べられている。
-  * 当ノートでは association end を関連端（点）と書くことにする。
-
-* 矢印記法。関連端点の回航可能性（当ノートではよい日本語表現が見つからない間は英
+* 矢印記法。関連端子の回航可能性（当ノートではよい日本語表現が見つからない間は英
   単語をそのまま記すことにする）を示すのに用いる。
 
-  * 定義上、クラス所有の関連端点すべてが回航可能とする。
+  * 定義上、クラス所有の関連端子すべてが回航可能とする。
   * 慣習上、メタモデル内の全ての関連所有端点は回航不能とする。
 
 * «An association with neither end marked by navigability arrows means that the
   association is navigable in both directions.»
-
-* 特殊化と再定義。関連端点近くに適用する制約情報表示ラベルを付す。
+* 特殊化と再定義。関連端子近くに適用する制約情報表示ラベルを付す。
 
   ``{subsets endA}``
     「この制約が適用される関連端は、関連端 ``endA`` の部分集合である」を意味す
@@ -387,10 +376,20 @@ Notation の節では図式は白地に黒で描画されることを想定し�
     .. admonition:: 読者ノート
 
        この文書では <X subsets Y> という言い回しが頻出するが、意味は <X is a
-       subset of Y> である。
+       subset of Y> だ。
+
+       この制約を理解するのには、仕様書を "subsets owningElement" や "subsets
+       ownedElement" などで grep するといい。
 
   ``{redefines endA}``
     「この制約が適用される関連端は、関連端 ``endA`` を再定義する」を意味する。
+
+    .. admonition:: 読者ノート
+
+       制約 redefines の意味を知るには Fig. 8.4 の Duration 周りを見るといい。こ
+       の図式では省かれているが、Duration は ValueSpecification の一種であること
+       に注意。それから Fig. 7.3 の TemplateParameter と ParameterableElement の
+       間にある関連四つを理解できるか確認しろ。
 
   ここで関連端 ``endA`` は既存の関連の要素であることを想定している。
 
@@ -402,8 +401,8 @@ Notation の節では図式は白地に黒で描画されることを想定し�
   ただ、回航不能関連端に関しては、しばしばラベルを付けないことがある（名前が
   Association Descriptions の節に文書化されている場合であっても）。
 
-* 明示的に命名されていない関連については、次の生成規則に従い「構築」する (p. 19)。
-  ここで ``<association-end-nameX>`` はそれぞれの関連端の名前とする：
+* 明示的に命名されていない関連については、次の生成規則に従い「構築」する (p.
+  19)。ここで ``<association-end-nameX>`` はそれぞれの関連端の名前とする：
 
   .. code:: text
 
@@ -418,7 +417,7 @@ Notation の節では図式は白地に黒で描画されることを想定し�
 
    ドット記法と矢印記法と ``{subsets}`` を例示するためのイラストをここに載せる。
    左側のクラス図は次章の最初に出て来るものであり、右側の文の羅列はここにある矢
-   印から読み取れる、所有権や回航可能性の情報である。矢印自体は例えば
+   印から読み取れる、所有権や回航可能性の情報だ。矢印自体は例えば
    ``A_relatedElement_relationship`` のように呼ぶことができる。
 
    .. figure:: /_images/omg15-diagram-format.png
