@@ -133,6 +133,7 @@
    cygwin
    chrome
    git/index
+   github/index
    oh-my-posh
    twitter
    inkscape/index
