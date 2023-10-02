@@ -90,6 +90,7 @@ html_theme_options = {
     'link': 'deeppink',
     'link_hover': 'deeppink',
     'narrow_sidebar_link': 'deeppink',
+    'nosidebar': True,
     'page_width': '1200px',
     'show_powered_by': False,
     'show_relbars': True,

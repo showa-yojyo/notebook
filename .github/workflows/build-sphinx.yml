@@ -6,19 +6,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
     - name: Build HTML
       uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: doc
+
+    - run: sudo rm -rf build/html/_sources
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
+      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
       with:
         name: html-docs
-        path: doc/build/html/
+        path: |
+          doc/build/html/
+          !doc/build/html/_sources
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
-      if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
+      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/build/html
