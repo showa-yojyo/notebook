@@ -80,6 +80,8 @@ Permission levels for a project board owned by a personal account
 * Write
 * Admin
 
+..
+
   The project board owner and collaborators with admin access have full control
   of the project board.
 
@@ -181,7 +183,7 @@ Git 操作では SSH しか使わないのでその辺のノートを割愛す�
 には環境変数 :envvar:`GIT_SSH_COMMAND` を設定して Git コマンドを実行する。例えば
 ``git clone`` を実行するにも次のように長いコマンドラインを書くことになる：
 
-.. code:: bash
+.. code:: console
 
    bash$ GIT_SSH_COMMAND='ssh -i PATH/TO/KEY/FILE -o IdentitiesOnly=yes' git clone git@github.com:OWNER/REPOSITORY
 
@@ -342,8 +344,8 @@ Inviting collaborators to a personal repository
 制限は気にしなくていい。
 
 招待手順。目的リポジトリー :menuselection:`Settings --> Collaborators` を開く。
-`Add people` ボタンを押して検索欄を使って招待相手を表示する。最後にボタンを押す
-と招待メールが相手に送られる。
+:guilabel:`Add people` ボタンを押して検索欄を使って招待相手を表示する。最後にボ
+タンを押すと招待メールが相手に送られる。
 
 Removing a collaborator from a personal repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -446,3 +448,356 @@ Removing yourself from an organization
 
 アカウント :menuselection:`Settings --> Organizations` で目的の組織を選び
 :guilabel:`Leave` 押す。
+
+Setting up and managing your GitHub profile
+======================================================================
+
+Customizing your profile
+----------------------------------------------------------------------
+
+About your profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If you add a README file to the root of a public repository with the same name
+  as your username, that README will automatically appear on your profile page.
+
+このノートを綴っている時点で、この使えそうな機能に手を出していない。大至急実施し
+たい。
+
+About your organization's profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  You can customize your organization's public profile by adding a
+  :file:`README.md` file
+
+個人アカウントにもあった機能の組織版だ。
+
+Personalizing your profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+まずはアカウント :menuselection:`Settings --> Public profile` を操作して初期状態
+を脱出しろ。
+
+* :guilabel:`Profile pitcure` で証明写真画像などをアップロード可能。
+* :guilabel:`Name` で名前を示す。
+* :guilabel:`Bio` に経歴を書く。
+
+ここまでは UI を見れば分かる。
+
+  You can set a location and time zone on your profile to show other people your
+  local time.
+
+これもいちおう設定しておく。同じくこの画面内にある :guilabel:`Location` 区画にて、
+
+* :guilabel:`Display current local time` をオンにする。
+* :guilabel:`Time zone` で ``(GMT+09:00) Tokyo`` を選択する。
+
+有名な SNS にアカウントを持っている場合、:guilabel:`Social accounts` 下にアドレ
+スを記入しておくとプロフィール画面にそれらへのページのリンクが現れる。
+
+  When you set your status, you can also let people know that you have limited
+  availability on GitHub.
+
+ものぐさな人は右上ドロップダウンで :guilabel:`Busy` に設定する。初回は近影を、設
+定済みの場合は状態をクリック。フォーム内のチェックボックスをオンにする。
+
+  When you participate in certain programs, GitHub automatically displays a
+  badge on your profile.
+
+バッヂは上級者向けの装飾要素だろう。この一覧を見る限り何も獲れそうにない。
+
+  Achievements celebrate specific events and actions that happen on GitHub. They
+  will appear as small badges listed in the sidebar of your profile.
+
+これの一覧がどこかにないものか。
+
+Managing your profile README
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  GitHub shows your profile README at the top of your profile page.
+
+GitHub アカウント名と合致する公開リポジトリーに中身のある :file:`README.md` が
+あれば、それが適用される。
+
+GitHub 上でそのようなリポジトリーを最初に作成すると：
+
+  The generated README file is pre-populated with a template to give you some
+  inspiration for your profile README.
+
+この README 公表を撤回したい場合は、リポジトリーを private にするなり
+:file:`README.md` を空にしてコミットしたりするなどする。
+
+Pinning items to your profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+プロフィール画面の :guilabel:`Customize your pins` の UI で実施。この小さい
+フォームには自作リポジトリーと gists が人気順に並んでいる。
+
+Setting your profile to private
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  After making your profile private, you can still view all your information
+  when you visit your own profile.
+
+:menuselection:`Settings --> Contributions & Activity` の :guilabel:`Make
+profile private and hide activity` をオン。:guilabel:`Update preferences` で確定。
+
+しかしこの機能は不要だ。
+
+Managing contribution settings on your profile
+----------------------------------------------------------------------
+
+Viewing contributions on your profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+プロフィール画面に示される情報などを知る。
+
+  On your profile page, certain actions count as contributions:
+
+  * Committing to a repository's default branch or ``gh-pages`` branch
+  * Creating a branch
+  * Opening an issue
+  * Opening a discussion
+  * Answering a discussion
+  * Proposing a pull request
+  * Submitting a pull request review
+
+:guilabel:`Popular repositories` 枠はピン機能を使うとなくなる。
+
+Showing an overview of your activity on your profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  A viewer can only see information in the activity overview about repositories
+  they have read access to.
+
+プロフィール画面のカレンダー (contributions graph) 右上 :guilabel:`Contribution
+settings` ドロップダウンリストから適当なものを選択する。
+
+Showing your private contributions and achievements on your profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If you publicize your private contributions, people without access to the
+  private repositories you work in won't be able to see the details of your
+  private contributions. Instead, they'll see the number of private
+  contributions you made on any given day. Your public contributions will
+  include detailed information.
+
+:menuselection:`Contribution settings --> Private contributions` を見せる方向
+に設定する。
+
+アカウント :menuselection:`Settings --> Profile settings` の
+:guilabel:`Show Achievements on my profile` をオンにする。
+
+プロフィール画面の実績それぞれをクリックするとポップアップが表示される。この左上
+の目ボタンを押すと表示状態を切り替える。
+
+Sending enterprise contributions to your GitHub.com profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+これはよくわからない。割愛。
+
+Why are my contributions not showing up on my profile?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+この記述が貢献の定義とみなせる。
+
+Troubleshooting commits on your timeline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If the author and commit date are different, you can manually change the
+  commit date in the URL to see the commit details
+
+.. admonition:: 読者ノート
+
+   プロフィール画面での貢献の表示に関する記述がここまで多いということは、何を意
+   味するか。
+
+Managing subscriptions and notifications on GitHub
+======================================================================
+
+Setting up notifications
+----------------------------------------------------------------------
+
+About notifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+通知機能の意義は：
+
+  You can use the notifications inbox to customize, triage, and manage your
+  updates.
+
+  Notifications are updates that you receive for specific activity that you are
+  subscribed to.
+
+自動的に購読させられる場合がある：
+
+  By default, you also automatically watch all repositories that you create and
+  are owned by your personal account.
+
+だからリポジトリーを作成するや否や、Notification をオフにする習慣をつける。
+
+  You can choose to view your notifications through the notifications inbox at
+  https://github.com/notifications and in the GitHub Mobile app, through your
+  email, or some combination of these options.
+
+..
+
+  You can filter your inbox by the reason you're subscribed to notifications.
+
+..
+
+  Notifications that are not marked as :guilabel:`Saved` are kept for 5 months.
+  Notifications marked as :guilabel:`Saved` are kept indefinitely. If your saved
+  notification is older than 5 months and you unsave it, the notification will
+  disappear from your inbox within a day.
+
+マークしていない通知項目はおのずと消える。しないほうがいいのか。
+
+Configuring notifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GitHub 上の活動に関する通知を受け取る場所は三つある：
+
+* GitHub の受信箱
+* GitHub Mobile の受信箱（上記のものと同期）
+* 登録した主要メールアドレス（上記のものと同期）
+
+メール以外の場所については特別な機能がある。次節で述べられる。メールについては次
+の利点？がある：
+
+  One benefit of using an email client is that all of your notifications can be
+  kept indefinitely depending on your email client's storage capacity.
+
+メールソフトの機能で GitHub の活動情報を整理することが可能だと言いたいのだ。
+
+  You can customize notifications for a repository. For example, you can choose
+  to only be notified when updates to one or more types of events (issues, pull
+  requests, releases, security alerts, or discussions) happen within a
+  repository, or ignore all notifications for a repository.
+
+このカスタマイズは興味がないこともない。
+
+  Each email notification that GitHub.com sends contains header information. The
+  header information in every email is consistent, so you can use it in your
+  email client to filter or forward all GitHub notifications, or certain types
+  of GitHub notifications.
+
+つまり、メールソフトでフィルターを作成しやすい。
+
+通知設定方法：画面右上の受信箱ボタンを押す。ページ左下 :menuselection:`Manage
+notifications --> Notification settings` を押す。
+
+  If "Automatically watch repositories" is disabled, then you will not
+  automatically watch your own repositories.
+
+これは無効にしておきたい。
+
+リポジトリーの :guilabel:`Watch` ボタンで欲しい通知をカスタマイズ指定することが
+可能。
+
+  When a new secret is detected, GitHub notifies all users with access to
+  security alerts for the repository according to their notification
+  preferences.
+
+ユーザー全てに通知してもかまわないような事態だろうか。
+
+  For repositories that are set up with GitHub Actions and that you are
+  watching, you can choose how you want to receive workflow run updates.
+
+これはかなり後で詳しく習いたい。
+
+  When you install GitHub Mobile, you will automatically be opted into web
+  notifications.
+
+これもインストールしたい。どこにあるのか。Android で検索すればいいと思うが。
+
+Viewing and triaging notifications
+----------------------------------------------------------------------
+
+Managing notifications from your inbox
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Your inbox shows all of the notifications that you haven't unsubscribed to or
+  marked as Done. You can customize your inbox to best suit your workflow using
+  filters, viewing all or just unread notifications, and grouping your
+  notifications to get a quick overview.
+
+未読の通知を一覧には :guilabel:`Unread` ボタンを押すのがいい。
+
+複数の通知項目に対して同一の操作をするにはチェックを入れて :menuselection:`...`
+メニューを選ぶか、ヘッダーにある :guilabel:`Done` ボタンなどを押す。
+
+フィルターを自作することが可能。画面左柱 :guilabel:`Filters` の歯車を押す。ボタ
+ン :guilabel:`Create new filter` を押してフィルター名と問い合わせコマンドを入
+力。:guilabel:`Create` で確定。
+
+問い合わせコマンドのノートについては検索の章に回す。``is:`` は見慣れぬキーワード
+を伴うものもある。
+
+Triaging a single notification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  You can choose how you want to receive future notifications for a specific
+  issue or pull request.
+
+画面右柱の :guilabel:`Notifications` 右にある :menuselection:`Customize -->
+Custom` を押す。通知されたいタイミングを指定して :guilabel:`Create` を押す。
+
+Customizing a workflow for triaging your notifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Before you start triaging your inbox, consider whether you prefer to first
+  find and respond to the most important updates or to clear your inbox of
+  distracting updates that are easy to remove or triage.
+
+言葉を選ばすに言い換えれば気ままに選ぶということだ。
+
+  Choose which type of notifications are most urgent to review and pick a time
+  to review them that's best for you. You might consider the question "Who am I
+  blocking?"
+
+この視点は面白い。協力者の妨げになっている事項を優先する。
+
+  Choose which type of notifications are quickest and easiest for you to triage
+  and remove from your inbox, ideally triaging multiple notifications at once.
+
+捨てやすいものは捨てるのが正しい。
+
+Managing subscriptions for activity on GitHub
+----------------------------------------------------------------------
+
+Viewing your subscriptions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  We recommend auditing and unsubscribing from your subscriptions as a part of a
+  healthy notifications workflow.
+
+購読や監視をしたまま忘れてしまうと受信箱がパンパンになる。
+
+受信箱トップページ左柱 :menuselection:`Notifications --> Subscriptions` を押す。
+この一覧のヘッダーから項目を絞り込んで issue や pull request の購読をやめる。
+
+.. admonition:: 読者ノート
+
+   自分の状況を確認したら 300 以上の項目があったので、古いものから unsubscribe
+   した。
+
+受信箱トップページ左柱 :menuselection:`Notifications --> Watched repositories`
+を押す。購読をやめるリポジトリーの右のドロップダウンリストから
+:guilabel:`Ignore` を押す。
+
+Managing your subscriptions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Note: Instead of unsubscribing, you have the option to ignore a repository. If
+  you ignore a repository, you won't receive any notifications. We don't
+  recommend ignoring repositories as you won't be notified if you're @mentioned.
+
+無視するときは上記を注意したい。
+
+  You can only filter your subscriptions by repository and the reason you're
+  receiving the notification.
+
+このフィルターだけで十分なのか。
+
+残りは :guilabel:`Unsubscribe` と :guilabel:`Unwatch` の説明。
