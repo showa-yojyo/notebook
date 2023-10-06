@@ -521,7 +521,36 @@ $SSH_AUTH_SOCK`` でそれらしい出力が得られればそれでいい。
 Managing deploy keys
 ----------------------------------------------------------------------
 
-TBW
+まず SSH agent forwarding という技法について述べている。短所はあまりないようで：
+
+  * Users must SSH in to deploy; automated deploy processes can't be used.
+  * SSH agent forwarding can be troublesome to run for Windows users.
+
+以前の節で述べられていた手順でこれをオンにして、配備スクリプトが SSH agent
+forwading をするように仕向けろとある：
+
+.. code:: bash
+
+   bash$ ssh -A serverA 'bash -s' < deploy.sh
+
+:command:`ssh` のオプション ``-A`` を覚えておけばいい。
+
+  If you don't want to use SSH keys, you can use HTTPS with OAuth tokens.
+
+この場合の短所は：
+
+  * You must make sure that you configure your token with the correct access
+    scopes.
+  * Tokens are essentially passwords, and must be protected the same way.
+
+Deploy key の定義：
+
+  You can launch projects from a repository on GitHub.com to your server by
+  using a deploy key, which is an SSH key that grants access to a single
+  repository.
+
+ここまで読んで、一連の機能を個人的には使いそうにないことが理解できた。この節の記
+述はまだ続くが、いずれ必要になった場合に、読みに来てノートを取ることにする。
 
 Checking for existing SSH keys
 ----------------------------------------------------------------------
@@ -575,9 +604,10 @@ Adding a new SSH key to your GitHub account
 
 アカウント :menuselection:`Settings --> SSH and GPG keys` ページを開く。
 :guilabel:`SSH keys` 見出しの右の :guilabel:`New SSH key` を押す。フォームを埋め
-て :guilabel:`Add SSH key` ボタンを押す。:guilabel:`Key` 欄には公開鍵を記入する。
+て :guilabel:`Add SSH key` ボタンを押す。:guilabel:`Key` 欄には公開鍵を記入す
+る。
 
-`ssh-add -l -E sha256` と同じ文字列だ。
+``ssh-add -l -E sha256`` と同じ文字列だ。
 
 Testing your SSH connection
 ----------------------------------------------------------------------
@@ -602,3 +632,434 @@ PC が盗まれたときに備えた仕掛けだ。
    bash$ ssh-keygen -p -f ~/.ssh/id_ed25519
 
 :command:`ssh-agent` は走らせておくものらしい。
+
+Troubleshooting SSH
+======================================================================
+
+  When using SSH to connect and authenticate to GitHub, you may need to
+  troubleshoot unexpected issues that may arise.
+
+実際に問題が起こってから読んでも間に合う。
+
+Using SSH over the HTTPS port
+----------------------------------------------------------------------
+
+HTTPS ポート経由の SSH が可能かどうかを試すコマンドは：
+
+.. code:: console
+
+   bash$ ssh -T -p 443 git@ssh.github.com
+
+初回実行時にはプロンプトが出るが、次の文言ならば yes と答えて構わない：
+
+| The authenticity of host '[ssh.github.com]:443 ([20.27.177.118]:443)' can't be established.
+| ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+| This host key is known by the following other names/addresses:
+|     ~/.ssh/known_hosts:4: [hashed name]
+| Are you sure you want to continue connecting (yes/no/[fingerprint])?
+
+失敗した場合には後述の Permission denied (publickey) を読め。
+
+  If you are able to SSH into ``git@ssh.github.com`` over port 443, you can
+  override your SSH settings to force any connection to GitHub.com to run
+  through that server and port.
+
+次の内容を :file:`~/.ssh/config` に追加する：
+
+.. code:: text
+
+   Host github.com
+       Hostname ssh.github.com
+       Port 443
+       User git
+
+動作確認コマンドは ``ssh -T git@github.com`` だ。
+
+Recovering your SSH key passphrase
+----------------------------------------------------------------------
+
+Mac 以外では回復不能で、鍵ペアの作り直しとなる。
+
+Deleted or missing SSH keys
+----------------------------------------------------------------------
+
+先述のように、GitHub は一年間利用がないキーを削除する。
+
+  You can check if you haven't used an SSH key in a year by reviewing your
+  account's security log.
+
+Error: Host key verification failed
+----------------------------------------------------------------------
+
+  You may see this error if the server has changed its keys unexpectedly
+
+GitHub が SSH ホスト鍵を変更した場合はブログで告知される。それを確認する。
+
+  You can find an up-to-date list of GitHub's public SSH keys on GitHub Docs.
+
+Error: Permission denied (publickey)
+----------------------------------------------------------------------
+
+* Git では :command:`sudo` をなるべく使わない。
+* 正しいドメインに接続しようとしていることを確認する。
+* 接続はすべて ``git`` ユーザーで行う必要がある。GitHub の利用者名ではない。
+* 使用中の鍵があることを確認する。コマンド ``sh-add -l -E sha256``.
+
+用がなくてもコマンド ``ssh -vT git@github.com`` は一度実行しておいて出力を眺めて
+おくといい。
+
+この節の内容は残りも有用。
+
+Error: Bad file number
+----------------------------------------------------------------------
+
+  This error usually means you were unable to connect to the server. Often this
+  is caused by firewalls and proxy servers.
+
+解決策は HTTPS を使うようにするか、別のネットワークで試すか、前述の SSH over the
+HTTPS port 技法を適用する。
+
+Error: Key already in use
+----------------------------------------------------------------------
+
+たぶん鍵を使い回そうとしている。
+
+  To resolve the issue, first remove the key from the other account or
+  repository and then add it to your account.
+
+Deploy key の使い回し問題も考えられる。
+
+Error: Permission to user/repo denied to other-user
+----------------------------------------------------------------------
+
+  To fix this, the owner of the repository (user) needs to add your account
+  (other-user) as a collaborator on the repository or to a team that has write
+  access to the repository.
+
+そもそも、Git のことをよくわからずに他人のリポジトリーに push しようとしていない
+か。
+
+Error: Permission to user/repo denied to user/other-repo
+----------------------------------------------------------------------
+
+このエラーはたぶん出ない。
+
+Error: Agent admitted failure to sign
+----------------------------------------------------------------------
+
+まれに出るかもしれないエラー。
+
+  You should be able to fix this error by loading your keys into your SSH agent
+  with :command:`ssh-add`
+
+.. code:: console
+
+   bash$ eval "$(ssh-agent -s)"
+   bash$ ssh-add PATH_TO_KEY
+
+Error: ssh-add: illegal option -- K
+----------------------------------------------------------------------
+
+このエラーは生じない。
+
+Error: SSL certificate problem, verify that the CA cert is OK
+----------------------------------------------------------------------
+
+CA ルート証明書が古い。
+
+  If your CA root certificate needs to be updated, you won't be able to push or
+  pull from GitHub repositories.
+
+CA を更新する必要があり、それは OS を更新すれば十分のようだ。
+
+Error: Unknown key type
+----------------------------------------------------------------------
+
+OpenSSH を更新する。
+
+Error: We're doing an SSH key audit
+----------------------------------------------------------------------
+
+SSH 鍵が検証されていない。
+
+  To fix this, you need to review your SSH keys and either reject or approve the
+  unverified key.
+
+GitHub のアカウント :menuselection:`Settings --> SSH and GPG keys` で適当に操作
+する。
+
+Managing commit signature verification
+======================================================================
+
+個人でリポジトリーを使うぶんには必要のない概念だが見ていく。
+
+  GitHub will automatically sign commits you make using the GitHub web
+  interface.
+
+About commit signature verification
+----------------------------------------------------------------------
+
+署名の概念は辞書どおりに理解していい。
+
+  If a commit or tag has a GPG, SSH, or S/MIME signature that is
+  cryptographically verifiable, GitHub marks the commit or tag "Verified" or
+  "Partially verified."
+
+SSH 署名は単純であり、GPG はより高級：
+
+  SSH signatures are the simplest to generate. （略） Generating a GPG signing
+  key is more involved than generating an SSH key, but GPG has features that SSH
+  does not. A GPG key can expire or be revoked when no longer used. GitHub shows
+  commits that were signed with such a key as "Verified" unless the key was
+  marked as compromised.
+
+コミット状態は vigilane mode でない場合には次の三種類：
+
+* Verified
+* Unverified
+* No verification status
+
+GitHub でブランチをマージすると署名検証が機能しない。ローカルでマージする。
+
+コミット状態は vigilane mode である場合には次の三種類：
+
+* Verified
+* Partially verified
+* Unverified
+
+署名を義務付けることが可能：
+
+  Repository administrators can enforce required commit signing on a branch to
+  block all commits that are not signed and verified.
+
+ローカルで署名を検証することが可能だ：
+
+  GitHub will automatically use GPG to sign commits you make using the web
+  interface. Commits signed by GitHub will have a verified status. You can
+  verify the signature locally using the public key available at
+  https://github.com/web-flow.gpg. The full fingerprint of the key is ``5DE3
+  E050 9C47 EA3C F04A 42D3 4AEE 18F8 3AFD EB23``.
+
+..
+
+  You can optionally choose to have GitHub GPG sign commits you make in GitHub
+  Codespaces.
+
+GPG を使って署名コミットをする手順は：
+
+  + Check for existing GPG keys
+  + Generate a new GPG key
+  + Add a GPG key to your GitHub account
+  + Tell Git about your signing key
+  + Sign commits
+  + Sign tags
+
+個別について詳細は後述。
+
+  You can use SSH to sign commits with an SSH key that you generate yourself.
+
+  + Check for existing SSH keys
+  + Generate a new SSH key
+  + Add a SSH signing key to your GitHub account
+  + Tell Git about your signing key
+  + Sign commits
+  + Sign tags
+
+GitHub はローカルで署名したコミットやタグが GitHub.com のアカウントに追加した公
+開鍵に対して暗号的に検証可能かどうかを確認する。
+
+S/MIME は企業向けらしいので割愛。
+
+Displaying verification statuses for all of your commits
+----------------------------------------------------------------------
+
+  You can enable vigilant mode for commit signature verification to mark all of
+  your commits and tags with a signature verification status.
+
+署名の意図はこうだ：
+
+  Git allows you to set the author of your changes and the identity of the
+  committer. This, potentially, makes it difficult for other people to be
+  confident that commits and tags you create were actually created by you.
+
+他人に信用させるのが目的だ。
+
+  you can give other users increased confidence in the identity attributed to
+  your commits and tags by enabling vigilant mode in your GitHub settings.
+
+Vigilant mode を有効にする条件は限定される：
+
+  You should only enable vigilant mode if you sign all of your commits and tags
+  and use an email address that is verified for your account on GitHub as your
+  committer email address. After enabling this mode, any unsigned commits or
+  tags that you generate locally and push to GitHub will be marked "Unverified."
+
+手順：アカウント :menuselection:`Settings --> SSH and GPG keys` ページへ移動。
+:menuselection:`Vigilant mode --> Flag unsigned commits as unverified` をオンに
+する。
+
+.. admonition:: 読者ノート
+
+   署名コミットの準備が整わない間はオフでいいと思う。
+
+Checking for existing GPG keys
+----------------------------------------------------------------------
+
+  Before you generate a GPG key, you can check to see if you have any existing
+  GPG keys.
+
+.. code:: console
+
+   bash$ gpg --list-secret-keys --keyid-format=long
+
+おそらく：
+
+  If there are no GPG key pairs or you don't want to use any that are available
+  for signing commits and tags, then generate a new GPG key.
+
+次の節を参照。
+
+コミットやタグの署名に使いたい GPG 鍵対が用意してある場合は、次のコマンドを使っ
+て公開キーを表示し、使いたい GPG 鍵 ID を割り当てることが可能：
+
+.. code:: console
+
+   bash$ gpg --armor --export XXXXXXXXXXXXX
+
+それから GitHub の設定ページを開くことになるはずだ。
+
+Generating a new GPG key
+----------------------------------------------------------------------
+
+コマンド実行に入る前に利用者情報と passphrase を用意しておく。メールアドレスの入
+力はいつもの ``noreply`` アドレスに関する注意をする。
+
+.. code:: console
+
+   bash$ gpg --full-generate-key
+   ...
+   bash$ gpg --list-secret-keys --keyid-format=long
+   ... (GPG_ID)
+   bash$ gpg --armor --export GPG_ID
+
+出力された長い文字列を定型コードに埋め込んで GitHub に設定（次節参照）。
+
+.. code:: text
+
+   -----BEGIN PGP PUBLIC KEY BLOCK-----
+   ここに挿し込んですべての改行をやめる
+   -----END PGP PUBLIC KEY BLOCK-----
+
+
+Adding a GPG key to your GitHub account
+----------------------------------------------------------------------
+
+鍵は用意できているものとする。
+
+  You can add multiple public keys to your account on GitHub. Commits signed by
+  any of the corresponding private keys will show as verified.
+
+アカウント :menuselection:`Settings --> SSH and GPG keys` ページを開く。
+:guilabel:`New GPG key` を押して :guilabel:`Title` と :guilabel:`Key` を記入す
+る。フォームを埋めたら :guilabel:`Add GPG Key` を押す。
+
+Telling Git about your signing key
+----------------------------------------------------------------------
+
+  To sign commits locally, you need to inform Git that there's a GPG, SSH, or
+  X.509 key you'd like to use.
+
+GPG 鍵が複数ある場合に意味がある。
+
+.. code:: console
+
+   bash$ git config --global --unset gpg.format
+   bash$ gpg --list-secret-keys --keyid-format=long
+   bash$ git config --global user.signingkey XXXXXXXXXXX
+   bash$ git config --global commit.gpgsign true
+
+:file:`.bashrc` のどこかで ``export GPG_TTY=$(tty)`` する。
+
+  You can use an existing SSH key to sign commits and tags, or generate a new
+  one specifically for signing.
+
+.. code:: console
+
+   bash$ git config --global gpg.format ssh
+   bash$ git config --global user.signingkey /PATH/TO/.SSH/KEY.PUB
+
+X.509 鍵は割愛。
+
+Associating an email with your GPG key
+----------------------------------------------------------------------
+
+  If you're using a GPG key that matches your committer identity and your
+  verified email address associated with your account on GitHub.com, then you
+  can begin signing commits and signing tags.
+
+.. code:: console
+
+   bash$ gpg --edit-key XXXXXXXXXXX
+   gpg> adduid
+   ...
+   gpg> save
+   bash$ gpg --armor --export XXXXXXXXXXX
+
+前節で述べられてるようにして GitHub にアップロードする。
+
+Signing commits
+----------------------------------------------------------------------
+
+  You can sign commits locally using GPG, SSH, or S/MIME.
+
+..
+
+  To configure your Git client to sign commits by default for a local
+  repository, in Git versions 2.0.0 and above, run ``git config commit.gpgsign
+  true``. To sign all commits by default in any local repository on your
+  computer, run ``git config --global commit.gpgsign true``.
+
+繰り返しになるが：
+
+  If you have multiple keys or are attempting to sign commits or tags with a key
+  that doesn't match your committer identity, you should tell Git about your
+  signing key.
+
+``git commit`` のオプション ``-S`` で署名コミットとなる。
+
+Signing tags
+----------------------------------------------------------------------
+
+  You can sign tags locally using GPG, SSH, or S/MIME.
+
+``git tag`` コマンドのオプション ``-s`` で署名する。署名したタグを確認するにはオ
+プション ``-v`` を使う。
+
+Troubleshoot verification
+======================================================================
+
+Check verification status
+----------------------------------------------------------------------
+
+  You can check the verification status of your commit and tag signatures on
+  GitHub.
+
+GitHub のリポジトリー画面 :guilabel:`Pull request` 以下から確認する。
+:guilabel:`Commits` タブを開くと :guilabel:`Verified` ボタンがあるはず。
+
+タグに対しては :menuselection:`Releases --> Tags` で :guilabel:`Verified` ボタン
+がある。
+
+Use verified email in GPG key
+----------------------------------------------------------------------
+
+コミットとタグはメールアドレスを複数含むことがある。コミットについては：
+
+  For commits, there is the author — the person who wrote the code — and the
+  committer — the person who added the commit to the tree. When signing a commit
+  with Git, whether it be during a merge, cherry-pick, or normal git commit, the
+  committer email address will be yours, even if the author email address isn't.
+
+タグについては簡単で：
+
+  The tagger email address is always the user who created the tag.
