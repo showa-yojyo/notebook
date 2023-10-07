@@ -586,6 +586,9 @@ Generating a new SSH key and adding it to the ssh-agent
 
    bash$ ssh-keygen -t ed25519 -C YOUR_EMAIL
 
+``YOUR_EMAIL`` では GitHub で利用しているアドレスを指定する。特に ``noreply`` ア
+ドレスを用いている場合には、そのアドレスを指定しなければ verify してくれない。
+
 これを実行する前に passphrase を決めておく。そして次の用意して鍵を追加する：
 
 .. code:: console
@@ -607,7 +610,8 @@ Adding a new SSH key to your GitHub account
 て :guilabel:`Add SSH key` ボタンを押す。:guilabel:`Key` 欄には公開鍵を記入す
 る。
 
-``ssh-add -l -E sha256`` と同じ文字列だ。
+この流れでは :file:`~/.ssh/id_ed25519.pub` の内容をコピー＆ペーストすることにな
+る。入力欄のキューを読めばわかる。
 
 Testing your SSH connection
 ----------------------------------------------------------------------
@@ -652,11 +656,13 @@ HTTPS ポート経由の SSH が可能かどうかを試すコマンドは：
 
 初回実行時にはプロンプトが出るが、次の文言ならば yes と答えて構わない：
 
-| The authenticity of host '[ssh.github.com]:443 ([20.27.177.118]:443)' can't be established.
-| ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
-| This host key is known by the following other names/addresses:
-|     ~/.ssh/known_hosts:4: [hashed name]
-| Are you sure you want to continue connecting (yes/no/[fingerprint])?
+.. code:: text
+
+   The authenticity of host '[ssh.github.com]:443 ([20.27.177.118]:443)' can't be established.
+   ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+   This host key is known by the following other names/addresses:
+       ~/.ssh/known_hosts:4: [hashed name]
+   Are you sure you want to continue connecting (yes/no/[fingerprint])?
 
 失敗した場合には後述の Permission denied (publickey) を読め。
 
@@ -947,9 +953,8 @@ Generating a new GPG key
 .. code:: text
 
    -----BEGIN PGP PUBLIC KEY BLOCK-----
-   ここに挿し込んですべての改行をやめる
+   略
    -----END PGP PUBLIC KEY BLOCK-----
-
 
 Adding a GPG key to your GitHub account
 ----------------------------------------------------------------------
@@ -962,6 +967,8 @@ Adding a GPG key to your GitHub account
 アカウント :menuselection:`Settings --> SSH and GPG keys` ページを開く。
 :guilabel:`New GPG key` を押して :guilabel:`Title` と :guilabel:`Key` を記入す
 る。フォームを埋めたら :guilabel:`Add GPG Key` を押す。
+
+:guilabel:`Key` の内容は前節で述べた長い文字列だ。
 
 Telling Git about your signing key
 ----------------------------------------------------------------------
@@ -978,7 +985,8 @@ GPG 鍵が複数ある場合に意味がある。
    bash$ git config --global user.signingkey XXXXXXXXXXX
    bash$ git config --global commit.gpgsign true
 
-:file:`.bashrc` のどこかで ``export GPG_TTY=$(tty)`` する。
+:file:`.bashrc` のどこかで ``export GPG_TTY=$(tty)`` する。少し試したい場合には
+この環境変数をその場で定義すればいい。
 
   You can use an existing SSH key to sign commits and tags, or generate a new
   one specifically for signing.
@@ -987,6 +995,10 @@ GPG 鍵が複数ある場合に意味がある。
 
    bash$ git config --global gpg.format ssh
    bash$ git config --global user.signingkey /PATH/TO/.SSH/KEY.PUB
+
+:file:`.gitconfig` を公開できる設定と非公開設定とに分割して、``include`` で非公
+開部分を取り込むようにファイルを構成するといい。非公開部分にフルパス指定を含め
+るのだ。
 
 X.509 鍵は割愛。
 
@@ -1006,6 +1018,12 @@ Associating an email with your GPG key
    bash$ gpg --armor --export XXXXXXXXXXX
 
 前節で述べられてるようにして GitHub にアップロードする。
+
+.. admonition:: 読者ノート
+
+   メールアドレスを ``noreply`` のほうで作ること。いったん間違えると ``uid`` 系
+   サブコマンドを駆使して修正するハメになる。このときの対話的操作にクセがあり、
+   けっこう難しい。
 
 Signing commits
 ----------------------------------------------------------------------
