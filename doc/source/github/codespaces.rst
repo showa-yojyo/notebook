@@ -203,3 +203,356 @@ Codespace のディレクトリー構造について：
 
    私がコンテナー技術をまったく知らないので、ピンと来ない記述に出くわすと読むの
    が止まる。
+
+Developing in a codespace
+======================================================================
+
+  You can use your codespace in the browser or in a choice of code editors.
+
+Developing in a codespace
+----------------------------------------------------------------------
+
+GitHub CLI の場合：
+
+  You can use GitHub CLI to create a new codespace, or start an existing
+  codespace, and then SSH to it. Once connected, you can work on the command
+  line using your preferred command-line tools.
+
+コマンドを細かく記載すると紙面が煩雑になるので、コンソールでヘルプを確認しよう：
+
+.. code:: console
+
+   bash$ gh codespace --help
+
+VS Code の場合は後述。
+
+ブラウザーの場合、<https://github.com/codespaces> で利用可能な Codespaces すべて
+を確認する。あるいは：
+
+  Alternatively, you can see any of your codespaces for a specific repository by
+  navigating to that repository and selecting :guilabel:`Code`. The dropdown
+  menu will display all active codespaces for a repository.
+
+Creating a codespace for a repository
+----------------------------------------------------------------------
+
+  You can use GitHub Codespaces on your personal GitHub.com account, with the
+  quota of free use included each month for accounts on the Free and Pro plans.
+
+それなら良かった。
+
+  If you create a codespace from a repository, the codespace will be associated
+  with a specific branch, which cannot be empty.
+
+GitHub CLI では次のようなコマンドを実行して Codespace を生成する：
+
+.. code:: console
+
+   bash$ gh codespace create -r OWNER/REPO -b BRANCH --devcontainer-path PATH -m MACHINE-TYPE
+
+GitHub Codespaces 拡張が作動中の VS Code では、:guilabel:`Activity Bar` 左柱の
+:guilabel:`Remote Explorer` アイコンを押す。サイドバーのプラスボタンを押す。
+入力欄でリポジトリー、ブランチ、等々を順次指定することで Codespace を生成する。
+
+ブラウザーでは：
+
+#. リポジトリー画面で対象ブランチを選択する。
+#. :menuselection:`Code --> Codespaces --> Create codespace on <BRANCH-NAME>`
+#. ここでオプション設定なのだが……。
+
+Creating a codespace from a template
+----------------------------------------------------------------------
+
+  If you're starting a new project, you can get started with development work
+  quickly by creating a codespace from a template.
+
+Quickstart でやったようなものだ。
+
+空白のテンプレから始めることも可能。
+
+  With a blank template, you'll start with an empty directory, with access to
+  cloud-based compute resources and the tools, languages, and runtime
+  environments that come preinstalled with the default codespace image. With
+  other templates, you'll get starter files for the technology you're working
+  with, plus typically some extra files such as a README file, a
+  :file:`.gitignore` file, and dev container configuration files containing some
+  custom environment configuration.
+
+テンプレートはどこにあるのか： <https://github.com/codespaces> から
+:menuselection:`Templates --> See all --> Blank --> Use this template` など。テ
+ンプレートリポジトリーから Codespace を開く方法は前述のとおり。
+
+  Typically, Git will come preinstalled, and the working directory will be
+  automatically initialized as a Git repository unless you started from GitHub's
+  blank template.
+
+Git くらい入れておけばいいじゃないか。
+
+Publish の概念については前述のとおり。
+
+Deleting a codespace
+----------------------------------------------------------------------
+
+Codespace の維持にはコストがかかるので、不要なものは削除することだ。
+
+GitHub CLI を使って削除する場合：
+
+  To delete a codespace use the gh codespace delete subcommand and then choose a
+  codespace from the list that's displayed.
+
+  .. code:: console
+
+     bash$ gh codespace delete
+
+有用なコマンドラインオプションとして ``--all``, ``--repo``, ``--days`` が挙げら
+れている。ヘルプ参照。
+
+GitHub Codespaces 拡張が作動中の VS Code で削除する場合は、:guilabel:`Activity Bar` 左柱の
+:guilabel:`Remote Explorer` アイコンを押す。サイドバーの codespace 項目を右ク
+リックして :menuselection:`Delete Codespace` を押せばよい。
+
+ブラウザーを使って削除する場合、<https://github.com/codespaces> から
+:menuselection:`Your codespaces --> (codespace)` の枠で :menuselection:`... -->
+Delete` を押す。
+
+Opening an existing codespace
+----------------------------------------------------------------------
+
+  You can reopen any of your active or stopped codespaces on GitHub.com, in a
+  JetBrains IDE, in Visual Studio Code, or by using GitHub CLI.
+
+私の言葉では resume に相当する。
+
+GitHub CLI を使って再開する場合、どの環境に再開するのかを指定することも可能だ：
+
+.. code:: console
+
+   bash$ gh codespace code
+   bash$ gh codespace code --web
+   bash$ gh codespace ssh
+
+上から順に VS Code で、ブラウザーで、SSH 接続コンソールでそれぞれアクセスする。
+
+GitHub Codespaces 拡張が作動中の VS Code で codespace を再開する場合、まず次のど
+ちらかのコマンドを実行する：
+
+* :guilabel:`Codespaces: Open Codespace in New Window`
+* :guilabel:`Codespaces: Open in Browser`
+
+それから UI で対象 codespace を選択する。同じことになるが、サイドバーの項目から
+再開することも可能。
+
+ブラウザーで再開する場合、対象リポジトリー画面を開いてキー :kbd:`,` を押す。それ
+から :guilabel:`Resume this codespace` を押す。
+
+アカウント :menuselection:`Your codespaces` から開くことも可能。何で開くかも選択
+する。
+
+Working collaboratively in a codespace
+----------------------------------------------------------------------
+
+  Visual Studio Live Share lets you collaboratively edit and debug with others
+  in real time, within a codespace. You can securely share your current
+  codespace, or access a codespace created by someone else.
+
+Live Share 拡張を VS Code にインストールする。私は使わないはずなので割愛。
+
+Using source control in your codespace
+----------------------------------------------------------------------
+
+VS Code 上での Git 操作と同様。私は慣れているので割愛。あるいは VS Code ノートへ
+のリンクを付けるか。
+
+Using GitHub Codespaces for pull requests
+----------------------------------------------------------------------
+
+Pull request ページの :guilabel:`Code` で codespace を開くことが可能だ。
+
+  A codespace is created for the pull request branch and is opened in your
+  default editor for GitHub Codespaces.
+
+この codespace を開いたエディターの :guilabel:`Activity Bar` の
+:guilabel:`GitHub Pull Request` アイコンを押す。サイドバーに当該 pull request の
+変更ファイル一覧がある。UI 操作で適当にレビューする。締めに結果に応じたボタンを
+押す。
+
+  Once you have received feedback on a pull request, you can open it in a
+  codespace in your web browser, or in VS Code, to see the review comments. From
+  there you can respond to comments, add reactions, or dismiss the review.
+
+Stopping and starting a codespace
+----------------------------------------------------------------------
+
+  When you stop a codespace, any running processes are stopped. Any saved
+  changes in your codespace will still be available when you next start it.
+
+停止しないと次のようになって怖い：
+
+  If you do not explicitly stop a codespace, it will continue to run until it
+  times out from inactivity. Closing a codespace does not stop the codespace.
+
+GitHub CLI で停止する場合、次のコマンドを実行する：
+
+.. code:: console
+
+   bash$ gh codespace stop
+
+GitHub Codespaces 拡張が作動中の VS Code で codespace を停止する場合、コマンド
+:guilabel:`Codespaces: Stop Codespace` を実行する。再開はコマンド
+:guilabel:`Codespaces: Connect to Codespace` を実行する。
+
+ブラウザーを使って codespace を停止する場合、<https://github.com/codespaces> か
+ら :menuselection:`Your codespaces --> (codespace)` の枠で :menuselection:`...
+--> Stop codespace` を押す。再開は対象 codespace 項目をクリックする。
+
+Forwarding ports in your codespace
+----------------------------------------------------------------------
+
+  You can forward ports in your codespace to test and debug your application.
+  You can also manage the port protocol and share the port within your
+  organization or publicly.
+
+Web アプリケーションのデバッグ用機能と思っていい。
+
+  You can manually forward a port that wasn't forwarded automatically.
+
+VS Code でいう Panel に :guilabel:`PORTS` というタブがある。:guilabel:`Add Port`
+でポート番号を追加する。
+
+HTTP を HTTS に変えられる。右クリックメニューの :menuselection:`Change Port
+Protocol`.
+
+.. admonition:: 読者ノート
+
+   この記事は難しい。
+
+Rebuilding the container in a codespace
+----------------------------------------------------------------------
+
+  When you work in a codespace, your development environment is a Docker
+  container that runs on a virtual machine.
+
+Docker を知らないが、とにかく読み続ける。
+
+  By default, when you rebuild a container, GitHub Codespaces will speed up the
+  build process by reusing cached images from previous builds of the container.
+
+前回のモノを再利用するので処理は高速だ。それとは異なる完全再構築というのもある？
+
+GutHub CLI を使って codespace を再構築する場合、次のコマンドがそれを実行する：
+
+.. code:: console
+
+   bash$ gh codespace rebuild
+   bash$ gh codespace rebuild --full
+
+GitHub Codespaces 拡張が作動中の VS Code で codespace を再構築する場合、次のコマ
+ンドがそれを実行する：
+
+* :menuselection:`Codespaces: Rebuild Container`
+* :menuselection:`Codespaces: Full Rebuild Container`
+
+以降、:file:`/workspaces` に関する記述が長く続く。このディレクトリーの内容は維持
+される。再構築時でも破壊したくないファイルがあれば、このディレクトリーを上手に使
+えというようなことが述べられている。
+
+Default environment variables for your codespace
+----------------------------------------------------------------------
+
+  GitHub sets default environment variables for every codespace. Commands run in
+  codespaces can create, read, and modify environment variables.
+
+ダミーの codespace を生成してこれらの環境変数の値をチェックするといい。
+
+Persisting environment variables and temporary files
+----------------------------------------------------------------------
+
+環境変数と一時ファイルを永続化したい。
+
+単独 codespace に関する環境変数については、この codespace を再構築しない限りは
+:file:`$HOME/.bashrc` で環境変数を定義するという方法が採れる（シェルは
+:command:`bash` を仮定）。
+
+同じリポジトリーに対する codespaces すべての環境変数については、次の方法がある：
+
+* 構成ファイル :file:`devcontainer.json`
+* カスタム :file:`Dockerfile`
+* secrets を使う
+
+方法その一では、次のように記述すると環境変数が定義できるらしい：
+
+  .. code:: json
+
+     {
+         "remoteEnv": {
+           "VARNAME": "value"
+        }
+     }
+
+方法その二では：
+
+  If you are using a custom :file:`Dockerfile` you can set the environment
+  variable there by adding ``ENV VARNAME=value``.
+
+方法その三は機微に触れるデータを定義するのに採用する。逆に、その一、その二を採用
+してはいけない。
+
+Connecting to a private network
+----------------------------------------------------------------------
+
+  You can connect GitHub Codespaces to resources on a private network, including
+  package registries, license servers, and on-premises databases.
+
+現在、次の二つの方法がある：
+
+  * Using a GitHub CLI extension to configure your local machine as a gateway to
+    remote resources.
+  * Using a VPN.
+
+必要になったら調べる。
+
+  IP addresses for codespaces are dynamically assigned, meaning your codespace
+  is not guaranteed to have the same IP address day to day.
+
+Getting started with GitHub Codespaces for machine learning
+----------------------------------------------------------------------
+
+.. todo::
+
+   ノートの合間に実施する。
+
+Using GitHub Codespaces in Visual Studio Code
+----------------------------------------------------------------------
+
+GitHub Codespaces 拡張を VS Code にインストールして GitHub に接続する。
+
+  If you would prefer to open any new codespaces in VS Code automatically, you
+  can set your default editor to be VS Code.
+
+これと、
+
+  If you prefer to work in the browser, but want to continue using your existing
+  VS Code extensions, themes, and shortcuts, you can turn on
+  :menuselection:`Settings Sync`.
+
+これについてはカスタマイズの章で扱う。
+
+.. todo::
+
+   ここから先の練習は取っておく。
+
+Using GitHub Codespaces in your JetBrains IDE
+----------------------------------------------------------------------
+
+割愛。
+
+Using GitHub Codespaces with GitHub CLI
+----------------------------------------------------------------------
+
+コマンドのクックブックのような節だ。
+
+  To use :command:`gh` to work with GitHub Codespaces, type ``gh codespace
+  SUBCOMMAND``
+
+  GitHub Codespaces creates a local SSH key automatically to provide a seamless
+  authentication experience.
