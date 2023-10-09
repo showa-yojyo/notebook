@@ -517,9 +517,10 @@ Connecting to a private network
 Getting started with GitHub Codespaces for machine learning
 ----------------------------------------------------------------------
 
-.. todo::
+この節の前半部分はブラウザーの VS Code で実施可能。本物の VS Code だと Jupyter
+のカーネルを選択するところで、入力欄が空白しかない。
 
-   ノートの合間に実施する。
+後半部分は囲み記事にあるように、現在実施不能。
 
 Using GitHub Codespaces in Visual Studio Code
 ----------------------------------------------------------------------
@@ -537,9 +538,21 @@ GitHub Codespaces 拡張を VS Code にインストールして GitHub に接続
 
 これについてはカスタマイズの章で扱う。
 
-.. todo::
+本節の事前条件に述べられているうち、次は実施済みとする：
 
-   ここから先の練習は取っておく。
+* VS Code への GitHub Codespaces 拡張のインストール
+* VS Code の Activity Bar に :guilabel:`Remote Explore` アイコンが表示済み
+* Side bar の :guilabel:`REMOTE EXPLORER` 右のドロップダウンリストに
+  :guilabel:`GitHub Codespaces` を選択した状態にする。
+
+それから UI 操作が記述どおりになっているかを確認すればいい。
+
+* プラスアイコンで codespace を生成できそう。
+* 項目の :guilabel:`Connect to Codespace` は機能する。現在の VS Code ウィンドウに
+  ロードするので注意。新しいウィンドウで開くコマンドは別にある。
+* 項目右クリックメニュー :guilabel:`Delete codespace` も機能しそうだ。
+
+残りは割愛。
 
 Using GitHub Codespaces in your JetBrains IDE
 ----------------------------------------------------------------------
@@ -556,3 +569,170 @@ Using GitHub Codespaces with GitHub CLI
 
   GitHub Codespaces creates a local SSH key automatically to provide a seamless
   authentication experience.
+
+Customizing your codespace
+======================================================================
+
+  GitHub Codespaces is a dedicated environment for you. You can configure your
+  repositories with a dev container to define their default GitHub Codespaces
+  environment, and personalize your development experience across all of your
+  codespaces with dotfiles and :menuselection:`Settings Sync`.
+
+Personalizing GitHub Codespaces for your account
+----------------------------------------------------------------------
+
+  GitHub Codespaces personalization applies to any codespace you create.
+
+方法は二つある：
+
+* :menuselection:`Settings Sync`
+* リポジトリー ``dotfiles``
+
+まずは :menuselection:`Settings Sync` から見ていく。
+
+  :menuselection:`Settings Sync` allows you to synchronize configurations such
+  as settings, keyboard shortcuts, snippets, extensions, and UI state across
+  machines and instances of VS Code. （略） For example, a common use of
+  :menuselection:`Settings Sync` would be to sync your settings from your VS
+  Code desktop application, which you use for local work, to codespaces you open
+  in the browser.
+
+まさにこれをやりたい。デスクトップ版の設定は壊さずに codespace のほうを変えたい。
+
+* デスクトップ版 VS Code の :menuselection:`Settings Sync` をオン。
+* GitHub でアカウント :menuselection:`Settings --> Codespaces` ページの
+  :guilabel:`Settings Sync` をオンにする。
+* オプションで逆方向の同期も可能だが、これは要らない。
+
+あるいは、
+
+  Alternatively, you may want to use the same settings across all codespaces you
+  open in the web client, while leaving your local VS Code application
+  unaffected.
+
+こちらも利用する可能性はあるが、ひとまず保留。
+
+  For codespaces opened in the VS Code web client, :menuselection:`Settings
+  Sync` is disabled by default.
+
+  :menuselection:`Settings Sync` is enabled in your user preferences
+  automatically if you open a codespace in the web client and turn on
+  :menuselection:`Settings Sync` in the codespace.
+
+あとは trusted repositories という考えがあり、それも自動同期の要因になる。
+
+他にも :guilabel:`Settings Sync` が見られる箇所があるが、方法は同様なので省略。
+
+リポジトリー ``dotfiles`` で設定を同期させる方法を見ていく。
+
+  When you create a new codespace, GitHub clones your selected ``dotfiles``
+  repository to the codespace environment, and looks for one of the following
+  files to set up the environment.
+
+ファイル :file:`install.sh`, etc. をコピーする。ない場合に変なシンボリックリンク
+が作られる。
+
+  Any changes to your selected dotfiles repository will apply only to each new
+  codespace, and do not affect any existing codespace.
+
+GitHub アカウント :menuselection:`Settings --> Codespaces` ページで
+:guilabel:`Automatically install dotfiles` をオンにする。
+
+.. admonition:: 読者ノート
+
+   ただし、可搬性のない内容のドットファイルを書いている自覚がある場合はオフにす
+   る。
+
+Renaming a codespace
+----------------------------------------------------------------------
+
+ブラウザーの場合は :guilabel:`Your codespaces` 画面の codespace 項目から
+:guilabel:`Rename` を押す。
+
+Changing the shell in a codespace
+----------------------------------------------------------------------
+
+  If you open a new codespace in the VS Code web client, or connect to a
+  codespace over SSH, the terminal opens with a :command:`bash` session running
+  by default.
+
+それでいい。新しいシェルなぞ不要。
+
+Changing the machine type for your codespace
+----------------------------------------------------------------------
+
+仮想マシンのメモリーとディスク容量を増やしたいときに検討する。
+
+  Each machine type has a different level of resources and a different billing
+  tier.
+
+銭によって選択肢が決まる。
+
+  By default the machine type with the lowest valid resources is used when you
+  create a codespace. You can choose an alternative machine type either when you
+  create a codespace or at any time after you've created a codespace.
+
+変更可能性で言えば、対照的なのが：
+
+  Unpublished codespaces (codespaces created from a template that are not linked
+  to a repository on GitHub) always run on a virtual machine with the same
+  specifications. You can't change the machine type of an unpublished codespace.
+
+:guilabel:`Your codespaces` 画面 codespace 項目の :guilabel:`Change machine
+type` を押す。
+
+  If you changed to a virtual machine with a different storage capacity (for
+  example, from 32 GB to 64 GB), your codespace will be unavailable for a short
+  time while the machine type is changed.
+
+同サイズの場合には次回起動時に使える。
+
+Setting your default editor for GitHub Codespaces
+----------------------------------------------------------------------
+
+アカウント :menuselection:`Settings --> Codespaces --> Editor preference` で：
+
+* Visual Studio Code (desktop application)
+* Visual Studio Code (web client application)
+* JetBrains Gateway - for opening codespaces in a JetBrains IDE
+* JupyterLab - the web interface for Project Jupyter
+
+ただし
+
+  When you create a new codespace from a template, it is always opened in the
+  Visual Studio Code web client.
+
+VS Code 側設定は先述のとおり。
+
+  The first time you open a codespace this way you must give permission to open
+  the application.
+
+Setting your default region for GitHub Codespaces
+----------------------------------------------------------------------
+
+日本から利用する場合には Southeast Asia でいいのか？
+
+Setting your timeout period for GitHub Codespaces
+----------------------------------------------------------------------
+
+  A codespace will stop running after a period of inactivity. By default this
+  period is 30 minutes, but you can specify a longer or shorter default timeout
+  period in your personal settings on GitHub.
+
+アカウント :menuselection:`Settings --> Codespaces --> Default retension period`
+で期間を設定して :guilabel:`Save` を押す。
+
+Configuring automatic deletion of your codespaces
+----------------------------------------------------------------------
+
+保管料という金銭に関わる概念があるので、保管期間を短く設定することが可能。
+
+  The retention period is reset every time you connect to a codespace, and the
+  retention countdown restarts when the codespace is stopped.
+
+Codespace によって保管期間が異なることがある。
+
+削除までの期間は :guilabel:`Codespaces` 画面 codespace 項目右上辺りで確認可能。
+
+:guilabel:`Your codespaces` 画面 codespace 項目の :guilabel:`Keep codespace` を
+押すと自動削除を免れる。そのぶん保存域や保管料に跳ね返る。
