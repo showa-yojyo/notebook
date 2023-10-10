@@ -736,3 +736,699 @@ Codespace によって保管期間が異なることがある。
 
 :guilabel:`Your codespaces` 画面 codespace 項目の :guilabel:`Keep codespace` を
 押すと自動削除を免れる。そのぶん保存域や保管料に跳ね返る。
+
+Setting up your project for GitHub Codespaces
+======================================================================
+
+Adding a dev container configuration to your repository
+----------------------------------------------------------------------
+
+  You can add a custom dev container configuration to your repository to set up
+  the GitHub Codespaces development environment for your codebase.
+
+Introduction to dev containers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  The configuration files for a dev container are contained in a
+  :file:`.devcontainer` directory in your repository.
+
+リポジトリーのルートにこの名前のディレクトリーを作成する。構成ファイルを入れる：
+
+  When you create a codespace from a template, you might start with one or more
+  dev container configuration files in your workspace.
+
+主な構成ファイルは :file:`devcontainer.json` だ。開発コンテナーというものを規定
+する。
+
+  The :file:`devcontainer.json` file is usually located in the
+  :file:`.devcontainer` directory of your repository.
+
+内容の方向性：
+
+  Things like linters are good to standardize on, and to require everyone to
+  have installed, so they're good to include in your :file:`devcontainer.json`
+  file. Things like user interface decorators or themes are personal choices
+  that should not be put in the :file:`devcontainer.json` file.
+
+そして：
+
+  You can add a :file:`Dockerfile` as part of your dev container configuration.
+
+:file:`Dockerfile` はコンテナーイメージを作成するために必要な指示を含むテキスト
+ファイルだ。
+
+  The :file:`Dockerfile` for a dev container is typically located in the
+  :file:`.devcontainer` folder, alongside the :file:`devcontainer.json` in which
+  it is referenced.
+
+:file:`Dockerfile` の例が続く。割愛。
+
+  For information about what's included in the default Linux image, see the
+  :file:`devcontainers/images` repository.
+
+おそらく、上級者はこの内容を軽くする方向に自作すると考えられる。
+
+  If you use Codespaces in Visual Studio Code, or in a web browser, you can
+  create a dev container configuration for your repository by choosing from a
+  list of predefined configurations.
+
+VS Code で作業する場合には Dev Containers 拡張があると良い。
+
+  You can add features to a :file:`devcontainer.json` file from VS Code or from
+  your repository on GitHub.com.
+
+  If you don't already have a :file:`devcontainer.json` file in your repository,
+  you can quickly add one from GitHub.com.
+
+リポジトリー :menuselection:`Code --> Codespaces` を押す。
+:guilabel:`Codespaces` の :menuselection:`... --> Configure dev container` を押
+す。これで何らかの内容を含む JSON ファイルが開く。
+
+構成ファイルを編集したらコンテナーを再構築するのが普通だ。
+
+Setting up a Node.js project for GitHub Codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Get started with a Node.js, JavaScript, or TypeScript project in GitHub
+  Codespaces by creating a custom dev container configuration.
+
+とにかくやってみよう。
+
+  After you complete this tutorial, you'll be able to add a dev container
+  configuration to your own repository, using either the VS Code web client or
+  the VS Code desktop application.
+
+実際やるとハマる箇所が一つ。リビルド後 ``npm start`` するとモジュールがないエ
+ラーが生じる。考えにくいが、エディターの拡張が干渉しているらしい。デバッガーを無
+効にするとサーバーが動く。
+
+Setting up a C# (.NET) project for GitHub Codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:guilabel:`PORT` タブの項目右クリックで :menuselection:`Open in Browser` を押す
+手順を覚える。
+
+Setting up a Java project for GitHub Codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+VS Code の Java 拡張が有効になっていることを確認するべし。いつも無効になっている
+から。
+
+Setting up a PHP project for GitHub Codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+これは容易い。
+
+Setting up a Python project for GitHub Codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python はよく知っているので問題ない。デバッガーについては他の演習と同様の注意を
+する。
+
+Configuring dev containers
+----------------------------------------------------------------------
+
+  You can customize the dev container configuration for your repository.
+
+上記の演習が終わったので構成の意味が体では理解できた今やるのがいい。
+
+Setting a minimum specification for codespace machines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Each machine type has different resources (processor cores, memory, storage)
+  and, by default, the machine type with the least resources is used.
+
+これは以前確認した。:file:`devcontainer.json` で指定可能だというのが本稿の主旨
+だ。
+
+  You can't change the machine type of an unpublished codespace.
+
+.. code:: json
+
+   "hostRequirements": {
+      "cpus": 8,
+      "memory": "8gb",
+      "storage": "32gb"
+   }
+
+これにより、GitHub Codespaces 画面上の Machine type 選択欄で低性能項目が選択不能
+になる。
+
+Adding features to a devcontainer.json file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  You can use features to quickly add tools, runtimes, or libraries to your
+  codespace image.
+
+:file:`devcontainer.json` の ``features`` に値を設定するのだが、先の演習では VS
+Code の ``add dev`` 方式でそれを行った。
+
+Automatically opening files in the codespaces for a repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+VS Code ブラウザー版限定。演習における README が実例。
+
+.. code:: json
+
+   "customizations": {
+     "codespaces": {
+       "openFiles": [
+         "README.md",
+         "scripts/tsconfig.json",
+         "docs/main/CODING_STANDARDS.md"
+       ]
+     }
+   }
+
+Specifying recommended secrets for a repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  You should use recommended secrets for secrets that the user who creates the
+  codespace, rather than the owner of the repository or organization, must
+  provide.
+
+.. code:: json
+
+   "secrets": {
+     "NAME_OF_SECRET_1": {
+       "description": "This is the description of the secret.",
+       "documentationUrl": "https://example.com/link/to/info"
+     },
+     "NAME_OF_SECRET_2": { }
+   }
+
+JSON ファイルに機密情報を記入すると言っている？
+
+  You can omit ``description`` and ``documentationUrl``, as shown by
+  ``NAME_OF_SECRET_2`` in the previous code example.
+
+Setting up your repository for GitHub Codespaces
+----------------------------------------------------------------------
+
+Facilitating quick creation and resumption of codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  You can make it easy for people to work on your repository in a codespace by
+  providing a link to the codespace creation page. One place you might want to
+  do this is in the :file:`README` file for your repository. For example, you
+  can add the link to an :guilabel:`Open in GitHub Codespaces` badge.
+
+百聞は一見に如かず。キャプチャーがわかりやすい。ああアレかと思える。
+
+  Alternatively, you can link to the :guilabel:`Resume codespace` page, which
+  provides a quick way for people to open a codespace they were working on
+  recently.
+
+こちらも普通か。
+
+.. csv-table::
+   :delim: |
+   :header: URL,Codespace
+   :widths: auto
+
+   ``https://codespaces.new/OWNER/REPO-NAME`` | REPO-NAME の既定ブランチ
+   ``https://codespaces.new/OWNER/REPO-NAME/tree/BRANCH-NAME`` | REPO-NAME のブランチ ``BRANCH-NAME``
+   ``https://codespaces.new/OWNER/REPO-NAME/pull/PR-SHA`` | Pull request ``PR-SHA`` のブランチ
+
+手順はこう：
+
+  You can use the :guilabel:`Share a deep link` option to configure more options
+  for the codespace and build a custom URL, then copy a Markdown or HTML snippet
+  for an :guilabel:`Open in GitHub Codespaces` badge.
+
+リポジトリー画面 :menuselection:`Code --> Codespaces` から :guilabel:`Share a
+deep link` を押す。その UI を見れば全部わかる。
+
+.. image:: https://github.com/codespaces/badge.svg
+   :alt: Open in GitHub Codespaces
+   :target: https://codespaces.new/showa-yojyo/showa-yojyo.github.io?quickstart=1
+
+:guilabel:`Quick start` の意味：
+
+  Add ``?quickstart=1`` to a ``codespaces.new`` URL, such as the URLs listed in
+  the previous section of this article. This produces a URL that displays a
+  :guilabel:`Resume codespace` page.
+
+Setting up a template repository for GitHub Codespaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  You can help people get started with a project by setting up a template
+  repository for use with GitHub Codespaces.
+
+テンプレートリポジトリーを自作することが可能。
+
+  If you don't have one, create a :file:`README` for your template repository to
+  describe the purpose of your template and how to get started with it.
+
+<https://github.com/codespaces> の :guilabel:`See all` の各テンプレートが参考に
+なる。
+
+あとは :file:`devcontainer.json` だ。
+
+Prebuilding your codespaces
+======================================================================
+
+  To speed up codespace creation, you can configure your project to prebuild
+  codespaces for specific branches in specific regions.
+
+About GitHub Codespaces prebuilds
+----------------------------------------------------------------------
+
+  GitHub Codespaces prebuilds help to speed up the creation of new codespaces
+  for large or complex repositories.
+
+事前ビルドが有益な可能性がある場合は：
+
+  If it currently takes more than 2 minutes to create a codespace for a
+  repository, you are likely to benefit from using prebuilds.
+
+事前ビルドの自動更新あり：
+
+  By default, whenever you push changes to your repository, GitHub Codespaces
+  uses GitHub Actions to automatically update your prebuilds.
+
+いいときには :guilabel:`Prebuild ready` ラベルがマシンタイプ一覧項目に現れる。
+
+時間効率に関する説明がここにある。
+
+  By default, each push to a branch that has a prebuild configuration results in
+  a GitHub-managed GitHub Actions workflow run to update the prebuild.
+
+プッシュごとに重い処理が入ると考えた方がいい。
+
+Configuring prebuilds
+----------------------------------------------------------------------
+
+  You can set up a prebuild configuration for the combination of a specific
+  branch of your repository with a specific dev container configuration file.
+
+ブランチごとなのだが、
+
+  Any branches created from a prebuild-enabled parent branch will typically also
+  get prebuilds for the same dev container configuration.
+
+..
+
+  Prebuilds are created using GitHub Actions.
+
+無償ではない：
+
+  The prebuild will consume storage space that will either incur a billable
+  charge or, for repositories owned by your personal account, will use some of
+  your monthly included storage.
+
+事前構築手順：アカウント :menuselection:`Settings --> Codespaces` ページを開く。
+:guilabel:`Set up prebuild` ボタンを押してフォームを埋めていく：
+
+* :guilabel:`Configuration` で対象ブランチと :guilabel:`Configuration File` を決
+  める。
+* :guilabel:`Prebuild triggers` を選択。二番目が良さそうだが？
+* :guilabel:`Reduce prebuild available to only specific regions` をオンにして
+  :guilabel:`Southeast Asia` のみチェックを入れる。
+* :guilabel:`Template history` をなるべく少なくいたい。
+
+最後に :guilabel:`Create` を押す。これを実行する GitHub Actions workflow が起動
+する。
+
+Allowing a prebuild to access other repositories
+----------------------------------------------------------------------
+
+  You can permit your prebuild to access other GitHub repositories so that it
+  can be built successfully.
+
+だんだん複雑になってきている。
+
+:file:`devcontainer.json` で permissions を定義する。
+
+個人アクセストークンのため、新規アカウントを作成することになる。
+
+  we strongly recommend creating a new account with access only to the target
+  repositories required for your scenario.
+
+..
+
+  Give the new account read access to the required repositories.
+
+Managing prebuilds
+----------------------------------------------------------------------
+
+  The prebuilds that you configure for a repository are created and updated
+  using a GitHub Actions workflow, managed by the GitHub Codespaces service.
+
+記述されている UI が確認できない。
+
+Testing dev container configuration changes on a prebuild-enabled branch
+----------------------------------------------------------------------
+
+ここも時期尚早。
+
+  After everything looks good, we also recommend creating a new codespace from
+  your test branch to ensure everything is working.
+
+Managing your codespaces
+======================================================================
+
+Managing secrets for your codespaces
+----------------------------------------------------------------------
+
+  You can add secrets to your personal account that you want to use in your
+  codespaces.
+
+この節で述べられる方法なら機密情報を設定するそれとして理解できる。
+
+  Once you have created a secret, it will be available when you create a new
+  codespace or restart the codespace.
+
+アカウント :menuselection:`Settings --> Codespaces` ページを開く。:guilabel:`New
+secrets` でフォームを埋めて :guilabel:`Add secrets` を押す。
+
+  A secret is exported as an environment variable into the user's terminal
+  session.
+
+Codespace で機密情報が利用可能になるタイミングに注意。
+
+Managing access to other repositories within your codespace
+----------------------------------------------------------------------
+
+  You should only authorize permissions for repositories you know and trust.
+
+Reviewing your security logs for GitHub Codespaces
+----------------------------------------------------------------------
+
+  When you perform an action related to GitHub Codespaces in repositories owned
+  by your personal account, you can review the actions in the security log.
+
+アカウント :menuselection:`Settings --> Security log` で :guilabel:`codespaces`
+イベントをフィルター。
+
+Managing GPG verification for GitHub Codespaces
+----------------------------------------------------------------------
+
+  You can allow GitHub to automatically use GPG to sign commits you make in your
+  codespaces, so other people can be confident that the changes come from a
+  trusted source.
+
+GPG 署名コミットの手法は以前習ったが、その鍵が codespace 環境で自動的に使われる
+ことになると考えられる。
+
+  After you enable GPG verification, GitHub will automatically sign commits you
+  make in GitHub Codespaces, and the commits will have a verified status on
+  GitHub.
+
+署名を適用するリポジトリーを絞れ：
+
+  If you have previously enabled GPG verification for all repositories, we
+  recommend changing your preferences to use a selected list of trusted
+  repositories.
+
+やり方：アカウント :menuselection:`Settings --> Codespaces` ページを開いて
+:guilabel:`GPG verification` で :guilabel:`Enable` を押す。
+
+  Once you enable GPG verification, it will automatically take effect in any new
+  codespaces you create from the relevant repositories. To have GPG verification
+  take effect in an existing active codespace, you will need to stop and restart
+  the codespace.
+
+よく手を入れるリポジトリーを入れておこうか。
+
+Managing GitHub Codespaces for your organization
+======================================================================
+
+割愛。
+
+Reference
+======================================================================
+
+Allowing your codespace to access a private registry
+----------------------------------------------------------------------
+
+これは高度な技術だ。
+
+Using GitHub Copilot in GitHub Codespaces
+----------------------------------------------------------------------
+
+無料利用者ゆえ GitHub Copilot は触らない。この項目は実現しないと思う。
+
+Using the GitHub Codespaces plugin for JetBrains
+----------------------------------------------------------------------
+
+JetBrains とは？
+
+Using the Visual Studio Code Command Palette in GitHub Codespaces
+----------------------------------------------------------------------
+
+おそらく VS Code の GitHub Codespaces 拡張を採用する必要がある。
+
+Security in GitHub Codespaces
+----------------------------------------------------------------------
+
+  Two codespaces are never co-located on the same VM.
+
+..
+
+  Each codespace has its own isolated virtual network.
+
+認証周りはどうか。
+
+  If you connect from VS Code, you are prompted to authenticate with GitHub.
+
+..
+
+  Every time a codespace is created or restarted, it's assigned a new GitHub
+  token with an automatic expiry period.
+
+ポートはどうか。
+
+  All forwarded ports are private by default, which means that you will need to
+  authenticate before you can access the port.
+
+機密情報はどうか。
+
+  Always use secrets when you want to use sensitive information (such as access
+  tokens) in a codespace. You can access your secrets as environment variables
+  in the codespace, including from the terminal.
+
+..
+
+  Secrets are not copied into the environment if you don't have write access to
+  the codespace's repository.
+
+これを試すことはできるか：
+
+  The :file:`devcontainer.json` file can contain powerful features, such as
+  installing third-party extensions and running arbitrary code supplied in a
+  ``postCreateCommand``.
+
+..
+
+  VS Code's :menuselection:`Settings Sync` can allow potentially malicious
+  content to transfer across devices.
+
+そんなバカな。
+
+Disaster recovery for GitHub Codespaces
+----------------------------------------------------------------------
+
+  This article describes guidance for a disaster recovery scenario, when a whole
+  region experiences an outage due to major natural disaster or widespread
+  service interruption.
+
+安全な地域に退避する。
+
+Troubleshooting GitHub Codespaces
+======================================================================
+
+GitHub Codespaces logs
+----------------------------------------------------------------------
+
+.. code:: console
+
+   bash$ gh codespace logs
+   bash$ gh codespace logs -c <CODESPACE-NAME>
+
+* :guilabel:`Codespaces: Export Logs`
+* :guilabel:`Codespaces: View Creation Log`
+
+ブラウザーの開発ツールの :guilabel:`Console` を見てもいい。
+
+  If you encounter issues using GitHub Codespaces in a Chromium-based browser,
+  you can check if you're experiencing another known issue with VS Code in the
+  ``microsoft/vscode`` repository.
+
+..
+
+  If the :guilabel:`Simple Browser` tab does not open automatically, you can
+  open the :guilabel:`Simple Browser` manually to view the application.
+
+これはおすすめ。
+
+Troubleshooting GitHub Codespaces clients
+----------------------------------------------------------------------
+
+  If you encounter issues using GitHub Codespaces in a Chromium-based browser,
+  you can check if you're experiencing another known issue with VS Code in the
+  `microsoft/vscode
+  <https://github.com/microsoft/vscode/issues?q=is%3Aissue+is%3Aopen>`__
+  repository.
+
+Getting the most out of your included usage
+----------------------------------------------------------------------
+
+一ヶ月経てば無料利用枠が回復する。
+
+  There are two types of Codespaces usage: compute and storage.
+
+それぞれに対して利用料金が求められる。ディスク消費量は Codespaces ページで一覧か
+ら確認可能。ただし：
+
+  Although prebuilds are not listed on the :guilabel:`Your codespaces` page,
+  prebuilds created for a repository consume storage even if you do not
+  currently have any codespaces for that repository.
+
+チュートリアルで作成していたら削除だ。
+
+  You can check which image was used to create a codespace's dev container. In
+  the Terminal of your codespace, run this command.
+
+  .. code:: console
+
+     bash$ devcontainer-info
+
+このコマンドは codespace で実行するのか？
+
+後半のコツをよく読んでおく。
+
+Exporting changes to a branch
+----------------------------------------------------------------------
+
+リポジトリー :menuselection:`Code --> Codespaces` で対象 codespace の右側
+:menuselection:`... --> Export changes to a branch` を押す。ブランチ名を確認して
+:guilabel:`Create branch` ボタンを押す。
+
+Troubleshooting creation and deletion of codespaces
+----------------------------------------------------------------------
+
+.. code:: console
+
+   bash$ sudo apt autoremove
+   bash$ sudo apt clean
+   bash$ sudo find / -printf '%s %p\n' | sort -nr | head -10
+   bash$ docker system prune
+   bash$ git clean -i
+
+Troubleshooting authentication to a repository
+----------------------------------------------------------------------
+
+これは難しい。
+
+Troubleshooting your connection to GitHub Codespaces
+----------------------------------------------------------------------
+
+これは易しい。
+
+Troubleshooting prebuilds
+----------------------------------------------------------------------
+
+事前構築の可否は仮想マシンの種類で決まる。
+
+GitHub Codespaces をブラウザーで編集することにしている場合、:guilabel:`Setting
+up your codespace` ページに事前構築が codesace があったと示される。
+
+デスクトップ版 VS Code の場合にはコンソール内に長めのメッセージが示される。
+
+Codespace 生成後、次の GitHub CLI コマンドで事前構築か否かを知ることが可能：
+
+.. code:: console
+
+   bash$ gh api /user/codespaces/$CODESPACE_NAME --jq .prebuild
+
+ここからが問題と解決法の記述。
+
+  By default, each time you push to a prebuild-enabled branch, the prebuild is
+  updated. If the push involves a change to the dev container configuration
+  then, while the update is in progress, the :guilabel:`Prebuild Ready` label is
+  removed from the list of machine types.
+
+ビルド中ならば当然そうなる。
+
+特定のブランチに :guilabel:`Prebuild Ready` ラベルが表示されていない場合、確認し
+たい事項：
+
+* 当該ブランチに事前構築構成があること。
+* 事前構築構成が例えば Southeast Asia を含むこと。
+* コンテナーの設定に対する変更が有効ブランチに push されたかどうかを確認する。
+* GitHub Actions の :guilabel:`Codespaces Prebuilds` の進行を確認する。
+
+残りもこのような感じであらゆる原因が列挙されて解説されている。
+
+Troubleshooting personalization options for GitHub Codespaces
+----------------------------------------------------------------------
+
+* GitHub アカウント :menuselection:`Settings --> Codespaces` ページの
+  :guilabel:`Automatically install dotfiles` を確認する。
+* Codespace の :file:`/workspaces/.codespaces/.persistedshare/dotfiles` を確認す
+  る。
+* :file:`/workspaces/.codespaces/.persistedshare/` にある次のファイルを確認する：
+
+  * :file:`EnvironmentLog.txt`
+  * :file:`creation.log`
+
+..
+
+  If the configuration from your dotfiles is correctly picked up, but part of
+  the configuration is incompatible with codespaces, use the
+  :envvar:`CODESPACES` environment variable to add conditional logic for
+  codespace-specific configuration settings.
+
+VS Code の :guilabel:`Settings Sync` をオフにする手順は、コマンドパレットを適当
+に検索すればわかる。
+
+Troubleshooting port forwarding for GitHub Codespaces
+----------------------------------------------------------------------
+
+  If a port is not automatically forwarded, you can forward it manually.
+
+..
+
+  Typically, you can make a forwarded port accessible publicly, or within the
+  organization that owns a repository.
+
+..
+
+  If you reference a forwarded port in your code, for example in a test, we
+  recommend that you use an environment variable instead of hardcoding the URL.
+
+Troubleshooting GPG verification for GitHub Codespaces
+----------------------------------------------------------------------
+
+GPG 署名全般に関しては Authentication の章で学んだ。
+
+  To have GPG verification take effect in an existing active codespace, you will
+  need to stop and restart the codespace.
+
+自動で署名するということは、Git 設定が次のようになっていることを意味する：
+
+  When you enable GPG verification, GitHub Codespaces signs all the commits you
+  make in codespaces by default. It does this by setting the ``commit.gpgsign``
+  Git configuration value to ``true``.
+
+GitHub 側の自動設定とドットファイルの設定内容が食い違っている場合に問題になるだ
+ろう。
+
+ここからは詳細な解決策が記されているので、実際問題になったら本文を当たることにす
+る。
+
+Working with support for GitHub Codespaces
+----------------------------------------------------------------------
+
+  Each codespace has a unique name that is a combination of your GitHub handle,
+  two or three automatically generated words, and some random characters.
+
+言われてみれば codespace の名前の初期値は変なものだ。
+
+  Every codespace also has an ID (identifier). This is not shown by default in
+  Visual Studio Code so you may need to update the settings for the GitHub
+  Codespaces extension before you can access the ID.
+
+VS Code のサイドバーに :guilabel:`CODESPACE PERFORMANCE` 区画を表示させる。この
+最初の項目が ID だ。
