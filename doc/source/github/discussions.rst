@@ -95,7 +95,7 @@ Finding your discussions
 ----------------------------------------------------------------------
 
 画面左上のハンバーガーメニューから :menuselection:`Disucussions` を押す。
-:guilabel:`Created`` か :guilabel:`Commented` を押すと、自分の作成したものや会話
+:guilabel:`Created` か :guilabel:`Commented` を押すと、自分の作成したものや会話
 したものがフィルターされて現れる。
 
 Granting higher permissions to top contributors
@@ -116,10 +116,6 @@ YouTube のチャット欄のようなものを想像する。
 
 Collaborating with your community using discussions
 ======================================================================
-
-   Gather and discuss your project with community members and other maintainers.
-
-話し合おう。
 
 About discussions
 ----------------------------------------------------------------------
@@ -173,7 +169,7 @@ About discussions
 Participating in a discussion
 ----------------------------------------------------------------------
 
-会話することが可能。Discussions はオープンだ。
+会話することが可能。Discussions は開かれている。
 
    You can block users and report disruptive content to maintain a safe and
    pleasant environment for yourself on GitHub.
@@ -204,7 +200,7 @@ Collaborating with maintainers using discussions
    For repository discussions, people with maintain or admin permissions to the
    repository define the categories for discussions in that repository.
 
-カテゴリーはリポジトリーや組織によって異なることになる。
+区分はリポジトリーや組織によって異なることになる。
 
    As your project grows, you can grant higher access permissions to active
    members of your community.
@@ -227,6 +223,8 @@ Managing discussions for your community
 Managing discussions
 ----------------------------------------------------------------------
 
+Discussions が有する機能一覧：
+
 * Changing the category for a discussion
 * Pinning a discussion
 * Editing a pinned discussion
@@ -236,21 +234,20 @@ Managing discussions
 * Closing a discussion
 * Converting issues based on labels
 
-..
+議論の区分から順に見ていく。
 
    You can also move a discussion to a different category. It's not possible to
    move a discussion to or from the polls category.
 
-対象 discussion 右側の :guilabel:`Catagory` 右の歯車ボタンを押す。
+対象議論右側の :guilabel:`Catagory` 右の歯車ボタンを押す。
 
    You can pin a discussion above the list of discussions for the repository or
    organization. You can also pin a discussion to a specific category. The
    globally pinned discussions will be shown in addition to the discussions
    pinned to a specific category.
 
-Discussion の右にある :guilabel:`Pin discussion` を押す。区分版として
-:guilabel:`Pin to XXXXXX` を押す。:guilabel:`Edit pinned discussion` を押すと見
-てくれをいじれる。
+議論の右にある :guilabel:`Pin discussion` を押す。区分版として :guilabel:`Pin to
+XXXXXX` を押す。:guilabel:`Edit pinned discussion` を押すと見てくれを調整する。
 
    You can unpin a discussion from the list of discussions for the repository or
    organization, or from the list of discussions in a specific category.
@@ -260,7 +257,7 @@ this category` を押す。
 
 :guilabel:`Transfer this discussion` で所属する Discussions を移籍可能。
 
-Discussion を削除するには :menuselection:`Delete discussion --> Delete this
+議論を削除するには :menuselection:`Delete discussion --> Delete this
 discussion`.
 
    You can close a discussion when the discussion has been resolved, is no
@@ -280,12 +277,18 @@ Managing categories for discussions
    Each category must have a unique name and emoji pairing, and can be
    accompanied by a detailed description stating its purpose.
 
-..
+この仕様は命名規則としてはひじょうに珍しい。
 
    Each repository or organization can have up to 25 categories.
 
+これだけあれば十分だ。
+
    To further organize your discussions, you can create sections and then nest
    your categories within a section.
+
+議論の構造を本のようにできる。
+
+議論区分に関する操作一覧は次のようにまとめられる：
 
 * Default categories
 * Creating a category
@@ -295,15 +298,16 @@ Managing categories for discussions
 * Deleting a category
 * Deleting a section
 
-Default categories は六個ある。
+区分は最初から本書のように六個ある。:guilabel:`Show and tell` の用途がいまいちわ
+からない。
 
-Category を作成するには :guilabel:`Discussions` 画面の左 :guilabel:`Categories`
-右の鉛筆を押す。新しい画面で :guilabel:`New category` を押す。フォームを埋めて
-:guilabel:`Create` を押す。この過程で Section を作成してもよい。:guilabel:`New
-section` を押す。
+区分を作成するには :guilabel:`Discussions` 画面の左 :guilabel:`Categories` 右の
+鉛筆を押す。新しい画面で :guilabel:`New category` を押す。フォームを埋めて
+:guilabel:`Create` を押す。この過程で節を作成してもよい。:guilabel:`New section`
+を押す。
 
-Category や section を編集するのも鉛筆を押し、フォームを書き換えて
-:guilabel:`Save changes` を押す。
+区分や節を編集するのも鉛筆を押し、フォームを書き換えて :guilabel:`Save changes`
+を押す。
 
    When you delete a category, GitHub will move all discussions in the deleted
    category to an existing category that you choose.
@@ -319,12 +323,15 @@ Category 右のゴミバケツを押す。移転先を決めたら :guilabel:`De
 Moderating discussions
 ----------------------------------------------------------------------
 
+議論の中には回答を受け付ける区分のものがあり、結論に至ったものについては：
+
    When you mark a question as an answer, GitHub will highlight the comment and
    replies to the comment to help visitors quickly find the answer.
 
 コメント下の :guilabel:`Mark as answer` を押す。
 
-右側 :guilabel:`Lock conversation` で discussion へのコメントを追加不能にする。
+右側 :guilabel:`Lock conversation` で議論へのコメントを追加不能にする。議論を削
+除してしまえばいいのではと思うが。
 
    When you convert an issue to a discussion, the discussion is automatically
    created using the content from the issue.
