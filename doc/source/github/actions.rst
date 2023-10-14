@@ -6,7 +6,7 @@ GitHub Actions documentation ノート
 ト。自動化を実現する機能を極めればある意味最強なので、熟読したい。しかし、長い。
 
 .. contents::
-   :depth: 2
+   :depth: 3
 
 * :guilabel:`Overview` → :ref:`Understanding GitHub Actions <actions-overview>`
 * :guilabel:`Quickstart` → :ref:`Quickstart for GitHub Actions <actions-quickstart>`
@@ -113,24 +113,1103 @@ DevOps も何たるかを知らない。
 
    A runner is a server that runs your workflows when they're triggered.
 
-Workflow ファイルの一行ごとの解説をきっちり読む。YAML
-データについての次の仕様を覚えておく：
+Workflow ファイル :file:`learn-github-actions.yml` の一行ごとの解説をきっちり読
+む。YAML データについての次の仕様を覚えておく：
 
-* ``name`` はリポジトリー Actions ページの左柱に現れる。
+* ``name`` はリポジトリー Actions ページの左柱に現れる。意外だが指定は任意。
 * ``run-name`` はその右側の一項目として現れる。
 * ``on [push]`` は workflow 発動イベントがリポジトリーへの push であることを指定
-  している。
+  している。``on`` は値としてリストをとる。
 * ``jobs`` でジョブをグループ化している。次のキーはジョブ名を指示する。
 * ``runs-on`` でランナーを指定する。値 ``ubuntu-latest`` はそのままの意味。
-* ``steps`` でステップをグループ化している。
+* ``steps`` でステップをグループ化している。値としてリストをとる。
 * ``uses`` はアクションを指定する。詳細はまだわからない。
 * ``run`` はランナー上のコマンドを記述する。コマンドラインそのものだ。
 
-..
+.. admonition:: 読者ノート
+
+   YAML の文法を別途学習する必要がある。特にリストと辞書の記法が重要だ。
 
    When your workflow is triggered, a workflow run is created that executes the
    workflow. After a workflow run has started, you can see a visualization graph
    of the run's progress and view each step's activity on GitHub.
 
-Workflow 実行の状況を確認するには、リポジトリー ``Actions`` から最新の実行を調べ
+Workflow 実行の状況を確認するには、リポジトリー :menuselection:`Actions` から最
+新の実行を調べる。
+
+Finding and customizing actions
+----------------------------------------------------------------------
+
+アクションが定義されている可能性のある場所は：
+
+* The same repository as your workflow file
+* Any public repository
+* A published Docker container image on Docker Hub
+
+三つ目は想像不能。
+
+   GitHub Marketplace is a central location for you to find actions created by
+   the GitHub community.
+
+リポジトリー画面から YAML ファイルを鉛筆ボタンで編集しようとすると、一般のファイ
+ルでは出ない UI が右柱に現れる。:guilabel:`Marketplace` タブで
+:guilabel:`Featured Actions` 一覧が出る。
+
+   You can add an action to your workflow by referencing the action in your
+   workflow file.
+
+..
+
+   To keep your workflow stable even when updates are made to an action, you can
+   reference the version of the action to use by specifying the Git or Docker
+   tag number in your workflow file.
+
+:guilabel:`Featured Actions` から一つ選んでクリックすると当該アクションの詳細な
+記述が表示される。:guilabel:`Installation` 見出しの少し下にあるクリップボードコ
+ピーアイコンを押す。そのテキストを見れば YAML ファイルにどう組み込むべきかがわか
+る。引数を適宜設定する。
+
+リポジトリー内に自作アクションを定義することも可能。YAML の ``uses`` キーに自作
+アクションのパスを指定すればいい。``{owner}/{repo}@{ref}`` のような形式でも動作
+するようだ。よく見かける ``actions/setup-node@v3`` のような指定はその実例の一つ
+だ。
+
+.. code:: text
+
+   |-- hello-world (repository)
+   |   |__ .github
+   |       └── workflows
+   |           └── my-first-workflow.yml
+   |       └── actions
+   |           |__ hello-world-action
+   |               └── action.yml
+
+``v3`` はタグ名だ。タグ名ではなく SHA を指定する場合には、GitHub
+で通じるような省略形はダメだ。
+
+   An action often accepts or requires inputs and generates outputs that you can
+   use.
+
+   To see the inputs and outputs of an action, check the :file:`action.yml` or
+   :file:`action.yaml` in the root directory of the repository.
+
+この YAML はリポジトリーのルートにあると言っている。
+
+.. code:: yaml
+
+   inputs:
+     file-path: # id of input
+       description: "Path to test script"
+       required: true
+       default: "test-file.js"
+   outputs:
+     results-file: # id of output
+       description: "Path to results file"
+
+入力はわかりやすいが出力がどんなものか想像できない。
+
+   The ``outputs`` keyword defines an output called ``results-file``, which
+   tells you where to locate the results.
+
+Essential features of GitHub Actions
+----------------------------------------------------------------------
+
+   If you need to use custom environment variables, you can set these in your
+   YAML workflow file.
+
+.. code:: yaml
+
+   jobs:
+     example-job:
+         steps:
+           - name: Connect to PostgreSQL
+             run: node client.js
+             env:
+               POSTGRES_HOST: postgres
+               POSTGRES_PORT: 5432
+
+上の例では、環境変数 ``POSTGRES_{HOST,PORT}`` を定義する。コマンド ``node
+client.js`` からそれらの値が参照可能になる。
+
+コマンドやスクリプトを実行するのはランナーだ。スクリプトがあるのはリポジトリーの
+はずなので、
+
+   To use a workflow to run a script stored in your repository you must first
+   check out the repository to the runner.
+
+作業ディレクトリーの指定も可能。``working-directory:`` で指示する。スクリプトは
+実行可能でなければならない。実行可能にする手段はなんでもいい。例では ``run:`` で
+``chmod +x`` している。
+
+   If your job generates files that you want to share with another job in the
+   same workflow, or if you want to save the files for later reference, you can
+   store them in GitHub as artifacts.
+
+ジョブ同士が何かを共有する手段はこのファイルしかない？
+
+.. code:: yaml
+
+   uses: actions/upload-artifact@v3
+   with:
+     name: output-log-file
+     path: output.log
+
+を先にやってから、
+
+.. code:: yaml
+
+   uses: actions/download-artifact@v3
+   with:
+     name: output-log-file
+
+とする。
+
+   To download an artifact from the same workflow run, your download job should
+   specify ``needs: upload-job-name`` so it doesn't start until the upload job
+   finishes.
+
+この例を見たい。
+
+Expressions
+----------------------------------------------------------------------
+
+   You can use expressions to programmatically set environment variables in
+   workflow files and access contexts. An expression can be any combination of
+   literal values, references to a context, or functions. You can combine
+   literals, context references, and functions using operators.
+
+環境変数を式で設定する：
+
+.. code:: yaml
+
+   env:
+     MY_ENV_VAR: ${{ <expression> }}
+
+..
+
+   As part of an expression, you can use boolean, null, number, or string data
+   types.
+
+リテラル式は JavaScript に似ている：
+
+.. code:: yaml
+
+   env:
+     myNull: ${{ null }}
+     myBoolean: ${{ false }}
+     myIntegerNumber: ${{ 711 }}
+     myFloatNumber: ${{ -9.2 }}
+     myHexNumber: ${{ 0xff }}
+     myExponentialNumber: ${{ -2.99e-2 }}
+     myString: Mona the Octocat
+     myStringInBraces: ${{ 'It''s open source!' }}
+
+組み込み関数が存在する。割愛。``format`` くらいは習得しておくか。ステータス関数
+も重要か。
+
+Contexts
+----------------------------------------------------------------------
+
+   Contexts are a way to access information about workflow runs, variables,
+   runner environments, jobs, and steps. Each context is an object that contains
+   properties, which can be strings or other objects.
+
+..
+
+   GitHub Actions includes a collection of variables called contexts and a
+   similar collection of variables called default variables.
+
+この二つは利用可能なタイミングが異なる：
+
+   You can use most contexts at any point in your workflow, including when
+   default variables would be unavailable.
+
+既定環境変数はジョブを実行するランナー上にしか存在しない。
+
+   You can print the contents of contexts to the log for debugging. The
+   ``toJSON`` function is required to pretty-print JSON objects to the log.
+
+ただし、どこかに機密情報が含まれている可能性を考慮する。
+
+   The ``github`` context contains information about the workflow run and the
+   event that triggered the run. You can also read most of the ``github``
+   context data in environment variables.
+
+特にこれには ``github.token`` が含まれる。
+
+   The ``env`` context contains variables that have been set in a workflow, job,
+   or step. It does not contain variables inherited by the runner process.
+
+..
+
+   The ``vars`` context contains custom configuration variables set at the
+   organization, repository, and environment levels.
+
+   The ``job`` context contains information about the currently running job.
+
+``job.status`` はよく見ることを期待できる。
+
+   The ``jobs`` context is only available in reusable workflows, and can only be
+   used to set outputs for a reusable workflow.
+
+再利用可能とは？
+
+   The ``steps`` context contains information about the steps in the current job
+   that have an ``id`` specified and have already run.
+
+..
+
+   The ``runner`` context contains information about the runner that is
+   executing the current job.
+
+これは想像しやすい。``runner.os`` などの値がある。
+
+   The ``secrets`` context contains the names and values of secrets that are
+   available to a workflow run. The ``secrets`` context is not available for
+   composite actions due to security reasons.
+
+``secrets.GITHUB_TOKEN`` は workflow 実行ごとに作成される。
+
+   The ``needs`` context contains outputs from all jobs that are defined as a
+   direct dependency of the current job.
+
+..
+
+   The ``inputs`` context contains input properties passed to an action, to a
+   reusable workflow, or to a manually triggered workflow.
+
+Variables
+----------------------------------------------------------------------
+
+   GitHub sets default variables for each GitHub Actions workflow run. You can
+   also set custom variables for use in a single workflow or multiple workflows.
+
+..
+
+   You can store any configuration data such as compiler flags, usernames, or
+   server names as variables.
+
+定義方法は二つある。
+
+   To set a custom environment variable for a single workflow, you can define it
+   using the ``env`` key in the workflow file.
+
+これは今まで見た方法だ。
+
+   You can use either runner environment variables or contexts in ``run`` steps,
+   but in the parts of a workflow that are not sent to the runner you must use
+   contexts to access variable values.
+
+変数展開の書式はランナー、``runs-on`` 値による。Ubuntu なら Bash だから ``$VAR``
+のように書く。
+
+   When you set an environment variable, you cannot use any of the default
+   environment variable names.
+
+上書きは意味がない。
+
+   Note: You can list the entire set of environment variables that are available
+   to a workflow step by using ``run: env`` in a step and then examining the
+   output for the step.
+
+これは試してもよい。
+
+第二の方法は：
+
+   You can create configuration variables for use across multiple workflows, and
+   can define them at either the organization, repository, or environment level.
+
+..
+
+   When you define configuration variables, they are automatically available in
+   the ``vars`` context.
+
+リポジトリー :menuselection:`Settings --> Secrets and variables --> Actions` の
+ページを開いて、:guilabel:`Variables` タブを押す。見れば分かる。
+
+   You can access environment variable values using the ``env`` context and
+   configuration variable values using the ``vars`` context.
+
+``${{ CONTEXT.PROPERTY }}`` 記法はランナーの違いを吸収するためにある。
+
+   You will commonly use either the ``env`` or ``github`` context to access
+   variable values in parts of the workflow that are processed before jobs are
+   sent to runners.
+
+..
+
+   Because default environment variables are set by GitHub and not defined in a
+   workflow, they are not accessible through the ``env`` context.
+
+対応する情報が ``github`` に存在することが多い。
+
+   We strongly recommend that actions use variables to access the filesystem
+   rather than using hardcoded file paths.
+
+心得る。
+
+   You can write a single workflow file that can be used for different operating
+   systems by using the ``RUNNER_OS`` default environment variable and the
+   corresponding context property ``${{ runner.os }}``.
+
+ランナーの OS 種別ごとに処理を分けるのは悪手ではないか。
+
+Usage limits, billing, and administration
+----------------------------------------------------------------------
+
+   There are usage limits for GitHub Actions workflows. Usage charges apply to
+   repositories that go beyond the amount of free minutes and storage for a
+   repository.
+
+無駄な workflow を無効化しておく。
+
+   GitHub Actions usage is free for standard GitHub-hosted runners in public
+   repositories, and for self-hosted runners.
+
+それは良かった。
+
+   In addition to the usage limits, you must ensure that you use GitHub Actions
+   within the GitHub Terms of Service.
+
+利用規約が実はある。
+
+   You can configure the artifact and log retention period for your repository,
+   organization, or enterprise account.
+
+成果物とは？
+
+   You can enable and disable individual workflows in your repository on GitHub.
+
+重要な操作なので、先に習得しておく。
+
+Examples
+======================================================================
+
+Using scripts to test your code on a runner
+----------------------------------------------------------------------
+
+   When this workflow is triggered, it automatically runs a script that checks
+   whether the GitHub Docs site has any broken links.
+
+実戦投入されている workflow を解説されるのはありがたい。
+
+* ``on`` キーは複数のイベントを指定可能。
+
+   * イベント ``workflow_dispatch`` は手動で workflow を発動させるのに必要。
+
+* ``push`` キーにはブランチを列挙することが多いようだ。
+* ``permissions`` は後で述べる。
+
+この workflow では ``check-links`` キーでジョブを定義する。
+
+* ``steps`` でジョブを列挙する。
+* ``uses`` にはアクションを記述する。
+* ``run`` にはコマンドラインを記述する。
+
+アクション ``trilom/file-changes-action`` は本文参照。特定のファイルを出力するこ
+とに注意。これを動作させるために先述の ``permission`` 定義が必要だ。
+
+スクリプト :file:`script/rendered-content-link-checker.mjs` を実行するステップを
+よく見て覚える。
+
+Using the GitHub CLI on a runner
+----------------------------------------------------------------------
+
+イベントとして ``on`` に ``schedule`` と書ける：
+
+   The ``schedule`` event lets you use cron syntax to define a regular interval
+   for automatically triggering the workflow.
+
+ジョブ序盤、``if`` でこれが動作するリポジトリーを制限している：
+
+   Only run the ``check_all_english_links job`` if the repository is named
+   ``docs-internal`` and is within the ``github`` organization.
+
+``steps`` の直前に ``env`` を置いて環境変数を定義しておく。
+
+   Uses the ``peter-evans/create-issue-from-file`` action to create a new GitHub
+   issue.
+
+このステップは難しい。最後の ``${{ failure() }}`` の長い処理もどうなっているの
+か。``run`` の値がシェルスクリプトになっているだろうが。
+
+Using concurrency, expressions, and a test matrix
+----------------------------------------------------------------------
+
+``runs-on`` の記述が複雑だ：
+
+   This configures the job to run on a GitHub-hosted runner or a self-hosted
+   runner, depending on the repository running the workflow.
+
+この例では ``strategy`` が急所だ。
+
+   Setting ``fail-fast`` to ``false`` prevents GitHub from cancelling all
+   in-progress jobs if any matrix job fails.
+
+``matrix`` で ``test-group`` という配列を定義する。この配列の要素それぞれはテス
+トを表す？最後のステップで ``npm test -- tests/${{ matrix.test-group }}/`` とい
+うコマンドを実行する。配列の要素それぞれに対して ``run`` されるのか？
+
+Using workflows
+======================================================================
+
+About workflows
+----------------------------------------------------------------------
+
+Quickstart のおさらい。
+
+Triggering a workflow
+----------------------------------------------------------------------
+
+   When you use the repository's ``GITHUB_TOKEN`` to perform tasks, events
+   triggered by the ``GITHUB_TOKEN``, with the exception of
+   ``workflow_dispatch`` and ``repository_dispatch``, will not create a new
+   workflow run. This prevents you from accidentally creating recursive workflow
+   runs.
+
+したがって、ある workflow 発動中に別の workflow が発動することはない。最初の例の
+二つをよく比較しろ。
+
+   If you specify multiple events, only one of those events needs to occur to
+   trigger your workflow. If multiple triggering events for your workflow occur
+   at the same time, multiple workflow runs will be triggered.
+
+これは迷惑な気がする。
+
+   You can use activity types and filters to further control when your workflow
+   will run.
+
+イベント名のケツにコロンが付く書き方だ。
+
+   Some events have activity types that give you more control over when your
+   workflow should run. Use ``on.<event_name>.types`` to define the type of
+   event activity that will trigger a workflow run.
+
+例えば：
+
+.. code:: yaml
+
+   on:
+     issues:
+       types:
+         - opened
+         - labeled
+
+先ほどの規則によると、二つのラベルがある issue が開くとこの workflow が三回走
 る。
+
+   Some events have filters that give you more control over when your workflow
+   should run.
+
+..
+
+   When using the ``pull_request`` and ``pull_request_target`` events, you can
+   configure a workflow to run only for pull requests that target specific
+   branches.
+
+例：
+
+.. code:: yaml
+
+   on:
+     pull_request:
+       # Sequence of patterns matched against refs/heads
+       branches:
+         - main
+         - 'mona/octocat'
+         - 'releases/**'
+
+反対のものもある：
+
+   Use the ``branches-ignore`` filter when you only want to exclude branch name
+   patterns. You cannot use both the ``branches`` and ``branches-ignore``
+   filters for the same event in a workflow.
+
+..
+
+   When using the ``push`` event, you can configure a workflow to run on
+   specific branches or tags.
+
+例：
+
+.. code:: yaml
+
+   on:
+     push:
+       # Sequence of patterns matched against refs/heads
+       branches:
+         - main
+         - 'mona/octocat'
+         - 'releases/**'
+       # Sequence of patterns matched against refs/tags
+       tags:
+         - v2
+         - v1.*
+
+こちらも反対のものがある。割愛。
+
+   When using the ``push`` and ``pull_request`` events, you can configure a
+   workflow to run based on what file paths are changed. Path filters are not
+   evaluated for pushes of tags.
+
+次の例は JavaScript ファイルを push すると発動する：
+
+.. code:: yaml
+
+   on:
+     push:
+       paths:
+         - '**.js'
+
+こちらも反対のものがある。割愛。
+
+   When using the ``workflow_run`` event, you can specify what branches the
+   triggering workflow must run on in order to trigger your workflow.
+
+次の workflow は ``Build`` という workflow が ``canary`` 以外のブランチで実行さ
+れた場合に限り発動する：
+
+.. code:: yaml
+
+   on:
+     workflow_run:
+       workflows: ["Build"]
+       types: [requested]
+       branches-ignore:
+         - "canary"
+
+..
+
+   When using the ``workflow_dispatch`` event, you can optionally specify inputs
+   that are passed to the workflow. The triggered workflow receives the inputs
+   in the ``inputs`` context.
+
+例が長いので割愛。入力値を定義するのに用いる。
+
+   Information about the event that triggered a workflow run is available in the
+   ``github.event`` context.
+
+..
+
+   You can also print the entire ``github.event`` context to see what properties
+   are available for the event that triggered your workflow:
+
+``${{ toJSON(github.event) }}`` として標準出力などに書き出す。
+
+   You can use conditionals to further control whether jobs or steps in your
+   workflow will run.
+
+例えば
+
+.. code:: yaml
+
+   if: github.event.label.name == 'bug'
+
+..
+
+   If you want to manually trigger a specific job in a workflow, you can use an
+   environment that requires approval from a specific team or user.
+
+誰かの許可が要る。``environment: production`` の説明がしっくりこない。
+
+Manually running a workflow
+----------------------------------------------------------------------
+
+   When a workflow is configured to run on the ``workflow_dispatch`` event, you
+   can run the workflow using the Actions tab on GitHub, GitHub CLI, or the REST
+   API.
+
+必要条件の一つを述べていなかった：
+
+   To trigger the ``workflow_dispatch`` event, your workflow must be in the
+   default branch.
+
+対象の workflow 画面にある :guilabel:`Run workflow` を押す。そしてブランチを指定
+する。
+
+GitHub CLI を使うことでも手動発動可能：
+
+.. code:: console
+
+   bash$ gh workflow run WORKFLOW
+
+ここで ``WORKFLOW`` は対象 workflow の名前または ID またはファイル名とする。
+
+コマンドライン引数がいろいろあるので、必要になったら調べる。コマンド ``gh run
+watch`` で途中経過を調べられるかもしれない。
+
+Disabling and enabling a workflow
+----------------------------------------------------------------------
+
+この操作は重要なので GitHub ユーザーは自力で見つけたと思う。
+
+   Disabling a workflow allows you to stop a workflow from being triggered
+   without having to delete the file from the repo. You can easily re-enable the
+   workflow again on GitHub.
+
+リポジトリー :menuselection:`Actions --> (target workflow) --> Disable workflow`
+を押す。すでに無効になっている場合、反対に :guilabel:`Enable workflow` が現れ
+る。
+
+GitHub CLI を使うことでも設定可能：
+
+.. code:: console
+
+   bash$ gh workflow disable WORKFLOW
+   bash$ gh workflow enable WORKFLOW
+
+Events that trigger workflows
+----------------------------------------------------------------------
+
+   You can configure your workflows to run when specific activity on GitHub
+   happens, at a scheduled time, or when an event outside of GitHub occurs.
+
+この節は ``on`` に指定できる値のレファレンスだ。使いたいイベントを控えておくか？
+
+Workflow syntax for GitHub Actions
+----------------------------------------------------------------------
+
+   Workflow files use YAML syntax, and must have either a ``.yml`` or ``.yaml``
+   file extension.
+
+この節は YAML のキー仕様とフィルター早見表からなる。必要に応じて当たる。
+
+Workflow commands for GitHub Actions
+----------------------------------------------------------------------
+
+   Actions can communicate with the runner machine to set environment variables,
+   output values used by other actions, add debug messages to the output logs,
+   and other tasks.
+
+..
+
+   Most workflow commands use the echo command in a specific format, while
+   others are invoked by writing to a file.
+
+   Use the ``::`` syntax to run the workflow commands within your YAML file;
+   these commands are then sent to the runner over stdout.
+
+よその YAML を見て ``::`` が出てきたらこの節を当たればいい。
+
+   The step that creates or updates the environment variable does not have
+   access to the new value, but all subsequent steps in a job will have access.
+
+TODO: まだ読んでいないところが少し残った。
+
+Reusing workflows
+----------------------------------------------------------------------
+
+   Rather than copying and pasting from one workflow to another, you can make
+   workflows reusable.
+
+モジュールみたいなものか？
+
+   If you reuse a workflow from a different repository, any actions in the
+   called workflow run as if they were part of the caller workflow.
+
+そうでないとおかしい。
+
+   Starter workflows allow everyone in your organization who has permission to
+   create workflows to do so more quickly and easily.
+
+とにかく Starter workflow という何か便利なものがあるようだ。
+
+   For a workflow to be reusable, the values for on must include
+   ``workflow_call``:
+
+   .. code:: yaml
+
+      on:
+        workflow_call:
+
+データの受け渡し。``secrets: inherit`` に注目。
+
+もう気付いているが：
+
+   You call a reusable workflow by using the ``uses`` keyword.
+
+引数の指定はキーが二種類ある：
+
+   To pass named inputs to a called workflow, use the ``with`` keyword in a job.
+   Use the ``secrets`` keyword to pass named secrets.
+
+さっき見た ``matrix`` の説明は次がわかりやすい：
+
+   A matrix strategy lets you use variables in a single job definition to
+   automatically create multiple job runs that are based on the combinations of
+   the variables.
+
+出力をやる。
+
+   A reusable workflow may generate data that you want to use in the caller
+   workflow. To use these outputs, you must specify them as the outputs of the
+   reusable workflow.
+
+どうも ``on.workflow_call.outputs`` 部分でキー名で出力変数名を指定するらしい。わ
+かりにくいからこの例を実際に動かすほうがいいだろう。
+
+Required workflows
+----------------------------------------------------------------------
+
+   A required workflow is triggered by ``pull_request`` and
+   ``pull_request_target`` default events and appears as a required status
+   check, which blocks the ability to merge the pull request until the required
+   workflow succeeds.
+
+この種の workflow は色々と条件があり、際立っているのは：
+
+   When a workflow is run as a required workflow it will ignore all the filters
+   in the ``on:`` section, for example: ``branches``, ``branches-ignore``,
+   ``paths``, ``types`` etc.
+
+..
+
+   After a required workflow has run at least once in a repository, you can view
+   its workflow runs in that repository's "Actions" tab.
+
+リポジトリー :menuselection:`Actions` ページ左柱に :guilabel:`Required
+workflows` 一覧が示される。
+
+Caching dependencies to speed up workflows
+----------------------------------------------------------------------
+
+   For example, package and dependency management tools such as Maven, Gradle,
+   npm, and Yarn keep a local cache of downloaded dependencies.
+
+こういう頻繁に利用するものをとっておける。
+
+   To cache dependencies for a job, you can use GitHub's ``cache`` action.
+
+すぐ次のパッケージとアクションの対応表で想像付く。
+
+   Multiple workflow runs in a repository can share caches. A cache created for
+   a branch in a workflow run can be accessed and restored from another workflow
+   run for the same repository and branch.
+
+アクション ``cache`` の基本動作は：
+
+   The ``cache`` action will attempt to restore a cache based on the ``key`` you
+   provide. When the action finds a cache that exactly matches the key, the
+   action restores the cached files to the ``path`` you configure.
+
+..
+
+   On a cache miss, the action automatically creates a new cache if the job
+   completes successfully.
+
+この後しばらくして YAML 例が示される。設定が難しいので諦める。
+
+   You can use the web interface to view a list of cache entries for a
+   repository.
+
+リポジトリー :menuselection:`Actions --> Caches` ページで閲覧可能。
+
+そこではキャッシュを削除することが可能。:guilabel:`Delete` ボタンを押す。
+
+Storing workflow data as artifacts
+----------------------------------------------------------------------
+
+   Artifacts allow you to share data between jobs in a workflow and store data
+   once that workflow has completed.
+
+定義：
+
+   An artifact is a file or collection of files produced during a workflow run.
+
+..
+
+   Storing artifacts uses storage space on GitHub.
+
+   GitHub provides two actions that you can use to upload and download build
+   artifacts.
+
+..
+
+   You can use the ``upload-artifact`` action to upload artifacts.
+
+YAML 例から抜粋：
+
+.. code:: yaml
+
+   - name: Archive production artifacts
+     uses: actions/upload-artifact@v3
+     with:
+       name: dist-without-markdown
+       path: |
+         dist
+         !dist/**/*.md
+   - name: Archive code coverage results
+     uses: actions/upload-artifact@v3
+     with:
+       name: code-coverage-report
+       path: output/test/code-coverage.html
+
+..
+
+   During a workflow run, you can use the ``download-artifact`` action to
+   download artifacts that were previously uploaded in the same workflow run.
+
+   Specify an artifact's name to download an individual artifact. If you
+   uploaded an artifact without specifying a name, the default name is
+   ``artifact``.
+
+   .. code:: yaml
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+
+``name`` を指定しない場合、実行中 workflow の成果物すべてをダウンロードする。
+
+   You can use the ``upload-artifact`` and ``download-artifact`` actions to
+   share data between jobs in a workflow.
+
+..
+
+   Jobs that are dependent on a previous job's artifacts must wait for the
+   dependent job to complete successfully.
+
+このために ``needs`` を指定する。最後の例はわかりやすい。
+
+Creating starter workflows for your organization
+----------------------------------------------------------------------
+
+   When you create a new workflow, you can choose a starter workflow and some or
+   all of the work of writing the workflow will be done for you.
+
+..
+
+   Starter workflows can be created by users with write access to the
+   organization's :file:`.github` repository.
+
+組織のリポジトリーの :file:`.github` というのが急所だ。
+
+YAML ファイルの他にメタデータというものを用意する必要がある。
+
+組織リポジトリーの :file:`.github/workflow-templates` に新しい workflow を入れ
+る。
+
+   If you need to refer to a repository's default branch, you can use the
+   ``$default-branch`` placeholder.
+
+メタデータの置き方：
+
+   Create a metadata file inside the :file:`workflow-templates` directory. The
+   metadata file must have the same name as the workflow file, but instead of
+   the ``.yml`` extension, it must be appended with ``.properties.json``.
+
+Using starter workflows
+----------------------------------------------------------------------
+
+   For example, if you use Node.js, GitHub will suggest a starter workflow file
+   that installs your Node.js packages and runs your tests.
+
+リポジトリーの内容に応じて workflow を提案してくるようだ。
+
+リポジトリー :file:`Actions --> New workflow` で色々と提案されるから、いいものを
+選択して :guilabel:`Configure` を押す。そこからは見ればわかる。
+
+Sharing workflows, secrets, and runners with your organization
+----------------------------------------------------------------------
+
+組織を利用する場合には読む。
+
+   An organization allows you to centrally store and manage secrets, artifacts,
+   and self-hosted runners.
+
+特に言いたいのは次か：
+
+   When creating a secret or variable in an organization, you can use a policy
+   to limit which repositories can access it.
+
+組織 :menuselection:`Settings --> Secrets and variables --> Actions` ページで項
+目を追加する。
+
+Using GitHub CLI in workflows
+----------------------------------------------------------------------
+
+   For each step that uses GitHub CLI, you must set an environment variable
+   called ``GITHUB_TOKEN`` to a token with the required scopes.
+
+:command:`gh` を使う ``run`` のあるスコープから次が有効ならばいい：
+
+.. code:: yaml
+
+   env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+Using jobs
+======================================================================
+
+Using jobs in a workflow
+----------------------------------------------------------------------
+
+   A workflow run is made up of one or more ``jobs``, which run in parallel by
+   default. To run jobs sequentially, you can define dependencies on other jobs
+   using the ``jobs.<job_id>.needs`` keyword.
+
+次の例では ``job1``, ``job2``, ``job3`` の順に走ることになる。ただし、必要とされ
+ている job が成功終了した場合に限る：
+
+.. code:: yaml
+
+   jobs:
+     job1:
+     job2:
+       needs: job1
+     job3:
+       needs: [job1, job2]
+
+成否に関わらず後続を走らせる場合には ``if: {{ always() }}`` を指定する。
+
+Choosing the runner for a job
+----------------------------------------------------------------------
+
+   Use ``jobs.<job_id>.runs-on`` to define the type of machine to run the job
+   on.
+
+私個人では Linux だけ対応すれば十分だ。これでいい：
+
+.. code:: yaml
+
+   jobs:
+     job_id:
+       runs-on: ubuntu-latest
+
+Using conditions to control job execution
+----------------------------------------------------------------------
+
+   You can use the ``jobs.<job_id>.if`` conditional to prevent a job from running
+   unless a condition is met.
+
+.. code:: yaml
+
+   jobs:
+     job_id:
+       if: github.repository == 'USER/REPO'
+       runs-on: ubuntu-latest
+
+なお、値となる式をダブル中括弧で囲むのが安全だ。
+
+Using a matrix for your jobs
+----------------------------------------------------------------------
+
+利用するつもりがないので割愛。
+
+Using concurrency
+----------------------------------------------------------------------
+
+.. todo::
+
+   この機能は重要だと思えるが、少し読んだだけでは理解不能。
+
+Using environments for jobs
+----------------------------------------------------------------------
+
+   Use ``jobs.<job_id>.environment`` to define the environment that the job
+   references.
+
+下のように構成すると、ステップ出力を URL として用いることになる：
+
+.. code:: yaml
+
+   environment:
+     name: production_environment
+     url: ${{ steps.step_id.outputs.url_output }}
+
+Running jobs in a container
+----------------------------------------------------------------------
+
+   Use ``jobs.<job_id>.container`` to create a container to run any steps in a
+   job that don't already specify a container. If you have steps that use both
+   script and container actions, the container actions will run as sibling
+   containers on the same network with the same volume mounts.
+
+.. todo::
+
+   コンテナーを理解していないので後回し。
+
+Setting default values for jobs
+----------------------------------------------------------------------
+
+   Use ``defaults`` to create a map of default settings that will apply to all
+   jobs in the workflow.
+
+シェルと作業ディレクトリーは特別扱いらしい：
+
+   You can use ``defaults.run`` to provide default ``shell`` and
+   ``working-directory`` options for all run steps in a workflow.
+
+次のコードですべてのジョブで ``shell`` と ``working-directory`` の既定値を決め
+る：
+
+.. code:: yaml
+
+   defaults:
+     run:
+       shell: bash
+       working-directory: ./scripts
+
+Assigning permissions to jobs
+----------------------------------------------------------------------
+
+   You can use ``permissions`` to modify the default permissions granted to the
+   :envvar:`GITHUB_TOKEN`, adding or removing access as required, so that you
+   only allow the minimum required access.
+
+トークンが表す権限を修正したものを使うと言っている？
+
+   You can use ``permissions`` either as a top-level key, to apply to all jobs
+   in the workflow, or within specific jobs.
+
+そして、次の有効域ごとに ``read``, ``write``, ``none`` のいずれかを割り当てる：
+
+* ``actions``
+* ``checks``
+* ``contents``
+* ``deployments``
+* ``discussions``
+* ``id-token``
+* ``issues``
+* ``packages``
+* ``pages``
+* ``pull-requests``
+* ``repository-projects``
+* ``security-events``
+* ``statuses``
+
+例えば ``pages: write`` は GitHub Pages の構築を要求する動作だ。
+
+.. code:: yaml
+
+   permissions:
+     pages: write
+
+次のような略記法？も使える：
+
+* ``permissions: read-all``
+* ``permissions: write-all``
+* ``permissions: {}``
+
+..
+
+  You can specify ``permissions`` at the top level of a workflow, so that the
+  setting applies to all jobs in the workflow.
+
+つまり YAML ファイルでインデントがない位置に ``permissions:`` を指定可能。
+
+個別ジョブを有効域とする ``permissions`` を指定することも可能。
+
+Defining outputs for jobs
+----------------------------------------------------------------------
+
+   You can use ``jobs.<job_id>.outputs`` to create a map of outputs for a job.
+   Job outputs are available to all downstream jobs that depend on this job.
+
+出力は文字列とする。最大 1MB の長さ。一つの workflow 全体で 50MB まで。
+
+ジョブの「川下」を指定するのに先述の ``jobs.<job_id>.needs`` を指定することに注
+意。
+
+本文の例 YAML を丸ごと理解すること。
