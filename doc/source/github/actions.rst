@@ -1213,3 +1213,290 @@ Defining outputs for jobs
 意。
 
 本文の例 YAML を丸ごと理解すること。
+
+Manage workflow runs
+======================================================================
+
+Re-running workflows and jobs
+----------------------------------------------------------------------
+
+   You can re-run a workflow run, all failed jobs in a workflow run, or specific
+   jobs in a workflow run up to 30 days after its initial run.
+
+* どちらの再実行時でも、元実行時と同じ ``GITHUB_SHA`` と ``GITHUB_REF`` が用いら
+  れる。
+* 再実行時の権限として元実行時の権限が採用される。
+* ジョブ再実行はログの保持期間を経過すると不可。
+* ジョブ再実行時にはデバッグログ出力を有効にすることが可能。
+
+全ジョブ再実行方法は、まず :guilabel:`Actions` ページで左柱から所望の workflow
+を探して押す。実行名を押して実行概要を見る。成否によって項目が若干異なるが、
+:guilabel:`Re-run jobs` を押す。
+
+失敗ジョブ（と後続ジョブ）を再実行する方法もある。実行環境は元実行時のものが適用
+される。手順は先ほどのものとほぼ同じ。違いは :guilabel:`Re-run failed jobs` を押
+すところだけ。
+
+特定のジョブを再実行する方法もある。左柱のジョブ項目名の右にある再実行ボタンを押
+す。
+
+.. todo::
+
+   再利用可能 workflow を再実行する方法
+
+最後の実行結果を観察する方法は実行結果右上の :guilabel:`Latest` ドロップダウンリ
+ストを使う。
+
+Canceling a workflow
+----------------------------------------------------------------------
+
+リポジトリーに対する書き込み権限を有していることが必要だ。
+
+まず :guilabel:`Actions` ページで左柱から所望の workflow を探して押す。実行名を
+押して実行概要を見る。右上の :guilabel:`Cancel workflow` を押す。
+
+キャンセルする際には資源の解放が正しく行われるかどうかを意識する。本文で述べられ
+ているアルゴリズムの 4 と 5 を理解することが重要だ。これに耐え得るジョブを記述す
+るべきだ。
+
+Approving workflow runs from public forks
+----------------------------------------------------------------------
+
+   By default, all first-time contributors require approval to run workflows.
+
+外部の人間が workflow を好き勝手に書き換える可能性を牽制している。
+
+Approving workflow runs from private forks
+----------------------------------------------------------------------
+
+   When someone without write access submits a pull request to a private
+   repository, a maintainer may need to approve any workflow runs.
+
+当アカウントには起こり得ない事象だ。割愛。
+
+Reviewing deployments
+----------------------------------------------------------------------
+
+   Jobs that reference an environment configured with required reviewers will
+   wait for an approval before starting. While a job is awaiting approval, it
+   has a status of "Waiting".
+
+評価が必要な workflow の実行履歴ページを開き、:guilabel:`Review deployments` を
+押す。対象のジョブ環境を選択する。評価次第で :guilabel:`Approve and deploy` または
+:guilabel:`Reject` を押す。
+
+.. todo::
+
+   Bypassing deployment protection rules
+
+Skipping workflow runs
+----------------------------------------------------------------------
+
+   Workflows that would otherwise be triggered using ``on: push`` or ``on:
+   pull_request`` won't be triggered if you add any of the following strings to
+   the commit message in a push, or the HEAD commit of a pull request:
+
+   * ``[skip ci]``
+   * ``[ci skip]``
+   * ``[no ci]``
+   * ``[skip actions]``
+   * ``[actions skip]``
+
+これを知っていることで workflow 画面で :guilabel:`Disable` しなくて済むというこ
+とだ。そしてこれを忘れぬように：
+
+   To allow the pull request to be merged you can push a new commit to the pull
+   request without the skip instruction in the commit message.
+
+Deleting a workflow run
+----------------------------------------------------------------------
+
+   You can delete a workflow run that has been completed, or is more than two
+   weeks old.
+
+削除したい workflow の実行履歴ページを開き、項目欄右の :menuselection:`... -->
+Delete workflow run` を押す。ダイアログが出るので Yes を押す。
+
+Downloading workflow artifacts
+----------------------------------------------------------------------
+
+:guilabel:`Actions` ページで左柱から所望の workflow を探して押す。実行名を押して
+実行概要を出す。この :guilabel:`Artifacts` 節に成果物リンクがある。
+
+Removing workflow artifacts
+----------------------------------------------------------------------
+
+成果物を削除すれば記憶域が回復する。
+
+上述の手順で :guilabel:`Artifacts` を表示し、成果物項目右側のゴミバケツを押す。
+
+成果物とログの保有期間のカスタマイズは後述。
+
+Build and test
+======================================================================
+
+.. admonition:: 読者ノート
+
+   Python の節と出来合いのものを使わない節を読めば workflow の構造は理解可能。
+
+About continuous integration
+----------------------------------------------------------------------
+
+   When you commit code to your repository, you can continuously build and test
+   the code to make sure that the commit doesn't introduce errors.
+
+これが CI の基本的な考え方だ。
+
+   You can build and test updates locally before pushing code to a repository,
+   or you can use a CI server that checks for new code commits in a repository.
+
+CI 目的のサーバーが存在するということを覚えておく。
+
+   CI using GitHub Actions offers workflows that can build the code in your
+   repository and run your tests.
+
+CI を実現する workflow を書くことになる。
+
+   When you set up CI in your repository, GitHub analyzes the code in your
+   repository and recommends CI workflows based on the language and framework in
+   your repository. For example, if you use Node.js, GitHub will suggest a
+   starter workflow that installs your Node.js packages and runs your tests.
+
+リポジトリーの構造がある程度一般的であることが暗黙的に期待されている。
+
+Building and testing Go
+----------------------------------------------------------------------
+
+   Search for "go".
+
+Building and testing Java with Ant
+----------------------------------------------------------------------
+
+   Search for "Java with Ant".
+
+Building and testing Java with Gradle
+----------------------------------------------------------------------
+
+   Search for "Java with Gradle".
+
+Building and testing Java with Maven
+----------------------------------------------------------------------
+
+   Search for "Java with Maven".
+
+Building and testing .NET
+----------------------------------------------------------------------
+
+   Search for "dotnet".
+
+Building and testing Node.js
+----------------------------------------------------------------------
+
+   Search for "Node.js".
+
+Building and testing PowerShell
+----------------------------------------------------------------------
+
+   ここは出来合いのものを使わない？
+
+Building and testing Python
+----------------------------------------------------------------------
+
+   To get started quickly, add a starter workflow to the
+   :file:`.github/workflows` directory of your repository.
+
+#. リポジトリー :menuselection:`Actions` ページに移動。
+#. 左柱の :guilabel:`New workflow` を押す。
+#. "Python application" を検索して検索結果の :guilabel:`Configure` を押す。
+
+内容を適宜編集してコミットし、:file:`.github/workflows/python-app.yml` を得る。
+
+まずは Python バージョンを決める。
+
+   To use a pre-installed version of Python or PyPy on a GitHub-hosted runner,
+   use the ``setup-python`` action. This action finds a specific version of
+   Python or PyPy from the tools cache on each runner and adds the necessary
+   binaries to :envvar:`PATH`, which persists for the rest of the job.
+
+単一バージョンを指定したい。次のように書く：
+
+.. code:: yaml
+
+   - name: Set up Python
+     # This is the version of the action for setting up Python, not the Python version.
+     uses: actions/setup-python@v4
+     with:
+       # Semantic version range syntax or exact version of a Python version
+       python-version: '3.x'
+
+..
+
+   You can use :command:`pip` to install dependencies from the PyPI package
+   registry before building and testing your code.
+
+依存パッケージをインストールするようにしたい。ステップとして次のように書く：
+
+.. code:: yaml
+
+   - name: Install dependencies
+     run: python -m pip install --upgrade pip setuptools wheel
+
+:command:`pip` 自体を upgrade してから :file:`requirements.txt` に指定された依存
+パッケージを更新させる方法もある：
+
+.. code:: yaml
+
+   - name: Install dependencies
+     run: |
+       python -m pip install --upgrade pip
+       pip install -r requirements.txt
+
+依存パッケージをキャッシュする機能も有している：
+
+.. code:: yaml
+
+   - uses: actions/setup-python@v4
+     with:
+       python-version: '3.11'
+       cache: 'pip'
+   - run: pip install -r requirements.txt
+   - run: pip test
+
+ビルドの次はテストだ。本文の例は pytest を採用している：
+
+.. code:: yaml
+
+   - name: Test with pytest
+     run: |
+       pip install pytest pytest-cov
+       pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+
+成果物をアップロードするには ``actions/upload-artifact`` を用いる：
+
+.. code:: yaml
+
+   - name: Upload pytest test results
+     uses: actions/upload-artifact@v3
+     with:
+       name: pytest-results-${{ matrix.python-version }}
+       path: junit/test-results-${{ matrix.python-version }}.xml
+     # Use always() to always run this step to publish test results when there are test failures
+     if: ${{ always() }}
+
+製品を PyPI などのパッケージ置場に登録して終わることも可能だ。その場合には登録者
+が置場の API トークンを保持している必要がある。
+
+Building and testing Ruby
+----------------------------------------------------------------------
+
+   Search for "ruby".
+
+Building and testing Swift
+----------------------------------------------------------------------
+
+   Search for "swift".
+
+Building and testing Xamarin applications
+----------------------------------------------------------------------
+
+   ここは出来合いのものを使わない？
