@@ -134,6 +134,9 @@ Workflow ファイル :file:`learn-github-actions.yml` の一行ごとの解説�
    workflow. After a workflow run has started, you can see a visualization graph
    of the run's progress and view each step's activity on GitHub.
 
+   `Best YAML Viewer Online <https://jsonformatter.org/yaml-viewer>`__
+   で YAML をツリービューで示せる。
+
 Workflow 実行の状況を確認するには、リポジトリー :menuselection:`Actions` から最
 新の実行を調べる。
 
@@ -1500,3 +1503,140 @@ Building and testing Xamarin applications
 ----------------------------------------------------------------------
 
    ここは出来合いのものを使わない？
+
+Using containerized services
+======================================================================
+
+丸ごと割愛。
+
+Manage issues and pull requests
+======================================================================
+
+Using GitHub Actions for project management
+----------------------------------------------------------------------
+
+GitHub Actions を用いて Issues や pull requests の対処を自動化することが可能だ。
+
+   For example, you can create a workflow that runs every time an issue is
+   created to add a label, leave a comment, and move the issue onto a project
+   board.
+
+リポジトリーに対して何かイベントが発生したときや、定期的に workflow を実行させる
+ように構成することが可能だ。ここで興味があるのは次のようなタイミングだ：
+
+   * An issue is opened, assigned, or labeled.
+   * A comment is added to an issue.
+   * A project card is created or moved.
+   * A scheduled time.
+
+以降の数節で何を対処することが可能なのかを見ていく。
+
+Adding labels to issues
+----------------------------------------------------------------------
+
+   The `actions/github-script
+   <https://github.com/marketplace/actions/github-script>`__ action allows you
+   to easily use the GitHub API in a workflow.
+
+次の YAML コードはその用例だ。確かに API を直接操作しているように読める：
+
+.. code:: yaml
+
+   - uses: actions/github-script@v6
+     with:
+       script: |
+         github.rest.issues.addLabels({
+           issue_number: context.issue.number,
+           owner: context.repo.owner,
+           repo: context.repo.repo,
+           labels: ["triage"]
+         })
+
+YAML ルートに以下のコードを書くと、当該リポジトリーの issue が開いた時にこの
+workflow が引き起こされる：
+
+.. code:: yaml
+
+   on:
+     issues:
+       types:
+         - reopened
+         - opened
+
+Closing inactive issues
+----------------------------------------------------------------------
+
+ジョブの ``permissions:`` で ``issues:`` と ``pull-requests:`` を ``write`` にし
+ておく。
+
+Workflow を定期的に引き起こすコード：
+
+.. code:: yaml
+
+   on:
+     schedule:
+       - cron: "30 1 * * *"
+
+..
+
+   In the example above, the workflow will run every day at 1:30 UTC.
+
+ステップでは `actions/stale
+<https://github.com/marketplace/actions/close-stale-issues>`__ を用いる：
+
+.. code:: yaml
+
+   - uses: actions/stale@v5
+     with:
+       days-before-issue-stale: 30
+       days-before-issue-close: 14
+       stale-issue-label: "stale"
+       stale-issue-message: "This issue is stale because it has been open for 30 days with no activity."
+       close-issue-message: "This issue was closed because it has been inactive for 14 days since being marked as stale."
+       days-before-pr-stale: -1
+       days-before-pr-close: -1
+       repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+アクションの各引数は名前が意味を示しているので、カンでカスタマイズしてよい。
+
+Commenting on an issue when a label is added
+----------------------------------------------------------------------
+
+これは ``help-wanted`` ラベルの付いた新 issue に助けを求めるコメントを追加する
+workflow だ。急所だけ列挙すると：
+
+* ``on.issues.types: [labeled]``
+* ``jobs.add-comment.if: github.event.label.name == 'help-wanted'``
+
+このジョブの最初のステップについて：
+
+* ``.uses = peter-evans/create-or-update-comment@<SHA>`` の SHA 値はどう与える？
+* ``.with.issue-number`` に ``${{ github.event.issue.number }}`` を与える。
+* ``.with.body`` にコメント本文を与える。
+
+Moving assigned issues on project boards
+----------------------------------------------------------------------
+
+割愛。
+
+Removing a label when a card is added to a project board column
+----------------------------------------------------------------------
+
+割愛。
+
+Scheduling issue creation
+----------------------------------------------------------------------
+
+ジョブ名を ``create_issue`` とする。
+
+* ``on.schedule.cron: 20 07 * * 1`` は毎週月曜 7:20 を意味する。
+* ``jobs.create_issue.permissions.issues: write`` とする。
+
+このジョブの最初のステップについて：
+
+* ``.uses: imjohnbo/issue-bot@<SHA>`` の SHA 値はどう与える？
+* ``.with.assignees: "monalisa, doctocat, hubot"``
+* ``.with.labels: "weekly sync, docs-team"``
+* ``.with.titles:`` 適当なタイトル
+* ``.with.body:`` Markdown のテンプレ
+* ``.env.GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}``
