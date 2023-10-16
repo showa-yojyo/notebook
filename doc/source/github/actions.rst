@@ -1507,7 +1507,120 @@ Building and testing Xamarin applications
 Using containerized services
 ======================================================================
 
-丸ごと割愛。
+以下の内容のようなので丸ごと割愛：
+
+* About service containers
+* Creating PostgreSQL service containers
+* Creating Redis service containers
+
+Publish packages
+======================================================================
+
+About packaging with GitHub Actions
+----------------------------------------------------------------------
+
+発行場所は GitHub でもよそでも可能。
+
+   After building and testing your code, a packaging step can produce a runnable
+   or deployable artifact. Depending on the kind of application you're building,
+   this package can be downloaded locally for manual testing, made available for
+   users to download, or deployed to a staging or production environment.
+
+Workflow が成果物を出力して、一般人に対してダウンロード可能になる。
+
+   In addition to uploading packaging artifacts for testing in a continuous
+   integration workflow, you can create workflows that build your project and
+   publish packages to a package registry.
+
+成果物を出力する場合が CI とパッケージ置場への発行の二通りあると言っている：
+
+   You may want to publish packages to GitHub Packages on every push into the
+   default branch.
+
+および：
+
+   You can automate this by creating a workflow that publishes packages to a
+   package registry on every release creation.
+
+Publishing Docker images
+----------------------------------------------------------------------
+
+   Each time you create a new release on GitHub, you can trigger a workflow to
+   publish your image. The workflow in the example below runs when the
+   ``release`` event triggers with the ``created`` activity type.
+
+この考え方は Docker 以外の他の発行手順でも通じる。
+
+Docker 公式アクションを用いる：
+
+* ``docker/login-action``
+* ``docker/metadata-action``
+* ``docker/build-push-action``
+
+当然ながら：
+
+   To push to Docker Hub, you will need to have a Docker Hub account, and have a
+   Docker Hub repository created.
+
+単一の workflow で発行場所は GitHub Packages と Docker Hub のどちらか一方または
+両方に指定することが可能だ。
+
+Publishing Java packages with Gradle
+----------------------------------------------------------------------
+
+パッケージ置場への認証に使用するユーザー名とパスワードまたはトークンの環境変数を
+:file:`build.gradle` で設定する必要がある。
+
+Maven Central Repository というパッケージ置場にコマンド ``gradle publish`` を実
+行してパッケージを発行する。
+
+   In the deploy step, you’ll need to set environment variables for the username
+   and password or token that you use to authenticate to the Maven repository.
+
+Gradle 公式アクションを用いる：
+
+* ``gradle/wrapper-validation-action``
+* ``gradle/gradle-build-action``
+
+Publishing Java packages with Maven
+----------------------------------------------------------------------
+
+コマンド ``mvn --batch-mode deploy`` の実行でパッケージ置場に配備する。
+
+Maven Central Repository と GitHub Packages の両方に置く場合、
+
+* 構成ファイル :file:`pom.xml` をどう書けばいいか不明。
+* `actions/setup-java` を用いるステップを二度実行することになる。
+* コマンド ``mvn --batch-mode deploy`` を実行するステップを、異なる引数で二度実
+  行する。
+
+Publishing Node.js packages
+----------------------------------------------------------------------
+
+   If you add steps in your workflow to configure the ``publishConfig`` fields
+   in your :file:`package.json` file, you don't need to specify the
+   ``registry-url`` using the ``setup-node`` action, but you will be limited to
+   publishing the package to one registry.
+
+..
+
+   By default, :command:`npm` uses the ``name`` field of the
+   :file:`package.json` file to determine the name of your published package.
+
+..
+
+   If you're publishing a package that includes a scope prefix, include the
+   scope in the name of your :file:`package.json` file
+
+* ``actions/setup-node`` を用いる。
+
+  * このアクションは :file:`.npmrc` を生成する。
+  * ``registry-url:`` にパッケージ置場の URL を指定する。
+  * ``scope:`` を上述のように指定する場合がある。E.g. ``@octocat``.
+
+* コマンド ``npm publish`` を実行する。
+
+  * ``env.NODE_AUTH_TOKEN`` を ``secrets`` 経由で設定する。
 
 Manage issues and pull requests
 ======================================================================
@@ -1640,3 +1753,29 @@ Scheduling issue creation
 * ``.with.titles:`` 適当なタイトル
 * ``.with.body:`` Markdown のテンプレ
 * ``.env.GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}``
+
+Migrate to GitHub Actions
+======================================================================
+
+Using GitHub Actions Importer to automate migrations
+----------------------------------------------------------------------
+
+節見出しが次のようになっている：
+
+* Automating migration with GitHub Actions Importer
+* Extending GitHub Actions Importer with custom transformers
+* Supplemental arguments and settings
+* Migrating from Azure DevOps with GitHub Actions Importer
+* Migrating from Bamboo with GitHub Actions Importer
+* Migrating from Bitbucket Pipelines with GitHub Actions Importer
+* Migrating from CircleCI with GitHub Actions Importer
+* Migrating from GitLab with GitHub Actions Importer
+* Migrating from Jenkins with GitHub Actions Importer
+* Migrating from Travis CI with GitHub Actions Importer
+
+どの CI も持っていないので割愛。
+
+Manually migrating to GitHub Actions
+----------------------------------------------------------------------
+
+同じ理由により割愛。
