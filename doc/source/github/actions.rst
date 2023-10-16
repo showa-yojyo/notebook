@@ -1779,3 +1779,140 @@ Manually migrating to GitHub Actions
 ----------------------------------------------------------------------
 
 同じ理由により割愛。
+
+Monitoring and troubleshooting workflows
+======================================================================
+
+About monitoring and troubleshooting
+----------------------------------------------------------------------
+
+   Every workflow run generates a real-time graph that illustrates the run
+   progress. You can use this graph to monitor and debug workflows.
+
+実行時にグラフが更新されていくので、ページを開いたまま眺めていることが可能。
+
+   A status badge shows whether a workflow is currently failing or passing. A
+   common place to add a status badge is in the :file:`README.md` file of your
+   repository, but you can add it to any web page you'd like.
+
+まともなリポジトリーの説明文でよくみかけるバッヂだ。
+
+   If the workflow logs do not provide enough detail to diagnose why a workflow,
+   job, or step is not working as expected, you can enable additional debug
+   logging.
+
+手許の環境で実行できない以上、こういう機能は必須だ。
+
+   If you attempt to cancel a workflow and the cancellation doesn't succeed,
+   make sure you aren't using the ``always`` expression.
+
+この式を内規で禁じたい。
+
+Using the visualization graph
+----------------------------------------------------------------------
+
+#. リポジトリー画面から :menuselection:`Actions` を開く。
+#. 左柱から workflow の名前を探して押す。
+#. 一覧から観察したい実行の名前を探して押す。
+
+画面右に当該 workflow を構成するジョブを節とするグラフが描画される。グラフの辺は
+ジョブ間の依存関係を示す。各ジョブ名の左横の印がその状態を示す。
+
+Adding a workflow status badge
+----------------------------------------------------------------------
+
+   A status badge shows whether a workflow is currently failing or passing.
+
+これがバッヂの基本的な役割だ。
+
+   You can also display the status of a workflow run for a specific ``branch``
+   or ``event`` using the branch and event query parameters in the URL.
+
+バッヂの表示方法を見ていく。
+
+   You can build the URL for a workflow status badge using the name of the
+   workflow file:
+
+   > https://github.com/OWNER/REPOSITORY/actions/workflows/WORKFLOW-FILE/badge.svg
+
+URL の引数を見ていく。
+
+   To display the status of a workflow run for a specific branch, add
+   ``?branch=BRANCH-NAME`` to the end of the status badge URL.
+
+これはブランチの状態を知らせるときに利用する。
+
+   To display the status of workflow runs triggered by the push event, add
+   ``?event=push`` to the end of the status badge URL.
+
+対象ブランチの現在の状態に対するビルド結果を表示する。
+
+.. admonition:: 読者ノート
+
+   バッヂの見てくれは workflow 名称＋状態文字列。
+
+Viewing workflow run history
+----------------------------------------------------------------------
+
+これまで何度も見ているものなので割愛。
+
+Viewing job execution time
+----------------------------------------------------------------------
+
+左柱の :guilabel:`Run details --> Usage` を押すと、右側に実行時間明細が表示され
+る。
+
+Using workflow run logs
+----------------------------------------------------------------------
+
+   GitHub Actions use the Checks API to output statuses, results, and logs for a
+   workflow.
+
+今は言葉だけ覚えておく。
+
+   In addition to the steps configured in the workflow file, GitHub adds two
+   additional steps to each job to set up and complete the job's execution.
+   These steps are logged in the workflow run with the names :guilabel:`Set up
+   job` and :guilabel:`Complete job`.
+
+ということは workflow が空であるということはあり得ない。
+
+いつものようにジョブ画面を開く。画面右側にジョブを構成するステップが縦に並ぶ。
+
+   Any failed steps are automatically expanded to display the results.
+
+ログを検索することが可能だ。ステップ一覧の右上にある検索欄を用いる。
+
+ログをダウンロードするには、検索欄右の歯車ボタンを押して
+:menuselection:`Download log archive` を押す。
+
+ログを削除するには workflow 画面に移動する。右上ボタンから :menuselection:`...
+--> Delete all logs` を押す。
+
+Enabling debug logging
+----------------------------------------------------------------------
+
+   These extra logs are enabled by setting secrets or variables in the
+   repository containing the workflow
+
+リポジトリー所有者ならば十分。
+
+   Runner diagnostic logging provides additional log files that contain
+   information about how a runner is executing a job.
+
+* The runner process log
+* The worker process log
+
+ログを有効にするには、リポジトリーの秘密 or 変数 ``ACTIONS_RUNNER_DEBUG`` を
+``true`` に設定する必要がある。秘密として指定するほうの値が優先される。
+
+ログは :file:`runner-diagnostic-logs` からダウンロードする。
+
+より詳細なログを求めるならばリポジトリーの秘密 or 変数 ``ACTIONS_STEP_DEBUG`` を
+``true`` に設定する。デバッグイベントを含むログが得られる。
+
+Notifications for workflow runs
+----------------------------------------------------------------------
+
+* 成功時の通知は無効化しておきたい。
+* スケジュールイベントによる通知は発生条件が複雑だ。
