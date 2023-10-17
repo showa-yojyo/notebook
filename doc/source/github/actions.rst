@@ -1916,3 +1916,106 @@ Notifications for workflow runs
 
 * 成功時の通知は無効化しておきたい。
 * スケジュールイベントによる通知は発生条件が複雑だ。
+
+Security guides
+======================================================================
+
+Security hardening for GitHub Actions
+----------------------------------------------------------------------
+
+Understanding the risk of script injections は必見。インラインでシェルスクリプト
+を記述するときには注入攻撃を意識すること。外部アクション呼び出し、面倒でも変数導
+入、トークンによる認証組み込みなどで強化する。
+
+サードパーティー製 workflow の再利用はいつでも善。
+
+Using secrets in GitHub Actions
+----------------------------------------------------------------------
+
+   Secrets are variables that you create in an organization, repository, or
+   repository environment. The secrets that you create are available to use in
+   GitHub Actions workflows.
+
+秘密は変数の一種だ。組織、リポジトリー、環境の三層それぞれが有効照準であるように
+値を持たせる。このノートでは個人リポジトリーのみ注目する。
+
+   To make a secret available to an action, you must set the secret as an input
+   or environment variable in the workflow file.
+
+ログに秘密を出力することは不可能だと思っておく。
+
+最小権限の原則について実例を述べている。
+
+個人リポジトリーに秘密を追加する方法は次のとおり。操作者は所有者であることを仮定
+する：
+
+#. リポジトリーから :menuselection:`Settings --> Secrets and variables -->
+   Actions` にアクセス。
+#. :guilabel:`Secrets` を押す。
+#. :guilabel:`New repository secret` を押す。
+#. フォームの :guilabel:`Name` と :guilabel:`Secret` を記入する。
+#. :guilabel:`Add secret` を押す。
+
+Workflow コード中では、
+
+   Secrets cannot be directly referenced in ``if:`` conditionals.
+
+秘密の値はパイプに流さないようにしたい：
+
+   Avoid passing secrets between processes from the command line, whenever
+   possible. Command-line processes may be visible to other users (using the ps
+   command) or captured by security audit events.
+
+Workflow ログ削除機能を情報漏洩目的で用いる場合がある。
+
+Automatic token authentication
+----------------------------------------------------------------------
+
+   At the start of each workflow job, GitHub automatically creates a unique
+   ``GITHUB_TOKEN`` secret to use in your workflow.
+
+   When you enable GitHub Actions, GitHub installs a GitHub App on your
+   repository. The ``GITHUB_TOKEN`` secret is a GitHub App installation access
+   token.
+
+話が見えない。
+
+トークンを ``${{ secrets.GITHUB_TOKEN }}`` の形で workflow から参照する。
+
+   When you use the repository's ``GITHUB_TOKEN`` to perform tasks, events
+   triggered by the ``GITHUB_TOKEN``, with the exception of
+   ``workflow_dispatch`` and ``repository_dispatch``, will not create a new
+   workflow run.
+
+この仕組みは workflow の二重発動を防ぐ。
+
+   Commits pushed by a GitHub Actions workflow that uses the ``GITHUB_TOKEN`` do
+   not trigger a GitHub Pages build.
+
+この仕様は何かに利用できるか？
+
+   The following table shows the permissions granted to the ``GITHUB_TOKEN`` by
+   default.
+
+この表のヘッダーの Scope 以外の意味がわからない。
+
+   You can modify the permissions for the ``GITHUB_TOKEN`` in individual workflow
+   files.
+
+   You can see the permissions that ``GITHUB_TOKEN`` had for a specific job in
+   the :guilabel:`Set up job` section of the workflow run log.
+
+``GITHUB_TOKEN Permissions`` を含む行をクリックすると詳細が示される。
+
+   You can use the permissions key in your workflow file to modify permissions
+   for the ``GITHUB_TOKEN`` for an entire workflow or for individual jobs. This
+   allows you to configure the minimum required permissions for a workflow or
+   job.
+
+具体的方法は？
+
+   If you need a token that requires permissions that aren't available in the
+   ``GITHUB_TOKEN``, you can create a GitHub App and generate an installation
+   access token within your workflow.
+
+これはアプリケーションの章で見ていく？
