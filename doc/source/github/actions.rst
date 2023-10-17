@@ -1833,7 +1833,7 @@ Adding a workflow status badge
    You can build the URL for a workflow status badge using the name of the
    workflow file:
 
-   > https://github.com/OWNER/REPOSITORY/actions/workflows/WORKFLOW-FILE/badge.svg
+   | https://github.com/OWNER/REPOSITORY/actions/workflows/WORKFLOW-FILE/badge.svg
 
 URL の引数を見ていく。
 
@@ -2019,3 +2019,173 @@ Automatic token authentication
    access token within your workflow.
 
 これはアプリケーションの章で見ていく？
+
+Creating actions
+======================================================================
+
+自作、再利用、共有。
+
+About custom actions
+----------------------------------------------------------------------
+
+アクションの概要：
+
+   You can write your own actions to use in your workflow or share the actions
+   you build with the GitHub community. To share actions you've built with
+   everyone, your repository must be public.
+
+   Actions can run directly on a machine or in a Docker container. You can
+   define an action's inputs, outputs, and environment variables.
+
+アクションは次の三種類ある：
+
+* Docker コンテナー (Linux only)
+* JavaScript
+* 複合
+
+Docker コンテナーはアクションコードに環境が付属したものと考えられる。
+
+   Because of the latency to build and retrieve the container, Docker container
+   actions are slower than JavaScript actions.
+
+JavaScript はアクションの作りがわかりやすい。どのランナーでも動作するように、
+JavaScript で閉じたコードを書かねばならない。
+
+複合アクションは何が複合なのかというと：
+
+   A *composite* action allows you to combine multiple workflow steps within one
+   action.
+
+カスタムアクションは専用リポジトリーに作成するのが望ましい。
+
+カスタムアクションを公にするならば、バージョン管理をまともにやる。
+
+   We recommend using tags for actions release management. Using this approach,
+   your users can easily distinguish between major and minor versions:
+
+今まで見てきたように、YAML コードでアクションの名前に SHA やタグを指定することが
+普通だ。
+
+:file:`README` でアクションの仕様を明示しておく：
+
+   * A detailed description of what the action does
+   * Required input and output arguments
+   * Optional input and output arguments
+   * Secrets the action uses
+   * Environment variables the action uses
+   * An example of how to use your action in a workflow
+
+最後に、GitHub Marketplace で入手できること、モノを述べている：
+
+   While both GitHub Actions and GitHub Apps provide ways to build automation
+   and workflow tools, they each have strengths that make them useful in
+   different ways.
+
+Creating a Docker container action
+----------------------------------------------------------------------
+
+私の手に余る話題なので割愛。
+
+Creating a JavaScript action
+----------------------------------------------------------------------
+
+:file:`README` の内容は本書のままではダメで、Example usage の YAML コードの
+``uses:`` の引数を自分のものに合わせる。
+
+最初の ``git tag`` コマンドでは ``v1.1`` ではなく ``v1.0`` にしておくと、後ほど
+の改訂版タグ ``v1.1`` と整合する。
+
+パッケージ ``vercel/ncc`` 導入後にアクションが機能しなくなる。次のエラーがジョブ
+の初期化時に生じる：
+
+| Could not find file '/home/runner/work/_actions/_temp_6252a79a-7686-4d73-ad49-7a00b221fd2d/_staging/showa-yojyo-hello-world-javascript-action-243bf14/node_modules/.bin/uuid'.
+
+Creating a composite action
+----------------------------------------------------------------------
+
+実習モノなので後回し。この章を読み終わってから。
+
+Metadata syntax for GitHub Actions
+----------------------------------------------------------------------
+
+   All actions require a metadata file. The metadata filename must be either
+   :file:`action.yml` or :file:`action.yaml`. The data in the metadata file
+   defines the inputs, outputs, and runs configuration for your action.
+
+このファイルも YAML で記述する。その仕様が本節に述べられている。
+
+Dockerfile support for GitHub Actions
+----------------------------------------------------------------------
+
+Docker は後回し。
+
+Setting exit codes for actions
+----------------------------------------------------------------------
+
+   GitHub uses the exit code to set the action's check run status, which can be
+   ``success`` or ``failure``.
+
+UNIX と同じでゼロが成功で、それ以外は失敗。
+
+   If you are creating a JavaScript action, you can use the actions toolkit
+   ``@actions/core`` package to log a message and set a failure exit code. For
+   example:
+
+   .. code:: java
+
+      try {
+        // something
+      } catch (error) {
+        core.setFailed(error.message);
+      }
+
+Publishing actions in GitHub Marketplace
+----------------------------------------------------------------------
+
+   When you plan to publish your action to GitHub Marketplace, you'll need to
+   ensure that the repository only includes the metadata file, code, and files
+   necessary for the action.
+
+ある種の要件を満たしていると GitHub による審査を免除されるようだ。
+
+   You can add the action you've created to GitHub Marketplace by tagging it as
+   a new release and publishing it.
+
+TODO: 手順まとめ
+
+   To remove a published action from GitHub Marketplace, you'll need to update
+   each published release.
+
+単に撤回することはできないか？
+
+Sharing actions and workflows from your private repository
+----------------------------------------------------------------------
+
+   Any actions or reusable workflows stored in the private repository can be
+   used in workflows defined in other private repositories owned by the same
+   organization or user. Actions and reusable workflows stored in private
+   repositories cannot be used in public repositories.
+
+非公開リポジトリーのものは公開リポジトリーから利用不能という原則は変わらない。
+
+リポジトリー :menuselection:`Settings --> Actions --> General` ページを開いて、
+いちばん下にある :guilabel:`Accessible from repositories owned by the user` をオ
+ンにする。
+
+Sharing actions and workflows with your organization
+----------------------------------------------------------------------
+
+割愛。
+
+Releasing and maintaining actions
+----------------------------------------------------------------------
+
+実践のコツ集。
+
+Developing a third party CLI action
+----------------------------------------------------------------------
+
+   You can write an action to provide a way for users to access your servers via
+   a configured CLI environment on GitHub Actions runners.
+
+これも実習モノか。
