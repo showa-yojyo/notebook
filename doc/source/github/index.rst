@@ -28,6 +28,7 @@ GitHub 利用ノート
    :maxdepth: 1
 
    actions
+   packages
    pages
 
 .. toctree::
