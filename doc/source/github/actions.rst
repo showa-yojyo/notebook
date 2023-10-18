@@ -11,15 +11,15 @@ GitHub Actions documentation ノート
 * :guilabel:`Overview` → :ref:`Understanding GitHub Actions <actions-overview>`
 * :guilabel:`Quickstart` → :ref:`Quickstart for GitHub Actions <actions-quickstart>`
 
-.. todo::
+.. admonition:: 読者ノート
 
-   詰める記事一覧
+   Deployment はまだ読んでいない。
 
-   * Using starter workflows
-   * Automating builds and tests
-   * Deployment
-   * Managing issues and pull requests
-   * Examples
+   Migrating to GitHub Actions は読まない。
+
+   Using GitHub-hosted runners はまだ読んでいない。
+
+   Hosting your own runners は読まない。
 
 .. _actions-quickstart:
 
@@ -797,7 +797,9 @@ Workflow commands for GitHub Actions
    The step that creates or updates the environment variable does not have
    access to the new value, but all subsequent steps in a job will have access.
 
-TODO: まだ読んでいないところが少し残った。
+.. todo::
+
+   まだ読んでいないところが少し残った。
 
 Reusing workflows
 ----------------------------------------------------------------------
@@ -2084,13 +2086,41 @@ JavaScript で閉じたコードを書かねばならない。
 Creating a Docker container action
 ----------------------------------------------------------------------
 
-私の手に余る話題なので割愛。
+私の手に余る話題なので割愛。と思ったが、実習だけはやる。
+
+GitHub にリポジトリー ``hello-world-docker-action`` を作成する。ローカルにク
+ローンして作業。
+
+* ファイル :file:`Dockerfile` を本文の内容で作成。
+* アクション :file:`action.yml` を本文の内容で作成。
+* シェルスクリプト :file:`entrypoint.sh` を本文の内容で作成。
+
+  * 変数 ``GITHUB_OUTPUT`` は workflow コマンドから現在のステップの出力を設定す
+    るファイルへのパスを示す。
+  * このスクリプトをローカルで実行することはないのだが、実行ファイルフラグを立
+    てておく。
+
+* :file:`README` を記述する。内容は本書のままではダメで、Example usage の YAML
+  コードの ``uses:`` の引数を自分のものに合わせる。以下の演習でも同様。
+
+以上のファイルをリポジトリーに追加、プッシュ。
+
+アクションを呼び出すリポジトリーの YAML では ``jobs.hello_world_job.steps[1]``
+に対して次の値を自分用に置き換える（以下の演習でも同様）：
+
+* ``.uses``: ``actions`` 部分を自分のアカウント名に置き換える
+* ``.with.who-to-greet``: 自分の名前に置き換える
+
+これは覚えておいて損はない：
+
+   When a container action runs, it will automatically map the default working
+   directory (:file:`GITHUB_WORKSPACE`) on the runner with the
+   :file:`/github/workspace` directory on the container. Any files added to this
+   directory on the container will be available to any subsequent steps in the
+   same job.
 
 Creating a JavaScript action
 ----------------------------------------------------------------------
-
-:file:`README` の内容は本書のままではダメで、Example usage の YAML コードの
-``uses:`` の引数を自分のものに合わせる。
 
 最初の ``git tag`` コマンドでは ``v1.1`` ではなく ``v1.0`` にしておくと、後ほど
 の改訂版タグ ``v1.1`` と整合する。
@@ -2103,7 +2133,11 @@ Creating a JavaScript action
 Creating a composite action
 ----------------------------------------------------------------------
 
-実習モノなので後回し。この章を読み終わってから。
+こちらのほうが前節より容易。:file:`action.yml` に ``runs.steps:`` が指定されてい
+るのが特徴だ。
+
+変数 ``GITHUB_PATH`` は workflow コマンドからシステム :envvar:`PATH` 変数を設定
+するファイルへのパスを示す。
 
 Metadata syntax for GitHub Actions
 ----------------------------------------------------------------------
@@ -2151,7 +2185,11 @@ Publishing actions in GitHub Marketplace
    You can add the action you've created to GitHub Marketplace by tagging it as
    a new release and publishing it.
 
-TODO: 手順まとめ
+.. todo::
+
+   手順まとめ
+
+..
 
    To remove a published action from GitHub Marketplace, you'll need to update
    each published release.
