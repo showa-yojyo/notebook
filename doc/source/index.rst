@@ -2,13 +2,17 @@
 読書ノート
 ======================================================================
 
-* ノートの内容は常に実利的であること。
-* 読書ノートで扱う書物は、基本的に現在から 5 年以上昔に出版されたものを優先すること。
+* 本ノートの内容は常に実利的であること。
+* 読書ノートで扱う書物は、基本的に現在から五年以上昔に出版されたものを優先するこ
+  と。
 * 読書ノートで扱う書物は、身銭を切って入手したものに限定すること。
 * 技術ノートは極力主観的な記述を心がけること。
 * たまに変な主題についてノートを作ること。
-* 作業ファイルはレポジトリー <https://github.com/showa-yojyo/notebook> にアップロードすること。
-* 作業手順については `README <https://github.com/showa-yojyo/notebook/blob/develop/README.rst>`_ を参照すること。
+* 本ノートを構成するファイルは `GitHub にある専用レポジトリー
+  <https://github.com/showa-yojyo/notebook>`__ にアップロードすること。
+* 作業手順については `README
+  <https://github.com/showa-yojyo/notebook/blob/develop/README.rst>`_ を参照する
+  こと。
 
 .. toctree::
    :caption: 図書・教科書・仕様書ノート
@@ -51,6 +55,7 @@
    khronos18/index
    kantor22/index
    ou23/index
+   github/index
 
 .. toctree::
    :caption: ノートにまとまっていない書籍類一覧
