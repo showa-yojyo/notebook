@@ -58,10 +58,15 @@ UI が食い違うので割愛。
 Using projects and tasklists
 ======================================================================
 
-   When you add tasklists to your issues and view those issues in your projects,
-   you can use the relationships that you defined in your tasklists to customize
-   views, filter items, and navigate through your issues and pull requests.
+Project 検索欄で課題一覧が関わるフィルターを適用可能だと述べている。
 
-.. todo::
+   To use the "tracks" and "tracked-by" fields, you will need to add all the
+   issues and pull requests that comprise your tasklist to the project.
 
-   Projects を読んでからここに戻ってくる。
+というのだが、これらの fields が組み込まれていないようだ？
+
+フィルターの書式は次のとおり：
+
+.. code:: text
+
+   tracked-by:"<OWNER>/<REPO>#<ISSUE NUMBER>"

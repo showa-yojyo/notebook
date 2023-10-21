@@ -5,16 +5,81 @@ Planning and tracking with Projects ノート
 本章は GitHub Issues documentation の部分だ。見出しが Issues と並列しているので
 ノートを分割した。
 
+本ノートでは組織回りを割愛することがある。
+
 .. contents::
-   :depth: 2
+   :depth: 3
 
 Learning about Projects
 ======================================================================
 
+About Projects
+----------------------------------------------------------------------
+
+GitHub で言うプロジェクトは issues と pull requests を統合する何かであると規定し
+ている。何かは三とおりある：
+
+   A project is an adaptable spreadsheet, task-board, and road map that
+   integrates with your issues and pull requests on GitHub to help you plan and
+   track your work effectively.
+
+この機能の目的は issues と pull requests の情報を次のように扱うことだ：
+
+   Information is synced automatically to your project as you make changes,
+   updating your views and charts. This integration works both ways, so that
+   when you change information about a pull request or issue in your project,
+   the pull request or issue reflects that information.
+
+ここでは field というものを issues や pull requests に与えることが可能だ。
+
+Projects は自動化を支援している。
+
+Projects の直轄機能というわけではないが、課題一覧というものがある。この機能につ
+いては別途記述されている：
+
+   You can use tasklists to build hierarchies of issues, dividing your issues
+   into smaller subtasks, and creating new relationships between your issues.
+
+プロジェクトの情報の眺めを分析目的に合わせて調節することが可能だ：
+
+   You can save these views, allowing you to quickly return to them as needed
+   and make them available to your team. Views not only let you scope down the
+   items listed but also offer two different layout options.
+
 Quickstart for Projects
 ----------------------------------------------------------------------
 
-この演習は実施。
+利用者プロジェクト作成手順：
+
+#. :menuselection:`Your profile --> Projects --> New project`
+#. ここで次のいずれかを押す：
+
+   * テンプレート
+   * :guilabel:`Table`
+   * :guilabel:`Board`
+#. :guilabel:`Create` を押す
+
+プロジェクトを新規作成したら :guilabel:`README` を執筆する。手順：
+
+#. プロジェクトページ右上 :menuselection:`... --> Settings`
+#. 画面内 :guilabel:`README` を埋める
+#. 編集後に :guilabel:`Save` を押す
+
+プロジェクトに既存または草稿 issue を追加することが可能。前者の場合、issue また
+は pull request の URL を指定して作成する。後者の場合の手順は URL ではなく考えを
+直接記入する。
+
+以降のチュートリアル内容：
+
+* 反復欄 (an iteration field) というものを追加
+* Priority 欄を追加
+* ビューを Priority の値でグループ分けする
+* ビューを保存する
+* プロジェクト進行状況をわかりやすく示すビューレイアウトを追加する
+* 組み込みの自動化機能を構成する：
+
+  #. プロジェクト右上 :menuselection:`... --> Workflows` を押す
+  #. :guilabel:`Default workflows` を調べるといい
 
 Best practices for Projects
 ----------------------------------------------------------------------
@@ -22,7 +87,7 @@ Best practices for Projects
    You can use Projects to manage your work on GitHub, where your issues and
    pull requests live.
 
-コツ：
+コツの見出しだけ列挙しておく：
 
 * Break down large issues into smaller issues
 * Communicate
@@ -32,8 +97,8 @@ Best practices for Projects
 * Use automation
 * Use different field types
 
-課題を小分けすると作業を管理しやすくなり、並行して作業できるようになる。ま
-た、pull request を吟味しやすくもなる。
+課題を小分けすると作業を管理しやすくなり、並行して作業できるようになる。また、
+pull request を吟味しやすくもなる。
 
 README ファイルには次のことを明記する：
 
@@ -59,7 +124,7 @@ Project の View 機能でさまざまな角度から検証する。例：
 
    Projects offers built-in workflows.
 
-..
+自動化機能の枠組は複数ある：
 
    GitHub Actions and the GraphQL API enable you to automate routine project
    management tasks.
