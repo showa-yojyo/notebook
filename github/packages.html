@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GitHub Packages documentation ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=91898170"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="GitHub Pages documentation ノート" href="pages.html" />
+    <link rel="prev" title="GitHub Actions documentation ノート" href="actions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="actions.html" title="Previous document">GitHub Actions documentation ノート</a>
+        </li>
+        <li>
+          <a href="pages.html" title="Next document">GitHub Pages documentation ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="github-packages-documentation">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">GitHub Packages documentation ノート</a><a class="headerlink" href="#github-packages-documentation" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://docs.github.com/en/packages">GitHub Packages documentation</a> を読んでいく。以下、組織回りの記述は読解を割愛することがある。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#github-packages-documentation" id="id2">GitHub Packages documentation ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#quickstart-for-github-packages" id="id3">Quickstart for GitHub Packages</a></p></li>
+<li><p><a class="reference internal" href="#learn-github-packages" id="id4">Learn GitHub Packages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction-to-github-packages" id="id5">Introduction to GitHub Packages</a></p></li>
+<li><p><a class="reference internal" href="#about-permissions-for-github-packages" id="id6">About permissions for GitHub Packages</a></p></li>
+<li><p><a class="reference internal" href="#configuring-a-package-s-access-control-and-visibility" id="id7">Configuring a package’s access control and visibility</a></p></li>
+<li><p><a class="reference internal" href="#connecting-a-repository-to-a-package" id="id8">Connecting a repository to a package</a></p></li>
+<li><p><a class="reference internal" href="#publishing-a-package" id="id9">Publishing a package</a></p></li>
+<li><p><a class="reference internal" href="#viewing-packages" id="id10">Viewing packages</a></p></li>
+<li><p><a class="reference internal" href="#installing-a-package" id="id11">Installing a package</a></p></li>
+<li><p><a class="reference internal" href="#deleting-and-restoring-a-package" id="id12">Deleting and restoring a package</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#working-with-a-github-packages-registry" id="id13">Working with a GitHub Packages registry</a></p>
+<ul>
+<li><p><a class="reference internal" href="#working-with-the-container-registry" id="id14">Working with the Container registry</a></p></li>
+<li><p><a class="reference internal" href="#working-with-the-docker-registry" id="id15">Working with the Docker registry</a></p></li>
+<li><p><a class="reference internal" href="#working-with-the-rubygems-registry" id="id16">Working with the RubyGems registry</a></p></li>
+<li><p><a class="reference internal" href="#working-with-the-npm-registry" id="id17">Working with the npm registry</a></p></li>
+<li><p><a class="reference internal" href="#working-with-the-apache-maven-registry" id="id18">Working with the Apache Maven registry</a></p></li>
+<li><p><a class="reference internal" href="#working-with-the-gradle-registry" id="id19">Working with the Gradle registry</a></p></li>
+<li><p><a class="reference internal" href="#working-with-the-nuget-registry" id="id20">Working with the NuGet registry</a></p></li>
+<li><p><a class="reference internal" href="#migrating-to-the-container-registry-from-the-docker-registry" id="id21">Migrating to the Container registry from the Docker registry</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#managing-github-packages-using-github-actions-workflows" id="id22">Managing GitHub packages using GitHub Actions workflows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#publishing-and-installing-a-package-with-github-actions" id="id23">Publishing and installing a package with GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#example-workflows-for-publishing-a-package" id="id24">Example workflows for publishing a package</a></p></li>
+<li><p><a class="reference internal" href="#about-github-packages-and-github-actions" id="id25">About GitHub Packages and GitHub Actions</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<ul class="simple">
+<li><p><span class="guilabel">Quickstart</span> → <a class="reference internal" href="#packages-quickstart"><span class="std std-ref">Quickstart for GitHub Packages</span></a></p></li>
+<li><p><span class="guilabel">Reference</span> → <a class="reference internal" href="#packages-reference"><span class="std std-ref">Learn GitHub Packages</span></a></p></li>
+</ul>
+<section id="quickstart-for-github-packages">
+<span id="packages-quickstart"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Quickstart for GitHub Packages</a><a class="headerlink" href="#quickstart-for-github-packages" title="Permalink to this heading">¶</a></h2>
+<p>JavaScript の簡単なパッケージを構築して発行するというチュートリアルだ。おそらく
+GitHub Actions の文書を先に読む方がいい。</p>
+<p>チュートリアルは容易だ。Node.js ベースのプロジェクトの発行方法しか習得できていないことを忘れるな。</p>
+<blockquote>
+<div><p>The workflow that you created will run whenever a new release is created in
+your repository. If the tests pass, then the package will be published to
+GitHub Packages.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> を実行したらリポジトリーページの右柱のリンク <span class="guilabel">Releases</span>
+を押す。手順にはなかったが、あらかじめタグを付けておくと良い。フォームを埋めて
+<span class="guilabel">Publish release</span> ボタンを押すことで、作成したworkflow が引き起こされる。Actions 画面でジョブの進捗を確認すると良い。</p>
+<p>完成すると、パッケージ一覧が現れる。</p>
+<blockquote>
+<div><p>You can view all of the packages you have published.</p>
+</div></blockquote>
+<p>リポジトリーを一つとったときに、その発行済みパッケージ全てを見られると言っている。方法はリポジトリーメインページの右柱 <span class="guilabel">Packages</span> を押す。</p>
+<p>このようにして発行されたパッケージは、別のプロジェクトから依存されることが可能となる。</p>
+<blockquote>
+<div><p>Combining GitHub Packages and GitHub Actions can help you automate nearly
+every aspect of your application development processes.</p>
+</div></blockquote>
+<p>これらの GitHub 機能を合わせて使えると能力を売り込める？</p>
+</section>
+<section id="learn-github-packages">
+<span id="packages-reference"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Learn GitHub Packages</a><a class="headerlink" href="#learn-github-packages" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>GitHub Packages is a software package hosting service that allows you to host
+your software packages privately or publicly and use packages as dependencies
+in your projects.</p>
+</div></blockquote>
+<section id="introduction-to-github-packages">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Introduction to GitHub Packages</a><a class="headerlink" href="#introduction-to-github-packages" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can integrate GitHub Packages with GitHub APIs, GitHub Actions, and
+webhooks to create an end-to-end DevOps workflow that includes your code, CI,
+and deployment solutions.</p>
+</div></blockquote>
+<p>Quickstart で見たのは GitHub Actions を用いた実現だった。</p>
+<p>パッケージ登録所の概念を知らないのでどうするか。</p>
+<p>パッケージの README はリポジトリーのそれとは異なる？</p>
+<p>パッケージにも public or private の性質がある。</p>
+<blockquote>
+<div><p>GitHub Packages usage is free for public packages.</p>
+</div></blockquote>
+<p>それでいい。</p>
+<blockquote>
+<div><p>GitHub Packages uses the native package tooling commands you’re already
+familiar with to publish and install package versions.</p>
+</div></blockquote>
+<p>これがあるので <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> だの <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> だのが重要。</p>
+<blockquote>
+<div><p>You need an access token to publish, install, and delete private, internal,
+and public packages.</p>
+</div></blockquote>
+<p>Quickstart で言うと <code class="file docutils literal notranslate"><span class="pre">release-package.yml</span></code> で <code class="docutils literal notranslate"><span class="pre">secret.GITHUB_TOKEN</span></code> を利用していた。</p>
+<blockquote>
+<div><p>You can configure webhooks to subscribe to package-related events, such as
+when a package is published or updated.</p>
+</div></blockquote>
+<p>この機能はまだ見たことがない。</p>
+</section>
+<section id="about-permissions-for-github-packages">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">About permissions for GitHub Packages</a><a class="headerlink" href="#about-permissions-for-github-packages" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The permissions for packages can be scoped either to a user or an
+organization or to a repository.</p>
+</div></blockquote>
+<p>わかりやすい分類。</p>
+<blockquote>
+<div><p>You can change the access control and visibility of the package separately
+from a repository that is connected (or linked) to a package.</p>
+</div></blockquote>
+<p>パッケージの public/private とリポジトリーのそれは独立していると考えていい。</p>
+<blockquote>
+<div><p>You can find a package scoped to a repository by going to the main page of
+the repository and clicking the <span class="guilabel">Packages</span> link to the right of the
+page.</p>
+</div></blockquote>
+<p>このリンクの見てくれがリンクらしからぬものなので、初見だと一覧がないこともあり見逃しやすい。</p>
+<blockquote>
+<div><p>In most registries, to pull a package, you must authenticate with a personal
+access token or <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>, regardless of whether the package is public
+or private.</p>
+</div></blockquote>
+<p>これがあるからトークンの扱いが重要なのだ。</p>
+<blockquote>
+<div><p>For packages scoped to a personal account, you can give any person an access
+role.</p>
+<p>When you create a GitHub Actions workflow, you can use the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>
+to publish, install, delete, and restore packages in GitHub Packages without
+needing to store and manage a personal access token.</p>
+</div></blockquote>
+<p>Quickstart 方式。</p>
+<p>リポジトリーを移転する際、パッケージが属する登録所によっては、GitHub がそのリポジトリーに関連するパッケージを移転することがある。</p>
+<p>パッケージへアクセスする workflow においては、正しいアクセストークンを使っていることと、パッケージへの GitHub Actions アクセスを有効にしていること。</p>
+<blockquote>
+<div><p>To ensure your workflows have access to packages stored in registries that
+support granular permissions, you must give GitHub Actions access to the
+repositories where your workflow is run. You can find this setting on your
+package’s settings page.</p>
+</div></blockquote>
+</section>
+<section id="configuring-a-package-s-access-control-and-visibility">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Configuring a package’s access control and visibility</a><a class="headerlink" href="#configuring-a-package-s-access-control-and-visibility" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>By default, if you publish a package that is linked to a repository, the
+package automatically inherits the access permissions (but not the
+visibility) of the linked repository.</p>
+</div></blockquote>
+<p>パッケージの公開・非公開性がリポジトリーから（最初は）決まる。このとき、リポジトリーに関係する GitHub Actions もパッケージにアクセス可能になる。</p>
+<blockquote>
+<div><p>When a package inherits permissions from a repository, to grant or remove
+access to your package, you must configure the permissions settings of the
+linked repository.</p>
+<p>If you publish a package in a registry that only supports repository-scoped
+permissions, the package is always linked to a repository, and always
+inherits the permissions of the linked repository.</p>
+</div></blockquote>
+<p>前にも見たが登録所によって権限付与の枠組が異なる。</p>
+<blockquote>
+<div><p>If a package belongs to a registry that supports granular permissions, anyone
+with admin permissions to the package can set the package to private or
+public, and can grant access permissions for the package that are separate
+from the permissions set at the organization and repository levels.</p>
+</div></blockquote>
+<p>先にも述べられていたかもしれない。</p>
+<blockquote>
+<div><p>When you publish a package, you automatically get admin permissions to the
+package.</p>
+<p>For packages scoped to a personal account, you can give any person an access
+role.</p>
+</div></blockquote>
+<p>さっきメモし忘れた：</p>
+<blockquote>
+<div><p>If you are using a GitHub Actions workflow to manage your packages, you can
+grant an access role to the repository the workflow is stored in by using the
+<span class="guilabel">Add Repository</span> button under <span class="guilabel">Manage Actions access</span> in
+the package’s settings.</p>
+</div></blockquote>
+<p>権限表を頭に叩き込む。</p>
+<blockquote>
+<div><p>If your package is private or internal and scoped to an organization, then
+you can only give access to other organization members or teams.</p>
+</div></blockquote>
+<p>対象パッケージページ右柱の <span class="guilabel">Pacakge settings</span> を押す。権限変更関連の
+UI が複数ある。</p>
+<blockquote>
+<div><p>If you have admin permissions to a package that is scoped to an organization,
+you can assign read, write, or admin roles to other users and teams.</p>
+</div></blockquote>
+<p>操作は同様。</p>
+<blockquote>
+<div><p>If you want to configure a package’s access settings on a granular level,
+separately from the linked repository, you must remove the inherited
+permissions from the package.</p>
+</div></blockquote>
+<p><span class="guilabel">Inherit access from repository (recommended)</span> をオンにする。</p>
+<blockquote>
+<div><p>For packages scoped to a personal account or an organization, to ensure that
+a GitHub Actions workflow has access to your package, you must give explicit
+access to the repository where the workflow is stored.</p>
+</div></blockquote>
+<p><span class="guilabel">Manage Actions access</span> の脇にある <span class="guilabel">Add repository</span> ボタンを押す。リポジトリー一覧が出るから先は分かる。</p>
+<p>Codespaces でも同様の操作を可能。</p>
+<blockquote>
+<div><p>When you first publish a package that is scoped to your personal account, the
+default visibility is private and only you can see the package.</p>
+</div></blockquote>
+<p>これは不本意なので public にする。<span class="guilabel">Change visibility</span> を押す。ただし：</p>
+<blockquote>
+<div><p>Warning: Once you make a package public, you cannot make it private again.</p>
+</div></blockquote>
+</section>
+<section id="connecting-a-repository-to-a-package">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Connecting a repository to a package</a><a class="headerlink" href="#connecting-a-repository-to-a-package" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When you publish a package that is scoped to a personal account or an
+organization, the package is not linked to a repository by default.</p>
+</div></blockquote>
+<p>リンクする方がいいのでそう変える。</p>
+<p>パッケージ <span class="guilabel">Connect repository</span> でリポジトリーを選んで
+<span class="guilabel">Connect repository</span> を押す。UI が見当たらない？その場合はすでにリンクされているという理解でいいか。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> はわからないからパス。Docker をインストールしてみたものの、マシンに積んでいるメモリーが貧弱であるせいで動作しなかった。</p>
+</section>
+<section id="publishing-a-package">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Publishing a package</a><a class="headerlink" href="#publishing-a-package" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A repository can be connected to more than one package. To prevent confusion,
+make sure the README and description clearly provide information about each
+package.</p>
+</div></blockquote>
+<p>README はとにかく丁寧に作ろう。</p>
+<blockquote>
+<div><p>You can publish a package to GitHub Packages using any supported package
+client by following the same general guidelines.</p>
+</div></blockquote>
+<p>次の章でまとめられている。だいたい言語ごとに方法が定まっているという理解だ。</p>
+<blockquote>
+<div><p>Publish the package using the instructions for your package client.</p>
+</div></blockquote>
+<p>パッケージ登録所もよく知らないとダメだ。</p>
+</section>
+<section id="viewing-packages">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Viewing packages</a><a class="headerlink" href="#viewing-packages" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>By default, you can view all packages you have published.</p>
+</div></blockquote>
+<p>逆に、見られない状態とは何だ？</p>
+<blockquote>
+<div><p>On the package page, GitHub provides metadata for each version, such as the
+publication date. You can see details about the package, including a
+description and installation and usage instructions. You can download any
+assets associated with the package and see information about download
+activity.</p>
+</div></blockquote>
+<p>特にダウンロード数がはっきり確認できるのは大きい。リポジトリーページ右柱の
+<span class="guilabel">Packages</span> を押して一覧を見ればわかる。</p>
+</section>
+<section id="installing-a-package">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Installing a package</a><a class="headerlink" href="#installing-a-package" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can install a package from GitHub Packages and use the package as a
+dependency in your own project.</p>
+</div></blockquote>
+<p>よそのパッケージをインストールしたい。</p>
+<blockquote>
+<div><p>After you find a package, you can read the package’s description and
+installation and usage instructions on the package page.</p>
+</div></blockquote>
+</section>
+<section id="deleting-and-restoring-a-package">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Deleting and restoring a package</a><a class="headerlink" href="#deleting-and-restoring-a-package" title="Permalink to this heading">¶</a></h3>
+<p>自作のパッケージであっても無条件で削除できるわけではない：</p>
+<blockquote>
+<div><p>You cannot delete a public package if any version of the package has more
+than 5,000 downloads.</p>
+</div></blockquote>
+<p>心配には及ばない。</p>
+<p>復元条件は：</p>
+<blockquote>
+<div><p>On GitHub, you can also restore an entire package or package version, if:</p>
+<ul class="simple">
+<li><p>You restore the package within 30 days of its deletion.</p></li>
+<li><p>The same package namespace is still available and not used for a new
+package.</p></li>
+</ul>
+</div></blockquote>
+<p>パッケージ操作は REST API を介して行うことが可能：</p>
+<blockquote>
+<div><p>With registries that support granular permissions, you can use a
+<code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> in a GitHub Actions workflow to delete or restore packages
+using the REST API. The token must have admin permission to the package.</p>
+</div></blockquote>
+<p>普通の削除の手順は次と思われる：</p>
+<blockquote>
+<div><p>To delete a version of a repository-scoped package, you must have admin
+permissions to the repository in which the package is published.</p>
+</div></blockquote>
+<p>パッケージ <span class="guilabel">View and manage all versions</span> ページの <span class="guilabel">Delete</span>
+を押す。</p>
+<p>コマンドラインから <strong class="command">curl</strong> で削除可能のようだが割愛。</p>
+<blockquote>
+<div><p>To delete an entire repository-scoped package, you must have admin
+permissions to the repository that owns the package.</p>
+</div></blockquote>
+<p>これには <span class="guilabel">Delete this package</span> を押す。</p>
+<p>復元手順は UI 操作が今までと異なる。アカウント <span class="menuselection">Settings ‣
+Packages</span> の <span class="guilabel">Deleted packages</span> 一覧にモノがあれば <span class="guilabel">Restore</span>
+可能。</p>
+</section>
+</section>
+<section id="working-with-a-github-packages-registry">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Working with a GitHub Packages registry</a><a class="headerlink" href="#working-with-a-github-packages-registry" title="Permalink to this heading">¶</a></h2>
+<section id="working-with-the-container-registry">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Working with the Container registry</a><a class="headerlink" href="#working-with-the-container-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can store and manage Docker and OCI images in the Container registry,
+which uses the package namespace <code class="docutils literal notranslate"><span class="pre">https://ghcr.io</span></code>.</p>
+</div></blockquote>
+<p>Container 登録所という概念が上記のパッケージ名前空間を用いることを覚えておく。</p>
+<blockquote>
+<div><p>The Container registry stores container images within your organization or
+personal account, and allows you to associate an image with a repository.</p>
+</div></blockquote>
+<p>登録所は誰かのアカウントにある container images というものが置いてある場所。それらはリポジトリーと結びつくことの二点を覚えておく。</p>
+<p>Container 登録所は現在二種類の image formats を対応している。</p>
+<blockquote>
+<div><p>To authenticate to a GitHub Packages registry within a GitHub Actions
+workflow, you can use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> to publish packages associated with the workflow
+repository.</p></li>
+<li><p>a personal access token (classic) with at least <code class="docutils literal notranslate"><span class="pre">read:packages</span></code> scope to
+install packages associated with other private repositories (which
+<code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> can’t access).</p></li>
+</ul>
+</div></blockquote>
+<p>たぶん前者を使うのがいい。</p>
+<blockquote>
+<div><p>This registry supports granular permissions.</p>
+</div></blockquote>
+<p>この権限が使える登録所に対しては <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> 推奨。</p>
+<blockquote>
+<div><p>You can use a <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> in a GitHub Actions workflow to delete or
+restore a package using the REST API, if the token has <code class="docutils literal notranslate"><span class="pre">admin</span></code> permission
+to the package.</p>
+</div></blockquote>
+<p>YAML に REST API を呼び出すコードを書くものと考えられる。</p>
+<blockquote>
+<div><p>You can also choose to give access permissions to packages independently for
+GitHub Codespaces and GitHub Actions.</p>
+</div></blockquote>
+<p>Package ページの UI からそうだと思う。</p>
+<blockquote>
+<div><p>GitHub Packages only supports authentication using a personal access token
+(classic).</p>
+</div></blockquote>
+<p>トークン作成画面のチェックの入れ方は、例えば：</p>
+<blockquote>
+<div><p>Select the <code class="docutils literal notranslate"><span class="pre">read:packages</span></code> scope to download container images and read
+their metadata.</p>
+</div></blockquote>
+<p>このトークンを手許の環境に環境変数の値として控えておくことを推奨している。変数名は <code class="docutils literal notranslate"><span class="pre">CR_PAT</span></code> として説明を続けている。こういうコマンドを実行することがあるので：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p><strong class="command">docker</strong> コマンド操作各種</p>
+</div>
+</section>
+<section id="working-with-the-docker-registry">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Working with the Docker registry</a><a class="headerlink" href="#working-with-the-docker-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The Docker registry has now been replaced by the Container registry.</p>
+</div></blockquote>
+<p>だそうなので、前節を習得すれば十分。</p>
+<p>名前空間 <code class="docutils literal notranslate"><span class="pre">docker.pkg.github.com</span></code> を使っていたが、名前空間 <code class="docutils literal notranslate"><span class="pre">https://ghcr.io</span></code>
+を使う。</p>
+<blockquote>
+<div><p>Docker images previously stored in the Docker registry are being
+automatically migrated into the Container registry.</p>
+</div></blockquote>
+<p>作ったことがないので無関係。</p>
+</section>
+<section id="working-with-the-rubygems-registry">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Working with the RubyGems registry</a><a class="headerlink" href="#working-with-the-rubygems-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can configure RubyGems to publish a package to GitHub Packages and to use
+packages stored on GitHub Packages as dependencies in a Ruby project with
+Bundler.</p>
+</div></blockquote>
+<p>RubyGems の場合も：</p>
+<blockquote>
+<div><p>This registry supports granular permissions.</p>
+</div></blockquote>
+<p>Gem を作って配るのが目的だ。その設定をローカルでまず行う：</p>
+<blockquote>
+<div><p>To publish new gems, you need to authenticate to GitHub Packages with
+RubyGems by editing your <code class="file docutils literal notranslate"><span class="pre">~/.gem/credentials</span></code> file to include your
+personal access token (classic). Create a new <code class="file docutils literal notranslate"><span class="pre">~/.gem/credentials</span></code> file
+if this file doesn’t exist.</p>
+</div></blockquote>
+<p>正確なパスをコマンド <code class="docutils literal notranslate"><span class="pre">gem</span> <span class="pre">env</span></code> で調べるといい。
+<code class="file docutils literal notranslate"><span class="pre">~/.local/share/gem/credentials</span></code> の可能性がある。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>---
+:github: Bearer TOKEN
+</pre></div>
+</div>
+<p>Gem 設定：</p>
+<blockquote>
+<div><p>To install gems, you need to authenticate to GitHub Packages by updating your
+gem sources to include
+<code class="docutils literal notranslate"><span class="pre">https://USERNAME:TOKEN&#64;rubygems.pkg.github.com/NAMESPACE/</span></code></p>
+</div></blockquote>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gem sources --add https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/</span>
+</pre></div>
+</div>
+<p>Bundler 設定：</p>
+<blockquote>
+<div><p>To authenticate with Bundler, configure Bundler to use your personal access
+token (classic), replacing <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> with your GitHub username, <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code>
+with your personal access token, and <code class="docutils literal notranslate"><span class="pre">NAMESPACE</span></code> with the name of the
+personal account or organization to which the gem is scoped.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>これまでの手順で発行の準備が整ったと思われる。</p>
+<blockquote>
+<div><p>When you first publish a package, the default visibility is private.</p>
+</div></blockquote>
+<p>これを先述の方法で public に変える。ビルドしたら次のようにして GitHub に発行する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>bash<span class="w"> </span>gem<span class="w"> </span>push<span class="w"> </span>--key<span class="w"> </span>github<span class="w"> </span>--host<span class="w"> </span>https://rubygems.pkg.github.com/NAMESPACE<span class="w"> </span>GEM_NAME-0.0.1.gem
+</pre></div>
+</div>
+<blockquote>
+<div><p>You can ensure gems will be linked to a repository as soon as they are
+published by including the URL of the GitHub repository in the
+<code class="docutils literal notranslate"><span class="pre">github_repo</span></code> field in <code class="docutils literal notranslate"><span class="pre">gem.metadata</span></code>.</p>
+</div></blockquote>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">gem</span><span class="o">.</span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;github_repo&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;ssh://github.com/OWNER/REPOSITORY&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>You can use gems from GitHub Packages much like you use gems from
+rubygems.org.</p>
+</div></blockquote>
+<p><code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> に <code class="docutils literal notranslate"><span class="pre">source</span></code> を追加する：</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">source</span><span class="w"> </span><span class="s2">&quot;https://rubygems.pkg.github.com/NAMESPACE&quot;</span>
+<span class="n">source</span><span class="w"> </span><span class="s2">&quot;https://rubygems.org&quot;</span>
+
+<span class="n">gem</span><span class="w"> </span><span class="s2">&quot;rails&quot;</span>
+<span class="n">gem</span><span class="w"> </span><span class="s2">&quot;GEM_NAME&quot;</span>
+</pre></div>
+</div>
+<p>これで <code class="docutils literal notranslate"><span class="pre">gem</span> <span class="pre">install</span> <span class="pre">GEM_NAME</span></code> コマンドでインストール可能だ。</p>
+</section>
+<section id="working-with-the-npm-registry">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Working with the npm registry</a><a class="headerlink" href="#working-with-the-npm-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This registry supports granular permissions.</p>
+</div></blockquote>
+<p>ざっと読む限り GitHub に関することは RubyGems と共通している。</p>
+<blockquote>
+<div><p>You can authenticate to GitHub Packages with npm by either editing your
+per-user <code class="file docutils literal notranslate"><span class="pre">~/.npmrc</span></code> file to include your personal access token
+(classic) or by logging in to npm on the command line using your username and
+personal access token.</p>
+</div></blockquote>
+<p>設定ファイルパスは <code class="file docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/npm/npmrc</span></code> とした。以下ではそう読み替える。こんな感じの行を書く：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//npm.pkg.github.com/:_authToken=TOKEN
+</pre></div>
+</div>
+<blockquote>
+<div><p>To authenticate by logging in to npm, use the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">login</span></code> command,
+replacing <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> with your GitHub username, <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> with your
+personal access token (classic), and <code class="docutils literal notranslate"><span class="pre">PUBLIC-EMAIL-ADDRESS</span></code> with your email
+address.</p>
+</div></blockquote>
+<p>下のコマンドのようにする：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ npm login --scope=@NAMESPACE --auth-type=legacy --registry=https://npm.pkg.github.com</span>
+<span class="go">npm notice Log in on https://npm.pkg.github.com/</span>
+<span class="go">Username: USERNAME</span>
+<span class="go">Password: TOKEN</span>
+</pre></div>
+</div>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--auth-type=legacy</span></code> の適用条件は本文参照。</p>
+<blockquote>
+<div><p>You can connect a package to a repository as soon as the package is published
+by including a repository field in the <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> file.</p>
+</div></blockquote>
+<p>このあたりの記述は Quickstart で実践済みだからわからないことはないと思う。</p>
+<blockquote>
+<div><p>You can set up the scope mapping for your project using either a local
+<code class="file docutils literal notranslate"><span class="pre">.npmrc</span></code> file in the project or using the <code class="docutils literal notranslate"><span class="pre">publishConfig</span></code> option in
+the <code class="file docutils literal notranslate"><span class="pre">package.json</span></code>. GitHub Packages only supports scoped npm packages.</p>
+</div></blockquote>
+<p>プロジェクト用の <code class="file docutils literal notranslate"><span class="pre">.npmrc</span></code> を設けるものとする。</p>
+<blockquote>
+<div><p>In the <code class="file docutils literal notranslate"><span class="pre">.npmrc</span></code> file, use the GitHub Packages URL and account owner so
+GitHub Packages knows where to route package requests.</p>
+</div></blockquote>
+<p>さっきの <code class="docutils literal notranslate"><span class="pre">_authToken=</span></code> 行の近くに書くといい：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@NAMESPACE:registry=https://npm.pkg.github.com
+</pre></div>
+</div>
+<p>それから <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> の <code class="docutils literal notranslate"><span class="pre">name</span></code> と <code class="docutils literal notranslate"><span class="pre">repository</span></code> の値を確認してコマンド <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">publish</span></code> を実行すればよい。</p>
+<p><code class="docutils literal notranslate"><span class="pre">publishConfig</span></code> を用いる場合は：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;publishConfig&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;registry&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://npm.pkg.github.com&quot;</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>You can install packages from GitHub Packages by adding the packages as
+dependencies in the <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> file for your project.</p>
+</div></blockquote>
+<p>先ほど述べられたものと同じものを書く。</p>
+<blockquote>
+<div><p>You also need to add the <code class="file docutils literal notranslate"><span class="pre">.npmrc</span></code> file to your project so that all
+requests to install packages will go through GitHub Packages.</p>
+</div></blockquote>
+<p><code class="file docutils literal notranslate"><span class="pre">package.json</span></code> では依存関係の定義が急所となる：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ORGANIZATION_NAME/PACKAGE_NAME&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> でインストール。</p>
+</section>
+<section id="working-with-the-apache-maven-registry">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Working with the Apache Maven registry</a><a class="headerlink" href="#working-with-the-apache-maven-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can configure Apache Maven to publish packages to GitHub Packages and to
+use packages stored on GitHub Packages as dependencies in a Java project.</p>
+</div></blockquote>
+<p>これは Java の話題だ。</p>
+<blockquote>
+<div><p>You can authenticate to GitHub Packages with Apache Maven by editing your
+<code class="file docutils literal notranslate"><span class="pre">~/.m2/settings.xml</span></code> file to include your personal access token
+(classic). Create a new <code class="file docutils literal notranslate"><span class="pre">~/.m2/settings.xml</span></code> file if one doesn’t exist.</p>
+</div></blockquote>
+<p>Maven のユーザー設定ファイルは <code class="file docutils literal notranslate"><span class="pre">~/.m2/settings.xml</span></code> であるとして話を進める。</p>
+<p><code class="docutils literal notranslate"><span class="pre">servers</span></code> および <code class="docutils literal notranslate"><span class="pre">repositories</span></code> 要素を適宜定義する。</p>
+<p>パッケージディレクトリーのファイル <code class="file docutils literal notranslate"><span class="pre">pom.xml</span></code> を次のようにする：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;distributionManagement&gt;</span>
+<span class="w">   </span><span class="nt">&lt;repository&gt;</span>
+<span class="w">     </span><span class="nt">&lt;id&gt;</span>github<span class="nt">&lt;/id&gt;</span>
+<span class="w">     </span><span class="nt">&lt;name&gt;</span>GitHub<span class="w"> </span>OWNER<span class="w"> </span>Apache<span class="w"> </span>Maven<span class="w"> </span>Packages<span class="nt">&lt;/name&gt;</span>
+<span class="w">     </span><span class="nt">&lt;url&gt;</span>https://maven.pkg.github.com/OWNER/REPOSITORY<span class="nt">&lt;/url&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/repository&gt;</span>
+<span class="nt">&lt;/distributionManagement&gt;</span>
+</pre></div>
+</div>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">deploy</span></code> で発行する。</p>
+<blockquote>
+<div><p>To install an Apache Maven package from GitHub Packages, edit the
+<code class="file docutils literal notranslate"><span class="pre">pom.xml</span></code> file to include the package as a dependency.</p>
+</div></blockquote>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+<span class="w"> </span><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.example<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>test<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">install</span></code> でインストール。</p>
+</section>
+<section id="working-with-the-gradle-registry">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Working with the Gradle registry</a><a class="headerlink" href="#working-with-the-gradle-registry" title="Permalink to this heading">¶</a></h3>
+<p>こちらも Java の話題か？</p>
+<blockquote>
+<div><p>You can authenticate to GitHub Packages with Gradle using either Gradle
+Groovy or Kotlin DSL by editing your <code class="file docutils literal notranslate"><span class="pre">build.gradle</span></code> file (Gradle
+Groovy) or <code class="file docutils literal notranslate"><span class="pre">build.gradle.kts</span></code> file (Kotlin DSL) file to include your
+personal access token (classic).</p>
+</div></blockquote>
+<blockquote>
+<div><p>Because uppercase letters aren’t supported, you must use lowercase letters
+for the repository owner even if the GitHub user or organization name
+contains uppercase letters.</p>
+</div></blockquote>
+<p>両者の単一パッケージ用と複数パッケージ用の例コードがある。</p>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">gradle</span> <span class="pre">publish</span></code> で発行する。</p>
+<blockquote>
+<div><p>To use a published package from GitHub Packages, add the package as a
+dependency and add the repository to your project.</p>
+</div></blockquote>
+<p>設定ファイルに <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> と <code class="docutils literal notranslate"><span class="pre">repositories</span></code> の詳細を記述する。</p>
+</section>
+<section id="working-with-the-nuget-registry">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Working with the NuGet registry</a><a class="headerlink" href="#working-with-the-nuget-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can configure the dotnet command-line interface (CLI) to publish NuGet
+packages to GitHub Packages and to use packages stored on GitHub Packages as
+dependencies in a .NET project.</p>
+</div></blockquote>
+<p>久しぶりに：</p>
+<blockquote>
+<div><p>This registry supports granular permissions.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Use the following command to authenticate to GitHub Packages in a GitHub
+Actions workflow using the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> instead of hardcoding a personal
+access token in a <code class="file docutils literal notranslate"><span class="pre">nuget.config</span></code> file in the repository:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github &quot;https://nuget.pkg.github.com/NAMESPACE/index.json&quot;</span>
+</pre></div>
+</div>
+<p>To authenticate to GitHub Packages with the <strong class="command">dotnet</strong> command-line
+interface (CLI), create a <code class="file docutils literal notranslate"><span class="pre">nuget.config</span></code> file in your project directory
+specifying GitHub Packages as a source under <code class="docutils literal notranslate"><span class="pre">packageSources</span></code> for the
+<strong class="command">dotnet</strong> CLI client.</p>
+</div></blockquote>
+<p>この設定ファイルは XML だ。次のように記述する：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;packageSources&gt;</span>
+<span class="w">        </span><span class="nt">&lt;clear</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;add</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;github&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;https://nuget.pkg.github.com/NAMESPACE/index.json&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/packageSources&gt;</span>
+<span class="w">    </span><span class="nt">&lt;packageSourceCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;github&gt;</span>
+<span class="w">            </span><span class="nt">&lt;add</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;Username&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;USERNAME&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">            </span><span class="nt">&lt;add</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;ClearTextPassword&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;TOKEN&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/github&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/packageSourceCredentials&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>You can publish a package to GitHub Packages by authenticating with a
+<code class="file docutils literal notranslate"><span class="pre">nuget.config</span></code> file, or by using the <code class="docutils literal notranslate"><span class="pre">--api-key</span></code> command line option
+with your GitHub personal access token (classic).</p>
+<p>If you specify a <code class="docutils literal notranslate"><span class="pre">RepositoryURL</span></code> in your <code class="file docutils literal notranslate"><span class="pre">nuget.config</span></code> file, the
+published package will automatically be connected to the specified
+repository.</p>
+</div></blockquote>
+<p>トークンを API キーとして用いるか、<code class="file docutils literal notranslate"><span class="pre">nuget.config</span></code> を用いるかしてパッケージを発行する方法がある。前者は：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ dotnet pack --configuration Release</span>
+<span class="go">bash$ dotnet nuget push &quot;bin/Release/PROJECT_NAME.1.0.0.nupkg&quot; --api-key YOUR_GITHUB_PAT --source &quot;github&quot;</span>
+</pre></div>
+</div>
+<p>後者ではプロジェクトの <code class="docutils literal notranslate"><span class="pre">.csproj</span></code> ファイルをこのように書き換えて：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Project</span><span class="w"> </span><span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;PropertyGroup&gt;</span>
+<span class="w">    </span><span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+<span class="w">    </span><span class="nt">&lt;TargetFramework&gt;</span>netcoreapp3.0<span class="nt">&lt;/TargetFramework&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageId&gt;</span>PROJECT_NAME<span class="nt">&lt;/PackageId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Version&gt;</span>1.0.0<span class="nt">&lt;/Version&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Authors&gt;</span>AUTHORS<span class="nt">&lt;/Authors&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Company&gt;</span>COMPANY_NAME<span class="nt">&lt;/Company&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PackageDescription&gt;</span>PACKAGE_DESCRIPTION<span class="nt">&lt;/PackageDescription&gt;</span>
+<span class="w">    </span><span class="nt">&lt;RepositoryUrl&gt;</span>https://github.com/OWNER/REPOSITORY<span class="nt">&lt;/RepositoryUrl&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/PropertyGroup&gt;</span>
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+</div>
+<p>コマンド実行する（オプションが一つ減る）：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ dotnet pack --configuration Release</span>
+<span class="go">bash$ dotnet nuget push &quot;bin/Release/PROJECT_NAME.1.0.0.nupkg&quot; --source &quot;github&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="migrating-to-the-container-registry-from-the-docker-registry">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Migrating to the Container registry from the Docker registry</a><a class="headerlink" href="#migrating-to-the-container-registry-from-the-docker-registry" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The Container registry replaces GitHub’s Docker registry. If you’ve stored
+Docker images in the Docker registry, GitHub will gradually migrate the
+images to the Container registry. No action is required on your part.</p>
+</div></blockquote>
+<p>この移行処理により、パッケージの詳細が変化する：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The package icon will be the Container registry logo instead of the Docker
+logo.</p></li>
+<li><p>The domain in the pull URL will be <code class="docutils literal notranslate"><span class="pre">ghcr.io</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">docker.pkg.github.com</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>Container 登録所ロゴは角砂糖を等角投影図法で描いたような図像だ。</p>
+<blockquote>
+<div><p>Any scripts or GitHub Actions workflows that use the namespace for the Docker
+registry, <code class="docutils literal notranslate"><span class="pre">docker.pkg.github.com</span></code>, will continue to work after migration to
+the Container registry at <code class="docutils literal notranslate"><span class="pre">ghcr.io</span></code>.</p>
+</div></blockquote>
+<p>こういう自動移行が発生すると、GitHub Actions への影響を考慮する習慣を持ちたい。</p>
+</section>
+</section>
+<section id="managing-github-packages-using-github-actions-workflows">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">Managing GitHub packages using GitHub Actions workflows</a><a class="headerlink" href="#managing-github-packages-using-github-actions-workflows" title="Permalink to this heading">¶</a></h2>
+<p>GitHub Actions を使ったパッケージ処理を見ていく？</p>
+<section id="publishing-and-installing-a-package-with-github-actions">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Publishing and installing a package with GitHub Actions</a><a class="headerlink" href="#publishing-and-installing-a-package-with-github-actions" title="Permalink to this heading">¶</a></h3>
+<p>Quickstart で少し見たように：</p>
+<blockquote>
+<div><p>You can configure a workflow in GitHub Actions to automatically publish or
+install a package from GitHub Packages.</p>
+</div></blockquote>
+<blockquote>
+<div><p>You can extend the CI and CD capabilities of your repository by publishing or
+installing packages as part of your workflow.</p>
+</div></blockquote>
+<p>どこかで読んだような文が続く。</p>
+<blockquote>
+<div><p>If you want your workflow to access a GitHub Packages registry that does not
+support granular permissions, then we recommend using the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>
+that GitHub automatically creates for your repository when you enable GitHub
+Actions. You should set the permissions for this access token in the workflow
+file to grant read access for the <code class="docutils literal notranslate"><span class="pre">contents</span></code> scope and write access for the
+<code class="docutils literal notranslate"><span class="pre">packages</span></code> scope.</p>
+</div></blockquote>
+<p>トークン設定ページを見てこの記述を確認しろ。</p>
+<blockquote>
+<div><p>All workflows accessing registries that support granular permissions should
+use the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> instead of a personal access token.</p>
+</div></blockquote>
+<p>これも前に見た。</p>
+<blockquote>
+<div><p>When you enable GitHub Actions, GitHub installs a GitHub App on your
+repository. The <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> secret is a GitHub App installation access
+token. You can use the installation access token to authenticate on behalf of
+the GitHub App installed on your repository.</p>
+</div></blockquote>
+<p>この原理を理解する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> を使用した workflow がパッケージを作成する場合、既定の権限とアクセスがある。</p>
+<blockquote>
+<div><p>You can use GitHub Actions to automatically publish packages as part of your
+continuous integration (CI) flow.</p>
+</div></blockquote>
+<p>一環としての発行なので、テストに成功していないと発動しない。</p>
+<p>ここで GitHub Actions を使ってモノをビルドし、Docker イメージを自動的に作成して
+GitHub Packages に公開する方法を示す例が示されている。リポジトリーに
+<code class="file docutils literal notranslate"><span class="pre">.github/workflows/deploy-image.yml</span></code> のようなパスに workflow を定義する。</p>
+<p>完了すると、新しいパッケージがリポジトリーに表示される。</p>
+<p>パッケージのインストールについても同じような考え方をする。</p>
+<blockquote>
+<div><p>Installing packages hosted by GitHub Packages through GitHub Actions requires
+minimal configuration or additional authentication when you use the
+<code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>. Data transfer is also free when an action installs a
+package.</p>
+</div></blockquote>
+<p>次の利点を覚えておく：</p>
+<blockquote>
+<div><p>Using the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>, instead of a personal access token (classic) with
+the repo scope, increases the security of your repository as you don’t need
+to use a long-lived personal access token that offers unnecessary access to
+the repository where your workflow is run.</p>
+</div></blockquote>
+<p>パッケージから workflow にアクセス可能にする：</p>
+<blockquote>
+<div><p>To ensure your package has access to your workflow, you must add the
+repository where the workflow is stored to your package.</p>
+</div></blockquote>
+<p><span class="guilabel">Manage Actions access</span> の <span class="guilabel">Add Repository`</span> ボタンを押す。</p>
+<p>YAML ファイル内の登録所にログインする箇所で <code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">secrets.GITHUB_TOKEN</span> <span class="pre">}}</span></code> を使って認証させる。</p>
+</section>
+<section id="example-workflows-for-publishing-a-package">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Example workflows for publishing a package</a><a class="headerlink" href="#example-workflows-for-publishing-a-package" title="Permalink to this heading">¶</a></h3>
+<p>次の GitHub Actions documentation 内へのリンクがある：</p>
+<ul class="simple">
+<li><p>Publishing Node.js packages</p></li>
+<li><p>Publishing Docker images</p></li>
+<li><p>Publishing Java packages with Maven</p></li>
+<li><p>Publishing Java packages with Gradle</p></li>
+</ul>
+<p>ノートを取るとしたら、そちらのノートで行う。</p>
+</section>
+<section id="about-github-packages-and-github-actions">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">About GitHub Packages and GitHub Actions</a><a class="headerlink" href="#about-github-packages-and-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Creating a package at the end of a continuous integration workflow can help
+during code reviews on a pull request.</p>
+</div></blockquote>
+<p>パッケージ作りもレビューの助けになる？</p>
+<blockquote>
+<div><p>Depending on the kind of application you’re building, this package can be
+downloaded locally for manual testing, made available for users to download,
+or deployed to a staging or production environment.</p>
+</div></blockquote>
+<p>レビュー担当者が成果物パッケージをダウンロードして検査できるわけだ。</p>
+<p>パッケージを GitHub Packages またはパッケージ登録所に発行する。前者の場合：</p>
+<blockquote>
+<div><p>You may want to publish packages to GitHub Packages on every push into the
+default branch. This will allow developers on your project to always be able
+to run and test the latest build from the default branch easily, by
+installing it from GitHub Packages.</p>
+</div></blockquote>
+<p>後者に対しては：</p>
+<blockquote>
+<div><p>You can automate this by creating a workflow that publishes packages to a
+package registry on every release creation.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="actions.html" title="Previous document">GitHub Actions documentation ノート</a>
+        </li>
+        <li>
+          <a href="pages.html" title="Next document">GitHub Pages documentation ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

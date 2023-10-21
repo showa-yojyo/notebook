@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GitHub Actions documentation ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=91898170"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="GitHub Packages documentation ノート" href="packages.html" />
+    <link rel="prev" title="GitHub Discussions documentation ノート" href="discussions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="discussions.html" title="Previous document">GitHub Discussions documentation ノート</a>
+        </li>
+        <li>
+          <a href="packages.html" title="Next document">GitHub Packages documentation ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="github-actions-documentation">
+<h1><a class="toc-backref" href="#id7" role="doc-backlink">GitHub Actions documentation ノート</a><a class="headerlink" href="#github-actions-documentation" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://docs.github.com/en/actions">GitHub Actions documentation</a> 読書ノート。自動化を実現する機能を極めればある意味最強なので、熟読したい。しかし、長い。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#github-actions-documentation" id="id7">GitHub Actions documentation ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#quickstart-for-github-actions" id="id8">Quickstart for GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#learn-github-actions" id="id9">Learn GitHub Actions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#understanding-github-actions" id="id10">Understanding GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#finding-and-customizing-actions" id="id11">Finding and customizing actions</a></p></li>
+<li><p><a class="reference internal" href="#essential-features-of-github-actions" id="id12">Essential features of GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#expressions" id="id13">Expressions</a></p></li>
+<li><p><a class="reference internal" href="#contexts" id="id14">Contexts</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id15">Variables</a></p></li>
+<li><p><a class="reference internal" href="#usage-limits-billing-and-administration" id="id16">Usage limits, billing, and administration</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#examples" id="id17">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-scripts-to-test-your-code-on-a-runner" id="id18">Using scripts to test your code on a runner</a></p></li>
+<li><p><a class="reference internal" href="#using-the-github-cli-on-a-runner" id="id19">Using the GitHub CLI on a runner</a></p></li>
+<li><p><a class="reference internal" href="#using-concurrency-expressions-and-a-test-matrix" id="id20">Using concurrency, expressions, and a test matrix</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-workflows" id="id21">Using workflows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-workflows" id="id22">About workflows</a></p></li>
+<li><p><a class="reference internal" href="#triggering-a-workflow" id="id23">Triggering a workflow</a></p></li>
+<li><p><a class="reference internal" href="#manually-running-a-workflow" id="id24">Manually running a workflow</a></p></li>
+<li><p><a class="reference internal" href="#disabling-and-enabling-a-workflow" id="id25">Disabling and enabling a workflow</a></p></li>
+<li><p><a class="reference internal" href="#events-that-trigger-workflows" id="id26">Events that trigger workflows</a></p></li>
+<li><p><a class="reference internal" href="#workflow-syntax-for-github-actions" id="id27">Workflow syntax for GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#workflow-commands-for-github-actions" id="id28">Workflow commands for GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#reusing-workflows" id="id29">Reusing workflows</a></p></li>
+<li><p><a class="reference internal" href="#required-workflows" id="id30">Required workflows</a></p></li>
+<li><p><a class="reference internal" href="#caching-dependencies-to-speed-up-workflows" id="id31">Caching dependencies to speed up workflows</a></p></li>
+<li><p><a class="reference internal" href="#storing-workflow-data-as-artifacts" id="id32">Storing workflow data as artifacts</a></p></li>
+<li><p><a class="reference internal" href="#creating-starter-workflows-for-your-organization" id="id33">Creating starter workflows for your organization</a></p></li>
+<li><p><a class="reference internal" href="#using-starter-workflows" id="id34">Using starter workflows</a></p></li>
+<li><p><a class="reference internal" href="#sharing-workflows-secrets-and-runners-with-your-organization" id="id35">Sharing workflows, secrets, and runners with your organization</a></p></li>
+<li><p><a class="reference internal" href="#using-github-cli-in-workflows" id="id36">Using GitHub CLI in workflows</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-jobs" id="id37">Using jobs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-jobs-in-a-workflow" id="id38">Using jobs in a workflow</a></p></li>
+<li><p><a class="reference internal" href="#choosing-the-runner-for-a-job" id="id39">Choosing the runner for a job</a></p></li>
+<li><p><a class="reference internal" href="#using-conditions-to-control-job-execution" id="id40">Using conditions to control job execution</a></p></li>
+<li><p><a class="reference internal" href="#using-a-matrix-for-your-jobs" id="id41">Using a matrix for your jobs</a></p></li>
+<li><p><a class="reference internal" href="#using-concurrency" id="id42">Using concurrency</a></p></li>
+<li><p><a class="reference internal" href="#using-environments-for-jobs" id="id43">Using environments for jobs</a></p></li>
+<li><p><a class="reference internal" href="#running-jobs-in-a-container" id="id44">Running jobs in a container</a></p></li>
+<li><p><a class="reference internal" href="#setting-default-values-for-jobs" id="id45">Setting default values for jobs</a></p></li>
+<li><p><a class="reference internal" href="#assigning-permissions-to-jobs" id="id46">Assigning permissions to jobs</a></p></li>
+<li><p><a class="reference internal" href="#defining-outputs-for-jobs" id="id47">Defining outputs for jobs</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#manage-workflow-runs" id="id48">Manage workflow runs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#re-running-workflows-and-jobs" id="id49">Re-running workflows and jobs</a></p></li>
+<li><p><a class="reference internal" href="#canceling-a-workflow" id="id50">Canceling a workflow</a></p></li>
+<li><p><a class="reference internal" href="#approving-workflow-runs-from-public-forks" id="id51">Approving workflow runs from public forks</a></p></li>
+<li><p><a class="reference internal" href="#approving-workflow-runs-from-private-forks" id="id52">Approving workflow runs from private forks</a></p></li>
+<li><p><a class="reference internal" href="#reviewing-deployments" id="id53">Reviewing deployments</a></p></li>
+<li><p><a class="reference internal" href="#skipping-workflow-runs" id="id54">Skipping workflow runs</a></p></li>
+<li><p><a class="reference internal" href="#deleting-a-workflow-run" id="id55">Deleting a workflow run</a></p></li>
+<li><p><a class="reference internal" href="#downloading-workflow-artifacts" id="id56">Downloading workflow artifacts</a></p></li>
+<li><p><a class="reference internal" href="#removing-workflow-artifacts" id="id57">Removing workflow artifacts</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#build-and-test" id="id58">Build and test</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-continuous-integration" id="id59">About continuous integration</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-go" id="id60">Building and testing Go</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-java-with-ant" id="id61">Building and testing Java with Ant</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-java-with-gradle" id="id62">Building and testing Java with Gradle</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-java-with-maven" id="id63">Building and testing Java with Maven</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-net" id="id64">Building and testing .NET</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-node-js" id="id65">Building and testing Node.js</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-powershell" id="id66">Building and testing PowerShell</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-python" id="id67">Building and testing Python</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-ruby" id="id68">Building and testing Ruby</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-swift" id="id69">Building and testing Swift</a></p></li>
+<li><p><a class="reference internal" href="#building-and-testing-xamarin-applications" id="id70">Building and testing Xamarin applications</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-containerized-services" id="id71">Using containerized services</a></p></li>
+<li><p><a class="reference internal" href="#publish-packages" id="id72">Publish packages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-packaging-with-github-actions" id="id73">About packaging with GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#publishing-docker-images" id="id74">Publishing Docker images</a></p></li>
+<li><p><a class="reference internal" href="#publishing-java-packages-with-gradle" id="id75">Publishing Java packages with Gradle</a></p></li>
+<li><p><a class="reference internal" href="#publishing-java-packages-with-maven" id="id76">Publishing Java packages with Maven</a></p></li>
+<li><p><a class="reference internal" href="#publishing-node-js-packages" id="id77">Publishing Node.js packages</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#manage-issues-and-pull-requests" id="id78">Manage issues and pull requests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-github-actions-for-project-management" id="id79">Using GitHub Actions for project management</a></p></li>
+<li><p><a class="reference internal" href="#adding-labels-to-issues" id="id80">Adding labels to issues</a></p></li>
+<li><p><a class="reference internal" href="#closing-inactive-issues" id="id81">Closing inactive issues</a></p></li>
+<li><p><a class="reference internal" href="#commenting-on-an-issue-when-a-label-is-added" id="id82">Commenting on an issue when a label is added</a></p></li>
+<li><p><a class="reference internal" href="#moving-assigned-issues-on-project-boards" id="id83">Moving assigned issues on project boards</a></p></li>
+<li><p><a class="reference internal" href="#removing-a-label-when-a-card-is-added-to-a-project-board-column" id="id84">Removing a label when a card is added to a project board column</a></p></li>
+<li><p><a class="reference internal" href="#scheduling-issue-creation" id="id85">Scheduling issue creation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#migrate-to-github-actions" id="id86">Migrate to GitHub Actions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-github-actions-importer-to-automate-migrations" id="id87">Using GitHub Actions Importer to automate migrations</a></p></li>
+<li><p><a class="reference internal" href="#manually-migrating-to-github-actions" id="id88">Manually migrating to GitHub Actions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#monitoring-and-troubleshooting-workflows" id="id89">Monitoring and troubleshooting workflows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-monitoring-and-troubleshooting" id="id90">About monitoring and troubleshooting</a></p></li>
+<li><p><a class="reference internal" href="#using-the-visualization-graph" id="id91">Using the visualization graph</a></p></li>
+<li><p><a class="reference internal" href="#adding-a-workflow-status-badge" id="id92">Adding a workflow status badge</a></p></li>
+<li><p><a class="reference internal" href="#viewing-workflow-run-history" id="id93">Viewing workflow run history</a></p></li>
+<li><p><a class="reference internal" href="#viewing-job-execution-time" id="id94">Viewing job execution time</a></p></li>
+<li><p><a class="reference internal" href="#using-workflow-run-logs" id="id95">Using workflow run logs</a></p></li>
+<li><p><a class="reference internal" href="#enabling-debug-logging" id="id96">Enabling debug logging</a></p></li>
+<li><p><a class="reference internal" href="#notifications-for-workflow-runs" id="id97">Notifications for workflow runs</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#security-guides" id="id98">Security guides</a></p>
+<ul>
+<li><p><a class="reference internal" href="#security-hardening-for-github-actions" id="id99">Security hardening for GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#using-secrets-in-github-actions" id="id100">Using secrets in GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#automatic-token-authentication" id="id101">Automatic token authentication</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#creating-actions" id="id102">Creating actions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-custom-actions" id="id103">About custom actions</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-docker-container-action" id="id104">Creating a Docker container action</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-javascript-action" id="id105">Creating a JavaScript action</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-composite-action" id="id106">Creating a composite action</a></p></li>
+<li><p><a class="reference internal" href="#metadata-syntax-for-github-actions" id="id107">Metadata syntax for GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#dockerfile-support-for-github-actions" id="id108">Dockerfile support for GitHub Actions</a></p></li>
+<li><p><a class="reference internal" href="#setting-exit-codes-for-actions" id="id109">Setting exit codes for actions</a></p></li>
+<li><p><a class="reference internal" href="#publishing-actions-in-github-marketplace" id="id110">Publishing actions in GitHub Marketplace</a></p></li>
+<li><p><a class="reference internal" href="#sharing-actions-and-workflows-from-your-private-repository" id="id111">Sharing actions and workflows from your private repository</a></p></li>
+<li><p><a class="reference internal" href="#sharing-actions-and-workflows-with-your-organization" id="id112">Sharing actions and workflows with your organization</a></p></li>
+<li><p><a class="reference internal" href="#releasing-and-maintaining-actions" id="id113">Releasing and maintaining actions</a></p></li>
+<li><p><a class="reference internal" href="#developing-a-third-party-cli-action" id="id114">Developing a third party CLI action</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<ul class="simple">
+<li><p><span class="guilabel">Overview</span> → <a class="reference internal" href="#actions-overview"><span class="std std-ref">Understanding GitHub Actions</span></a></p></li>
+<li><p><span class="guilabel">Quickstart</span> → <a class="reference internal" href="#actions-quickstart"><span class="std std-ref">Quickstart for GitHub Actions</span></a></p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Deployment はまだ読んでいない。</p>
+<p>Migrating to GitHub Actions は読まない。</p>
+<p>Using GitHub-hosted runners はまだ読んでいない。</p>
+<p>Hosting your own runners は読まない。</p>
+</div>
+<section id="quickstart-for-github-actions">
+<span id="actions-quickstart"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Quickstart for GitHub Actions</a><a class="headerlink" href="#quickstart-for-github-actions" title="Permalink to this heading">¶</a></h2>
+<p>リポジトリーに workflow を作成する方法：</p>
+<ol class="arabic simple">
+<li><p>ディレクトリー <code class="file docutils literal notranslate"><span class="pre">.github/workflows</span></code> を用意する</p></li>
+<li><p>ここに GitHub Actions の仕様を満たす YAML ファイルを置く。</p></li>
+</ol>
+<p>この記事のデモ workflow は、GitHub に何かをプッシュすると引き起こされる。</p>
+<p>Workflow の結果を観察する方法：</p>
+<ol class="arabic simple">
+<li><p>リポジトリー画面から <span class="menuselection">Actions</span> を開く。</p></li>
+<li><p>左柱から workflow の名前を探して押す。</p></li>
+<li><p>一覧から観察したい実行の名前を探して押す。</p></li>
+<li><p>左柱からジョブを探して押す。</p></li>
+</ol>
+<p>これで右側にログが表示される。</p>
+<blockquote>
+<div><p>GitHub provides preconfigured starter workflows that you can customize to
+create your own continuous integration workflow.</p>
+</div></blockquote>
+<p>出来合いの workflow をカスタマイズして実戦投入することがよくある。</p>
+<blockquote>
+<div><p>You can browse the full list of starter workflows in the
+<a class="reference external" href="https://github.com/actions/starter-workflows">actions/starter-workflows</a>
+repository.</p>
+</div></blockquote>
+<p>馴染みのあるものはすぐには見つからない。</p>
+</section>
+<section id="learn-github-actions">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Learn GitHub Actions</a><a class="headerlink" href="#learn-github-actions" title="Permalink to this heading">¶</a></h2>
+<section id="understanding-github-actions">
+<span id="actions-overview"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Understanding GitHub Actions</a><a class="headerlink" href="#understanding-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>GitHub Actions is a continuous integration and continuous delivery (CI/CD)
+platform that allows you to automate your build, test, and deployment
+pipeline. You can create workflows that build and test every pull request to
+your repository, or deploy merged pull requests to production.</p>
+</div></blockquote>
+<p>CI/CD 初心者だが、GitHub Actions は何かを自動化するための機能だという理解で、このまま読み進めることにする。</p>
+<blockquote>
+<div><p>GitHub Actions goes beyond just DevOps and lets you run workflows when other
+events happen in your repository.</p>
+</div></blockquote>
+<p>DevOps も何たるかを知らない。</p>
+<blockquote>
+<div><p>You can configure a GitHub Actions workflow to be triggered when an event
+occurs in your repository, such as a pull request being opened or an issue
+being created.</p>
+</div></blockquote>
+<p>リポジトリーに対する何らかのイベント発生時に workflow というものが実施されると。次の用語の関係を理解してから進む：</p>
+<ul class="simple">
+<li><p>Runner</p></li>
+<li><p>Job</p></li>
+<li><p>Step</p></li>
+</ul>
+<p>次は Workflow の定義だと思っていい：</p>
+<blockquote>
+<div><p>A workflow is a configurable automated process that will run one or more
+jobs.</p>
+</div></blockquote>
+<p>一つの YAML ファイルに複数構成可能らしい。このファイルはリポジトリーの
+<code class="file docutils literal notranslate"><span class="pre">/.github/workflow</span></code> に配置するものだ。</p>
+<p>イベントは定義よりも実例を列挙されたほうが理解しやすい：</p>
+<blockquote>
+<div><p>For example, activity can originate from GitHub when someone creates a pull
+request, opens an issue, or pushes a commit to a repository.</p>
+</div></blockquote>
+<p>ジョブとステップは同時に定義される：</p>
+<blockquote>
+<div><p>A job is a set of steps in a workflow that is executed on the same runner.
+Each step is either a shell script that will be executed, or an action that
+will be run. Steps are executed in order and are dependent on each other.</p>
+</div></blockquote>
+<p>アクションの定義は少々わかりにくい。理解を後回しにしたい：</p>
+<blockquote>
+<div><p>An action is a custom application for the GitHub Actions platform that
+performs a complex but frequently repeated task.</p>
+</div></blockquote>
+<p>ランナーはわかりやすい。物理的な概念だから：</p>
+<blockquote>
+<div><p>A runner is a server that runs your workflows when they’re triggered.</p>
+</div></blockquote>
+<p>Workflow ファイル <code class="file docutils literal notranslate"><span class="pre">learn-github-actions.yml</span></code> の一行ごとの解説をきっちり読む。YAML データについての次の仕様を覚えておく：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> はリポジトリー Actions ページの左柱に現れる。意外だが指定は任意。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run-name</span></code> はその右側の一項目として現れる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">[push]</span></code> は workflow 発動イベントがリポジトリーへの push であることを指定している。<code class="docutils literal notranslate"><span class="pre">on</span></code> は値としてリストをとる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jobs</span></code> でジョブをグループ化している。次のキーはジョブ名を指示する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runs-on</span></code> でランナーを指定する。値 <code class="docutils literal notranslate"><span class="pre">ubuntu-latest</span></code> はそのままの意味。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">steps</span></code> でステップをグループ化している。値としてリストをとる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uses</span></code> はアクションを指定する。詳細はまだわからない。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run</span></code> はランナー上のコマンドを記述する。コマンドラインそのものだ。</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>YAML の文法を別途学習する必要がある。特にリストと辞書の記法が重要だ。</p>
+<p>When your workflow is triggered, a workflow run is created that executes the
+workflow. After a workflow run has started, you can see a visualization graph
+of the run’s progress and view each step’s activity on GitHub.</p>
+<p><a class="reference external" href="https://jsonformatter.org/yaml-viewer">Best YAML Viewer Online</a>
+で YAML をツリービューで示せる。</p>
+</div>
+<p>Workflow 実行の状況を確認するには、リポジトリー <span class="menuselection">Actions</span> から最新の実行を調べる。</p>
+</section>
+<section id="finding-and-customizing-actions">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Finding and customizing actions</a><a class="headerlink" href="#finding-and-customizing-actions" title="Permalink to this heading">¶</a></h3>
+<p>アクションが定義されている可能性のある場所は：</p>
+<ul class="simple">
+<li><p>The same repository as your workflow file</p></li>
+<li><p>Any public repository</p></li>
+<li><p>A published Docker container image on Docker Hub</p></li>
+</ul>
+<p>三つ目は想像不能。</p>
+<blockquote>
+<div><p>GitHub Marketplace is a central location for you to find actions created by
+the GitHub community.</p>
+</div></blockquote>
+<p>リポジトリー画面から YAML ファイルを鉛筆ボタンで編集しようとすると、一般のファイルでは出ない UI が右柱に現れる。<span class="guilabel">Marketplace</span> タブで
+<span class="guilabel">Featured Actions</span> 一覧が出る。</p>
+<blockquote>
+<div><p>You can add an action to your workflow by referencing the action in your
+workflow file.</p>
+</div></blockquote>
+<blockquote>
+<div><p>To keep your workflow stable even when updates are made to an action, you can
+reference the version of the action to use by specifying the Git or Docker
+tag number in your workflow file.</p>
+</div></blockquote>
+<p><span class="guilabel">Featured Actions</span> から一つ選んでクリックすると当該アクションの詳細な記述が表示される。<span class="guilabel">Installation</span> 見出しの少し下にあるクリップボードコピーアイコンを押す。そのテキストを見れば YAML ファイルにどう組み込むべきかがわかる。引数を適宜設定する。</p>
+<p>リポジトリー内に自作アクションを定義することも可能。YAML の <code class="docutils literal notranslate"><span class="pre">uses</span></code> キーに自作アクションのパスを指定すればいい。<code class="docutils literal notranslate"><span class="pre">{owner}/{repo}&#64;{ref}</span></code> のような形式でも動作するようだ。よく見かける <code class="docutils literal notranslate"><span class="pre">actions/setup-node&#64;v3</span></code> のような指定はその実例の一つだ。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>|-- hello-world (repository)
+|   |__ .github
+|       └── workflows
+|           └── my-first-workflow.yml
+|       └── actions
+|           |__ hello-world-action
+|               └── action.yml
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">v3</span></code> はタグ名だ。タグ名ではなく SHA を指定する場合には、GitHub
+で通じるような省略形はダメだ。</p>
+<blockquote>
+<div><p>An action often accepts or requires inputs and generates outputs that you can
+use.</p>
+<p>To see the inputs and outputs of an action, check the <code class="file docutils literal notranslate"><span class="pre">action.yml</span></code> or
+<code class="file docutils literal notranslate"><span class="pre">action.yaml</span></code> in the root directory of the repository.</p>
+</div></blockquote>
+<p>この YAML はリポジトリーのルートにあると言っている。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">inputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file-path</span><span class="p">:</span><span class="w"> </span><span class="c1"># id of input</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Path</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">script&quot;</span>
+<span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test-file.js&quot;</span>
+<span class="nt">outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">results-file</span><span class="p">:</span><span class="w"> </span><span class="c1"># id of output</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Path</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">results</span><span class="nv"> </span><span class="s">file&quot;</span>
+</pre></div>
+</div>
+<p>入力はわかりやすいが出力がどんなものか想像できない。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">outputs</span></code> keyword defines an output called <code class="docutils literal notranslate"><span class="pre">results-file</span></code>, which
+tells you where to locate the results.</p>
+</div></blockquote>
+</section>
+<section id="essential-features-of-github-actions">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Essential features of GitHub Actions</a><a class="headerlink" href="#essential-features-of-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>If you need to use custom environment variables, you can set these in your
+YAML workflow file.</p>
+</div></blockquote>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">example-job</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connect to PostgreSQL</span>
+<span class="w">          </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node client.js</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">POSTGRES_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">            </span><span class="nt">POSTGRES_PORT</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+</pre></div>
+</div>
+<p>上の例では、環境変数 <code class="docutils literal notranslate"><span class="pre">POSTGRES_{HOST,PORT}</span></code> を定義する。コマンド <code class="docutils literal notranslate"><span class="pre">node</span>
+<span class="pre">client.js</span></code> からそれらの値が参照可能になる。</p>
+<p>コマンドやスクリプトを実行するのはランナーだ。スクリプトがあるのはリポジトリーのはずなので、</p>
+<blockquote>
+<div><p>To use a workflow to run a script stored in your repository you must first
+check out the repository to the runner.</p>
+</div></blockquote>
+<p>作業ディレクトリーの指定も可能。<code class="docutils literal notranslate"><span class="pre">working-directory:</span></code> で指示する。スクリプトは実行可能でなければならない。実行可能にする手段はなんでもいい。例では <code class="docutils literal notranslate"><span class="pre">run:</span></code> で
+<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span></code> している。</p>
+<blockquote>
+<div><p>If your job generates files that you want to share with another job in the
+same workflow, or if you want to save the files for later reference, you can
+store them in GitHub as artifacts.</p>
+</div></blockquote>
+<p>ジョブ同士が何かを共有する手段はこのファイルしかない？</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v3</span>
+<span class="nt">with</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output-log-file</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output.log</span>
+</pre></div>
+</div>
+<p>を先にやってから、</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/download-artifact@v3</span>
+<span class="nt">with</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output-log-file</span>
+</pre></div>
+</div>
+<p>とする。</p>
+<blockquote>
+<div><p>To download an artifact from the same workflow run, your download job should
+specify <code class="docutils literal notranslate"><span class="pre">needs:</span> <span class="pre">upload-job-name</span></code> so it doesn’t start until the upload job
+finishes.</p>
+</div></blockquote>
+<p>この例を見たい。</p>
+</section>
+<section id="expressions">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can use expressions to programmatically set environment variables in
+workflow files and access contexts. An expression can be any combination of
+literal values, references to a context, or functions. You can combine
+literals, context references, and functions using operators.</p>
+</div></blockquote>
+<p>環境変数を式で設定する：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MY_ENV_VAR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ &lt;expression&gt; }}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>As part of an expression, you can use boolean, null, number, or string data
+types.</p>
+</div></blockquote>
+<p>リテラル式は JavaScript に似ている：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">myNull</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ null }}</span>
+<span class="w">  </span><span class="nt">myBoolean</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ false }}</span>
+<span class="w">  </span><span class="nt">myIntegerNumber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ 711 }}</span>
+<span class="w">  </span><span class="nt">myFloatNumber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ -9.2 }}</span>
+<span class="w">  </span><span class="nt">myHexNumber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ 0xff }}</span>
+<span class="w">  </span><span class="nt">myExponentialNumber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ -2.99e-2 }}</span>
+<span class="w">  </span><span class="nt">myString</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mona the Octocat</span>
+<span class="w">  </span><span class="nt">myStringInBraces</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ &#39;It&#39;&#39;s open source!&#39; }}</span>
+</pre></div>
+</div>
+<p>組み込み関数が存在する。割愛。<code class="docutils literal notranslate"><span class="pre">format</span></code> くらいは習得しておくか。ステータス関数も重要か。</p>
+</section>
+<section id="contexts">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Contexts</a><a class="headerlink" href="#contexts" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Contexts are a way to access information about workflow runs, variables,
+runner environments, jobs, and steps. Each context is an object that contains
+properties, which can be strings or other objects.</p>
+</div></blockquote>
+<blockquote>
+<div><p>GitHub Actions includes a collection of variables called contexts and a
+similar collection of variables called default variables.</p>
+</div></blockquote>
+<p>この二つは利用可能なタイミングが異なる：</p>
+<blockquote>
+<div><p>You can use most contexts at any point in your workflow, including when
+default variables would be unavailable.</p>
+</div></blockquote>
+<p>既定環境変数はジョブを実行するランナー上にしか存在しない。</p>
+<blockquote>
+<div><p>You can print the contents of contexts to the log for debugging. The
+<code class="docutils literal notranslate"><span class="pre">toJSON</span></code> function is required to pretty-print JSON objects to the log.</p>
+</div></blockquote>
+<p>ただし、どこかに機密情報が含まれている可能性を考慮する。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">github</span></code> context contains information about the workflow run and the
+event that triggered the run. You can also read most of the <code class="docutils literal notranslate"><span class="pre">github</span></code>
+context data in environment variables.</p>
+</div></blockquote>
+<p>特にこれには <code class="docutils literal notranslate"><span class="pre">github.token</span></code> が含まれる。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> context contains variables that have been set in a workflow, job,
+or step. It does not contain variables inherited by the runner process.</p>
+</div></blockquote>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">vars</span></code> context contains custom configuration variables set at the
+organization, repository, and environment levels.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">job</span></code> context contains information about the currently running job.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">job.status</span></code> はよく見ることを期待できる。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">jobs</span></code> context is only available in reusable workflows, and can only be
+used to set outputs for a reusable workflow.</p>
+</div></blockquote>
+<p>再利用可能とは？</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">steps</span></code> context contains information about the steps in the current job
+that have an <code class="docutils literal notranslate"><span class="pre">id</span></code> specified and have already run.</p>
+</div></blockquote>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">runner</span></code> context contains information about the runner that is
+executing the current job.</p>
+</div></blockquote>
+<p>これは想像しやすい。<code class="docutils literal notranslate"><span class="pre">runner.os</span></code> などの値がある。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">secrets</span></code> context contains the names and values of secrets that are
+available to a workflow run. The <code class="docutils literal notranslate"><span class="pre">secrets</span></code> context is not available for
+composite actions due to security reasons.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">secrets.GITHUB_TOKEN</span></code> は workflow 実行ごとに作成される。</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">needs</span></code> context contains outputs from all jobs that are defined as a
+direct dependency of the current job.</p>
+</div></blockquote>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">inputs</span></code> context contains input properties passed to an action, to a
+reusable workflow, or to a manually triggered workflow.</p>
+</div></blockquote>
+</section>
+<section id="variables">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Variables</a><a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>GitHub sets default variables for each GitHub Actions workflow run. You can
+also set custom variables for use in a single workflow or multiple workflows.</p>
+</div></blockquote>
+<blockquote>
+<div><p>You can store any configuration data such as compiler flags, usernames, or
+server names as variables.</p>
+</div></blockquote>
+<p>定義方法は二つある。</p>
+<blockquote>
+<div><p>To set a custom environment variable for a single workflow, you can define it
+using the <code class="docutils literal notranslate"><span class="pre">env</span></code> key in the workflow file.</p>
+</div></blockquote>
+<p>これは今まで見た方法だ。</p>
+<blockquote>
+<div><p>You can use either runner environment variables or contexts in <code class="docutils literal notranslate"><span class="pre">run</span></code> steps,
+but in the parts of a workflow that are not sent to the runner you must use
+contexts to access variable values.</p>
+</div></blockquote>
+<p>変数展開の書式はランナー、<code class="docutils literal notranslate"><span class="pre">runs-on</span></code> 値による。Ubuntu なら Bash だから <code class="docutils literal notranslate"><span class="pre">$VAR</span></code>
+のように書く。</p>
+<blockquote>
+<div><p>When you set an environment variable, you cannot use any of the default
+environment variable names.</p>
+</div></blockquote>
+<p>上書きは意味がない。</p>
+<blockquote>
+<div><p>Note: You can list the entire set of environment variables that are available
+to a workflow step by using <code class="docutils literal notranslate"><span class="pre">run:</span> <span class="pre">env</span></code> in a step and then examining the
+output for the step.</p>
+</div></blockquote>
+<p>これは試してもよい。</p>
+<p>第二の方法は：</p>
+<blockquote>
+<div><p>You can create configuration variables for use across multiple workflows, and
+can define them at either the organization, repository, or environment level.</p>
+</div></blockquote>
+<blockquote>
+<div><p>When you define configuration variables, they are automatically available in
+the <code class="docutils literal notranslate"><span class="pre">vars</span></code> context.</p>
+</div></blockquote>
+<p>リポジトリー <span class="menuselection">Settings ‣ Secrets and variables ‣ Actions</span> のページを開いて、<span class="guilabel">Variables</span> タブを押す。見れば分かる。</p>
+<blockquote>
+<div><p>You can access environment variable values using the <code class="docutils literal notranslate"><span class="pre">env</span></code> context and
+configuration variable values using the <code class="docutils literal notranslate"><span class="pre">vars</span></code> context.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">CONTEXT.PROPERTY</span> <span class="pre">}}</span></code> 記法はランナーの違いを吸収するためにある。</p>
+<blockquote>
+<div><p>You will commonly use either the <code class="docutils literal notranslate"><span class="pre">env</span></code> or <code class="docutils literal notranslate"><span class="pre">github</span></code> context to access
+variable values in parts of the workflow that are processed before jobs are
+sent to runners.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Because default environment variables are set by GitHub and not defined in a
+workflow, they are not accessible through the <code class="docutils literal notranslate"><span class="pre">env</span></code> context.</p>
+</div></blockquote>
+<p>対応する情報が <code class="docutils literal notranslate"><span class="pre">github</span></code> に存在することが多い。</p>
+<blockquote>
+<div><p>We strongly recommend that actions use variables to access the filesystem
+rather than using hardcoded file paths.</p>
+</div></blockquote>
+<p>心得る。</p>
+<blockquote>
+<div><p>You can write a single workflow file that can be used for different operating
+systems by using the <code class="docutils literal notranslate"><span class="pre">RUNNER_OS</span></code> default environment variable and the
+corresponding context property <code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">runner.os</span> <span class="pre">}}</span></code>.</p>
+</div></blockquote>
+<p>ランナーの OS 種別ごとに処理を分けるのは悪手ではないか。</p>
+</section>
+<section id="usage-limits-billing-and-administration">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Usage limits, billing, and administration</a><a class="headerlink" href="#usage-limits-billing-and-administration" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>There are usage limits for GitHub Actions workflows. Usage charges apply to
+repositories that go beyond the amount of free minutes and storage for a
+repository.</p>
+</div></blockquote>
+<p>無駄な workflow を無効化しておく。</p>
+<blockquote>
+<div><p>GitHub Actions usage is free for standard GitHub-hosted runners in public
+repositories, and for self-hosted runners.</p>
+</div></blockquote>
+<p>それは良かった。</p>
+<blockquote>
+<div><p>In addition to the usage limits, you must ensure that you use GitHub Actions
+within the GitHub Terms of Service.</p>
+</div></blockquote>
+<p>利用規約が実はある。</p>
+<blockquote>
+<div><p>You can configure the artifact and log retention period for your repository,
+organization, or enterprise account.</p>
+</div></blockquote>
+<p>成果物とは？</p>
+<blockquote>
+<div><p>You can enable and disable individual workflows in your repository on GitHub.</p>
+</div></blockquote>
+<p>重要な操作なので、先に習得しておく。</p>
+</section>
+</section>
+<section id="examples">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<section id="using-scripts-to-test-your-code-on-a-runner">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Using scripts to test your code on a runner</a><a class="headerlink" href="#using-scripts-to-test-your-code-on-a-runner" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When this workflow is triggered, it automatically runs a script that checks
+whether the GitHub Docs site has any broken links.</p>
+</div></blockquote>
+<p>実戦投入されている workflow を解説されるのはありがたい。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">on</span></code> キーは複数のイベントを指定可能。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>イベント <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> は手動で workflow を発動させるのに必要。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">push</span></code> キーにはブランチを列挙することが多いようだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">permissions</span></code> は後で述べる。</p></li>
+</ul>
+<p>この workflow では <code class="docutils literal notranslate"><span class="pre">check-links</span></code> キーでジョブを定義する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">steps</span></code> でジョブを列挙する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uses</span></code> にはアクションを記述する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run</span></code> にはコマンドラインを記述する。</p></li>
+</ul>
+<p>アクション <code class="docutils literal notranslate"><span class="pre">trilom/file-changes-action</span></code> は本文参照。特定のファイルを出力することに注意。これを動作させるために先述の <code class="docutils literal notranslate"><span class="pre">permission</span></code> 定義が必要だ。</p>
+<p>スクリプト <code class="file docutils literal notranslate"><span class="pre">script/rendered-content-link-checker.mjs</span></code> を実行するステップをよく見て覚える。</p>
+</section>
+<section id="using-the-github-cli-on-a-runner">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Using the GitHub CLI on a runner</a><a class="headerlink" href="#using-the-github-cli-on-a-runner" title="Permalink to this heading">¶</a></h3>
+<p>イベントとして <code class="docutils literal notranslate"><span class="pre">on</span></code> に <code class="docutils literal notranslate"><span class="pre">schedule</span></code> と書ける：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">schedule</span></code> event lets you use cron syntax to define a regular interval
+for automatically triggering the workflow.</p>
+</div></blockquote>
+<p>ジョブ序盤、<code class="docutils literal notranslate"><span class="pre">if</span></code> でこれが動作するリポジトリーを制限している：</p>
+<blockquote>
+<div><p>Only run the <code class="docutils literal notranslate"><span class="pre">check_all_english_links</span> <span class="pre">job</span></code> if the repository is named
+<code class="docutils literal notranslate"><span class="pre">docs-internal</span></code> and is within the <code class="docutils literal notranslate"><span class="pre">github</span></code> organization.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">steps</span></code> の直前に <code class="docutils literal notranslate"><span class="pre">env</span></code> を置いて環境変数を定義しておく。</p>
+<blockquote>
+<div><p>Uses the <code class="docutils literal notranslate"><span class="pre">peter-evans/create-issue-from-file</span></code> action to create a new GitHub
+issue.</p>
+</div></blockquote>
+<p>このステップは難しい。最後の <code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">failure()</span> <span class="pre">}}</span></code> の長い処理もどうなっているのか。<code class="docutils literal notranslate"><span class="pre">run</span></code> の値がシェルスクリプトになっているだろうが。</p>
+</section>
+<section id="using-concurrency-expressions-and-a-test-matrix">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Using concurrency, expressions, and a test matrix</a><a class="headerlink" href="#using-concurrency-expressions-and-a-test-matrix" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">runs-on</span></code> の記述が複雑だ：</p>
+<blockquote>
+<div><p>This configures the job to run on a GitHub-hosted runner or a self-hosted
+runner, depending on the repository running the workflow.</p>
+</div></blockquote>
+<p>この例では <code class="docutils literal notranslate"><span class="pre">strategy</span></code> が急所だ。</p>
+<blockquote>
+<div><p>Setting <code class="docutils literal notranslate"><span class="pre">fail-fast</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code> prevents GitHub from cancelling all
+in-progress jobs if any matrix job fails.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">matrix</span></code> で <code class="docutils literal notranslate"><span class="pre">test-group</span></code> という配列を定義する。この配列の要素それぞれはテストを表す？最後のステップで <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">test</span> <span class="pre">--</span> <span class="pre">tests/${{</span> <span class="pre">matrix.test-group</span> <span class="pre">}}/</span></code> というコマンドを実行する。配列の要素それぞれに対して <code class="docutils literal notranslate"><span class="pre">run</span></code> されるのか？</p>
+</section>
+</section>
+<section id="using-workflows">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">Using workflows</a><a class="headerlink" href="#using-workflows" title="Permalink to this heading">¶</a></h2>
+<section id="about-workflows">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">About workflows</a><a class="headerlink" href="#about-workflows" title="Permalink to this heading">¶</a></h3>
+<p>Quickstart のおさらい。</p>
+</section>
+<section id="triggering-a-workflow">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Triggering a workflow</a><a class="headerlink" href="#triggering-a-workflow" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When you use the repository’s <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> to perform tasks, events
+triggered by the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>, with the exception of
+<code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> and <code class="docutils literal notranslate"><span class="pre">repository_dispatch</span></code>, will not create a new
+workflow run. This prevents you from accidentally creating recursive workflow
+runs.</p>
+</div></blockquote>
+<p>したがって、ある workflow 発動中に別の workflow が発動することはない。最初の例の二つをよく比較しろ。</p>
+<blockquote>
+<div><p>If you specify multiple events, only one of those events needs to occur to
+trigger your workflow. If multiple triggering events for your workflow occur
+at the same time, multiple workflow runs will be triggered.</p>
+</div></blockquote>
+<p>これは迷惑な気がする。</p>
+<blockquote>
+<div><p>You can use activity types and filters to further control when your workflow
+will run.</p>
+</div></blockquote>
+<p>イベント名のケツにコロンが付く書き方だ。</p>
+<blockquote>
+<div><p>Some events have activity types that give you more control over when your
+workflow should run. Use <code class="docutils literal notranslate"><span class="pre">on.&lt;event_name&gt;.types</span></code> to define the type of
+event activity that will trigger a workflow run.</p>
+</div></blockquote>
+<p>例えば：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">issues</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">types</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">opened</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">labeled</span>
+</pre></div>
+</div>
+<p>先ほどの規則によると、二つのラベルがある issue が開くとこの workflow が三回走る。</p>
+<blockquote>
+<div><p>Some events have filters that give you more control over when your workflow
+should run.</p>
+</div></blockquote>
+<blockquote>
+<div><p>When using the <code class="docutils literal notranslate"><span class="pre">pull_request</span></code> and <code class="docutils literal notranslate"><span class="pre">pull_request_target</span></code> events, you can
+configure a workflow to run only for pull requests that target specific
+branches.</p>
+</div></blockquote>
+<p>例：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Sequence of patterns matched against refs/heads</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;mona/octocat&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;releases/**&#39;</span>
+</pre></div>
+</div>
+<p>反対のものもある：</p>
+<blockquote>
+<div><p>Use the <code class="docutils literal notranslate"><span class="pre">branches-ignore</span></code> filter when you only want to exclude branch name
+patterns. You cannot use both the <code class="docutils literal notranslate"><span class="pre">branches</span></code> and <code class="docutils literal notranslate"><span class="pre">branches-ignore</span></code>
+filters for the same event in a workflow.</p>
+</div></blockquote>
+<blockquote>
+<div><p>When using the <code class="docutils literal notranslate"><span class="pre">push</span></code> event, you can configure a workflow to run on
+specific branches or tags.</p>
+</div></blockquote>
+<p>例：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Sequence of patterns matched against refs/heads</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;mona/octocat&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;releases/**&#39;</span>
+<span class="w">    </span><span class="c1"># Sequence of patterns matched against refs/tags</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.*</span>
+</pre></div>
+</div>
+<p>こちらも反対のものがある。割愛。</p>
+<blockquote>
+<div><p>When using the <code class="docutils literal notranslate"><span class="pre">push</span></code> and <code class="docutils literal notranslate"><span class="pre">pull_request</span></code> events, you can configure a
+workflow to run based on what file paths are changed. Path filters are not
+evaluated for pushes of tags.</p>
+</div></blockquote>
+<p>次の例は JavaScript ファイルを push すると発動する：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;**.js&#39;</span>
+</pre></div>
+</div>
+<p>こちらも反対のものがある。割愛。</p>
+<blockquote>
+<div><p>When using the <code class="docutils literal notranslate"><span class="pre">workflow_run</span></code> event, you can specify what branches the
+triggering workflow must run on in order to trigger your workflow.</p>
+</div></blockquote>
+<p>次の workflow は <code class="docutils literal notranslate"><span class="pre">Build</span></code> という workflow が <code class="docutils literal notranslate"><span class="pre">canary</span></code> 以外のブランチで実行された場合に限り発動する：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">workflow_run</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">workflows</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;Build&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">requested</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">branches-ignore</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;canary&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>When using the <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> event, you can optionally specify inputs
+that are passed to the workflow. The triggered workflow receives the inputs
+in the <code class="docutils literal notranslate"><span class="pre">inputs</span></code> context.</p>
+</div></blockquote>
+<p>例が長いので割愛。入力値を定義するのに用いる。</p>
+<blockquote>
+<div><p>Information about the event that triggered a workflow run is available in the
+<code class="docutils literal notranslate"><span class="pre">github.event</span></code> context.</p>
+</div></blockquote>
+<blockquote>
+<div><p>You can also print the entire <code class="docutils literal notranslate"><span class="pre">github.event</span></code> context to see what properties
+are available for the event that triggered your workflow:</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">toJSON(github.event)</span> <span class="pre">}}</span></code> として標準出力などに書き出す。</p>
+<blockquote>
+<div><p>You can use conditionals to further control whether jobs or steps in your
+workflow will run.</p>
+</div></blockquote>
+<p>例えば</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github.event.label.name == &#39;bug&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>If you want to manually trigger a specific job in a workflow, you can use an
+environment that requires approval from a specific team or user.</p>
+</div></blockquote>
+<p>誰かの許可が要る。<code class="docutils literal notranslate"><span class="pre">environment:</span> <span class="pre">production</span></code> の説明がしっくりこない。</p>
+</section>
+<section id="manually-running-a-workflow">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Manually running a workflow</a><a class="headerlink" href="#manually-running-a-workflow" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When a workflow is configured to run on the <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> event, you
+can run the workflow using the Actions tab on GitHub, GitHub CLI, or the REST
+API.</p>
+</div></blockquote>
+<p>必要条件の一つを述べていなかった：</p>
+<blockquote>
+<div><p>To trigger the <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> event, your workflow must be in the
+default branch.</p>
+</div></blockquote>
+<p>対象の workflow 画面にある <span class="guilabel">Run workflow</span> を押す。そしてブランチを指定する。</p>
+<p>GitHub CLI を使うことでも手動発動可能：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gh workflow run WORKFLOW</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">WORKFLOW</span></code> は対象 workflow の名前または ID またはファイル名とする。</p>
+<p>コマンドライン引数がいろいろあるので、必要になったら調べる。コマンド <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">run</span>
+<span class="pre">watch</span></code> で途中経過を調べられるかもしれない。</p>
+</section>
+<section id="disabling-and-enabling-a-workflow">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Disabling and enabling a workflow</a><a class="headerlink" href="#disabling-and-enabling-a-workflow" title="Permalink to this heading">¶</a></h3>
+<p>この操作は重要なので GitHub ユーザーは自力で見つけたと思う。</p>
+<blockquote>
+<div><p>Disabling a workflow allows you to stop a workflow from being triggered
+without having to delete the file from the repo. You can easily re-enable the
+workflow again on GitHub.</p>
+</div></blockquote>
+<p>リポジトリー <span class="menuselection">Actions ‣ (target workflow) ‣ Disable workflow</span>
+を押す。すでに無効になっている場合、反対に <span class="guilabel">Enable workflow</span> が現れる。</p>
+<p>GitHub CLI を使うことでも設定可能：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gh workflow disable WORKFLOW</span>
+<span class="go">bash$ gh workflow enable WORKFLOW</span>
+</pre></div>
+</div>
+</section>
+<section id="events-that-trigger-workflows">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Events that trigger workflows</a><a class="headerlink" href="#events-that-trigger-workflows" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can configure your workflows to run when specific activity on GitHub
+happens, at a scheduled time, or when an event outside of GitHub occurs.</p>
+</div></blockquote>
+<p>この節は <code class="docutils literal notranslate"><span class="pre">on</span></code> に指定できる値のレファレンスだ。使いたいイベントを控えておくか？</p>
+</section>
+<section id="workflow-syntax-for-github-actions">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Workflow syntax for GitHub Actions</a><a class="headerlink" href="#workflow-syntax-for-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Workflow files use YAML syntax, and must have either a <code class="docutils literal notranslate"><span class="pre">.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>
+file extension.</p>
+</div></blockquote>
+<p>この節は YAML のキー仕様とフィルター早見表からなる。必要に応じて当たる。</p>
+</section>
+<section id="workflow-commands-for-github-actions">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Workflow commands for GitHub Actions</a><a class="headerlink" href="#workflow-commands-for-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Actions can communicate with the runner machine to set environment variables,
+output values used by other actions, add debug messages to the output logs,
+and other tasks.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Most workflow commands use the echo command in a specific format, while
+others are invoked by writing to a file.</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">::</span></code> syntax to run the workflow commands within your YAML file;
+these commands are then sent to the runner over stdout.</p>
+</div></blockquote>
+<p>よその YAML を見て <code class="docutils literal notranslate"><span class="pre">::</span></code> が出てきたらこの節を当たればいい。</p>
+<blockquote>
+<div><p>The step that creates or updates the environment variable does not have
+access to the new value, but all subsequent steps in a job will have access.</p>
+</div></blockquote>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>まだ読んでいないところが少し残った。</p>
+</div>
+</section>
+<section id="reusing-workflows">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Reusing workflows</a><a class="headerlink" href="#reusing-workflows" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Rather than copying and pasting from one workflow to another, you can make
+workflows reusable.</p>
+</div></blockquote>
+<p>モジュールみたいなものか？</p>
+<blockquote>
+<div><p>If you reuse a workflow from a different repository, any actions in the
+called workflow run as if they were part of the caller workflow.</p>
+</div></blockquote>
+<p>そうでないとおかしい。</p>
+<blockquote>
+<div><p>Starter workflows allow everyone in your organization who has permission to
+create workflows to do so more quickly and easily.</p>
+</div></blockquote>
+<p>とにかく Starter workflow という何か便利なものがあるようだ。</p>
+<blockquote>
+<div><p>For a workflow to be reusable, the values for on must include
+<code class="docutils literal notranslate"><span class="pre">workflow_call</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">workflow_call</span><span class="p">:</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>データの受け渡し。<code class="docutils literal notranslate"><span class="pre">secrets:</span> <span class="pre">inherit</span></code> に注目。</p>
+<p>もう気付いているが：</p>
+<blockquote>
+<div><p>You call a reusable workflow by using the <code class="docutils literal notranslate"><span class="pre">uses</span></code> keyword.</p>
+</div></blockquote>
+<p>引数の指定はキーが二種類ある：</p>
+<blockquote>
+<div><p>To pass named inputs to a called workflow, use the <code class="docutils literal notranslate"><span class="pre">with</span></code> keyword in a job.
+Use the <code class="docutils literal notranslate"><span class="pre">secrets</span></code> keyword to pass named secrets.</p>
+</div></blockquote>
+<p>さっき見た <code class="docutils literal notranslate"><span class="pre">matrix</span></code> の説明は次がわかりやすい：</p>
+<blockquote>
+<div><p>A matrix strategy lets you use variables in a single job definition to
+automatically create multiple job runs that are based on the combinations of
+the variables.</p>
+</div></blockquote>
+<p>出力をやる。</p>
+<blockquote>
+<div><p>A reusable workflow may generate data that you want to use in the caller
+workflow. To use these outputs, you must specify them as the outputs of the
+reusable workflow.</p>
+</div></blockquote>
+<p>どうも <code class="docutils literal notranslate"><span class="pre">on.workflow_call.outputs</span></code> 部分でキー名で出力変数名を指定するらしい。わかりにくいからこの例を実際に動かすほうがいいだろう。</p>
+</section>
+<section id="required-workflows">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Required workflows</a><a class="headerlink" href="#required-workflows" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A required workflow is triggered by <code class="docutils literal notranslate"><span class="pre">pull_request</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pull_request_target</span></code> default events and appears as a required status
+check, which blocks the ability to merge the pull request until the required
+workflow succeeds.</p>
+</div></blockquote>
+<p>この種の workflow は色々と条件があり、際立っているのは：</p>
+<blockquote>
+<div><p>When a workflow is run as a required workflow it will ignore all the filters
+in the <code class="docutils literal notranslate"><span class="pre">on:</span></code> section, for example: <code class="docutils literal notranslate"><span class="pre">branches</span></code>, <code class="docutils literal notranslate"><span class="pre">branches-ignore</span></code>,
+<code class="docutils literal notranslate"><span class="pre">paths</span></code>, <code class="docutils literal notranslate"><span class="pre">types</span></code> etc.</p>
+</div></blockquote>
+<blockquote>
+<div><p>After a required workflow has run at least once in a repository, you can view
+its workflow runs in that repository’s “Actions” tab.</p>
+</div></blockquote>
+<p>リポジトリー <span class="menuselection">Actions</span> ページ左柱に <span class="guilabel">Required
+workflows</span> 一覧が示される。</p>
+</section>
+<section id="caching-dependencies-to-speed-up-workflows">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">Caching dependencies to speed up workflows</a><a class="headerlink" href="#caching-dependencies-to-speed-up-workflows" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>For example, package and dependency management tools such as Maven, Gradle,
+npm, and Yarn keep a local cache of downloaded dependencies.</p>
+</div></blockquote>
+<p>こういう頻繁に利用するものをとっておける。</p>
+<blockquote>
+<div><p>To cache dependencies for a job, you can use GitHub’s <code class="docutils literal notranslate"><span class="pre">cache</span></code> action.</p>
+</div></blockquote>
+<p>すぐ次のパッケージとアクションの対応表で想像付く。</p>
+<blockquote>
+<div><p>Multiple workflow runs in a repository can share caches. A cache created for
+a branch in a workflow run can be accessed and restored from another workflow
+run for the same repository and branch.</p>
+</div></blockquote>
+<p>アクション <code class="docutils literal notranslate"><span class="pre">cache</span></code> の基本動作は：</p>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">cache</span></code> action will attempt to restore a cache based on the <code class="docutils literal notranslate"><span class="pre">key</span></code> you
+provide. When the action finds a cache that exactly matches the key, the
+action restores the cached files to the <code class="docutils literal notranslate"><span class="pre">path</span></code> you configure.</p>
+</div></blockquote>
+<blockquote>
+<div><p>On a cache miss, the action automatically creates a new cache if the job
+completes successfully.</p>
+</div></blockquote>
+<p>この後しばらくして YAML 例が示される。設定が難しいので諦める。</p>
+<blockquote>
+<div><p>You can use the web interface to view a list of cache entries for a
+repository.</p>
+</div></blockquote>
+<p>リポジトリー <span class="menuselection">Actions ‣ Caches</span> ページで閲覧可能。</p>
+<p>そこではキャッシュを削除することが可能。<span class="guilabel">Delete</span> ボタンを押す。</p>
+</section>
+<section id="storing-workflow-data-as-artifacts">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">Storing workflow data as artifacts</a><a class="headerlink" href="#storing-workflow-data-as-artifacts" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Artifacts allow you to share data between jobs in a workflow and store data
+once that workflow has completed.</p>
+</div></blockquote>
+<p>定義：</p>
+<blockquote>
+<div><p>An artifact is a file or collection of files produced during a workflow run.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Storing artifacts uses storage space on GitHub.</p>
+<p>GitHub provides two actions that you can use to upload and download build
+artifacts.</p>
+</div></blockquote>
+<blockquote>
+<div><p>You can use the <code class="docutils literal notranslate"><span class="pre">upload-artifact</span></code> action to upload artifacts.</p>
+</div></blockquote>
+<p>YAML 例から抜粋：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Archive production artifacts</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v3</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dist-without-markdown</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">dist</span>
+<span class="w">      </span><span class="no">!dist/**/*.md</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Archive code coverage results</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v3</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-coverage-report</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output/test/code-coverage.html</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>During a workflow run, you can use the <code class="docutils literal notranslate"><span class="pre">download-artifact</span></code> action to
+download artifacts that were previously uploaded in the same workflow run.</p>
+<p>Specify an artifact’s name to download an individual artifact. If you
+uploaded an artifact without specifying a name, the default name is
+<code class="docutils literal notranslate"><span class="pre">artifact</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Download a single artifact</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/download-artifact@v3</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-artifact</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> を指定しない場合、実行中 workflow の成果物すべてをダウンロードする。</p>
+<blockquote>
+<div><p>You can use the <code class="docutils literal notranslate"><span class="pre">upload-artifact</span></code> and <code class="docutils literal notranslate"><span class="pre">download-artifact</span></code> actions to
+share data between jobs in a workflow.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Jobs that are dependent on a previous job’s artifacts must wait for the
+dependent job to complete successfully.</p>
+</div></blockquote>
+<p>このために <code class="docutils literal notranslate"><span class="pre">needs</span></code> を指定する。最後の例はわかりやすい。</p>
+</section>
+<section id="creating-starter-workflows-for-your-organization">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Creating starter workflows for your organization</a><a class="headerlink" href="#creating-starter-workflows-for-your-organization" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When you create a new workflow, you can choose a starter workflow and some or
+all of the work of writing the workflow will be done for you.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Starter workflows can be created by users with write access to the
+organization’s <code class="file docutils literal notranslate"><span class="pre">.github</span></code> repository.</p>
+</div></blockquote>
+<p>組織のリポジトリーの <code class="file docutils literal notranslate"><span class="pre">.github</span></code> というのが急所だ。</p>
+<p>YAML ファイルの他にメタデータというものを用意する必要がある。</p>
+<p>組織リポジトリーの <code class="file docutils literal notranslate"><span class="pre">.github/workflow-templates</span></code> に新しい workflow を入れる。</p>
+<blockquote>
+<div><p>If you need to refer to a repository’s default branch, you can use the
+<code class="docutils literal notranslate"><span class="pre">$default-branch</span></code> placeholder.</p>
+</div></blockquote>
+<p>メタデータの置き方：</p>
+<blockquote>
+<div><p>Create a metadata file inside the <code class="file docutils literal notranslate"><span class="pre">workflow-templates</span></code> directory. The
+metadata file must have the same name as the workflow file, but instead of
+the <code class="docutils literal notranslate"><span class="pre">.yml</span></code> extension, it must be appended with <code class="docutils literal notranslate"><span class="pre">.properties.json</span></code>.</p>
+</div></blockquote>
+</section>
+<section id="using-starter-workflows">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Using starter workflows</a><a class="headerlink" href="#using-starter-workflows" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>For example, if you use Node.js, GitHub will suggest a starter workflow file
+that installs your Node.js packages and runs your tests.</p>
+</div></blockquote>
+<p>リポジトリーの内容に応じて workflow を提案してくるようだ。</p>
+<p>リポジトリー <code class="file docutils literal notranslate"><span class="pre">Actions</span> <span class="pre">--&gt;</span> <span class="pre">New</span> <span class="pre">workflow</span></code> で色々と提案されるから、いいものを選択して <span class="guilabel">Configure</span> を押す。そこからは見ればわかる。</p>
+</section>
+<section id="sharing-workflows-secrets-and-runners-with-your-organization">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">Sharing workflows, secrets, and runners with your organization</a><a class="headerlink" href="#sharing-workflows-secrets-and-runners-with-your-organization" title="Permalink to this heading">¶</a></h3>
+<p>組織を利用する場合には読む。</p>
+<blockquote>
+<div><p>An organization allows you to centrally store and manage secrets, artifacts,
+and self-hosted runners.</p>
+</div></blockquote>
+<p>特に言いたいのは次か：</p>
+<blockquote>
+<div><p>When creating a secret or variable in an organization, you can use a policy
+to limit which repositories can access it.</p>
+</div></blockquote>
+<p>組織 <span class="menuselection">Settings ‣ Secrets and variables ‣ Actions</span> ページで項目を追加する。</p>
+</section>
+<section id="using-github-cli-in-workflows">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">Using GitHub CLI in workflows</a><a class="headerlink" href="#using-github-cli-in-workflows" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>For each step that uses GitHub CLI, you must set an environment variable
+called <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> to a token with the required scopes.</p>
+</div></blockquote>
+<p><strong class="command">gh</strong> を使う <code class="docutils literal notranslate"><span class="pre">run</span></code> のあるスコープから次が有効ならばいい：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">env</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="using-jobs">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">Using jobs</a><a class="headerlink" href="#using-jobs" title="Permalink to this heading">¶</a></h2>
+<section id="using-jobs-in-a-workflow">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">Using jobs in a workflow</a><a class="headerlink" href="#using-jobs-in-a-workflow" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A workflow run is made up of one or more <code class="docutils literal notranslate"><span class="pre">jobs</span></code>, which run in parallel by
+default. To run jobs sequentially, you can define dependencies on other jobs
+using the <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.needs</span></code> keyword.</p>
+</div></blockquote>
+<p>次の例では <code class="docutils literal notranslate"><span class="pre">job1</span></code>, <code class="docutils literal notranslate"><span class="pre">job2</span></code>, <code class="docutils literal notranslate"><span class="pre">job3</span></code> の順に走ることになる。ただし、必要とされている job が成功終了した場合に限る：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">job1</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">job2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">job1</span>
+<span class="w">  </span><span class="nt">job3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">job1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">job2</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>成否に関わらず後続を走らせる場合には <code class="docutils literal notranslate"><span class="pre">if:</span> <span class="pre">{{</span> <span class="pre">always()</span> <span class="pre">}}</span></code> を指定する。</p>
+</section>
+<section id="choosing-the-runner-for-a-job">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">Choosing the runner for a job</a><a class="headerlink" href="#choosing-the-runner-for-a-job" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Use <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.runs-on</span></code> to define the type of machine to run the job
+on.</p>
+</div></blockquote>
+<p>私個人では Linux だけ対応すれば十分だ。これでいい：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">job_id</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</pre></div>
+</div>
+</section>
+<section id="using-conditions-to-control-job-execution">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">Using conditions to control job execution</a><a class="headerlink" href="#using-conditions-to-control-job-execution" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can use the <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.if</span></code> conditional to prevent a job from running
+unless a condition is met.</p>
+</div></blockquote>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">job_id</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github.repository == &#39;USER/REPO&#39;</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</pre></div>
+</div>
+<p>なお、値となる式をダブル中括弧で囲むのが安全だ。</p>
+</section>
+<section id="using-a-matrix-for-your-jobs">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">Using a matrix for your jobs</a><a class="headerlink" href="#using-a-matrix-for-your-jobs" title="Permalink to this heading">¶</a></h3>
+<p>利用するつもりがないので割愛。</p>
+</section>
+<section id="using-concurrency">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">Using concurrency</a><a class="headerlink" href="#using-concurrency" title="Permalink to this heading">¶</a></h3>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>この機能は重要だと思えるが、少し読んだだけでは理解不能。</p>
+</div>
+</section>
+<section id="using-environments-for-jobs">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">Using environments for jobs</a><a class="headerlink" href="#using-environments-for-jobs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Use <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.environment</span></code> to define the environment that the job
+references.</p>
+</div></blockquote>
+<p>下のように構成すると、ステップ出力を URL として用いることになる：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production_environment</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.step_id.outputs.url_output }}</span>
+</pre></div>
+</div>
+</section>
+<section id="running-jobs-in-a-container">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">Running jobs in a container</a><a class="headerlink" href="#running-jobs-in-a-container" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Use <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.container</span></code> to create a container to run any steps in a
+job that don’t already specify a container. If you have steps that use both
+script and container actions, the container actions will run as sibling
+containers on the same network with the same volume mounts.</p>
+</div></blockquote>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>コンテナーを理解していないので後回し。</p>
+</div>
+</section>
+<section id="setting-default-values-for-jobs">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">Setting default values for jobs</a><a class="headerlink" href="#setting-default-values-for-jobs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Use <code class="docutils literal notranslate"><span class="pre">defaults</span></code> to create a map of default settings that will apply to all
+jobs in the workflow.</p>
+</div></blockquote>
+<p>シェルと作業ディレクトリーは特別扱いらしい：</p>
+<blockquote>
+<div><p>You can use <code class="docutils literal notranslate"><span class="pre">defaults.run</span></code> to provide default <code class="docutils literal notranslate"><span class="pre">shell</span></code> and
+<code class="docutils literal notranslate"><span class="pre">working-directory</span></code> options for all run steps in a workflow.</p>
+</div></blockquote>
+<p>次のコードですべてのジョブで <code class="docutils literal notranslate"><span class="pre">shell</span></code> と <code class="docutils literal notranslate"><span class="pre">working-directory</span></code> の既定値を決める：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">    </span><span class="nt">working-directory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./scripts</span>
+</pre></div>
+</div>
+</section>
+<section id="assigning-permissions-to-jobs">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">Assigning permissions to jobs</a><a class="headerlink" href="#assigning-permissions-to-jobs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can use <code class="docutils literal notranslate"><span class="pre">permissions</span></code> to modify the default permissions granted to the
+<span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>, adding or removing access as required, so that you
+only allow the minimum required access.</p>
+</div></blockquote>
+<p>トークンが表す権限を修正したものを使うと言っている？</p>
+<blockquote>
+<div><p>You can use <code class="docutils literal notranslate"><span class="pre">permissions</span></code> either as a top-level key, to apply to all jobs
+in the workflow, or within specific jobs.</p>
+</div></blockquote>
+<p>そして、次の有効域ごとに <code class="docutils literal notranslate"><span class="pre">read</span></code>, <code class="docutils literal notranslate"><span class="pre">write</span></code>, <code class="docutils literal notranslate"><span class="pre">none</span></code> のいずれかを割り当てる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">actions</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checks</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contents</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deployments</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">discussions</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id-token</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">issues</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pull-requests</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repository-projects</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">security-events</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">statuses</span></code></p></li>
+</ul>
+<p>例えば <code class="docutils literal notranslate"><span class="pre">pages:</span> <span class="pre">write</span></code> は GitHub Pages の構築を要求する動作だ。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">permissions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pages</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+</pre></div>
+</div>
+<p>次のような略記法？も使える：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">permissions:</span> <span class="pre">read-all</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">permissions:</span> <span class="pre">write-all</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">permissions:</span> <span class="pre">{}</span></code></p></li>
+</ul>
+<blockquote>
+<div><p>You can specify <code class="docutils literal notranslate"><span class="pre">permissions</span></code> at the top level of a workflow, so that the
+setting applies to all jobs in the workflow.</p>
+</div></blockquote>
+<p>つまり YAML ファイルでインデントがない位置に <code class="docutils literal notranslate"><span class="pre">permissions:</span></code> を指定可能。</p>
+<p>個別ジョブを有効域とする <code class="docutils literal notranslate"><span class="pre">permissions</span></code> を指定することも可能。</p>
+</section>
+<section id="defining-outputs-for-jobs">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">Defining outputs for jobs</a><a class="headerlink" href="#defining-outputs-for-jobs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can use <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.outputs</span></code> to create a map of outputs for a job.
+Job outputs are available to all downstream jobs that depend on this job.</p>
+</div></blockquote>
+<p>出力は文字列とする。最大 1MB の長さ。一つの workflow 全体で 50MB まで。</p>
+<p>ジョブの「川下」を指定するのに先述の <code class="docutils literal notranslate"><span class="pre">jobs.&lt;job_id&gt;.needs</span></code> を指定することに注意。</p>
+<p>本文の例 YAML を丸ごと理解すること。</p>
+</section>
+</section>
+<section id="manage-workflow-runs">
+<h2><a class="toc-backref" href="#id48" role="doc-backlink">Manage workflow runs</a><a class="headerlink" href="#manage-workflow-runs" title="Permalink to this heading">¶</a></h2>
+<section id="re-running-workflows-and-jobs">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">Re-running workflows and jobs</a><a class="headerlink" href="#re-running-workflows-and-jobs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can re-run a workflow run, all failed jobs in a workflow run, or specific
+jobs in a workflow run up to 30 days after its initial run.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>どちらの再実行時でも、元実行時と同じ <code class="docutils literal notranslate"><span class="pre">GITHUB_SHA</span></code> と <code class="docutils literal notranslate"><span class="pre">GITHUB_REF</span></code> が用いられる。</p></li>
+<li><p>再実行時の権限として元実行時の権限が採用される。</p></li>
+<li><p>ジョブ再実行はログの保持期間を経過すると不可。</p></li>
+<li><p>ジョブ再実行時にはデバッグログ出力を有効にすることが可能。</p></li>
+</ul>
+<p>全ジョブ再実行方法は、まず <span class="guilabel">Actions</span> ページで左柱から所望の workflow
+を探して押す。実行名を押して実行概要を見る。成否によって項目が若干異なるが、
+<span class="guilabel">Re-run jobs</span> を押す。</p>
+<p>失敗ジョブ（と後続ジョブ）を再実行する方法もある。実行環境は元実行時のものが適用される。手順は先ほどのものとほぼ同じ。違いは <span class="guilabel">Re-run failed jobs</span> を押すところだけ。</p>
+<p>特定のジョブを再実行する方法もある。左柱のジョブ項目名の右にある再実行ボタンを押す。</p>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>再利用可能 workflow を再実行する方法</p>
+</div>
+<p>最後の実行結果を観察する方法は実行結果右上の <span class="guilabel">Latest</span> ドロップダウンリストを使う。</p>
+</section>
+<section id="canceling-a-workflow">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">Canceling a workflow</a><a class="headerlink" href="#canceling-a-workflow" title="Permalink to this heading">¶</a></h3>
+<p>リポジトリーに対する書き込み権限を有していることが必要だ。</p>
+<p>まず <span class="guilabel">Actions</span> ページで左柱から所望の workflow を探して押す。実行名を押して実行概要を見る。右上の <span class="guilabel">Cancel workflow</span> を押す。</p>
+<p>キャンセルする際には資源の解放が正しく行われるかどうかを意識する。本文で述べられているアルゴリズムの 4 と 5 を理解することが重要だ。これに耐え得るジョブを記述するべきだ。</p>
+</section>
+<section id="approving-workflow-runs-from-public-forks">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">Approving workflow runs from public forks</a><a class="headerlink" href="#approving-workflow-runs-from-public-forks" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>By default, all first-time contributors require approval to run workflows.</p>
+</div></blockquote>
+<p>外部の人間が workflow を好き勝手に書き換える可能性を牽制している。</p>
+</section>
+<section id="approving-workflow-runs-from-private-forks">
+<h3><a class="toc-backref" href="#id52" role="doc-backlink">Approving workflow runs from private forks</a><a class="headerlink" href="#approving-workflow-runs-from-private-forks" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When someone without write access submits a pull request to a private
+repository, a maintainer may need to approve any workflow runs.</p>
+</div></blockquote>
+<p>当アカウントには起こり得ない事象だ。割愛。</p>
+</section>
+<section id="reviewing-deployments">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink">Reviewing deployments</a><a class="headerlink" href="#reviewing-deployments" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Jobs that reference an environment configured with required reviewers will
+wait for an approval before starting. While a job is awaiting approval, it
+has a status of “Waiting”.</p>
+</div></blockquote>
+<p>評価が必要な workflow の実行履歴ページを開き、<span class="guilabel">Review deployments</span> を押す。対象のジョブ環境を選択する。評価次第で <span class="guilabel">Approve and deploy</span> または
+<span class="guilabel">Reject</span> を押す。</p>
+<div class="admonition-todo admonition" id="id5">
+<p class="admonition-title">Todo</p>
+<p>Bypassing deployment protection rules</p>
+</div>
+</section>
+<section id="skipping-workflow-runs">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">Skipping workflow runs</a><a class="headerlink" href="#skipping-workflow-runs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Workflows that would otherwise be triggered using <code class="docutils literal notranslate"><span class="pre">on:</span> <span class="pre">push</span></code> or <code class="docutils literal notranslate"><span class="pre">on:</span>
+<span class="pre">pull_request</span></code> won’t be triggered if you add any of the following strings to
+the commit message in a push, or the HEAD commit of a pull request:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[skip</span> <span class="pre">ci]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[ci</span> <span class="pre">skip]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[no</span> <span class="pre">ci]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[skip</span> <span class="pre">actions]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[actions</span> <span class="pre">skip]</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>これを知っていることで workflow 画面で <span class="guilabel">Disable</span> しなくて済むということだ。そしてこれを忘れぬように：</p>
+<blockquote>
+<div><p>To allow the pull request to be merged you can push a new commit to the pull
+request without the skip instruction in the commit message.</p>
+</div></blockquote>
+</section>
+<section id="deleting-a-workflow-run">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">Deleting a workflow run</a><a class="headerlink" href="#deleting-a-workflow-run" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can delete a workflow run that has been completed, or is more than two
+weeks old.</p>
+</div></blockquote>
+<p>削除したい workflow の実行履歴ページを開き、項目欄右の <span class="menuselection">… ‣
+Delete workflow run</span> を押す。ダイアログが出るので Yes を押す。</p>
+</section>
+<section id="downloading-workflow-artifacts">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">Downloading workflow artifacts</a><a class="headerlink" href="#downloading-workflow-artifacts" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Actions</span> ページで左柱から所望の workflow を探して押す。実行名を押して実行概要を出す。この <span class="guilabel">Artifacts</span> 節に成果物リンクがある。</p>
+</section>
+<section id="removing-workflow-artifacts">
+<h3><a class="toc-backref" href="#id57" role="doc-backlink">Removing workflow artifacts</a><a class="headerlink" href="#removing-workflow-artifacts" title="Permalink to this heading">¶</a></h3>
+<p>成果物を削除すれば記憶域が回復する。</p>
+<p>上述の手順で <span class="guilabel">Artifacts</span> を表示し、成果物項目右側のゴミバケツを押す。</p>
+<p>成果物とログの保有期間のカスタマイズは後述。</p>
+</section>
+</section>
+<section id="build-and-test">
+<h2><a class="toc-backref" href="#id58" role="doc-backlink">Build and test</a><a class="headerlink" href="#build-and-test" title="Permalink to this heading">¶</a></h2>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Python の節と出来合いのものを使わない節を読めば workflow の構造は理解可能。</p>
+</div>
+<section id="about-continuous-integration">
+<h3><a class="toc-backref" href="#id59" role="doc-backlink">About continuous integration</a><a class="headerlink" href="#about-continuous-integration" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When you commit code to your repository, you can continuously build and test
+the code to make sure that the commit doesn’t introduce errors.</p>
+</div></blockquote>
+<p>これが CI の基本的な考え方だ。</p>
+<blockquote>
+<div><p>You can build and test updates locally before pushing code to a repository,
+or you can use a CI server that checks for new code commits in a repository.</p>
+</div></blockquote>
+<p>CI 目的のサーバーが存在するということを覚えておく。</p>
+<blockquote>
+<div><p>CI using GitHub Actions offers workflows that can build the code in your
+repository and run your tests.</p>
+</div></blockquote>
+<p>CI を実現する workflow を書くことになる。</p>
+<blockquote>
+<div><p>When you set up CI in your repository, GitHub analyzes the code in your
+repository and recommends CI workflows based on the language and framework in
+your repository. For example, if you use Node.js, GitHub will suggest a
+starter workflow that installs your Node.js packages and runs your tests.</p>
+</div></blockquote>
+<p>リポジトリーの構造がある程度一般的であることが暗黙的に期待されている。</p>
+</section>
+<section id="building-and-testing-go">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">Building and testing Go</a><a class="headerlink" href="#building-and-testing-go" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “go”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-java-with-ant">
+<h3><a class="toc-backref" href="#id61" role="doc-backlink">Building and testing Java with Ant</a><a class="headerlink" href="#building-and-testing-java-with-ant" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “Java with Ant”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-java-with-gradle">
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">Building and testing Java with Gradle</a><a class="headerlink" href="#building-and-testing-java-with-gradle" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “Java with Gradle”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-java-with-maven">
+<h3><a class="toc-backref" href="#id63" role="doc-backlink">Building and testing Java with Maven</a><a class="headerlink" href="#building-and-testing-java-with-maven" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “Java with Maven”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-net">
+<h3><a class="toc-backref" href="#id64" role="doc-backlink">Building and testing .NET</a><a class="headerlink" href="#building-and-testing-net" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “dotnet”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-node-js">
+<h3><a class="toc-backref" href="#id65" role="doc-backlink">Building and testing Node.js</a><a class="headerlink" href="#building-and-testing-node-js" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “Node.js”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-powershell">
+<h3><a class="toc-backref" href="#id66" role="doc-backlink">Building and testing PowerShell</a><a class="headerlink" href="#building-and-testing-powershell" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>ここは出来合いのものを使わない？</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-python">
+<h3><a class="toc-backref" href="#id67" role="doc-backlink">Building and testing Python</a><a class="headerlink" href="#building-and-testing-python" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>To get started quickly, add a starter workflow to the
+<code class="file docutils literal notranslate"><span class="pre">.github/workflows</span></code> directory of your repository.</p>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p>リポジトリー <span class="menuselection">Actions</span> ページに移動。</p></li>
+<li><p>左柱の <span class="guilabel">New workflow</span> を押す。</p></li>
+<li><p>“Python application” を検索して検索結果の <span class="guilabel">Configure</span> を押す。</p></li>
+</ol>
+<p>内容を適宜編集してコミットし、<code class="file docutils literal notranslate"><span class="pre">.github/workflows/python-app.yml</span></code> を得る。</p>
+<p>まずは Python バージョンを決める。</p>
+<blockquote>
+<div><p>To use a pre-installed version of Python or PyPy on a GitHub-hosted runner,
+use the <code class="docutils literal notranslate"><span class="pre">setup-python</span></code> action. This action finds a specific version of
+Python or PyPy from the tools cache on each runner and adds the necessary
+binaries to <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code>, which persists for the rest of the job.</p>
+</div></blockquote>
+<p>単一バージョンを指定したい。次のように書く：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
+<span class="w">  </span><span class="c1"># This is the version of the action for setting up Python, not the Python version.</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Semantic version range syntax or exact version of a Python version</span>
+<span class="w">    </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.x&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>You can use <strong class="command">pip</strong> to install dependencies from the PyPI package
+registry before building and testing your code.</p>
+</div></blockquote>
+<p>依存パッケージをインストールするようにしたい。ステップとして次のように書く：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python -m pip install --upgrade pip setuptools wheel</span>
+</pre></div>
+</div>
+<p><strong class="command">pip</strong> 自体を upgrade してから <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> に指定された依存パッケージを更新させる方法もある：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">python -m pip install --upgrade pip</span>
+<span class="w">    </span><span class="no">pip install -r requirements.txt</span>
+</pre></div>
+</div>
+<p>依存パッケージをキャッシュする機能も有している：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
+<span class="w">    </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;pip&#39;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip test</span>
+</pre></div>
+</div>
+<p>ビルドの次はテストだ。本文の例は pytest を採用している：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test with pytest</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">pip install pytest pytest-cov</span>
+<span class="w">    </span><span class="no">pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html</span>
+</pre></div>
+</div>
+<p>成果物をアップロードするには <code class="docutils literal notranslate"><span class="pre">actions/upload-artifact</span></code> を用いる：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload pytest test results</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v3</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest-results-${{ matrix.python-version }}</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">junit/test-results-${{ matrix.python-version }}.xml</span>
+<span class="w">  </span><span class="c1"># Use always() to always run this step to publish test results when there are test failures</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ always() }}</span>
+</pre></div>
+</div>
+<p>製品を PyPI などのパッケージ置場に登録して終わることも可能だ。その場合には登録者が置場の API トークンを保持している必要がある。</p>
+</section>
+<section id="building-and-testing-ruby">
+<h3><a class="toc-backref" href="#id68" role="doc-backlink">Building and testing Ruby</a><a class="headerlink" href="#building-and-testing-ruby" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “ruby”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-swift">
+<h3><a class="toc-backref" href="#id69" role="doc-backlink">Building and testing Swift</a><a class="headerlink" href="#building-and-testing-swift" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Search for “swift”.</p>
+</div></blockquote>
+</section>
+<section id="building-and-testing-xamarin-applications">
+<h3><a class="toc-backref" href="#id70" role="doc-backlink">Building and testing Xamarin applications</a><a class="headerlink" href="#building-and-testing-xamarin-applications" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>ここは出来合いのものを使わない？</p>
+</div></blockquote>
+</section>
+</section>
+<section id="using-containerized-services">
+<h2><a class="toc-backref" href="#id71" role="doc-backlink">Using containerized services</a><a class="headerlink" href="#using-containerized-services" title="Permalink to this heading">¶</a></h2>
+<p>以下の内容のようなので丸ごと割愛：</p>
+<ul class="simple">
+<li><p>About service containers</p></li>
+<li><p>Creating PostgreSQL service containers</p></li>
+<li><p>Creating Redis service containers</p></li>
+</ul>
+</section>
+<section id="publish-packages">
+<h2><a class="toc-backref" href="#id72" role="doc-backlink">Publish packages</a><a class="headerlink" href="#publish-packages" title="Permalink to this heading">¶</a></h2>
+<section id="about-packaging-with-github-actions">
+<h3><a class="toc-backref" href="#id73" role="doc-backlink">About packaging with GitHub Actions</a><a class="headerlink" href="#about-packaging-with-github-actions" title="Permalink to this heading">¶</a></h3>
+<p>発行場所は GitHub でもよそでも可能。</p>
+<blockquote>
+<div><p>After building and testing your code, a packaging step can produce a runnable
+or deployable artifact. Depending on the kind of application you’re building,
+this package can be downloaded locally for manual testing, made available for
+users to download, or deployed to a staging or production environment.</p>
+</div></blockquote>
+<p>Workflow が成果物を出力して、一般人に対してダウンロード可能になる。</p>
+<blockquote>
+<div><p>In addition to uploading packaging artifacts for testing in a continuous
+integration workflow, you can create workflows that build your project and
+publish packages to a package registry.</p>
+</div></blockquote>
+<p>成果物を出力する場合が CI とパッケージ置場への発行の二通りあると言っている：</p>
+<blockquote>
+<div><p>You may want to publish packages to GitHub Packages on every push into the
+default branch.</p>
+</div></blockquote>
+<p>および：</p>
+<blockquote>
+<div><p>You can automate this by creating a workflow that publishes packages to a
+package registry on every release creation.</p>
+</div></blockquote>
+</section>
+<section id="publishing-docker-images">
+<h3><a class="toc-backref" href="#id74" role="doc-backlink">Publishing Docker images</a><a class="headerlink" href="#publishing-docker-images" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Each time you create a new release on GitHub, you can trigger a workflow to
+publish your image. The workflow in the example below runs when the
+<code class="docutils literal notranslate"><span class="pre">release</span></code> event triggers with the <code class="docutils literal notranslate"><span class="pre">created</span></code> activity type.</p>
+</div></blockquote>
+<p>この考え方は Docker 以外の他の発行手順でも通じる。</p>
+<p>Docker 公式アクションを用いる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">docker/login-action</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker/metadata-action</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker/build-push-action</span></code></p></li>
+</ul>
+<p>当然ながら：</p>
+<blockquote>
+<div><p>To push to Docker Hub, you will need to have a Docker Hub account, and have a
+Docker Hub repository created.</p>
+</div></blockquote>
+<p>単一の workflow で発行場所は GitHub Packages と Docker Hub のどちらか一方または両方に指定することが可能だ。</p>
+</section>
+<section id="publishing-java-packages-with-gradle">
+<h3><a class="toc-backref" href="#id75" role="doc-backlink">Publishing Java packages with Gradle</a><a class="headerlink" href="#publishing-java-packages-with-gradle" title="Permalink to this heading">¶</a></h3>
+<p>パッケージ置場への認証に使用するユーザー名とパスワードまたはトークンの環境変数を
+<code class="file docutils literal notranslate"><span class="pre">build.gradle</span></code> で設定する必要がある。</p>
+<p>Maven Central Repository というパッケージ置場にコマンド <code class="docutils literal notranslate"><span class="pre">gradle</span> <span class="pre">publish</span></code> を実行してパッケージを発行する。</p>
+<blockquote>
+<div><p>In the deploy step, you’ll need to set environment variables for the username
+and password or token that you use to authenticate to the Maven repository.</p>
+</div></blockquote>
+<p>Gradle 公式アクションを用いる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gradle/wrapper-validation-action</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gradle/gradle-build-action</span></code></p></li>
+</ul>
+</section>
+<section id="publishing-java-packages-with-maven">
+<h3><a class="toc-backref" href="#id76" role="doc-backlink">Publishing Java packages with Maven</a><a class="headerlink" href="#publishing-java-packages-with-maven" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">--batch-mode</span> <span class="pre">deploy</span></code> の実行でパッケージ置場に配備する。</p>
+<p>Maven Central Repository と GitHub Packages の両方に置く場合、</p>
+<ul class="simple">
+<li><p>構成ファイル <code class="file docutils literal notranslate"><span class="pre">pom.xml</span></code> をどう書けばいいか不明。</p></li>
+<li><p><cite>actions/setup-java</cite> を用いるステップを二度実行することになる。</p></li>
+<li><p>コマンド <code class="docutils literal notranslate"><span class="pre">mvn</span> <span class="pre">--batch-mode</span> <span class="pre">deploy</span></code> を実行するステップを、異なる引数で二度実行する。</p></li>
+</ul>
+</section>
+<section id="publishing-node-js-packages">
+<h3><a class="toc-backref" href="#id77" role="doc-backlink">Publishing Node.js packages</a><a class="headerlink" href="#publishing-node-js-packages" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>If you add steps in your workflow to configure the <code class="docutils literal notranslate"><span class="pre">publishConfig</span></code> fields
+in your <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> file, you don’t need to specify the
+<code class="docutils literal notranslate"><span class="pre">registry-url</span></code> using the <code class="docutils literal notranslate"><span class="pre">setup-node</span></code> action, but you will be limited to
+publishing the package to one registry.</p>
+</div></blockquote>
+<blockquote>
+<div><p>By default, <strong class="command">npm</strong> uses the <code class="docutils literal notranslate"><span class="pre">name</span></code> field of the
+<code class="file docutils literal notranslate"><span class="pre">package.json</span></code> file to determine the name of your published package.</p>
+</div></blockquote>
+<blockquote>
+<div><p>If you’re publishing a package that includes a scope prefix, include the
+scope in the name of your <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> file</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">actions/setup-node</span></code> を用いる。</p>
+<ul>
+<li><p>このアクションは <code class="file docutils literal notranslate"><span class="pre">.npmrc</span></code> を生成する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">registry-url:</span></code> にパッケージ置場の URL を指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scope:</span></code> を上述のように指定する場合がある。E.g. <code class="docutils literal notranslate"><span class="pre">&#64;octocat</span></code>.</p></li>
+</ul>
+</li>
+<li><p>コマンド <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">publish</span></code> を実行する。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">env.NODE_AUTH_TOKEN</span></code> を <code class="docutils literal notranslate"><span class="pre">secrets</span></code> 経由で設定する。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="manage-issues-and-pull-requests">
+<h2><a class="toc-backref" href="#id78" role="doc-backlink">Manage issues and pull requests</a><a class="headerlink" href="#manage-issues-and-pull-requests" title="Permalink to this heading">¶</a></h2>
+<section id="using-github-actions-for-project-management">
+<h3><a class="toc-backref" href="#id79" role="doc-backlink">Using GitHub Actions for project management</a><a class="headerlink" href="#using-github-actions-for-project-management" title="Permalink to this heading">¶</a></h3>
+<p>GitHub Actions を用いて Issues や pull requests の対処を自動化することが可能だ。</p>
+<blockquote>
+<div><p>For example, you can create a workflow that runs every time an issue is
+created to add a label, leave a comment, and move the issue onto a project
+board.</p>
+</div></blockquote>
+<p>リポジトリーに対して何かイベントが発生したときや、定期的に workflow を実行させるように構成することが可能だ。ここで興味があるのは次のようなタイミングだ：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>An issue is opened, assigned, or labeled.</p></li>
+<li><p>A comment is added to an issue.</p></li>
+<li><p>A project card is created or moved.</p></li>
+<li><p>A scheduled time.</p></li>
+</ul>
+</div></blockquote>
+<p>以降の数節で何を対処することが可能なのかを見ていく。</p>
+</section>
+<section id="adding-labels-to-issues">
+<h3><a class="toc-backref" href="#id80" role="doc-backlink">Adding labels to issues</a><a class="headerlink" href="#adding-labels-to-issues" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The <a class="reference external" href="https://github.com/marketplace/actions/github-script">actions/github-script</a> action allows you
+to easily use the GitHub API in a workflow.</p>
+</div></blockquote>
+<p>次の YAML コードはその用例だ。確かに API を直接操作しているように読める：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/github-script@v6</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">github.rest.issues.addLabels({</span>
+<span class="w">        </span><span class="no">issue_number: context.issue.number,</span>
+<span class="w">        </span><span class="no">owner: context.repo.owner,</span>
+<span class="w">        </span><span class="no">repo: context.repo.repo,</span>
+<span class="w">        </span><span class="no">labels: [&quot;triage&quot;]</span>
+<span class="w">      </span><span class="no">})</span>
+</pre></div>
+</div>
+<p>YAML ルートに以下のコードを書くと、当該リポジトリーの issue が開いた時にこの
+workflow が引き起こされる：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">issues</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">types</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reopened</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">opened</span>
+</pre></div>
+</div>
+</section>
+<section id="closing-inactive-issues">
+<h3><a class="toc-backref" href="#id81" role="doc-backlink">Closing inactive issues</a><a class="headerlink" href="#closing-inactive-issues" title="Permalink to this heading">¶</a></h3>
+<p>ジョブの <code class="docutils literal notranslate"><span class="pre">permissions:</span></code> で <code class="docutils literal notranslate"><span class="pre">issues:</span></code> と <code class="docutils literal notranslate"><span class="pre">pull-requests:</span></code> を <code class="docutils literal notranslate"><span class="pre">write</span></code> にしておく。</p>
+<p>Workflow を定期的に引き起こすコード：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedule</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;30</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>In the example above, the workflow will run every day at 1:30 UTC.</p>
+</div></blockquote>
+<p>ステップでは <a class="reference external" href="https://github.com/marketplace/actions/close-stale-issues">actions/stale</a> を用いる：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/stale@v5</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">days-before-issue-stale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">    </span><span class="nt">days-before-issue-close</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="w">    </span><span class="nt">stale-issue-label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stale&quot;</span>
+<span class="w">    </span><span class="nt">stale-issue-message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">issue</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">stale</span><span class="nv"> </span><span class="s">because</span><span class="nv"> </span><span class="s">it</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">been</span><span class="nv"> </span><span class="s">open</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">30</span><span class="nv"> </span><span class="s">days</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">no</span><span class="nv"> </span><span class="s">activity.&quot;</span>
+<span class="w">    </span><span class="nt">close-issue-message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">issue</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">closed</span><span class="nv"> </span><span class="s">because</span><span class="nv"> </span><span class="s">it</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">been</span><span class="nv"> </span><span class="s">inactive</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">14</span><span class="nv"> </span><span class="s">days</span><span class="nv"> </span><span class="s">since</span><span class="nv"> </span><span class="s">being</span><span class="nv"> </span><span class="s">marked</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">stale.&quot;</span>
+<span class="w">    </span><span class="nt">days-before-pr-stale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">    </span><span class="nt">days-before-pr-close</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">    </span><span class="nt">repo-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+</pre></div>
+</div>
+<p>アクションの各引数は名前が意味を示しているので、カンでカスタマイズしてよい。</p>
+</section>
+<section id="commenting-on-an-issue-when-a-label-is-added">
+<h3><a class="toc-backref" href="#id82" role="doc-backlink">Commenting on an issue when a label is added</a><a class="headerlink" href="#commenting-on-an-issue-when-a-label-is-added" title="Permalink to this heading">¶</a></h3>
+<p>これは <code class="docutils literal notranslate"><span class="pre">help-wanted</span></code> ラベルの付いた新 issue に助けを求めるコメントを追加する
+workflow だ。急所だけ列挙すると：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">on.issues.types:</span> <span class="pre">[labeled]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jobs.add-comment.if:</span> <span class="pre">github.event.label.name</span> <span class="pre">==</span> <span class="pre">'help-wanted'</span></code></p></li>
+</ul>
+<p>このジョブの最初のステップについて：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.uses</span> <span class="pre">=</span> <span class="pre">peter-evans/create-or-update-comment&#64;&lt;SHA&gt;</span></code> の SHA 値はどう与える？</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.issue-number</span></code> に <code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">github.event.issue.number</span> <span class="pre">}}</span></code> を与える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.body</span></code> にコメント本文を与える。</p></li>
+</ul>
+</section>
+<section id="moving-assigned-issues-on-project-boards">
+<h3><a class="toc-backref" href="#id83" role="doc-backlink">Moving assigned issues on project boards</a><a class="headerlink" href="#moving-assigned-issues-on-project-boards" title="Permalink to this heading">¶</a></h3>
+<p>割愛。</p>
+</section>
+<section id="removing-a-label-when-a-card-is-added-to-a-project-board-column">
+<h3><a class="toc-backref" href="#id84" role="doc-backlink">Removing a label when a card is added to a project board column</a><a class="headerlink" href="#removing-a-label-when-a-card-is-added-to-a-project-board-column" title="Permalink to this heading">¶</a></h3>
+<p>割愛。</p>
+</section>
+<section id="scheduling-issue-creation">
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">Scheduling issue creation</a><a class="headerlink" href="#scheduling-issue-creation" title="Permalink to this heading">¶</a></h3>
+<p>ジョブ名を <code class="docutils literal notranslate"><span class="pre">create_issue</span></code> とする。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">on.schedule.cron:</span> <span class="pre">20</span> <span class="pre">07</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">1</span></code> は毎週月曜 7:20 を意味する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jobs.create_issue.permissions.issues:</span> <span class="pre">write</span></code> とする。</p></li>
+</ul>
+<p>このジョブの最初のステップについて：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.uses:</span> <span class="pre">imjohnbo/issue-bot&#64;&lt;SHA&gt;</span></code> の SHA 値はどう与える？</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.assignees:</span> <span class="pre">&quot;monalisa,</span> <span class="pre">doctocat,</span> <span class="pre">hubot&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.labels:</span> <span class="pre">&quot;weekly</span> <span class="pre">sync,</span> <span class="pre">docs-team&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.titles:</span></code> 適当なタイトル</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.body:</span></code> Markdown のテンプレ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.env.GITHUB_TOKEN:</span> <span class="pre">${{</span> <span class="pre">secrets.GITHUB_TOKEN</span> <span class="pre">}}</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="migrate-to-github-actions">
+<h2><a class="toc-backref" href="#id86" role="doc-backlink">Migrate to GitHub Actions</a><a class="headerlink" href="#migrate-to-github-actions" title="Permalink to this heading">¶</a></h2>
+<section id="using-github-actions-importer-to-automate-migrations">
+<h3><a class="toc-backref" href="#id87" role="doc-backlink">Using GitHub Actions Importer to automate migrations</a><a class="headerlink" href="#using-github-actions-importer-to-automate-migrations" title="Permalink to this heading">¶</a></h3>
+<p>節見出しが次のようになっている：</p>
+<ul class="simple">
+<li><p>Automating migration with GitHub Actions Importer</p></li>
+<li><p>Extending GitHub Actions Importer with custom transformers</p></li>
+<li><p>Supplemental arguments and settings</p></li>
+<li><p>Migrating from Azure DevOps with GitHub Actions Importer</p></li>
+<li><p>Migrating from Bamboo with GitHub Actions Importer</p></li>
+<li><p>Migrating from Bitbucket Pipelines with GitHub Actions Importer</p></li>
+<li><p>Migrating from CircleCI with GitHub Actions Importer</p></li>
+<li><p>Migrating from GitLab with GitHub Actions Importer</p></li>
+<li><p>Migrating from Jenkins with GitHub Actions Importer</p></li>
+<li><p>Migrating from Travis CI with GitHub Actions Importer</p></li>
+</ul>
+<p>どの CI も持っていないので割愛。</p>
+</section>
+<section id="manually-migrating-to-github-actions">
+<h3><a class="toc-backref" href="#id88" role="doc-backlink">Manually migrating to GitHub Actions</a><a class="headerlink" href="#manually-migrating-to-github-actions" title="Permalink to this heading">¶</a></h3>
+<p>同じ理由により割愛。</p>
+</section>
+</section>
+<section id="monitoring-and-troubleshooting-workflows">
+<h2><a class="toc-backref" href="#id89" role="doc-backlink">Monitoring and troubleshooting workflows</a><a class="headerlink" href="#monitoring-and-troubleshooting-workflows" title="Permalink to this heading">¶</a></h2>
+<section id="about-monitoring-and-troubleshooting">
+<h3><a class="toc-backref" href="#id90" role="doc-backlink">About monitoring and troubleshooting</a><a class="headerlink" href="#about-monitoring-and-troubleshooting" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Every workflow run generates a real-time graph that illustrates the run
+progress. You can use this graph to monitor and debug workflows.</p>
+</div></blockquote>
+<p>実行時にグラフが更新されていくので、ページを開いたまま眺めていることが可能。</p>
+<blockquote>
+<div><p>A status badge shows whether a workflow is currently failing or passing. A
+common place to add a status badge is in the <code class="file docutils literal notranslate"><span class="pre">README.md</span></code> file of your
+repository, but you can add it to any web page you’d like.</p>
+</div></blockquote>
+<p>まともなリポジトリーの説明文でよくみかけるバッヂだ。</p>
+<blockquote>
+<div><p>If the workflow logs do not provide enough detail to diagnose why a workflow,
+job, or step is not working as expected, you can enable additional debug
+logging.</p>
+</div></blockquote>
+<p>手許の環境で実行できない以上、こういう機能は必須だ。</p>
+<blockquote>
+<div><p>If you attempt to cancel a workflow and the cancellation doesn’t succeed,
+make sure you aren’t using the <code class="docutils literal notranslate"><span class="pre">always</span></code> expression.</p>
+</div></blockquote>
+<p>この式を内規で禁じたい。</p>
+</section>
+<section id="using-the-visualization-graph">
+<h3><a class="toc-backref" href="#id91" role="doc-backlink">Using the visualization graph</a><a class="headerlink" href="#using-the-visualization-graph" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>リポジトリー画面から <span class="menuselection">Actions</span> を開く。</p></li>
+<li><p>左柱から workflow の名前を探して押す。</p></li>
+<li><p>一覧から観察したい実行の名前を探して押す。</p></li>
+</ol>
+<p>画面右に当該 workflow を構成するジョブを節とするグラフが描画される。グラフの辺はジョブ間の依存関係を示す。各ジョブ名の左横の印がその状態を示す。</p>
+</section>
+<section id="adding-a-workflow-status-badge">
+<h3><a class="toc-backref" href="#id92" role="doc-backlink">Adding a workflow status badge</a><a class="headerlink" href="#adding-a-workflow-status-badge" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>A status badge shows whether a workflow is currently failing or passing.</p>
+</div></blockquote>
+<p>これがバッヂの基本的な役割だ。</p>
+<blockquote>
+<div><p>You can also display the status of a workflow run for a specific <code class="docutils literal notranslate"><span class="pre">branch</span></code>
+or <code class="docutils literal notranslate"><span class="pre">event</span></code> using the branch and event query parameters in the URL.</p>
+</div></blockquote>
+<p>バッヂの表示方法を見ていく。</p>
+<blockquote>
+<div><p>You can build the URL for a workflow status badge using the name of the
+workflow file:</p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://github.com/OWNER/REPOSITORY/actions/workflows/WORKFLOW-FILE/badge.svg">https://github.com/OWNER/REPOSITORY/actions/workflows/WORKFLOW-FILE/badge.svg</a></div>
+</div>
+</div></blockquote>
+<p>URL の引数を見ていく。</p>
+<blockquote>
+<div><p>To display the status of a workflow run for a specific branch, add
+<code class="docutils literal notranslate"><span class="pre">?branch=BRANCH-NAME</span></code> to the end of the status badge URL.</p>
+</div></blockquote>
+<p>これはブランチの状態を知らせるときに利用する。</p>
+<blockquote>
+<div><p>To display the status of workflow runs triggered by the push event, add
+<code class="docutils literal notranslate"><span class="pre">?event=push</span></code> to the end of the status badge URL.</p>
+</div></blockquote>
+<p>対象ブランチの現在の状態に対するビルド結果を表示する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>バッヂの見てくれは workflow 名称＋状態文字列。</p>
+</div>
+</section>
+<section id="viewing-workflow-run-history">
+<h3><a class="toc-backref" href="#id93" role="doc-backlink">Viewing workflow run history</a><a class="headerlink" href="#viewing-workflow-run-history" title="Permalink to this heading">¶</a></h3>
+<p>これまで何度も見ているものなので割愛。</p>
+</section>
+<section id="viewing-job-execution-time">
+<h3><a class="toc-backref" href="#id94" role="doc-backlink">Viewing job execution time</a><a class="headerlink" href="#viewing-job-execution-time" title="Permalink to this heading">¶</a></h3>
+<p>左柱の <span class="guilabel">Run details –&gt; Usage</span> を押すと、右側に実行時間明細が表示される。</p>
+</section>
+<section id="using-workflow-run-logs">
+<h3><a class="toc-backref" href="#id95" role="doc-backlink">Using workflow run logs</a><a class="headerlink" href="#using-workflow-run-logs" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>GitHub Actions use the Checks API to output statuses, results, and logs for a
+workflow.</p>
+</div></blockquote>
+<p>今は言葉だけ覚えておく。</p>
+<blockquote>
+<div><p>In addition to the steps configured in the workflow file, GitHub adds two
+additional steps to each job to set up and complete the job’s execution.
+These steps are logged in the workflow run with the names <span class="guilabel">Set up
+job</span> and <span class="guilabel">Complete job</span>.</p>
+</div></blockquote>
+<p>ということは workflow が空であるということはあり得ない。</p>
+<p>いつものようにジョブ画面を開く。画面右側にジョブを構成するステップが縦に並ぶ。</p>
+<blockquote>
+<div><p>Any failed steps are automatically expanded to display the results.</p>
+</div></blockquote>
+<p>ログを検索することが可能だ。ステップ一覧の右上にある検索欄を用いる。</p>
+<p>ログをダウンロードするには、検索欄右の歯車ボタンを押して
+<span class="menuselection">Download log archive</span> を押す。</p>
+<p>ログを削除するには workflow 画面に移動する。右上ボタンから <span class="menuselection">…
+‣ Delete all logs</span> を押す。</p>
+</section>
+<section id="enabling-debug-logging">
+<h3><a class="toc-backref" href="#id96" role="doc-backlink">Enabling debug logging</a><a class="headerlink" href="#enabling-debug-logging" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>These extra logs are enabled by setting secrets or variables in the
+repository containing the workflow</p>
+</div></blockquote>
+<p>リポジトリー所有者ならば十分。</p>
+<blockquote>
+<div><p>Runner diagnostic logging provides additional log files that contain
+information about how a runner is executing a job.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The runner process log</p></li>
+<li><p>The worker process log</p></li>
+</ul>
+<p>ログを有効にするには、リポジトリーの秘密 or 変数 <code class="docutils literal notranslate"><span class="pre">ACTIONS_RUNNER_DEBUG</span></code> を
+<code class="docutils literal notranslate"><span class="pre">true</span></code> に設定する必要がある。秘密として指定するほうの値が優先される。</p>
+<p>ログは <code class="file docutils literal notranslate"><span class="pre">runner-diagnostic-logs</span></code> からダウンロードする。</p>
+<p>より詳細なログを求めるならばリポジトリーの秘密 or 変数 <code class="docutils literal notranslate"><span class="pre">ACTIONS_STEP_DEBUG</span></code> を
+<code class="docutils literal notranslate"><span class="pre">true</span></code> に設定する。デバッグイベントを含むログが得られる。</p>
+</section>
+<section id="notifications-for-workflow-runs">
+<h3><a class="toc-backref" href="#id97" role="doc-backlink">Notifications for workflow runs</a><a class="headerlink" href="#notifications-for-workflow-runs" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>成功時の通知は無効化しておきたい。</p></li>
+<li><p>スケジュールイベントによる通知は発生条件が複雑だ。</p></li>
+</ul>
+</section>
+</section>
+<section id="security-guides">
+<h2><a class="toc-backref" href="#id98" role="doc-backlink">Security guides</a><a class="headerlink" href="#security-guides" title="Permalink to this heading">¶</a></h2>
+<section id="security-hardening-for-github-actions">
+<h3><a class="toc-backref" href="#id99" role="doc-backlink">Security hardening for GitHub Actions</a><a class="headerlink" href="#security-hardening-for-github-actions" title="Permalink to this heading">¶</a></h3>
+<p>Understanding the risk of script injections は必見。インラインでシェルスクリプトを記述するときには注入攻撃を意識すること。外部アクション呼び出し、面倒でも変数導入、トークンによる認証組み込みなどで強化する。</p>
+<p>サードパーティー製 workflow の再利用はいつでも善。</p>
+</section>
+<section id="using-secrets-in-github-actions">
+<h3><a class="toc-backref" href="#id100" role="doc-backlink">Using secrets in GitHub Actions</a><a class="headerlink" href="#using-secrets-in-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Secrets are variables that you create in an organization, repository, or
+repository environment. The secrets that you create are available to use in
+GitHub Actions workflows.</p>
+</div></blockquote>
+<p>秘密は変数の一種だ。組織、リポジトリー、環境の三層それぞれが有効照準であるように値を持たせる。このノートでは個人リポジトリーのみ注目する。</p>
+<blockquote>
+<div><p>To make a secret available to an action, you must set the secret as an input
+or environment variable in the workflow file.</p>
+</div></blockquote>
+<p>ログに秘密を出力することは不可能だと思っておく。</p>
+<p>最小権限の原則について実例を述べている。</p>
+<p>個人リポジトリーに秘密を追加する方法は次のとおり。操作者は所有者であることを仮定する：</p>
+<ol class="arabic simple">
+<li><p>リポジトリーから <span class="menuselection">Settings ‣ Secrets and variables ‣
+Actions</span> にアクセス。</p></li>
+<li><p><span class="guilabel">Secrets</span> を押す。</p></li>
+<li><p><span class="guilabel">New repository secret</span> を押す。</p></li>
+<li><p>フォームの <span class="guilabel">Name</span> と <span class="guilabel">Secret</span> を記入する。</p></li>
+<li><p><span class="guilabel">Add secret</span> を押す。</p></li>
+</ol>
+<p>Workflow コード中では、</p>
+<blockquote>
+<div><p>Secrets cannot be directly referenced in <code class="docutils literal notranslate"><span class="pre">if:</span></code> conditionals.</p>
+</div></blockquote>
+<p>秘密の値はパイプに流さないようにしたい：</p>
+<blockquote>
+<div><p>Avoid passing secrets between processes from the command line, whenever
+possible. Command-line processes may be visible to other users (using the ps
+command) or captured by security audit events.</p>
+</div></blockquote>
+<p>Workflow ログ削除機能を情報漏洩目的で用いる場合がある。</p>
+</section>
+<section id="automatic-token-authentication">
+<h3><a class="toc-backref" href="#id101" role="doc-backlink">Automatic token authentication</a><a class="headerlink" href="#automatic-token-authentication" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>At the start of each workflow job, GitHub automatically creates a unique
+<code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> secret to use in your workflow.</p>
+<p>When you enable GitHub Actions, GitHub installs a GitHub App on your
+repository. The <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> secret is a GitHub App installation access
+token.</p>
+</div></blockquote>
+<p>話が見えない。</p>
+<p>トークンを <code class="docutils literal notranslate"><span class="pre">${{</span> <span class="pre">secrets.GITHUB_TOKEN</span> <span class="pre">}}</span></code> の形で workflow から参照する。</p>
+<blockquote>
+<div><p>When you use the repository’s <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> to perform tasks, events
+triggered by the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>, with the exception of
+<code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> and <code class="docutils literal notranslate"><span class="pre">repository_dispatch</span></code>, will not create a new
+workflow run.</p>
+</div></blockquote>
+<p>この仕組みは workflow の二重発動を防ぐ。</p>
+<blockquote>
+<div><p>Commits pushed by a GitHub Actions workflow that uses the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> do
+not trigger a GitHub Pages build.</p>
+</div></blockquote>
+<p>この仕様は何かに利用できるか？</p>
+<blockquote>
+<div><p>The following table shows the permissions granted to the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> by
+default.</p>
+</div></blockquote>
+<p>この表のヘッダーの Scope 以外の意味がわからない。</p>
+<blockquote>
+<div><p>You can modify the permissions for the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> in individual workflow
+files.</p>
+<p>You can see the permissions that <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> had for a specific job in
+the <span class="guilabel">Set up job</span> section of the workflow run log.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span> <span class="pre">Permissions</span></code> を含む行をクリックすると詳細が示される。</p>
+<blockquote>
+<div><p>You can use the permissions key in your workflow file to modify permissions
+for the <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> for an entire workflow or for individual jobs. This
+allows you to configure the minimum required permissions for a workflow or
+job.</p>
+</div></blockquote>
+<p>具体的方法は？</p>
+<blockquote>
+<div><p>If you need a token that requires permissions that aren’t available in the
+<code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>, you can create a GitHub App and generate an installation
+access token within your workflow.</p>
+</div></blockquote>
+<p>これはアプリケーションの章で見ていく？</p>
+</section>
+</section>
+<section id="creating-actions">
+<h2><a class="toc-backref" href="#id102" role="doc-backlink">Creating actions</a><a class="headerlink" href="#creating-actions" title="Permalink to this heading">¶</a></h2>
+<p>自作、再利用、共有。</p>
+<section id="about-custom-actions">
+<h3><a class="toc-backref" href="#id103" role="doc-backlink">About custom actions</a><a class="headerlink" href="#about-custom-actions" title="Permalink to this heading">¶</a></h3>
+<p>アクションの概要：</p>
+<blockquote>
+<div><p>You can write your own actions to use in your workflow or share the actions
+you build with the GitHub community. To share actions you’ve built with
+everyone, your repository must be public.</p>
+<p>Actions can run directly on a machine or in a Docker container. You can
+define an action’s inputs, outputs, and environment variables.</p>
+</div></blockquote>
+<p>アクションは次の三種類ある：</p>
+<ul class="simple">
+<li><p>Docker コンテナー (Linux only)</p></li>
+<li><p>JavaScript</p></li>
+<li><p>複合</p></li>
+</ul>
+<p>Docker コンテナーはアクションコードに環境が付属したものと考えられる。</p>
+<blockquote>
+<div><p>Because of the latency to build and retrieve the container, Docker container
+actions are slower than JavaScript actions.</p>
+</div></blockquote>
+<p>JavaScript はアクションの作りがわかりやすい。どのランナーでも動作するように、
+JavaScript で閉じたコードを書かねばならない。</p>
+<p>複合アクションは何が複合なのかというと：</p>
+<blockquote>
+<div><p>A <em>composite</em> action allows you to combine multiple workflow steps within one
+action.</p>
+</div></blockquote>
+<p>カスタムアクションは専用リポジトリーに作成するのが望ましい。</p>
+<p>カスタムアクションを公にするならば、バージョン管理をまともにやる。</p>
+<blockquote>
+<div><p>We recommend using tags for actions release management. Using this approach,
+your users can easily distinguish between major and minor versions:</p>
+</div></blockquote>
+<p>今まで見てきたように、YAML コードでアクションの名前に SHA やタグを指定することが普通だ。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">README</span></code> でアクションの仕様を明示しておく：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A detailed description of what the action does</p></li>
+<li><p>Required input and output arguments</p></li>
+<li><p>Optional input and output arguments</p></li>
+<li><p>Secrets the action uses</p></li>
+<li><p>Environment variables the action uses</p></li>
+<li><p>An example of how to use your action in a workflow</p></li>
+</ul>
+</div></blockquote>
+<p>最後に、GitHub Marketplace で入手できること、モノを述べている：</p>
+<blockquote>
+<div><p>While both GitHub Actions and GitHub Apps provide ways to build automation
+and workflow tools, they each have strengths that make them useful in
+different ways.</p>
+</div></blockquote>
+</section>
+<section id="creating-a-docker-container-action">
+<h3><a class="toc-backref" href="#id104" role="doc-backlink">Creating a Docker container action</a><a class="headerlink" href="#creating-a-docker-container-action" title="Permalink to this heading">¶</a></h3>
+<p>私の手に余る話題なので割愛。と思ったが、実習だけはやる。</p>
+<p>GitHub にリポジトリー <code class="docutils literal notranslate"><span class="pre">hello-world-docker-action</span></code> を作成する。ローカルにクローンして作業。</p>
+<ul class="simple">
+<li><p>ファイル <code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> を本文の内容で作成。</p></li>
+<li><p>アクション <code class="file docutils literal notranslate"><span class="pre">action.yml</span></code> を本文の内容で作成。</p></li>
+<li><p>シェルスクリプト <code class="file docutils literal notranslate"><span class="pre">entrypoint.sh</span></code> を本文の内容で作成。</p>
+<ul>
+<li><p>変数 <code class="docutils literal notranslate"><span class="pre">GITHUB_OUTPUT</span></code> は workflow コマンドから現在のステップの出力を設定するファイルへのパスを示す。</p></li>
+<li><p>このスクリプトをローカルで実行することはないのだが、実行ファイルフラグを立てておく。</p></li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">README</span></code> を記述する。内容は本書のままではダメで、Example usage の YAML
+コードの <code class="docutils literal notranslate"><span class="pre">uses:</span></code> の引数を自分のものに合わせる。以下の演習でも同様。</p></li>
+</ul>
+<p>以上のファイルをリポジトリーに追加、プッシュ。</p>
+<p>アクションを呼び出すリポジトリーの YAML では <code class="docutils literal notranslate"><span class="pre">jobs.hello_world_job.steps[1]</span></code>
+に対して次の値を自分用に置き換える（以下の演習でも同様）：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.uses</span></code>: <code class="docutils literal notranslate"><span class="pre">actions</span></code> 部分を自分のアカウント名に置き換える</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.with.who-to-greet</span></code>: 自分の名前に置き換える</p></li>
+</ul>
+<p>これは覚えておいて損はない：</p>
+<blockquote>
+<div><p>When a container action runs, it will automatically map the default working
+directory (<code class="file docutils literal notranslate"><span class="pre">GITHUB_WORKSPACE</span></code>) on the runner with the
+<code class="file docutils literal notranslate"><span class="pre">/github/workspace</span></code> directory on the container. Any files added to this
+directory on the container will be available to any subsequent steps in the
+same job.</p>
+</div></blockquote>
+</section>
+<section id="creating-a-javascript-action">
+<h3><a class="toc-backref" href="#id105" role="doc-backlink">Creating a JavaScript action</a><a class="headerlink" href="#creating-a-javascript-action" title="Permalink to this heading">¶</a></h3>
+<p>最初の <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span></code> コマンドでは <code class="docutils literal notranslate"><span class="pre">v1.1</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">v1.0</span></code> にしておくと、後ほどの改訂版タグ <code class="docutils literal notranslate"><span class="pre">v1.1</span></code> と整合する。</p>
+<p>パッケージ <code class="docutils literal notranslate"><span class="pre">vercel/ncc</span></code> 導入後にアクションが機能しなくなる。次のエラーがジョブの初期化時に生じる：</p>
+<div class="line-block">
+<div class="line">Could not find file ‘/home/runner/work/_actions/_temp_6252a79a-7686-4d73-ad49-7a00b221fd2d/_staging/showa-yojyo-hello-world-javascript-action-243bf14/node_modules/.bin/uuid’.</div>
+</div>
+</section>
+<section id="creating-a-composite-action">
+<h3><a class="toc-backref" href="#id106" role="doc-backlink">Creating a composite action</a><a class="headerlink" href="#creating-a-composite-action" title="Permalink to this heading">¶</a></h3>
+<p>こちらのほうが前節より容易。<code class="file docutils literal notranslate"><span class="pre">action.yml</span></code> に <code class="docutils literal notranslate"><span class="pre">runs.steps:</span></code> が指定されているのが特徴だ。</p>
+<p>変数 <code class="docutils literal notranslate"><span class="pre">GITHUB_PATH</span></code> は workflow コマンドからシステム <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> 変数を設定するファイルへのパスを示す。</p>
+</section>
+<section id="metadata-syntax-for-github-actions">
+<h3><a class="toc-backref" href="#id107" role="doc-backlink">Metadata syntax for GitHub Actions</a><a class="headerlink" href="#metadata-syntax-for-github-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>All actions require a metadata file. The metadata filename must be either
+<code class="file docutils literal notranslate"><span class="pre">action.yml</span></code> or <code class="file docutils literal notranslate"><span class="pre">action.yaml</span></code>. The data in the metadata file
+defines the inputs, outputs, and runs configuration for your action.</p>
+</div></blockquote>
+<p>このファイルも YAML で記述する。その仕様が本節に述べられている。</p>
+</section>
+<section id="dockerfile-support-for-github-actions">
+<h3><a class="toc-backref" href="#id108" role="doc-backlink">Dockerfile support for GitHub Actions</a><a class="headerlink" href="#dockerfile-support-for-github-actions" title="Permalink to this heading">¶</a></h3>
+<p>Docker は後回し。</p>
+</section>
+<section id="setting-exit-codes-for-actions">
+<h3><a class="toc-backref" href="#id109" role="doc-backlink">Setting exit codes for actions</a><a class="headerlink" href="#setting-exit-codes-for-actions" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>GitHub uses the exit code to set the action’s check run status, which can be
+<code class="docutils literal notranslate"><span class="pre">success</span></code> or <code class="docutils literal notranslate"><span class="pre">failure</span></code>.</p>
+</div></blockquote>
+<p>UNIX と同じでゼロが成功で、それ以外は失敗。</p>
+<blockquote>
+<div><p>If you are creating a JavaScript action, you can use the actions toolkit
+<code class="docutils literal notranslate"><span class="pre">&#64;actions/core</span></code> package to log a message and set a failure exit code. For
+example:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// something</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">core</span><span class="p">.</span><span class="na">setFailed</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">message</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="publishing-actions-in-github-marketplace">
+<h3><a class="toc-backref" href="#id110" role="doc-backlink">Publishing actions in GitHub Marketplace</a><a class="headerlink" href="#publishing-actions-in-github-marketplace" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>When you plan to publish your action to GitHub Marketplace, you’ll need to
+ensure that the repository only includes the metadata file, code, and files
+necessary for the action.</p>
+</div></blockquote>
+<p>ある種の要件を満たしていると GitHub による審査を免除されるようだ。</p>
+<blockquote>
+<div><p>You can add the action you’ve created to GitHub Marketplace by tagging it as
+a new release and publishing it.</p>
+</div></blockquote>
+<div class="admonition-todo admonition" id="id6">
+<p class="admonition-title">Todo</p>
+<p>手順まとめ</p>
+</div>
+<blockquote>
+<div><p>To remove a published action from GitHub Marketplace, you’ll need to update
+each published release.</p>
+</div></blockquote>
+<p>単に撤回することはできないか？</p>
+</section>
+<section id="sharing-actions-and-workflows-from-your-private-repository">
+<h3><a class="toc-backref" href="#id111" role="doc-backlink">Sharing actions and workflows from your private repository</a><a class="headerlink" href="#sharing-actions-and-workflows-from-your-private-repository" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Any actions or reusable workflows stored in the private repository can be
+used in workflows defined in other private repositories owned by the same
+organization or user. Actions and reusable workflows stored in private
+repositories cannot be used in public repositories.</p>
+</div></blockquote>
+<p>非公開リポジトリーのものは公開リポジトリーから利用不能という原則は変わらない。</p>
+<p>リポジトリー <span class="menuselection">Settings ‣ Actions ‣ General</span> ページを開いて、いちばん下にある <span class="guilabel">Accessible from repositories owned by the user</span> をオンにする。</p>
+</section>
+<section id="sharing-actions-and-workflows-with-your-organization">
+<h3><a class="toc-backref" href="#id112" role="doc-backlink">Sharing actions and workflows with your organization</a><a class="headerlink" href="#sharing-actions-and-workflows-with-your-organization" title="Permalink to this heading">¶</a></h3>
+<p>割愛。</p>
+</section>
+<section id="releasing-and-maintaining-actions">
+<h3><a class="toc-backref" href="#id113" role="doc-backlink">Releasing and maintaining actions</a><a class="headerlink" href="#releasing-and-maintaining-actions" title="Permalink to this heading">¶</a></h3>
+<p>実践のコツ集。</p>
+</section>
+<section id="developing-a-third-party-cli-action">
+<h3><a class="toc-backref" href="#id114" role="doc-backlink">Developing a third party CLI action</a><a class="headerlink" href="#developing-a-third-party-cli-action" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>You can write an action to provide a way for users to access your servers via
+a configured CLI environment on GitHub Actions runners.</p>
+</div></blockquote>
+<p>これも実習モノか。</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="discussions.html" title="Previous document">GitHub Discussions documentation ノート</a>
+        </li>
+        <li>
+          <a href="packages.html" title="Next document">GitHub Packages documentation ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

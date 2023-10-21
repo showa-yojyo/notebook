@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GitHub CLI documentation ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=91898170"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="GitHub Desktop documentation ノート" href="desktop.html" />
+    <link rel="prev" title="GitHub Pages documentation ノート" href="pages.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="pages.html" title="Previous document">GitHub Pages documentation ノート</a>
+        </li>
+        <li>
+          <a href="desktop.html" title="Next document">GitHub Desktop documentation ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="github-cli-documentation">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">GitHub CLI documentation ノート</a><a class="headerlink" href="#github-cli-documentation" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://docs.github.com/en/github-cli">GitHub CLI documentation</a> を見ていく。ブラウザーとコンソールを往復するのが億劫な人に最適な道具だ。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#github-cli-documentation" id="id1">GitHub CLI documentation ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-github-cli" id="id2">About GitHub CLI</a></p></li>
+<li><p><a class="reference internal" href="#github-cli-quickstart" id="id3">GitHub CLI quickstart</a></p></li>
+<li><p><a class="reference internal" href="#creating-github-cli-extensions" id="id4">Creating GitHub CLI extensions</a></p></li>
+<li><p><a class="reference internal" href="#using-github-cli-extensions" id="id5">Using GitHub CLI extensions</a></p></li>
+<li><p><a class="reference internal" href="#github-cli-reference" id="id6">GitHub CLI reference</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<ul class="simple">
+<li><p><span class="guilabel">Overview</span> → <a class="reference internal" href="#cli-overview"><span class="std std-ref">About GitHub CLI</span></a></p></li>
+<li><p><span class="guilabel">Quickstart</span> → <a class="reference internal" href="#cli-quickstart"><span class="std std-ref">GitHub CLI</span></a></p></li>
+<li><p><span class="guilabel">Reference</span> → <a class="reference internal" href="#cli-reference"><span class="std std-ref">GitHub CLI reference</span></a></p></li>
+</ul>
+<section id="about-github-cli">
+<span id="cli-overview"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">About GitHub CLI</a><a class="headerlink" href="#about-github-cli" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>GitHub CLI is an open source tool for using GitHub from your computer’s
+command line.</p>
+</div></blockquote>
+<p>コンソールから GitHub の操作各種を実行可能。開発環境とブラウザーを往復するのを省けるから効率向上が期待できる。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>View, create, clone, and fork repositories</p></li>
+<li><p>Create, close, edit, and view issues and pull requests</p></li>
+<li><p>Review, diff, and merge pull requests</p></li>
+<li><p>Run, view, and list workflows</p></li>
+<li><p>Create, list, view, and delete releases</p></li>
+<li><p>Create, edit, list, view, and delete gists</p></li>
+<li><p>List, create, delete, and connect to a codespace</p></li>
+<li><p>Retrieve information from the GitHub API</p></li>
+</ul>
+</div></blockquote>
+<p>素の <strong class="command">git</strong> とどう違うのか：</p>
+<blockquote>
+<div><p>GitHub CLI (<strong class="command">gh</strong>) is specifically for working with GitHub. It allows
+you to use the command line to interact with GitHub in all sorts of ways, as
+illustrated by the previous list.</p>
+</div></blockquote>
+<p>GitHub の自動化に利用したい。</p>
+<p>導入および更新は <strong class="command">conda</strong> で行う：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ conda install gh --channel conda-forge</span>
+<span class="go">bash$ conda update gh --channel conda-forge</span>
+</pre></div>
+</div>
+<p>エラーが出たら <code class="docutils literal notranslate"><span class="pre">--channel</span> <span class="pre">conda-forge</span></code> を省いて様子を見たい。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://github.com/cli/cli">cli/cli: GitHub’s official command line tool</a></p>
+</div>
+</section>
+<section id="github-cli-quickstart">
+<span id="cli-quickstart"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">GitHub CLI quickstart</a><a class="headerlink" href="#github-cli-quickstart" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Authenticate with GitHub by running this command from your terminal.</p>
+</div></blockquote>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">auth</span> <span class="pre">login</span></code> を最初の一度だけ実行するようだが、その結果：</p>
+<blockquote>
+<div><p>GitHub CLI automatically stores your Git credentials for you when you choose
+HTTPS as your preferred protocol for Git operations and answer “yes” to the
+prompt asking if you would like to authenticate to Git with your GitHub
+credentials.</p>
+</div></blockquote>
+<p>となる。これを検証するには <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">auth</span> <span class="pre">status</span></code> を実行すればいいようだ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gh auth status</span>
+<span class="go">github.com</span>
+<span class="go">  ✓ Logged in to github.com as showa-yojyo (/home/work/.config/gh/hosts.yml)</span>
+<span class="go">  ✓ Git operations for github.com configured to use ssh protocol.</span>
+<span class="go">  ✓ Token: gho_************************************</span>
+<span class="go">  ✓ Token scopes: admin:public_key, gist, read:org, repo</span>
+</pre></div>
+</div>
+<p>便利コマンド集：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>挙動</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">status</span></code></p></td>
+<td><p>現在の自分の作業状況を示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">repo</span> <span class="pre">view</span> <span class="pre">OWNER/REPO</span></code></p></td>
+<td><p>リポジトリーの記述と README を示す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">repo</span> <span class="pre">clone</span> <span class="pre">OWNER/REPO</span></code></p></td>
+<td><p>リポジトリーをローカルに clone する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">repo</span> <span class="pre">create</span></code></p></td>
+<td><p>リポジトリーを対話的に作成する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">issue</span> <span class="pre">list</span> <span class="pre">--repo</span> <span class="pre">OWNER/REPO</span></code></p></td>
+<td><p>リポジトリーの最近の issues を示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">pr</span> <span class="pre">list</span> <span class="pre">--repo</span> <span class="pre">OWNER/REPO</span></code></p></td>
+<td><p>リポジトリーの最近の pull requests を示す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">pr</span> <span class="pre">list</span> <span class="pre">--label</span> <span class="pre">LABEL-NAME</span></code></p></td>
+<td><p>ラベルを指定して最近の pull requests を示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">codespace</span> <span class="pre">create</span></code></p></td>
+<td><p>Codespace を対話的に作成する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">codespace</span> <span class="pre">list</span></code></p></td>
+<td><p>Codespaces 一覧を示す</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Codespaces に関するコマンドは 403 エラーが生じる。コマンド <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">auth</span> <span class="pre">refresh</span>
+<span class="pre">-h</span> <span class="pre">github.com</span> <span class="pre">-s</span> <span class="pre">codespace</span></code> を実行するように促されるが？</p>
+<p>Enter <code class="docutils literal notranslate"><span class="pre">gh</span></code> for a reminder of the top-level GitHub CLI commands that you can
+use.</p>
+</div>
+<p>ヘルプは他のコマンドと同様に：</p>
+<blockquote>
+<div><p>For each command, and each subsidiary subcommand, you can append the
+<code class="docutils literal notranslate"><span class="pre">--help</span></code> flag to find out how it’s used.</p>
+</div></blockquote>
+<p>カスタマイズ：</p>
+<blockquote>
+<div><p>You can change configuration settings and add aliases or extensions, to make
+GitHub CLI work the way that suits you best.</p>
+</div></blockquote>
+<p>おそらく Git に影響を受けた設計になっている。</p>
+<blockquote>
+<div><p>Enter <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">config</span> <span class="pre">set</span> <span class="pre">SUBCOMMANDS</span></code> to configure GitHub CLI’s settings,
+replacing <code class="docutils literal notranslate"><span class="pre">SUBCOMMANDS</span></code> with the setting you want to adjust.</p>
+</div></blockquote>
+<p>これは <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">config</span> <span class="pre">--help</span></code> と <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">config</span> <span class="pre">set</span> <span class="pre">--help</span></code> を確認してから使う。</p>
+<blockquote>
+<div><p>Define aliases for commands that you commonly run.</p>
+</div></blockquote>
+<p>これはわかりやすい。しかし使わない。</p>
+<blockquote>
+<div><p>Create or add custom commands with GitHub CLI extensions.</p>
+</div></blockquote>
+<p>これも Git に同等の機能があるから理解可能。しかし使わない。</p>
+</section>
+<section id="creating-github-cli-extensions">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Creating GitHub CLI extensions</a><a class="headerlink" href="#creating-github-cli-extensions" title="Permalink to this heading">¶</a></h2>
+<p>カスタムコマンドを作る。</p>
+<blockquote>
+<div><p>You need a repository for each extension that you create. The repository name
+must start with <code class="docutils literal notranslate"><span class="pre">gh-</span></code>. The rest of the repository name is the name of the
+extension.</p>
+</div></blockquote>
+<p>リポジトリーの存在をカスタムコマンド作成の前提とする。</p>
+<blockquote>
+<div><p>Note: Running <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">extension</span> <span class="pre">create</span></code> with no arguments will start an
+interactive wizard.</p>
+</div></blockquote>
+<p>拡張コマンド名を指示して作成開始する方法：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gh extension create EXTENSION-NAME</span>
+</pre></div>
+</div>
+<p>対話的に処理する。</p>
+<blockquote>
+<div><p>You can use the <code class="docutils literal notranslate"><span class="pre">--precompiled=go</span></code> argument to create a Go-based project
+for your extension, including Go scaffolding, workflow scaffolding, and
+starter code.</p>
+</div></blockquote>
+<p>これは個人的には利用しないか。</p>
+<p>Go 以外のプログラミング言語でコードを書く場合：</p>
+<blockquote>
+<div><p>You can use the <code class="docutils literal notranslate"><span class="pre">--precompiled=other</span></code> argument to create a project for your
+non-Go precompiled extension, including workflow scaffolding.</p>
+</div></blockquote>
+<p>スクリプト型実行可能ファイルでもカスタムコマンドを定義可能。スクリプトを作り
+<code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">extension</span> <span class="pre">install</span> <span class="pre">.</span></code> を実行する。皆に利用させるためにはさらに：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ git init -b main</span>
+<span class="go">bash$ git add . &amp;&amp; git commit -m &quot;initial commit&quot;</span>
+<span class="go">bash$ gh repo create gh-EXTENSION-NAME --source=. --public --push</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Some GitHub CLI core commands will prompt the user for input. When scripting
+with those commands, a prompt is often undesirable.</p>
+</div></blockquote>
+<p>コマンドライン引数をきっちり実装する。</p>
+<blockquote>
+<div><p>Many core commands support the <code class="docutils literal notranslate"><span class="pre">--json</span></code> flag for fetching data
+programatically.</p>
+</div></blockquote>
+<p>JSON で出力して何かに食わせやすくする。</p>
+<blockquote>
+<div><p>If there is not a core command to fetch specific data from GitHub, you can
+use the gh api command to access the GitHub API.</p>
+</div></blockquote>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">api</span> <span class="pre">user</span></code> などを実行すればわかるが、JSON で何かが出力される。
+Twitter API でデータ処理をするのとひじょうに似ている。</p>
+<p>Go 言語周りのトピックがもう一つあるが割愛。</p>
+</section>
+<section id="using-github-cli-extensions">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Using GitHub CLI extensions</a><a class="headerlink" href="#using-github-cli-extensions" title="Permalink to this heading">¶</a></h2>
+<p>反対に、他人が作ったカスタムコマンドを利用する。どこの馬の骨が作ったコマンドとも限らないので：</p>
+<blockquote>
+<div><p>To mitigate risk when using third-party extensions, audit the source code of
+the extension before installing or updating the extension.</p>
+</div></blockquote>
+<p>カスタムコマンドの顕著な特徴：</p>
+<blockquote>
+<div><p>Extensions are locally installed and are scoped to the user. Therefore, if
+you access GitHub CLI from a different machine or another user accesses
+GitHub CLI from the same machine, the extension will not be available.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://github.com/topics/gh-extension">gh-extension · GitHub Topics</a></p>
+<p>インストール方法：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gh extension install REPO</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>To install an extension, use the <code class="docutils literal notranslate"><span class="pre">extensions</span> <span class="pre">install</span></code> subcommand. Replace
+the <code class="docutils literal notranslate"><span class="pre">repo</span></code> parameter with the repository of the extension. You can use the
+full URL, such as <code class="docutils literal notranslate"><span class="pre">https://github.com/octocat/gh-whoami</span></code>, or just the owner
+and repository, such as <code class="docutils literal notranslate"><span class="pre">octocat/gh-whoami</span></code>.</p>
+</div></blockquote>
+<p>開発版は事情が異なる：</p>
+<blockquote>
+<div><p>To install an extension in development from the current directory, use <code class="docutils literal notranslate"><span class="pre">.</span></code>
+as the value for the <code class="docutils literal notranslate"><span class="pre">repo</span></code> parameter.</p>
+</div></blockquote>
+<p>上書きインストールを試みるとエラーになる。直前に明示的にアンインストールすることだ。</p>
+<blockquote>
+<div><p>To view all installed extensions, use the <code class="docutils literal notranslate"><span class="pre">extensions</span> <span class="pre">list</span></code> subcommand.</p>
+</div></blockquote>
+<p>カスタムコマンドを更新する方法はある：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ gh extension upgrade EXTENSION</span>
+<span class="go">bash$ gh extension upgrade --all</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>To uninstall an extension, use the <code class="docutils literal notranslate"><span class="pre">extensions</span> <span class="pre">remove</span></code> subcommand.</p>
+</div></blockquote>
+</section>
+<section id="github-cli-reference">
+<span id="cli-reference"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">GitHub CLI reference</a><a class="headerlink" href="#github-cli-reference" title="Permalink to this heading">¶</a></h2>
+<p>頭に叩き込む必要があるコマンド：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>挙動</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span></code></p></td>
+<td><p>最上位コマンドすべてを示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">COMMAND</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> のサブコマンドすべてを示す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">environment</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gh</span></code> が参照する環境変数一覧を示す</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">config</span></code></p></td>
+<td><p>設定可能な GitHub CLI 項目を示す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">COMMAND</span> <span class="pre">[SUBCOMMAND</span> <span class="pre">...]</span> <span class="pre">--help</span></code></p></td>
+<td><p>コマンド <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">COMMAND</span> <span class="pre">[SUBCOMMAND</span> <span class="pre">...]</span></code> の利用法を出力する</p></td>
+</tr>
+</tbody>
+</table>
+<p>ブラウザーでまとめて情報を得るには次のマニュアルページを参照する： <a class="reference external" href="https://cli.github.com/manual/gh">GitHub CLI
+| Take GitHub to the command line</a></p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="pages.html" title="Previous document">GitHub Pages documentation ノート</a>
+        </li>
+        <li>
+          <a href="desktop.html" title="Next document">GitHub Desktop documentation ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
