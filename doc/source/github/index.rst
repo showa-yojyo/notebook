@@ -43,4 +43,6 @@ GitHub 利用ノート
    :maxdepth: 1
 
    issues
+   projects
+   tasklists
    search
