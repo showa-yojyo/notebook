@@ -17,14 +17,14 @@ jobs:
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
-      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       with:
         name: html-docs
         path: |
           doc/build/html/
           !doc/build/html/_sources
 
-    - name: Deploy
+    - name: Deploy HTML
       uses: peaceiris/actions-gh-pages@v3
       if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
       with:
