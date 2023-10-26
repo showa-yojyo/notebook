@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sphinx 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=20d9222b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="BeautifulSoup4 利用ノート" href="python-bs4.html" />
+    <link rel="prev" title="Pygments 利用ノート" href="python-pygments.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-pygments.html" title="Previous document">Pygments 利用ノート</a>
+        </li>
+        <li>
+          <a href="python-bs4.html" title="Next document">BeautifulSoup4 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="sphinx">
+<h1><a class="toc-backref" href="#id31" role="doc-backlink">Sphinx 利用ノート</a><a class="headerlink" href="#sphinx" title="Permalink to this heading">¶</a></h1>
+<p>本稿は当読書ノートの基盤となる Python パッケージである <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> の利用に関するノートだ。</p>
+<blockquote>
+<div><p>Sphinx is a <em>documentation generator</em> or a tool that translates a set of
+plain text source files into various output formats, automatically producing
+cross-references, indices, etc. That is, if you have a directory containing a
+bunch of reStructuredText or Markdown documents, Sphinx can generate a series
+of HTML files, a PDF file (via LaTeX), man pages and much more.</p>
+</div></blockquote>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#sphinx" id="id31">Sphinx 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id32">インストール</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id33">グローバルにインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id34">プロジェクト個別にインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id35">インストール成功を確認する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id36">原稿ディレクトリーを初期化する</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id37">初期設定</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id38">ビルド</a></p></li>
+<li><p><a class="reference internal" href="#github-pages" id="id39">GitHub Pages</a></p></li>
+<li><p><a class="reference internal" href="#restructuredtext" id="id40">reStructuredText</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id41">reStructuredText の基本</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id42">役目</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id43">指令</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id14" id="id44">ビルド構成</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id15" id="id45">プロジェクト情報</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id46">全般</a></p></li>
+<li><p><a class="reference internal" href="#html" id="id47">HTML 出力</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id48">拡張別構成</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id19" id="id49">拡張</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sphinx-ext-githubpages" id="id50"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.githubpages</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id51"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.mathjax</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id52"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.todo</span></code></a></p></li>
+<li><p><a class="reference internal" href="#ipython-sphinxext-ipython" id="id53"><code class="docutils literal notranslate"><span class="pre">IPython.sphinxext.ipython_*</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id54"><code class="docutils literal notranslate"><span class="pre">sphinxcontrib.mermaid</span></code></a></p></li>
+<li><p><a class="reference internal" href="#japanesesupport" id="id55"><code class="docutils literal notranslate"><span class="pre">japanesesupport</span></code></a></p></li>
+<li><p><a class="reference internal" href="#disablesearchindex" id="id56"><code class="docutils literal notranslate"><span class="pre">disablesearchindex</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id24" id="id57">テーマ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id25" id="id58">オプション</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id59">スタイルシート</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id60">テンプレート</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id28" id="id61">関連ノート</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id1">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">インストール</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>グローバルにインストールする場合と、プロジェクトの仮想環境にインストールする場合がある。両方説明する。更新手段は採用するパッケージマネジャーに従う。</p>
+<p>グローバルの Python 環境はま共にあるものとする。</p>
+<section id="id2">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">グローバルにインストールする</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<p>Miniconda も使えるが、以下 <strong class="program">pip</strong> を利用する方法を記す。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">プロジェクト個別にインストールする</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>グローバルにインストールしてから実施することを勧める。プロジェクトディレクトリーに移動して仮想環境を作成したら直ちにインストールするという想定で：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$PROJECT_DIR</span>
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>env<span class="w"> </span>.venv
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">インストール成功を確認する</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>Sphinx のバージョンを確認する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sphinx-build<span class="w"> </span>--version
+<span class="go">sphinx-build 7.2.6</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id36" role="doc-backlink">原稿ディレクトリーを初期化する</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>将来的に生成した HTML ファイル群を GitHub に配備するので、プロジェクトディレクトリーのルートにサブディレクトリー <code class="file docutils literal notranslate"><span class="pre">docs</span></code> を作成し、そこを Sphinx 用作業場とする：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$PROJECT_DIR</span>
+<span class="gp">$ </span>mkdir<span class="w"> </span>docs
+<span class="gp">$ </span>sphinx-quickstart
+<span class="go">...</span>
+</pre></div>
+</div>
+<p><strong class="program">sphinx-quickstart</strong> 成功後、生成されたファイルを確認すること。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p><strong class="program">sphinx-quickstart</strong> は引数なしで実行すると対話的操作によりファイルを生成する。ヘルプにあるオプションを十分に指定すれば、ファイルを一気に生成する。</p>
+</div>
+<p>次にやる作業が何になるかは場合による：</p>
+<ul class="simple">
+<li><p>ビルド構成を変える</p></li>
+<li><p>原稿を執筆する</p></li>
+<li><p>テーマをいじる</p></li>
+<li><p>拡張を導入する</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">初期設定</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>以下の説明では <strong class="program">sphinx-quickstart</strong> の入力は次を仮定する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sphinx-quickstart<span class="w"> </span>--sep<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="w"> </span>読者ノート<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--author<span class="w"> </span>プレハブ小屋<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release<span class="w"> </span><span class="s1">&#39;1.0&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--language<span class="w"> </span>en<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ext-todo<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ext-mathjax<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ext-githubpages<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--makefile<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--no-batchfile
+</pre></div>
+</div>
+<p>これらの内容は <code class="file docutils literal notranslate"><span class="pre">source/conf.py</span></code> に反映される。以降、この構成ファイルを次の目的で手動で編集する：</p>
+<ul class="simple">
+<li><p>Sphinx 構成項目を調整する</p></li>
+<li><p>Sphinx 拡張を増減する</p></li>
+<li><p>Sphinx 拡張の構成項目を調整する</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">ビルド</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p><code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> のあるディレクトリーに移動して：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>make<span class="w"> </span>html
+</pre></div>
+</div>
+<p>成果物はサブディレクトリー <code class="file docutils literal notranslate"><span class="pre">build/html</span></code> 以下の内容すべてだ。</p>
+</section>
+<section id="github-pages">
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">GitHub Pages</a><a class="headerlink" href="#github-pages" title="Permalink to this heading">¶</a></h2>
+<p>GitHub のリポジトリーに Sphinx 用原稿を格納する場合、GitHub Actions の力で push
+イベントで次のことを実現したいと考えるのが自然だ：</p>
+<ul class="simple">
+<li><p>最新の原稿をビルドして HTML ファイルを生成し、</p></li>
+<li><p>それを GitHub Pages に公開する。</p></li>
+</ul>
+<p>そのためのワークフロー YAML の記述方法は <a class="reference external" href="https://www.sphinx-doc.org/en/master/tutorial/deploying.html">Appendix: Deploying a Sphinx project
+online</a> にある。まとめておくと：</p>
+<ul>
+<li><p>リポジトリーの <span class="menuselection">Settings ‣ Pages</span> ページで各種項目を設定する：</p>
+<ul class="simple">
+<li><p>Publish を有効にする</p></li>
+<li><p><span class="guilabel">Source</span> を <span class="guilabel">Deploy from a branch</span> に設定にする</p></li>
+<li><p><span class="guilabel">Branch</span> を設定する：</p>
+<ul>
+<li><p>左ドロップダウンリストを <span class="guilabel">gh-pages</span> に設定</p></li>
+<li><p>右ドロップダウンリストを <code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> のあるほうのディレクトリーに設定</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Makefile</span></code> のあるディレクトリーに <strong class="program">pip</strong> 用のファイル
+<code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> を置く。当読書ノートの場合は：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sphinx</span> <span class="o">&gt;=</span> <span class="mf">7.0</span>
+<span class="n">ipython</span> <span class="o">&gt;=</span> <span class="mf">8.0</span>
+<span class="n">sphinxcontrib</span><span class="o">-</span><span class="n">mermaid</span>
+</pre></div>
+</div>
+</li>
+<li><p>リポジトリーにワークフローファイルを置く。例えば
+<code class="file docutils literal notranslate"><span class="pre">.github/workflows/sphinx.yml</span></code> とし、本文の内容にする。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>ステップ Upload artifacts では大容量サイズのファイルを生成することになる。開発ブランチのビルドアクションでは行わず、リリースブランチだけで行うように書き換えるのが望ましい。</p>
+</div>
+</li>
+</ul>
+<p>GitHub Actions がわからない場合や、ビルド時間が上限を超えるまでに文書が肥大化した場合は、ローカルで Sphinx ビルドをし、得られる生成ファイルを <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> ブランチに対して <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> することになるだろう。</p>
+</section>
+<section id="restructuredtext">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">reStructuredText</a><a class="headerlink" href="#restructuredtext" title="Permalink to this heading">¶</a></h2>
+<p>ブラウザーに URL &lt;<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/">https://www.sphinx-doc.org/en/master/usage/restructuredtext/</a>&gt;
+をブックマークしておく。Markdown に較べるとマークアップが複雑なので覚え切れない。</p>
+<section id="id8">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">reStructuredText の基本</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<p>基本はさすがに丸暗記するほうが効率的だ。</p>
+<ul class="simple">
+<li><p>パラグラフは空行と空行の間のテキストの塊が相当する。</p></li>
+<li><p>インラインマークアップ三種類</p>
+<ul>
+<li><p>斜体は米印で囲む。</p></li>
+<li><p>太字はダブル米印で囲む。</p></li>
+<li><p>コード片はダブルバッククオートで囲む。この三種の中でもっともよく使う。</p></li>
+</ul>
+</li>
+<li><p>リストは行の先頭に米印を付け、空白を挿れ、テキストを配置したものを縦に並べる。</p>
+<ul>
+<li><p>米印の代わりに <code class="docutils literal notranslate"><span class="pre">#.</span></code> を使うと番号リストになる。</p></li>
+<li><p>リストを入れ子にするときには、空行を挟む。ここは Markdown と異なる。</p></li>
+</ul>
+</li>
+<li><p>HTML で言う <code class="docutils literal notranslate"><span class="pre">&lt;dl&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;dt&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;dd&gt;</span></code> を reST で実現可能。Markdown に優る。</p></li>
+<li><p>引用パラグラフは二種類ある。</p>
+<ul>
+<li><p>周囲のパラグラフに対してインデントしたパラグラフは引用パラグラフとなる。当ノートではボックス枠左をピンクで塗る。なるべくこちらを使いたい。</p></li>
+<li><p>行頭に <code class="docutils literal notranslate"><span class="pre">|</span></code> を付けた引用は改行文字を維持する。</p></li>
+</ul>
+</li>
+<li><p>当ノートでは <code class="docutils literal notranslate"><span class="pre">::</span></code> によるリテラルブロックを書かない。</p></li>
+<li><p>表はなるべく <code class="docutils literal notranslate"><span class="pre">csv-table</span></code> を用いたい。</p></li>
+<li><p>ハイパーリンクのマークアップはよく忘れる。</p></li>
+<li><p>節（セクション）で使う飾り文字は既存の原稿に準拠する。</p></li>
+<li><p>画像は <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">image::</span></code> 指令を使う。</p>
+<ul>
+<li><p>オプションが重要。VS Code の reST モードに補完 snippets を仕込むといい。</p></li>
+<li><p>SVG ファイルを表示する場合にはこれではなく、HTML の <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> タグを使いたい。方法は Inkscape 利用ノートの原稿を参照。</p></li>
+</ul>
+</li>
+<li><p>置換はほとんど使わない。書くのが面倒だ。</p></li>
+<li><p>コメントアウトは覚えておくと便利。</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">役目</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<section id="id10">
+<h4>相互参照<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">:doc:</span></code></dt><dd><p>頻出。ページパスを指定してリンクする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:ref:</span></code></dt><dd><p>たまに用いる。アンカー <code class="samp docutils literal notranslate"><span class="pre">..</span> <span class="pre">_</span><em><span class="pre">anchor-name</span></em><span class="pre">:</span></code> を手動で定義する必要がある。これが面倒で多用しない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:envvar:</span></code></dt><dd><p>環境変数をマークアップするのに使いたくなるが、本来はインデックスが生成される。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:option:</span></code></dt><dd><p>コマンドオプションをマークアップするためのものだ。対になる指令
+<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">option::</span></code> がある。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:term:</span></code></dt><dd><p>本来は術語集指令 <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">glossary::</span></code> と対で用いるマークアップだ。</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h4>コードと数式<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">:code:</span></code></dt><dd><p>使わない。ダブルバッククオートで事足りる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:math:</span></code></dt><dd><p>LaTeX コードをマークアップする。別途 MathJax に数式を描画させるように仕込む。</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h4>語義に関するもの<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">:abbr:</span></code></dt><dd><p>頻繁に使うはずなのだが、健忘症かと思うくらいに忘れる。そもそも面倒。自分用の備忘録に <abbr title="HyperText Markup Language">HTML</abbr> などといちいちタイプしないほうが自然だろう。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:command:</span></code></dt><dd><p>Sphinx 公式によると、OS 水準のコマンドをマークアップするのに使うとのこと。
+cf. <code class="docutils literal notranslate"><span class="pre">:program:</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:dfn:</span></code></dt><dd><p>術語を、その定義時にマークアップする。ダブル米印でマークアップしたいときに思い出すべき役目。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:file:</span></code></dt><dd><p>ファイルもしくはディレクトリーパスをマークアップする。中括弧で括られた部分文字列は可変であることを示すそうだ。私はこれまで大文字でごまかしていた。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:guilabel:</span></code></dt><dd><p>ツール利用ノートで <code class="docutils literal notranslate"><span class="pre">:menuselection:</span></code> と共に頻繁に使う。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:kbd:</span></code></dt><dd><p>キーボードのキーを示すのに用いる。例：
+<kbd class="kbd docutils literal notranslate">Home</kbd>
+<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">C</kbd>-<kbd class="kbd docutils literal notranslate">f</kbd></kbd>
+<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Control</kbd>-<kbd class="kbd docutils literal notranslate">x</kbd> <kbd class="kbd docutils literal notranslate">Control</kbd>-<kbd class="kbd docutils literal notranslate">f</kbd></kbd></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:menuselection:</span></code></dt><dd><p>ツール利用ノートで <code class="docutils literal notranslate"><span class="pre">:guilabel:</span></code> と共に頻繁に使う。タイプするのが面倒なので VS Code キーバインドを両者それぞれに設定するといい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:program:</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">:command:</span></code> の実行形式版として使うという認識でいい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">:regexp:</span></code></dt><dd><p>この役目は何かクセがあったと記憶している。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id13">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">指令</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<p>Sphinx に搭載されている指令のうち、本ノートで用いるものを記す。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">toctree::</span></code></dt><dd><p>インデックス系のページで利用。オプションが重要で、VS Code の reST モードにおける補完 snippets を用意することが望ましい。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">:caption:</span></code> を付けるほうが価値が高くならないか一考すること。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:maxdepth:</span></code> を大きくしないこと。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">seealso::</span></code></dt><dd><p>関連文書を列挙するのに利用。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">..</span> <span class="pre">rubric::</span> <em><span class="pre">title</span></em></code></dt><dd><p>便利である可能性が高い。見出しリンクの要らない見出し。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">..</span> <span class="pre">code-block::</span> <em><span class="pre">[language]</span></em></code></dt><dd><p>複数行プログラムコードを示すのに利用。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">..</span> <span class="pre">literalinclude::</span> <em><span class="pre">filename</span></em></code></dt><dd><p>テキストファイルの中身を reST 原稿内に丸々写す。有用なオプションがある。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">glossary::</span></code></dt><dd><p>術語集を構成する。<code class="docutils literal notranslate"><span class="pre">:term:</span></code> と共に用いるはずだ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">math::</span></code></dt><dd><p>LaTeX コードを記すことで、MathJax に数式を描画させる。オプション <code class="docutils literal notranslate"><span class="pre">:nowrap:</span></code>
+を常時指定したい。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id14">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">ビルド構成</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<p>構成ファイル <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> で指定したい項目と目的を述べる。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> の他に <code class="file docutils literal notranslate"><span class="pre">docutils.conf</span></code> も使える。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rst_epilog</span></code>, <code class="docutils literal notranslate"><span class="pre">rst_prolog</span></code> は何かいい用途がありそうだ。</p></li>
+</ul>
+</div>
+<section id="id15">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">プロジェクト情報</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<p>基本的には <strong class="program">sphinx-quickstart</strong> が生成した値を採用する。ただ一箇所、コピーライト表示にビルド時の日付を反映させたいので改造する：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+
+<span class="n">copyright</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;1999-</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>項目 <code class="docutils literal notranslate"><span class="pre">version</span></code> および <code class="docutils literal notranslate"><span class="pre">release</span></code> は手動で編集するのがいいだろう。</p>
+</section>
+<section id="id16">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">全般</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<p>まず、Sphinx 拡張に手動追加するものがあるのでサブディレクトリーにパスを通す：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># If extensions (or modules to document with autodoc) are in another directory,</span>
+<span class="c1"># add these directories to sys.path here. If the directory is relative to the</span>
+<span class="c1"># documentation root, use os.path.abspath to make it absolute, like shown here.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;./_extension&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>当読者ノートにおける本稿執筆時点での拡張の編成は次のようなものだ：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;disablesearchindex&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;IPython.sphinxext.ipython_console_highlighting&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;IPython.sphinxext.ipython_directive&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;japanesesupport&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sphinx.ext.githubpages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sphinx.ext.mathjax&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sphinx.ext.todo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sphinxcontrib.mermaid&#39;</span><span class="p">,]</span>
+</pre></div>
+</div>
+<p>拡張それぞれについての構成方法は後述する。</p>
+<p>その他の項目は次のとおり：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">templates_path</span></code></dt><dd><p>リストに <code class="docutils literal notranslate"><span class="pre">'_templates'</span></code> を含ませる。</p>
+</dd>
+</dl>
+</section>
+<section id="html">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">HTML 出力</a><a class="headerlink" href="#html" title="Permalink to this heading">¶</a></h3>
+<p>もっとも神経を使うのはこの構成区分の設定だ。以下、当ノートの用途を意識した値を述べる。生成コード量を少なくしたいことと、ライブラリー文書を指向していないことにより、ここに挙げる設定が妥当だとみなしている。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">html_theme</span></code></dt><dd><p>HTML5 に対応しているテーマを指定するべきだ。既定値の <code class="docutils literal notranslate"><span class="pre">alabaster</span></code> はそれを満足する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code></dt><dd><p>この辞書の値を Alabaster の文書を見ながら決めろ。設定値は後述する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_js_files</span></code></dt><dd><p>自作 JavaScript ファイルをリストに列挙する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_sidebars</span></code></dt><dd><p>テーマが Alabaster なので明示的に指定する必要がある。
+<code class="docutils literal notranslate"><span class="pre">html_theme_options['nosidebar']</span></code> を <code class="docutils literal notranslate"><span class="pre">True</span></code> にした場合にはテキトーでいい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_use_index</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">False</span></code> とする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_copy_source</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">False</span></code> とする。reST 原稿を配備したくない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_show_sourcelink</span></code></dt><dd><p>配備しないものに Sphinx はリンクしないようだが、明示的に <code class="docutils literal notranslate"><span class="pre">False</span></code> とする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_show_search_summary</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">False</span></code> とする。ライブラリー文書でないので。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_show_sphinx</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">False</span></code> とする。HTML コードを減らしたいので。</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">拡張別構成</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+<section id="sphinx-ext-mathjax">
+<h4><code class="docutils literal notranslate"><span class="pre">sphinx.ext.mathjax</span></code><a class="headerlink" href="#sphinx-ext-mathjax" title="Permalink to this heading">¶</a></h4>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">mathjax_path</span></code></dt><dd><p>ラッパースクリプトのファイル名を設定する。例えばそれが
+<code class="file docutils literal notranslate"><span class="pre">source/_static/mathjax-v3.js</span></code> であるとすると：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mathjax_path</span> <span class="o">=</span> <span class="s2">&quot;mathjax-v3.js&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>MathJax 利用ノート</p>
+</div>
+</section>
+<section id="sphinx-ext-todo">
+<h4><code class="docutils literal notranslate"><span class="pre">sphinx.ext.todo</span></code><a class="headerlink" href="#sphinx-ext-todo" title="Permalink to this heading">¶</a></h4>
+<p>この拡張は重要ではないのだが、取り除く機会がないのでそのままにしてある。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">todo_include_todos</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> に設定すると HTML に Todo 囲み記事が現れる。</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id18">
+<p class="admonition-title">Todo</p>
+<p>ノートじゅうに散乱している TODO 項目を一掃する。</p>
+</div>
+</section>
+<section id="sphinxcontrib-mermaid">
+<h4><code class="docutils literal notranslate"><span class="pre">sphinxcontrib.mermaid</span></code><a class="headerlink" href="#sphinxcontrib-mermaid" title="Permalink to this heading">¶</a></h4>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">mermaid_version</span></code>, <code class="docutils literal notranslate"><span class="pre">mermaid_init_js</span></code></dt><dd><p>どちらにも空文字列を代入する。その代わり構成項目 <code class="docutils literal notranslate"><span class="pre">html_js_files</span></code> にラッパースクリプトのファイル名を追加する。例えばそれが
+<code class="file docutils literal notranslate"><span class="pre">source/_static/mermaid.js</span></code> であるとすると：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">html_js_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mermaid.js&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="javascript-mermaid/index.html"><span class="doc">Mermaid 利用ノート</span></a></p>
+</div>
+</section>
+</section>
+</section>
+<section id="id19">
+<h2><a class="toc-backref" href="#id49" role="doc-backlink">拡張</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
+<p>当ノートで利用している拡張について記す。</p>
+<p><code class="docutils literal notranslate"><span class="pre">sphinx.ext</span></code> から始まる名前の拡張は Sphinx 組み込みの拡張だ。<code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>
+内のリスト <code class="docutils literal notranslate"><span class="pre">extensions</span></code> に含まれるだけで利用可能だ。</p>
+<p><strong class="program">pip</strong> でインストールされない拡張については、前述の構成上、サブディレクトリー <code class="file docutils literal notranslate"><span class="pre">source/_extensions</span></code> に拡張用 Python ファイルを手動で追加する必要がある。</p>
+<section id="sphinx-ext-githubpages">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.githubpages</span></code></a><a class="headerlink" href="#sphinx-ext-githubpages" title="Permalink to this heading">¶</a></h3>
+<p>この拡張は GitHub の文書配置ルート位置にダミーファイルを配置する。HTML ファイルを置く場所で Jekyll が働かないようにする意味がある。</p>
+<blockquote>
+<div><p>This extension creates <code class="file docutils literal notranslate"><span class="pre">.nojekyll</span></code> file on generated HTML directory to
+publish the document on GitHub Pages.</p>
+</div></blockquote>
+</section>
+<section id="id20">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.mathjax</span></code></a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>This extension puts math as-is into the HTML files. The JavaScript package
+MathJax is then loaded and transforms the LaTeX markup to readable math live
+in the browser.</p>
+</div></blockquote>
+<p>Sphinx 原稿内の <code class="docutils literal notranslate"><span class="pre">math</span></code> directives/roles を変換後 HTML ファイルで数式を描画させるためにこの拡張を導入している。</p>
+</section>
+<section id="id21">
+<h3><a class="toc-backref" href="#id52" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.todo</span></code></a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<p>Sphinx 原稿内に <code class="docutils literal notranslate"><span class="pre">todo</span></code> および <code class="docutils literal notranslate"><span class="pre">todolist</span></code> 囲み記事を書けるようにする拡張だ。これがなくても問題ない。</p>
+</section>
+<section id="ipython-sphinxext-ipython">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">IPython.sphinxext.ipython_*</span></code></a><a class="headerlink" href="#ipython-sphinxext-ipython" title="Permalink to this heading">¶</a></h3>
+<p>原稿に <code class="docutils literal notranslate"><span class="pre">ipython</span></code> 指令を記述すると、HTML 変換時によく描画してくれる。</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="gp">In [2]: </span><span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="gh">Out[2]: </span><span class="go">8</span>
+</pre></div>
+</div>
+<p>拡張モジュールはビルド時の Python 環境にインストールされている必要がある。先述の
+<code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> に関する記述を参照。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://ipython.readthedocs.io/en/stable/sphinxext.html">IPython Sphinx Directive</a></p>
+</div>
+</section>
+<section id="id22">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">sphinxcontrib.mermaid</span></code></a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
+<p>原稿に <code class="docutils literal notranslate"><span class="pre">mermaid</span></code> 指令を記述すると HTML 変換時に Mermaid が図式を描画する。</p>
+<figure class="align-default" id="id30">
+<div class="mermaid">
+            stateDiagram-v2
+  [*] --&gt; Still
+  Still --&gt; [*]
+  Still --&gt; Moving
+  Moving --&gt; Still
+  Moving --&gt; Crash
+  Crash --&gt; [*]
+        </div><figcaption>
+<p><span class="caption-text">Mermaid 動作確認</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>拡張モジュールはビルド時の Python 環境にインストールされている必要がある。先述の
+<code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> に関する記述を参照。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://pypi.org/project/sphinxcontrib-mermaid/">sphinxcontrib-mermaid · PyPI</a></p>
+</div>
+</section>
+<section id="japanesesupport">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">japanesesupport</span></code></a><a class="headerlink" href="#japanesesupport" title="Permalink to this heading">¶</a></h3>
+<p>現象を正確に記述するのは難しいのだが、本稿 reST ファイルには通常日本語の文をタイプする。私の場合は 70 文字打って改行する。日本語の文字と日本語の文字の間に改行文字が入ることが普通にある。これが最終的に HTML ファイルになり、ブラウザーで読む。そこでは改行文字だったものが空白文字に置き換わったかのように描画される。</p>
+<p>それの回避策として、&lt;<a class="reference external" href="http://sphinx-users.jp/reverse-dict/html/japanese.html">http://sphinx-users.jp/reverse-dict/html/japanese.html</a>&gt; で入手した <code class="file docutils literal notranslate"><span class="pre">japanesesupport.py</span></code> を <code class="file docutils literal notranslate"><span class="pre">source/_extensions</span></code> に追加し、Sphinx 拡張としてロードしている。</p>
+<div class="admonition-todo admonition" id="id23">
+<p class="admonition-title">Todo</p>
+<p>執筆中に次の拡張が存在することに気づく：</p>
+<p><a class="reference external" href="https://pypi.org/project/sphinxcontrib-trimblank/">sphinxcontrib-trimblank · PyPI</a></p>
+<p>こちらを使用するほうが良いか？</p>
+</div>
+</section>
+<section id="disablesearchindex">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">disablesearchindex</span></code></a><a class="headerlink" href="#disablesearchindex" title="Permalink to this heading">¶</a></h3>
+<p>当ノートでは Sphinx の枠組で搭載されている検索機能を完全に排除する。そのための自作拡張だ。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://groups.google.com/g/sphinx-users/c/vzSAi8SM3aY">disable search index generation</a></p>
+</div>
+</section>
+</section>
+<section id="id24">
+<h2><a class="toc-backref" href="#id57" role="doc-backlink">テーマ</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h2>
+<p>先述の理由で <a class="reference external" href="https://alabaster.readthedocs.io/en/latest/">Alabaster</a> を採用する。</p>
+<blockquote>
+<div><p>Alabaster is a visually (c)lean, responsive, configurable theme for the
+Sphinx documentation system.</p>
+</div></blockquote>
+<p>レスポンシブとあるので、出力 HTML ファイルは PC でも携帯電話でもブラウザーでいい感じに表示される。</p>
+<section id="id25">
+<h3><a class="toc-backref" href="#id58" role="doc-backlink">オプション</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
+<p>構成ファイルで <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> の値を辞書で指定する：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;alabaster&#39;</span>
+<span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>特に重要な項目は次のものだと思う：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">github_button</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">False</span></code> とする。<code class="docutils literal notranslate"><span class="pre">True</span></code> にしておくと、ページを修正したくなるだろう。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">github_repo</span></code></dt><dd><p>リポジトリーの名前にする。本ノートならば文字列 <code class="docutils literal notranslate"><span class="pre">'notebook'</span></code> だ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">github_user</span></code></dt><dd><p>リポジトリーの所有者名にする。本ノートならば文字列 <code class="docutils literal notranslate"><span class="pre">'showa-yojyo'</span></code> とする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">nosidebar</span></code></dt><dd><p>サイドバーを使わないことにするので <code class="docutils literal notranslate"><span class="pre">False</span></code> とする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">show_powered_by</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">False</span></code> とする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">show_relbars</span></code></dt><dd><p>サイドバーを使わない代わりにここを <code class="docutils literal notranslate"><span class="pre">True</span></code> とする。ページの天井か柱またはその両方に <em>next</em> と <em>previous</em> リンクが示される。</p>
+</dd>
+</dl>
+</section>
+<section id="id26">
+<h3><a class="toc-backref" href="#id59" role="doc-backlink">スタイルシート</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
+<p>構成ファイルで指定されるオプションでは対応できない CSS 項目をカスタマイズしたい場合には、ファイル <code class="file docutils literal notranslate"><span class="pre">source/_static/custom.css</span></code> を自分で用意してスタイルを定義する手法を採る。</p>
+<p>オリジナルの CSS は Python ディレクトリーのファイル
+<code class="file docutils literal notranslate"><span class="pre">lib/site-packages/alabaster/static/alabaster.css_t</span></code> に定義されている。</p>
+</section>
+<section id="id27">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">テンプレート</a><a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h3>
+<p>サブディレクトリー <code class="file docutils literal notranslate"><span class="pre">source/_templates</span></code> に Alabaster を構成する HTML テンプレートファイルと同名のファイルを置くことで、対応する内容を上書きすることが可能だ。</p>
+<p>当ノートではフッターを描画するための <code class="file docutils literal notranslate"><span class="pre">layout.html</span></code> を次のように改造してある（一部略）：</p>
+<div class="highlight-html+jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;alabaster/layout.html&quot;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span>- <span class="k">block</span> <span class="nv">footer</span> <span class="cp">%}</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;footer&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;footer_logo&quot;</span><span class="p">&gt;</span>
+      ...
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;footer_copyright&quot;</span><span class="p">&gt;</span>
+      Copyright <span class="ni">&amp;copy;</span> <span class="cp">{{</span> <span class="nv">copyright</span> <span class="cp">}}</span>.
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="cp">{%</span>- <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>オリジナルの Jinja2 テンプレートファイルは Python ディレクトリーのサブディレクトリー <code class="file docutils literal notranslate"><span class="pre">lib/site-packages/alabaster</span></code> に配置されている。</p>
+</section>
+</section>
+<section id="id28">
+<h2><a class="toc-backref" href="#id61" role="doc-backlink">関連ノート</a><a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="python-pip.html"><span class="doc">pip 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="python-jinja2.html"><span class="doc">Jinja2 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="python-pygments.html"><span class="doc">Pygments 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="github/index.html"><span class="doc">GitHub Docs 読書ノート</span></a></p></li>
+<li><p><a class="reference internal" href="mathjax.html"><span class="doc">MathJax 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="javascript-mermaid/index.html"><span class="doc">Mermaid 利用ノート</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-pygments.html" title="Previous document">Pygments 利用ノート</a>
+        </li>
+        <li>
+          <a href="python-bs4.html" title="Next document">BeautifulSoup4 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
