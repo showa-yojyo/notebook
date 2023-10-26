@@ -128,3 +128,54 @@ Sort フィルターを組み合わせる。検索入力例：
 
 コマンドラインを利用することで、拡張機能の操作をより自動化することもできる。
 別の環境で現在の環境を再現する状況などに応用できるだろう。
+
+.. _vscode-favorite-extensions:
+
+個人的にインストールしておきたい拡張
+======================================================================
+
+好みの言語別拡張を以下に記す。その言語を扱うワークスペースで有効にすればいい。
+
+.. list-table:: 個人的にインストールしておきたい拡張
+   :widths: auto
+   :header-rows: 1
+
+   * - 名前
+     - コメント
+   * - `Awesome Emacs Keymap
+       <https://marketplace.visualstudio.com/items?itemName=tuttieee.emacs-mcx>`__
+     -  元 :program:`xyzzy` 使いとして、この手の拡張を導入したい手はない。
+   * - `Rewrap
+       <https://marketplace.visualstudio.com/items?itemName=stkb.rewrap>`__
+     - :kbd:`Alt` + :kbd:`Q` 一発で選択範囲を既定桁数で折り返せる手軽な拡張だ。
+   * - `WSL
+       <https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl>`__
+     - WSL のファイルシステムにワークスペースを用意するのに必須の拡張だ。
+   * - `Live Server
+       <https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer>`__
+     - ローカル HTTP サーバーを実現する拡張だ。
+   * - `Markdown All in One
+       <https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one>`__
+     - 日記を Markdown で書く習慣があるのでこの拡張を導入している。
+   * - `Markdown Preview Mermaid Support
+       <https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid>`__
+     - Mermaid 図式コードを含む Markdown 文書をプレビューするときに、それを描画
+       するための拡張だ。
+   * - `Esbonio
+       <https://marketplace.visualstudio.com/items?itemName=swyddfa.esbonio>`__
+     - Sphinx を使うワークスペースで使えるかもしれない拡張だ。
+   * - `Python
+       <https://marketplace.visualstudio.com/items?itemName=ms-python.python>`__
+     - Python 開発用機能拡張詰め合わせ。
+   * - `Jupyter
+       <https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter>`__
+     - Jupyter notebook を取り扱うための拡張詰め合わせ。
+   * - `C/C++ Extension Pack
+       <https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack>`__
+     - C++ 開発のための各種拡張詰め合わせ。
+   * - `Extension Pack for Java
+       <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack>`__
+     - Java 開発のための各種拡張詰め合わせ。
+
+よその推奨拡張一覧を見ていると、現在 deprecated なものが含まれることがある。これ
+は、超人気サードパーティー製拡張は標準拡張に昇格することがあるためだ。
