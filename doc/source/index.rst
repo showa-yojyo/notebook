@@ -106,6 +106,7 @@
    python-quaternion
    python-jinja2
    python-pygments
+   python-sphinx
    python-bs4
    python-selenium
    python-scrapy
