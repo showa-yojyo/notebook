@@ -73,6 +73,7 @@
    :maxdepth: 1
 
    bash-v[2-5]
+   powershell
 
 .. toctree::
    :caption: C++ ノート
