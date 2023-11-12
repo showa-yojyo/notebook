@@ -222,6 +222,19 @@ PowerShell コンソールを起動する
 
 上記の他には、型に関する情報を得る複雑な呪文が重要そうだ。
 
+``Show-Command``: 命令一覧およびコマンドライン構築
+----------------------------------------------------------------------
+
+``Show-Command`` は専用ウィンドウをコンソールの外に表示して、操作者が命令一覧を
+確認したり、指定した命令のコマンドラインを GUI で構築したりするのに用いる。
+別名は ``shcm``.
+
+* ``shcm``: :guilabel:`Commands` ウィンドウを表示
+* :samp:`shcm -Name {command-name}`: 命令 *command-name* の引数指定ウィンドウを表示
+* :samp:`shcm -Name {command-name}` -Height {win-height} -Width {win-width} -ErrorPopup`
+* `${command} = shcm -PassThru`: 戻り値を ``Invoke-Expression`` に与えられる
+* `${command} = shcm {command-name} -ErrorPopup`
+
 ``Get-Member``: オブジェクトの特徴を得る
 ----------------------------------------------------------------------
 
@@ -410,6 +423,100 @@ Type
 演算子 ``-as`` で型を変換する。``'05/13/20' -as [datetime]`` のように使う。詳し
 くは ``help about_Type_Operators`` を読め。
 
+正規表現
+----------------------------------------------------------------------
+
+まず ``help about_Regular_Expressions`` に目を通せ。
+
+PowerShell で正規表現が現れる場合、よそ者には非常識に感じられることに大文字小文
+字を区別しない。次のようにする：
+
+* ``Select-String`` では ``-CaseSensitive`` スイッチを指定する
+* 正規表現を扱う演算子では ``-c`` が付くほうを採用する
+* ``switch`` 文では ``-casesensitive`` を指定する
+
+正規表現を含む文字列をエスケープするには次のようにする：
+
+   :samp:`[regex]::escape({regex-pattern})`
+
+変数
+----------------------------------------------------------------------
+
+まず ``help about_Variables`` を読め。それから次の三つを読め：
+
+* ``help about_Environment_Variables``
+* ``help about_Automatic_Variables``
+* ``help about_Preference_Variables``
+
+現在利用可能な変数を一覧するには ``Get-Variable *`` が良い。
+
+環境変数
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+環境変数は :samp:`$Env:{name}` で参照する。E.g. ``$Env:USERPROFILE``. コロンをタ
+イプした直後にタブ補完をすると、存在する変数一覧が示される。
+
+Windows では、環境変数の照準域が三種類ある：
+
+システム照準域
+   システム定義の環境変数に関する照準域。
+利用者照準域
+   利用者定義の環境変数に関する照準域。ここまでのものは環境変数エディターなどで
+   確認可能。
+プロセス照準域
+   現在プロセス、つまり PowerShell コンソールセッションで利用可能なものを含む。
+   親プロセスから引き継いだ変数、System, User 両照準域の変数からなる。
+
+上二つの環境変数を変更するには、次のようにする：
+
+* :samp:`[Environment]::SetEnvironmentVariable({name}, {value}, 'Machine')`
+* :samp:`[Environment]::SetEnvironmentVariable({name}, {value})`
+* :samp:`[Environment]::SetEnvironmentVariable({name}, '')`: 変数削除
+
+システム照準域に対しては管理者権限も必要だ。
+
+PowerShell が考慮する ``POWERSHELL_`` で始まる固有の環境変数がいくつかあり、上述
+のヘルプで確認可能。使いそうなものは：
+
+:envvar:`POWERSHELL_TELEMETRY_OPTOUT`
+   余計な情報を提供したくない人向け
+:envvar:`POWERSHELL_UPDATECHECK`
+   Preview 版か否かで値を使い分けたい？
+
+自動変数
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PowerShell の状態情報を格納する ``$$``, ``$?``, などの特別な変数だ。``$null``,
+``$false``, ``$true`` など、純粋な定数も用意されている。
+
+優先変数
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PowerShell の挙動をカスタマイズする変数のうち、有用なものを記す。
+
+``$ConfirmPreference``
+   この変数はオプション ``-Confirm`` がある命令・関数に対して機能する。
+
+   PowerShell の命令と変数には危険度という性質がある。この値が高ければ高いほど、
+   実行が危険であるとみなされ、実行直前に確認メッセージが表示される仕組みがある。
+   その危険度と確認表示の閾値を保持する変数だ。
+
+   安全第一で行くなら ``HIGH`` を、メッセージが邪魔なら ``NONE`` を代入しておく
+   といい。
+``$DebugPreference``, ``$VerbosePreference``, ``$WarningPreference``
+   ``$DebugPreference`` は ``Write-Debug`` が生じたときに PowerShell がどう振る
+   舞うかを決定する変数だ。デバッグ時ならば ``STOP`` を指定して実行を停止させ
+   る。リリース版では ``SILENTLYCONTINUE`` でかまわないだろう。
+
+   残り二つのそれぞれは、 ``Write-Verbose`` と ``Write-Warning`` がそれぞれ生じ
+   たときに PowerShell がどう振る舞うかを決定する変数だ。
+``$WhatIfPreference``
+   この変数はオプション ``-WhatIf`` がある操作に対して機能する。いわゆる dry run
+   を実装する命令に対して、それを有効にするか否かを決定する。
+
+   値は 0 か 1 であり、後者だと対応する操作のすべてで ``-WhatIf`` が自動的にオン
+   になる。
+
 反復
 ----------------------------------------------------------------------
 
@@ -421,7 +528,7 @@ Type
 ``help about_Foreach`` と ``help ForEach-Object`` を読め。
 
 * :samp:`{collection} | ForEach-Object {statement-list}`
-* :samp:`foreach(${item} in ${collection})\{{statement-list}\}``
+* :samp:`foreach(${item} in ${collection})\\{{statement-list}\\}``
 
 なお、C 言語のような ``for`` ループもある。
 
@@ -430,15 +537,15 @@ Type
 
 他の言語にあるものと同様の構造だ。``help about_Do`` を読め。
 
-* :samp:`do\{ {statement-list} \}until({condition})``
-* :samp:`do\{ {statement-list} \}while({condition})``
+* :samp:`do\\{ {statement-list} \\}until({condition})``
+* :samp:`do\\{ {statement-list} \\}while({condition})``
 
 ``while`` 文
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 他の言語にあるものと同様の構造だ。``help about_While`` を読め。
 
-* :samp:`while({condition})\{statement-list\}`
+* :samp:`while({condition})\\{statement-list\\}`
 
 反復制御文
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -482,10 +589,25 @@ Providers: よくわからない概念
 
    Get-CimClass -Namespace root/CIMV2 | Sort-Object CimClassName
 
+動詞
+----------------------------------------------------------------------
+
+PowerShell には命令や関数名を動詞で始めるということ、さらにその動詞の集合が内規
+で定められている。規則ではないので、不認可動詞を使っても動作しないということはな
+い。
+
+認可動詞は ``Group`` という区分で分類されている。
+
+* ``Get-Verb``: 認可されている動詞すべてを示す
+* :samp:`Get-Verb {pattern}`: パターンに合致する動詞すべてを示す
+* ``Get-Verb | Select-Object Group -Unique``: 有効な ``Group`` を示す
+* :samp:`Get-Verb -Group {group}`: *group* に分類される動詞を示す
+* :samp:`{commands} | where Verb -notin (Get-Verb).Verb`: 不認可動詞を探す
+
 関数
 ----------------------------------------------------------------------
 
-* いちばん単純な定義形式は :samp:`function {function-name}\{{statements}\}`
+* いちばん単純な定義形式は :samp:`function {function-name}\\{ {statements} \\}`
 * 引数リストの定義形式は一つではない
 * 引数自体を細かく指定することがある
 * ``help about_Functions*`` を全部読む
@@ -494,9 +616,25 @@ Providers: よくわからない概念
 モジュール
 ----------------------------------------------------------------------
 
-* ``Import-Module``
-* ``$env:PSModulePath``
-* ``$env:PSModulePath -split ';'`` が読みやすい
+まずは ``help about_Modules`` を読め。
+
+PowerShell はインストール済みモジュール内の命令を初めて実行した時点で、当該モ
+ジュールを自動的にインポートする。
+
+``$env:PSModulePath`` で指定された場所にあるモジュールしか自動インポートされない。
+一般の場所にあるモジュールについては ``Import-Module`` 命令が必要。
+
+``$env:PSModulePath -split ';'`` が読みやすい。
+
+自動インポート機能の有効性を切り替える優先変数があり、それは
+``$PSModuleAutoloadingPreference`` だ。
+
+モジュールをインストールする手順は、フォルダーごと ``$env:PSModulePath`` のいず
+れかの場所に単にコピーすればいい。
+
+* ``Get-Module``: 現在ロード済みのモジュール一覧を示す
+* ``Get-Module -ListAvailable``: その裏を示す
+* :samp:`Import-Module {path}`: 一般の場所にあるモジュールをインポートする
 
 項目 (``Get-Command -Noun Item``)
 ----------------------------------------------------------------------
@@ -540,11 +678,7 @@ Item Properties (``Get-Command -Noun ItemProperty``)
 
 * :samp:`Get-Process` で全項目表示
 * :samp:`Get-Process -Name {process}` では :samp:`-Id {pid}` もあり得る（以下同様）
-
-.. code:: pwsh
-
-   Get-Process | Group-Object -Property Name -NoElement | Where-Object {$_.Count -gt 1}
-
+* ``Get-Process | Group-Object -Property Name -NoElement | Where-Object {$_.Count -gt 1}``
 * :samp:`Stop-Process -Name {process} -Confirm`
 * ``Get-Process | Where-Object -FilterScript {-not $_.Responding} | Stop-Process``
 * :samp:`Start-Process -FilePath {executable}` は PATH が通っていれば OK
@@ -609,9 +743,34 @@ Bash :command:`dirs` 相当が不明。
 * :samp:`Clear-History -Id {id} -Count {num}`
 * ``Invoke-History`` 過去の命令を再実行する
 * :samp:`Invoke-History -Id {id-or-part}`
-* :samp:`{first-id}..{last-id} | ForEach \{Invoke-History -Id $_ \}`
-* :samp:`Get-History -Id {id} -Count {num} | ForEach {Invoke-History -Id $_.Id}`
+* :samp:`{first-id}..{last-id} | ForEach \\{Invoke-History -Id $_ \\}`
+* :samp:`Get-History -Id {id} -Count {num} | ForEach \\{Invoke-History -Id $_.Id\\}`
 * 余裕があれば ``Add-History`` の活用を考える
+
+ファイル入出力
+----------------------------------------------------------------------
+
+``Get-Content``, 別名 ``cat`` はファイルの内容をコンソールに出力するのに使える。
+ファイルの内容からオブジェクトを作成するのが本来の仕事なのだろう。
+
+* :samp:`cat -Path {path}`
+* :samp:`cat -Path {path} -TotalCount {num}`: UNIX で言う :samp:`head -n {num} {path}`
+* :samp:`cat -Path {path} -Tail {num}`: UNIX で言う :samp:`tail -n {num} {path}`
+* :samp:`cat -Path {path} -Raw`: 単一の文字列として得る
+* :samp:`${byteArray} = cat -Path {path} -AsByteStream -Raw`
+
+``Set-Content`` はファイルの中身を上書きする。
+
+* :samp:`Set-Content -Path {path ...} -Value {text}`: 指定したファイルすべてを上書き
+* :samp:`Set-Content -Path {path ...} -Value ({command})`
+
+さらに ``Add-Content``, 別名 ``ac`` はファイルの終端から内容を追加する。
+
+* :samp:`ac -Path {path ...} -Value {object}`
+* :samp:`cat -Path {source-path} | ac -Path {target-path}`
+* :samp:`ac -Path {target-path} -Value (cat -Path {source-path})`
+
+``Clear-Content``, 別名 ``clc`` はファイルの中身を空にする。
 
 出力ストリーム
 ----------------------------------------------------------------------
@@ -649,36 +808,121 @@ Bash :command:`dirs` 相当が不明。
 
     * E.g. ``2>&1`` でエラー出力を成功出力にリダイレクト
 
- * ``*>`` でストリームすべてをファイルにリダイレクト
+  * ``*>`` でストリームすべてをファイルにリダイレクト
 
-TBW
+``Select-String``: 文字列検索
 ----------------------------------------------------------------------
 
-* ``PS`` から始まる変数（と値）を ``Get-Variable | Where-Object { $_.Name
-  -like 'PS*' }`` で確認できる。
+UNIX の :program:`grep` のようなことをするには ``Select-String`` を用いる。
 
-* 環境変数は :samp:`$env:{name}` で参照する
-* ``Find-Module`` と ``Install-Module`` にはまともなヘルプがない
-* ``Invoke-Command``
-* ``Get-Verb``
+* :samp:`{text} | Select-String -Pattern {literal} -CaseSensitive -SimpleMatch`: :program:`fgrep` 相当
+* :samp:`Select-String -Path {path ...} -Pattern {regex}`: 典型的 :program:`grep`
+* :samp:`Get-WinEvent {args} | Select-String -InputObject {$_.message} -Pattern {regex}`
+* :samp:`Get-ChildItem -Path {path ...} -Recurse | Select-String -Pattern {regex} -CaseSensitive`: ``grep -R`` 相当
+* :samp:`{text} | Select-String -Pattern {regex ...} -NotMatch`: ``grep -v`` 相当
+* :samp:`{text} | Select-String -Pattern {regex ...} -Context 2, 3`: ``grep -B 2 -A 3`` 相当
 
-  * PowerShell にはコマンド名を構成する動詞を限定したいという思想がある。
-  * ``Get-Verb | Sort-Object -Property Verb``
+テキストベースデータ変換
+----------------------------------------------------------------------
 
-.. todo::
+PowerShell では CSV や JSON データなどを追加的モジュールのインポートなしに処理可
+能だ。
 
-   * フィルター残り
+CSV
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-     * ``Get-Process`` や ``Get-WinEvent`` をテキストデータの源として利用する。
-   * 文字列 String
-   * 正規表現
-   * Session
-   * Import
-   * Export
-   * JSON, CSV, XML
-   * ``Get-Content``
-   * ``Get-Random``
-   * ``Invoke-RestMethod``
+.. rubric:: ``ConvertFrom-Csv``
+
+* :samp:`{object} | ConvertFrom-Csv`
+* :samp:`ConvertFrom-Csv -InputObject {object} -Delimiter '{character}'`
+* :samp:`{object} | ConvertFrom-Csv -Header {header}` ここで *header* は列名から
+  なる配列
+
+.. rubric:: ``ConvertTo-Csv``
+
+* :samp:`{object} | ConvertTo-Csv`
+* :samp:`{object} | ConvertTo-Csv -Delimiter {character}`
+* :samp:`{object} | ConvertTo-Csv -NoTypeInformation` 高速化するわけではなさそうだ
+* :samp:`ConvertTo-Csv -InputObject {object} -Delimiter {character} -NoTypeInformation`
+* :samp:`{object} | ConvertTo-Csv -QuoteFields {field-name ...}`
+* :samp:`{object} | ConvertTo-Csv -UseQuotes AsNeeded` 一貫性を気にしないのなら
+
+.. rubric:: ``Export-Csv`` a.k.a. ``epcsv``
+
+* :samp:`{object} | Export-Csv -Path {output-path} -NoTypeInformation`
+* :samp:`{object} | Export-Csv -Path {output-path} -NoTypeInformation -Append`
+* オプション ``-QuoteFields``, ``-UseQuotes`` が使える
+
+.. rubric:: ``Import-Csv`` a.k.a. ``ipcsv``
+
+* :samp:`${csv} = Import-Csv -Path {input-path}`
+* :samp:`Import-Csv -Path {input-path} -Delimiter {character}`
+* :samp:`Import-Csv -Path {input-path} -Header {header}`
+* :samp:`Import-Csv -Path {input-path} -Header {column-name ...}`
+
+JSON
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. rubric:: ``ConvertFrom-Json``
+
+* :samp:`Get-Content -Raw {input-path} | ConvertFrom-Json`
+* :samp:`{json} | ConvertFrom-Json -AsHashtable`
+* :samp:`{json} | ConvertFrom-Json -NoEnumerate`
+
+.. rubric:: ``ConvertTo-Json``
+
+* :samp:`{object} | ConvertTo-Json`
+* :samp:`{object} | ConvertTo-Json -AsArray`
+* :samp:`{object} | ConvertTo-Json -Compress`
+* ``Get-Date | Select-Object -Property * | ConvertTo-Json``
+
+XML
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. rubric:: ``ConvertTo-Xml``
+
+* :samp:`{object} | ConvertTo-Xml` パイプ用
+* :samp:`{object} | ConvertTo-Xml -As String` テキストダンプ用
+* :samp:`{object} | ConvertTo-Xml -As "Document" -Depth {num}`
+
+.. rubric:: ``Export-Clixml``
+
+``Export-Clixml`` はオブジェクトの CommonLanguage Infrastructure XML に基づく表
+現をファイルに保存する。疑似 XML と考えて差し支えなさそうだ。
+
+* :samp:`{object} | Export-Clixml -Path {output-path}`
+* :samp:`${Credential} | Export-Clixml {output-path}`
+
+.. rubric:: ``Import-Clixml``
+
+* :samp:`${Clixml} = Import-Clixml -Path {output-path}`
+* :samp:`${Credential} = Import-Clixml {input-path}`
+
+便利な命令
+----------------------------------------------------------------------
+
+* ``Get-Date``: 日付を得る
+
+  * ``Get-Date -UFormat "%Y-%m-%d (%A) %T"``: 時計
+  * ``Get-Date -Format o | foreach { $_ -replace ":", "." }``: タイムスタンプ
+* ``Get-Random``: 乱数を得たり選んだりする
+
+  * ``Get-Random -Minimum 1 -Maximum 7``: サイコロ
+  * ``1..6 | Get-Random``: サイコロ
+  * ``Get-Random -Minimum 10.7 -Maximum 20.93``: 浮動小数点数も OK
+  * ``1, 2, 3, 5, 8, 13 | Get-Random -Count 3``
+  * ``1, 2, 3, 5, 8, 13 | Get-Random -Shuffle``
+* ``Show-Markdown``: Markdown ファイルをコンソール内に描画するかも
+* ``Invoke-RestMethod``: RSS, ATOM を含む XML や JSON を処理するのに使える
+
+  * :samp:`Invoke-RestMethod https://www.youtube.com/feeds/videos.xml?channel_id={id} | Out-GridView`
+  * :samp:`Invoke-RestMethod https://blogs.msdn.microsoft.com/powershell/feed/ | Format-Table -Property {prop ...}``
+  * :samp:`Invoke-RestMethod -Method 'Post' -Uri {url} -Credential {cred} -Body {body} -OutFile {output-path}`
+  * :samp:`${resonse} = Invoke-RestMethod -Uri {url} -Method Post -Form {form}`
+
+* ``Invoke-WebRequest``
+
+  * :samp:`${response} = Invoke-WebRequest -uri {url}``: 得られるオブジェクトの属性が重要
 
 情報源
 ======================================================================
