@@ -2,7 +2,7 @@
 PowerShell 利用ノート
 ======================================================================
 
-PowerShell を試す。意外な自動化用途を発見したい。
+PowerShell を試す。基本を固めたら意外な自動化用途を発見したい。
 
 .. contents::
    :depth: 3
@@ -151,7 +151,9 @@ PowerShell コンソールを起動する
        ;
    }
 
-   Set-PSReadLineOption -EditMode Emacs
+   Set-PSReadLineOption -EditMode Emacs -HistoryNoDuplicates
+   Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+
    Set-Location $env:HOME\Documents\PowerShell
 
    # aliases
@@ -231,9 +233,9 @@ PowerShell コンソールを起動する
 
 * ``shcm``: :guilabel:`Commands` ウィンドウを表示
 * :samp:`shcm -Name {command-name}`: 命令 *command-name* の引数指定ウィンドウを表示
-* :samp:`shcm -Name {command-name}` -Height {win-height} -Width {win-width} -ErrorPopup`
-* `${command} = shcm -PassThru`: 戻り値を ``Invoke-Expression`` に与えられる
-* `${command} = shcm {command-name} -ErrorPopup`
+* :samp:`shcm -Name {command-name} -Height {win-height} -Width {win-width} -ErrorPopup`
+* :samp:`${command} = shcm -PassThru`: 戻り値を ``Invoke-Expression`` に与えられる
+* :samp:`${command} = shcm {command-name} -ErrorPopup`
 
 ``Get-Member``: オブジェクトの特徴を得る
 ----------------------------------------------------------------------
@@ -272,6 +274,7 @@ about_Pipelines`` を読め。
 * :samp:`{object} | select -Property {property-name ...}`
 * :samp:`{object} | select -Property *`
 * :samp:`{object} | select -Property Name, {hash-table}`
+* :samp:`{object} | select -ExpandProperty Name`: 文字列配列として得る
 * :samp:`{array} | select -First {number}`
 * :samp:`{array} | select -Unique` これはソート不要
 * :samp:`{array} | select -Index 0, (${array}.count - 1)`
@@ -310,6 +313,8 @@ about_Pipelines`` を読め。
 
 * :samp:`{array} | group -Property {prop}`
 * :samp:`{array} | group -Property {prop} -NoElement`: ``Group`` 列を省く
+* :samp:`{array} | group -Property {prop} -AsHashtable`: ``Name`` と ``Value``
+  からなるハッシュ表でデータを得る。
 
 書式整形
 ----------------------------------------------------------------------
@@ -325,7 +330,7 @@ about_Pipelines`` を読め。
 * :samp:`{array} | ft -Property {prop-name ...}`
 * :samp:`{array} | ft -Wrap`: レコード途中改行を許す
 
-``Format-List`` は出力が縦に長い。
+``Format-List`` a.k.a. ``fl`` は出力が縦に長い。
 
 * :samp:`{array} | fl -Property {prop-name ...}`
 * :samp:`{array} | fl -Property *`
@@ -436,8 +441,7 @@ PowerShell で正規表現が現れる場合、よそ者には非常識に感じ
 * ``switch`` 文では ``-casesensitive`` を指定する
 
 正規表現を含む文字列をエスケープするには次のようにする：
-
-   :samp:`[regex]::escape({regex-pattern})`
+:samp:`[regex]::escape({regex-pattern})`
 
 変数
 ----------------------------------------------------------------------
@@ -537,8 +541,8 @@ PowerShell の挙動をカスタマイズする変数のうち、有用なもの
 
 他の言語にあるものと同様の構造だ。``help about_Do`` を読め。
 
-* :samp:`do\\{ {statement-list} \\}until({condition})``
-* :samp:`do\\{ {statement-list} \\}while({condition})``
+* :samp:`do\\{ {statement-list} \\}until({condition})`
+* :samp:`do\\{ {statement-list} \\}while({condition})`
 
 ``while`` 文
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -554,40 +558,84 @@ PowerShell の挙動をカスタマイズする変数のうち、有用なもの
 指定機能がある。また、構造自体がコマンドなので ``return`` 文が使える。詳しくはそ
 れぞれのヘルプ記事を読め。
 
-Providers: よくわからない概念
+関数
+----------------------------------------------------------------------
+
+* いちばん単純な定義形式は :samp:`function {function-name}\\{ {statements} \\}`
+* 引数リストの定義形式は一つではない
+* 引数自体を細かく指定することがある
+* ``help about_Functions*`` を全部読む
+* ``help about_*Parameters`` を全部読む
+
+例外処理
+----------------------------------------------------------------------
+
+``help about_Try_Catch_Finally``, ``help_Throw`` を読め。
+
+* ``catch`` 節に対象である例外型を指定するには、角括弧に囲んだ型名を用いる。
+* ``catch`` 節に対象である例外型を書かないと、それは catch all を意味する。
+* ``catch`` 節では捕捉した例外を参照するのにも ``$_`` を用いる。
+* ``catch`` 節では自動変数 ``$Error`` を調べることもある。
+* ``throw`` は任意のオブジェクトを取れる。
+* ``throw`` 文ではオブジェクトを送出するか、何も明示しないで記す。後者の場合、
+  ``ScriptHalted`` というものが送出される。
+* PowerShellプロセスを表すオブジェクトを ``throw`` することもある。
+
+.. admonition:: 読者ノート
+
+   PowerShell にはもう一つ、``trap`` というエラー処理の仕組みがある。これは
+
+Providers: 疑似（本物も含む）ファイルシステムドライブ集合
 ----------------------------------------------------------------------
 
 まずは ``help about_Provides`` を読め。
 
 * ``Get-PSProvider``: その一覧を出力
-* ``Get-PSDrive``: ドライブ一覧だが、ファイルシステムとしてのドライブよりも抽象
-  度が一段高い。
-* :samp:`Get-PSDrive {drive-letter}`
-* ``Get-PSDrive -PSProvider FileSystem``
-* ``Get-PSDrive -PSProvider Registry``
+
+  * ``Get-PSProvider | ft`` で provider すべてについてそれらの特徴と値の一覧を示
+    す。
+* ``Get-PSDrive`` a.k.a. ``gdr``: ドライブ一覧だが、ファイルシステムとしてのドラ
+  イブよりも抽象度が一段高い。
+
+  * :samp:`Get-PSDrive {drive-letter}`
+  * ``gdr -PSProvider FileSystem``: ファイルシステムドライブすべて
+  * ``gdr -PSProvider FileSystem | select Name, @{Name="Used"; Expression={$_.Used/1GB}}``
+  * ``gdr -PSProvider Registry``
 * :samp:`Remove-PSDrive -Name {usb}`
 
-``Get-CimInstance``
+CIM
 ----------------------------------------------------------------------
 
-* ``Get-CimInstance Win32_BIOS``
-* ``Get-CimInstance Win32_Environment`` 環境変数と値
-* ``Get-CimInstance Win32_LogicalDisk``
-* ``Get-CimInstance Win32_NetworkAdapterConfiguration -Filter IPEnabled=$true``
-* ``Get-CimInstance Win32_OperatingSystem``
-* ``Get-CimInstance Win32_Printer``
-* ``Get-CimInstance Win32_Process`` は ``Get-Process`` と同様か
-* ``Get-CimInstance Win32_Service`` は ``Get-Service`` と同様か
-* ``Get-CimInstance Win32_SystemDriver``
-* ``Get-CimInstance Win32_UserAccount``
-* ``Get-CimInstance Win32_VideoController``
-* ``Get-CimInstance Win32_OperatingSystem | Format-List *``
+   The Common Information Model (CIM) is an extensible, object-oriented data
+   model that contains information about different parts of an enterprise.
+
+計算機の情報を得るのに用いる命令として ``Get-CimInstance`` a.k.a. ``gcim`` があ
+る。基本的に :samp:`gcim {cim-class} | {filter}` の形で実行する。
+
+* ``gcim CIM_BIOSElement``
+* ``gcim CIM_LogicalDisk``
+* ``gcim CIM_OperatingSystem | fl``
+* ``gcim CIM_Printer``: ``Get-Printer`` と同様か
+* ``gcim CIM_Process``: ``Get-Process`` と同様か
+* ``gcim CIM_Product | sort -Property Name | ft IdentifyingNumber, Name, LocalPackage -AutoSize``
+* ``gcim CIM_PhysicalMemory | fl``
+* ``gcim CIM_Service``: ``Get-Service`` と同様か
+* ``gcim CIM_VideoController``
+* ``gcim Win32_Environment``: 環境変数と値
+* ``gcim Win32_NetworkAdapterConfiguration -Filter IPEnabled=$true``
+* ``gcim Win32_SystemDriver``
+* ``gcim Win32_UserAccount``
 
 ``-Class`` の適切な実引数を ``Get-CimClass`` で知ることができる：
 
 .. code:: pwsh
 
    Get-CimClass -Namespace root/CIMV2 | Sort-Object CimClassName
+
+.. admonition:: 読者ノート
+
+   これを使いこなせるようになれば、PC ショップ店頭の Windows 機でスペックを
+   PowerShell で確認できて効率が良い。
 
 動詞
 ----------------------------------------------------------------------
@@ -604,14 +652,10 @@ PowerShell には命令や関数名を動詞で始めるということ、さら
 * :samp:`Get-Verb -Group {group}`: *group* に分類される動詞を示す
 * :samp:`{commands} | where Verb -notin (Get-Verb).Verb`: 不認可動詞を探す
 
-関数
-----------------------------------------------------------------------
+.. admonition:: 読者ノート
 
-* いちばん単純な定義形式は :samp:`function {function-name}\\{ {statements} \\}`
-* 引数リストの定義形式は一つではない
-* 引数自体を細かく指定することがある
-* ``help about_Functions*`` を全部読む
-* ``help about_*Parameters`` を全部読む
+   ``Get-Verb`` の出力表を眺めていると、設計者がプログラミングという概念をどのよ
+   うに捉えているのかが垣間見えて面白い。
 
 モジュール
 ----------------------------------------------------------------------
@@ -635,6 +679,7 @@ PowerShell はインストール済みモジュール内の命令を初めて実
 * ``Get-Module``: 現在ロード済みのモジュール一覧を示す
 * ``Get-Module -ListAvailable``: その裏を示す
 * :samp:`Import-Module {path}`: 一般の場所にあるモジュールをインポートする
+* ``Import-Module -DisableNameChecking``: 不認可動詞から始まる命令や関数を見逃す
 
 項目 (``Get-Command -Noun Item``)
 ----------------------------------------------------------------------
@@ -652,6 +697,7 @@ UNIX では everything is a file だが、PowerShell では everything is an ite
 * :samp:`Remove-Item {path}`
 * :samp:`Remove-Item {path} -Recurse`
 * ``Invoke-Item`` は Win32 API で言う ``ShellExecute`` と同等
+* ``ii .``: 現在フォルダーを Explorer で開く
 
 * ``Get-ChildItem`` は UNIX の :program:`ls` に相当
 
@@ -661,7 +707,7 @@ UNIX では everything is a file だが、PowerShell では everything is an ite
   * :samp:`Get-ChildItem -Path * -Include {glob}` マッチのみ出力
   * :samp:`Get-ChildItem -Path * -Exclude {glob}` マッチを除外
 
-Item Properties (``Get-Command -Noun ItemProperty``)
+項目性質 (``Get-Command -Noun ItemProperty``)
 ----------------------------------------------------------------------
 
 レジストリー操作で用いることが多い。
@@ -689,6 +735,8 @@ Item Properties (``Get-Command -Noun ItemProperty``)
 サービス
 ----------------------------------------------------------------------
 
+サービスを開発するときにあると便利な再起動スクリプトを作成するときの道具になる。
+
 * :samp:`Get-Service -Name {service}`
 * :samp:`Get-Service -DisplayName {service}`
 * :samp:`Get-Service -Name {service} -RequiredServices`
@@ -702,16 +750,17 @@ Item Properties (``Get-Command -Noun ItemProperty``)
 出力先 (``Get-Command -Verb Out``)
 ----------------------------------------------------------------------
 
-* :samp:`{object} | Out-Null` 出力を捨てる
-* :samp:`{object} | Out-Default` パイプラインの最後に来る暗黙の出力コマンドと考えられる
+* :samp:`{object} | Out-Null`: 出力を捨てる
+* :samp:`{object} | Out-Default`: パイプラインの最後に来る暗黙の出力コマンドと考
+  えられる
 * :samp:`{object} | Out-Host | -Paging`
 * :samp:`{object} | Out-Printer -Name {printer-name}`
 * :samp:`{object} | Out-File -Path {output-path}`
 * :samp:`{object} | Out-File -Path {output-path} -Width {columns}`
 * :samp:`{object} | Out-GridView`: 数ソート不能
-* :samp:`{object} | Out-String`` 今のところ用途不明
+* :samp:`{object} | Out-String``: 今のところ用途不明
 
-位置 (``Get-Command -Noun Location``)
+作業場所 (``Get-Command -Noun Location``)
 ----------------------------------------------------------------------
 
 * ``Get-Location`` は Bash で言う :command:`pwd` に相当
@@ -720,15 +769,18 @@ Item Properties (``Get-Command -Noun ItemProperty``)
 * ``Push-Location``, ``Pop-Location`` はそれぞれ :command:`pushd`,
   :command:`popd` に相当
 
-Bash :command:`dirs` 相当が不明。
+.. admonition:: 読者ノート
+
+   Bash :command:`dirs` 相当が不明。
 
 キーバインド
 ----------------------------------------------------------------------
 
 * ``Get-PSReadLineKeyHandler`` または :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`?` で確認
+* ``Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete`` で補完を少し楽に
 * ``Get-PSReadLineOption`` でオプション設定値を確認
-* ``Set-PSReadLineOption -EditMode Emacs`` で Bash に近いキーバインドに変更
-  （プロファイルに書いておく）
+* ``Set-PSReadLineOption -EditMode Emacs`` で Bash に近いキーバインドに変更（プ
+  ロファイルに書いておく）
 
 命令履歴
 ----------------------------------------------------------------------
@@ -793,6 +845,8 @@ Bash :command:`dirs` 相当が不明。
    6   | INFORMATION | ``Write-Information``
    n/a | PROGRESS    | ``Write-Progress``
 
+``Write-Output`` は必ずしも画面に表示するわけではない。
+
 リダイレクト
 ----------------------------------------------------------------------
 
@@ -809,6 +863,23 @@ Bash :command:`dirs` 相当が不明。
     * E.g. ``2>&1`` でエラー出力を成功出力にリダイレクト
 
   * ``*>`` でストリームすべてをファイルにリダイレクト
+
+クリップボード
+----------------------------------------------------------------------
+
+``Get-Clipboard`` でクリップボードからデータを受け取る。WSL のシェル環境で利用す
+ることになる：
+
+.. code:: bash
+
+   alias getclip='/path/to/pwsh.exe -noprofile -command Get-Clipboard'
+
+``Set-Clipboard`` も存在するが、WSL では :program:`iconv` をインストールしている
+ので敢えて使わなくていい：
+
+.. code:: bash
+
+   alias putclip='iconv -f utf-8 -t utf-16le | clip.exe'
 
 ``Select-String``: 文字列検索
 ----------------------------------------------------------------------
@@ -916,13 +987,64 @@ XML
 * ``Invoke-RestMethod``: RSS, ATOM を含む XML や JSON を処理するのに使える
 
   * :samp:`Invoke-RestMethod https://www.youtube.com/feeds/videos.xml?channel_id={id} | Out-GridView`
-  * :samp:`Invoke-RestMethod https://blogs.msdn.microsoft.com/powershell/feed/ | Format-Table -Property {prop ...}``
+  * :samp:`Invoke-RestMethod https://blogs.msdn.microsoft.com/powershell/feed/ | Format-Table -Property {prop ...}`
   * :samp:`Invoke-RestMethod -Method 'Post' -Uri {url} -Credential {cred} -Body {body} -OutFile {output-path}`
   * :samp:`${resonse} = Invoke-RestMethod -Uri {url} -Method Post -Form {form}`
 
 * ``Invoke-WebRequest``
 
-  * :samp:`${response} = Invoke-WebRequest -uri {url}``: 得られるオブジェクトの属性が重要
+  * :samp:`${response} = Invoke-WebRequest -uri {url}`: 得られるオブジェクトの
+    属性が重要
+
+GUI
+----------------------------------------------------------------------
+
+:samp:`Add-Type -AssemblyName {assembly}` で .NET Framework クラスを利用可能にな
+る。これを利用して GUI を実現することが可能だ。
+
+.. code:: pwsh
+
+   Add-Type -AssemblyName System.Windows.Forms
+   Add-Type -AssemblyName System.Drawing
+
+   $form = New-Object Windows.Forms.Form -Property @{
+       StartPosition = [Windows.Forms.FormStartPosition]::CenterScreen
+       Size          = New-Object Drawing.Size 243, 260
+       Text          = 'Hello world'
+       Topmost       = $true
+   }
+
+   # ...
+
+   $result = $form.ShowDialog()
+
+配列とハッシュ表
+----------------------------------------------------------------------
+
+``help about_Arrays`` と ``help about_Hash_Tables`` を読め。Python や JavaScript
+の文法と似ている気がするから急所だけ覚えればいい。生成方法だけ覚えておき、要素参
+照やメソッドは補完機能を使えばやっているうちに覚える。たぶん .NET Framework のイ
+ンターフェイスと同一だろう。
+
+.. rubric:: 配列の生成方法
+
+* ``$A = 22,5,10,8,12,9,80``: 要素すべてを指定して生成する例
+* ``$B = ,7``: 単一要素を指定して生成する例
+* ``$C = 5..8``: Bash 風
+* ``[int32[]]$ia = 1500,2230,3350,4000``: 明示的に型を指定する例
+* ``$a = @("Hello World")``: 単一要素を指定して生成する例
+* ``$b = @()``: 空配列を生成する例
+
+.. rubric:: ハッシュ表の生成方法
+
+* ``$hash = @{}``: 空ハッシュ表を生成する
+* ``$hash = @{ Number = 1; Shape = "Square"; Color = "Blue"}``: 中身を指定して生
+  成する例
+
+PowerShell Gallery
+======================================================================
+
+.. todo:: 便利なモジュール、スクリプトを発見できたら記す。
 
 情報源
 ======================================================================
@@ -949,3 +1071,10 @@ Microsoft Learn
    なるものが複数あり、それぞれ原因がバラバラで解決するのに手間だった。
 
    * `Sample scripts for system administration - PowerShell <https://learn.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration?view=powershell-7.3>`__
+
+`Highest scored 'powershell' questions - Stack Overflow <https://stackoverflow.com/questions/tagged/powershell?tab=Votes>`__
+   評価の高い質問を順に読んでいくといいことがありそうだ。
+`command line - Copy to clipboard using Bash for Windows - Stack Overflow <https://stackoverflow.com/questions/43144008/copy-to-clipboard-using-bash-for-windows/>`__
+   PowerShell 調査のついでに発見。
+`GitHub - dlwyatt/WinFormsExampleUpdates: Updates to make TechNet PowerShell Windows Forms examples compatible with PowerShell 3.0 and later <https://github.com/dlwyatt/WinFormsExampleUpdates>`__
+   GUI デモスクリプト四つ。
