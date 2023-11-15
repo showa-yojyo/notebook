@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PowerShell 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=20d9222b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="What’s New In C++11 ノート" href="cpp11/index.html" />
+    <link rel="prev" title="What’s New In Bash 5 ノート" href="bash-v5.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="bash-v5.html" title="Previous document">What’s New In Bash 5 ノート</a>
+        </li>
+        <li>
+          <a href="cpp11/index.html" title="Next document">What’s New In C++11 ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="powershell">
+<h1><a class="toc-backref" href="#id45" role="doc-backlink">PowerShell 利用ノート</a><a class="headerlink" href="#powershell" title="Permalink to this heading">¶</a></h1>
+<p>PowerShell を試す。基本を固めたら意外な自動化用途を発見したい。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#powershell" id="id45">PowerShell 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id46">PowerShell 利用環境を整える</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id47">PowerShell 本体回り</a></p></li>
+<li><p><a class="reference internal" href="#windows-terminal" id="id48">Windows Terminal 構成</a></p></li>
+<li><p><a class="reference internal" href="#visual-studio-code" id="id49">Visual Studio Code 構成</a></p></li>
+<li><p><a class="reference internal" href="#oh-my-posh" id="id50">Oh My Posh</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id51">PowerShell コンソールを起動する</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id52">カスタマイズ</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id53">手筋集</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id54">バージョンを得る</a></p></li>
+<li><p><a class="reference internal" href="#get-help" id="id55">ヘルプ <code class="docutils literal notranslate"><span class="pre">Get-Help</span></code></a></p></li>
+<li><p><a class="reference internal" href="#get-alias" id="id56"><code class="docutils literal notranslate"><span class="pre">Get-Alias</span></code>: 別名を知る</a></p></li>
+<li><p><a class="reference internal" href="#get-command" id="id57"><code class="docutils literal notranslate"><span class="pre">Get-Command</span></code>: 命令を得る</a></p></li>
+<li><p><a class="reference internal" href="#show-command" id="id58"><code class="docutils literal notranslate"><span class="pre">Show-Command</span></code>: 命令一覧およびコマンドライン構築</a></p></li>
+<li><p><a class="reference internal" href="#get-member" id="id59"><code class="docutils literal notranslate"><span class="pre">Get-Member</span></code>: オブジェクトの特徴を得る</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id60">パイプライン</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id61">パイプのフィルターとなる命令</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id62">コレクションを並び替える</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id63">書式整形</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id64">演算子</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id65">正規表現</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id66">変数</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id67">反復</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id68">関数</a></p></li>
+<li><p><a class="reference internal" href="#id29" id="id69">例外処理</a></p></li>
+<li><p><a class="reference internal" href="#providers" id="id70">Providers: 疑似（本物も含む）ファイルシステムドライブ集合</a></p></li>
+<li><p><a class="reference internal" href="#cim" id="id71">CIM</a></p></li>
+<li><p><a class="reference internal" href="#id30" id="id72">動詞</a></p></li>
+<li><p><a class="reference internal" href="#id31" id="id73">モジュール</a></p></li>
+<li><p><a class="reference internal" href="#get-command-noun-item" id="id74">項目 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Noun</span> <span class="pre">Item</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#get-command-noun-itemproperty" id="id75">項目性質 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Noun</span> <span class="pre">ItemProperty</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#id32" id="id76">プロセス</a></p></li>
+<li><p><a class="reference internal" href="#id33" id="id77">サービス</a></p></li>
+<li><p><a class="reference internal" href="#get-command-verb-out" id="id78">出力先 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Verb</span> <span class="pre">Out</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#get-command-noun-location" id="id79">作業場所 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Noun</span> <span class="pre">Location</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#id34" id="id80">キーバインド</a></p></li>
+<li><p><a class="reference internal" href="#id35" id="id81">命令履歴</a></p></li>
+<li><p><a class="reference internal" href="#id36" id="id82">ファイル入出力</a></p></li>
+<li><p><a class="reference internal" href="#id37" id="id83">出力ストリーム</a></p></li>
+<li><p><a class="reference internal" href="#id38" id="id84">リダイレクト</a></p></li>
+<li><p><a class="reference internal" href="#id39" id="id85">クリップボード</a></p></li>
+<li><p><a class="reference internal" href="#select-string" id="id86"><code class="docutils literal notranslate"><span class="pre">Select-String</span></code>: 文字列検索</a></p></li>
+<li><p><a class="reference internal" href="#id40" id="id87">テキストベースデータ変換</a></p></li>
+<li><p><a class="reference internal" href="#id41" id="id88">便利な命令</a></p></li>
+<li><p><a class="reference internal" href="#gui" id="id89">GUI</a></p></li>
+<li><p><a class="reference internal" href="#id42" id="id90">配列とハッシュ表</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#powershell-gallery" id="id91">PowerShell Gallery</a></p></li>
+<li><p><a class="reference internal" href="#id44" id="id92">情報源</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id1">
+<h2><a class="toc-backref" href="#id46" role="doc-backlink">PowerShell 利用環境を整える</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>執筆時の環境は次のとおり：</p>
+<dl class="field-list simple">
+<dt class="field-odd">OS<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Windows 10 Home, 22H2, 19045.3636</p>
+</dd>
+<dt class="field-even">PowerShell<span class="colon">:</span></dt>
+<dd class="field-even"><p>PowerShell 7.4.0-rc.1</p>
+</dd>
+</dl>
+</div>
+<section id="id2">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">PowerShell 本体回り</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<section id="id3">
+<h4>本体をインストールする<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<p>最初に PowerShell 最新版を Windows にインストールする。素直に最新リリース版をインストールするのが安全だが、本稿ではプレビュー版を試す。</p>
+<p>コンソールで <strong class="program">winget</strong> を用いてインストールするのが公式推奨手段だ。更新やアンインストールも本ツールを用いる：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">winget install --id Microsoft.Powershell.Preview --source winget</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="winget.html"><span class="doc">Windows Package Manager CLI 利用ノート</span></a></p>
+</div>
+</section>
+<section id="id4">
+<h4>プロファイルを用意する<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
+<p>PowerShell コンソールを起動して <code class="docutils literal notranslate"><span class="pre">$PROFILE</span></code> の値を見る。このパスが指す
+PowerShell ファイルが Bash で言うところの <code class="file docutils literal notranslate"><span class="pre">.bash_profile</span></code> に相当する。ひとまずは空のファイルを作成しておく。Windows Explorer で作成してもよいし、せっかくだから PowerShell で作成してもよい：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="nb">New-Item</span> <span class="n">-ItemType</span> <span class="n">File</span> <span class="n">-Path</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>内容は後述する。</p>
+</section>
+</section>
+<section id="windows-terminal">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">Windows Terminal 構成</a><a class="headerlink" href="#windows-terminal" title="Permalink to this heading">¶</a></h3>
+<p>上記のように PowerShell をインストールした後、Windows Terminal で
+<span class="menuselection">Settings ‣ PowerShell 7 Preview</span> が現れる。適宜構成する。</p>
+<p>項目 <span class="guilabel">Run this profile as Administrator</span> を Off と On の二通りで異なるタブプロファイルを作成しておくのもありかもしれない。演習の時に管理者権限を必要とするコマンドを用いる場合がある。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="windows-terminal.html"><span class="doc">Windows Terminal 利用ノート</span></a></p>
+</div>
+</section>
+<section id="visual-studio-code">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">Visual Studio Code 構成</a><a class="headerlink" href="#visual-studio-code" title="Permalink to this heading">¶</a></h3>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="vscode/index.html"><span class="doc">Visual Studio Code 利用ノート</span></a></p>
+</div>
+<section id="id5">
+<h4>PowerShell 拡張をインストール<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
+<p><kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">X</kbd> を押すなどして拡張サイドバーを展開する。検索欄に <code class="docutils literal notranslate"><span class="pre">powershell</span></code> と入力して Microsoft 謹製の PowerShell 拡張を見つける。
+<span class="guilabel">Install</span> を押す。</p>
+<p>次のような欲しい機能は備えている：</p>
+<ul class="simple">
+<li><p>構文強調</p></li>
+<li><p>書式整形</p></li>
+<li><p>コード片</p></li>
+<li><p>IntelliSense</p></li>
+<li><p>変数や関数などへの定義・参照にジャンプ</p></li>
+<li><p>アウトライン表示</p></li>
+<li><p>選択コード実行 (<span class="menuselection">Run Selection</span>; <kbd class="kbd docutils literal notranslate">F8</kbd>)</p></li>
+<li><p>オンラインヘルプ表示 (<span class="menuselection">Get Help for Command</span>; <kbd class="kbd docutils literal notranslate">Ctrl</kbd> +
+<kbd class="kbd docutils literal notranslate">F1</kbd>)</p></li>
+<li><p>デバッガー</p></li>
+</ul>
+</section>
+<section id="terminal">
+<h4>Terminal 周りの設定を追加する<a class="headerlink" href="#terminal" title="Permalink to this heading">¶</a></h4>
+<p>VS Code 基本機能の設定項目を適宜調整する。PowerShell 拡張にインストールにより自動的に調整されることはなさそうだ。例：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;terminal.integrated.profiles.windows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;PowerShell&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${env:PROGRAMFILES}\\PowerShell\\7-preview\\pwsh.exe&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">               </span><span class="s2">&quot;-noexit&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="s2">&quot;-file&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="s2">&quot;${env:USERPROFILE}\\Documents\\PowerShell\\Microsoft.PowerShell_profile.ps1&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;icon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;terminal-powershell&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="oh-my-posh">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">Oh My Posh</a><a class="headerlink" href="#oh-my-posh" title="Permalink to this heading">¶</a></h3>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="oh-my-posh.html"><span class="doc">Oh My Posh 利用ノート</span></a></p>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id51" role="doc-backlink">PowerShell コンソールを起動する</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>次のいずれかの方法による：</p>
+<ul class="simple">
+<li><p>Windows のスタートメニュー <span class="menuselection">PowerShell ‣ PowerShell 7-preview
+(x64)</span> を押す</p></li>
+<li><p>Windows Terminal を起動して <span class="menuselection">PowerShell 7 Preview</span> タブを開く</p></li>
+<li><p>Visual Studio Code を起動して <span class="menuselection">View ‣ Output</span> を開いて
+<span class="guilabel">TERMINAL</span> に上述の手順で設定済みの PowerShell プロファイルの指す項目を選択する</p></li>
+</ul>
+<p>他にも方法はある。本ノートでは Windows Terminal を利用する方法を採る。</p>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id52" role="doc-backlink">カスタマイズ</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p><code class="file docutils literal notranslate"><span class="pre">Microsoft.PowerShell_profile.ps1</span></code> を VS Code などで開いて次のように編集して保存。PowerShell セッションを起動する：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="nv">$OMP_CONFIG_PATH</span> <span class="p">=</span> <span class="p">/</span><span class="n">path</span><span class="p">/</span><span class="n">to</span><span class="p">/</span><span class="n">oh-my-posh</span><span class="p">.</span><span class="n">json</span>
+<span class="k">try</span><span class="p">{</span>
+    <span class="n">oh-my-posh</span> <span class="n">init</span> <span class="n">pwsh</span> <span class="p">-</span><span class="n">-config</span> <span class="nv">$OMP_CONFIG_PATH</span> <span class="p">|</span> <span class="nb">Invoke-Expression</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">{</span>
+    <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">Set-PSReadLineOption</span> <span class="n">-EditMode</span> <span class="n">Emacs</span> <span class="n">-HistoryNoDuplicates</span>
+<span class="nb">Set-PSReadLineKeyHandler</span> <span class="n">-Key</span> <span class="n">Tab</span> <span class="n">-Function</span> <span class="n">MenuComplete</span>
+
+<span class="nb">Set-Location</span> <span class="nv">$env:HOME</span><span class="p">\</span><span class="n">Documents</span><span class="p">\</span><span class="n">PowerShell</span>
+
+<span class="c"># aliases</span>
+<span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">a</span> <span class="n">-Value</span> <span class="nb">Get-Alias</span>
+<span class="c"># ...</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id53" role="doc-backlink">手筋集</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<p>少しずつ埋めていこう。</p>
+<section id="id9">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">バージョンを得る</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">$PSVersionTable</span></code> で PowerShell のバージョン情報を得る</p>
+</section>
+<section id="get-help">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">ヘルプ <code class="docutils literal notranslate"><span class="pre">Get-Help</span></code></a><a class="headerlink" href="#get-help" title="Permalink to this heading">¶</a></h3>
+<p>本名ではなく関数 <code class="docutils literal notranslate"><span class="pre">help</span></code> や別名 <code class="docutils literal notranslate"><span class="pre">man</span></code> のほうをよくタイプする。これらはページ送りが付く。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <em><span class="pre">word</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <em><span class="pre">word</span></em> <span class="pre">-Full</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <em><span class="pre">word</span></em> <span class="pre">-Parameter</span> <em><span class="pre">name</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <em><span class="pre">word</span></em> <span class="pre">-Parameter</span> <span class="pre">*</span></code>: これは必修</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <em><span class="pre">word</span></em> <span class="pre">-ShowWindow</span></code>: これがいちばん便利</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <span class="pre">*</span><em><span class="pre">word</span></em><span class="pre">*</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">help</span> <em><span class="pre">cmdlet</span></em> <span class="pre">-Examples</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_*</span></code> でトピック別ヘルプ記事を閲覧</p></li>
+</ul>
+</section>
+<section id="get-alias">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">Get-Alias</span></code>: 別名を知る</a><a class="headerlink" href="#get-alias" title="Permalink to this heading">¶</a></h3>
+<p>別名の考え方を PowerShell 学習の早い段階で理解すると効率的だろう。<code class="docutils literal notranslate"><span class="pre">Get-Alias</span></code>
+は本来は別名を取って正体を返すものだが、そういう使い方はめったにない。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Alias</span></code>: 引数なしで全別名一覧出力</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Alias</span> <span class="pre">-Definition</span> <span class="pre">Get-Alias</span></code>: 自身の別名を得る</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gal</span> <span class="pre">-Definition</span> <span class="pre">Get-Command,</span> <span class="pre">Get-Member</span></code>: こちらはあり得る</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gal</span> <span class="pre">|</span> <span class="pre">where</span> <span class="pre">{$_.Options</span> <span class="pre">-Match</span> <span class="pre">&quot;ReadOnly&quot;}</span></code>: 組み込み別名を出力</p></li>
+<li><p>別名は覚えないとあまり使わないものだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Aliases</span></code> を読め</p></li>
+</ul>
+<p>組み込まれている別名は <code class="docutils literal notranslate"><span class="pre">gal</span></code> であることがわかる。<code class="docutils literal notranslate"><span class="pre">a</span></code> のような短い別名を自分で付けたい：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Set-Alias</span> <span class="pre">-Name</span> <span class="pre">a</span> <span class="pre">-Value</span> <span class="pre">Get-Alias</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Set-Alias</span> <span class="pre">-Name</span> <span class="pre">np</span> <span class="pre">-Value</span> <span class="pre">C:\Windows\notepad.exe</span></code></p></li>
+</ul>
+<p>別名には実行ファイルパスや関数を与えることが可能。</p>
+</section>
+<section id="get-command">
+<h3><a class="toc-backref" href="#id57" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">Get-Command</span></code>: 命令を得る</a><a class="headerlink" href="#get-command" title="Permalink to this heading">¶</a></h3>
+<p>広義の命令を得るために呼び出す。別名 <code class="docutils literal notranslate"><span class="pre">gcm</span></code> をタイプ時に採用する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">-ListImported</span></code> 現在利用可能な命令一覧</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">-Noun</span> <em><span class="pre">pattern</span></em></code> E.g. Computer, Host, Item, Location,
+Object, Process, Windows.</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">-Verb</span> <em><span class="pre">verb</span></em> <span class="pre">-Module</span> <span class="pre">Microsoft.PowerShell.Utility</span></code> E.g. Format,
+Out, Write.</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">-Name</span> <em><span class="pre">pattern</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">-Name</span> <em><span class="pre">pattern</span></em> <span class="pre">-CommandType</span> <span class="pre">Cmdlet,</span> <span class="pre">Function,</span> <span class="pre">Alias</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">-ParameterName</span> <span class="pre">ComputerName</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcm</span> <span class="pre">*</span></code> は実行ファイルをも示す</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">(gcm</span> <em><span class="pre">cmdlet</span></em><span class="pre">).ModuleName</span></code> 所属モジュールを示す</p></li>
+</ul>
+<p>上記の他には、型に関する情報を得る複雑な呪文が重要そうだ。</p>
+</section>
+<section id="show-command">
+<h3><a class="toc-backref" href="#id58" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">Show-Command</span></code>: 命令一覧およびコマンドライン構築</a><a class="headerlink" href="#show-command" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Show-Command</span></code> は専用ウィンドウをコンソールの外に表示して、操作者が命令一覧を確認したり、指定した命令のコマンドラインを GUI で構築したりするのに用いる。別名は <code class="docutils literal notranslate"><span class="pre">shcm</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shcm</span></code>: <span class="guilabel">Commands</span> ウィンドウを表示</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">shcm</span> <span class="pre">-Name</span> <em><span class="pre">command-name</span></em></code>: 命令 <em>command-name</em> の引数指定ウィンドウを表示</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">shcm</span> <span class="pre">-Name</span> <em><span class="pre">command-name</span></em> <span class="pre">-Height</span> <em><span class="pre">win-height</span></em> <span class="pre">-Width</span> <em><span class="pre">win-width</span></em> <span class="pre">-ErrorPopup</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">command</span></em> <span class="pre">=</span> <span class="pre">shcm</span> <span class="pre">-PassThru</span></code>: 戻り値を <code class="docutils literal notranslate"><span class="pre">Invoke-Expression</span></code> に与えられる</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">command</span></em> <span class="pre">=</span> <span class="pre">shcm</span> <em><span class="pre">command-name</span></em> <span class="pre">-ErrorPopup</span></code></p></li>
+</ul>
+</section>
+<section id="get-member">
+<h3><a class="toc-backref" href="#id59" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">Get-Member</span></code>: オブジェクトの特徴を得る</a><a class="headerlink" href="#get-member" title="Permalink to this heading">¶</a></h3>
+<p>PowerShell の命令出力は UNIX のようなテキスト形式が主体ではなく、オブジェクトであることが普通だ。オブジェクトの挙動や性質を知りたいときに <code class="docutils literal notranslate"><span class="pre">Get-Member</span></code> を用いる。</p>
+<p>タイプ時には別名 <code class="docutils literal notranslate"><span class="pre">gcm</span></code> を採用する。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">gm</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">gm</span> <span class="pre">-MemberType</span> <span class="pre">Method</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">gm</span> <span class="pre">-MemberType</span> <span class="pre">Methods</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">gm</span> <span class="pre">-MemberType</span> <span class="pre">Property</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">gm</span> <span class="pre">-MemberType</span> <span class="pre">Properties</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span> <span class="pre">|</span> <span class="pre">gm</span></code> 文字列のメソッドを主に示す</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">パイプライン</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>PowerShell ではパイプに流れるのはテキストではなくオブジェクトだ。まずは <code class="docutils literal notranslate"><span class="pre">help</span>
+<span class="pre">about_Pipelines</span></code> を読め。</p>
+<ul class="simple">
+<li><p>長いコマンドライン入力は開括弧、引用符、句読点などで改行して続行可。</p></li>
+<li><p>コマンドライン入力途中の <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">Enter</kbd> で改行可。</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3><a class="toc-backref" href="#id61" role="doc-backlink">パイプのフィルターとなる命令</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Select-Object</span></code> でオブジェクトの性質 (<code class="docutils literal notranslate"><span class="pre">-Property</span></code>) またはコレクションの要素
+(<code class="docutils literal notranslate"><span class="pre">-First</span></code>, <code class="docutils literal notranslate"><span class="pre">-Last</span></code>, <code class="docutils literal notranslate"><span class="pre">-Unique</span></code>, <code class="docutils literal notranslate"><span class="pre">-Skip</span></code>, <code class="docutils literal notranslate"><span class="pre">-Index</span></code>) を選ぶ。横にも縦にも絞ることが可能。</p>
+<p>タイプの便宜を図るために別名 <code class="docutils literal notranslate"><span class="pre">select</span></code> が与えられている。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-Property</span> <em><span class="pre">property-name</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-Property</span> <span class="pre">*</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-Property</span> <span class="pre">Name,</span> <em><span class="pre">hash-table</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-ExpandProperty</span> <span class="pre">Name</span></code>: 文字列配列として得る</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-First</span> <em><span class="pre">number</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-Unique</span></code> これはソート不要</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">-Index</span> <span class="pre">0,</span> <span class="pre">($</span><em><span class="pre">array</span></em><span class="pre">.count</span> <span class="pre">-</span> <span class="pre">1)</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Where-Object</span></code> は性質値により選ぶ。「どの性質」ではなく「性質がどの値」で選ぶ。別名は <code class="docutils literal notranslate"><span class="pre">where</span></code> または <code class="docutils literal notranslate"><span class="pre">?</span></code> が使える。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">where</span> <em><span class="pre">prop-name</span></em> <span class="pre">-eq</span> <em><span class="pre">prop-value</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">where</span> <em><span class="pre">prop-name</span></em></code> とすると <em>prop-name</em> が存在するものを抽出する</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">where</span> <em><span class="pre">prop-name</span></em> <span class="pre">-Match</span> <em><span class="pre">regex</span></em></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$_</span></code> を参照することがよくある。</p></li>
+</ul>
+<p>例は示さぬが <code class="docutils literal notranslate"><span class="pre">Where-Object</span></code> の引数にブロックの形を取れる。</p>
+</section>
+<section id="id12">
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">コレクションを並び替える</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Sort-Object</span></code> はオブジェクトの性質値に従うソートを実施する。ソートに使えそうな性質がない場合には、オブジェクト同士の比較に基づくソートを行う。</p>
+<p>ソートを決定づける性質は複数指定することが可能だ。</p>
+<p>別名として <code class="docutils literal notranslate"><span class="pre">sort</span></code> を使える。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">-Property</span> <em><span class="pre">prop-name</span> <span class="pre">...</span></em> <span class="pre">-Descending</span></code> 降順ソート</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">sort</span> <span class="pre">-Property</span> <em><span class="pre">hash-table</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-Property</span></code> 自身の記述は省略可</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">-Path</span> <em><span class="pre">file</span></em> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">-Unique</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">-Path</span> <em><span class="pre">file</span></em> <span class="pre">|</span> <span class="pre">Sort-Object</span> <em><span class="pre">[int]$_</span></em></code> 数としてソート</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Group-Object</span></code> は SQL で言う <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> に相当するコレクション順序変更操作を行い、集計表を出力する。集計をソートにパイプすることがありがちだ。</p>
+<p>別名として <code class="docutils literal notranslate"><span class="pre">group</span></code> を使える。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">group</span> <span class="pre">-Property</span> <em><span class="pre">prop</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">group</span> <span class="pre">-Property</span> <em><span class="pre">prop</span></em> <span class="pre">-NoElement</span></code>: <code class="docutils literal notranslate"><span class="pre">Group</span></code> 列を省く</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">group</span> <span class="pre">-Property</span> <em><span class="pre">prop</span></em> <span class="pre">-AsHashtable</span></code>: <code class="docutils literal notranslate"><span class="pre">Name</span></code> と <code class="docutils literal notranslate"><span class="pre">Value</span></code>
+からなるハッシュ表でデータを得る。</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3><a class="toc-backref" href="#id63" role="doc-backlink">書式整形</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<p>書式整形 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Verb</span> <span class="pre">Format</span></code>) コマンドはパイプラインのいちばん右に置かれるものだ。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Format-Table</span></code> は表形式。出力オブジェクトの性質と表の列が対応する。別名 <code class="docutils literal notranslate"><span class="pre">ft</span></code>
+を使える。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">ft</span> <span class="pre">-Autosize</span></code>: 各列の幅をいい感じにする</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">ft</span> <span class="pre">-GroupBy</span> <em><span class="pre">prop-name</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">ft</span> <span class="pre">-Property</span> <em><span class="pre">prop-name</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">ft</span> <span class="pre">-Wrap</span></code>: レコード途中改行を許す</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Format-List</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">fl</span></code> は出力が縦に長い。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">fl</span> <span class="pre">-Property</span> <em><span class="pre">prop-name</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">array</span></em> <span class="pre">|</span> <span class="pre">fl</span> <span class="pre">-Property</span> <span class="pre">*</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Format-Hex</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">fhx</span></code> という十六進ダンプコマンドが存在する。UNIX で言う
+<code class="docutils literal notranslate"><span class="pre">hexdump</span> <span class="pre">-C</span></code> に相当する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'HOT-B'</span> <span class="pre">|</span> <span class="pre">fhx</span></code>: 484F542D42 を示す</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">fhx</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">fhx</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em></code>: ファイル全体を十六進ダンプ</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">fhx</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-Count</span> <em><span class="pre">number</span></em> <span class="pre">-Offset</span> <em><span class="pre">offset</span></em></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Format-Wide</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">fw</span></code> は単一性質を複数列に亘り出力する。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Format-Wide</span> <span class="pre">-Property</span> <em><span class="pre">prop</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Format-Wide</span> <span class="pre">-Property</span> <em><span class="pre">prop</span></em> <span class="pre">-Column</span> <em><span class="pre">number</span></em></code></p></li>
+</ul>
+<div class="admonition-todo admonition" id="id14">
+<p class="admonition-title">Todo</p>
+<p>ビューのカスタマイズ (<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Format.ps1xml</span></code>) について丸々残っている。</p>
+</div>
+</section>
+<section id="id15">
+<h3><a class="toc-backref" href="#id64" role="doc-backlink">演算子</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<p>PowerShell の演算子はたくさんある。関連ヘルプも複数に及ぶ。まず <code class="docutils literal notranslate"><span class="pre">help</span>
+<span class="pre">about_Operators</span></code> で分類を確認して、関心のある区分の演算子に関するヘルプ記事で詳細を当たるようにする。</p>
+<section id="id16">
+<h4>算術演算子<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h4>
+<p>算術演算子は四則演算に加えて色々とある。<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Arithmetic_Operators</span></code> を読め。この記事には数値演算に関する事項も述べられている。</p>
+<p>単項演算子としては負の符号 <code class="docutils literal notranslate"><span class="pre">-</span></code> を付けるものがある。残りはすべて二項演算子だ。</p>
+<p>四則演算（と剰余）は他の言語と同様の演算子が用意されている。</p>
+<p>ビット演算子は <code class="docutils literal notranslate"><span class="pre">-bnot</span></code>, <code class="docutils literal notranslate"><span class="pre">-band</span></code>, <code class="docutils literal notranslate"><span class="pre">-bor</span></code>, <code class="docutils literal notranslate"><span class="pre">-bxor</span></code>.
+シフト演算子は <code class="docutils literal notranslate"><span class="pre">-shl</span></code>, <code class="docutils literal notranslate"><span class="pre">-shr</span></code>.</p>
+</section>
+<section id="id17">
+<h4>代入演算子<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h4>
+<p>単純な代入を行う演算子および算術演算子と代入が複合した演算子の集合。
+<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Assignment_Operators</span></code> を読め。</p>
+<p>代入演算子は <code class="docutils literal notranslate"><span class="pre">=</span></code> だ。この記号を用いる代入仕様の詳細はヘルプを参照しろ。</p>
+<p>四則演算（と剰余）の演算子と代入演算子が複合する形の演算子が用意されている。働きは他の言語と同様。ビット演算子やシフト演算子と代入演算子が複合したものはない。</p>
+<p>インクリメント演算子とデクリメント演算子は C/C++ と同様のものがある。前置と後置が両方ある。</p>
+<p>合体演算子 <code class="docutils literal notranslate"><span class="pre">??=</span></code> は JavaScript にあるものと同様の演算だ。第一オペランドが
+<code class="docutils literal notranslate"><span class="pre">null</span></code> に評価される場合に限り、第二オペランドの値を第一オペランドに代入する。</p>
+</section>
+<section id="id18">
+<h4>比較演算子<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h4>
+<p>PowerShell には比較演算子が多くある。<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Comparison_Operators</span></code> を読め。</p>
+<p>ヘルプでは比較演算子の集合を次のように区分している：</p>
+<dl class="simple">
+<dt>Equality</dt><dd><p>数学記号で言う等号と不等号に相当するもの。<code class="docutils literal notranslate"><span class="pre">-eq</span></code> などの基本形に大文字小文字の違いを考慮する変種 <code class="docutils literal notranslate"><span class="pre">-ieq</span></code>, <code class="docutils literal notranslate"><span class="pre">-ceq</span></code> がある、という具合だ。</p>
+</dd>
+<dt>Matching</dt><dd><p>ワイルドカードや正規表現を第二オペランドとして取る種の演算子。基本形は
+<code class="docutils literal notranslate"><span class="pre">-like</span></code> と <code class="docutils literal notranslate"><span class="pre">-match</span></code> で、ここに否定 <code class="docutils literal notranslate"><span class="pre">-not</span></code> と大文字小文字考慮 <code class="docutils literal notranslate"><span class="pre">-i</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-c</span></code> が複合したりしなかったりして演算子を形成する。E.g. <code class="docutils literal notranslate"><span class="pre">-inotlike</span></code>.</p>
+</dd>
+<dt>Relacement</dt><dd><p><code class="docutils literal notranslate"><span class="pre">-replace</span></code> と、これに <code class="docutils literal notranslate"><span class="pre">-i</span></code> または <code class="docutils literal notranslate"><span class="pre">-c</span></code> が複合する演算子の三種。正規表現を第二オペランドに取り、合致する文字列を置換する。</p>
+</dd>
+<dt>Containment</dt><dd><p><code class="docutils literal notranslate"><span class="pre">-contains</span></code> とその複合版はコレクションが値を含むかどうかを判定する。一方、
+<code class="docutils literal notranslate"><span class="pre">-in</span></code> とその否定版は値がコレクションに含まれるかどうかを判定する。</p>
+</dd>
+<dt>Type</dt><dd><p><code class="docutils literal notranslate"><span class="pre">-is</span></code> はとその否定版（これだけは <code class="docutils literal notranslate"><span class="pre">not</span></code> がケツに付く）は両オペランドが同じ型かどうかを判定する。</p>
+</dd>
+</dl>
+<p>コツとしては、オペランドの型を意識することか。</p>
+</section>
+<section id="id19">
+<h4>論理演算子<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h4>
+<p>否定演算子は <code class="docutils literal notranslate"><span class="pre">-not</span></code> か <code class="docutils literal notranslate"><span class="pre">!</span></code> を用いる。その他の論理演算子は <code class="docutils literal notranslate"><span class="pre">-and</span></code>, <code class="docutils literal notranslate"><span class="pre">-or</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-xor</span></code> の三種。なお、<code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> と <code class="docutils literal notranslate"><span class="pre">||</span></code> はパイプに関する別の演算子として存在する。<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Logical_Operators</span></code> を読め。</p>
+</section>
+<section id="id20">
+<h4>キャスト演算子<a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h4>
+<p>演算子 <code class="docutils literal notranslate"><span class="pre">-as</span></code> で型を変換する。<code class="docutils literal notranslate"><span class="pre">'05/13/20'</span> <span class="pre">-as</span> <span class="pre">[datetime]</span></code> のように使う。詳しくは <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Type_Operators</span></code> を読め。</p>
+</section>
+</section>
+<section id="id21">
+<h3><a class="toc-backref" href="#id65" role="doc-backlink">正規表現</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<p>まず <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Regular_Expressions</span></code> に目を通せ。</p>
+<p>PowerShell で正規表現が現れる場合、よそ者には非常識に感じられることに大文字小文字を区別しない。次のようにする：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Select-String</span></code> では <code class="docutils literal notranslate"><span class="pre">-CaseSensitive</span></code> スイッチを指定する</p></li>
+<li><p>正規表現を扱う演算子では <code class="docutils literal notranslate"><span class="pre">-c</span></code> が付くほうを採用する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">switch</span></code> 文では <code class="docutils literal notranslate"><span class="pre">-casesensitive</span></code> を指定する</p></li>
+</ul>
+<p>正規表現を含む文字列をエスケープするには次のようにする：
+<code class="samp docutils literal notranslate"><span class="pre">[regex]::escape(</span><em><span class="pre">regex-pattern</span></em><span class="pre">)</span></code></p>
+</section>
+<section id="id22">
+<h3><a class="toc-backref" href="#id66" role="doc-backlink">変数</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
+<p>まず <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Variables</span></code> を読め。それから次の三つを読め：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Environment_Variables</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Automatic_Variables</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Preference_Variables</span></code></p></li>
+</ul>
+<p>現在利用可能な変数を一覧するには <code class="docutils literal notranslate"><span class="pre">Get-Variable</span> <span class="pre">*</span></code> が良い。</p>
+<section id="id23">
+<h4>環境変数<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h4>
+<p>環境変数は <code class="samp docutils literal notranslate"><span class="pre">$Env:</span><em><span class="pre">name</span></em></code> で参照する。E.g. <code class="docutils literal notranslate"><span class="pre">$Env:USERPROFILE</span></code>. コロンをタイプした直後にタブ補完をすると、存在する変数一覧が示される。</p>
+<p>Windows では、環境変数の照準域が三種類ある：</p>
+<dl class="simple">
+<dt>システム照準域</dt><dd><p>システム定義の環境変数に関する照準域。</p>
+</dd>
+<dt>利用者照準域</dt><dd><p>利用者定義の環境変数に関する照準域。ここまでのものは環境変数エディターなどで確認可能。</p>
+</dd>
+<dt>プロセス照準域</dt><dd><p>現在プロセス、つまり PowerShell コンソールセッションで利用可能なものを含む。親プロセスから引き継いだ変数、System, User 両照準域の変数からなる。</p>
+</dd>
+</dl>
+<p>上二つの環境変数を変更するには、次のようにする：</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">[Environment]::SetEnvironmentVariable(</span><em><span class="pre">name</span></em><span class="pre">,</span> <em><span class="pre">value</span></em><span class="pre">,</span> <span class="pre">'Machine')</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">[Environment]::SetEnvironmentVariable(</span><em><span class="pre">name</span></em><span class="pre">,</span> <em><span class="pre">value</span></em><span class="pre">)</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">[Environment]::SetEnvironmentVariable(</span><em><span class="pre">name</span></em><span class="pre">,</span> <span class="pre">'')</span></code>: 変数削除</p></li>
+</ul>
+<p>システム照準域に対しては管理者権限も必要だ。</p>
+<p>PowerShell が考慮する <code class="docutils literal notranslate"><span class="pre">POWERSHELL_</span></code> で始まる固有の環境変数がいくつかあり、上述のヘルプで確認可能。使いそうなものは：</p>
+<dl class="simple">
+<dt><span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">POWERSHELL_TELEMETRY_OPTOUT</span></code></dt><dd><p>余計な情報を提供したくない人向け</p>
+</dd>
+<dt><span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">POWERSHELL_UPDATECHECK</span></code></dt><dd><p>Preview 版か否かで値を使い分けたい？</p>
+</dd>
+</dl>
+</section>
+<section id="id24">
+<h4>自動変数<a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h4>
+<p>PowerShell の状態情報を格納する <code class="docutils literal notranslate"><span class="pre">$$</span></code>, <code class="docutils literal notranslate"><span class="pre">$?</span></code>, などの特別な変数だ。<code class="docutils literal notranslate"><span class="pre">$null</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$false</span></code>, <code class="docutils literal notranslate"><span class="pre">$true</span></code> など、純粋な定数も用意されている。</p>
+</section>
+<section id="id25">
+<h4>優先変数<a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h4>
+<p>PowerShell の挙動をカスタマイズする変数のうち、有用なものを記す。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">$ConfirmPreference</span></code></dt><dd><p>この変数はオプション <code class="docutils literal notranslate"><span class="pre">-Confirm</span></code> がある命令・関数に対して機能する。</p>
+<p>PowerShell の命令と変数には危険度という性質がある。この値が高ければ高いほど、実行が危険であるとみなされ、実行直前に確認メッセージが表示される仕組みがある。その危険度と確認表示の閾値を保持する変数だ。</p>
+<p>安全第一で行くなら <code class="docutils literal notranslate"><span class="pre">HIGH</span></code> を、メッセージが邪魔なら <code class="docutils literal notranslate"><span class="pre">NONE</span></code> を代入しておくといい。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">$DebugPreference</span></code>, <code class="docutils literal notranslate"><span class="pre">$VerbosePreference</span></code>, <code class="docutils literal notranslate"><span class="pre">$WarningPreference</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">$DebugPreference</span></code> は <code class="docutils literal notranslate"><span class="pre">Write-Debug</span></code> が生じたときに PowerShell がどう振る舞うかを決定する変数だ。デバッグ時ならば <code class="docutils literal notranslate"><span class="pre">STOP</span></code> を指定して実行を停止させる。リリース版では <code class="docutils literal notranslate"><span class="pre">SILENTLYCONTINUE</span></code> でかまわないだろう。</p>
+<p>残り二つのそれぞれは、 <code class="docutils literal notranslate"><span class="pre">Write-Verbose</span></code> と <code class="docutils literal notranslate"><span class="pre">Write-Warning</span></code> がそれぞれ生じたときに PowerShell がどう振る舞うかを決定する変数だ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">$WhatIfPreference</span></code></dt><dd><p>この変数はオプション <code class="docutils literal notranslate"><span class="pre">-WhatIf</span></code> がある操作に対して機能する。いわゆる dry run
+を実装する命令に対して、それを有効にするか否かを決定する。</p>
+<p>値は 0 か 1 であり、後者だと対応する操作のすべてで <code class="docutils literal notranslate"><span class="pre">-WhatIf</span></code> が自動的にオンになる。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id26">
+<h3><a class="toc-backref" href="#id67" role="doc-backlink">反復</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
+<p>このようなループよりはパイプで済ませるほうが効率的な処理だと考えられる。</p>
+<section id="foreach-object-foreach">
+<h4><code class="docutils literal notranslate"><span class="pre">ForEach-Object</span></code>, <code class="docutils literal notranslate"><span class="pre">foreach</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code><a class="headerlink" href="#foreach-object-foreach" title="Permalink to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Foreach</span></code> と <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">ForEach-Object</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">collection</span></em> <span class="pre">|</span> <span class="pre">ForEach-Object</span> <em><span class="pre">statement-list</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">foreach($</span><em><span class="pre">item</span></em> <span class="pre">in</span> <span class="pre">$</span><em><span class="pre">collection</span></em><span class="pre">){</span><em><span class="pre">statement-list</span></em><span class="pre">}`</span></code></p></li>
+</ul>
+<p>なお、C 言語のような <code class="docutils literal notranslate"><span class="pre">for</span></code> ループもある。</p>
+</section>
+<section id="do">
+<h4><code class="docutils literal notranslate"><span class="pre">do</span></code> 文<a class="headerlink" href="#do" title="Permalink to this heading">¶</a></h4>
+<p>他の言語にあるものと同様の構造だ。<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Do</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">do{</span> <em><span class="pre">statement-list</span></em> <span class="pre">}until(</span><em><span class="pre">condition</span></em><span class="pre">)</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">do{</span> <em><span class="pre">statement-list</span></em> <span class="pre">}while(</span><em><span class="pre">condition</span></em><span class="pre">)</span></code></p></li>
+</ul>
+</section>
+<section id="while">
+<h4><code class="docutils literal notranslate"><span class="pre">while</span></code> 文<a class="headerlink" href="#while" title="Permalink to this heading">¶</a></h4>
+<p>他の言語にあるものと同様の構造だ。<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_While</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">while(</span><em><span class="pre">condition</span></em><span class="pre">){statement-list}</span></code></p></li>
+</ul>
+</section>
+<section id="id27">
+<h4>反復制御文<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h4>
+<p>以上のループ構造では C 言語のような <code class="docutils literal notranslate"><span class="pre">break</span></code>, <code class="docutils literal notranslate"><span class="pre">continue</span></code> が使え、さらにラベル指定機能がある。また、構造自体がコマンドなので <code class="docutils literal notranslate"><span class="pre">return</span></code> 文が使える。詳しくはそれぞれのヘルプ記事を読め。</p>
+</section>
+</section>
+<section id="id28">
+<h3><a class="toc-backref" href="#id68" role="doc-backlink">関数</a><a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>いちばん単純な定義形式は <code class="samp docutils literal notranslate"><span class="pre">function</span> <em><span class="pre">function-name</span></em><span class="pre">{</span> <em><span class="pre">statements</span></em> <span class="pre">}</span></code></p></li>
+<li><p>引数リストの定義形式は一つではない</p></li>
+<li><p>引数自体を細かく指定することがある</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Functions*</span></code> を全部読む</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_*Parameters</span></code> を全部読む</p></li>
+</ul>
+</section>
+<section id="id29">
+<h3><a class="toc-backref" href="#id69" role="doc-backlink">例外処理</a><a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Try_Catch_Finally</span></code>, <code class="docutils literal notranslate"><span class="pre">help_Throw</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> 節に対象である例外型を指定するには、角括弧に囲んだ型名を用いる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> 節に対象である例外型を書かないと、それは catch all を意味する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> 節では捕捉した例外を参照するのにも <code class="docutils literal notranslate"><span class="pre">$_</span></code> を用いる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> 節では自動変数 <code class="docutils literal notranslate"><span class="pre">$Error</span></code> を調べることもある。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">throw</span></code> は任意のオブジェクトを取れる。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">throw</span></code> 文ではオブジェクトを送出するか、何も明示しないで記す。後者の場合、
+<code class="docutils literal notranslate"><span class="pre">ScriptHalted</span></code> というものが送出される。</p></li>
+<li><p>PowerShellプロセスを表すオブジェクトを <code class="docutils literal notranslate"><span class="pre">throw</span></code> することもある。</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>PowerShell にはもう一つ、<code class="docutils literal notranslate"><span class="pre">trap</span></code> というエラー処理の仕組みがある。これは</p>
+</div>
+</section>
+<section id="providers">
+<h3><a class="toc-backref" href="#id70" role="doc-backlink">Providers: 疑似（本物も含む）ファイルシステムドライブ集合</a><a class="headerlink" href="#providers" title="Permalink to this heading">¶</a></h3>
+<p>まずは <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Provides</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-PSProvider</span></code>: その一覧を出力</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-PSProvider</span> <span class="pre">|</span> <span class="pre">ft</span></code> で provider すべてについてそれらの特徴と値の一覧を示す。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-PSDrive</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">gdr</span></code>: ドライブ一覧だが、ファイルシステムとしてのドライブよりも抽象度が一段高い。</p>
+<ul>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-PSDrive</span> <em><span class="pre">drive-letter</span></em></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdr</span> <span class="pre">-PSProvider</span> <span class="pre">FileSystem</span></code>: ファイルシステムドライブすべて</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdr</span> <span class="pre">-PSProvider</span> <span class="pre">FileSystem</span> <span class="pre">|</span> <span class="pre">select</span> <span class="pre">Name,</span> <span class="pre">&#64;{Name=&quot;Used&quot;;</span> <span class="pre">Expression={$_.Used/1GB}}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdr</span> <span class="pre">-PSProvider</span> <span class="pre">Registry</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Remove-PSDrive</span> <span class="pre">-Name</span> <em><span class="pre">usb</span></em></code></p></li>
+</ul>
+</section>
+<section id="cim">
+<h3><a class="toc-backref" href="#id71" role="doc-backlink">CIM</a><a class="headerlink" href="#cim" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>The Common Information Model (CIM) is an extensible, object-oriented data
+model that contains information about different parts of an enterprise.</p>
+</div></blockquote>
+<p>計算機の情報を得るのに用いる命令として <code class="docutils literal notranslate"><span class="pre">Get-CimInstance</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">gcim</span></code> がある。基本的に <code class="samp docutils literal notranslate"><span class="pre">gcim</span> <em><span class="pre">cim-class</span></em> <span class="pre">|</span> <em><span class="pre">filter</span></em></code> の形で実行する。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_BIOSElement</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_LogicalDisk</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_OperatingSystem</span> <span class="pre">|</span> <span class="pre">fl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_Printer</span></code>: <code class="docutils literal notranslate"><span class="pre">Get-Printer</span></code> と同様か</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_Process</span></code>: <code class="docutils literal notranslate"><span class="pre">Get-Process</span></code> と同様か</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_Product</span> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">-Property</span> <span class="pre">Name</span> <span class="pre">|</span> <span class="pre">ft</span> <span class="pre">IdentifyingNumber,</span> <span class="pre">Name,</span> <span class="pre">LocalPackage</span> <span class="pre">-AutoSize</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_PhysicalMemory</span> <span class="pre">|</span> <span class="pre">fl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_Service</span></code>: <code class="docutils literal notranslate"><span class="pre">Get-Service</span></code> と同様か</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">CIM_VideoController</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">Win32_Environment</span></code>: 環境変数と値</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">Win32_NetworkAdapterConfiguration</span> <span class="pre">-Filter</span> <span class="pre">IPEnabled=$true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">Win32_SystemDriver</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcim</span> <span class="pre">Win32_UserAccount</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">-Class</span></code> の適切な実引数を <code class="docutils literal notranslate"><span class="pre">Get-CimClass</span></code> で知ることができる：</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-CimClass</span> <span class="n">-Namespace</span> <span class="n">root</span><span class="p">/</span><span class="n">CIMV2</span> <span class="p">|</span> <span class="nb">Sort-Object</span> <span class="n">CimClassName</span>
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>これを使いこなせるようになれば、PC ショップ店頭の Windows 機でスペックを
+PowerShell で確認できて効率が良い。</p>
+</div>
+</section>
+<section id="id30">
+<h3><a class="toc-backref" href="#id72" role="doc-backlink">動詞</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
+<p>PowerShell には命令や関数名を動詞で始めるということ、さらにその動詞の集合が内規で定められている。規則ではないので、不認可動詞を使っても動作しないということはない。</p>
+<p>認可動詞は <code class="docutils literal notranslate"><span class="pre">Group</span></code> という区分で分類されている。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Verb</span></code>: 認可されている動詞すべてを示す</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Verb</span> <em><span class="pre">pattern</span></em></code>: パターンに合致する動詞すべてを示す</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Verb</span> <span class="pre">|</span> <span class="pre">Select-Object</span> <span class="pre">Group</span> <span class="pre">-Unique</span></code>: 有効な <code class="docutils literal notranslate"><span class="pre">Group</span></code> を示す</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Verb</span> <span class="pre">-Group</span> <em><span class="pre">group</span></em></code>: <em>group</em> に分類される動詞を示す</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">commands</span></em> <span class="pre">|</span> <span class="pre">where</span> <span class="pre">Verb</span> <span class="pre">-notin</span> <span class="pre">(Get-Verb).Verb</span></code>: 不認可動詞を探す</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">Get-Verb</span></code> の出力表を眺めていると、設計者がプログラミングという概念をどのように捉えているのかが垣間見えて面白い。</p>
+</div>
+</section>
+<section id="id31">
+<h3><a class="toc-backref" href="#id73" role="doc-backlink">モジュール</a><a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h3>
+<p>まずは <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Modules</span></code> を読め。</p>
+<p>PowerShell はインストール済みモジュール内の命令を初めて実行した時点で、当該モジュールを自動的にインポートする。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$env:PSModulePath</span></code> で指定された場所にあるモジュールしか自動インポートされない。一般の場所にあるモジュールについては <code class="docutils literal notranslate"><span class="pre">Import-Module</span></code> 命令が必要。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$env:PSModulePath</span> <span class="pre">-split</span> <span class="pre">';'</span></code> が読みやすい。</p>
+<p>自動インポート機能の有効性を切り替える優先変数があり、それは
+<code class="docutils literal notranslate"><span class="pre">$PSModuleAutoloadingPreference</span></code> だ。</p>
+<p>モジュールをインストールする手順は、フォルダーごと <code class="docutils literal notranslate"><span class="pre">$env:PSModulePath</span></code> のいずれかの場所に単にコピーすればいい。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Module</span></code>: 現在ロード済みのモジュール一覧を示す</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Module</span> <span class="pre">-ListAvailable</span></code>: その裏を示す</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Import-Module</span> <em><span class="pre">path</span></em></code>: 一般の場所にあるモジュールをインポートする</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Import-Module</span> <span class="pre">-DisableNameChecking</span></code>: 不認可動詞から始まる命令や関数を見逃す</p></li>
+</ul>
+</section>
+<section id="get-command-noun-item">
+<h3><a class="toc-backref" href="#id74" role="doc-backlink">項目 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Noun</span> <span class="pre">Item</span></code>)</a><a class="headerlink" href="#get-command-noun-item" title="Permalink to this heading">¶</a></h3>
+<p>UNIX では everything is a file だが、PowerShell では everything is an item なのだろう。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">New-Item</span> <span class="pre">-Path</span> <em><span class="pre">target</span></em> <span class="pre">-ItemType</span> <span class="pre">Directory</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">New-Item</span> <span class="pre">-Path</span> <em><span class="pre">target</span></em> <span class="pre">-ItemType</span> <span class="pre">File</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Rename-Item</span></code> は移動不能の名前変更</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Rename-Item</span> <span class="pre">-Path</span> <em><span class="pre">source</span></em> <em><span class="pre">target</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Move-Item</span> <span class="pre">-Path</span> <em><span class="pre">source</span></em> <span class="pre">-Destination</span> <em><span class="pre">target</span></em> <span class="pre">-PassThru</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Copy-Item</span> <span class="pre">-Path</span> <em><span class="pre">source</span></em> <span class="pre">-Destination</span> <em><span class="pre">target</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Copy-Item</span> <span class="pre">-Path</span> <em><span class="pre">source</span></em> <span class="pre">-Destination</span> <em><span class="pre">target</span></em> <span class="pre">-Recurse</span> <span class="pre">-Force</span> <span class="pre">-Passthru</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Remove-Item</span> <em><span class="pre">path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Remove-Item</span> <em><span class="pre">path</span></em> <span class="pre">-Recurse</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Invoke-Item</span></code> は Win32 API で言う <code class="docutils literal notranslate"><span class="pre">ShellExecute</span></code> と同等</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ii</span> <span class="pre">.</span></code>: 現在フォルダーを Explorer で開く</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-ChildItem</span></code> は UNIX の <strong class="program">ls</strong> に相当</p>
+<ul>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-Name</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-Force</span> <span class="pre">-Recurse</span></code> 隠し項目をも出力</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Path</span> <span class="pre">*</span> <span class="pre">-Include</span> <em><span class="pre">glob</span></em></code> マッチのみ出力</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Path</span> <span class="pre">*</span> <span class="pre">-Exclude</span> <em><span class="pre">glob</span></em></code> マッチを除外</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="get-command-noun-itemproperty">
+<h3><a class="toc-backref" href="#id75" role="doc-backlink">項目性質 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Noun</span> <span class="pre">ItemProperty</span></code>)</a><a class="headerlink" href="#get-command-noun-itemproperty" title="Permalink to this heading">¶</a></h3>
+<p>レジストリー操作で用いることが多い。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ItemProperty</span> <span class="pre">-Path</span> <em><span class="pre">registry-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ItemProperty</span> <span class="pre">-Path</span> <em><span class="pre">registry-path</span></em> <span class="pre">-Name</span> <em><span class="pre">key</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Set-ItemProperty</span> <span class="pre">-Path</span> <em><span class="pre">registry-path</span></em> <span class="pre">-Name</span> <em><span class="pre">key</span></em> <span class="pre">-Value</span> <em><span class="pre">value</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">New-ItemProperty</span> <span class="pre">-Path</span> <em><span class="pre">registry-path</span></em> <span class="pre">-Name</span> <em><span class="pre">key</span></em> <span class="pre">-PropertyType</span> <span class="pre">String</span> <span class="pre">-Value</span> <em><span class="pre">value</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Rename-ItemProperty</span> <span class="pre">-Path</span> <em><span class="pre">registry-path</span></em> <span class="pre">-Name</span> <em><span class="pre">old-key</span></em> <span class="pre">-NewName</span> <em><span class="pre">new-key</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Remove-ItemProperty</span> <span class="pre">-Path</span> <em><span class="pre">registry-path</span></em> <span class="pre">-Name</span> <em><span class="pre">key</span></em></code></p></li>
+</ul>
+</section>
+<section id="id32">
+<h3><a class="toc-backref" href="#id76" role="doc-backlink">プロセス</a><a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Process</span></code> で全項目表示</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Process</span> <span class="pre">-Name</span> <em><span class="pre">process</span></em></code> では <code class="samp docutils literal notranslate"><span class="pre">-Id</span> <em><span class="pre">pid</span></em></code> もあり得る（以下同様）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Process</span> <span class="pre">|</span> <span class="pre">Group-Object</span> <span class="pre">-Property</span> <span class="pre">Name</span> <span class="pre">-NoElement</span> <span class="pre">|</span> <span class="pre">Where-Object</span> <span class="pre">{$_.Count</span> <span class="pre">-gt</span> <span class="pre">1}</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Stop-Process</span> <span class="pre">-Name</span> <em><span class="pre">process</span></em> <span class="pre">-Confirm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Process</span> <span class="pre">|</span> <span class="pre">Where-Object</span> <span class="pre">-FilterScript</span> <span class="pre">{-not</span> <span class="pre">$_.Responding}</span> <span class="pre">|</span> <span class="pre">Stop-Process</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Start-Process</span> <span class="pre">-FilePath</span> <em><span class="pre">executable</span></em></code> は PATH が通っていれば OK</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Start-Process</span> <span class="pre">-FilePath</span> <em><span class="pre">executable</span></em> <span class="pre">-Wait</span> <span class="pre">-WindowStyle</span> <span class="pre">Maximized</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Start-Process</span> <em><span class="pre">process</span></em> <span class="pre">-Verb</span> <span class="pre">RunAs</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Start-Process</span> <span class="pre">-FilePath</span> <em><span class="pre">executable</span></em> <span class="pre">-ArgumentList</span> <em><span class="pre">arguments</span></em></code></p></li>
+</ul>
+</section>
+<section id="id33">
+<h3><a class="toc-backref" href="#id77" role="doc-backlink">サービス</a><a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
+<p>サービスを開発するときにあると便利な再起動スクリプトを作成するときの道具になる。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Service</span> <span class="pre">-DisplayName</span> <em><span class="pre">service</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em> <span class="pre">-RequiredServices</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em> <span class="pre">-DependentServices</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Stop-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Start-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Suspend-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Restart-Service</span> <span class="pre">-Name</span> <em><span class="pre">service</span></em></code></p></li>
+<li><p>TODO: Set-Service</p></li>
+</ul>
+</section>
+<section id="get-command-verb-out">
+<h3><a class="toc-backref" href="#id78" role="doc-backlink">出力先 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Verb</span> <span class="pre">Out</span></code>)</a><a class="headerlink" href="#get-command-verb-out" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-Null</span></code>: 出力を捨てる</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-Default</span></code>: パイプラインの最後に来る暗黙の出力コマンドと考えられる</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-Host</span> <span class="pre">|</span> <span class="pre">-Paging</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-Printer</span> <span class="pre">-Name</span> <em><span class="pre">printer-name</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-File</span> <span class="pre">-Path</span> <em><span class="pre">output-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-File</span> <span class="pre">-Path</span> <em><span class="pre">output-path</span></em> <span class="pre">-Width</span> <em><span class="pre">columns</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-GridView</span></code>: 数ソート不能</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Out-String`</span></code>: 今のところ用途不明</p></li>
+</ul>
+</section>
+<section id="get-command-noun-location">
+<h3><a class="toc-backref" href="#id79" role="doc-backlink">作業場所 (<code class="docutils literal notranslate"><span class="pre">Get-Command</span> <span class="pre">-Noun</span> <span class="pre">Location</span></code>)</a><a class="headerlink" href="#get-command-noun-location" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Location</span></code> は Bash で言う <strong class="command">pwd</strong> に相当</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Set-Location</span></code> は Bash で言う <strong class="command">cd</strong> に相当</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Set-Location</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Push-Location</span></code>, <code class="docutils literal notranslate"><span class="pre">Pop-Location</span></code> はそれぞれ <strong class="command">pushd</strong>,
+<strong class="command">popd</strong> に相当</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Bash <strong class="command">dirs</strong> 相当が不明。</p>
+</div>
+</section>
+<section id="id34">
+<h3><a class="toc-backref" href="#id80" role="doc-backlink">キーバインド</a><a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-PSReadLineKeyHandler</span></code> または <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">?</kbd> で確認</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Set-PSReadLineKeyHandler</span> <span class="pre">-Key</span> <span class="pre">Tab</span> <span class="pre">-Function</span> <span class="pre">MenuComplete</span></code> で補完を少し楽に</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-PSReadLineOption</span></code> でオプション設定値を確認</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Set-PSReadLineOption</span> <span class="pre">-EditMode</span> <span class="pre">Emacs</span></code> で Bash に近いキーバインドに変更（プロファイルに書いておく）</p></li>
+</ul>
+</section>
+<section id="id35">
+<h3><a class="toc-backref" href="#id81" role="doc-backlink">命令履歴</a><a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_History</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-History</span></code> または <code class="docutils literal notranslate"><span class="pre">h</span></code> で Bash で言う <strong class="command">history</strong> 相当を行う</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Clear-History</span></code> で自身の実行までの履歴すべてを削除</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Clear-History</span> <span class="pre">-Count</span> <em><span class="pre">num</span></em> <span class="pre">-Newest</span></code> 直近 <em>num</em> 個を履歴から削除</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Clear-History</span> <span class="pre">-CommandLine</span> <em><span class="pre">pattern</span></em></code> 指定パターン命令を履歴から削除</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Clear-History</span> <span class="pre">-Id</span> <em><span class="pre">id</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Clear-History</span> <span class="pre">-Id</span> <em><span class="pre">id</span></em> <span class="pre">-Count</span> <em><span class="pre">num</span></em></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Invoke-History</span></code> 過去の命令を再実行する</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Invoke-History</span> <span class="pre">-Id</span> <em><span class="pre">id-or-part</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">first-id</span></em><span class="pre">..</span><em><span class="pre">last-id</span></em> <span class="pre">|</span> <span class="pre">ForEach</span> <span class="pre">{Invoke-History</span> <span class="pre">-Id</span> <span class="pre">$_</span> <span class="pre">}</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-History</span> <span class="pre">-Id</span> <em><span class="pre">id</span></em> <span class="pre">-Count</span> <em><span class="pre">num</span></em> <span class="pre">|</span> <span class="pre">ForEach</span> <span class="pre">{Invoke-History</span> <span class="pre">-Id</span> <span class="pre">$_.Id}</span></code></p></li>
+<li><p>余裕があれば <code class="docutils literal notranslate"><span class="pre">Add-History</span></code> の活用を考える</p></li>
+</ul>
+</section>
+<section id="id36">
+<h3><a class="toc-backref" href="#id82" role="doc-backlink">ファイル入出力</a><a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Get-Content</span></code>, 別名 <code class="docutils literal notranslate"><span class="pre">cat</span></code> はファイルの内容をコンソールに出力するのに使える。ファイルの内容からオブジェクトを作成するのが本来の仕事なのだろう。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cat</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cat</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-TotalCount</span> <em><span class="pre">num</span></em></code>: UNIX で言う <code class="samp docutils literal notranslate"><span class="pre">head</span> <span class="pre">-n</span> <em><span class="pre">num</span></em> <em><span class="pre">path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cat</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-Tail</span> <em><span class="pre">num</span></em></code>: UNIX で言う <code class="samp docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-n</span> <em><span class="pre">num</span></em> <em><span class="pre">path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cat</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-Raw</span></code>: 単一の文字列として得る</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">byteArray</span></em> <span class="pre">=</span> <span class="pre">cat</span> <span class="pre">-Path</span> <em><span class="pre">path</span></em> <span class="pre">-AsByteStream</span> <span class="pre">-Raw</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Set-Content</span></code> はファイルの中身を上書きする。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Set-Content</span> <span class="pre">-Path</span> <em><span class="pre">path</span> <span class="pre">...</span></em> <span class="pre">-Value</span> <em><span class="pre">text</span></em></code>: 指定したファイルすべてを上書き</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Set-Content</span> <span class="pre">-Path</span> <em><span class="pre">path</span> <span class="pre">...</span></em> <span class="pre">-Value</span> <span class="pre">(</span><em><span class="pre">command</span></em><span class="pre">)</span></code></p></li>
+</ul>
+<p>さらに <code class="docutils literal notranslate"><span class="pre">Add-Content</span></code>, 別名 <code class="docutils literal notranslate"><span class="pre">ac</span></code> はファイルの終端から内容を追加する。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">ac</span> <span class="pre">-Path</span> <em><span class="pre">path</span> <span class="pre">...</span></em> <span class="pre">-Value</span> <em><span class="pre">object</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cat</span> <span class="pre">-Path</span> <em><span class="pre">source-path</span></em> <span class="pre">|</span> <span class="pre">ac</span> <span class="pre">-Path</span> <em><span class="pre">target-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">ac</span> <span class="pre">-Path</span> <em><span class="pre">target-path</span></em> <span class="pre">-Value</span> <span class="pre">(cat</span> <span class="pre">-Path</span> <em><span class="pre">source-path</span></em><span class="pre">)</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Clear-Content</span></code>, 別名 <code class="docutils literal notranslate"><span class="pre">clc</span></code> はファイルの中身を空にする。</p>
+</section>
+<section id="id37">
+<h3><a class="toc-backref" href="#id83" role="doc-backlink">出力ストリーム</a><a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Output_Streams</span></code> を読め。</p>
+<p>出力ストリームはログレベルのように種類があり、それぞれに Write 命令が対応する設計であるようだ：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>番号</p></th>
+<th class="head"><p>ストリーム</p></th>
+<th class="head"><p>命令</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>SUCCESS</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Output</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>ERROR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Error</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>WARNING</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Warning</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>VERBOSE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Verbose</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>DEBUG</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Debug</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>INFORMATION</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Information</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>n/a</p></td>
+<td><p>PROGRESS</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Write-Progress</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">Write-Output</span></code> は必ずしも画面に表示するわけではない。</p>
+</section>
+<section id="id38">
+<h3><a class="toc-backref" href="#id84" role="doc-backlink">リダイレクト</a><a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Redirection</span></code> を読め。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Out-File</span></code> でファイルに出力</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tee-Object</span></code> でファイルとパイプラインの両方に出力</p></li>
+<li><p>演算子によるリダイレクト</p>
+<ul>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">n</span></em><span class="pre">&gt;</span></code> でストリーム <em>n</em> をファイルに書き込む</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">n</span></em><span class="pre">&gt;&gt;</span></code> でストリーム <em>n</em> をファイル末尾に書き込む</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">n</span></em><span class="pre">&gt;&amp;1</span></code> でストリーム <em>n</em> を成功ストリームにつなぐ</p>
+<ul>
+<li><p>E.g. <code class="docutils literal notranslate"><span class="pre">2&gt;&amp;1</span></code> でエラー出力を成功出力にリダイレクト</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*&gt;</span></code> でストリームすべてをファイルにリダイレクト</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id39">
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">クリップボード</a><a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Get-Clipboard</span></code> でクリップボードからデータを受け取る。WSL のシェル環境で利用することになる：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">getclip</span><span class="o">=</span><span class="s1">&#39;/path/to/pwsh.exe -noprofile -command Get-Clipboard&#39;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Set-Clipboard</span></code> も存在するが、WSL では <strong class="program">iconv</strong> をインストールしているので敢えて使わなくていい：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">putclip</span><span class="o">=</span><span class="s1">&#39;iconv -f utf-8 -t utf-16le | clip.exe&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="select-string">
+<h3><a class="toc-backref" href="#id86" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">Select-String</span></code>: 文字列検索</a><a class="headerlink" href="#select-string" title="Permalink to this heading">¶</a></h3>
+<p>UNIX の <strong class="program">grep</strong> のようなことをするには <code class="docutils literal notranslate"><span class="pre">Select-String</span></code> を用いる。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">text</span></em> <span class="pre">|</span> <span class="pre">Select-String</span> <span class="pre">-Pattern</span> <em><span class="pre">literal</span></em> <span class="pre">-CaseSensitive</span> <span class="pre">-SimpleMatch</span></code>: <strong class="program">fgrep</strong> 相当</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Select-String</span> <span class="pre">-Path</span> <em><span class="pre">path</span> <span class="pre">...</span></em> <span class="pre">-Pattern</span> <em><span class="pre">regex</span></em></code>: 典型的 <strong class="program">grep</strong></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-WinEvent</span> <em><span class="pre">args</span></em> <span class="pre">|</span> <span class="pre">Select-String</span> <span class="pre">-InputObject</span> <em><span class="pre">$_.message</span></em> <span class="pre">-Pattern</span> <em><span class="pre">regex</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-ChildItem</span> <span class="pre">-Path</span> <em><span class="pre">path</span> <span class="pre">...</span></em> <span class="pre">-Recurse</span> <span class="pre">|</span> <span class="pre">Select-String</span> <span class="pre">-Pattern</span> <em><span class="pre">regex</span></em> <span class="pre">-CaseSensitive</span></code>: <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-R</span></code> 相当</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">text</span></em> <span class="pre">|</span> <span class="pre">Select-String</span> <span class="pre">-Pattern</span> <em><span class="pre">regex</span> <span class="pre">...</span></em> <span class="pre">-NotMatch</span></code>: <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-v</span></code> 相当</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">text</span></em> <span class="pre">|</span> <span class="pre">Select-String</span> <span class="pre">-Pattern</span> <em><span class="pre">regex</span> <span class="pre">...</span></em> <span class="pre">-Context</span> <span class="pre">2,</span> <span class="pre">3</span></code>: <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-B</span> <span class="pre">2</span> <span class="pre">-A</span> <span class="pre">3</span></code> 相当</p></li>
+</ul>
+</section>
+<section id="id40">
+<h3><a class="toc-backref" href="#id87" role="doc-backlink">テキストベースデータ変換</a><a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h3>
+<p>PowerShell では CSV や JSON データなどを追加的モジュールのインポートなしに処理可能だ。</p>
+<section id="csv">
+<h4>CSV<a class="headerlink" href="#csv" title="Permalink to this heading">¶</a></h4>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">ConvertFrom-Csv</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertFrom-Csv</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">ConvertFrom-Csv</span> <span class="pre">-InputObject</span> <em><span class="pre">object</span></em> <span class="pre">-Delimiter</span> <span class="pre">'</span><em><span class="pre">character</span></em><span class="pre">'</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertFrom-Csv</span> <span class="pre">-Header</span> <em><span class="pre">header</span></em></code> ここで <em>header</em> は列名からなる配列</p></li>
+</ul>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">ConvertTo-Csv</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Csv</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Csv</span> <span class="pre">-Delimiter</span> <em><span class="pre">character</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Csv</span> <span class="pre">-NoTypeInformation</span></code> 高速化するわけではなさそうだ</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">ConvertTo-Csv</span> <span class="pre">-InputObject</span> <em><span class="pre">object</span></em> <span class="pre">-Delimiter</span> <em><span class="pre">character</span></em> <span class="pre">-NoTypeInformation</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Csv</span> <span class="pre">-QuoteFields</span> <em><span class="pre">field-name</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Csv</span> <span class="pre">-UseQuotes</span> <span class="pre">AsNeeded</span></code> 一貫性を気にしないのなら</p></li>
+</ul>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">Export-Csv</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">epcsv</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Export-Csv</span> <span class="pre">-Path</span> <em><span class="pre">output-path</span></em> <span class="pre">-NoTypeInformation</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Export-Csv</span> <span class="pre">-Path</span> <em><span class="pre">output-path</span></em> <span class="pre">-NoTypeInformation</span> <span class="pre">-Append</span></code></p></li>
+<li><p>オプション <code class="docutils literal notranslate"><span class="pre">-QuoteFields</span></code>, <code class="docutils literal notranslate"><span class="pre">-UseQuotes</span></code> が使える</p></li>
+</ul>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">Import-Csv</span></code> a.k.a. <code class="docutils literal notranslate"><span class="pre">ipcsv</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">csv</span></em> <span class="pre">=</span> <span class="pre">Import-Csv</span> <span class="pre">-Path</span> <em><span class="pre">input-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Import-Csv</span> <span class="pre">-Path</span> <em><span class="pre">input-path</span></em> <span class="pre">-Delimiter</span> <em><span class="pre">character</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Import-Csv</span> <span class="pre">-Path</span> <em><span class="pre">input-path</span></em> <span class="pre">-Header</span> <em><span class="pre">header</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Import-Csv</span> <span class="pre">-Path</span> <em><span class="pre">input-path</span></em> <span class="pre">-Header</span> <em><span class="pre">column-name</span> <span class="pre">...</span></em></code></p></li>
+</ul>
+</section>
+<section id="json">
+<h4>JSON<a class="headerlink" href="#json" title="Permalink to this heading">¶</a></h4>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">ConvertFrom-Json</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Get-Content</span> <span class="pre">-Raw</span> <em><span class="pre">input-path</span></em> <span class="pre">|</span> <span class="pre">ConvertFrom-Json</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">json</span></em> <span class="pre">|</span> <span class="pre">ConvertFrom-Json</span> <span class="pre">-AsHashtable</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">json</span></em> <span class="pre">|</span> <span class="pre">ConvertFrom-Json</span> <span class="pre">-NoEnumerate</span></code></p></li>
+</ul>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">ConvertTo-Json</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Json</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Json</span> <span class="pre">-AsArray</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Json</span> <span class="pre">-Compress</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Date</span> <span class="pre">|</span> <span class="pre">Select-Object</span> <span class="pre">-Property</span> <span class="pre">*</span> <span class="pre">|</span> <span class="pre">ConvertTo-Json</span></code></p></li>
+</ul>
+</section>
+<section id="xml">
+<h4>XML<a class="headerlink" href="#xml" title="Permalink to this heading">¶</a></h4>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">ConvertTo-Xml</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Xml</span></code> パイプ用</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Xml</span> <span class="pre">-As</span> <span class="pre">String</span></code> テキストダンプ用</p></li>
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">ConvertTo-Xml</span> <span class="pre">-As</span> <span class="pre">&quot;Document&quot;</span> <span class="pre">-Depth</span> <em><span class="pre">num</span></em></code></p></li>
+</ul>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">Export-Clixml</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Export-Clixml</span></code> はオブジェクトの CommonLanguage Infrastructure XML に基づく表現をファイルに保存する。疑似 XML と考えて差し支えなさそうだ。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><em><span class="pre">object</span></em> <span class="pre">|</span> <span class="pre">Export-Clixml</span> <span class="pre">-Path</span> <em><span class="pre">output-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">Credential</span></em> <span class="pre">|</span> <span class="pre">Export-Clixml</span> <em><span class="pre">output-path</span></em></code></p></li>
+</ul>
+<p class="rubric"><code class="docutils literal notranslate"><span class="pre">Import-Clixml</span></code></p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">Clixml</span></em> <span class="pre">=</span> <span class="pre">Import-Clixml</span> <span class="pre">-Path</span> <em><span class="pre">output-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">Credential</span></em> <span class="pre">=</span> <span class="pre">Import-Clixml</span> <em><span class="pre">input-path</span></em></code></p></li>
+</ul>
+</section>
+</section>
+<section id="id41">
+<h3><a class="toc-backref" href="#id88" role="doc-backlink">便利な命令</a><a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Date</span></code>: 日付を得る</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Date</span> <span class="pre">-UFormat</span> <span class="pre">&quot;%Y-%m-%d</span> <span class="pre">(%A)</span> <span class="pre">%T&quot;</span></code>: 時計</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Date</span> <span class="pre">-Format</span> <span class="pre">o</span> <span class="pre">|</span> <span class="pre">foreach</span> <span class="pre">{</span> <span class="pre">$_</span> <span class="pre">-replace</span> <span class="pre">&quot;:&quot;,</span> <span class="pre">&quot;.&quot;</span> <span class="pre">}</span></code>: タイムスタンプ</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Random</span></code>: 乱数を得たり選んだりする</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Random</span> <span class="pre">-Minimum</span> <span class="pre">1</span> <span class="pre">-Maximum</span> <span class="pre">7</span></code>: サイコロ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1..6</span> <span class="pre">|</span> <span class="pre">Get-Random</span></code>: サイコロ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Random</span> <span class="pre">-Minimum</span> <span class="pre">10.7</span> <span class="pre">-Maximum</span> <span class="pre">20.93</span></code>: 浮動小数点数も OK</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">8,</span> <span class="pre">13</span> <span class="pre">|</span> <span class="pre">Get-Random</span> <span class="pre">-Count</span> <span class="pre">3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">8,</span> <span class="pre">13</span> <span class="pre">|</span> <span class="pre">Get-Random</span> <span class="pre">-Shuffle</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Show-Markdown</span></code>: Markdown ファイルをコンソール内に描画するかも</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Invoke-RestMethod</span></code>: RSS, ATOM を含む XML や JSON を処理するのに使える</p>
+<ul>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Invoke-RestMethod</span> <span class="pre">https://www.youtube.com/feeds/videos.xml?channel_id=</span><em><span class="pre">id</span></em> <span class="pre">|</span> <span class="pre">Out-GridView</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Invoke-RestMethod</span> <span class="pre">https://blogs.msdn.microsoft.com/powershell/feed/</span> <span class="pre">|</span> <span class="pre">Format-Table</span> <span class="pre">-Property</span> <em><span class="pre">prop</span> <span class="pre">...</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">Invoke-RestMethod</span> <span class="pre">-Method</span> <span class="pre">'Post'</span> <span class="pre">-Uri</span> <em><span class="pre">url</span></em> <span class="pre">-Credential</span> <em><span class="pre">cred</span></em> <span class="pre">-Body</span> <em><span class="pre">body</span></em> <span class="pre">-OutFile</span> <em><span class="pre">output-path</span></em></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">resonse</span></em> <span class="pre">=</span> <span class="pre">Invoke-RestMethod</span> <span class="pre">-Uri</span> <em><span class="pre">url</span></em> <span class="pre">-Method</span> <span class="pre">Post</span> <span class="pre">-Form</span> <em><span class="pre">form</span></em></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Invoke-WebRequest</span></code></p>
+<ul>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">$</span><em><span class="pre">response</span></em> <span class="pre">=</span> <span class="pre">Invoke-WebRequest</span> <span class="pre">-uri</span> <em><span class="pre">url</span></em></code>: 得られるオブジェクトの属性が重要</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="gui">
+<h3><a class="toc-backref" href="#id89" role="doc-backlink">GUI</a><a class="headerlink" href="#gui" title="Permalink to this heading">¶</a></h3>
+<p><code class="samp docutils literal notranslate"><span class="pre">Add-Type</span> <span class="pre">-AssemblyName</span> <em><span class="pre">assembly</span></em></code> で .NET Framework クラスを利用可能になる。これを利用して GUI を実現することが可能だ。</p>
+<div class="highlight-pwsh notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-Type</span> <span class="n">-AssemblyName</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span>
+<span class="nb">Add-Type</span> <span class="n">-AssemblyName</span> <span class="n">System</span><span class="p">.</span><span class="n">Drawing</span>
+
+<span class="nv">$form</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">Windows</span><span class="p">.</span><span class="n">Forms</span><span class="p">.</span><span class="n">Form</span> <span class="n">-Property</span> <span class="p">@{</span>
+    <span class="n">StartPosition</span> <span class="p">=</span> <span class="no">[Windows.Forms.FormStartPosition]</span><span class="p">::</span><span class="n">CenterScreen</span>
+    <span class="n">Size</span>          <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">Drawing</span><span class="p">.</span><span class="n">Size</span> <span class="n">243</span><span class="p">,</span> <span class="n">260</span>
+    <span class="n">Text</span>          <span class="p">=</span> <span class="s1">&#39;Hello world&#39;</span>
+    <span class="n">Topmost</span>       <span class="p">=</span> <span class="nv">$true</span>
+<span class="p">}</span>
+
+<span class="c"># ...</span>
+
+<span class="nv">$result</span> <span class="p">=</span> <span class="nv">$form</span><span class="p">.</span><span class="n">ShowDialog</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id42">
+<h3><a class="toc-backref" href="#id90" role="doc-backlink">配列とハッシュ表</a><a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Arrays</span></code> と <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">about_Hash_Tables</span></code> を読め。Python や JavaScript
+の文法と似ている気がするから急所だけ覚えればいい。生成方法だけ覚えておき、要素参照やメソッドは補完機能を使えばやっているうちに覚える。たぶん .NET Framework のインターフェイスと同一だろう。</p>
+<p class="rubric">配列の生成方法</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$A</span> <span class="pre">=</span> <span class="pre">22,5,10,8,12,9,80</span></code>: 要素すべてを指定して生成する例</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$B</span> <span class="pre">=</span> <span class="pre">,7</span></code>: 単一要素を指定して生成する例</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$C</span> <span class="pre">=</span> <span class="pre">5..8</span></code>: Bash 風</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[int32[]]$ia</span> <span class="pre">=</span> <span class="pre">1500,2230,3350,4000</span></code>: 明示的に型を指定する例</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$a</span> <span class="pre">=</span> <span class="pre">&#64;(&quot;Hello</span> <span class="pre">World&quot;)</span></code>: 単一要素を指定して生成する例</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$b</span> <span class="pre">=</span> <span class="pre">&#64;()</span></code>: 空配列を生成する例</p></li>
+</ul>
+<p class="rubric">ハッシュ表の生成方法</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$hash</span> <span class="pre">=</span> <span class="pre">&#64;{}</span></code>: 空ハッシュ表を生成する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$hash</span> <span class="pre">=</span> <span class="pre">&#64;{</span> <span class="pre">Number</span> <span class="pre">=</span> <span class="pre">1;</span> <span class="pre">Shape</span> <span class="pre">=</span> <span class="pre">&quot;Square&quot;;</span> <span class="pre">Color</span> <span class="pre">=</span> <span class="pre">&quot;Blue&quot;}</span></code>: 中身を指定して生成する例</p></li>
+</ul>
+</section>
+</section>
+<section id="powershell-gallery">
+<h2><a class="toc-backref" href="#id91" role="doc-backlink">PowerShell Gallery</a><a class="headerlink" href="#powershell-gallery" title="Permalink to this heading">¶</a></h2>
+<div class="admonition-todo admonition" id="id43">
+<p class="admonition-title">Todo</p>
+<p>便利なモジュール、スクリプトを発見できたら記す。</p>
+</div>
+</section>
+<section id="id44">
+<h2><a class="toc-backref" href="#id92" role="doc-backlink">情報源</a><a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h2>
+<dl>
+<dt><a class="reference external" href="https://learn.microsoft.com/en-us/powershell/">PowerShell Documentation - PowerShell</a></dt><dd><p>本ノートではこの文書群を PowerShell の基本情報源であるとする。</p>
+<p>PowerShell をインストールしたら <a class="reference external" href="https://learn.microsoft.com/en-us/powershell/scripting/learn/ps101/00-introduction?view=powershell-7.3">PowerShell 101</a>
+から読んでもいいかもしれない。</p>
+</dd>
+<dt>Microsoft Learn</dt><dd><p>PowerShell を習得するための訓練がいくつかある。アカウントを持っていたらログインしてからページを閲覧して経験値を上げるのがよい。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/training/paths/get-started-windows-powershell/">Get started with Windows PowerShell</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/training/paths/work-powershell-providers-powershell-drives-windows-powershell/">Work with PowerShell providers and PowerShell drives in Windows PowerShell</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/training/paths/create-manage-background-jobs-scheduled-windows-powershell/">Create and manage background jobs and scheduled jobs in Windows PowerShell</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/training/paths/use-variables-arrays-hash-tables-windows-powershell/">Use variables, arrays, and hash tables in Windows PowerShell scripts</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/training/paths/work-windows-powershell-pipeline/">Work with the Windows PowerShell pipeline</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/training/paths/create-modify-script-use-windows-powershell/">Create and modify scripts by using Windows PowerShell</a></p></li>
+</ul>
+<p>初級者向けの内容を見つけるのが難しかった。コマンドラインを実行するとエラーになるものが複数あり、それぞれ原因がバラバラで解決するのに手間だった。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration?view=powershell-7.3">Sample scripts for system administration - PowerShell</a></p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://stackoverflow.com/questions/tagged/powershell?tab=Votes">Highest scored ‘powershell’ questions - Stack Overflow</a></dt><dd><p>評価の高い質問を順に読んでいくといいことがありそうだ。</p>
+</dd>
+<dt><a class="reference external" href="https://stackoverflow.com/questions/43144008/copy-to-clipboard-using-bash-for-windows/">command line - Copy to clipboard using Bash for Windows - Stack Overflow</a></dt><dd><p>PowerShell 調査のついでに発見。</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/dlwyatt/WinFormsExampleUpdates">GitHub - dlwyatt/WinFormsExampleUpdates: Updates to make TechNet PowerShell Windows Forms examples compatible with PowerShell 3.0 and later</a></dt><dd><p>GUI デモスクリプト四つ。</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="bash-v5.html" title="Previous document">What’s New In Bash 5 ノート</a>
+        </li>
+        <li>
+          <a href="cpp11/index.html" title="Next document">What’s New In C++11 ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
