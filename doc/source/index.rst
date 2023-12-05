@@ -125,6 +125,18 @@
    python-miniconda
 
 .. toctree::
+   :caption: データベース
+   :maxdepth: 1
+
+   database/firebird
+   database/sqlite
+   database/couchdb
+   database/mongodb
+   database/orientdb
+   database/neo4j
+   database/dynamodb
+
+.. toctree::
    :caption: ソフトウェア・ツール・パッケージ・ライブラリーノート
    :maxdepth: 1
 
@@ -163,4 +175,5 @@
    :caption: テーマ別
    :maxdepth: 1
 
+   /database
    /javascript
