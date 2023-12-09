@@ -1041,7 +1041,8 @@ Mailing Address の項目部分を
 
 <https://search.google.com/test/rich-results> と思われる。本書のコードを試すこと
 は可能だ。しかし、語彙が廃止されているためだと思われるが、芳しい結果にはならな
-い。
+い。検証ツールは `Schema.org <https://validator.schema.org/>`__ Validator がわか
+りやすい。
 
    誰かが「Mark Pilgrim」を検索し、 **かつ** Google がこの「about me」ページを検
    索結果に含めようと判断し、 **かつ** Google がそのページにもともとあったマイク
