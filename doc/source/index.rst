@@ -152,6 +152,7 @@
    hxutils
    webgl
    pandoc
+   yaml
    zoom
 
 .. toctree::
