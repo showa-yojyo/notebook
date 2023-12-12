@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>YAML 学習ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=20d9222b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Zoom Cloud Meetings 利用ノート" href="zoom.html" />
+    <link rel="prev" title="Pandoc 利用ノート" href="pandoc.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="pandoc.html" title="Previous document">Pandoc 利用ノート</a>
+        </li>
+        <li>
+          <a href="zoom.html" title="Next document">Zoom Cloud Meetings 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="yaml">
+<h1><a class="toc-backref" href="#id7" role="doc-backlink">YAML 学習ノート</a><a class="headerlink" href="#yaml" title="Permalink to this heading">¶</a></h1>
+<p>Jekyll や GitHub Actions など、構成ファイルを YAML 形式で記述する機会が増えてきている。人間が書きやすい書式ということだが、私が最初これを編集したときにコレクション値の記述法に混乱して当惑した記憶がある。そこでノートを取ろうとしたのだが、確認すると世の中にすでに良い記事があり、それらをすぐに参照できるようにしておくのが最善と判断した。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#yaml" id="id7">YAML 学習ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id8">教材</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id9">ツール</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id10">オンラインツール</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id11">エディター拡張</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id12">コマンドラインインターフェイス</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id13">仕様</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id1">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">教材</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>教材が示す YAML コード片を後述の YAML Viewer に与えながら構文の癖を理解すると良いようだ。YAML のバージョンがそこそこ重要だ。</p>
+<dl>
+<dt><a class="reference external" href="https://www.tutorialspoint.com/yaml/index.htm">YAML Tutorial</a></dt><dd><p>Tutorials Point によるチュートリアル。一部、Viewer を通らないコードがあるが、少しの修正で整形式になる場合がある。こういう修正が学習になる。</p>
+</dd>
+<dt><a class="reference external" href="https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started">YAML Tutorial: Everything You Need to Get Started in Minutes | Cloudbees Blog</a></dt><dd><p>Python で YAML を扱う方法を述べている。コードが少々壊れているので読者が直す。これも学習だ。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">load</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">CLoader</span> <span class="k">as</span> <span class="n">Loader</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">Loader</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;foo.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">dictionary</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">Loader</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>上位互換スクリプトである二つ目の <code class="docutils literal notranslate"><span class="pre">load_all</span></code> のほうも同様に修正すれば動作する。</p>
+</dd>
+<dt><a class="reference external" href="https://spacelift.io/blog/yaml">YAML Tutorial: A Complete Language Guide with Examples</a></dt><dd><p>叙述がスマートな感じがして安心して読める。スキーマの概念をよく説明できている。</p>
+</dd>
+<dt><a class="reference external" href="https://saarthakmaini.hashnode.dev/mastering-yaml-a-comprehensive-guide-to-yaml-files">Mastering YAML: A Comprehensive Guide To YAML files</a></dt><dd><p>YAML が簡潔に要約されている。コード例の <code class="docutils literal notranslate"><span class="pre">!!</span></code> を含むものを Viewer に通るように修正する方法がわからない。</p>
+</dd>
+<dt><a class="reference external" href="https://www.noobgeek.in/blogs/mastering-yaml-files-a-step-by-step-guide">Mastering YAML Files: A Step-by-Step Guide</a></dt><dd><p>どちらかと言えば文章主体である骨太の記事。</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">ツール</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">オンラインツール</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt><a class="reference external" href="https://www.yamllint.com/">YAMLlint - The YAML Validator</a></dt><dd><p>入力欄に YAML コードを貼り付けて <span class="guilabel">Go</span> ボタンを押すと、内容が valid
+か否かを示すサービスだ。単純にして明瞭だ。</p>
+</dd>
+<dt><a class="reference external" href="https://jsonformatter.org/yaml-viewer">Best YAML Viewer Online</a></dt><dd><p>左ペインに YAML を入力すると右ペインにツリーを出力するオンラインサービス。きわめて有用。</p>
+</dd>
+<dt><a class="reference external" href="https://www.json2yaml.com/">json2yaml.com</a></dt><dd><p>左ペインに JSON を入力すると右ペインに等価 YAML を出力するオンラインサービス。</p>
+</dd>
+<dt><a class="reference external" href="https://yaml-online-parser.appspot.com/">Online YAML Parser</a></dt><dd><p>左ペインまたは指定 URL にある YAML コードを入力とし、右ペインにそれと等価な次のいずれかのコードを出力するオンラインサービスだ：</p>
+<ul class="simple">
+<li><p>JSON</p></li>
+<li><p>Python</p></li>
+<li><p>正典 YAML</p></li>
+</ul>
+</dd>
+</dl>
+<p>差し当たり上記のものをブックマークしておけば十分だろう。</p>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">エディター拡張</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt><a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-yaml">learn-yaml - Visual Studio Marketplace</a></dt><dd><p>VS Code 拡張で <code class="docutils literal notranslate"><span class="pre">YAML</span></code> を検索すると人気第二位のものだ。編集中に構文・スキーマ検査を行うのが便利だ。</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">コマンドラインインターフェイス</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<dl>
+<dt><a class="reference external" href="https://github.com/mikefarah/yq">mikefarah/yq: yq is a portable command-line YAML, JSON, XML, CSV, TOML and properties processor</a></dt><dd><p>README の記述から <strong class="command">jq</strong> の上位互換を目指すものであることが期待できる。インストールには Homebrew が使用可能。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>yq<span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span>foo.yaml
+<span class="go">foo: bar</span>
+<span class="go">pleh: help</span>
+<span class="go">stuff:</span>
+<span class="go">  foo: bar</span>
+<span class="go">  bar: foo</span>
+<span class="gp">$ </span>yq<span class="w"> </span><span class="s1">&#39;.stuff&#39;</span><span class="w"> </span>foo.yaml
+<span class="go">foo: bar</span>
+<span class="go">bar: foo</span>
+<span class="gp">$ </span>yq<span class="w"> </span><span class="s1">&#39;.stuff.bar&#39;</span><span class="w"> </span>foo.yaml
+<span class="go">foo</span>
+<span class="gp">$ </span>yq<span class="w"> </span><span class="s1">&#39;.[] | select(.foo == &quot;bar&quot;)&#39;</span><span class="w"> </span>foo.yaml
+<span class="go">foo: bar</span>
+<span class="go">bar: foo</span>
+<span class="gp">$ </span>yq<span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span>documents.yaml
+<span class="go">bar: foo</span>
+<span class="go">foo: bar</span>
+<span class="go">---</span>
+<span class="go">one: two</span>
+<span class="go">three: four</span>
+<span class="gp">$ </span>yq<span class="w"> </span><span class="s1">&#39;.one&#39;</span><span class="w"> </span>documents.yaml
+<span class="go">null</span>
+<span class="go">---</span>
+<span class="go">two</span>
+</pre></div>
+</div>
+</dd>
+<dt><a class="reference external" href="https://pyyaml.org/">pyyaml.org</a></dt><dd><p>Python で YAML を取り扱うためのパッケージは標準には今のところないので、こういうものを <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> しておくといい。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">仕様</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="https://yaml.org/">The Official YAML Web Site</a></dt><dd><p>上述の教科書で正とされている YAML コードが各種ツールで不正とみなされるときに、ここから仕様書を探して確認するのに使う。</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="pandoc.html" title="Previous document">Pandoc 利用ノート</a>
+        </li>
+        <li>
+          <a href="zoom.html" title="Next document">Zoom Cloud Meetings 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
