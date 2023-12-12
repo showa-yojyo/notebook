@@ -161,6 +161,10 @@ Sort フィルターを組み合わせる。検索入力例：
        <https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid>`__
      - Mermaid 図式コードを含む Markdown 文書をプレビューするときに、それを描画
        するための拡張だ。
+   * - `learn-yaml
+       <https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-yaml>`__
+     - YAML コードに関するコード片補完、スキーマ指定、構文検証各機能を備える拡
+       張だ。
    * - `Esbonio
        <https://marketplace.visualstudio.com/items?itemName=swyddfa.esbonio>`__
      - Sphinx を使うワークスペースで使えるかもしれない拡張だ。
