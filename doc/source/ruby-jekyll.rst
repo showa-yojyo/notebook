@@ -2,6 +2,8 @@
 Jekyll 利用ノート
 ======================================================================
 
+.. contents::
+
 .. note::
 
    .. code:: text
@@ -17,7 +19,15 @@ Jekyll 利用ノート
    :Jekyll: 4.3.2
    :Minima: 2.5.1
 
-.. contents::
+.. seealso::
+
+   * :doc:`/github/actions`
+   * :doc:`/github/pages`
+   * :doc:`/yaml`
+   * :doc:`/mathjax`
+   * :doc:`/javascript-mermaid/index`
+   * :doc:`/python-jinja2`
+   * :doc:`/python-sphinx`
 
 資料
 ======================================================================
@@ -206,10 +216,6 @@ Jekyll プラグインを追加または削除する場合、3. の ``do`` ... `
 構成ファイル :file:`_config.yaml` を編集する
 ----------------------------------------------------------------------
 
-.. seealso::
-
-   :doc:`/yaml`
-
 公式サイトの Configuration の章を確認しながら編集する。GitHub Pages に発行するこ
 とを念頭に値を設定する：
 
@@ -263,8 +269,6 @@ Markdown 関係の設定項目を固定する。``markdown: kramdown`` である
    ``line_width`` | テキストエディターの設定値に合わせる
    ``math_engine`` | 既定値だが ``mathjax`` を明示する
    ``remove_line_breaks_for_cjk`` | ``true``
-
-MathJax については :doc:`/mathjax` を記した時にけっこう調べた。
 
 オプション ``kramdown.remove_line_breaks_for_cjk`` については当ノートをまとめて
 いる過程で知った。エディターで編集するときに一行あたりのカラム数を固定しているの
