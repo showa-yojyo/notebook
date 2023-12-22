@@ -126,6 +126,12 @@
    python-miniconda
 
 .. toctree::
+   :caption: Ruby
+   :maxdepth: 1
+
+   ruby-jekyll
+
+.. toctree::
    :caption: ソフトウェア・ツール・パッケージ・ライブラリーノート
    :maxdepth: 1
 
