@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jekyll 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=20d9222b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Windows 用フリーウェア 利用ノート" href="freeware.html" />
+    <link rel="prev" title="Miniconda 利用ノート" href="python-miniconda.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-miniconda.html" title="Previous document">Miniconda 利用ノート</a>
+        </li>
+        <li>
+          <a href="freeware.html" title="Next document">Windows 用フリーウェア 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="jekyll">
+<h1><a class="toc-backref" href="#id18" role="doc-backlink">Jekyll 利用ノート</a><a class="headerlink" href="#jekyll" title="Permalink to this heading">¶</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#jekyll" id="id18">Jekyll 利用ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id19">資料</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id20">公式文書</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id21">教材</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id4" id="id22">Jekyll サイト用意手順</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id23">開発環境に対して一度きりの設定手順</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id24">Jekyll サイト仮設</a></p></li>
+<li><p><a class="reference internal" href="#gemfile" id="id25"><code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> を編集する</a></p></li>
+<li><p><a class="reference internal" href="#gemfile-lock" id="id26"><code class="file docutils literal notranslate"><span class="pre">Gemfile.lock</span></code> を更新する</a></p></li>
+<li><p><a class="reference internal" href="#config-yaml" id="id27">構成ファイル <code class="file docutils literal notranslate"><span class="pre">_config.yaml</span></code> を編集する</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id28">サーバー稼動</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id29">ページを追加する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id30">個人日記サイトの例</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id31">変数と値の一覧を確認するためのページを用意する</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id32">画像一覧ページを作成する</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#markdown" id="id33">Markdown に関するノート</a></p></li>
+<li><p><a class="reference internal" href="#liquid" id="id34">Liquid に関するノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id35">オブジェクト</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id36">フィルター</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id37">タグ</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#rouge" id="id38">Rouge に関するノート</a></p></li>
+<li><p><a class="reference internal" href="#sass-scss" id="id39">Sass/SCSS に関するノート</a></p></li>
+<li><p><a class="reference internal" href="#minima" id="id40">Minima に関するノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#layouts" id="id41">Layouts</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id42">Includes</a></p></li>
+<li><p><a class="reference internal" href="#sass" id="id43">Sass</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id16" id="id44">プラグイン</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id45">その他</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+DISTRIB_DESCRIPTION=&quot;Ubuntu 22.04.3 LTS&quot;
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Ruby<span class="colon">:</span></dt>
+<dd class="field-odd"><p>3.0.2p107</p>
+</dd>
+<dt class="field-even">RubyGems<span class="colon">:</span></dt>
+<dd class="field-even"><p>3.3.5</p>
+</dd>
+<dt class="field-odd">Bundler<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2.4.22</p>
+</dd>
+<dt class="field-even">Jekyll<span class="colon">:</span></dt>
+<dd class="field-even"><p>4.3.2</p>
+</dd>
+<dt class="field-odd">Minima<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2.5.1</p>
+</dd>
+</dl>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="github/actions.html"><span class="doc">GitHub Actions documentation ノート</span></a></p></li>
+<li><p><a class="reference internal" href="github/pages.html"><span class="doc">GitHub Pages documentation ノート</span></a></p></li>
+<li><p><a class="reference internal" href="yaml.html"><span class="doc">YAML 学習ノート</span></a></p></li>
+<li><p><a class="reference internal" href="mathjax.html"><span class="doc">MathJax 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="javascript-mermaid/index.html"><span class="doc">Mermaid 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="python-jinja2.html"><span class="doc">Jinja2 利用ノート</span></a></p></li>
+<li><p><a class="reference internal" href="python-sphinx.html"><span class="doc">Sphinx 利用ノート</span></a></p></li>
+</ul>
+</div>
+<section id="id1">
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">資料</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="id2">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">公式文書</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<dl>
+<dt><a class="reference external" href="https://jekyllrb.com/">Jekyll</a></dt><dd><p>Jekyll 公式サイト。特に重要なのが次の章だろう：</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://jekyllrb.com/tutorials/using-jekyll-with-bundler/">Using Jekyll with Bundler</a></dt><dd><p>Ruby プロジェクトの作法の初歩と思われる <strong class="program">gem</strong> および
+<strong class="program">bundle</strong> の使用方法について述べられている。Quickstart の次に読んでいい。これは必読。</p>
+</dd>
+<dt><a class="reference external" href="https://jekyllrb.com/docs/step-by-step/01-setup/">Step by Step Tutorial</a></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> の導入をなるべく後回しにしての Jekyll サイト構築チュートリアルだ。Deploy の章を先頭近くに移した版を読んでみたい。</p>
+</dd>
+<dt><a class="reference external" href="https://jekyllrb.com/docs/continuous-integration/github-actions/">GitHub Actions</a></dt><dd><p>GitHub で Jekyll サイトの構築源を <span class="guilabel">Deploy from a branch</span> ではなく <span class="guilabel">GitHub Actions</span> から実施する手順について述べている。標準対応されていないテーマやプラグインを利用するならば必読の記事だ。</p>
+</dd>
+</dl>
+</dd>
+<dt><a class="reference external" href="https://daringfireball.net/projects/markdown/">Daring Fireball: Markdown</a></dt><dd><p>Markdown 公式サイトと思われる。</p>
+</dd>
+<dt><a class="reference external" href="https://kramdown.gettalong.org/">kramdown</a></dt><dd><p>Jekyll が使用している Markdown 解析器パッケージの公式サイト。特に
+Documentation/Configuration Options は <code class="file docutils literal notranslate"><span class="pre">_config.yml</span></code> を書く時に参照する。</p>
+</dd>
+<dt><a class="reference external" href="https://jekyllrb.com/docs/liquid/">Liquid</a></dt><dd><p>Jekyll が使用しているテンプレートエンジンパッケージ Liquid の公式サイト。
+Sphinx における Jinja2 に相当する機能を担当する。</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers">List of supported languages and lexers · rouge-ruby/rouge Wiki</a></dt><dd><p>コードテキストに対する構文強調機能を担当する Rouge の対応言語一覧を掲載している。</p>
+</dd>
+<dt><a class="reference external" href="https://sass-lang.com/">Sass: Syntactically Awesome Style Sheets</a></dt><dd><p>Sass 公式サイト。Sass は CSS の拡張言語であるという。</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://sass-lang.com/playground/">Playground</a></dt><dd><p>Sass/SCSS コードを CSS コードに変換するページ。</p>
+</dd>
+<dt><a class="reference external" href="https://sass-lang.com/guide/">Sass Basics</a></dt><dd><p>Sass/SCSS 基礎の急所をまとめた記事。先に目を通しておけば混乱せずに済んだことだろう。</p>
+</dd>
+</dl>
+</dd>
+<dt><a class="reference external" href="https://github.com/jekyll/minima">GitHub - jekyll/minima</a></dt><dd><p>既定テーマ minima の GitHub リポジトリー。バージョン 3 開発中？</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">教材</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt><a class="reference external" href="https://mademistakes.com/mastering-jekyll/">Mastering Jekyll - Made Mistakes</a></dt><dd><p>特にリンク周りの説明が詳しい。時系列に整理する必要のない記事の配置のコツなど、有用な知識が他にも述べられている。スタイリング理論はやや難しい。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">Jekyll サイト用意手順</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>公式サイトの Quickstart の記述を再現していけば問題はない。本ノートでは WSL の
+Ubuntu 環境を想定しているので Jekyll on Ubuntu の節に従う。</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">開発環境に対して一度きりの設定手順</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p><strong class="program">ruby</strong> がなければインストールする</p></li>
+<li><p>環境変数を設定する</p></li>
+<li><p>RubyGems つまり <strong class="program">gem</strong> がなければインストールする</p></li>
+<li><p>Bundler つまり <strong class="program">bundler</strong> がなければインストールする</p></li>
+<li><p>Jekyll つまり <strong class="program">jekyll</strong> がなければインストールする</p></li>
+</ol>
+<p>システムにインストール済みの Ruby, RubyGems, Bundler, Jekyll があればそれを使用してよい。ない場合に限り Quickstart の記述に従ってインストールする。</p>
+<p>RubyGems と Bundler が参照する環境変数各種の値を XDG Base Directory
+Specification 愛好家としては次のようにしたい：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GEM_HOME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_DATA_HOME</span><span class="s2">/gem&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GEM_SPEC_CACHE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_CACHE_HOME</span><span class="s2">/gem&quot;</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUNDLE_USER_CONFIG</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_CONFIG_HOME</span><span class="s2">/bundle&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUNDLE_USER_PLUGIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_DATA_HOME</span><span class="s2">/bundle&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUNDLE_USER_CACHE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_CACHE_HOME</span><span class="s2">/bundle&quot;</span>
+</pre></div>
+</div>
+<p>上記をファイル <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> に書いておく。ここで、XDG 変数各種については適切に設定済みであるとする。</p>
+<p>そして、<strong class="program">gem</strong> を使うのはこれで最後となる。作業ディレクトリーにファイル
+<code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> があるときには必ず <strong class="program">bundle</strong> から Jekyll コマンドを実行しろ。</p>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Jekyll サイト仮設</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p>適当なディレクトリーに移動して Jekyll サイトを構築していく。ここでは
+<code class="file docutils literal notranslate"><span class="pre">myblog</span></code> というディレクトリーに Jekyll サイトのルートを合わせるように作る：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>myblog<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$_</span>
+<span class="gp">$ </span>jekyll<span class="w"> </span>new<span class="w"> </span>.
+<span class="gp">$ </span>bundle<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>jekyll<span class="w"> </span>serve
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">jekyll</span> <span class="pre">new</span></code> コマンドの実行によりいくつかのファイルが生じる。この段階で重要なのは次の三つ：</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">Gemfile.lock</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">_config.yml</span></code></p></li>
+</ul>
+</section>
+<section id="gemfile">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink"><code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> を編集する</a><a class="headerlink" href="#gemfile" title="Permalink to this heading">¶</a></h3>
+<p>このファイルを変更する機会はそれほどない。手をいれる可能性のある箇所を列挙する：</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gem</span> <span class="pre">&quot;jekyll&quot;</span></code> から始まる行</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gem</span> <span class="pre">&quot;minima&quot;</span></code> から始まる行</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group</span> <span class="pre">:jekyll_plugins</span> <span class="pre">do</span></code> … <code class="docutils literal notranslate"><span class="pre">end</span></code> ブロック</p></li>
+</ol>
+<p>GitHub Pages での厳密な運用を想定している場合、1. の行を削って次のような行に置き換える。主旨は GitHub でのビルドとローカル環境でのビルドにおける gem バージョンを一致させたいということだそうだ。それが気にならないならば既定の Jekyll のままで良い。</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">gem</span><span class="w"> </span><span class="s2">&quot;github-pages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;~&gt; 228&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">group</span><span class="p">:</span><span class="w"> </span><span class="ss">:jekyll_plugins</span>
+</pre></div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">228</span></code> と示した数は、実際には次のページで適切な値を確認して決定しろ：
+<a class="reference external" href="https://pages.github.com/versions/">Dependency versions | GitHub Pages</a></p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p><code class="docutils literal notranslate"><span class="pre">github-pages</span></code> を使うことにした場合、ローカル環境ではさらに <code class="docutils literal notranslate"><span class="pre">webrick</span></code> という gem が必要になる可能性が高い。手作業で <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> を編集してもよいが、この場合はコマンド実行のほうが早い：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>bundle<span class="w"> </span>add<span class="w"> </span>webrick
+</pre></div>
+</div>
+</div>
+<p>Jekyll テーマを既定の <code class="docutils literal notranslate"><span class="pre">minima</span></code> から別のものに変更したい場合、2. を削ってテーマ配布者の指示に従って新しい行を記入しろ。</p>
+<p>Jekyll プラグインを追加または削除する場合、3. の <code class="docutils literal notranslate"><span class="pre">do</span></code> … <code class="docutils literal notranslate"><span class="pre">end</span></code> に行を追加する。行の記述はプラグイン配布者の指示に従え。</p>
+<p>以上の編集により gem 構成が変化した場合、サイト動作確認までに次のコマンドを実行して当該 gem をローカル環境にインストールしろ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>bundle<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="gemfile-lock">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink"><code class="file docutils literal notranslate"><span class="pre">Gemfile.lock</span></code> を更新する</a><a class="headerlink" href="#gemfile-lock" title="Permalink to this heading">¶</a></h3>
+<p>このファイルを更新することは保守に相当する。Jekyll サイト準備中に行う必要のないものだが、ノート構成の便宜上ここに記す。</p>
+<blockquote>
+<div><p>If you followed our setup recommendations and installed Bundler, run <code class="docutils literal notranslate"><span class="pre">bundle</span>
+<span class="pre">update</span> <span class="pre">jekyll</span></code> or simply <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">update</span></code> and all your gems will update to
+the latest versions.</p>
+</div></blockquote>
+<p>定期的に、できれば自動で <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">update</span></code> を実行して gem を更新したい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Ruby 101 より RubyGems の核となる概念の説明を引用しておく：</p>
+<blockquote>
+<div><p>Gems are code you can include in Ruby projects.</p>
+<p>A <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> is a list of gems used by your site.</p>
+<p>Bundler is a gem that installs all gems in your <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code>.</p>
+</div></blockquote>
+<p>Bundler コマンド集をまとめておく：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">init</span></code>: <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> を生じる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">config</span> <span class="pre">set</span> <span class="pre">--local</span> <span class="pre">path</span> <span class="pre">'vendor/bundle'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">add</span> <span class="pre">jekyll</span> <span class="pre">[--skip-install]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">exec</span> <span class="pre">jekyll</span> <span class="pre">new</span> <span class="pre">--force</span> <span class="pre">--skip-bundle</span> <span class="pre">.</span></code>: <code class="file docutils literal notranslate"><span class="pre">.gitignore</span></code> も生じる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">install</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">exec</span> <span class="pre">jekyll</span> <span class="pre">serve</span> <span class="pre">[--livereload]</span> <span class="pre">[--baseurl</span> <span class="pre">'']</span></code></p></li>
+</ul>
+</div>
+</section>
+<section id="config-yaml">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">構成ファイル <code class="file docutils literal notranslate"><span class="pre">_config.yaml</span></code> を編集する</a><a class="headerlink" href="#config-yaml" title="Permalink to this heading">¶</a></h3>
+<p>公式サイトの Configuration の章を確認しながら編集する。GitHub Pages に発行することを念頭に値を設定する：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description or value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">baseurl</span></code></p></td>
+<td><p><code class="samp docutils literal notranslate"><span class="pre">/</span><em><span class="pre">repository-name</span></em></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">markdown_ext</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">md</span></code> のみにする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timezone</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Asia/Tokyo</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></td>
+<td><p><code class="samp docutils literal notranslate"><span class="pre">https://</span><em><span class="pre">github-account-name</span></em><span class="pre">.github.io</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>テーマ Minima (<code class="docutils literal notranslate"><span class="pre">thema:</span> <span class="pre">minima</span></code>) の参照する項目のうち、明示的に設定するべき項目は次のとおり。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description or value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">author</span></code></p></td>
+<td><p>サイト著者名</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minima.date_format</span></code></p></td>
+<td><p>好みだが <code class="docutils literal notranslate"><span class="pre">&quot;%Y-%m-%d</span> <span class="pre">(%a)&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></td>
+<td><p>サイトの内容などを説明した文章</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">email</span></code></p></td>
+<td><p>サイト責任者のメールアドレス</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">github_username</span></code></p></td>
+<td><p>関連 GitHub アカウントの screen name</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">header_pages</span></code></p></td>
+<td><p>ページ天井のリンク列に対応する原稿ファイルパスの配列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lang</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ja</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repository</span></code></p></td>
+<td><p><code class="samp docutils literal notranslate"><span class="pre">https://github.com/</span><em><span class="pre">github-account-name</span></em><span class="pre">/</span><em><span class="pre">repository-name</span></em></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rss</span></code></p></td>
+<td><p>空でない任意の文字列で良いが <code class="docutils literal notranslate"><span class="pre">RSS</span></code> が無難</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">show_excerpts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>サイトの題名</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">twitter_username</span></code></p></td>
+<td><p>関連 Twitter アカウントの screen name</p></td>
+</tr>
+</tbody>
+</table>
+<p>配列 <code class="docutils literal notranslate"><span class="pre">header_pages</span></code> は Jekyll サイトの固定ページ構成を更新するときに変更する値だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<ul class="simple">
+<li><p>Minima のバージョンは 2.x であるとする。バージョン 3.x では項目が異なる。</p></li>
+<li><p>SNS 関連の項目は他にもある。</p></li>
+</ul>
+</div>
+<p>Markdown 関係の設定項目を固定する。<code class="docutils literal notranslate"><span class="pre">markdown:</span> <span class="pre">kramdown</span></code> であるとき、
+<code class="docutils literal notranslate"><span class="pre">kramdown:</span></code> 以下の設定項目で明示的に設定するべきもの：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description or value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">line_width</span></code></p></td>
+<td><p>テキストエディターの設定値に合わせる</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">math_engine</span></code></p></td>
+<td><p>既定値だが <code class="docutils literal notranslate"><span class="pre">mathjax</span></code> を明示する</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">remove_line_breaks_for_cjk</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">kramdown.remove_line_breaks_for_cjk</span></code> については当ノートをまとめている過程で知った。エディターで編集するときに一行あたりのカラム数を固定しているので有効にする。</p>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">サーバー稼動</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>Jekyll サイトの内容が整ったら HTTP サーバーを稼動する。次のコマンドが良い：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>bundle<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>jekyll<span class="w"> </span>serve<span class="w"> </span>--incremental<span class="w"> </span>--livereload<span class="w"> </span>--baseurl<span class="w"> </span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>VS Code で作業する場合、何かの拡張のトーストが持つ URL そのままで Jekyll サイトのトップページがブラウザーで開く。このコマンドを <code class="file docutils literal notranslate"><span class="pre">tasks.json</span></code> に入れておくといい。</p>
+</section>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">ページを追加する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<p>まず <code class="docutils literal notranslate"><span class="pre">jekyll</span> <span class="pre">new</span></code> が生成したファイル名を微調整しておく：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>find<span class="w"> </span>myblog<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.markdown&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rename<span class="w"> </span><span class="s1">&#39;s/.markdown$/.md/&#39;</span>
+</pre></div>
+</div>
+<p>これ以降 Jekll サイト内に置く Markdown ファイルの拡張子は <code class="docutils literal notranslate"><span class="pre">.md</span></code> で統一する。</p>
+<section id="id9">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">個人日記サイトの例</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p><code class="file docutils literal notranslate"><span class="pre">_posts</span></code> ディレクトリーに日記エントリーを毎日一本追加していくシナリオを考える。ここには日記以外のファイルを含めないとする。目標はこうなる：</p>
+<ul class="simple">
+<li><p>日記ページの著者は同一人物で統一する</p></li>
+<li><p>日記ページの区分は日記とわかるもので統一する</p></li>
+<li><p>日記ページの HTML テンプレートは日記用のもので統一する</p></li>
+<li><p>日記ページの front matter はせいぜい見出しだけ書けば済むようにする</p></li>
+</ul>
+<p>やることはこうなる：</p>
+<ul class="simple">
+<li><p>構成ファイル <code class="file docutils literal notranslate"><span class="pre">_config.yml</span></code> で著者名、区分、テンプレートの既定値を規定する</p></li>
+<li><p>日記用テンプレートを <code class="file docutils literal notranslate"><span class="pre">_layouts</span></code> ディレクトリーに置く</p></li>
+</ul>
+<p><code class="file docutils literal notranslate"><span class="pre">_config.yml</span></code> に追加する設定はこういうものだ：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">scope</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_posts</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">posts</span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># YAML のノード参照を使って外側に定義した author を参照する手もある</span>
+<span class="w">      </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AUTHOR-NAME&quot;</span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diary</span>
+<span class="w">      </span><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diary</span>
+</pre></div>
+</div>
+<p>この記述により、次の効果が得られる。日記 Markdown ファイルを <code class="file docutils literal notranslate"><span class="pre">_posts</span></code> に追加すると、それらの front matter で次が指定されたとみなされる（明示的に指定しない限り）：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AUTHOR-NAME&quot;</span>
+<span class="nt">categories</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diary</span>
+<span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diary</span>
+<span class="nn">---</span>
+</pre></div>
+</div>
+<p>ディレクトリー <code class="file docutils literal notranslate"><span class="pre">_layouts</span></code> にテンプレートファイル <code class="file docutils literal notranslate"><span class="pre">diary.html</span></code> を適当な内容で追加しておく。Liquid 技術の腕の発揮しどころだ。</p>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">変数と値の一覧を確認するためのページを用意する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>例えば次のような HTML をサイトに組み込んでおく。開発モードでだけ出現するように仕掛ける：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Configuration<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Global Configuration<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>source = {{ site.source }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>destination = {{ site.destination }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>safe = {{ site.safe }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>disable_disk_cache = {{ site.disable_disk_cache }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>ignore_theme_config = {{ site.ignore_theme_config }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>exclude = [{{ site.exclude | join: &quot;, &quot; }}]<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>include = [{{ site.include | join: &quot;, &quot; }}]<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>keep_files = [{{ site.keep_files | join: &quot;, &quot; }}]<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>timezone = {{ site.timezone }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>encoding = {{ site.encoding }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Build Command Options<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+...
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">画像一覧ページを作成する</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<div class="admonition-todo admonition" id="id12">
+<p class="admonition-title">Todo</p>
+<p>上述の教材のいずれかのギャラリー作成記事を簡略化してみる。</p>
+</div>
+</section>
+</section>
+<section id="markdown">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">Markdown に関するノート</a><a class="headerlink" href="#markdown" title="Permalink to this heading">¶</a></h2>
+<p>次の URL のテキストを見るといい：
+&lt;<a class="reference external" href="https://daringfireball.net/projects/markdown/syntax.text">https://daringfireball.net/projects/markdown/syntax.text</a>&gt;</p>
+<p>Markdown でどう実現するのかわからなくなっても、次の原理に立ち返れば安心だ：</p>
+<blockquote>
+<div><p>For any markup that is not covered by Markdown’s syntax, you simply use HTML
+itself. (Daring Fireball, Markdown: Syntax)</p>
+</div></blockquote>
+</section>
+<section id="liquid">
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">Liquid に関するノート</a><a class="headerlink" href="#liquid" title="Permalink to this heading">¶</a></h2>
+<p>Liquid は Jekyll が採用しているテンプレート言語だ。Sphinx で言う Jinja2 に相当する。</p>
+<blockquote>
+<div><p>Liquid uses a combination of objects, tags, and filters inside template files
+to display dynamic content. (<em>Liquid</em>, Introduction)</p>
+</div></blockquote>
+<p>この節では覚えておくべき Liquid 構成要素を記す。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Liquid 標準要素と Jekyll 固有の要素を区別しておくといい？</p>
+</div>
+<section id="id13">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">オブジェクト</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p><em class="dfn">Objects</em> contain the content that Liquid displays on a page. Objects
+and variables are displayed when enclosed in double curly braces: <code class="docutils literal notranslate"><span class="pre">{{</span></code> and
+<code class="docutils literal notranslate"><span class="pre">}}</span></code>. (<em>Liquid</em>, Introduction)</p>
+</div></blockquote>
+<p>テンプレート内に <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">varname</span> <span class="pre">}}</span></code> と書いておくと、Liquid はその箇所を変数
+<code class="docutils literal notranslate"><span class="pre">varname</span></code> の値で置き換える。Jekyll サイトの場合、次のようなものがよく用いられる：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">page.tags</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">page.title</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">page.url</span> <span class="pre">}}</span></code>, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">post.author</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">post.date</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">post.excerpt</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span>
+<span class="pre">post.title</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">post.url</span> <span class="pre">}}</span></code>, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">site.baseurl</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">site.posts</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">site.theme</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span>
+<span class="pre">site.title</span> <span class="pre">}}</span></code>, etc.</p></li>
+</ul>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">フィルター</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<p>フィルターは Liquid オブジェクトや変数の出力を変更するものだ。<code class="docutils literal notranslate"><span class="pre">{{</span></code> … <code class="docutils literal notranslate"><span class="pre">}}</span></code>
+と変数代入の中で使われ、縦棒文字 <code class="docutils literal notranslate"><span class="pre">|</span></code> で区切られた形を取る。UNIX のパイプのように複数のフィルターを連結することがある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Filter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<td><p>日付の書式を <code class="docutils literal notranslate"><span class="pre">strftime</span></code> 様式で指定して変換</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">page.date</span> <span class="pre">|</span> <span class="pre">date:</span> <span class="pre">&quot;%Y-%m-%d&quot;</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">date_to_xmlschema</span></code></p></td>
+<td><p>日付を ISO 8601 様式に変換</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">post.date</span> <span class="pre">|</span> <span class="pre">date_to_xmlschema</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>値が空や偽の変数ならば指定値を出力</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">page.lang</span> <span class="pre">|</span> <span class="pre">default:</span> <span class="pre">site.lang</span> <span class="pre">|</span> <span class="pre">default:</span> <span class="pre">&quot;en&quot;</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">escape</span></code></p></td>
+<td><p>文字列を URL などで使えるようにエスケープ処理</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">page.title</span> <span class="pre">|</span> <span class="pre">escape</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">join</span></code></p></td>
+<td><p>配列要素を指定区切りパターンで連結して文字列にする</p></td>
+<td><p>上記参照</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prepend</span></code></p></td>
+<td><p>文字列の先頭に指定文字列を追加</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">post.url</span> <span class="pre">|</span> <span class="pre">relative_url</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">relative_url</span></code></p></td>
+<td><p>文字列の先頭に <code class="docutils literal notranslate"><span class="pre">site.baseurl</span></code> を追加</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">&quot;/assets/images/screenshot.png&quot;</span> <span class="pre">|</span> <span class="pre">relative_url</span> <span class="pre">}}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>高度なフィルターとしては次のようなものがある。ページまたはポストのコレクションを捌くのに有用だろう：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">where</span></code>, <code class="docutils literal notranslate"><span class="pre">where_exp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_by</span></code>, <code class="docutils literal notranslate"><span class="pre">group_by_exp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sort</span></code></p></li>
+</ul>
+</section>
+<section id="id15">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">タグ</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<p>Liquid の文脈におけるタグとは：</p>
+<blockquote>
+<div><p><em class="dfn">Tags</em> create the logic and control flow for templates. The curly brace
+percentage delimiters <code class="docutils literal notranslate"><span class="pre">{%</span></code> and <code class="docutils literal notranslate"><span class="pre">%}</span></code> and the text that they surround do
+not produce any visible output when the template is rendered. This lets you
+assign variables and create conditions or loops without showing any of the
+Liquid logic on the page. (<em>Liquid</em>, Introduction)</p>
+</div></blockquote>
+<p>タグを分類して理解する：</p>
+<dl>
+<dt>制御</dt><dd><p>条件分岐構文は次のようにまとめられる。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">if</span> <em><span class="pre">condition</span></em> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endif</span> <span class="pre">%}</span></code></p>
+<ul>
+<li><p>裏バージョンの <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">unless</span> <span class="pre">%}</span></code> もある</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">else</span> <span class="pre">%}</span></code> や <code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">elsif</span> <em><span class="pre">condition</span></em> <span class="pre">%}</span></code> も当然ある</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">case</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endcase</span> <span class="pre">%}</span></code> は switch 文に相当する</p>
+<ul>
+<li><p>選択肢は <code class="samp docutils literal notranslate"><em><span class="pre">%</span> <span class="pre">when</span> <span class="pre">{value</span></em> <span class="pre">%}</span></code> らしい</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">else</span> <span class="pre">%}</span></code> 節を default とする</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt>ループ</dt><dd><p>ループ中でしか使えない変数や引数も存在する。割愛。</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">for</span> <em><span class="pre">i</span></em> <span class="pre">in</span> <em><span class="pre">collection</span></em> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endfor</span> <span class="pre">%}</span></code> ループの中では次のタグが有効だ。働きは Python のと同じだろう：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">break</span> <span class="pre">%}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">continue</span> <span class="pre">%}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">else</span> <span class="pre">%}</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">tablerow</span> <em><span class="pre">i</span></em> <span class="pre">in</span> <em><span class="pre">collection</span></em> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endtablerow</span> <span class="pre">%}</span></code></p></li>
+</ul>
+</dd>
+<dt>テンプレート</dt><dd><p>Liquid コードとそれ以外を区別させるタグだ。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">comment</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endcomment</span> <span class="pre">%}</span></code> 部分はコメント</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">raw</span> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endraw</span> <span class="pre">%}</span></code> 部分は Liquid 処理が無効</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">include</span> <span class="pre">&quot;</span><em><span class="pre">template-name</span></em><span class="pre">&quot;</span> <span class="pre">%}</span></code></p></li>
+</ul>
+<p>最近では <code class="docutils literal notranslate"><span class="pre">include</span></code> が公式に deprecated とされている。Jekyll の採用する
+Liquid のバージョンが上がるのを待って <code class="docutils literal notranslate"><span class="pre">render</span></code> を用いるようにする。</p>
+<p>Jekyll 固有のものもある：</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">highlight</span> <em><span class="pre">lang</span></em> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endhighlight</span> <span class="pre">%}</span></code>: 後述</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">link</span> <em><span class="pre">path</span></em> <span class="pre">%}</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">post_url</span> <em><span class="pre">post</span></em> <span class="pre">%}</span></code></p></li>
+</ul>
+<p>下二つのタグは使うのが難しい。教材のリンクに関する論考を参照しろ。</p>
+</dd>
+<dt>変数代入</dt><dd><p>変数代入またはそれに関する操作を指定するタグだ。主に使うのは次の二つ：</p>
+<ul class="simple">
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">assign</span> <em><span class="pre">variable</span></em> <span class="pre">=</span> <em><span class="pre">value</span></em> <span class="pre">%}</span></code></p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">capture</span> <em><span class="pre">variable</span></em> <span class="pre">=</span> <em><span class="pre">value</span></em> <span class="pre">%}</span></code> … <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">endcapture</span> <span class="pre">%}</span></code></p></li>
+</ul>
+<p>両者の差異は指定変数の有効域にある。なるべく後者を使うのが実践的か。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="rouge">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">Rouge に関するノート</a><a class="headerlink" href="#rouge" title="Permalink to this heading">¶</a></h2>
+<p>Rouge の使いどころは構文強調コードブロックの言語指定しかない。</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="sb">```lang</span>
+<span class="s">code</span>
+<span class="sb">```</span>
+</pre></div>
+</div>
+<p>とか、</p>
+<div class="highlight-liquid notranslate"><div class="highlight"><pre><span></span><span class="p">{%</span><span class="w"> </span><span class="nt">highlight</span><span class="w"> </span>lang<span class="w"> </span><span class="p">%}</span>
+code
+<span class="p">{%</span><span class="w"> </span><span class="nt">endhighlight</span><span class="w"> </span><span class="p">%}</span>
+</pre></div>
+</div>
+<p>の <code class="samp docutils literal notranslate"><em><span class="pre">lang</span></em></code> に指定可能な文字列は、上述のリンク先にあるものが利用可能だ。</p>
+</section>
+<section id="sass-scss">
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">Sass/SCSS に関するノート</a><a class="headerlink" href="#sass-scss" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><p>Sass is a stylesheet language that’s compiled to CSS. It allows you to use
+variables, nested rules, mixins, functions, and more, all with a fully
+CSS-compatible syntax. Sass helps keep large stylesheets well-organized and
+makes it easy to share design within and across projects. (<em>Sass</em>,
+Documentation)</p>
+</div></blockquote>
+<p>例えば、ファイル <code class="file docutils literal notranslate"><span class="pre">assets/css/style.scss</span></code> は <code class="docutils literal notranslate"><span class="pre">jekyll</span> <span class="pre">serve</span></code> によって CSS
+に変換されてファイル <code class="file docutils literal notranslate"><span class="pre">assets/css/style.css</span></code> となる。</p>
+<p>文法理解に関しては、CSS の理解があれば上述資料の Sass Basics を一読するだけでもだいたいはしのげる。</p>
+</section>
+<section id="minima">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">Minima に関するノート</a><a class="headerlink" href="#minima" title="Permalink to this heading">¶</a></h2>
+<p>標準的な方法で Jekyll サイトを初期化すると、テーマは Minima が設定されている。</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">minima</span></code> is the current default theme, and <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">info</span> <span class="pre">minima</span></code> will show
+you where minima theme’s files are stored on your computer.</p>
+</div></blockquote>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">info</span> <span class="pre">minima</span> <span class="pre">--path</span></code> が Minima のパスだけを出力する。ファイルを覗きたいときに有用だ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nv">MINIMA_DIR</span><span class="o">=</span><span class="k">$(</span>bundle<span class="w"> </span>info<span class="w"> </span>minima<span class="w"> </span>--path<span class="k">)</span>
+<span class="gp">$ </span>find<span class="w"> </span><span class="nv">$MINIMA_DIR</span><span class="w"> </span>-type<span class="w"> </span>f
+<span class="gp">$ </span>code<span class="w"> </span><span class="nv">$MINIMA_DIR</span>
+</pre></div>
+</div>
+<p>Minima テーマをカスタマイズしたい場合は、対象ファイルを自分の Jekyll サイトディレクトリーの対応ディレクトリーにコピーしてそれを上書きすれば十分だ。カスタマイズする気がなくても <code class="file docutils literal notranslate"><span class="pre">README.md</span></code> の出来が良いので読むべし。</p>
+<section id="layouts">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">Layouts</a><a class="headerlink" href="#layouts" title="Permalink to this heading">¶</a></h3>
+<p>レイアウトというよりテンプレートという理解で通していいと思う。</p>
+<dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">default.html</span></code></dt><dd><p>Mermaid を使うのにカスタマイズすることがある。<code class="docutils literal notranslate"><span class="pre">&lt;/body&gt;</span></code> の直後に Mermaid を有効化する <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> を埋め込むためだ。</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">home.html</span></code></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">_posts</span></code> にある記事全てを一覧するコードを含む。全てなので日記サイトでは使ってはならない。描画前に <code class="docutils literal notranslate"><span class="pre">site.posts</span></code> を間引ければよいのだが。</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">page.html</span></code></dt><dd><p>Front matter を含むが <code class="file docutils literal notranslate"><span class="pre">_posts</span></code> 以下には置かれていないページに適用するレイアウト。そのようなファイルを複数持つ考えならば、これをカスタマイズする。</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">post.html</span></code></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">_posts</span></code> 以下に置かれているページに適用するレイアウト。</p>
+</dd>
+</dl>
+<p>以上のテンプレ自身をカスタマイズする必要があれば、ディレクトリー <code class="docutils literal notranslate"><span class="pre">_layouts</span></code> に元ファイルからコピーしたものを編集して Jekyll に処理させる。あるいは、自作の（新しいファイル名の）テンプレをこのディレクトリーに作成して、front matter でオリジナルのレイアウト名を明記することで、テンプレを継承するという手法もある。各ページやポストの front matter で自作レイアウト名を宣言する方式だ。</p>
+</section>
+<section id="includes">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">Includes</a><a class="headerlink" href="#includes" title="Permalink to this heading">¶</a></h3>
+<p>Minima 組み込みのファイルのうち、重要なものを次に挙げる：</p>
+<dl>
+<dt><code class="file docutils literal notranslate"><span class="pre">head.html</span></code></dt><dd><p>ここはカスタマイズする箇所が多いので、元ファイルを自分のサイトにコピーして編集する。</p>
+<p>Google などの検索エンジンクローラーに負荷をかけさせないため、次を追加：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;robots&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;noarchive,noindex,follow&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>ページの前後関係を明確に示したいので、次を追加：</p>
+<div class="highlight-liquid notranslate"><div class="highlight"><pre><span></span><span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">page</span><span class="p">.</span><span class="nv">previous</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">%}</span>&lt;link rel=&quot;prev&quot; href=&quot;<span class="p">{{</span><span class="w"> </span><span class="nv">page</span><span class="p">.</span><span class="nv">previous</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span><span class="nf">&quot;&gt;{%</span><span class="w"> </span>endif<span class="w"> </span>%}
+<span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">page</span><span class="p">.</span><span class="nv">next</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">%}</span>&lt;link rel=&quot;next&quot; href=&quot;<span class="p">{{</span><span class="w"> </span><span class="nv">page</span><span class="p">.</span><span class="nv">next</span><span class="p">.</span><span class="nv">url</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">relative_url</span><span class="w"> </span><span class="p">}}</span><span class="nf">&quot;&gt;{%</span><span class="w"> </span>endif<span class="w"> </span>%}
+</pre></div>
+</div>
+<p>用意してある Favicon パスを追加：</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;icon&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ &#39;/assets/images/favicon/favicon.ico&#39; | relative_url }}&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p>その他、サイト独自に利用する JavaScript のための <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> タグを適宜追加する。</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">header.html</span></code></dt><dd><p>全ページ共通天井。このテンプレートを上書きするのではなく、<code class="file docutils literal notranslate"><span class="pre">_config.yml</span></code>
+でリンク対象となるファイルを列挙すれば十分だ：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">header_pages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biblography.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resume.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">background.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">help.md</span>
+</pre></div>
+</div>
+<p>こうすると各ページ天井にこれらのページへのリンクが並ぶ。</p>
+</dd>
+</dl>
+<p>自作 HTML コード片を配置してもよい。ページやポストのファイルからタグ
+<code class="samp docutils literal notranslate"><span class="pre">{%</span> <span class="pre">include</span> <em><span class="pre">filename</span></em> <span class="pre">%}</span></code> で内容が置き換えられる。</p>
+</section>
+<section id="sass">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">Sass</a><a class="headerlink" href="#sass" title="Permalink to this heading">¶</a></h3>
+<p>ディレクトリー <code class="file docutils literal notranslate"><span class="pre">$MINIMA_DIR/_sass</span></code> にオリジナルファイルが配置されている。上述のテンプレートと同様の方法でもカスタマイズ可能だが、定数定義を変える程度の軽い内容なら SCSS の仕様に則った方法で実現可能だ。自作 Jekyll サイト側
+<code class="file docutils literal notranslate"><span class="pre">assets/main.scss</span></code> で定数を定義してからオリジナルを <code class="docutils literal notranslate"><span class="pre">import</span></code> する：</p>
+<div class="highlight-scss notranslate"><div class="highlight"><pre><span></span><span class="nv">$text-color</span><span class="o">:</span><span class="w"> </span><span class="mh">#f0e7d5</span><span class="p">;</span>
+<span class="nv">$background-color</span><span class="o">:</span><span class="w"> </span><span class="mh">#252525</span><span class="p">;</span>
+<span class="nv">$brand-color</span><span class="o">:</span><span class="w"> </span><span class="mh">#ff2493</span><span class="p">;</span>
+
+<span class="nv">$grey-color</span><span class="o">:</span><span class="w"> </span><span class="mh">#828282</span><span class="p">;</span>
+<span class="nv">$grey-color-light</span><span class="o">:</span><span class="w"> </span><span class="nf">darken</span><span class="p">(</span><span class="nv">$grey-color</span><span class="o">,</span><span class="w"> </span><span class="mi">40</span><span class="kt">%</span><span class="p">);</span>
+<span class="nv">$grey-color-dark</span><span class="o">:</span><span class="w"> </span><span class="nf">lighten</span><span class="p">(</span><span class="nv">$grey-color</span><span class="o">,</span><span class="w"> </span><span class="mi">25</span><span class="kt">%</span><span class="p">);</span>
+
+<span class="k">@import</span><span class="w"> </span><span class="s2">&quot;minima&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="file docutils literal notranslate"><span class="pre">assets/main.css</span></code> をロードしようとする。オリジナルの SCSS ファイルでは</p>
+<div class="highlight-scss notranslate"><div class="highlight"><pre><span></span><span class="k">@import</span><span class="w"> </span><span class="s2">&quot;minima&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>するだけ。インポートするのは <code class="file docutils literal notranslate"><span class="pre">$MINIMA_DIR/_sass/minima.scss</span></code> であり、そこでは最後に</p>
+<div class="highlight-scss notranslate"><div class="highlight"><pre><span></span><span class="k">@import</span>
+<span class="w">  </span><span class="s2">&quot;minima/base&quot;</span><span class="o">,</span>
+<span class="w">  </span><span class="s2">&quot;minima/layout&quot;</span><span class="o">,</span>
+<span class="w">  </span><span class="s2">&quot;minima/syntax-highlighting&quot;</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+<p>している。これら（公式では partials と呼称）を自分の Jekyll サイトにコピー、編集することでスタイルシートを変更可能ではあるのだが、その際には
+<code class="file docutils literal notranslate"><span class="pre">$MINIMA_DIR/_sass/minima.scss</span></code> をも持ってくる必要がある。これ自体は編集することはなくてもだ。</p>
+</section>
+</section>
+<section id="id16">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">プラグイン</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>所望のプラグインを <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> に記載する</p></li>
+<li><p>コマンド <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">install</span></code> を実行する</p></li>
+<li><p>構成ファイル <code class="file docutils literal notranslate"><span class="pre">_config.yml</span></code> で <code class="docutils literal notranslate"><span class="pre">plugins:</span></code> 配列に使用するプラグインを追加する</p></li>
+<li><p>プラグイン固有の設定を行う</p></li>
+</ol>
+<p>個人的に利用したいプラグインを以下に記す。</p>
+<dl>
+<dt>jekyll-feed</dt><dd><p>Jekyll の投稿の Atom を生成するプラグイン。RSS ビューワーで投稿を確認したい読者がいれば設置すべきプラグインだ。</p>
+<p>設定は Jekyll 構成ファイルに <code class="docutils literal notranslate"><span class="pre">feed:</span></code> オブジェクトを指定することによる。詳しくは次を参照：&lt;<a class="reference external" href="https://github.com/jekyll/jekyll-feed/blob/master/README.md">https://github.com/jekyll/jekyll-feed/blob/master/README.md</a>&gt;</p>
+</dd>
+<dt>jekyll-include-cache</dt><dd><p>Liquid タグ <code class="docutils literal notranslate"><span class="pre">include</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">include_cached</span></code> を使える。</p>
+<p>ただし、インクルード内容がページに依存する場合にはキャッシュを適用してはならない。例えば、次の SEO プラグインを用いる <code class="file docutils literal notranslate"><span class="pre">head.html</span></code> をキャッシュしてしまうと、<code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code> の内容が最初に処理されたページの情報で固定される。</p>
+</dd>
+<dt>jekyll-seo-tag</dt><dd><p>検索エンジンと SNS 各種のための <code class="docutils literal notranslate"><span class="pre">&lt;meta&gt;</span></code> タグを追加するプラグイン。設定方法は次を参照：
+&lt;<a class="reference external" href="https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md">https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md</a>&gt;</p>
+</dd>
+<dt>jekyll-sitemap</dt><dd><p>Jekyll サイトを大々的に公開するならば導入したい。検索エンジンの検索結果表示がそれらしくなる。</p>
+<p>参照：&lt;<a class="reference external" href="https://github.com/jekyll/jekyll-sitemap/blob/master/README.md">https://github.com/jekyll/jekyll-sitemap/blob/master/README.md</a>&gt;</p>
+</dd>
+<dt>jekyll-archives</dt><dd><p>GitHub Pages 標準対応ではないが、有力なプラグインなので日記サイトなど、原稿が大量にある Jekyll サイトを構築するのならば必須だ。ビルド手順の手間をかけるだけの価値はある。</p>
+<p>参照：&lt;<a class="reference external" href="https://github.com/jekyll/jekyll-archives">https://github.com/jekyll/jekyll-archives</a>&gt;</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h2><a class="toc-backref" href="#id45" role="doc-backlink">その他</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<p>まだ追究し切れていない話題を以下に羅列しておく。</p>
+<p class="rubric">ビルド</p>
+<p><code class="docutils literal notranslate"><span class="pre">jekyll</span> <span class="pre">build</span></code> コマンドの実行手順は次が普通だ。これで <code class="file docutils literal notranslate"><span class="pre">_site</span></code> に生じる成果物が配備可能なものになる：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nv">JEKYLL_ENV</span><span class="o">=</span>production<span class="w"> </span>bundle<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>jekyll<span class="w"> </span>build
+</pre></div>
+</div>
+<p class="rubric">永続リンクパス調整</p>
+<p>単一 issue のサイトであれば既定の永続リンクパスは冗長に感じられる。部分パスを適当に省くと利便性が増す：</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#permalink: /:categories/:year/:month/:day/:title:output_ext</span>
+<span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/diary/:year/:month/:day:output_ext</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p class="rubric">インクルード</p>
+<p>そもそも <code class="docutils literal notranslate"><span class="pre">include</span></code> は重い処理であることに気をつけろ：</p>
+<blockquote>
+<div><p>Note that you should avoid using too many includes, as this will slow down
+the build time of your site.</p>
+</div></blockquote>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-miniconda.html" title="Previous document">Miniconda 利用ノート</a>
+        </li>
+        <li>
+          <a href="freeware.html" title="Next document">Windows 用フリーウェア 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
