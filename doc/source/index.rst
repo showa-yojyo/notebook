@@ -36,6 +36,7 @@
    levin06/index
    tsuboi08/index
    loeliger09
+   pilgrim10
    griffiths10
    onodera10
    hosoda10/index
@@ -125,6 +126,12 @@
    python-miniconda
 
 .. toctree::
+   :caption: Ruby
+   :maxdepth: 1
+
+   ruby-jekyll
+
+.. toctree::
    :caption: データベース
    :maxdepth: 1
 
@@ -163,6 +170,7 @@
    hxutils
    webgl
    pandoc
+   yaml
    zoom
 
 .. toctree::
