@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Apache CouchDB 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=20d9222b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="MongoDB 利用ノート" href="mongodb.html" />
+    <link rel="prev" title="SQLite 利用ノート" href="sqlite.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="sqlite.html" title="Previous document">SQLite 利用ノート</a>
+        </li>
+        <li>
+          <a href="mongodb.html" title="Next document">MongoDB 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="apache-couchdb">
+<h1>Apache CouchDB 利用ノート<a class="headerlink" href="#apache-couchdb" title="Permalink to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Since<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2005</p>
+</dd>
+<dt class="field-even">Official site<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;<a class="reference external" href="https://couchdb.apache.org/">https://couchdb.apache.org/</a>&gt;</p>
+</dd>
+<dt class="field-odd">Version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>3.3.2</p>
+</dd>
+<dt class="field-even">CLI<span class="colon">:</span></dt>
+<dd class="field-even"><p>専用ツールなし</p>
+</dd>
+</dl>
+<p>Sphinx で記述された公式文書 <a class="reference external" href="https://docs.couchdb.org/en/stable/">Apache CouchDB® 3.3 Documentation</a> の品質が良く、インストール手順で詰まることはないはずだ。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>https://couchdb.apache.org/repo/keys.asc<span class="w"> </span><span class="p">|</span>
+<span class="go">  gpg --dearmor |</span>
+<span class="go">  sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1</span>
+<span class="gp">$ </span>.<span class="w"> </span>/etc/os-release<span class="w">  </span><span class="c1"># $VERSION_CODENAME が欲しい</span>
+<span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ </span><span class="si">${</span><span class="nv">VERSION_CODENAME</span><span class="si">}</span><span class="s2"> main&quot;</span><span class="w"> </span><span class="p">|</span>
+<span class="go">  sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null</span>
+<span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>couchdb
+</pre></div>
+</div>
+<p>インストール中、対話形式での手順は次の記事を参照： <a class="reference external" href="https://www.geekbits.io/how-to-install-apache-couchdb-in-ubuntu-22-04/">How to Install Apache
+CouchDB in Ubuntu 22.04</a></p>
+<p>サービスを手動で稼働する。別のコンソールウィンドウで実施するか、バックグラウンド実行すると何かの時に小回りが利く：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>service<span class="w"> </span>couchdb<span class="w"> </span>status
+<span class="gp">$ </span>sudo<span class="w"> </span>-i<span class="w"> </span>-u<span class="w"> </span>couchdb<span class="w"> </span>/opt/couchdb/bin/couchdb
+</pre></div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>まともなサービス停止方法が判明していない。現状 <strong class="command">kill</strong> コマンドで強引に殺している。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>su<span class="w"> </span>couchdb<span class="w"> </span>service<span class="w"> </span>couchdb<span class="w"> </span>stop
+<span class="go">Password:</span>
+<span class="go"> * Stopping Apache CouchDB couchdb</span>
+<span class="go">start-stop-daemon: pid value must be a number greater than 0</span>
+<span class="go">Try &#39;start-stop-daemon --help&#39; for more information.</span>
+<span class="gp">$ </span>sudo<span class="w"> </span>start-stop-daemon<span class="w"> </span>--stop<span class="w"> </span>--user<span class="w"> </span>couchdb
+</pre></div>
+</div>
+</div>
+<p>サービス稼働中に管理者権限を有するアカウントを作成する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nv">COUCHDB_HOST</span><span class="o">=</span>http://admin:<span class="si">${</span><span class="nv">ADMIN_PASSWORD</span><span class="si">}</span>@localhost:5984
+<span class="gp">$ </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="si">${</span><span class="nv">COUCHDB_HOST</span><span class="si">}</span>/_node/couchdb@127.0.0.1/_config/admins/<span class="si">${</span><span class="nv">NEW_USER</span><span class="si">}</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;&quot;${NEW_PASSWORD}&quot;&#39;</span>
+</pre></div>
+</div>
+<p>ここまで準備が整ったらチュートリアルを実施する。アカウントは今作成したものに変えて、変数の値もそれに合わせる。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>http://localhost:5984/
+<span class="gp">$ </span><span class="nv">COUCHDB_HOST</span><span class="o">=</span>http://<span class="si">${</span><span class="nv">NEW_USER</span><span class="si">}</span>:<span class="si">${</span><span class="nv">NEW_PASSWORD</span><span class="si">}</span>@localhost:5984
+<span class="gp">$ </span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="si">${</span><span class="nv">COUCHDB_HOST</span><span class="si">}</span>/_all_dbs
+<span class="gp">$ </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="si">${</span><span class="nv">COUCHDB_HOST</span><span class="si">}</span>/my_database
+<span class="gp">$ </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="si">${</span><span class="nv">COUCHDB_HOST</span><span class="si">}</span>/test<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</pre></div>
+</div>
+<p>この辺で Fauxton と呼ばれているブラウザーインターフェイス
+&lt;<a class="reference external" href="http://127.0.0.1:5984/_utils/">http://127.0.0.1:5984/_utils/</a>&gt; にアクセス可能となる。コンソールからブラウザーへ移動しろ。</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://guide.couchdb.org/draft/tour.html">Getting Started - CouchDB: The Definitive Guide</a></dt><dd><p>ブラウザー画面が少々異なるが、学習可能。</p>
+</dd>
+<dt><a class="reference external" href="https://www.tutorialspoint.com/couchdb/">CouchDB Tutorial</a></dt><dd><p>バージョンが古いが学習可能。<strong class="program">curl</strong> とブラウザーの両方について方法が述べられている。<code class="docutils literal notranslate"><span class="pre">rev</span></code> の意味、更新、ローカルファイル添付（アップロード）を習得可能。</p>
+</dd>
+<dt><a class="reference external" href="https://www.w3schools.blog/couchdb-tutorial">CouchDB tutorial - W3schools</a></dt><dd><p>Fauxton 対応。Python や JavaScript (Node.js) などから CouchDB にアクセスする方法に関する記述もある。</p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="sqlite.html" title="Previous document">SQLite 利用ノート</a>
+        </li>
+        <li>
+          <a href="mongodb.html" title="Next document">MongoDB 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

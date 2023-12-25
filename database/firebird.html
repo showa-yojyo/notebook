@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Firebird 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=20d9222b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="SQLite 利用ノート" href="sqlite.html" />
+    <link rel="prev" title="Jekyll 利用ノート" href="../ruby-jekyll.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="../ruby-jekyll.html" title="Previous document">Jekyll 利用ノート</a>
+        </li>
+        <li>
+          <a href="sqlite.html" title="Next document">SQLite 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="firebird">
+<h1>Firebird 利用ノート<a class="headerlink" href="#firebird" title="Permalink to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Since<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2000</p>
+</dd>
+<dt class="field-even">Official site<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://firebirdsql.org/en/start/">Firebird</a></p>
+</dd>
+<dt class="field-odd">License<span class="colon">:</span></dt>
+<dd class="field-odd"><p>IPL, IDPL</p>
+</dd>
+<dt class="field-even">Version<span class="colon">:</span></dt>
+<dd class="field-even"><p>5.0 rc1</p>
+</dd>
+<dt class="field-odd">CLI<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong class="program">isql</strong></p>
+</dd>
+</dl>
+<p>まずは <a class="reference external" href="https://firebirdsql.org/file/documentation/html/en/firebirddocs/qsg5/firebird-5-quickstartguide.html">Firebird 5 Quick Start Guide</a>
+に従って、Firebird を設置したい。</p>
+<p>インストール手順は、適当な圧縮ファイルをダウンロードして解凍し、同梱されているスクリプトを実行する、だ。圧縮ファイルの URL は公式サイトの <span class="guilabel">DOWNLOADS</span>
+からたどれる。今回試すのは
+<code class="file docutils literal notranslate"><span class="pre">Firebird-5.0.0.1227-ReleaseCandidate1-linux-x64.tar.gz</span></code> とする。</p>
+<blockquote>
+<div><p>Please install required library ‘tommath’ before firebird, after it repeat
+firebird install</p>
+</div></blockquote>
+<p>このメッセージが出たら <strong class="command">apt</strong> でかまわないので当該パッケージをインストールしろ。私の場合は <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">libtommath1</span></code> で次へ進めた。</p>
+<blockquote>
+<div><p>Please enter new password for SYSDBA user:</p>
+</div></blockquote>
+<p>このプロンプトがあるので、パスワードをあらかじめ決めておけ。</p>
+<p>以上でインストールが完了すると共にサーバーが稼働する。マニュアルでは稼働状態を
+<strong class="command">top</strong> で確認している。</p>
+<p>サーバーと同時に、クライアントプログラムもインストールされる。コンソールで
+<code class="file docutils literal notranslate"><span class="pre">/opt/firebird/bin/isql</span></code> を実行すると対話シェルが起動する。</p>
+<p>SYSDBA で初回はログインして、マニュアルの勧めに従って作業用のユーザーを作成する。二つ作っておくと良い。また、一方にはテーブル操作権限を付与しておくとなお良い。SQL を試すときには <strong class="program">isql</strong> セッションに作業ユーザーでログインし直す。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>isql<span class="w"> </span>localhost:employee<span class="w"> </span>-u<span class="w"> </span>SYSDBA<span class="w"> </span>-p<span class="w"> </span>masterkey<span class="p">;</span>
+<span class="go">SQL&gt; grant create table to user USERNAME;</span>
+<span class="go">SQL&gt; grant create view to user USERNAME;</span>
+<span class="go">SQL&gt; grant create sequence to user USERNAME;</span>
+<span class="go">SQL&gt; quit;</span>
+
+<span class="gp">$ </span>isql<span class="w"> </span>localhost:employee<span class="w"> </span>-u<span class="w"> </span>USERNAME<span class="w"> </span>-p<span class="w"> </span>PASSWORD
+<span class="go">SQL&gt; show tables;</span>
+<span class="go">COUNTRY</span>
+<span class="go">CUSTOMER</span>
+<span class="go">DEPARTMENT</span>
+<span class="go">EMPLOYEE</span>
+<span class="go">EMPLOYEE_PROJECT</span>
+<span class="go">JOB</span>
+<span class="go">PROJECT</span>
+<span class="go">PROJ_DEPT_BUDGET</span>
+<span class="go">SALARY_HISTORY</span>
+<span class="go">SALES</span>
+<span class="go">SQL&gt; help;</span>
+<span class="go">SQL&gt; set;</span>
+<span class="go">SQL&gt; set count;</span>
+</pre></div>
+</div>
+<p>ユーザー名とパスワードを毎回入力するのは煩雑なので、環境変数二つに設定しておく：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ISC_USER</span><span class="o">=</span>USERNAME
+<span class="nb">export</span><span class="w"> </span><span class="nv">ISC_PASSWORD</span><span class="o">=</span>PASSWORD
+</pre></div>
+</div>
+<p>こうしておけば、<strong class="command">isql</strong> の引数はデータベースだけで済む。ロック機能を試すためにアカウントを複数作成するときが手こずるかもしれない。コツ：</p>
+<p><strong class="program">isql</strong> マニュアルについては次を参照：
+<a class="reference external" href="https://firebirdsql.org/file/documentation/html/en/firebirddocs/isql/firebird-isql.html">Firebird Interactive SQL Utility</a>.</p>
+<p>初心者のうちはコマンド実行後に何も出力されないと不安なので <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">COUNT</span></code> を実行しておくといい。</p>
+<p>Firebird サーバーを停止するには：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>service<span class="w"> </span>firebird<span class="w"> </span>stop
+</pre></div>
+</div>
+<p>アンインストールするには、おそらく次の項目をこなす：</p>
+<ul class="simple">
+<li><p>サーバーを休止状態にする</p></li>
+<li><p>データベースをバックアップする</p></li>
+<li><p>インストールディレクトリーを削除する</p></li>
+</ul>
+<p>以上を行うスクリプトがインストールされているので、それを実行する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>bash<span class="w"> </span>/opt/firebird/bin/FirebirdUninstall.sh
+
+<span class="go">Firebird 5.0.0.1227-ReleaseCandidate1.x64 Uninstall program</span>
+
+<span class="go">Are you sure you want to proceed?</span>
+
+<span class="go">Press Enter to start uninstall or ^C to abort^C</span>
+<span class="go">Uninstalling...</span>
+<span class="go">Stopping Guardian server: Stopping Firebird server: Saved a copy of SecurityDatabase (security5.fdb) in /tmp</span>
+<span class="go">Uninstall completed</span>
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="../ruby-jekyll.html" title="Previous document">Jekyll 利用ノート</a>
+        </li>
+        <li>
+          <a href="sqlite.html" title="Next document">SQLite 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

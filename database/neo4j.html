@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Neo4j 利用ノート &#8212; 読書ノート 1.5dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=20d9222b"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Amazon DynamoDB 利用ノート" href="dynamodb.html" />
+    <link rel="prev" title="OrientDB 利用ノート" href="orientdb.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="orientdb.html" title="Previous document">OrientDB 利用ノート</a>
+        </li>
+        <li>
+          <a href="dynamodb.html" title="Next document">Amazon DynamoDB 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="neo4j">
+<h1>Neo4j 利用ノート<a class="headerlink" href="#neo4j" title="Permalink to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Since<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2010</p>
+</dd>
+<dt class="field-even">Official site<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;<a class="reference external" href="https://neo4j.com/">https://neo4j.com/</a>&gt;</p>
+</dd>
+<dt class="field-odd">CLI<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong class="program">cypher-shell</strong></p>
+</dd>
+<dt class="field-even">Server Version<span class="colon">:</span></dt>
+<dd class="field-even"><p>5.14.0</p>
+</dd>
+<dt class="field-odd">Browser Version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>5.12.0</p>
+</dd>
+</dl>
+<p>Neo4j Community Edition インストール手順を記す。場合によっては Java の調整を行うことがある（説明割愛）。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>suto<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
+<span class="gp">$ </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://debian.neo4j.com/neotechnology.gpg.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/usr/share/keyrings/neo4j.gpg
+<span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;deb https://debian.neo4j.com stable latest&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/apt/sources.list.d/neo4j.list
+<span class="gp">$ </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+<span class="gp">$ </span>apt<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>neo4j
+<span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span><span class="nv">neo4j</span><span class="o">=</span><span class="m">1</span>:5.14.0
+</pre></div>
+</div>
+<p>管理者アカウントの初期パスワードを明示的に設定変更する必要があるようで、次のコマンドによる。<code class="samp docutils literal notranslate"><em><span class="pre">XXXXXX</span></em></code> 部分を適宜指定する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>neo4j-admin<span class="w"> </span>dbms<span class="w"> </span>set-initial-password<span class="w"> </span>XXXXXX
+<span class="go">[sudo] password for work:</span>
+<span class="go">Changed password for user &#39;neo4j&#39;. IMPORTANT: this change will only take effect if performed before the database is started for the first time.</span>
+</pre></div>
+</div>
+<p>Neo4j サービスを稼動する方法は複数ある：</p>
+<ul class="simple">
+<li><p>Ubuntu につき <strong class="program">service</strong> から起動する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">neo4j</span> <span class="pre">start</span></code> を実行する</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>service<span class="w"> </span>neo4j<span class="w"> </span>start
+<span class="go">Directories in use:</span>
+<span class="go">home:         /var/lib/neo4j</span>
+<span class="go">config:       /etc/neo4j</span>
+<span class="go">logs:         /var/log/neo4j</span>
+<span class="go">plugins:      /var/lib/neo4j/plugins</span>
+<span class="go">import:       /var/lib/neo4j/import</span>
+<span class="go">data:         /var/lib/neo4j/data</span>
+<span class="go">certificates: /var/lib/neo4j/certificates</span>
+<span class="go">licenses:     /var/lib/neo4j/licenses</span>
+<span class="go">run:          /var/lib/neo4j/run</span>
+<span class="go">Starting Neo4j.</span>
+<span class="go">Started neo4j (pid:xxxxx). It is available at http://localhost:7474</span>
+</pre></div>
+</div>
+<p>停止する方法はそれぞれに対応する <code class="docutils literal notranslate"><span class="pre">stop</span></code> コマンドを用いる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この URL をブラウザーで開くと empty response だの connection refused だのエラーが出る。一方、コンソールから <strong class="program">curl</strong> などで応答を受信すると、サーバーは稼働していることがわかる。</p>
+<p>サーバーをいったん停止して、構成ファイル <code class="file docutils literal notranslate"><span class="pre">/etc/neo4j/neo4j.conf</span></code> を管理者権限で編集することで解決する。次の行のコメントアウトを外せ：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># With default configuration Neo4j only accepts local connections.</span>
+<span class="c1"># To accept non-local connections, uncomment this line:</span>
+<span class="c1">#server.default_listen_address=0.0.0.0</span>
+</pre></div>
+</div>
+<p>次にサービスを稼動すると、&lt;<a class="reference external" href="http://localhost:7474/browser/">http://localhost:7474/browser/</a>&gt; をブラウザーで開くことで Neo4j 画面が出るはずだ。</p>
+</div>
+<p>とりあえず作業ユーザーを作成する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cypher-shell
+<span class="go">username: neo4j</span>
+<span class="go">password:</span>
+<span class="go">Connected to Neo4j using Bolt protocol version 5.4 at neo4j://localhost:7687 as user neo4j.</span>
+<span class="go">Type :help for a list of available commands or :exit to exit the shell.</span>
+<span class="go">Note that Cypher queries must end with a semicolon.</span>
+<span class="go">neo4j@neo4j&gt; create user XXXXXXXX set password YYYYYYY change not required;</span>
+<span class="go">0 rows</span>
+<span class="go">neo4j@neo4j&gt; :exit</span>
+
+<span class="go">Bye!</span>
+</pre></div>
+</div>
+<p>作業ユーザーが用意できたらブラウザーで作業する。上述の URL を開いて Neo4j の画面が出たら作業ユーザーでログインしろ。<span class="guilabel">User database</span> を
+<span class="guilabel">neo4j</span> に合わせろ。Neo4j Browser Guides を素直に全部読め。構文の詳細を理解するのは後回しにして、ツールの使い方に慣れろ。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Neo4j Browser でよく実行するコマンドを <span class="guilabel">Save as Faivorite</span> しておくのがよい。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n)</span> <span class="pre">RETURN</span> <span class="pre">n</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n)</span> <span class="pre">DETACH</span> <span class="pre">DELETE</span> <span class="pre">n</span></code></p></li>
+</ul>
+</div>
+<p>ガイドを追えたら接続を解除してブラウザーを閉じてよい。</p>
+<p>次に <a class="reference external" href="https://www.tutorialspoint.com/neo4j/">Neo4j Tutorial</a> もこなしてみる。若干古いバージョン向けの教材らしく、コマンドの一部は書き改めないと動作しない。これを調べながら動作させつつ進め。</p>
+<p>アンインストール手順は <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">uninstall</span> <span class="pre">neo4j</span></code> 実行とファイルシステムの整頓でいいか。</p>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="orientdb.html" title="Previous document">OrientDB 利用ノート</a>
+        </li>
+        <li>
+          <a href="dynamodb.html" title="Next document">Amazon DynamoDB 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="../_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2023, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
