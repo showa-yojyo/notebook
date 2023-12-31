@@ -1,0 +1,55 @@
+classDiagram
+    direction TB
+    Reader --> Parser: parser
+    Reader *-- Input: source
+    Reader *-- document: document
+
+    Component <|-- Reader
+        Reader <|-- ReReader
+            ReReader <|-- doctreeReader
+        Reader <|-- standaloneReader
+            standaloneReader <|-- pepReader
+    Reader --> Values: settings
+
+    class Component{
+        +str component_type$
+        #tuple supported$
+        +supports(str) bool
+    }
+
+    class Reader{
+        +str component_type$
+        +str config_section$
+        #str input
+
+        +get_transforms()
+        +set_parser(str)
+        +read(Input, Parser, Values)
+        #parse()
+        #new_document()
+    }
+
+    class ReReader{
+        +get_transforms()
+    }
+
+    class doctreeReader{
+        #tuple supported$
+        +str config_section$
+        #parse()
+    }
+
+    class standaloneReader{
+        #tuple supported$
+        +tuple settings_spec$
+        +str config_section$
+        +get_transforms()
+    }
+
+    class pepReader{
+        #tuple supported$
+        +tuple settings_spec$
+        +str config_section$
+        +get_transforms()
+        #parse()
+    }

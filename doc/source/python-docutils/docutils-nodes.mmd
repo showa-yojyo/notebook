@@ -1,0 +1,48 @@
+classDiagram
+    direction TB
+        Node <|-- Text
+            Text <|-- ConcreteText
+        Node <|-- Element
+            Element <|-- ConcreteElement
+
+        Root <|-- document
+        Structural <|-- document
+        Element <|-- document
+
+        %% ロールを書きたい。
+        Node --> Node: parent
+        Node --> document: document
+        Element *-- Element: children
+
+    class Node{
+        +str source
+        +int line
+        +copy()* Node
+        +deepcopy()* Node
+        +astext()* str
+        #setup_child(Node)
+        +walk(NodeVisitor)
+        +walkabout(NodeVisitor)
+        +traverse(...)
+        +next_node(...) Node
+    }
+
+    class Text{
+        +shortexpr(int) str
+        +copy() Text
+        +deepcopy() Text
+    }
+
+    class Element{
+        +astext() str
+        +shortexpr(int) str
+        +starttag(...) str
+        +endtag(...) str
+        +emptytag() str
+        +copy() Element
+        +deepcopy() Element
+    }
+
+    class document{
+        +copy() document
+    }

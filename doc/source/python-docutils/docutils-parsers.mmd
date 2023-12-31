@@ -1,0 +1,45 @@
+classDiagram
+    direction TB
+        Component <|-- Parser
+        Parser --> document: document
+        Parser <|-- nullParser
+        Parser <|-- rstParser
+
+        rstParser *-- RSTStateMachine: state_machine
+        rstParser o-- RSTState: state_classes
+        RSTStateMachine o-- RSTState: states
+
+    class Parser{
+        +tuple settings_spec$
+        +str component_type$
+        +str config_section$
+        -str input_string
+
+        +parse(str, document)*
+        #setup_parse(str, document)
+        #finish_parse()
+    }
+
+    class nullParser{
+        #tuple supported$
+        +str config_section$
+        +tuple config_section_dependencies$
+        +parse(str, document)
+    }
+
+    class rstParser{
+        #tuple supported$
+        +tuple settings_spec$
+        +str config_section$
+        +tuple config_section_dependencies$
+
+        +str initial_state
+        -Inliner inliner
+
+        +get_transforms()
+        +parse(str, document)
+    }
+
+    class RSTStateMachine{
+        +run(...)
+    }

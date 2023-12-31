@@ -1,0 +1,28 @@
+sequenceDiagram
+    actor Client
+
+    Client->>+Publisher: publish
+    activate Publisher
+        Publisher->>Publisher: process_command_line(argv, ...)
+    deactivate Publisher
+
+    Publisher->>Publisher: set_io
+    activate Publisher
+        Publisher->>Input: <<create>>
+        activate Input
+        Publisher->>Output: <<create>>
+        activate Output
+    deactivate Publisher
+
+    Publisher->>Reader: read(source, parser, settings)
+    activate Reader
+        Reader-->>Publisher: document
+    deactivate Reader
+    deactivate Input
+    Publisher->>Publisher: apply_transform
+
+    Publisher->>+Writer: write(document, destination)
+    Writer-->>-Publisher: output
+    Publisher->>+Writer: assemble_parts
+    Writer-->>-Publisher: &#x20
+    deactivate Output

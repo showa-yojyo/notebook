@@ -1,0 +1,44 @@
+classDiagram
+    direction TB
+
+    TransformSpec <|-- Component
+    TransformSpec <|-- Transformer
+
+    class Component{
+        str component_type$
+    }
+
+    class Transformer{
+        -int serialno
+        +add_transform(Transform)
+        +add_transforms(...)
+        +add_pending(...)
+        +apply_transforms()
+        +get_priority_string(int) str
+        +populate_from_components(components)
+    }
+
+    class TransformSpec{
+        +get_transforms()
+    }
+
+    Transformer o-- Transform: transforms
+
+    Transformer o-- Component: components
+    Transformer --> document: document
+    %%Node --* document
+
+    class Transform{
+        #int default_priority$
+        +apply()*
+    }
+
+    Transform --> document: document
+    Transform --> Node: start_node
+    Node <|-- document
+    Transform <|-- ConcreteTransform
+
+    class ConcreteTransform{
+        #int default_priority$
+        +apply()
+    }

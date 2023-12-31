@@ -1,0 +1,57 @@
+classDiagram
+    direction TB
+
+    document <-- Node: document
+    document <-- NodeVisitor: document
+
+    class Node{
+        +walk(NodeVisitor)
+        +walkabout(NodeVisitor)
+    }
+
+    class NodeVisitor{
+        <<abstract>>
+        +dispatch_visit(Node)
+        +dispatch_departure(Node)
+        #unknown_visit(Node)
+        #unknown_departure(Node)
+    }
+
+    class SparseNodeVisitor{
+        +visit_CLASSNAME(Node)
+        +depart_CLASSNAME(Node)
+    }
+
+    class GenericNodeVisitor{
+        <<abstract>>
+        +dispatch_visit(Node)
+        +dispatch_departure(Node)
+        +visit_CLASSNAME(Node)
+        +depart_CLASSNAME(Node)
+        +default_visit(Node)*
+        +default_departure(Node)*
+    }
+
+    Node <--> NodeVisitor
+        NodeVisitor <|-- SparseNodeVisitor
+            %%SparseNodeVisitor <|-- ODFTranslator
+            SparseNodeVisitor <|-- DanglingReferencesVisitor
+            SparseNodeVisitor <|-- PRPZeroSpecial
+        NodeVisitor <|-- GenericNodeVisitor
+            GenericNodeVisitor <|-- SimpleListChecker
+            GenericNodeVisitor <|-- XMLTranslator
+            GenericNodeVisitor <|-- ODFTranslator
+            GenericNodeVisitor <|-- TreeCopyVisitor
+
+    class DanglingReferencesVisitor{
+        #unknown_visit(Node)
+        +visit_reference(Node)
+    }
+
+    class TreeCopyVisitor{
+        -Node parent
+        -list parent_stack
+        +default_visit(Node)
+        +default_departure(Node)
+        +get_tree_copy() Node
+    }
