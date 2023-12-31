@@ -26,11 +26,11 @@ copyright = f'1999-{date.today().year}, {author} All rights reserved'
 
 # The short X.Y version.
 # The major project version, used as the replacement for |version|.
-version = '1.5'
+version = '1.6'
 
 # The full project version, used as the replacement for |release| and e.g. in
 # the HTML templates.
-release = '1.5dev'
+release = '1.6dev'
 
 # -- General configuration -----------------------------------------------------
 
