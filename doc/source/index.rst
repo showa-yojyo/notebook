@@ -156,6 +156,7 @@
    wsl
    wslg
    vscode/index
+   regex
    cygwin
    chrome
    git/index
