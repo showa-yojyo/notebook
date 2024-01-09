@@ -258,11 +258,11 @@
 <h4><a class="toc-backref" href="#id21" role="doc-backlink">Linux ディストリビューションをインポート・エクスポートする</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
 <p>サブコマンド <code class="docutils literal notranslate"><span class="pre">--import</span></code> および <code class="docutils literal notranslate"><span class="pre">--export</span></code> は、Linux ディストリビューションのファイルシステムおよびデータ全体をTAR ファイル形式に符号化、復号化する。当然、利用する用途はバックアップとその回復だ。</p>
 <p>バックアップコマンドは <code class="docutils literal notranslate"><span class="pre">--export</span></code> を指定する。次のようになる：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">wsl</span> <span class="o">--</span><span class="n">export</span> <span class="n">Ubuntu</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">bkp</span><span class="o">.</span><span class="n">tar</span>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> wsl --export Ubuntu ubuntu-bkp.tar
 </pre></div>
 </div>
 <p>このアーカイブファイルを Linux システムに復元するには <code class="docutils literal notranslate"><span class="pre">--import</span></code> する：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">wsl</span> <span class="o">--</span><span class="kn">import</span> <span class="nn">DISTRO_NAME</span> <span class="n">DISTRO_LOCATION</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">bkp</span><span class="o">.</span><span class="n">tar</span>
+<div class="highlight-doscon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;</span> wsl --import DISTRO_NAME DISTRO_LOCATION ubuntu-bkp.tar
 </pre></div>
 </div>
 <p>ここで引数 <code class="docutils literal notranslate"><span class="pre">DISTRO_NAME</span></code> と <code class="docutils literal notranslate"><span class="pre">DISTRO_LOCATION</span></code> は復元後の Linux システムの名前と、それを配置する Windows 視点でのパスを表す。</p>
@@ -270,6 +270,18 @@
 <p class="admonition-title">利用者ノート</p>
 <p>記憶領域媒体によって上記サブコマンドの性能に大きな差が生じるようだ。HDD では遅く SSD では速いのは想像に難くない。ファイルシステムの断片化がシリアライズ処理に影響するとか。現に、私の環境では <code class="docutils literal notranslate"><span class="pre">--export</span></code> が何分経っても TAR ファイルのサイズが変わらないままだった。</p>
 </div>
+<p>注意点が二つある：</p>
+<ul>
+<li><p>作業前に WSL を完全に停止すること。コマンド <code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--terminate</span></code> が良い。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--export</span></code> するまでは登録解除系のコマンドを決して実行するな。WSL イメージが消滅する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--import</span></code> すると、おそらく Ubuntu コンソールを起動したときにユーザーを「忘れている」状態でプロンプトが示される。その場合にはファイル
+<code class="file docutils literal notranslate"><span class="pre">/etc/wsl.conf</span></code> を root 編集して、既定ユーザーを示すこと：</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[user]</span>
+<span class="na">default</span><span class="o">=</span><span class="s">{{ YOUR_USER_NAME }}</span>
+</pre></div>
+</div>
+</li>
+</ul>
 </section>
 <section id="id7">
 <h4><a class="toc-backref" href="#id22" role="doc-backlink">実行中の仮想マシンすべてを即終了する</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>

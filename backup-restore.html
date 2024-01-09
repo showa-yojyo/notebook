@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>バックアップ＆復旧ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Windows 用フリーウェア 利用ノート" href="freeware.html" />
+    <link rel="prev" title="Amazon DynamoDB 利用ノート" href="database/dynamodb.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+              <div class="related top">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="database/dynamodb.html" title="Previous document">Amazon DynamoDB 利用ノート</a>
+        </li>
+        <li>
+          <a href="freeware.html" title="Next document">Windows 用フリーウェア 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+
+          <div class="body" role="main">
+            
+  <section id="id1">
+<h1><a class="toc-backref" href="#id18" role="doc-backlink">バックアップ＆復旧ノート</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>本ノートは私の Windows PC 環境を復旧・復元可能な水準でバックアップする手順を述べるものだ。</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id18">バックアップ＆復旧ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id19">目的と目標</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id20">バックアップ原則</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">全体バックアップ＆復元</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id22">準備例</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">手順例</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id24">部分的バックアップ＆復元</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id25">ソフトウェアおよびその設定</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id26">ユーザーファイル</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id27">ブックマーク</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id28">メール</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id29">Windows レジストリー</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id30">機密データ</a></p></li>
+<li><p><a class="reference internal" href="#wsl" id="id31">WSL</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id14" id="id32">利用ツール</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id15" id="id33">オンラインストレージ</a></p></li>
+<li><p><a class="reference internal" href="#sns" id="id34">SNS</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id35">ハードウェア</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id17" id="id36">参考文献</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id2">
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">目的と目標</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>OS は Windows 10 だが、OS をアップグレードしても旧環境の良さを持ち越したいので、後述の手順すべてにおいてそれを念頭に置きたい。</p>
+<p>再びホームレスになっても対応し易いようにノート PC であることを想定する。</p>
+<p>バックアップと復旧の目標は盗難にあっても新 PC でなじみの環境を復旧できることだ。</p>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">バックアップ原則</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>手順を自動化しておくのが望ましい。</p></li>
+<li><p>専門家のオンラインサービスを利用することを優先する。次の条件が望ましい：</p>
+<ul>
+<li><p>利用期間が設けられていない（一定期間後、サービスが対象ファイルを削除しない）</p></li>
+<li><p>サービス側が対象ファイルの内容を検閲しない</p></li>
+</ul>
+</li>
+<li><p>インターネットからダウンロード可能なファイルや、公開データから復元可能なファイルについては、成果物そのものをバックアップしないで URL を記録しておく。</p></li>
+<li><p>機密情報は生データをバックアップしない。最低限パスワード付き圧縮ファイルに変換してバックアップする。</p></li>
+<li><p>テキストファイルは許す限り <a class="reference external" href="https://github.com/">GitHub</a> にリポジトリーを用意する。ただし Private
+モードに頼らない。</p></li>
+<li><p>ファイル以外の形式で保存される情報のバックアップを漏らさない。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">全体バックアップ＆復元</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>本節の内容が毎回実現可能であれば、以降の節は実施しなくていい。</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">準備例</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<p>HDD 250GB から SSD 500GB に以降した際の手順を記す。次に Windows 全体をバックアップ＆復元する際にはこの手順を再現すればいいはずだ。</p>
+<p>次の物品をまず用意する：</p>
+<ul class="simple">
+<li><p>ネジ回しセット</p></li>
+<li><p>玄人志向 2.5 型ドライブケース</p></li>
+<li><p>SanDisk SSD (500GB)</p></li>
+</ul>
+<figure class="align-center">
+<img alt="ネジ回し、ドライブケース、SSD の写真（なお USB 棒は今回は不使用）" src="_images/ssd.jpg" />
+</figure>
+<p>ネジ回しとドライブケースは何度でも再利用可能。一度だけ調達すれば十分だ。肝腎の
+SSD については新品を支度しろ。バックアップ元のドライブ容量より大きいことが望ましい。</p>
+<p>クローンソフトを利用する方法でバックアップした。次の Western Digital Corporation
+のサイトからダウンロードできる Acronis True Image for Western Digital を利用した：</p>
+<p><a class="reference external" href="https://support-jp.wd.com/app/answers/detailweb/a_id/7225">WD 製品のソフトウェア、ファームウェア、およびドライバー</a></p>
+<p>これを利用したいので SanDisk SSD を購入したのだ。ZIP ファイルの容量が 700MB くらいあるので注意。</p>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">手順例</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<p class="rubric">バックアップ</p>
+<ol class="arabic simple">
+<li><p>クローンソフトをダウンロードする。</p></li>
+<li><p>圧縮ファイルを解凍。Acronis True Image for Western Digital インストーラーを起動。</p></li>
+</ol>
+<p>並行して次を進める：</p>
+<ol class="arabic simple">
+<li><p>外付けドライブケースに SanDisk SSD を装着する。</p></li>
+<li><p>PC と 2. のケースをケーブルで接続し、Windows に認識させる。</p></li>
+<li><p>Windows 画面に戻り、Windows ボタンの右クリックメニューから
+<span class="menuselection">コンピューターの管理 ‣ 記憶域 ‣ ディスクの管理</span> でバックアップ先ストレージをフォーマット。</p></li>
+</ol>
+<p>上の二工程を終えたら Acronis True Image for Western Digital でクローンを開始する。しばらくして進捗バーが表示される。処理時間見込みはあまりあてにならない。意外に早く完了することがある。クローンに専念させたいので、Windows 側で稼働している他のプログラムを可能な限り終了するといい。ネットワークも切断する。</p>
+<p>以上で Windows 丸ごとのバックアップが完了したことになる。バックアップストレージを保管する。</p>
+<p class="rubric">復元</p>
+<p>クローンが終了した後に次を行えば、復元は終了だ。</p>
+<ol class="arabic simple">
+<li><p>PC の電源を落とす。バッテリーを外して数分待つ。</p></li>
+<li><p>PC をひっくり返し、ネジ回しで HDD 部分を開ける。構造を確認する。</p></li>
+<li><p>もう一度ネジ回しで本体側ドライブに取り付けられているネジを外す。側面を覆う部品からもネジを外す。この部品にバックアップ SSD を取り付ける。</p></li>
+<li><p>SSD を取り付けて PC の蓋と電源を復元。スイッチを入れる。</p></li>
+</ol>
+<p>以上で復元完了となる。いつものように Windows にログインすればいい。復元後、ストレージの内容を適宜整理する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>なお、Windows 11 以降にこの手順が適用可能であるか不透明だ。そのときに本項を改訂する。</p>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">部分的バックアップ＆復元</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p>前節の内容を毎回実施可能ならば、本節は本質的には不要だ。</p>
+<p>急所のデータ（主にファイル）だけをバックアップできれば十分という場合もある。全体バックアップとは別に、個別にバックアップ可能であるものは追加的にそうしておきたい。まずバックアップ対象を自分の中で確定してしまう。</p>
+<ul class="simple">
+<li><p>ソフトウェアおよびその設定</p></li>
+<li><p>ユーザーファイル (<code class="docutils literal notranslate"><span class="pre">%USERPROFILE%</span></code>)</p></li>
+<li><p>ブックマーク</p></li>
+<li><p>メール</p></li>
+<li><p>レジストリー</p></li>
+<li><p>環境変数</p></li>
+<li><p>機密データ</p></li>
+<li><p>WSL</p></li>
+</ul>
+<section id="id8">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">ソフトウェアおよびその設定</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<p>これはソフトウェア本体と設定を分けて考える必要がある。</p>
+<p>Windows 標準のインストーラーを使ってインストールしたソフトに関しては、インストーラー配布場所を控えておいて、後でインストーラーを入手し、それを用いて復元可能だ。とりわけ、<strong class="program">winget</strong> で管理しているものについては自動処理も視野に入れた操作が容易だ。いつでも最新版の実行形式をインストールしたい場合にはこれでいい。</p>
+<p>インターネット上ではすでに配布されていない版のソフトウェアが必要である場合、インストーラーを適当な USB 棒にたいせつに保存しておく。もっとも、そういうソフトは利用しないで済むのが望ましい。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="winget.html"><span class="doc">Windows Package Manager CLI 利用ノート</span></a></p>
+</div>
+<p>設定はソフトウェアごとに保存方式が異なるので、バックアップ方法も異なる。場合分けして実施する。</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">%APPDATA%</span></code> など、設定ファイル用フォルダーのサブフォルダーにあるファイル</p></li>
+<li><p>レジストリーのソフトウェア固有のエントリー</p></li>
+<li><p>それ以外</p></li>
+</ul>
+<p><code class="file docutils literal notranslate"><span class="pre">%APPDATA%</span></code> からバックアップ対象のソフトウェアに関するフォルダーごとバックアップストレージに保管する。フォルダーを上書きして復元する。</p>
+<p>なお、<code class="file docutils literal notranslate"><span class="pre">%APPDATA%</span></code> 以外にも、次のフォルダーも気をつける：</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">%HOME%</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%HOME\.config%</span></code></p></li>
+</ul>
+<p>レジストリーに設定を書き出すソフトウェアに関しては、レジストリーをエクスポートして <code class="docutils literal notranslate"><span class="pre">reg</span></code> ファイルをバックアップストレージに保管する。エクスポートのときに、ソフトウェアエントリー単位で行うと、ソフトウェアごとに復元することができて柔軟だ。</p>
+<p>それ以外について、例えばインストールフォルダーの内部に設定ファイルを保存するようなものについてはバックアップは厄介だ。ファイルを個別にバックアップせねばならない。管理が煩雑だし、復元時も面倒だ。</p>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">ユーザーファイル</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p>基本的に、自作の書類、帳簿、ビデオなどはフォルダー <code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%</span></code> の対応するサブフォルダーに作成する習慣とする。これらのサブフォルダーについては、丸ごとバックアップストレージにコピーして保管するのが理想的だ：</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Desktop</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Documents</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Downloads</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Favorites</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Music</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Pictures</span></code></p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Videos</span></code></p></li>
+</ul>
+<p>なお、そもそもデスクトップにファイルを配置しないほうがいい。それ以外のサブフォルダーに移す。</p>
+<p>ファイルサイズが大きいはずなので、一部はバックアップ不能というのが普通だ。そういう場合は後述の（無料）ストレージサービスを利用するなどして分散保管する。それ以外はフォルダーごとバックアップ先に保管する。</p>
+<p>Windows PC を新規調達した場合には、これらのサブフォルダーを新環境の
+<code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%</span></code> にマージ上書きする。これで復元したことになる。</p>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">ブックマーク</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<p>私は Windows 既定のブラウザーをいっさい利用していないので、上述の
+<code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\Favorites</span></code> バックアップでは不十分だ。Sleipnir のバックアップで代える。</p>
+<p>以下、Sleipnir のブックマークと RSS の簡易バックアップ方法を記す。ブックマークについては次の手順で出力される HTML ファイルを適宜保管する：</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Sleipnir –&gt; ブックマークのエクスポート (<span class="accelerator">E</span>) …</span> を選択</p></li>
+<li><p>保存先フォルダーをツリー上で選択して <span class="guilabel">OK</span> を押す</p></li>
+</ol>
+<div class="admonition-todo admonition" id="id11">
+<p class="admonition-title">Todo</p>
+<p>復元手順が特殊なのでよく調べてから記す。いったん Internet Explorer か
+Microsoft Edge を経由する方法があると記憶している。</p>
+</div>
+<p>ブックマークの他に RSS リーダーもバックアップする。</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Sleipnir –&gt; 表示 (<span class="accelerator">V</span>) –&gt; FeedReader を表示</span> を選択して表示状態にする</p></li>
+<li><p><span class="guilabel">すべてのアイテム</span> を選択状態にする</p></li>
+<li><p>歯車メニューから <span class="guilabel">インポートおよびエクスポート –&gt; OPML 形式でエク
+スポート (<span class="accelerator">I</span>)…</span> を選択</p></li>
+<li><p>保存先ファイルを決定して <span class="guilabel">保存 (<span class="accelerator">S</span>)</span> を押す</p></li>
+</ol>
+<p>保存先の既定パスが変なところにあるので注意すること。必ずバックアップ先に変えろ。復元手順は上記手順のエクスポートの代わりにインポートを指示すれば後は自明だ。</p>
+</section>
+<section id="id12">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">メール</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<p>メールは Hotmail 現 <a class="reference external" href="http://outlook.com/">Outlook.com</a>, <a class="reference external" href="https://www.google.co.jp/intl/ja/gmail/about/">Gmail</a> など、外部サーバーに保管してあるから余計なことをしなければバックアップを考えないほうがいい。自分でバックアップするより保管成功率がはるかに高い。</p>
+<p><a class="reference external" href="https://www.thunderbird.net/">Thunderbird</a> などのメールクライアント環境（設定）のバックアップと復元するには、上述のソフトウェア一般に関する節で述べた方法を採用する。</p>
+</section>
+<section id="windows">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Windows レジストリー</a><a class="headerlink" href="#windows" title="Permalink to this heading">¶</a></h3>
+<p>レジストリーは基本的に一枚岩のファイルなので、全体バックアップでいいと思う。その部分を後から抽出することは専用エディターで可能であるはず。試しにレジストリー全体をエクスポートしたら 300MB を超える <code class="docutils literal notranslate"><span class="pre">reg</span></code> ファイルが生じた。</p>
+<p>本番時に次の記事を参照すればいいだろう：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://support.microsoft.com/en-au/topic/how-to-back-up-and-restore-the-registry-in-windows-855140ad-e318-2a13-2829-d428a2ab0692">How to back up and restore the registry in Windows - Microsoft Support</a></p></li>
+<li><p><a class="reference external" href="https://atmarkit.itmedia.co.jp/fwin2k/win2ktips/593regsave/regsave.html">特定のレジストリ・キー以下を素早くバックアップする － ＠IT</a></p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><kbd class="kbd docutils literal notranslate">CapsLock</kbd> と左 <kbd class="kbd docutils literal notranslate">Ctrl</kbd> を入れ替えるためにレジストリーを使っていて、そのバックアップと復元が気になているような場合、レジストリー操作手順が Google
+検索ですぐに見つかるので、バッアップしないで済む。</p>
+</div>
+</section>
+<section id="id13">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">機密データ</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<p>機密情報・データには次のものがある：</p>
+<ul class="simple">
+<li><p>求人応募資料群（履歴書、職務経歴書、証明写真、応募履歴台帳）</p></li>
+<li><p>報告書、家計簿、納税ファイル</p></li>
+<li><p>パスワード台帳、SSH 秘密鍵を含むテキストファイル、設定ファイルの機密情報部分</p></li>
+</ul>
+<p>次のいずれかの形式で保管すること：</p>
+<ul class="simple">
+<li><p>パスワード付きスプレッドシート (Excel, LibreOffice, etc.)</p></li>
+<li><p>パスワード付き ZIP ファイル</p></li>
+</ul>
+<p>これは通常時でもパスワードを付けて管理するのが安全保障上望ましい。解凍パスワードは脳裡にのみ収めること。</p>
+<p>暗号化ファイルの保管先はオンラインストレージが実はいい。自分で所有している USB
+棒やドライブでは足りない。ホームレスのときにノート PC ごと盗難に遭った時にそれでしのいだ実績がある。</p>
+</section>
+<section id="wsl">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">WSL</a><a class="headerlink" href="#wsl" title="Permalink to this heading">¶</a></h3>
+<p>WSL 環境を丸ごとバックアップする方法は、それを含む Windows 環境を丸ごとバックアップする方法を除けば次の記事のようにする：</p>
+<p><a class="reference external" href="https://www.xda-developers.com/how-back-up-restore-wsl/">How to back up and restore a Windows Subsystem for Linux (WSL) distro</a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="wsl.html"><span class="doc">Windows Subsystem for Linux 利用ノート</span></a> 内「Linux ディストリビューションをインポート・エクスポートする」</p>
+</div>
+</section>
+</section>
+<section id="id14">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">利用ツール</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<p>バックアップおよび復元の際に用いるツールおよび手順を述べる。</p>
+<p>最近使っていないが、<strong class="program">rsync</strong> などのコマンドラインツールも組み合わせると効率がいいかもしれない。</p>
+<section id="id15">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">オンラインストレージ</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<p>次のサービスをバックアップするファイルの性質によって使い分ける。無料プランでもけっこうな容量を使わせてくれる。</p>
+<dl>
+<dt><a class="reference external" href="https://www.dropbox.com/">Dropbox</a></dt><dd><p>無料プランで 2GB 利用可。比較的ファイル容量の小さい個人情報ファイルを暗号化かつ圧縮して保管している。対象ファイルはローカルとリモートの両方に存在する方式だ。個人的には PC を盗まれた後にファイルを失わずに済んだ実績がある。盗難 PCかのアクセスを奪うことも可能だが、PC 本体内のストレージに同じファイルがあるので、やはりパスワードを付けるのが肝要だ。</p>
+<p>Web ブラウザーからもファイルにアクセス可能。しかし、普通は Dropbox サービスを稼働させておき、Windows Explorer でファイル操作する運用だ。</p>
+</dd>
+<dt><a class="reference external" href="https://www.google.com/drive/">Google Drive</a></dt><dd><p>私は未使用。<a class="reference external" href="https://www.google.co.jp/intl/ja/gmail/about/">Gmail</a> などのサービスと利用可能容量が統合されていて、関係サービス全体で消費可能な容量の和の上限が 15GB ということだ。</p>
+<p>長期間（二年？）放置で、保管ファイルが削除されるという規約があるようだ。これを逆用したい場合に利用しよう。</p>
+</dd>
+<dt><a class="reference external" href="https://www.microsoft.com/ja-jp/microsoft-365/onedrive/online-cloud-storage">Microsoft OneDrive</a></dt><dd><p>私は未使用。<code class="file docutils literal notranslate"><span class="pre">%USERPROFILE%\OneDrive</span></code> フォルダーは空にしている。<a class="reference external" href="https://www.google.com/drive/">Google
+Drive</a> と似たような制約がある。</p>
+</dd>
+<dt><a class="reference external" href="https://www.pcloud.com/">pCloud</a></dt><dd><p>無料プランではサービス提供者の要望に応えられれば最高で 10GB 利用可。自分で収録、編集した音声・映像ファイルで当面出番がないものを保管する用途に充てている。</p>
+<p>Windows のドライブレターを一つ消費する形でストレージが生じる。対象ファイルは接続が有効な間のみアクセス可能であり、ローカルには残らない。接続がしょっちゅう切断されるようで、パスワードを毎回入力して再接続するのが面倒だ。</p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>オンラインストレージについては調査研究が足りていない。自力でバックアップストレージを確保できないほど貧窮したら必要になるサービスであるのだが。</p>
+</div>
+</section>
+<section id="sns">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">SNS</a><a class="headerlink" href="#sns" title="Permalink to this heading">¶</a></h3>
+<p>プラットフォームそれぞれにおいて、特定の条件に従う限りファイル容量が事実上無制限であることを利用することが考えられる。</p>
+<dl>
+<dt><a class="reference external" href="https://github.com/">GitHub</a></dt><dd><p>Git リポジトリーを設置するためのサービスだが、テキストファイルのバックアップ場所として捉えることも利用可能だ。仲間がいれば、リポジトリーをクローンしてもらうと安心が増すことだろう。</p>
+<p>対象としては日記、備忘録、報告書、原稿置場として最適。一方で、特に容量が大きい画像、音声、映像ファイルはバックアップ用途には不向きだ。</p>
+<p>設定ファイル（ドットファイル）を集約したリポジトリーを設けるのは良い習慣だ。環境に対応するブランチを定義して管理するといい。</p>
+</dd>
+<dt><a class="reference external" href="https://www.facebook.com/">Facebook</a></dt><dd><p>私は未使用。バックアップストレージとして利用可能なのかどうかも承知していないが、後述の <a class="reference external" href="https://twitter.com/">Twitter</a> と同様の見方で保管先として運用することが可能なのではと考えている。</p>
+</dd>
+<dt><a class="reference external" href="https://twitter.com/">Twitter</a></dt><dd><p>かなりの制約があるが、画像や映像ファイルを投稿しておくことでバックアップとする場合がある。消失する可能性がないと断言できればもっと良い用途をひねり出す。</p>
+</dd>
+<dt><a class="reference external" href="https://www.youtube.com/">YouTube</a></dt><dd><p>私は未使用。自分が収録、編集した音声および映像ファイルのバックアップストレージとして応用することが考えられる。</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">ハードウェア</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<p>USB 棒、携帯電話、外付け SSD などを所有していれば利用する。</p>
+<p>USB 棒は一時的なバックアップ先という役目で使用している。用事が済んだらバックアップのほうを消去。コンパクトさゆえに丸ごと紛失しやすいので、さらに守備的な運用になる。</p>
+<p>本当に重要なファイルに限り、オンラインストレージに加え携帯電話内のストレージにも複製を保存しておく。携帯電話にインストールされているオンラインストレージとの連携アプリがクラウドに結局バックアップするから冗長であるという気がしないでもない。</p>
+<p>外付け SSD については先述のとおり。新調するときにはジャンクショップではなく、量販店で買い求めろ。遊び目的ではないのだ。</p>
+</section>
+</section>
+<section id="id17">
+<h2><a class="toc-backref" href="#id36" role="doc-backlink">参考文献</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<p>偉大なる先人に深く感謝───。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/File_hosting_service">File hosting service - Wikipedia</a></p></li>
+<li><p><a class="reference external" href="https://itojisan.xyz/%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%81%AE%E7%9F%A5%E8%AD%98/%E3%83%8E%E3%83%BC%E3%83%88pc%E3%81%AEssd%E6%8F%9B%E8%A3%85/#SSD">Windows10ノートPCのHDDをクローンでSSDに交換・換装する方法</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=LYfIBbkGZgo">HDDからSSDにシステムイメージで換装 クローンソフト不要 【完全無料 2023年版】激
+安のSSD「SUNEAST」 Windowsの標準機能で換装 - YouTube</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=mHTGYCLUDRM">Windows10のシステムイメージバックアップ(PC丸ごとバックアップ)のやり方 -
+YouTube</a></p></li>
+<li><p><a class="reference external" href="https://tarelife.com/acronis-clone-sandisk/">【最新版】無料で使えるクローンソフト「Acronis True Image for Western
+Digital」の紹介 | たびびとライフ</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+              <div class="related bottom">
+                &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="database/dynamodb.html" title="Previous document">Amazon DynamoDB 利用ノート</a>
+        </li>
+        <li>
+          <a href="freeware.html" title="Next document">Windows 用フリーウェア 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+              </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="_static/logos.png"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
