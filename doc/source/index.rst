@@ -147,6 +147,7 @@
    :caption: ソフトウェア・ツール・パッケージ・ライブラリーノート
    :maxdepth: 1
 
+   backup-restore
    freeware
    google-ime
    deepl-translator
