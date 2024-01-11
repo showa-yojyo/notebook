@@ -35,6 +35,7 @@ Windows 用ということで、必然的に GUI を備えるソフトが主に�
 * Windows Package Manager CLI (winget)
 * Windows Subsystem for Linux
 * Windows Terminal
+* Zoom Cloud Meetings
 * 圧縮解凍ソフト Noah
 
 各ソフトウェアについての見解は後述することにして、これらの効率的なインストール手
@@ -203,6 +204,14 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/windows-terminal`
+
+`Zoom Cloud Meetings <https://zoom.us/>`__
+    略称は Zoom だ。これはオンライン会議ツールだ。転職サイトの求人応募時には面接
+    でこれを使いがちだ。画面撮影ツールとして応用することもある。
+
+    .. seealso::
+
+       :doc:`/zoom`
 
 優先度の高いソフトウェアを手動インストールする
 ----------------------------------------------------------------------
