@@ -176,6 +176,12 @@
    zoom
 
 .. toctree::
+   :caption: ハードウェア・システムノート
+   :maxdepth: 1
+
+   android
+
+.. toctree::
    :caption: その他
    :maxdepth: 1
 
