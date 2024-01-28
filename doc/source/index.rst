@@ -152,6 +152,7 @@
    google-ime
    deepl-translator
    winget
+   libreoffice/index
    powertoys/index
    windows-terminal
    wsl
