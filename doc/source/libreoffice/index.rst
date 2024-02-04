@@ -12,3 +12,5 @@ LibreOffice 利用ノート
    :maxdepth: 1
 
    main
+   calc
+   writer
