@@ -139,6 +139,10 @@ Windows Package Manager CLI を使って自動インストールする
     Calc や Writer で作成し、 MS Office 対応の各ファイル形式や PDF に変換し、人
     に送信したり印刷したりするという運用をしている。
 
+    .. seealso::
+
+       :doc:`/libreoffice/index`
+
 `Inkscape <https://inkscape.org/>`__
     Inkscape はベクトルデータベースの描画ツールで、主に SVG 形式の画像を作成する
     ために用いられる。他の形式フォーマットのインポートおよびエクスポートも可能

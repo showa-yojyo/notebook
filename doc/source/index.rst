@@ -57,6 +57,7 @@
    kantor22/index
    ou23/index
    github/index
+   libreoffice/calc-guide/index
 
 .. toctree::
    :caption: ノートにまとまっていない書籍類一覧
@@ -152,6 +153,7 @@
    google-ime
    deepl-translator
    winget
+   libreoffice/index
    powertoys/index
    windows-terminal
    wsl
