@@ -58,6 +58,7 @@
    ou23/index
    github/index
    libreoffice/calc-guide/index
+   libreoffice/writer-guide/index
 
 .. toctree::
    :caption: ノートにまとまっていない書籍類一覧
