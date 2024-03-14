@@ -35,10 +35,6 @@ Styles
    トの種類やサイズ、段落を字下げするかどうか、行間の広さ、ページ上での段落
    の揃え方など、さまざまな選択肢を設定する。
 
-.. todo::
-
-   見出しを変えるかもしれない。
-
 Using styles is recommended
 ----------------------------------------------------------------------
 
@@ -124,13 +120,13 @@ Sidebar Properties deck
 Sidebar :guilabel:`Properties` 甲板にはスタイルの適用、文字の手動書式設定、段落
 の手動書式設定のための盤がある。必要に応じて展開ボタンをクリックして盤を開け。
 
-Style 盤
+:guilabel:`Style` 盤
    :guilabel:`Set Paragraph Style` ドロップダウンリストと、:guilabel:`Clone
    Formatting`, :guilabel:`Update Selected Style`, :guilabel:`New Style from
    Selection` の図像が載っている。この辺は :doc:`Chapter 8 <writer08>` でやる。
-Character 盤
+:guilabel:`Character` 盤
    後述。
-Paragraph 盤
+:guilabel:`Paragraph` 盤
    :guilabel:`Formatting` ツールバーにないものも含め、書式設定コントロールをほと
    んど搭載している。ボタン横の下矢印をクリックすると、行間固定やカラーパレッ
    トなど、さらに選択できるコントロールが開く。
@@ -214,8 +210,8 @@ Paragraph indentation
 * :guilabel:`After Text Indent`: 右余白から
 * :guilabel:`First Line Indent`: 最初の行を左余白または指定された余白から
 
-:guilabel:`Hanging Indent` は最初の行を左余白（または余白からの指定字下げ）
-に残し、段落の他の行すべてを :guilabel:`First Line Indent` または
+:guilabel:`Hanging Indent` は最初の行を左余白（または余白からの指定字下げ）に残
+し、段落の他の行すべてを :guilabel:`First Line Indent` または
 :guilabel:`Paragraph` ダイアログボックスで指定された量だけ字下げする。
 
 .. note::
@@ -434,7 +430,7 @@ Formatting characters directly
 段落全体の（フォント名、サイズ、色などの）特性を変更したり、その他多くの目的に
 は、手動で文字を書式設定するのではなく、スタイルの詳細については :doc:`Chapter 8
 <writer08>` と :doc:`Chapter 9 <writer09>` を読め。スタイルの適用は Sidebar の
-Styles 甲板を使用して素早く簡単に行う。
+:guilabel:`Styles` 甲板を使用して素早く簡単に行う。
 
 Sidebar の :guilabel:`Properties` 甲板にある :guilabel:`Character` 盤では、横に▼
 がある図像では、それをクリックするとフォントの色や文字間隔など、さらなる選択肢の
@@ -500,7 +496,7 @@ Position
 
 :guilabel:`Position` 区画は上付き文字と下付き文字の容貌を指定する。
 
-:guilabel:`Rotation / Scaling` 区画は文字の回転を指定る。
+:guilabel:`Rotation/Scaling` 区画は文字の回転を指定る。
 
 * :guilabel:`Scale width` 欄は回転テキストを拡大縮小するフォント幅の百分率を指定
   する。

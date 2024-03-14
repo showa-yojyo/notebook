@@ -189,6 +189,12 @@ Inserting a page break and changing to a new page style
 #. ドロップダウンリストで次のページに対するページスタイルを選択
 #. :guilabel:`&OK`
 
+.. tip::
+
+   これらのページ番号フィールドの使用については :ref:`writer05-anchor5` を参照。
+
+.. _writer05-anchor1:
+
 Creating headers and footers
 ======================================================================
 
@@ -275,11 +281,13 @@ Numbering pages
 このトピックでは文書のヘッダーやフッターに次のような関連情報を挿入する技法につい
 て述べている：
 
-* Simple page numbering
-* Page number format
-* Restarting page numbering and changing numbering format
-* Numbering the first page something other than 1
-* Numbering pages by chapter
+* :ref:`writer05-anchor2`
+* :ref:`writer05-anchor3`
+* :ref:`writer05-anchor4`
+* :ref:`writer05-anchor5`
+* :ref:`writer05-anchor6`
+
+.. _writer05-anchor2:
 
 Simple page numbering
 ----------------------------------------------------------------------
@@ -307,10 +315,11 @@ Page number wizard
 
 を選択できる。
 
-:guilabel:`Page Number Wizard` を使用しない、または設定を変更する場合は、後述の
-指示に従え。
+:guilabel:`Page Number Wizard` を使用しない、または設定を変更する場合は、次の二
+節を参照。
 
-ページ番号の追加設定については後述の各節を参照。
+ページ番号の追加設定については :ref:`writer05-anchor4` と
+:ref:`writer05-anchor5` を見ろ。
 
 Page number alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -324,6 +333,8 @@ Page number alignment
 * 右クリックし、:menuselection:`P&aragraph --> P&aragraph...` を選択。
   :guilabel:`Paragraph` ダイアログボックスの :guilabel:`Alignment` タブで整列オ
   プションを選択し、:guilabel:`&OK` を押す。
+
+.. _writer05-anchor3:
 
 Page number format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -351,7 +362,9 @@ Page number format
    番号の書式を変更すると、その書式を変更する方法にかかわらず、そのページスタイ
    ルを使用しているすべてのページのページ番号に影響する。すべてのページではな
    く、一部のページのページ番号の書式を変更するには、別のページスタイルを使用す
-   る必要がある。
+   る必要がある。:ref:`次節 <writer05-anchor5>` を見ろ。
+
+.. _writer05-anchor4:
 
 Restarting page numbering and changing numbering format
 ----------------------------------------------------------------------
@@ -364,7 +377,10 @@ Restarting page numbering and changing numbering format
 * Front Matter
 * Default Page Style
 
-次に、文書の前見出しにページ番号を挿入する。
+これらについては :ref:`writer05-anchor8` と :ref:`前節 <writer05-anchor3>` を参
+照。
+
+次に、文書の前見出しにページ番号を挿入する。:ref:`writer05-anchor2` を参照。
 
 その後、ページ番号付けを再開する：
 
@@ -382,6 +398,8 @@ Restarting page numbering and changing numbering format
    対するスタイルを選択
 #. :guilabel:`Page &number` をオンにしてフィールドを活性化し ``1`` を入力
 #. :guilabel:`&OK` を押す
+
+.. _writer05-anchor5:
 
 Numbering the first page something other than 1
 ----------------------------------------------------------------------
@@ -409,6 +427,8 @@ Numbering the first page something other than 1
 
    この空白ページは、ファイルを印刷したり PDF として書き出したりするときに表示さ
    れる。:doc:`Chapter 7 <writer07>` 参照。
+
+.. _writer05-anchor6:
 
 Numbering pages by chapter
 ----------------------------------------------------------------------
@@ -475,13 +495,15 @@ Defining a different first page for a document
 * 文書の Default またはその他のページスタイルを使用する。:guilabel:`Page Style`
   ダイアログボックスの :guilabel:`Header` タブで :guilabel:`Same content on
   first &page` をオフにし、文書の最初のページと他のページに異なるヘッダーを追加
-  する。
+  する。:ref:`次節<writer05-anchor7>` 参照。
 * 最初のページと後続ページで異なるページスタイルを使う。次のページが自動的に後続
   ページのスタイルになるように、最初のページに :guilabel:`Next Page` 属性を設定
-  する。
-* 文書の冒頭に表題ページを追加する。
+  する。:ref:`writer05-anchor8` 参照。
+* 文書の冒頭に表題ページを追加する。:ref:`writer05-anchor9` 参照。
 
 いずれの方法の詳細も後述。
+
+.. _writer05-anchor7:
 
 Using one page style
 ----------------------------------------------------------------------
@@ -497,8 +519,11 @@ Using one page style
    :guilabel:`Hea&der on` をオンにし、最初のページで同じ内容の選択を解除する。オ
    プションで :guilabel:`Same co&ntent on left and right pages` を選択する。
 #. Default Page Style を使用して、任意のページにヘッダーを挿入する。
+   :ref:`writer05-anchor1` 参照。
 #. 文書の最初のページと他のページに、異なるヘッダーの内容を追加する。例えば、最
    初のページのヘッダーは空白のままにしておく。
+
+.. _writer05-anchor8:
 
 Using different page styles
 ----------------------------------------------------------------------
@@ -513,6 +538,8 @@ Using different page styles
 #. :guilabel:`Organizer` タブ
 #. :guilabel:`Ne&xt Style` ドロップダウンリストで :guilabel:`Default Page Style`
    を選択
+
+.. _writer05-anchor9:
 
 Adding title pages
 ----------------------------------------------------------------------

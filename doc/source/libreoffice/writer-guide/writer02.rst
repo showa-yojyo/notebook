@@ -2,6 +2,8 @@
 Writer Guide Chapter 2, Working with Text: Basics ノート
 ======================================================================
 
+.. |CTL| replace:: :abbr:`CTL (Complex Text Language)`
+
 .. contents:: 本章見出し
    :depth: 3
    :local:
@@ -13,7 +15,7 @@ Writer 環境を本章の記述に合わせるために、:guilabel:`Options` �
 :menuselection:`LibreOffice Writer --> Formatting Aids` ページの
 :guilabel:`Display Formatting` 各種オプションをオンにしろ。
 
-これらのマーカーの表示有無を切り替えるにはメニューから :menuselection:`&View -->
+これらの目印の表示有無を切り替えるにはメニューから :menuselection:`&View -->
 For&matting Marks` を選択する。:doc:`Chapter 20 <writer20>` 参照。
 
 本章で扱うトピック：
@@ -39,16 +41,17 @@ Writer におけるテキスト選択は他のアプリケーションにおけ�
   * 文（三重クリック）
   * 段落（四重クリック）
 
-テキストをクリックし、:kbd:`F8` を押して拡張選択モードに入り、矢印キーを使っ
-て連続したテキストブロックを選択することも可能だ。テキストブロックを選択し終わっ
-たらもう一度 :kbd:`F8` を押す。
+テキストをクリックし、:kbd:`F8` を押して拡張選択モードに入り、矢印キーを使って連
+続したテキストブロックを選択することも可能だ。テキストブロックを選択し終わったら
+もう一度 :kbd:`F8` を押す。
 
 .. admonition:: 読者ノート
 
    :kbd:`F8` キーがマウスクリック一発分に相当すると考えられる。
 
-選択モードを変更するには Status バーの図像を使う方法がある。前章で述べた欄を右ク
-リックするとコンテキストメニューに選択肢が表示される：
+選択モードを変更するには Status バーの図像を使う方法がある。:doc:`前章
+<writer01>` で述べた欄を右クリックするとコンテキストメニューに選択肢が表示され
+る：
 
 * :menuselection:`&Standard selection`
 * :menuselection:`&Extending selection` (:kbd:`F8`)
@@ -171,8 +174,8 @@ Using the Find and Replace dialog
 #. :guilabel:`Find` 欄に検索条件を入力
 #. テキストを別のテキストに置き換えるならば :guilabel:`Replace` 欄に新しいテキス
    トを入力
-#. 大文字小文字を一致させる、単語全体のみを一致させるなど、さまざまなオプション
-   を選択することが可能。
+#. 大文字小文字を一致させる、単語全体のみを一致させるなど、さまざまな選択肢を取
+   ることが可能。
 
    その他のオプションには、
 
@@ -185,7 +188,7 @@ Using the Find and Replace dialog
    などがある。
 #. :guilabel:`Find &Next` をクリックして検索条件の最初の項目を検索
 #. :guilabel:`&Replace` をクリックしてテキストを置換するか、:guilabel:`Find
-   &Next` をまたクリックして次のマッチまで飛ぶ
+   &Next` をまたクリックして次の合致まで飛ぶ
 
 .. tip::
 
@@ -220,9 +223,9 @@ Inserting special characters
 Inserting non-breaking spaces, hyphens, and more
 ----------------------------------------------------------------------
 
-さまざまな書式マークを挿入することが可能だ。これらのマークのほとんどはキーバイン
-ドが割り当てられている。すべてメニュー :menuselection:`&Insert --> Formattin&g
-Mark -->` から可能だ。
+さまざまな書式印を挿入することが可能だ。これらの目印のほとんどはキーバインドが割
+り当てられている。すべてメニュー :menuselection:`&Insert --> Formattin&g Mark
+-->` から可能だ。
 
 Non-breaking space
    単語二つが行末で区切られないようにするには、両単語の間に空白を入力するときに
@@ -238,12 +241,12 @@ Narrow No-break Space
    押しながら :kbd:`Space` を押す。
 No-width Optional Break
    :kbd:`Ctrl` + :kbd:`/` を使用すると、単語内に不可視の空白を挿入することがで
-   き、その空白が行の最後の文字である場合に改行となる。複雑なテキストレイアウト
-   (CTL) が有効である場合に使用可能。
+   き、その空白が行の最後の文字である場合に改行となる。|CTL| が有効である場合に
+   使用可能。
 Word Joiner
    行末でまとまる単語内に見えない空白を挿入する。
 
-CTL が有効である場合には次の追加的マークが有効になる：
+|CTL| が有効である場合には次の追加的マークが有効になる：
 
 * Left-to right
 * Right-to-Left
@@ -322,11 +325,36 @@ Spelling and grammar
 の先頭からやり直すかどうかを選択可能だ。
 
 ダイアログボックスの左下で :guilabel:`Chec&k grammer` をオンにすると、検出された
-文法エラーも表示される。
+文法の誤りも表示される。
 
-.. todo::
+:guilabel:`Text langua&ge`
+   綴字検査に使用する言語をこのドロップダウンリストから選択する。
+:guilabel:`&Not in dictionary`
+   誤りを含む文がこの窓に表示される。認識できない単語が見つかるとその単語が強
+   調表示される。文や単語をここで編集することが可能。
+:guilabel:`&Suggestions`
+   強調表示された単語の置換候補が示される。単語を選択して後述の訂正ボタンを押せ
+   ばいい。
 
-   オプション説明
+   文法上の誤りの場合、選択肢は一つとなる。提案を受理するには :guilabel:`Change`
+   を選択する。
+:guilabel:`&Ignore Once`, :guilabel:`I&gnore All`, :guilabel:`Add to &Dictionary`
+   これらのボタンは押すと上記のコンテキストメニューの項目と同じ効果が得られる。
+:guilabel:`Ignore Rule`
+   文法を検査する場合、提案された変更を無視することも可能。
+:guilabel:`Co&rrect`
+   未知の単語を提案された単語で置換するか、提案された文法上の変更を加える。
+:guilabel:`Correct A&ll`
+   その単語のすべての出現箇所を選択された単語で置換する。文法検査には使用不能。
+:guilabel:`Add to &AutoCorrect`
+   不正確な単語と選択された置換候補の組み合わせを AutoCorrect 置換表に追加する。
+   文書には変更を加えない。
+:guilabel:`&Undo`
+   このダイアログボックスからの変更を元に戻す。:guilabel:`Co&rrect` ボタンを使用
+   して単語を置換した場合は使用不能。
+:guilabel:`&Options...`
+   :guilabel:`Options` ダイアログボックスを開く。使用者定義の辞書を選択したり、
+   綴字検査規則を設定したりする。
 
 Grammar
 ----------------------------------------------------------------------
@@ -345,8 +373,8 @@ Grammar
 Check Spelling...` コマンドを使っていつでも文法を検査したり、入力中の文法検査を
 無効にすることも可能だ。
 
-入力中の文法検査が有効な場合、検出されたエラーは青い波線で下線表示される。この線
-を右クリックするとコンテキストメニューが開く。これも四区画からなる：
+入力中の文法検査が有効な場合、検出された誤りは青い波線で下線表示される。この線を
+右クリックするとコンテキストメニューが開く。これも四区画からなる：
 
 * 第一区画は文法違反が疑われる箇所を列挙する。
 * 第二区画には修正案が提示される。これを選択すると波線テキストが提示内容に置換さ
@@ -356,7 +384,7 @@ Check Spelling...` コマンドを使っていつでも文法を検査したり�
   ボックスを開くかを選択する。
 * 第四区画では、選択範囲や段落の言語を設定する。
 
-:guilabel:`More...` リンクはエラー詳細情報 URL がブラウザーで開く。
+:guilabel:`More...` リンクは誤り詳細情報 URL がブラウザーで開く。
 
 .. tip::
 
@@ -365,10 +393,11 @@ Check Spelling...` コマンドを使っていつでも文法を検査したり�
 English sentence checking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-追加的文法検査ツールを設定ダイアログボックスの :menuselection:`Language Settings
---> English Sentence Checking` ページで選択可能だ。また、メニュー
-:menuselection:`&Tools --> &Extensions...` で :guilabel:`English spelling
-dictionaries` を選択し、:guilabel:`Options` ボタンをクリックすることも可能だ。
+追加的文法検査ツールを :guilabel:`Options` ダイアログボックスの
+:menuselection:`Language Settings --> English Sentence Checking` ページで選択可
+能だ。また、メニュー :menuselection:`&Tools --> &Extensions...` で
+:guilabel:`English spelling dictionaries` を選択し、:guilabel:`Options` ボタンを
+クリックすることも可能だ。
 
 :guilabel:`English Sentence Checking` ページで、検査項目、報告される項目、自動的
 に変換される項目を選択する。追加的文法検査を選択した後、効力を発するには
@@ -378,7 +407,8 @@ Grammar checking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :guilabel:`&Possible mistakes`
-   例を挙げるしかないが *it's*, *he don't*, *this things* などの誤りを検査する。
+   例を挙げるしかないが ``it's``, ``he don't``, ``this things`` などの誤りを検査
+   する。
 :guilabel:`&Capitalization`
    文頭の大文字小文字を検査する。
 :guilabel:`&Word duplication`
@@ -421,7 +451,8 @@ Others
    度量衡変換。
 :guilabel:`Thousands separation &of large numbers`
    文書のロケール設定に応じて、有効数字が五桁以上の数値を、カンマ ``,`` を桁区切
-   り文字とするか、狭い空白文字を使う ISO 形式にして変換する。
+   り文字とするか、狭い空白文字を使う :abbr:`ISO (International Organization for
+   Standardization)` 形式にして変換する。
 
 Using Language Tool
 ======================================================================
