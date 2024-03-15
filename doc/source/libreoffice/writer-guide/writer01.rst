@@ -2,6 +2,8 @@
 Writer Guide Chapter 1, Introducing Writer ノート
 ======================================================================
 
+.. |PDF| replace:: :abbr:`PDF (Portable Document Format)`
+
 .. contents:: 本章見出し
    :depth: 2
    :local:
@@ -9,24 +11,26 @@ Writer Guide Chapter 1, Introducing Writer ノート
 What is Writer?
 ======================================================================
 
-Writer は LibreOffice のワープロプログラムだ。ワードプロセッサーの通常の機能（テ
-キスト入力、編集、書式設定、綴り方チェック、類語辞典、分綴、自動訂正、検索と置換
-など）に加え、重要な機能を他にも搭載している。おいおい見ていく。
+Writer は LibreOffice のワードプロセッサープログラムだ。ワードプロセッサーの通常
+の機能（テキスト入力、編集、書式設定、綴字検査、類語辞典、分綴、自動訂正、検索と
+置換など）に加え、重要な機能を他にも搭載している。おいおい見ていく。
 
 Parts of the main Writer window
 ======================================================================
 
 Writer を起動したときにデスクトップに現れるウィンドウの構成を述べている。
 
-本章の記述はメニューとツールバー主体の GUI についてであって、他にも変種 UI を搭
-載している。:doc:`Chapter 20 <writer20>` 参照。
+.. note::
+
+   本章の記述はメニューとツールバー主体の GUI についてであって、他にも変種 UI を
+   搭載している。:doc:`Chapter 20 <writer20>` 参照。
 
 Title bar
 ----------------------------------------------------------------------
 
 * タイトルバーはメインウィンドウ最上部にある横長の部分だ。
-* タイトルバーには、現在の文書の名前が表示される。新規に作成された文書である場
-  合、その名前は :guilabel:`Untitled 1` のようになる。
+* タイトルバーには、現在の文書の名前が表示される。新規に作成された文書である場合、
+  その名前は :guilabel:`Untitled 1` のようになる。
 
 Menu bar
 ----------------------------------------------------------------------
@@ -53,12 +57,11 @@ Sidebar は既定では次の八つの甲板で構成されている：
 * :guilabel:`Manage Changes`
 * :guilabel:`Accessibility Check`
 
-各甲板はタイトルバーと内容パネルで構成される。パネルはツールバーとダイアログボッ
-クスを組み合わせたようなものだ。Sidebar パネルはツールバーと多くの機能を共有して
-いる。
+各甲板はタイトルバーと内容盤で構成される。盤はツールバーとダイアログボックスを組
+み合わせたようなものだ。Sidebar 盤はツールバーと多くの機能を共有している。
 
-パネルには :guilabel:`More Options...` ボタンがあるものがあり、これを押すとダイ
-アログボックスが modal で開く。
+盤には :guilabel:`More Options...` ボタンがあるものがあり、これを押すとダイアロ
+グボックスが modal で開く。
 
 Sidebar の繋留状態と浮遊状態を切り替えるにはハンバーガーメニューから
 :menuselection:`Undock` を実行する。このメニューから
@@ -66,9 +69,9 @@ Sidebar の繋留状態と浮遊状態を切り替えるにはハンバーガー
 
 各甲板の概要：
 
-:guilabel:`Properties`
-   文書内容を整えるためのツールが並んでいる。選択対象の種類によってパネル構成が
-   変化する。次の種類については記述がある：
+:guilabel:`Properties` 盤
+   文書内容を整えるためのツールが並んでいる。選択対象の種類によって盤構成が変化
+   する。次の種類については記述がある：
 
    * テキスト
    * 図表
@@ -76,21 +79,22 @@ Sidebar の繋留状態と浮遊状態を切り替えるにはハンバーガー
    * 図面物
    * 枠
    * 映像や音声
-:guilabel:`Styles`
+:guilabel:`Styles` 盤
    文書で使用されているスタイルの管理、既存スタイル適用、新規スタイル作成、スタ
    イル変更を行う。:doc:`Chapter 8 <writer08>`, :doc:`Chapter 9 <writer09>` で詳
    しく見る。
-:guilabel:`Gallery`
+:guilabel:`Gallery` 盤
    Gallery テーマに含まれる画像と図式を示す。区画が二つある：
 
    * テーマ名をリストしたもの(矢印、箇条書き、ダイアグラムなど)
    * 選択したテーマに含まれる画像を表示するもの
 
    詳細については :doc:`Chapter 11 <writer11>` で取り扱う。
-:guilabel:`Navigator`
-   文書を拾い見て、見出し、図表、枠、画像などの内容品目を選択して整理する。後述。
-:guilabel:`Page`
-   ページ様式を整えるツールが並ぶ。パネルは四つ：
+:guilabel:`Navigator` 盤
+   文書を拾い見て、見出し、図表、枠、画像などの内容品目を選択して整理する。
+   :ref:`writer01-anchor1` で詳しくやる。
+:guilabel:`Page` 盤
+   ページ様式を整えるツールが並ぶ。盤は四つ：
 
    * :guilabel:`Format`
    * :guilabel:`Styles`
@@ -103,13 +107,13 @@ Sidebar の繋留状態と浮遊状態を切り替えるにはハンバーガー
       ページだけでなく、この文書で同じページスタイルを使用しているすべてのページ
       に影響する。
 
-:guilabel:`Style Inspector`
+:guilabel:`Style Inspector` 盤
    段落様式、文字様式、手動（直接）整形の属性すべてを表示する。:doc:`Chapter 9
    <writer09>` 参照。
-:guilabel:`Manage Changes`
+:guilabel:`Manage Changes` 盤
    まだ受理も却下もされていない、追跡された変更を列挙している。ダブルクリックす
    ると変更箇所に飛ぶ。:doc:`Chater 3 <writer03>` 参照。
-:guilabel:`Accessibility Check`
+:guilabel:`Accessibility Check` 盤
    文書内で検出された accessibility の問題を列挙する。ダブルクリックすると問題の
    場所に飛ぶ。:doc:`Chapter 7 <writer07>` 参照。
 
@@ -141,8 +145,8 @@ Displaying or hiding toolbars
 #. メニュー :menuselection:`&View --> &Toolbars -->` に進む
 #. 対象ツールバーに対応する項目を選択
 
-アクティブなツールバーには、名前の横にチェックマークが表示される。ツールパレット
-から作成されたツールバーは、表示メニューには表示されません。
+活動中のツールバーには、名前の横にチェックマークが表示される。ツールパレットから
+作成されたツールバーは、表示メニューには表示されない。
 
 ツールバーを隠す方法としては他にも、対象ツールバー内で右クリックし、
 :menuselection:`Close &Toolbar` を実行してもよい。
@@ -168,12 +172,12 @@ Sub-menus and tool palettes
 Locking and unlocking toolbars
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ツールバーをすべて固定するには
+ツールバーをすべて固定するには：
 
 #. :menuselection:`&View --> &Toolbars --> &Lock Toolbars`
 #. LibreOffice を再起動
 
-ツールバーを単品で固定するには
+ツールバーを単品で固定するには：
 
 #. :menuselection:`&View --> &Toolbars --> &Lock Toolbars` がオフであることを確
    認
@@ -198,7 +202,7 @@ Docking, locking, and moving toolbars
 * そのタイトルバーダブルクリックするか、
 * ツールバーのどこかを右クリックし :menuselection:`&Dock Toolbar` を実行する。
 
-.. note::
+.. tip::
 
    ツールバーの点線ハンドルが表示されていない場合は施錠されている。解錠するには
    右クリックメニュー :menuselection:`&Lock Toolbar Position` をオフにする。
@@ -228,7 +232,7 @@ Customizing toolbars
 * 右クリックメニューの :menuselection:`&Customize Toolbar...`
 * メニュー :menuselection:`&View --> &Toolbars --> &Customize...`
 
-:doc:`Chapter 20 <writer20>` 参照。
+新規ツールバーを作成することが可能だ。:doc:`Chapter 20 <writer20>` 参照。
 
 Rulers
 ----------------------------------------------------------------------
@@ -293,12 +297,12 @@ Accessibility 検査状態
       を参照しろ。
 
 テキスト言語
-   綴り方、ハイフネーション、類語辞典に使用される言語とローカライズが表示される。
+   綴字、分綴、類語辞典に使用される言語とローカライズが表示される。
 
    クリックするとメニューが表示され、選択したテキストまたはキャレットのある段落
    の別の言語またはローカライズを選択可能。:doc:`Chapter 3 <writer03>` 参照。
 
-   * テキストを綴り方チェックから除外するために :menuselection:`&None (Do not
+   * テキストを綴字検査から除外するために :menuselection:`&None (Do not
      check spelling)` を選択したり、
    * :menuselection:`&Reset to Default Language` で初期設定言語にリセットするこ
      とも可能だ。
@@ -309,8 +313,8 @@ Accessibility 検査状態
 
    * 上書きモードでは、キャレット位置以降のテキストが入力したテキストに置き換え
      られる。
-   * :menuselection:`&Edit --> Track Chan&ges --> &Record` がアクティブなとき
-     は使えない。
+   * :menuselection:`&Edit --> Track Chan&ges --> &Record` が活動中では使えな
+     い。
 選択モード
    クリックすると選択モード一覧
 
@@ -346,8 +350,8 @@ Accessibility 検査状態
    * ズームスライダーをドラッグ
    * 正負符号をクリック
    * 百分率を右クリックして選択できる倍率値のリストをポップアップ
-   * 百分率右クリックして :guilabel:`Zoom & View Layout` ダイアログボックスを開
-     く
+   * 百分率を右クリックして :guilabel:`Zoom & View Layout` ダイアログボックスを
+     開く
 
 Context (right-click) menus
 ======================================================================
@@ -363,6 +367,10 @@ Dialogs
 ほとんどの場合、ダイアログボックスが開いている間は文書そのものではなく、ダイアロ
 グボックスだけを操作することが許される。ダイアログボックスを閉じると再び文書を操
 作できるようになる。
+
+.. admonition:: 読者ノート
+
+   このようなダイアログボックスの挙動を modal であるということにする。
 
 通常、:guilabel:`&OK` または同様のボタンをクリックすると、変更が保存されてダイア
 ログボックスが閉じる。:guilabel:`&Cancel` をクリックすると、変更は保存されずにダ
@@ -383,7 +391,7 @@ Writer には文書を表示、編集する方法が三つある：
 
 Normal ビュー
    * Writer の既定ビューだ。
-   * 文書を印刷したり、PDF として書き出したりしたときの見てくれが表示される。
+   * 文書を印刷したり、|PDF| として書き出したりしたときの見てくれが表示される。
    * Status バーの Zoom スライダーと View Layout 図像を使って倍率を変更可能。
    * :menuselection:`&View --> Whitespac&e` はヘッダーとフッター、およびページ間
      の隙間の表示有無を切り替える。これは Status バーで単一ページ表示がアクティ
@@ -523,14 +531,13 @@ Saving a document
 Save
    文書本体、現在のファイルパスを保持する。
 Save As
-   新規文書を作成したり、ファイル名やファイル形式を変更したり、計算機の
-   別の場所に保存したりする。
+   新規文書を作成したり、ファイル名やファイル形式を変更したり、計算機の別の場所
+   に保存したりする。
 Save Remote
-   文書が遠隔サーバーにすでに保存されているか、これから保存される場
-   合に実行する。
+   文書が遠隔サーバーにすでに保存されているか、これから保存される場合に実行する。
 Save a Copy
-   現在の文書の複製を保存し、さらに現在の文書を編集を続けるために開
-   いたままにする。
+   現在の文書の複製を保存し、さらに現在の文書を編集を続けるために開いたままにす
+   る。
 Save All
    現在開いているファイルをすべて保存する。
 
@@ -552,7 +559,7 @@ Save a new file or a previously-saved file
 Save to a remote server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-詳しくは後述。
+詳しくは :ref:`writer01-anchor2`
 
 #. メニューから :menuselection:`&File -> Sa&ve Remote...` を選択
 #. :guilabel:`名前を付けて保存` ダイアログボックスで保存先を指定、確認
@@ -590,8 +597,9 @@ Save As command
 
 .. note::
 
-   LibreOffice では PDF や ePub など、ファイルタイプの変更を伴うファイル操作に
-   対して export という用語を用いる。:doc:`Chapter 7 <writer07>` で見ていく。
+   LibreOffice では |PDF| や :abbr:`ePub (Electronic PUBlication)` など、ファイ
+   ルタイプの変更を伴うファイル操作に対して export という用語を用いる。
+   :doc:`Chapter 7 <writer07>` で見ていく。
 
 Saving documents automatically
 ----------------------------------------------------------------------
@@ -623,17 +631,18 @@ Save As コマンド実行途中でファイル形式を指定する際に、ド
 
 .. tip::
 
-   Writer で文書を Microsoft Word 形式でいつでも保存するには、
-   :guilabel:`Options` ダイアログボックスの :menuselection:`Load/Save -->
-   General` ページを開いて、下の方にある :guilabel:`Always sa&ve as` の値を希望
-   のファイル形式に設定する。
+   Writer で文書を Microsoft Word 形式でいつでも保存するには :guilabel:`Options`
+   ダイアログボックスの :menuselection:`Load/Save --> General` ページを開いて、
+   下の方にある :guilabel:`Always sa&ve as` の値を希望のファイル形式に設定する。
 
 Exchanging documents with users of Apple Pages
 ----------------------------------------------------------------------
 
-.. admonition:: 読者ノート
-
-   割愛。
+Writer は Apple Pages 形式 (.pages) のファイルを開いて編集することは可能だが、そ
+のファイル形式で保存したり、にエクスポートしたりすることは不可能だ。Apple Pages
+は OpenDocument 形式のファイルを開くことが不可能であるため、Pages 利用者とファイ
+ルを共有する必要がある場合は、.odtファイルを .rtf や .docx などの互換性のある形
+式に保存しろ。
 
 Using password protection and OpenPGP encryption
 ======================================================================
@@ -674,7 +683,7 @@ LibreOffice にはパスワード保護が二つある：
 
 .. caution::
 
-   パスワードを紛失すると文書の内容を復元することはほとんど不可能だとある。
+   パスワードを紛失すると文書の内容を復元することはほとんど不可能。
 
 Changing or removing the password for a document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -700,6 +709,8 @@ OpenPGP 暗号化は受信者の公開鍵を使用する必要がある。この
 
    これは全然試せていない。
 
+.. _writer01-anchor2:
+
 Opening and saving files on remote servers
 ======================================================================
 
@@ -711,8 +722,15 @@ LibreOffice は、遠隔サーバーに保存されたファイルを開いた�
 * ファイル出納をチェックできるサーバーならば、ファイルの使用やアクセスを管理する
   ことが可能だ。
 
-LibreOffice は FTP, WebDav, Windows share, SSH などのよく知られたネットワークプ
-ロトコルを使用する多くの文書サーバーに対応している。
+LibreOffice は
+
+* :abbr:`FTP (File Transfer Protocol)`,
+* WebDav
+* Windows share
+* :abbr:`SSH (Secure SHell)`
+
+などのよく知られたネットワークプロトコルを使用する多くの文書サーバーに対応してい
+る。
 
 また、Google Drive や Microsoft OneNote のような一般的なサービスや、OASIS CMIS
 標準を実装した商用およびオープンソースのサーバーにも対応してる。
@@ -742,13 +760,15 @@ Using Go to Page
 * メニューから :menuselection:`&Edit --> Go t&o Page...` を選択
 * キーバインド :kbd:`Ctrl` + :kbd:`G`
 
+.. _writer01-anchor1:
+
 Using the Navigator
 ----------------------------------------------------------------------
 
-Navigator には見出し、図表、テキスト枠、画像、しおり、その他の物が一覧表示され
-る。Navigator を開くには次のいずれかを行う：
+Navigator には見出し、図表、テキスト枠、画像、しおり、その他の物が一覧表示される。
+Navigator を開くには次のいずれかを行う：
 
-* Sidebar 右柱 :guilabel:`Tab` パネル上の :guilabel:`Navigator` タブをクリック
+* Sidebar 右柱 :guilabel:`Tab` 盤上の :guilabel:`Navigator` タブをクリック
 * :guilabel:`Standard` ツールバーの :guilabel:`Navigator` 図像があればクリック
 * キーバインド :kbd:`F5`
 * メニュー :menuselection:`&View --> Na&vigator` をオン
@@ -775,6 +795,28 @@ Navigator は文書内を移動したり、項目を探したりするための�
 * Drag Mode
 * Promote/Demote Level
 * Promote/Demote Chapter
+
+.. note::
+
+   文書内の隠秘部分は Navigator では灰色で表示され、ツールチップとして
+   :guilabel:`hidden` という文字が表示される。:doc:`Chapter 6 <writer06>` 参照。
+
+.. tip::
+
+   オブジェクトには識別できる名前が付けられている方が見つけやすい。既定では
+   LibreOffice は Image1, Image2, Table1, Table2, etc. の名前を与える。これらの
+   名前は、オブジェクトが文書に追加された順に付けられる。文書内のそれらの位置と
+   は一致しない場合がある。
+
+   オブジェクトの名前は挿入後に変更可能。たとえば、画像の名前を変更するには、
+
+   #. Navigator でその名前を右クリック
+   #. コンテキストメニュー :menuselection:`Rename...` を選択
+   #. ビューが画像に飛び、:guilabel:`Rename object` ダイアログボックスが開く
+   #. :guilabel:`&New name` 欄に入力
+   #. :guilabel:`&OK` を押して確定
+
+   画像を直接右クリックして :menuselection:`&Properties...` を選んでも変更可能。
 
 Using outline folding
 ----------------------------------------------------------------------
