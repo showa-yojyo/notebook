@@ -3,7 +3,6 @@ Writer Guide Chapter 10, Working with Templates ノート
 ======================================================================
 
 .. include:: ./abbrev.txt
-.. |Options| replace:: :guilabel:`Options` ダイアログボックス
 
 .. contents:: 章見出し
    :depth: 3
