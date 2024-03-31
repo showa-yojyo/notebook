@@ -126,11 +126,6 @@ Writer には、アウトライン一覧にいくつかのオプションがあ�
 Combining list and paragraph styles
 ======================================================================
 
-.. |ParagraphStyleDlg| replace:: :guilabel:`Paragraph Style` ダイアログボックス
-.. |Outline&ListTab| replace:: :guilabel:`Outline & List` タブ
-.. |OrganizerTab| replace:: :guilabel:`Organizer` タブ
-.. |Indents&SpacingTab| replace:: :guilabel:`Indents & Spacing` タブ
-
 段落スタイルは一覧とアウトラインに不可欠だ。一覧スタイルを適用しても、その下にあ
 る段落スタイルは変更されない。一覧にも一定のフォントサイズや字下げなどが必要な場
 合は、まず段落スタイルを適用し、次に一覧スタイルを適用することになる（またはその
@@ -205,8 +200,7 @@ Nesting lists
 Outlining with paragraph styles
 ======================================================================
 
-.. |Tools-->Numbering| replace:: :menuselection:`&Tools --> Heading &Numbering...`
-.. |StylesDeck| replace:: :guilabel:`Styles` 甲板
+.. |Tools-->Numbering| replace:: :menuselection:`&Tools-->Heading &Numbering...`
 
 LibreOffice には段落スタイルを使用してアウトラインを形成する方法がいくつかある。
 メニューから |Tools-->Numbering| を使用すると、段落スタイルごとに番号付けスタイ
@@ -232,8 +226,8 @@ Creating outlines with a single paragraph style
 #. アウトライン用の段落スタイルを選択または作成する。`Heading 1` から `Heading
    10` のスタイルは使用できない。この制限は単一の段落スタイルアウトラインと登録
    されたアウトライン階位（次節を参照）との間の混乱を防ぐためだろう。
-#. 段落スタイルの |OrganizerTab| でスタイル自身を :guilabel:`Ne&xt Style` として使
-   用するように設定する。
+#. 段落スタイルの |OrganizerTab| でスタイル自身を :guilabel:`Ne&xt Style` として
+   使用するように設定する。
 #. 段落スタイルの |Outline&ListTab| にある :guilabel:`Numbering` 欄を使用して段
    落スタイルに一覧スタイルを割り当てる。
 
@@ -305,8 +299,8 @@ Restarting or continuing the numbering
 順序付き一覧の番号付けを再開するには、次のいずれかを行う：
 
 * 段落を右クリックして :menuselection:`&List-->&Restart Numbering` を選択
-* :guilabel:`Paragraph` ダイアログボックス |Outline&ListTab| :guilabel:`Apply
-  List Style` 区画 :guilabel:`&Restart numbering at this paragraph` をオンにする
+* |ParagraphDlg| |Outline&ListTab| :guilabel:`Apply List Style` 区画
+  :guilabel:`&Restart numbering at this paragraph` をオンにする
 
 文書を編集しているときに、番号付けを再開することから以前の一覧の番号付けを継続す
 ることに変更したい場合がある。そうするには、一覧要素を右クリックし、
@@ -328,11 +322,6 @@ Blue` だの `Lower Case Indented` だのといった叙述的名称を付ける
 Formatting list styles
 ======================================================================
 
-.. |ListStyleDlg| replace:: :guilabel:`List Style` ダイアログボックス
-.. |ImageTab| replace:: :guilabel:`Image` タブ
-.. |PositionTab| replace:: :guilabel:`Position` タブ
-.. |CustomizeTab| replace:: :guilabel:`Customize` タブ
-
 一覧スタイルにおける項目記号、数字は二つの方法で整形できる。
 
 手っ取り早い方法は、|ListStyleDlg| の :guilabel:`Unordered`,
@@ -345,7 +334,7 @@ Formatting list styles
 なし一覧や順序付き一覧をカスタマイズする方法だ。どちらのタブも十段階ある。これら
 の設定は、:kbd:`Tab` を押すたびに番号が変わるような、単一のアウトライン番号付け
 スタイルを作成するのに便利だ。:ref:`writer12-anchor-outline` を見ろ。ほとんどの
-順序なし一覧と順序付き一覧では、:guilabel:`&Level` を:guilabel:`1` に設定する
+順序なし一覧と順序付き一覧では、:guilabel:`&Level` を :guilabel:`1` に設定する
 か、既定の :guilabel:`1 - 10` のままにしておく。
 
 .. _writer12-anchor-positioning:
@@ -452,9 +441,8 @@ Example: Formatting large list numbers
 #. 数字に対して文字スタイルを新規作成するか、既存の文字スタイルを変更する。この
    例では、新しいスタイルを `Numbers Large` と名付ける。
 
-   この `Numbers Large` に対して :guilabel:`Character Style` ダイアログボックス
-   の :guilabel:`Font` タブでフォントサイズを大きくする。
-   数字の色を変更するには :guilabel:`Font Effects` タブを開く。
+   この `Numbers Large` に対して |CharacterStyleDlg| |FontTab| でフォントサイズ
+   を大きくする。数字の色を変更するには |FontEffectsTab| を開く。
 
    |OK| を押してスタイルを保存する。
 #. 一覧スタイルを新規作成するか、既存の一覧スタイルを変更する。|ListStyleDlg|
@@ -598,18 +586,18 @@ Example: Styling the Tips, Notes, and Cautions in this book
 
 .. |NewItem| replace:: :menuselection:`&New...`
 
-#. Sidebar |StylesDeck| で :guilabel:`Paragraph Styles` を選択する。右クリックし
-   て |NewItem| を選択し、新しいスタイルに `Text Note` という名前を付ける。
+#. Sidebar |StylesDeck| で |ParagraphStylesTab| をクリック。右クリックして
+   |NewItem| を選択し、新しいスタイルに `Text Note` という名前を付ける。
 #. |Indents&SpacingTab| で Tip 本文の字下げと行間を指定する。
-#. :guilabel:`Borders` タブで下部の境界線を選択し、太くし、テキストと境界線の間
-   隔を指定する。Tip が段落を複数含む場合、最後の段落の下にしか境界線を引かせな
-   いようにするには :guilabel:`&Merge with next paragraph` をオンにする。
+#. |BordersTab| で下部の境界線を選択し、太くし、テキストと境界線の間隔を指定す
+   る。Tip が段落を複数含む場合、最後の段落の下にしか境界線を引かせないようにす
+   るには :guilabel:`&Merge with next paragraph` をオンにする。
 #. |OK| を押して段落スタイルを保存する。
 
 .. rubric:: Step 2. 一覧スタイル作成
 
-#. Sidebar |StylesDeck| で :guilabel:`List Styles` を選択する。右クリックして
-   |NewItem| を選択する。新しいスタイルに `Heading Tip` と名前を付ける。
+#. Sidebar |StylesDeck| で |ListStylesTab| を選択する。右クリックして |NewItem|
+   を選択する。新しいスタイルに `Heading Tip` と名前を付ける。
 #. |ImageTab| で適切な画像を選択する。または、このステップを省略して
    |CustomizeTab| で画像を選択する。
 #. |CustomizeTab| で :guilabel:`&Number` 欄で :guilabel:`Graphics` を選択する。
@@ -627,8 +615,8 @@ Example: Styling the Tips, Notes, and Cautions in this book
 
 .. rubric:: Step 3. 見出し Tip 用の段落スタイル作成し、リストスタイル結合
 
-#. Sidebar |StylesDeck| で :guilabel:`Paragraph Styles` を選択する。右クリックし
-   て |NewItem| を選択し、新しいスタイルに `Heading Tip` という名前を付ける。
+#. Sidebar |StylesDeck| で |ParagraphStylesTab| を選択する。右クリックして
+   |NewItem| を選択し、新しいスタイルに `Heading Tip` という名前を付ける。
 #. |OrganizerTab| で :guilabel:`Next Style` を Tip 本文用に作成したものに指定す
    る。
 #. 通常の方法で段落にスタイルを設定し、|Outline&ListTab| に移動する。
@@ -657,7 +645,7 @@ Example: Creating and using a simple list style
 Creating the CDTrack list style
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Sidebar |StylesDeck| で :guilabel:`List Styles` 図像をクリック
+#. Sidebar |StylesDeck| で |ListStylesTab| をクリック
 #. 右クリックし |NewItem| を選択。|ListStyleDlg| が表示される。
 #. |OrganizerTab| で :guilabel:`Name` 欄に `CDTrack` と入力し、
    :guilabel:`Category` を :guilabel:`Custom styles` のままにする。
@@ -689,7 +677,7 @@ Creating the CDTracks paragraph style
 一覧スタイルを一覧項目に直接適用することもできるが、段落スタイルを使用する方がよ
 り良い方法だ。新しい `CDTracks` スタイルは `Default Paragraph Style` に基づく。
 
-#. Sidebar |StylesDeck| :guilabel:`Paragraph Styles` 図像をクリック
+#. Sidebar |StylesDeck| |ParagraphStylesTab| をクリック
 #. 一覧にある :guilabel:`Default Paragraph Style` を右クリックし |NewItem| を選
    択
 #. |ParagraphStyleDlg| |OrganizerTab| で :guilabel:`&Name` 欄に `CDTracks` と打
@@ -709,8 +697,8 @@ Applying the CDTracks paragraph style
 #. 新しい一覧を作成する場合、:kbd:`Enter` を押して改行する前に、Sidebar
    |StylesDeck| で目的の段落スタイル名をダブルクリックする。一覧の最後で
    :kbd:`Enter` を押し、残りのテキストに必要な段落スタイルをダブルクリックする。
-#. 既存の一覧については、それを選択し、|StylesDeck| で必要な段落スタイ
-   ル名をダブルクリックする。
+#. 既存の一覧については、それを選択し、|StylesDeck| で必要な段落スタイル名をダブ
+   ルクリックする。
 
 ----
 

@@ -31,10 +31,6 @@ Introduction
 Tools for working with tables
 ======================================================================
 
-.. |TableToolbar| replace:: :guilabel:`Table` ツールバー
-.. |PropertiesDeck| replace:: :guilabel:`Properties` 甲板
-.. |TablePanel| replace:: :guilabel:`Table` 盤
-
 この章で説明する表組コマンドのすべては、メニュー :menuselection:`T&able-->` と
 |TableToolbar| にある。また、表組のコンテキストメニューや Sidebar
 |PropertiesDeck| |TablePanel| にもある。
@@ -128,8 +124,8 @@ Using AutoCorrect to create a table
 * プラス記号は列の区切りを示すのに使用し、
 * ハイフンやタブは列の幅を示すのに使用する。
 
-この設定は |Options| :menuselection:`LibreOffice Writer-->General` ページで変更
-できる。
+この設定は |OptionsDlg| :menuselection:`LibreOffice Writer-->General` ページで変
+更できる。
 
 例えば、この文字列：
 
@@ -321,10 +317,6 @@ Resizing and positioning the table
 Specifying text flow
 ----------------------------------------------------------------------
 
-.. |TableTab| replace:: :guilabel:`Table` タブ
-.. |TextFlowTab| replace:: :guilabel:`Text Flow` タブ
-.. |PositionTab| replace:: :guilabel:`Position` タブ
-
 |TablePropertiesDlg| |TextFlowTab| では次のことができる：
 
 * 表組の前後に改頁または改段をはめ込む。:guilabel:`&Break` オプションを、
@@ -396,8 +388,6 @@ Resizing rows and columns
   &Evenly` をそれぞれ使って、すべての列と行を同じ幅または高さにそれぞれ戻すこと
   ができる。
 
-.. |ColumnsTab| replace:: :guilabel:`Columns` タブ
-
 各列の幅をより細かく制御するには |TablePropertiesDlg| |ColumnsTab| を用いる。
 
 * メニューの :menuselection:`T&able-->&Properties...` を選択するか、
@@ -433,8 +423,8 @@ Resizing rows and columns
 .. tip::
 
    |TablePropertiesDlg| から始めるよりも、マウスを使って新しい表組の大まかな調整
-   を行い、|TablePropertiesDlg| の |ColumnsTab| と |TableTab| タブを使ってレイア
-   ウトを微調整する方が効率的な場合が多い。
+   を行い、|TablePropertiesDlg| の |ColumnsTab| と |TableTab| を使ってレイアウト
+   を微調整する方が効率的な場合が多い。
 
 キーボードを使って表組の寸法を変更することもできる：
 
@@ -451,7 +441,8 @@ Resizing rows and columns
 
 .. |ConfigTable| replace:: :menuselection:`LibreOffice Writer-->Table` ページ
 
-寸法変更引数とキーボード操作の動作を調整するには |Options| |ConfigTable| を開く。
+寸法変更引数とキーボード操作の動作を調整するには |OptionsDlg| |ConfigTable| を開
+く。
 
 :guilabel:`Move cells` 区画の :guilabel:`&Row` と :guilabel:`&Column` の値を使用
 して、寸法変更中にワンストロークで生じる変更量を決定する。:guilabel:`Behavior of
@@ -584,7 +575,6 @@ Merging and splitting cells
 Specifying table borders
 ----------------------------------------------------------------------
 
-.. |BordersTab| replace:: :guilabel:`Borders` タブ
 .. |UserDefinedArea| replace:: :guilabel:`&User-defined` 部分
 
 表組の境界を素早く適用するには、次のいずれかを用いる：
@@ -638,8 +628,6 @@ Specifying table borders
 
 Selecting background colors and images
 ----------------------------------------------------------------------
-
-.. |BackgroundTab| replace:: :guilabel:`Background` タブ
 
 表組の背景はデータの可読性を大幅に向上させたり、重要な部分（見出しや特定の升目な
 ど）を視覚的に強調したり、表組をより魅力的にする。背景は無地と画像の二種類から選
@@ -700,7 +688,7 @@ Displaying or hiding table boundaries
 表組をページレイアウトに使用する場合に特に便利だ。
 
 印刷ページと同じように、境界線なしで表を画面に表示するには、
-:menuselection:`&View-->Table Boundaries` をオフにするか、|Options|
+:menuselection:`&View-->Table Boundaries` をオフにするか、|OptionsDlg|
 :menuselection:`LibreOffice-->Application Colors` ページで、テキスト、表、ヘッ
 ダーとフッター、図、文書のその他の部分の境界線有無を切り替えたり、境界線の色を選
 択したりできる。
@@ -718,7 +706,6 @@ Creating and applying table styles
 Applying a table style
 ----------------------------------------------------------------------
 
-.. |StylesDeck| replace:: :guilabel:`Styles` 甲板
 .. |TableStyles| replace:: :guilabel:`Table Styles`
 .. |AutoFormatDlg| replace:: :guilabel:`AutoFormat` ダイアログボックス
 
@@ -741,7 +728,7 @@ Styles...` を選択するか、|TableToolbar| :guilabel:`AutoFormat Styles` 図
 Creating a table style
 ----------------------------------------------------------------------
 
-Sidebar |StylesDeck| |TableStyles| タブには表組スタイルを素早く適用する方法があ
+Sidebar |StylesDeck| |TableStylesTab| には表組スタイルを素早く適用する方法があ
 るが、これらは AutoFormat 機能を使用して作成される。次の手順だ：
 
 #. 表組を作成する。フォント、配置、枠線、背景、番号の書式など、好きなように書式
@@ -811,8 +798,8 @@ Number formats
 
 数値認識では、テキスト表内の数値を認識し、数値として書式設定する。
 :guilabel:`&Number recognition` が選択されていない場合、数値はテキスト形式で保存
-され、自動的に左揃えになる。数値認識を有効にするには、|Options| |ConfigTable| で
-:guilabel:`Input in Tables` 区画のオプションを選択する。
+され、自動的に左揃えになる。数値認識を有効にするには、|OptionsDlg| |ConfigTable|
+で :guilabel:`Input in Tables` 区画のオプションを選択する。
 
 升目の数値書式を設定するには、升目を選択してから次のいずれかを行う：
 
@@ -1009,8 +996,9 @@ Protecting cells in a table
 .. tip::
 
    保護された升目にキャレットを置くことができない場合は、キャレットを有効にする
-   必要がある。|Options| :menuselection:`LibreOffice Writer-->Formatting Aids`
-   ページ :guilabel:`Protected Area` で :guilabel:`Enable cursor` をオンにする。
+   必要がある。|OptionsDlg| :menuselection:`LibreOffice Writer-->Formatting
+   Aids` ページ :guilabel:`Protected Area` で :guilabel:`Enable cursor` をオンに
+   する。
 
 Adding a caption
 ----------------------------------------------------------------------

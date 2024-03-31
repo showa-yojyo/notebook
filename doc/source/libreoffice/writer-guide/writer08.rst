@@ -2,10 +2,7 @@
 Writer Guide Chapter 8, Introduction to Styles ノート
 ======================================================================
 
-.. |See09| replace:: :doc:`Chapter 9 <writer09>` を見ろ。
-.. |See11| replace:: :doc:`Chapter 11 <writer11>` を見ろ。
-.. |See13| replace:: :doc:`Chapter 13 <writer13>` を見ろ。
-.. |See20| replace:: :doc:`Chapter 20 <writer20>` を見ろ。
+.. include:: ./abbrev.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -59,35 +56,35 @@ Writer にはスタイル区分が六つある：
 
    手動書式を取り除くには、対象テキストを選択して次のいずれかを行う：
 
-   * メニューから :menuselection:`&Format --> Clear &Direct Formatting` を選択
+   * メニューから :menuselection:`&Format-->Clear &Direct Formatting` を選択
    * 右クリックメニューから :menuselection:`Clear &Direct Formatting` を選択
    * キーバインド :kbd:`Ctrl` + :kbd:`M`
 
 The Styles deck in the Sidebar
 ======================================================================
 
-スタイル管理は主に Sidebar の :guilabel:`Styles` 甲板から行える。ここではスタイ
-ルの適用、変更、作成を行うことが可能だ。
+スタイル管理は主に Sidebar |StylesDeck| から行える。ここではスタイルの適用、変
+更、作成を行うことが可能だ。
 
 まず、次のいずれかを行う：
 
 * Sidebar の :guilabel:`Styles` 図像をクリック
-* メニューから :menuselection:`St&yles --> Manage St&yles` を選択
+* メニューから :menuselection:`St&yles-->Manage St&yles` を選択
 * キーバインド :kbd:`F11`
 
-:guilabel:`Styles` 甲板上部にある最初の六つの図像はスタイルの品目を選択する。こ
-れらの図像のいずれかをクリックすると、段落スタイルや文字スタイルなど、その品目の
-スタイル目録が示される。
+|StylesDeck| 上部にある最初の六つの図像はスタイルの品目を選択する。これらの図像
+のいずれかをクリックすると、段落スタイルや文字スタイルなど、その品目のスタイル目
+録が示される。
 
-甲板の下部にある :guilabel:`Show preview` をオンにするとスタイル名が書式の例とし
-て表示される。:guilabel:`Spotlight` をオンにして、:doc:`Chapter 9 <writer09>` で
-述べられるスタイルスポットライトを活動開始する。
+甲板下部にある :guilabel:`Show preview` をオンにするとスタイル名が書式の例として
+表示される。:guilabel:`Spotlight` をオンにして、|Chapter09| で述べられるスタイル
+スポットライトを活動開始する。
 
 Filtering the visible styles
 ----------------------------------------------------------------------
 
-:guilabel:`Styles` 甲板下部にあるドロップダウンメニューでスタイル一覧のフィルタ
-を選択する。
+|StylesDeck| 下部にあるドロップダウンメニューでスタイル一覧のフィルターを選択す
+る。
 
 執筆初期段階では :guilabel:`All Styles` で使用可能なすべてのスタイルにアクセスで
 きるようにしておき、そのうちのいくつかを隠すようにするといい：
@@ -103,8 +100,8 @@ Filtering the visible styles
 を代わりに選択する。
 
 :guilabel:`Hierarchical` ビューはどのスタイルが一緒にリンクされているかを明らか
-にするので、スタイルを修正するときに最も便利だ。これついては :doc:`Chapter 9
-<writer09>` で議論される。
+にするので、スタイルを修正するときに最も便利だ。これついては |Chapter09| で議論
+される。
 
 :guilabel:`Paragraph Styles` ビューではドロップダウンメニューにさらにいくつかの
 絞り込みオプションがあり、たとえば :guilabel:`Text Styles` や :guilabel:`Special
@@ -113,64 +110,65 @@ Styles` などに限り表示することが可能だ。
 Applying styles
 ======================================================================
 
-スタイルは Sidebar の :guilabel:`Styles` 甲板を使ってたやすく適用できる。他の方
-法を使用して適用することが可能なスタイルもある。
+スタイルは Sidebar の |StylesDeck| を使ってたやすく適用できる。他の方法を使用し
+て適用することが可能なスタイルもある。
 
 Applying paragraph styles
 ----------------------------------------------------------------------
 
+.. |StylesMenu| replace:: :menuselection:`St&yles-->`
+.. |SetParagraphStyle| replace:: :guilabel:`Set Paragraph Style` ドロップダウンリスト
+
 段落スタイルはいくつかの方法で適用できる：
 
-* Sidebar :guilabel:`Styles` 甲板 :guilabel:`Paragraph Styles` タブ
-* メニュー :menuselection:`St&yles -->` 以下（普通のスタイル限定）
+* Sidebar |StylesDeck| |ParagraphStylesTab|
+* メニュー |StylesMenu| 以下（普通のスタイル限定）
 * コンテキストメニュー（わずか）
-* :guilabel:`Formatting` ツールバーと :guilabel:`Formatting (Styles)` ツールバー
-  の左端にある :guilabel:`Set Paragraph Style` ドロップダウンリスト
-* Sidebar :guilabel:`Properties` 甲板上部にある :guilabel:`Set Paragraph Style`
-  ドロップダウンリスト
-* :guilabel:`Formatting (Styles)` ツールバー（普通のスタイル限定）
-* Sidebar :guilabel:`Styles` 甲板 :guilabel:`Fill Format Mode` 図像
+* |FormattingToolbar| と |FormattingStylesToolbar| の左端にある
+  |SetParagraphStyle|
+* Sidebar |PropertiesDeck| 上部にある |SetParagraphStyle|
+* |FormattingStylesToolbar| （普通のスタイル限定）
+* Sidebar |StylesDeck| :guilabel:`Fill Format Mode` 図像
 * キーバインド :kbd:`Ctrl` + :kbd:`1` から :kbd:`Ctrl` + :kbd:`5` (`Heading 1`,
   ..., `Heading 5`)
 
 Using the Styles deck on the Sidebar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-段落にキャレットを置き、Sidebar の :guilabel:`Styles` 甲板 :guilabel:`Paragraph
-Styles` タブでスタイル名をダブルクリックする。複数の段落を選択して、それらに同じ
-スタイルを一括適用可能。
+段落にキャレットを置き、Sidebar |StylesDeck| |ParagraphStylesTab| でスタイル名を
+ダブルクリックする。複数の段落を選択して、それらに同じスタイルを一括適用可能。
 
 Using the Styles menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-メニューの :menuselection:`St&yles -->` には、段落、文字、一覧の各スタイルのほ
-か、スタイルを作成、編集、管理するためのクイックリンクが用意されている。
+メニューの |StylesMenu| には、段落、文字、一覧の各スタイルのほか、スタイルを作
+成、編集、管理するためのクイックリンクが用意されている。
 
-:menuselection:`St&yles -->` 以下にスタイルを追加することが可能だ。|See20|
+|StylesMenu| 以下にスタイルを追加することが可能だ。|Chapter20| を見ろ。
 
 段落スタイルを適用するには：
 
 #. 対象段落にキャレットを置く
-#. :menuselection:`St&yles --> [name of paragraph style]` を選択
+#. :menuselection:`St&yles-->[name of paragraph style]` を選択
 
 このメニューの他の選択肢についてはこの章で後述。
 
 Using the context (right-click) menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-段落内の任意の場所で右クリックメニューを開く。:menuselection:`P&aragraph -->` を
+段落内の任意の場所で右クリックメニューを開く。:menuselection:`P&aragraph-->` を
 指せ。サブメニューにはよく使われる段落スタイルがいくつか含まれている。このサブメ
-ニューにも段落スタイルを追加することが可能だ。|See20|
+ニューにも段落スタイルを追加することが可能だ。|Chapter20| を見ろ。
 
 Using the Set Paragraph Style list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 文書内で段落スタイルが使用されている場合、その名前は次の場所に共通してある
-:guilabel:`Set Paragraph Style` ドロップダウンリストに表示される：
+|SetParagraphStyle| に表示される：
 
-* :guilabel:`Formatting` ツールバー左端付近
-* :guilabel:`Formatting (Styles)` ツールバー
-* Sidebar :guilabel:`Properties` 甲板上部
+* |FormattingToolbar| 左端付近
+* |FormattingStylesToolbar|
+* Sidebar |PropertiesDeck| 上部
 
 このドロップダウンリストらスタイルを適用するには：
 
@@ -181,21 +179,20 @@ Using the Set Paragraph Style list
 Using the Formatting (Styles) toolbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Formatting (Styles)` ツールバーには一般的な段落、文字、一覧のスタイル
-が含まれている。
+|FormattingStylesToolbar| には一般的な段落、文字、一覧のスタイルが含まれている。
 
 段落スタイルを適用するには、段落にキャレットを置き、ツールバーの該当するボタンを
-クリックする。このツールバーにもスタイルを追加できる。|See20|
+クリックする。このツールバーにもスタイルを追加できる。|Chapter20| を見ろ。
 
 Using Fill Format Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Fill Format Mode を使用すると、:guilabel:`Styles` 甲板に戻って毎回ダブルクリック
-しなくても、多くの領域にすばやくスタイルを適用できる。散在する段落や単語などの項
-目を同じスタイルで整形するのに便利な方法で、最初に複数の選択を行ってからすべての
-項目にスタイルを適用するよりも使いやすい。
+Fill Format Mode を使用すると、|StylesDeck| に戻って毎回ダブルクリックしなくて
+も、多くの領域にすばやくスタイルを適用できる。散在する段落や単語などの項目を同じ
+スタイルで整形するのに便利な方法で、最初に複数の選択を行ってからすべての項目にス
+タイルを適用するよりも使いやすい。
 
-#. Sidebar :guilabel:`Styles` 甲板を開く
+#. Sidebar |StylesDeck| を開く
 #. コピーするスタイルを選択し、右上の :guilabel:`Fill Format Mode` 図像をクリッ
    ク
 #. 段落、ページ、枠のスタイルを適用するには、マウスを段落、ページ、枠の上に置い
@@ -218,7 +215,7 @@ Using keyboard shortcuts
 をそれぞれ適用する。
 
 これらのキーバインドを変更したり、独自のキーバインドを定義したりすることも可能。
-|See20|
+|Chapter20| を見ろ。
 
 Applying character styles
 ----------------------------------------------------------------------
@@ -226,10 +223,10 @@ Applying character styles
 文字スタイルを適用するには、文字または単語を選択し、以下のいずれかから文字スタイ
 ルを適用する：
 
-* メニュー :menuselection:`St&yles -->` 以下（わずか）
-* Sidebar :guilabel:`Styles` 甲板 :guilabel:`Character Styles` タブ
+* メニュー |StylesMenu| 以下（わずか）
+* Sidebar |StylesDeck| |CharacterStylesTab|
 * コンテキストメニュー（わずか）
-* :guilabel:`Formatting (Styles)` ツールバー
+* |FormattingStylesToolbar|
 
 .. tip::
 
@@ -239,23 +236,23 @@ Applying character styles
 Using the Styles menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-メニューの :menuselection:`St&yles -->` には、段落、文字、一覧の各スタイルのほ
+メニューの |StylesMenu| には、段落、文字、一覧の各スタイルのほ
 か、スタイルを作成、編集するためのクイックリンクが用意されている。文字スタイルを
 適用するには：
 
 #. 文字を選択する
-#. :menuselection:`St&yles --> [name of character style]` を選択
+#. :menuselection:`St&yles-->[name of character style]` を選択
 
-:menuselection:`St&yles -->` にもスタイルを追加することが可能だ。|See20|
+|StylesMenu| にもスタイルを追加することが可能だ。|Chapter20| を見ろ。
 
 Using the Styles deck on the Sidebar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Styles` 甲板を開き、上部の :guilabel:`Character Styles` 図像をクリッ
-クする。利用可能な文字スタイルの一覧が表示される。文字スタイルを適用するには：
+|StylesDeck| を開き、上部の |CharacterStylesTab| をクリックする。利用可能な文字
+スタイルの一覧が表示される。文字スタイルを適用するには：
 
 #. スタイルを適用したいテキストを選択するか、一つの単語にキャレットを合わせる
-#. :guilabel:`Styles` 甲板で適切な文字スタイルをダブルクリック
+#. |StylesDeck| で適切な文字スタイルをダブルクリック
 
 .. note::
 
@@ -267,20 +264,19 @@ Using the context (right-click) menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 テキストのブロックを選択するか、単一単語にキャレットを置き、右クリックしてコンテ
-キストメニューを開く。:menuselection:`C&haracter -->` を指す。サブメニューにはよ
+キストメニューを開く。:menuselection:`C&haracter-->` を指す。サブメニューにはよ
 く使用される文字スタイルがいくつか含まれている。このサブメニューに文字スタイルを
-追加することもできる。|See20|
+追加することもできる。|Chapter20| を見ろ。
 
 Using the Formatting (Styles) toolbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Formatting (Styles)` ツールバーには一般的な段落、文字、一覧のスタイル
-が含まれている。
+|FormattingStylesToolbar| には一般的な段落、文字、一覧のスタイルが含まれている。
 
 文字スタイルを適用するには、テキストを選択するか、単語にキャレットを置いて、ツー
 ルバーの関連する図像をクリックする。
 
-このツールバーにもスタイルを追加できる。|See20|
+このツールバーにもスタイルを追加できる。|Chapter20| を見ろ。
 
 Removing or replacing character styles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -289,8 +285,7 @@ Removing or replacing character styles
 したりするには、次のようにする：
 
 #. テキストを選択
-#. Sidebar の :guilabel:`Styles` 甲板で、上部の :guilabel:`Character Styles` 図
-   像をクリック
+#. Sidebar |StylesDeck| で、上部の |CharacterStylesTab| をクリック
 #. 必要な文字スタイルをダブルクリックするか、文字スタイルを削除するのに
    :guilabel:`No Character Style` をダブルクリック
 
@@ -305,8 +300,7 @@ Applying frame styles
 枠にスタイルを適用するには：
 
 #. 枠を選択
-#. Sidebar の :guilabel:`Styles` 甲板上部の :guilabel:`Frame Styles` 図像をク
-   リック
+#. Sidebar |StylesDeck| 上部の |FrameStylesTab| をクリック
 #. 必要な枠スタイルをダブルクリック
 
 枠にスタイルを適用すると、枠をいいように修正できるようになる。枠の意匠のほとんど
@@ -314,20 +308,20 @@ Applying frame styles
 
 * 繋留：枠をページの他の中身に対してどのように配置するか。
 
-  * :menuselection:`F&ormat --> Anc&hor -->`
-  * |See11|
+  * :menuselection:`F&ormat-->Anc&hor-->`
+  * |Chapter11| を見ろ。
 * 配置：物体のスタック内での枠の位置
 
-  * :menuselection:`F&ormat --> A&rrange -->`
-  * |See11|
+  * :menuselection:`F&ormat-->A&rrange-->`
+  * |Chapter11| を見ろ。
 * ハイパーリンクの追加：枠をクリックすると Web ページなどの他の文書が開くように
   する
 
-  * :menuselection:`&Insert --> &Hyperlink`
+  * :menuselection:`&Insert-->&Hyperlink`
 
-枠が選択されると :guilabel:`Formatting` ツールバーの代わりに :guilabel:`Frame`
-ツールバーが表示され、コンテキストメニューにはアンカー、配置、折り返し、整列に関
-するコマンドが含まれる。
+枠が選択されると |FormattingToolbar| の代わりに :guilabel:`Frame` ツールバーが表
+示され、コンテキストメニューにはアンカー、配置、折り返し、整列に関するコマンドが
+含まれる。
 
 Applying page styles
 ----------------------------------------------------------------------
@@ -338,8 +332,8 @@ Applying page styles
 別のページスタイルを適用するには、次のいずれかを行う：
 
 * Status バーのスタイルを右クリックし、コンテキストメニューからスタイルを選択
-* Sidebar :guilabel:`Styles` 甲板を開き、上部にある :guilabel:`Page Styles` 図像
-  を選択し、目的のページスタイルをダブルクリック
+* Sidebar |StylesDeck| を開き、上部にある |PageStylesTab| を選択し、目的のページ
+  スタイルをダブルクリック
 
 .. caution::
 
@@ -347,9 +341,8 @@ Applying page styles
    る。その結果、望むものにならないことがある。一ページだけスタイルを変更するに
    は、手動で改頁を挿入する必要がある場合がある。
 
-:doc:`Chapter 9 <writer09>` にあるように、正しく構成されたページスタイルはほとん
-どの場合、次のページのページスタイルがどうなるべきかという情報を含んでいる。たと
-えば、
+|Chapter09| にあるように、正しく構成されたページスタイルはほとんどの場合、次の
+ページのページスタイルがどうなるべきかという情報を含んでいる。たとえば、
 
 * あるページに `Left Page` スタイルを適用する場合、ページスタイルの設定で、次の
   ページには `Right Page` スタイルが必要であることを指示することが可能だ。
@@ -358,8 +351,8 @@ Applying page styles
 
 ページスタイルを変更するもう一つの方法は、手動で改頁を挿入し、後続ページのス
 タイルを指定することだ。考え方は簡単で、一連のページスタイルを中断し、新しいシー
-ケンスを開始する。改頁を挿入するには :menuselection:`&Insert --> More
-&Breaks --> Manual &Break...` を選択する。
+ケンスを開始する。改頁を挿入するには :menuselection:`&Insert-->More
+&Breaks-->Manual &Break...` を選択する。
 
 以下、改頁が役立つ一般的な事態二つが述べられる。
 
@@ -376,7 +369,7 @@ Example: Chapters
 ある時点で、新しい章を始めたいと思うだろう。その場合には次の工程を採る：
 
 #. キャレットを章末の空白行（空の段落）に置く
-#. :menuselection:`&Insert --> More &Breaks > Manual &Break...` を選択
+#. :menuselection:`&Insert-->More &Breaks > Manual &Break...` を選択
 #. :guilabel:`Insert Break` ダイアログボックスが開く：
 
    * :guilabel:`Type` で :guilabel:`Page break` を選択
@@ -393,7 +386,7 @@ Example: Page with special formatting
 横長のページや段組の多いページなど、特殊な書式のページを挿入するには、改頁を使用
 する。現在のページが `Default Page Style` であると仮定する。
 
-#. :menuselection:`&Insert --> More &Breaks > Manual &Break...` を選択
+#. :menuselection:`&Insert-->More &Breaks > Manual &Break...` を選択
 #. :guilabel:`Insert Break` ダイアログボックスで所望のページスタイルを選択
 #. このページに何かを打ち込む
 #. もう一度 `Default Page Style` を選択して別の改頁を挿入
@@ -406,6 +399,9 @@ Example: Page with special formatting
 Example: A book chapter sequence of pages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. |HeaderOn| replace:: :guilabel:`Hea&der on`
+.. |PageLayout| replace:: :guilabel:`&Page layout`
+
 本の章は通常右ページで始まり、章の最初のページは他のページとは異なるレイアウトに
 なっている。その章の他のページは、両面印刷のために鏡映しにされる。例えば、ヘッ
 ダーやフッターのページ番号はページの外側の端に配置され、内側の端には（綴じられる
@@ -414,56 +410,55 @@ Example: A book chapter sequence of pages
 カスタマイズ内容をまとめると：
 
 `First Page`
-   :guilabel:`Page` タブ
-      * :guilabel:`&Page layout`: :guilabel:`Only right`
+   |PageTab|
+      * |PageLayout|: :guilabel:`Only right`
       * :guilabel:`Top`: 6.00 cm
-   :guilabel:`Header` タブ
-      * :guilabel:`Hea&der on`: オフ
+   |HeaderTab|
+      * |HeaderOn|: オフ
 `Default Page Style`
-   :guilabel:`Page` タブ
-      * :guilabel:`&Page layout`: :guilabel:`Mirrored`
-   :guilabel:`Header` タブ
-      * :guilabel:`Hea&der on`: オン
+   |PageTab|
+      * |PageLayout|: :guilabel:`Mirrored`
+   |HeaderTab|
+      * |HeaderOn|: オン
       * :guilabel:`Same co&ntent left/right`: オフ
       * :guilabel:`Same content first &page`: オン
 
 **Step 1.** `First Page` スタイルを構築する。
 
-#. :guilabel:`Styles` 甲板で :guilabel:`Page Styles` 図像をクリックし、ページス
-   タイルを列挙させる。
+#. |StylesDeck| で |PageStylesTab| をクリックし、ページスタイルを列挙させる。
 #. :guilabel:`First Page` を右クリックし、:menuselection:`&Edit Style...` を選択
-#. :guilabel:`Page Style` :guilabel:`Organizer` タブで :guilabel:`Ne&xt style`を
+#. |PageStyleDlg| |OrganizerTab| で :guilabel:`Ne&xt style` を
    :guilabel:`Default Page Style` に変更
-#. :guilabel:`Page` タブで次の余白いずれかを指定する：
+#. |PageTab| で次の余白いずれかを指定する：
 
    * :guilabel:`&Gutter`
    * 綴じ代に :guilabel:`&Left` を大きくする
    * 章表題をページの下に移動させるために :guilabel:`&Top` を大きくする
 
-   ガターマージンの使い方については|See09|この例では用いていない。
-#. :guilabel:`Header` と :guilabel:`Footer` タブそれぞれで :guilabel:`Hea&der
-   on` と :guilabel:`&Footer on` がそれぞれオフであることを確認
-#. :guilabel:`&OK` を押す
+   ガターマージンの使い方については |Chapter09| を見ろ。この例では用いていない。
+#. |HeaderTab| と |FooterTab| それぞれで |HeaderOn| と:guilabel:`&Footer on` が
+   それぞれオフであることを確認
+#. |OK| を押す
 
 **Step 2.** `Default Page Style` を構築する。
 
-#. :guilabel:`Styles` 甲板ページスタイル一覧で :guilabel:`Default Page Style` を
-   右クリックし、:menuselection:`&Edit Style...` を選択する
-#. :guilabel:`Organizer` タブで :guilabel:`Ne&xt Style` が :guilabel:`Default
-   Page Style` に設定されていることを確認
-#. :guilabel:`Page` タブで
+#. |StylesDeck| |PageStylesTab| で :guilabel:`Default Page Style` を右クリック
+   し、:menuselection:`&Edit Style...` を選択する
+#. |OrganizerTab| で :guilabel:`Ne&xt Style` が :guilabel:`Default Page Style`
+   に設定されていることを確認
+#. |PageTab| で
 
-   * :guilabel:`&Page layout` に :guilabel:`Mirrored` を選択
+   * |PageLayout| に :guilabel:`Mirrored` を選択
    * :guilabel:`I&nner` と :guilabel:`O&uter` をそれぞれ `First Page` スタイルの
      :guilabel:`&Left` と :guilabel:`&Right` それぞれと同じ値に設定
    * `First Page` スタイルに :guilabel:`&Gutter` が設定されている場合は、ここの
      それも同じ値にする
-#. :guilabel:`Header` タブで
+#. |HeaderTab| で
 
-   * :guilabel:`Hea&der on` オン
+   * |HeaderOn| オン
    * :guilabel:`Same content first &page` オン
    * :guilabel:`Same co&ntent on left and right` オフ
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 **Step 3.** ページヘッダーを仕込む。
 
@@ -478,16 +473,16 @@ Example: A book chapter sequence of pages
 **Step 4.** `Heading 1` 段落スタイルを構築し、`First Page` スタイルで章を開始す
 る。
 
-#. :guilabel:`Styles` 甲板 :guilabel:`Paragraph Style` タブで :guilabel:`Heading
-   1` を右クリックし、:menuselection:`&Edit Style...` を選択
-#. :guilabel:`Paragraph Style` ダイアログボックス :guilabel:`Text Flow` タブで
-   :guilabel:`Breaks` 区画の次の選択肢をオン：
+#. |StylesDeck| |ParagraphStylesTab| で :guilabel:`Heading 1` を右クリックし、
+   :menuselection:`&Edit Style...` を選択
+#. |ParagraphStyleDlg| |TextFlowTab| で :guilabel:`Breaks` 区画の次の選択肢をオ
+   ン：
 
    * :guilabel:`&Insert`
    * :guilabel:`With page st&yle`
 
      さらにドロップダウンリストから :guilabel:`First Page` を選択
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 以上で、章の表題となる段落に `Heading 1` スタイルを適用すると、新しいページが
 `First Page` スタイルで自動的に始まる。
@@ -496,7 +491,7 @@ Example: A book chapter sequence of pages
 
    既定では、`Heading 1` 段落スタイルが `Heading (Outline) Level 1` に割り当てら
    れている。段落スタイルのアウトライン階層への割り当ては :menuselection:`&Tools
-   --> Heading &Numbering...` 設定で行う。
+   -->Heading &Numbering...` 設定で行う。
 
 Applying list styles
 ----------------------------------------------------------------------
@@ -505,8 +500,8 @@ Applying list styles
 の後の句読点などの性質を定義するが、フォント、境界、テキストフローなどのそれを定
 義するものではない。後者は段落スタイルのものだ。
 
-:menuselection:`St&yles -->` メニューや Sidebar :guilabel:`Styles` 甲板を使用し
-て一覧スタイルを適用できるが、これらの方法は推奨されない。
+|StylesMenu| メニューや Sidebar |StylesDeck| を使用して一覧スタ
+イルを適用できるが、これらの方法は推奨されない。
 
 箇条書き一覧や番号付き一覧の作成には、可能な限り段落スタイルを使え。この目的のた
 めに段落スタイルが二セット用意されている。一覧スタイルと段落スタイルは、これらの
@@ -518,8 +513,8 @@ Applying list styles
 
 他のスタイルと同様に、番号や箇条書きの記号、字下げなど、これらのスタイルの性質を
 再定義することが可能だ。また、これらのシリーズに他の一覧スタイルを定義したり、独
-自のシリーズを作成することも可能だ。|See09|
-一覧スタイルの詳細については :doc:`Chapter 12 <writer12>` を見ろ。
+自のシリーズを作成することも可能だ。|Chapter09| を見ろ。一覧スタイルの詳細につい
+ては |Chapter12| を見ろ。
 
 Applying table styles
 ----------------------------------------------------------------------
@@ -530,10 +525,10 @@ Applying table styles
 図表スタイルを適用するには、
 
 #. テーブルの任意の場所にキャレットを置く
-#. Sidebar :guilabel:`Styles` 甲板 :guilabel:`Table Styles` を選択
+#. Sidebar |StylesDeck| |TableStylesTab| を選択
 #. 一覧にあるスタイル名をダブルクリック
 
-図表スタイルの作成については |See13|
+図表スタイルの作成については |Chapter13| を見ろ。
 
 Creating and modifying styles
 ======================================================================
@@ -550,28 +545,28 @@ Writer には定義済みスタイルが多く用意されており、文書を�
    しか使用できない。スタイルは常に文書と共に残る。
 
    このようなスタイルを他の文書で再利用する場合はスタイルをテンプレートに保存す
-   るか、スタイルを他の文書にコピーしろ。|See09|
+   るか、スタイルを他の文書にコピーしろ。|Chapter09| を見ろ。
 
 定義済みスタイルとカスタムスタイルの両方を変更するために、次の手段が整備されてい
 る：
 
 * 選択範囲からスタイルを作成または更新する
 * 他の文書やテンプレートからスタイルを読み込むかコピーする
-* :guilabel:`Style` ダイアログボックスを使用してスタイルを変更する
+* |StyleDlg| を使用してスタイルを変更する
 * AutoUpdate を使用する（段落スタイルと枠スタイル）
 * AutoFormat 自動書式を使用する（図表スタイルのみ）
 
 Using the Styles actions menu
 ----------------------------------------------------------------------
 
-:guilabel:`Styles` 甲板上部の最後のドロップダウンメニュー :guilabel:`Styles
-actions` には三つの機能がある：
+|StylesDeck| 上部の最後のドロップダウンメニュー :guilabel:`Styles actions` には
+三つの機能がある：
 
 * :menuselection:`&New Style from Selection`
 * :menuselection:`&Update Selected Style`
 * :menuselection:`&Load Styles from Template`
 
-これらの機能はメニュー :menuselection:`St&yles -->` からも利用可能。
+これらの機能はメニュー |StylesMenu| からも利用可能。
 
 New Style from Selection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -581,8 +576,8 @@ New Style from Selection
 まで変更し、その書式を新しいスタイルに変更することが可能だ。この方法には次の利点
 がある：
 
-* :guilabel:`Style` ダイアログボックスで新規スタイルを作成するときのように、必要
-  な書式設定をすべて覚えておく必要がない。時間を節約できる。
+* |StyleDlg| で新規スタイルを作成するときのように、必要な書式設定をすべて覚えて
+  おく必要がない。時間を節約できる。
 * 作成するスタイルで書式設定したときに項目がどのように見えるかをすぐに確認でき
   る。
 
@@ -590,11 +585,11 @@ New Style from Selection
 
 #. 文書内で、目的の書式（段落、枠など）を好みに変更する。スタイルとして保存した
    い項目を選択する。
-#. Sidebar :guilabel:`Styles` 甲板を開き、上部の図像行から作成するスタイルの品目
-   （段落、文字など）を選択
-#. :menuselection:`Styles actions --> &New Style from Selection` を選択
+#. Sidebar |StylesDeck| を開き、上部の図像行から作成するスタイルの品目（段落、文
+   字など）を選択
+#. :menuselection:`Styles actions-->&New Style from Selection` を選択
 #. 新規スタイルの名前を入力
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 Update Selected Style
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -610,12 +605,12 @@ Update Selected Style
       フォントサイズがある場合、その性質は更新されない。
 
 #. 段落のどこかをクリック
-#. Sidebar :guilabel:`Styles` 甲板で更新したいスタイルを選択（ダブルクリックでは
-   なくシングルクリック）
-#. :menuselection:`Styles actions --> &Update Selected Style` を選択
+#. Sidebar |StylesDeck| で更新したいスタイルを選択（ダブルクリックではなくシング
+   ルクリック）
+#. :menuselection:`Styles actions-->&Update Selected Style` を選択
 
 別の区分のスタイル（文字、ページ、枠）を更新する手順も同じだ。問題の項目を選択し
-て修正し、更新したいスタイルを選択して :menuselection:`Styles actions -->
+て修正し、更新したいスタイルを選択して :menuselection:`Styles actions-->
 &Update Selected Style` を選択しろ。
 
 Load Styles (from a template or document)
@@ -626,33 +621,33 @@ Load Styles (from a template or document)
 タイル全部を、またはスタイルの一群をコピーできる。
 
 #. スタイルをコピーする文書を開く
-#. :guilabel:`Styles` 甲板で :menuselection:`Styles actions --> &Load Styles
-   from Template` を選択
+#. |StylesDeck| で :menuselection:`Styles actions-->&Load Styles from
+   Template` を選択
 #. スタイルをコピーするテンプレートを見つけて選択
 #. ダイアログボックス下部からコピーするスタイルの型をオンにする
 
    :guilabel:`&Overwrite` をオンにすると、コピーされるスタイルは対象文書内の同名
    スタイルを上書きする。
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 必要なスタイルがテンプレートではなくテキスト文書に含まれている場合：
 
 #. コピーするスタイルの型を選択
 #. :guilabel:`F&rom file...` ボタンを押してファイルダイアログボックスを開く
 #. 所要の文書を選択
-#. :guilabel:`開く (&O)` を押す
+#. |Open| を押す
 
 Drag-and-drop a selection to create a style
 ----------------------------------------------------------------------
 
-新しいスタイルを作成するもう一つの方法は選択テキストを :guilabel:`Styles` 甲板に
+新しいスタイルを作成するもう一つの方法は選択テキストを |StylesDeck| に
 ドラッグ＆ドロップすることだ。
 
-#. Sidebar :guilabel:`Styles` 甲板を開く
+#. Sidebar |StylesDeck| を開く
 #. 甲板上部にある図像で作成するスタイル品目（例：文字スタイル）を選択
-#. スタイルの基となるオブジェクトを選択し、 :guilabel:`Styles` 甲板にドラッグ
+#. スタイルの基となるオブジェクトを選択し、|StylesDeck| にドラッグ
 #. :guilabel:`Create Style` ダイアログボックスで新しいスタイルの名前を入力
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 .. note::
 
@@ -661,27 +656,28 @@ Drag-and-drop a selection to create a style
 Changing a style using the Style dialog
 ----------------------------------------------------------------------
 
-:guilabel:`Style` ダイアログボックスを使用して（図表スタイルではない）スタイルを
-変更するには :guilabel:`Styles` 甲板でスタイルを右クリックし、
-:menuselection:`&Edit Style...` を選択する。
+|StyleDlg| を使用して（図表スタイルではない）スタイルを変更するには |StylesDeck|
+でスタイルを右クリックし、:menuselection:`&Edit Style...` を選択する。
 
 表示されるダイアログボックスは選択スタイルの型によって異なる。各スタイルのダイア
-ログボックスにはタブがある。これらのダイアログボックスの性質については |See09|
+ログボックスにはタブがある。これらのダイアログボックスの性質については
+|Chapter09| を見ろ。
 
-図表スタイルの変更については |See13|
+図表スタイルの変更については |Chapter13| を見ろ。
 
 Using AutoUpdate
 ----------------------------------------------------------------------
 
-:guilabel:`Paragraph Style` および :guilabel:`Frame Style` ダイアログボックスの
-:guilabel:`Organizer` タブには :guilabel:`&AutoUpdate` オプションがある。これが
-オンであれば、そのスタイルで書式設定された段落に手動で加えた変更がそのスタイルに
-適用される。
+|ParagraphStyleDlg| および :guilabel:`Frame Style` ダイアログボックスの
+|OrganizerTab| には :guilabel:`&AutoUpdate` オプションがある。これがオンであれ
+ば、そのスタイルで書式設定された段落に手動で加えた変更がそのスタイルに適用され
+る。
 
 .. caution::
 
-   文書内のスタイルを手動で上書きする習慣がある場合は、AutoUpdateが有効になって
-   いないことを確認しろ。そうしないと、文書が予期せず再整形されることになる。
+   文書内のスタイルを手動で上書きする習慣がある場合は :guilabel:`&AutoUpdate` が
+   有効になっていないことを確認しろ。そうしないと、文書が予期せず再整形されるこ
+   とになる。
 
 Deleting styles
 ======================================================================
@@ -689,7 +685,7 @@ Deleting styles
 LibreOffice の定義済みスタイルは使用していない場合でさえ、文書やテンプレートから
 削除することは不可能だ。ただし、カスタムスタイルは削除可能だ。
 
-Sidebar の :guilabel:`Styles` 甲板を使って不要なスタイルを削除するには：
+Sidebar の |StylesDeck| を使って不要なスタイルを削除するには：
 
 #. 削除するスタイルをそれぞれ選択
 
@@ -709,8 +705,7 @@ Sidebar の :guilabel:`Styles` 甲板を使って不要なスタイルを削除�
 .. tip::
 
    不要な段落スタイルが使用中の場合、削除前に Find and Replace コマンドを使用し
-   て、そのスタイルを代替スタイルに置き換えることが可能だ。:doc:`Chapter 3
-   <writer03>` を見ろ。
+   て、そのスタイルを代替スタイルに置き換えることが可能だ。|Chapter03| を見ろ。
 
 Example: creating and modifying paragraph styles
 ======================================================================
@@ -735,12 +730,12 @@ Creating the Poem paragraph style
 
 `Default Paragraph Style` を出発点として使用する。
 
-#. :guilabel:`Styles` 甲板で :guilabel:`Paragraph Styles` 図像をクリック
+#. |StylesDeck| で |ParagraphStylesTab| をクリック
 #. :guilabel:`Default Paragraph Style` を右クリック
 #. :menuselection:`&New...` を選択
 
-段落 :guilabel:`Style` ダイアログボックスで :guilabel:`Organizer` タブを選択しろ。
-カスタムスタイルを作成するには、上位三項目を構成する必要がある。
+段落 |StyleDlg| で |OrganizerTab| を選択しろ。カスタムスタイルを作成
+するには、上位三項目を構成する必要がある。
 
 :guilabel:`&Name`
    スタイル名なので ``Poem`` を入力。
@@ -755,10 +750,10 @@ Creating the Poem paragraph style
 
 このスタイルの文字揃えとフォントの性質を設定する：
 
-* :guilabel:`Alignment` ページで :guilabel:`&Center` を選択
-* :guilabel:`Font` ページで :guilabel:`12 pt` の :guilabel:`Si&ze` を選択
+* |AlignmentTab| で :guilabel:`&Center` を選択
+* |FontTab| で :guilabel:`12 pt` の :guilabel:`Si&ze` を選択
 
-:guilabel:`&OK` を押す。`Poem` スタイル保存される。
+|OK| を押す。`Poem` スタイル保存される。
 
 Creating the Poem Heading style
 ----------------------------------------------------------------------
@@ -773,11 +768,11 @@ Creating the Poem Heading style
 
 新しいスタイルの設定を選択する：
 
-* :guilabel:`Alignment` ページで :guilabel:`&Center` を選択
-* :guilabel:`Font` ページで :guilabel:`&Font` を選択し、:guilabel:`12 pt` の
-  :guilabel:`Si&ze` を選択
+* |AlignmentTab| で :guilabel:`&Center` を選択
+* |FontTab| で :guilabel:`&Font` を選択し、:guilabel:`12 pt` の :guilabel:`Si&ze`
+  を選択
 
-:guilabel:`&OK` を押す。`Poem Heading` スタイルが保存される。
+|OK| を押す。`Poem Heading` スタイルが保存される。
 
 Sample poem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -794,10 +789,10 @@ Changing the formatting of styles
 
 `Poem` と `Poem Heading` スタイルの文字揃えを変更するには：
 
-#. :guilabel:`Styles` 甲板で :guilabel:`Poem` を右クリックし
-   :menuselection:`&Edit Style...` を選択
-#. :menuselection:`Alignment` ページで :guilabel:`&Left` を選択
-#. :guilabel:`&OK` を押す。
+#. |StylesDeck| で :guilabel:`Poem` を右クリックし :menuselection:`&Edit
+   Style...` を選択
+#. |AlignmentTab| で :guilabel:`&Left` を選択
+#. |OK| を押す。
 #. テキストが変更されるのを確認する。
 #. これらの変更を `Poem Heading` スタイルに対しても繰り返す。
 
@@ -806,14 +801,14 @@ Changing the formatting of styles
 Using paragraph styles to define a hierarchy of headings
 ======================================================================
 
-段落スタイルは Writer の目次機能の急所だ。:menuselection:`&Tools --> Heading
+段落スタイルは Writer の目次機能の急所だ。:menuselection:`&Tools-->Heading
 &Numbering...` は文書内の見出しの階層を定義する。見出し階層に割り当てられる既定
 段落スタイルは Writer 組み込みの見出しスタイル (e.g. `Heading 1`, `Heading 2`,
 etc.) だ。ただし、カスタムスタイルを含め、任意のスタイルで代用することが可能だ。
 
-見出し番号機能を使って定義された見出しは、目次 (:doc:`Chapter 15 <writer15>`) 以
-外にも使うことができる。たとえば、ページのヘッダーやフッターに節見出しを表示する
-ために、フィールドがよく使われる (:doc:`Chapter 17 <writer17>`)。
+見出し番号機能を使って定義された見出しは、目次 (|Chapter15|) 以外にも使うことが
+できる。たとえば、ページのヘッダーやフッターに節見出しを表示するために、フィール
+ドがよく使われる (|Chapter17|)。
 
 Choosing paragraph styles for heading levels
 ----------------------------------------------------------------------
@@ -824,7 +819,7 @@ Choosing paragraph styles for heading levels
 
 既定見出しスタイル一つ以上の代わりにカスタムスタイルを使用する手順：
 
-#. :menuselection:`&Tools --> Heading &Numbering...` を選択
+#. :menuselection:`&Tools-->Heading &Numbering...` を選択
 #. :guilabel:`Numbering` タブで段落スタイルを変更したい見出しに対応する
    :guilabel:`Level` 欄の番号をクリック
 #. :guilabel:`Numbering: Paragraph Style` 区画で、その見出しレベルに割り当てる段
@@ -833,22 +828,24 @@ Choosing paragraph styles for heading levels
    この例では `Heading 1` を置き換えるために :guilabel:`My Heading 1` を選択し、
    Level 2 を置き換えるために :guilabel:`My Heading 2` を選択する。
 #. 変更したい番号レベルごとに繰り返す。
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 Assigning outline levels to other styles
 ----------------------------------------------------------------------
 
+.. |HeadingNumberingDlg| replace:: :guilabel:`Heading Numbering` ダイアログボックス
+
 Writer では、任意の段落スタイルにアウトラインレベルを割り当てることができる。こ
-の機能により、:guilabel:`Heading Numbering` ダイアログボックスに一覧されているス
-タイルを使用して、それらの見出しを含む目次を作成することができる。たとえば、付録
-には別のスタイルの順序を使用するが、付録の見出しや小見出しは、章の見出しや小見出
-しと同じレベルで目次に表示されるようにする。
+の機能により、|HeadingNumberingDlg| に一覧されているスタイルを使用して、それらの
+見出しを含む目次を作成することができる。たとえば、付録には別のスタイルの順序を使
+用するが、付録の見出しや小見出しは、章の見出しや小見出しと同じレベルで目次に表示
+されるようにする。
 
 段落スタイルにアウトラインレベルを割り当てる手順：
 
-#. そのスタイルの :guilabel:`Outline & List` タブを開く
+#. そのスタイルの |Outline&ListTab| を開く
 #. ドロップダウンリストから必要なアウトラインレベルを選択
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 Setting up heading numbering
 ----------------------------------------------------------------------
@@ -868,17 +865,21 @@ Setting up heading numbering
    2.2   Another Heading 2
    3     Another Heading 1
 
-:guilabel:`Heading Numbering` ダイアログボックスの :guilabel:`Numbering` タブを
-使用して、番号付け制度とその容貌を定義する。
+|HeadingNumberingDlg| の :guilabel:`Numbering` タブを使用して、番号付け制度とそ
+の容貌を定義する。
 
-#. :guilabel:`&Level` 一覧から :guilabel:`1` を選ぶ
-#. :guilabel:`&Number` ドロップダウンリストから :guilabel:`1, 2, 3,...` を選ぶ
-#. :guilabel:`&Level` 一覧から :guilabel:`2` を選ぶ
-#. :guilabel:`&Number` ドロップダウンリストから :guilabel:`1, 2, 3,...` を選ぶ
+.. |LevelList| replace:: :guilabel:`&Level` 一覧
+.. |NumberList| replace:: :guilabel:`&Number` ドロップダウンリスト
+.. |ShowSublevels| replace:: :guilabel:`Sho&w sublevels` スピンボックス
+.. |123| replace:: :guilabel:`1, 2, 3,...`
 
-   :guilabel:`Sho&w sublevels` スピンボックスが活動開始する。:guilabel:`2` が示
-   される。
-#. :guilabel:`&Level` 一覧で :guilabel:`3` を選ぶ
-#. :guilabel:`&Number` ドロップダウンリストで :guilabel:`1, 2, 3,...` を選ぶ
+#. |LevelList| から :guilabel:`1` を選ぶ
+#. |NumberList| から |123| を選ぶ
+#. |LevelList| から :guilabel:`2` を選ぶ
+#. |NumberList| から |123| を選ぶ
 
-   :guilabel:`Sho&w sublevels` スピンボックスに :guilabel:`3` が示される。
+   |ShowSublevels| が活動開始する。:guilabel:`2` が示される。
+#. |LevelList| で :guilabel:`3` を選ぶ
+#. |NumberList| で |123| を選ぶ
+
+   |ShowSublevels| に :guilabel:`3` が示される。

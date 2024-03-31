@@ -37,6 +37,8 @@ Writer は通常の文書だけでなく、マスター文書の雛形もサポ�
 Creating a document from a template
 ======================================================================
 
+.. |TemplatesDlg| replace:: :guilabel:`Templates` ダイアログボックス
+
 LibreOffice の新規インストールには雛形があまり含まれていないことがあるが、
 
 * 自分で作成したり (:ref:`writer10-anchorC`)
@@ -46,32 +48,31 @@ LibreOffice の新規インストールには雛形があまり含まれてい�
 
 雛形から文書を作成する手順：
 
-#. 次のいずれかの方法で :guilabel:`Templates` ダイアログボックスを開く：
+#. 次のいずれかの方法で |TemplatesDlg| を開く：
 
-   * メニューの :menuselection:`&File --> &New --> Te&mplates...` または
-     :menuselection:`&File --> Te&mplates --> &Manage Templates...` を選択
+   * メニューの :menuselection:`&File-->&New-->Te&mplates...` または
+     :menuselection:`&File-->Te&mplates-->&Manage Templates...` を選択
    * キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`N`
-   * :guilabel:`Standard` ツールバーの :guilabel:`New` 図像の横にある矢印をク
-     リックし、:guilabel:`Te&mplates...` を選択
-   * Start Center [#writer10-footnote-center]_ で :menuselection:`&File -->
-     &Templates --> &Manage Templates...` を選択
-#. :guilabel:`Template` ダイアログボックスの上部にある :guilabel:`Filter` 一覧
-   で、使用したい雛形の種類と区分を選択できる。関連する雛形がダイアログボックス
-   に一覧される。区分一覧の右側にある図像をクリックすると、サムネイル表示と一覧
-   表示を切り替えることができる。
+   * |StandardToolbar| :guilabel:`New` 図像の横にある矢印をクリックし、
+     :guilabel:`Te&mplates...` を選択
+   * Start Center [#writer10-footnote-center]_ で :menuselection:`&File-->
+     &Templates-->&Manage Templates...` を選択
+#. |TemplatesDlg| の上部にある :guilabel:`Filter` 一覧で、使用したい雛形の種類と
+   区分を選択できる。関連する雛形がダイアログボックスに一覧される。区分一覧の右
+   側にある図像をクリックすると、サムネイル表示と一覧表示を切り替えることができ
+   る。
 #. 必要な雛形を見つけてダブルクリックするか、雛形を選択して
    :menuselection:`&Open` を選択する。選択した雛形に基づく新しい文書が Writer で
    開く。その後、新しい文書を編集して保存できる。
 
-文書の基となる雛形は :menuselection:`&File --> Propert&ies...` で開くダイアログ
+文書の基となる雛形は :menuselection:`&File-->Propert&ies...` で開くダイアログ
 ボックスの :guilabel:`General` ページに記載されている。
 
 .. tip::
 
    Start Center で :guilabel:`&Templates` ボタンを押すか、ドロップダウンメニュー
-   を開いて雛形の種類を選択すると、:guilabel:`Templates` ダイアログボックスを開
-   かずに利用可能な雛形が表示される。必要な雛形をクリックして、新しい文書を作成
-   する。
+   を開いて雛形の種類を選択すると、|TemplatesDlg| を開かずに利用可能な雛形が表示
+   される。必要な雛形をクリックして、新しい文書を作成する。
 
 .. note::
 
@@ -94,7 +95,7 @@ Creating a template from a document
 ----------------------------------------------------------------------
 
 書式設定だけでなく、文書に追加したり変更したりできるあらゆる設定を雛形内に保存で
-きる。例えば、印刷機の設定、パスや色など |Options| から設定する一般的な動作、
+きる。例えば、印刷機の設定、パスや色など |OptionsDlg| から設定する一般的な動作、
 |Chapter20| で説明するメニューやツールバーのカスタマイズなどだ。
 
 雛形にはテキストを含めることもできるので、文書を新規作成するたびにテキストを入力
@@ -107,9 +108,9 @@ Creating a template from a document
 #. 新規雛形から作成する文書に表示させたい内容、たとえば会社のロゴや著作権声明
    などを追加する。
 #. 新規雛形で使用したいスタイルを作成または変更する。
-#. メニューで :menuselection:`&File --> Te&mplates --> &Save as Template...` を
-   選択する。:guilabel:`Save As Template` ダイアログボックスが開き、既存の雛形区
-   分と新規雛形に対する名前入力欄が表示される。
+#. メニューで :menuselection:`&File-->Te&mplates-->&Save as Template...` を選択
+   する。|SaveAsDlg| が開き、既存の雛形区分と新規雛形に対する名前入力欄が表示さ
+   れる。
 #. :guilabel:`My Templates` や :guilabel:`Business Correspondence` など、区分を
    選択する。この時、この雛形を既定雛形として設定することもできる。
 #. :guilabel:`&Save` を押す。
@@ -120,16 +121,16 @@ Creating a template using a wizard
 ウィザードを使用して、手紙、ファックス、議事録の雛形を作成できる。ウィザードを使
 用して雛形を作成する手順：
 
-#. メニュー :menuselection:`&File --> &Wizards -->` から必要なテンプレートを選択
+#. メニュー :menuselection:`&File-->&Wizards-->` から必要なテンプレートを選択
    する。
 #. ウィザードのページの指示に従え。この過程は雛形の型によって若干異なるが、形式
    は似ている。
-#. ウィザードの最後の部分では、:guilabel:`Templates` ダイアログボックスに表示さ
-   れる雛形名と、雛形を保存するファイル名と保存場所を指定する。既定の保存場所は
-   使用者雛形フォルダーだが、別の場所を選択することもできる。
+#. ウィザードの最後の部分では、|TemplatesDlg| に表示される雛形名と、雛形を保存す
+   るファイル名と保存場所を指定する。既定の保存場所は使用者雛形フォルダーだが、
+   別の場所を選択することもできる。
 #. ファイル名を設定したり、フォルダを変更するには :guilabel:`Path` ボタン（場所
-   の右にある三つの点）を押す。:guilabel:`名前を付けて保存` ダイアログボックスで
-   選択し、:guilabel:`保存 (&S)` を押してウィザードに戻る。
+   の右にある三つの点）を押す。|SaveAsDlg| で選択し、|Save| を押してウィザードに
+   戻る。
 #. 最後に、雛形から新しい文書をすぐに作成するか、雛形を手動で変更するかを選択す
    る。:guilabel:`&Finish` を押して雛形を保存する。
 
@@ -148,8 +149,8 @@ Adding templates obtained from other sources
 LibreOffice 公式雛形保管庫を開くには、
 
 * Web ブラウザーで <https://extensions.libreoffice.org/> にアクセスする
-* :guilabel:`Extensions` ダイアログボックスの :guilabel:`Get more extensions
-  online...` リンクをクリックする。|Chapter20| 参照。
+* |ExtensionsDlg| の :guilabel:`Get more extensions online...` リンクをクリック
+  する。|Chapter20| 参照。
 
 Extensions Web ページ 左側の列の :guilabel:`Add tag filters` で
 :guilabel:`Templates` と :guilabel:`Writer` を選択する。Web ページが更新される。
@@ -158,11 +159,10 @@ Extensions Web ページ 左側の列の :guilabel:`Add tag filters` で
 :guilabel:`Search` をクリックする。検索結果から必要な雛形を見つけ、その名前をク
 リックすると詳細ページが表示される。下記の :ref:`writer10-anchorF` に進め。
 
-または、:guilabel:`Templates` ダイアログボックスの右上にあるドロップダウンメ
-ニューから :menuselection:`&Manage --> E&xtensions` を選択すると、
-:guilabel:`Extensions: Templates` ダイアログボックスが開く。ここでは拡張機能の一
-覧をスクロールしたり、ダイアログボックス上部のボックスに検索語を入力して一覧を絞
-り込むことができる。
+または、|TemplatesDlg| の右上にあるドロップダウンメニューから
+:menuselection:`&Manage-->E&xtensions` を選択すると、:guilabel:`Extensions:
+Templates` ダイアログボックスが開く。ここでは拡張機能の一覧をスクロールしたり、
+ダイアログボックス上部のボックスに検索語を入力して一覧を絞り込むことができる。
 
 他の Web サイトでは .OXT ファイルにパッケージ化された雛形集を見つけることがある。
 
@@ -171,39 +171,38 @@ Extensions Web ページ 左側の列の :guilabel:`Add tag filters` で
 Installing templates
 ----------------------------------------------------------------------
 
-:guilabel:`Templates` ダイアログボックスまたは :guilabel:`Extensions` ダイアログ
-ボックスのいずれかを使用して雛形をインストールできる。
+|TemplatesDlg| または |ExtensionsDlg| のいずれかを使用して雛形をインストールでき
+る。
 
-:guilabel:`Templates` ダイアログボックスを使用して雛形をインストールする手順：
+|TemplatesDlg| を使用して雛形をインストールする手順：
 
 #. 雛形またはパッケージをダウンロードし、コンピュータの任意の場所に保存する。
-#. :guilabel:`Templates` ダイアログボックスで、右上のドロップダウンメニューから
-   :menuselection:`&Manage --> Import` を選択。
+#. |TemplatesDlg| で、右上のドロップダウンメニューから
+   :menuselection:`&Manage-->Import` を選択。
 #. :guilabel:`Select Category` ダイアログボックスで、雛形をインポートする区分を
-   選択し、:guilabel:`&OK` を押す。
+   選択し、|OK| を押す。
 #. インポートしたい雛形を探して選択し、:guilabel:`開く (&O)` を押す。ファイルダ
    イアログボックスが閉じ、雛形がインポートされ、選択した区分に表示される。
 
-:guilabel:`Extensions` ダイアログボックスを使って雛形をインストールする手順：
+|ExtensionsDlg| を使って雛形をインストールする手順：
 
 #. 雛形またはパッケージをダウンロードし、コンピュータの任意の場所に保存する。
-#. LibreOffice でメニューから :menuselection:`&Tools --> &Extensions...` を選択
-   する。:guilabel:`Extensions` ダイアログボックスで :guilabel:`&Add` を押して
-   ファイルダイアログボックスを開く。
+#. LibreOffice でメニューから :menuselection:`&Tools-->&Extensions...` を選択す
+   る。|ExtensionsDlg| で :guilabel:`&Add` を押してファイルダイアログボックスを
+   開く。
 #. インストールしたい雛形または雛形パッケージを検索して選択し、:guilabel:`開く
    (&O)` を押す。パッケージのインストールが始まる。
 #. パッケージのインストールが完了したら LibreOffice を再起動する。雛形は
-   :guilabel:`Templates` ダイアログボックスから使用でき、拡張機能は
-   :guilabel:`Extensions` ダイアログボックスに表示される。
+   |TemplatesDlg| から使用でき、拡張機能は |ExtensionsDlg| に表示される。
 
-:guilabel:`Extensions` ダイアログボックスの情報は |Chapter20| を見ろ。
+|ExtensionsDlg| の情報は |Chapter20| を見ろ。
 
 .. tip::
 
    新しい雛形を雛形フォルダーに手動でコピーすることができる。場所は OS によって
-   異なる。雛形フォルダーが計算機のどこに保存されているかについては、|Options|
-   :menuselection:`LibreOffice --> Paths` ページを当たれ。他の場所に新しい雛形
-   フォルダーを追加することも可能。詳細については |Guide| を読め。
+   異なる。雛形フォルダーが計算機のどこに保存されているかについては、
+   |OptionsDlg| :menuselection:`LibreOffice-->Paths` ページを当たれ。他の場所
+   に新しい雛形フォルダーを追加することも可能。詳細については |Guide| を読め。
 
 Editing a template
 ======================================================================
@@ -216,7 +215,7 @@ LibreOffice 組み込みの雛形を編集することは不可能だ。可能�
 
 雛形を編集する手順：
 
-#. :guilabel:`Templates` ダイアログボックスを開いて編集したい雛形を探す
+#. |TemplatesDlg| を開いて編集したい雛形を探す
 #. 雛形を右クリックして :menuselection:`&Edit` を選択
 #. 他の文書と同じように雛形を編集（変更を保存するには上書き保存コマンド）
 
@@ -235,8 +234,8 @@ Updating a document from a changed template
 .. caution::
 
    :guilabel:`Keep Old Styles` を選択すると :guilabel:`Properties` ダイアログ
-   ボックス :guilabel:`General` タブに雛形が表示されていても、文書は雛形に接続さ
-   れなくなる。文書を雛形に再接続するには次節で説明する手順を使用する。
+   ボックス |GeneralTab| に雛形が表示されていても、文書は雛形に接続されなくなる。
+   文書を雛形に再接続するには次節で説明する手順を使用する。
 
 .. _writer10-anchorE:
 
@@ -254,7 +253,7 @@ Changing the template assigned to a document
   書にコピーする。
 * Template Changer 拡張機能を使用するには、まずダウンロードしてインストール
   し、LibreOffice を再起動して有効にする必要がある。その後、文書を開き、メニュー
-  の :menuselection:`&File --> Te&mplates --> &Change template (current
+  の :menuselection:`&File-->Te&mplates-->&Change template (current
   document)...` を使用できる。
 
 .. note::
@@ -274,18 +273,18 @@ Manually changing the template
 
 文書を別の雛形に手動で関連付けるには：
 
-#. :guilabel:`Templates` ダイアログボックスを開いて編集したい雛形を探す。
+#. |TemplatesDlg| を開いて編集したい雛形を探す。
 #. この新しい文書から不要なテキストや画像を削除する。上書き保存コマンドを使用し
    て新しい文書を保存するが、開いたままにしておく。
 #. 変更したい文書を開く（新しいウィンドウで開く）
-#. :menuselection:`&Edit --> Select &All` を使うか :kbd:`Ctrl` + :kbd:`A` を押し
+#. :menuselection:`&Edit-->Select &All` を使うか :kbd:`Ctrl` + :kbd:`A` を押し
    て、古い文書のすべてを選択する。
-#. :menuselection:`&Edit --> &Copy` を使うか :kbd:`Ctrl` + :kbd:`C` を押して古い
-   文書の内容をクリップボードにコピーする。
-#. 先ほどの新規文書をクリックする。:menuselection:`&Edit --> &Paste` を使うか
-   :kbd:`Ctrl` + :kbd:`V` を押して、古い文書の内容を新規文書に貼り付ける。
+#. :menuselection:`&Edit-->&Copy` を使うか |Ctrl+A| を押して古い文書の内容をク
+   リップボードにコピーする。
+#. 先ほどの新規文書をクリックする。:menuselection:`&Edit-->&Paste` を使うか
+   |Ctrl+V| を押して、古い文書の内容を新規文書に貼り付ける。
 #. 目次があれば更新する。
-#. :menuselection:`&File --> &Save` を使用して文書を保存する。
+#. :menuselection:`&File-->&Save` を使用して文書を保存する。
 #. 古いファイルを保存せずに閉じる。
 
 .. caution::
@@ -298,10 +297,10 @@ Manually changing the template
 Setting a default template
 ======================================================================
 
-メニューの :menuselection:`&File --> &New --> &Text Document` を選択する
-か、Start Center の :guilabel:`&Writer Document` ボタンを押して文書を作成すると、
-Writer はテキスト文書用の既定雛形から文書を作成する。ただし、カスタム雛形を既定
-に設定することもできる。既定は後でリセットすることもできる。
+メニューの :menuselection:`&File-->&New-->&Text Document` を選択するか、Start
+Center の :guilabel:`&Writer Document` ボタンを押して文書を作成すると、Writer は
+テキスト文書用の既定雛形から文書を作成する。ただし、カスタム雛形を既定に設定する
+こともできる。既定は後でリセットすることもできる。
 
 Setting a template as the default
 ----------------------------------------------------------------------
@@ -311,15 +310,15 @@ Setting a template as the default
 設定にするには、LibreOffice に組み込みの既定雛形を自作の雛形に置き換える必要があ
 る。
 
-:guilabel:`Templates` ダイアログボックスのどの雛形もその文書型の既定に設定できる：
+|TemplatesDlg| のどの雛形もその文書型の既定に設定できる：
 
-#. :guilabel:`Templates` ダイアログボックスを開く
+#. |TemplatesDlg| を開く
 #. 既定に設定したい雛形を含む区分を開き、雛形を選択する
 #. 選択した雛形を右クリックし :menuselection:`Set as Default` を選択
 
 既定印の図像がその雛形に移る。
 
-次回 :menuselection:`&File --> &New -->` でその型の文書を作成すると、この雛形か
+次回 :menuselection:`&File-->&New-->` でその型の文書を作成すると、この雛形か
 ら文書が作成される。
 
 Resetting Writer's default template as the default
@@ -327,17 +326,16 @@ Resetting Writer's default template as the default
 
 Writer の既定雛形原本を既定として有効にするには：
 
-#. :guilabel:`Templates` ダイアログボックスを開く
-#. 右上のドロップダウンメニューから :menuselection:`&Manage --> Reset De&fault
+#. |TemplatesDlg| を開く
+#. 右上のドロップダウンメニューから :menuselection:`&Manage-->Reset De&fault
    Text Document` を選択
 
 また、以下のように既定の雛形をリセットすることもできる：
 
-#. :guilabel:`Templates` ダイアログボックスを開き、既定に設定した雛形を含む区分
-   を開く
+#. |TemplatesDlg| を開き、既定に設定した雛形を含む区分を開く
 #. この雛形を右クリックし、:menuselection:`Reset De&fault` を選択
 
-次回 :menuselection:`&File --> &New -->` または同等の操作で文書を作成する場合、
+次回 :menuselection:`&File-->&New-->` または同等の操作で文書を作成する場合、
 文書はその型の既定雛形原本から作成される。
 
 Organizing templates
@@ -349,32 +347,30 @@ LibreOffice が管理できる雛形は、その雛形区分に分類されて�
 とができる。たとえば、報告書雛形の区分と、手紙雛形の区分を作成できる。雛形をイン
 ポートおよびエクスポートすることもできる。
 
-始めるには :guilabel:`Templates` ダイアログボックスを開く。
+始めるには |TemplatesDlg| を開く。
 
 Creating a template category
 ----------------------------------------------------------------------
 
 雛形区分を作成するには：
 
-#. ダイアログボックスの右上にある :menuselection:`&Manage --> &New Category` を
+#. ダイアログボックスの右上にある :menuselection:`&Manage-->&New Category` を
    選択
-#. ポップアップダイアログボックスで、新しい区分の名前を入力し、:guilabel:`&OK`
-   を押す
+#. ポップアップダイアログボックスで、新しい区分の名前を入力し、|OK| を押す
 
 新しい区分が区分一覧に表示される。
 
 Deleting a template category
 ----------------------------------------------------------------------
 
-LibreOffice 組み込みの雛形区分は削除不能だ。また、:guilabel:`Extensions` ダイア
-ログボックスを使用して追加した区分は、それをインストールした拡張を削除しない限
-り削除不能。
+LibreOffice 組み込みの雛形区分は削除不能だ。また、:guilabel:`ExtensionsDlg` を使
+用して追加した区分は、それをインストールした拡張を削除しない限り削除不能。
 
 ただし、自作区分は削除可能だ：
 
 #. ダイアログボックス上部の :guilabel:`Filter` ドロップダウンリストで区分を選択
-#. :menuselection:`&Manage --> &Delete Category` を選択
-#. 確認メッセージボックスが表示されたら :guilabel:`&Yes` を押す
+#. :menuselection:`&Manage-->&Delete Category` を選択
+#. 確認メッセージボックスが表示されたら |Yes| を押す
 
 Renaming a template category
 ----------------------------------------------------------------------
@@ -383,8 +379,8 @@ LibreOffice 組み込みの雛形区分の名前は変更できない。名前�
 に限る。
 
 #. ダイアログボックス上部の :guilabel:`Filter` ドロップダウンリストで区分を選択
-#. :menuselection:`&Manage --> &Rename Category` を選択
-#. ポップアップダイアログボックスで名前を入力し :guilabel:`&OK` を押す
+#. :menuselection:`&Manage-->&Rename Category` を選択
+#. ポップアップダイアログボックスで名前を入力し |OK| を押す
 
 Moving a template
 ----------------------------------------------------------------------
@@ -395,7 +391,7 @@ Moving a template
 #. 右クリックして :menuselection:`&Move` を選択
 #. :guilabel:`Select Category` ダイアログボックスで移動先区分を選択（移動先の区
    分を新しく作成することも可能）
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 選択した雛形が選択した区分に移動する。
 
@@ -407,8 +403,8 @@ LibreOffice 組み込みの雛形の名前は変更できない。名前を変�
 
 #. ダイアログボックスから対象の雛形を選択
 #. 右クリックして :menuselection:`&Rename` を選択
-#. ポップアップダイアログボックスで名前を入力し :guilabel:`&OK` を押す
-#. :guilabel:`&OK` をクリックする。
+#. ポップアップダイアログボックスで名前を入力し |OK| を押す
+#. |OK| をクリックする。
 
 この動作は雛形の文書性質の :guilabel:`Description` タブにある :guilabel:`Title`
 を変更する。雛形のファイル名は変化しない。
@@ -416,15 +412,15 @@ LibreOffice 組み込みの雛形の名前は変更できない。名前を変�
 Deleting a template
 ----------------------------------------------------------------------
 
-LibreOffice に組み込みの雛形は削除不能だ。また、:guilabel:`Extensions` ダイアロ
-グボックスを使用してインストールされた雛形も、それをインストールした拡張を削除す
-る以外には削除不能だ。ただし、自作またはインポートした雛形は削除可能だ。
+LibreOffice に組み込みの雛形は削除不能だ。また、|ExtensionsDlg| を使用してインス
+トールされた雛形も、それをインストールした拡張を削除する以外には削除不能だ。ただ
+し、自作またはインポートした雛形は削除可能だ。
 
 #. （オプション）ダイアログボックスの上部にある :guilabel:`Filter` ドロップダウ
    ンリストで、削除対象雛形を含む区分を選択
 #. 削除対象雛形を選択
 #. 右クリックして :menuselection:`&Delete` を選択
-#. 確認メッセージボックスが表示されたら :guilabel:`&Yes` を押す
+#. 確認メッセージボックスが表示されたら |Yes| を押す
 
 .. tip::
 
@@ -438,7 +434,7 @@ Exporting a template
 #. エクスポートしたい雛形を選択
 #. 雛形を右クリックし :menuselection:`E&xport` を選択
 #. 雛形をエクスポートしたい場所を探し、:guilabel:`フォルダーの選択` を押す
-#. 表示された情報ダイアログボックスで :guilabel:`&OK` を押す
+#. 表示された情報ダイアログボックスで |OK| を押す
 
 .. note::
 
@@ -449,9 +445,8 @@ Exporting a template
 Other ways to manage templates
 ======================================================================
 
-:guilabel:`Templates` ダイアログボックスを使わなくても、計算機のどこにある雛形で
-も作成、使用することが可能だ。ただし、本章で説明するものとは異なる結果となるもの
-もある。
+|TemplatesDlg| を使わなくても、計算機のどこにある雛形でも作成、使用することが可
+能だ。ただし、本章で説明するものとは異なる結果となるものもある。
 
 Creating a document from a template
 ----------------------------------------------------------------------
@@ -466,13 +461,13 @@ Creating a template from a document
 
 文書から雛形を作成するには、
 
-#. :menuselection:`&File --> Save &As...` を選択
+#. :menuselection:`&File-->Save &As...` を選択
 #. :guilabel:`ファイルの種類 (&T)` として :guilabel:`ODF Text Document (.odt)`
    を選択
 
-作成された雛形はインポートするか |Options| の :menuselection:`LibreOffice -->
+作成された雛形はインポートするか |OptionsDlg| :menuselection:`LibreOffice-->
 Paths` ページで雛形用に表示されている場所にプロジェクトフォルダーを追加しない限
-り :guilabel:`Templates` ダイアログボックスには表示されない。
+り |TemplatesDlg| には表示されない。
 
 ----
 
