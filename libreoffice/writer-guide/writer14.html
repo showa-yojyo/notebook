@@ -46,6 +46,419 @@
             
   <section id="writer-guide-chapter-14-mail-merge">
 <h1>Writer Guide Chapter 14, Mail Merge ノート<a class="headerlink" href="#writer-guide-chapter-14-mail-merge" title="Permalink to this heading">¶</a></h1>
+<nav class="contents local" id="id1">
+<p class="topic-title">章見出し</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-is-mail-merge" id="id2">What is mail merge?</a></p></li>
+<li><p><a class="reference internal" href="#creating-and-registering-an-address-data-source" id="id3">Creating and registering an address data source</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-form-letter" id="id4">Creating a form letter</a></p>
+<ul>
+<li><p><a class="reference internal" href="#suppressing-blank-lines-optional" id="id5">Suppressing blank lines (optional)</a></p></li>
+<li><p><a class="reference internal" href="#saving-merged-documents" id="id6">Saving merged documents</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#printing-mailing-labels" id="id7">Printing mailing labels</a></p>
+<ul>
+<li><p><a class="reference internal" href="#preparing-for-printing" id="id8">Preparing for printing</a></p></li>
+<li><p><a class="reference internal" href="#printing" id="id9">Printing</a></p></li>
+<li><p><a class="reference internal" href="#editing-a-saved-file-of-mailing-labels" id="id10">Editing a saved file of mailing labels</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#printing-envelopes" id="id11">Printing envelopes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setting-up-envelopes-for-printing" id="id12">Setting up envelopes for printing</a></p></li>
+<li><p><a class="reference internal" href="#merging-and-printing-the-envelopes" id="id13">Merging and printing the envelopes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-the-mail-merge-wizard-to-create-a-form-letter" id="id14">Using the Mail Merge Wizard to create a form letter</a></p>
+<ul>
+<li><p><a class="reference internal" href="#step-1-select-starting-document" id="id15">Step 1: Select starting document</a></p></li>
+<li><p><a class="reference internal" href="#step-2-select-document-type" id="id16">Step 2: Select document type</a></p></li>
+<li><p><a class="reference internal" href="#step-3-insert-address-block" id="id17">Step 3: Insert address block</a></p>
+<ul>
+<li><p><a class="reference internal" href="#selecting-the-data-source-address-list" id="id18">Selecting the data source (address list)</a></p></li>
+<li><p><a class="reference internal" href="#selecting-and-optionally-editing-the-address-block" id="id19">Selecting and optionally editing the address block</a></p></li>
+<li><p><a class="reference internal" href="#matching-the-fields" id="id20">Matching the fields</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#step-4-create-salutation" id="id21">Step 4: Create salutation</a></p></li>
+<li><p><a class="reference internal" href="#step-5-adjust-layout" id="id22">Step 5: Adjust layout</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="what-is-mail-merge">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">What is mail merge?</a><a class="headerlink" href="#what-is-mail-merge" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>mail merge</dt><dd><p>(computing) A software product that uses a file (or database) of names and
+addresses, together with a template document, to produce multiple copies of a
+letter, each personally addressed to a different recipient. – <a class="reference external" href="https://en.wiktionary.org/wiki/mail_merge">Wiktionary</a></p>
+</dd>
+</dl>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>「差し込み印刷」を mail merge に対する訳語として当てるのが一般的であるようだ。</p>
+</div>
+<ul class="simple">
+<li><p>定型書簡（受信者一覧に送る文書）</p></li>
+<li><p>宛名札、物理的ファイル・フォルダーの荷札、および同様の目的</p></li>
+<li><p>封筒</p></li>
+</ul>
+<p>可変データは通常、後述するようにデータ給源から入手する。出力がすべて同じである場合（例えば返信用住所札）、差し込みは手動で入力されたテキストまたは画像を使用できる。</p>
+<p>この章では差し込み印刷工程について説明する。手順は次のとおり：</p>
+<ol class="arabic simple">
+<li><p>データ給源の作成と登録</p></li>
+<li><p>定型書簡、宛名札、封筒の作成と印刷</p></li>
+<li><p>オプションとして、出力結果を直接印刷する代わりに編集可能なファイルに保存する</p></li>
+</ol>
+</section>
+<section id="creating-and-registering-an-address-data-source">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Creating and registering an address data source</a><a class="headerlink" href="#creating-and-registering-an-address-data-source" title="Permalink to this heading">¶</a></h2>
+<p>宛名データ給源は宛名札や封筒を作成するための名前と住所の目録を含むデータベースだ。LibreOffice では、スプレッドシート、Writer 文書を含むテキストファイル、MySQL
+などのデータベースからデータベースを作成できる。差し込み印刷で使用する情報が
+LibreOffice が直接アクセスできない形式になっている場合は <abbr title="comma-separated values">CSV</abbr> ファイルなどにエクスポート変換する必要がある。</p>
+<p>Writer 文書内からデータ給源に直接アクセスするには、そのデータ給源を登録する必要がある。これを行う必要は一度しかない：</p>
+<ol class="arabic">
+<li><p>Writer 文書内または LibreOffice Start Center から
+<span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">W</span>izards-&gt;Address <span class="accelerator">D</span>ata Source…</span> を選択する。</p></li>
+<li><p><span class="guilabel">Mail Merge Wizard</span> の最初のページの選択肢は OS によって異なる。適切な外部住所帳の種類を選択する。</p>
+<ul class="simple">
+<li><p>スプレッドシートの場合は <span class="guilabel"><span class="accelerator">O</span>ther external data source</span> だ。</p></li>
+<li><p>選択項目によって左柱の <span class="guilabel">Steps</span> が変わる場合がある。</p></li>
+</ul>
+<p><span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押す。</p>
+</li>
+<li><p><span class="guilabel">Mail Merge Wizard</span> の次のページで <span class="guilabel"><span class="accelerator">S</span>ettings</span> ボタンを押す。</p></li>
+<li><p><span class="guilabel">Create Address Data Source</span> ダイアログボックスで
+<span class="guilabel">Database <span class="accelerator">t</span>ype</span> を選択する。この例では <span class="guilabel">Spreadsheet</span> だ。
+<span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押す。</p></li>
+<li><p>次のページで <span class="guilabel"><span class="accelerator">B</span>rowse…</span> ボタン を押し、住所情報を含むスプレッドシートに移動する。スプレッドシートを選択し、<span class="guilabel">開く (<span class="accelerator">O</span>)</span> ボタン を押してダイアログボックスに戻る。</p></li>
+<li><p>接続が正しく確立されたことをテストするには、ダイアログボックスの右下にある
+<span class="guilabel">Test Connect<span class="accelerator">i</span>on</span> ボタンをクリック押す。接続は正常に確立された旨が表示されるはずだが、そうでない場合はエラーメッセージが表示される。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">F</span>inish</span> ボタン を押す。</p></li>
+<li><p>次のページで <span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押す。<span class="guilabel">Field <span class="accelerator">A</span>ssignment</span> ボタンを押す必要はない。</p></li>
+<li><p><span class="guilabel">Data Source Title</span> ページでは新しいデータベースのファイル名と場所が <span class="guilabel"><span class="accelerator">L</span>ocation</span> 欄に表示される。この名前を変更したり、データベースファイルを別の場所に保存したりすることができる。</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel"><span class="accelerator">E</span>mbed this address book definition into the current document</span>
+をオフにする。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">B</span>rowse…</span> ボタン を押してファイルパスを指定する。</p></li>
+</ol>
+<p><span class="guilabel">Address book name</span> 欄の名前も変更できる。これは、LibreOffice がデータ給源一覧に表示する登録名だ。この例では <cite>Addresses</cite> という名前が両方に使用されている。</p>
+</li>
+<li><p><span class="guilabel"><span class="accelerator">F</span>inish</span> ボタン を押す。</p></li>
+</ol>
+<p>これでデータ給源が登録された。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>本書の図版を参考にして <code class="file docutils literal notranslate"><span class="pre">addresses.ods</span></code> を自作して上記の手順を再現しろ。印刷プレビューまで確認できれば十分だ。</p>
+</div>
+</section>
+<section id="creating-a-form-letter">
+<span id="writer14-anchor-form"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Creating a form letter</a><a class="headerlink" href="#creating-a-form-letter" title="Permalink to this heading">¶</a></h2>
+<p>定型書簡を手動で作成することもできる。これは最も簡単かつ包括的な方法で、ここで説明されている。あるいは <a class="reference internal" href="#writer14-anchor-wizard"><span class="std std-ref">Mail Merge Wizard</span></a> を使う。</p>
+<ol class="arabic">
+<li><p>Writer 文書を新規作成するか、既存の定型書簡を開く。</p></li>
+<li><p>登録されているデータ給源を表示する</p>
+<ul class="simple">
+<li><p>メニュー <span class="menuselection"><span class="accelerator">V</span>iew‣Data Sources</span></p></li>
+<li><p>キーバインド <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Shift</kbd> + <kbd class="kbd docutils literal notranslate">F4</kbd></p></li>
+</ul>
+</li>
+<li><p>定型書簡に使用するデータ給源、この場合は <cite>Addresses</cite> を見つける。このノードと
+<cite>Tables</cite> ノードを展開し、<cite>Sheet1</cite> を選択する。住所データファイルが表示される。</p></li>
+<li><p>定型書簡すべてに含まれるテキスト、句読点、改行などを入力して、定型書簡を作成または修正する。</p>
+<p>差し込み印刷フィールドを必要な箇所（名前や住所など）に追加するには、フィールドの見出しをクリックし、書簡内の適切な箇所にドラッグする。必要に応じて、空白やその他の句読点を追加しろ。宛先ブロックの各行の末尾で <kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。</p>
+</li>
+<li><p>この例のデータベースには、二番目の住所行 AD2 のフィールドがあり、一部の住所で空白になっている。書簡が印刷されるときに住所ブロックに表示される可能性のある空白行を削除したい場合は次節で説明する手順を使用できる。そうでない場合は、次の手順へ進め。</p></li>
+<li><p>これで文書は印刷準備ができた。</p>
+<ul class="simple">
+<li><p><span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">P</span>rint…</span> を選択し、メッセージボックスで <span class="guilabel"><span class="accelerator">Y</span>es</span> ボタン を押す。</p></li>
+<li><p><span class="guilabel">Mail Merge</span> ダイアログボックス <span class="guilabel">Records</span> 区画で、すべての記録行を印刷するか、選択した記録行を印刷するかを選択できる。</p>
+<ul>
+<li><p>印刷する個々の記録行を選択するには <kbd class="kbd docutils literal notranslate">Ctrl</kbd> を押しながらクリック。</p></li>
+<li><p>記録行のブロックを選択するには、ブロック内の最初の記録行を選択し、ブロック内の最後の記録行までスクロールして、最後の記録行を <kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらクリック。</p></li>
+<li><p>印刷する記録行番号の範囲を指定することもできる。</p></li>
+</ul>
+</li>
+<li><p>手紙を直接印刷機に送信するには、<span class="guilabel">Output</span> 区画で
+<span class="guilabel"><span class="accelerator">P</span>rinter</span> を選択し、<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押す。または、手紙をファイルに保存して、さらに編集や書式設定を行うこともできる。<a class="reference internal" href="#writer14-anchor-save"><span class="std std-ref">Saving merged documents</span></a> を見ろ。</p></li>
+<li><p>定型書簡の原型となる文書（雛形）を保存していない場合はただちに保存しろ。定型書簡の雛形があれば、他の定型書簡の作成が大幅に簡素化される。</p></li>
+</ul>
+</li>
+</ol>
+<section id="suppressing-blank-lines-optional">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Suppressing blank lines (optional)</a><a class="headerlink" href="#suppressing-blank-lines-optional" title="Permalink to this heading">¶</a></h3>
+<p>空行を抑制したい場合は次の手順をたどれ：</p>
+<ol class="arabic">
+<li><p>段落の末尾をクリックし、<span class="menuselection"><span class="accelerator">I</span>nsert‣Fiel<span class="accelerator">d</span>‣<span class="accelerator">M</span>ore Fields…</span>
+を選択して <span class="guilabel">Fields</span> ダイアログボックスを開く。</p></li>
+<li><p><span class="guilabel">Functions</span> タブをクリックし、<span class="guilabel"><span class="accelerator">T</span>ype</span> で
+<span class="guilabel">Hidden Paragraph</span> を選択する。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#writer14-anchor-wizard"><span class="std std-ref">Mail Merge Wizard</span></a> を使用する場合、空白行の自動抑制を選択して、この段階で説明する作業を避けることができる。</p>
+</div>
+</li>
+<li><p>次に <span class="guilabel"><span class="accelerator">C</span>ondition</span> 欄をクリックし、空白の住所フィールドを定義する条件の詳細を入力する。一般的な形式は</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>![Database.Table.Database field]
+</pre></div>
+</div>
+<p>例えば、AD2 フィールドが空かどうかをテストする条件は次のようになる：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>![Addresses.Sheet1.AD2]
+</pre></div>
+</div>
+<p>この条件を表す別の方法には、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">Addresses.Sheet1.AD2</span></code> や</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Addresses.Sheet1.AD2</span> <span class="pre">EQ</span> <span class="pre">&quot;&quot;</span></code></p></li>
+</ul>
+<p>がある。</p>
+</li>
+<li><p><span class="guilabel"><span class="accelerator">I</span>nsert</span> ボタン を押す。</p></li>
+</ol>
+</section>
+<section id="saving-merged-documents">
+<span id="writer14-anchor-save"></span><h3><a class="toc-backref" href="#id6" role="doc-backlink">Saving merged documents</a><a class="headerlink" href="#saving-merged-documents" title="Permalink to this heading">¶</a></h3>
+<p>校正や書式整形のために手紙をファイルに保存することもできる。そのためには</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Mail Merge</span> ダイアログボックス で含める記録行を選択し、<span class="guilabel">Output</span> 区画で
+<span class="guilabel">File</span> を選択して、ページ上の他の選択肢を活動開始する。</p></li>
+<li><p>出力を一つの文書（すべての手紙を含む）として保存するか、手紙を個々の文書として保存するかを選択でき、ファイルの名前、場所、形式を指定できる。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押す。<span class="guilabel">名前を付けて保存</span> ダイアログボックス で保存した手紙のファイル名を入力し、保存するフォルダーを選択する。手紙は一つの文書に別々のページとして連続して保存されるか、個々のファイルに連続した番号が付けられる。</p></li>
+</ol>
+<p>他の文書を編集するのと同じように、手紙を開いて個別に編集することができる。</p>
+</section>
+</section>
+<section id="printing-mailing-labels">
+<span id="writer14-anchor-print"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">Printing mailing labels</a><a class="headerlink" href="#printing-mailing-labels" title="Permalink to this heading">¶</a></h2>
+<p>紙札は一般的に住所録（各紙札が異なる住所を示す）を印刷するために使用されるが、返送先住所シールや CD/DVD などの紙札など、一つの紙札のみを複数部作成するためにも使用できる。</p>
+<p>作業を始める前に使用する紙札の銘柄と型を確認しろ。また、独自の紙札判型を定義することもできる。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>各紙札に同じ情報を印刷する場合は <span class="guilabel">Business Cards</span> ダイアログボックスが便利だ。<span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">N</span>ew‣B<span class="accelerator">u</span>siness Cards</span> からアクセスできる。<span class="guilabel">Labels</span> ダイアログボックス と <span class="guilabel">Business Cards</span> ダイアログボックスはよく似ている。</p>
+</div>
+<section id="preparing-for-printing">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Preparing for printing</a><a class="headerlink" href="#preparing-for-printing" title="Permalink to this heading">¶</a></h3>
+<p>印刷用の宛名札を準備する：</p>
+<ol class="arabic">
+<li><p><span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">N</span>ew‣<span class="accelerator">L</span>abels…</span> を選択。<span class="guilabel">Labels</span> ダイアログボックス が開く。</p></li>
+<li><p><span class="guilabel">Labels</span> タブ で <span class="guilabel"><span class="accelerator">D</span>atabase</span> と <span class="guilabel">Ta<span class="accelerator">b</span>le</span> を選択。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">D</span>atabase</span> ドロップダウンリストから紙札で使用する最初のフィールドを選択し、左矢印ボタンをクリックして <span class="guilabel"><span class="accelerator">L</span>abel text</span> 領域 に移動する。</p></li>
+<li><p>紙札が構成されるまでフィールドを追加し、必要な句読点、空白、行末（段落）を挿入し続ける。</p>
+<p>ある OS では、<span class="guilabel"><span class="accelerator">L</span>abel text</span> 領域 の下にスクロールバーが表示され、段落の末尾がどこにあるか見ることができる。他のシステムでは、フィールドが一覧に表示され、段落の終端がどこにあるかわからないかもしれない。後で手順 8 で確認できる。</p>
+</li>
+<li><p><span class="guilabel">Bra<span class="accelerator">n</span>d</span> ドロップダウンリストで紙札巻を選択する。その後、その銘柄型が <span class="guilabel"><span class="accelerator">T</span>ype</span> ドロップダウンリストに表示される。必要な紙札の判型を選択し、手順 7 に進め。紙札シートが一覧にない場合は次の手順に進め。</p></li>
+<li><p>一覧にない紙札を定義するには：</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Labels</span> タブ の <span class="guilabel"><span class="accelerator">T</span>ype</span> で <span class="guilabel">[User]</span> を選択する。次に、
+<span class="guilabel">Labels</span> ダイアログボックス の <span class="guilabel">Format</span> タブ をクリックする。紙札の寸法を測り、左側の入力欄それぞれに入力する。</p>
+<ul class="simple">
+<li><p><span class="guilabel"><span class="accelerator">H</span>orizontal pitch</span> は隣接する紙札の左端間の距離だ。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">V</span>ertical pitch</span> はある紙札の上辺とその直下の紙札の上辺との距離だ。</p></li>
+</ul>
+</li>
+<li><p>紙札雛形を再度使用する場合は保存することができる。<span class="guilabel"><span class="accelerator">S</span>ave…</span> を押す。</p></li>
+<li><p>ポップアップ表示される <span class="guilabel">Save Label Format</span> ダイアログボックスで、紙札の <span class="guilabel"><span class="accelerator">B</span>rand</span> と <span class="guilabel"><span class="accelerator">T</span>ype</span> の名前を入力する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押す。</p></li>
+</ol>
+</li>
+<li><p><span class="guilabel">Labels</span> ダイアログボックス <span class="guilabel">Options</span> タブ で <span class="guilabel">Synchroni<span class="accelerator">z</span>e contents</span> をオンにする。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">N</span>ew Document</span> ボタン を押す。これで、選択した型の紙札ごとに一つずつ、選択した原データの住所フィールドで埋められた一連の枠を含む一ページの文書が得られた。この文書には紙札が一ページしかないように見えるが、印刷または保存された出力は、原データから選択されたすべての記録行に十分なページを含むように拡張される。</p></li>
+<li><p>この文書では、次を使用すると段落末尾が表示される：</p>
+<ul class="simple">
+<li><p>ツールバー <span class="guilabel">Toggle Formatting Marks</span> ボタン</p></li>
+<li><p>メニュー <span class="menuselection"><span class="accelerator">V</span>iew‣For<span class="accelerator">m</span>atting Marks</span></p></li>
+<li><p>キーバインド <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">F10</kbd></p></li>
+</ul>
+</li>
+<li><p>通常は画面の左上隅に <span class="guilabel">Synchronize Labels</span> ボタン を含む小さなウィンドウが表示されるはずだ。</p></li>
+<li><p>段落末尾やその他の句読点が欠けている場合、またはすべての紙札の一つまたは複数のフィールドや行（段落）のフォントやその他の特徴を変更したい場合は、すぐに変更できる。左上の紙札で、変更したいフィールドを選択し、手動で変更するか、段落スタイルまたは文字スタイルを選択する。不足している句読点を追加する。次に、
+<span class="guilabel">Synchronize Labels</span> ボタン を押して、これらの変更をすべての紙札に自動的に追加する。</p></li>
+</ol>
+</section>
+<section id="printing">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Printing</a><a class="headerlink" href="#printing" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">P</span>rint…</span> を選択する。メッセージが表示される。<span class="guilabel"><span class="accelerator">Y</span>es</span> ボタン を押して印刷する。</p></li>
+<li><p><span class="guilabel">Mail Merge</span> ダイアログボックス ではすべての記録行を印刷するか、選択した記録行を印刷するかを選択できる。</p>
+<ul class="simple">
+<li><p>印刷する個々の記録行を選択するには <kbd class="kbd docutils literal notranslate">Ctrl</kbd> を押しながらクリック。</p></li>
+<li><p>記録行ブロックを選択するには、ブロック内の最初の記録行を選択し、ブロック内の最後の記録行までスクロールして、最後の記録行を <kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながらクリック。</p></li>
+</ul>
+</li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押すと紙札が直接印刷機に送信される。紙札をファイルに保存したい場合は
+<span class="guilabel">Output</span> 区画 <span class="guilabel"><span class="accelerator">F</span>ile</span> を選択する。この場合、<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押すと
+<span class="guilabel">名前を付けて保存</span> ダイアログボックス が開き、先述のように、ファイル名と保存場所を入力できる。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>紙札の宛名の空白行は、<a class="reference internal" href="#writer14-anchor-wizard"><span class="std std-ref">Mail Merge Wizard</span></a> を使用する場合と同様に自動的に抑制される。</p>
+</div>
+</section>
+<section id="editing-a-saved-file-of-mailing-labels">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Editing a saved file of mailing labels</a><a class="headerlink" href="#editing-a-saved-file-of-mailing-labels" title="Permalink to this heading">¶</a></h3>
+<p>保存した宛名札のファイルを編集するには、他の Writer 文書と同じようにファイルを開く。</p>
+<p>個々の記録行を手作業で編集することはできるが（たとえば、ソーススプレッドシートを変更して紙札を再生成する必要なくても、誤綴字を正す）、手作業ですべての紙札を一度に編集することはできない（たとえば、使用するフォントを変更する）。ただし、紙札記録行に関連付けられた段落スタイルや文字スタイルを編集することはできる：</p>
+<ol class="arabic simple">
+<li><p>紙札記録行を右クリックする。コンテキストメニューの
+<span class="menuselection">P<span class="accelerator">a</span>ragraph‣<span class="accelerator">E</span>dit Style…</span> を選択する。</p></li>
+<li><p><span class="guilabel">Paragraph Style</span> ダイアログボックス で、フォント名、フォントサイズ、字下げ、その他の属性を変更できる。</p></li>
+</ol>
+</section>
+</section>
+<section id="printing-envelopes">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Printing envelopes</a><a class="headerlink" href="#printing-envelopes" title="Permalink to this heading">¶</a></h2>
+<p>宛名札を印刷する代わりに、封筒に直接印刷することもある。</p>
+<p>封筒の作成には構成と印刷という二つの段階がある。<span class="guilabel">Envelope</span> ダイアログボックス の <span class="guilabel">Format</span> タブ と
+<span class="guilabel">Printer</span> タブ ページを使って封筒を印刷するための一般的な設定方法については
+<a class="reference internal" href="writer07.html"><span class="doc">Chapter 7, Printing and Publishing</span></a> を見ろ。</p>
+<p>封筒を一通作成するには、宛先欄に名前と住所を入力または貼り付けるか、この節で説明するように住所データ給源から情報を取得する。</p>
+<section id="setting-up-envelopes-for-printing">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Setting up envelopes for printing</a><a class="headerlink" href="#setting-up-envelopes-for-printing" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>メニューの <span class="menuselection"><span class="accelerator">I</span>nsert‣En<span class="accelerator">v</span>elope…</span> を選択する。</p></li>
+<li><p><span class="guilabel">Envelope</span> ダイアログボックス <span class="guilabel">Envelope</span> タブ で封筒に差出人情報を追加するかどうかを選択する。追加する場合は、差出人欄に情報を入力する。あらかじめ差出人情報が印刷された封筒を使用する場合は、この記入欄を空にするか、<span class="guilabel"><span class="accelerator">S</span>ender</span> チェックボックスをオフにする。</p></li>
+<li><p><a class="reference internal" href="#writer14-anchor-print"><span class="std std-ref">Printing mailing labels</span></a> で説明したように、データ給源の見出しからドラッグ＆ドロップして <span class="guilabel">Addressee</span> フィールドを作成し、<span class="guilabel"><span class="accelerator">N</span>ew Document</span> ボタン をクリックして封筒雛形を作成する。</p>
+<p>または、<span class="guilabel"><span class="accelerator">N</span>ew Document</span> ボタン を押し、封筒雛形の上にある Data Source ウィンドウを開き、データ給源の見出しを封筒の <span class="guilabel">Addressee</span> フィールドにドラッグする。</p>
+</li>
+<li><p>この時点でこの文書を雛形として保存することもできる。</p></li>
+</ol>
+</section>
+<section id="merging-and-printing-the-envelopes">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Merging and printing the envelopes</a><a class="headerlink" href="#merging-and-printing-the-envelopes" title="Permalink to this heading">¶</a></h3>
+<p>宛名を統合して封筒を印刷する手順：</p>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">P</span>rint…</span> を選ぶ。メッセージが表示される。<span class="guilabel"><span class="accelerator">Y</span>es</span> ボタン を押して印刷する。</p></li>
+<li><p><span class="guilabel">Mail Merge</span> ダイアログボックス が開く。定型書簡や宛名札と同様に、データベース内の一つ、複数、またはすべての住所録の封筒を印刷するように選択できる。</p></li>
+<li><p>選択し、<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押すと印刷機に直接印刷される。印刷前に封筒を確認するには
+<a class="reference internal" href="#writer14-anchor-save"><span class="std std-ref">Saving merged documents</span></a> を見ろ。空白行は自動的に抑制される。</p></li>
+</ol>
+</section>
+</section>
+<section id="using-the-mail-merge-wizard-to-create-a-form-letter">
+<span id="writer14-anchor-wizard"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Using the Mail Merge Wizard to create a form letter</a><a class="headerlink" href="#using-the-mail-merge-wizard-to-create-a-form-letter" title="Permalink to this heading">¶</a></h2>
+<p>定型書簡を手動で作成する方法については <a class="reference internal" href="#writer14-anchor-form"><span class="std std-ref">Creating a form letter</span></a> で説明している。<span class="guilabel">Mail Merge Wizard</span> を使用する場合は、その技法はこの節で述べられる。</p>
+<p><span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">N</span>ew‣<span class="accelerator">T</span>ext Document</span> で新規文書を開き、
+<span class="menuselection"><span class="accelerator">T</span>ools‣Mail Merge Wi<span class="accelerator">z</span>ard…</span> を選択する。</p>
+<section id="step-1-select-starting-document">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Step 1: Select starting document</a><a class="headerlink" href="#step-1-select-starting-document" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Mail Merge Wizard</span> では、開始文書に選択肢がある：</p>
+<ul class="simple">
+<li><p>現在の文書を使用</p></li>
+<li><p>新規文書を作成</p></li>
+<li><p>既存文書から開始</p></li>
+<li><p>雛形から開始</p></li>
+<li><p>最近保存した文書から開始</p></li>
+</ul>
+<p>この例では新規テキスト文書を開く。</p>
+<p><span class="guilabel">Use the current <span class="accelerator">d</span>ocument</span> を選択し、<span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押す。</p>
+<p>現在の文書に登録済みデータ給源が関連付けられていない場合は、警告メッセージが表示される。</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Exchange Databases…</span> ボタンを押して <span class="guilabel">Exchange
+Databases</span> ダイアログボックスを開く。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">A</span>vailable Database</span> から必要なデータベースを選択する。</p></li>
+<li><p>必要に応じて <span class="guilabel"><span class="accelerator">B</span>rowse…</span> ボタン を押してファイルダイアログボックスを開き、登録する必要があるデータベースを見つける。</p></li>
+<li><p><span class="guilabel">De<span class="accelerator">f</span>ine</span> ボタンを押してダイアログボックスを閉じ、選択したデータベースを文書に関連付ける。</p></li>
+</ol>
+</section>
+<section id="step-2-select-document-type">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Step 2: Select document type</a><a class="headerlink" href="#step-2-select-document-type" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Mail Merge Wizard</span> は手紙やメールを作成することができる。この例では、手紙を作成する。
+<span class="guilabel"><span class="accelerator">L</span>etter</span> を選択し <span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押す。</p>
+</section>
+<section id="step-3-insert-address-block">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Step 3: Insert address block</a><a class="headerlink" href="#step-3-insert-address-block" title="Permalink to this heading">¶</a></h3>
+<p>この段階では三つのことを行う：</p>
+<ol class="arabic simple">
+<li><p>ウィザードに使用するデータ給源を指定する。データ給源は既存のファイルでなければならない。</p></li>
+<li><p>文書で使用する住所ブロックを選択する。どのフィールドが表示されるか（例えば、国を含めるかどうか）と、それらがどのように見えるかを選択することを意味する。</p></li>
+<li><p>フィールドがすべて正しく一致していることを確認しろ。これは重要だ。例えば、英国英語版のウィザードには &lt;Surname&gt; というフィールドがある。スプレッドシートに“Last Name” という列がある場合、ウィザードに &lt;Surname&gt; と “Last Name” が等価であることを伝える必要がある。これについては <a class="reference internal" href="#writer14-anchor-matching"><span class="std std-ref">Matching the fields</span></a>
+で説明している。</p></li>
+</ol>
+<section id="selecting-the-data-source-address-list">
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">Selecting the data source (address list)</a><a class="headerlink" href="#selecting-the-data-source-address-list" title="Permalink to this heading">¶</a></h4>
+<ol class="arabic">
+<li><p><span class="guilabel">Select Different A<span class="accelerator">d</span>dress List…</span> ボタンの下にある
+<span class="guilabel">Current address list</span> が使用したい住所一覧でない場合は、このボタンをクリックして <span class="guilabel">Select Address List</span> ダイアログボックスを開き、原データを選択する。</p>
+<p>まだ住所一覧を作成していない場合は <span class="guilabel"><span class="accelerator">C</span>reate…</span> を押せ。この手順では新しい住所録一覧を含む <abbr title="comma-separated values">CSV</abbr> ファイルを作成できる。LibreOffice に登録されていないが使用したい住所録がある場合は、<span class="guilabel"><span class="accelerator">A</span>dd…</span> を押し、そのファイルが保存されている場所からファイルを選択する。</p>
+<p>これらの場合それぞれで、新しいデータ給源ファイル (.odb) が作成され、登録される。</p>
+</li>
+<li><p>住所一覧を選択し、<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押して <span class="guilabel">Insert Address Block</span> ダイアログボックスに戻る。この例では <cite>Addresses</cite> を住所帳として使用する。ウィザードは特定の記録行を除外することもできる。<span class="guilabel"><span class="accelerator">F</span>ilter…</span> を押して選べ。</p></li>
+</ol>
+</section>
+<section id="selecting-and-optionally-editing-the-address-block">
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">Selecting and optionally editing the address block</a><a class="headerlink" href="#selecting-and-optionally-editing-the-address-block" title="Permalink to this heading">¶</a></h4>
+<ol class="arabic">
+<li><p>第二区画では、手紙に表示する宛名ブロックを選択し、その体裁を定義し、その中に含まれるフィールドを選択する。主要ページには二つの選択肢がある。</p>
+<p><span class="guilabel"><span class="accelerator">M</span>ore…</span> を押すと <span class="guilabel">Select Address Block</span> ダイアログボックス が開き、選択肢が増える。</p>
+</li>
+<li><p><span class="guilabel">Select Address Block</span> ダイアログボックス には元の二つのブロックに加え、住所ブロックの書式に関するその他の選択肢が表示される。また、<span class="guilabel">Address Block Settins</span> 区画で、オプションで &lt;Country&gt; を入れたり外したりすることもできる。用意されている形式は比較的一般的なものだが、好みに合わない場合は、希望に最も近い住所ブロックを選択して <span class="guilabel"><span class="accelerator">E</span>dit…</span> を押すと <span class="guilabel">Edit Address Block</span> ダイアログボックス が開く。</p></li>
+<li><p><span class="guilabel">Edit Address Block</span> ダイアログボックス では矢印ボタンを使って住所要素を加除できる。要素を移動するには右に移すボタンを使う。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押して <span class="guilabel">Edit Address Block</span> ダイアログボックス を閉じる。</p></li>
+<li><p><span class="guilabel">Select Address Block</span> ダイアログボックス で <span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押して変更を保存。</p></li>
+</ol>
+</section>
+<section id="matching-the-fields">
+<span id="writer14-anchor-matching"></span><h4><a class="toc-backref" href="#id20" role="doc-backlink">Matching the fields</a><a class="headerlink" href="#matching-the-fields" title="Permalink to this heading">¶</a></h4>
+<p>最後に、&lt;Surname&gt; や “Last Name” のような項目が正しく一致するように、ウィザードのフィールドとスプレッドシートのフィールドを一致させる。</p>
+<ol class="arabic">
+<li><p>ウィザードの第三区画を見ろ。一番下の箱は指定した住所ブロック形式を使用して、一度に一つの記録行を表示する。その住所ボックスの下にある右矢印ボタンと左矢印ボタンを使って、住所が正しく表示されることを確認しながら段階を踏め。一つか二つ表示されたからといって、すべての記録行が正しく表示されているとは思うな。</p></li>
+<li><p>住所が正しく表示されない場合は、<span class="guilabel">Match <span class="accelerator">F</span>ields</span> を押す。
+<span class="guilabel">Match Fields</span> ダイアログボックスには三つの列がある：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Address elements</span> 列はウィザードが各フィールドに使用する項で、
+&lt;First Name&gt; や &lt;Last Name&gt; のようなものだ。</p></li>
+<li><p><span class="guilabel">Matches to field</span> 列を用いて、各住所要素に対して、それに一致するデータ給源のフィールドを選択する。</p></li>
+<li><p><span class="guilabel">Preview</span> 列には選択された住所ブロックからこのフィールドに対して表示される内容が表示される。一致が正しいかどうかを再確認することができる。</p></li>
+</ul>
+</li>
+<li><p>すべてのフィールドを一致させたら <span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押して <span class="guilabel">Edit Address Block</span> ダイアログボックス に戻る。これで、矢印ボタンを使ってすべての住所を見ると、すべて正しく見えるはずだ。そうでない場合は、<span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押して次の段階に進む前に、戻って気に入らないところを変更しろ。</p>
+<p>選択した住所ブロックのフィールドすべてを正しく照合するまで次に進むことはできないので気をつけろ。フィールドの位置に <code class="docutils literal notranslate"><span class="pre">&lt;not</span> <span class="pre">yet</span> <span class="pre">matched&gt;</span></code> と表示されている場合は、問題のフィールドが正しく合致していないことを示している。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>次に進むことができないとは、<span class="guilabel">Mail Merge Wizard</span> の第四ページを開けないということだ。</p>
+</div>
+</li>
+<li><p>第二区画にある <span class="guilabel"><span class="accelerator">S</span>uppress lines with just empty fields</span> に注目しろ。ウィザードを使用すると、本章で前述した手動定型書簡方式を使用する場合のように、独自の条件付き抑制フィールドを作成する必要はない。</p></li>
+</ol>
+</section>
+</section>
+<section id="step-4-create-salutation">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Step 4: Create salutation</a><a class="headerlink" href="#step-4-create-salutation" title="Permalink to this heading">¶</a></h3>
+<p>この段階ではどんな敬称でも作ることができる。</p>
+<p><span class="guilabel">General salutation</span> を有効にするには、<span class="guilabel">This document should
+contain a salutation</span> をオンにする。一覧には一般的なテキストがいくつか用意されているが、独自のテキストを入力することもできる。<span class="guilabel"><span class="accelerator">P</span>review</span> に選択したテキストが表示される。</p>
+<p><span class="guilabel"><span class="accelerator">I</span>nsert personalized salutation</span> をオンにすると、敬称のさらなる構成が可能になる。</p>
+<p>例えば、相手が男性なのか女性なのかで敬称を使い分けることができる。そのためには、
+Writer が相手を男性か女性かを知る方法を持たなければならない。スプレッドシートでは Gender という列があるといい。<span class="guilabel">Address list field indicating a
+female recipient</span> で、<span class="guilabel">Fiel<span class="accelerator">d</span> name</span> と <span class="guilabel">Field <span class="accelerator">v</span>alue</span> を
+<cite>Gender</cite> と <cite>F</cite> にそれぞれ設定する。</p>
+<p>スプレッドシートにそのような列がない場合、または敬称で性別を区別する必要がない場合は、両者を空のままにして、カスタマイズした <span class="guilabel"><span class="accelerator">M</span>ale</span> 一覧ボックスの内容をすべての受信者への敬称に使用できる。</p>
+<p>一例を挙げよう：</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel"><span class="accelerator">M</span>ale</span> 一覧ボックスの横にある <span class="guilabel">N<span class="accelerator">e</span>w…</span> ボタンを押す。
+<span class="guilabel">Custom Salutation (Make Recipients)</span> ダイアログボックスが開く。</p></li>
+<li><p><span class="guilabel">Salutation elements</span> 一覧で <span class="guilabel">Salutation</span> を選択し、右側の箱 1 にドラッグする。</p></li>
+<li><p><span class="guilabel">Customi<span class="accelerator">z</span>e salutation</span> 欄で適切な敬称を選択するか、独自のテキストを入力する。必要に応じて編集しろ。</p></li>
+<li><p><span class="guilabel">Salutation elements</span> 一覧から <span class="guilabel">First Name</span> を選択し、矢印ボタンまたはドラッグして箱 1 に移動する。敬称と名前の間に空白を追加する。</p></li>
+<li><p><span class="guilabel">Salutation elements</span> 一覧から <span class="guilabel">Last Name</span> を選択し、箱 1
+に移動する。右矢印ボタンを押して姓と名の間に空白を追加する。</p></li>
+<li><p>最後に、<span class="guilabel">Punctuation Mark</span> を横に移動し、<span class="guilabel">Customi<span class="accelerator">z</span>e
+salutation</span> の選択肢からカンマを選択する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">P</span>review</span> に構成が表示される。</p></li>
+<li><p>最終的な編集を行う。<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押す。</p></li>
+</ol>
+<p>この方法では、Doctor (Dr) や Reverend (Rev) のような性別を問わない肩書きや、Ms
+のような肩書きを使用したり、省略したりすることができる。</p>
+</section>
+<section id="step-5-adjust-layout">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Step 5: Adjust layout</a><a class="headerlink" href="#step-5-adjust-layout" title="Permalink to this heading">¶</a></h3>
+<p>第五段階では、ページ上の住所ブロックと敬称の位置を調整することができる。住所ブロックはページのどこにでも配置できる。敬称は常に左側にあるが、ページの上下に移動できる。ボタンを使用して要素を移動する。</p>
+<p>これで手紙の内容を入力できる Writer 文書が整った。フィールドを差し込んで書簡を印刷するには、メニューの <span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">P</span>rint…</span> を選択する。定型書簡を印刷するかどうかを尋ねるメッセージがポップアップ表示される。<span class="guilabel"><span class="accelerator">Y</span>es</span> ボタン を押す。</p>
+<p><span class="guilabel">Mail Merge</span> ダイアログボックス が開き、オプションで記録行を加除選択し、<span class="guilabel">Output</span> 区画で手紙をすぐに印刷するか (<span class="guilabel"><span class="accelerator">P</span>rinter</span>)、後で編集または印刷するために保存するか (<span class="guilabel"><span class="accelerator">F</span>ile</span>) を選択する。</p>
+<p><span class="guilabel"><span class="accelerator">F</span>ile</span> を選択した場合は、出力を単一の文書（すべての手紙を含む）として保存するか、または個々の文書として保存するかを選択し、ファイルの名前、場所、および形式を指定できる。<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押して手紙を保存する。これで手紙を開き、他の文書と同じように個別に編集することができる。</p>
+</section>
+</section>
 </section>
 
 
