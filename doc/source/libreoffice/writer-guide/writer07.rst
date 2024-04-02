@@ -2,12 +2,11 @@
 Writer Guide Chapter 7, Printing and Publishing ノート
 ======================================================================
 
+.. include:: ./abbrev.txt
 .. |CTL| replace:: :abbr:`CTL (Complex Text Language)`
 .. |DPI| replace:: :abbr:`DPI (dots per inch)`
 .. |EPS| replace:: :abbr:`EPS (Encapsulated PostScript)`
-.. |ePub| replace:: :abbr:`ePub (Electronic PUBlication)`
 .. |ISO| replace:: :abbr:`International Organization for Standardization`
-.. |PDF| replace:: :abbr:`PDF (Portable Document Format)`
 .. |PIN| replace:: :abbr:`PIN (Personal Identification Number)`
 
 .. contents:: 本章見出し
