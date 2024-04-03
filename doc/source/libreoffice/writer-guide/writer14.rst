@@ -97,8 +97,6 @@ Writer 文書内からデータ給源に直接アクセスするには、その�
 Creating a form letter
 ======================================================================
 
-.. |File-->Print| replace:: :menuselection:`&File-->&Print...`
-
 定型書簡を手動で作成することもできる。これは最も簡単かつ包括的な方法で、ここで説
 明されている。あるいは :ref:`Mail Merge Wizard<writer14-anchor-wizard>` を使う。
 

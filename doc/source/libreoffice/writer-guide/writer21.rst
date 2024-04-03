@@ -3,7 +3,6 @@ Writer Guide Chapter 21, User Interface Variants ノート
 ======================================================================
 
 .. include:: ./abbrev.txt
-.. |UI| replace:: UI
 
 .. contents:: 章見出し
    :depth: 3

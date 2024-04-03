@@ -1129,8 +1129,6 @@ Gallery テーマを入手できる。拡張機能のテーマは自動的にイ
 Adding objects to the Gallery
 ----------------------------------------------------------------------
 
-.. |PropertiesDlg| replace:: :guilabel:`Properties` ダイアログボックス
-
 作成したテーマに物を追加する手順：
 
 #. テーマの名前を右クリックし、:menuselection:`Propert&ies...` を選択

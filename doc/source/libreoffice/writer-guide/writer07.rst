@@ -3,7 +3,6 @@ Writer Guide Chapter 7, Printing and Publishing ノート
 ======================================================================
 
 .. include:: ./abbrev.txt
-.. |CTL| replace:: :abbr:`CTL (Complex Text Language)`
 .. |DPI| replace:: :abbr:`DPI (dots per inch)`
 .. |EPS| replace:: :abbr:`EPS (Encapsulated PostScript)`
 .. |ISO| replace:: :abbr:`International Organization for Standardization`
