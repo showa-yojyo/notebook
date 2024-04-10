@@ -564,8 +564,8 @@ Security tab of PDF Options dialog
 Digital Signatures tab of PDF Options dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Digital Signatures` 名タブには電子署名付き |PDF| を書き出すための選択
-肢がある。
+:guilabel:`Digital Signatures` タブには電子署名付き |PDF| を書き出すための選択肢
+がある。
 
 電子署名は次のことを確保するのに用いられる：
 

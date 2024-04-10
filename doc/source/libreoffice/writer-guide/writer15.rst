@@ -77,7 +77,6 @@ Writer の目次機能を使えば、文書内の見出しから目次を自動�
 Creating a table of contents quickly
 ----------------------------------------------------------------------
 
-.. |InsertTOCItem| replace:: :menuselection:`&Insert-->Table of Contents and Inde&x-->Table of Contents, &Index or Bibliography...`
 .. |InsertIndexEntryItem| replace:: :menuselection:`&Insert-->Table of Contents and Inde&x-->&Index Entry...`
 
 書式は無骨かもしれないが、たいていの場合、既定の目次が必要なものすべてであること
