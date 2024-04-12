@@ -689,9 +689,8 @@ Displaying or hiding table boundaries
 
 印刷ページと同じように、境界線なしで表を画面に表示するには、
 :menuselection:`&View-->Table Boundaries` をオフにするか、|OptionsDlg|
-:menuselection:`LibreOffice-->Application Colors` ページで、テキスト、表、ヘッ
-ダーとフッター、図、文書のその他の部分の境界線有無を切り替えたり、境界線の色を選
-択したりできる。
+|ApplicationColors| で、テキスト、表、ヘッダーとフッター、図、文書のその他の部分
+の境界線有無を切り替えたり、境界線の色を選択したりできる。
 
 境界線をオフにしても表組の境界線は隠されない。
 

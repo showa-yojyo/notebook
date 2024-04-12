@@ -2,7 +2,7 @@
 Writer Guide Chapter 1, Introducing Writer ノート
 ======================================================================
 
-.. |PDF| replace:: :abbr:`PDF (Portable Document Format)`
+.. include:: ./abbrev.txt
 
 .. contents:: 本章見出し
    :depth: 2
@@ -241,8 +241,7 @@ Rulers
 ない。これを出現させるには、次のいずれかの操作をする：
 
 * メニュー :menuselection:`&View --> &Rules --> &Vertical Ruler`
-* :guilabel:`Options` ダイアログボックス :menuselection:`LibreOffice Writer -->
-  View` ページの :guilabel:`Verti&cal ruler` をオンにする
+* |OptionsDlg| |WriterViewPage| :guilabel:`Verti&cal ruler` をオンにする
 
 両者を表示有無をすばやく切り替えるには :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`R` を
 押せ。
@@ -607,7 +606,7 @@ Saving documents automatically
 Writer は文書を一時ファイルに定期的に自動保存し、バックアップを作成する。時間間
 隔を設定したり、自動保存やバックアップをオフにする手順は次のとおり：
 
-#. :guilabel:`Options` ダイアログボックスを開く
+#. |OptionsDlg| を開く
 #. :menuselection:`Load/Save --> General` ページを開く
 #. :guilabel:`Save &AutoRecovery information every` をオンにして時間間隔を指定す
    る
@@ -826,7 +825,7 @@ Using outline folding
 
 この機能を有効にするには
 
-#. :guilabel:`Options` ダイアログボックスを開く
+#. |OptionsDlg| を開く
 #. :menuselection:`LibreOffice Writer --> View` ページを開く
 #. :guilabel:`&Show outline-folding buttons` をオンにする
 #. 好みで :guilabel:`Include sub &levels` をオンにする

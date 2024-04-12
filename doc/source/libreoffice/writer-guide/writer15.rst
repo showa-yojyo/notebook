@@ -105,11 +105,7 @@ Creating a table of contents quickly
 Customizing a table of contents
 ----------------------------------------------------------------------
 
-.. |TOCDlg| replace:: :guilabel:`Table of Contents, Index or Bibliography` ダイアログボックス
 .. |EditIndexItem| replace:: :menuselection:`Edit Inde&x`
-.. |TypeTab| replace:: :guilabel:`Type` タブ
-.. |EntriesTab| replace:: :guilabel:`Entries` タブ
-.. |StylesTab| replace:: :guilabel:`Styles` タブ
 
 目次は文書のスタイルや要件に合わせてカスタマイズすることができる。
 

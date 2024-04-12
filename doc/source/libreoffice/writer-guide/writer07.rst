@@ -41,10 +41,9 @@ Specifying the default printer
 Settings` を選択する。:guilabel:`Printer Setup` ダイアログボックスが開く。その他
 の印刷オプションにアクセスするには :guilabel:`Option&s...` ボタンを押す。
 
-同じ既定オプションは :guilabel:`Options` ダイアログボックスの
-:menuselection:`LibreOffice Writer --> Print` で使用でき、より一般的な印刷オプ
-ションは :menuselection:`LibreOffice --> Print` で使用できる。詳細については
-:doc:`Chapter 20 <writer20>` を見ろ。
+同じ既定オプションは |OptionsDlg| の :menuselection:`LibreOffice Writer -->
+Print` で使用でき、より一般的な印刷オプションは :menuselection:`LibreOffice -->
+Print` で使用できる。詳細については:doc:`Chapter 20 <writer20>` を見ろ。
 
 Controlling printing using the Print dialog
 ======================================================================
@@ -198,14 +197,14 @@ Printing in black and white on a color printer
 
 すべての彩色テキストと画像を無彩色で印刷するには、LibreOffice の設定を変更する：
 
-#. :guilabel:`Options` ダイアログボックスを開く
+#. |OptionsDlg| を開く
 #. :menuselection:`LibreOffice --> Print` ページ
 #. :guilabel:`Con&vert colors to grayscale` をオン
 #. :guilabel:`&OK`
 
 彩色テキストを黒で印刷し、画像を無彩色で印刷するには：
 
-#. :guilabel:`Options` ダイアログボックスを開く
+#. |OptionsDlg| を開く
 #. :menuselection:`LibreOffice Writer --> Print` ページ
 #. :guilabel:`Print text in blac&k` をオン
 #. :guilabel:`&OK`
@@ -257,8 +256,7 @@ Printing envelopes
    :guilabel:`Addr&essee` 欄と :guilabel:`&Sender` 欄の情報を確認、追加、編集す
    る。
 
-   * 差出人情報は :guilabel:`Options` ダイアログボックスの
-     :menuselection:`LibreOffice --> User Data` ページから取られる。
+   * 差出人情報は |OptionsDlg| |UserDataPage| から取られる。
    * 宛先と差出人の欄には情報を直接入力するか、右側のドロップダウンリストを使用
      して、封筒情報を引き出すデータベースを選択する。データベースから封筒を印刷
      する方法の詳細については :doc:`Chapter 14 <writer14>` を参照。
@@ -354,9 +352,9 @@ Controlling PDF content and quality
 
    :menuselection:`&File --> Expor&t...` でも |PDF| にエクスポート可能だ。
    :guilabel:`Export` ダイアログボックスで |PDF| 形式、ファイル名、保存場所を選
-   択し、:guilabel:`保存 (&S)` を押す。その後、:guilabel:`PDF Options` オプショ
-   ンダイアログボックスが開く。適切な設定を選択し :guilabel:`E&xport` をクリック
-   する。二つのエクスポート方法の唯一の違いは、手順を実行する順序だ。
+   択し、|Save| を押す。その後、:guilabel:`PDF Options` ダイアログボックスが開
+   く。適切な設定を選択し :guilabel:`E&xport` をクリックする。二つのエクスポート
+   方法の唯一の違いは、手順を実行する順序だ。
 
 General tab of PDF Options dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -604,10 +602,10 @@ IC カードを使用する場合、keystore で使用できるように設定�
   を選択する。|PDF| 署名プロセス中、TSA は電子署名されたタイムスタンプを取得し、
   それを署名に埋め込む。閲覧者はこのタイムスタンプを使用して、文書がいつ署名され
   たかを確認できる。
-* 選択できる TSA URL の一覧は :guilabel:`Options` ダイアログボックスの
-  :menuselection:`LibreOffice --> Security` ページ` :guilabel:`TSAs` で管理され
-  る。TSA URL が選択されていない場合（これが既定）、署名にはタイムスタンプが付与
-  されず、ローカルコンピューターの現在時刻が使用される。
+* 選択できる TSA URL の一覧は |OptionsDlg| の:menuselection:`LibreOffice -->
+  Security` ページ` :guilabel:`TSAs` で管理される。TSA URL が選択されていない場
+  合（これが既定）、署名にはタイムスタンプが付与されず、ローカルコンピューターの
+  現在時刻が使用される。
 
 Exporting to EPUB format
 ======================================================================
@@ -790,11 +788,11 @@ Removing personal data
 個人データ、版、コメント、秘密情報、記録変更が、他の人に送信したり、ファイルから
 |PDF| を作成する前に、ファイルから削除されていることを保証したい場合がある。
 
-:guilabel:`Options` ダイアログボックスの :menuselection:`LibreOffice -->
-Security` ページで :guilabel:`O&ptions...` ボタンを押すと :guilabel:`Security
-Options and Warnings` ダイアログボックスが表示され、ファイルに特定の情報が含まれ
-ている場合に警告を表示したり、保存時に個人情報を自動的に削除したりするように
-LibreOffice を設定することが可能だ。
+|OptionsDlg| の :menuselection:`LibreOffice --> Security` ページで
+:guilabel:`O&ptions...` ボタンを押すと :guilabel:`Security Options and Warnings`
+ダイアログボックスが表示され、ファイルに特定の情報が含まれている場合に警告を表示
+したり、保存時に個人情報を自動的に削除したりするように LibreOffice を設定するこ
+とが可能だ。
 
 ファイルから個人データなどを削除するには、
 
@@ -884,5 +882,4 @@ LibreOffice には画面読み上げを含む外部機器やアプリケーシ�
 
 .. rubric:: 章末注
 
-.. [#ctl] :guilabel:`Options` ダイアログボックス :menuselection:`Language
-    Settings --> Languages` ページ内 :guilabel:`Complex &text layout`
+.. [#ctl] |OptionsDlg| |LanguagesPage| にある :guilabel:`Complex &text layout`

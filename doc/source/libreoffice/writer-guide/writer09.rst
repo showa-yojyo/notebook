@@ -1032,7 +1032,7 @@ Style Inspector のいくつかの機能は、主に上級者にとって興味�
   に、注釈付きテキスト範囲またはメタデータ欄に設定できる。これらの欄陰影を無効ま
   たは有効にするには、次のいずれかを行う：
 
-  * メニューから :menuselection:`&View-->Fie&ld Shadings` を選択
+  * メニューから |View-->FieldShadings| をオンオフ
   * キーバインド :kbd:`Ctrl` + :kbd:`F8`
 
 詳しくは：
@@ -1065,6 +1065,5 @@ Paragraph Direct Formatting` の文字が表示される。
 
 .. rubric:: 章末注
 
-.. [#writer09footnoteA] |OptionsDlg| :menuselection:`Language Settings-->
-   Languages`
+.. [#writer09footnoteA] |OptionsDlg| |LanguagesPage|
 .. [#writer09footnoteB] 段落の先頭に一つ以上の文字を大きめのフォントで描くこと

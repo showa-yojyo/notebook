@@ -444,12 +444,11 @@ Combining several documents into a master document
    択し、|MoveUpIcon| または |MoveDownIcon| を使用して、必要に応じて配置するだけ
    だ。
 #. 宗主文書を編集し、連番と依頼人名を追加するには、宗主文書で
-   :file:`TestFile1.odt` を右クリックし、コンテキストメニューから
-   :menuselection:`&Edit...` を選択する。開いたファイルに必要な内容を追加し、
-   ファイルを保存して閉じる。詳細については :ref:`writer16-anchor-edit` を見ろ。
-#. メニューで :menuselection:`&Tools-->&Update-->&Links` を選択するか、Navigator
-   で :menuselection:`&Update-->&Links` をクリックし、|Yes| を押して確定する。宗
-   主文書の編集内容がすべて表示される。
+   :file:`TestFile1.odt` を右クリックし、コンテキストメニューから |EditC| を選択
+   する。開いたファイルに必要な内容を追加し、ファイルを保存して閉じる。詳細につ
+   いては :ref:`writer16-anchor-edit` を見ろ。
+#. |MenuBar| で |UpdateLinksM| を選択するか、Navigator で |UpdateLinksC| を選択
+   し、|Yes| を押して確定する。宗主文書の編集内容がすべて表示される。
 
 Splitting a document into master and subdocuments
 ======================================================================

@@ -2,6 +2,8 @@
 Writer Guide Chapter 5, Formatting Pages: Basics ノート
 ======================================================================
 
+.. include:: ./abbrev.txt
+
 .. contents:: 章見出し
    :depth: 3
    :local:
@@ -31,8 +33,7 @@ Introduction
 
 .. tip::
 
-   ページレイアウトは通常、:guilabel:`Options` ダイアログボックスの
-   :menuselection:`LibreOffice --> Application Colors` ページでテキスト、オブ
+   ページレイアウトは通常、|OptionsDlg| の |ApplicationColors| でテキスト、オブ
    ジェクト、図表、節の境界を表示するオプションを選択し、同ダイアログボックス
    :menuselection:`LibreOffice Writer --> Formatting Aids` で段落末尾、タブ、改
    行、その他の項目を表示するオプションを選択すると簡単だ。
@@ -273,10 +274,10 @@ Numbering pages
 
 .. tip::
 
-   灰色の背景を消すには :menuselection:`&View --> Fie&ld Shading` を選ぶか
-   :kbd:`Ctrl` + :kbd:`F8` を押す。数字の代わりに :guilabel:`Page number` という
-   文字が表示されたら :kbd:`Ctrl` + :kbd:`F9` を押す。これにより、Writer は
-   フィールドに対する名前と中身の表示を切り替える。
+   灰色の背景を消すには |View-->FieldShadings| を選ぶか :kbd:`Ctrl` + :kbd:`F8`
+   を押す。数字の代わりに :guilabel:`Page number` という文字が表示されたら
+   :kbd:`Ctrl` + :kbd:`F9` を押す。これにより、Writer はフィールドに対する名前と
+   中身の表示を切り替える。
 
 このトピックでは文書のヘッダーやフッターに次のような関連情報を挿入する技法につい
 て述べている：

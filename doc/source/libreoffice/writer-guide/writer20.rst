@@ -332,8 +332,8 @@ General options
 View options
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice Writer-->View` は、たとえば画面に画像が表示されない
-場合に確認するとよいページだ。
+|WriterViewPage| は、たとえば画面に画像が表示されない場合に確認するとよいページ
+だ。
 
 .. rubric:: Guides
 
@@ -431,9 +431,9 @@ Basic Fonts options
 これらの値を LibreOffice インストール時の既定値に戻すには、:guilabel:`Default`
 ボタンを押す。
 
-:menuselection:`Language Settings-->Languages` ページで :guilabel:`Asian` と
-:guilabel:`Complex &text layout` のどちらか一方または両方ともオンである場合、そ
-れらのフォント設定の追加ページが設けられる。
+|LanguagesPage| で :guilabel:`Asian` と :guilabel:`Complex &text layout` のどち
+らか一方または両方ともオンである場合、それらのフォント設定の追加ページが設けられ
+る。
 
 Print options
 ----------------------------------------------------------------------
@@ -600,8 +600,7 @@ Change some locale and language settings
 LibreOffice がすべての文書または特定の文書で使用するロケールおよび言語設定の詳細
 を変更できる。これらのオプションの詳細については |Help| を見ろ。
 
-|OptionsDlg| で :menuselection:`Language Settings-->Languages` を選択する。この
-ペーで必要に応じて設定を変更する。
+|OptionsDlg| |LanguagesPage| で必要に応じて設定を変更する。
 
 .. |EnglishUSA| replace:: :guilabel:`English (USA)`
 

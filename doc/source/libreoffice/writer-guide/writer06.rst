@@ -2,9 +2,7 @@
 Writer Guide Chapter 6, Formatting Pages: Advanced ノート
 ======================================================================
 
-.. |ePub| replace:: :abbr:`ePub (Electronic PUBlication)`
-.. |HTML| replace:: :abbr:`HTML (HyperText Markup Language)`
-.. |PDF| replace:: :abbr:`PDF (Portable Document Format)`
+.. include:: ./abbrev.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -28,7 +26,7 @@ Introduction
    :guilabel:`Options` ダイアログボックス内の次の項目をオンにしておくとページレイ
    アウトは容易になる：
 
-   * :menuselection:`LibreOffice --> Application Colors` ページ内
+   * |ApplicationColors| 内
 
      * :guilabel:`Text boundaries`
      * :guilabel:`Object boundaries`
