@@ -2,12 +2,8 @@
 Writer Guide Chapter 11, Images and Graphics ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
-.. |Pos&SizeMenu| replace:: :menuselection:`Position and Si&ze...`
-.. |GIF| replace:: :abbr:`GIF (Graphics Interchange Format)`
+.. include:: ./writer-inc.txt
 .. |GIMP| replace:: GIMP_
-.. |JPG| replace:: :abbr:`JPEG (Joint Photographic Experts Group)`
-.. |PNG| replace:: :abbr:`PNG (Portable Network Graphics)`
 
 .. contents:: 章見出し
    :depth: 3
@@ -16,12 +12,12 @@ Writer Guide Chapter 11, Images and Graphics ノート
 Introduction
 ======================================================================
 
-Writer 文書には写真、図面、スキャン画像などの画像ファイル追加可能だ。さまざまな
+Writer 文書には写真、図面、光学走査画像などの画像ファイル追加可能だ。さまざまな
 線画、ビットマップ形式のインポートが可能だ。
 
 Writer にある画像は次の基本的な型のものだ：
 
-* 写真、図面、スキャン画像などの画像ファイル
+* 写真、図面、光学走査画像などの画像ファイル
 * LibreOffice の図面ツールを使用して作成された図式
 * クリップアートまたは Fontwork を使用して作成された芸術作品
 * LibreOffice Calc を使用して作成された図式
@@ -33,7 +29,7 @@ Writer にある画像は次の基本的な型のものだ：
 
 この章では画像、図式、芸術作品について説明する。
 
-* 図表の作成方法については |Chapter19| で説明している。
+* 図表の作成方法については |Writer19| で説明している。
 * 図面ツールの詳細については |Draw| を参照。
 * 図式については |Calc| を参照。
 
@@ -63,8 +59,8 @@ Drawで 十分だ。|GIMP| や Inkscape のようなオープンソースのツ�
 * 文書に必要な正確な寸法の画像を作成するか、適切な画像パッケージを使用して写真や
   大きな図面を必要な寸法に拡大縮小しろ。Writer には画像を拡大縮小するツールがあ
   るが、Writer では拡大縮小するな。
-* その他の必要な画像操作（明るさ、色対比、色調整、切り抜き、灰色階調への変換な
-  ど）は、Writer ではなく画像パッケージで行う。
+* その他の必要な画像操作（明度、色対比、色調整、切り抜き、灰色階調への変換など）
+  は、Writer ではなく画像パッケージで行う。
 * 文書が画面上でのみ使用されるのであれば、300 dpi 以上の高解像度画像を使用する必
   要はない。解像度を下げても、表示される画像に悪影響はない。印刷では、一般的に
   300 dpi 以上が好まれる。
@@ -104,7 +100,7 @@ Drag and drop
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ドラッグ＆ドロップでは画像ファイル（の複製）を文書に埋め込む。埋め込む代わりにリ
-ンクするには :kbd:`Ctrl` + :kbd:`Shift` を押しながらドラッグしろ。
+ンクするには |Ctrl+Shift| を押しながらドラッグしろ。
 
 #. Windows Explorer などからはめ込む画像を探す
 #. 画像を Writer 文書にドラッグし、表示させたい場所にドロップする
@@ -115,9 +111,9 @@ Insert Image dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. 画像を表示したい文書中の場所をクリック
-#. メニューの :menuselection:`&Insert-->&Image...` を選択するか、
+#. |MenuBar| の :menuselection:`&Insert-->&Image...` を選択するか、
    |StandardToolbar| :guilabel:`Insert Image` 図像をクリック
-#. :guilabel:`Insert Image` ダイアログボックスで画像ファイルを選択
+#. |InsertImageDlg| で画像ファイルを選択
 
    * ダイアログボックスの下部に :guilabel:`Link` オプションがある。
 #. |Open| を押す
@@ -158,11 +154,11 @@ LibreOffice 文書に画像をコピーできる。
 Linking an image file
 ----------------------------------------------------------------------
 
-:guilabel:`Insert Image` ダイアログボックスで :guilabel:`Link` をオンにすると、
-Writer は文書に画像のコピーを保存する代わりに、画像を含むファイルへのリンクを作
-成する。画像は文書内に表示されるが、文書が保存されるときに画像そのものではなく、
-画像ファイルへの参照しか使わない。文書と画像は二つの別々のファイルとして残り、文
-書を再び開いたときに初めて併合される。
+|InsertImageDlg| で :guilabel:`Link` をオンにすると、 Writer は文書に画像のコ
+ピーを保存する代わりに、画像を含むファイルへのリンクを作成する。画像は文書内に表
+示されるが、文書が保存されるときに画像そのものではなく、画像ファイルへの参照しか
+使わない。文書と画像は二つの別々のファイルとして残り、文書を再び開いたときに初め
+て併合される。
 
 画像のリンク方式における利点と欠点：
 
@@ -186,23 +182,25 @@ Embedding linked images
 リンクされた画像は後で簡単に埋め込みに変えることが可能だ。次のようにする：
 
 #. Writer で文書を開く。
-#. メニューから :menuselection:`&Edit-->E&xternal Links...` を選択する。
-#. :guilabel:`Edit Link` ダイアログボックスには、リンクされたファイルすべてが一
-   覧表示される。:guilabel:`Source file` 一覧から対象ファイルを選択する。
+#. |MenuBar| から :menuselection:`&Edit-->E&xternal Links...` を選択する。
+#. |EditLinksDlg| にはリンクされたファイルすべてが一覧表示される。
+   :guilabel:`Source file` 一覧から対象ファイルを選択する。
 #. :guilabel:`&Break Link` ボタンを押す。
 #. |Yes| を押す。
 
 Linking an embedded image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. |RotationTab| replace:: :guilabel:`Rotation` タブ
+
 画像を埋め込みからリンクに変更するには：
 
 #. 画像が別ファイルになっていることを確認しろ。必要ならば埋め込まれた画像をファ
    イルとしてエクスポートしろ。:ref:`writer11-anchor-export` を見ろ。
 #. Writer 文書で埋め込み画像を選択する。
-#. 右クリック :menuselection:`&Properties...` を選択する。
-#. |ImageDlg| で :guilabel:`Rotation` タブに進む。埋め
-   込み画像の場合、:guilabel:`&File name` 欄は空だ。
+#. 右クリック |PropertiesC| を選択する。
+#. |ImageDlg| で |RotationTab| に進む。埋め込み画像の場合、:guilabel:`&File
+   name` 欄は空だ。
 #. 右にある |Browse| を押す。ファイルダイアログボックスが開く。
 #. リンクするファイルを見つけて選択し |Open| を押す。選択したファイルのパスが
    :guilabel:`&File name` 欄に表示される。
@@ -216,8 +214,8 @@ Inserting an image using a scanner
 光学走査装置が計算機に接続されている場合、Writer は光学走査アプリケーションを呼
 び出し、読み取った画像を文書にはめ込むことが可能だ。
 
-#. メニューから :menuselection:`&Insert-->&Media-->&Scan-->&Select Source...` を
-   選択し、利用可能な周辺機器一覧から走査源を選択する。
+#. |MenuBar| から :menuselection:`&Insert-->&Media-->&Scan-->&Select Source...`
+   を選択し、利用可能な周辺機器一覧から走査源を選択する。
 #. 画像をはめ込む文書をクリックする。
 #. :menuselection:`&Insert-->&Media-->&Scan-->&Request...` を選択する。画
    像処理ソフトウェアが開くので、画質、寸法、その他の属性の設定を調整する。
@@ -241,7 +239,7 @@ Gallery の詳細については |Guide| を参照しろ。
 
 Gallery から文書に物をはめ込むには：
 
-#. Sidebar の :guilabel:`Gallery` 図像をクリック
+#. |Sidebar| の |GalleryDeck| を開く
 #. 一覧からテーマを選択
 #. 物をシングルクリックで選択
 #. 画像を文書にドラッグ＆ドロップするか、物を右クリックしてコンテキストメニュー
@@ -265,9 +263,11 @@ Positioning images within the text
   画像の周囲を折り返したり、画像の後ろや前に刷り重ねたり、画像を独立した段落や文
   字として扱ったりすることができる。
 
+.. |Pos&SizeC| replace:: :menuselection:`Position and Si&ze...`
+
 設定は画像の性質に応じていくつかの方法でアクセスできる：
 
-* メニュー :menuselection:`F&ormat-->` 以下にある
+* |MenuBar| :menuselection:`F&ormat-->` 以下にある
 
   * :menuselection:`Anc&hor-->`
   * :menuselection:`&Wrap-->`
@@ -276,8 +276,8 @@ Positioning images within the text
   :menuselection:`Alig&n Objects-->` サブメニューもある。
 * 画像に対しては |ImageDlg| の |Pos&SizeTab| と |WrapTab| にある。
 * 図面物に対しては |Position&SizeDlg| の |Pos&SizeTab| にある。ダイアログボック
-  スを開くには、図面物を右クリックし、コンテキストメニューから |Pos&SizeMenu| を
-  選択する。
+  スを開くには、図面物を右クリックし、コンテキストメニューから |Pos&SizeC| を選
+  択する。
 * 埋め込み物（Calc スプレッドシートや Draw 文書など）の場合は :guilabel:`OLE
   Object` ツールバーにある。
 
@@ -296,7 +296,8 @@ Arranging images
 :menuselection:`&Bring to Front`
    画像を他の画像やテキストの上に配置する。
 :menuselection:`&Forward One`
-   画像をスタックの一段上に持ってきます。重なっているオブジェクトの数によっては、このオプションを数回適用しないと望ましい結果が得られない場合がある。
+   画像をスタックの一段上に持ってきます。重なっているオブジェクトの数によっては、
+   このオプションを数回適用しないと望ましい結果が得られない場合がある。
 :menuselection:`Back &One`
    画像をオブジェクトスタックの一段下に送る。
 :menuselection:`&Send to Back`
@@ -306,8 +307,8 @@ Arranging images
 
 .. tip::
 
-   他の物に覆われている物を選択するには、:kbd:`Tab` を押して目的の物に到達するま
-   で物の間を移動しろ。
+   他の物に覆われている物を選択するには、|Tab| を押して目的の物に到達するまで物
+   の間を移動しろ。
 
 Anchoring images
 ----------------------------------------------------------------------
@@ -341,8 +342,7 @@ Anchoring images
 
 .. tip::
 
-   画像に対する既定繋留は |OptionsDlg| の :menuselection:`LibreOffice Writer-->
-   Formatting Aids` ページで設定可能。
+   画像に対する既定繋留は |OptionsDlg| |FormattingAidsPage| で設定可能。
 
 Aligning images
 ----------------------------------------------------------------------
@@ -433,7 +433,7 @@ Editing the contour
 
 * 画像を右クリックしてコンテキストメニューから :menuselection:`&Wrap-->&Edit
   Contour...` を選択
-* 画像を選択してメニューから :menuselection:`F&ormat-->&Wrap-->&Edit
+* 画像を選択して |MenuBar| から :menuselection:`F&ormat-->&Wrap-->&Edit
   Contour...` を選択
 
 :guilabel:`Contour Editor` ダイアログボックスが開く。ツールバーボタン各種を使っ
@@ -453,12 +453,10 @@ Editing the contour
 Adding captions to images
 ======================================================================
 
-.. |CaptionDlg| replace:: :guilabel:`Insert Caption` ダイアログボックス
-
 画像に説明を追加するには次の方法がある：
 
 * 自動
-* |CaptionDlg|
+* |InsertCaptionDlg|
 * 手動
 
 Adding captions automatically
@@ -480,13 +478,13 @@ AutoCaption` ページを開く。ダイアログボックスの右側で、自�
 Adding captions using the Caption dialog
 ----------------------------------------------------------------------
 
-|CaptionDlg| ダイアログボックスを使って説明を追加する：
+|InsertCaptionDlg| ダイアログボックスを使って説明を追加する：
 
 #. 画像をはめ込み、
 
    * 右クリックして :menuselection:`Insert &Caption...` を選択
-   * 画像を選択してメニューから :menuselection:`&Insert-->Caption...` を選択
-#. |CaptionDlg| :guilabel:`Properties` で次の各欄を選択し、上部の
+   * 画像を選択して |MenuBar| から |InsertCaptionM| を選択
+#. |InsertCaptionDlg| :guilabel:`Properties` で次の各欄を選択し、上部の
    :guilabel:`Caption` 欄に説明文を入力する：
 
    * :guilabel:`&Category`
@@ -499,13 +497,13 @@ Adding captions using the Caption dialog
 .. tip::
 
    :guilabel:`&Category` には、ドロップダウンリストにない場合は、好きな名前（例
-   えば ``Photo`` など）を入力することができる。Writer は AutoCaption 機能を使用
-   する場合と同様に、その名前を使用して輪番を作成する。
+   えば `Photo` など）を入力することができる。Writer は AutoCaption 機能を使用す
+   る場合と同様に、その名前を使用して輪番を作成する。
 
 Numbering images by chapter
 ----------------------------------------------------------------------
 
-説明の番号付けに関する追加的選択肢を表示するには |CaptionDlg| で
+説明の番号付けに関する追加的選択肢を表示するには |InsertCaptionDlg| で
 :guilabel:`Option&s...` ボタンを押し、:guilabel:`Caption Options` ダイアログボッ
 クスを開く。これらの設定の中には、見出し（アウトライン）レベルを参照するものがあ
 り、文書内の章見出しにアウトラインレベルの段落スタイルが使用されている場合に限り
@@ -548,12 +546,11 @@ Place the image and its caption in separate paragraphs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 画像をはめ込み、文字として段落に繋留しろ。説明用の新しい段落を作成するために
-:kbd:`Enter` を押せ。
+|Enter| を押せ。
 
 #. 説明段落に、例えば ``Figure`` と入力し、空白を入れる。
 #. 図版番号を自動的にはめ込むには :menuselection:`&Insert-->Fiel&d-->&More
-   Fields...` (:kbd:`Ctrl` + :kbd:`F2`) を選択し、:guilabel:`Variables` タブを選
-   択する。
+   Fields...` (|Ctrl| + |F2|) を選択し、|VariablesTab| を選択する。
 #. :guilabel:`&Type` 一覧で :guilabel:`Number range` を選択
 #. :guilabel:`&Select` 一覧で :guilabel:`Figure` を選択
 #. :guilabel:`&Format` 一覧で (例) :guilabel:`Arabic (1 2 3)` を選択
@@ -605,8 +602,8 @@ Using the Image toolbar
 画像をはめ込んだり、文書内にすでに存在する画像を選択すると、|ImageToolbar| が出
 現する。
 
-|ImageToolbar| を常に表示するように設定 [#footnote]_ し、浮動するか入渠するかを
-選択できる。他の二つのツールバーは、このツールバーから開くことができる：
+|ImageToolbar| を常に表示するように設定 [#writer11-footnote]_ し、浮動するか入渠
+するかを選択できる。他の二つのツールバーは、このツールバーから開くことができる：
 
 * :guilabel:`Image Filter` ツールバーはウィンドウの他の場所に引き離して配置可能
 * :guilabel:`Color` ツールバーは別の浮動ツールバーとして開く
@@ -639,8 +636,8 @@ Image mode
 Flip vertically, horizontally or in 90° rotations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-画像を垂直、水平に反転させたり、90 度回転させるには、画像を選択し、|ImageToolbar|
-の関連ボタンを押す。
+画像を垂直、水平に反転させたり、90 度回転させるには、画像を選択し、
+|ImageToolbar| の関連ボタンを押す。
 
 Transparency
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -658,10 +655,10 @@ Using the Formatting toolbar and Image dialog
 ----------------------------------------------------------------------
 
 画像が選択されているときは、|FormattingToolbar| や、画像を右クリックして
-:menuselection:`&Properties...` を選択して開くダイアログボックスで利用できるツー
-ルを使って、その見てくれの一部をカスタマイズ可能だ。たとえば、画像の周囲に境界
-[#footnote-border]_ を作成してスタイルと色を選択したり、画像に影を追加したりでき
-る。
+|PropertiesC| を選択して開くダイアログボックスで利用できるツールを使って、その見
+てくれの一部をカスタマイズ可能だ。たとえば、画像の周囲に境界
+[#writer11-footnote-border]_ を作成してスタイルと色を選択したり、画像に影を追加
+したりできる。
 
 .. _writer11-anchor-crop:
 
@@ -698,11 +695,11 @@ Crop ツール実行手順：
 Using the Crop tab of the Image dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-画像を切り抜くには、画像を右クリックしてコンテキストメニューから
-:menuselection:`&Properties...` を選択し、|ImageDlg| |CropTab| を選択する。
+画像を切り抜くには、画像を右クリックしてコンテキストメニューから |PropertiesC|
+を選択し、|ImageDlg| |CropTab| を選択する。
 
-|CropTab| に表示される単位は |OptionsDlg| :menuselection:`LibreOffice
-Writer-->General` で設定された単位だ。
+|CropTab| に表示される単位は |OptionsDlg| |WriterGeneralPage| で設定された単位
+だ。
 
 :guilabel:`Crop` 区画には二つのオプションがある。
 
@@ -734,8 +731,8 @@ Resizing an image
 .. tip::
 
    角ハンドルは画像の幅と高さの両方を同時に変化させるが、他の四つのハンドルは一
-   度に一つの寸法だけを変更する。画像の元の比率を維持するには :kbd:`Shift` を押
-   しながらこれらのハンドルのいずれかをドラッグする。
+   度に一つの寸法だけを変更する。画像の元の比率を維持するには |Shift| を押しなが
+   らこれらのハンドルのいずれかをドラッグする。
 
 画像の寸法をより正確に変更するには |ImageDlg| の |CropTab| または |Pos&SizeTab| のい
 ずれかを使用する。
@@ -750,8 +747,8 @@ Resizing an image
 :guilabel:`&Original Size`
    押すと画像が原寸に戻る。これは切り抜きを行った後の寸法になる。
 
-|ImageDlg| |Pos&SizeTab|  :guilabel:`Size` 区画の :guilabel:`Re&lative to` オプショ
-ンを切り替えて、百分率と実寸を切り替える。左右対称に寸法を変化させるには
+|ImageDlg| |Pos&SizeTab| :guilabel:`Size` 区画の :guilabel:`Re&lative to` オプ
+ションを切り替えて、百分率と実寸を切り替える。左右対称に寸法を変化させるには
 :guilabel:`&keep ratio` をオンにする。 :guilabel:`&Original Size` ボタンを押す
 と、原画像寸法が復元されるが、画像が切り抜かれている場合、縮尺寸法が変更される。
 
@@ -772,9 +769,8 @@ Rotating or flipping an image
   タの形が変わったら、クリックして必要な角度までドラッグする。この方法は素早く簡
   単だが、正確ではない。
 * |ImageDlg| を使う。正確な回転角度を得るには、画像を右クリックし、
-  :menuselection:`&Properties...` を選択する。|ImageDlg| で :guilabel:`Rotation`
-  タブを選択する。:guilabel:`Rotation Angle` 区画で :guilabel:`&Angle` 欄に所望
-  の回転を指定する。
+  |PropertiesC| を選択する。|ImageDlg| で |RotationTab| を選択する。
+  :guilabel:`Rotation Angle` 区画で :guilabel:`&Angle` 欄に所望の回転を指定する。
 
 Image dialog options
 ----------------------------------------------------------------------
@@ -785,22 +781,22 @@ Image dialog options
    :ref:`writer11-anchor-crop` で述べられている。
 |Pos&SizeTab| と |WrapTab|
    :ref:`writer11-anchor-positioning` で説明されている。
-:guilabel:`Rotation` タブ
+|RotationTab|
    画像を反転または回転させる。画像が埋め込まれているのではなくリンクされている
    場合は、ファイルの元の場所を表示する。
 |OptionsTab|
    画像に説明的な名前を付け、画面読み上げや Web ブラウザーで画像にマウスポイン
-   ターを合わせたときに表示される代替テキストや説明を含むaccessibility 情報を準
+   ターを合わせたときに表示される代替テキストや説明を含む accessibility 情報を準
    備し、画像設定の一部を誤って変更しないように保護し、画像が印刷されないように
    する。画像がロゴや色のついた形など装飾的な場合は :guilabel:`Deco&rative` をオ
    ンにする。
 |BordersTab|
    画像の周囲に境界線を作成する。:guilabel:`Borders` ダイアログボックスは表組や
-   段落の境界線を定義するときに使うものと同じだ。|Chapter04| 参照。画像に影を足
+   段落の境界線を定義するときに使うものと同じだ。|Writer04| 参照。画像に影を足
    すこともできる。
 |AreaTab|
    画像の背景色を変更する。この設定は透明度のある画像にしか望ましい結果をもたら
-   さない。|Chapter04| 参照。
+   さない。|Writer04| 参照。
 :guilabel:`Hyperlink` タブ
    画像にハイパーリンクを関連付けるか、:ref:`画像マップ<writer11-anchor-map>` を
    作成する。
@@ -813,8 +809,7 @@ Image dialog options
 Deleting an image
 ----------------------------------------------------------------------
 
-画像を削除するには、画像をクリックして寸法変更ハンドルを表示させ、:kbd:`Delete`
-を押す。
+画像を削除するには、画像をクリックして寸法変更ハンドルを表示させ、|Del| を押す。
 
 .. _writer11-anchor-export:
 
@@ -825,8 +820,7 @@ Exporting (saving) images
 たりするには、文書から直接エクスポートすることが可能だ。画像を右クリックし、コン
 テキストメニューから :menuselection:`&Save...` を選択すると、:guilabel:`Image
 Export` ダイアログボックスが開く。画像はいくつかの形式で保存可能だ。画像に名前を
-付け、:guilabel:`ファイルの種類 (&T)` ドロップダウンリストで希望の画像形式を選択
-し、|Save| を押す。
+付け、|FileTypeList| で希望の画像形式を選択し、|Save| を押す。
 
 .. admonition:: 読者ノート
 
@@ -903,7 +897,7 @@ Creating drawing objects
    画可能だ。
 #. 選択した描画機能を中止するには、
 
-   * :kbd:`Esc` を押すか、
+   * |Esc| を押すか、
    * |DrawingToolbar| の :guilabel:`Select` 図像（矢印）をクリックする。
 
 これで、図面物の性質（塗りつぶしの色、線の種類と太さ、錨など）を、
@@ -916,8 +910,8 @@ Setting or changing properties for drawing objects
 描画する前に図面物の性質を設定する手順：
 
 #. |DrawingToolbar| で :guilabel:`Select` ツールをクリックする
-#. |DrawingObjectProperties| で各性質の図像をクリックし、その性質に必要な
-   値を選択する。
+#. |DrawingObjectProperties| で各性質の図像をクリックし、その性質に必要な値を選
+   択する。
 #. さらに制御する場合や、新しい属性を定義する場合は、ツールバーの
    :guilabel:`Area` 図像や :guilabel:`Line` 図像をクリックすると、詳細ダイアログ
    ボックスが表示される。
@@ -929,8 +923,8 @@ Setting or changing properties for drawing objects
 既存の図面物の性質を変更するには、それを選択し、上記の手順を実行する。
 
 図面物の位置や寸法、回転、傾きや角半径の諸性質を指定することも可能だ。図面物を右
-クリックし、コンテキストメニューから |Pos&SizeMenu| を選択する。必要に応じて、任
-意の性質を選択する。
+クリックし、コンテキストメニューから |Pos&SizeC| を選択する。必要に応じて、任意
+の性質を選択する。
 
 Resizing a drawing object
 ----------------------------------------------------------------------
@@ -943,17 +937,17 @@ Resizing a drawing object
 
 物は拡大または縮小される。
 
-物の辺または角ハンドルをつかんでドラッグすると、物の比率は保持されない。
-:kbd:`Shift` を押しながらドラッグすると維持される。
+物の辺または角ハンドルをつかんでドラッグすると、物の比率は保持されない。|Shift|
+を押しながらドラッグすると維持される。
 
 物の寸法をより正確に制御するには、次のどちらかを選択する：
 
-* 右クリックメニューから |Pos&SizeMenu|
-* メニューから :menuselection:`F&ormat-->Text Box and Shap&e-->Position and
+* 右クリックメニューから |Pos&SizeC|
+* |MenuBar| から :menuselection:`F&ormat-->Text Box and Shap&e-->Position and
   Si&ze...`
 
-|Pos&SizeTab| を使用して寸法を個別に設定しろ。:guilabel:`&Keep Ratio` がオンである場
-合、比率が維持されるように縦横が変更される。
+|Pos&SizeTab| を使用して寸法を個別に設定しろ。:guilabel:`&Keep Ratio` がオンであ
+る場合、比率が維持されるように縦横が変更される。
 
 Grouping drawing objects
 ----------------------------------------------------------------------
@@ -965,10 +959,10 @@ Grouping drawing objects
 
 図面物をグループ化するには：
 
-#. 物を一つ選択し、:kbd:`Shift` を押しながらグループに含めたい他の物を選択
+#. 物を一つ選択し、|Shift| を押しながらグループに含めたい他の物を選択
 #. 選択した状態で物の上にマウスポインターを置き、
 
-   * メニューから :menuselection:`F&ormat-->&Group-->&Group` を選択
+   * |MenuBar| から :menuselection:`F&ormat-->&Group-->&Group` を選択
    * |DrawingObjectProperties| の :guilabel:`Group` 図像をクリック
    * 右クリックメニューから :menuselection:`&Group` を選択する
 
@@ -984,19 +978,19 @@ Grouping drawing objects
 グループを解除または分割することなく、グループの個々のメンバーを編集することがで
 きる。グループを選択し、次のいずれかを行う：
 
-#. メニューから :menuselection:`F&ormat-->&Group-->&Enter Group` を選択
+#. |MenuBar| から :menuselection:`F&ormat-->&Group-->&Enter Group` を選択
 #. |DrawingObjectProperties| :guilabel:`Enter Group` 図像をクリック
 #. 右クリックメニュー :menuselection:`&Enter Group` を選択
 
 グループメンバーの編集が終了したら、次のいずれかを行え：
 
-#. メニューで:menuselection:`F&ormat-->&Group-->E&xit Group` を選択
+#. |MenuBar| で:menuselection:`F&ormat-->&Group-->E&xit Group` を選択
 #. |DrawingObjectProperties| :guilabel:`Exit Group` 図像をクリック
 #. 右クリックメニューから :menuselection:`E&xit Group` を選択
 
 グループを解散するには、グループを選択し、次のいずれかを行う：
 
-#. メニューから :menuselection:`F&ormat-->&Group-->Ungroup` を選択
+#. |MenuBar| から :menuselection:`F&ormat-->&Group-->Ungroup` を選択
 #. |DrawingObjectProperties| :guilabel:`Ungroup` 図像をクリックする
 #. 右クリックメニューから :menuselection:`Ungroup` を選択
 
@@ -1009,10 +1003,10 @@ Rotating drawing objects
 * 対話的操作。図面物を選択し、|DrawingObjectProperties| の :guilabel:`Rotate` 図
   像をクリックする。回転ハンドルが物の周囲に表示される。マウスポインターをハンド
   ルの上に合わせ、ポインターの形が変わったら、必要な角度までドラッグする。
-* |Position&SizeDlg|。オブジェクトを右クリックし |Pos&SizeMenu| を選択する。ダイ
-  アログボックスで :guilabel:`Rotate` タブを選択する。:guilabel:`Rotation Angle`
-  区画で必要な回転を指定する。既定では、回転は物の中心周りに行われるが、別のピ
-  ボット点を選択することも可能だ。
+* |Position&SizeDlg|。オブジェクトを右クリックし |Pos&SizeC| を選択する。ダイア
+  ログボックスで |RotationTab| を選択する。:guilabel:`Rotation Angle` 区画で必要
+  な回転を指定する。既定では、回転は物の中心周りに行われるが、別のピボット点を選
+  択することも可能だ。
 
 .. _writer11-anchor-map:
 
@@ -1032,8 +1026,8 @@ Creating an image map
 |ImageMapEditor| を使うには：
 
 #. Writer 文書でホットスポットを定義したい画像を選択する。
-#. メニューから :menuselection:`&Tools-->Image&Map` を選択する。|ImageMapEditor|
-   が開く。
+#. |MenuBar| から :menuselection:`&Tools-->Image&Map` を選択する。
+   |ImageMapEditor| が開く。
 #. ダイアログボックス内のツールやフィールド（後述）を使って、ホットスポットやリ
    ンクを定義する。
 #. :guilabel:`Apply` 図像をクリックして設定を適用する。
@@ -1088,7 +1082,7 @@ Creating an image map
 Managing the LibreOffice Gallery
 ======================================================================
 
-既定では、Gallery は Sidebar に開かれる。他の Sidebar 甲板と同様、
+既定では、Gallery は |Sidebar| に開かれる。他の |Sidebar| 甲板と同様、
 :guilabel:`Gallery` を浮動させることができる。:guilabel:`Gallery` を
 :guilabel:`Icon View` または :guilabel:`Detailed View` で表示することが可能で、
 Sidebar のバツボタンをクリックすることで :guilabel:`Gallery` を隠したり現したり
@@ -1185,10 +1179,10 @@ Gallery に表示される画像およびその他の物は、計算機の記憶
 
 にアクセスすることができる。
 
-使用者 Gallery の場所は |OptionsDlg| :menuselection:`LibreOffice-->Paths` で指定
-する。この場所は変更可能であり、Gallery のファイル (SDV) を他の計算機にコピーす
-ることが可能だ。LibreOffice が用意している Gallery の中身は別の場所に格納され、
-変更することは不可能だ。
+使用者 Gallery の場所は |OptionsDlg| |PathsPage| で指定する。この場所は変更可能
+であり、Gallery のファイル (SDV) を他の計算機にコピーすることが可能だ。
+LibreOffice が用意している Gallery の中身は別の場所に格納され、変更することは不
+可能だ。
 
 .. note::
 
@@ -1206,8 +1200,8 @@ Creating a Fontwork object
 
 .. |FontworkToolbar| replace:: :guilabel:`Fontwork` ツールバー
 
-#. |FontworkToolbar| [#footnote-fontwork]_ または |DrawingToolbar|
-   で、:guilabel:`Insert Fontwork Text` 図像をクリックするか、メニューから
+#. |FontworkToolbar| [#writer11-footnote-fontwork]_ または |DrawingToolbar| で
+   :guilabel:`Insert Fontwork Text` 図像をクリックするか、|MenuBar| から
    :menuselection:`&Insert-->Font&work...` を選択する。
 #. :guilabel:`Fontwork Gallery` ダイアログボックスでスタイルを選択
 #. |OK| を押す。
@@ -1215,10 +1209,10 @@ Creating a Fontwork object
    とを示す）と色の違う点に注目しろ。これらについては
    :ref:`writer11-anchor-moving` で述べられる。
 #. 角ハンドルの一つを使って物の寸法を変更するか、右クリックしてコンテキストメ
-   ニューから |Pos&SizeMenu| を選択すると、より正確な寸法指定が可能。
+   ニューから |Pos&SizeC| を選択すると、より正確な寸法指定が可能。
 #. Fontwork テキストを編集するには、物をダブルクリックする。物の上に表示される黒
    いテキストの代わりに、独自のテキストを入力。
-#. 空いている場所のどこかをクリックするか :kbd:`Esc` を押して変更を適用。
+#. 空いている場所のどこかをクリックするか |Esc| を押して変更を適用。
 
 Editing a Fontwork object
 ----------------------------------------------------------------------
@@ -1227,7 +1221,7 @@ Fontwork 物が作成されて、その属性の一部を編集することが�
 のいずれかを用いる：
 
 * |FontworkToolbar|
-* Sidebar |PropertiesDeck| にある :guilabel:`Fontwork` 盤
+* |Sidebar| |PropertiesDeck| にある :guilabel:`Fontwork` 盤
 * |FormattingToolbar|
 * 本節で説明するメニューオプション
 
@@ -1237,8 +1231,8 @@ Fontwork 物が作成されて、その属性の一部を編集することが�
 Using the Fontwork toolbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-|FontworkToolbar| が表示されていることを確認 [#footnote-fontwork]_ する。図像を
-クリックして Fontwork 物を編集する。
+|FontworkToolbar| が表示されていることを確認 [#writer11-footnote-fontwork]_ する。
+図像をクリックして Fontwork 物を編集する。
 
 :guilabel:`Insert Fontwork Text`
    :guilabel:`Fontwork Gallery` を開く。
@@ -1259,8 +1253,8 @@ Using the Fontwork toolbar
    * :menuselection:`Align &Right`
    * :menuselection:`S&tretch Justify`
 
-   から選択できる。文字揃えの効果は、テキストが二行以上にわたる場合にのみ見え
-   る。 :menuselection:`S&tretch Justify` はすべての行を完全に満たす。
+   から選択できる。文字揃えの効果は、テキストが二行以上にわたる場合にのみ見える。
+   :menuselection:`S&tretch Justify` はすべての行を完全に満たす。
 :guilabel:`Fontwork Character Spacing`
    物体の文字間隔と kerning を変更する。選択肢は
 
@@ -1322,7 +1316,8 @@ Fontwork 物を選択すると、いつものように物の辺の周りに八�
 
 .. rubric:: 章末注
 
-.. [#footnote] :menuselection:`&View-->&Toolbars-->Image`
-.. [#footnote-border] |ImageDlg| の :guilabel:`Borders` タブで。
-.. [#footnote-fontwork] 表示されていない場合は :menuselection:`&View-->&Toolbars-->Font&work` を選択。
+.. [#writer11-footnote] :menuselection:`&View-->&Toolbars-->Image`
+.. [#writer11-footnote-border] |ImageDlg| の |BordersTab| で。
+.. [#writer11-footnote-fontwork] 表示されていない場合は
+   :menuselection:`&View-->&Toolbars-->Font&work` を選択。
 .. _GIMP: https://www.gimp.org/

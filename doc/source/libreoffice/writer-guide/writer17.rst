@@ -2,7 +2,7 @@
 Writer Guide Chapter 17, Fields ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -25,7 +25,7 @@ Introduction
 
 .. tip::
 
-   |MenuBar| |View-->FieldShadings| をオフにするか、|OptionsDlg|
+   |MenuBar| |ViewFieldShadingsM| をオフにするか、|OptionsDlg|
    |ApplicationColors| で陰影色を変更していない限り、フィールド背景は画面表示時
    に灰色になる。この灰色はファイルを印刷したり |PDF| ファイルにエクスポートした
    りするときには表示されない。
@@ -44,29 +44,29 @@ Keyboard shortcuts for fields
 
    * - キーバインド
      - 動作
-   * - :kbd:`Ctrl` + :kbd:`F2`
-     - :guilabel:`Fields` ダイアログボックスを開く
-   * - :kbd:`Ctrl` + :kbd:`F8`
+   * - |Ctrl| + |F2|
+     - |FieldsDlg| を開く
+   * - |Ctrl| + |F8|
      - フィールド陰影表示を切り替える
-   * - :kbd:`Ctrl` + :kbd:`F9`
+   * - |Ctrl| + |F9|
      - フィールド名表示を切り替える
-   * - :kbd:`F9`
+   * - |F9|
      - フィールドを更新する
 
 .. admonition:: 読者ノート
 
-   :kbd:`Ctrl` + :kbd:`F9` は日常的に使う DeepL の「読みながら翻訳」コマンドの
-   キーバインドと衝突しているので要注意。
+   |Ctrl| + |F9| は日常的に使う DeepL の「読みながら翻訳」コマンドのキーバインド
+   と衝突しているので要注意。
 
 Quick and easy field entry
 ======================================================================
 
 .. |InsertFieldMenu| replace:: :menuselection:`&Insert-->Fiel&d-->`
-.. |MoreFields| replace:: :menuselection:`&Insert-->Fiel&d-->&More Fields...`
+.. |MoreFieldsM| replace:: :menuselection:`&Insert-->Fiel&d-->&More Fields...`
 
 一般的なフィールドを文書にすばやく入れるには |MenuBar| で次のいずれかを行う：
 
-* :menuselection:`&Insert-->&Page Number...` を選択
+* |InsertPageNumberM| を選択
 * |InsertFieldMenu| サブメニューで必要なフィールドを選択
 
 .. _writer17-anchor-hold:
@@ -74,10 +74,10 @@ Quick and easy field entry
 Using document properties to hold metadata and information that changes
 ======================================================================
 
-文書の |PropertiesDlg| にはタブが六つある。|GeneralTab| と
-:guilabel:`Statistics` タブの情報はプログラムが生成する。一部の情報
-[#writer17-footnote1]_ は |OptionsDlg| |UserDataPage| から取得される。|FontTab|
-と |SecurityTab| の選択肢については本書の他の箇所に説明がある。
+文書の |PropertiesDlg| にはタブが六つある。|GeneralTab| と :guilabel:`Statistics`
+タブの情報はプログラムが生成する。一部の情報[#writer17-footnote1]_ は
+|OptionsDlg| |UserDataPage| から取得される。|FontTab| と |SecurityTab| の選択肢
+については本書の他の箇所に説明がある。
 
 |DescritionTab| と |CustomPropertiesTab| は次の目的のために使う：
 
@@ -154,8 +154,8 @@ Writer にはフィールドが参照する情報を格納できる場所がい�
 その他の文書性質は |FieldsDlg| の |DocInformationTab| と |DocumentTab| にあり、
 次のいずれかで届く：
 
-* |MenuBar| |MoreFields|
-* キーバインド :kbd:`Ctrl` + :kbd:`F2`
+* |MenuBar| |MoreFieldsM|
+* キーバインド |Ctrl| + |F2|
 
 .. |TypeList| replace:: :guilabel:`&Type` 一覧
 
@@ -185,14 +185,13 @@ Using AutoText to insert often-used fields
 同じフィールドを頻繁に使用する場合は、AutoText を使用するとすばやく簡単にフィー
 ルドをはめ込める。
 
-.. |AutoTextDlg| replace:: :guilabel:`AutoText` ダイアログボックス
 .. |NameBox| replace:: :guilabel:`Na&me`
 
 フィールドに AutoText 項目を定義するには：
 
 #. フィールドを文書に普通に入れる。
 #. 入れたフィールドを選択し、:menuselection:`&Tools-->AutoText` を選択する
-   か、キーバインド :kbd:`Ctrl` + :kbd:`F3` を使う。
+   か、キーバインド |Ctrl| + |F3| を使う。
 #. |AutoTextDlg| でこの新しい項目を登録するグループ (e.g. `My AutoText`) を選択
    し、|NameBox| に登録項目の名前を打ち込み、必要に応じて :guilabel:`&Shortcut`
    を変更する。
@@ -201,8 +200,8 @@ Using AutoText to insert often-used fields
    は選択するな。
 #. |Close| を押して |AutoTextDlg| を閉じる。
 
-このフィールドをキャレット位置に入れるには、ショートカットを入力し、:kbd:`F3` を
-押す。
+このフィールドをキャレット位置に入れるには、ショートカットを入力し、|F3| を押
+す。
 
 .. admonition:: 読者ノート
 
@@ -222,11 +221,9 @@ Defining your own numbering sequences
 
 .. |SelectList| replace:: :guilabel:`&Select` 一覧
 .. |FormatList| replace:: :guilabel:`&Format` 一覧
-.. |VariablesTab| replace:: :guilabel:`Variables` タブ
 
 #. キャレットを文書内の空白の段落に置く。
-#. |MoreFields| を選択するか、:kbd:`Ctrl` + :kbd:`F2` を押して |VariablesTab| を
-   選択する。
+#. |MoreFieldsM| を選択するか、|Ctrl| + |F2| を押して |VariablesTab| を選択する。
 #. |TypeList| で `Number range` を選択する。|FormatList| で `Arabic (1 2 3)` を
    選択する。|NameBox| に `Step` などの名前を入力する。
 #. |Insert| を押す。変数名 `Step` が |SelectList| に表示され、数値フィールドが文
@@ -286,12 +283,12 @@ Inserting cross-references
 
 |CrossRefTab| に表示されている見出し、図版、その他の項目に相互参照を入れる方法：
 
-.. |InsertCrossRef| replace:: :menuselection:`&Insert-->Cross-&reference...`
+.. |InsertCrossRefM| replace:: :menuselection:`&Insert-->Cross-&reference...`
 .. |ReferUsingList| replace:: :guilabel:`&Refer using` 一覧
 
 #. キャレットを文書内の相互参照を表示したい場所に置く。
-#. |FieldsDlg| が開いていない場合は |InsertCrossRef| を選択するか、:kbd:`Ctrl` +
-   :kbd:`F2` を押す。|CrossRefTab| の |TypeList| で参照する項目の型 (e.g.
+#. |FieldsDlg| が開いていない場合は |InsertCrossRefM| を選択するか、|Ctrl| +
+   |F2| を押す。|CrossRefTab| の |TypeList| で参照する項目の型 (e.g.
    `Headings`, `Figures`) をクリックする。
 #. |SelectList| で必要な項目をクリックする。この一覧には、自動的に作成された項目
    と使用者定義の参照の両方が表示される。
@@ -385,10 +382,10 @@ Setting references
 集合参照は |FieldsDlg| |CrossRefTab| で登録、管理する。
 
 #. しおりのテキストを選択するか、テキスト内の必要な場所をクリックする。
-#. |MenuBar| で |InsertCrossRef| を選択する。
+#. |MenuBar| で |InsertCrossRefM| を選択する。
 #. |FieldsDlg| |CrossRefTab| で |TypeList| から :guilabel:`Set Reference` を選択
-   する。|SelectList| には定義済みの参照が表示される。複数の項目を参照に設定
-   する間、このダイアログボックスは開いたままにできる。
+   する。|SelectList| には定義済みの参照が表示される。複数の項目を参照に設定する
+   間、このダイアログボックスは開いたままにできる。
 #. 右下の |ValueBox| に項目のテキストが表示される。この項目を識別できるテキスト
    を |NameBox| に入力する。フィールド名は大文字と小文字を区別する。
 #. |Insert| を押す。|NameBox| に入力したテキストが |SelectList| に表示される。
@@ -427,7 +424,7 @@ Inserting the cross-references
    手順をまだ試していない。
 
 #. 相互参照を表示したい文書内のどこかにキャレットを置く。
-#. |InsertCrossRef| を選択。
+#. |InsertCrossRefM| を選択。
 #. |FieldsDlg| |CrossRefTab| で |TypeList| から `Insert Reference` を選択する。
 #. |ReferUsingList| で `Referenced text` を選択する。
 #. |SelectList| には使用している従属文書の参照フィールド名（もしあれば）しか表示
@@ -461,11 +458,11 @@ Using fields in headers and footers
   |InsertFieldMenu| から対応項目を選択する。
 * しおり、見出し、その他の項目への相互参照を入れるには、次のいずれかを行う：
 
-  * |InsertCrossRef| を選択
-  * |MoreFields| で |FieldsDlg| を開いて |CrossRefTab| を使う
+  * |InsertCrossRefM| を選択
+  * |MoreFieldsM| で |FieldsDlg| を開いて |CrossRefTab| を使う
 * `Heading 1` が章表題に使われている場合、`Document` フィールドを使って現在の章
   表題を挿入し、ヘッダーやフッターの内容が章ごとに変わるようにする。
-  |MoreFields| で |FieldsDlg| |DocumentTab| をクリックする。
+  |MoreFieldsM| で |FieldsDlg| |DocumentTab| をクリックする。
 * 他の見出しレベルとの相互参照を入れるには、|FieldsDlg| |DocumentTab| 右下の
   :guilabel:`&Up to level` で値を指定する。
 
@@ -488,7 +485,7 @@ Using fields in headers and footers
    で `Chapter number without separator` を選択する。|Insert| を押す。
 #. このフィールドを挿入したヘッダーまたはフッターに移動し、章番号とページ番号の
    間に表示したい文字を入力する。
-#. 目次はこれらの章番号を自動的に拾い出さないので、|Chapter15| で説明するように
+#. 目次はこれらの章番号を自動的に拾い出さないので、|Writer15| で説明するように
    |TOCDlg| |EntriesTab| で変更する必要がある。
 
 .. _writer17-anchor-bookmarks:
@@ -544,7 +541,7 @@ Notice という件名かもしれないが、三度目には Final Notice と�
 .. tip::
 
    場合によっては、段落や文字のスタイルを隠すことで同じ効果を得ることができる。
-   |Chapter09| を見ろ。
+   |Writer09| を見ろ。
 
 Choose the types of conditional content to use
 ----------------------------------------------------------------------
@@ -747,19 +744,18 @@ Hidden sections
 
 #. 条件式区画に含めたいテキストを選択する（他のテキストと同じように後で編集でき
    る)。
-#. :menuselection:`&Insert-->Se&ction...` を選択する。:guilabel:`New Section` ダ
-   イアログボックスで :guilabel:`Section` タブを開き、|HideOpt| をオンにして、
-   :guilabel:`&Width Condition` に条件を入力する。区画に名前を付けることもでき
-   る。文書に区画が複数ある場合に、簡単に見つけることができるようになる。
+#. :menuselection:`&Insert-->Se&ction...` を選択する。|InsertSectionDlg| で
+   :guilabel:`Section` タブを開き、|HideOpt| をオンにして、 :guilabel:`&Width
+   Condition` に条件を入力する。区画に名前を付けることもできる。文書に区画が複数
+   ある場合に、簡単に見つけることができるようになる。
 #. |Insert| を押して区画を文書に入れる。
 
 隠し区画を見せて編集できるようにするには
 
 .. |EditSectionsM| replace:: :menuselection:`F&ormat-->&Sections...`
-.. |EditSectionDlg| replace:: :guilabel:`Edit Sections` ダイアログボックス
 
 #. |MenuBar| から |EditSectionsM| を選択する。
-#. |EditSectionDlg| で一覧から区画を選択する。
+#. |EditSectionsDlg| で一覧から区画を選択する。
 #. |HideOpt| をオフにし、|OK| を押す。これで区画内容を編集できるようになる。その
    後、|EditSectionsM| を選択し、|HideOpt| をオンにすると、区画を再び隠すことが
    できる。
@@ -768,7 +764,7 @@ Hidden sections
 い）手順：
 
 #. 上記のようにして隠し区画を見せる。
-#. |EditSectionDlg| で一覧から区画を選択する。
+#. |EditSectionsDlg| で一覧から区画を選択する。
 #. |RemoveButton| を押す。区画内容は文書の通常の部分となる。
 
 Change the value of the variable
@@ -789,19 +785,17 @@ Change the value of the variable
 
 .. tip::
 
-   フィールドの自動更新を有効にするには、|OptionsDlg|
-   :menuselection:`LibreOffice Writer-->General` ページで :guilabel:`&Fields` を
-   オンにする。
+   フィールドの自動更新を有効にするには、|OptionsDlg| |WriterGeneralPage| で
+   :guilabel:`&Fields` をオンにする。
 
 .. _writer17-anchor-placeholder:
 
 Using placeholder fields
 ======================================================================
 
-プレースホルダ・フィールドは、何か（テキスト、表組、枠、画像、物）の入力を促すも
-のだ。
+仮入力欄とは、テキスト、表組、枠、画像、物などの何かの入力を促すものだ。
 
-プレースホルダ・フィールドを文書に入れるには：
+仮入力欄を文書に入れるには：
 
 .. |PlaceholderBox| replace:: :guilabel:`Placeholder` 欄
 
@@ -811,16 +805,15 @@ Using placeholder fields
 #. マウスポインターをフィールド上に置いたときにツールチップとして表示させたいテ
    キストを :guilabel:`Reference` 欄に入力する。
 
-`Image` プレースホルダフィールドをクリックすると、:guilabel:`Insert Image` ダイ
-アログボックスが開き、画像を選択するよう促される。画像を選択して |Open| を押す
-と、その画像が文書内のフィールドに置き換わる。
+`Image` 仮入力欄をクリックすると、|InsertImageDlg| が開き、画像
+を選択するよう促される。画像を選択して |Open| を押すと、その画像が文書内のフィー
+ルドに置き換わる。
 
-同様に、`Table` プレースホルダ・フィールドをクリックすると :guilabel:`Insert
-Table`ダイアログボックスが開き、`Frame` プレースホルダ・フィールドをクリックする
-と :guilabel:`Frame` ダイアログボックスが開き、`Object` プレースホルダ・フィール
-ドをクリックすると :guilabel:`Insert OLE Object` ダイアログボックスが開く。
-`Text` プレースホルダ・フィールドは、単にそれをクリックし、|PlaceholderBox| にテ
-キストを入力するだけで、フィールドが置き換わる。
+同様に、`Table` 仮入力欄をクリックすると |InsertTableDlg| が開き、`Frame` 仮入力
+欄をクリックすると |FrameDlg| が開き、`Object`仮入力欄をクリックすると
+:guilabel:`Insert OLE Object` ダイアログボックスが開く。`Text` 仮入力欄は、単に
+それをクリックし、|PlaceholderBox| にテキストを入力するだけで、フィールドが置き
+換わる。
 
 Using other fields
 ======================================================================

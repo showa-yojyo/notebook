@@ -2,7 +2,7 @@
 Writer Guide Chapter 6, Formatting Pages: Advanced ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -15,7 +15,7 @@ Introduction
 
 * 段組
 * 枠
-* 図表
+* 表組
 * 区画
 * 文書内で紙の向きを変える
 * 境界と背景
@@ -23,8 +23,7 @@ Introduction
 
 .. tip::
 
-   :guilabel:`Options` ダイアログボックス内の次の項目をオンにしておくとページレイ
-   アウトは容易になる：
+   |OptionsDlg| 内の次の項目をオンにしておくとページレイアウトは容易になる：
 
    * |ApplicationColors| 内
 
@@ -32,7 +31,7 @@ Introduction
      * :guilabel:`Object boundaries`
      * :guilabel:`Table boundaries`
      * :guilabel:`Section boundaries`
-   * :menuselection:`LibreOffice Writer --> Formatting Aids` ページ内
+   * |FormattingAidsPage| 内
 
      * :guilabel:`Pa&ragraph end`
      * :guilabel:`Tabs`
@@ -52,14 +51,14 @@ Choosing a layout method
 
 * どのような文書に最終的にするか
 * どのような情報を文書に含めるか
-* 文書を印刷物や |PDF| などの固定形式で発行する
-  か、|HTML| や |ePub| などの可変形式で発行するか、複数の形式で発行するか
+* 文書を印刷物や |PDF| などの固定形式で発行するか、|HTML| や |ePub| などの可変形
+  式で発行するか、複数の形式で発行するか
 
 以下に例を挙げる。挙げた技法はすべてこの章で説明している：
 
 * 本書のように、テキストが一列、テキストのない図式がいくつか、説明がある図式がい
   くつかある本の場合、基本的レイアウトにはページスタイルを使用し、必要に応じて説
-  明テキストの横に図表を使用して図式を配置する。
+  明テキストの横に表組を使用して図式を配置する。
 * 索引やその他の文書で、テキストが二段組になっており、テキストが左側の段から右側
   の段、そして次のページへと順番に続いている場合は区画（二段組以上）を用いる。文
   書の表題（最初のページ）が全ページ幅の場合は一段の区画に入れる。
@@ -71,26 +70,26 @@ Choosing a layout method
 .. tip::
 
    |HTML| や |ePub| など、固定されていない形式で出版する文書には最小限のレイアウ
-   ト技術を使え。いくつかの方法（段組、枠、幅広図表）はこれらの形式にうまくエク
+   ト技術を使え。いくつかの方法（段組、枠、幅広表組）はこれらの形式にうまくエク
    スポートできないことがありがちだ。
 
 Using columns to define the page layout
 ======================================================================
 
-Default Page Style など、基本的なページスタイルは文書で用いる最も一般的なレイア
-ウト（単段組または複段組）で定義することを勧める。その後、異なる段数のページに対
-してページスタイルを追加的に定義可能だ。
+`Default Page Style` など、基本的なページスタイルは文書で用いる最も一般的なレイ
+アウト（単段組または複段組）で定義することを勧める。その後、異なる段数のページに
+対してページスタイルを追加的に定義可能だ。
 
 .. note::
 
-   単一ページに異なる数の列を組み合わせたい場合は :ref:`writer06-anchor1` で述べ
-   られるように、区画を用いる必要がある。
+   単一ページに異なる数の列を組み合わせたい場合は :ref:`writer06-anchor-layout`
+   で述べられるように、区画を用いる必要がある。
 
 ページスタイルの段数を定義するには：
 
-#. メニューの :menuselection:`F&ormat --> &Page Style...` を選択（あるいは同等の
-   UI 操作）
-#. :guilabel:`Columns` タブに移動
+#. |MenuBar| の :menuselection:`F&ormat-->&Page Style...` を選択（あるいは同等のUI
+   操作）
+#. |ColumnsTab| に移動
 #. :guilabel:`Settings` 区画で次を指定：
 
    * :guilabel:`Col&umns`: 段数
@@ -99,7 +98,7 @@ Default Page Style など、基本的なページスタイルは文書で用い�
 
    を指定する。Writer の組み込み段組レイアウトのいずれかを用いるか、カスタマイズ
    段組レイアウトを作成しろ。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 Formatting column width and spacing
 ----------------------------------------------------------------------
@@ -140,11 +139,12 @@ Distributing text across columns
 テキストが列に追加されると、テキストはある段からその次の段に流れる。
 
 すべての段の高さ [#columnlength]_ がだいたい同じになるようにテキストを均等に分配
-するには、複数段区画を用いる。:ref:`writer06-anchor2` で述べられる。
+するには、複数段区画を用いる。:ref:`writer06-anchor-section-columns` で述べられ
+る。
 
 .. tip::
 
-   :menuselection:`&View --> Formatting Marks` を選択すると、段落終了マーカー
+   :menuselection:`&View-->Formatting Marks` を選択すると、段落終了マーカー
    ``¶`` が表示される。多くの場合、段の予期せぬ動作は、通常は見えないが場所を
    取っている余分な段落が原因だ。
 
@@ -152,10 +152,10 @@ Using frames for page layout
 ======================================================================
 
 枠は、新聞やその他のレイアウトを多用する文書を作成する際に便利だ。 枠には、テキ
-スト、図表、複数段、画像、その他のオブジェクトを含められる。枠には次のような用途
+スト、表組、複数段、画像、その他のオブジェクトを含められる。枠には次のような用途
 がある：
 
-* ロゴやページの片隅にある「報道停止」のニュースボックスなど。
+* ロゴやページの片隅にある「速報」のニュースボックスなど。
 * ある枠の内容を別の枠にリンクすることで、あるページのテキストを次のページよりも
   離れた別のページで継続できるようにする。
 * 写真などのオブジェクトにテキストを回り込ませる。
@@ -169,33 +169,34 @@ LibreOffice では枠を繰り返し用いるページスタイルが使用で�
 の段落の余白と揃えることだ。これを行うには、上の段落と同じスタイルの空白の段落に
 枠を挿入する：
 
-#. :menuselection:`&Insert --> &Frame --> F&rame...` を選択
-#. :guilabel:`Frame` ダイアログボックスの :guilabel:`Position and Size` ページ
-   :guilabel:`Position` 区画で :guilabel:`Hori&zontal` ドロップダウンリストの
-   :guilabel:`From Left` を選択して枠を必要な位置に正確に配置する。
+.. |InsertFrameM| replace:: :menuselection:`&Insert-->&Frame-->F&rame...`
+
+#. |InsertFrameM| を選択
+#. |FrameDlg| |Pos&SizeTab| :guilabel:`Position` 区画で :guilabel:`Hori&zontal`
+   ドロップダウンリストの:guilabel:`From Left` を選択して枠を必要な位置に正確に
+   配置する。
 
 また、折り返しの種類と枠とテキストの間隔についても考えろ。枠をテキストの近くに配
-置する代わりに :guilabel:`Wrap` ページを使って両者の間に余白を入れろ。
+置する代わりに |WrapTab| を使って両者の間に余白を入れろ。
 
-枠を個別に整理したり、枠スタイルを定義して適用したりするには :doc:`Chapter 9
-<writer09>` を参照しろ。
+枠を個別に整理したり、枠スタイルを定義して適用したりするには |Writer09| を参照し
+ろ。
 
 Creating a frame
 ----------------------------------------------------------------------
 
 枠を作成するには、以下のいずれかの方法を用いる：
 
-* :menuselection:`&Insert --> &Frame --> F&rame...` を選択して空の枠を作成する。
-  :guilabel:`Frame` ダイアログボックスが開く。この段階で枠の特性を設定するか、
-  :guilabel:`&OK` を押してカスタマイズを後回しにする。
-* テキストを選択し、:menuselection:`&Insert --> &Frame --> F&rame...` と選択して
-  :guilabel:`Frame` ダイアログボックスを開く。枠をカスタマイズし :guilabel:`&OK`
-  を押す。選択テキストは通常のテキストフローから取り除かれ、枠にはまる。
-* :menuselection:`&Insert --> &Frame --> &Frame Interactively` を選択して空の枠
-  をすばやく描く。マウスポインターの形が変わる。クリックしてドラッグすると空の枠
-  が描かれる。
-* :menuselection:`&Insert --> Object -->` 以下からオブジェクトの種類を選択して数
-  式または OLE オブジェクトを挿入する。アイテムが挿入され枠内に表示される。
+* |InsertFrameM| を選択して空の枠を作成する。|FrameDlg| が開く。この段階で枠の特
+  性を設定するか、|OK| を押してカスタマイズを後回しにする。
+* テキストを選択し、|InsertFrameM| と選択して |FrameDlg| を開く。枠をカスタマイ
+  ズし |OK| を押す。選択テキストは通常のテキストフローから取り除かれ、枠にはま
+  る。
+* :menuselection:`&Insert-->&Frame-->&Frame Interactively` を選択して空の枠をす
+  ばやく描く。マウスポインターの形が変わる。クリックしてドラッグすると空の枠が描
+  かれる。
+* :menuselection:`&Insert-->Object-->` 以下から物の種類を選択して数式または
+  |OLE| 物を挿入する。アイテムが挿入され枠内に表示される。
 
 枠に中身を追加するには、まず、ページ上のどこか空いている場所をクリックして枠の選
 択を解除する。次に枠内をクリックしてキャレットを置く。メインページと同じように中
@@ -204,9 +205,9 @@ Creating a frame
 Frame toolbar
 ----------------------------------------------------------------------
 
-枠を作成または選択すると、:guilabel:`Frame` ツールバーが表示される。既定では
-:guilabel:`Formatting` ツールバーの代わりに表示される。:menuselection:`&View -->
-&Toolbars --> Frame` を使用して表示することも可能。
+枠を作成または選択すると |FrameToolbar| が表示される。既定では
+|FormattingToolbar| の代わりに表示される。
+:menuselection:`&View-->&Toolbars-->Frame` を使用して表示することも可能。
 
 Moving, resizing, and changing frame attributes
 ----------------------------------------------------------------------
@@ -215,10 +216,10 @@ Moving, resizing, and changing frame attributes
 る。この枠によって、オブジェクトがページ上にどのように配置されるか、また文書内の
 他の要素とどのように相互作用するかが設定される。枠を編集するには、用いる枠スタイ
 ルを変更するか、文書に追加するときに手動で書式を設定する。枠スタイルについては
-:doc:`Chapter 9 <writer09>` で説明。
+|Writer09| で説明。
 
-枠の寸法や位置を変更するには、枠を選択し、マウスか :guilabel:`Frame` ダイアログ
-ボックスを使う。マウスを使ったほうが速いが、正確さに欠ける。
+枠の寸法や位置を変更するには、枠を選択し、マウスか |FrameDlg| を使う。マウスを
+使ったほうが速いが、正確さに欠ける。
 
 .. tip::
 
@@ -228,7 +229,7 @@ Moving, resizing, and changing frame attributes
 
 * 寸法調整ハンドルをクリックし、適切になるまでドラッグする。
 * 枠に中身を追加する（例えば、大きな写真を追加すると枠は自動的に大きくなる）
-* :guilabel:`Frame` ダイアログボックスに戻り、寸法やその他の特性を設定する。
+* |FrameDlg| に戻り、寸法やその他の特性を設定する。
 
 マウスを使って枠の位置を変更するには、
 
@@ -241,38 +242,35 @@ Moving, resizing, and changing frame attributes
 ドラッグすると、テキスト枠が一次元だけ拡大または縮小され、角のハンドルをドラッグ
 すると、両方の次元で拡大縮小される。
 
-これらのリサイズ操作は比率を歪める。:kbd:`Shift` を押しながらハンドルをドラッグ
-すると枠は同じ比率を保つ。
+これらのリサイズ操作は比率を歪める。|Shift| を押しながらハンドルをドラッグすると
+枠は同じ比率を保つ。
 
-:guilabel:`Frame` ダイアログボックスを開くには、枠を選択して右クリックメニューか
-ら :menuselection:`&Properties...` を選択する。
+|FrameDlg| を開くには、枠を選択して右クリックメニューから |PropertiesC| を選択す
+る。
 
 枠の境界を追加または削除するには、次のいずれかを行う：
 
-* :guilabel:`Frame` ツールバーの関連ボタンをクリックしていくつかの選択肢を表示す
-  る
-* :guilabel:`Frame` ダイアログボックスを開き、:guilabel:`Borders` ページに移動
-  し、:guilabel:`Line Arrangement` 区画で :guilabel:`Pr&esets` から
-  :guilabel:`No Borders` を選択
+* |FrameToolbar| の関連ボタンをクリックしていくつかの選択肢を表示する
+* |FrameDlg| を開き、|BordersTab| に移動し、:guilabel:`Line Arrangement` 区画で
+  :guilabel:`Pr&esets` から :guilabel:`No Borders` を選択
 * 枠に無境界スタイルを割り当てる
 
-枠スタイルについては :doc:`Chapter 9 <writer09>` を見ろ。
+枠スタイルについては |Writer09| を見ろ。
 
 .. note::
 
-   枠の境界線と :menuselection:`&View -->` メニューを使って表示されるテキストの
-   境界線 (:menuselection:`&View --> Te&xt Boundaries`) を混同するな。
+   枠の境界線と |View-->| を使って表示されるテキストの境界線
+   (:menuselection:`&View-->Te&xt Boundaries`) を混同するな。
 
 Anchoring frames
 ----------------------------------------------------------------------
 
 枠を繋留させるには、枠をクリックして次のいずれかを行う：
 
-* 右クリックして :menuselection:`Anchor -->` を指す
-* :guilabel:`Frame` ツールバーの :guilabel:`Select anchor for object` 図像をク
-  リックして錨の種類を選択
-* :guilabel:`Frame` ダイアログボックスを開いて :guilabel:`Position and Size` タ
-  ブを開く
+* 右クリックして :menuselection:`Anchor-->` を指す
+* |FrameToolbar| の :guilabel:`Select anchor for object` 図像をクリックして錨の
+  種類を選択
+* |FrameDlg| を開いて |Pos&SizeTab| を開く
 
 繋留の種類は次のとおり（読者：ラベル表記はダイアログボックス準拠にした）
 
@@ -312,20 +310,18 @@ Linking frames
 ある枠を別の枠にリンクさせる手順：
 
 #. リンク元の枠を選択
-#. :guilabel:`Frame` ツールバーの :guilabel:`Link Frames` 図像をクリック
+#. |FrameToolbar| の :guilabel:`Link Frames` 図像をクリック
 #. 次の枠（空でなければならない）をクリック
 
 リンクされている枠を選択すると既存のリンクがかすかな接続線で表示される。リンクを
-解除するには :guilabel:`Frame` ツールバーの :guilabel:`Unlink Frames` 図像をク
-リックする。
+解除するには |FrameToolbar| の :guilabel:`Unlink Frames` 図像をクリックする。
 
-リンク元枠の高さは固定だ。この高さは手動で変更することも、:guilabel:`Frame` ダイ
-アログボックスの :guilabel:`Position and Size` タブを使って変更することもできる
-が、中身の寸法に自動的に合わせることはできない。枠連鎖の最後の枠だけがその高さを
-中身に合わせることが可能だ。
+リンク元枠の高さは固定だ。この高さは手動で変更することも、|FrameDlg|
+|Pos&SizeTab| を使って変更することもできるが、中身の寸法に自動的に合わせることは
+できない。枠連鎖の最後の枠だけがその高さを中身に合わせることが可能だ。
 
-:guilabel:`Frame` ダイアログボックスの次のタブ群はページは、枠スタイルのそれと同
-じだ。詳しくは :doc:`Chapter 9 <writer09>` を見ろ。
+|FrameDlg| の次のタブ群はページは、枠スタイルのそれと同じだ。詳しくは |Writer09|
+を見ろ。
 
 * :guilabel:`Wrap`
 * :guilabel:`Borders`
@@ -334,24 +330,23 @@ Linking frames
 * :guilabel:`Transparency`
 * :guilabel:`Macro`
 
-:guilabel:`Frame` ダイアログボックスの :guilabel:`Options` タブには選択された枠
-と、その枠のリンク先またはリンク元の枠の名前が表示される。この情報は
-:guilabel:`Sequence` 区画で変更可能。このタブでは枠の内容、位置、寸法を保護し、
-accessibility 情報を設けるオプションも選択可能。枠に情報内容がなく、単なる装飾で
-ある場合は :guilabel:`Decorative` をオンにする。
+|FrameDlg| |OptionsTab| には選択された枠と、その枠のリンク先またはリンク元の枠の
+名前が表示される。この情報は :guilabel:`Sequence` 区画で変更可能。このタブでは枠
+の内容、位置、寸法を保護し、 accessibility 情報を設けるオプションも選択可能。枠
+に情報内容がなく、単なる装飾である場合は :guilabel:`Decorative` をオンにする。
 
 Using tables for page layout
 ======================================================================
 
-図表を使用した一般的なレイアウトを実現する方法をいくつか。データ図表の使用につい
-ては :doc:`Chapter 13 <writer13>` でやる。
+表組を使用した一般的なレイアウトを実現する方法をいくつか。データ表組の使用につい
+ては |Writer13| でやる。
 
 Positioning information in headers or footers
 ----------------------------------------------------------------------
 
-タブや枠を使う代わりに、ヘッダーやフッターで図表を使い、ページ番号や文書表題、著
+タブや枠を使う代わりに、ヘッダーやフッターで表組を使い、ページ番号や文書表題、著
 者などのさまざまな要素を配置することができる。これらの要素はフィールドを使って挿
-入することがよくある。:doc:`Chapter 17 <writer17>` 参照。
+入することがよくある。|Writer17| 参照。
 
 Creating sideheads using
 ----------------------------------------------------------------------
@@ -362,50 +357,48 @@ Creating sideheads using
 
 .. note::
 
-   側見出しは :doc:`Chapter 9 <writer09>` で説明されているように、Marginalia
-   枠スタイルを使って枠内にテキストを配置することによっても作成可能。
+   側見出しは |Writer09| で説明されているように、`Marginalia` 枠スタイルを使って
+   枠内にテキストを配置することによっても作成可能。
 
 Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-側見出しで用いる図表を作成する：
+側見出しで用いる表組を作成する：
 
-#. 図表を表示したい場所にキャレットを置く
-#. :menuselection:`T&able --> Insert &Table...` を選択 (or :kbd:`Ctrl` +
-   :kbd:`F12`)
-#. :guilabel:`Insert Table` ダイアログボックスで、見出しのない二列一行の図表を定
-   義する。:guilabel:`Style` で :guilabel:`None` を選択し、図表の境界線をなくす。
-#. 図表右クリックメニューから :menuselection:`&Table Properties...` を選択
-#. :guilabel:`Table Properties` ダイアログボックスの :guilabel:`Columns` タブで
-   列幅を設定
-#. :guilabel:`Table Properties` ダイアログボックスの :guilabel:`Table` タブの
-   :guilabel:`Spacing` 区画で :guilabel:`&Above` と :guilabel:`&Below` の値を、
-   通常のテキストの段落に定義した :guilabel:`Ab&ove paragraph` と
-   :guilabel:`Below &paragraph` の間隔と同じにする
-#. :guilabel:`Properties` 区画でこの図表に名前を付ける
-#. :guilabel:`&OK`
+#. 表組を表示したい場所にキャレットを置く
+#. :menuselection:`T&able-->Insert &Table...` を選択 (or |Ctrl| + |F12|)
+#. |InsertTableDlg| で見出しのない二列一行の表組を定義する。:guilabel:`Style` で
+   `None` を選択し、表組の境界線をなくす。
+#. 表組右クリックメニューから :menuselection:`&Table Properties...` を選択
+#. |TablePropertiesDlg| |ColumnsTab| で列幅を設定
+#. |TablePropertiesDlg| :guilabel:`Table` タブの :guilabel:`Spacing` 区画で
+   :guilabel:`&Above` と :guilabel:`&Below` の値を、通常のテキストの段落に定義し
+   た :guilabel:`Ab&ove paragraph` と:guilabel:`Below &paragraph` の間隔と同じに
+   する
+#. :guilabel:`Properties` 区画でこの表組に名前を付ける
+#. |OK| を押す
 
 数字認識をオフにして、Writer がプレーンテキストであるべき数字を整形しようとしな
 いようにするには：
 
-#. 図表にキャレットを置き、メニューから :menuselection:`T&able --> &Number
+#. 表組にキャレットを置き、|MenuBar| から :menuselection:`T&able-->&Number
    Format...` を選択
 #. :guilabel:`Format Number` ダイアログボックスで :guilabel:`C&ategory` が
    :guilabel:`Text` に設定されていることを確認
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 .. tip::
 
-   この図表形式を頻繁に用いる場合は、:menuselection:`T&able --> Auto&Format
-   Styles...` を使用して図表スタイルとして保存するとよい。:doc:`Chapter 13
-   <writer13>` 参照。
+   この表組形式を頻繁に用いる場合は、:menuselection:`T&able-->Auto&Format
+   Styles...` を使用して表組スタイルとして保存するとよい。|Writer13| 参照。
 
-.. _`writer06-anchor1`:
+.. _`writer06-anchor-layout`:
 
 Using sections for page layout
 ======================================================================
 
-   A section is a block of text that has special attributes and formatting.
+   A :dfn:`section` is a block of text that has special attributes and
+   formatting.
 
 次のように用いる：
 
@@ -418,27 +411,29 @@ Using sections for page layout
 Creating sections
 ----------------------------------------------------------------------
 
+.. |IndentsTab| replace:: :guilabel:`Indents` タブ
+.. |SectionTab| replace:: :guilabel:`Section` タブ
+
 区画を作成する手順：
 
 #. 文書内の、新しい区画を挿入したい箇所にキャレットを置くか、新しい区画に配置し
    たいテキストを選択する
-#. メニューで :menuselection:`&Insert --> Se&ction...` を選択
-#. :guilabel:`Insert Section` ダイアログボックスが開く
-#. :guilabel:`&Insert` を押す
+#. |MenuBar| で :menuselection:`&Insert-->Se&ction...` を選択
+#. |InsertSectionDlg| が開く
+#. |Insert| を押す
 
-:guilabel:`Insert Section` ダイアログボックスにはタブが五つある：
+|InsertSectionDlg| にはタブが五つある：
 
-* :guilabel:`Section` タブを使用して区画の属性を設定する
-* :guilabel:`Columns` タブを使用して区画を列に整形する
-* :guilabel:`Indents` タブを使用して区画の右余白と左余白からの字下げを設定
-  する
-* :guilabel:`Area` タブを使用して区画の背景に色や画像を追加する
+* |SectionTab| を使用して区画の属性を設定する
+* |ColumnsTab| を使用して区画を列に整形する
+* |IndentsTab| を使用して区画の右余白と左余白からの字下げを設定する
+* |AreaTab| を使用して区画の背景に色や画像を追加する
 * :guilabel:`Footnotes/Endnotes` タブを使用して区画の脚注と巻末注をカスタマイズ
   する
 
-ダイアログボックスを閉じる前であればいつでも、:guilabel:`Section` ページ以外のタ
-ブページを :guilabel:`&Reset` ボタンをクリックして既定設定に戻すことが可能。
-:guilabel:`Section` ページの変更を元に戻したい場合は手動で行う必要がある。
+ダイアログボックスを閉じる前であればいつでも、|SectionTab| 以外のタブページを
+|ResetButton| を押して既定設定に戻すことが可能。|SectionTab| の変更を元に戻した
+い場合は手動で行う必要がある。
 
 Naming sections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -473,8 +468,8 @@ Linking sections
 Write-protecting sections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-区画の内容を編集できないように書き込み保護するには、:guilabel:`Write
-Protection` 区画で :guilabel:`&Protect` をオンにする。
+区画の内容を編集できないように書き込み保護するには、:guilabel:`Write Protection`
+区画で :guilabel:`&Protect` をオンにする。
 
 .. note::
 
@@ -493,7 +488,7 @@ Password-protecting sections
 #. :guilabel:`Enter Password` ダイアログボックスで :guilabel:`&Password` フィー
    ルドにパスワードを入力し、:guilabel:`Con&firm` フィールドに再度パスワードを入
    力する。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 区画の属性や書式を編集しようとする人は、パスワードの入力を求められる。
 
@@ -507,19 +502,19 @@ Hiding sections
 .. note::
 
    区画がページ唯一の中身であるか、区画がヘッダー、フッター、脚注、巻末注、枠、
-   図表のセル内にある場合は、区画を隠秘することはできない。
+   表組のセル内にある場合は、区画を隠秘することはできない。
 
 区画を隠秘するには、ダイアログボックスの :guilabel:`Hide` 区画で
 :guilabel:`H&ide` オプションを選択する。
 
 特定の条件下でのみ区画を隠秘するには :guilabel:`&With Condition` 欄に必要な条件
 を入力する。条件の入力に用いる構文と演算子は、数式の入力に用いるものと同じだ。
-:doc:`Chapter 17 <writer17>` に詳細がある。
+|Writer17| に詳細がある。
 
 区画がパスワードで書き込み保護されている場合、表示有無を切り替えるのにパスワード
 を入力する必要がある。
 
-.. _writer06-anchor2:
+.. _writer06-anchor-section-columns:
 
 Formatting a section into columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -533,8 +528,7 @@ Formatting a section into columns
    だ。代わりに、一段組のページスタイルを定義してから、そのページで二段組にした
    いテキストを選択する必要がある。
 
-:guilabel:`Insert Section` ダイアログボックスの :guilabel:`Columns` タブを使用し
-て区画を列に書式設定する。
+|InsertSectionDlg| |ColumnsTab| を使用して区画を列に書式設定する。
 
 区画にテキストを追加すると、テキストはある段から次の段に流れる。次に述べる方法の
 いずれかで、段全体にテキストを分配させる：
@@ -550,7 +544,7 @@ Formatting a section into columns
 Indenting the section from margins
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-区画の右余白と左余白から字下げを設定するには :guilabel:`Indents` タブを使う。
+区画の右余白と左余白から字下げを設定するには |IndentsTab| を使う。
 
 :guilabel:`&Before section` 欄と :guilabel:`&After section` 欄に所望の左余白と右
 余白の字下げをそれぞれ入力する。タブの右側にあるプレビューがある。
@@ -558,15 +552,15 @@ Indenting the section from margins
 Changing the background of the section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-現在の区画の背景に色や画像を追加するには、:guilabel:`Area` タブを使用する。この
-ページは、段落、枠、図表、その他のオブジェクトの :guilabel:`Area` タブと似てい
-る。:ref:`writer06-anchor3` 参照。
+現在の区画の背景に色や画像を追加するには |AreaTab| を使用する。このページは、段
+落、枠、表組、その他のオブジェクトの |AreaTab| と似ている。
+:ref:`writer06-anchor-borders` 参照。
 
 Customizing footnotes and endnotes in a section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Insert Section` ダイアログボックスの :guilabel:`Footnotes/Endnotes`
-ページを使用して現在の区画の脚注と巻末釈をカスタマイズする。
+|InsertSectionDlg| :guilabel:`Footnotes/Endnotes` ページを使用して現在の区画の脚
+注と巻末釈をカスタマイズする。
 
 Customizing footnotes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -575,8 +569,8 @@ Customizing footnotes
 
 #. :guilabel:`Footnotes` 区画で :guilabel:`Collec&t at the end of text` をオン
 #. :guilabel:`&Restart numbering` をオン
-#. 区画の脚注を 1 以外の番号で開始するには :guilabel:`&Start at` 欄に所望
-   の番号を入力する
+#. 区画の脚注を 1 以外の番号で開始するには :guilabel:`&Start at` 欄に所望の番号
+   を入力する
 #. ドロップダウンリストで脚注の番号付け形式を選択
 
 選択した番号形式にテキストを追加するには、:guilabel:`Be&fore` 欄と
@@ -594,17 +588,17 @@ Customizing endnotes
 Editing and deleting sections
 ----------------------------------------------------------------------
 
-区画を編集するにはメニューの :menuselection:`F&ormat --> &Sections...` を選択す
-る。:guilabel:`Edit Sections` ダイアログボックスで :guilabel:`Section` 一覧の名
-前をクリックして編集したい区画を選択する。
+区画を編集するには |MenuBar| の :menuselection:`F&ormat-->&Sections...` を選択する。
+|EditSectionsDlg| で :guilabel:`Section` 一覧の名前をクリックして編集したい区画
+を選択する。
 
 Editing section attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 選択した区画の名前を変更するには :guilabel:`Section` 欄に入力する。
 
-:guilabel:`Edit Sections` ダイアログボックスでは、選択した区画のリンク、書き込み
-禁止、隠秘の属性を編集することも可能。次を参照：
+|EditSectionsDlg| では選択した区画のリンク、書き込み禁止、隠秘の属性を編集する
+ことも可能。次を参照：
 
 * Linking sections
 * Write-protecting sections
@@ -615,27 +609,25 @@ Editing the format of a section
 
 選択した区画の書式を編集するには :guilabel:`&Options...` ボタンをクリックする。
 
-:guilabel:`Options` ダイアログボックスにはタブが四つある：
+|OptionsDlg| にはタブが四つある：
 
 * :guilabel:`Columns`
 * :guilabel:`Indents`
 * :guilabel:`Background`
 * :guilabel:`Footnotes/Endnotes`
 
-これらのタブは前述の :guilabel:`Insert Section` ダイアログボックスのものと同じ
-だ。:guilabel:`Options` ダイアログボックスの背景タブは :guilabel:`Insert
-Section` ダイアログボックスの :guilabel:`Area` タブに対応している。
+これらのタブは前述の |InsertSectionDlg| のものと同じだ。|OptionsDlg| の
+|BackgroundTab| は |InsertSectionDlg| の |AreaTab| に対応している。
 
-* タブをダイアログボックスが開いたときの状態に戻すには :guilabel:`&Reset` ボタン
-  をクリックする。
-* オプションの設定を保存するには :guilabel:`&OK` をクリックする。
+* タブをダイアログボックスが開いたときの状態に戻すには |ResetButton| を押す。
+* オプションの設定を保存するには |OK| を押す。
 
 Removing sections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-選択した区画を削除するには :guilabel:`&Remove` ボタンをクリックする。これによっ
-て区画の内容が削除されるわけではなく、その内容は文書の一部となる。中身がリンクさ
-れていた場合は埋め込まれる。
+選択した区画を削除するには |RemoveButton| を押す。これによって区画の内容が削除さ
+れるわけではなく、その内容は文書の一部となる。中身がリンクされていた場合は埋め込
+まれる。
 
 Updating links
 ----------------------------------------------------------------------
@@ -646,8 +638,8 @@ Writer はリンクされた区画を自動的に更新可能だが、リンク�
 リンクを自動的に更新するように Writer を設定するには、または自動更新をオフにする
 手順：
 
-#. Writer :guilabel:`Options` ダイアログボックスを開く
-#. :menuselection:`LibreOffice Writer --> General` ページを選択
+#. |OptionsDlg| を開く
+#. |WriterGeneralPage| を選択
 #. :guilabel:`Update links when loading` 区画でいずれかのオプションを選択：
 
    :guilabel:`&Always`
@@ -656,26 +648,25 @@ Writer はリンクされた区画を自動的に更新可能だが、リンク�
       リンクを更新する前にプロンプト
    :guilabel:`&Never`
       文書を開いてもリンクを更新しない
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 リンクを手動で更新するには：
 
 #. リンクを含む文書を開く
-#. :menuselection:`&Edit --> E&xternal Links...` を選択
-#. :guilabel:`Edit Links` ダイアログボックスの一覧から更新するリンクに対応する
-   ファイルを選択
-#. :guilabel:`&Update` ボタンをクリック
-#. :guilabel:`&Close`
+#. :menuselection:`&Edit-->E&xternal Links...` を選択
+#. |EditLinksDlg| の一覧から更新するリンクに対応するファイルを選択
+#. :guilabel:`&Update` ボタンを押す。
+#. |Close| を押す。
 
 Removing links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ファイルへのリンクを削除し、その内容を埋め込むには、:guilabel:`Edit Links` ダイ
-アログボックスで、削除したいリンクに対応するファイルを選択し、:guilabel:`&Break
-Link` ボタンをクリックする。この操作では、区画内のテキストは削除されない。必要で
-あれば、テキストを手動で削除する必要がある。
+ファイルへのリンクを削除し、その内容を埋め込むには、|EditLinksDlg| で削除したい
+リンクに対応するファイルを選択し、:guilabel:`&Break Link` ボタンをクリックする。
+この操作では、区画内のテキストは削除されない。必要であれば、テキストを手動で削除
+する必要がある。
 
-.. _writer06-anchor3:
+.. _writer06-anchor-borders:
 
 Defining borders and backgrounds
 ======================================================================
@@ -687,17 +678,17 @@ Defining borders and backgrounds
 .. tip::
 
    ページ背景は用紙全体を塗りつぶすことも、余白の範囲だけを塗りつぶすこともでき
-   る。:doc:`Chapter 9 <writer09>` 参照。ページ境界線はヘッダーやフッターがある
-   場合はその部分も含めて、余白の範囲だけを囲む。
+   る。|Writer09| 参照。ページ境界線はヘッダーやフッターがある場合はその部分も含
+   めて、余白の範囲だけを囲む。
 
-   図表、索引、目次、書誌にも境界線と背景をつけることができるが、背景の選択肢は
+   表組、索引、目次、書誌にも境界線と背景をつけることができるが、背景の選択肢は
    :guilabel:`Color` か :guilabel:`Image` に限られる。
 
 Adding a border
 ----------------------------------------------------------------------
 
-枠を選択して右クリックし、コンテキストメニューから
-:menuselection:`&Properties...` を選択する。:guilabel:`Borders` タブを選択する。
+枠を選択して右クリックし、コンテキストメニューから |PropertiesC| を選択す
+る。|BordersTab| を選択する。
 
 境界には成分が三つある：
 
@@ -728,21 +719,20 @@ Adding a border
 Adding a color to the background area
 ----------------------------------------------------------------------
 
-まず、枠を選択して右クリックメニューから :menuselection:`&Properties...` を選択
-する。:guilabel:`Frame` ダイアログボックスで :guilabel:`Area` タブを選択し
-:guilabel:`Color` を選択する。パレットから選択するか、新しい色を作成し、
-:guilabel:`&OK` をクリックして背景に適用する。
+まず、枠を選択して右クリックメニューから |PropertiesC| を選択する。|FrameDlg| で
+|AreaTab| を選択し :guilabel:`Color` を選択する。パレットから選択するか、新しい
+色を作成し、|OK| を押して背景に適用する。
 
 .. tip::
 
    選択された単語やその他の文字の場合、背景は *highlighting* と呼ばれる。選択肢
-   は:guilabel:`Color` か :guilabel:`None` のみ。
+   は :guilabel:`Color` か :guilabel:`None` のみ。
 
 Adding an image to the background
 ----------------------------------------------------------------------
 
-背景に画像を追加するには :guilabel:`Area` タブを選択し、:guilabel:`&Image` を押
-す。左側の一覧から選択するか、独自の画像を追加する。
+背景に画像を追加するには |AreaTab| を選択し、:guilabel:`&Image` を押す。左側の一
+覧から選択するか、独自の画像を追加する。
 
 LibreOffice から供給されている画像を使うには、サムネイル一覧からそれを選ぶ：
 
@@ -755,37 +745,36 @@ LibreOffice から供給されている画像を使うには、サムネイル�
       :guilabel:`Scale` を選択する。
    :guilabel:`Position`
       画像を表示する位置を選択する。
-#. :guilabel:`&OK` をクリックして画像を背景に適用する。
+#. |OK| を押して画像を背景に適用する。
 
 画像を追加またはインポートするには：
 
-#. :guilabel:`Add/Import` ボタンをクリックする。:guilabel:`Import` ダイアログ
+#. :guilabel:`Add / Import` ボタンをクリックする。:guilabel:`Import` ダイアログ
    ボックスが開く。
-#. 選択した画像が、左側のサムネイル一覧と :guilabel:`Area` タブ右側のプレビュー
-   欄に表示される。
+#. 選択した画像が、左側のサムネイル一覧と |AreaTab| 右側のプレビュー欄に表示され
+   る。
 
 Adding a gradient, pattern, or hatch to the background
 ----------------------------------------------------------------------
 
-背景にグラデーション、パターン、線影を追加するには、:guilabel:`Area` タブを選択
-し、必要な背景型を選択する。ダイアログボックスにその型の選択肢が示され、右側にプ
-レビューされる。一覧から必要な意匠を選択するか、この枠に用いる新しい意匠を作成す
-る。:guilabel:`&OK` をクリックして背景に適用する。
+背景にグラデーション、パターン、線影を追加するには、|AreaTab| を選択し、必要な背
+景型を選択する。ダイアログボックスにその型の選択肢が示され、右側にプレビューされ
+る。一覧から必要な意匠を選択するか、この枠に用いる新しい意匠を作成する。|OK| を
+押して背景に適用する。
 
 グラデーション、パターン、線影の定義については *Draw Guide* を参照しろ。
 
 Deleting a color, gradient, image, or other background
 ----------------------------------------------------------------------
 
-背景を削除するには、:guilabel:`Frame` ダイアログボックスの :guilabel:`Area` タブ
-で :guilabel:`&None` ボタンを押す。
+背景を削除するには、|FrameDlg| |AreaTab| で :guilabel:`&None` ボタンを押す。
 
 Adjusting the transparency of the background
 ----------------------------------------------------------------------
 
-透明度は、透かし [#watermark]_ を作成したり、色や画像を淡くしたりするのに便利
-だ。 :guilabel:`Transparency` タブを使って透明度の種類を定義する。選択の詳細につ
-いては *Draw Guide* を参照。
+透明度は、透かし [#watermark]_ を作成したり、色や画像を淡くしたりするのに便利だ。
+|TransparencyTab| を使って透明度の種類を定義する。選択の詳細については *Draw
+Guide* を参照。
 
 Using document themes
 ======================================================================
@@ -795,25 +784,24 @@ Using document themes
 リースで実装される予定だ。本節はテーマカラーについての紹介だ。
 
 LibreOffice にはテーマカラーの集合がいくつか用意されており、他の集合を定義するこ
-ともできる (:doc:`Chapter 20 <writer20>`)。
+ともできる (|Writer20|)。
 
-* テーマカラーには Dark 1, Light 1, Accent 1 などの名前がある。
+* テーマカラーには `Dark 1`, `Light 1`, `Accent 1` などの名前がある。
 * テーマカラーはスタイルで用いることも手動で適用することも可能。
 
 テーマを用いるように文書を設定するには、通常のカラーパレットではなく、テーマカ
 ラーパレットからフォント、背景、オブジェクトの色を選択する。パレットの最初の行に
 はテーマカラーが含まれ、他の行には修正が含まれる。
 
-テーマカラーを変更するには、メニューの :menuselection:`F&ormat --> Theme` を選択
-し、:guilabel:`Theme` ダイアログボックスで別のテーマを選択する。テーマカラーとし
-て定義された色は文書内で変更される。スタイルを変更したり、オブジェクトを個別に変
-更したりする必要はない。
+テーマカラーを変更するには、|MenuBar| の :menuselection:`F&ormat-->Theme` を選択
+し、|ThemeDlg| で別のテーマを選択する。テーマカラーとして定義された色は文書内で
+変更される。スタイルを変更したり、オブジェクトを個別に変更したりする必要はない。
 
 Using page line-spacing for printing
 ======================================================================
 
-ページ行間は二ページが隣り合わせになるような印刷文書 （本やパンフレットなど）
-や、複数段組のレイアウト、両面印刷を意図した文書で特に有用だ。
+ページ行間は二ページが隣り合わせになるような印刷文書 （本やパンフレットなど）や、
+複数段組のレイアウト、両面印刷を意図した文書で特に有用だ。
 
 ページ行間を用いるには、ページスタイルと段落スタイル、または含める個々の段落のオ
 プションを選択する必要がある。
@@ -823,27 +811,25 @@ To enable a page style for page line-spacing
 
 ページ行間に含めるページスタイルは、それぞれ個別に有効にする必要がある。
 
-#. 以下のいずれかの方法で、選択したページスタイルの :guilabel:`Page Style` ダイ
-   アログボックスを開く：
+#. 以下のいずれかの方法で、選択したページスタイルの |PageStyleDlg| を開く：
 
    * そのスタイルを使用している任意のページで右クリックメニューから
      :menuselection:`&Page Style...` を選択
-   * そのスタイルを使用している任意のページで、メニューから
-     :menuselection:`F&ormat --> &Page Style...` を選択
-   * Sidebar の :guilabel:`Styles` 甲板に移動し、上部にある :guilabel:`Page
-     Styles` 図像を選択
-#. :guilabel:`Page` タブの :guilabel:`Layout Settings` 区画で :guilabel:`Use
-   page li&ne-spacing` をオン
+   * そのスタイルを使用している任意のページで、|MenuBar| から
+     :menuselection:`F&ormat-->&Page Style...` を選択
+   * |Sidebar| |StylesDeck| に移動し、上部にある |PageStylesTab| を選択
+#. |PageTab| の :guilabel:`Layout Settings` 区画で :guilabel:`Use page
+   li&ne-spacing` をオン
 #. :guilabel:`Reference &Style` を指定
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 .. note::
 
    :guilabel:`&Reference Style` では、そのスタイルで指定された行間隔を使用して、
    目に見えない垂直（組版）格子を設定する。:guilabel:`Page li&ne-spacing` が効い
-   ている段落では、フォントサイズや画像の有無にかかわらず、その行間隔が使用さ
-   れ、テキスト行の下端が次の格子行に揃う。Writer は隣接する段、対向するページ、
-   用紙の両面に印刷されるテキストの基準線をこの見えない格子に合わせる。
+   ている段落では、フォントサイズや画像の有無にかかわらず、その行間隔が使用され、
+   テキスト行の下端が次の格子行に揃う。Writer は隣接する段、対向するページ、用紙
+   の両面に印刷されるテキストの基準線をこの見えない格子に合わせる。
 
    選択された :guilabel:`&Reference Style` またはそれを継承したものを持つすべて
    の段落は自動的にページ行間が有効になる。
@@ -851,10 +837,9 @@ To enable a page style for page line-spacing
 To enable paragraph styles for page line-spacing
 ----------------------------------------------------------------------
 
-#. Sidebar の :guilabel:`Styles` 甲板で、有効にする段落スタイルを右クリック
-   し :menuselection:`&Edit Style...` を選択
-#. :guilabel:`Paragraph Style` ダイアログボックスで :guilabel:`Indents &
-   Spacing` タブを開く
+#. |Sidebar| の |StylesDeck| で有効にする段落スタイルを右クリックし |EditStyleC|
+   を選択
+#. |ParagraphStyleDlg| で |Indents&SpacingTab| を開く
 #. :guilabel:`Activate page li&ne-spacing` をオンにして段落スタイルでページ行間
    を有効にする。オフにすると段落スタイルでページ行間が無効になる。ページスタイ
    ルでページ行間が無効になっている場合、このオプションは無効だ。
@@ -862,10 +847,9 @@ To enable paragraph styles for page line-spacing
 To enable paragraphs for page line-spacing
 ----------------------------------------------------------------------
 
-#. 有効化したい段落をすべて選択し、メニューから :menuselection:`F&ormat -->
+#. 有効化したい段落をすべて選択し、|MenuBar| から :menuselection:`F&ormat-->
    P&aragraph...` を選択する
-#. :guilabel:`Paragraph` ダイアログボックスで :guilabel:`Indents & Spacing` タブ
-   を開く
+#. |ParagraphDlg| で |Indents&SpacingTab| を開く
 #. 以下同様
 
 ----

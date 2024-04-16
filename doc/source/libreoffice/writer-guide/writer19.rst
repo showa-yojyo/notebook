@@ -2,8 +2,7 @@
 Writer Guide Chapter 19, Spreadsheets, Charts, Other Objects ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
-.. |DDE| replace:: :abbr:`|DDE| (Dynamic Data Exchange)`
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -59,7 +58,7 @@ Introduction: OLE and DDE objects
 Inserting a new OLE object
 ----------------------------------------------------------------------
 
-.. |InsertOLEMenu| replace:: :menuselection:`&Insert-->&OLE Object-->&OLE Object...`
+.. |InsertOLEM| replace:: :menuselection:`&Insert-->&OLE Object-->&OLE Object...`
 .. |InsertOLEDlg| replace:: :guilabel:`Insert OLE Object` ダイアログボックス
 
 新しい |OLE| 物を文書にはめ込むと、それは埋め込みになる。つまり、その物はその文
@@ -68,7 +67,7 @@ Inserting a new OLE object
 新しい |OLE| 物を文書にはめ込むには：
 
 #. 物をはめ込みたい場所をクリックする。
-#. |MenuBar| で |InsertOLEMenu| を選択する。
+#. |MenuBar| で |InsertOLEM| を選択する。
 #. |InsertOLEDlg| で :guilabel:`Create &new` を選択する。
 #. 作成する物の型を選択し、|OK| を押す。
 #. 新しい |OLE| 物が編集モードで文書にはめ込まれる。Writer に表示されるツール
@@ -93,7 +92,7 @@ Inserting a file as an OLE object
 既存のファイル（スプレッドシートなど）を |OLE| 物として Writer 文書にはめ込む場
 合、埋め込みかリンクかを選択できる。
 
-#. ファイルを挿入したい場所をクリックし、|MenuBar| で |InsertOLEMenu| を選択する。
+#. ファイルを挿入したい場所をクリックし、|MenuBar| で |InsertOLEM| を選択する。
 #. |InsertOLEDlg| で :guilabel:`Create &from file` を選択する。ダイアログボック
    スの表示が変わり、:guilabel:`File` テキストボックスが表示される。
 #. :guilabel:`&Search...` を押して |OpenFileDlg| を開く。
@@ -157,7 +156,7 @@ Writer にスプレッドシートを埋め込むと Calc スプレッドシー�
 
 複雑な表組を作成したり、表形式でデータを表示したりするために、Writer でスプレッ
 ドシートを使用する人もいる。しかし、データの複雑さによっては、Writer の表組機能
-の方がより適切で、より速く使えることがよくある。|Chapter13| を見ろ。
+の方がより適切で、より速く使えることがよくある。|Writer13| を見ろ。
 
 スプレッドシートを Writer 文書に埋め込むには :ref:`writer19-anchor-inserting` の
 手順をとれ。
@@ -286,10 +285,8 @@ Cell navigation
 
 * キーボードの矢印キーを使用する。
 * キャレットを升目に置き左クリックする。
-* :kbd:`Enter` を押して升目を一つ下に移動し、:kbd:`Shift` + :kbd:`Enter` で一つ
-  上に移動する。
-* :kbd:`Tab` を押すと升目を一つ右に移動し、:kbd:`Shift` + :kbd:`Tab` を押すと一
-  つ左に移動する。
+* |Enter| を押して升目を一つ下に移動し、|Shift| + |Enter| で一つ上に移動する。
+* |Tab| を押すと升目を一つ右に移動し、|Shift| + |Tab| を押すと一つ左に移動する。
 
 Entering data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -307,7 +304,7 @@ Entering data
 #. 升目へのデータ入力を確定するには、
 
    * 別の升目を選択するか、
-   * :kbd:`Enter` を押すか、
+   * |Enter| を押すか、
    * |FormulaBar| の |AcceptIcon| をクリックする。
 
 Formatting cell data
@@ -319,7 +316,7 @@ Writer は通常、升目に入力された内容（テキスト、数値、日�
 
 #. 升目を選択し、右クリックしてコンテキストメニューから :menuselection:`&Format
    Cells...` を選択するか、|MenuBar| の :menuselection:`F&ormat-->Ce&lls...` を
-   選択するか、キーバインド :kbd:`Ctrl` + :kbd:`1` を使う。
+   選択するか、キーバインド |Ctrl| + :kbd:`1` を使う。
 #. :guilabel:`Format Cells` ダイアログボックスで、適切なタブをクリックして適切な
    ページを開き、そのページのオプションを使用して升目データを書式設定する。
 #. |OK| を押してダイアログボックスを閉じ、変更を保存する。
@@ -354,7 +351,7 @@ Manual formatting
    |Calc| を参照しろ。
 #. 選択範囲を右クリックして、升目を選択し、右クリックしてコンテキストメニューか
    ら :menuselection:`&Format Cells...` を選択するか、|MenuBar| の
-   :menuselection:`F&ormat-->Ce&lls...` を選択するか、キーバインド :kbd:`Ctrl` +
+   :menuselection:`F&ormat-->Ce&lls...` を選択するか、キーバインド |Ctrl| +
    :kbd:`1` を使う。
 #. さまざまなダイアログボックスページを使用して、埋め込まれたスプレッドシートを
    文書のスタイルに合うように書式設定する。
@@ -371,14 +368,15 @@ Manual formatting
 Using formatting styles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-埋め込みスプレッドシートが編集モードの場合、Writer は Sidebar の |StylesDeck| に
-スプレッドシートで使用可能なスタイルを表示する。
+埋め込みスプレッドシートが編集モードの場合、Writer は |Sidebar| の |StylesDeck|
+にスプレッドシートで使用可能なスタイルを表示する。
 
-必要なスタイルがない場合は、作成することができる (|Chapter08|)。埋め込みスプレッ
+必要なスタイルがない場合は、作成することができる (|Writer08|)。埋め込みスプレッ
 ドシートで使用するスタイルは Writer で使用する段落スタイルに似ている。
 
-埋め込みスプレッドシートでスタイルを使用するには、Sidebar の |StylesDeck| を開
-き、升目内のデータを選択して |StylesDeck| のスタイルをダブルクリックして適用する。
+埋め込みスプレッドシートでスタイルを使用するには、|Sidebar| の |StylesDeck| を開
+き、升目内のデータを選択して |StylesDeck| のスタイルをダブルクリックして適用す
+る。
 
 Inserting and deleting rows or columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -400,8 +398,8 @@ Deleting cells
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. 削除する升目を選択する。
-#. :menuselection:`&Sheet-->Delete C&ells...` を選択するか、:kbd:`Ctrl` +
-   :kbd:`-` を押す。または、升目を右クリックし、コンテキストメニューから
+#. :menuselection:`&Sheet-->Delete C&ells...` を選択するか、|Ctrl| + :kbd:`-` を
+   押す。または、升目を右クリックし、コンテキストメニューから
    :menuselection:`De&lete...` を選択する。
 #. :guilabel:`Delete Cells` ダイアログボックスで必要な選択肢を選択する。
 
@@ -522,8 +520,8 @@ Adding or removing chart elements
 
 #. 図表から要素を削除するには、削除する図表要素の右クリックメニューから
    :menuselection:`Delete` を選択する。削除する要素の種類によって、コンテキスト
-   メニューの削除オプションが変わる。または、図表内の要素を選択し、:kbd:`Delete`
-   または :kbd:`Backspace` を押して図表からその要素を削除する。
+   メニューの削除オプションが変わる。または、図表内の要素を選択し、|Del| または
+   |Back| を押して図表からその要素を削除する。
 
    .. admonition:: 読者ノート
 
@@ -560,7 +558,7 @@ Resizing
 #. 図表の幅を拡大または縮小するには、図表の左または右にある選択ハンドルをクリッ
    クしてドラッグする。
 #. 図表の高さと幅の両方を同時に増減するには、いずれかの角にある選択ハンドルをク
-   リックしてドラッグする。高さと幅の縦横比を保つには :kbd:`Shift` を押しながら
+   リックしてドラッグする。高さと幅の縦横比を保つには |Shift| を押しながら
    クリック＆ドラッグする。
 
 Moving
@@ -584,11 +582,10 @@ Position and Size dialog
    * |MenuBar| の :menuselection:`F&ormat-->Position and Si&ze...` を選択
    * 図表右クリックメニューから :menuselection:`Position and Si&ze...` を選択
 
-|Position&SizeDlg| の使い方については |Chapter11| を見ろ。
+|Position&SizeDlg| の使い方については |Writer11| を見ろ。
 
 編集モード以外では、|PropertiesDlg| の |Pos&SizeTab| で、図表の位置と寸法を変更
-することができる。図表右クリックメニューから :menuselection:`&Properties...` を
-選択する。
+することができる。図表右クリックメニューから |PropertiesC| を選択する。
 
 Chart elements
 ----------------------------------------------------------------------
@@ -606,9 +603,9 @@ Chart elements
 .. note::
 
    図表が 3D の場合、丸い選択ハンドルが表示される。丸い選択ハンドルが表示されて
-   いる間は、図表の寸法変更や位置変更はできない。:kbd:`Shift` を押しながらクリッ
-   クすると、寸法操作用ハンドルに戻る。これで 3D 図表の寸法変更と位置変更が可能
-   になる。
+   いる間は、図表の寸法変更や位置変更はできない。|Shift| を押しながらクリックす
+   ると、寸法操作用ハンドルに戻る。これで 3D 図表の寸法変更と位置変更が可能にな
+   る。
 
 Changing chart area background
 ----------------------------------------------------------------------
@@ -687,7 +684,7 @@ Using the Gallery
 
 Gallery からメディアクリップを直接はめ込む手順：
 
-#. Sidebar |GalleryDeck| に行く。
+#. |Sidebar| |GalleryDeck| に行く。
 #. メディアファイルを含むテーマ（例えば :guilabel:`Sounds`）を試す。
 #. はめ込む映像または音声をクリックし、文書領域にドラッグする。
 
@@ -733,8 +730,8 @@ Writer で数式を作成するには、|MenuBar| :menuselection:`&Insert-->OLE
 Writer で簡単に番号付きの数式を追加するには、AutoText 入力 `fn` を使用する：
 
 #. 文書で改行する。
-#. キーボードで `fn` と打ち込み :kbd:`F3` を押す。境界線のない二列の表が文書には
-   め込まれる。左右の列に数式見本と参照番号がそれぞれ表示される。
+#. キーボードで `fn` と打ち込み |F3| を押す。境界線のない二列の表が文書にはめ込
+   まれる。左右の列に数式見本と参照番号がそれぞれ表示される。
 #. 数式見本を削除し、左の列に数式を物としてはめ込む。
 #. または、まず数式を文書にはめ込んでから、上記の段階を実行し、見本を上書きする。
 
@@ -752,8 +749,6 @@ Writer で簡単に番号付きの数式を追加するには、AutoText 入力 
 Barcodes and QR codes
 ======================================================================
 
-.. |QR| replace:: :abbr:`QR (Quick Response)`
-
 Writer, Calc, Impress, Draw はバーコードや |QR| コードを生成できる。バーコードは
 様々な用途に使われる。|QR| コードはバーコードの一種だ。|QR| コードには Web サイ
 トやアプリケーションを示すデータが含まれていることがよくある。
@@ -767,7 +762,7 @@ Writer, Calc, Impress, Draw はバーコードや |QR| コードを生成でき�
 :menuselection:`&Edit Barcode...` を選択して編集することができる。
 
 位置や寸法、境界線、背景、錨、折り返しなど、符号の他の側面を整形するには、符号上
-で右クリックメニューから選択する。詳細については |Chapter11| を参照しろ。
+で右クリックメニューから選択する。詳細については |Writer11| を参照しろ。
 
 .. _writer19-anchor-formatting:
 
@@ -778,5 +773,4 @@ Formatting OLE objects
 
 |OLEDlg| 使用して、スプレッドシートやその他の |OLE| 物を、枠や画像の書式設定と同
 様の方法で書式設定する（位置、寸法、境界線、背景、透明度など）。物を右クリック
-し、コンテキストメニューから :menuselection:`&Properties...` を選択して |OLEDlg|
-を開く。
+し、コンテキストメニューから |PropertiesC| を選択して |OLEDlg| を開く。

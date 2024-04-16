@@ -2,7 +2,7 @@
 Writer Guide Chapter 21, User Interface Variants ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -39,16 +39,16 @@ Writer の構成時にこれらの |UI| のいずれかを選択し、いつで�
 Standard interfaces
 ======================================================================
 
-|PreferredUIDlg| の選択肢のうち三つについては |Chapter01| で説明済みだ：
+|PreferredUIDlg| の選択肢のうち三つについては |Writer01| で説明済みだ：
 
 Standard Toolbar
    |StandardToolbar| と |FormattingToolbar| の二つのツールバーが表示される基本
-   モード。Sidebar にはタブしか表示されない。
+   モード。|Sidebar| にはタブしか表示されない。
 Single Toolbar
-   よく使う機能を備えたツールバー一つしかない。Sidebar には :guilabel:`Hide` ボ
-   タンしか表示されない。
-Sidebar
-   Sidebar が完全に開き、ツールバーは |FormattingToolbar| 一つしか表示されない。
+   よく使う機能を備えたツールバー一つしかない。|Sidebar| には :guilabel:`Hide`
+   ボタンしか表示されない。
+|Sidebar|
+   |Sidebar| が完全に開き、ツールバーは |FormattingToolbar| 一つしか表示されない。
 
 各標準 |UI| の要素は、メニューの :menuselection:`&View-->` から変更できる。
 
@@ -77,7 +77,7 @@ Writer ではこの |UI| には常に表示される九つの固定タブと、�
 
 |CustomizeDlg| のタブ :guilabel:`Notebookbar` を用いて Tabbed インターフェイスを
 カスタマイズし、さまざまなタブの図像それぞれの表示有無を切り替えることが可能
-だ。|Chapter20| を参照しろ。
+だ。|Writer20| を参照しろ。
 
 タブの図像が Writer ウィンドウの幅に収まらない場合は、行の右端に :guilabel:`»`
 が表示される。これを押せば現在表示されていない追加オプションが現れる。
@@ -87,14 +87,14 @@ Icon bar
 
 図像バーはタブの左に位置する。見ればわかるが図像集合の編成は左から：
 
-.. list-table:: title
+.. list-table::
    :align: left
    :header-rows: 0
    :stub-columns: 0
    :widths: auto
 
    * - Menu bar
-     - メニューバー表示有無切り替え
+     - |MenuBar| 表示有無切り替え
    * - :guilabel:`Open (Ctrl+O)`
      - |OpenFileDlg| を開き、ファイルを選択する。
    * - :guilabel:`Save (Ctrl+S)`

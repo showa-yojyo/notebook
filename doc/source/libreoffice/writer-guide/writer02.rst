@@ -2,7 +2,7 @@
 Writer Guide Chapter 2, Working with Text: Basics ノート
 ======================================================================
 
-.. |CTL| replace:: :abbr:`CTL (Complex Text Language)`
+.. include:: ./writer-inc.txt
 
 .. contents:: 本章見出し
    :depth: 3
@@ -11,12 +11,11 @@ Writer Guide Chapter 2, Working with Text: Basics ノート
 Introduction
 ======================================================================
 
-Writer 環境を本章の記述に合わせるために、:guilabel:`Options` ダイアログボックス
-:menuselection:`LibreOffice Writer --> Formatting Aids` ページの
+Writer 環境を本章の記述に合わせるために、|OptionsDlg| |FormattingAidsPage|
 :guilabel:`Display Formatting` 各種オプションをオンにしろ。
 
-これらの目印の表示有無を切り替えるにはメニューから :menuselection:`&View -->
-For&matting Marks` を選択する。:doc:`Chapter 20 <writer20>` 参照。
+これらの目印の表示有無を切り替えるには |MenuBar| から :menuselection:`&View-->
+For&matting Marks` を選択する。|Writer20| 参照。
 
 本章で扱うトピック：
 
@@ -26,7 +25,7 @@ For&matting Marks` を選択する。:doc:`Chapter 20 <writer20>` 参照。
 * 綴りや文法のチェック、類語辞典の使用、分綴法の選択肢
 * AutoCorrect 機能、単語補完、AutoText 機能、大文字小文字の変更機能
 
-:doc:`次の章 <writer03>` と :doc:`その次の章 <writer04>` も読め。
+|Writer03| と |Writer04| も読め。
 
 Selecting text
 ======================================================================
@@ -41,22 +40,21 @@ Writer におけるテキスト選択は他のアプリケーションにおけ�
   * 文（三重クリック）
   * 段落（四重クリック）
 
-テキストをクリックし、:kbd:`F8` を押して拡張選択モードに入り、矢印キーを使って連
+テキストをクリックし、|F8| を押して拡張選択モードに入り、矢印キーを使って連
 続したテキストブロックを選択することも可能だ。テキストブロックを選択し終わったら
-もう一度 :kbd:`F8` を押す。
+もう一度 |F8| を押す。
 
 .. admonition:: 読者ノート
 
-   :kbd:`F8` キーがマウスクリック一発分に相当すると考えられる。
+   |F8| キーがマウスクリック一発分に相当すると考えられる。
 
-選択モードを変更するには Status バーの図像を使う方法がある。:doc:`前章
-<writer01>` で述べた欄を右クリックするとコンテキストメニューに選択肢が表示され
-る：
+選択モードを変更するには |StatusBar| の図像を使う方法がある。|Writer01| で述べた
+欄を右クリックするとコンテキストメニューに選択肢が表示される：
 
 * :menuselection:`&Standard selection`
-* :menuselection:`&Extending selection` (:kbd:`F8`)
-* :menuselection:`&Adding selection` (:kbd:`Shift` + :kbd:`F8`)
-* :menuselection:`&Block selection` (:kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F8`)
+* :menuselection:`&Extending selection` (|F8|)
+* :menuselection:`&Adding selection` (|Shift| + |F8|)
+* :menuselection:`&Block selection` (|Ctrl+Shift| + |F8|)
 
 項目を選択するとそのモードが有効になる。
 
@@ -66,32 +64,32 @@ Selecting items that are not consecutive
 標準選択モードで、マウスを使って連続しない項目を選択する手順：
 
 #. テキストの最初を選択
-#. :kbd:`Ctrl` を押しながらマウスを使って次のテキストを選択する
+#. |Ctrl| を押しながらマウスを使って次のテキストを選択する
 #. 必要なだけ繰り返す
 
 追加選択モードで、キーボードを使って連続しない項目を選択する手順：
 
 #. 最初のテキストを選択
-#. :kbd:`Shift` + :kbd:`F8` を押すか、Sattus バーの :guilabel:`Selection mode`
+#. |Shift| + |F8| を押すか、|StatusBar| の :guilabel:`Selection mode`
    図像をクリックし、一覧から :menuselection:`&Adding selection` を選択する
-#. :kbd:`Shift` を押しながら次のテキストを選択
+#. |Shift| を押しながら次のテキストを選択
 #. 必要なだけ繰り返す
 
 .. admonition:: 読者ノート
 
-   この :kbd:`Shift` 押しを忘れやすい。
+   この |Shift| 押しを忘れやすい。
 
 これにより選択テキストをコピー、削除、スタイル変更などをすることが可能だ。選択し
-たテキストでの作業が終了したら :kbd:`Esc` を押して追加選択モードを終了する。
+たテキストでの作業が終了したら |Esc| を押して追加選択モードを終了する。
 
 Selecting a vertical block of text
 ----------------------------------------------------------------------
 
 複数行にまたがる縦長のテキストブロックを選択するにはブロック選択モードを使う。
 
-* メニューから :menuselection:`&Edit --> Selection &Mode --> &Block Area` を選択
-* キーバインド :kbd:`Alt` + :kbd:`Shift` + :kbd:`F8`
-* Status バー選択モード欄クリックから :menuselection:`&Block selection` を選択
+* |MenuBar| から :menuselection:`&Edit-->Selection &Mode-->&Block Area` を選択
+* キーバインド |Shift+Alt| + |F8|
+* |StatusBar| 選択モード欄クリックから :menuselection:`&Block selection` を選択
 
 これでマウスまたはキーボードを使って選択範囲を強調できる。
 
@@ -104,8 +102,8 @@ Writer でのテキストの切り取りとコピーは他のアプリケーシ�
 トをコピーして Writer 文書に貼り付けることも可能だ。
 
 * 移動は選択テキストをドラッグ＆ドロップ
-* コピーは :kbd:`Ctrl` を押しながら選択テキストをドラッグ
-* キーバインドやメニューを使用する方法もある
+* コピーは |Ctrl| を押しながら選択テキストをドラッグ
+* キーバインドや |MenuBar| を使用する方法もある
 
 テキストを貼り付ける場合、貼り付け元と貼り付け方法によって結果が異なる。Paste コ
 マンドを実行すると貼り付けられたテキストは元の書式（太字や斜体など）を維持する。
@@ -116,12 +114,12 @@ Web サイトやその他の種類の文書から貼り付けられたテキス�
 
 貼り付けられたテキストに挿入位置の様式を継承させる方法は次のいずれか：
 
-* メニュー :menuselection:`&Edit --> Paste &Special -->` を開く
+* |MenuBar| :menuselection:`&Edit-->Paste &Special-->` を開く
 * :guilabel:`Paste` ボタン右の▼をクリック
-* キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`V`
+* キーバインド |Ctrl+Shift| + :kbd:`V`
 
 それから :guilabel:`&Unformatted text` や :guilabel:`&Paste Unformatted text` を
-選択する。キーバインド :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Shift` + :kbd:`V` でも書
+選択する。キーバインド |Ctrl+Shift+Alt| + :kbd:`V` でも書
 式なしテキストを直接貼り付けることが可能だ。
 
 Paste Special メニューの選択肢は貼り付けるテキスト（またはその他のオブジェクト）
@@ -130,44 +128,44 @@ Paste Special メニューの選択肢は貼り付けるテキスト（または
 Finding and replacing text
 ======================================================================
 
-Writer には文書内のテキストをすばやく検索するための :guilabel:`Find` ツールバー
-と :guilabel:`Find and Replace` ダイアログボックスの二つの方法がある。これらを使
-えば次のことが可能だ：
+.. |FindToolbar| replace:: :guilabel:`Find` ツールバー
+
+Writer には文書内のテキストをすばやく検索するための |FindToolbar| と
+|Find&ReplaceDlg| の二つの方法がある。これらを使えば次のことが可能だ：
 
 * 単語や句を検索し、置き換える
 * ワイルドカードと正規表現を使って検索を微調整する
 * 特定の属性や書式を検索して置換する
 * 段落スタイルを検索して置換する
 
-後半の操作については :doc:`Chapter 3 <writer03>` を見ろ。
+後半の操作については |Writer03| を見ろ。
 
 Using the Find toolbar
 ----------------------------------------------------------------------
 
-LibreOffice 初期設定では :guilabel:`Find` ツールバーはメインウィンドウの下部、
-Status Bar のすぐ上に繋留している。ツールバーが表示されていない場合は次のいずれ
-かをしろ：
+LibreOffice 初期設定では |FindToolbar| はメインウィンドウの下部、|StatusBar| の
+すぐ上に繋留している。ツールバーが表示されていない場合は次のいずれかをしろ：
 
-* メニューから :menuselection:`&View --> &Toolbars --> &Find` を選択
-* メニューから :menuselection:`&Edit --> &Find...` を選択
-* キーバインド :kbd:`Ctrl` + :kbd:`F`
+* |MenuBar| から :menuselection:`&View-->&Toolbars-->&Find` を選択
+* |MenuBar| から :menuselection:`&Edit-->&Find...` を選択
+* キーバインド |Ctrl+F|
 
-:guilabel:`Find` ツールバーの使い方は左半分は見ればわかる。
+|FindToolbar| の使い方は左半分は見ればわかる。
 
-:guilabel:`Find and Replace` ダイアログボックスを開くには :guilabel:`Match Case`
-の右にある図像をクリックする。
+|Find&ReplaceDlg| を開くには :guilabel:`Match Case` の右にある図像をクリックす
+る。
 
-:guilabel:`Find` ツールバーを閉じるには、左側のバツ印をクリックするか、検索欄に
-フォーカスがあるときに :kbd:`Esc` を押す。
+|FindToolbar| を閉じるには、左側のバツ印をクリックするか、検索欄にフォーカスがあ
+るときに |Esc| を押す。
 
 Using the Find and Replace dialog
 ----------------------------------------------------------------------
 
-:guilabel:`Find and Replace` ダイアログボックスを開く方法：
+|Find&ReplaceDlg| を開く方法：
 
-* キーバインド :kbd:`Ctrl` + :kbd:`H`
-* メニュー :menuselection:`&Edit --> Find and Rep&lace...` を選択
-* :guilabel:`Find` ツールバーの :guilabel:`Find and Replace` 図像をクリック
+* キーバインド |Ctrl+H|
+* |MenuBar| :menuselection:`&Edit-->Find and Rep&lace...` を選択
+* |FindToolbar| の :guilabel:`Find and Replace` 図像をクリック
 
 :guilabel:`Other &options` を展開しておく。
 
@@ -202,13 +200,13 @@ Using the Find and Replace dialog
 Inserting special characters
 ======================================================================
 
-:guilabel:`Standard` ツールバー :guilabel:`Special Character` 図像をクリックする
-とドロップダウンで最近使用した特別文字の一覧が示され、選択すると当該文字がキャ
-レット位置に挿入される。また、ここにある :guilabel:`More Characters...` を押すと
-ダイアログボックス :guilabel:`Special Characters` が開く。
+|StandardToolbar| :guilabel:`Special Character` 図像をクリックするとドロップダウ
+ンで最近使用した特別文字の一覧が示され、選択すると当該文字がキャレット位置に挿入
+される。また、ここにある :guilabel:`More Characters...` を押すと
+|SpecialCharDlg| が開く。
 
-:menuselection:`&Insert --> S&pecial Character...` コマンドでダイアログボックス
-:guilabel:`Special Characters` が開く。
+:menuselection:`&Insert-->S&pecial Character...` コマンドで |SpecialCharDlg| が
+開く。
 
 .. tip::
 
@@ -224,23 +222,23 @@ Inserting non-breaking spaces, hyphens, and more
 ----------------------------------------------------------------------
 
 さまざまな書式印を挿入することが可能だ。これらの目印のほとんどはキーバインドが割
-り当てられている。すべてメニュー :menuselection:`&Insert --> Formattin&g Mark
--->` から可能だ。
+り当てられている。すべて |MenuBar| :menuselection:`&Insert-->Formattin&g Mark-->`
+から可能だ。
 
 Non-breaking space
    単語二つが行末で区切られないようにするには、両単語の間に空白を入力するときに
-   :kbd:`Ctrl` + :kbd:`Shift` を押す。
+   |Ctrl+Shift| を押す。
 Non-breaking hyphen
    例えば ``123-4567`` のように、ハイフンを行末に表示したくない場合にこのコマン
-   ドを使用する。キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`-` を使う。
+   ドを使用する。キーバインド |Ctrl+Shift| + :kbd:`-` を使う。
 Soft Hyphen
    このコマンドは行末で単語を区切る位置を指定する。単語が行末にない場合、ハイフ
-   ンは表示されない。キーバインド :kbd:`Ctrl` + :kbd:`-` でこれを挿入する。
+   ンは表示されない。キーバインド |Ctrl| + :kbd:`-` でこれを挿入する。
 Narrow No-break Space
-   通常の空白ほど広くない非改行空白を入力するには、:kbd:`Alt` + :kbd:`Shift` を
-   押しながら :kbd:`Space` を押す。
+   通常の空白ほど広くない非改行空白を入力するには、|Shift+Alt| を押しながら
+   |Space| を押す。
 No-width Optional Break
-   :kbd:`Ctrl` + :kbd:`/` を使用すると、単語内に不可視の空白を挿入することがで
+   |Ctrl| + :kbd:`/` を使用すると、単語内に不可視の空白を挿入することがで
    き、その空白が行の最後の文字である場合に改行となる。|CTL| が有効である場合に
    使用可能。
 Word Joiner
@@ -261,6 +259,8 @@ Inserting en and em dashes
 Checking spelling and grammar
 ======================================================================
 
+.. |SpellingDlg| replace:: :guilabel:`Spelling` ダイアログボックス
+
 各言語において、それが利用可能である場合、次の四つが既定でインストールされる：
 
 * 綴字検査機能
@@ -271,8 +271,7 @@ Checking spelling and grammar
 綴字検査機能は文書内の各単語がインストールされている辞書にあるかどうかを判定す
 る。文法検査機能は綴字検査機能と組み合わせて動作する。
 
-* 文法検査機能は :guilabel:`Spelling` ダイアログボックスで有効無効を決めることが
-  可能だ。
+* 文法検査機能は |SpellingDlg| で有効無効を決めることが可能だ。
 * 綴字と文法は任意の時点で自動的に検査することが可能だ。
 
 Spelling
@@ -280,13 +279,13 @@ Spelling
 
 綴字の自動検査を有効にするには、次のいずれかを実行する：
 
-* :menuselection:`&Tools --> &Automatic Spell Checking` をオンにする
-* :guilabel:`Standard` ツールバーの :guilabel:`Auto Spellchec&k` をオンにする
-* :guilabel:`Options` ダイアログボックスを開いて
+* :menuselection:`&Tools-->&Automatic Spell Checking` をオンにする
+* |StandardToolbar| の :guilabel:`Auto Spellchec&k` をオンにする
+* |OptionsDlg| を開いて
 
-  #. :menuselection:`Language Settings --> Writing Aids` ページへ行く
+  #. |WritingAidsPage| へ行く
   #. 最後の枠内 :guilabel:`Check spelling as you type` をオンにする
-  #. :guilabel:`&OK`
+  #. |OK| を押す|
 
 自動綴字検査というのは、テキストに含まれる単語を検査して、辞書にない単語に赤波線
 を引くというものだ。このような単語を右クリックすると訂正候補メニューが現れる。
@@ -313,16 +312,16 @@ Spelling and grammar
 文書またはテキスト選択範囲の綴字と文法の複合検査を行うには次のいずれかを実行す
 る：
 
-* :menuselection:`&Tools --> &Spelling...` を選択
-* :guilabel:`Standard` ツールバーの :guilabel:`Check Spelling` 図像をクリック
-* :kbd:`F7` を押す
+* :menuselection:`&Tools-->&Spelling...` を選択
+* |StandardToolbar| の :guilabel:`Check Spelling` 図像をクリック
+* |F7| を押す
 
 この機能を使用するには、適切な辞書がインストールされている必要がある。
 
 このコマンドはキャレット位置から先の文書または選択テキストのいずれかを検査する。
-認識できない単語が見つかったり、組み込まれている文法規則に違反したりすると、ダイ
-アログボックス :guilabel:`Spelling` が開く。検査が文書の最後に達したときに、文書
-の先頭からやり直すかどうかを選択可能だ。
+認識できない単語が見つかったり、組み込まれている文法規則に違反したりすると、
+|SpellingDlg| が開く。検査が文書の最後に達したときに、文書の先頭からやり直すかど
+うかを選択可能だ。
 
 ダイアログボックスの左下で :guilabel:`Chec&k grammer` をオンにすると、検出された
 文法の誤りも表示される。
@@ -353,23 +352,23 @@ Spelling and grammar
    このダイアログボックスからの変更を元に戻す。:guilabel:`Co&rrect` ボタンを使用
    して単語を置換した場合は使用不能。
 :guilabel:`&Options...`
-   :guilabel:`Options` ダイアログボックスを開く。使用者定義の辞書を選択したり、
-   綴字検査規則を設定したりする。
+   |OptionsDlg| を開く。使用者定義の辞書を選択したり、綴字検査規則を設定したりす
+   る。
 
 Grammar
 ----------------------------------------------------------------------
 
 
-* :menuselection:`&Tools --> &Automatic Spell Checking` をオンにする
-* :guilabel:`Standard` ツールバーの :guilabel:`Auto Spellchec&k` をオンにする
-* :guilabel:`Options` ダイアログボックスを開いて
+* :menuselection:`&Tools-->&Automatic Spell Checking` をオンにする
+* |StandardToolbar| の :guilabel:`Auto Spellchec&k` をオンにする
+* |OptionsDlg| を開いて
 
-  #. :menuselection:`Language Settings --> Writing Aids` ページへ行く
+  #. |WritingAidsPage| へ行く
   #. 最後の枠内 :guilabel:`Check spelling as you type` をオンにする
   #. :guilabel:`&OK`
 
 初期設定では先述の :guilabel:`Check spelling as you type` はオンになっている。こ
-のオン状態が自動綴字検査が機能するために必要だ。また、:menuselection:`&Tools -->
+のオン状態が自動綴字検査が機能するために必要だ。また、:menuselection:`&Tools-->
 Check Spelling...` コマンドを使っていつでも文法を検査したり、入力中の文法検査を
 無効にすることも可能だ。
 
@@ -380,24 +379,22 @@ Check Spelling...` コマンドを使っていつでも文法を検査したり�
 * 第二区画には修正案が提示される。これを選択すると波線テキストが提示内容に置換さ
   れる。この欄が空白の場合、選択すると、エラーの原因となっている余計な空欄が削除
   される。
-* 第三区画では、表示されたエラーを無視するか、:guilabel:`Spelling` ダイアログ
-  ボックスを開くかを選択する。
+* 第三区画では、表示されたエラーを無視するか、|SpellingDlg| を開くかを選択する。
 * 第四区画では、選択範囲や段落の言語を設定する。
 
 :guilabel:`More...` リンクは誤り詳細情報 URL がブラウザーで開く。
 
 .. tip::
 
-   波下線に別の色を選択する方法は :doc:`Chapter 20 <writer20>` で会得できる。
+   波下線に別の色を選択する方法は |Writer20| で会得できる。
 
 English sentence checking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-追加的文法検査ツールを :guilabel:`Options` ダイアログボックスの
-:menuselection:`Language Settings --> English Sentence Checking` ページで選択可
-能だ。また、メニュー :menuselection:`&Tools --> &Extensions...` で
-:guilabel:`English spelling dictionaries` を選択し、:guilabel:`Options` ボタンを
-クリックすることも可能だ。
+追加的文法検査ツールを |OptionsDlg| の :menuselection:`Language
+Settings-->English Sentence Checking` ページで選択可能だ。また、|MenuBar|
+|ExtensionsM| で:guilabel:`English spelling dictionaries` を選択し、
+:guilabel:`Options` ボタンをクリックすることも可能だ。
 
 :guilabel:`English Sentence Checking` ページで、検査項目、報告される項目、自動的
 に変換される項目を選択する。追加的文法検査を選択した後、効力を発するには
@@ -451,23 +448,21 @@ Others
    度量衡変換。
 :guilabel:`Thousands separation &of large numbers`
    文書のロケール設定に応じて、有効数字が五桁以上の数値を、カンマ ``,`` を桁区切
-   り文字とするか、狭い空白文字を使う :abbr:`ISO (International Organization for
-   Standardization)` 形式にして変換する。
+   り文字とするか、狭い空白文字を使う |ISO| 形式にして変換する。
 
 Using Language Tool
 ======================================================================
 
 Language Tool は <https://languagetool.org/> が備えている多言語文法、スタイル、
 綴字検査ツールだ。Writer は上記の内蔵文法検査機能とともに、このツールを文法検査
-に使用可能だ。Language Tool を有効にすると、:guilabel:`Options` ダイアログボック
-スの :menuselection:`Language Settings --> Writing Aids` ページ内
+に使用可能だ。Language Tool を有効にすると、|OptionsDlg| |WritingAidsPage| 内
 :guilabel:`&Available Language Modules` 一覧に表示される。
 
 Using synonyms and the thesaurus
 ======================================================================
 
 #. 単語を右クリック
-#. コンテキストメニューの :menuselection:`Synony&ms -->` から代替語句のサブメ
+#. コンテキストメニューの :menuselection:`Synony&ms-->` から代替語句のサブメ
    ニューが表示される
 #. サブメニューの単語または語句を選択
 
@@ -492,25 +487,24 @@ Hyphenating words
 Automatic hyphenation
 ----------------------------------------------------------------------
 
-このやり方はスタイルを使用し、後述する :guilabel:`Options` ダイアログボックスの
-指定を上書きする。
+このやり方はスタイルを使用し、後述する |OptionsDlg| の指定を上書きする。
 
 単語の自動分綴オンオフを切り替える手順：
 
-#. Siedbar の :guilabel:`Styles` タブをクリック
+#. |Sidebar| の |StylesDeck| を開く
 #. :guilabel:`&Edit Styles...` 図像をクリック
 #. 木から :guilabel:`Default Paragraph Style` を右クリック
 #. :menuselection:`Modify` を選択
-#. :guilabel:`Paragraph Style` ダイアログで :guilabel:`Text Flow` タブをクリック
+#. |ParagraphStyleDlg| で |TextFlowTab| をクリック
 #. :guilabel:`Hyphenation` で :guilabel:`Automatically` を切り替える
 
    * オンの場合、行う時点の基準を設定することも可能。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 Default Paragraph Style で分綴をオンにすると、このスタイルに基づくすべての段落ス
 タイルに影響する。分綴が有効にならないように、他のスタイルを個別に変更することが
-可能だ（例えば、見出しに対してはしないようにする）。この話題は :doc:`Chapter 8
-<writer08>` と :doc:`Chapter 9 <writer09>` で述べられる。
+可能だ（例えば、見出しに対してはしないようにする）。この話題は |Writer08| と
+|Writer09| で述べられる。
 
 Hyphenation options
 ----------------------------------------------------------------------
@@ -534,8 +528,7 @@ Hyphenation options
    ストでは単語間の間隔が大きくなり、そうでないテキストでは段落余白からの距離が
    大きくなる。
 
-:guilabel:`Options` ダイアログボックスの :menuselection:`Language Settings -->
-Writing Aids` ページ内 :guilabel:`Options` にも分綴設定項目がある。
+|OptionsDlg| |WritingAidsPage| 内 :guilabel:`Options` にも分綴設定項目がある。
 
 * 段落スタイルに特定の設定がない場合に適用される。
 * 段落スタイルで分綴がオンになっている場合に限り有効。
@@ -556,8 +549,8 @@ Manual hyphenation
 単語内に soft hyphen を挿入するには、それを表示したい位置をクリックして次のいず
 れかを実行する：
 
-* キーバインド :kbd:`Ctrl` + :kbd:`-`
-* メニューから :menuselection:`&Insert --> Formattin&g Mark --> Insert S&oft
+* キーバインド |Ctrl| + :kbd:`-`
+* |MenuBar| から :menuselection:`&Insert-->Formattin&g Mark-->Insert S&oft
   Hyphen` 選択
 
 この段落の自動分綴がオフになっていても、行末にある単語はこの位置で分綴される。
@@ -570,14 +563,14 @@ AutoCorrect 機能には、よくある誤植の長い目録を搭載してお�
 特殊文字を追加することも可能だ。
 
 AutoCorrect の機能をいくつか無効にしたり、他の機能を変更したり、完全にオフにした
-りすることも可能だ。オフにするにはメニューから
-:menuselection:`&Tools --> AutoCorr&ect --> &While Typing` をオフにする。
+りすることも可能だ。オフにするには |MenuBar| から
+:menuselection:`&Tools-->AutoCorr&ect-->&While Typing` をオフにする。
 
 独自の訂正や特殊文字を追加したり、LibreOffice に付属の訂正や特殊文字を変更したり
 する方法：
 
-#. :menuselection:`&Tools --> AutoCorr&ect --> &AutoCorrect Options...` を選択
-#. :guilabel:`AutoCorrect` ダイアログボックスが開く
+#. :menuselection:`&Tools-->AutoCorr&ect-->&AutoCorrect Options...` を選択
+#. |AutoCorrectDlg| が開く
 #. :guilabel:`Replace` タブで、どの文字列をどのように修正するかを定義
 
 特定の綴りを置き換えるのをやめさせる手順：
@@ -591,19 +584,17 @@ AutoCorrect の機能をいくつか無効にしたり、他の機能を変更�
    に綴りを入力
 #. :guilabel:`&New` を押す
 
-:guilabel:`AutoCorrect` ダイアログボックスについては :doc:`Chapter 4 <writer04>`
-でも述べられる。
+|AutoCorrectDlg| については |Writer04| でも述べられる。
 
 Using Word Completion
 ======================================================================
 
 Word Completion が有効になっている場合、Writer は著者が入力しようとしている単語
-を推測し、単語を補完しようとする。著者が :kbd:`Enter` を押せばこの提案を受け入れ
-る。
+を推測し、単語を補完しようとする。著者が |Enter| を押せばこの提案を受け入れる。
 
 Word Completion をオフにするには：
 
-#. :menuselection:`&Tools --> AutoCorr&ect --> &AutoCorrect Options...` を選択
+#. :menuselection:`&Tools-->AutoCorr&ect-->&AutoCorrect Options...` を選択
 #. :guilabel:`Word Completion` タブを選択
 #. :guilabel:`Enable word &completion` をオフにする
 
@@ -630,11 +621,10 @@ Using AutoText
 
 AutoText を使用すると、テキスト、図表、フィールド、画像、その他の項目を再利用で
 きるように保存し、キーバインドを定義して簡単に呼び出すことが可能になる。例え
-ば、"Senior Management "と毎回入力するのではなく、"sm" と入力し、:kbd:`F3` を押
-すと、その単語が挿入されるように AutoText を設定することが可能だ。
+ば、"Senior Management "と毎回入力するのではなく、"sm" と入力し、|F3| を押すと、
+その単語が挿入されるように AutoText を設定することが可能だ。
 
-AutoText はフィールドに割り当てると特に強力だ。:doc:`Chapter 17 <writer17>` を読
-め。
+AutoText はフィールドに割り当てると特に強力だ。|Writer17| を読め。
 
 Creating AutoText
 ----------------------------------------------------------------------
@@ -643,9 +633,9 @@ Creating AutoText
 
 #. テキストを文書に入力
 #. それを選択
-#. メニューから :menuselection:`Tools --> AutoTe&xt...` を選択するかキーバインド
-   :kbd:`Ctrl` + :kbd:`F3`
-#. :guilabel:`AutoText` ダイアログボックスが開く
+#. |MenuBar| から :menuselection:`Tools-->AutoTe&xt...` を選択するかキーバインド
+   |Ctrl| + |F3|
+#. |AutoTextDlg| が開く
 #. :guilabel:`Na&me` 欄に AutoText の名前を入力する
 #. AutoText の品目（例えば :guilabel:`My AutoText` など）を選択
 #. :guilabel:`AutoTe&xt` ドロップダウンをクリック
@@ -653,7 +643,7 @@ Creating AutoText
 
    * :menuselection:`New`: どこに挿入されても特定の書式を保持
    * :menuselection:`New (text onlly)`: 挿入位置周辺の書式を適用
-#. :guilabel:`&Close`
+#. |Close| を押す
 
 .. tip::
 
@@ -663,17 +653,17 @@ Creating AutoText
 図表を AutoText として保存する手順：
 
 #. 図表を作成し、必要な書式を設定する。
-#. 図表を選択し、メニューから :menuselection:`Tools --> AutoTe&xt...` を選択する
-   かキーバインド :kbd:`Ctrl` + :kbd:`F3`
+#. 図表を選択し、|MenuBar| から :menuselection:`Tools-->AutoTe&xt...` を選択する
+   かキーバインド |Ctrl| + |F3|
 #. AutoText の名前を入力する。または推奨されるショートカットを修正し、AutoText
    項目の品目を選択する。
-#. :menuselection:`AutoText --> New` を選択（図表の書式を保持したい）
-#. :guilabel:`&Close`
+#. :menuselection:`AutoText-->New` を選択（図表の書式を保持したい）。
+#. |Close| を押す。
 
 Inserting AutoText
 ----------------------------------------------------------------------
 
-AutoText を挿入するには、登録されているショートカットを入力して :kbd:`F3` を押
+AutoText を挿入するには、登録されているショートカットを入力して |F3| を押
 せ。
 
 Printing a list of AutoText entries
@@ -686,8 +676,8 @@ Printing a list of AutoText entries
 Changing the case of selected text
 ======================================================================
 
-テキストの大文字と小文字をすばやく変更するには、テキストを選択し、メニューから
-:menuselection:`&Format --> Te&xt -->` から関連項目のいずれかを選択する。
+テキストの大文字と小文字をすばやく変更するには、テキストを選択し、|MenuBar| から
+:menuselection:`&Format-->Te&xt-->` から関連項目のいずれかを選択する。
 
 .. admonition:: 読者ノート
 
@@ -695,13 +685,13 @@ Changing the case of selected text
 
 Writer には Title Case を自動的に行う方法はない。
 
-:menuselection:`&Format --> Te&xt -->` メニューには、太字、斜体、上付き文字など
+:menuselection:`&Format-->Te&xt-->` メニューには、太字、斜体、上付き文字など
 の手動書式設定オプションもある。アジア言語対応が有効になっている場合は、半角、全
 角、ひらがな、カタカナなどのオプションもある。
 
-:guilabel:`Character` ダイアログボックスや文字スタイルを使用して、テキストの大文
-字と小文字を変更することも可能だ。
+|CharacterDlg| や文字スタイルを使用して、テキストの大文字と小文字を変更すること
+も可能だ。
 
-#. メニューから :menuselection:`F&ormat --> C&haracter...` を選択
-#. :guilabel:`Font Effects` タブをクリック
+#. |MenuBar| から :menuselection:`F&ormat-->C&haracter...` を選択
+#. |FontEffectsTab| をクリック
 #. :guilabel:`&Case` ドロップダウンリストから大文字小文字の種類を選択

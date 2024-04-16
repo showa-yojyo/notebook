@@ -2,11 +2,7 @@
 Writer Guide Chapter 7, Printing and Publishing ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
-.. |DPI| replace:: :abbr:`DPI (dots per inch)`
-.. |EPS| replace:: :abbr:`EPS (Encapsulated PostScript)`
-.. |ISO| replace:: :abbr:`International Organization for Standardization`
-.. |PIN| replace:: :abbr:`PIN (Personal Identification Number)`
+.. include:: ./writer-inc.txt
 
 .. contents:: 本章見出し
    :depth: 3
@@ -28,43 +24,41 @@ LibreOffice Writer 文書の印刷、公開、配布に関する機能につい�
 Quick printing
 ======================================================================
 
-:guilabel:`Standard` ツールバーに :guilabel:`Print Directl&y` 図像が表示されてい
-る場合、それをクリックすると、現在の既定の印刷設定を使用して文書全体を印刷でき
-る。図像が表示されていない場合は、ツールバーを右クリックし、
-:menuselection:`Visible &Buttons -->` を指して :guilabel:`Print Directl&y` を選
-択することで表示させる。
+|StandardToolbar| に :guilabel:`Print Directl&y` 図像が表示されている場合、それ
+をクリックすると、現在の既定の印刷設定を使用して文書全体を印刷できる。図像が表示
+されていない場合は、ツールバーを右クリックし、
+:menuselection:`Visible &Buttons-->` を指して :guilabel:`Print Directl&y` を選択
+することで表示させる。
 
 Specifying the default printer
 ----------------------------------------------------------------------
 
-既定印刷機を指定するにはメニューから :menuselection:`&File --> P&rinter
+既定印刷機を指定するには |MenuBar| から :menuselection:`&File-->P&rinter
 Settings` を選択する。:guilabel:`Printer Setup` ダイアログボックスが開く。その他
 の印刷オプションにアクセスするには :guilabel:`Option&s...` ボタンを押す。
 
-同じ既定オプションは |OptionsDlg| の :menuselection:`LibreOffice Writer -->
-Print` で使用でき、より一般的な印刷オプションは :menuselection:`LibreOffice -->
-Print` で使用できる。詳細については:doc:`Chapter 20 <writer20>` を見ろ。
+同じ既定オプションは |OptionsDlg| |WriterPrintPage| で使用でき、より一般的な印刷
+オプションは |LibreOfficePrintPage| で使用できる。詳細については |Writer20| を
+見ろ。
 
 Controlling printing using the Print dialog
 ======================================================================
 
-印刷をより詳細に制御するには :guilabel:`Print` ダイアログボックスを用いる。開き
-方は：
+印刷をより詳細に制御するには |PrintDlg| を用いる。開き方は：
 
-* メニュー :menuselection:`&File --> &Print...` を選択
-* キーバインド :kbd:`Ctrl` + :kbd:`P`
-* :guilabel:`Standard` ツールバーの :guilabel:`&Print` 図像クリック
+* |MenuBar| |PrintM| を選択
+* キーバインド |Ctrl+P|
+* |StandardToolbar| の :guilabel:`Print` 図像クリック
 
 Print dialog on Windows and Linux
 ----------------------------------------------------------------------
 
-:guilabel:`Print` ダイアログボックスには二つのタブがあり、以下の節で述べられるさ
-まざまな選択肢を取れる。
+|PrintDlg| には二つのタブがあり、以下の節で述べられるさまざまな選択肢を取れる。
 
 Selecting general printing options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Print` ダイアログボックスの :guilabel:`General` タブにある選択肢：
+|PrintDlg| の |GeneralTab| にある選択肢：
 
 * 利用可能な印刷機の一覧から印刷機を選択する
 * 印刷するページ、印刷部数、複数部数を照合するかどうか
@@ -77,14 +71,13 @@ Selecting general printing options
 Selecting printer and print job options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`General` タブの :guilabel:`Printer` 区画で :guilabel:`Properties` ボ
-タンを押すると、選択した印刷機のプロパティダイアログボックスが表示される。そこで
-は縦向きまたは横向き、使用する用紙トレイ、印刷する用紙寸法を選択可能だ。
+|GeneralTab| の :guilabel:`Printer` 区画で :guilabel:`Properties` ボタンを押すと、
+選択した印刷機のプロパティダイアログボックスが表示される。そこでは縦向きまたは横
+向き、使用する用紙トレイ、印刷する用紙寸法を選択可能だ。
 
-:guilabel:`General` タブの :guilabel:`Range and Copies` 区画の下にある
+|GeneralTab| の :guilabel:`Range and Copies` 区画の下にある
 :guilabel:`Co&llation and Paper Sides` をクリックして、整列したページすべてを含
-む一つの印刷ジョブではなく、出力用に別々の印刷ジョブを作成するかどうかを選択す
-る。
+む一つの印刷ジョブではなく、出力用に別々の印刷ジョブを作成するかどうかを選択する。
 
 .. admonition:: 読者ノート
 
@@ -98,8 +91,8 @@ Selecting what to print
 
 ページ単品または範囲：
 
-#. :guilabel:`Print` ダイアログボックスの :guilabel:`Range and Copies` 区画で
-   :guilabel:`Pa&ges` をオンにする
+#. |PrintDlg| の :guilabel:`Range and Copies` 区画で :guilabel:`Pa&ges` をオンに
+   する
 #. 印刷したいページのページ番号を入力する。左側のプレビュー欄が選択したページ
    を描く。
 
@@ -109,10 +102,9 @@ Selecting what to print
 
 テキストまたは画像の選択：
 
-#. 文書で印刷する素材を選択してから :guilabel:`Print` ダイアログボックスを開く
-#. :guilabel:`Print` ダイアログボックスの :guilabel:`Range and Copies` 区画の
-   :guilabel:`&Selection` が活動開始。これをオンにする。プレビュー欄に選択素材が
-   描かれる。
+#. 文書で印刷する素材を選択してから |PrintDlg| を開く
+#. |PrintDlg| の :guilabel:`Range and Copies` 区画の :guilabel:`&Selection` が活
+   動開始。これをオンにする。プレビュー欄に選択素材が描かれる。
 
 Choices on the LibreOffice Writer tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,15 +122,14 @@ Printing multiple pages on a single sheet of paper
 
 複数ページの文書を一枚の用紙に印刷できる。これを行うには、
 
-#. :guilabel:`Print` ダイアログボックスを開く
-#. :guilabel:`General` タブ
+#. |PrintDlg| を開く
+#. |GeneralTab| をクリック
 #. :guilabel:`Page Layout` 区画で :guilabel:`Pages per S&heet` を展開
 #. 一枚の用紙に印刷するページ数を :guilabel:`Pag&es per Sheet` ドロップダウンリ
    ストから選択
 
-一枚に二ページ以上を印刷する場合、用紙の縦横の印刷順序を選択できる。
-:guilabel:`Print` ダイアログボックスの左側にあるプレビュー盤が変化し、印刷された
-文書の見てくれが描かれる。
+一枚に二ページ以上を印刷する場合、用紙の縦横の印刷順序を選択できる。|PrintDlg|
+の左側にあるプレビュー盤が変化し、印刷された文書の見てくれが描かれる。
 
 Printing a brochure
 ----------------------------------------------------------------------
@@ -153,26 +144,28 @@ Printing a brochure
 
 片面（単面）印刷機で仮綴本を印刷する手順：
 
-#. :guilabel:`Print` ダイアログボックスの :guilabel:`General` タブの
-   :guilabel:`Page Layout` 区画で、いちばん下の :guilabel:`Broch&ure` をオン
+.. |PrintButton| replace:: :guilabel:`&Print` ボタン
+
+#. |PrintDlg| |GeneralTab| :guilabel:`Page Layout` 区画で、いちばん下の
+   :guilabel:`Broch&ure` をオン
 
    * 左側のプレビューがページが印刷される順序を示すように更新する。
-#. 言語設定でアジアまたは |CTL| が選択されている場合、:guilabel:`Print` ダイアロ
-   グボックスの :guilabel:`Broch&ure` の近くにドロップダウンリストが表示される。
-   この一覧には、
+#. 言語設定でアジアまたは |CTL| が選択されている場合、|PrintDlg|
+   :guilabel:`Broch&ure` の近くにドロップダウンリストが表示される。この一覧に
+   は、
 
    * :guilabel:`Left-to-right script`
    * :guilabel:`Right-to-left script`
 
    のオプションがある。必要な設定を選択しろ。
-#. :guilabel:`Print` ダイアログボックスの :guilabel:`General` タブの
-   :guilabel:`Range and Copies` 区画 :guilabel:`Co&llation and Paper Sides` の下
-   にある :guilabel:`Even pages` を選択
-#. :guilabel:`&Print` を押す
+#. |PrintDlg| |GeneralTab| :guilabel:`Range and Copies` 区画
+   :guilabel:`Co&llation and Paper Sides` の下にある :guilabel:`Even pages` を選
+   択
+#. |PrintButton| を押す
 #. 印刷したページを印刷機から取り出し、正しい向きで印刷機に戻して白紙面に印刷す
    る（印刷機によっては試行錯誤が必要な場合がある）。
 #. 今度は :guilabel:`Odd pages` を選択
-#. :guilabel:`&Print` を押す
+#. |PrintButton| を押す
 
 .. tip::
 
@@ -188,26 +181,26 @@ Printing in black and white on a color printer
 
    印刷機によっては選択した設定に関係なく多色刷りになる場合がある。
 
-#. :guilabel:`Print` ダイアログボックスで :guilabel:`Propert&ies...` をクリック
-   して印刷機の設定ダイアログボックスを開く。利用可能な選択肢は印刷機によって異
-   なるが、カラー設定のオプションが見つかるはずだ。
+#. |PrintDlg| で :guilabel:`Propert&ies...` をクリックして印刷機の設定ダイアログ
+   ボックスを開く。利用可能な選択肢は印刷機によって異なるが、カラー設定のオプ
+   ションが見つかるはずだ。
 #. カラーの選択肢には、白黒または無彩色尺がある。無彩色尺を選択する。
-#. :guilabel:`&OK` を押す。:guilabel:`Print` ダイアログボックスに戻る。
-#. :guilabel:`&Print` を押して文書を印刷する。
+#. |OK| を押す。|PrintDlg| に戻る。
+#. |PrintButton| を押して文書を印刷する。
 
 すべての彩色テキストと画像を無彩色で印刷するには、LibreOffice の設定を変更する：
 
 #. |OptionsDlg| を開く
-#. :menuselection:`LibreOffice --> Print` ページ
+#. |LibreOfficePrintPage| を開く
 #. :guilabel:`Con&vert colors to grayscale` をオン
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 彩色テキストを黒で印刷し、画像を無彩色で印刷するには：
 
 #. |OptionsDlg| を開く
-#. :menuselection:`LibreOffice Writer --> Print` ページ
+#. |WriterPrintPage| を開く
 #. :guilabel:`Print text in blac&k` をオン
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 Previewing pages before printing
 ======================================================================
@@ -217,19 +210,19 @@ Writer の通常ページビューでは、各ページが印刷されるとき�
 合、見開きページがどのように見えるかを確認するといいだろう。これを行う方法が二つ
 ある：
 
-* :guilabel:`View Layout`: 編集可。Status バーの Book View ボタンを使ってズーム
-  を調整する。
+* :guilabel:`View Layout`: 編集可。|StatusBar| の Book View ボタンを使ってズー
+  ムを調整する。
 * :guilabel:`Print Pr&eview`: 読み取り専用ビュー。
 
 :guilabel:`Print Pr&eview` 実行手順は次のいずれか：
 
-* メニューの :menuselection:`&File --> Print Pr&eview...` を選択
-* :guilabel:`Standard` ツールバーの :guilabel:`Toggle Print Preview
-  (Ctrl+Shift+O)` 図像をクリック
-* キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`O`
+* |MenuBar| の :menuselection:`&File-->Print Pr&eview...` を選択
+* |StandardToolbar| の :guilabel:`Toggle Print Preview (Ctrl+Shift+O)` 図像をク
+  リック
+* キーバインド |Ctrl+Shift| + :kbd:`O`
 
-これで :guilabel:`Formatting` ツールバーの代わりに :guilabel:`Print Preview`
-ツールバーが表示する。
+これで |FormattingToolbar| の代わりに :guilabel:`Print Preview` ツールバーが表示
+する。
 
 #. 必要なプレビュー図像をクリック
 
@@ -239,8 +232,7 @@ Writer の通常ページビューでは、各ページが印刷されるとき�
    * :guilabel:`Multiple Page Preview`
 
 #. このビューから文書を印刷するには :guilabel:`Print` 図像をクリックして
-   :guilabel:`Print` ダイアログボックスを開く。印刷オプションを選択し、
-   :guilabel:`&Print` を押す。
+   |PrintDlg| を開く。印刷オプションを選択し、|PrintButton| を押す。
 
 Printing envelopes
 ======================================================================
@@ -249,7 +241,7 @@ Printing envelopes
 
 封筒単品または文書と一緒に印刷するように組み立てる手順：
 
-#. メニューから :menuselection:`&Insert --> En&velope...` を選択
+#. |MenuBar| から :menuselection:`&Insert-->En&velope...` を選択
 #. :guilabel:`Envelop` ダイアログボックスでは、まず :guilabel:`Envelop` タブから
    始める。
 
@@ -259,40 +251,40 @@ Printing envelopes
    * 差出人情報は |OptionsDlg| |UserDataPage| から取られる。
    * 宛先と差出人の欄には情報を直接入力するか、右側のドロップダウンリストを使用
      して、封筒情報を引き出すデータベースを選択する。データベースから封筒を印刷
-     する方法の詳細については :doc:`Chapter 14 <writer14>` を参照。
+     する方法の詳細については |Writer14| を参照。
 
-#. :guilabel:`Format` タブで、宛先と差出人情報の位置を確認または編集する。右下の
-   領域はプレビュー。
+#. |FormatTab| で、宛先と差出人情報の位置を確認または編集する。右下の領域はプレ
+   ビュー。
 #. これらのブロックのテキストを書式設定するには、右側の :guilabel:`Edit` ドロッ
    プダウンメニューを押す。二つの選択肢がある
 
-   * :guilabel:`C&haracter...` を選択すると、標準の :guilabel:`Character` ダイア
-     ログボックスと同じようなものが開き、テキストの書式を設定することが可能だ。
-   * :guilabel:`P&aragraph...` を選択すると、標準の :guilabel:`Paragraph` ダイア
-     ログボックスに似たものが開き、段落の属性を設定可能だ。
+   * :guilabel:`C&haracter...` を選択すると、標準の |CharacterDlg| と同じような
+     ものが開き、テキストの書式を設定することが可能だ。
+   * :guilabel:`P&aragraph...` を選択すると、標準の |ParagraphDlg| に似たものが
+     開き、段落の属性を設定可能だ。
 #. このタブの左下には :guilabel:`Size` 区画がある。ドロップダウンリストから封筒
    の形式を選択する。選択した封筒の幅と高さは、選択した形式の下の欄に表示され
    る。既存形式を選択した場合はこれらの寸法を確認するだけだ。ユーザー定義を選択
    した場合は寸法を編集することが可能になる。
-#. 封筒形式指定後、:guilabel:`Printer` タブで、使用する印刷機、組み立て（封筒を
-   入れる皿の指定など）、封筒の向きやシフトなどのその他の印刷機オプションを選択
-   する。どのオプションが印刷機にとって最適か、また封筒が印刷機内でどのように配
-   置される必要があるか、試行を要するかもしれない。
+#. 封筒形式指定後、|PrinterTab| で、使用する印刷機、組み立て（封筒を入れる皿の指
+   定など）、封筒の向きやシフトなどのその他の印刷機オプションを選択する。どのオ
+   プションが印刷機にとって最適か、また封筒が印刷機内でどのように配置される必要
+   があるか、試行を要するかもしれない。
 #. 書式設定が終わり、印刷の準備が済んだら :guilabel:`&New Document` または
-   :guilabel:`&Insert` のいずれかを押して終了する。
+   |Insert| のいずれかを押して終了する。
 
    * :guilabel:`&New Document` は、封筒だけを作成するか、封筒を使って新しい文書
      を開始する。
-   * :guilabel:`&Insert` は封筒を既存の文書に一ページ目として挿入する。
+   * |Insert| は封筒を既存の文書に一ページ目として挿入する。
 #. 他のことをする前にこのファイルを保存しろ。
 
 封筒を印刷するには：
 
-#. メニューから :menuselection:`&File --> &Print...` を選択
-#. :guilabel:`Print` ダイアログボックスの :guilabel:`Range and Copies` で
-   :guilabel:`Pa&ges` をオンにし、入力欄に 1 を入力する
+#. |MenuBar| から |PrintM| を選択
+#. |PrintDlg| の :guilabel:`Range and Copies` で :guilabel:`Pa&ges` をオンにし、
+   入力欄に 1 を入力する
 #. 必要な印刷機（通常の印刷機とは異なる場合がある）を選択
-#. :guilabel:`&Print` を押す
+#. |PrintButton| を押す
 
 Printing labels
 ======================================================================
@@ -323,19 +315,21 @@ LibreOffice では、文書を |PDF| 形式で書き出すことができる。�
 Quick export to PDF
 ----------------------------------------------------------------------
 
-* :guilabel:`Standard` ツールバーの :guilabel:`Export &Directly as PDF` 図像
-* :menuselection:`&File --> &Export As --> Export &Directly as PDF` を選択
+* |StandardToolbar| の :guilabel:`Export &Directly as PDF` 図像
+* :menuselection:`&File-->&Export As-->Export &Directly as PDF` を選択
 
-:guilabel:`PDF Options` ダイアログボックスで直近に選択した |PDF| 設定を使用して
-文書全体が書き出される。ファイル名と保存場所を入力するよう求められるが、ページ範
-囲や画像圧縮、その他のオプションを選択する機会はない。
+.. |PDFOptionsDlg| replace:: :guilabel:`PDF Options` ダイアログボックス
+
+|PDFOptionsDlg| で直近に選択した |PDF| 設定を使用して文書全体が書き出される。
+ファイル名と保存場所を入力するよう求められるが、ページ範囲や画像圧縮、その他のオ
+プションを選択する機会はない。
 
 Controlling PDF content and quality
 ----------------------------------------------------------------------
 
-作成される |PDF| の内容と品質をより精緻に制御するには :menuselection:`&File -->
-&Export As --> &Export as PDF` を使用する。:guilabel:`PDF Options` ダイアログ
-ボックスが開く。このダイアログボックスには六つのタブ
+作成される |PDF| の内容と品質をより精緻に制御するには :menuselection:`&File-->
+&Export As-->&Export as PDF` を使用する。|PDFOptionsDlg| が開く。このダイアログ
+ボックスには六つのタブ
 
 * :guilabel:`General`
 * :guilabel:`Initial View`
@@ -345,22 +339,21 @@ Controlling PDF content and quality
 * :guilabel:`Digital Signatures`
 
 がある。適切な設定を選択し、:guilabel:`E&xport` を押す。次に、作成する |PDF| の
-場所とファイル名を入力するよう求められ、:guilabel:`保存 (&S)` を押してファイルを
-エクスポートする。
+場所とファイル名を入力するよう求められ、|Save| を押してファイルをエクスポートす
+る。
 
 .. note::
 
-   :menuselection:`&File --> Expor&t...` でも |PDF| にエクスポート可能だ。
-   :guilabel:`Export` ダイアログボックスで |PDF| 形式、ファイル名、保存場所を選
-   択し、|Save| を押す。その後、:guilabel:`PDF Options` ダイアログボックスが開
-   く。適切な設定を選択し :guilabel:`E&xport` をクリックする。二つのエクスポート
-   方法の唯一の違いは、手順を実行する順序だ。
+   |FileExportM| でも |PDF| にエクスポート可能だ。:guilabel:`Export` ダイアログ
+   ボックスで |PDF| 形式、ファイル名、保存場所を選択し、|Save| を押す。その
+   後、|PDFOptionsDlg| が開く。適切な設定を選択し:guilabel:`E&xport` をクリック
+   する。二つのエクスポート方法の唯一の違いは、手順を実行する順序だ。
 
 General tab of PDF Options dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`General` タブでは |PDF| に含めるページ、画像に使用する圧縮の種類、そ
-の他のオプションを選択できる。
+|GeneralTab| では |PDF| に含めるページ、画像に使用する圧縮の種類、その他のオプ
+ションを選択できる。
 
 :guilabel:`Range` 区画
    :guilabel:`&All`
@@ -493,7 +486,7 @@ User Interface tab of PDF Options dialog
 
 :guilabel:`Window Options` 区画
    :guilabel:`&Resize window to initial page`
-      ウィンドウを PDF の最初のページに合うようにリサイズする。
+      ウィンドウを |PDF| の最初のページに合うようにリサイズする。
    :guilabel:`&Center window on screen`
       ウィンドウを画面の中央に表示する。
    :guilabel:`&Open in full screen mode`
@@ -502,7 +495,7 @@ User Interface tab of PDF Options dialog
       ウィンドウの表題バーに文書の表題を表示する。
 :guilabel:`User Interface Options` 区画
    :guilabel:`Hide &menubar`
-      メニューを隠す。
+      |MenuBar| を隠す。
    :guilabel:`Hide &toolbar`
       ツールバーを隠す。
    :guilabel:`Hide &window controls`
@@ -510,7 +503,7 @@ User Interface tab of PDF Options dialog
 :guilabel:`Transitions`
    Writer では使用不能。
 :guilabel:`Collapse Outlines`
-   :guilabel:`General` タブで :guilabel:`Export outl&ines` がオンになっている場
+   |GeneralTab| で :guilabel:`Export outl&ines` がオンになっている場
    合、アウトラインに表示される見出しレベルの数を指定する。
 
 Links tab of PDF Options dialog
@@ -562,8 +555,10 @@ Security tab of PDF Options dialog
 Digital Signatures tab of PDF Options dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Digital Signatures` タブには電子署名付き |PDF| を書き出すための選択肢
-がある。
+.. |DigiSigTab| replace:: :guilabel:`Digital Signatures` タブ
+.. |SelCertDlg| replace:: :guilabel:`Select Certificate` ダイアログボックス
+
+|DigiSigTab| には電子署名付き |PDF| を書き出すための選択肢がある。
 
 電子署名は次のことを確保するのに用いられる：
 
@@ -578,20 +573,18 @@ IC カードを使用する場合、keystore で使用できるように設定�
 れは通常、IC カードソフトウェアのインストール時に行われる。
 
 * :guilabel:`&Use this certificate to digitally sign PDF documents`:
-  :guilabel:`&Select...` ボタンを押すと :guilabel:`Select Certificate` ダイアロ
-  グボックスが開き、選択した keystore で見つかったすべての証明書が表示され
-  る。Keystore がパスワードで保護されている場合はその入力を求められる。|PIN| で
-  保護されている IC カードを使用する場合も |PIN| の入力を求められる。
+  :guilabel:`&Select...` ボタンを押すと |SelCertDlg| が開き、選択した keystore
+  で見つかったすべての証明書が表示される。Keystore がパスワードで保護されている
+  場合はその入力を求められる。|PIN| で保護されている IC カードを使用する場合も
+  |PIN| の入力を求められる。
 * 書き出した |PDF| の電子署名に使用する証明書を選択し、:guilabel:`Sign` を押す。
 
-:guilabel:`Digital Signature` タブの他のフィールドすべては証明書が選択された後に
-限りアクセス可能だ。
+|DigiSigTab| の他のフィールドすべては証明書が選択された後に限りアクセス可能だ。
 
 * :guilabel:`Certificate &password`: 選択した証明書に関連する秘密鍵を保護するた
   めに使用するパスワードを入力する。通常、これは keystore パスワードだ。
-  Keystore のパスワードが :guilabel:`Select Certificate` ダイアログボックスで既
-  に入力されている場合、keystore は既にロック解除されている可能性があり、再度パ
-  スワードを入力する必要はない。
+  Keystore のパスワードが |SelCertDlg| で既に入力されている場合、keystore は既に
+  ロック解除されている可能性があり、再度パスワードを入力する必要はない。
 * IC カードを使用する場合はここに |PIN| を入力する。一部の IC カードソフトウェア
   では、署名の前に |PIN| の入力を再度求められる。
 * :guilabel:`&Location`, :guilabel:`Contact &information`, :guilabel:`&Reason`: オ
@@ -602,28 +595,29 @@ IC カードを使用する場合、keystore で使用できるように設定�
   を選択する。|PDF| 署名プロセス中、TSA は電子署名されたタイムスタンプを取得し、
   それを署名に埋め込む。閲覧者はこのタイムスタンプを使用して、文書がいつ署名され
   たかを確認できる。
-* 選択できる TSA URL の一覧は |OptionsDlg| の:menuselection:`LibreOffice -->
-  Security` ページ` :guilabel:`TSAs` で管理される。TSA URL が選択されていない場
-  合（これが既定）、署名にはタイムスタンプが付与されず、ローカルコンピューターの
-  現在時刻が使用される。
+* 選択できる TSA URL の一覧は |OptionsDlg| |SecurityPage| :guilabel:`TSAs` で管
+  理される。TSA URL が選択されていない場合（これが既定）、署名にはタイムスタンプ
+  が付与されず、ローカルコンピューターの現在時刻が使用される。
 
 Exporting to EPUB format
 ======================================================================
 
 |EPUB| 形式はスマートフォン、タブレット、電子書籍リーダーなどの携帯端末が市場に
-登場してから普及した。中身を含む :abbr:`HTML (HyperText Markup Language)` ファイ
-ルと、画像やその他の支援ファイルから構成される書庫ファイルとして実装されている。
+登場してから普及した。中身を含む |HTML| ファイルと、画像やその他の支援ファイルか
+ら構成される書庫ファイルとして実装されている。
 
 Writer はファイルを |EPUB| にエクスポートすることが可能だ。テキストしかない文書
-は通常うまく書き出されるが、一部の中身（イラスト、図表、相互参照など）は正しく書
-き出されないことがある。
+は通常うまく書き出されるが、一部の中身（図版、図表、相互参照など）は正しく書き出
+されないことがある。
 
 Quick export to EPUB
 ----------------------------------------------------------------------
 
-:menuselection:`&File --> &Export As --> Export Directly &as EPUB` を選択すると、
-:guilabel:`EPUB Export` ダイアログボックスで最近選択した |EPUB| 設定を使用
-して文書全体が書き出される。|EPUB| ファイルのファイル名と場所を入力しろ。
+.. |ePubExportDlg| replace:: guilabel:`EPUB Export` ダイアログボックス
+
+:menuselection:`&File-->&Export As-->Export Directly &as EPUB` を選択すると、
+|ePubExportDlg| で最近選択した |EPUB| 設定を使用して文書全体が書き出され
+る。|EPUB| ファイルのファイル名と場所を入力しろ。
 
 .. admonition:: 読者ノート
 
@@ -634,8 +628,8 @@ Controlling export to EPUB
 ----------------------------------------------------------------------
 
 作成される |EPUB| ファイルの内容や品質をより詳細に制御するには
-:menuselection:`&File --> &Export As --> Export E&PUB...` を使用する。
-:guilabel:`EPUB Export` ダイアログボックスが開く。
+:menuselection:`&File-->&Export As-->Export E&PUB...` を使用する。
+|ePubExportDlg| が開く。
 
 :guilabel:`&Version`
    エクスポートする |EPUB| バージョンを選択する。選択肢は次の二つ：
@@ -663,21 +657,19 @@ Controlling export to EPUB
    リー内の現在の文書ディレクトリーからカスタムメディアとメタデータを探す。
 :guilabel:`&Metadata` 区画
    検索に役立つタグを用意しておくファイルの基本情報。これらのフィールドは Writer
-   の :menuselection:`&File --> Prpert&ies...` から既定で取得されるメタデータを
-   編集するもう一つの機会を与える。
+   の |FilePropertiesM| から既定で取得されるメタデータを編集するもう一つの機会を
+   与える。
 
 Exporting to other formats
 ======================================================================
 
 LibreOffice では、ファイル形式の変更を伴うファイル操作の一部に export という術語
-を使用している。:menuselection:`&File --> Save As...` で必要なものが見つからない
-場合は :menuselection:`&File --> Expor&t...` も参照しろ。Writer はファイルを
-:abbr:`XHTML (eXtensible HyperText Markup Language)`, |EPUB|, およびその他の形式
-にエクスポートできる。
+を使用している。|SaveAsM| で必要なものが見つからない場合は |FileExportM| も参照
+しろ。Writer はファイルを :abbr:`XHTML (eXtensible HyperText Markup Language)`,
+|EPUB|, およびその他の形式にエクスポートできる。
 
-:menuselection:`&File --> Expor&t...` を選択する。:guilabel:`Export` ダイアログ
-ボックスで :guilabel:`ファイル名 (&N)` と :guilabel:`ファイルの種類 (&T)` を選択
-して :guilabel:`Export` を押す。
+|FileExportM| を選択する。:guilabel:`Export` ダイアログボックスで |FileNameBox|
+と |FileTypeList| で選択して :guilabel:`Export` を押す。
 
 Emailing Writer documents
 ======================================================================
@@ -691,8 +683,8 @@ LibreOffice には Writer 文書をメールの添付ファイルとしてすば
 
 現在の文書を .odt 形式で送信する手順：
 
-#. :menuselection:`&File --> Sen&d --> &Email Document...` または
-   :menuselection:`&File --> Sen&d --> Email as &OpenDocument Text...` を選択。
+#. :menuselection:`&File-->Sen&d-->&Email Document...` または
+   :menuselection:`&File-->Sen&d-->Email as &OpenDocument Text...` を選択。
    インストールされていれば、既定のメールプログラムが開く。文書が新しいメールに
    添付される。
 #. メールソフトで受信者、件名、追加したいテキストを入力し、メールを送信する。
@@ -700,8 +692,7 @@ LibreOffice には Writer 文書をメールの添付ファイルとしてすば
 :menuselection:`Email as &Microsoft Word...` を選択した場合、Writer はまず Word
 形式のファイルを作成し、新しいメールに Word ファイルが添付された状態でメールプロ
 グラムを開く。同様に、:menuselection:`Email as P&DF...` を選択した場合、
-:guilabel:`PDF Options` ダイアログボックスを開き、必要な設定を選択することができ
-る。
+|PDFOptionsDlg| を開き、必要な設定を選択することができる。
 
 Emailing a document to several recipients
 ----------------------------------------------------------------------
@@ -711,11 +702,11 @@ Writer のメールマージ機能を使ってアドレス帳からメールア�
 
 Writer のメールマージを使ってメールを送信するには二つの方法がある：
 
-* :guilabel:`Mail Merge` ウィザードを使用して文書を作成し、送信する。
+* |MMWizard| を使用して文書を作成し、送信する。
 * ウィザードを使用せずに Writer で文書を作成し、それからウィザードを使用して文書
   を送信する。
 
-:doc:`Chapter 14 <writer14>` で詳しく見ていく。
+|Writer14| で詳しく見ていく。
 
 Digital signing of documents
 ======================================================================
@@ -739,15 +730,15 @@ checksum を再度計算し、保存されている値と比較する。両方�
 されている公開鍵と比較することができる。誰かが文書のどこかを変更すると、その変更
 によって電子署名が破られる。
 
-証明書の取得方法、管理方法、および署名の検証方法の詳細については、LibreOffice
-Help を参照しろ。
+証明書の取得方法、管理方法、および署名の検証方法の詳細については |Help| を参照し
+ろ。
 
 .. admonition:: 読者ノート
 
    どこに？
 
-署名された文書には Status バーに図像が表示される。図像をダブルクリックすると、証
-明書を表示できる。文書には署名を複数追加できる。
+署名された文書には |StatusBar| に図像が表示される。図像をダブルクリックすると、
+証明書を表示できる。文書には署名を複数追加できる。
 
 既存の記述を変更するとその署名は無効になる。ただし、同じ作成者による複数の署名は
 許可されている。
@@ -755,31 +746,31 @@ Help を参照しろ。
 Applying a digital signature
 ----------------------------------------------------------------------
 
+.. |DigSigDlg| replace:: :guilabel:`Digital Signatures` ダイアログボックス
+
 以下の手順は、文書に電子署名をする方法の一例だ。実際の手順は計算機の構成方法やOS
 によって異なる。
 
-#. :menuselection:`&File --> Di&gital Signatures --> Digital Signatu&res...` を
+#. :menuselection:`&File-->Di&gital Signatures-->Digital Signatu&res...` を
    選択する。
 
    * 文書にコメントや記録された変更が含まれる場合に警告を表示するように
      LibreOffice を設定している場合、文書への署名を続行するかどうかを尋ねるメッ
      セージボックス欄が表示されることがある。
    * 最後の変更以降、文書を保存していない場合は、メッセージボックスが表示され
-     る。:guilabel:`&Yes` を都合二度押す。
-#. :guilabel:`Digital Signatures` ダイアログボックスが開く。既存の署名がその説明
+     る。|Yes| を都合二度押す。
+#. |DigSigDlg| が開く。既存の署名がその説明
    とともに一覧表示される。文書に新しい署名を追加するには :guilabel:`&Sign
    Document...` ボタンをクリックする。
-#. :guilabel:`Select Certificate` ダイアログボックスで証明書を選択し、オプション
-   の説明を追加し、:guilabel:`Sign` を押して戻る。使用された証明書は、その名前の
-   横に図像が付いた状態でダイアログボックスに表示される。この図像は、電子署名の
-   状態を示す。
-#. :guilabel:`Digital Signatures` ダイアログボックスで :guilabel:`&Close` を押し
-   て電子署名を適用する。
+#. |SelCertDlg| で証明書を選択し、オプションの説明を追加し、:guilabel:`Sign` を
+   押して戻る。使用された証明書は、その名前の横に図像が付いた状態でダイアログ
+   ボックスに表示される。この図像は、電子署名の状態を示す。
+#. |DigSigDlg| で |Close| を押して電子署名を適用する。
 
 Including a signature line
 ----------------------------------------------------------------------
 
-:guilabel:`&Insert --> Signatu&re Line...` を選択して署名行を表す画像欄を生成で
+:guilabel:`&Insert-->Signatu&re Line...` を選択して署名行を表す画像欄を生成で
 きる。電子証明書を使用して署名行に署名することもできる。
 
 Removing personal data
@@ -788,16 +779,15 @@ Removing personal data
 個人データ、版、コメント、秘密情報、記録変更が、他の人に送信したり、ファイルから
 |PDF| を作成する前に、ファイルから削除されていることを保証したい場合がある。
 
-|OptionsDlg| の :menuselection:`LibreOffice --> Security` ページで
-:guilabel:`O&ptions...` ボタンを押すと :guilabel:`Security Options and Warnings`
-ダイアログボックスが表示され、ファイルに特定の情報が含まれている場合に警告を表示
-したり、保存時に個人情報を自動的に削除したりするように LibreOffice を設定するこ
-とが可能だ。
+|OptionsDlg| |SecurityPage| で :guilabel:`O&ptions...` ボタンを押すと
+:guilabel:`Security Options and Warnings` ダイアログボックスが表示され、ファイル
+に特定の情報が含まれている場合に警告を表示したり、保存時に個人情報を自動的に削除
+したりするように LibreOffice を設定することが可能だ。
 
 ファイルから個人データなどを削除するには、
 
-#. :menuselection:`&File --> Propert&ies...`
-#. :guilabel:`General` タブで :guilabel:`&Apply user data` をオフ
+#. |FilePropertiesM|
+#. |GeneralTab| で :guilabel:`&Apply user data` をオフ
 #. :guilabel:`&Reset Properties` を押す
 
 これにより、作成および変更フィールドの名前が削除され、変更日と印刷日が削除され、
@@ -805,8 +795,8 @@ Removing personal data
 
 バージョン情報を削除するには、
 
-* :menuselection:`&File --> Versions...` を選択。:guilabel:`Existing Versions`
-  一覧からバージョンを選択して :guilabel:`&Delete` を押すか、
+* :menuselection:`&File-->Versions...` を選択。:guilabel:`Existing Versions` 一
+  覧からバージョンを選択して :guilabel:`&Delete` を押すか、
 * ファイルを別の名前で保存する。
 
 Redaction
@@ -820,7 +810,7 @@ Redaction
 黒塗り手順：
 
 #. 文書を開く
-#. メニューから :menuselection:`&Tools --> Re&dact` を選択
+#. |MenuBar| から :menuselection:`&Tools-->Re&dact` を選択
 #. 文書が再編集用に準備されて Draw に転送されるのを待つ
 
    ここから Draw での作業になる。:guilabel:`Redaction` ツールバーが開く。
@@ -839,10 +829,10 @@ Auto-redaction
 ----------------------------------------------------------------------
 
 黒塗りプロセスを部分的に自動化するには、特定の単語（名前など）が文書内のどこに
-あっても黒塗りするように定義する。これを行うには、メニューで
-:menuselection:`&Tools --> Auto-Redact` を選択し、:guilabel:`Automatic
-Redaction` ダイアログボックスを開く。ここでは、用語（対象）の一覧の読み込み、対
-象の追加、対象の削除、対象の編集、対象の一覧の保存ができる。
+あっても黒塗りするように定義する。これを行うには、|MenuBar| で
+:menuselection:`&Tools-->Auto-Redact` を選択し、:guilabel:`Automatic Redaction`
+ダイアログボックスを開く。ここでは、用語（対象）の一覧の読み込み、対象の追加、対
+象の削除、対象の編集、対象の一覧の保存ができる。
 
 Accessibility checking
 ======================================================================
@@ -851,20 +841,20 @@ LibreOffice には画面読み上げを含む外部機器やアプリケーシ�
 かの accessibility 機能が含まれている。
 
 文書を公開する前に、Writerの :guilabel:`&Accessibility Tool` を使用して、一般的
-な問題を確認できる。手動で検査を実行するには、メニューの :menuselection:`&Tools
---> &Accessibility Check...` を選択する。|PDF| にエクスポートする場
-合、:guilabel:`PDF Export` ダイアログボックスの :guilabel:`General` タブで
+な問題を確認できる。手動で検査を実行するには、|MenuBar| の
+:menuselection:`&Tools -->&Accessibility Check...` を選択する。|PDF| にエクス
+ポートする場合、:guilabel:`PDF Export` ダイアログボックスの |GeneralTab| で
 :guilabel:`Universal Accessibilit&y (PDF/UA)` をオンにし、:guilabel:`E&xport` を
 押すと、警告ダイアログボックスがポップアップ表示される。
 
-:guilabel:`Accessibility Check` ダイアログボックスは既定で Sidebar に表示される。
-文書で見つかった問題の一覧が表示される。検査項目には以下が含まれる：
+:guilabel:`Accessibility Check` ダイアログボックスは既定で |Sidebar| に表示され
+る。文書で見つかった問題の一覧が表示される。検査項目には以下が含まれる：
 
 * 文書の表題が設定されていること
 * 文書の言語が設定されていること、または使用中のすべてのスタイルに言語が設定され
   ていること
-* すべての画像、画像、:abbr:`OLE (Object Linking and Embedding)` オブジェクトに
-  代替テキスト（場合によっては表題）が設定されていること
+* すべての画像、画像、|OLE| 物に代替テキスト（場合によっては表題）が設定されてい
+  ること
 * 表に分割または結合されたセルが含まれていないこと
 * 手動の番号付け（統合番号付けを使用していないこと）
 * テキストと背景のコントラスト

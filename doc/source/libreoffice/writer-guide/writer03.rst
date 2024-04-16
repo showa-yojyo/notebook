@@ -2,7 +2,7 @@
 Writer Guide Chapter 3, Working with Text: Advanced ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 本章見出し
    :depth: 3
@@ -22,13 +22,12 @@ Introduction
 * 他の文書から資料を挿入する
 * 行番号
 
-この章の読者が :doc:`Chapter 2 <writer02>` に馴染んでいることを仮定される。
+この章の読者が |Writer02| に馴染んでいることを仮定される。
 
-|OptionsDlg| :menuselection:`LibreOffice Writer -->
-Formatting Aids` ページで段落末尾印、タブ、改行などの書式設定補助項目を表示する
-設定にすることも推奨。
+|OptionsDlg| |FormattingAidsPage| で段落末尾印、タブ、改行などの書式設定補助項目
+を表示する設定にすることも推奨。
 
-テキストの書式設定については :doc:`次章 <writer04>` を見ろ。
+テキストの書式設定については |Writer04| を見ろ。
 
 Using built-in language tools
 ======================================================================
@@ -36,10 +35,10 @@ Using built-in language tools
 Writer には同一文書内に言語が複数混在している場合の作業を容易にするツールがいく
 用意されている：
 
-* :menuselection:`&Tools --> Lan&guage -->` サブメニューにある機能
-* |OptionsDlg| :guilabel:`Language Settings`
+* :menuselection:`&Tools-->Lan&guage-->` サブメニューにある機能
+* |OptionsDlg| :menuselection:`Language Settings-->`
 * パラグラフと文字スタイル
-* Status バーで使える機能
+* |StatusBar| で使える機能
 
 選択テキストの言語を変更する主な利点は、
 
@@ -56,18 +55,18 @@ Writer には同一文書内に言語が複数混在している場合の作業�
 可能。このオプションは、Web アドレスやプログラミング言語のコード片など、綴字検査
 をしたくないテキストを挿入する場合に有用だ。
 
-Using :menuselection:`&Tools --> Lan&guage`
+Using :menuselection:`&Tools-->Lan&guage`
 ----------------------------------------------------------------------
 
-メニュー :menuselection:`&Tools --> Lan&guage -->` 以下で、文書全体、段落ごと、
+|MenuBar| :menuselection:`&Tools-->Lan&guage-->` 以下で、文書全体、段落ごと、
 あるいは単語や文字ごとに言語を設定可能：
 
-* :menuselection:`&For Selection -->` は選択テキストに指定言語を適用する。適用し
+* :menuselection:`&For Selection-->` は選択テキストに指定言語を適用する。適用し
   たい言語がサブメニューに表示されていない場合は :menuselection:`&More...` を選
-  択して :guilabel:`Character` ダイアログボックスを開く。
-* :menuselection:`For &Paragraph -->` はキャレットのある段落に指定言語を適用す
+  択して |CharacterDlg| を開く。
+* :menuselection:`For &Paragraph-->` はキャレットのある段落に指定言語を適用す
   る。
-* :menuselection:`For &All Text -->` は指定言語を変更後に挿入されたテキストを含
+* :menuselection:`For &All Text-->` は指定言語を変更後に挿入されたテキストを含
   む文書全体に適用する。
 
 サブメニューの :menuselection:`&Reset to Default Language` オプションは、選択範
@@ -90,31 +89,34 @@ Using language settings in Options
 .. note::
 
    綴字検査はオンになっている言語に対してしか機能しない。所望の言語の横にこの記
-   号が表示されていない場合は、メニューから :menuselection:`&Tools --> Lan&guage
-   --> &More Dictionaries Online...` を使って辞書をインストールすることが可能。
+   号が表示されていない場合は、|MenuBar| から :menuselection:`&Tools-->Lan&guage
+   -->&More Dictionaries Online...` を使って辞書をインストールすることが可能。
 
 Using paragraph and character styles
 ----------------------------------------------------------------------
 
-:guilabel:`Paragraph Styles` ダイアログボックスの :guilabel:`Font` タブで言語を
-変更すると、その段落スタイルを使用する段落すべての言語が変更される。
+|ParagraphStyleDlg| |FontTab| で言語を変更すると、その段落スタイルを使用する段落
+すべての言語が変更される。
 
 単一文書に異なる言語の段落全体を含めるには、言語ごとに異なる段落スタイルを使用し
-ろ。例えば、英語とフランス語の段落を含む文書で、BodyText-EN と BodyText-FR を定
-義することなど考えられる。
+ろ。例えば、英語とフランス語の段落を含む文書で、`BodyText-EN` と `BodyText-FR`
+を定義することなど考えられる。
 
-スタイルの言語設定を管理する方法の詳細については :doc:`Chapter 9 <writer09>` で
-習う。
+スタイルの言語設定を管理する方法の詳細については |Writer09| で習う。
 
 Using the Status bar
 ----------------------------------------------------------------------
 
 段落を文書の他の部分の言語と異なる言語で検査するように設定するには、段落にキャ
-レットを置き、Status バーの言語を変更する。この変更は、選択した段落のみに影響す
+レットを置き、|StatusBar| の言語を変更する。この変更は、選択した段落のみに影響す
 る。
 
-綴字検査に使用される言語も Status バーの使用中ページスタイルの横に表示され
-る。Status バーの言語をクリックするとポップアップメニューが現れる。
+綴字検査に使用される言語も |StatusBar| の使用中ページスタイルの横に表示され
+る。|StatusBar| の言語をクリックするとポップアップメニューが現れる。
+
+.. admonition:: 読者ノート
+
+   たぶん :guilabel:`[None]` と示されている部分を指している。
 
 先述のように、このサブメニューにある :menuselection:`&Reset to Default Language`
 が段落や文書全体を既定言語に戻す最速の方法だ。
@@ -122,9 +124,8 @@ Using the Status bar
 Advanced find and replace techniques
 ======================================================================
 
-単語や語句の検索と置換 (:doc:`Chapter 2 <writer02>`) に加えて、:guilabel:`Find
-and Replace` ダイアログボックスを使って、段落スタイルやテキスト書式の検索と置換
-を行うことが可能だ。
+単語や語句の検索と置換 (|Writer02|) に加えて、|Find&ReplaceDlg| を使って、段落ス
+タイルやテキスト書式の検索と置換を行うことが可能だ。
 
 Find and replace paragraph styles
 ----------------------------------------------------------------------
@@ -132,9 +133,8 @@ Find and replace paragraph styles
 複数素材を組み合わせると、文書内の段落スタイルが不要になることがある。段落のすべ
 てをあるスタイルから別のスタイルにすばやく変更する手順は：
 
-#. :guilabel:`Find and Replace` ダイアログボックス :guilabel:`Other &options` で
-   :guilabel:`Paragraph St&yles` を選択する。文書で使用されている段落スタイルの
-   一覧が表示される。
+#. |Find&ReplaceDlg| :guilabel:`Other &options` で :guilabel:`Paragraph St&yles`
+   を選択する。文書で使用されている段落スタイルの一覧が表示される。
 
    * テキストの書式や属性を指定している場合、このオプションは
      :guilabel:`Including Styles` と表示される。
@@ -217,8 +217,7 @@ Search with wildcards and regular expressions
 
 検索および置換時にワイルドカードと正規表現を使用するには、次の手順に従う：
 
-#. :guilabel:`Find and Replace` ダイアログボックスで :guilabel:`Other &options`
-   を展開する。
+#. |Find&ReplaceDlg| で :guilabel:`Other &options` を展開する。
 #. :guilabel:`Re&gular expressions` をオンにする。
 #. 検索テキスト（ワイルドカードを含む）を :guilabel:`&Find` 欄に入力し、置換テキ
    ストがあればそれを :guilabel:`Re&place` 欄に入力する。
@@ -228,7 +227,7 @@ Search with wildcards and regular expressions
 .. note::
 
    ワイルドカードとして定義された文字を検索するには、その文字の前にバックスラッ
-   シュを入力する。例えば ``$5.00`` というテキストを見つけるには
+   シュを入力する。例えば `$5.00` というテキストを見つけるには
    :regexp:`\\$5\\.00` を検索する。
 
 Tracking changes to a document
@@ -269,62 +268,61 @@ Preparing a document for review
 保護をオフにしたり、変更を受理したり却下したりするには、正しいパスワードを入力す
 る必要がある。
 
-#. 文書を開く。:menuselection:`&File --> Version` を選択して、その文書に複数の
-   バージョンが含まれているかどうかを確認する。複数のバージョンが表示されている
-   場合は、現在版を別の名前で別の文書として保存し、この新しい文書を査読コピーと
-   して使用する。
+.. |TrackChangesToolbar| replace:: :guilabel:`Track Changes` ツールバー
+.. |RecordM| replace:: :menuselection:`&Edit-->Track Chan&ges-->&Record`
+
+#. 文書を開く。:menuselection:`&File-->Versions...` を選択して、その文書に複数の
+   版が含まれているかどうかを確認する。複数の版が表示されている場合は、現在版を
+   別の名前で別の文書として保存し、この新しい文書を査読コピーとして使用する。
 #. 査読コピーを開いた状態で、変更の記録がオンになっていることを確認する。記録が
    オンになっていると、次が強調表示される：
 
-   * メニュー :menuselection:`&Edit --> Track Chan&ges --> &Record` 項目
-   * :guilabel:`Track Changes` ツールバーの :guilabel:`Record Track Changes` 図
-     像
+   * |MenuBar| |RecordM| 項目
+   * |TrackChangesToolbar| の :guilabel:`Record Track Changes` 図像
 #. 次のいずれかを行う：
 
-   * :guilabel:`Track Changes` ツールバーの :guilabel:`Protect Track Changes` を
-     クリック
-   * :menuselection:`&Edit --> Track Chan&ges --> &Protect...` を選択
+   * |TrackChangesToolbar| の :guilabel:`Protect Track Changes` をクリック
+   * :menuselection:`&Edit-->Track Chan&ges-->&Protect...` を選択
 #. :guilabel:`Enter Password` ダイアログボックスが開く。パスワードを二度入力。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 .. tip::
 
-   上記の手順 2 と 3 の代わりに、:menuselection:`&File --> Propert&ies...` から
-   :guilabel:`Security` タブを選択し、:guilabel:`Record &changes` をオンにしてか
-   ら :guilabel:`&Protect...` を押してパスワードを入力する方法もある。
+   上記の手順 2 と 3 の代わりに、|FilePropertiesM| から |SecurityTab| を選択し、
+   :guilabel:`Record &changes` をオンにしてから :guilabel:`&Protect...` を押して
+   パスワードを入力する方法もある。
 
 Track Changes menu and toolbar
 ----------------------------------------------------------------------
 
-:menuselection:`Track Chan&ges -->` メニューに加えて、同じ機能のボタンを含む便利
-なツールバーが用意されている。:guilabel:`Track Changes` ツールバーを有効にするに
-は :menuselection:`&View --> &Toolbars --> Track Chan&ges` をクリックする。この
-ツールバーは使いやすい場所に繋留することも、浮遊させておくことも可能だ。
+:menuselection:`Track Chan&ges-->` メニューに加えて、同じ機能のボタンを含む便利
+なツールバーが用意されている。|TrackChangesToolbar| を有効にするには
+:menuselection:`&View-->&Toolbars-->Track Chan&ges` をクリックする。このツール
+バーは使いやすい場所に繋留することも、浮遊させておくことも可能だ。
 
 Recording changes
 ----------------------------------------------------------------------
 
 変更の記録（追跡）を開始するには、次のいずれかを行う：
 
-* :guilabel:`Track Changes` ツールバーの :guilabel:`Record Track Changes` をク
-  リック
-* メニューの :menuselection:`&Edit --> Track Chan&ges --> &Record` を選択
+* |TrackChangesToolbar| の :guilabel:`Record Track Changes` をクリック
+* |MenuBar| の |RecordM| を選択
 
 変更の表示を表示または非表示にするには、
 
-* :guilabel:`Track Changes` ツールバーの :guilabel:`Show track changes` をクリッ
-  ク
-* メニューの :menuselection:`&Edit--> Track Chan&ges --> &Show` を選択
+.. |TrackChangesShowM| replace:: :menuselection:`&Edit-->Track Chan&ges-->&Show`
+
+* |TrackChangesToolbar| の :guilabel:`Show track changes` をクリック
+* |MenuBar| の |TrackChangesShowM| を選択
 
 追跡された変更にコメントを入力するには、変更箇所にキャレットを置き、次のいずれか
 を行う：
 
-* :menuselection:`&Edit --> Track Chan&ges --> &Comment...` を選択
-* :guilabel:`Track Changes` ツールバーの :guilabel:`Insert Track Change Comment`
-  ボタンをクリック
+* :menuselection:`&Edit-->Track Chan&ges-->&Comment...` を選択
+* |TrackChangesToolbar| の :guilabel:`Insert Track Change Comment` ボタンをク
+  リック
 
-変更記録を停止するには :menuselection:`&Edit --> Track Chan&ges --> &Record` を
-再度選択する。
+変更記録を停止するには |RecordM| を再度選択する。
 
 Recording inserted, deleted, and moved material
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -360,7 +358,7 @@ Down` ボタンを使用すると、ドラッグ＆ドロップやカット＆�
 アウトライン追跡は初期状態で有効になっている。無効にするには、
 
 #. Navigator 上で :guilabel:`Headings` を右クリックし、
-#. コンテキストメニューから :menuselection:`Outline &Tracking --> &Off` を選択す
+#. コンテキストメニューから :menuselection:`Outline &Tracking-->&Off` を選択す
    る。
 
 Viewing changes and comments
@@ -370,38 +368,40 @@ Viewing changes and comments
 すヘルプヒントが表示される。拡張ヒントを有効にすると、この変更に対して記録された
 コメントも表示される。
 
-記録されたコメントは、拡張ヒントとして表示されるだけでなく、:guilabel:`Manage
-Changes` ダイアログボックスの目録にも表示される。変更にコメントが記録されていな
-い場合、コメントフィールドは空白になる。
+.. |ManageChangesDlg| replace:: :guilabel:`Manage Changes` ダイアログボックス
 
-追跡された変更から次の変更に移動するには、:guilabel:`Track Changes` ツールバーの
+記録されたコメントは、拡張ヒントとして表示されるだけでなく、|ManageChangesDlg|
+の目録にも表示される。変更にコメントが記録されていない場合、コメントフィールドは
+空白になる。
+
+追跡された変更から次の変更に移動するには、|TrackChangesToolbar| の
 :guilabel:`Previous Change` と :guilabel:`Next Change` 図像を使用する。
 
 初期設定では追跡された変更はインライン表示される。削除または挿入を余白に表示する
-には、:guilabel:`Track Changes` ツールバーの :guilabel:`Show track changes` ド
-ロップダウンメニューから選択する。
+には、|TrackChangesToolbar| の :guilabel:`Show track changes` ドロップダウンメ
+ニューから選択する。
 
 Accepting or rejecting changes
 ----------------------------------------------------------------------
 
 記録された変更を受理したり却下したりするには、次のいずれかを使用する：
 
-* :guilabel:`Track Changes` ツールバー
-* :menuselection:`Track Chan&ges -->` メニュー
+* |TrackChangesToolbar|
+* :menuselection:`Track Chan&ges-->` メニュー
 * 右クリックメニュー
-* :guilabel:`Manage Changes` ダイアログボックス
+* |ManageChangesDlg|
 * Sidebar 内 :guilabel:`Manage Changes` 甲板
 
 .. rubric:: Track Changes menu and toolbar
 
-:menuselection:`&Edit --> Track Chan&ges -->` サブメニューに表示されているのと同
+:menuselection:`&Edit-->Track Chan&ges-->` サブメニューに表示されているのと同
 じ機能のボタンがある。
 
 .. rubric:: Right-click (context) menu
 
-#. 追跡された変更が表示されていない場合は、:guilabel:`Track Chan&ges` ツールバー
-   の :guilabel:`Show track changes` 図像をクリックするか、メニューで
-   :menuselection:`&Edit --> Track Chan&ges --> &Show` を選択する。
+#. 追跡された変更が表示されていない場合は、|TrackChangesToolbar| の
+   :guilabel:`Show track changes` 図像をクリックするか、|MenuBar| で
+   |TrackChangesShowM| を選択する。
 #. 記録された変更の上にマウスポインターを置く。箱が表示され、変更の種類、変更
    者、日時に関する情報が表示される。
 #. コンテキストメニューから :menuselection:`Accept Change` または
@@ -409,21 +409,20 @@ Accepting or rejecting changes
 
 .. rubric:: Manage Changes dialog and Sidebar deck
 
-#. :guilabel:`Track Changes` ツールバーの :guilabel:`Manage Track Changes` 図像
-   をクリックするか、メニューから :menuselection:`&Edit --> Track Chan&ges -->
-   &Manage...` を選択する。
-#. :guilabel:`Manage Changes` ダイアログボックスが開き、受理も却下もされていない
-   変更が表示される。Sidebar の :guilabel:`Manage Changes` 図像をクリックするこ
-   とでも同じ情報が表示される。
+#. |TrackChangesToolbar| の :guilabel:`Manage Track Changes` 図像をクリックする
+   か、|MenuBar| から :menuselection:`&Edit-->Track Chan&ges--> &Manage...` を選
+   択する。
+#. |ManageChangesDlg| が開き、受理も却下もされていない変更が表示される。Sidebar
+   の :guilabel:`Manage Changes` 図像をクリックすることでも同じ情報が表示される。
 #. ダイアログボックスで変更を選択すると、その変更自体が文書内で強調表示されるの
    で、何が変更されたかを目視で確認可能だ。
 #. :guilabel:`Accept` または :guilabel:`Reject` をクリックして、選択した変更を受
    理または却下する。変更を個別に確認したくない場合は :guilabel:`Accept All` ま
    たは :guilabel:`Reject All` を押すことも可能だ。
 
-特定の人の変更だけを表示したい場合などでは :guilabel:`Manage Changes` ダイアログ
-ボックスの :guilabel:`Filter` タブを用いる。絞り込み条件を指定した後、
-:guilabel:`List` タブに戻り、条件を満たす変更を表示する。
+特定の人の変更だけを表示したい場合などでは |ManageChangesDlg| :guilabel:`Filter`
+タブを用いる。絞り込み条件を指定した後 :guilabel:`List` タブに戻り、条件を満たす
+変更を表示する。
 
 Comparing documents
 ----------------------------------------------------------------------
@@ -432,19 +431,19 @@ Comparing documents
 れば、変更箇所を見つけることが可能だ。比較するには：
 
 #. 編集済みの文書を開く。
-#. :menuselection:`&Edit --> Track Chan&ges --> Co&mpare Document...` を選択する
-   か、:guilabel:`Track Chan&ges` ツールバーの :guilabel:`Compare Non-Track
-   Changed Document` 図像をクリック。
+#. :menuselection:`&Edit-->Track Chan&ges-->Co&mpare Document...` を選択するか、
+   |TrackChangesToolbar| の :guilabel:`Compare Non-Track Changed Document` 図像
+   をクリック。
 #. :guilabel:`Compare to Original Document` ダイアログボックスで元の文書を選択
-   し、:guilabel:`開く(&O)` を押す。
+   し、|Open| を押す。
 
-Writer は変更を見つけて印を付け、:guilabel:`Manage Changes` ダイアログボックスを
-表示する。このダイアログボックスから、前述のように変更内容を確認し、変更を許可ま
-たは却下することが可能だ。
+Writer は変更を見つけて印を付け、|ManageChangesDlg| を表示する。このダイアログ
+ボックスから、前述のように変更内容を確認し、変更を許可または却下することが可能
+だ。
 
-この機能で使用する詳細さの度合いを設定するには、:guilabel:`Options` ダイアログ
-ボックスの :menuselection:`LibreOffice Writer --> Compare` ページで設定を構成す
-る。:doc:`Chapter 20 <writer20>` で詳細が述べられる。
+この機能で使用する詳細さの度合いを設定するには、|OptionsDlg|
+:menuselection:`LibreOffice Writer-->Compare` ページで設定を構成する。
+|Writer20| で詳細が述べられる。
 
 Merging modified documents
 ----------------------------------------------------------------------
@@ -459,9 +458,9 @@ Merging modified documents
 要がある。
 
 #. 原文書を開く。
-#. :menuselection:`&Edit > Track Chan&ges --> Merge Document...` を選択する
-   か、:guilabel:`Track Chan&ges` ツールバーの :guilabel:`Merge Track Changed
-   Document` 図像をクリックする。
+#. :menuselection:`&Edit-->Track Chan&ges-->Merge Document...` を選択するか、
+   |TrackChangesToolbar| の :guilabel:`Merge Track Changed Document` 図像をク
+   リックする。
 #. ファイル選択ダイアログボックスが開く。原文書に
 
    * その後の変更がない場合、そのコピーは併合される。
@@ -486,8 +485,8 @@ Adding other comments
 #. 次のいずれかを行う：
 
    * 右クリックして :menuselection:`Inser&t Comment` を選択
-   * キーバインド :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`C`
-   * :guilabel:`Track Changes` ツールバーの :guilabel:`Insert Comment` 図像をク
+   * キーバインド |Ctrl+Alt| + :kbd:`C`
+   * |TrackChangesToolbar| の :guilabel:`Insert Comment` 図像をク
      リック
 
 コメントの錨点はページの右側にあるコメントテキスト入力欄と点線で結ばれている。ま
@@ -514,13 +513,13 @@ Adding other comments
 
 を削除可能だ。このメニューから :menuselection:`Format All Comments...` を選択す
 ると、コメントのテキストに基本的な書式を適用するダイアログを開くことも可能だ。
-フォントの種類、サイズ、配置をメニューで変更することも可能だ。
+フォントの種類、サイズ、配置を |MenuBar| で変更することも可能だ。
 
 文書が査読、コメントされ、原著者の行動が必要な場合、コメントのコンテキストメ
 ニューの選択肢を使用して各コメントに Resolved または Unresolved の目印を付けるこ
 とが可能だ。Resolved のコメントをマークすると、コメント欄の日付の下に
-:guilabel:`Resolved` という文字が挿入される。メニューの :menuselection:`&View
---> Resolved Comments` を使用して、文書内のすべての解決済みコメントの表示を切り
+:guilabel:`Resolved` という文字が挿入される。|MenuBar| の :menuselection:`&View
+-->Resolved Comments` を使用して、文書内のすべての解決済みコメントの表示を切り
 替えることが可能だ。コメントに回答を追加することも可能だ。
 
 あるコメントから別のコメントに移動するには、Navigator を開き、
@@ -531,11 +530,11 @@ Adding other comments
 を選択し、その横にある上下の矢印をクリックして、次のコメントや前のコメントに移動
 することも可能だ。キーボードを使用して移動することも可能だ：
 
-* :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Page Down`
-* :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Page Up`
+* |Ctrl+Alt| + |PgDn|
+* |Ctrl+Alt| + |PgUp|
 
-文書内のコメントを印刷するには、:guilabel:`Print` ダイアログボックスの
-:guilabel:`Co&mments` ドロップダウンリストでいずれかのオプションを選択する。
+文書内のコメントを印刷するには、|PrintDlg| の :guilabel:`Co&mments` ドロップダウ
+ンリストでいずれかのオプションを選択する。
 
 Using footnotes and endnotes
 ======================================================================
@@ -545,8 +544,8 @@ Using footnotes and endnotes
 脚注と巻末注を効果的に扱うには以下を行う必要がある：
 
 * 初期設定値が合わない場合は、脚注を挿入して書式を定義する。
-* ページ上の脚注の位置と、区切り線の色と線スタイルを定義する。:doc:`Chapter 5
-  <writer05>` で述べられる。
+* ページ上の脚注の位置と、区切り線の色と線スタイルを定義する。|Writer05| で述べ
+  られる。
 
 Inserting footnotes and endnotes
 ----------------------------------------------------------------------
@@ -554,20 +553,20 @@ Inserting footnotes and endnotes
 脚注または巻末注を挿入するには：
 
 #. 脚注または巻末注印を表示したい位置にキャレットを置く。
-#. メニューで :menuselection:`&Insert --> Footnote and Endno&te -->` から関連項
-   目を選択するか、:guilabel:`Standard` ツールバーの :guilabel:`Insert Footnote`
-   または :guilabel:`Insert Endnote` 図像をクリックする。
+#. |MenuBar| で :menuselection:`&Insert-->Footnote and Endno&te-->` から関連項目
+   を選択するか、|StandardToolbar| の :guilabel:`Insert Footnote` または
+   :guilabel:`Insert Endnote` 図像をクリックする。
 #. 脚注または巻末注マーカーがテキストに挿入され、選択に応じて、キャレットがペー
    ジ床板の脚注領域または文書末尾の巻末注領域に移動する。この領域に脚注または巻
    末注の内容を入力する。
 
-脚注、巻末釈の設定を変更するには、メニューの :menuselection:`&Tools -->
+脚注、巻末釈の設定を変更するには、|MenuBar| の :menuselection:`&Tools-->
 &Footnotes and Endnotes...` を選択する。
 
 脚注設定で指定された自動番号付け順序を使用するか、カスタム番号を指定するかを選択
 するには、
 
-#. :menuselection:`&Insert --> Footnote and Endno&te > &Footnote or Endnote...`
+#. :menuselection:`&Insert-->Footnote and Endno&te-->&Footnote or Endnote...`
 #. :guilabel:`Insert Footnote/Endnote` ダイアログボックスで指定する。
 
 既存の脚注や注は、他のテキストを編集するのと同じ方法で編集することが可能だ。
@@ -578,7 +577,7 @@ Inserting footnotes and endnotes
 Formatting footnotes and endnotes
 ----------------------------------------------------------------------
 
-脚注自身の書式を設定するには、メニューの :menuselection:`&Tools --> &Footnotes
+脚注自身の書式を設定するには、|MenuBar| の :menuselection:`&Tools-->&Footnotes
 and Endnotes...` を選択する。:guilabel:`Settings of Footnotes and Endnotes` ダイ
 アログボックスで構成する。
 
@@ -595,8 +594,10 @@ Writer には参照を最新の状態に保つための方法が二つ備わっ�
 
 どちらの方法も、同じ文書の他の部分や別の文書にリンク可能だ。
 
-どちらの方法も結果は同じだ。文書を開いているときにリンクを :kbd:`Ctrl` を押しつ
-つクリックすると、被参照項目に直接飛ぶ。しかし、両者には大きな違いもある：
+どちらの方法も結果は同じだ。文書を開いているときにリンクを |Ctrl| を押しつつク
+リックすると、被参照項目に直接飛ぶ。しかし、両者には大きな違いもある：
+
+.. |HyperlinkDlg| replace:: :guilabel:`Hyperlink` ダイアログボックス
 
 * ハイパーリンクのテキストは、リンクされた項目のテキストを変更しても自動的には更
   新されないが、変更されたテキストは相互参照で自動的に更新される。
@@ -604,21 +605,20 @@ Writer には参照を最新の状態に保つための方法が二つ備わっ�
   地がないが、相互参照を使用する場合、選択肢がある。
 * 画像などのオブジェクトにハイパーリンクし、そのハイパーリンクに有用なテキストを
   表示させるには、そのようなオブジェクトに有用な名前を明示的に与えるか、
-  :guilabel:`Hyperlink` ダイアログボックスを使って表示テキストを変更する。対照的
-  に、キャプション付きの図への相互参照は、有用なテキストを自動的に表示するように
-  設定でき、名前の変種もいくつか選択可能だ。
+  |HyperlinkDlg| を使って表示テキストを変更する。対照的に、キャプション付きの図
+  への相互参照は、有用なテキストを自動的に表示するように設定でき、名前の変種もい
+  くつか選択可能だ。
 * Writer 文書を |HTML| ファイルに保存すると、ハイパーリンクは生きたままだが、相
   互参照はそうではない。
 
-  * replace:: :abbr:`PDF (Portable Document Format)` ファイルにエクスポートする
-    と、両方とも生きたままになる。
+  * |PDF| ファイルにエクスポートすると、両方とも生きたままになる。
 
 Using cross-references
 ----------------------------------------------------------------------
 
 見出し、キャプション、その他のリンクされた項目が書き換えられた場合に相互参照のテ
-キストが更新されるようにするには自動相互参照を使用する。詳しくは :doc:`Chapter
-17 <writer17>` でやる。
+キストが更新されるようにするには自動相互参照を使用する。詳しくは |Writer17| でや
+る。
 
 Using bookmarks
 ----------------------------------------------------------------------
@@ -626,24 +626,24 @@ Using bookmarks
 ブックマークは Navigator に一覧表示され、マウスをシングルクリックするだけでそこ
 から直接アクセス可能だ。|HTML| 文書ではブックマークはハイパーリンクで飛ぶことが
 可能である錨に変換される。ブックマークへの相互参照も可能だ。これも詳しくは
-:doc:`Chapter 17 <writer17>` でやる。
+|Writer17| でやる。
 
 Using hyperlinks
 ----------------------------------------------------------------------
 
 Web サイトのアドレスや URL など、ハイパーリンクとして使用できるテキストを入力し、
-:kbd:`Space` または :kbd:`Enter` を押すと、Writer は自動的にハイパーリンクを作成
-し、テキストに書式を適用する。
+|Space| または |Enter| を押すと、Writer は自動的にハイパーリンクを作成し、テキス
+トに書式を適用する。
 
-この機能が有効にならない場合は :menuselection:`&Tools --> AutoCorr&ect -->
-&AutoCorrect Options...` を使用してこの機能を有効に可能だ。:guilabel:`Options`
-タブで :guilabel:`URL Recognition` をオンにする。
+この機能が有効にならない場合は :menuselection:`&Tools-->AutoCorr&ect-->
+&AutoCorrect Options...` を使用してこの機能を有効に可能だ。|OptionsTab| で
+:guilabel:`URL Recognition` をオンにする。
 
 LibreOffice で特定の URL をハイパーリンクに変換したくない場合は、書式設定が適用
 された直後にハイパーリンクにキャレットを置いて右クリックし、
 :menuselection:`&Remove Hyperlink` を選択する。
 
-また、Navigator や :guilabel:`Hyperlink` ダイアログボックスを使って、
+また、Navigator や |HyperlinkDlg| を使って、
 
 * 文書の他の部分、他の文書や文書の一部、電子メールアドレスへのハイパーリンクを挿
   入したり、
@@ -651,11 +651,11 @@ LibreOffice で特定の URL をハイパーリンクに変換したくない場
 
 *Getting Started Guide* に詳細がある。
 
-LibreOffice 内でハイパーリンクを活性にする標準の動作は :kbd:`Ctrl` 押しクリック
+LibreOffice 内でハイパーリンクを活性にする標準の動作は |Ctrl| 押しクリック
 だ。この動作を変更するには、
 
 #. |OptionsDlg| を開く
-#. :menuselection:`LibreOffice --> Security` ページを開く
+#. |SecurityPage| を開く
 #. :guilabel:`Security Options and Warnings` 横にある :guilabel:`O&ptions...` ボ
    タンを押す
 #. :guilabel:`Ctrl-click required &to open hyperlinks` をオフにする
@@ -666,16 +666,15 @@ Editing hyperlinks
 ハイパーリンクを編集する手順：
 
 #. リンクテキスト内の任意の場所をクリック
-#. 以下のいずれかを行い :guilabel:`Hyperlink` ダイアログボックスを開く：
+#. 以下のいずれかを行い |HyperlinkDlg| を開く：
 
    * コンテキストメニューから :menuselection:`Edit Hyperlink...` を選択
-   * :guilabel:`Standard` ツールバーの :guilabel:`Hyperlink` 図像をクリック
-   * メニューから :menuselection:`&Edit --> &Hyperlink` を選択
-#. 変更を加え :guilabel:`&Apply` を押す
+   * |StandardToolbar| の :guilabel:`Hyperlink` 図像をクリック
+   * |MenuBar| から :menuselection:`&Edit-->&Hyperlink` を選択
+#. 変更を加え |ApplyButton| を押す
 
 複数のハイパーリンクを編集する必要がある場合は、すべてのハイパーリンクを編集する
-まで :guilabel:`Hyperlink` ダイアログボックスを開いたままにしておくことが可能
-だ。
+まで |HyperlinkDlg| を開いたままにしておくことが可能だ。
 
 ハイパーリンクの色を変更する手順：
 
@@ -684,7 +683,7 @@ Editing hyperlinks
 #. :guilabel:`General` 区画の :guilabel:`Unvisited links` または
    :guilabel:`Visited links` にスクロールしてこれらの選択肢をオンにして、新しい
    色を選択
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 これにより、LibreOffice プログラムのすべてでハイパーリンクの色が変更される。
 
@@ -699,7 +698,7 @@ Navigator には見出しとそれに関連するテキストを文書内の別�
 * コンテキストメニュー
 
 見出しの左にある :guilabel:`+` をクリックすると、小見出し一覧が展開する。必要な
-見出しをより簡単に見つけるには、:menuselection:`Show &Up to Outline -->` の選択
+見出しをより簡単に見つけるには、:menuselection:`Show &Up to Outline-->` の選択
 を変更して、数レベルの見出しのみを表示する。
 
 見出しとそれに関連するテキストや節を文書内で上下に移動させ、見出しのアウトライン
@@ -723,7 +722,7 @@ Navigator には見出しとそれに関連するテキストを文書内の別�
 選択した見出しのみを移動し、関連するテキストを移動しないようにするには次のいずれ
 かを行う：
 
-* :kbd:`Ctrl` を押しながらドラッグ
+* |Ctrl| を押しながらドラッグ
 * 図像をクリック
 * コンテキストメニューから選択
 
@@ -731,12 +730,12 @@ Navigator には見出しとそれに関連するテキストを文書内の別�
 
    これらのコマンドにはキーバインドも定義されている。
 
-   * Move Heading Up: :kbd:`Ctrl` + :kbd:`↑`
-   * Move Heading Down: :kbd:`Ctrl` + :kbd:`↓`
+   * Move Heading Up: |Ctrl| + |ArrowU|
+   * Move Heading Down: |Ctrl| + |ArrowD|
 
-見出しの位置を変えずに、見出しのアウトラインレベル（例えば :guilabel:`Heading 2`
-から :guilabel:`Heading 1` や :guilabel:`Heading 3` に上下させる）とそれに関連す
-る小見出しを変更するには、次のいずれかを実行する：
+見出しの位置を変えずに、見出しのアウトラインレベル（例えば `Heading 2` から
+`Heading 1` や `Heading 3` に上下させる）とそれに関連する小見出しを変更するに
+は、次のいずれかを実行する：
 
 * Navigator で見出しを選択し、次の図像のいずれかをクリックする：
 
@@ -750,7 +749,7 @@ Navigator には見出しとそれに関連するテキストを文書内の別�
   * :menuselection:`Demote &Outline Level`
 
 選択した見出しのアウトラインレベルだけを変更し、関連する小見出しは変更しないよう
-にするには、:kbd:`Ctrl` を押しながら次のいずれかを実行する：
+にするには、|Ctrl| を押しながら次のいずれかを実行する：
 
 * 図像をクリック
 * コンテキストメニューから選択
@@ -759,8 +758,8 @@ Navigator には見出しとそれに関連するテキストを文書内の別�
 
    これらのコマンドにはキーバインドも定義されている。
 
-   * Promote Outline Level: :kbd:`Ctrl` + :kbd:`←`
-   * Demote Outline Level: :kbd:`Ctrl` + :kbd:`→`
+   * Promote Outline Level: |Ctrl| + |ArrowL|
+   * Demote Outline Level: |Ctrl| + |ArrowR|
 
 Outline folding
 ======================================================================
@@ -780,7 +779,7 @@ Using the Navigator
 ----------------------------------------------------------------------
 
 Navigator を開き :guilabel:`Heading` を表示する。見出しを何か右クリックし、
-:menuselection:`Outline &Folding --> &Toggle` を選択すると、その見出しと同じレベ
+:menuselection:`Outline &Folding-->&Toggle` を選択すると、その見出しと同じレベ
 ルの次の見出しの間の内容表示有無が切り替わる。
 
 Using a mouse
@@ -792,7 +791,7 @@ Using a mouse
 * 下矢印は見出しとその内容が表示されていることを示す。
 * 右矢印は見出しが隠れた内容を持つことを示す。
 
-:kbd:`Ctrl` を押す。マウスポインターの形が変わったらクリックしてその見出しから同
+|Ctrl| を押す。マウスポインターの形が変わったらクリックしてその見出しから同
 じレベルの次の見出しまでの間の内容の表示有無を切り替える。
 
 Saving, printing, and exporting folded contents
@@ -803,8 +802,8 @@ Open Document Format (.odt) で保存された文書は隠される内容と見�
 
 .. note::
 
-   隠された内容や折りたたまれた内容は印刷されず、PDF にエクスポートされない。文
-   書全体を印刷またはエクスポートするにはアウトラインの折りたたみをオフにしろ。
+   隠された内容や折りたたまれた内容は印刷されず、|PDF| にエクスポートされない。
+   文書全体を印刷またはエクスポートするにはアウトラインの折りたたみをオフにしろ。
 
 Inserting material from other documents
 ======================================================================
@@ -816,7 +815,7 @@ Inserting material from other documents
 
 Writer にはこれらの作業を容易にするツールがいくつかある：
 
-* :doc:`Chapter 6 <writer06>` で説明する :guilabel:`Section` ダイアログボックス
+* |Writer06| で説明する |InsertSectionDlg|
 * Navigator のドラッグモードにある項目二つ
 
 Navigator ツールを使用するには、まず原文書から挿入したい項目を選択し、
@@ -824,14 +823,14 @@ Navigator ツールを使用するには、まず原文書から挿入したい�
 * Insert as Link または
 * Insert as Copy
 
-を選択する。この方法では、画像、OLE オブジェクト、参照、索引のリンクやコピーを作
-成することは不可能だ。
+を選択する。この方法では、画像、|OLE| オブジェクト、参照、索引のリンクやコピーを
+作成することは不可能だ。
 
 Insert as Link
    ドラッグ＆ドロップした場所に選択した項目をリンクとして挿入する。テキストは保
    護された節として挿入され、原文書へのリンクとしてマークされる。リンクの内容は
    原文書が変更されると自動的に更新される。文書内のリンクを手動で更新するには
-   :menuselection:`&Tools --> &Update --> &Links` を実行する。
+   |UpdateLinksM| を実行する。
 Insert as Copy
    ドラッグ＆ドロップした場所に選択した項目の独立したコピーを挿入する。テキスト
    は節の中にあるが保護されていない。コピー項目は現文書が変更されても更新されな
@@ -853,22 +852,21 @@ Line numbering
 
 文書全体に行番号を追加するには、
 
-#. :menuselection:`&Tools --> &Line Numbering...` を選択し、:guilabel:`Line
+#. :menuselection:`&Tools-->&Line Numbering...` を選択し、:guilabel:`Line
    Numbering` ダイアログボックスを開く。
 #. 左上隅にある :guilabel:`&Show numbering` をオンにする。
 #. 必要なオプションを選択する。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
-文書全体の行番号付けを無効にするには、Default Paragraph Style を編集する。段落ス
-タイルはすべてが Default Paragraph Style に基づいているから。
+文書全体の行番号付けを無効にするには、`Default Paragraph Style` を編集する。段落
+スタイルはすべてが `Default Paragraph Style` に基づいているから。
 
-#. Sidebar の :guilabel:`Styles` ペインで :guilabel:`Paragraph Styles` 図像をク
-   リック
-#. 木から :guilabel:`Default Paragraph Style` を右クリックし
-   :menuselection:`&Edit Style...` を選択
-#. :guilabel:`Outline & List` タブをクリック
+#. Sidebar の |StylesDeck| で :guilabel:`Paragraph Styles` 図像をクリック
+#. 木から `Default Paragraph Style` を右クリックし :menuselection:`&Edit
+   Style...` を選択
+#. |Outline&ListTab| をクリック
 #. :guilabel:`&Include this paragraph in line numbering` をオフ
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 特定の段落に行番号を付ける手順：
 
@@ -876,16 +874,15 @@ Line numbering
 #. 行番号を付けたい段落を選択
 #. 次のどちらかを選択：
 
-   * メニューから :menuselection:`F&ormat --> P&aragraph...`
-   * 右クリックメニューから :menuselection:`Paragraph --> Paragraph`
-#. :guilabel:`Paragraph` ダイアログボックスの :guilabel:`Outline & List` タブで
-   :guilabel:`&Include this paragraph in line numbering` をオン
-#. :guilabel:`&OK`
+   * |MenuBar| から :menuselection:`F&ormat-->P&aragraph...`
+   * 右クリックメニューから :menuselection:`P&aragraph-->P&aragraph`
+#. |ParagraphDlg| の |Outline&ListTab| で :guilabel:`&Include this paragraph in
+   line numbering` をオン
+#. |OK| を押す。
 
-また、段落を選択して :guilabel:`Paragraph` ダイアログボックスを開き
-:guilabel:`&Include this paragraph in line numbering` をオフにすれば、それ以外の
-ほとんどの段落では有効にしたまま、特定の段落に対して行番号を無効にすることが可能
-だ。
+また、段落を選択して |ParagraphDlg| を開き :guilabel:`&Include this paragraph in
+line numbering` をオフにすれば、それ以外のほとんどの段落では有効にしたまま、特定
+の段落に対して行番号を無効にすることが可能だ。
 
 行番号を含む段落スタイルを作成し、行番号を付けたい段落に適用することも可能だ。
 たとえば、文書内のサンプルコードの行に番号を付けるには、通常のテキストとは異なる
@@ -893,9 +890,9 @@ Line numbering
 
 開始行番号を指定する手順：
 
-#. 段落内をクリックし、上の手順で :guilabel:`Paragraph` ダイアログボックスを開く
-#. :guilabel:`Outline & List` タブで、:guilabel:`&Include this paragraph in line
-   numbering` がオンであることを確認する
+#. 段落内をクリックし、上の手順で |ParagraphDlg| を開く
+#. |Outline&ListTab| で :guilabel:`&Include this paragraph in line numbering` が
+   オンであることを確認する
 #. :guilabel:`Rest&art a this paragraph` をオン
 #. :guilabel:`&Start with` 欄に行番号を入力
-#. :guilabel:`&OK`
+#. |OK| を押す。

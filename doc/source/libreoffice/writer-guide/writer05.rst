@@ -2,7 +2,7 @@
 Writer Guide Chapter 5, Formatting Pages: Basics ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -20,23 +20,21 @@ Introduction
 * 表題ページ
 * 脚注
 
-:doc:`Chapter 6 <writer06>` では、段組、枠、図表、節の使用、文書内のページの向き
-の変更、境界と背景の使用について説明がある。ページスタイルのその他の使い方につい
-ては :doc:`Chapter 8 <writer08>` に説明がある。:guilabel:`Page Style` ダイアログ
-ボックスについては :doc:`Chapter 9 <writer09>` に説明がある。
+|Writer06| では、段組、枠、表組、節の使用、文書内のページの向きの変更、境界と背
+景の使用について説明がある。ページスタイルのその他の使い方については |Writer08|
+に説明がある。|PageStyleDlg| については |Writer09| に説明がある。
 
 .. note::
 
    Writer 文書のページはすべてページスタイルに基づいている。他のレイアウト方法
-   (:doc:`Chapter 6 <writer06>`) は、基本的なページスタイルに基づいて構築され
-   る。
+   (|Writer06|) は、基本的なページスタイルに基づいて構築される。
 
 .. tip::
 
    ページレイアウトは通常、|OptionsDlg| の |ApplicationColors| でテキスト、オブ
-   ジェクト、図表、節の境界を表示するオプションを選択し、同ダイアログボックス
-   :menuselection:`LibreOffice Writer --> Formatting Aids` で段落末尾、タブ、改
-   行、その他の項目を表示するオプションを選択すると簡単だ。
+   ジェクト、表組、節の境界を表示するオプションを選択し、同ダイアログボックス
+   |FormattingAidsPage| で段落末尾、タブ、改行、その他の項目を表示するオプション
+   を選択すると簡単だ。
 
 Setting up basic page layout using styles
 ======================================================================
@@ -48,11 +46,10 @@ Writer にはページスタイルがいくつか付属しており、それら�
 り、新しい（カスタム）ページスタイルを定義することができる。
 
 * 単一文書で一つ以上のページスタイルを使用できる。
-* ページスタイルを指定しない場合、Default Page Style が用いられる。
+* ページスタイルを指定しない場合、`Default Page Style` が用いられる。
 
 個々のページのレイアウトを変更するには、新しいページスタイルを定義するか、
-:doc:`Chapter 6 <writer06>` で説明されている技法（節、枠、図表）のいずれかを用い
-る。
+|Writer06| で説明されている技法（節、枠、表組）のいずれかを用いる。
 
 .. note::
 
@@ -62,10 +59,9 @@ Writer にはページスタイルがいくつか付属しており、それら�
 
 .. tip::
 
-   Default Page Style を含むページスタイルの変更は、作業中の文書にしか適用されな
-   い。変更を文書すべての既定にしたい場合は、変更をテンプレートに入れ、そのテン
-   プレートを既定テンプレートにする必要がある。:doc:`Chapter 10 <writer10>` 参
-   照。
+   `Default Page Style` を含むページスタイルの変更は、作業中の文書にしか適用され
+   ない。変更を文書すべての既定にしたい場合は、変更を雛形に入れ、それを既定雛形
+   にする必要がある。|Writer10| 参照。
 
 Changing page margins
 ======================================================================
@@ -73,15 +69,14 @@ Changing page margins
 ページの余白は次の方法で変更可能：
 
 * ページ定規を使う。素早く簡単だが、細かく制御できない。
-* :guilabel:`Page Style` ダイアログボックスを使う。余白を小数点以下二桁まで指定
-  できる。
-* Sidebar の :guilabel:`Page` 甲板を使用する。余白すべてを同じ値に変更可能。
+* |PageStyleDlg| を使う。余白を小数点以下二桁まで指定できる。
+* |Sidebar| |PageDeck| を使用する。余白すべてを同じ値に変更可能。
 
 .. note::
 
    これらのいずれかの方法で余白を変更した場合、新しい余白はページスタイルに記録
    され、そのスタイルを使用しているすべてのページに影響する。新しい余白は次に
-   :guilabel:`Page Style` ダイアログボックスを開いたときに表示される。
+   |PageStyleDlg| を開いたときに表示される。
 
    一部のページの余白を変更し、他のページの余白を変更しないようにするには、異な
    るページスタイルを使用して、それらを切り替える必要がある。後述。
@@ -95,34 +90,32 @@ Changing page margins
 .. note::
 
    定規上の小さな矢印は、段落の字下げに使用する。ページの余白と同じ位置にあるこ
-   とが多いので、矢印ではなく余白マーカーを動かすように注意しろ。図94に示す両頭
-   矢印はマウスポインターを正しい位置に置いたものだ。
+   とが多いので、矢印ではなく余白マーカーを動かすように注意しろ。
 
 .. tip::
 
    変更後、新しい余白にマウスポインターを合わせると、新しい測定値が表示される。
 
-:guilabel:`Page Style` ダイアログボックスを使って余白を変更する手順：
+|PageStyleDlg| を使って余白を変更する手順：
 
 #. ページ上のどこでもよいから右クリック
 #. :menuselection:`P&age Style...` を選択
-#. ダイアログボックスの :guilabel:`Page` タブで、:guilabel:`Margins` 欄に必要な
-   距離を入力する。
+#. :guilabel:`Margins` 欄に必要な距離を入力する。
 
    あるいは、:guilabel:`&Gutter` をゼロに設定したまま、綴じ込み余白の量を左余白
    または内余白の値に追加する。綴じ込み余白とは、ページの左端（内端）と左余白
    （内余白）の間に残す余白のことだ。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
-Sidebar の :guilabel:`Page` 甲板を使って余白を変更するには、
+|Sidebar| |PageDeck| を使って余白を変更するには：
 
 * ドロップダウンリストからプリセットの余白を選択するか、
 * :guilabel:`Format` 区画の表題バーの右上にある :guilabel:`More Options` アイコ
-  ンから :guilabel:`Page Style` ダイアログボックスを開く。
+  ンから |PageStyleDlg| を開く。
 
 .. note::
 
-   Sidebar の余白を変更すると余白四つがすべて同じ寸法に変更される。異なるサイズ
+   |Sidebar| の余白を変更すると余白四つがすべて同じ寸法に変更される。異なる広さ
    の余白が必要な場合は別の方法を使用しろ。
 
 Inserting page breaks
@@ -138,15 +131,14 @@ Controlling automatic page breaks
 自動テキストフローの一部は、次のような方法で制御する：
 
 * :guilabel:`&Keep with next paragraph` オプションは、たとえば、目録の先頭の文が
-  目録から切り離されるのを防ぐために使用する。このオプションは
-  :guilabel:`Paragraph` ダイアログボックスの :guilabel:`Text Flow` タブにある。
-* :guilabel:`Paragraph` ダイアログボックスの :guilabel:`Text Flow` タブ（個々の
-  段落に対して）または :guilabel:`Paragraph Style` ダイアログボックス（そのスタ
-  イルを持つすべての段落に対して）の :guilabel:`&Do not split paragraph` オプ
-  ションを使用する。
+  目録から切り離されるのを防ぐために使用する。このオプションは |ParagraphDlg|
+  |TextFlowTab| にある。
+* |ParagraphDlg| |TextFlowTab| （個々の段落に対して）または |ParagraphStyleDlg|
+  （そのスタイルを持つすべての段落に対して）の :guilabel:`&Do not split
+  paragraph` オプションを使用する。
 * 段落スタイルを使って段落を新しいページから始めるようにする。典型的な使い方は、
   章見出しがつねに新しい右ページ（奇数ページ）から始まるようにすることだ。これを
-  定義するには :guilabel:`Paragraph Style` ダイアログボックスを使いる。
+  定義するには |ParagraphStyleDlg| を使う。
 
 Inserting a page break without changing the page style
 ----------------------------------------------------------------------
@@ -154,47 +146,46 @@ Inserting a page break without changing the page style
 特定の場所で改頁するには、たとえば、新しいページの一番上に見出しを置くには：
 
 #. 新しいページを始めたい位置にキャレットを置く
-#. メニュー :menuselection:`&Insert --> &Page Break` を選択
+#. |MenuBar| :menuselection:`&Insert-->&Page Break` を選択
 
 Inserting a page break and changing to a new page style
 ----------------------------------------------------------------------
 
-新しいページに別のページスタイルを使用させるには、たとえば、First Page スタイル
-から Left Page スタイルに変更するには、以下のいずれかの方法を使用する。
+新しいページに別のページスタイルを使用させるには、たとえば、`First Page` スタイ
+ルから `Left Page` スタイルに変更するには、以下のいずれかの方法を使用する。
 
 .. caution::
 
    改頁を挿入せずに単一ページのページスタイルを変更しようとしてはいけない。変更
    されたページの前後の他のページの一部またはすべてのページスタイルも変更される
-   可能性がある。:doc:`Chapter 8 <writer08>` を見ろ。
+   可能性がある。|Writer08| を見ろ。
 
 .. rubric:: 方法一
 
 #. 次のページを始めたい位置にキャレットを置く
-#. :menuselection:`&Insert --> More &Breaks --> Manual &Break...` を選択
-#. :guilabel:`Insert Break` ダイアログボックスの :guilabel:`Type` 区画で
-   :guilabel:`&Page break` があらかじめ選択され、:guilabel:`Page &Style` が
-   :guilabel:`[None]` に設定されている。このドロップダウンリストで次のページに対
-   するページスタイルを選択する。
-#. :guilabel:`&OK`
+#. :menuselection:`&Insert-->More &Breaks-->Manual &Break...` を選択
+#. |InsertBreakDlg| の :guilabel:`Type` 区画で :guilabel:`&Page break` があらか
+   じめ選択され、:guilabel:`Page &Style` が :guilabel:`[None]` に設定されてい
+   る。このドロップダウンリストで次のページに対するページスタイルを選択する。
+#. |OK| を押す
 
 .. rubric:: 方法二
 
 #. キャレットを次のページの最初にしたい段落に置く
-#. 右クリックし、:menuselection:`P&arapgaph --> P&aragraph...` を選択
-#. :guilabel:`Paragraph` ダイアログボックスの :guilabel:`Text Flow` ページ
-   で、
+#. 右クリックし、:menuselection:`P&arapgaph-->P&aragraph...` を選択
+#. |ParagraphDlg| |TextFlowTab| で、
 
    * :guilabel:`Breaks` 区画の :guilabel:`&Insert` をオン
    * :guilabel:`With page st&yle` をオン
 #. ドロップダウンリストで次のページに対するページスタイルを選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 .. tip::
 
-   これらのページ番号フィールドの使用については :ref:`writer05-anchor5` を参照。
+   これらのページ番号フィールドの使用については
+   :ref:`writer05-anchor-first-page` を参照。
 
-.. _writer05-anchor1:
+.. _writer05-anchor-headers-footers:
 
 Creating headers and footers
 ======================================================================
@@ -218,49 +209,45 @@ Writer ではヘッダーとフッターはページスタイルで指定する�
 
 * テキストエリアの上部をクリックする。:guilabel:`Header` マーカーが表示された
   らプラス記号をクリックする。
-* メニューから :menuselection:`&Insert --> He&ader and Footer --> He&ader -->`
+* |MenuBar| から :menuselection:`&Insert-->He&ader and Footer-->He&ader -->`
   からページスタイルを選択
 
   サブメニューには文書で使用されているページスタイルと、文書のすべてのページスタ
   イルでヘッダーを有効にする :menuselection:`&All` という項目が表示される。
-* ページ上の任意の場所で右クリックし、メニューから Page Style を選択す
-  る。:guilabel:`Page Style` ダイアログボックスの :guilabel:`Header` タブで
-  :guilabel:`Hea&der on` をオンにする。この方法はある一つのページスタイルにしか
-  影響しない。
+* ページ上の任意の場所で右クリックし、:menuselection:`&Page Style...` を選択す
+  る。|PageStyleDlg| の |HeaderTab| で :guilabel:`Hea&der on` をオンにする。この
+  方法はある一つのページスタイルにしか影響しない。
 
 Formatting headers and footers
 ----------------------------------------------------------------------
 
 Writer ではヘッダーとフッターは段落だ。したがって、文書本文のテキストの書式設定
 と同じ技法を使用して、ヘッダーまたはフッターのテキストを書式設定できる。
-:doc:`Chapter 4 <writer04>` を参照しろ。また、:doc:`Chapter 11 <writer11>` で説
-明されている技法のいずれかを使用して、ヘッダーとフッターに画像を追加したり、
-:doc:`Chapter 6 <writer06>` で説明されているように、図表を使って情報を並べたりす
-ることもできる。
+|Writer04| を参照しろ。また、|Writer11| で説明されている技法のいずれかを使用し
+て、ヘッダーとフッターに画像を追加したり、|Writer06| で説明されているように、表
+組を使って情報を並べたりすることもできる。
 
 .. tip::
 
    Writer にはヘッダーとフッター用の段落スタイルが用意されており、他の段落スタイ
-   ルと同じように変更して使用することができる。:doc:`Chapter 8 <writer08>` と
-   :doc:`Chapter 9 <writer09>` を見ろ。
+   ルと同じように変更して使用することができる。|Writer08| と |Writer09| を見ろ。
 
-Sidebar の :guilabel:`Page` タブを使って、余白や間隔、同じ中身を最初のページや左
-右のページに配置するかどうかなど、いくつかの書式を適用することが可能だ。
+|Sidebar| の |PageTab| を使って、余白や間隔、同じ中身を最初のページや左右のペー
+ジに配置するかどうかなど、いくつかの書式を適用することが可能だ。
 
-さらなるオプションについては :guilabel:`Page Style` ダイアログボックスを使え。
+さらなるオプションについては |PageStyleDlg| を使え。
 
-#. :guilabel:`Page Style` ダイアログボックスを開く。以下のいずれかの方法による：
+#. |PageStyleDlg| を開く。以下のいずれかの方法による：
 
-   * ページ上のどこでもいいからクリックし、メニューから :menuselection:`F&ormat
-     --> &Page Style...` を選択
+   * ページ上のどこでもいいからクリックし、|MenuBar| から
+     :menuselection:`F&ormat-->&Page Style...` を選択
    * ページ上の右クリックメニューから :menuselection:`&Page Style...` を選択
    * ページにヘッダーがある場合はヘッダー領域をクリックする。:guilabel:`Header`
      マーカーが表示されたら下矢印をクリックし、:menuselection:`Format Header...`
      を選択
-   * Sidebar の :guilabel:`Page` タブで、ヘッダーの表題バーの右にある
-     :guilabel:`More Options` 図像をクリック
-#. :guilabel:`Page Style` ダイアログボックスの :guilabel:`Header` タブで、余白、
-   間隔、高さを変更
+   * |Sidebar| |PageTab| で、ヘッダーの表題バーの右にある :guilabel:`More
+     Options` 図像をクリック
+#. |PageStyleDlg| の |HeaderTab| で、余白、間隔、高さを変更
 #. :guilabel:`&More...` をクリックして :guilabel:`Border/Background` ダイアログ
    ボックスを開き、ヘッダーに境界、背景色、背景画像を追加可能
 
@@ -274,21 +261,20 @@ Numbering pages
 
 .. tip::
 
-   灰色の背景を消すには |View-->FieldShadings| を選ぶか :kbd:`Ctrl` + :kbd:`F8`
-   を押す。数字の代わりに :guilabel:`Page number` という文字が表示されたら
-   :kbd:`Ctrl` + :kbd:`F9` を押す。これにより、Writer はフィールドに対する名前と
-   中身の表示を切り替える。
+   灰色の背景を消すには |ViewFieldShadingsM| を選ぶか |Ctrl| + |F8| を押す。数字
+   の代わりに :guilabel:`Page number` という文字が表示されたら |Ctrl| + |F9| を
+   押す。これにより、Writer はフィールドに対する名前と中身の表示を切り替える。
 
 このトピックでは文書のヘッダーやフッターに次のような関連情報を挿入する技法につい
 て述べている：
 
-* :ref:`writer05-anchor2`
-* :ref:`writer05-anchor3`
-* :ref:`writer05-anchor4`
-* :ref:`writer05-anchor5`
-* :ref:`writer05-anchor6`
+* :ref:`writer05-anchor-simple`
+* :ref:`writer05-anchor-page-number`
+* :ref:`writer05-anchor-restarting`
+* :ref:`writer05-anchor-first-page`
+* :ref:`writer05-anchor-by-chapter`
 
-.. _writer05-anchor2:
+.. _writer05-anchor-simple:
 
 Simple page numbering
 ----------------------------------------------------------------------
@@ -296,9 +282,9 @@ Simple page numbering
 最も単純な場合、ページ番号を各ページの天井か床下に表示し、それ以外には何も表示し
 ない。これを行うには、
 
-* :menuselection:`&Insert --> &Page Number...` を選択するか、
-* ヘッダーまたはフッターにキャレットを置き、:menuselection:`&Insert --> Fiel&d
-  --> &Page Number` を選択する。
+* |InsertPageNumberM| を選択するか、
+* ヘッダーまたはフッターにキャレットを置き、
+  :menuselection:`&Insert-->Fiel&d-->&Page Number` を選択するa。
 
 前者の方法では :guilabel:`Page Number Wizard` が開く。後者の方法ではページ番号を
 直接挿入し、後で設定を調整する。
@@ -306,8 +292,8 @@ Simple page numbering
 Page number wizard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-メニューから :menuselection:`&Insert --> &Page Number...` を選択すると
-:guilabel:`Page Number Wizard` が開き、
+|MenuBar| から |InsertPageNumberM| を選択すると :guilabel:`Page Number Wizard`
+が開き、
 
 * 位置（ヘッダーまたはフッター）、
 * 配置（右、中央、左）、
@@ -319,8 +305,8 @@ Page number wizard
 :guilabel:`Page Number Wizard` を使用しない、または設定を変更する場合は、次の二
 節を参照。
 
-ページ番号の追加設定については :ref:`writer05-anchor4` と
-:ref:`writer05-anchor5` を見ろ。
+ページ番号の追加設定については :ref:`writer05-anchor-restarting` と
+:ref:`writer05-anchor-first-page` を見ろ。
 
 Page number alignment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,14 +314,13 @@ Page number alignment
 ページ番号を左、右、または中央に揃えるには、ヘッダーまたはフッターをクリックし、
 次のいずれかの方法でフッター段落を変更する：
 
-* :guilabel:`Formatting` ツールバーの整列図像のどれかをクリック。
-* Sidebar の :guilabel:`Properties` 甲板を開く。:guilabel:`Paragraph` 区画で整列
-  図像のどれかをクリック。
-* 右クリックし、:menuselection:`P&aragraph --> P&aragraph...` を選択。
-  :guilabel:`Paragraph` ダイアログボックスの :guilabel:`Alignment` タブで整列オ
-  プションを選択し、:guilabel:`&OK` を押す。
+* |FormattingToolbar| の整列図像のどれかをクリック。
+* |Sidebar| |PropertiesDeck| を開く。:guilabel:`Paragraph` 区画で整列図像のどれ
+  かをクリック。
+* 右クリックし、:menuselection:`P&aragraph-->P&aragraph...` を選択。
+  |ParagraphDlg| |AlignmentTab| で整列オプションを選択し、|OK| を押す。
 
-.. _writer05-anchor3:
+.. _writer05-anchor-page-number:
 
 Page number format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -353,19 +338,18 @@ Page number format
 
 #. ページのテキストエリアを右クリックし、コンテキストメニューから
    :menuselection:`&Page Style...` を選択
-#. :guilabel:`Page Style` ダイアログボックスの :guilabel:`Page` タブで、右側の
-   :guilabel:`Layout Settings `区画で、小文字ローマ数字を使用するために
-   :guilabel:`Page nu&mbers` ドロップダウンリストで :guilabel:`i, ii, iii, ...`
-   を選択
+#. |PageStyleDlg| |PageTab| で右側の :guilabel:`Layout Settings` 区画で、小文字
+   ローマ数字を使用するために :guilabel:`Page nu&mbers` ドロップダウンリストで
+   :guilabel:`i, ii, iii, ...` を選択
 
 .. caution::
 
    番号の書式を変更すると、その書式を変更する方法にかかわらず、そのページスタイ
    ルを使用しているすべてのページのページ番号に影響する。すべてのページではな
    く、一部のページのページ番号の書式を変更するには、別のページスタイルを使用す
-   る必要がある。:ref:`次節 <writer05-anchor5>` を見ろ。
+   る必要がある。:ref:`次節 <writer05-anchor-restarting>` を見ろ。
 
-.. _writer05-anchor4:
+.. _writer05-anchor-restarting:
 
 Restarting page numbering and changing numbering format
 ----------------------------------------------------------------------
@@ -378,29 +362,29 @@ Restarting page numbering and changing numbering format
 * Front Matter
 * Default Page Style
 
-これらについては :ref:`writer05-anchor8` と :ref:`前節 <writer05-anchor3>` を参
-照。
+これらについては :ref:`writer05-anchor-different` と :ref:`前節
+<writer05-anchor-page-number>` を参照。
 
-次に、文書の前見出しにページ番号を挿入する。:ref:`writer05-anchor2` を参照。
+次に、文書の前見出しにページ番号を挿入する。:ref:`writer05-anchor-simple` を参照。
 
 その後、ページ番号付けを再開する：
 
-#. Default Page Style にするページの最初の段落にキャレットを置く（見出しは段落の
-   一種だ）。
-#. メニューの :menuselection:`F&ormat --> P&aragraph...` を選択するか、右クリッ
-   クして :menuselection:`P&aragraph --> P&aragraph...` を選択し、
-   :guilabel:`Paragraph` ダイアログボックスを表示
-#. :guilabel:`Text Flow` タブの :guilabel:`Breaks` で、
+#. `Default Page Style` にするページの最初の段落にキャレットを置く（見出しは段落
+   の一種だ）。
+#. |MenuBar| の :menuselection:`F&ormat-->P&aragraph...` を選択するか、右クリッ
+   クして :menuselection:`P&aragraph-->P&aragraph...` を選択し、
+   |ParagraphDlg| を表示
+#. |TextFlowTab| の :guilabel:`Breaks` で、
 
    #. :guilabel:`&Insert` を選択
    #. :guilabel:`&Type` ドロップダウンリストで :guilabel:`Page` を選択
    #. :guilabel:`&Position` ドロップダウンリストで :guilabel:`Before` を選択
 #. :guilabel:`With page st&yle` をオンにしてドロップダウンリストから次のページに
    対するスタイルを選択
-#. :guilabel:`Page &number` をオンにしてフィールドを活性化し ``1`` を入力
-#. :guilabel:`&OK` を押す
+#. :guilabel:`Page &number` をオンにしてフィールドを活動開始し ``1`` を入力
+#. |OK| を押す
 
-.. _writer05-anchor5:
+.. _writer05-anchor-first-page:
 
 Numbering the first page something other than 1
 ----------------------------------------------------------------------
@@ -409,16 +393,16 @@ Numbering the first page something other than 1
 
 #. 先述の方法でヘッダー（フッター）にページ番号を挿入
 #. テキストエリアの最初の段落をクリック
-#. 先述の方法で :guilabel:`Paragraph` ダイアログボックスを表示
-#. :guilabel:`Text Flow` タブの :guilabel:`Breaks` で、
+#. 先述の方法で |ParagraphDlg| を表示
+#. |TextFlowTab| の :guilabel:`Breaks` で、
 
    #. :guilabel:`&Insert` を選択
    #. :guilabel:`&Type` ドロップダウンリストで :guilabel:`Page` を選択
    #. :guilabel:`With page st&yle` をオンにしてドロップダウンリストから最初の
       ページに使われるスタイルを選択
-#. :guilabel:`Page &number` をオンにしてフィールドを活性化し、開始ページ番号を入
-   力
-#. :guilabel:`&OK` を押す
+#. :guilabel:`Page &number` をオンにしてフィールドを活動開始し、開始ページ番号を
+   入力
+#. |OK| を押す
 
 .. note::
 
@@ -426,10 +410,10 @@ Numbering the first page something other than 1
    る。LibreOffice では奇数ページ番号は右ページ、偶数ページ番号は左ページという
    慣例に従っている。
 
-   この空白ページは、ファイルを印刷したり PDF として書き出したりするときに表示さ
-   れる。:doc:`Chapter 7 <writer07>` 参照。
+   この空白ページは、ファイルを印刷したり |PDF| として書き出したりするときに表示
+   される。|Writer07| 参照。
 
-.. _writer05-anchor6:
+.. _writer05-anchor-by-chapter:
 
 Numbering pages by chapter
 ----------------------------------------------------------------------
@@ -438,24 +422,22 @@ Numbering pages by chapter
 1-1, 1-2, 1-3, ..., 2-1, 2-2, 2-3, ... といった具合だ。このようなページ番号を設
 定するには次のようにする：
 
-#. 章の表題はすべて同じ段落スタイル、例えば :guilabel:`Heading 1` スタイルで識別
-   されるようにしろ。
-#. :menuselection:`&Tools --> Heading &Numbering` を使って :guilabel:`&Level` 1
-   に使用する段落スタイルを Writer に伝え、:guilabel:`&Number` 欄で
-   :guilabel:`1, 2, 3, ...` を指定する。
+#. 章の表題はすべて同じ段落スタイル、例えば `Heading 1` スタイルで識別されるよう
+   にしろ。
+#. |HeadingNumberingM| を使って :guilabel:`&Level` 1 に使用する段落スタイルを
+   Writer に伝え、:guilabel:`&Number` 欄で `1, 2, 3, ...` を指定する。
 #. 文書に章番号を挿入する：
 
    #. 先に挿入したページ番号の直前のヘッダーまたはフッターにキャレットを置き、メ
-      ニューで :menuselection:`&Insert --> Fiel&d --> &More Fields...` を選択
-   #. :guilabel:`Field` ダイアログボックスで :guilabel:`Document` タブに移動す
-      る。
+      ニューで :menuselection:`&Insert-->Fiel&d-->&More Fields...` を選択
+   #. |FieldsDlg| で |DocumentTab| に移動する。
 
       * :guilabel:`&Type` 一覧で :guilabel:`Heading` を指定
-      * :guilabel:`&Format ` 一覧で :guilabel:`Heading number` を指定
+      * :guilabel:`&Format` 一覧で :guilabel:`Heading number` を指定
       * :guilabel:`&Up tp level` 欄で :guilabel:`1` を指定
 
-      :guilabel:`&Insert` を押す。
-   #. 章番号とページ番号の間にハイフンなどの句読点を打ち込む
+      |Insert| を押す。
+   #. 章番号とページ番号の間にハイフンなどの句読点を打ち込む。
 
 Including other information in headers and footers
 ======================================================================
@@ -470,17 +452,16 @@ Including other information in headers and footers
   ることができる。そうすれば、何か変更があった場合、ヘッダーとフッターはすべて自
   動的に更新される。
 
-フィールドについては :doc:`Chapter 17 <writer17>` で扱う。ここではある例が役に立
-つ。文書の表題を Default Page Style のヘッダーに挿入するには：
+フィールドについては |Writer17| で扱う。ここではある例が役に立つ。文書の表題を
+`Default Page Style` のヘッダーに挿入するには：
 
-#. メニューの :menuselection:`&File --> Propert&ies` を選択
-#. :guilabel:`Description` タブ
+#. |MenuBar| |FilePropertiesM| を選択
+#. |DescritionTab|
 #. :guilabel:`&Title` 欄に文書の表題を入力
-#. :guilabel:`&OK` を押して :guilabel:`Properties` ダイアログボックスを閉じる
-   クスを閉じる。
+#. |OK| を押して |PropertiesDlg| を閉じる
 #. 上述のようにしてヘッダーを追加
 #. ページのヘッダー部分にキャレットを置く
-#. メニューから :menuselection:`&Insert --> Fiel&d --> T&itle` を選択
+#. |MenuBar| から :menuselection:`&Insert-->Fiel&d-->T&itle` を選択
 
 文書の表題を変更するには手順の前半を再現する。
 
@@ -493,54 +474,53 @@ Defining a different first page for a document
 
 これにはいくつかの方法がある：
 
-* 文書の Default またはその他のページスタイルを使用する。:guilabel:`Page Style`
-  ダイアログボックスの :guilabel:`Header` タブで :guilabel:`Same content on
-  first &page` をオフにし、文書の最初のページと他のページに異なるヘッダーを追加
-  する。:ref:`次節<writer05-anchor7>` 参照。
+* 文書の `Default` またはその他のページスタイルを使用する。|PageStyleDlg|
+  |HeaderTab| で :guilabel:`Same content on first &page` をオフにし、文書の最初
+  のページと他のページに異なるヘッダーを追加する。:ref:`次節
+  <writer05-anchor-one>` 参照。
 * 最初のページと後続ページで異なるページスタイルを使う。次のページが自動的に後続
   ページのスタイルになるように、最初のページに :guilabel:`Next Page` 属性を設定
-  する。:ref:`writer05-anchor8` 参照。
-* 文書の冒頭に表題ページを追加する。:ref:`writer05-anchor9` 参照。
+  する。:ref:`writer05-anchor-different` 参照。
+* 文書の冒頭に表題ページを追加する。:ref:`writer05-anchor-title` 参照。
 
 いずれの方法の詳細も後述。
 
-.. _writer05-anchor7:
+.. _writer05-anchor-one:
 
 Using one page style
 ----------------------------------------------------------------------
 
-この例は Default Page Style を用いる。
+この例は `Default Page Style` を用いる。
 
 .. admonition:: 読者ノート
 
    以下、ヘッダーについてしかノートを記しさないが、フッターでも当然成り立つ。
 
 #. ページ上のどこでもいいから右クリックし、:menuselection:`&Page Style...` を選
-   択する。:guilabel:`Page Style` ダイアログボックスの :guilabel:`Header` タブで
-   :guilabel:`Hea&der on` をオンにし、最初のページで同じ内容の選択を解除する。オ
-   プションで :guilabel:`Same co&ntent on left and right pages` を選択する。
+   択する。|PageStyleDlg| |HeaderTab| で :guilabel:`Hea&der on` をオンにし、最初
+   のページで同じ内容の選択を解除する。オプションで :guilabel:`Same co&ntent on
+   left and right pages` を選択する。
 #. Default Page Style を使用して、任意のページにヘッダーを挿入する。
-   :ref:`writer05-anchor1` 参照。
+   :ref:`writer05-anchor-headers-footers` 参照。
 #. 文書の最初のページと他のページに、異なるヘッダーの内容を追加する。例えば、最
    初のページのヘッダーは空白のままにしておく。
 
-.. _writer05-anchor8:
+.. _writer05-anchor-different:
 
 Using different page styles
 ----------------------------------------------------------------------
 
-例として、LibreOffice に付属している First Page と Default ページスタイルを使用
-する。最初のページに既定のページを表示し、それ以降のページをすべて既定のページス
-タイルにすることを検討する。
+例として、LibreOffice に付属している `First Page` と `Default` ページスタイルを
+使用する。最初のページに既定のページを表示し、それ以降のページをすべて既定のペー
+ジスタイルにすることを検討する。
 
 これを行うには、
 
-#. First Page スタイルに対する :guilabel:`Page Style` ダイアログボックスを開く
-#. :guilabel:`Organizer` タブ
-#. :guilabel:`Ne&xt Style` ドロップダウンリストで :guilabel:`Default Page Style`
-   を選択
+#. `First Page` スタイルに対する |PageStyleDlg| を開く
+#. |OrganizerTab|
+#. :guilabel:`Ne&xt Style` ドロップダウンリストで `Default Page Style` を選択
 
-.. _writer05-anchor9:
+.. _writer05-anchor-title:
 
 Adding title pages
 ----------------------------------------------------------------------
@@ -548,10 +528,12 @@ Adding title pages
 文書に表題ページを追加し、オプションで文書本文のページ番号を 1 から再開するため
 の、迅速で便利な方法が Writer には備わっている。
 
-メニューで :menuselection:`F&ormat --> Title Page...` を選択し、:guilabel:`Title
-Page` ダイアログボックスを開く。
+.. |TitlePageDlg| replace:: :guilabel:`Title Page` ダイアログボックス
 
-:guilabel:`Title Page` ダイアログボックスでは、次の選択ができる：
+|MenuBar| で :menuselection:`F&ormat-->Title Page...` を選択し、|TitlePageDlg| を
+開く。
+
+|TitlePageDlg| では次の選択ができる：
 
 * 既存ページを表題ページに変換するか、新しい表題ページを挿入するか
 * 変換または挿入するページ数
@@ -571,7 +553,7 @@ Formatting footnotes and endnotes
 既定のものが要求に合致しない場合、脚注と巻末注を効果的に機能させるには次のように
 する：
 
-* 脚注を挿入し、その書式を定義する (:doc:`Chapter 3 <writer03>`)
+* 脚注を挿入し、その書式を定義する (|Writer03|)
 * ページ上の脚注の位置、および区切り線の色と線スタイルを定義する
 
 Defining footnote location and separator line
@@ -581,10 +563,10 @@ Defining footnote location and separator line
 で定義する。複数のページスタイルを使っていて、そのどれかに脚注がある場合は、必ず
 それぞれのページスタイルで脚注の位置と区切り線を定義しろ。
 
-メニューの :menuselection:`F&ormat --> &Page Style...` を選択するか、ページを右
-クリックメニューから :menuselection:`&Page Style...` を選択すると
-:guilabel:`Page Style` ダイアログボックスが表示される。:guilabel:`Footnote` タブ
-に移動して選択し、:guilabel:`&OK` 押して変更を保存する。
+|MenuBar| :menuselection:`F&ormat-->&Page Style...` を選択するか、ページを右ク
+リックメニューから :menuselection:`&Page Style...` を選択すると |PageStyleDlg|
+が表示される。:guilabel:`Footnote` タブに移動して選択し、|OK| 押して変更を保存す
+る。
 
 既定の :guilabel:`&Not larger than page area` 設定を維持すると、脚注の数に基づい
 て脚注領域が自動的に計算される。脚注の最大空間を手動で制御するには
@@ -606,14 +588,12 @@ Column breaks
 は：
 
 #. キャレットを新しい段を開始したい位置に置く
-#. メニューから :menuselection:`&Insert --> More &Breaks --> Manual &Break...`
-   を選択
-#. :guilabel:`Insert Break` ダイアログボックスの :guilabel:`Type` 区画で
-   :guilabel:`Column &break` をオン
-#. :guilabel:`&OK`
+#. |MenuBar| から :menuselection:`&Insert-->More &Breaks-->Manual &Break...` を
+   選択
+#. |InsertBreakDlg| の :guilabel:`Type` 区画で :guilabel:`Column &break` をオン
+#. |OK| を押す
 
-:guilabel:`Paragraph` ダイアログボックスの :guilabel:`Breaks` 区画を使用すること
-も可能。
+|ParagraphDlg| の :guilabel:`Breaks` 区画を使用することも可能。
 
 Line breaks
 ----------------------------------------------------------------------
@@ -625,15 +605,15 @@ Line breaks
 * 左側がブロックされていない次の行に続く
 * 右側がブロックされていない次の行に続く
 
-既定の改行を挿入するには :kbd:`Shift` + :kbd:`Enter` を押す。
+既定の改行を挿入するには |Shift| + |Enter| を押す。
 
 その他の改行を挿入するには：
 
 #. テキストを改行したい位置にキャレットを置く
-#. :guilabel:`Insert Break` ダイアログボックスの :guilabel:`Type` 区画で
-   :guilabel:`&Line break` をオンにする
+#. |InsertBreakDlg| の :guilabel:`Type` 区画で :guilabel:`&Line break` をオンに
+   する
 #. 必要な改行の型を選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 Changing page orientation within a document
 ======================================================================
@@ -644,35 +624,32 @@ Changing page orientation within a document
 Setting up a landscape page style
 ----------------------------------------------------------------------
 
-#. 余白を他のページと同じにするには、現在のページスタイル（:guilabel:`Page
-   Style` ダイアログボックスの :guilabel:`Page` タブ）の余白設定に注意しろ。
-#. Sidebar の :guilabel:`Styles` 甲板で :guilabel:`Page Styles` 一覧から
-   :guilabel:`Landscape` を右クリックし、:menuselection:`&Edit Style...` を選択
-   する。
-#. :guilabel:`Page Style` ダイアログボックスの :guilabel:`Organizer` タブ
-   で、:guilabel:`Ne&xt style` が :guilabel:`Landscape` に設定されていることを確
-   認。
-#. :guilabel:`Page Style` ダイアログボックスの :guilabel:`Page` タブで、
-   :guilabel:`&Orientation` が :guilabel:`L&andscape` になっていることを確認す
-   る。
+#. 余白を他のページと同じにするには、現在のページスタイル [#writer05-footnote]_
+   の余白設定に注意しろ。
+#. |Sidebar| |StylesDeck| で :guilabel:`Page Styles` 一覧から
+   :guilabel:`Landscape` を右クリックし、|EditStyleC| を選択する。
+#. |PageStyleDlg| |OrganizerTab| で :guilabel:`Ne&xt style` が
+   :guilabel:`Landscape` に設定されていることを確認。
+#. |PageStyleDlg| |PageTab| で :guilabel:`&Orientation` が
+   :guilabel:`L&andscape` になっていることを確認する。
 #. 余白を縦書きページの余白に対応するように変更する。すなわち、縦長の上余白が横
    長の左余白になるようにする。
-#. :guilabel:`&OK`
+#. |OK| を押す。
 
 Inserting a landscape page into a portrait document
 ----------------------------------------------------------------------
 
 Landscape ページスタイルが定義された後、それを適用する方法：
 
-#. キャレットを横書きに設定したいページの先頭にある段落または図表に置く
+#. キャレットを横書きに設定したいページの先頭にある段落または表組に置く
 #. 右クリックメニューから次のどちらかを選択：
 
-   * :guilabel:`P&aragraph --> P&aragraph...`
+   * :guilabel:`P&aragraph-->P&aragraph...`
    * :guilabel:`&Table Properties...`
-#. ダイアログボックスの :guilabel:`Text Flow` ページで、:guilabel:`&Insert` また
-   は :guilabel:`&Break` を選択し、:guilabel:`With Page St&yle` をオン
+#. ダイアログボックスの |TextFlowTab| で、:guilabel:`&Insert` または
+   :guilabel:`&Break` を選択し、:guilabel:`With Page St&yle` をオン
 #. プロパティーを :guilabel:`Landscape` に設定
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 縦長に戻す手順もわかるだろう。
 
@@ -717,13 +694,13 @@ Portrait headers or footers on landscape pages
    段落に貼り付けます。このテキストに :guilabel:`Footer` 段落スタイルがあること
    を確認し、フォント設定が一致するようにする。
 #. 貼り付けたテキスト（フィールドを含む）全体を選択する。
-#. :menuselection:`F&ormat --> C&haracter...` を選択する。
-#. ダイアログボックスで :guilabel:`Position` タブを選択し、:guilabel:`Rotation /
-   Scaling` を :guilabel:`&270 degrees` に設定する。
-#. :guilabel:`&OK` を押す。
-#. テキストを選択したまま、:guilabel:`&Insert --> &Frame --> F&rame` を選択する。
-#. ダイアログボックスで :guilabel:`Position and Size` タブを選択し、フッターの
-   幅、高さ、水平および垂直位置を入力する。
+#. :menuselection:`F&ormat-->C&haracter...` を選択する。
+#. ダイアログボックスで |PositionTab| を選択し、:guilabel:`Rotation / Scaling`
+   を :guilabel:`&270 degrees` に設定する。
+#. |OK| を押す。
+#. テキストを選択したまま、:guilabel:`&Insert-->&Frame-->F&rame` を選択する。
+#. ダイアログボックスで |Pos&SizeTab| を選択し、フッターの幅、高さ、水平および垂
+   直位置を入力する。
 
    :guilabel:`&Width` と :guilabel:`&Height` の自動寸法調整オプションをオフにす
    る。
@@ -738,9 +715,9 @@ Portrait headers or footers on landscape pages
 
    * 垂直位置 2.80 cm
    * 水平位置 1.50 cm
-#. フッターでテキストの上に行がある場合は :guilabel:`Borders` タブで右枠線を選択
-   し、枠の内容に合わせて行の幅と間隔を指定する。
-#. :guilabel:`&OK` を押す。
+#. フッターでテキストの上に行がある場合は |BordersTab| で右枠線を選択し、枠の内
+   容に合わせて行の幅と間隔を指定する。
+#. |OK| を押す。
 
 回転したテキストではタブが表示されないので、タブのあったテキストの末尾の枠をク
 リックし、縦書きページに合うようにレイアウトに必要な数の空きを入力しろ。
@@ -750,3 +727,9 @@ Portrait headers or footers on landscape pages
    横長のページに縦長のヘッダーを設定するには、この手順の途中からを繰り返す。た
    だし、横方向の位置を 27.70 cm に設定する。余白とヘッダーから 2 cm を引いた値
    だ。
+
+----
+
+.. rubric:: 章末注
+
+.. [#writer05-footnote] |PageStyleDlg| |PageTab|
