@@ -46,6 +46,648 @@
             
   <section id="writer-guide-chapter-18-forms">
 <h1>Writer Guide Chapter 18, Forms ノート<a class="headerlink" href="#writer-guide-chapter-18-forms" title="Permalink to this heading">¶</a></h1>
+<nav class="contents local" id="id1">
+<p class="topic-title">章見出し</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id4">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#when-to-use-forms" id="id5">When to use forms</a></p>
+<ul>
+<li><p><a class="reference internal" href="#alternatives-to-using-forms-in-writer" id="id6">Alternatives to using forms in Writer</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#creating-a-simple-form" id="id7">Creating a simple form</a></p>
+<ul>
+<li><p><a class="reference internal" href="#create-a-document" id="id8">Create a document</a></p></li>
+<li><p><a class="reference internal" href="#open-the-form-toolbars" id="id9">Open the form toolbars</a></p></li>
+<li><p><a class="reference internal" href="#activate-design-mode" id="id10">Activate design mode</a></p></li>
+<li><p><a class="reference internal" href="#insert-form-controls" id="id11">Insert form controls</a></p></li>
+<li><p><a class="reference internal" href="#configure-controls" id="id12">Configure controls</a></p></li>
+<li><p><a class="reference internal" href="#use-the-form" id="id13">Use the form</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#form-controls-reference" id="id14">Form controls reference</a></p></li>
+<li><p><a class="reference internal" href="#example-a-simple-form" id="id15">Example: a simple form</a></p>
+<ul>
+<li><p><a class="reference internal" href="#create-the-document" id="id16">Create the document</a></p></li>
+<li><p><a class="reference internal" href="#add-form-controls" id="id17">Add form controls</a></p></li>
+<li><p><a class="reference internal" href="#configure-form-controls" id="id18">Configure form controls</a></p>
+<ul>
+<li><p><a class="reference internal" href="#text-box" id="id19">Text box</a></p></li>
+<li><p><a class="reference internal" href="#option-buttons" id="id20">Option buttons</a></p></li>
+<li><p><a class="reference internal" href="#list-box" id="id21">List box</a></p></li>
+<li><p><a class="reference internal" href="#check-boxes" id="id22">Check boxes</a></p></li>
+<li><p><a class="reference internal" href="#group-box" id="id23">Group box</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#finishing-touches" id="id24">Finishing touches</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#accessing-data-sources" id="id25">Accessing data sources</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-a-form-for-data-entry" id="id26">Creating a form for data entry</a></p></li>
+<li><p><a class="reference internal" href="#entering-data-into-a-form" id="id27">Entering data into a form</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#advanced-form-customization" id="id28">Advanced form customization</a></p>
+<ul>
+<li><p><a class="reference internal" href="#linking-a-macro-to-a-form-control" id="id29">Linking a macro to a form control</a></p></li>
+<li><p><a class="reference internal" href="#fine-tuning-database-access-permissions" id="id30">Fine-tuning database access permissions</a></p></li>
+<li><p><a class="reference internal" href="#form-control-formatting-options" id="id31">Form control formatting options</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-content-controls" id="id32">Using content controls</a></p></li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>Writer 文書内での対話型フォームの使用について説明する。フォームには編集されない部分と、読者が変更できるように設計された部分がある。たとえば、アンケートには導入部と質問（変更はできない）があり、読者が回答を入力したり、与えられた選択肢から選択したりするための場所がある。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>英語の a form を何と和訳するのが適切だろうか。書式が近いとは思う。</p>
+</div>
+<p>Writer にはチェックボックス、オプションボタン、テキストボックス、プルダウンリストなど、フォームに情報を入力するための方法が用意されている。</p>
+<p>LibreOffice のフォームには多くの機能がある。特筆すべきは <abbr title="HyperText Markup Language">HTML</abbr> 文書でのフォームの使用と、フォームコントロールにリンクするマクロの記述だ。</p>
+<p>LibreOffice Calc, Impress, Draw も Writer とほぼ同様にフォームを支援している。</p>
+</section>
+<section id="when-to-use-forms">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">When to use forms</a><a class="headerlink" href="#when-to-use-forms" title="Permalink to this heading">¶</a></h2>
+<p>フォームには使い方が三つある：</p>
+<ul class="simple">
+<li><p>受信者が記入するための簡単な文書を作成する。例えば、アンケートを記入して返送する団体に送信する。</p></li>
+<li><p>データベースやデータ給源にリンクし、使用者が情報を入力できるようにする。営業部門の誰かが、購入者の情報をフォームを使ってデータベースに入力する。</p></li>
+<li><p>データベースやデータ給源にある情報を見る。図書館員が本に関する情報を呼び出す。</p></li>
+</ul>
+<p>データベースにアクセスするためにフォームを使用すると、複雑な GUI を迅速かつ簡単に構築することができる。フォームには、データ給源にリンクするフィールドだけでなく、テキスト、画像、表組、図面、その他の要素を含めることができる。</p>
+<p>単純なフォームの典型的な使い方：</p>
+<ol class="arabic simple">
+<li><p>己がフォームを設計し保存する。</p></li>
+<li><p>そのフォームを人に送る。</p></li>
+<li><p>人がフォームに記入し、己に送り返す。</p></li>
+<li><p>己がその回答を見る。</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>データ給源を使ったり、ウェブ上で更新するフォームを設定したりすることでデータを自動的に収集することができる。しかし、これらの方法はより複雑なので、この章では扱わない。</p>
+</div>
+<section id="alternatives-to-using-forms-in-writer">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Alternatives to using forms in Writer</a><a class="headerlink" href="#alternatives-to-using-forms-in-writer" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice Base はデータ給源にアクセスする別の方法を提供する。Base と Writerのフォームには多くの共通点があるが、特定の仕事にはどちらかを使用したほうがよい場合もある。Base はフォームがデータ給源にアクセスする場合に限り適している。</p>
+</section>
+</section>
+<section id="creating-a-simple-form">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Creating a simple form</a><a class="headerlink" href="#creating-a-simple-form" title="Permalink to this heading">¶</a></h2>
+<p>データ給源やデータベースとは連動せず、高度なカスタマイズも行わない単純なフォームの作成方法。</p>
+<section id="create-a-document">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Create a document</a><a class="headerlink" href="#create-a-document" title="Permalink to this heading">¶</a></h3>
+<p>フォームとして使用する文書を作成する際に特別なことをする必要はないが、コントロールを正確に配置できるように格子を有効にするとよかろう。Menu バー で
+<span class="menuselection"><span class="accelerator">V</span>iew‣Gr<span class="accelerator">i</span>d and Helplines‣</span> と進み、</p>
+<ul class="simple">
+<li><p><span class="menuselection"><span class="accelerator">D</span>isplay Grid</span> をオンにする。</p></li>
+<li><p><span class="menuselection"><span class="accelerator">S</span>nap to Grid</span> をオンにするといい場合がある。</p></li>
+</ul>
+<p><span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">N</span>ew‣<span class="accelerator">T</span>ext document</span> で Writer 文書を新規作成しろ。</p>
+</section>
+<section id="open-the-form-toolbars">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Open the form toolbars</a><a class="headerlink" href="#open-the-form-toolbars" title="Permalink to this heading">¶</a></h3>
+<p>二つのツールバーがフォームの作成を操作する：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Form Controls</span> ツールバー</p></li>
+<li><p><span class="guilabel">Form Design</span> ツールバー</p></li>
+</ul>
+<p>メニューの <span class="menuselection"><span class="accelerator">V</span>iew‣<span class="accelerator">T</span>oolbars‣</span> に各ツールバーの表示切り替え項目がある。また、<span class="guilabel">Form Controls</span> ツールバー 上で <span class="guilabel">Form Design</span> ツールバー を開くことも可能。</p>
+<p><span class="guilabel">Form Controls</span> ツールバー にはよく使われるコントロールの種類ごとに図像がある。これらのコントロールのいくつかは <span class="menuselection">Fo<span class="accelerator">r</span>m‣</span> メニューにもある。</p>
+<p>これらのツールバーは Writer ウィンドウのさまざまな場所に入渠することも、浮動のままにすることもできる。浮動の場合、ツールバーを垂直から水平に変更したり、一列に並ぶツールの数を変更したりすることもできる。これらの変更を行うには、ツールバーの角をドラッグする。</p>
+<p>これらのツールバーのツールの説明は <a class="reference internal" href="#writer18-anchor-reference"><span class="std std-ref">Form controls reference</span></a> にある。</p>
+</section>
+<section id="activate-design-mode">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Activate design mode</a><a class="headerlink" href="#activate-design-mode" title="Permalink to this heading">¶</a></h3>
+<p>設計モードをオンにするには、<span class="guilabel">Form Controls</span> ツールバー の <span class="guilabel">Design Mode</span> 図像 を使う。これにより、フォームコントロールをはめ込むための図像が活動を開始したり停止したりして、編集用のコントロールが選択される。</p>
+<p>設計モードがオフの場合、フォームは末端使用者と同じように動作する。ボタンを押したり、チェックボックスを切り替えたり、一覧項目を選択したりすることは可能だ。</p>
+</section>
+<section id="insert-form-controls">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Insert form controls</a><a class="headerlink" href="#insert-form-controls" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>フォームコントロールを文書にはめ込むには、コントロールの図像をクリックして選択する。マウスポインターの形が変わる。</p></li>
+<li><p>コントロールを表示したい文書内の場所をクリックする（後で移動可能）。</p></li>
+<li><p>マウスボタンを押したまま、コントロールをドラッグして寸法を調整する。コントロールによっては、固定寸法の記号の後にコントロール名が付いているものもある。</p></li>
+<li><p>コントロール図像は活動中のままなので、ツールバーに戻ることなく、同じ型のコントロールを複数はめ込むことができる。</p></li>
+<li><p>他のツールに変更するにはツールバーの図像をクリックする。</p></li>
+<li><p>コントロールのはめ込みを止めるには <span class="guilabel">Form Controls</span> ツールバー の選択図像をクリックするか、はめ込んだコントロールのどれかをクリックする。マウスポインターは通常表示に戻る。</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>フォームコントロールを正方形にしたり、均整を維持するには、<kbd class="kbd docutils literal notranslate">Shift</kbd> を押しながら作成したり寸法を変更したりする。</p>
+</div>
+</section>
+<section id="configure-controls">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Configure controls</a><a class="headerlink" href="#configure-controls" title="Permalink to this heading">¶</a></h3>
+<p>コントロールをはめ込んだ後はその見栄えや動作を設定する必要がある。文書内でフォームコントロールを右クリックし、コンテキストメニューからコントロールを選択するか、フォームコントロールをダブルクリックすると、選択したコントロールの
+<span class="guilabel">Properties</span> ダイアログボックス が開く。</p>
+<p><span class="guilabel">Properties</span> ダイアログボックス にはタブが三つある：</p>
+<ul class="simple">
+<li><p><span class="guilabel">General</span> タブ</p></li>
+<li><p><span class="guilabel">Data</span> タブ</p></li>
+<li><p><span class="guilabel">Events</span> タブ</p></li>
+</ul>
+<p>単純なフォームでは <span class="guilabel">General</span> タブ しか必要ない。詳細については次の説明を読め：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#writer18-anchor-configure"><span class="std std-ref">Configure form controls</span></a></p></li>
+<li><p><a class="reference internal" href="#writer18-anchor-formatting"><span class="std std-ref">Form control formatting options</span></a></p></li>
+<li><p>Help</p></li>
+</ul>
+<p>データベースで使用するための設定については <a class="reference internal" href="#writer18-anchor-data"><span class="std std-ref">Creating a form for data entry</span></a> を当たれ。</p>
+<p>このダイアログボックスのフィールドはコントロールの型によって異なる。追加フィールドを見るには、スクロールバーを使うか、ダイアログボックスを縦に拡大する。</p>
+</section>
+<section id="use-the-form">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Use the form</a><a class="headerlink" href="#use-the-form" title="Permalink to this heading">¶</a></h3>
+<p>フォームを使用するには、<span class="guilabel">Design Mode</span> 図像 をクリックして設計モードを解除する。フォーム文書を保存する。</p>
+</section>
+</section>
+<section id="form-controls-reference">
+<span id="writer18-anchor-reference"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Form controls reference</a><a class="headerlink" href="#form-controls-reference" title="Permalink to this heading">¶</a></h2>
+<p>Writer で表示される図像は、本書に表示されているものと異なる場合や、ツールバーの順序が異なる場合がある。</p>
+<table class="docutils align-left" id="id2">
+<caption><span class="caption-text">Tools on Form Controls toolbar</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>1</p></th>
+<td><p>Select</p></td>
+<td><p>フォームコントロールを選択して、それに対して何らかの動作を実行する。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>2</p></th>
+<td><p>Design Mode</p></td>
+<td><p>フォームを編集するモードと使用するモードを切り替える。オンで前者。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>3</p></th>
+<td><p>Toggle Form Control Wizards</p></td>
+<td><p>リストボックスとコンボボックスではウィザードが使える。これらのコントロールの作成時にウィザードを起動させたくない場合はオフにしろ。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>4</p></th>
+<td><p>Form Design</p></td>
+<td><p><span class="guilabel">Form Design</span> ツールバー を進水させる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>5</p></th>
+<td><p>Label</p></td>
+<td><p>テキストラベル。コントロールとして、ラベルフィールドをマクロに連動させることができる点がただページに入力するのとは異なる。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>6</p></th>
+<td><p>Text Box</p></td>
+<td><p>フォーム使用者が任意のテキストを入力する欄を作成するコントロール。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>7</p></th>
+<td><p>Check Box</p></td>
+<td><p>フォーム上でオンオフできる箱。ラベルを付けることが可能。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>8</p></th>
+<td><p>Option Button</p></td>
+<td><p>オプションボタン（ラジオボタン）を作成する。複数のボタンがグループ化されている場合、一度に選択できるのは一つだけだ。グループ化する方法は本文に記述がある。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>9</p></th>
+<td><p>List Box</p></td>
+<td><p>使用者が選択できるプルダウンメニューとして選択肢の一覧を作成する。フォームがデータ給源にリンクされていてウィザードがオンの場合、リストボックスを作成するとリストボックスウィザードが起動する。</p>
+<p>リンクされていない場合は、ウィザードをオフにして空のリストボックスを作成しろ。それから <span class="guilabel">General</span> タブ の <span class="guilabel">Li<span class="accelerator">s</span>t entries</span> 欄に、一覧に表示する選択肢を入力しろ。</p>
+</td>
+</tr>
+<tr class="row-even"><th class="stub"><p>10</p></th>
+<td><p>Combo Box</p></td>
+<td><p>リストボックスと同様に、選択肢の一覧を設定する。さらに、上部にある盤には選択された内容が表示されるか、フォーム使用者が別の内容を入力することができる。これはリストボックスと同じ働きをする。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>11</p></th>
+<td><p>Push Button</p></td>
+<td><p>マクロにリンクできるボタンを作成する。ラベルはボタンに表示される。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>12</p></th>
+<td><p>Image Button</p></td>
+<td><p>プッシュボタンと全く同じ動作をするが、絵として表示される。
+<span class="guilabel">Control Properties</span> ダイアログボックス <span class="guilabel">General</span> タブ
+<span class="guilabel">Graphics</span> オプションで画像を選択する。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>13</p></th>
+<td><p>Formatted Field</p></td>
+<td><p>数値の書式オプションを設定できるコントロール。例えば、入力する数値の最大値や最小値、数値の種類（小数点以下、科学的、通貨）を設定することが可能。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>14</p></th>
+<td><p>Date Field</p></td>
+<td><p>日付を格納する。フィールドが受け付ける最も古い日付と最も新しい日付、既定の日付、日付書式を設定する必要がある。スピナーを追加できる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>15</p></th>
+<td><p>Numerical Field</p></td>
+<td><p>数値を表示する。書式、最大値、最小値、既定値を指定する必要がある。スピナーを追加できる。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>16</p></th>
+<td><p>Group Box</p></td>
+<td><p>グループボックスには使い方が二つある。ウィザードがオンの場合、グループボックスを作成すると、<span class="guilabel">Group Element Wizard</span> が起動する。これはオプションボタンのグループを作成する。たいていの場合、グループボックスを使うのが、オプションボタン群を作成する最善の方法だ。</p>
+<p>ウィザードがオフの場合、グループボックスは単に異なるコントロールをグループ化するための視覚的効果を得るためのものだ。コントロールの動作には何の影響も及ぼさない。</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>17</p></th>
+<td><p>Time Field</p></td>
+<td><p>日付フィールドの時刻版。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>18</p></th>
+<td><p>Currency Field</p></td>
+<td><p>数値フィールドと同様に機能し、さらに通貨記号を追加できる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>19</p></th>
+<td><p>Pattern Field</p></td>
+<td><p>フォームがデータ給源に連動している場合に便利。編集マスクを指定して、使用者がフィールドに入力できる内容を制限する。リテラルマスクを指定して、データ給源から表示されるデータを制限する。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>20</p></th>
+<td><p>Table Control</p></td>
+<td><p>表組コントロールはデータ給源がある場合に限り有効だ。データ給源が指定されていない場合は <span class="guilabel">Table Element Wizard</span> でデータ給源を選択するプロンプトが表示される。その後、表示するフィールドを選択し、設計モードがオフの場合、データが表組に表示される。表組にはレコードをステップ実行するためのコントロールも含まれている。</p>
+<p>レコードの追加、削除、変更が可能。</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>21</p></th>
+<td><p>Navigation Bar</p></td>
+<td><p><span class="guilabel">Form Navigation</span> ツールバー と同じだが、文書のどこにでも配置でき、寸法も変更できる。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>22</p></th>
+<td><p>Image Control</p></td>
+<td><p>フォームがデータ給源に接続されていて、データ給源に画像を保持できるフィールドが存在する場合に限り有効だ。データベースに新しい画像を追加したり、データベースから画像を取得して表示したりすることができる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>23</p></th>
+<td><p>File Selection</p></td>
+<td><p>パスと名前を直接入力するか、<span class="guilabel"><span class="accelerator">B</span>rowse…</span> ボタン を押してダイアログボックスからファイルを選択する。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>24</p></th>
+<td><p>Spin Button</p></td>
+<td><p>フォーム使用者が数値の一覧を循環して数値を選択できるようにする。最大値、最小値、既定値、数値間の段階を指定できる。</p>
+<p>このコントロールは Writer ではあまり使われない。</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>25</p></th>
+<td><p>Scrollbar</p></td>
+<td><p>スクロールバーを作成し、多くのオプションで正確な見てくれを定義する。このコントロールは Writer ではあまり使われない。</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-left" id="id3">
+<caption><span class="caption-text">Tools on Form Design toolbar</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>1</p></th>
+<td><p>Select anchor for object</p></td>
+<td><p>どのフォームコントロールも、ページ、段落、文字に繋留することができ、また文字として繋留することもできる。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>2</p></th>
+<td><p>Align Objects</p></td>
+<td><p>コントロールが文字として固定されていない限り無効。コントロールの上端や下端をテキストの上端や下端に合わせるなど、さまざまな方法でコントロールを整列させる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>3</p></th>
+<td><p>Bring to Front</p></td>
+<td><p>コントロールを他のものより手前に配置する。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>4</p></th>
+<td><p>Forward One</p></td>
+<td><p>コントロールをスタックの一段上に移す。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>5</p></th>
+<td><p>Back One</p></td>
+<td><p>コントロールをスタックの一段下に移す。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>6</p></th>
+<td><p>Send to Back</p></td>
+<td><p>コントロールをスタックの最下段に移す。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>7</p></th>
+<td><p>To Foreground</p></td>
+<td><p>オブジェクトをテキストの前に移動する。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>8</p></th>
+<td><p>To Background</p></td>
+<td><p>オブジェクトをテキストの後ろに移動する。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>9</p></th>
+<td><p>Select</p></td>
+<td><p>先述のものと同じ。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>10</p></th>
+<td><p>Design Mode</p></td>
+<td><p>先述のものと同じ。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>11</p></th>
+<td><p>Control Properties</p></td>
+<td><p>フォームコントロールの <span class="guilabel">Properties</span> ダイアログボックス を開く。異なるコントロールが選択されている間開いておくことが可能。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>12</p></th>
+<td><p>Form Properties</p></td>
+<td><p>どのデータ給源に接続するかなど、フォーム全体の性質を制御する
+<span class="guilabel">Form Properties</span> ダイアログボックス を開く。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>13</p></th>
+<td><p>Form Navigator</p></td>
+<td><p>現在の文書内のフォームとコントロールをすべて表示し、編集や削除が簡単にできる。</p>
+<p>Form Navigator を使用する場合はコントロールに名前を付けておくと見分けがつくようになる。</p>
+</td>
+</tr>
+<tr class="row-even"><th class="stub"><p>14</p></th>
+<td><p>Add Field</p></td>
+<td><p>フォームにデータ給源を指定した場合にしか役立たない。そうでない場合は空の箱が開く。</p>
+<p>データ給源を指定した場合、フィールドの追加で指定した表組のすべてのフィールドの一覧が表示される。フィールドは、その前にフィールド名を付けてページに配置される。</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>15</p></th>
+<td><p>Activation Order</p></td>
+<td><p>コントロール間でフォーカスが移動する順序を指定できる。設計モードを終了し、<kbd class="kbd docutils literal notranslate">Tab</kbd> を使ってコントロールを切り替えることで、その順序を試すことができる。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>16</p></th>
+<td><p>Open in Design Mode</p></td>
+<td><p>現在のフォームを設計モードで開く。フォームにデータを入力するのではなく、フォームを編集する。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>17</p></th>
+<td><p>Automatic Control Focus</p></td>
+<td><p>活動中になると、最初のフォームコントロールにフォーカスが設定される。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>18</p></th>
+<td><p>Position and Size</p></td>
+<td><p><span class="guilabel">Position and Size</span> ダイアログボックス を開き、コントロールをドラッグする代わりに正確な値を入力することができる。誤って変更されないように、寸法や位置をロックすることもできる。コントロールによっては、回転させたり、傾きや角の半径を設定することもできる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>19</p></th>
+<td><p>Display Grid</p></td>
+<td><p>ページ上に点の格子を表示。コントロールを並べるのに役立つ。</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>20</p></th>
+<td><p>Snap to Grid</p></td>
+<td><p>コントロールが格子点や線に近づくと、そこへ吸着する。これにより、コントロールを配置するのが簡単になる。</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>21</p></th>
+<td><p>Helplines While Moving</p></td>
+<td><p>コントロールが移動しているとき、それから水平方向と垂直方向に線が伸び、正確な位置決めができる。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-a-simple-form">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Example: a simple form</a><a class="headerlink" href="#example-a-simple-form" title="Permalink to this heading">¶</a></h2>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この節は好きな形調査なるアンケートのフォームを構築するチュートリアルだ。次のコントロールから構成される：</p>
+<ul class="simple">
+<li><p>回答者の名前（テキストボックス）</p></li>
+<li><p>回答者の性別（ラジオボタン）</p></li>
+<li><p>好きな形（リストボックス）</p></li>
+<li><p>好きな形すべてを選ぶ（チェックボックス四個）</p></li>
+</ul>
+</div>
+<section id="create-the-document">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Create the document</a><a class="headerlink" href="#create-the-document" title="Permalink to this heading">¶</a></h3>
+<p>新規文書を開き、含めるテキストを入力する。後で変更することは容易だが、フォームを設計するときの指南として、最終的な結果を素描しておくとよい。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>最終フォームからコントロール類全部を除去した内容を文書上に打ち込めばいいようだ。</p>
+</div>
+</section>
+<section id="add-form-controls">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Add form controls</a><a class="headerlink" href="#add-form-controls" title="Permalink to this heading">¶</a></h3>
+<p>次の段階は文書にフォームコントロールを追加することだ。次のコントロールを用意する：</p>
+<ul class="simple">
+<li><p><cite>Name</cite> はテキストボックスだ。</p></li>
+<li><p><cite>Gender</cite> は male, female, other のオプションボタンだ。</p></li>
+<li><p><cite>Favorite shape</cite> は選択肢の一覧だ。</p></li>
+<li><p><cite>All shapes you like</cite> は一連のチェックボックスだ。いくつでも選択可能。</p></li>
+</ul>
+<p>これらのコントロールを追加するには</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Form Controls</span> ツールバー を開く。</p></li>
+<li><p>ツールが活動停止している場合は <span class="guilabel">Design Mode</span> 図像 をクリックして活動開始する。</p></li>
+<li><p><span class="guilabel">Text Box</span> 図像をクリック。文書内をクリックして、<cite>Name</cite> テキストボックスの形をドラッグして希望の寸法に合わせる。<cite>Name:</cite> ラベルと一直線になるようにドラッグする。</p></li>
+<li><p><span class="guilabel">Toggle Form Control Wizards</span> がオフになっていることを確認する。
+<span class="guilabel">Option Button</span> 図像をクリックする。クリックしてドラッグし、文書の
+<cite>Gender:</cite> ラベルの近くにオプションボタンを三つ作成する。これらは次の節で設定する。</p></li>
+<li><p><span class="guilabel">List Box</span> 図像をクリックし、文書内の <cite>Favourite shape:</cite> のそばにそれを描く。これは今のところ単なる空の窓だ。</p></li>
+<li><p><span class="guilabel">Check Box</span> 図像をクリックし、<cite>All shapes you like</cite> によるチェックボックスを、ページの端から端まで四つ並べて作成する。</p></li>
+</ol>
+<p>コントロールが不格好に並んでいても心配するな。この後修正する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>コントロール各種の錨が適切でない初期値であることが整列が難しい原因だと考えられる。</p>
+</div>
+</section>
+<section id="configure-form-controls">
+<span id="writer18-anchor-configure"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">Configure form controls</a><a class="headerlink" href="#configure-form-controls" title="Permalink to this heading">¶</a></h3>
+<section id="text-box">
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">Text box</a><a class="headerlink" href="#text-box" title="Permalink to this heading">¶</a></h4>
+<p>Nameフィールドにはこれ以上の設定は必要ないが、フィールドの高さや幅、背景色、その他の書式を変更したいかもしれない。その場合は</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Design Mode</span> がオンで、<span class="guilabel">Wizards</span> がオフであることを確認する。</p></li>
+<li><p><cite>Name</cite> フィールドをダブルクリックして <span class="guilabel">Properties</span> ダイアログボックス を開く。</p></li>
+<li><p><span class="guilabel">General</span> タブ で下にスクロールし、<span class="guilabel">Width</span> と <span class="guilabel">Height</span> の性質を見つける。必要に応じてこれらを変更する。</p></li>
+<li><p>ダイアログボックスを閉じるか、開いたままにして他のコントロールを設定する。</p></li>
+</ol>
+</section>
+<section id="option-buttons">
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">Option buttons</a><a class="headerlink" href="#option-buttons" title="Permalink to this heading">¶</a></h4>
+<p><cite>Gender</cite> オプションボタンは、三つのうち一つだけを選択できるように設定する必要がある。これには、ここで説明するような個別のオプションボタンを使用する方法と、
+Group Box を使用する方法がある。</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Design Mode</span> がオンで、<span class="guilabel">Wizards</span> がオフであることを確認する。</p></li>
+<li><p><span class="guilabel">Properties</span> ダイアログボックス が開いている場合は、最初のオプションボタンを一度クリックして、ダイアログボックスをオプションボタン用に変更する。ダイアログボックスが開いていない場合は、最初のオプションボタンをダブルクリックする。</p></li>
+<li><p><span class="guilabel">General</span> タブ で <span class="guilabel"><span class="accelerator">L</span>abel</span> 欄に <cite>Male</cite> と入力し、<span class="guilabel"><span class="accelerator">G</span>roup
+name</span> 欄に <cite>Gender</cite> と入力する。</p></li>
+<li><p>他の二つのオプション <cite>Female</cite> と <cite>Other</cite> も同様にする。グループ化により、一度に選択できるオプションは一つだけだ。</p></li>
+</ol>
+<p>オプションボタンが離れ過ぎている場合は、それぞれを順番にクリックし、左右にドラッグする。</p>
+<p>オプションボタンがきれいに並んでいない場合は、このようにしろ：</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Form Controls</span> ツールバー の <span class="guilabel">Select</span> ボタンを押し。マウスで三つのオプションボタンコントロールの周囲に箱を描いてすべてを選択する。</p></li>
+<li><p>右メニューから <span class="menuselection">Alig<span class="accelerator">n</span> Objects‣<span class="accelerator">T</span>op</span> を選択する。</p></li>
+</ol>
+</section>
+<section id="list-box">
+<h4><a class="toc-backref" href="#id21" role="doc-backlink">List box</a><a class="headerlink" href="#list-box" title="Permalink to this heading">¶</a></h4>
+<p>リストボックスに選択肢の一覧を追加するには、次のようにする：</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Design Mode</span> がオンで、<span class="guilabel">Wizards</span> がオフであることを確認する。</p></li>
+<li><p>リストボックスコントロールをダブルクリックして <span class="guilabel">Properties</span> ダイアログボックス を開く。
+<span class="guilabel">General</span> タブ を選択する。</p></li>
+<li><p>スクロールダウンして <span class="guilabel">Li<span class="accelerator">s</span>t entries</span> 欄を見つける。右の▼を押して図形の名前を一つずつ入力する。</p></li>
+</ol>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>最後の項目入力方法が本書と現況とで異なるので、修正しておく。</p>
+</div>
+</section>
+<section id="check-boxes">
+<h4><a class="toc-backref" href="#id22" role="doc-backlink">Check boxes</a><a class="headerlink" href="#check-boxes" title="Permalink to this heading">¶</a></h4>
+<p>チェックボックスに名前を付けるには</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Design Mode</span> がオンで、<span class="guilabel">Wizards</span> がオフであることを確認する。</p></li>
+<li><p>最初のチェックボックスコントロールをダブルクリックする。</p></li>
+<li><p><span class="guilabel">Properties</span> ダイアログボックス ダイアログボックスで、<span class="guilabel">Label</span> フィールドのテキストを <cite>Circle</cite> に変更し、<kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。キャレットが次の行に移動し、文書のチェックボックスのラベルが直ちに変更される。</p></li>
+<li><p>他の三つのチェックボックスを順番にクリックする。<span class="guilabel">Properties</span> ダイアログボックス のラベルテキスト入力ボックスのテキストを、三角形、四角形、五角形に順番に変更する。</p></li>
+<li><p>ダイアログボックスを閉じる。</p></li>
+<li><p><span class="guilabel">Design Mode</span> をオフにする。</p></li>
+</ol>
+</section>
+<section id="group-box">
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">Group box</a><a class="headerlink" href="#group-box" title="Permalink to this heading">¶</a></h4>
+<p><cite>Gender</cite> 用に個別のオプションボタンを作成するのではなく、Group Box を使ってオプションボタンのグループをはめ込むこともできる。グループボックスは選択項目を一つずつ積み重ねるが、個々のボタンは好きな配置に移動させることができる。</p>
+<p>個々のオプションボタンの代わりにグループボックスを使うには：</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Design Mode</span> がオンで、<span class="guilabel">Wizards</span> がオンであることを確認する（ここだけオン）。</p></li>
+<li><p><span class="guilabel">Group Box</span> 図像をクリックし、<cite>Gender:</cite> ラベルの横にボックスを描く。
+<span class="guilabel">Group Element Wizard</span> が自動的に開く。</p></li>
+<li><p>左の入力欄に <cite>Male</cite> と入力する。<span class="guilabel"><span class="accelerator">&gt;</span>&gt;</span> ボタンを押して右側の
+<span class="guilabel">Option fields</span> 箱に移動する。</p></li>
+<li><p><cite>Female</cite> と <cite>Other</cite> も同様に入力する。<span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン をクリックする。</p></li>
+<li><p>次のページで、<span class="guilabel">No, one particular field is not going to be selected
+as default.</span> を選択する。<span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン を押すクリックする。</p></li>
+<li><p>次のページでは何も変更しない。<span class="guilabel"><span class="accelerator">N</span>ext &gt;</span> ボタン をクリックする。</p></li>
+<li><p>次のページでは説明領域から <cite>Group Box</cite> の文字を削除する。フォームに <cite>Gender:</cite>
+ラベルがすでにない場合は、説明に <cite>Gender</cite> と入力するとよいだろう。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">F</span>inish</span> ボタン を押す。</p></li>
+</ol>
+</section>
+</section>
+<section id="finishing-touches">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Finishing touches</a><a class="headerlink" href="#finishing-touches" title="Permalink to this heading">¶</a></h3>
+<p>フォームは完成しているが、文書にさらに変更を加えたいと思うかもしれない。これを他の人に送信して記入してもらうつもりなら、おそらく文書を読み取り専用にして、使用者がフォームに記入することはできても、文書に他の変更を加えることができないようにしたいだろう。</p>
+<p>文書を読み取り専用にするには <span class="menuselection"><span class="accelerator">F</span>ile‣Propert<span class="accelerator">i</span>es…</span> を選択し、<span class="guilabel">Security</span> タブ タブを選択して <span class="guilabel"><span class="accelerator">O</span>pen file read-only</span> をオンにする。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>文書が読み取り専用の場合、フォーム記入者は <span class="menuselection"><span class="accelerator">F</span>ile‣Save
+<span class="accelerator">A</span>s…</span> で文書を保存する必要がある。</p>
+</div>
+</section>
+</section>
+<section id="accessing-data-sources">
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">Accessing data sources</a><a class="headerlink" href="#accessing-data-sources" title="Permalink to this heading">¶</a></h2>
+<p>フォームの最も一般的な用途は、データベースに情報を入力することだ。例えば、他の人が連絡先データベースに情報を入力するためのフォームを設計することができる。フォームは文書の一部なので、画像、書式、表組、その他の要素を含めることができ、思い通りの体裁にすることができる。フォームの変更は文書の編集と同じくらい簡単だ。</p>
+<p>LibreOffice は多数のデータ給源にアクセスできる。ODBC, MySQL, Oracle JDBC, スプレッドシート、テキストファイルなどだ。原則として、データベースは読み書きのためにアクセスできるが、その他のデータ給源（スプレッドシートなど）は読み取り専用だ。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>使用中の OS が支援するデータ給源型の一覧を表示するには、
+<span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">N</span>ew‣Data<span class="accelerator">b</span>ase…</span> を選択する。<span class="guilabel">Database
+Wizard</span> の最初のページで <span class="guilabel">Connect to an e<span class="accelerator">x</span>isting database</span> を選択し、ドロップダウン一覧を開く。</p>
+</div>
+<p>データベースまたはその他のデータ給源を作成し、Writer で使用するために登録した済みであるものとする。<a class="reference internal" href="writer14.html"><span class="doc">Chapter 14, Mail Merge</span></a> にデータベースの作成と登録方法について説明がある。</p>
+<section id="creating-a-form-for-data-entry">
+<span id="writer18-anchor-data"></span><h3><a class="toc-backref" href="#id26" role="doc-backlink">Creating a form for data entry</a><a class="headerlink" href="#creating-a-form-for-data-entry" title="Permalink to this heading">¶</a></h3>
+<p>データベースが LibreOffice に登録されたら、次の手順に従ってフォームをデータ給源にリンクする：</p>
+<ol class="arabic simple">
+<li><p>Writer で新規文書を作成する。</p></li>
+<li><p>実際のフィールドを入れずにフォームを設計する（後でいつでも変更可能）。</p></li>
+<li><p><span class="guilabel">Form Controls</span> ツールバー と <span class="guilabel">Form Design</span> ツールバー を表示する。</p></li>
+<li><p><span class="guilabel">Design Mode</span> 図像 をクリックして文書を設計モードにする。</p></li>
+<li><p><span class="guilabel">Text Box</span> 図像をクリックする。文書内をクリックしてドラッグし、最初のフォームフィールド用のテキストボックスを作成する。</p></li>
+<li><p>任意の型のフィールドを同じ方法（クリックしてドラッグ）で追加できる。</p></li>
+</ol>
+<p>ここまでは最初のフォームを作成したときと同じ手順をたどっている。登録済みデータ給源とフォームを連動させるには、次のようにする：</p>
+<ol class="arabic">
+<li><p><span class="guilabel">Form Design</span> ツールバー の <span class="guilabel">Form Properties</span> 図像をクリックするか、はめ込んだフィールドのいずれかを右クリックして <span class="menuselection">For<span class="accelerator">m</span> Properties…</span> を選択し、
+<span class="guilabel">Form Properties</span> ダイアログボックス を開く。</p></li>
+<li><p><span class="guilabel">Form Properties</span> ダイアログボックス で <span class="guilabel">Data</span> タブ を選択する。</p>
+<ul class="simple">
+<li><p><span class="guilabel"><span class="accelerator">D</span>ata Source</span> を登録したデータ給源に設定する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">C</span>ontent type</span> を <cite>Table</cite> に設定する。</p></li>
+<li><p><span class="guilabel">Cont<span class="accelerator">e</span>nt</span> をアクセスしたい表組名に設定する。</p></li>
+</ul>
+<p>ダイアログボックスを閉じる。</p>
+</li>
+<li><p>各フォームコントロールを順番にクリックして選択し、<span class="guilabel">Properties</span> ダイアログボックス を起動する。右クリックして <span class="menuselection">Con<span class="accelerator">t</span>rol Properties…</span> を選択するか、<span class="guilabel">Form Design</span> ツールバー
+の <span class="guilabel">Control Properties</span> 図像をクリックする。</p></li>
+<li><p><span class="guilabel">Properties</span> ダイアログボックス で <span class="guilabel">Data</span> タブ をクリックする。フォームを正しく構成していれば、
+<span class="guilabel"><span class="accelerator">D</span>ata field</span> オプションにデータ給源の異なるフィールド（例えば、名前、住所、電話番号）の一覧が表示される。必要なフィールドを選択する。</p></li>
+<li><p>フィールドに割り当てるべきコントロールがすべて割り当てられるまで、各コントロールを順番に繰り返す。</p></li>
+</ol>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>LibreOffice Base でデータベースを作成し、主キーフィールドの AutoValue を
+<cite>Yes</cite> に設定した場合、そのフィールドはフォームの一部である必要はない。
+AutoValue が <cite>No</cite> に設定されている場合、そのフィールドを含める必要があり、使用者は新規入力のたびにそのフィールドに一意の値を入力する必要がある。</p>
+</div>
+</section>
+<section id="entering-data-into-a-form">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">Entering data into a form</a><a class="headerlink" href="#entering-data-into-a-form" title="Permalink to this heading">¶</a></h3>
+<p>フォームを作成し、データベースと結びつけたら、そのフォームを使ってデータベースにデータを入力したり、すでにあるデータを修正したりする：</p>
+<ol class="arabic simple">
+<li><p>フォームが設計モードでないことを確認する。</p></li>
+<li><p><span class="guilabel">Form Navigation</span> ツールバー がオンになっていることを確認する。このツールバーは通常、作業場所の床下に表示される。</p></li>
+<li><p>データ給源に既存のデータがある場合は <span class="guilabel">Form Navigation</span> ツールバー のコントロールボタンを使用して、さまざまなレコードを参照する。レコードのデータを修正するには、フォームの値を編集する。変更を送信するには、最後のフィールドにキャレットがある状態で <kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。レコードが保存され、次のレコードが表示される。</p></li>
+<li><p>フォームにデータがない場合は、フォームのフィールドに入力して情報を入力する。新しいレコードを送信するには、最後のフィールドにキャレットがある状態で
+<kbd class="kbd docutils literal notranslate">Enter</kbd> を押す。</p></li>
+<li><p><span class="guilabel">Form Navigation</span> ツールバー からレコードの削除や新規レコードの追加など、その他の機能を実行できる。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ユーザがフォームに入力しようとして <cite>Attempt to insert null into a
+non-nullable column</cite> というエラーが表示された場合、フォーム設計者はデータベースに戻り、主キーフィールドに AutoValue が <cite>Yes</cite> に設定されていることを確認する必要がある。このエラーによりレコード保存不能になる。</p>
+</div>
+</section>
+</section>
+<section id="advanced-form-customization">
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">Advanced form customization</a><a class="headerlink" href="#advanced-form-customization" title="Permalink to this heading">¶</a></h2>
+<section id="linking-a-macro-to-a-form-control">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Linking a macro to a form control</a><a class="headerlink" href="#linking-a-macro-to-a-form-control" title="Permalink to this heading">¶</a></h3>
+<p>任意のフォームコントロールに、何らかのイベントがトリガーされたときにアクションを実行するように設定することができる。</p>
+<p>マクロをイベントに割り当てる手順：</p>
+<ol class="arabic simple">
+<li><p>マクロを作成する。<em>Getting Started Guide</em> の Chapter 13 を参照しろ。</p></li>
+<li><p>フォームが設計モードであることを確認する。フォームコントロールを右クリックし、コンテキストメニューから <span class="menuselection">Con<span class="accelerator">t</span>rol Properties…</span> を選択し、<span class="guilabel">Events</span> タブ をクリックする。</p></li>
+<li><p>イベントの横の <span class="guilabel"><span class="accelerator">B</span>rowse…</span> ボタン を押して <span class="guilabel">Assign Action</span> ダイアログボックス を開く。</p></li>
+<li><p><span class="guilabel">Macro</span> ボタンを押し、<span class="guilabel">Macro Selector</span> ダイアログボックスの一覧からマクロを選択する。<span class="guilabel">Assign Action</span> ダイアログボックス に戻る。必要に応じてこれを繰り返し、<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押してダイアログボックスを閉じる。</p></li>
+</ol>
+<p>マクロをフォーム全体に関するイベントに割り当てることもできる。これを行うには、文書内のフォームコントロールを右クリックし、<span class="menuselection">For<span class="accelerator">m</span> Properties…</span> を選択し、
+<span class="guilabel">Events</span> タブ をクリックする。</p>
+</section>
+<section id="fine-tuning-database-access-permissions">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Fine-tuning database access permissions</a><a class="headerlink" href="#fine-tuning-database-access-permissions" title="Permalink to this heading">¶</a></h3>
+<p>既定では、フォームからデータベースにアクセスすると、レコードの追加、削除、修正など、あらゆる変更が可能になる。この挙動が望ましくない場合がある。例えば、使用者は新しいレコードを追加することしかできないようにしたり、既存のレコードを削除することを禁止したいことがある。</p>
+<p>設計モードでフォームコントロールを右クリックし、コンテキストメニューから
+<span class="menuselection">For<span class="accelerator">m</span> Properties…</span> を選択する。<span class="guilabel">Form Properties</span> ダイアログボックス の <span class="guilabel">Data</span> タブ で、以下の各オプション <span class="guilabel">Yes</span> または <span class="guilabel">No</span> に設定し、使用者のデータ給源へのアクセスを制御する：</p>
+<ul class="simple">
+<li><p><span class="guilabel">Allo<span class="accelerator">w</span> additions</span></p></li>
+<li><p><span class="guilabel">Allow delet<span class="accelerator">i</span>ons</span></p></li>
+<li><p><span class="guilabel">Allow <span class="accelerator">m</span>odifications</span></p></li>
+<li><p><span class="guilabel">Add data <span class="accelerator">o</span>nly</span></p></li>
+</ul>
+<p>個々のフィールドを保護することもできる。これは、品目の説明が固定で数量が変更可能な在庫一覧のように、使用者がレコードの一部を変更でき、他の部分のみを表示できるようにしたい場合に便利だ。</p>
+<p>個々のフィールドを読み取り専用にするには、設計モードで文書内のフォームコントロールを右クリックし、コンテキストメニューから <span class="menuselection">For<span class="accelerator">m</span> Properties…</span> を選択する。
+<span class="guilabel">General</span> タブ を選択し、<span class="guilabel"><span class="accelerator">R</span>ead-only</span> を <span class="guilabel">Yes</span> に設定する。</p>
+</section>
+<section id="form-control-formatting-options">
+<span id="writer18-anchor-formatting"></span><h3><a class="toc-backref" href="#id31" role="doc-backlink">Form control formatting options</a><a class="headerlink" href="#form-control-formatting-options" title="Permalink to this heading">¶</a></h3>
+<p>フォームコントロールの見てくれや動作はさまざまな方法でカスタマイズできる。これらはすべて設計モードで行う。フォームコントロールを右クリックし、コンテキストメニューから <span class="menuselection">Con<span class="accelerator">t</span>rol Properties…</span> を選択し、<span class="guilabel">Properties</span> ダイアログボックス <span class="guilabel">General</span> タブ を選択する。</p>
+<ul class="simple">
+<li><p><span class="guilabel"><span class="accelerator">L</span>abel</span> 欄にコントロールのラベルを設定する。プッシュボタンやオプションボタンなどのいくつかのフォームコントロールには設定可能な可視ラベルがある。また、テキストボックスのように、ラベルを設定できないものもある。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">P</span>rintable</span> 選択肢で文書を印刷する場合、フォームコントロールが印刷されるかどうかを設定する。</p></li>
+<li><p><span class="guilabel">Font</span> 設定を使用して、フィールドのラベルまたはフィールドに入力されたテキストのフォント、書体、寸法を設定する。この設定はチェックボックスやオプションボタンの寸法には影響しない。</p></li>
+<li><p>テキストボックスに対してはテキストの最大長を設定できる。データベースにレコードを追加するときに便利だ。データベースのテキストフィールドすべてには最大長が設定されており、入力されたデータが長すぎる場合、LibreOffice はエラーメッセージを表示する。フォームコントロールの最大テキスト長をデータベースフィールドの最大テキスト長と同じに設定することでこのエラーを回避できる。</p></li>
+<li><p>フォームコントロールの既定オプションを設定することができる。既定では、コントロールは空白、またはすべてのオプションがオフである状態だ。特定のオプションや一覧項目が選択された状態でコントロールを開始するように設定することができる。</p></li>
+<li><p>パスワードが入力されるコントロールの場合、パスワード文字（たとえば米印）を設定すると、その文字だけが表示され、使用者が実際に入力した内容は保存される。</p></li>
+<li><p>フォームコントロールに追加情報やヘルプテキストを追加することができる。</p></li>
+<li><p>コントロールの表示方法をさらに定義するために、背景色、立体的な容姿、テキスト書式、スクロールバー、境界などの他のフォーマットコントロールを使用することができる。</p></li>
+</ul>
+</section>
+</section>
+<section id="using-content-controls">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">Using content controls</a><a class="headerlink" href="#using-content-controls" title="Permalink to this heading">¶</a></h2>
+<p>中身コントロールはプレースホルダーだ。雛形、フォーム、文書で使用するために、中身コントロールを追加したりカスタマイズしたりすることができる。中身コントロールにはその使用方法を示すことができる。この章で前述したコントロールと似ているものもあるが、作業や書式設定がより簡単になる。ただし、いくつかのフィールドとは異なり、中身コントロールはデータベース内のデータには接続しない。</p>
+<dl class="simple">
+<dt>Rich Text</dt><dd><p>カスタムフォーマットされたテキストや、表組、画像、その他の中身コントロールなどのアイテムが含まれる。</p>
+</dd>
+<dt>Plain Text</dt><dd><p>単一または複数の段落のプレーンテキストに限られる。リッチテキストとは異なり、表組、画像、その他の中身コントロールなどの他のアイテムを含めることはできない。</p>
+</dd>
+<dt>Picture</dt><dd><p>文字として固定された画像を一つ含む。中身コントロールをクリックすると
+<span class="guilabel">開く</span> ダイアログボックス が開き、プレースホルダーを置き換える画像を選択できる。</p>
+</dd>
+<dt>Check Box</dt><dd><p>対話するためのチェックボックス文字が一つ含まれている。中身コントロールをクリックすると、チェックボックスのチェック状態が切り替わる。</p>
+</dd>
+<dt>Combo Box</dt><dd><p>選択可能な一覧項目のドロップダウンリストと、直接編集可能なテキストボックスからなる。</p>
+</dd>
+<dt>Drop-down List</dt><dd><p>表示テキストと値のペアの一覧を持つドロップダウンボタンコントロールが含まれている。コンボボックスとは異なり、ドロップダウンリストは使用者がカスタム入力を入力することはできない。</p>
+</dd>
+<dt>Date</dt><dd><p>カレンダーコントロールを含む。テキストを一段落に制限する。</p>
+</dd>
+</dl>
+<p>文書、雛形、またはフォームに中身コントロールをはめ込む手順：</p>
+<ol class="arabic simple">
+<li><p>コントロールを表示したい場所にキャレットを置く。</p></li>
+<li><p>Menu バー で <span class="menuselection">Fo<span class="accelerator">r</span>m‣Content Controls‣</span> から欲しいコントロールを選択する。</p></li>
+<li><p>Menu バー で <span class="menuselection">For<span class="accelerator">m</span>‣Content Controls‣Propertie<span class="accelerator">s</span>…</span> を選択する。ピクチャコントロールでは使用不可。</p></li>
+<li><p><span class="guilabel">Content Control Properties</span> ダイアログボックスで、オプションで
+<span class="guilabel">Content is placeholder text</span> を選択し、表題とタグを打ち込む。性質はコントロールによって異なる。詳細は Help を見ろ。</p></li>
+</ol>
+</section>
 </section>
 
 
