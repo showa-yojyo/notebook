@@ -2,7 +2,9 @@
 LibreOffice Calc Chapter 13 Macros ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

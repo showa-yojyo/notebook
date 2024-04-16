@@ -2,7 +2,9 @@
 Calc Guide Chapter 8 Using Formulas and Functions ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

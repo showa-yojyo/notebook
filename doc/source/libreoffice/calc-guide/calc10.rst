@@ -2,7 +2,9 @@
 Calc Guide Chapter 10 Data Analysis ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

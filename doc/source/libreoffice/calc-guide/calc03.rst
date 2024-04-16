@@ -2,7 +2,9 @@
 Calc Guide Chapter 3 Creating Charts and Graphs ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :depth: 2
    :local:
 

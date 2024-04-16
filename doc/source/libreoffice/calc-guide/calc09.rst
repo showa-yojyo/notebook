@@ -2,7 +2,9 @@
 Calc Guide Chapter 9 Using Pivot Tables ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

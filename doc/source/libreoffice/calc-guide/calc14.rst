@@ -2,7 +2,9 @@
 Chapter 14 Calc as a Database ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction
