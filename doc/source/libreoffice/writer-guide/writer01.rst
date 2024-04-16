@@ -2,7 +2,7 @@
 Writer Guide Chapter 1, Introducing Writer ノート
 ======================================================================
 
-.. |PDF| replace:: :abbr:`PDF (Portable Document Format)`
+.. include:: ./writer-inc.txt
 
 .. contents:: 本章見出し
    :depth: 2
@@ -22,31 +22,29 @@ Writer を起動したときにデスクトップに現れるウィンドウの�
 
 .. note::
 
-   本章の記述はメニューとツールバー主体の GUI についてであって、他にも変種 UI を
-   搭載している。:doc:`Chapter 20 <writer20>` 参照。
+   本章の記述は |MenuBar| とツールバー主体の GUI についてであって、他にも変種
+   |UI| を搭載している。|Writer20| 参照。
 
 Title bar
 ----------------------------------------------------------------------
 
 * タイトルバーはメインウィンドウ最上部にある横長の部分だ。
 * タイトルバーには、現在の文書の名前が表示される。新規に作成された文書である場合、
-  その名前は :guilabel:`Untitled 1` のようになる。
+  その名前は `Untitled 1` のようになる。
 
 Menu bar
 ----------------------------------------------------------------------
 
-タイトルバーの下にあるメニューを本書ではメニューバーと呼称している。本ノートで
-は便宜上、単にメニューと記すことが多い。
+タイトルバーの下にあるメニューを本書では |MenuBar| と呼称している。
 
 メニュー項目のラベルに関する一般的な規約が記されている（割愛）。
 
 Sidebar
 ----------------------------------------------------------------------
 
-Sidebar を開くには :menuselection:`&View --> Sidebar` や :kbd:`Ctrl` + :kbd:`F5`
-を用いる。
+|Sidebar| を開くには :menuselection:`&View-->Sidebar` や |Ctrl| + |F5| を用いる。
 
-Sidebar は既定では次の八つの甲板で構成されている：
+|Sidebar| は既定では次の八つの甲板で構成されている：
 
 * :guilabel:`Properties`
 * :guilabel:`Styles`
@@ -58,42 +56,41 @@ Sidebar は既定では次の八つの甲板で構成されている：
 * :guilabel:`Accessibility Check`
 
 各甲板はタイトルバーと内容盤で構成される。盤はツールバーとダイアログボックスを組
-み合わせたようなものだ。Sidebar 盤はツールバーと多くの機能を共有している。
+み合わせたようなものだ。|Sidebar| はツールバーと多くの機能を共有している。
 
 盤には :guilabel:`More Options...` ボタンがあるものがあり、これを押すとダイアロ
 グボックスが modal で開く。
 
-Sidebar の繋留状態と浮遊状態を切り替えるにはハンバーガーメニューから
+|Sidebar| の繋留状態と浮遊状態を切り替えるにはハンバーガーメニューから
 :menuselection:`Undock` を実行する。このメニューから
-:menuselection:`Customization -->` を使えば Sidebar に乗せるタブを選択可能。
+:menuselection:`Customization-->` を使えば |Sidebar| に乗せるタブを選択可能。
 
 各甲板の概要：
 
-:guilabel:`Properties` 盤
+|PropertiesDeck|
    文書内容を整えるためのツールが並んでいる。選択対象の種類によって盤構成が変化
    する。次の種類については記述がある：
 
    * テキスト
-   * 図表
+   * 表組
    * 画像
    * 図面物
    * 枠
    * 映像や音声
-:guilabel:`Styles` 盤
+|StylesDeck|
    文書で使用されているスタイルの管理、既存スタイル適用、新規スタイル作成、スタ
-   イル変更を行う。:doc:`Chapter 8 <writer08>`, :doc:`Chapter 9 <writer09>` で詳
-   しく見る。
-:guilabel:`Gallery` 盤
+   イル変更を行う。|Writer08|, |Writer09| で詳しく見る。
+|GalleryDeck|
    Gallery テーマに含まれる画像と図式を示す。区画が二つある：
 
-   * テーマ名をリストしたもの(矢印、箇条書き、ダイアグラムなど)
+   * テーマ名をリストしたもの（矢印、箇条書き、ダイアグラムなど）
    * 選択したテーマに含まれる画像を表示するもの
 
-   詳細については :doc:`Chapter 11 <writer11>` で取り扱う。
-:guilabel:`Navigator` 盤
-   文書を拾い見て、見出し、図表、枠、画像などの内容品目を選択して整理する。
+   詳細については |Writer11| で取り扱う。
+|NavigatorDeck|
+   文書を拾い見て、見出し、表組、枠、画像などの内容品目を選択して整理する。
    :ref:`writer01-anchor1` で詳しくやる。
-:guilabel:`Page` 盤
+|PageDeck|
    ページ様式を整えるツールが並ぶ。盤は四つ：
 
    * :guilabel:`Format`
@@ -107,34 +104,33 @@ Sidebar の繋留状態と浮遊状態を切り替えるにはハンバーガー
       ページだけでなく、この文書で同じページスタイルを使用しているすべてのページ
       に影響する。
 
-:guilabel:`Style Inspector` 盤
+:guilabel:`Style Inspector` 甲板
    段落様式、文字様式、手動（直接）整形の属性すべてを表示する。:doc:`Chapter 9
    <writer09>` 参照。
-:guilabel:`Manage Changes` 盤
+:guilabel:`Manage Changes` 甲板
    まだ受理も却下もされていない、追跡された変更を列挙している。ダブルクリックす
    ると変更箇所に飛ぶ。:doc:`Chater 3 <writer03>` 参照。
-:guilabel:`Accessibility Check` 盤
+:guilabel:`Accessibility Check` 甲板
    文書内で検出された accessibility の問題を列挙する。ダブルクリックすると問題の
-   場所に飛ぶ。:doc:`Chapter 7 <writer07>` 参照。
+   場所に飛ぶ。|Writer07| 参照。
 
 Toolbars
 ----------------------------------------------------------------------
 
-初期設定では :guilabel:`Standard` ツールバーが作業場所の上部に繋留されている。
+初期設定では |StandardToolbar| が作業場所の上部に繋留されている。
 
-第二のツールバーは :guilabel:`Formatting` だ。この内容はキャレットの現在の位置や
-選択物によって決まり、関連するツールが表示される。
+第二のツールバーは |FormattingToolbar| だ。この内容はキャレットの現在の位置や選
+択物によって決まり、関連するツールが表示される。
 
 Writer にはキャレットや選択範囲の現在の位置に対応するいくつかの追加的ツールバー
 がある。例えば、キャレットが
 
-* 図表内にあるときは :guilabel:`Table` ツールバーが、
-* 番号付き目録や箇条書き目録内にあるときは :guilabel:`Bullets and Numbering`
-  ツールバーが
+* 表組内にあるときは |TableToolbar| が、
+* 番号付き目録や箇条書き目録内にあるときは |B&NToolbar| が
 
 それぞれ表示される。
 
-:menuselection:`&View --> User &Interface...` で :guilabel:`Sin&gle Toolbar` を
+:menuselection:`&View-->User &Interface...` で :guilabel:`Sin&gle Toolbar` を
 採用すると、ツールバーが単一行になる。
 
 Displaying or hiding toolbars
@@ -142,7 +138,7 @@ Displaying or hiding toolbars
 
 ツールバーの表示有無を切り替えるには、
 
-#. メニュー :menuselection:`&View --> &Toolbars -->` に進む
+#. |MenuBar| :menuselection:`&View-->&Toolbars-->` に進む
 #. 対象ツールバーに対応する項目を選択
 
 活動中のツールバーには、名前の横にチェックマークが表示される。ツールパレットから
@@ -174,12 +170,12 @@ Locking and unlocking toolbars
 
 ツールバーをすべて固定するには：
 
-#. :menuselection:`&View --> &Toolbars --> &Lock Toolbars`
+#. :menuselection:`&View-->&Toolbars-->&Lock Toolbars`
 #. LibreOffice を再起動
 
 ツールバーを単品で固定するには：
 
-#. :menuselection:`&View --> &Toolbars --> &Lock Toolbars` がオフであることを確
+#. :menuselection:`&View-->&Toolbars-->&Lock Toolbars` がオフであることを確
    認
 #. 対象ツールバー右クリックメニュー :menuselection:`&Lock Toolbar Position`
 
@@ -202,16 +198,18 @@ Docking, locking, and moving toolbars
 * そのタイトルバーダブルクリックするか、
 * ツールバーのどこかを右クリックし :menuselection:`&Dock Toolbar` を実行する。
 
+.. |LockToolbarPositionC| replace:: :menuselection:`&Lock Toolbar Position`
+
 .. tip::
 
    ツールバーの点線ハンドルが表示されていない場合は施錠されている。解錠するには
-   右クリックメニュー :menuselection:`&Lock Toolbar Position` をオフにする。
+   右クリックメニュー |LockToolbarPositionC| をオフにする。
 
 浮遊ツールバーをすべて繋留するには、右クリックメニュー :menuselection:`Dock All
 Toolbars` を実行
 
 繋留されたツールバーをその位置に固定するには、右クリックメニュー
-:menuselection:`&Lock Toolbar Position` を実行。
+|LockToolbarPositionC| をオンにする。
 
 選択したツールバーを閉じるには、右クリックしてメニュー :menuselection:`Close
 &Toolbar` を実行。
@@ -224,15 +222,15 @@ Customizing toolbars
 
 選択したツールバーに定義されている図像の表示有無を切り替えるには、
 
-#. メニュー項目 :menuselection:`Visible &Buttons -->` 以下に移動
+#. メニュー項目 :menuselection:`Visible &Buttons-->` 以下に移動
 #. 対象コマンドの図像選択状態を切り替える
 
-:menuselection:`Customize` ダイアログボックスを開くには次のいずれかを行う：
+|CustomizeDlg| を開くには次のいずれかを行う：
 
 * 右クリックメニューの :menuselection:`&Customize Toolbar...`
-* メニュー :menuselection:`&View --> &Toolbars --> &Customize...`
+* |MenuBar| :menuselection:`&View-->&Toolbars-->&Customize...`
 
-新規ツールバーを作成することが可能だ。:doc:`Chapter 20 <writer20>` 参照。
+新規ツールバーを作成することが可能だ。|Writer20| 参照。
 
 Rulers
 ----------------------------------------------------------------------
@@ -240,17 +238,15 @@ Rulers
 作業場の上部に位置する水平定規は初期設定で現れているが、左側の垂直定規はそうでは
 ない。これを出現させるには、次のいずれかの操作をする：
 
-* メニュー :menuselection:`&View --> &Rules --> &Vertical Ruler`
-* :guilabel:`Options` ダイアログボックス :menuselection:`LibreOffice Writer -->
-  View` ページの :guilabel:`Verti&cal ruler` をオンにする
+* メニュー :menuselection:`&View-->&Rulers-->&Vertical Ruler`
+* |OptionsDlg| |WriterViewPage| :guilabel:`Verti&cal ruler` をオンにする
 
-両者を表示有無をすばやく切り替えるには :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`R` を
-押せ。
+両者を表示有無をすばやく切り替えるには |Ctrl+Shift| + :kbd:`R` を押せ。
 
-Status bar
+StatusBar
 ----------------------------------------------------------------------
 
-Status バーは作業場の下部に位置する。この棒には文書情報と文書機能をすばやく変更
+|StatusBar| は作業場の下部に位置する。この棒には文書情報と文書機能をすばやく変更
 する便利な方法が表示される。
 
 以下、各区画を順に記述している：
@@ -265,56 +261,52 @@ Status バーは作業場の下部に位置する。この棒には文書情報�
    文書内にしおりが定義されている場合、この区画を右クリックするとしおり一覧が表
    示される。しおりをクリックすると、キャレットが文書内のその位置に飛ぶ。
 
-   この区画をクリックして :guilabel:`Go to Page` ダイアログボックスを開き、文書
-   内の特定のページに飛ぶことが可能だ。
+   この区画をクリックして |GoToPageDlg| を開き、文書内の特定のページに飛ぶことが
+   可能だ。
 単語数と文字数
    文書中の単語数と文字数が表示され、編集するたびに更新される。テキストの一部を
    選択すると、その選択部分の集計が一時的に文書内のの合計に置き換わる。
 
    * ここに表示される文字数は空白を含む。空白を除いた文字数を表示するには、この
-     区画をクリックするか、メニュー :menuselection:`&Tools --> &Word Count...`
-     を実行しろ。
-   * 文書全体の単語数と文字数（およびページ数、図表、画像、その他の統計）を表示
-     するには :menuselection:`&File --> Propert&ies...` を実行して
-     :guilabel:`Statistics` タブを見ろ。
+     区画をクリックするか、|MenuBar| :menuselection:`&Tools-->&Word Count...` を
+     実行しろ。
+   * 文書全体の単語数と文字数（およびページ数、表組、画像、その他の統計）を表示
+     するには |FilePropertiesM| を実行して |StatsTab| を見ろ。
 Accessibility 検査状態
-   メニュー :menuselection:`&Tools --> Automatic Accessibility Checking` がオン
-   である場合、この区画には図像が表示され、文書中の accessibility の問題がいくつ
-   あるかを示すツールチップが表示される。Sidebar :guilabel:`Accessibility Check`
+   |MenuBar| :menuselection:`&Tools-->Automatic Accessibility Checking` がオンで
+   ある場合、この区画には図像が表示され、文書中の accessibility の問題がいくつあ
+   るかを示すツールチップが表示される。|Sidebar| :guilabel:`Accessibility Check`
    タブに詳細が記載されている。
 ページ様式
    現在のページのページ様式が表示される。
 
    * 別のページ様式を選択するにはこの区画を右クリックしろ。ページ様式一覧が
      ポップアップ表示されるので、クリックして選択しろ。
-   * 現在のページ様式の属性を編集するにはこの区画をクリックしろ。:guilabel:`Page
-     Style` ダイアログボックスが開く。
+   * 現在のページ様式の属性を編集するにはこの区画をクリックしろ。|PageStyleDlg|
+     が開く。
 
    .. caution::
 
       ここで変更すると、設定方法次第では他のページに割り当てられている様式に影響
-      することがある。:doc:`Chapter 8 <writer08>` と :doc:`Chapter 9 <writer09>`
-      を参照しろ。
+      することがある。|Writer08| と |Writer09| を参照しろ。
 
 テキスト言語
    綴字、分綴、類語辞典に使用される言語とローカライズが表示される。
 
    クリックするとメニューが表示され、選択したテキストまたはキャレットのある段落
-   の別の言語またはローカライズを選択可能。:doc:`Chapter 3 <writer03>` 参照。
+   の別の言語またはローカライズを選択可能。|Writer03| 参照。
 
    * テキストを綴字検査から除外するために :menuselection:`&None (Do not
      check spelling)` を選択したり、
    * :menuselection:`&Reset to Default Language` で初期設定言語にリセットするこ
      とも可能だ。
-   * :menuselection:`&More...` を選択すると :guilabel:`Character` ダイアログボッ
-     クスが開く。
+   * :menuselection:`&More...` を選択すると |CharacterDlg| が開く。
 挿入モード
    クリックすると上書きモードになり、もう一度クリックすると挿入モードに戻る。
 
    * 上書きモードでは、キャレット位置以降のテキストが入力したテキストに置き換え
      られる。
-   * :menuselection:`&Edit --> Track Chan&ges --> &Record` が活動中では使えな
-     い。
+   * :menuselection:`&Edit-->Track Chan&ges-->&Record` が活動中では使えない。
 選択モード
    クリックすると選択モード一覧
 
@@ -323,15 +315,15 @@ Accessibility 検査状態
    * :menuselection:`&Adding selection`
    * :menuselection:`&Block selection`
 
-   が表示され、クリックするとその選択モードになる。:doc:`Chapter 3 <writer03>`
-   参照。図像はモードを示すように変化し、ツールチップはモード名を示す。
+   が表示され、クリックするとその選択モードになる。|Writer03| 参照。図像はモー
+   ドを示すように変化し、ツールチップはモード名を示す。
 署名
-   :doc:`Chapter 7 <writer07>` 参照。
+   |Writer07| 参照。
 
    * 文書が署名されている場合、図像が表示される。
    * 図像をクリックすると証明書を表示する。
 節情報または物情報
-   キャレットが節、見出し、目録に項目にあるときか、または物（画像や図表など）が
+   キャレットが節、見出し、目録に項目にあるときか、または物（画像や表組など）が
    選択されているとき、その項目に関する情報がここに表示される。この区画をクリッ
    クすると、関連するダイアログボックスが開く。
 ビューレイアウト
@@ -350,8 +342,7 @@ Accessibility 検査状態
    * ズームスライダーをドラッグ
    * 正負符号をクリック
    * 百分率を右クリックして選択できる倍率値のリストをポップアップ
-   * 百分率を右クリックして :guilabel:`Zoom & View Layout` ダイアログボックスを
-     開く
+   * 百分率を右クリックして |Zoom&ViewLayoutDlg| を開く
 
 Context (right-click) menus
 ======================================================================
@@ -372,9 +363,8 @@ Dialogs
 
    このようなダイアログボックスの挙動を modal であるということにする。
 
-通常、:guilabel:`&OK` または同様のボタンをクリックすると、変更が保存されてダイア
-ログボックスが閉じる。:guilabel:`&Cancel` をクリックすると、変更は保存されずにダ
-閉じる。
+通常、|OK| または同様のボタンを押すと、変更が保存されてダイアログボックスが閉じ
+る。:guilabel:`&Cancel` ボタンを押すと、変更は保存されずに閉じる。
 
 ダイアログボックスの中には modeless であるものがあり、ダイアログボックスと文書を
 往復することが可能だ。例としては :guilabel:`Find & Replace` ダイアログボックスが
@@ -385,37 +375,37 @@ Document views
 
 Writer には文書を表示、編集する方法が三つある：
 
-* :menuselection:`&View --> &Normal`
-* :menuselection:`&View --> &Web`
-* :menuselection:`&View --> F&ull Screen`
+* :menuselection:`&View-->&Normal`
+* :menuselection:`&View-->&Web`
+* :menuselection:`&View-->F&ull Screen`
 
 Normal ビュー
    * Writer の既定ビューだ。
    * 文書を印刷したり、|PDF| として書き出したりしたときの見てくれが表示される。
-   * Status バーの Zoom スライダーと View Layout 図像を使って倍率を変更可能。
-   * :menuselection:`&View --> Whitespac&e` はヘッダーとフッター、およびページ間
-     の隙間の表示有無を切り替える。これは Status バーで単一ページ表示がアクティ
+   * |StatusBar| の Zoom スライダーと View Layout 図像を使って倍率を変更可能。
+   * :menuselection:`&View-->Whitespac&e` はヘッダーとフッター、およびページ間
+     の隙間の表示有無を切り替える。これは |StatusBar| で単一ページ表示がアクティ
      ブな場合にのみ機能する。全画面表示でも機能する。
 Web ビュー
    * 文書を Web ブラウザーで表示した場合の見えくれを表示する。
    * Zoom スライダーのみが使用できる。
-   * Status バーの :guilabel:`View Layout` 図像各種は無効になり、:guilabel:`Zoom
-     & View Layout` ダイアログボックスの選択肢のほとんどは使用不可だ。
+   * |StatusBar| の :guilabel:`View Layout` 図像各種は無効になり、の選択肢のほと
+     んどは使用不可だ。
 全画面
-   ツールバーや Sidebar は表示されず、あらかじめ選択されているズームやレイアウト
-   設定を使用して、文書が利用可能である領域すべてを使用する。
+   ツールバーや |Sidebar| は表示されず、あらかじめ選択されているズームやレイアウ
+   ト設定を使用して、文書が利用可能である領域すべてを使用する。
 
    フルスクリーン表示を終了して前の表示に戻るには次のいずれかの操作をする：
 
-   * :kbd:`Esc` を押す
+   * |Esc| を押す
    * 左上にある浮遊ツールバーの :guilabel:`Full Screen` ボタンをクリックする
-   * :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`J` を押す
+   * |Ctrl+Shift| + :kbd:`J` を押す
 
 .. tip::
 
-   メニューから :menuselection:`&Files --> Print Pr&eview...` を使うか、キーバイ
-   ンド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`O` で文書を表示することもできるが、こ
-   のビューで編集はできない。:doc:`Chapter 7 <writer07>` を参照しろ。
+   |MenuBar| から :menuselection:`&Files-->Print Pr&eview...` を使うか、キーバイ
+   ンド |Ctrl+Shift| + :kbd:`O` で文書を表示することもできるが、こ
+   のビューで編集はできない。|Writer07| を参照しろ。
 
 Starting a new document
 ======================================================================
@@ -427,11 +417,10 @@ LibreOffice では文書をすでに開いている場合、新規文書を作�
   る。ここで図像のいずれかをクリックしてその種類の新規文書を開くか、
   :guilabel:`Templates` 図像をクリックしてテンプレートを使用して新規文書を開始す
   る。
-* メニュー :menuselection:`&File --> &New -->` を使い、サブメニューで文書の種類
-  を選択する。
-* Writer が開いているときにはキーバインド :kbd:`Ctrl` + :kbd:`N` で新規文書を作
-  成する。
-* LibreOffice で文書がすでに開かれている場合、:guilabel:`Standard` ツールバーの
+* |MenuBar| :menuselection:`&File-->&New-->` を使い、サブメニューで文書の種類を
+  選択する。
+* Writer が開いているときにはキーバインド |Ctrl+N| で新規文書を作成する。
+* LibreOffice で文書がすでに開かれている場合、|StandardToolbar| の
   :guilabel:`New` 図像をクリックすると、表示されている種類の新規文書が新規ウィン
   ドウに作成される。このアイコンは最後に作成された LibreOffice プログラムによっ
   て変わる。
@@ -465,15 +454,15 @@ From a template
 ている。
 
 テンプレートは自作したり拡張倉庫からダウンロードしたりして拡充可能だ。この話題に
-ついては :doc:`Chapter 10 <writer10>` で見ていく。
+ついては |Writer10| で見ていく。
 
-:guilabel:`Template` ダイアログボックスの開き方は次のいずれかだ：
+|TemplatesDlg| の開き方は次のいずれかだ：
 
-* キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`N`
-* メニューから :menuselection:`&File --> Tem&plates > &Manage Templates...`
-* メニューから :menuselection:`&File --> &New --> Te&mplates`
-* :guilabel:`Standard` ツールバーの :guilabel:`New` 図像の横にある▼をクリック
-  し、ドロップダウンリストで :guilabel:`Te&mplates` を選択
+* キーバインド |Ctrl+Shift| + :kbd:`N`
+* |MenuBar| から :menuselection:`&File-->Tem&plates-->&Manage Templates...`
+* |MenuBar| から :menuselection:`&File-->&New-->Te&mplates`
+* |StandardToolbar| の :guilabel:`New` 図像の横にある▼をクリックし、ドロップダウ
+  ンリストで :guilabel:`Te&mplates` を選択
 
 テンプレートに基づいて新規文書を作成するには、目的のテンプレートを
 
@@ -486,9 +475,9 @@ Opening an existing document
 文書が何も開いていない場合には次のいずれか：
 
 * Start Center で :guilabel:`&Open File` か :guilabel:`Remote File&s` をクリック
-* メニューから :menuselection:`&File --> &Open...` か :menuselection:`&File -->
+* |MenuBar| から :menuselection:`&File-->&Open...` か :menuselection:`&File-->
   Open &Remote` を選択
-* キーバインド :kbd:`Ctrl` + :kbd:`O`
+* キーバインド |Ctrl+O|
 * Start Center に表示される :guilabel:`&Recent Documents` の一覧からサムネイルを
   クリック
 
@@ -500,11 +489,11 @@ Opening an existing document
 
 文書がすでに開いている場合には：
 
-* :guilabel:`Standard` ツールバーの :guilabel:`Open` 図像をクリック
+* |StandardToolbar| の :guilabel:`Open` 図像をクリック
 
   * :guilabel:`Open` 図像の右側にある小▼をクリックし、最近開いた文書一覧から選択
     するか、:menuselection:`Open &Remote File...` を選択
-* :menuselection:`&File --> Recent Doc&uments -->` から選択
+* :menuselection:`&File-->Recent Doc&uments-->` から選択
 
 それから Windows Explorer などの OS 機能から新規文書を作成する方法がある。
 
@@ -549,21 +538,21 @@ Save a new file or a previously-saved file
 
 次のどれかを行う：
 
-* キーバインド :kbd:`Ctrl` + :kbd:`S`
-* メニューから :menuselection:`&File --> &Save` を選択
-* :guilabel:`Standard` ツールバー :guilabel:`Save` 図像をクリック
+* キーバインド |Ctrl+S|
+* |MenuBar| から :menuselection:`&File-->&Save` を選択
+* |StandardToolbar|  :guilabel:`Save` 図像をクリック
 
-初めてファイルとして保存する場合に限り、上記のいずれかを選択すると
-:guilabel:`名前を付けて保存` ダイアログボックスが表示される。
+初めてファイルとして保存する場合に限り、上記のいずれかを選択すると |SaveAsDlg|
+が表示される。
 
 Save to a remote server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 詳しくは :ref:`writer01-anchor2`
 
-#. メニューから :menuselection:`&File -> Sa&ve Remote...` を選択
-#. :guilabel:`名前を付けて保存` ダイアログボックスで保存先を指定、確認
-#. :guilabel:`保存 (&S)` ボタンを押す
+#. |MenuBar| から :menuselection:`&File-->Sa&ve Remote...` を選択
+#. |SaveAsDlg| で保存先を指定、確認
+#. |Save| を押す
 
 Save a copy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -571,17 +560,16 @@ Save a copy
 このコマンドを使用すると、文書を開いたまま編集を続けることができ、また現
 在のバージョンの別個の複製を保存する。
 
-#. メニューから :menuselection:`&File -> Save a Cop&y...` を選択
-#. :guilabel:`名前を付けて保存` ダイアログボックスで名前、種類、保存先を指定、確
-   認
-#. :guilabel:`保存 (&S)` ボタンを押す
+#. |MenuBar| から :menuselection:`&File-->Save a Cop&y...` を選択
+#. |SaveAsDlg| で名前、種類、保存先を指定、確認
+#. |Save| を押す
 
 この操作では複製は開かれない。原文書は開いたままになる。
 
 Save all
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-メニューから :menuselection:`&File -> Sa&ve All` を選択すると、開いているファイ
+|MenuBar| から :menuselection:`&File-->Sa&ve All` を選択すると、開いているファイ
 ルすべてが名前、形式、パスを変更せずに保存される。
 
 Save As command
@@ -590,16 +578,16 @@ Save As command
 ファイル名やファイル形式を変更したり、計算機上の別の場所に保存したりすることで、
 現在の版を新しい文書として保存する。
 
-次のいずれかで :guilabel:`名前を付けて保存` ダイアログボックスを開く：
+次のいずれかで |SaveAsDlg| を開く：
 
-* メニューから :menuselection:`&File --> Save &As...` を選択
-* キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`S`
+* |MenuBar| から :menuselection:`&File-->Save &As...` を選択
+* キーバインド |Ctrl+Shift| + :kbd:`S`
 
 .. note::
 
    LibreOffice では |PDF| や :abbr:`ePub (Electronic PUBlication)` など、ファイ
    ルタイプの変更を伴うファイル操作に対して export という用語を用いる。
-   :doc:`Chapter 7 <writer07>` で見ていく。
+   |Writer07| で見ていく。
 
 Saving documents automatically
 ----------------------------------------------------------------------
@@ -607,21 +595,20 @@ Saving documents automatically
 Writer は文書を一時ファイルに定期的に自動保存し、バックアップを作成する。時間間
 隔を設定したり、自動保存やバックアップをオフにする手順は次のとおり：
 
-#. :guilabel:`Options` ダイアログボックスを開く
-#. :menuselection:`Load/Save --> General` ページを開く
+#. |OptionsDlg| を開く
+#. |LoadSaveGeneralPage| を開く
 #. :guilabel:`Save &AutoRecovery information every` をオンにして時間間隔を指定す
    る
 #. :guilabel:`Al&ways create backup copy` を好みで設定する
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 #. LibreOffice を再起動するように促されたらすぐに再起動するか、後で再起動するか
    を選択する
 
 変更は再起動後から有効。
 
-バックアップコピーは :menuselection:`LibreOffice --> Path` ページで指定したフォ
-ルダーに蓄積する。
+バックアップコピーは |PathsPage| で指定したフォルダーに蓄積する。
 
-:doc:`Chapter 20 <writer20>` 参照。
+|Writer20| 参照。
 
 Saving as a Microsoft Word document
 ----------------------------------------------------------------------
@@ -631,9 +618,9 @@ Save As コマンド実行途中でファイル形式を指定する際に、ド
 
 .. tip::
 
-   Writer で文書を Microsoft Word 形式でいつでも保存するには :guilabel:`Options`
-   ダイアログボックスの :menuselection:`Load/Save --> General` ページを開いて、
-   下の方にある :guilabel:`Always sa&ve as` の値を希望のファイル形式に設定する。
+   Writer で文書を Microsoft Word 形式でいつでも保存するには |OptionsDlg|
+   |LoadSaveGeneralPage| を開いて、下の方にある :guilabel:`Always sa&ve as` の値
+   を希望のファイル形式に設定する。
 
 Exchanging documents with users of Apple Pages
 ----------------------------------------------------------------------
@@ -669,9 +656,9 @@ LibreOffice にはパスワード保護が二つある：
 
 文書をパスワードで保護する手順：
 
-#. メニューから :menuselection:`&File --> Save &As...` を選択
+#. |MenuBar| から |SaveAsM| を選択
 #. 保存ダイアログボックス左下にある :guilabel:`Save with password` をオンにし、
-   :guilabel:`保存 (&S)` を押す
+   |Save| を押す
 #. :guilabel:`Save Password` ダイアログボックスではいろいろ選択肢がある。
 
    * 文書を読み取り禁止にするには、上部にある入力欄二つにパスワードを入力する。
@@ -679,7 +666,7 @@ LibreOffice にはパスワード保護が二つある：
      :guilabel:`Open &file read-only` をオンにする。
    * 書き込みは保護するが、選択した人に編集を許可するには、:guilabel:`Open file
      read-only` をオンにし、かつ下にある入力欄二つにパスワードを入力する。
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 .. caution::
 
@@ -691,8 +678,8 @@ Changing or removing the password for a document
 文書がパスワードで保護されている場合、文書を開いている間にパスワードを変更または
 削除することが可能だ：
 
-#. メニューから :menuselection:`&File --> Propert&ies...` を選択
-#. :guilabel:`General` タブをクリック
+#. |MenuBar| から |FilePropertiesM| を選択
+#. |GeneralTab| をクリック
 #. :guilabel:`Change &Password` ボタンを押す
 
 OpenPGP encryption
@@ -750,35 +737,36 @@ Using Go to Page
 
 次の方法で、文書内の特定のページに飛べる：
 
+.. |GoToPageDlg| replace:: :guilabel:`Go to Page` ダイアログボックス
+
 * Navigator の右上にある Go to Page 欄を使う。
-* :guilabel:`Go to Page` ダイアログボックスを使う。入力欄に移動先のページ番号を
-  入力し、:guilabel:`&OK` をクリックする。
+* |GoToPageDlg| を使う。入力欄に移動先のページ番号を入力し、|OK| を押す。
 
-:guilabel:`Go to Page` ダイアログボックスの開き方は次のどれでもかまわない：
+|GoToPageDlg| の開き方は次のどれでもかまわない：
 
-* Status Bar 上のページ番号欄をクリック
-* メニューから :menuselection:`&Edit --> Go t&o Page...` を選択
-* キーバインド :kbd:`Ctrl` + :kbd:`G`
+* |StatusBar| 上のページ番号欄をクリック
+* |MenuBar| から :menuselection:`&Edit-->Go t&o Page...` を選択
+* キーバインド |Ctrl+G|
 
 .. _writer01-anchor1:
 
 Using the Navigator
 ----------------------------------------------------------------------
 
-Navigator には見出し、図表、テキスト枠、画像、しおり、その他の物が一覧表示される。
+Navigator には見出し、表組、テキスト枠、画像、しおり、その他の物が一覧表示される。
 Navigator を開くには次のいずれかを行う：
 
-* Sidebar 右柱 :guilabel:`Tab` 盤上の :guilabel:`Navigator` タブをクリック
-* :guilabel:`Standard` ツールバーの :guilabel:`Navigator` 図像があればクリック
-* キーバインド :kbd:`F5`
-* メニュー :menuselection:`&View --> Na&vigator` をオン
+* |Sidebar| 右柱 |NavigatorDeck| を開く
+* |StandardToolbar| の :guilabel:`Navigator` 図像があればクリック
+* キーバインド |F5|
+* |MenuBar| :menuselection:`&View-->Na&vigator` をオン
 
 品目内項目一覧を見るには正符号をクリックする。
 
 .. note::
 
-   マスター文書では Navigator 機能はここで述べられているものと異なる。
-   :doc:`Chapter 16 <writer16>` で見る。
+   宗主文書では Navigator 機能はここで述べられているものと異なる。|Writer16| で
+   見る。
 
 Navigator は文書内を移動したり、項目を探したりするための便利な方法をいくつか搭載
 している。機能名だけ羅列しておく：
@@ -799,7 +787,7 @@ Navigator は文書内を移動したり、項目を探したりするための�
 .. note::
 
    文書内の隠秘部分は Navigator では灰色で表示され、ツールチップとして
-   :guilabel:`hidden` という文字が表示される。:doc:`Chapter 6 <writer06>` 参照。
+   :guilabel:`hidden` という文字が表示される。|Writer06| 参照。
 
 .. tip::
 
@@ -814,25 +802,25 @@ Navigator は文書内を移動したり、項目を探したりするための�
    #. コンテキストメニュー :menuselection:`Rename...` を選択
    #. ビューが画像に飛び、:guilabel:`Rename object` ダイアログボックスが開く
    #. :guilabel:`&New name` 欄に入力
-   #. :guilabel:`&OK` を押して確定
+   #. |OK| を押して確定
 
-   画像を直接右クリックして :menuselection:`&Properties...` を選んでも変更可能。
+   画像を直接右クリックして |PropertiesC| を選んでも変更可能。
 
 Using outline folding
 ----------------------------------------------------------------------
 
-アウトライン折りたたみを使えば、テキスト、画像、図表、枠、図形、テキストボックス
+アウトライン折りたたみを使えば、テキスト、画像、表組、枠、図形、テキストボックス
 など、見出しの下にある内容すべてを隠したり現したりすることが可能だ。
 
 この機能を有効にするには
 
-#. :guilabel:`Options` ダイアログボックスを開く
-#. :menuselection:`LibreOffice Writer --> View` ページを開く
+#. |OptionsDlg| を開く
+#. |WriterViewPage| を開く
 #. :guilabel:`&Show outline-folding buttons` をオンにする
 #. 好みで :guilabel:`Include sub &levels` をオンにする
 
 アウトライン折りたたみは Navigator と連動し、マウスを使って直接行える。詳しくは
-:doc:`Chapter 3 <writer03>` でやる。
+|Writer03| でやる。
 
 Setting reminders
 ----------------------------------------------------------------------
@@ -860,18 +848,18 @@ Undoing and redoing changes
 
 元に戻す：
 
-* キーバインド :kbd:`Ctrl` + :kbd:`Z`
-* メニューから :menuselection:`&Edit --> &Undo`
-* :guilabel:`Standard` ツールバーの :guilabel:`Undo` 図像をクリック
+* キーバインド |Ctrl+Z|
+* |MenuBar| から :menuselection:`&Edit-->&Undo`
+* |StandardToolbar| の :guilabel:`Undo` 図像をクリック
 
   この図像の右にある▼をクリックすると元に戻せる変更すべての一覧が現れる。
   この一覧上で連続する変更を選択し、一気に戻すことが可能だ。
 
 変更が取り消された後、Redo コマンドが有効になる：
 
-* メニューから :menuselection:`&Edit --> &Redo`
-* キーバインド :kbd:`Ctrl` + :kbd:`Y`
-* :guilabel:`Standard` ツールバーの :guilabel:`Redo` 図像をクリック
+* |MenuBar| から :menuselection:`&Edit-->&Redo`
+* キーバインド |Ctrl+Y|
+* |StandardToolbar| の :guilabel:`Redo` 図像をクリック
 
   Undo と同様に、:guilabel:`Redo` 図像の▼をクリックすると、元に戻せる変更の一覧
   が表示される。
@@ -886,8 +874,8 @@ LibreOffice では、同じ文書を複数のビューで同時に開き、閲�
 ると、他のウィンドウにも即座に反映される。あるページから別のページに情報をコピー
 したり移動したりする場合に便利だろう。
 
-文書を表示するウィンドウを新規に開くには、メニューから :menuselection:`&Window
---> &New Window` を選択する。
+文書を表示するウィンドウを新規に開くには、|MenuBar| から :menuselection:`&Window
+-->&New Window` を選択する。
 
 * 開かれた各ウィンドウにはタイトルバーのファイル名に番号が自動的に付けられる。
 * 他の LibreOffice 文書を同時に開いている場合、ウィンドウの一覧にはそれらも含ま
@@ -900,9 +888,9 @@ LibreOffice では、同じ文書を複数のビューで同時に開き、閲�
 
 アクティブウィンドウを閉めるには、次のいずれかを行う：
 
-* :menuselection:`&Window --> &Close Window`
-* キーバインド :kbd:`Ctrl` + :kbd:`W`
-* メニューバーかタイトルバーの :kbd:`Close` 図像をクリック
+* :menuselection:`&Window-->&Close Window`
+* キーバインド |Ctrl+W|
+* |MenuBar| かタイトルバーの :guilabel:`Close` 図像をクリック
 
 Reloading a document
 ======================================================================
@@ -911,7 +899,7 @@ Reloading a document
 
    他のアプリケーションで言うところの Revert に近い。
 
-文書を再読み込みするには、メニューから :menuselection:`&File --> Re&load` を選択
+文書を再読み込みするには、|MenuBar| から :menuselection:`&File-->Re&load` を選択
 する。前回の保存以降にファイルに変更を加えた場合、Reload を実行すると前回の変更
 が破棄されることを警告する確認ダイアログボックスが表示される。
 
@@ -920,7 +908,7 @@ Closing a document
 
 文書を閉じるには次のいずれかを行う：
 
-* メニューから :menuselection:`&File --> &Close` を選択
+* |MenuBar| から :menuselection:`&File-->&Close` を選択
 * メニューバーの右端 (Windows) のバツボタンをクリック
 
 Windows で最後の文書を閉じると、LibreOffice Start Center が開く。

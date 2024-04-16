@@ -2,8 +2,7 @@
 Writer Guide Chapter 14, Mail Merge ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
-.. |Wizard| replace:: :guilabel:`Mail Merge Wizard`
+.. include:: ./writer-inc.txt
 .. |MailMergeDlg| replace:: :guilabel:`Mail Merge` ダイアログボックス
 
 .. contents:: 章見出し
@@ -40,8 +39,6 @@ mail merge
 Creating and registering an address data source
 ======================================================================
 
-.. |CSV| replace:: :abbr:`CSV (comma-separated values)`
-
 宛名データ給源は宛名札や封筒を作成するための名前と住所の目録を含むデータベース
 だ。LibreOffice では、スプレッドシート、Writer 文書を含むテキストファイル、MySQL
 などのデータベースからデータベースを作成できる。差し込み印刷で使用する情報が
@@ -52,15 +49,15 @@ Writer 文書内からデータ給源に直接アクセスするには、その�
 がある。これを行う必要は一度しかない：
 
 #. Writer 文書内または LibreOffice Start Center から
-   :menuselection:`&File-->&Wizards->Address &Data Source...` を選択する。
-#. |Wizard| の最初のページの選択肢は OS によって異なる。適切な外部住所帳の種
-   類を選択する。
+   :menuselection:`&File-->&Wizards-->Address &Data Source...` を選択する。
+#. |MMWizard| の最初のページの選択肢は OS によって異なる。適切な外部住所帳の種類
+   を選択する。
 
    * スプレッドシートの場合は :guilabel:`&Other external data source` だ。
    * 選択項目によって左柱の :guilabel:`Steps` が変わる場合がある。
 
    |Next| を押す。
-#. |Wizard| の次のページで :guilabel:`&Settings` ボタンを押す。
+#. |MMWizard| の次のページで :guilabel:`&Settings` ボタンを押す。
 #. :guilabel:`Create Address Data Source` ダイアログボックスで
    :guilabel:`Database &type` を選択する。この例では :guilabel:`Spreadsheet` だ。
    |Next| を押す。
@@ -97,16 +94,14 @@ Writer 文書内からデータ給源に直接アクセスするには、その�
 Creating a form letter
 ======================================================================
 
-.. |File-->Print| replace:: :menuselection:`&File-->&Print...`
-
 定型書簡を手動で作成することもできる。これは最も簡単かつ包括的な方法で、ここで説
 明されている。あるいは :ref:`Mail Merge Wizard<writer14-anchor-wizard>` を使う。
 
 #. Writer 文書を新規作成するか、既存の定型書簡を開く。
 #. 登録されているデータ給源を表示する
 
-   * メニュー :menuselection:`&View-->Data Sources`
-   * キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F4`
+   * |MenuBar| :menuselection:`&View-->Data Sources`
+   * キーバインド |Ctrl+Shift| + |F4|
 #. 定型書簡に使用するデータ給源、この場合は `Addresses` を見つける。このノードと
    `Tables` ノードを展開し、`Sheet1` を選択する。住所データファイルが表示され
    る。
@@ -115,21 +110,21 @@ Creating a form letter
 
    差し込み印刷フィールドを必要な箇所（名前や住所など）に追加するには、フィール
    ドの見出しをクリックし、書簡内の適切な箇所にドラッグする。必要に応じて、空白
-   やその他の句読点を追加しろ。宛先ブロックの各行の末尾で :kbd:`Enter` を押す。
+   やその他の句読点を追加しろ。宛先ブロックの各行の末尾で |Enter| を押す。
 #. この例のデータベースには、二番目の住所行 AD2 のフィールドがあり、一部の住所で
    空白になっている。書簡が印刷されるときに住所ブロックに表示される可能性のある
    空白行を削除したい場合は次節で説明する手順を使用できる。そうでない場合は、次
    の手順へ進め。
 #. これで文書は印刷準備ができた。
 
-   * |File-->Print| を選択し、メッセージボックスで |Yes| を押す。
+   * |PrintM| を選択し、メッセージボックスで |Yes| を押す。
    * |MailMergeDlg| :guilabel:`Records` 区画で、すべての記録行を印刷するか、選択
      した記録行を印刷するかを選択できる。
 
-     * 印刷する個々の記録行を選択するには :kbd:`Ctrl` を押しながらクリック。
+     * 印刷する個々の記録行を選択するには |Ctrl| を押しながらクリック。
      * 記録行のブロックを選択するには、ブロック内の最初の記録行を選択し、ブロッ
-       ク内の最後の記録行までスクロールして、最後の記録行を :kbd:`Shift` を押し
-       ながらクリック。
+       ク内の最後の記録行までスクロールして、最後の記録行を |Shift| を押しながら
+       クリック。
      * 印刷する記録行番号の範囲を指定することもできる。
    * 手紙を直接印刷機に送信するには、:guilabel:`Output` 区画で
      :guilabel:`&Printer` を選択し、|OK| を押す。または、手紙をファイルに保存し
@@ -144,7 +139,7 @@ Suppressing blank lines (optional)
 空行を抑制したい場合は次の手順をたどれ：
 
 #. 段落の末尾をクリックし、:menuselection:`&Insert-->Fiel&d-->&More Fields...`
-   を選択して :guilabel:`Fields` ダイアログボックスを開く。
+   を選択して |FieldsDlg| を開く。
 #. :guilabel:`Functions` タブをクリックし、:guilabel:`&Type` で
    :guilabel:`Hidden Paragraph` を選択する。
 
@@ -258,8 +253,8 @@ Preparing for printing
 #. この文書では、次を使用すると段落末尾が表示される：
 
    * ツールバー :guilabel:`Toggle Formatting Marks` ボタン
-   * メニュー :menuselection:`&View-->For&matting Marks`
-   * キーバインド :kbd:`Ctrl` + :kbd:`F10`
+   * |MenuBar| :menuselection:`&View-->For&matting Marks`
+   * キーバインド |Ctrl| + |F10|
 #. 通常は画面の左上隅に |SyncLabelButton| を含む小さなウィンドウが表示されるはず
    だ。
 #. 段落末尾やその他の句読点が欠けている場合、またはすべての紙札の一つまたは複数
@@ -271,13 +266,13 @@ Preparing for printing
 Printing
 ----------------------------------------------------------------------
 
-#. |File-->Print| を選択する。メッセージが表示される。|Yes| を押して印刷する。
+#. |PrintM| を選択する。メッセージが表示される。|Yes| を押して印刷する。
 #. |MailMergeDlg| ではすべての記録行を印刷するか、選択した記録行を印刷するか
    を選択できる。
 
-   * 印刷する個々の記録行を選択するには :kbd:`Ctrl` を押しながらクリック。
+   * 印刷する個々の記録行を選択するには |Ctrl| を押しながらクリック。
    * 記録行ブロックを選択するには、ブロック内の最初の記録行を選択し、ブロック内
-     の最後の記録行までスクロールして、最後の記録行を :kbd:`Shift` を押しながら
+     の最後の記録行までスクロールして、最後の記録行を |Shift| を押しながら
      クリック。
 #. |OK| を押すと紙札が直接印刷機に送信される。紙札をファイルに保存したい場合は
    :guilabel:`Output` 区画 :guilabel:`&File` を選択する。この場合、|OK| を押すと
@@ -307,16 +302,11 @@ Editing a saved file of mailing labels
 Printing envelopes
 ======================================================================
 
-.. |EnvelopeDlg| replace:: :guilabel:`Envelope` ダイアログボックス
-.. |EnvelopeTab| replace:: :guilabel:`Envelope` タブ
-.. |FormatTab| replace:: :guilabel:`Format` タブ
-.. |PrinterTab| replace:: :guilabel:`Printer` タブ
-
 宛名札を印刷する代わりに、封筒に直接印刷することもある。
 
 封筒の作成には構成と印刷という二つの段階がある。|EnvelopeDlg| の |FormatTab| と
-|PrinterTab| ページを使って封筒を印刷するための一般的な設定方法については
-|Chapter07| を見ろ。
+|PrinterTab| を使って封筒を印刷するための一般的な設定方法については |Writer07|
+を見ろ。
 
 封筒を一通作成するには、宛先欄に名前と住所を入力または貼り付けるか、この節で説明
 するように住所データ給源から情報を取得する。
@@ -324,7 +314,7 @@ Printing envelopes
 Setting up envelopes for printing
 ----------------------------------------------------------------------
 
-#. メニューの :menuselection:`&Insert-->En&velope...` を選択する。
+#. |MenuBar| の :menuselection:`&Insert-->En&velope...` を選択する。
 #. |EnvelopeDlg| |EnvelopeTab| で封筒に差出人情報を追加するかどうかを選択する。
    追加する場合は、差出人欄に情報を入力する。あらかじめ差出人情報が印刷された封
    筒を使用する場合は、この記入欄を空にするか、:guilabel:`&Sender` チェックボッ
@@ -343,7 +333,7 @@ Merging and printing the envelopes
 
 宛名を統合して封筒を印刷する手順：
 
-#. |File-->Print| を選ぶ。メッセージが表示される。|Yes| を押して印刷する。
+#. |PrintM| を選ぶ。メッセージが表示される。|Yes| を押して印刷する。
 #. |MailMergeDlg| が開く。定型書簡や宛名札と同様に、データベース内の一つ、複数、
    またはすべての住所録の封筒を印刷するように選択できる。
 #. 選択し、|OK| を押すと印刷機に直接印刷される。印刷前に封筒を確認するには
@@ -355,7 +345,7 @@ Using the Mail Merge Wizard to create a form letter
 ======================================================================
 
 定型書簡を手動で作成する方法については :ref:`writer14-anchor-form` で説明してい
-る。|Wizard| を使用する場合は、その技法はこの節で述べられる。
+る。|MMWizard| を使用する場合は、その技法はこの節で述べられる。
 
 :menuselection:`&File-->&New-->&Text Document` で新規文書を開き、
 :menuselection:`&Tools-->Mail Merge Wi&zard...` を選択する。
@@ -363,7 +353,7 @@ Using the Mail Merge Wizard to create a form letter
 Step 1: Select starting document
 ----------------------------------------------------------------------
 
-|Wizard| では、開始文書に選択肢がある：
+|MMWizard| では、開始文書に選択肢がある：
 
 * 現在の文書を使用
 * 新規文書を作成
@@ -389,7 +379,7 @@ Step 1: Select starting document
 Step 2: Select document type
 ----------------------------------------------------------------------
 
-|Wizard| は手紙やメールを作成することができる。この例では、手紙を作成する。
+|MMWizard| は手紙やメールを作成することができる。この例では、手紙を作成する。
 :guilabel:`&Letter` を選択し |Next| を押す。
 
 Step 3: Insert address block
@@ -480,7 +470,7 @@ Matching the fields
 
    .. admonition:: 読者ノート
 
-      次に進むことができないとは、|Wizard| の第四ページを開けないということだ。
+      次に進むことができないとは、|MMWizard| の第四ページを開けないということだ。
 
 #. 第二区画にある :guilabel:`&Suppress lines with just empty fields` に注目し
    ろ。ウィザードを使用すると、本章で前述した手動定型書簡方式を使用する場合のよ
@@ -537,8 +527,8 @@ Step 5: Adjust layout
 できる。ボタンを使用して要素を移動する。
 
 これで手紙の内容を入力できる Writer 文書が整った。フィールドを差し込んで書簡を印
-刷するには、メニューの |File-->Print| を選択する。定型書簡を印刷するかどうかを尋
-ねるメッセージがポップアップ表示される。|Yes| を押す。
+刷するには、|MenuBar| |PrintM| を選択する。定型書簡を印刷するかどうかを尋ねる
+メッセージがポップアップ表示される。|Yes| を押す。
 
 |MailMergeDlg| が開き、オプションで記録行を加除選択し、:guilabel:`Output` 区画
 で手紙をすぐに印刷するか (:guilabel:`&Printer`)、後で編集または印刷するために保

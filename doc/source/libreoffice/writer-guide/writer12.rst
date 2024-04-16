@@ -2,7 +2,7 @@
 Writer Guide Chapter 12, Lists ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -11,7 +11,7 @@ Writer Guide Chapter 12, Lists ノート
 Introduction
 ======================================================================
 
-この章では |Chapter09| の内容を発展させ、さらにいくつかの例を提示する。
+この章では |Writer09| の内容を発展させ、さらにいくつかの例を提示する。
 
 多くの文書作成ソフトでは一覧オプションは段落スタイルに含まれているが、Writer で
 は段落スタイルにリンクして使用できる分離型のスタイルとして扱われる。Writer の分
@@ -23,11 +23,11 @@ Introduction
 
 .. tip::
 
-   一覧用の既定のツールバーと Sidebar 図像が使用するスタイルを変更することはでき
-   ない。一覧スタイルを段落に適用するツールバーボタンを新規に作成することもでき
-   るが、一覧用に段落スタイルを作成し、必要に応じてツールバー図像やスタイルメ
-   ニューの項目を作成する方がよい方法だ。ツールバーボタンとメニュー項目の作成に
-   ついては |Chapter20| を参照。
+   一覧用の既定のツールバーと |Sidebar| 図像が使用するスタイルを変更することはで
+   きない。一覧スタイルを段落に適用するツールバーボタンを新規に作成することもで
+   きるが、一覧用に段落スタイルを作成し、必要に応じてツールバー図像やスタイルメ
+   ニューの項目を作成する方がよい方法だ。ツールバーボタンと |MenuBar| 項目の作成
+   については |Writer20| を参照。
 
 Types of list
 ======================================================================
@@ -90,8 +90,8 @@ Writer には、アウトライン一覧にいくつかのオプションがあ�
 落スタイルを使用するアウトライン手段を作成する。このような段落スタイルが使用され
 ている場合、
 
-* 階層を下げるには :kbd:`Tab`
-* 階層を上げるには :kbd:`Shift` + :kbd:`Tab`
+* 階層を下げるには |Tab|
+* 階層を上げるには |Shift| + |Tab|
 
 を押すことで階層と番号を変更する。この単一スタイルのアウトラインが最も速く適用で
 きる。
@@ -182,8 +182,8 @@ Nesting lists
 
 カスタマイズされた一覧スタイルは、使用する段落スタイルに関連付けられる。関連付け
 られた段落スタイルを使用しながら下位の一覧階層に切り替えるには、中身を入力する前
-に :kbd:`Tab` を押す。より上位の一覧階層に切り替えるには :kbd:`Shift` +
-:kbd:`Tab` を押す。
+に |Tab| を押す。より上位の一覧階層に切り替えるには |Shift| + |Tab| を
+押す。
 
 二つ目の方法は、一覧スタイルを二つ作成し、それぞれの一覧スタイルを別々の段落スタ
 イルに関連付ける方法だ。
@@ -200,29 +200,33 @@ Nesting lists
 Outlining with paragraph styles
 ======================================================================
 
-.. |Tools-->Numbering| replace:: :menuselection:`&Tools-->Heading &Numbering...`
-
 LibreOffice には段落スタイルを使用してアウトラインを形成する方法がいくつかある。
-メニューから |Tools-->Numbering| を使用すると、段落スタイルごとに番号付けスタイ
-ルを選択し、アウトライン階層の一部にすることができる。また、Sidebar |StylesDeck|
-を使用して、各 `Heading` スタイルを個別の一覧スタイルに関連付けることもできる。
+|MenuBar| から |HeadingNumberingM| を使用すると、段落スタイルごとに番号付けスタ
+イルを選択し、アウトライン階層の一部にすることができる。また、|Sidebar|
+|StylesDeck| を使用して、各 `Heading` スタイルを個別の一覧スタイルに関連付けるこ
+ともできる。
+
+.. |OutlineTab| replace:: :guilabel:`Outline` タブ
 
 より簡単なアウトライン形成方法として、その用途のために単一の一覧スタイルを作成す
 る方法がある。その一覧スタイルの |CustomizeTab| で異なる階位を手動で設定すること
-もできるが、代わりにその一覧スタイルの :guilabel:`Outline` タブから定義済みの典
-型を選択してもほぼ同じ結果が得られる。
+もできるが、代わりにその一覧スタイルの |OutlineTab| から定義済みの典型を選択して
+もほぼ同じ結果が得られる。
 
-段落スタイルを使用するには、:kbd:`Enter` + :kbd:`Tab` を押して下位段落を追加す
-る。下位段落は一覧スタイルの番号体系を自動的に使用する。段落スタイルの階位を上げ
-るには、:kbd:`Enter` + :kbd:`Shift` + :kbd:`Tab` を押す。
+段落スタイルを使用するには、|Enter| + |Tab| を押して下位段落を追加する。下位段落
+は一覧スタイルの番号体系を自動的に使用する。段落スタイルの階位を上げるには、
+|Enter| + |Shift| + |Tab| を押す。
+
+.. admonition:: 読者ノート
+
+   奇妙なキーバインドだ。
 
 Creating outlines with a single paragraph style
 ----------------------------------------------------------------------
 
 アウトライン用の単一段落スタイルを構成する手順：
 
-#. 一覧スタイルを作成し、:guilabel:`Outline` タブで定義済みの書式のいずれかに関
-   連付ける。
+#. 一覧スタイルを作成し、|OutlineTab| で定義済みの書式のいずれかに関連付ける。
 #. アウトライン用の段落スタイルを選択または作成する。`Heading 1` から `Heading
    10` のスタイルは使用できない。この制限は単一の段落スタイルアウトラインと登録
    されたアウトライン階位（次節を参照）との間の混乱を防ぐためだろう。
@@ -246,7 +250,7 @@ Adding paragraph styles to outline levels
 .. tip::
 
    アウトラインレベルには複数の段落スタイルを割り当てることができるが、
-   |Tools-->Numbering| で表示される段落スタイルは一つしかない。
+   |HeadingNumberingM| で表示される段落スタイルは一つしかない。
 
 Applying list styles
 ======================================================================
@@ -255,8 +259,8 @@ Applying list styles
 フォント、境界、テキストフローなどの性質を定義するものではない。後者は段落スタイ
 ルの性質だ。
 
-メニュー :menuselection:`St&yles-->` や Sidebar |StylesDeck| を使用して一覧スタ
-イルを適用できるが、これらの方法は推奨されない。
+|MenuBar| :menuselection:`St&yles-->` や |Sidebar| |StylesDeck| を使用して一覧ス
+タイルを適用できるが、これらの方法は推奨されない。
 
 一覧の作成には段落スタイルを可能な限り使え。Writer にはこの目的のために二組の段
 落スタイルが用意されている。一覧スタイルと段落スタイルは、これらの方法で併用する
@@ -276,14 +280,14 @@ Writer には、さまざまな箇条書き記号や数字列 (123, abc, ABC, et
 一覧スタイルは、入れ子された一覧に使用される最大十個の階層を持つことができる。階
 位を切り替えるには、
 
-* :guilabel:`Bullets and Numbering` ツールバーで
+* |B&NToolbar| で
 
   * :guilabel:`Promote Outline Level` 図像を押して一つ上の階へ
   * :guilabel:`Demote Outline Level` 図像を押して一つ下の階へ
 * キーバインド
 
-  * :kbd:`Tab` で一つ下の階へ
-  * :kbd:`Shift` + :kbd:`Tab` で一つ上の階へ
+  * |Tab| で一つ下の階へ
+  * |Shift| + |Tab| で一つ上の階へ
 * 一覧要素を右クリックして
 
   * :menuselection:`&List-->&Promote Outline Level` で一つ上の階へ
@@ -332,7 +336,7 @@ Formatting list styles
 
 二つ目の方法は |ListStyleDlg| の |CustomizeTab| と |PositionTab| を使って、順序
 なし一覧や順序付き一覧をカスタマイズする方法だ。どちらのタブも十段階ある。これら
-の設定は、:kbd:`Tab` を押すたびに番号が変わるような、単一のアウトライン番号付け
+の設定は、|Tab| を押すたびに番号が変わるような、単一のアウトライン番号付け
 スタイルを作成するのに便利だ。:ref:`writer12-anchor-outline` を見ろ。ほとんどの
 順序なし一覧と順序付き一覧では、:guilabel:`&Level` を :guilabel:`1` に設定する
 か、既定の :guilabel:`1 - 10` のままにしておく。
@@ -483,10 +487,9 @@ Formatting unordered lists
 
 順序なし一覧の既定の文字スタイルは `Default Paragraph Style` に標準の項目記号を
 搭載している。この文字スタイルは `Numbering Symbols` から `Bullets` または文書で
-定義されているその他のスタイルに変更できる。項目記号を変更するには
-|CustomizeTab| :guilabel:`C&haracter` 欄横にある :guilabel:`Selec&t...` ボタンを
-押す。:guilabel:`Special Characters` ダイアログボックスが開く。現在のフォントが
-対応する記号を選択する。
+定義されているその他のスタイルに変更できる。項目記号を変更するには|CustomizeTab|
+:guilabel:`C&haracter` 欄横にある :guilabel:`Selec&t...` ボタンを押
+す。|SpecialCharDlg| が開く。現在のフォントが対応する記号を選択する。
 
 .. tip::
 
@@ -507,6 +510,7 @@ Example: Making a checklist
 できる。例えば、箇条書きに使用するフォントや文字を選択することで、順序なし一覧を
 チェック一覧にすることができる。
 
+.. comment: unicode にするとフォントがなくて文字化けするので replace にしておく
 .. |U+E00B| replace:: U+E00B
 
 チェック一覧をペンで使用したい場合は、LibreOffice に同梱されている OpenSymbol
@@ -584,10 +588,8 @@ Example: Styling the Tips, Notes, and Cautions in this book
 本書における Tip, Note, Caution の本文は見出しの下に字下げされ、本文と区別するた
 めにその下に一行が引かれている。
 
-.. |NewItem| replace:: :menuselection:`&New...`
-
-#. Sidebar |StylesDeck| で |ParagraphStylesTab| をクリック。右クリックして
-   |NewItem| を選択し、新しいスタイルに `Text Note` という名前を付ける。
+#. |Sidebar| |StylesDeck| で |ParagraphStylesTab| をクリック。右クリックして
+   |NewC| を選択し、新しいスタイルに `Text Note` という名前を付ける。
 #. |Indents&SpacingTab| で Tip 本文の字下げと行間を指定する。
 #. |BordersTab| で下部の境界線を選択し、太くし、テキストと境界線の間隔を指定す
    る。Tip が段落を複数含む場合、最後の段落の下にしか境界線を引かせないようにす
@@ -596,8 +598,8 @@ Example: Styling the Tips, Notes, and Cautions in this book
 
 .. rubric:: Step 2. 一覧スタイル作成
 
-#. Sidebar |StylesDeck| で |ListStylesTab| を選択する。右クリックして |NewItem|
-   を選択する。新しいスタイルに `Heading Tip` と名前を付ける。
+#. |Sidebar| |StylesDeck| で |ListStylesTab| を選択する。右クリックして |NewC| を
+   選択する。新しいスタイルに `Heading Tip` と名前を付ける。
 #. |ImageTab| で適切な画像を選択する。または、このステップを省略して
    |CustomizeTab| で画像を選択する。
 #. |CustomizeTab| で :guilabel:`&Number` 欄で :guilabel:`Graphics` を選択する。
@@ -615,8 +617,8 @@ Example: Styling the Tips, Notes, and Cautions in this book
 
 .. rubric:: Step 3. 見出し Tip 用の段落スタイル作成し、リストスタイル結合
 
-#. Sidebar |StylesDeck| で |ParagraphStylesTab| を選択する。右クリックして
-   |NewItem| を選択し、新しいスタイルに `Heading Tip` という名前を付ける。
+#. |Sidebar| |StylesDeck| で |ParagraphStylesTab| を選択する。右クリックして
+   |NewC| を選択し、新しいスタイルに `Heading Tip` という名前を付ける。
 #. |OrganizerTab| で :guilabel:`Next Style` を Tip 本文用に作成したものに指定す
    る。
 #. 通常の方法で段落にスタイルを設定し、|Outline&ListTab| に移動する。
@@ -626,10 +628,10 @@ Example: Styling the Tips, Notes, and Cautions in this book
 .. rubric:: Step 4. Tip, Note, Caution の見出しとテキストに段落スタイルを適用
 
 #. 新しい段落に `Tip` と入力する。少なくとも一文字か空白を入力する必要がある。さ
-   もないと、:kbd:`Enter` を押したときに絵が消え、字下げが残るが、項目記号が残ら
+   もないと、|Enter| を押したときに絵が消え、字下げが残るが、項目記号が残ら
    ない。
 #. `Heading Tip` 段落スタイルを適用する。
-#. :kbd:`Enter` を押す。次の段落は自動的にテキストノートの段落スタイルになる。
+#. |Enter| を押す。次の段落は自動的にテキストノートの段落スタイルになる。
 #. Tip 本文のテキストを入力する。すでにテキストを入力している場合はスタイルを手
    動で適用しろ。
 
@@ -645,8 +647,8 @@ Example: Creating and using a simple list style
 Creating the CDTrack list style
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Sidebar |StylesDeck| で |ListStylesTab| をクリック
-#. 右クリックし |NewItem| を選択。|ListStyleDlg| が表示される。
+#. |Sidebar| |StylesDeck| で |ListStylesTab| をクリック
+#. 右クリックし |NewC| を選択。|ListStyleDlg| が表示される。
 #. |OrganizerTab| で :guilabel:`Name` 欄に `CDTrack` と入力し、
    :guilabel:`Category` を :guilabel:`Custom styles` のままにする。
 #. |CustomizeTab| で（必要であれば）次のように選択肢を変更する：
@@ -677,9 +679,8 @@ Creating the CDTracks paragraph style
 一覧スタイルを一覧項目に直接適用することもできるが、段落スタイルを使用する方がよ
 り良い方法だ。新しい `CDTracks` スタイルは `Default Paragraph Style` に基づく。
 
-#. Sidebar |StylesDeck| |ParagraphStylesTab| をクリック
-#. 一覧にある :guilabel:`Default Paragraph Style` を右クリックし |NewItem| を選
-   択
+#. |Sidebar| |StylesDeck| |ParagraphStylesTab| をクリック
+#. 一覧にある :guilabel:`Default Paragraph Style` を右クリックし |NewC| を選択
 #. |ParagraphStyleDlg| |OrganizerTab| で :guilabel:`&Name` 欄に `CDTracks` と打
    ち込む
 
@@ -694,9 +695,9 @@ Applying the CDTracks paragraph style
 一覧スタイルと段落スタイルが利用できるようになったので、文書内のどの一覧にもすば
 やく適用できる。
 
-#. 新しい一覧を作成する場合、:kbd:`Enter` を押して改行する前に、Sidebar
+#. 新しい一覧を作成する場合、|Enter| を押して改行する前に、|Sidebar|
    |StylesDeck| で目的の段落スタイル名をダブルクリックする。一覧の最後で
-   :kbd:`Enter` を押し、残りのテキストに必要な段落スタイルをダブルクリックする。
+   |Enter| を押し、残りのテキストに必要な段落スタイルをダブルクリックする。
 #. 既存の一覧については、それを選択し、|StylesDeck| で必要な段落スタイル名をダブ
    ルクリックする。
 

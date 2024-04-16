@@ -2,7 +2,7 @@
 Writer Guide Chapter 13, Tables ノート
 ======================================================================
 
-.. include:: ./abbrev.txt
+.. include:: ./writer-inc.txt
 
 .. contents:: 章見出し
    :depth: 3
@@ -26,25 +26,25 @@ Introduction
 また、表組をページレイアウトのツールとして使うことで、複数のタブ文字を使う代わり
 に、文書内の領域にテキストを配置することもできる。他の例としては、ヘッダーやフッ
 ターで、ページ番号や文書表題など、異なる要素の独立した配置を援護することがある。
-このような表組の使い方については |Chapter06| で述べられている。
+このような表組の使い方については |Writer06| で述べられている。
 
 Tools for working with tables
 ======================================================================
 
-この章で説明する表組コマンドのすべては、メニュー :menuselection:`T&able-->` と
-|TableToolbar| にある。また、表組のコンテキストメニューや Sidebar
+この章で説明する表組コマンドのすべては、|MenuBar| :menuselection:`T&able-->` と
+|TableToolbar| にある。また、表組のコンテキストメニューや |Sidebar|
 |PropertiesDeck| |TablePanel| にもある。
 
 表組を作成したり、既存の表組を選択すると、自動的に |TableToolbar| が表示される。
 ツールバーの入渠と浮動、およびツールバー上の特定のツールの表記切り替え方法につい
-ては |Chapter01| を見ろ。
+ては |Writer01| を見ろ。
 
 .. admonition:: 読者ノート
 
    本書ではここに |TableToolbar| の図解が示されている。さしずめ図表コマンド図鑑
    というところだ。
 
-キャレットが表組内にある場合、Sidebar |PropertiesDeck| は表組性質を含む。
+キャレットが表組内にある場合、|Sidebar| |PropertiesDeck| は表組性質を含む。
 
 Creating a table
 ======================================================================
@@ -58,8 +58,6 @@ Writer 文書で表組を作成する前に、視覚的な仕上がりの想定�
 Creating a new table
 ----------------------------------------------------------------------
 
-.. |InsertTableDlg| replace:: :guilabel:`Insert Table` ダイアログボックス
-
 既定性質で表組をすばやく作成するには、|StandardToolbar| :guilabel:`Insert Table`
 図像をクリックする。ドロップダウン小窓で表組の規模を選択する。最後の列の最後の行
 にしたい升目をクリックして表組を作成する。
@@ -67,8 +65,8 @@ Creating a new table
 新しい表組を作成し、表の性質を指定するには、表組を表示したい場所にキャレットを置
 き、次のいずれかの方法で |InsertTableDlg| を開く：
 
-* メニュー :menuselection:`T&able --> Insert &Table...` を選択
-* キーバインド :kbd:`Ctrl` + :guilabel:`F12`
+* |MenuBar| :menuselection:`T&able-->Insert &Table...` を選択
+* キーバインド |Ctrl| + :guilabel:`F12`
 * |StandardToolbar| で :guilabel:`Insert Table` 図像をクリックし、ドロップダウ
   ン小窓の下部にある :guilabel:`&More Options...` を選択
 
@@ -103,9 +101,9 @@ Creating a new table
 レイアウトが一覧されている。:ref:`writer13-anchor-styling` を参照。一覧から希望
 の表組オプションを選択し、下見することができる。
 
-選択したら、:guilabel:`&Insert` を押す。テキストエリアと同じ幅（左ページの余白か
-ら右ページの余白まで）の表組が作成され、すべての列と行がそれぞれ同じ幅と高さにな
-る。列と行は必要に応じて後で調整可能。
+選択したら |Insert| を押す。テキストエリアと同じ幅（左ページの余白から右ページの
+余白まで）の表組が作成され、すべての列と行がそれぞれ同じ幅と高さになる。列と行は
+必要に応じて後で調整可能。
 
 Creating nested tables
 ----------------------------------------------------------------------
@@ -124,8 +122,7 @@ Using AutoCorrect to create a table
 * プラス記号は列の区切りを示すのに使用し、
 * ハイフンやタブは列の幅を示すのに使用する。
 
-この設定は |OptionsDlg| :menuselection:`LibreOffice Writer-->General` ページで変
-更できる。
+この設定は |OptionsDlg| |WriterGeneralPage| で変更できる。
 
 例えば、この文字列：
 
@@ -151,7 +148,7 @@ Creating a table from formatted text
 
 .. |TextToTable| replace:: :menuselection:`T&able-->&Convert-->&Text to Table...`
 
-書式付きテキストから表組を作成するには、テキストを選択し、メニューから
+書式付きテキストから表組を作成するには、テキストを選択し、|MenuBar| から
 |TextToTable| を選択する。変換するテキストには列の区切りを示す文字が含まれていな
 ければならない。段落マークは表組の行の終わりを示す。
 
@@ -191,9 +188,9 @@ Example
 .. tip::
 
    表組をプレーンテキストに変換することもできる。表組の内容を別のプログラムにエ
-   クスポートする場合に便利だ。表組の任意の場所にキャレットを置き、メニューから
-   :menuselection:`T&able-->&Convert-->T&able to Text...` を選択し、好みの行区切
-   り文字を選んで |OK| を押して終了する。
+   クスポートする場合に便利だ。表組の任意の場所にキャレットを置き、|MenuBar| か
+   ら :menuselection:`T&able-->&Convert-->T&able to Text...` を選択し、好みの行
+   区切り文字を選んで |OK| を押して終了する。
 
 Inserting a portion of a spreadsheet
 ----------------------------------------------------------------------
@@ -213,7 +210,7 @@ Inserting a portion of a spreadsheet
 
    あるいはコピーしたい領域を Writer 文書にドラッグする。
 
-Writer 文書にスプレッドシートを挿入する他の方法については |Chapter19| も見ろ。
+Writer 文書にスプレッドシートを挿入する他の方法については |Writer19| も見ろ。
 
 Formatting the table layout
 ======================================================================
@@ -261,15 +258,13 @@ Resizing and positioning the table
 この方法は最初か最後の列のサイズを変更するだけで、ページ上の表組の配置は変更しな
 い。
 
-.. |TablePropertiesDlg| replace:: :guilabel:`Table Properties` ダイアログボックス
-
 ページ上の表組の寸法と位置を精密に制御するには |TablePropertiesDlg| を使用する。
 出現させるには次のいずれかを行う：
 
-* メニューの :menuselection:`T&able-->&Properties...` を選択
+* |MenuBar| の :menuselection:`T&able-->&Properties...` を選択
 * 表組の任意の場所を右クリックしてコンテキストメニューから
   :menuselection:`&Table Properties...` を選択
-* Sidebar |PropertiesDeck| |TablePanel| :guilabel:`More Options` をクリック
+* |Sidebar| |PropertiesDeck| |TablePanel| :guilabel:`More Options` をクリック
 
 .. |Spacing| replace:: :guilabel:`Spacing`
 .. |Automatic| replace:: :guilabel:`A&utomatic`
@@ -373,8 +368,8 @@ Resizing rows and columns
   ンを押したまま、希望の位置までドラッグする。
 * 以下で述べられるようにキーボードを使用する。
 
-メニューから :menuselection:`T&able-->Si&ze-->` 以下の項目に寸法変更のオプション
-がいくつか用意されている：
+|MenuBar| から :menuselection:`T&able-->Si&ze-->` 以下の項目に寸法変更のオプショ
+ンがいくつか用意されている：
 
 * :menuselection:`&Column Width...` または :menuselection:`&Row Height...` を選
   択して、表組の選択可能な各列または行の寸法欄に数値を入力する。
@@ -390,10 +385,10 @@ Resizing rows and columns
 
 各列の幅をより細かく制御するには |TablePropertiesDlg| |ColumnsTab| を用いる。
 
-* メニューの :menuselection:`T&able-->&Properties...` を選択するか、
+* |MenuBar| の :menuselection:`T&able-->&Properties...` を選択するか、
 * 表組の任意の場所を右クリックしてコンテキストメニューから
   :menuselection:`&Table Properties...` を選択するか、
-* Sidebar |PropertiesDeck| |TablePanel| :guilabel:`More Options` をクリック
+* |Sidebar| |PropertiesDeck| |TablePanel| :guilabel:`More Options` をクリック
 
 する。|TablePropertiesDlg| で |ColumnsTab| を選択する。
 
@@ -401,7 +396,7 @@ Resizing rows and columns
 
 * |AdaptTableWidth|: 表組がすでにページ余白まで伸びている場合、それ以上幅を広げ
   ることはできず、|AdaptTableWidth| オプションは列幅を縮小するためにのみ使用でき
-  る。表の幅が狭い場合、列の幅を広げると表全体の幅が広がります。|TableTab|
+  る。表の幅が狭い場合、列の幅を広げると表全体の幅が広がる。|TableTab|
   :guilabel:`Alignment` 区画で |Automatic| が選択されている場合、このオプション
   を使用できない。
 
@@ -429,7 +424,7 @@ Resizing rows and columns
 キーボードを使って表組の寸法を変更することもできる：
 
 #. 変更したい升目にキャレットを置く。
-#. :kbd:`Alt` を押しながら矢印キーを使う。
+#. |Alt| を押しながら矢印キーを使う。
 
    * 左と右の矢印キーは、升目の右端の境界を動かして列幅を調整する。
    * 上下の矢印キーは、升目の下端の境界を動かすことで、行の高さを調整する（可能
@@ -439,9 +434,7 @@ Resizing rows and columns
 
    この操作は Calc スプレッドシートでも成立するようだ。
 
-.. |ConfigTable| replace:: :menuselection:`LibreOffice Writer-->Table` ページ
-
-寸法変更引数とキーボード操作の動作を調整するには |OptionsDlg| |ConfigTable| を開
+寸法変更引数とキーボード操作の動作を調整するには |OptionsDlg| |WriterTablePage| を開
 く。
 
 :guilabel:`Move cells` 区画の :guilabel:`&Row` と :guilabel:`&Column` の値を使用
@@ -468,13 +461,13 @@ Inserting rows and columns
   Above` 図像または :guilabel:`Rows Below` 図像をクリック：
 
   * |TableToolbar|
-  * Sidebar |PropertiesDeck| |TablePanel|
+  * |Sidebar| |PropertiesDeck| |TablePanel|
 * 選択列行の前または後ろに列を挿入するには、次のいずれかにある
   :guilabel:`Columns Before` 図像または :guilabel:`Columns After` 図像をクリッ
   ク：
 
   * |TableToolbar|
-  * Sidebar |PropertiesDeck| |TablePanel|
+  * |Sidebar| |PropertiesDeck| |TablePanel|
 * 次のメニュー項目のいずれかを選択：
 
   * :menuselection:`T&able-->&Insert-->Rows &Above`
@@ -494,8 +487,8 @@ Inserting rows and columns
 #. 新しい行または列を追加したい場所にキャレットを置く。
 #. 次のいずれかを選択する：
 
-   * メニューから :menuselection:`T&able-->&Insert-->&Rows...`
-   * メニューから :menuselection:`T&able-->&Insert-->&Column...`
+   * |MenuBar| から :menuselection:`T&able-->&Insert-->&Rows...`
+   * |MenuBar| から :menuselection:`T&able-->&Insert-->&Column...`
    * 右クリックメニューから :menuselection:`&Insert-->&Rows...`
    * 右クリックメニューから :menuselection:`&Insert-->&Column...`
 
@@ -524,7 +517,7 @@ Deleting rows and columns
   selected columns` 図像をクリック：
 
   * |TableToolbar|
-  * Sidebar |PropertiesDeck| |TablePanel|
+  * |Sidebar| |PropertiesDeck| |TablePanel|
 * 右クリックメニューから次のいずれかを選択：
 
   * :menuselection:`&Delete-->&Rows`
@@ -546,9 +539,9 @@ Merging and splitting cells
 #. 次のいずれかを行う：
 
    * 右クリックし :menuselection:`Merg&e Cells` を選択
-   * メニューから :menuselection:`T&able-->&Merge Cells` を選択
+   * |MenuBar| から :menuselection:`T&able-->&Merge Cells` を選択
    * |TableToolbar| にある :guilabel:`Merge Cells` をクリック
-   * Sidebar |PropertiesDeck| |TablePanel| にある :guilabel:`Merge Cells` をク
+   * |Sidebar| |PropertiesDeck| |TablePanel| にある :guilabel:`Merge Cells` をク
      リック
 
    升目の内容すべては融合した升目に現れる。
@@ -561,9 +554,9 @@ Merging and splitting cells
 #. 次のいずれかを行う：
 
    * 右クリックし :menuselection:`Split Cells...` を選択
-   * メニューから :menuselection:`T&able-->Sp&lit Cells...` を選択
+   * |MenuBar| から :menuselection:`T&able-->Sp&lit Cells...` を選択
    * |TableToolbar| にある |SplitCells| をクリック
-   * Sidebar |PropertiesDeck| |TablePanel| にある |SplitCells| をクリック
+   * |Sidebar| |PropertiesDeck| |TablePanel| にある |SplitCells| をクリック
 
 #. |SplitCells| ダイアログボックスで升目の分割方法と作成する升目の数を選択する。
    升目は水平方向（行が増える）または垂直方向（列が増える）に分割できる。
@@ -581,7 +574,7 @@ Specifying table borders
 
 * |TableToolbar| の :guilabel:`Borders`, :guilabel:`Border Style`,
   :guilabel:`Border Color` 各図像のドロップダウンパレット
-* Sidebar |PropertiesDeck| |TablePanel|
+* |Sidebar| |PropertiesDeck| |TablePanel|
 
 より詳細に制御するには |TablePropertiesDlg| |BordersTab| を用いる。
 
@@ -689,9 +682,8 @@ Displaying or hiding table boundaries
 
 印刷ページと同じように、境界線なしで表を画面に表示するには、
 :menuselection:`&View-->Table Boundaries` をオフにするか、|OptionsDlg|
-:menuselection:`LibreOffice-->Application Colors` ページで、テキスト、表、ヘッ
-ダーとフッター、図、文書のその他の部分の境界線有無を切り替えたり、境界線の色を選
-択したりできる。
+|ApplicationColors| で、テキスト、表、ヘッダーとフッター、図、文書のその他の部分
+の境界線有無を切り替えたり、境界線の色を選択したりできる。
 
 境界線をオフにしても表組の境界線は隠されない。
 
@@ -709,18 +701,18 @@ Applying a table style
 .. |TableStyles| replace:: :guilabel:`Table Styles`
 .. |AutoFormatDlg| replace:: :guilabel:`AutoFormat` ダイアログボックス
 
-表組スタイルを適用するには、Sidebar |StylesDeck| |TableStyles| 図像をクリックす
-る。表組の任意の場所にキャレットを置き、スタイル名をダブルクリックする。
+表組スタイルを適用するには、|Sidebar| |StylesDeck| |TableStyles| 図像をクリック
+する。表組の任意の場所にキャレットを置き、スタイル名をダブルクリックする。
 
-より詳細に制御するには、メニューの :menuselection:`T&able-->AutoFormat
+より詳細に制御するには、|MenuBar| の :menuselection:`T&able-->AutoFormat
 Styles...` を選択するか、|TableToolbar| :guilabel:`AutoFormat Styles` 図像をク
-リックする。|AutoFormatDlg| で一覧から書式を選択し、表組に使用する機能（フォント、
-配置、枠線など）を選択して |OK| を押す。表組が整形される。
+リックする。|AutoFormatDlg| で一覧から書式を選択し、表組に使用する機能（フォン
+ト、配置、枠線など）を選択して |OK| を押す。表組が整形される。
 
 .. tip::
 
    書式を選択し、:guilabel:`Rename` ボタンを押すと書式の名前を変更できる。このダ
-   イアログボックスと Sidebar |TableStyles| ページで名前が変更される。
+   イアログボックスと |Sidebar| |TableStyles| ページで名前が変更される。
 
    書式を選択して :guilabel:`Delete` ボタンを押すと書式を削除できる。ただし、
    `Default Table Style` を変更したり削除したりすることはできない。
@@ -755,7 +747,7 @@ Sidebar |StylesDeck| |TableStylesTab| には表組スタイルを素早く適用
 .. tip::
 
    これらのスタイルには表型書式の表幅と列幅は含まれない。あらかじめ定義された完
-   全な書式で表を挿入するには、それを AutoText として保存しろ。|Chapter02| を見
+   全な書式で表を挿入するには、それを AutoText として保存しろ。|Writer02| を見
    ろ。
 
 Formatting the table text
@@ -798,13 +790,13 @@ Number formats
 
 数値認識では、テキスト表内の数値を認識し、数値として書式設定する。
 :guilabel:`&Number recognition` が選択されていない場合、数値はテキスト形式で保存
-され、自動的に左揃えになる。数値認識を有効にするには、|OptionsDlg| |ConfigTable|
-で :guilabel:`Input in Tables` 区画のオプションを選択する。
+され、自動的に左揃えになる。数値認識を有効にするには、|OptionsDlg|
+|WriterTablePage| で :guilabel:`Input in Tables` 区画のオプションを選択する。
 
 升目の数値書式を設定するには、升目を選択してから次のいずれかを行う：
 
 * |TableToolbar| の一般的な書式の図像をクリック
-* メニューから :menuselection:`T&able-->&Number Format...` を選択
+* |MenuBar| から :menuselection:`T&able-->&Number Format...` を選択
 
 .. |FormatNumberDlg| replace:: :guilabel:`Format Number` ダイアログボックス
 
@@ -837,7 +829,7 @@ Rotating text in a table cell
 
 .. note::
 
-   表升目内のテキストの回転は |Chapter09| で説明する段落スタイルの使用でも実現で
+   表升目内のテキストの回転は |Writer09| で説明する段落スタイルの使用でも実現で
    きる。
 
 Data entry and manipulation in tables
@@ -846,23 +838,22 @@ Data entry and manipulation in tables
 Moving between cells
 ----------------------------------------------------------------------
 
-表内の升目間を移動するには、マウス、矢印キー、または :kbd:`Tab` を使用する。
+表内の升目間を移動するには、マウス、矢印キー、または |Tab| を使用する。
 
 矢印キーはキャレットを左右に一文字ずつ移動させる。升目が空の場合、矢印キーを押す
 と隣の升目にキャレットが移動する。
 
-:kbd:`Tab` は次の升目に直接移動し、キャレットが表組の最後の升目にある場合は新し
-い行を作成する。:kbd:`Shift` + :kbd:`Tab` を押すと、キャレットが一升戻る。
+|Tab| は次の升目に直接移動し、キャレットが表組の最後の升目にある場合は新しい行を
+作成する。|Shift| + |Tab| を押すと、キャレットが一升戻る。
 
 .. tip::
 
-   升目のテキストの一部として Tab 文字を入力するには、:kbd:`Ctrl` + :kbd:`Tab`
-   とする。
+   升目のテキストの一部として Tab 文字を入力するには、|Ctrl| + |Tab| とする。
 
 表組の最初や最後に移動するには、それぞれキーバインド
 
-* :kbd:`Ctrl` + :kbd:`Home`
-* :kbd:`Ctrl` + :kbd:`End`
+* |Ctrl| + |Home|
+* |Ctrl| + |End|
 
 を使う。キャレットがある升目が空の場合、表組の最初や最後に移動する。升目に内容が
 ある場合、押すとまず升目の先頭や末尾に移動し、次に押すと表組の最初や最後に移動す
@@ -878,8 +869,8 @@ Sorting data in a table
 表組のデータを並べ替えるには
 
 #. 並び替える表組（またはその一部）を選択する。
-#. メニューの :menuselection:`T&able-->So&rt...` を選択するか、|TableToolbar| の
-   :guilabel:`Sort` 図像をクリックする。
+#. |MenuBar| の :menuselection:`T&able-->So&rt...` を選択するか、|TableToolbar|
+   の :guilabel:`Sort` 図像をクリックする。
 #. :guilabel:`Sort` ダイアログボックスが表示される。
 
    * 行と列のどちらの方向に並び替えるかを決める。既定の並び替え方向は行で、その
@@ -903,7 +894,7 @@ Using spreadsheet functions in a table
 簡単な数学関数の多くでは、Writer 表組は基本的なスプレッドシートとして使用でき
 る。スプレッドシートと同じように、表の各升目は文字（列）と数字（行）で識別され
 る。例えば、升目 C4 は左から三列目、上から四行目の升目だ。キャレットが升目にある
-と、表組名とこの升目参照が Status バーに表示される。
+と、表組名とこの升目参照が |StatusBar| に表示される。
 
 .. tip::
 
@@ -921,20 +912,20 @@ Using spreadsheet functions in a table
 #. 升目 <A1> をクリックして
 
    * :kbd:`=` を押す
-   * メニューの :menuselection:`T&able-->Edit &Formula` を選択
-   * :kbd:`F2` を押す
+   * |MenuBar| の :menuselection:`T&able-->Edit &Formula` を選択
+   * |F2| を押す
    * |TableToolbar| の :guilabel:`Sum` 図像または |Formula| 図像をクリック
    * Sidebar |PropertiesDeck| |TablePanel| にある |Formula| 図像をクリック
 
-   作業場の上部に Formula バーが自動的に表示される。バーの左端には選択した升目の
-   座標が表示される。
-#. 升目 <B1> をクリックする。この升目の識別子が自動的にFormula バーに表示され、升目
-   <A1> にはめ込まれる。
+   作業場の上部に |FormulaBar| が自動的に表示される。バーの左端には選択した升目
+   の座標が表示される。
+#. 升目 <B1> をクリックする。この升目の識別子が自動的にFormula バーに表示され、
+   升目<A1> にはめ込まれる。
 #. :kbd:`+` キーを押す
 #. 升目 <C2> をクリックする。最終的な数式 ``=<B1>+<C2>`` が選択した升目と
    Formula バー入力欄の両方に表示される。
-#. :kbd:`Enter` を押すか、|FormulaBar| |Apply| をクリックすると升目内の数式が計
-   算結果に置き換わる。
+#. |Enter| を押すか、|FormulaBar| |Apply| をクリックすると升目内の数式が計算結果
+   に置き換わる。
 
 .. tip::
 
@@ -949,7 +940,7 @@ Using spreadsheet functions in a table
 #. 空の升目に等号 ``=`` を入力する。
 #. 足し合わせる升目、この場合は A2 から A5 までの升目を選択する。数式は
    ``=<A2:A5>`` のようにする。
-#. :kbd:`Enter` を押すか、|FormulaBar| |Apply| をクリックする。
+#. |Enter| を押すか、|FormulaBar| |Apply| をクリックする。
 
 関数を使うときは、升目参照を手入力するか、選択する。したがって、上で追加した四つ
 の数字 (A2, A3, A4, A5) を合計するには次のようにする：
@@ -958,13 +949,13 @@ Using spreadsheet functions in a table
 #. ``sum`` と入力するか、:guilabel:`Functions` 一覧から :menuselection:`&Sum` を
    選択する。
 #. 連続した升目を選択する。数式は ``=sum<A2:A5>`` のようにする。
-#. :kbd:`Enter` を押すか、|FormulaBar| |Apply| をクリックする。
+#. |Enter| を押すか、|FormulaBar| |Apply| をクリックする。
 
 .. caution::
 
    Writer では、表組の行や列を加除しても数式は自動的に更新されないが、升目の値を
    変更すると結果が更新される。複雑な数式を使用する場合は、Calc スプレッドシート
-   を Writer 文書に埋め込むことを検討しろ。|Chapter19| を見ろ。
+   を Writer 文書に埋め込むことを検討しろ。|Writer19| を見ろ。
 
 Additional table operations
 ======================================================================
@@ -983,27 +974,24 @@ Protecting cells in a table
 升目の保護をオンにするには、升目にキャレットを置くか升目を選択してから、
 
 * |TableToolbar| の :guilabel:`Protect Cells` 図像をクリックするか、
-* メニューの :menuselection:`T&able-->Pr&otect Cells` を選択する。
+* |MenuBar| の :menuselection:`T&able-->Pr&otect Cells` を選択する。
 
 オフにするには、
 
 * |TableToolbar| の :guilabel:`Unprotect Cells` 図像をクリック
-* メニューの :menuselection:`T&able-->&Unprotect Cells` を選択
+* |MenuBar| の :menuselection:`T&able-->&Unprotect Cells` を選択
 
-現在の表組全体、または選択したすべての表組の保護を解除するには :kbd:`Shift` +
-:kbd:`Ctrl` + :guilabel:`T` を押す。
+現在の表組全体、または選択したすべての表組の保護を解除するには |Ctrl+Shift| +
+:guilabel:`T` を押す。
 
 .. tip::
 
    保護された升目にキャレットを置くことができない場合は、キャレットを有効にする
-   必要がある。|OptionsDlg| :menuselection:`LibreOffice Writer-->Formatting
-   Aids` ページ :guilabel:`Protected Area` で :guilabel:`Enable cursor` をオンに
-   する。
+   必要がある。|OptionsDlg| |FormattingAidsPage| :guilabel:`Protected Area` で
+   :guilabel:`Enable cursor` をオンにする。
 
 Adding a caption
 ----------------------------------------------------------------------
-
-.. |InsertCaptionDlg| replace:: :guilabel:`Insert Caption` ダイアログボックス
 
 どの表組にも簡単に説明を追加できる。Writer は説明が付けられた表組すべてを記録し、
 番号を自動的に付け、表組へのリンクを更新する。表組に説明を追加するには：
@@ -1011,7 +999,7 @@ Adding a caption
 #. 表組内の任意の場所で次のいずれかを行う：
 
    * 右クリックメニューから :menuselection:`Insert Caption...` を選択
-   * メニューから :menuselection:`&Insert-->Caption` を選択
+   * |MenuBar| から |InsertCaptionM| を選択
    * |TableToolbar| :guilabel:`Insert Caption` 図像をクリック
 #. |InsertCaptionDlg| の :guilabel:`Properties` で :guilabel:`Categor&y`,
    :guilabel:`N&umbering`, 区切りパターンを選択する。説明の位置の規定は表組の上
@@ -1020,13 +1008,13 @@ Adding a caption
 #. |OK| を押す
 
 表組に説明を自動的に追加させるように Writer を構成することもできる。手順は
-|Chapter11| で説明した、画像に説明を自動的に追加する方法と同じだ。
+|Writer11| で説明した、画像に説明を自動的に追加する方法と同じだ。
 
 Cross-referencing to a table
 ----------------------------------------------------------------------
 
 説明付きの表組に相互参照を挿入することができる。相互参照をクリックすると読者はそ
-の表組に直接ジャンプする。詳細は |Chapter17| を見ろ。
+の表組に直接ジャンプする。詳細は |Writer17| を見ろ。
 
 Splitting a table
 ----------------------------------------------------------------------
@@ -1039,7 +1027,7 @@ Splitting a table
    で表が分割される。
 #. 次のいずれかを行う：
 
-   * メニュー :menuselection:`T&able-->Split T&able...` を選択
+   * |MenuBar| :menuselection:`T&able-->Split T&able...` を選択
    * |TableToolbar| :guilabel:`Split Table` 図像をクリック
 #. :guilabel:`Split Table` ダイアログボックスが開き、見出し行の処理方法を選択で
    きる。
@@ -1055,17 +1043,17 @@ Merging tables
 
 二つの表組を合体する手順：
 
-#. 表組と表組の間の空白の段落を削除する。これを行うには、:kbd:`Backspace` ではな
-   く :kbd:`Delete` を使用する必要がある。
+#. 表組と表組の間の空白の段落を削除する。これを行うには、|Back| ではなく |Del|
+   を使用する必要がある。
 #. 表組のいずれかの升目を選択する。
-#. メニューから :menuselection:`T&able-->Mer&ge Table` を選択する。
+#. |MenuBar| から :menuselection:`T&able-->Mer&ge Table` を選択する。
 
 .. tip::
 
    段落の位置を明白にし、簡単に削除するには、
 
    * :menuselection:`&View-->For&matting Marks` を選択
-   * キーバインド :kbd:`Ctrl` + :guilabel:`F10`
+   * キーバインド |Ctrl| + |F10|
    * |StandardToolbar| :guilabel:`¶` 図像をクリック
 
 Deleting a table
@@ -1074,10 +1062,10 @@ Deleting a table
 表組を削除するには次のいずれかの操作を行う：
 
 * 表組の任意の場所を右クリックし、:menuselection:`&Delete-->&Table` を選択
-* 表組の任意の場所をクリックし、メニューから
+* 表組の任意の場所をクリックし、|MenuBar| から
   :menuselection:`T&able-->&Delete-->&Table` を選択
-* 表組の前の段落の終わりから、表組の後の段落の始まりまでを選択し、
-  :kbd:`Delete` または :kbd:`Backspace` を押す
+* 表組の前の段落の終わりから、表組の後の段落の始まりまでを選択し、|Del| または
+  |Back| を押す
 
 .. note::
 
@@ -1111,16 +1099,16 @@ Inserting a paragraph before or after a table
 表組の前に段落を挿入する手順：
 
 #. 最初の（左上の）升目のテキストやその他の内容の前にキャレットを置く
-#. :kbd:`Alt` + :kbd:`Enter`
+#. |Alt| + |Enter|
 
 表組の後に段落を挿入する手順：
 
 #. 最後の（右下の）升目のテキストの後にキャレットを置く
-#. :kbd:`Alt` + :kbd:`Enter`
+#. |Alt| + |Enter|
 
 Using tables as a page layout tool
 ======================================================================
 
 表組はタブや空白文字を使用する代わりに、文書内のテキストを配置するページレイアウ
 トツールとして使用することができる。ページレイアウトでの表組の使用に関する詳
-細とコツについては |Chapter06| を見ろ。
+細とコツについては |Writer06| を見ろ。

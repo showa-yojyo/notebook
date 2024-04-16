@@ -2,7 +2,9 @@
 Writer Guide Chapter 4, Formatting Text ノート
 ======================================================================
 
-.. contents::
+.. include:: ./writer-inc.txt
+
+.. contents:: 本章見出し
    :depth: 3
    :local:
 
@@ -15,21 +17,19 @@ Introduction
 * 自動書式適用の使用
 * 順序なし、順序付き、アウトラインリストの作成
 
-この章の読者が :doc:`Chapter 2 <writer02>` と :doc:`Chapter 3 <writer03>` に
-馴染んでいることを仮定される。
+この章の読者が |Writer02| と |Writer03| に馴染んでいることを仮定される。
 
-:doc:`Chapter 20 <writer20>` にある提案設定に従うことを推奨されている。
+|Writer20| にある提案設定に従うことを推奨されている。
 
-ページの書式設定については :doc:`Chapter 5 <writer05>` と :doc:`Chapter 6
-<writer06>` で説明する。
+ページの書式設定については |Writer05| と |Writer06| で説明する。
 
 Formatting: direct (manual) or styles
 ----------------------------------------------------------------------
 
 Direct (or Manual) formatting
    特定の段落、文字、ページ、枠、一覧、図表に書式を直接適用する。たとえば、単語
-   を選択し、:guilabel:`Formatting` ツールバーのボタンをクリックすると、テキスト
-   が太字になったり斜体になったりする。
+   を選択し、|FormattingToolbar| のボタンをクリックすると、テキストが太字になっ
+   たり斜体になったりする。
 Styles
    書式設定オプションを一つの名前にまとめる。たとえば、段落スタイルでは、フォン
    トの種類やサイズ、段落を字下げするかどうか、行間の広さ、ページ上での段落
@@ -48,10 +48,9 @@ Using styles is recommended
 LibreOffice では他の多くの処理にもスタイルが使用されている。たとえば、Writer が
 目次を作成するときは見出しスタイル（または他の選択したスタイル）を使用する。
 
-スタイルとその使用方法については :doc:`Chapter8 <writer08>` と :doc:`Chapter09
-<writer09>` を読め。
+スタイルとその使用方法については |Writer08| と |Writer09| を読め。
 
-スタイルの適用は Sidebar の :guilabel:`Styles` 甲板を使用してすばやく簡単に行う。
+スタイルの適用は |Sidebar| の |StylesDeck| を使用してすばやく簡単に行う。
 
 Removing manual formatting
 ----------------------------------------------------------------------
@@ -63,39 +62,38 @@ Removing manual formatting
 
 手動書式設定を削除するには、テキストを選択し、次のいずれかを：
 
-* メニューで :menuselection:`F&ormat --> Clear &Direct Formatting` を選択
+* |MenuBar| で :menuselection:`F&ormat-->Clear &Direct Formatting` を選択
 * 右クリックメニューで :menuselection:`Clear &Direct Formatting` を選択
-* :guilabel:`Formatting` ツールバーの :guilabel:`Clear Direct Formatting` 図像を
-  クリック
-* :kbd:`Ctrl` + :kbd:`M` を押す
+* |FormattingToolbar| :guilabel:`Clear Direct Formatting` 図像をクリック
+* |Ctrl+M| を押す
 
 Formatting paragraphs using styles
 ======================================================================
 
-スタイルを段落に適用する方法については :doc:`Chapter8 <writer08>` を読め。
+スタイルを段落に適用する方法については |Writer08| を読め。
 
-* :guilabel:`Formatting` ツールバーおよび :guilabel:`Formatting (Styles)` ツール
+* |FormattingToolbar| および :guilabel:`Formatting (Styles)` ツール
   バーの左端にある :guilabel:`Set Paragraph Style` ドロップダウンリスト
-* Sidebar の :guilabel:`Properties` 甲板の上部にある :guilabel:`Set Paragraph
-  Style` ドロップダウンリスト
-* Sidebar の :guilabel:`Styles` 甲板の :guilabel:`Paragraph Styles` タブ
-* メニューの :menuselection:`St&yles` メニュー
-* キーバインド :kbd:`Ctrl` + :kbd:`1` から :kbd:`Ctrl` + :kbd:`5`
+* |Sidebar| |PropertiesDeck| の上部にある :guilabel:`Set Paragraph Style` ドロッ
+  プダウンリスト
+* |Sidebar| |StylesDeck| |ParagraphStylesTab|
+* |MenuBar| :menuselection:`St&yles` メニュー
+* キーバインド |Ctrl| + :kbd:`1` から |Ctrl| + :kbd:`5`
 
 Formatting paragraphs directly
 ======================================================================
 
-* :guilabel:`Formatting` ツールバーの図像
-* Sidebar の :guilabel:`Properties` 甲板の :guilabel:`Paragraph` 盤
-* メニューの :menuselection:`F&ormat` のコマンド
+* |FormattingToolbar| の図像
+* |Sidebar| |PropertiesDeck| |ParagraphPanel|
+* |MenuBar| :menuselection:`F&ormat` のコマンド
 
 を使用して、多くの書式を段落に適用できる。その他の書式設定オプションは
-:guilabel:`Paragraph` ダイアログボックスに用意されている。
+|ParagraphDlg| に用意されている。
 
 Formatting toolbar
 ----------------------------------------------------------------------
 
-:guilabel:`Formatting` ツールバーには、以下の図像と書式がある：
+|FormattingToolbar| には以下の図像と書式がある：
 
 * :guilabel:`Set Paragraph Style` ドロップダウンリスト
 * :guilabel:`Align Left`, :guilabel:`Align Center`, :guilabel:`Align Right`,
@@ -107,29 +105,28 @@ Formatting toolbar
 * :guilabel:`Increase Paragraph Spacing`, :guilabel:`Decrease Paragraph Spacing`
 * :guilabel:`Increase Indent`, :guilabel:`Decrease Indent`, :guilabel:`Hanging
   Indent`
-* :guilabel:`Paragraph` は :guilabel:`Paragraph` ダイアログボックスを開く
+* :guilabel:`Paragraph` は |ParagraphDlg| を開く
 * :guilabel:`Set Line Spacing` は間隔を選んだり数値で指定したりする
 
 標準インストールではすべてのツールバー図像が表示されるわけではない。ツールバーを
-カスタマイズすることでいつも使うものを追加する。:doc:`Chapter 1 <writer01>` を見
-ろ。
+カスタマイズすることでいつも使うものを追加する。|Writer01| を見ろ。
 
 Sidebar Properties deck
 ----------------------------------------------------------------------
 
-Sidebar :guilabel:`Properties` 甲板にはスタイルの適用、文字の手動書式設定、段落
-の手動書式設定のための盤がある。必要に応じて展開ボタンをクリックして盤を開け。
+|Sidebar| |PropertiesDeck| にはスタイルの適用、文字の手動書式設定、段落の手動書
+式設定のための盤がある。必要に応じて展開ボタンをクリックして盤を開け。
 
-:guilabel:`Style` 盤
+|StylePanel|
    :guilabel:`Set Paragraph Style` ドロップダウンリストと、:guilabel:`Clone
    Formatting`, :guilabel:`Update Selected Style`, :guilabel:`New Style from
-   Selection` の図像が載っている。この辺は :doc:`Chapter 8 <writer08>` でやる。
-:guilabel:`Character` 盤
+   Selection` の図像が載っている。この辺は |Writer08| でやる。
+|CharacterPanel|
    後述。
-:guilabel:`Paragraph` 盤
-   :guilabel:`Formatting` ツールバーにないものも含め、書式設定コントロールをほと
-   んど搭載している。ボタン横の下矢印をクリックすると、行間固定やカラーパレッ
-   トなど、さらに選択できるコントロールが開く。
+|ParagraphPanel|
+   |FormattingToolbar| にないものも含め、書式設定コントロールをほとんど搭載して
+   いる。ボタン横の下矢印をクリックすると、行間固定やカラーパレットなど、さらに
+   選択できるコントロールが開く。
 
 各盤のタイトルバーの右側には :guilabel:`More Options` 図像があり、追加設定を含む
 関連ダイアログボックスが開く。
@@ -161,23 +158,25 @@ Alignment options
 最終行が単一単語で構成されている場合、この単語が行の長さいっぱいになるように文字
 間に空白を挿入して伸ばす。
 
-これらのオプションは、次のいずれかの操作で表示される :guilabel:`Paragraph` ダイ
-アログボックスの :guilabel:`Alignment` タブで制御する：
+これらのオプションは、次のいずれかの操作で表示される |ParagraphDlg|
+|AlignmentTab| で制御する：
 
-* メニューの :menuselection:`F&ormat --> P&aragraph...` を選択
-* 段落内で右クリックして :menuselection:`P&aragraph --> P&aragraph...` を選択
-* Sidebar の :guilabel:`Properties` 甲板にある :guilabel:`Paragraph` 盤の
-  :guilabel:`More Options` ボタンをクリック
+* |MenuBar| :menuselection:`F&ormat-->P&aragraph...` を選択
+* 段落内で右クリックして :menuselection:`P&aragraph-->P&aragraph...` を選択
+* |Sidebar| |PropertiesDeck| |ParagraphPanel| の :guilabel:`More Options` ボタン
+  をクリック
 
 Line and paragraph spacing
 ----------------------------------------------------------------------
 
-:guilabel:`Set Line Spacing` はある基準線から次の基準線までの距離を意味する。
-フォントサイズによって決まる値だ。
+.. |SetLineSpacing| replace:: :guilabel:`Set Line Spacing`
 
-:guilabel:`Set Line Spacing` パレットでは、標準的な間隔を選択するか、カスタム値
-を定義することができる。これらの選択肢の違いを確認するには、いくつかのサンプル段
-落を作成し、選択範囲を変更しろ。
+|SetLineSpacing| はある基準線から次の基準線までの距離を意味する。フォントサイズ
+によって決まる値だ。
+
+|SetLineSpacing| パレットでは、標準的な間隔を選択するか、カスタム値を定義するこ
+とができる。これらの選択肢の違いを確認するには、いくつかのサンプル段落を作成し、
+選択範囲を変更しろ。
 
 .. note::
 
@@ -211,8 +210,8 @@ Paragraph indentation
 * :guilabel:`First Line Indent`: 最初の行を左余白または指定された余白から
 
 :guilabel:`Hanging Indent` は最初の行を左余白（または余白からの指定字下げ）に残
-し、段落の他の行すべてを :guilabel:`First Line Indent` または
-:guilabel:`Paragraph` ダイアログボックスで指定された量だけ字下げする。
+し、段落の他の行すべてを :guilabel:`First Line Indent` または |ParagraphDlg| で
+指定された量だけ字下げする。
 
 .. note::
 
@@ -231,22 +230,22 @@ Color` ダイアログボックスを開き、パレットに追加する新し�
 
    段落が右または左余白から字下げされている場合、背景色は字下げの領域には適用さ
    れない。余白まで色を広げるには、枠、図表、またはその他の方法を使用する。
-   :doc:`Chapter 6 <writer06>` 参照。
+   |Writer06| 参照。
 
 Settings on the Paragraph dialog
 ----------------------------------------------------------------------
 
-:guilabel:`Paragraph` ダイアログボックスにはさらにいくつかのタブがある。
+|ParagraphDlg| にはさらにいくつかのタブがある。
 
-* :guilabel:`Tabs`: これはもう少し後で述べる
-* :guilabel:`Borders`
-* :guilabel:`Drop Caps`
-* :guilabel:`Area`
-* :guilabel:`Transparency`
-* :guilabel:`Text Flow`
-* :guilabel:`Outline & List`
+* |TabsTab|
+* |BordersTab|
+* :guilabel:`Drop Caps` タブ
+* |AreaTab|
+* |TransparencyTab|
+* |TextFlowTab|
+* |Outline&ListTab|
 
-詳しくは :doc:`Chapter 8 <writer08>` と :doc:`Chapter 9 <writer09>` を参照しろ。
+詳しくは |Writer08| と |Writer09| を参照しろ。
 
 Borders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -259,8 +258,7 @@ Borders
   上のすべての境界に適用される。
 * 各行から段落の内容までの間隔は上下左右で個別に設定可能。
 
-:guilabel:`Paragraph` ダイアログボックスの :guilabel:`Borders` タブでは段落に影
-を適用することも選択可能。
+|ParagraphDlg| |BordersTab| では段落に影を適用することも選択可能。
 
 * :guilabel:`Distan&ce` とは影の幅のこと。
 
@@ -274,12 +272,12 @@ Drop caps
    chapter or section.
 
 一貫性を高めるため、関連する段落に適用する段落スタイルで設定するのが最適だ。詳細
-は :doc:`Chapter 9 <writer09>` を見ろ。
+は |Writer09| を見ろ。
 
 Area
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Area` には次の五種類の塗りつぶしがある：
+|AreaTab| には次の五種類の塗りつぶしがある：
 
 * 色
 * グラデーション
@@ -288,23 +286,21 @@ Area
 * ハッチング
 
 塗りつぶしの種類を選択するとその種類で使用できる選択肢が表示される。これらの選択
-肢については :doc:`Chapter 5 <writer05>` で見る。独自の塗りつぶしを作成すること
-もできる。
+肢については |Writer05| で見る。独自の塗りつぶしを作成することもできる。
 
 Transparency
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Transparency` は段落の背景に影響する。透かしを作成したり、色や画像を
-淡く（テキストとの明暗の調子対比を強く）するのに便利だ。これも :doc:`Chapter 5
-<writer05>` で詳しくやる。
+|TransparencyTab| は段落の背景に影響する。透かしを作成したり、色や画像を淡く（テ
+キストとの明暗の調子対比を強く）するのに便利だ。これも |Writer05| で詳しくやる。
 
 Text Flow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Text Flow` タブには区画がある。
+|TextFlowTab| には区画がある。
 
-* :guilabel:`Hyphenation` については :doc:`Chapter 2 <writer02>` を見ろ。
-* :guilabel:`Breaks` については :doc:`Chapter 5 <writer05>` を見ろ。
+* :guilabel:`Hyphenation` については |Writer02| を見ろ。
+* :guilabel:`Breaks` については |Writer05| を見ろ。
 
 :guilabel:`Options` 区画ではページ下部の段落の扱い方を指定する。
 
@@ -322,32 +318,30 @@ Text Flow
 Outline & List
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Paragraph` ダイアログボックスの :guilabel:`Outline & List` タブには段
-落のアウトラインレベルと目録スタイルを選択するオプションがある。段落が順序付き目
-録の一部である場合、目録の番号付けを段落から開始し、どの番号から開始するかを指定
-する。表示される目録スタイルには次のものがある：
+|ParagraphDlg| |Outline&ListTab| には段落のアウトラインレベルと目録スタイルを選
+択するオプションがある。段落が順序付き目録の一部である場合、目録の番号付けを段落
+から開始し、どの番号から開始するかを指定する。表示される目録スタイルには次のもの
+がある：
 
 * 組み込み
 * カスタム（ユーザー定義）
 
-このタブは :guilabel:`Heading Numbering` ダイアログボックスと同じ機能をカバーし
-ていないが、ここで選択されたアウトラインレベルはそこで定義されたアウトラインに関
-連している。
+このタブは |HeadingNumberingDlg| と同じ機能をカバーしていないが、ここで選択され
+たアウトラインレベルはそこで定義されたアウトラインに関連している。
 
-* これらの機能の詳細は :doc:`Chapter 8 <writer08>` と :doc:`Chapter 9
-  <writer09>` を参照しろ。
-* 行番号については :doc:`Chapter 3 <writer03>` を見ろ。
+* これらの機能の詳細は |Writer08| と |Writer09| を参照しろ。
+* 行番号については |Writer03| を見ろ。
 
 Setting tab stops and indents
 ----------------------------------------------------------------------
 
 水平定規にはタブストップが表示される。定義したタブストップは、既定のタブストップ
 を上書きする。タブの設定は段落全体の字下げだけでなく、段落の一部の字下げ（キー
-ボードの :kbd:`Tab` キーを押す）にも影響する。
+ボードの |Tab| を押す）にも影響する。
 
 .. tip::
 
-   段落の先頭など、多くの字下げは段落スタイルで設定できるので、:kbd:`Tab` でする
+   段落の先頭など、多くの字下げは段落スタイルで設定できるので、|Tab| でする
    必要はない。
 
 既定のタブ間隔を使用すると他の人と文書を共有する場合に書式の問題が発生することが
@@ -357,20 +351,19 @@ Setting tab stops and indents
 
 選択した一つまたは複数の段落の字下げとタブ設定を定義するには、
 
-#. 段落を右クリックして :menuselection:`P&aragraph --> P&aragraph...` を選択
-#. :guilabel:`Paragraph` ダイアログボックスで
+#. 段落を右クリックして :menuselection:`P&aragraph-->P&aragraph...` を選択
+#. |ParagraphDlg| で
 
-   * :guilabel:`Tabs` タブまたは
-   * :guilabel:`Indent & Spacing` タブのいずれかを選択
+   * |TabsTab| または
+   * |Indents&SpacingTab| のいずれかを選択
 
-あるいは、水平定規をダブルクリックして、:guilabel:`Paragraph` ダイアログボックス
-の :guilabel:`Indent & Spacing` タブを開く。よりよい方法は、その段落スタイルにタ
-ブを定義することだ。段落スタイルについては :doc:`Chapter 8 <writer08>` と
-:doc:`Chapter 9 <writer09>` を読め。
+あるいは、水平定規をダブルクリックして、|ParagraphDlg| |Indents&SpacingTab| を開
+く。よりよい方法は、その段落スタイルにタブを定義することだ。段落スタイルについて
+は |Writer08| と |Writer09| を読め。
 
 .. tip::
 
-   タブを使ってページ内の物を空けることは推奨されない。通常は図表や枠を使う方が
+   タブを使ってページ内の物を空けることは推奨されない。通常は表組や枠を使う方が
    よい選択だ。
 
 Changing the default tab stop interval
@@ -381,8 +374,8 @@ Changing the default tab stop interval
    既定のタブ設定を変更すると、その後に開く文書の既存の既定のタブストップや、変
    更後に挿入されるタブストップにも影響する。
 
-測定単位と既定のタブストップの間隔を設定するには、:guilabel:`Options` ダイアログ
-ボックスで :menuselection:`LibreOffice Writer --> General` を選択する。
+測定単位と既定のタブストップの間隔を設定するには |OptionsDlg| で
+|WriterGeneralPage| を選択する。
 
 Changing measurement units for tab stops and rulers
 ----------------------------------------------------------------------
@@ -397,24 +390,20 @@ Formatting characters using styles
 文字スタイルを適用するには、文字または単語を選択し、次のいずれかから選択した文字
 スタイルを適用する：
 
-* Sidebar の :guilabel:`Styles` 甲板の :guilabel:`Character Styles` タブ
-* メニューの :menuselection:`St&yles -->` （機能に制限あり）
+* |Sidebar| |StylesDeck| |CharacterStylesTab|
+* |MenuBar| :menuselection:`St&yles -->` （機能に制限あり）
 * 右クリックメニュー（機能に制限あり）
-* :guilabel:`Formatting (Styles)` ツールバー
+* |FormattingStylesToolbar|
 
-文字スタイルの詳細については :doc:`Chapter 8 <writer08>` と :doc:`Chapter 9
-<writer09>` を読め。
+文字スタイルの詳細については |Writer08| と |Writer09| を読め。
 
 Formatting characters directly
 ======================================================================
 
 次の UI を用いて書式の多くを文字に適用可能だ：
 
-* :guilabel:`Formatting` ツールバーの図像
-* Sidebar の :guilabel:`Properties` 甲板の :guilabel:`Characters` 盤
-
-標準インストールではすべてのツールバー図像が表示されるわけではないが、ツールバー
-をカスタマイズしてよく使うものを含めることができる。これらには次のものがある：
+* |FormattingToolbar| の図像
+* |Sidebar| |PropertiesDeck| |CharacterPanel|
 
 * :guilabel:`Font Name`, :guilabel:`Font Size`
 * :guilabel:`Bold`, :guilabel:`Italic`, :guilabel:`Underline`, :guilabel:`Double
@@ -428,16 +417,12 @@ Formatting characters directly
 * :guilabel:`Character Highlighting Color`
 
 段落全体の（フォント名、サイズ、色などの）特性を変更したり、その他多くの目的に
-は、手動で文字を書式設定するのではなく、スタイルの詳細については :doc:`Chapter 8
-<writer08>` と :doc:`Chapter 9 <writer09>` を読め。スタイルの適用は Sidebar の
-:guilabel:`Styles` 甲板を使用して素早く簡単に行う。
+は、手動で文字を書式設定するのではなく、スタイルの詳細については |Writer08| と
+|Writer09| を読め。スタイルの適用は |Sidebar| |StylesDeck| を使用して素早く簡単
+に行う。
 
-Sidebar の :guilabel:`Properties` 甲板にある :guilabel:`Character` 盤では、横に▼
-がある図像では、それをクリックするとフォントの色や文字間隔など、さらなる選択肢の
-パレットが開く。
-
-:guilabel:`More Options` ボタンをクリックすると、:guilabel:`Characters` ダイアロ
-グボックスが開き、簡易設定用 UI で利用できる以上の選択肢が搭載されている。
+:guilabel:`More Options` ボタンをクリックすると、|CharacterDlg| が開き、簡易設定
+用 UI で利用できる以上の選択肢が搭載されている。
 
 .. note::
 
@@ -449,63 +434,61 @@ Font name, size, and effects
 
 選択した文字に使用するフォント名とサイズを変更するには、次のいずれかを用いる：
 
-* :guilabel:`Formatting` ツールバー
-* Sidebar の :guilabel:`Character` 盤
-* :guilabel:`Character` ダイアログボックスのドロップダウンメニュー
+* |FormattingToolbar|
+* |Sidebar| |CharacterPanel|
+* |CharacterDlg| のドロップダウンメニュー
 
 選択した文字に太字、斜体、下線、取り消し線、影の効果を適用するのも同様。下線効果
 には、線種のドロップダウンメニューがある。
 
-:guilabel:`Formatting` ツールバーには Sidebar にはない他の効果として、
-:guilabel:`Overline` と :guilabel:`Double Underline` がある。
+|FormattingToolbar| には |Sidebar| にはない他の効果として、:guilabel:`Overline`
+と :guilabel:`Double Underline` がある。
 
 フォントの色や強調色を選択するには、適切なカラーパレットを開く。強調色の選択は段
 落に適用されている背景色よりも優先される。
 
-選択した文字のフォントサイズを調整するには、:guilabel:`Formatting` ツールバーま
-たは Sidebar の :guilabel:`Character` 盤にある関連する図像をクリックする。
+選択した文字のフォントサイズを調整するには、|FormattingToolbar| または |Sidebar|
+の |CharacterPanel| にある関連する図像をクリックする。
 
 文字を下付き文字または上付き文字に変更するには（サイズと位置の既定値が用いられ
-る）、文字を選択して、:guilabel:`Formatting` ツールバーまたは Sidebar の
-:guilabel:`Character` 盤で関連するアイコンをクリックする。
+る）、文字を選択して、|FormattingToolbar| または |Sidebar| の |CharacterPanel|
+で関連するアイコンをクリックする。
 
-文字間隔をすばやく変更するには、文字を選択して Sidebar の :guilabel:`Set
+文字間隔をすばやく変更するには、文字を選択して |Sidebar| の :guilabel:`Set
 Character Spacing` ドロップダウンメニューから選択する。
 
 Settings on the Character dialog
 ----------------------------------------------------------------------
 
-:guilabel:`Character` ダイアログボックスには、この節で述べられるタブ六つがある。
-これらのタブのほとんどは :guilabel:`Character Style` ダイアログボックスのものと
-同じだ。:doc:`Chapter 9 <writer09>` を参照しろ。
+|CharacterDlg| にはこの節で述べられるタブ六つがある。これらのタブのほとんどは
+|CharacterStyleDlg| のものと同じだ。|Writer09| を参照しろ。
 
 Font and Font Effects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Font` タブで フォント族、スタイル（フォントによって異なるが、通常、レ
-ギュラー、ボールド、イタリック）、サイズを指定し、段落の言語（文書の言語と異なる
-場合）を指定する。
+|FontTab| でフォント族、スタイル（フォントによって異なるが、通常、レギュラー、
+ボールド、イタリック）、サイズを指定し、段落の言語（文書の言語と異なる場合）を指
+定する。
 
-:guilabel:`Font Effects` タブでは、フォントの色とさまざまな効果を選択する。
+|FontEffectsTab| では、フォントの色とさまざまな効果を選択する。
 
 Position
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Position` タブはページ上のテキストの位置に影響する選択肢の集まりだ。
-このタブは三区画からなる：
+|PositionTab| はページ上のテキストの位置に影響する選択肢の集まりだ。このタブは三
+区画からなる：
 
 :guilabel:`Position` 区画は上付き文字と下付き文字の容貌を指定する。
 
 :guilabel:`Rotation/Scaling` 区画は文字の回転を指定る。
 
-* :guilabel:`Scale width` 欄は回転テキストを拡大縮小するフォント幅の百分率を指定
-  する。
+:guilabel:`Scale width` 欄は回転テキストを拡大縮小するフォント幅の百分率を指定す
+る。
 
-:guilabel:`Spacing` 区画は個々の文字の間隔を指定する。
-
-* :guilabel:`Pair kerning` は特定の文字の組み合わせに対して文字間隔を自動的に調
-  整する。既定でオン。特定のフォントタイプでのみ使用でき、印刷文書の場合、印刷機
-  が対応している場合に限り機能する。
+:guilabel:`Spacing` 区画は個々の文字の間隔を指定する。:guilabel:`Pair kerning`
+は特定の文字の組み合わせに対して文字間隔を自動的に調整する。既定でオン。特定の
+フォントタイプでのみ使用でき、印刷文書の場合、印刷機が対応している場合に限り機能
+する。
 
 Hyperlink
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -519,8 +502,8 @@ LibreOffice は URL と思われる文字列を認識すると、その文字を
 設定する。このダイアログボックスでは、別の文字スタイルを選択したり URL を他のテ
 キストに置き換えたりすることができる。この機能をオフにする手順は：
 
-#. :menuselection:`&Tools --> AutoCorr&ect --> &AutoCorrect Options...` を選択
-#. :guilabel:`Options` タブ
+#. :menuselection:`&Tools-->AutoCorr&ect-->&AutoCorrect Options...` を選択
+#. |OptionsTab|
 #. :guilabel:`URL Recognition` をオフ
 
 Highlighting
@@ -532,8 +515,7 @@ Highlighting
 Borders
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Borders` タブは :guilabel:`Paragraph` ダイアログボックスのそれと同じ
-だ。
+|BordersTab| は |ParagraphDlg| のそれと同じだ。
 
 Formatting lists using styles
 ======================================================================
@@ -544,41 +526,38 @@ Formatting lists using styles
 れらの設定は段落スタイルに付属させる目録スタイルから得られる。次に挙げる方法で一
 緒に使え：
 
-* 順序なし目録を作成するには、段落スタイル :guilabel:`List 1`, :guilabel:`List
-  2`, :guilabel:`List 3`, ... などを使え。これらのスタイルは :guilabel:`Bullet`
-  目録スタイルを用いる。
-* 順序付き目録を作成するには、段落スタイル :guilabel:`Numbering 1`,
-  :guilabel:`Numbering 2`, :guilabel:`Numbering 3` ... などを使え。これらのスタ
-  イルは同名の目録スタイルを用いる。
+* 順序なし目録を作成するには、段落スタイル `List 1`, `List 2`, `List 3`, ... な
+  どを使え。これらのスタイルは `Bullet` 目録スタイルを用いる。
+* 順序付き目録を作成するには、段落スタイル `Numbering 1`, `Numbering 2`,
+  `Numbering 3` ... などを使え。これらのスタイルは同名の目録スタイルを用いる。
 
 段落スタイルを使えば、アウトラインのように目録項目の下に部分項目を持つ入れ子目録
 を簡単に作成できる。これには追加レベルの設定を指定する必要がある。入れ子目録を設
 定したら、項目の階層を簡単に変更することができる。
 
 項目を一階層下げるには、キャレットを行頭（箇条書きまたは数字の後）に置き、
-:kbd:`Tab` を押す。上げるには :kbd:`Shift` + :kbd:`Tab` を押す。
+|Tab| を押す。上げるには |Shift| + |Tab| を押す。
 
-スタイルを使った目録の作成については :doc:`Chapter 8 <writer08>` と
-:doc:`Chapter 9 <writer09>` でわかる。
+スタイルを使った目録の作成については |Writer08| と |Writer09| でわかる。
 
 Formatting lists directly
 ======================================================================
 
 順序付き目録でも順序なし目録でも、書式を直接整えることが可能だ：
 
-* :guilabel:`Bullets and Numbering` ツールバー
+* |B&NToolbar|
 * 次のいずれかにある :guilabel:`Toggle Unordered List` と :guilabel:`Toggle
   Ordered List` 図像：
 
-  * :guilabel:`Formatting` ツールバー
-  * :guilabel:`Formatting (Styles)` ツールバー
-  * Sidebar の :guilabel:`Properties` 甲板の :guilabel:`Paragraph` 盤
-* :guilabel:`Bullets and Numbering` ダイアログボックス
+  * |FormattingToolbar|
+  * |FormattingStylesToolbar|
+  * |Sidebar| |PropertiesDeck| |ParagraphPanel|
+* |B&NDlg|
 
 単純な順序付き目録または順序なし目録を作成するには：
 
 #. 目録内の段落を選択
-#. Sidebarの :guilabel:`Paragraph` 盤で適切な図像をクリック
+#. |Sidebar| |ParagraphPanel| で適切な図像をクリック
 
 .. tip::
 
@@ -587,65 +566,62 @@ Formatting lists directly
 
 .. note::
 
-   これらの方法で適用された箇条書きや番号付けは、メニューの
-   :menuselection:`F&ormat --> Clear &Direct Formatting` コマンドを使用して削除
-   することは不可能だ。:guilabel:`Formatting` ツールバーなどで関連する図像を切り
-   替えることで、選択テキストからこれらをオフにしたり削除したりする。
+   これらの方法で適用された箇条書きや番号付けは、|MenuBar|
+   :menuselection:`F&ormat-->Clear &Direct Formatting` コマンドを使用して削除す
+   ることは不可能だ。|FormattingToolbar| などで関連する図像を切り替えることで、
+   選択テキストからこれらをオフにしたり削除したりする。
 
 Using the Bullets and Numbering toolbar
 ----------------------------------------------------------------------
 
-入れ子になった一覧を作成するには :guilabel:`Bullets and Numbering` ツールバーの
-図像を使用する。項目を目録の上下に移動したり、小番号や小箇条を作成したり、箇条書
-きのスタイルを変更したり、番号や箇条書きのない段落を追加したり、より詳細なコント
-ロールを含む :guilabel:`Bullets and Numbering` ダイアログボックスにアクセスした
-りできる。
+入れ子になった一覧を作成するには |B&NToolbar| の図像を使用する。項目を目録の上下
+に移動したり、小番号や小箇条を作成したり、箇条書きのスタイルを変更したり、番号や
+箇条書きのない段落を追加したり、より詳細なコントロールを含む |B&NDlg| にアクセス
+したりできる。
 
 .. tip::
 
    キーバインドを使って、段落をアウトライン階層の上下に移動することができる。
    キャレットを段落番号の先頭に置き、次のキーを押す：
 
-   * :kbd:`Tab` で階を下げる
-   * :kbd:`Shift` + :kbd:`Tab` で階を上げる
+   * |Tab| で位を下げる
+   * |Shift| + |Tab| で位を上げる
 
 .. tip::
 
    番号の付いた段落の先頭（つまり、番号の後でテキストの前）にタブストップを挿入
-   するには :kbd:`Ctrl` + :kbd:`Tab` を押す。
+   するには |Ctrl| + |Tab| を押す。
 
-:guilabel:`Bullets and Numbering` ツールバーの図像を使用して入れ子目録を作成する
-と、目録のすべての階層に対して最初は同じ番号（または箇条書き）書式が適用される。
-入れ子目録を作成するときに、番号付け形式と箇条書きの組み合わせを使用するには、次
-のようにする：
+|B&NToolbar| の図像を使用して入れ子目録を作成すると、目録のすべての階層に対して
+最初は同じ番号（または箇条書き）書式が適用される。入れ子目録を作成するときに、番
+号付け形式と箇条書きの組み合わせを使用するには、次のようにする：
 
 #. 各目録項目をクリック
-#. :guilabel:`Formatting` ツールバーまたは Sidebar の :guilabel:`Properties` 甲
-   板にある :guilabel:`Toggle Unordered List` と :guilabel:`Toggle Ordered List`
-   図像の下にあるドロップダウンパレットの選択肢から一つを選択
+#. |FormattingToolbar| または |Sidebar| |PropertiesDeck| にある
+   :guilabel:`Toggle Unordered List` と :guilabel:`Toggle Ordered List` 図像の下
+   にあるドロップダウンパレットの選択肢から一つを選択
 
-もっと良い方法が :doc:`Chapter 12 <writer12>` で述べられる。
+もっと良い方法が |Writer12| で述べられる。
 
 Using the Bullets and Numbering palettes on the Sidebar
 ----------------------------------------------------------------------
 
-Sidebar の :guilabel:`Properties` 甲板にある :guilabel:`Paragraph` 盤で、
+|Sidebar| |PropertiesDeck| |ParagraphPanel| で、
 
 * :guilabel:`Toggle Unordered List` コントロールの横にある▼をクリックすると箇条
   書きスタイルのパレットが開き、
-* :guilabel:`Toggle Ordered List` コントロールの横にある▼をクリックすると、番号
-  付けスタイルのパレットが開く。
+* :guilabel:`Toggle Ordered List` コントロールの横にある▼をクリックすると番号付
+  けスタイルのパレットが開く。
 
-これらのパレットの選択を使用して入れ子目録を作成し、:guilabel:`Bullets and
-Numbering` ダイアログボックスにアクセスすることができる。Sidebar には
-:guilabel:`Bullets and Numbering` ツールバーにあるような、目録内の項目を上下させ
-るツールはない。
+これらのパレットの選択を使用して入れ子目録を作成し |B&NDlg| にアクセスすることが
+できる。|Sidebar| には |B&NToolbar| にあるような、目録内の項目を上下させるツール
+はない。
 
 Using the Bullets and Numbering dialog
 ----------------------------------------------------------------------
 
-:guilabel:`Bullets and Numbering` ダイアログボックスにはタブが六つある。次の四タ
-ブではあらかじめ定義された記号と順序を選択できる：
+|B&NDlg| にはタブが六つある。次の四タブではあらかじめ定義された記号と順序を選択
+できる：
 
 * :guilabel:`Unordered`
 * :guilabel:`Ordered`
@@ -657,21 +633,23 @@ Using the Bullets and Numbering dialog
 * :guilabel:`Position`
 * :guilabel:`Customize`
 
-これらは :doc:`Chapter 12 <writer12>` で述べられる目録スタイル用のタブと同じだ。
+これらは |Writer12| で述べられる目録スタイル用のタブと同じだ。
 
 Autoformatting
 ======================================================================
 
-:guilabel:`AutoCorrect` ダイアログボックスの :guilabel:`Options` タブと
-:guilabel:`Localized Options` タブで選択した内容に従って、Writer が文書の一部を
-自動的に書式設定するように設定できる。
+.. |LocalizedOptionsTab| replace:: :guilabel:`Localized Options` タブ
+
+|AutoCorrectDlg| |OptionsTab| と |LocalizedOptionsTab| で選択した内容に従っ
+て、Writer が文書の一部を自動的に書式設定するように設定できる。
 
 .. tip::
 
    文書内で予期せぬ書式変更が発生した場合、この場所で原因を探すとよい。
 
-設定したオプションに従って自動的に書式を設定するには、:menuselection:`&Tools -->
-AutoCorr&ect -->` サブメニューから項目をオンまたはオフにする。
+設定したオプションに従って自動的に書式を設定するには、
+:menuselection:`&Tools-->AutoCorr&ect-->` サブメニューから項目をオンまたはオフに
+する。
 
 :menuselection:`&While Typing`
    打ち込んでいる間に文書を自動的に整える。
@@ -681,16 +659,14 @@ AutoCorr&ect -->` サブメニューから項目をオンまたはオフにす�
    自動的にファイル内の書式を整え、ダイアログボックスを開いて変更を受理するか却
    下するかを選択する。
 :menuselection:`&AutoCorrect Options...`
-   :guilabel:`AutoCorrect` ダイアログボックスを開いて、所望の自動書式整形を選択
-   する。
+   |AutoCorrectDlg| を開いて、所望の自動書式整形を選択する。
 
-:guilabel:`Localized Options` タブは、引用符とアポストロフィー（閉じた一重引用符
-のように見える）の書式を制御する。フォントのほとんどには巻いた引用符（スマート引
-用符とも呼ばれる）が含まれているが、目的によっては（緯度と経度の分と秒を示すな
-ど）真っ直ぐな引用符として書式設定したい場合がある。
+|LocalizedOptionsTab| は引用符とアポストロフィー（閉じた一重引用符のように見え
+る）の書式を制御する。フォントのほとんどには巻いた引用符（スマート引用符とも呼ば
+れる）が含まれているが、目的によっては（緯度と経度の分と秒を示すなど）真っ直ぐな
+引用符として書式設定したい場合がある。
 
 .. tip::
 
    たいていの人はスマート引用符を AutoCorrect 設定にしておき、必要なときに
-   :guilabel:`Special Character` ダイアログボックス (:doc:`Chapter 2
-   <writer02>`) を使って真っ直ぐな引用符を挿入する。
+   |SpecialCharDlg| (|Writer02|) を使って真っ直ぐな引用符を挿入する。
