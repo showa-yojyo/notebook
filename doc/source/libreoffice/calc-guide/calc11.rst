@@ -2,7 +2,9 @@
 Calc Guide Chapter 11 Linking Data ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Using multiple sheets

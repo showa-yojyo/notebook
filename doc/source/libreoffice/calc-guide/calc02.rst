@@ -2,7 +2,9 @@
 Calc Guide Chapter 2 Entering and Editing Data ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :depth: 3
    :local:
 

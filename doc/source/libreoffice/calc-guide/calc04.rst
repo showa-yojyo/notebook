@@ -2,7 +2,9 @@
 Calc Guide Chapter 4 Formatting Data ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

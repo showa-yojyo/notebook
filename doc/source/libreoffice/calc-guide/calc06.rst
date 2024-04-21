@@ -2,7 +2,9 @@
 Calc Guide Chapter 6 Using Images and Graphics ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

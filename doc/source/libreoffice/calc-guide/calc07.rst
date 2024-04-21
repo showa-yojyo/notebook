@@ -2,7 +2,9 @@
 Calc Guide Chapter 7 Printing, Exporting, Emailing, and Signing ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Printing

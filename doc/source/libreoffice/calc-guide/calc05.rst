@@ -2,7 +2,9 @@
 Calc Guide Chapter 5 Using Styles and Templates ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 What are styles? Why use them?

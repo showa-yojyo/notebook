@@ -2,7 +2,9 @@
 Calc Guide Chapter 12 Sharing and Reviewing Spreadsheets ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :local:
 
 Introduction

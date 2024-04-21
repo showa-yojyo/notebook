@@ -2,7 +2,9 @@
 Calc Guide Chapter 16 User Interface Variants ノート
 ======================================================================
 
-.. contents::
+.. include:: ./calc-inc.txt
+
+.. contents:: 章見出し
    :depth: 3
    :local:
 
