@@ -1,5 +1,5 @@
 ======================================================================
-Calc Guide Chapter 2 Entering and Editing Data ノート
+Calc Guide Chapter 2, Entering and Editing Data ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -40,16 +40,15 @@ Leading zeroes
 #. セルを選択
 #. 次のどれかを実行：
 
-   * メインメニュー :menuselection:`F&ormat --> Ce&lls...`
+   * |MenuBar| :menuselection:`F&ormat-->Ce&lls...`
    * 右クリックメニュー :menuselection:`&Format Cells...`
-   * キーバインド :kbd:`Ctrl` + :kbd:`1`
-#. :guilabel:`Numbers` タブ内 :guilabel:`C&ategory` から :guilabel:`Number` 選択
+   * キーバインド |Ctrl| + :kbd:`1`
+#. |NumbersTab| 内 :guilabel:`C&ategory` から :guilabel:`Number` を選択
 #. :guilabel:`Leading &zeros` 欄に必要最小限の文字数を入力する。例えば ``4`` を
    入力したとすると、セルへの入力 ``12`` は ``0012`` となる。
-#. :guilabel:`&OK`
+#. |OK| を押す
 
-あるいは Sidebar の :guilabel:`Properties` 甲板 (:kbd:`Alt` + :kbd:`1`) で同様の
-指示をする。
+あるいは |Sidebar| |PropertiesDeck| (|Alt| + :kbd:`1`) で同様の指示をする。
 
 Numbers as text
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,11 +56,11 @@ Numbers as text
 数字は以下のいずれかの方法でテキストに変換することが可能：
 
 #. セルを選択
-#. 先述の方法で :guilabel:`Format Cells` ダイアログボックスを開く
-#. :guilabel:`Numbers` タブ内 :guilabel:`C&ategory` から :guilabel:`Text` 選択
-#. :guilabel:`&OK`
+#. 先述の方法で |FormatCellsDlg| を開く
+#. |NumbersTab| 内 :guilabel:`C&ategory` から :guilabel:`Text` を選択
+#. |OK| を押す
 
-Sidebar の :guilabel:`Properties` 甲板も使える。
+|Sidebar| |PropertiesDeck| も使える。
 
 数字が（郵便番号など）計算用途でない場合には、数字の前に ``'`` を入力することで
 テキスト扱い可能。セルのフォーカスを移動すると ``'`` は削除され、先頭のゼロは保
@@ -73,11 +72,10 @@ Text
 セルをクリックしてテキストを入力する。
 
 * テキストは左揃え既定。
-* セルには複数行テキストを入力可能。改行は :kbd:`Ctrl` + :kbd:`Enter` を押して挿
-  し込む。
+* セルには複数行テキストを入力可能。改行は |Ctrl| + |Enter| を押して入れる。
 
-Formula Bar では複数行テキストを入力する場合に :guilabel:`Input Line` 欄を縦に拡
-張することが可能。右側にある▼をクリックすると複数行になる。
+|FormulaBar| では複数行テキストを入力する場合に :guilabel:`Input Line` 欄を縦に
+拡張することが可能。右側にある▼をクリックすると複数行になる。
 
 * :guilabel:`Input Line` の下端を上下にドラッグして高さを操作可能。
 * :guilabel:`Input Line` を一行の高さに戻すには、▲をクリックする。
@@ -94,27 +92,27 @@ Date and time
 
 私の場合は日本語ロケールのことを考慮しないといけない。
 
-* 設定ダイアログの :menuselection:`Language Settings --> Languages` ページの
-  :guilabel:`Date acceptance &patterns` 欄でパターンを個別に定義しろ。
+* |OptionsDlg| |LanguagesPage| の :guilabel:`Date acceptance &patterns` 欄でパ
+  ターンを個別に定義しろ。
 * どのロケールでも ISO 8601 YYYY-MM-DD パターンでの入力を受け付けるので、これを
   用いることを習慣化しておきたい。
 
 時間を入力するときは、10:43:45 のように、時間要素をコロンで区切る。時刻の書式は
 Calc が決めるものに自動的に変更される。その設定方法は：
 
-#. セルを選択して :guilabel:`Format Cells` ダイアログボックスを開く
-#. :guilabel:`Numbers` タブで :guilabel:`C&ategory` 欄から :guilabel:`Date` か
+#. セルを選択して |FormatCellsDlg| を開く
+#. |NumbersTab| で :guilabel:`C&ategory` 欄から :guilabel:`Date` か
    :guilabel:`Time` を選択
 #. :guilabel:`Fo&rmat` 一覧から所望の日付・時刻書式を選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 日付書式はシステムまたは文書の言語設定の影響を受ける。
 
 Special characters
 ----------------------------------------------------------------------
 
-:menuselection:`Insert --> Special Character...` コマンドでダイアログボックス
-:guilabel:`Special Characters` が開く。
+:menuselection:`&Insert-->S&pecial Character...` コマンドで :guilabel:`Special
+Characters` ダイアログボックスが開く。
 
 .. admonition:: 利用者ノート
 
@@ -129,7 +127,7 @@ AutoCorrect を使用したデータ入力中に、当機能が有効である�
 に適用されます。AutoCorrect による変更を取り消すには Undo するか、または変更箇所
 に戻り、自動修正を手動で置き換えろ。
 
-:menuselection:`&Tools --> &AutoCorrect Options...` で自動訂正に関する設定が可
+:menuselection:`&Tools-->&AutoCorrect Options...` で自動訂正に関する設定が可
 能。
 
 Inserting dashes
@@ -162,19 +160,18 @@ AutoInput tool
 AutoInput 機能は同じ列の他の入力に基づいて、自動的に入力を補完する。テキストがセ
 ル内で強調表示されている場合、自動入力は次のように使用できる：
 
-* :kbd:`Enter` を押すと補完を確定かつ次のセルへ移動
-* :kbd:`F2` を押すと補完を確定かつキャレットをセル内に留める
+* |Enter| を押すと補完を確定かつ次のセルへ移動
+* |F2| を押すと補完を確定かつキャレットをセル内に留める
 * 候補が複数ある場合は
 
-  * 部分的に補完して :kbd:`→` を押す
-  * :kbd:`Ctrl` + :kbd:`Tab` キーや :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`Tab` キー
-    で前後の補完候補に切り替える
-* :kbd:`Alt` + :kbd:`↓` で AutoInput 全候補ドロップダウンリスト表示
+  * 部分的に補完して |ArrowR| を押す
+  * |Ctrl| + |Tab| や |Ctrl| + |Shift| + |Tab| で前後の補完候補に切り替える
+* |Alt| + |ArrowD| で AutoInput 全候補ドロップダウンリスト表示
 
 関数名と合致する文字を使用して数式を入力すると、関数一覧がヘルプヒントとして表示
 される。
 
-AutoInput 機能のオンオフは :menuselection:`&Tools --> &AutoInput` を実行。
+AutoInput 機能のオンオフは :menuselection:`&Tools-->&AutoInput` を実行。
 
 Fill tool
 ----------------------------------------------------------------------
@@ -182,12 +179,12 @@ Fill tool
 既存の内容を複製したり、セル範囲に一連の内容を作成したりするコマンド。
 
 #. コピーしたい内容を含むセルを選択。
-#. マウスポインターを任意の方向にドラッグするか、:kbd:`Shift` キーを押しながら、
-   埋めたい最後のセルをクリック。
-#. :menuselection:`&Sheet --> F&ill Cells -->` 以下にある埋めたい方向に対応する
-   コマンドを実行。
+#. マウスポインターを任意の方向にドラッグするか、|Shift| を押しながら、埋めたい
+   最後のセルをクリック。
+#. :menuselection:`&Sheet-->F&ill Cells-->` 以下にある埋めたい方向に対応するコマ
+   ンドを実行。
 
-   * 下方向にはキーバインド :kbd:`Ctrl` + :kbd:`D` が割り当て済み。
+   * 下方向にはキーバインド |Ctrl| + :kbd:`D` が割り当て済み。
 
 または、
 
@@ -197,12 +194,12 @@ Fill tool
    ば、テキストが自動的にコピーされる。
 
    元のセルに、定義済み一覧の数値またはテキストが含まれている場合は、系列が作成
-   される。複製したい場合には :kbd:`Ctrl` を押しながらドラッグする。
+   される。複製したい場合には |Ctrl| を押しながらドラッグする。
 
 Using a fill series
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:menuselection:`&Sheet --> F&ill Cells --> Fill S&eries...` を実行すると
+:menuselection:`&Sheet-->F&ill Cells-->Fill S&eries...` を実行すると
 :guilabel:`Fill Series` ダイアログボックスが開く。必要な系列の型を選択するか、独
 自の一覧を作成する。
 
@@ -214,16 +211,15 @@ Using a fill series
 Defining a fill series
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-連続データ自作方法は設定ダイアログボックス :menuselection:`LibreOffice Calc -->
-Sort Lists` を調べろ。
+連続データ自作方法は |OptionsDlg| |SortListsPage| を調べろ。
 
 Fill with random numbers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. :menuselection:`&Sheet --> F&ill Cells --> Fill R&andom Number`
+#. :menuselection:`&Sheet-->F&ill Cells-->Fill R&andom Number`
 #. :guilabel:`Cell &range` を確認
 #. :guilabel:`Random Number Generator` 区画の入力欄で乱数仕様を指定
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 分布関数としては有名どころはだいたい用意されている。それに応じて関連引数も指定す
 る。
@@ -234,15 +230,15 @@ Fill with random numbers
 Selection lists
 ----------------------------------------------------------------------
 
-:kbd:`Alt` + :kbd:`↓` でドロップダウンリスト表示。
+|Alt| + |ArrowD| でドロップダウンリスト表示。
 
 Data Entry Form tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> F&orm...` というレコード追加機能がある。このコマンドは
+:menuselection:`&Data-->F&orm...` という登録項目追加機能がある。このコマンドは
 スプレッドシートでの表データ入力を省力化する。
 
-* データレコードの入力、編集、削除が可能
+* データ登録項目の入力、編集、削除が可能
 * ダイアログボックスで操作するのでシートをスクロールすることを回避できる
 * データ表にはヘッダー行が必須で、各セルの内容が列の見出しになる。各ヘッダーセル
   の内容はダイアログボックスの各データ欄のラベルになる。
@@ -252,11 +248,11 @@ Data Entry Form tool
 #. データ表内のヘッダーまたはデータセルを選択
 #. 上記コマンドを実行して :guilabel:`Data Form` ダイアログボックスを開く
 #. 先頭データが入力されているが、加除編集して適当なボタンを押す
-#. :guilabel:`&Close`
+#. |Close| を押す
 
 ダイアログボックス右柱の各ボタンの役割は見ればわかる。
 
-新しいレコードを入力する前に最後のレコードに移動しないと、現在のレコードが編集さ
+新しい登録項目を入力する前に最後の登録項目に移動しないと、現在の登録項目が編集さ
 れる。
 
 Merging and splitting cells
@@ -267,19 +263,19 @@ Merging
 
 .. admonition:: 利用者ノート
 
-   実際の UI と本文の記述が合致していない。特に右クリックメニュー。
+   実際の |UI| と本文の記述が合致していない。特に右クリックメニュー。
 
 連続セルを選択し、一つに併合することが可能だ。
 
 #. 併合したい連続セル範囲を選択
 #. 次のいずれかを実行：
 
-   * メニュー :menuselection:`F&ormat --> M&erge and Unmerge Cells --> &Merge
+   * |MenuBar| :menuselection:`F&ormat-->M&erge and Unmerge Cells-->&Merge
      Cells...`
-   * :guilabel:`Formatting` ツールバー :guilabel:`Merge Cells`
+   * |FormattingToolbar| :guilabel:`Merge Cells`
 #. セルに何らかのデータが含まれている場合 :guilabel:`Merge Cells` ダイアログボッ
    クスが開く
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 セルを併合するとスプレッドシート内の数式に計算エラーが発生することがある。
 
@@ -292,9 +288,9 @@ Splitting
 #. 併合セルを選択
 #. 次のいずれかを実行：
 
-   * メニュー :menuselection:`F&ormat --> M&erge and Unmerge Cells --> &Unmerge
+   * |MenuBar| :menuselection:`F&ormat-->M&erge and Unmerge Cells-->&Unmerge
      Cells...`
-   * :guilabel:`Formatting` ツールバー :guilabel:`Unmerge Cells`
+   * |FormattingToolbar| :guilabel:`Unmerge Cells`
 
 Sharing content between sheets
 ======================================================================
@@ -302,14 +298,13 @@ Sharing content between sheets
 複数のシートの同じセルに同じ情報を、各シートに個別に入力する代わりに、複数のシー
 トに同時に入力する方法がある。
 
-#. :menuselection:`&Edit --> Selec&t --> &Select Sheets...` を実行して
-   :guilabel:`Select Sheets` ダイアログボックスを開く
+#. |SelectSheetsM| を実行して |SelectSheetsDlg| を開く
 #. 対象シートを一覧から選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 #. シートのセルに何か入力すると、選択シートすべてでその入力がなされる
 #. シート選択を解除
 
-Chapter 1 で述べられたマウスクリック方式でも可。
+|Calc01| で述べられたマウスクリック方式でも可。
 
 Validating cell contents
 ======================================================================
@@ -322,8 +317,8 @@ Defining validation
 セルに入力された新しいデータを検証する：
 
 #. 対象セルを選択
-#. :menuselection:`&Data --> &Validity...` を実行してダイアログボックス
-   :guilabel:`Validity` を開く
+#. :menuselection:`&Data-->&Validity...` を実行して :guilabel:`Validity` ダイア
+   ログボックスを開く
 #. :guilabel:`Criteria`, :guilabel:`Input Help`, :guilabel:`Error Alert` 各タブ
    ページにある選択肢を使用して、そのセルに入力が許される内容の型を定義する。
 
@@ -344,15 +339,15 @@ Criteria options
 * :guilabel:`Custom` は :guilabel:`&Formula` に入力された数式に対応するものを許
   す。
 
-それ以外の UI:
+それ以外の |UI|:
 
-:guilabel:`Allow &empty cells` は :menuselection:`&Tools --> &Detective -->
+:guilabel:`Allow &empty cells` は :menuselection:`&Tools-->&Detective-->
 &Mark Invalid Data` と組み合わせて、空白セルを無効であると表示するか否かを指定す
 る。
 
 :guilabel:`Show selection list` は選択可能なすべての有効な文字列または値の一覧を
 示す。この一覧は、セルの右にある下矢印をクリックするか、セルを選択して
-:kbd:`Alt` + :kbd:`↓` を押すことで開く。
+|Alt| + |ArrowD| を押すことで開く。
 
 .. admonition:: 利用者ノート
 
@@ -386,10 +381,10 @@ Error Alert options
 動作を選択する。
 
 * :guilabel:`Stop` は完全拒否。
-* :guilabel:`Warning` と :guilabel:`Information` は :guilabel:`&OK` か
+* :guilabel:`Warning` と :guilabel:`Information` は |OK| か
   :guilabel:`&Cancel` かをシート利用者に選ばせるようにする。
-* :guilabel:`Macro` は :guilabel:`&Browse...` ボタンで指定する、無効データが入力
-  されたときに実行したいマクロを選択する。
+* :guilabel:`Macro` は |Browse| で指定する、無効データが入力されたときに実行した
+  いマクロを選択する。
 
 Calc Detective
 ----------------------------------------------------------------------
@@ -397,14 +392,14 @@ Calc Detective
 ここに挙げるコマンドは無効なデータを含むスプレッドシートセルを発見するために使う
 ものだ。
 
-#. :menuselection:`&Tools --> &Detective --> &Mark Invalid Data` を実行して無効
+#. :menuselection:`&Tools-->&Detective-->&Mark Invalid Data` を実行して無効
    データを含むセルを検出する。これにより無効セルに印が付く。
 #. そのようなセルを訂正する。
-#. :menuselection:`&Tools --> &Detective --> Remove All Traces` を実行して無効印
+#. :menuselection:`&Tools-->&Detective-->Remove All Traces` を実行して無効印
    を消去する。
 
-妥当規則はセル書式の部分だ。したがって、後述される :guilabel:`Delete Contents`
-ダイアログボックスの :guilabel:`Delete all` を行うと削除される。
+妥当規則はセル書式の部分だ。したがって、後述される |DeleteContentsDlg| の
+:guilabel:`Delete all` を行うと削除される。
 
 Editing data
 ======================================================================
@@ -415,7 +410,7 @@ Deleting data
 Deleting cell data only
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-セルの書式を損なわず中身を消去するだけなら :kbd:`Del` 押しで十分。
+セルの書式を損なわず中身を消去するだけなら |Del| 押しで十分。
 
 Deleting cells
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -423,10 +418,10 @@ Deleting cells
 次の操作は完全削除だ。削除されたセルの下か右にあるものが跡地を埋める。
 
 #. セル一個またはセル範囲を選択
-#. メニュー :menuselection:`&Sheet --> Delete C&ells...` 実行またはキーバインド
-   :kbd:`Ctrl` + :kbd:`-` 押し
-#. :guilabel:`Delete Cells` ダイアログボックスにある選択肢を決める
-#. :guilabel:`&OK`
+#. |MenuBar| :menuselection:`&Sheet-->Delete C&ells...` 実行またはキーバインド
+   |Ctrl| + :kbd:`-` 押し
+#. |DeleteCellsDlg| にある選択肢を決める
+#. |OK| を押す
 
 Deleting data and formatting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -434,11 +429,10 @@ Deleting data and formatting
 書式も消すなら：
 
 #. セル一個またはセル範囲を選択
-#. メニュー :menuselection:`&Sheet --> Cle&ar Cells...` またはキーバインド
-   :kbd:`BackSpace`
-#. :guilabel:`Delete Contents` ダイアログボックスにあるチェックボックスを適宜オ
-   ンにする
-#. :guilabel:`&OK`
+#. |MenuBar| :menuselection:`&Sheet-->Cle&ar Cells...` またはキーバインド
+   |BackSpace|
+#. |DeleteContentsDlg| にあるチェックボックスを適宜オンにする
+#. |OK| を押す
 
 Replacing data
 ----------------------------------------------------------------------
@@ -446,8 +440,8 @@ Replacing data
 * セルのデータを完全に置き換えて新しいデータを挿入するには、セルを選択して新しい
   データを入力する。
 * データは置き換わるが、セルで使用されている元の書式は保持される。
-* または、:guilabel:`Formula Bar` の :guilabel:`Input line` をクリックし、データ
-  をダブルクリックして強調表示状態にし、新しいデータを入力する。
+* または、|FormulaBar| :guilabel:`Input line` をクリックし、データをダブルクリッ
+  クして強調表示状態にし、新しいデータを入力する。
 
 Editing data
 ----------------------------------------------------------------------
@@ -459,18 +453,18 @@ Using the keyboard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. 対象セルを選択
-#. :kbd:`F2` を押し、キャレットをセルの末端に置く
-#. 矢印キーでセルに新しいデータを入力する位置にキャレットを移動し、:kbd:`Del` や
-   :kbd:`BackSpace` を押して不要なデータを消去してから入力する
-#. :kbd:`Enter` を押して確定
+#. |F2| を押し、キャレットをセルの末端に置く
+#. 矢印キーでセルに新しいデータを入力する位置にキャレットを移動し、|Del| や
+   |BackSpace| を押して不要なデータを消去してから入力する
+#. |Enter| を押して確定
 
 Using the mouse
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. 対象セルをダブルクリック
 #. セル内のデータの編集を開始したい位置にキャレットを移動
-#. あるいは、クリックでセルを選択し、:guilabel:`Formula Bar` の :guilabel:`Input
-   line` にキャレットを移動し、セル内のデータの編集を開始したい位置でクリック
+#. あるいは、クリックでセルを選択し、|FormulaBar| の :guilabel:`Input line` に
+   キャレットを移動し、セル内のデータの編集を開始したい位置でクリック
 #. 他のセルをクリックして選択解除して内容を確定
 
 Paste Special function
@@ -485,18 +479,18 @@ Paste Special dialog
 #. セル一個またはセル範囲を選択
 #. 次のいずれかでコピーコマンドを実行
 
-   * メニュー :menuselection:`&Edit --> Cop&y`
-   * :guilabel:`Standard` ツールバー :guilabel:`Copy` ボタン
+   * |MenuBar| |EditCopyM|
+   * |StandardToolbar| :guilabel:`Copy` ボタン
    * 右クリックメニュー :menuselection:`Cop&y`
-   * キーバインド :kbd:`Ctrl` + :kbd:`C`
+   * キーバインド |Ctrl| + :kbd:`C`
 #. 対象セル一個またはセル範囲を選択
-#. 次のいずれかで :guilabel:`Paste Special` ダイアログボックスを開く
+#. 次のいずれかで |PasteSpecialDlg| を開く
 
-   * :menuselection:`&Edit --> Paste &Special --> Paste &Special...`
-   * 右クリックメニュー :menuselection:`Paste &Special --> Paste &Special...`
-   * キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`V`
+   * |PasteSpecialM|
+   * 右クリックメニュー |PasteSpecialC|
+   * キーバインド |Ctrl+Shift| + :kbd:`V`
 #. オプションを適宜指定
-#. :guilabel:`&OK`
+#. |OK|
 
 :guilabel:`&Run immediately` をオンにするのは :guilabel:`Presets` グループにある
 ボタンを使うときだ。
@@ -543,9 +537,9 @@ Paste Only options
 
 あるいは専用コマンドを実行する：
 
-* :menuselection:`&Edit --> Paste &Special --> Paste &Only Text`
-* :menuselection:`&Edit --> Paste &Special --> Paste Only &Numbers`
-* :menuselection:`&Edit --> Paste &Special --> Paste Only &Formula`
+* :menuselection:`&Edit-->Paste &Special-->Paste &Only Text`
+* :menuselection:`&Edit-->Paste &Special-->Paste Only &Numbers`
+* :menuselection:`&Edit-->Paste &Special-->Paste Only &Formula`
 
 Insert cell fields
 ----------------------------------------------------------------------
@@ -556,20 +550,19 @@ Calc でもフィールドが使える。日付、シート名、文書名にリ
 #. セルを選択してダブルクリックし編集モードに入る
 #. 右クリックメニューから関連コマンドを実行
 
-   * :menuselection:`Insert &Field --> &Date`
-   * :menuselection:`Insert &Field --> &Sheet Name`
-   * :menuselection:`Insert &Field --> Document &Title`
+   * :menuselection:`Insert &Field-->&Date`
+   * :menuselection:`Insert &Field-->&Sheet Name`
+   * :menuselection:`Insert &Field-->Document &Title`
 
-文書名はファイルの :guilabel:`Properties` ダイアログボックスの
-:guilabel:`Description` タブで定義されたものではなく、スプレッドシートの名前を指
-す。
+文書名はファイルの |PropertiesDlg| の |DescriptionTab| で定義されたものではなく、
+スプレッドシートの名前を指す。
 
 .. admonition:: 利用者ノート
 
    そんなことはない。
 
-:kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F9` 押しでスプレッドシートの保存時または再計
-算時にフィールドが更新される。
+|Ctrl| + |Shift| + |F9| 押しでスプレッドシートの保存時または再計算時にフィールド
+が更新される。
 
 Group and outline
 ======================================================================
@@ -587,12 +580,12 @@ Grouping
 行や列を括る方法：
 
 #. スプレッドシートで括りたいセルを選択
-#. :menuselection:`&Data --> &Group and Outline --> &Group...` または :kbd:`F12`
-   で :guilabel:`Group` ダイアログボックスを開く
+#. :menuselection:`&Data-->&Group and Outline-->&Group...` または |F12| で
+   :guilabel:`Group` ダイアログボックスを開く
 #. :guilabel:`&Rows` または :guilabel:`&Columns` を選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 
-括られた行の左または列の上に UI が表示される。
+括られた行の左または列の上に |UI| が表示される。
 
 Hiding details
 ----------------------------------------------------------------------
@@ -600,8 +593,8 @@ Hiding details
 行または列の詳細（シート上の表示）を隠すには、次のいずれかを実行する：
 
 * 当該 GUI のマイナスボタンをクリック
-* 括られているセル一つを選択してメニューから :menuselection:`&Data --> &Group
-  and Outline --> &Hide Details` を実行
+* 括られているセル一つを選択して |MenuBar| から :menuselection:`&Data-->&Group
+  and Outline-->&Hide Details` を実行
 
 対象行または列が隠され、GUI のマイナスボタンがプラスボタンに変化する。
 
@@ -611,8 +604,8 @@ Showing details
 行または列の隠れているグループの詳細を表示するには、次のいずれかを実行：
 
 * 当該 GUI のプラスボタンをクリック
-* 隠れている部分を挟む両側のセルを選択してメニューから :menuselection:`&Data --> &Group
-  and Outline --> &Show Details` を実行
+* 隠れている部分を挟む両側のセルを選択して |MenuBar| から
+  :menuselection:`&Data-->&Group and Outline-->&Show Details` を実行
 
 隠れていた対象行または列が現れる。GUI のプラスボタンがマイナスボタンに変化する。
 
@@ -623,8 +616,8 @@ Ungrouping
 
 #. 行グループまたは列グループが隠れていないようにする
 #. グループ内のセル一つをクリック
-#. メニューから :menuselection:`&Data --> &Group and Outline --> &Ungroup...` を
-   実行するか :kbd:`Ctrl` + :kbd:`F12` を押す
+#. |MenuBar| から :menuselection:`&Data-->&Group and Outline-->&Ungroup...` を実
+   行するか |Ctrl| + |F12| を押す
 #. 場合によっては :guilabel:`Ungroup` ダイアログが開き、ここで :guilabel:`&Rows`
    か :guilabel:`&Columns` を指定する
 
@@ -637,19 +630,20 @@ AutoOutline
 できる。本文の例では値の列が左から三つ連続して、四列目でそれらの和を取る構造が二
 度続いている。この連続した三列二つが自動的に束ねられるということだ。
 
-AutoOutline 機能を適用するにはメニュー :menuselection:`&Data --> &Group and
-Outline --> &AutoOutline...` を実行する。
+AutoOutline 機能を適用するには |MenuBar| :menuselection:`&Data-->&Group and
+Outline-->&AutoOutline...` を実行する。
 
 Removing
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> &Group and Outline --> &Remove AutoOutline...` を実行
+:menuselection:`&Data-->&Group and Outline-->&Remove AutoOutline...` を実行
 する。
 
 Filtering
 ======================================================================
 
-   A filter is a list of conditions that each entry has to meet to be displayed.
+   A :dfn:`filter` is a list of conditions that each entry has to meet to be
+   displayed.
 
 三種類ある：
 
@@ -665,15 +659,15 @@ Applying a standard filter
 のがある。
 
 #. セル範囲を選択
-#. :menuselection:`&Data --> More &Filters --> &Standard Filter...` 実行
+#. :menuselection:`&Data-->More &Filters-->&Standard Filter...` 実行
 #. 判定条件と絞り込みオプションを指定
-#. :guilabel:`&OK`
+#. |OK| を押す
 
-指定した絞り込み条件とオプションに合致するレコードが表示される。
+指定した絞り込み条件とオプションに合致する登録項目が表示される。
 
-:guilabel:`Standard Filter` ダイアログボックスでは全体的な絞り込み条件を形成する
-ために結合される条件を定義する。各絞り込み条件は論理演算子の方、フィールド名、論
-理条件、値を示すことによって指定する。
+|StandardFilterDlg| では全体的な絞り込み条件を形成するために結合される条件を定義
+する。各絞り込み条件は論理演算子の方、フィールド名、論理条件、値を示すことによっ
+て指定する。
 
 Applying an AutoFilter
 ----------------------------------------------------------------------
@@ -688,9 +682,9 @@ AutoFilter は最初にデータベース範囲を定義しなくても、複数
    を適用する。
 #. 次のいずれか：
 
-   * メニュー :menuselection:`&Data --> Auto&Filter` 実行
-   * ツールバー :guilabel:`Standard` 内 :guilabel:`AutoFilter` 図像クリック
-   * キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`L`
+   * |MenuBar| :menuselection:`&Data-->Auto&Filter` 実行
+   * |StandardToolbar| 内 :guilabel:`AutoFilter` 図像クリック
+   * キーバインド |Ctrl| + |Shift| + :kbd:`L`
 #. 絞り込み基準として設定したい値を含む列の▼ボタンをクリック
 #. 値を選択するか、検索項目欄に条件として使用する文字列を入力する。
 #. :guilabel:`OK`
@@ -703,14 +697,14 @@ Filtering by color
 
 関心のある列のセルで使用されている背景色や文字色でデータを絞り込める。
 
-* ドロップダウンリストから :menuselection:`Filter by Color --> Background Color`
+* ドロップダウンリストから :menuselection:`Filter by Color-->Background Color`
   にこの列内の背景色一覧が現れる。選択色と合致するセルを含む行が表示される。
-* :menuselection:`Filter by Color --> Font Color` も同様に機能する。
+* :menuselection:`Filter by Color-->Font Color` も同様に機能する。
 
 Filtering by condition
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:menuselection:`Filter by Condition -->` 以下にある絞り込み項目は次のとおり：
+:menuselection:`Filter by Condition-->` 以下にある絞り込み項目は次のとおり：
 
 * :menuselection:`Empty` は空セルの行のみを表示するように絞り込む。
 * :menuselection:`Not Empty` は中身のあるセルの行のみを表示。
@@ -719,14 +713,13 @@ Filtering by condition
   * 値が一意である場合、十行も表示されない。
   * 値が一意でない場合、十行以上表示されることがある。
 * :menuselection:`Bottom 10` はその下位十位版。
-* :menuselection:`Standard Filter...` は :guilabel:`Standard Filter` ダイアログ
-  ボックスを開く。
+* :menuselection:`Standard Filter...` は |StandardFilterDlg| を開く。
 
 Applying an advanced filter
 ----------------------------------------------------------------------
 
 スプレッドシートの空白領域に絞り込み要件を自分で入力し、専用ダイアログボックスで
-参照して絞り込みを適用するという使い方をする。Chapter 14 参照。
+参照して絞り込みを適用するという使い方をする。|Calc14| 参照。
 
 Sorting records
 ======================================================================
@@ -735,7 +728,7 @@ Sorting records
 
 また、新しい情報を表に追加するときにも、並べ替えは役に立つ。表が長い場合、適切な
 場所に行を追加するよりも、表の一番下に新しい情報を追加する方が簡単なことが多い。
-情報を追加したら、レコードを並べ替えて表を更新すればよい。
+情報を追加したら、登録項目を並べ替えて表を更新すればよい。
 
 Sort dialog
 ----------------------------------------------------------------------
@@ -745,13 +738,13 @@ Sort dialog
 #. 並べ替えるセル、行、列を選択する。
 #. 次のいずれかを実行：
 
-   * メニューから :menuselection:`&Data --> &Sort...` を実行
-   * ツールバー :guilabel:`Standard` の :guilabel:`Sort` 図像をクリック
-#. タブ :guilabel:`Options` で行と列のどちらを並び替えるかなどの選択肢を決める。
-#. タブ :guilabel:`Sort Criteria` でドロップダウンリストから基準を選択する。
+   * |MenuBar| から |SortM| を実行
+   * |StandardToolbar| :guilabel:`Sort` 図像をクリック
+#. |OptionsTab| で行と列のどちらを並び替えるかなどの選択肢を決める。
+#. |SortCriteriaTab| でドロップダウンリストから基準を選択する。
 #. :guilabel:`&Ascending` か :guilabel:`&Descending` を選択
 #. その他
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 Sort options
 ----------------------------------------------------------------------
@@ -771,8 +764,8 @@ Quick sort
 
 スプレッドシートの列にテキスト書式のヘッダーがある場合は次のコマンドが使える：
 
-* :menuselection:`&Data --> Sort &Ascending`
-* :menuselection:`&Data --> Sort Descend&ing`
+* :menuselection:`&Data-->Sort &Ascending`
+* :menuselection:`&Data-->Sort Descend&ing`
 
 AutoFilter が適用済みの場合、そこの :menuselection:`Sort Ascending` や
 :menuselection:`Sort Descending` を使える。もう一つ、:menuselection:`Sort by
@@ -785,19 +778,19 @@ Find and replace
 Calc には文書内のテキストを検索する方法として、
 
 * ツールバー :guilabel:`Find` と
-* ダイアログボックス :guilabel:`Find and Replace`
+* |Find&ReplaceDlg|
 
-がある。ツールバーは素早く簡単に使えますが、ダイアログボックスを使うよりも機能が
-制限される。
+がある。ツールバーは素早く簡単に使えるが、ダイアログボックスを使うよりも機能が制
+限される。
 
 Find toolbar
 ----------------------------------------------------------------------
 
 #. ツールバーを表示する。次のいずれかを実行：
 
-   * :menuselection:`&View --> &Toolbars --> &Find`
-   * :menuselection:`&Edit --> &Find...`
-   * キーバインド :kbd:`Ctrl` + :kbd:`F`
+   * :menuselection:`&View-->&Toolbars-->&Find`
+   * :menuselection:`&Edit-->&Find...`
+   * キーバインド |Ctrl| + :kbd:`F`
 
    このツールバーは通常、メインウィンドウの左下に繋留している。これを解除して移
    動してもよい。
@@ -813,11 +806,11 @@ Find toolbar
 Find and Replace dialog
 ----------------------------------------------------------------------
 
-:guilabel:`Find and Replace` ダイアログボックスの開き方は次のどれでもよい：
+|Find&ReplaceDlg| の開き方は次のどれでもよい：
 
-* メニュー :menuselection:`&Edit --> Find and Rep&lace...` を実行
-* :guilabel:`Standard` ツールバー :guilabel:`Find and Replace` 図像をクリック
-* キーバインド :kbd:`Ctrl` + :kbd:`H`
+* |MenuBar| :menuselection:`&Edit-->Find and Rep&lace...` を実行
+* |StandardToolbar| :guilabel:`Find and Replace` 図像をクリック
+* キーバインド |Ctrl| + :kbd:`H`
 
 Finding
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -829,8 +822,8 @@ Finding
 #. さらに :guilabel:`Find &Next` をクリックして次の項目検索を繰り返す。
 
    もしくは :guilabel:`Find &All` をクリックして検索条件を含むセルすべてを検索す
-   る。これらのセルはシート上で強調表示される。:guilabel:`Search Results` ダイア
-   ログボックスが表示され、セル場所が一覧表示される。
+   る。これらのセルはシート上で強調表示される。|SearchResultsDlg| が表示され、セ
+   ル場所が一覧表示される。
 
 Replacing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -847,11 +840,13 @@ Replacing
    #. 必要なだけこれを繰り返す。
 
    あるいは、検索条件を一つ一つ止めずに、すべてのものを検索して置換するには
-   :guilabel:`Replace A&ll` をクリックする。:guilabel:`Search Results` ダイアロ
-   グボックスが表示され、影響を受けるセルが一覧表示される。
+   :guilabel:`Replace A&ll` をクリックする。|SearchResultsDlg| が表示され、影響
+   を受けるセルが一覧表示される。
 
-本書の囲み記事の記述からすると、:guilabel:`Replace A&ll` 操作を完全に undo する
-のに、出現数だけ undo コマンドを実行しないとダメらしい。
+.. admonition:: 読者ノート
+
+   本書の囲み記事の記述からすると、:guilabel:`Replace A&ll` 操作を完全に undo す
+   るのに、出現数だけ undo コマンドを実行しないとダメらしい。
 
 Find and Replace options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -884,14 +879,14 @@ Find and Replace options
   :guilabel:`Values`, :guilabel:`Comments` のいずれかを選択し、指定した文字列を
   検索する。
 
-オプション設定 :menuselection:`Language Settings --> Languages` によっては他にも
-選択肢が現れる。日本語の場合は :guilabel:`Sounds like (&Japanese)` というチェッ
-クボックスと詳細設定ダイアログボックスが使える。
+|OptionsDlg| |LanguagesPage| の指定によっては他にも選択肢が現れる。日本語の場合
+は :guilabel:`Sounds like (&Japanese)` というチェックボックスと詳細設定ダイアロ
+グボックスが使える。
 
 .. admonition:: 利用者ノート
 
-   UI を英語にしていると詳細設定ダイアログボックスの各項目が何がなんだかわからな
-   いことに注意。
+   |UI| を英語にしていると詳細設定ダイアログボックスの各項目が何がなんだかわから
+   ないことに注意。
 
 Search Results dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -899,8 +894,8 @@ Search Results dialog
 All 系を実行すると開くダイアログボックス。処理結果を要約する。
 
 :guilabel:`Show this dialog` をオフにすると、今後 All 系を実行してもこのダイアロ
-グボックスは開かない。設定ダイアログの :menuselection:`LibreOffice Calc -->
-View` ページ :guilabel:`Summary on search` をオフにするのと同じだ。
+グボックスは開かない。|OptionsDlg| |CalcViewPage| :guilabel:`Summary on search`
+をオフにするのと同じだ。
 
 Searching and filtering with regular expressions
 ======================================================================
@@ -911,16 +906,16 @@ Calc は `International Components for Unicode (ICU)
 
 正規表現が登場するのは次の三箇所だ：
 
-* :menuselection:`&Edit --> Find and Rep&lace...`
-* :menuselection:`&Data --> More &Filters --> &Standard Filter...`
-* :menuselection:`&Data --> More &Filters --> &Advanced Filter...`
-* 関数 (Chapter 8)
+* :menuselection:`&Edit-->Find and Rep&lace...`
+* :menuselection:`&Data-->More &Filters-->&Standard Filter...`
+* :menuselection:`&Data-->More &Filters-->&Advanced Filter...`
+* 関数 (|Calc08|)
 
-関数の多くで検索条件に正規表現を使用できる。これらはオプション設定
-:menuselection:`LibreOffice Calc --> Calculate` ページ内 :guilabel:`Enable
-r&egular expressions in formulas` がオンの場合にのみ正しく動作する。また、
-:guilabel:`Search criteria = and <> must apply to &whole cells` をオンにし、数式
-内の検索条件がセルの内容全体に一致するようにすることが推奨されている。
+関数の多くで検索条件に正規表現を使用できる。これらは |OptionsDlg|
+|CalculatePage| 内 :guilabel:`Enable r&egular expressions in formulas` がオンの
+場合にのみ正しく動作する。また、:guilabel:`Search criteria = and <> must apply
+to &whole cells` をオンにし、数式内の検索条件がセルの内容全体に一致するようにす
+ることが推奨されている。
 
 本書の例その一は Brigitte に対するミススペリングを置換修正するものだ。誤り方が複
 数あるが、いずれも最初の三文字だけは共通しているのでそれを利用している。ダイアロ
@@ -931,8 +926,8 @@ r&egular expressions in formulas` がオンの場合にのみ正しく動作す�
 * :guilabel:`Re&gular expressions`: オン
 
 本書の例その二では北と東の地域から、テニスとゴルフの区分に関連するデータのみを表
-示する。:guilabel:`Standard Filter` ダイアログボックスの指定の前半は次のとおり
-だ。これらを :guilabel:`AND` で接続する：
+示する。|StandardFilterDlg| の指定の前半は次のとおりだ。これらを :guilabel:`AND`
+で接続する：
 
 .. csv-table::
    :delim: @
@@ -965,7 +960,7 @@ r&egular expressions in formulas` がオンの場合にのみ正しく動作す�
    2025-02-21 | $4,842 | Golf | North | Brigid
    2025-03-21 | $2,827 | Tennis | East | Bridget
 
-例その三では、関数呼び出しで正規表現を与える。Chapter 8 に正規表現が利用可能な関
+例その三では、関数呼び出しで正規表現を与える。|Calc08| に正規表現を利用可能な関
 数一覧がある。
 
 .. csv-table::

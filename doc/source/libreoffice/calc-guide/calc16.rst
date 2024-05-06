@@ -1,5 +1,5 @@
 ======================================================================
-Calc Guide Chapter 16 User Interface Variants ノート
+Calc Guide Chapter 16, User Interface Variants ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -40,13 +40,13 @@ Selecting the user interface
 Calc をセットアップすると既定 UI は Standard Toolbar になる。利用者は上述の UI
 のいずれかを選択し、いつでも切り替えることが可能だ。
 
-#. メニュー :menuselection:`&View --> User &Interface...` を実行
+#. |MenuBar| :menuselection:`&View-->User &Interface...` を実行
 #. ダイアログボックス :guilabel:`On the Select Your Preferred User Interface` で
    :guilabel:`UI variants` から一つ選ぶ。選択肢を変えると右側のプレビューとメモ
    が示される。
 #. 選択した内容を LibreOffice のすべてのコンポーネントに適用するか、Calc にのみ
    適用するかを決めて、該当するボタンを押す。
-#. :guilabel:`&Close`
+#. |Close| を押す。
 
 選択した内容に合わせて Calc ウィンドウが更新される。
 
@@ -59,24 +59,23 @@ Standard Toolbar, Single Toolbar, Sidebar インターフェイスは密接に�
 Standard Toolbar
    LibreOffice のインストール時に選択されている古典的 UI だ。次の構成を取る：
 
-   * ツールバーが二つ (:guilabel:`Standard`, :guilabel:`Formatting`)
-   * Sidebar
+   * |StandardToolbar| と |FormattingToolbar|
+   * |Sidebar|
    * タブパネルにタブが五つ
 Single Toolbar
    * ツールバーは頻繁に使用される機能を含む :guilabel:`Standard (Single Mode)`
      しか見せない。
    * Sidebar は :guilabel:`Show/Hide` ボタンしか見せない。
-Sidebar
+|Sidebar|
    * ツールバーは :guilabel:`Standard` 一つが表示。
-   * Sidebar は完全に開く。
+   * |Sidebar| は完全に開く。
 
-メニュー :menuselection:`&View -->` を使って、これら三つの変種それぞれの要素の表
-示有無を変更することが可能。メニュー、ツールバー、キーバインドの設定は
-:menuselection:`&Tools --> &Customize...` ダイアログボックスのタブで変更可能。
+|View-->| を使って、これら三つの変種それぞれの要素の表示有無を変更することが可能。
+|MenuBar|、ツールバー、キーバインドの設定は |CustomizeM| で開く |CustomizeDlg| の
+タブで変更可能。
 
-これらの変種は notebook bar を土台にしていないため、:menuselection:`&Tools -->
-&Customize...` ダイアログボックスの :guilabel:`Notebookbar` タブには構成の選択肢
-がない。
+これらの変種は notebook bar を土台にしていないため、|CustomizeDlg| の
+:guilabel:`Notebookbar` タブには構成の選択肢がない。
 
 Contextual Single
 ======================================================================
@@ -88,22 +87,19 @@ Contextual Single 変種の初期構成は：
 
 ツールバーは現在の操作対象に対応して自動的に見えたり隠れたりする。例えば、
 
-* 画像が選択されていれば :guilabel:`Image` ツールバーが、
-* 図面オブジェクトが選択されていれば :guilabel:`Drawing Object Properties` ツー
-  ルバーが
+* 画像が選択されていれば |ImageToolbar| が、
+* 図面物が選択されていれば |DrawingObjPropToolbar| が
 
 表示されるという具合だ。
 
-Contextual Single 変種に UI を切り替えると、Sidebar がまだ開かれていない場合、自
-動的に開く。
+Contextual Single 変種に |UI| を切り替えると、|Sidebar| がまだ開かれていない場
+合、自動的に開く。
 
-メニュー :menuselection:`&View -->` を使って、これら三つの変種それぞれの要素の表
-示有無を変更することが可能。メニュー、ツールバー、キーバインドの設定は
-:menuselection:`&Tools --> &Customize...` ダイアログボックスのタブで変更可能。
+|View-->| を使って、これら三つの変種それぞれの要素の表示有無を変更することが可
+能。|MenuBar|、ツールバー、キーバインドの設定は |CustomizeDlg| のタブで変更可能。
 
-この変種も notebook bar を土台にしていないため、:menuselection:`&Tools -->
-&Customize...` ダイアログボックスの :guilabel:`Notebookbar` タブには構成の選択肢
-がない。
+この変種も notebook bar を土台にしていないため、|CustomizeDlg| の
+:guilabel:`Notebookbar` タブには構成の選択肢がない。
 
 Tabbed interface
 ======================================================================
@@ -114,27 +110,26 @@ Introduction
 Tabbed インターフェイスは Microsoft Office のような専売特許の事務ソフトウェアか
 ら来た利用者は馴染みのあるもの。これには
 
-* メニューバー
+* |MenuBar|
 * 図像バー
 * タブバー
 * アクティブなタブの図像
-* 1つ以上のタブ固有のメニュー
+* 一つ以上のタブ固有のメニュー
 * クイックメニュー
 
 が搭載されている。図像バーの :guilabel:`Menubar` 図像をクリックすると、メニュー
 バーの表示有無が切り替わる。
 
-Calc ではこの UI には常に表示される九つの固定タブと、時々表示される六つの追加タ
-ブがある。
+Calc ではこの |UI| には常に表示される九つの固定タブと、時々表示される六つの追加
+タブがある。
 
 * 各タブには時々の対象物ごとにまとめられた図像集合が示される。
 * 各タブの右端には固有のドロップダウンメニューがある。
 * クイックメニュー（ハンバーガー）はすべてのタブで共通。
 
-:menuselection:`&Tools --> &Customize...` ダイアログボックスのタブ
-:guilabel:`Notebookbar` を用いて Tabbed インターフェイスをカスタマイズし、さまざ
-まなタブの図像それぞれの表示有無を切り替えることが可能だ。Chapter 15 を参照し
-ろ。図像寸法も調整可能だ。
+|CustomizeDlg| のタブ :guilabel:`Notebookbar` を用いて Tabbed インターフェイスを
+カスタマイズし、さまざまなタブの図像それぞれの表示有無を切り替えることが可能だ。
+|Calc15| を参照しろ。図像寸法も調整可能だ。
 
 タブの図像が Calc ウィンドウの幅に収まらない場合は、行の右端に :guilabel:`»` が
 表示される。これを押せば現在表示されていない追加オプションが現れる。
@@ -144,7 +139,7 @@ Icon bar
 
 図像バーはタブの左に位置する。見ればわかるが図像集合の編成は左から：
 
-#. :guilabel:`Menubar`: メニューバー表示有無切り替え
+#. :guilabel:`Menubar`: |MenuBar| 表示有無切り替え
 #. :guilabel:`Open (Ctrl+O)`
 #. :guilabel:`Save (Ctrl+S)`
 #. :guilabel:`Undo (Ctrl+Z)`: これと次の図像のツールチップは前後に実行したコマン
@@ -227,8 +222,8 @@ Insert tab
 
 .. admonition:: 利用者ノート
 
-   * :guilabel:`Show Draw Functions` をオンにすると :guilabel:`Drawing` ツールバー
-     が浮遊状態で表示される。
+   * :guilabel:`Show Draw Functions` をオンにすると |DrawingToolbar| が浮遊状態
+     で表示される。
    * :guilabel:`Function List` は Sidebar が開く。
 
 Layout tab
@@ -245,8 +240,8 @@ Layout tab
 Data tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`&Data` タブ右端には :menuselection:`&Data` メニューボタン一つがある。そ
-して次の三つの図像がこれに隣接する（この組み合わせはさっき見たものだ）：
+:guilabel:`&Data` タブ右端には :menuselection:`&Data` メニューボタン一つがある。
+そして次の三つの図像がこれに隣接する（この組み合わせはさっき見たものだ）：
 
 * :guilabel:`Find and Replace (Ctrl+H)`
 * :guilabel:`Sort Ascending`
@@ -336,7 +331,7 @@ Image tab
 Media tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`&Media` タブはメディアオブジェクトを選択すると現れる。
+:guilabel:`&Media` タブはメディア物を選択すると現れる。
 
 :guilabel:`&Media` タブ右端には :menuselection:`&Media` メニューボタン一つがあ
 る。これに次の三つの図像が隣接する：
@@ -352,7 +347,7 @@ Media tab
 Object tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`&Object` タブは OLE オブジェクトなどを選択すると現れる。
+:guilabel:`&Object` タブは |OLE| 物などを選択すると現れる。
 
 :guilabel:`&Object` タブ右端には :menuselection:`&Object` メニューボタン一つがあ
 る。これに次の三つの図像が隣接する：
@@ -383,14 +378,12 @@ Tabbed Compact インターフェイスは前節の Tabbed インターフェイ
 個々のタブとタブメニューの内容は、Tabbed 無印インターフェースの対応する部品と同
 様だ。
 
-Tabbed Compact インターフェイスは :menuselection:`&Tools --> &Customize...` ダイ
-アログボックスの :guilabel:`Notebookbar` を使ってカスタマイズ可能であり、さまざ
-まなタブ内の図像それぞれの表示有無を切り替えることが可能だ。Chapter 15 を参照し
-ろ。
+Tabbed Compact インターフェイスは |CustomizeDlg| の :guilabel:`Notebookbar` を
+使ってカスタマイズ可能であり、さまざまなタブ内の図像それぞれの表示有無を切り替え
+ることが可能だ。|Calc15| を参照しろ。
 
-:guilabel:`Options` ダイアログボックスの :menuselection:`LibreOffice --> View`
-ページの :guilabel:`Icon Size` 区画 :menuselection:`&Notebookbar` ドロップダウン
-リストで図像サイズを調整可能だ。
+|OptionsDlg| |LibreOfficeViewPage| の :guilabel:`Icon Size` 区画
+:menuselection:`&Notebookbar` ドロップダウンリストで図像サイズを調整可能だ。
 
 Groupedbar Compact interface
 ======================================================================
@@ -425,9 +418,8 @@ Groupedbar Compact インターフェイスの右端には次の一連の図像�
 これらは :menuselection:`&Menu` ラベルのあるボタンの上部に位置する。このメニュー
 の内容は常時決まったコマンドを搭載している。
 
-Groupedbar Compact インターフェイスは :menuselection:`&Tools --> &Customize...`
-ダイアログボックスのタブ :guilabel:`Notebookbar` を用いてカスタマイズ可能だ。
+Groupedbar Compact インターフェイスは |CustomizeDlg| のタブ
+:guilabel:`Notebookbar` を用いてカスタマイズ可能だ。
 
-:guilabel:`Options` ダイアログボックスの :menuselection:`LibreOffice --> View`
-ページの :guilabel:`Icon Size` 区画 :menuselection:`&Notebookbar` ドロップダウン
-リストで図像サイズを調整可能だ。
+|OptionsDlg| |LibreOfficeViewPage| の :guilabel:`Icon Size` 区画
+:menuselection:`&Notebookbar` ドロップダウンリストで図像サイズを調整可能だ。

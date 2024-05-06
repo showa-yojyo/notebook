@@ -406,7 +406,7 @@ LibreOffice 組み込みの雛形の名前は変更できない。名前を変�
 #. ポップアップダイアログボックスで名前を入力し |OK| を押す
 #. |OK| をクリックする。
 
-この動作は雛形の文書性質の |DescritionTab| にある :guilabel:`Title` を変更する。
+この動作は雛形の文書性質の |DescriptionTab| にある :guilabel:`Title` を変更する。
 雛形のファイル名は変化しない。
 
 Deleting a template

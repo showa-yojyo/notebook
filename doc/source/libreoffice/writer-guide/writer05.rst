@@ -456,7 +456,7 @@ Including other information in headers and footers
 `Default Page Style` のヘッダーに挿入するには：
 
 #. |MenuBar| |FilePropertiesM| を選択
-#. |DescritionTab|
+#. |DescriptionTab|
 #. :guilabel:`&Title` 欄に文書の表題を入力
 #. |OK| を押して |PropertiesDlg| を閉じる
 #. 上述のようにしてヘッダーを追加

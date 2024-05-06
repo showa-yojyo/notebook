@@ -1,5 +1,5 @@
 ======================================================================
-Calc Guide Chapter 1 Introduction ノート
+Calc Guide Chapter 1, Introduction ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -29,66 +29,63 @@ Calc main window
 
 Calc を起動したときにデスクトップに現れるウィンドウの構成を述べている。
 
-* 本章の記述はメニューとツールバー主体の GUI についてで、Calc にはこの他にも GUI
-  の変種が搭載されている。Chapter 16 参照。
-* 本書のスクリーンショットのようにウィンドウの各部品が描画されていない場合、メ
-  ニュー :menuselection:`&View -->` 以下の項目を確認しろ。
+* 本章の記述は |MenuBar| とツールバー主体の GUI についてで、Calc にはこの他にも
+  GUIの変種が搭載されている。|Calc16| 参照。
+* 本書のスクリーンショットのようにウィンドウの各部品が描画されていない場合、
+  |MenuBar| |View-->| 以下の項目を確認しろ。
 
 Title bar
 ----------------------------------------------------------------------
 
 * タイトルバーはメインウィンドウ最上部にある横長の部分だ。
 * タイトルバーには、現在のスプレッドシートの名前が表示される。
-* スプレッドシートが新規に作成された場合、その名前は :guilabel:`Untitled 1` のよ
-  うになる。
+* スプレッドシートが新規に作成された場合、その名前は `Untitled 1` のようになる。
 
 Menu bar
 ----------------------------------------------------------------------
 
-タイトルバーの下にあるメニューを本書ではメニューバーと呼称している。本ノートで
-は便宜上、単にメニューと記すことが多い。
+タイトルバーの下にあるメニューを本書では |MenuBar| と呼称している。
 
 メニューコマンドをすばやく見つけて実行する方法がある。次のいずれかを実行すると見
 出しのない検索ウィンドウが開く。コマンド名をタイプすると、合致する名前を持つコマ
 ンドが列挙され、そのうちのいずれかを選択すると当該コマンドが実行する：
 
-* :menuselection:`&Help --> Search Co&mmands...`
-* :kbd:`Shift` + :kbd:`Esc`
+* :menuselection:`&Help-->Search Co&mmands...`
+* |Shift| + |Esc|
 
 Toolbars
 ----------------------------------------------------------------------
 
-初期設定では :guilabel:`Standard` および :guilabel:`Formatting` ツールバーが作業
-場所の上部に繋留されている。
+初期設定では |StandardToolbar| および |FormattingToolbar| が作業場所の上部に繋留
+されている。
 
 表示中、ツールバーは繋留状態か浮遊状態のどちらかを取る。初期設定では前者を取る。
 
 * 繋留から浮遊させるには、ツールバー左端のハンドルをドラッグする。
-* :menuselection:`&View --> &Toolbars --> &Lock Toolbars` で一括施錠（解錠）する。
+* :menuselection:`&View-->&Toolbars-->&Lock Toolbars` で一括施錠（解錠）する。
 
-:menuselection:`&View --> User &Interface...` で :guilabel:`Sin&gle Toolbar` を
-採用すると、ツールバーが単一行になる。
+:menuselection:`&View-->User &Interface...` で :guilabel:`Sin&gle Toolbar` を採
+用すると、ツールバーが単一行になる。
 
 図像、テキスト欄、メニューコマンドの上にマウスポインターを置くと、ツールチップが
 表示され、その項目の機能名が示される。さらに詳細な記述を見るには、次のいずれかを
 実行：
 
-* :kbd:`Shift` + :kbd:`F1` で踏み込んだ記述になる。
-* メニューでそうするには :menuselection:`&Help --> What's This?` を実行して、マ
+* |Shift| + |F1| で踏み込んだ記述になる。
+* メニューでそうするには :menuselection:`&Help-->What's This?` を実行して、マ
   ウスポインターを図像の上に置く。
-* 拡張コツ表示を切り替えるにはメニュー :menuselection:`&Tools --> &Options...`
-  の :menuselection:`LibreOffice --> General` ページから :guilabel:`&Extended
-  tips` オンオフを決める。
+* 拡張コツ表示を切り替えるには |MenuBar| |OptionsDlg| の
+  |LibreOfficeGeneralPage| から :guilabel:`&Extended tips` オンオフを決める。
 
 .. admonition:: 利用者ノート
 
    このうちの三番目の操作でオンにしておくのが良いようだ。
 
-Formula Bar
+|FormulaBar|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Formula Bar は表示されている場合には作業場所の上部につねに繋留されている。表示切
-替は可能で :menuselection:`&View --> &Formula Bar` のチェックをオンオフだ。
+|FormulaBar| は表示されている場合には作業場所の上部につねに繋留されている。表示
+切替は可能で :menuselection:`&View-->&|FormulaBar|` のチェックをオンオフだ。
 
 :guilabel:`Name Box` は現在セル参照を示す。
 
@@ -103,10 +100,10 @@ Formula Bar は表示されている場合には作業場所の上部につね�
 :guilabel:`Select Function` は選択セルの上にあるセルの数値を計算し、その結果をセ
 ルに出力する。選択セルの上に数値がない場合、計算は左側のセルに対して行われる。
 
-* 実行される計算は Sum, Average, Min, Max, Count, CountA, Product, Stdev,
-  StdevP, Var, VarP を含むメニューから選択。
-* キーバインド :kbd:`Alt` + :kbd:`=` は :guilabel:`Select Function` をクリックし
-  て Sum を選択するのと同じだ。
+* 実行される計算は `Sum`, `Average`, `Min`, `Max`, `Count`, `CountA`, `Product`,
+  `Stdev`, `StdevP`, `Var`, `VarP` を含むメニューから選択。
+* キーバインド |Alt| + :kbd:`=` は :guilabel:`Select Function` をクリックして
+  `Sum` を選択するのと同じだ。
 
   .. admonition:: 利用者ノート
 
@@ -116,7 +113,7 @@ Formula Bar は表示されている場合には作業場所の上部につね�
 力できるようにする。
 
 :guilabel:`Input line` は選択セルの内容が表示されたり、内容を編集する場所だ。テ
-キストボックスを複数行にすることが可能。右側の :guilabel:`Expand Formula Bar` を
+キストボックスを複数行にすることが可能。右側の :guilabel:`Expand |FormulaBar|` を
 押すなどすればいい。
 
 この GUI を使って数式を入力してもいいが、セル内を直接編集して数式を入力してもい
@@ -124,12 +121,12 @@ Formula Bar は表示されている場合には作業場所の上部につね�
 :guilabel:`Formula` 図像が :guilabel:`Cancel` と :guilabel:`Accept` 図像にそれぞ
 れ変化する。
 
-関数との関係については Chapter 8 参照。
+関数との関係については |Calc08| 参照。
 
-Status Bar
+|StatusBar|
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-作業場所の下部にある Status Bar にはスプレッドシートに関する情報が主に表示され
+作業場所の下部にある |StatusBar| にはスプレッドシートに関する情報が主に表示され
 る。また、いくつかの機能をすばやく変更する手段が搭載されている。
 
 構成は左から順に：
@@ -141,18 +138,17 @@ Status Bar
    * ``Selected: 6 rows, 1 column`` のような情報を表示する欄。
    * 選択が矩形ブロックを形成していない場合は空欄。
 ページ様式
-   * 現在シートのページ様式表示欄 e.g. ``Default``
-   * ページ様式を編集するには、ここをダブルクリックすると :guilabel:`Page Style`
-     ダイアログボックスが開く。
+   * 現在シートのページ様式表示欄 e.g. `Default`
+   * ページ様式を編集するには、ここをダブルクリックすると |PageStyleDlg| が開
+     く。
 言語
-   * :guilabel:`&Tools --> &Options...` における :menuselection:`Language
-     Settings` ページの :guilabel:`Languages` で選択されている言語情報欄。
+   * |OptionsDlg| における |LanguagesPage| で選択されている言語情報欄。
    * クリックすると言語選択用のメニューが現れる。
 挿入上書きモード
    * テキストエディターやワープロソフトでよく見かける表示器と同じ。
    * 上書きモードの場合に限り、この欄に :guilabel:`Overrite` と示される。
-   * これらのモードを切り替えるには :kbd:`Insert` を押すほかにも、この欄をクリッ
-     クしてもいい。
+   * これらのモードを切り替えるには |Ins| を押すほかにも、この欄をクリックしても
+     いい。
 選択モード
    クリックすると次のコンテキストメニューが開く：
 
@@ -162,7 +158,7 @@ Status Bar
 
    この欄にはこれらのモードに対応する記号が示される。
 署名
-   * 文書が署名 (Chapter 7) されている場合、図像が表示される。
+   * 文書が署名 (|Calc07|) されている場合、図像が表示される。
    * 図像をクリックすると証明書を表示する。
 セル情報かオブジェクト情報
    * カーソル位置またはスプレッドシートの選択要素に関連する情報を表示する。
@@ -173,8 +169,7 @@ Status Bar
 ズーム率
    * 文書の描画尺度を百分率で示す。
    * 百分率を右クリックすると尺度のリストが表示される。
-   * 百分率をクリックすると :guilabel:`Zoom & View Layout` ダイアログボックスが
-     開く。
+   * 百分率をクリックすると |Zoom&ViewLayoutDlg| が開く。
 
 .. admonition:: 利用者ノート
 
@@ -184,51 +179,51 @@ Status Bar
 Sidebar
 ----------------------------------------------------------------------
 
-Sidebar はツールバーとダイアログボックスを混ぜたようなものだ。開き方は：
+|Sidebar| はツールバーとダイアログボックスを混ぜたようなものだ。開き方は：
 
-* :menuselection:`&View --> Sid&ebar`
-* :kbd:`Ctrl` + :kbd:`F5`
+* :menuselection:`&View-->Sid&ebar`
+* |Ctrl| + |F5|
 
-セルにデータを入力、編集する際には Sidebar は以下の甲板で構成される：
+セルにデータを入力、編集する際には |Sidebar| は以下の甲板で構成される：
 
-* :guilabel:`Properties`
-* :guilabel:`Styles`
-* :guilabel:`Gallery`
-* :guilabel:`Navigator`
-* :guilabel:`Functions`
+* |PropertiesDeck|
+* |StylesDeck|
+* |GalleryDeck|
+* |NavigatorDeck|
+* |FunctionsDeck|
 
-Sidebar は状況に応じた変化をする。画像や図式などのオブジェクトを選択すれば、甲板
+|Sidebar| は状況に応じた変化をする。画像や図式などのオブジェクトを選択すれば、甲板
 の数や内容が変化する場合がある。
 
-Properties
-   ここにはパネルが五つある。パネルそれぞれに追加オプションを提供する
+|PropertiesDeck|
+   ここにはパネルが五つある。パネルそれぞれに追加オプションを設けている
    :guilabel:`More Options...` ボタンがある。押すとダイアログボックスが modal で
    開く。
-Styles
+|StylesDeck|
    既存のスタイルの適用、変更、新しいスタイルの作成を行う。次のいずれかで開く：
 
-   * メニュー :menuselection:`St&yles --> Manage St&yles...`
-   * メニュー :menuselection:`&View --> St&yles`
-   * キーバインド :kbd:`F11`
-Gallery
+   * |MenuBar| :menuselection:`St&yles-->Manage St&yles...`
+   * |MenuBar| :menuselection:`&View-->St&yles`
+   * キーバインド |F11|
+|GalleryDeck|
    * Gallery テーマで利用可能な画像、図式、その他を追加することが可能。
-   * :menuselection:`&View --> &Gallery` でも開く。
-Navigator
+   * :menuselection:`&View-->&Gallery` でも開く。
+|NavigatorDeck|
    詳細は別途述べる。次のいずれかで開く：
 
-   * メニュー :menuselection:`&View --> &Navigator`
-   * キーバインド :kbd:`F5`
-Functions
-   この甲板は Function Wizard の簡略版だ。次のいずれかで開く：
+   * |MenuBar| :menuselection:`&View-->&Navigator`
+   * キーバインド |F5|
+|FunctionsDeck|
+   この甲板は |FunctionWizard| の簡略版だ。次のいずれかで開く：
 
-   * メニュー :menuselection:`&Insert --> &Function...`
-   * キーバインド :kbd:`Ctrl` + :kbd:`F2`
+   * |MenuBar| :menuselection:`&Insert-->&Function...`
+   * キーバインド |Ctrl| + |F2|
 
 * 開いている甲板のタイトルバー右側のバツボタンは :guilabel:`Close Sidebar Deck`
-  であり、甲板を閉じて Sidebar のタブバーだけを開く。
+  であり、甲板を閉じて |Sidebar| のタブバーだけを開く。
 * タブバーのどのボタンをクリックしても、対応する甲板の表示が切り替わる。
-* Sidebar 全体の表示切替には、左端の細長いボタン？をクリックする。
-* 甲板の幅を調整するには Sidebar の左端をドラッグする。
+* |Sidebar| 全体の表示切替には、左端の細長いボタン？をクリックする。
+* 甲板の幅を調整するには |Sidebar| の左端をドラッグする。
 
 Spreadsheet layout
 ----------------------------------------------------------------------
@@ -241,14 +236,14 @@ Individual cells
 * 列のヘッダーには A から始まり右に増えていくアルファベットが使われている。
 * 行のヘッダーには 1 から始まり下に増えていく数字が使われている。
 
-列と行のヘッダーは Formula Bar の :guilabel:`Name Box` に表示されるセル参照とな
+列と行のヘッダーは |FormulaBar| の :guilabel:`Name Box` に表示されるセル参照とな
 る。
 
-スプレッドシートでヘッダーが表示されない場合は、メニュー :menuselection:`&View
---> Vie&w Headers` を確認しろ。
+スプレッドシートでヘッダーが表示されない場合は、|MenuBar| :menuselection:`&View
+-->Vie&w Headers` を確認しろ。
 
-マウスポインターがセルの格子上にあるときのポインターの図像については Chapter 15
-を参照しろ。
+マウスポインターがセルの格子上にあるときのポインターの図像については |Calc15| を
+参照しろ。
 
 Sheet tabs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -259,15 +254,14 @@ Sheet tabs
 シートタブの左側にあるプラス記号をクリックするか、シートタブの右側にある空白をク
 リックすると、新規シートが生じる。
 
-タブをクリックすると対応シートが活性を呈する。複数のシートを選択するには
-:kbd:`Ctrl` を押しながらシートタブをクリックする。
+タブをクリックすると対応シートが活性を呈する。複数のシートを選択するには |Ctrl|
+を押しながらシートタブをクリックする。
 
 シート名を変更するには：
 
-#. シートタブ右クリックメニュー :menuselection:`Rename Sheet...` でダイアログ
-   ボックスを開く。
+#. シートタブ右クリックメニュー |RenameSheetC| でダイアログボックスを開く。
 #. :guilabel:`&Name` 欄にシート名を入力
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 シートタブの色を変更することが可能。方法は割愛。
 
@@ -278,24 +272,24 @@ Creating and opening
 ----------------------------------------------------------------------
 
 スプレッドシート自体を作成したりする方法は他の LibreOffice プログラムと同じだ。
-*Getting Started Guide* を参照しろ。
+|Guide| を参照しろ。
 
 Using templates
 ----------------------------------------------------------------------
 
-Calc 文書はテンプレートから作成することも可能。Chapter 5 参照。
+Calc 文書はテンプレートから作成することも可能。|Calc05| 参照。
 
 Opening a CSV file
 ----------------------------------------------------------------------
 
-#. :guilabel:`開く` ダイアログボックスを次のいずれかで開く
+#. |OpenFileDlg| を次のいずれかで開く：
 
-   * メニュー :menuselection:`&File --> &Open...`
-   * :guilabel:`Standard` ツールバー :guilabel:`Open` ボタン
-   * キーバインド :kbd:`Ctrl` + :kbd:`O`
-#. 対象 CSV ファイルを選択して :guilabel:`開く(&O)` を押す
+   * |MenuBar| :menuselection:`&File-->&Open...`
+   * |StandardToolbar| :guilabel:`Open` ボタン
+   * キーバインド |Ctrl| + :kbd:`O`
+#. 対象 |CSV| ファイルを選択して |Open| を押す
 #. :guilabel:`Text Import` ダイアログボックスでオプションを選択
-#. :guilabel:`&OK`
+#. |OK|
 
 オプション：
 
@@ -314,8 +308,8 @@ Opening a CSV file
 Saving spreadsheets
 ----------------------------------------------------------------------
 
-スプレッドシートをさまざまな形式で保存したり、PDF や XHTML ファイル形式にエクス
-ポートしたり可能。Chapter 7 で述べる。
+スプレッドシートをさまざまな形式で保存したり、|PDF| や |XHTML| ファイル形式にエ
+クスポートしたり可能。|Calc07| で述べる。
 
 Saving in other formats
 ----------------------------------------------------------------------
@@ -323,31 +317,31 @@ Saving in other formats
 既定の形式 (.ods) のスプレッドシートファイルを扱えない人にファイルを渡す必要があ
 る場合は、別の形式に変換してスプレッドシートを保存する。
 
-#. :guilabel:`名前を付けて保存` ダイアログボックスを開く
+#. |SaveAsDlg| を開く
 
-   * メニュー :menuselection:`&File --> &Save As...`
-   * :guilabel:`Standard` ツールバー :guilabel:`Save` ドロップダウンメニューから
-     :menuselection:`Save &As...`
-   * キーバインド :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`S`
-#. :guilabel:`ファイル名 (&N)` 欄にスプレッドシートの新しい名前を入力
+   * |MenuBar| :menuselection:`&File-->&Save As...`
+   * |StandardToolbar| :guilabel:`Save` ドロップダウンメニューから
+     |SaveAsM|
+   * キーバインド |Ctrl+Shift| + :kbd:`S`
+#. |FileNameBox| にスプレッドシートの新しい名前を入力
 #. ファイルを保存するフォルダーを選択
-#. :guilabel:`ファイルの種類 (T)` 欄でドロップダウンメニューから使用するスプレッ
-   ドシート形式の種類を選択
+#. |FileTypeList| でドロップダウンメニューから使用するスプレッドシート形式の種類
+   を選択
 
    * :guilabel:`Automatic file name extension` をオンにすると選択したスプレッド
      シート形式に適したファイル拡張子がファイル名末尾に追加される
-#. :guilabel:`保存 (&S)`
+#. |Save| を押す
 
 ファイルが Calc 生粋の形式以外で保存されるたびに :guilabel:`Confirm File Format`
-ダイアログボックスが開く。これが煩わしい場合、:guilabel:`Options` ダイアログボッ
-クスで振る舞いを変更できる。
+ダイアログボックスが開く。これが煩わしい場合、|OptionsDlg| から振る舞いを変更で
+きる。
 
-#. :menuselection:`Load/Save --> General` ページ
+#. |LoadSaveGeneralPage|
 #. :guilabel:`Warn when not saving in ODF or default format` をオフにする
 
 :guilabel:`Text CSV format (*.csv)` を選択すると :guilabel:`Export Text File` ダ
-イアログボックスが開く。ここで CSV ファイルに使用する文字セット、列区切り文字、
-文字列区切り文字（引用符）などを指定可能。
+イアログボックスが開く。ここで |CSV| ファイルに使用する文字セット、列区切り文
+字、文字列区切り文字（引用符）などを指定可能。
 
 Save As で特定の形式で常に保存するように挙動を変更することが可能。旧版 MS Excel
 しか使っていない人を一定期間相手にするときなどに出番があるか。
@@ -355,8 +349,8 @@ Save As で特定の形式で常に保存するように挙動を変更するこ
 Password protection
 ======================================================================
 
-*Getting Started Guide* を参照しろ。パスワード保護機能はすべての LibreOffice プ
-ログラムで共通だ。
+|Guide| を参照しろ。パスワード保護機能はすべての LibreOffice プログラムで共通
+だ。
 
 Navigating within spreadsheets
 ======================================================================
@@ -374,36 +368,35 @@ Cell navigation
 移動方法各種：
 
 * マウスクリック
-* Formula Bar :guilabel:`Name Box` を使う
+* |FormulaBar| :guilabel:`Name Box` を使う
 
   * 既存のセル参照を選択
   * 既存のセル参照を削除
-  * 移動先セル参照を入力して :kbd:`Enter` を押す
+  * 移動先セル参照を入力して |Enter| を押す
 * Navigator を使う
 
-  * 開き方は :kbd:`F5` 押しがいちばん早い
-  * :guilabel:`&Column` 欄と :guilabel:`&Row` 欄にセル参照を入力して :kbd:`Enter`
-* :kbd:`Enter` を押す
+  * 開き方は |F5| 押しがいちばん早い
+  * :guilabel:`&Column` 欄と :guilabel:`&Row` 欄にセル参照を入力して |Enter|
+* |Enter| を押す
 
   * セルのフォーカスが一つ下に移る。
   * カスタマイズ機能あり。
-* :kbd:`Shift` + :kbd:`Enter` を押す。フォーカスが :kbd:`Enter` キーと逆方向に移
-  る。
-* :kbd:`Tab` キーを押すとセルフォーカスを右に一つ移す。:kbd:`Shift` + :kbd:`Tab`
-  キーを押すと左に一つ移す。
+* |Shift| + |Enter| を押す。フォーカスが |Enter| キーと逆方向に移る。
+* |Tab| を押すとセルフォーカスを右に一つ移す。|Shift| + |Tab| を押すと左に一つ移
+  す。
 * 矢印キーを使う。押した矢印の方向にセルフォーカスが移る。
-* :kbd:`Home`
+* |Home|
 
   * セルフォーカスを行の先頭に移す。
-  * :kbd:`Ctrl` + :kbd:`Home` はセルのフォーカスをシートの最初 (A1) に移す。
-* :kbd:`End`
+  * |Ctrl| + |Home| はセルのフォーカスをシートの最初 (A1) に移す。
+* |End|
 
   * シートの中でデータを含むセルのうち、もっとも右にあるものの列番号を Cmax,
-    もっとも下にあるものを Rmax とすると、:kbd:`End` キー押しはセルフォーカスを
-    同じ行の Cmax 列目に移す。
-  * :kbd:`Ctrl` + :kbd:`End` はセルフォーカスをセル (Rmax, Cmax) に移す。
-* :kbd:`PgUp` を押すとセルフォーカスを画面一つ分下に移す。
-* :kbd:`PgDn` を押すとセルフォーカスを画面一つ分上に移す。
+    もっとも下にあるものを Rmax とすると、|End| 押しはセルフォーカスを同じ行の
+    Cmax 列目に移す。
+  * |Ctrl| + |End| はセルフォーカスをセル (Rmax, Cmax) に移す。
+* |PgUp| を押すとセルフォーカスを画面一つ分下に移す。
+* |PgDn| を押すとセルフォーカスを画面一つ分上に移す。
 
 Sheet navigation
 ----------------------------------------------------------------------
@@ -414,15 +407,15 @@ Sheet navigation
   が選択される。
 * キーボードを使う。
 
-  * :kbd:`Ctrl` + :kbd:`PgDn` を押すとシートを右に一つ移す。
-  * :kbd:`Ctrl` + :kbd:`PgUp` を押すとシートを左に一つ移す。
+  * |Ctrl| + |PgDn| を押すとシートを右に一つ移す。
+  * |Ctrl| + |PgUp| を押すとシートを左に一つ移す。
 * マウスを使う。シートタブの一つをクリックすると、そのシートを選択する。
-* メニューを使う。
+* |MenuBar| を使う。
 
-  * :menuselection:`&Sheet --> Na&vigate --> &To Previous Sheet`
-  * :menuselection:`&Sheet --> Na&vigate --> To &Next Sheet`
-  * :menuselection:`&Sheet --> Na&vigate --> &Go to Sheet...`: シートを選択した
-    り、名前で検索したりするダイアログボックスが開く。
+  * :menuselection:`&Sheet-->Na&vigate-->&To Previous Sheet`
+  * :menuselection:`&Sheet-->Na&vigate-->To &Next Sheet`
+  * :menuselection:`&Sheet-->Na&vigate-->&Go to Sheet...`: シートを選択したり、
+    名前で検索したりするダイアログボックスが開く。
 
 シート数が多い場合、シートタブの一部が隠れていることがある。その場合はシートタブ
 の左側にあるボタン四つを使って、タブが見えるまで移動する。これらのボタンはシート
@@ -434,19 +427,18 @@ Keyboard navigation
 シート上のセル移動キーバインドは必修。
 
 * 矢印キー単品はセルフォーカスを一マス移動
-* :kbd:`Ctrl` + 矢印キーはデータの埋まり具合によって移動先が決まる
-* :kbd:`Ctrl` + :kbd:`Home` や :kbd:`Ctrl` + :kbd:`End` は先述
-* :kbd:`Alt` + :kbd:`PgUp` と :kbd:`Alt` + :kbd:`PgDn` は画面一つ分横移動
-* :kbd:`Ctrl` + :kbd:`PgUp` と :kbd:`Ctrl` + :kbd:`PgDn` はシート前後移動
-* :kbd:`Tab` と :kbd:`Shift` + :kbd:`Tab` は セルフォーカスを横一マス移動
-* :kbd:`Enter` と :kbd:`Shift` + :kbd:`Enter` は セルフォーカスを縦一マス移動
+* |Ctrl| + 矢印キーはデータの埋まり具合によって移動先が決まる
+* |Ctrl| + |Home| や |Ctrl| + |End| は先述
+* |Alt| + |PgUp| と |Alt| + |PgDn| は画面一つ分横移動
+* |Ctrl| + |PgUp| と |Ctrl| + |PgDn| はシート前後移動
+* |Tab| と |Shift| + |Tab| はセルフォーカスを横一マス移動
+* |Enter| と |Shift| + |Enter| はセルフォーカスを縦一マス移動
 
 Customizing the Enter key
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Options` ダイアログ :menuselection:`LibreOffice Calc --> General`
-ページの Press Enter to から始まるチェックボックスを用いて :kbd:`Enter` キーの動
-作をカスタマイズ可能だ。
+|OptionsDlg| |CalcGeneralPage| の `Press Enter to` から始まるチェックボックスを用
+いて |Enter| キーの動作をカスタマイズ可能だ。
 
 .. admonition:: 利用者ノート
 
@@ -462,7 +454,7 @@ Selecting cells
 Single cell
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-セルをクリックする。Formula Bar の :guilabel:`Name Box` を確認する。
+セルをクリックする。|FormulaBar| の :guilabel:`Name Box` を確認する。
 
 Range of contiguous cells
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -477,25 +469,25 @@ Range of contiguous cells
 
 #. セルの範囲の角となるセルをクリック
 #. マウスをセルの範囲の反対側の角に移す
-#. :kbd:`Shift` を押しながらクリック
+#. |Shift| を押しながらクリック
 
 Extending 選択モードを使ってセルの範囲を選択する方法：
 
 #. セルの範囲の角となるセルをクリック
-#. Status Bar の選択モード欄をクリックし、:menuselection:`&Extending selection`
+#. |StatusBar| の選択モード欄をクリックし、:menuselection:`&Extending selection`
    を選択
 #. セルの範囲の反対側の角をクリック
 
 マウスを使わずにセルの範囲を選択する方法：
 
 #. セルの範囲の角となるセルを選択
-#. :kbd:`Shift` を押しながら、矢印キーで残りの範囲を選択
+#. |Shift| を押しながら、矢印キーで残りの範囲を選択
 
 :guilabel:`Name Box` を使ってセルの範囲を選択する方法：
 
-#. Formula Bar の :guilabel:`Name Box` をクリック
-#. 例えば A3 から C6 までの範囲を選択するには ``A3:C6`` と入力して :kbd:`Enter`
-   を押す
+#. |FormulaBar| の :guilabel:`Name Box` をクリック
+#. 例えば A3 から C6 までの範囲を選択するには ``A3:C6`` と入力して |Enter| を押
+   す
 
 Range of non-contiguous cells
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -504,13 +496,13 @@ Range of non-contiguous cells
 
 #. 最初のセルまたはセル範囲を選択
 #. マウスポインターを次の範囲の開始点または単一セルに移動
-#. :kbd:`Ctrl` を押しながらクリックするか、クリックアンドドラッグして最初の範囲
-   に追加する別のセル範囲を選択
+#. |Ctrl| を押しながらクリックするか、クリック＆ドラッグして最初の範囲に追加する
+   別のセル範囲を選択
 #. 必要なだけこれを繰り返す
 
 追加選択モードを使ってセル範囲を選択する：
 
-#. Status Bar の選択モード欄をクリックし、:menuselection:`&Addition selection`
+#. |StatusBar| の選択モード欄をクリックし、:menuselection:`&Addition selection`
    を選択
 #. 選択範囲に追加するセルの範囲をクリックまたはクリックアンドドラッグで選択す
    る。
@@ -529,17 +521,19 @@ Multiple columns or rows
 連続する複数列や複数行を選択する方法：
 
 #. グループの最初の列または行をクリック
-#. :kbd:`Shift` を押しながら
+#. |Shift| を押しながら
 #. グループの最後の列または行をクリック
 
 連続しない複数の列または行を選択する方法：
 
 #. グループの最初の列または行をクリック
-#. :kbd:`Ctrl` を押しながら
+#. |Ctrl| を押しながら
 #. それに続くすべての列または行をクリック
 
-メニュー :menuselection:`&Edit --> Selec&t -->` 以下のコマンドを使って行や列を選
-択することもできる。
+.. tip::
+
+   |MenuBar| :menuselection:`&Edit-->Selec&t-->` 以下のコマンドを使って行や列を
+   選択することもできる。
 
 Entire sheet
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -547,9 +541,9 @@ Entire sheet
 シート全体を選択する方法は複数ある：
 
 * 列見出しと行見出しの間にある何もない部分をクリック
-* :kbd:`Ctrl` + :kbd:`A`
-* :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`Space`
-* メニューバー :menuselection:`&Edit --> Select &All`
+* |Ctrl| + :kbd:`A`
+* |Ctrl+Shift| + |Space|
+* |MenuBar| |EditSelectAllM|
 
 Selecting sheets
 ----------------------------------------------------------------------
@@ -568,7 +562,7 @@ Multiple contiguous sheets
 連続する複数のシートを選択する方法：
 
 #. 最初に選択したいシートのシートタブをクリック
-#. :kbd:`Shift` を押しながら最後に選択したいシートのシートタブをクリック
+#. |Shift| を押しながら最後に選択したいシートのシートタブをクリック
 #. この両者の間のタブすべてが強調される
 
 以後、どのような操作をしても、強調されたシートすべてに影響する。
@@ -579,7 +573,7 @@ Multiple non-contiguous sheets
 連続しない複数のシートを選択する方法：
 
 #. 最初に選択したいシートのシートタブをクリック
-#. :kbd:`Ctrl` を押しながら他のシートのシートタブをクリック
+#. |Ctrl| を押しながら他のシートのシートタブをクリック
 #. 選択されたタブが順次強調される
 
 All sheets
@@ -587,10 +581,9 @@ All sheets
 
 全シート選択方法は複数ある：
 
-* シートタブを右クリックし、メニューから :menuselection:`Select &All Sheets`
-* メニュー :menuselection:`&Edit --> Select &All Sheets`
-* メニュー :menuselection:`&Edit --> Selec&t --> &Select Sheets...` から
-  :guilabel:`Select Sheets` ダイアログボックスを使ってシートを選択する
+* シートタブを右クリックし、|MenuBar| から :menuselection:`Select &All Sheets`
+* |MenuBar| :menuselection:`&Edit-->Select &All Sheets`
+* |MenuBar| |SelectSheetsM| から |SelectSheetsDlg| を使ってシートを選択する
 
 Working with columns and rows
 ======================================================================
@@ -606,10 +599,10 @@ Single column or row
 シートメニューと右クリックメニューを使う方法がある。
 
 #. 新しい列や行を挿入したい位置にあるセル、列、行を選択
-#. メニューから対応コマンドを実行：
+#. |MenuBar| から対応コマンドを実行：
 
-   * :menuselection:`&Sheet --> Insert Co&lumns -->`
-   * :menuselection:`&Sheet --> Insert &Rows -->`
+   * :menuselection:`&Sheet-->Insert Co&lumns-->`
+   * :menuselection:`&Sheet-->Insert &Rows-->`
 
    あるいは列ヘッダーや行ヘッダーの右クリックメニューからコマンドを実行
 
@@ -634,12 +627,12 @@ Hiding columns and rows
 
    * 選択した列または行のヘッダーを右クリックし、:menuselection:`H&ide Columns`
      または :menuselection:`H&ide Rows` を実行
-   * メニューから :menuselection:`F&ormat --> Colu&mns --> H&ide` または
-     :menuselection:`F&ormat --> Ro&ws --> &Hide` を実行
+   * |MenuBar| から :menuselection:`F&ormat-->Colu&mns-->H&ide` または
+     :menuselection:`F&ormat-->Ro&ws-->&Hide` を実行
 
-隠れた行や列を目に見える形で表示するには、メニュー :menuselection:`&View -->
-Hidden Row` や :menuselection:`&View --> Hidden &Row/Column Indicator` をオンに
-しろ。
+隠れた行や列を目に見える形で表示するには、|MenuBar|
+:menuselection:`&View-->Hidden Row` や :menuselection:`&View-->Hidden
+&Row/Column Indicator` をオンにしろ。
 
 隠れた列や行を露わにするには、
 
@@ -648,8 +641,8 @@ Hidden Row` や :menuselection:`&View --> Hidden &Row/Column Indicator` をオ�
 
    * 選択した列または行のヘッダーを右クリックし、:menuselection:`S&how Columns`
      または :menuselection:`Sho&w Rows` を実行
-   * メニューから :menuselection:`F&ormat --> Colu&mns --> &Show` または
-     :menuselection:`F&ormat --> Ro&ws --> &Show` を実行
+   * |MenuBar| から :menuselection:`F&ormat-->Colu&mns-->&Show` または
+     :menuselection:`F&ormat-->Ro&ws-->&Show` を実行
 
 Deleting columns and rows
 ----------------------------------------------------------------------
@@ -659,23 +652,22 @@ Single column or row
 
 削除したい列や行にあるセルを一つ選択し、
 
-* 右クリックメニューから :menuselection:`Delete` を実行
-* メニューから :menuselection:`&Sheet --> Delete C&ells...` を実行
-* キーバインド :kbd:`Ctrl` + :kbd:`-` を押す
+* |MenuBar| から :menuselection:`&Sheet-->Delete C&ells...` を実行
+* キーバインド |Ctrl| + :kbd:`-` を押す
 
-ことで :guilabel:`Delete Cells` ダイアログボックスを開く。そこで
+ことで |DeleteCellsDlg| を開く。そこで
 
 * :guilabel:`Delete entire &column(s)` や
 * :guilabel:`Delete entire &row(s)`
 
-をオンにして :guilabel:`&OK` を押す。
+をオンにして |OK| を押す。
 
 ----
 
-削除したい列や行にあるセルを一つ選択し、次のメニューコマンドを実行する：
+削除したい列や行にあるセルを一つ選択し、次の|MenuBar| コマンドを実行する：
 
-* :menuselection:`&Sheet --> Delete &Columns`
-* :menuselection:`&Sheet --> Delete R&ows`
+* :menuselection:`&Sheet-->Delete &Columns`
+* :menuselection:`&Sheet-->Delete R&ows`
 
 ----
 
@@ -689,15 +681,15 @@ Multiple columns or rows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 複数列や複数行の場合も同様。最初にセル範囲を選択したり、ヘッダーを複数選択してか
-らメニューコマンドを実行したりすればいい。
+ら |MenuBar| コマンドを実行したりすればいい。
 
 Deleting cells
 ----------------------------------------------------------------------
 
 #. 削除したいセルを選択
-#. 上述の方法で :guilabel:`Delete Cells` ダイアログボックスを開く
+#. 上述の方法で |DeleteCellsDlg| を開く
 #. 必要な選択肢を指定
-#. :guilabel:`&OK`
+#. |OK|
 
 Working with sheets
 ======================================================================
@@ -705,25 +697,22 @@ Working with sheets
 Inserting new sheets
 ----------------------------------------------------------------------
 
-シートタブの横にある :guilabel:`+` をクリックすると、:guilabel:`Insert Sheet` ダ
-イアログボックスを開かずに、最後のシートの後に新規シートを挿入する。
+シートタブの横にある :guilabel:`+` をクリックすると、|InsertSheetDlg| を開かずに、
+最後のシートの後に新規シートを挿入する。
 
 以下の方法では、ダイアログボックスを開き、位置、複数作成、名前、既存ファイル内
 シートの選択を行うことが可能だ：
 
-* 挿入したい位置のシートを選択し、メニュー :menuselection:`&Sheet --> Insert
-  &Sheet...` を実行
-* 挿入したい位置のシートタブを右クリックして :menuselection:`Insert &Sheet...` を
-  実行
-* シートタブの末尾の空白部分を右クリックして :menuselection:`Insert &Sheet...` を
-  実行
+* 挿入したい位置のシートを選択し、|MenuBar| |InsertSheetM| を実行
+* 挿入したい位置のシートタブを右クリックして |InsertSheetC| を実行
+* シートタブの末尾の空白部分を右クリックして |InsertSheetC| を実行
 
 Moving and copying sheets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-同じスプレッドシート内でシートを移動またはコピーするには、ドラッグアンドドロップ
-するか、:guilabel:`Move/Copy Sheet` ダイアログボックスを使用する。異なるスプレッ
-ドシートへの移動またはコピー操作でも同じだ。
+同じスプレッドシート内でシートを移動またはコピーするには、ドラッグ＆ドロップする
+か、|MoveCopySheetDlg| を使用する。異なるスプレッドシートへの移動またはコピー操
+作でも同じだ。
 
 Dragging and dropping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -734,19 +723,18 @@ Dragging and dropping
 #. 新しい位置までドラッグして
 #. マウスボタンを離す
 
-同じスプレッドシート内でシートをコピーするには、:kbd:`Ctrl` を押しながら上記手順
-を行う。Windows の場合はマウスポインターにプラス記号が追加的に示される。
+同じスプレッドシート内でシートをコピーするには、|Ctrl| を押しながら上記手順を行
+う。Windows の場合はマウスポインターにプラス記号が追加的に示される。
 
 Using Move/Copy Sheet dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Move/Copy Sheet` ダイアログボックスでは、シート移動やコピー操作を明示
-的に行う。
+|MoveCopySheetDlg| ではシート移動やコピー操作を明示的に行う。
 
 #. 移動またはコピーしたいシートで、次のいずれかを実行：
 
-   * シートタブを右クリック :menuselection:`&Move or Copy Sheet...`
-   * メニューから :menuselection:`&Sheet --> &Move or Copy Sheet...`
+   * シートタブを右クリック |MoveCopySheetC|
+   * |MenuBar| から |MoveCopySheetM|
 #. ダイアログボックスが開く
 #. :guilabel:`&Move` や :guilabel:`&Copy` を選択するとシートが移動したりコピーさ
    れたりする。
@@ -763,8 +751,8 @@ Deleting sheets
 
 単一シートを削除する方法は次のいずれか：
 
-* シートタブの右クリックメニューから :menuselection:`&Delete Sheet...` を実行
-* メニュー :menuselection:`&Sheet --> &Delete Sheet...` を実行
+* シートタブの右クリックメニューから |DeleteSheetC| を実行
+* |MenuBar| |DeleteSheetM| を実行
 
 シートが空でない場合、確認ダイアログボックスが開く。
 
@@ -788,7 +776,7 @@ Hiding and showing sheets
 
 #. 任意のシートタブ右クリックメニュー :menuselection:`&Show Sheet...`
 #. :guilabel:`Show Sheet` ダイアログボックスで対象シートを選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 Renaming sheets
 ----------------------------------------------------------------------
@@ -797,12 +785,11 @@ Renaming sheets
 いいが、枚数が多くなると識別するのが困難になる。次のいずれかの方法で、シート名を
 変更する：
 
-* シートタブ右クリックメニュー :menuselection:`Rename &Sheet...` を実行
-* メニュー :menuselection:`&Sheet --> Rename &Sheet...` を実行
+* シートタブ右クリックメニュー |RenameSheetC| を実行
+* |MenuBar| :menuselection:`&Sheet-->Rename &Sheet...` を実行
 * シートタブダブルクリック
 
-:guilabel:`Rename Sheet` ダイアログボックスが開くので、名前を入力して
-:guilabel:`&OK` を押せ。
+|RenameSheetDlg| が開くので、名前を入力して |OK| を押せ。
 
 Viewing a spreadsheet
 ======================================================================
@@ -822,14 +809,14 @@ Freezing rows and columns
 #. 凍結させたい行の下にある行ヘッダーか、フリーズさせたい列の右にある列ヘッダー
    をクリックしろ。行と列の両方を凍結するには、両者が交差するセルの右下セルを選
    択しろ。
-#. メニュー :menuselection:`&View --> Freeze Rows &and Columns` を実行
+#. |MenuBar| :menuselection:`&View-->Freeze Rows &and Columns` を実行
 
 凍結した場所を示す太い線が行または列の間に表示される。
 
 Unfreezing
 ----------------------------------------------------------------------
 
-行または列の凍結を解除するには、メニュー :menuselection:`&View --> Freeze Rows
+行または列の凍結を解除するには、|MenuBar| :menuselection:`&View-->Freeze Rows
 &and Columns` を実行してオンをオフに切り替える。凍結を示す太い線が消える。
 
 Splitting the screen
@@ -850,8 +837,8 @@ Splitting horizontally or vertically
 #. 画面を水平に分割したい行の下にある行ヘッダーをクリック
 #. 次のいずれかでコマンドを実行：
 
-   * メニュー :menuselection:`&View --> &Split Window`
-   * 右クリックメニュー :menuselection:`&Split Window`
+   * |MenuBar| |ViewSplitWindowM|
+   * 右クリックメニュー |SplitWindowC|
 
 あるいは、専用 GUI を用いる操作もある。
 
@@ -863,7 +850,7 @@ Splitting both horizontally and vertically
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * 専用 GUI を水平方向と垂直方向で二度使うか、
-* 分割交差点の右下に来るセル上で :menuselection:`&View --> &Split Window` を実行
+* 分割交差点の右下に来るセル上で |ViewSplitWindowM| を実行
   しろ。
 
 Removing split views
@@ -873,9 +860,8 @@ Removing split views
 
 * 分割枠を順次ダブルクリック
 * 分割枠をクリックし、スクロールバーの端までドラッグして元の位置に戻す
-* メニュー :menuselection:`&View --> &Split Window` をオフにする
-* 列見出しまたは行見出し右クリックメニュー :menuselection:`&Split Window` をオフ
-  にする`
+* |MenuBar| |ViewSplitWindowM| をオフにする
+* 列見出しまたは行見出し右クリックメニュー |SplitWindowC| をオフにする
 
 Using the Navigator
 ======================================================================
@@ -900,14 +886,14 @@ Navigator はスプレッドシートのオブジェクトを品目に分類し�
 
 Navigator の開き方は次のいずれかを行う：
 
-* :kbd:`F5` を押す（利用者推奨）
-* メニュー :menuselection:`&View --> Na&vigator` をオン
-* Sidebar :guilabel:`Tab` パネル上の :guilabel:`Navigator` 図像をクリック
+* |F5| を押す（利用者推奨）
+* |MenuBar| :menuselection:`&View-->Na&vigator` をオン
+* |Sidebar| :guilabel:`Navigator` 図像をクリック
 
 Navigator UI 要素概略：
 
 :guilabel:`&Column`, :guilabel:`&Row`
-   列文字や行番号を入力して :kbd:`Enter` を押すとシート内の対応セルに飛ぶ。
+   列文字や行番号を入力して |Enter| を押すとシート内の対応セルに飛ぶ。
 :guilabel:`Data Range`
    現在カーソルがあるセルを含むデータ範囲を強調表示する。データ範囲は隣接セルの
    内容から決定される。隣接セルにデータがない場合、データ範囲は単一セルで構成さ
@@ -916,21 +902,21 @@ Navigator UI 要素概略：
    現在のデータ範囲の先頭セルや末尾セルに飛ぶ。ここで :guilabel:`Data Range` を
    使うと範囲が強調表示される。
 :guilabel:`Contents`
-   Navigator ウィンドウの下部内容表示を切り替える。Sidebar の
-   :guilabel:`Navigator` 甲板には同等のものがない。
+   Navigator ウィンドウの下部内容表示を切り替える。|Sidebar| の |NavigatorDeck|
+   には同等のものがない。
 :guilabel:`Toggle`
    内容表示を切り替える。選択された品目とその項目しか表示されない。もう一度ク
    リックすると、内容がすべて表示される。
 :guilabel:`Senarios`
-   利用可能なシナリオすべてを表示する。Chapter 10 を参照しろ。
+   利用可能なシナリオすべてを表示する。|Calc10| を参照しろ。
 
    シナリオ名をダブルクリックすると、そのシナリオが適用され、結果がシートに表示
    される。Navigator にシナリオが表示されている場合、シナリオ項目から右クリック
    メニューが開く。
 
    * :menuselection:`&Delete` は選択シナリオを削除する
-   * :menuselection:`&Properties...` は :guilabel:`Edit Scenario` ダイアログボッ
-     クスを開く。そこでは選択シナリオを編集する。
+   * |PropertiesC| は :guilabel:`Edit Scenario` ダイアログボックスを開く。そこで
+     は選択シナリオを編集する。
 :guilabel:`Drag Mode`
    Navigator から文書にオブジェクトをドラッグアンドドロップすると実行される動作
    を選択するためのメニューが開く。選択モードに応じて図像が変わる。
@@ -943,8 +929,8 @@ Navigator UI 要素概略：
 Using document properties
 ======================================================================
 
-文書に関する :guilabel:`Properties` ダイアログボックスを開くには、メニュー
-:menuselection:`&File --> Propert&ies...` を実行する。
+文書に関する |PropertiesDlg| を開くには、|MenuBar| |FilePropertiesM| を実行す
+る。
 
 General
 ----------------------------------------------------------------------
@@ -954,8 +940,7 @@ General
 * :guilabel:`Change &Password` を押すとパスワード変更ダイアログボックスが開く。
   このボタンはファイルにパスワードが施されている場合に限り押せる。
 * :guilabel:`&Apply user data` をオンにすると、ファイルに著者の完全名を保存する
-  ようになる。名前は :guilabel:`Options` ダイアログボックスの
-  :menuselection:`LibreOffice --> User Data` ページで編集可能だ。
+  ようになる。名前は |OptionsDlg| |UserDataPage| で編集可能だ。
 * :guilabel:`Save preview &image with this document` をオンにすると、文書内にサ
   ムネイル画像 :file:`thumbnail.png` を保存するようになる。このような画像は
   Windows Explorer などのファイル管理ソフトが利用する場合がある。
@@ -1012,7 +997,7 @@ Security
 る。記録状態をパスワードで保護するには、:guilabel:`&Protect...` からパスワードを
 入力する。
 
-* メニュー :menuselection:`&Edit --> Track Chan&ges --> &Record` と同様だ。
+* |MenuBar| |EditTrackRecordM| と同様だ。
 * この文書の他の利用者は変更を適用可能だが、パスワードを知らない限り、変更の記録
   を無効にすることは不可能だ。
 
@@ -1024,15 +1009,15 @@ Font
 ----------------------------------------------------------------------
 
 :guilabel:`&Embed fonts in the document` をオンにするとスプレッドシートで使用し
-たフォントが保存時に文書に埋め込まれる。PDF を作成する際に他の計算機システムでの
-見栄えを制御したいならば使え。
+たフォントが保存時に文書に埋め込まれる。|PDF| を作成する際に他の計算機システムで
+の見栄えを制御したいならば使え。
 
 :guilabel:`&Only embed fonts that are used in documents` をオンにすると、スプ
 レッドシート用に（テンプレートなどで）フォントが定義されているが実際には使用され
 ていない場合に、フォントを埋め込むのをやめる。
 
 :guilabel:`Font scripts to embed` では埋め込むフォントの種類を、欧文、アジア、複
-合から選択可能。詳細は *Getting Started Guide* に記述がある。
+合から選択可能。詳細は |Guide| に記述がある。
 
 Statistics
 ----------------------------------------------------------------------

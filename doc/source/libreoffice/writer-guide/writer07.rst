@@ -216,13 +216,11 @@ Writer の通常ページビューでは、各ページが印刷されるとき�
 
 :guilabel:`Print Pr&eview` 実行手順は次のいずれか：
 
-* |MenuBar| の :menuselection:`&File-->Print Pr&eview...` を選択
-* |StandardToolbar| の :guilabel:`Toggle Print Preview (Ctrl+Shift+O)` 図像をク
-  リック
+* |MenuBar| の |FilePrintPreviewM| を選択
+* |StandardToolbar| の |TogglePrintPreviewI| をクリック
 * キーバインド |Ctrl+Shift| + :kbd:`O`
 
-これで |FormattingToolbar| の代わりに :guilabel:`Print Preview` ツールバーが表示
-する。
+これで |FormattingToolbar| の代わりに |PrintPreviewToolbar| が表示する。
 
 #. 必要なプレビュー図像をクリック
 
@@ -317,8 +315,6 @@ Quick export to PDF
 
 * |StandardToolbar| の :guilabel:`Export &Directly as PDF` 図像
 * :menuselection:`&File-->&Export As-->Export &Directly as PDF` を選択
-
-.. |PDFOptionsDlg| replace:: :guilabel:`PDF Options` ダイアログボックス
 
 |PDFOptionsDlg| で直近に選択した |PDF| 設定を使用して文書全体が書き出される。
 ファイル名と保存場所を入力するよう求められるが、ページ範囲や画像圧縮、その他のオ
@@ -503,8 +499,8 @@ User Interface tab of PDF Options dialog
 :guilabel:`Transitions`
    Writer では使用不能。
 :guilabel:`Collapse Outlines`
-   |GeneralTab| で :guilabel:`Export outl&ines` がオンになっている場
-   合、アウトラインに表示される見出しレベルの数を指定する。
+   |GeneralTab| で :guilabel:`Export outl&ines` がオンになっている場合、アウトラ
+   インに表示される見出しレベルの数を指定する。
 
 Links tab of PDF Options dialog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -665,8 +661,8 @@ Exporting to other formats
 
 LibreOffice では、ファイル形式の変更を伴うファイル操作の一部に export という術語
 を使用している。|SaveAsM| で必要なものが見つからない場合は |FileExportM| も参照
-しろ。Writer はファイルを :abbr:`XHTML (eXtensible HyperText Markup Language)`,
-|EPUB|, およびその他の形式にエクスポートできる。
+しろ。Writer はファイルを |XHTML|, |EPUB|, およびその他の形式にエクスポートでき
+る。
 
 |FileExportM| を選択する。:guilabel:`Export` ダイアログボックスで |FileNameBox|
 と |FileTypeList| で選択して :guilabel:`Export` を押す。
@@ -780,9 +776,9 @@ Removing personal data
 |PDF| を作成する前に、ファイルから削除されていることを保証したい場合がある。
 
 |OptionsDlg| |SecurityPage| で :guilabel:`O&ptions...` ボタンを押すと
-:guilabel:`Security Options and Warnings` ダイアログボックスが表示され、ファイル
-に特定の情報が含まれている場合に警告を表示したり、保存時に個人情報を自動的に削除
-したりするように LibreOffice を設定することが可能だ。
+|SecurityOptions&WarningsDlg| が表示され、ファイルに特定の情報が含まれている場合
+に警告を表示したり、保存時に個人情報を自動的に削除したりするように LibreOffice
+を設定することが可能だ。
 
 ファイルから個人データなどを削除するには、
 

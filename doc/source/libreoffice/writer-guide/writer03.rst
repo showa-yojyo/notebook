@@ -269,7 +269,6 @@ Preparing a document for review
 る必要がある。
 
 .. |TrackChangesToolbar| replace:: :guilabel:`Track Changes` ツールバー
-.. |RecordM| replace:: :menuselection:`&Edit-->Track Chan&ges-->&Record`
 
 #. 文書を開く。:menuselection:`&File-->Versions...` を選択して、その文書に複数の
    版が含まれているかどうかを確認する。複数の版が表示されている場合は、現在版を
@@ -277,7 +276,7 @@ Preparing a document for review
 #. 査読コピーを開いた状態で、変更の記録がオンになっていることを確認する。記録が
    オンになっていると、次が強調表示される：
 
-   * |MenuBar| |RecordM| 項目
+   * |MenuBar| |EditTrackRecordM| 項目
    * |TrackChangesToolbar| の :guilabel:`Record Track Changes` 図像
 #. 次のいずれかを行う：
 
@@ -306,23 +305,21 @@ Recording changes
 変更の記録（追跡）を開始するには、次のいずれかを行う：
 
 * |TrackChangesToolbar| の :guilabel:`Record Track Changes` をクリック
-* |MenuBar| の |RecordM| を選択
+* |MenuBar| の |EditTrackRecordM| を選択
 
 変更の表示を表示または非表示にするには、
 
-.. |TrackChangesShowM| replace:: :menuselection:`&Edit-->Track Chan&ges-->&Show`
-
 * |TrackChangesToolbar| の :guilabel:`Show track changes` をクリック
-* |MenuBar| の |TrackChangesShowM| を選択
+* |MenuBar| の |EditTrackShowM| を選択
 
 追跡された変更にコメントを入力するには、変更箇所にキャレットを置き、次のいずれか
 を行う：
 
-* :menuselection:`&Edit-->Track Chan&ges-->&Comment...` を選択
+* |EditTrackCommentM| を選択
 * |TrackChangesToolbar| の :guilabel:`Insert Track Change Comment` ボタンをク
   リック
 
-変更記録を停止するには |RecordM| を再度選択する。
+変更記録を停止するには |EditTrackRecordM| を再度選択する。
 
 Recording inserted, deleted, and moved material
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -368,8 +365,6 @@ Viewing changes and comments
 すヘルプヒントが表示される。拡張ヒントを有効にすると、この変更に対して記録された
 コメントも表示される。
 
-.. |ManageChangesDlg| replace:: :guilabel:`Manage Changes` ダイアログボックス
-
 記録されたコメントは、拡張ヒントとして表示されるだけでなく、|ManageChangesDlg|
 の目録にも表示される。変更にコメントが記録されていない場合、コメントフィールドは
 空白になる。
@@ -401,7 +396,7 @@ Accepting or rejecting changes
 
 #. 追跡された変更が表示されていない場合は、|TrackChangesToolbar| の
    :guilabel:`Show track changes` 図像をクリックするか、|MenuBar| で
-   |TrackChangesShowM| を選択する。
+   |EditTrackShowM| を選択する。
 #. 記録された変更の上にマウスポインターを置く。箱が表示され、変更の種類、変更
    者、日時に関する情報が表示される。
 #. コンテキストメニューから :menuselection:`Accept Change` または
@@ -431,9 +426,8 @@ Comparing documents
 れば、変更箇所を見つけることが可能だ。比較するには：
 
 #. 編集済みの文書を開く。
-#. :menuselection:`&Edit-->Track Chan&ges-->Co&mpare Document...` を選択するか、
-   |TrackChangesToolbar| の :guilabel:`Compare Non-Track Changed Document` 図像
-   をクリック。
+#. |EditTrackCompareM| を選択するか、|TrackChangesToolbar| の :guilabel:`Compare
+   Non-Track Changed Document` 図像をクリック。
 #. :guilabel:`Compare to Original Document` ダイアログボックスで元の文書を選択
    し、|Open| を押す。
 
@@ -458,9 +452,8 @@ Merging modified documents
 要がある。
 
 #. 原文書を開く。
-#. :menuselection:`&Edit-->Track Chan&ges-->Merge Document...` を選択するか、
-   |TrackChangesToolbar| の :guilabel:`Merge Track Changed Document` 図像をク
-   リックする。
+#. |EditTrackMergeM| を選択するか、|TrackChangesToolbar| の :guilabel:`Merge
+   Track Changed Document` 図像をクリックする。
 #. ファイル選択ダイアログボックスが開く。原文書に
 
    * その後の変更がない場合、そのコピーは併合される。
@@ -597,8 +590,6 @@ Writer には参照を最新の状態に保つための方法が二つ備わっ�
 どちらの方法も結果は同じだ。文書を開いているときにリンクを |Ctrl| を押しつつク
 リックすると、被参照項目に直接飛ぶ。しかし、両者には大きな違いもある：
 
-.. |HyperlinkDlg| replace:: :guilabel:`Hyperlink` ダイアログボックス
-
 * ハイパーリンクのテキストは、リンクされた項目のテキストを変更しても自動的には更
   新されないが、変更されたテキストは相互参照で自動的に更新される。
 * ハイパーリンクを使用する場合、リンクの内容（テキストやページ番号など）を選ぶ余
@@ -640,8 +631,8 @@ Web サイトのアドレスや URL など、ハイパーリンクとして使�
 :guilabel:`URL Recognition` をオンにする。
 
 LibreOffice で特定の URL をハイパーリンクに変換したくない場合は、書式設定が適用
-された直後にハイパーリンクにキャレットを置いて右クリックし、
-:menuselection:`&Remove Hyperlink` を選択する。
+された直後にハイパーリンクにキャレットを置いて右クリックし、|RemoveHyperlinkC|
+を選択する。
 
 また、Navigator や |HyperlinkDlg| を使って、
 
@@ -656,8 +647,7 @@ LibreOffice 内でハイパーリンクを活性にする標準の動作は |Ctr
 
 #. |OptionsDlg| を開く
 #. |SecurityPage| を開く
-#. :guilabel:`Security Options and Warnings` 横にある :guilabel:`O&ptions...` ボ
-   タンを押す
+#. :guilabel:`O&ptions...` ボタンを押して |SecurityOptions&WarningsDlg| を開く。
 #. :guilabel:`Ctrl-click required &to open hyperlinks` をオフにする
 
 Editing hyperlinks
@@ -668,9 +658,9 @@ Editing hyperlinks
 #. リンクテキスト内の任意の場所をクリック
 #. 以下のいずれかを行い |HyperlinkDlg| を開く：
 
-   * コンテキストメニューから :menuselection:`Edit Hyperlink...` を選択
+   * コンテキストメニューから |EditHyperlinkC| を選択
    * |StandardToolbar| の :guilabel:`Hyperlink` 図像をクリック
-   * |MenuBar| から :menuselection:`&Edit-->&Hyperlink` を選択
+   * |MenuBar| から |EditHyperlinkM| を選択
 #. 変更を加え |ApplyButton| を押す
 
 複数のハイパーリンクを編集する必要がある場合は、すべてのハイパーリンクを編集する

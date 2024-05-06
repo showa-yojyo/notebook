@@ -11,36 +11,42 @@ Calc Guide Chapter 15, Setting up and Customizing ノート
 Introduction
 ======================================================================
 
-* |OptionsDlg| にある設定オプションの一部
-* |MenuBar|、ツールバー、キーバインドのカスタマイズと拡張機能
+この章では |OptionsDlg| にある設定オプションの一部を見ていく。その他のオプション
+や、ここで紹介するオプションの詳細については |Help| や |Guide| に説明がある。
+
+この章では、|MenuBar|、ツールバー、キーバインドの一般的なカスタマイズについても
+説明する。その他のカスタマイズは LibreOffice の Web サイトや他の設備者からインス
+トールできる拡張機能によって簡単に行うことができる。
 
 LibreOffice options
 ======================================================================
 
-.. admonition:: 利用者ノート
+この節では LibreOffice の部品すべてに適用される設定のうち、Calc の使用者にとって
+特に重要な設定をやる。
 
-   どの LibreOffice ソフトから |OptionsDlg| を開いても内容は同じだと思う
-   が、|Writer| や |Draw| でも本節の内容は同じになるか興味がある。
+#. :menuselection:`&Tools-->&Options...` を選択して |OptionsDlg| を開く。左側の
+   木は開いている LibreOffice アプリケーションによって異なる。
+#. `LibreOffice` の横にある展開記号をクリックする。部分木がドロップダウンする。
 
-|OptionsDlg| の下部にある |ResetButton| は、どのページであっても押せばダイアログ
-ボックスを開いた時点の状態にリセットされる。
+.. note::
+
+   |OptionsDlg| の下部にある |ResetButton| は、どのページであっても押せばダイア
+   ログボックスを開いた時点の状態にリセットされる。
 
 User data
 ----------------------------------------------------------------------
 
-このページの項目は LibreOffice の雛形やウィザードで使用される。
-
-.. admonition:: 利用者ノート
-
-   Calc ではプロパティーの Created や Modifiled にこの内容が使われるとあるが、現
-   物で確認できない。日付しか見えない。
+このページの項目は LibreOffice の雛形やウィザードで使用される。たとえば Calc で
+は、文書性質の `Created` フィールドと `Modified` フィールドを埋めるために、ここ
+に保存された姓と名を使用する。これらのフィールドは、印刷されたスプレッドシートの
+フッターや、コメントに関連付けられた名前としても使用される。自分の名前を表示した
+い場合は、|UserDataPage| のフォームに入力しろ。
 
 View
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice-->View` ページのオプションは、ツールバーや |Sidebar|
-の図像寸法やスタイルなど、文書ウィンドウの容貌や動作に影響する。個人の好みに合わ
-せて設定しろ。
+|LibreOfficeViewPage| のオプションは、ツールバーや |Sidebar| の図像寸法やスタイ
+ルなど、文書ウィンドウの容貌や動作に影響する。個人の好みに合わせて設定しろ。
 
 Print
 ----------------------------------------------------------------------
@@ -48,7 +54,9 @@ Print
 |LibreOfficePrintPage| では既定プリンターといちばんよく使う印刷方法に合わせて選
 択肢を決める。印刷時になって |PrintDlg| で変更することも可能。
 
-Calc 固有の印刷オプションがあり、それについては後述。|Calc07| も参照しろ。
+Calc 固有の印刷オプションがあり、それについては後述。
+
+|Calc07| も参照しろ。
 
 Paths
 ----------------------------------------------------------------------
@@ -83,9 +91,8 @@ Security
    存する。マスターパスワードを入力した後、一覧からパスワードを取り出すことがで
    きます。
 :guilabel:`Macro Security`
-   :guilabel:`Macro Securit&y...` ボタンを押すと :guilabel:`Macro Security` ダイ
-   アログボックスが開き、マクロ実行の機密保全度を調整したり、信頼できる給源を指
-   定したりする。
+   :guilabel:`Macro Securit&y...` ボタンを押すと |MacroSecurityDlg| が開き、マク
+   ロ実行の機密保全度を調整したり、信頼できる給源を指定したりする。
 :guilabel:`Certificate Path`
    LibreOffice を使って文書に電子署名をすることができます。電子署名には個人署名
    証明書が必要だ。OS のほとんどが自己署名証明書を生成可能だ。ただし、（個人の身
@@ -142,7 +149,7 @@ Application colors
 Advanced options
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice-->Advanced` ページで注目したい選択肢は次のものだ：
+|LibreOfficeAdvancedPage| で注目したい選択肢は次のものだ：
 
 :guilabel:`Enable experimental features (may be unstable)` をオンにすると、未完
 成機能や既知バグを含む機能が利用可能になる。そのような機能の集合はバージョンによ
@@ -249,9 +256,8 @@ Calc-specific options
 General
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice Calc-->General` ページの選択肢は、測定に使用する単
-位、既定タブストップ位置、リンクとフィールドの更新、その他さまざまな入力設定に有
-効だ。
+|CalcGeneralPage| の選択肢は、測定に使用する単位、既定タブストップ位置、リンクと
+フィールドの更新、その他さまざまな入力設定に有効だ。
 
 :guilabel:`Metrics` 区画にある項目はスプレッドシートで用いられる距離単位とタブス
 トップの距離だ。後者はソフトスペース何個とかではなく、``1.25 cm`` などの現実の距
@@ -267,18 +273,18 @@ General
 :guilabel:`Input Settings` 区画。細かい項目が並ぶ。
 
 * :guilabel:`Press Enter to &move selection` はオンにするなら :guilabel:`Down`
-  一択だろう。オフにすると :kbd:`Enter` でセル移動なしになる。
-* :guilabel:`Press Enter to switch to &edit mode` をオンにすると :kbd:`Enter` が
-  セルに対する編集モードオンオフキーとなる。
+  一択だろう。オフにすると |Enter| でセル移動なしになる。
+* :guilabel:`Press Enter to switch to &edit mode` をオンにすると |Enter| がセル
+  に対する編集モードオンオフキーとなる。
 * :guilabel:`Press Enter to paste and clear clipboard` をオフにすると、セル
-  :kbd:`Enter` でのコピー無効化かつ貼り付け後のクリップボード消去無効化。
+  |Enter| でのコピー無効化かつ貼り付け後のクリップボード消去無効化。
 
   * オフのほうが好みである可能性がある。
 
 * :guilabel:`Expand &formatting` は選択セルの書式属性を空の隣接セルに自動的に適
   用するかどうかを決めるものだ。
 
-  * 影響範囲を確認するには :kbd:`Ctrl` + :kbd:`*` を押す（テンキーのほう）
+  * 影響範囲を確認するには |Ctrl| + :kbd:`*` を押す（テンキーのほう）
   * ヘッダー行や日付列でこれが働くと特にうれしい。
 * :guilabel:`Expand &references when new columns/rows are inserted` は、例えば
   A1:B1 の範囲を参照する数式がどこかにあるとする。列 B の後に新しい列が挿入され
@@ -298,22 +304,20 @@ General
 * :guilabel:`Show overwrite &warning when pasting data` をオンにするとクリップ
   ボードの内容をセルに貼り付けるときにデータが失われることがある場合に警告が現れ
   る。
-* :guilabel:`Position cell reference with selection` は :kbd:`Ctrl` +
-  :kbd:`Shift` + 矢印キーでセル範囲選択を拡張するときに、拡大直後のジャンプ先の
-  セルが変化する。ガイドの記述がわかりにくい。
+* :guilabel:`Position cell reference with selection` は |Ctrl+Shift| + 矢印キー
+  でセル範囲選択を拡張するときに、拡大直後のジャンプ先のセルが変化する。ガイドの
+  記述がわかりにくい。
 
 Defaults
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice Calc-->Defaults` ページでは新しいスプレッドシート
-を開始したときのシートの数を入力したり、シート名の接頭辞を指定したりする。
-Chapter 1 参照。
+|CalcDefaultsPage| では新しいスプレッドシートを開始したときのシートの数を入力し
+たり、シート名の接頭辞を指定したりする。|Calc01| 参照。
 
 View
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice Calc-->View` ページでは文書ウィンドウを画面上で表
-示したときの容貌と動作を構成する。
+|CalcViewPage| では文書ウィンドウを画面上で表示したときの容貌と動作を構成する。
 
 Display section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -379,7 +383,7 @@ Visual Aids section
 Objects section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-画像、プロット、図面オブジェクトの表示切り替え。
+画像、プロット、図面物の表示切り替え。
 
 Zoom section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -527,10 +531,9 @@ Chapter 2 も参照しろ。
 Changes
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice Calc-->Changes` ページでは差分表示における挿入、削
-除、その他の変更に特定の色を割り当てることと、変更者に基く色を割り当てることが可
-能。ここで選択した色は、|MenuBar| :menuselection:`&Edit-->Track Chan&ges -->
-&Record` が有効になっている場合に適用される。
+|CalcChangesPage| では差分表示における挿入、削除、その他の変更に特定の色を割り当
+てることと、変更者に基く色を割り当てることが可能。ここで選択した色は、|MenuBar|
+|EditTrackRecordM| が有効になっている場合に適用される。
 
 Compatibility
 ----------------------------------------------------------------------
@@ -545,7 +548,7 @@ Grid options
 レッドシートに追加するプロットやその他のオブジェクトの位置を高精度で合わせること
 が可能になる。スナップ機能も備えられている。
 
-操作中にスナップを一時的にオフにするには :kbd:`Ctrl` を押しながらドラッグする。
+操作中にスナップを一時的にオフにするには |Ctrl| を押しながらドラッグする。
 
 .. rubric:: Grid 区画
 
@@ -564,8 +567,8 @@ Grid options
 Print options
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice Calc-->Print` ページを使用して、スプレッドシートの
-印刷の既定値を選択する。これらを印刷ジョブ個別で上書きしてよい。
+|CalcPrintPage| を使用して、スプレッドシートの印刷の既定値を選択する。これらを印
+刷ジョブ個別で上書きしてよい。
 
 Default colors for charts
 ======================================================================
@@ -589,21 +592,21 @@ Customizing the user interface
 |MenuBar|、ツールバー、キーバインド、タブ付きインターフェイスを誂えたり、新しい
 メニューやツールバーを追加したり、イベントにマクロを割り当てたりする。
 
-|MenuBar| とツールバーの変更は雛形に保存することが可能だ。その方法とは、
-まず、文書にそれらを保存します。次に、|Calc05| で説明するように、その文書を雛形
-として保存するというものだ。
+.. tip::
+
+   |MenuBar| とツールバーの変更は雛形に保存することが可能だ。その方法とは、ま
+   ず、文書にそれらを保存する。次に、|Calc05| で説明するように、その文書を雛形と
+   して保存するというものだ。
 
 Menu content
 ----------------------------------------------------------------------
 
 メニューを誂えるには、
 
-#. |MenuBar| :menuselection:`&Tools-->&Customize...` を実行して |CustomizeDlg| を
-   開く。
-#. :guilabel:`Menus` タブまたは :guilabel:`Context Menus` タブをクリック
+#. |MenuBar| |CustomizeM| を選択して |CustomizeDlg| を開く。
+#. |MenusTab| または |ContextMenusTab| をクリック
 
-両者の操作はほとんど同じであるので、以下、:guilabel:`Menus` タブに焦点を当てた記
-述となる。
+両者の操作はほとんど同じであるので、以下、|MenusTab| に焦点を当てた記述となる。
 
 Modifying an existing menu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -621,10 +624,10 @@ Modifying an existing menu
 #. 選択したメニューからコマンドを削除するには、割り当てられたコマンド一覧でその
    コマンド項目をクリックし、左矢印ボタンを押す。
 #. 区切りや部分メニューを挿入するには、:guilabel:`&Customize` 区画の
-   :menuselection:`&Insert-->Insert Separator` や :menuselection:`&Insert -->
-   Insert Submenu` を実行する。
-#. メニュー項目のラベルを変えるには、それを選択してから :guilabel:`&Modify -->
-   &Rename...` を実行。
+   :menuselection:`&Insert-->Insert Separator` や
+   :menuselection:`&Insert-->Insert Submenu` を実行する。
+#. メニュー項目のラベルを変えるには、それを選択してから
+   :guilabel:`&Modify-->&Rename...` を実行。
 #. |OK| で確定。
 
 Creating a new menu
@@ -671,10 +674,9 @@ Toolbars
 Creating a new toolbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. :menuselection:`&Tools-->&Customize...`
+#. |CustomizeM| を選択。
 #. :guilabel:`Toolbars` タブで :guilabel:`Target` 欄横のボタンを押してドロップダ
-   ウンリストから :guilabel:`&Add...` を選択して :guilabel:`Name` ダイアログボッ
-   クスを開く。
+   ウンリストから :guilabel:`&Add...` を選択して |NameDlg| を開く。
 #. 新規ツールバーの名前を入力してドロップダウンリスト :guilabel:`&Save in` から
    メニュー保存先を Calc 全体か選択文書かを指定する。
 #. |OK| を押す。
@@ -722,20 +724,20 @@ LibreOffice の UI のうち、ノートブックバーを使用する変種は�
 や画像など、文書でどんなオブジェクトが選択されているかによる。
 
 |CustomizeDlg| の :guilabel:`Notebookbar` にあるチェックボックスを使って、タブ付
-き UI のうち最近選択されたものに（ない場合は Tabbedに）対して、用意されている各
+き UI のうち最近選択されたものに（ない場合は Tabbed に）対して、用意されている各
 オプションの表示状態を切り替える。
 
 Keyboard shortcuts
 ----------------------------------------------------------------------
 
-組み込みのキーボードショートカット (Appendix A) を使用するだけでなく、独自に定義
-することが可能だ。LibreOffice の標準機能または独自のマクロにキーバインドを割り当
-て、LibreOffice プログラム全体または Calc でのみ使用するように保存可能だ。
+組み込みのキーバインド (Appendix A) を使用するだけでなく、独自に定義することが可
+能だ。LibreOffice の標準機能または独自のマクロにキーバインドを割り当て、
+LibreOffice プログラム全体または Calc でのみ使用するように保存可能だ。
 
 * OS が予約しているキーバインドと競合するものはやめろ。
 * |CustomizeDlg| の一覧で灰色表示されているキーは割当不可を意味する。
 
-#. :menuselection:`&Tools-->&Customize...`
+#. |MenuBar| から |CustomizeM| を選択。
 #. :guilabel:`Keyboard` タブ
 #. 新規キーバインドが Calc 全体か選択文書のどちらで有効であるかを指定
 #. :guilabel:`&Category` と :guilabel:`&Function` 一覧から必要な項目を選択
@@ -815,8 +817,7 @@ Installing extensions
 
 * |Sidebar| の :guilabel:`Gallery` にある拡張ボタン
 * |TemplatesDlg| の :menuselection:`&Manage-->E&xtensions`
-* |OptionsDlg| の :menuselection:`LibreOffice-->View` ページ :guilabel:`Icon
-  Theme` 枠内拡張ボタン
+* |OptionsDlg| の |LibreOfficeViewPage| :guilabel:`Icon Theme` 枠内拡張ボタン
 
 Updating extensions
 ----------------------------------------------------------------------
@@ -856,8 +857,7 @@ Setting up document themes
 
 #. :menuselection:`F&ormat-->Theme...` を実行して |ThemeDlg| を開く
 #. ベーステーマを選択
-#. :guilabel:`&Add` を押して :guilabel:`Theme Color Edit` ダイアログボックスを開
-   く
+#. :guilabel:`&Add` を押して |ThemeColorEditDlg| を開く
 #. 新規テーマに名前を与え、利用可能なパレットから色を選択
 #. |OK| を押して新規テーマを保存
 

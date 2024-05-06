@@ -1,5 +1,5 @@
 ======================================================================
-Calc Guide Chapter 10 Data Analysis ノート
+Calc Guide Chapter 10, Data Analysis ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -10,14 +10,27 @@ Calc Guide Chapter 10 Data Analysis ノート
 Introduction
 ======================================================================
 
-関連機能はメインメニュー :menuselection:`&Data` と :menuselection:`&Tools` に分
-散している。
+Calc には数式や関数のほかに、データを処理するためのツールをいくつか搭載してい
+る。これらのツールにはデータのコピーと再利用、小計の作成、「もしも」分析の実行、
+統計分析の実行などの機能がある。これらのツールは |MenuBar| の
+:menuselection:`&Data` と :menuselection:`&Tools` に分散している。これらのツール
+は大規模なデータセットの処理にかかる時間と労力を節約したり、将来の査読のために作
+業を保存したりするのに役立つ
+
+.. note::
+
+   関連ツールであるピボットテーブルは独自の章が必要なほど複雑であるためここでは
+   触れない。|Calc09| を見ろ。
 
 Consolidating data
 ======================================================================
 
-複数のワークシートに散在しているデータを結合して集計する機能として
-:menuselection:`&Data --> &Consolidate...` コマンドがある。これを実行すると
+複数のシートに散在しているデータを結合して集計する機能として
+:menuselection:`&Data-->&Consolidate...` コマンドがある。散在する大きなデータを
+素早くまとめて査読する必要がある場合に便利だ。例えば、異なるシートにある部門予算
+を総合シートにある全社予算に統合することができる。
+
+これを実行すると
 :guilabel:`Consolidate` ダイアログが開く。この使い方が自力ではわからない。
 
 * :guilabel:`&Function` ドロップダウンリストから所望の集計関数を指定する。
@@ -26,8 +39,31 @@ Consolidating data
   理を所望の範囲をカバーするまで反復する。
 * :guilabel:`Copy results &to` 欄を指定する。
 
-:guilabel:`OK` を押して処理を実行する。指定した場所にある値を集計関数に入力とし
-て渡して評価し、指定した場所に出力する。
+To consolidate data:
+
+#. 統合する升目範囲を含む文書を開く。
+#. |MenuBar| から :menuselection:`&Data-->&Consolidate...` を選択して
+   :guilabel:`Consolidate` ダイアログボックスを開く。
+#. :guilabel:`&Source data ranges` 欄をクリックし、原データ範囲、名前付き範囲へ
+   の参照を入力するか、マウスで選択する。
+#. :guilabel:`&Add` ボタンを押して選択範囲を :guilabel:`Consolidation ranges` 一
+   覧に追加する。
+#. この追加処理を所望の範囲をカバーするまで反復する。
+#. 統合範囲一覧の登録項目を削除するには、その項目を選択し、:guilabel:`&Delete`
+   ボタンを押す。削除は確認なしで実行される。
+#. :guilabel:`Copy results &to` 欄をクリックし、対象範囲の最初の升目への参照を入
+   力するか、マウスで選択する。フィールドの左側にあるドロップダウンリストで名前
+   付き範囲を選択することも可能。
+#. :guilabel:`&Function` ドロップダウンリストからデータを集計関数を選択する。既
+   定は `Sum` だ。その他の使用可能な関数は `Count`, `Average`, `Max`, `Min`,
+   `Product`, `Count`, `StdDev`, `StDevP`, `Var`, `VarP` だ。
+#. |OK| を押して処理を実行する。指定した場所にある値を集計関数に入力として渡して
+   評価し、指定した場所に出力する。
+
+.. tip::
+
+   同じ升目範囲を繰り返し統合する場合は、再利用可能な名前付き範囲に変換して、処
+   理を簡単にすることを検討しろ。名前付き範囲については |Calc14| を見ろ。
 
 Consolidation settings
 ----------------------------------------------------------------------
@@ -40,6 +76,28 @@ Consolidation settings
 :guilabel:`&Link to source data` をオンにすると、:guilabel:`&Source data ranges`
 の値が変化すると :guilabel:`Copy results &to` の値も自動的に更新される。
 
+.. rubric:: Consolidate by
+
+この区画では原データ範囲をそれらの範囲位置で統合するか、ラベル合致により統合する
+かを選択する。統合ラベルが各範囲内に含まれている必要があり、行または列自体を統合
+するには、対応する行または列ラベルのテキストが一致する必要がある。
+
+:guilabel:`&Row labels`
+   合致ラベルで行を連結する。これをオフにすると位置で連結する。
+:guilabel:`C&olumn labels`
+   行ラベルと同じ働きをするが、代わりに列を使用する。
+
+.. rubric:: Options
+
+:guilabel:`&Link to source data` をオンにすると、原範囲の値にリンクする数式が対
+象範囲に追加される。これをオンにすると原範囲に加えた変更により、対象範囲の値が自
+動的に更新される。
+
+.. note::
+
+   原データへの Link をオンにすると、原リンクそれぞれが対象範囲に入り、並べ替え
+   られ、ビューから見えなくなる。既定では統合の最終結果しか表示されない。
+
 Consolidation example
 ----------------------------------------------------------------------
 
@@ -49,131 +107,351 @@ Consolidation example
    later open a document with consolidated ranges, they will still be available
    in the Consolidation ranges list of the Consolidate dialog.
 
+.. admonition:: 読者ノート
+
+   私のスプレッドシートでやるならば家計簿がいい。各月を統合しよう。
+
 Creating subtotals
 ======================================================================
 
 小計を得る方法は二つだ：
 
-* ``SUBTOTAL`` 関数
-* :menuselection:`&Data --> Sub&totals...` コマンド
+* `SUBTOTAL` 関数
+* :menuselection:`&Data-->Sub&totals...` コマンド
 
-Using the ``SUBTOTAL`` function
+Using the `SUBTOTAL` function
 ----------------------------------------------------------------------
 
-``SUBTOTAL`` 関数は Function Wizard の数学区分とサイドバーの関数デッキの下に一覧
-されている。本関数はわずかな区分だけで使用する場合に効果的だ。
+`SUBTOTAL` 関数は |FunctionWizard| の Mathematical 区分と |Sidebar|
+|FunctionsDeck| の下に一覧されている。|Calc08| 参照。本関数はわずかな区分だけで
+使用する場合に効果的だ。
 
-ガイド本文のデータを手で再現して Sales Value の列の下のセルに ``SUBTOTAL`` 呼び
-出しを埋める。急所は、自動フィルターで例えば Employee を Brigitte に絞り込むと、
-それに応じて ``SUBTOTAL`` の値が更新されることにある。
+A `SUBTOTAL` example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ``SUBTOTAL`` の第一引数の謎数値が計算の種類を指す。
-* 列の下に出力セルを設けると、当然だが自動フィルター適用時にそれが隠れる。
-  ``SUBTOTAL`` の動作を試すときにはどう絞り込んでも隠れないセルに書け。
+本文のデータを手で再現して `Sales Value` の列の下の升目に `SUBTOTAL` 呼び出しを
+埋める。急所は、自動フィルターで例えば Employee を Brigitte に絞り込むと、それに
+応じて `SUBTOTAL` の値が更新されることにある。
+
+|FunctionWizard| を使用して `Sales Value` の小計を作成する手順：
+
+#. 小計を出力する升目を選択する。通常、この升目は小計される列のいちばん下にあ
+   り、この例では `Sales Value` 列だ。
+#. |FunctionWizard| を開く。
+#. :guilabel:`&Function` 一覧から `SUBTOTAL` を選択し、|Next| を押す。
+#. ダイアログの右側にある :guilabel:`Function` 欄に関数の数値コードを入力する。
+   このコードは 1 から 11 または 101 から 111 の範囲の値でなければならない。各値
+   の意味は本書表 1 に示されている。
+
+   .. todo:: 時間があれば表を転載
+
+   .. note::
+
+      値 1 から 11 には計算された小計に隠れ値が含まれるが、値 101 から 111 には
+      含まれない。データの表示切り替えについては |Calc02| を見ろ。絞り込まれて消
+      える升目は `SUBTOTAL` 関数によって常に除外される。
+
+#. :guilabel:`Range` 欄をクリックし、`Sales Value` 範囲への参照を入力するか、マ
+   ウスで升目を選択する。その間、ダイアログを一時的に最小化する必要があれば
+   :guilabel:`Shrink` / :guilabel:`Expand` ボタンを使用する。
+#. |OK| を押して |FunctionWizard| を閉じる。先ほど選択した升目に売上合計が出力さ
+   れる。
+#. `Employee` 列の上部にある AutoFilter の▼をクリックし、`Brigitte` と `(empty)`
+   を除いてオフにする。出力升目に `Brigitte` の売上合計が表示される。
+
+.. note::
+
+   小計に使用される升目範囲に他の小計が含まれている場合、これらの小計は最終的な
+   小計の勘定に入らない。同様に、AutoFilter でこの機能を使用すると現在の絞り込み
+   を満たすデータのみが表示される。絞り込まれて除外されたデータは無視される。
+
+.. admonition:: 読者ノート
+
+   * `SUBTOTAL` の第一引数の謎数値が計算の種類を指す。
+   * 列の下に出力セルを設けると、当然だが自動フィルター適用時にそれが隠れる。
+     `SUBTOTAL` の動作を試すときにはどう絞り込んでも隠れないセルに書け。
 
 The Subtotals tool
 ----------------------------------------------------------------------
 
-コマンドのほうはラベル付きの列に配置された高々三つの配列の小計を実行可能だ。さら
-に、自動フィルターを適用し、手作業で絞り込む必要がないように機能する。
+Calc では `SUBTOTAL` 関数のより包括的な代替手段として Subtotal ツールを供給して
+いる。単一の配列に対してのみ機能する `SUBTOTAL` とは対照的に、ラベル付きの列に配
+置された最大三つの配列の小計を作成できる。また、区分別に小計をグループ化し、自動
+的に並び替えるため、AutoFilter を適用し、区分を手作業で絞り込む必要がない。
 
-対象データ全体を選択（列見出しラベル含む）してからメインメニュー
-:menuselection:`&Data --> Sub&totals...` を実行する。:guilabel:`Subtotals` ダイ
-アログボックスが開く。項目を指定する：
+Using the Subtotals tool
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. |SubtotalsDlg| replace:: :guilabel:`Subtotals` ダイアログボックス
+
+対象データ全体を選択（列見出しラベル含む）してから |MenuBar| から
+:menuselection:`&Data-->Sub&totals...` を実行する。|SubtotalsDlg| が開く。項目を
+指定する：
 
 * :guilabel:`&Group by` には小計グループフィールドを指定する
 * :guilabel:`&Calculate subtotals for` には数値計算の対象フィールドを指定する
 * 必要なら :guilabel:`2nd Group`, :guilabel:`3rd Group` タブの内容も指定する
 
-----
+シートに小計値を入れる手順：
 
-実行直後、ワークシート行番号列の左にアウトラインが現れる。このアウトラインは小計
-の階層構造を表す。
+.. |1stGroupTab| replace:: :guilabel:`1st Group` タブ
 
-* アウトラインの上部にある番号
-* またはプラス :guilabel:`+` とマイナス :guilabel:`-` 記号
+#. 計算したい小計のセル範囲を選択する。列見出しラベルを忘れずに含める。または、
+   データ内のセルを一つクリックして、Calc が自動的に範囲を識別できるようにする。
+#. |MenuBar| から :menuselection:`&Data-->Sub&totals...` を選択して
+   |SubtotalsDlg| を開く。
+#. |1stGroupTab| の :guilabel:`&Group by` ドロップダウンリストで、ラベルにより列
+   を選択する。手順 1. の升目範囲の項目がグループ化され、この列の合致する値で並
+   び替わる。
+#. |1stGroupTab| の :guilabel:`&Calculate subtotals for` ボックスで、小計する値
+   を含む列を選択する。この列の値を後で変更すると小計が自動的に再計算される。
+#. |1stGroupTab| の :guilabel:`Use function` 欄で、手順 4. で選択した列の小計を
+   計算する関数を選択する。
+#. 手順 4. と 5. を繰り返して、|1stGroupTab| で他の列の小計を作成する。
+#. :guilabel:`2nd Group` タブと :guilabel:`3rd Group` タブを使い手順 3. から 6.
+   を繰り返すことでさらに二つの小計区分を作成可能。グループを増やしたくない場合
+   は 各ページの :guilabel:`&Group by` を `- none -` のままにしておく。
+#. |OK| を押す。升目範囲に小計行と総計行が加わる。
+
+Subtotal outline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Subtotals ツールを使用すると行番号列の左にアウトラインが付与される。このアウトラ
+インは小計の階層構造を表し、アウトラインの上部にある番号付き列指示標、プラス記号
+とマイナス記号で示されるグループ指示標を使用して、階層内の異なる階のデータ表示を
+切り替えるのに使用できる。
+
+この機能は小計が多い場合に有用だ。個々の項目などの低水準の詳細を隠すだけでデータ
+の高高水準の概略を作成できる。アウトラインの使用方法については |Calc02| を見ろ。
 
 を使用して、階層内の別階層データ表示を切り替える。アウトラインの表示切り替えには
 次のコマンドがある：
 
-* :menuselection:`&Data --> &Group and Outline --> &Remove Outline`
-* :menuselection:`&Data --> &Group and Outline --> &AutoOutline`
+* :menuselection:`&Data-->&Group and Outline-->&Remove Outline`
+* :menuselection:`&Data-->&Group and Outline-->&AutoOutline`
 
 アウトラインの左側ほど総計の、右側ほど小計の度合いがそれぞれ強まる。
 
-----
+Subtotals tool options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Options` タブに小計オプションがいろいろある。
+|SubtotalsDlg| の |OptionsTab| をクリックして、以下の設定にアクセスする：
 
-----
+.. rubric:: Groups
 
-:guilabel:`Subtotals` ダイアログボックスで、
+小計データの整理方法を定義する。
 
-* 現在のタブで行った変更を元に戻すには :guilabel:`Reset` ボタンを押す。
-* 作成済みの小計を削除するには :guilabel:`Remove` ボタンを押す。
+:guilabel:`&Page break between groups`
+   各小計グループの間に改頁を入れ、データを印刷するときに各グループが別々のペー
+   ジに表示されるようにする。
+:guilabel:`&Case sensitive`
+   大文字と小文字が異なるデータラベルによって登録項目がグループ化されるのを防ぐ。
+   `Sales Value` の例では、このオプションがオンの場合、`Employee` 列の下に
+   `Brigitte` と `brigitte` がある登録項目は合致しない。
+:guilabel:`Pre-&sort area according to groups`
+   小計を計算する前に登録項目をグループ別に並び替える。このオプションをオフにす
+   ると合致する項目がグループにならない。その結果、合致する項目が連続した行に表
+   示されない場合、異なる小計が作成される。たとえば、`Golf` 区分の二つの項目は、
+   その間に `Tennis` 項目がある場合、同じグループ小計として勘定されない。
+
+.. rubric:: Sort
+
+小計データの並び替え方法を定義する。Pre-sort がオフ場合、この区画が無効になる。
+
+:guilabel:`&Ascending` または :guilabel:`D&escending`
+   それぞれ、昇順、降順並び替え。これらの並び替え規則は |MenuBar| の |SortM| で
+   変更できる。|Calc02| を見ろ。
+:guilabel:`I&nclude formats`
+   通貨形式などの書式設定をデータから対応する小計に引き継ぐ。
+:guilabel:`C&ustom sort order`
+   |OptionsDlg| |SortListsPage| にある定義済みのカスタム並べ替えのいずれかに従っ
+   てデータを並べ替える。|Calc02| を見ろ。
+
+Reset and Remove
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|SubtotalsDlg| で、現在のタブで行った変更を元に戻すには |ResetButton| を押す。作
+成済みの小計を削除するには |RemoveButton| を押す。
 
 Using scenarios
 ======================================================================
 
-計算に対する異なる条件の影響を検査する必要があるが、反復する手動データ入力を処理
-したくない場合に有用な機能だ。
+シナリオは、データに関する「もしも」の質問に答えるために使用できる、名前が付いた
+保存された升目範囲だ。同じ計算集合に対して複数のシナリオを作成し、素早く入れ替え
+てそれぞれの結果を見ることができる。計算に対する異なる条件の影響を試験する必要が
+あるが、繰り返しの手動データ入力を処理したくない場合に便利な機能だ。例えば、投資
+に対して異なる金利を試行したい場合、各金利のシナリオを作成し、それらを切り替え
+て、どの金利が最も効果的かを調べるという具合だ。
 
 Creating scenarios
 ----------------------------------------------------------------------
 
-対象セル（最低二つ）を選択してメインメニュー :menuselection:`&Tools -->
-Sc&enario...` を実行すると :guilabel:`Create Scenario` ダイアログボックスが開
-く。
+新しいシナリオを作成するには
 
-* シナリオは通常複数作成するので、名前はまともに付けろ。
-* どの計算がシナリオに依存しているかを追跡するには、シナリオセル上でメインメ
-  ニュー :menuselection:`&Tools --> &Detective --> &Trace Depenendents` を実行す
-  ると良い。
-* 対象セルはどこにあってもかまわない。散在していてもいい。
+#. シナリオ間で変化する値を含む升目を選択する。少なくとも二つ選択する必要がある。
+#. |MenuBar| から :menuselection:`&Tools-->Sc&enario...` を選択する。
+   :guilabel:`Create Scenario` ダイアログボックスが開く。
+#. 新しいシナリオの名前を :guilabel:`Name of Scenario` 欄に入力する。
+
+   .. tip::
+
+      作成するシナリオには明確に識別できる一意の名前をつけろ。Calc が提案する既
+      定の名前は勧められない。
+
+#. オプションとして、:guilabel:`Co&mment` 欄に情報を追加する。
+#. |OK| を押してダイアログを閉じる。新規シナリオは作成と同時に自動的に活動中にな
+   る。
+#. 以上の手順を繰り返して追加のシナリオを作成する。同じ計算のシナリオを複数作成
+   するには、最初のシナリオに使用したのと同じ升目範囲を選択する。
+
+.. tip::
+
+   どの計算がシナリオに依存しているかを追跡するには、シナリオ升目を強調表示した
+   後、|MenuBar| から :menuselection:`&Tools-->&Detective-->&Trace Depenendents`
+   を実行する。矢印は、シナリオ升目から依存する数式升目を指す。|Calc08| を見ろ。
 
 Scenario settings
 ----------------------------------------------------------------------
 
-:guilabel:`Create Scenario` ダイアログボックスのオプション項目はそれほど使わな
-い？
+:guilabel:`Create Scenario` ダイアログボックスの :guilabel:`Settings` 区間にある
+オプション：
 
-:guilabel:`&Display border` をオフにするとワークシート内で紛れる。オンにするべき
-だろう。
+:guilabel:`&Display border`
+   シナリオを含む升目範囲の周囲に色付き境界を配置する。
+
+   境界の色を選択するには、このオプションの右にあるドロップダウンリストを使用す
+   る。境界には活動中のシナリオ名を表示する表題棒と現在の升目範囲に定義されてい
+   るシナリオ全てのドロップダウンリストを開く▼がある。この一覧からシナリオを選択
+   することで、別のものに切り替えることができる。
+:guilabel:`Copy &back`
+   シナリオのセル値に加えられた変更を活動中のシナリオに戻す。このオプションをオ
+   フにすると、シナリオの初期値は上書き不可となる。当設定の実際の動作は、現在の
+   升目とシートの保護と、:guilabel:`&Prevent changes` オプションに依存する。
+
+   .. caution::
+
+      :guilabel:`Copy &back` をオンにしたシナリオの升目から新しいシナリオを作成
+      する場合、古いシナリオを上書きしないように気をつけろ。このような状況を避け
+      るためには、:guilabel:`Copy &back` をオンにした新しいシナリオを最初に作成
+      し、活動中になってから値を変更しろ。
+
+:guilabel:`Copy &entire sheet`
+   新しい活動中シナリオでシートのコピーを作成する。シートにはこのシナリオの名前
+   が付けられる。コピーシートでシナリオの値を変更しても、:guilabel:`Copy &back`
+   が有効になっていても、活動中シナリオには影響しない。
+:guilabel:`&Prevent changes`
+   シートは保護されているが升目は保護されていない場合に、:guilabel:`Copy &back`
+   を有効にしたシナリオへの変更を防ぐ。また、シートが保護されている間、シナリオ
+   の設定の変更を防ぐ。次の節を見ろ。
+
+.. admonition:: 読者ノート
+
+   :guilabel:`&Display border` をオフにするとシート内で紛れる。オンにするべきだ
+   ろう。
 
 Changing scenarios
 ----------------------------------------------------------------------
 
-シナリオ関連の記述では、ワークシートとセルの保護という言葉が何度も述べられている
-ことに注意。次の四項目のオンオフ状態の組み合わせで、変更が許可されるかどうかが決
-まる：
+シナリオには、独立して変更できる側面が二つある：
 
-* ワークシートに対する保護
-* シナリオセルに対する保護
-* :guilabel:`Copy &back`
-* :guilabel:`&Prevent changes`
+* シナリオの設定
+* シナリオ升目の値
 
-いちばんわかりやすいのはワークシート保護がオフの場合だ。シナリオセルの値は変更可
-能で、シナリオは :guilabel:`Copy &back` の設定次第で更新可能性が決まる。残りの組
-み合わせはガイド本文を参照するしかない。
+これらの側面をどの程度変更できるかは、活動中シナリオの性質と、現在のシートと升目
+の保護に依存する。シートとセルの保護については |Calc02| を見ろ。
+
+Changing scenario properties
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+シートの保護と :guilabel:`&Prevent changes` オプションがシナリオ性質を変更する能
+力にどのように影響するかをまとめると：
+
+.. list-table:: シナリオ性質変更
+   :align: left
+   :header-rows: 1
+   :stub-columns: 0
+   :widths: auto
+
+   * - シート保護
+     - 変化防止
+     - 性質変化
+   * - On
+     - On
+     - シナリオ性質は変更できない。
+   * - On
+     - Off
+     - 境界表示と戻しコピーは変更可能。変更禁止もシート全体コピーも変更不可。
+   * - Off
+     - どれでも
+     - シート全体コピー以外のシナリオ引数はすべて変更可。この場合、変更防止オプ
+       ションは効果なし。
+
+Changing scenario cell values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+シナリオ升目の値を変更する際の様々な設定の相互作用をまとめると：
+
+.. list-table:: シナリオ升目値変更
+   :align: left
+   :header-rows: 0
+   :stub-columns: 0
+   :widths: auto
+
+   * - Sheet protection
+     - Scenario cell protection
+     - Prevent changes
+     - Copy back
+     - 変更可
+   * - On
+     - Off
+     - On
+     - On
+     - シナリオ升目の値は変更不可。
+   * - On
+     - Off
+     - Off
+     - On
+     - シナリオ升目の値は変更可。シナリオ更新可。
+   * - On
+     - Off
+     - どれでも
+     - Off
+     - シナリオ升目の値は変更可だが、コピー戻しの設定によりシナリオは更新されな
+       い。
+   * - On
+     - On
+     - どれでも
+     - どれでも
+     - シナリオ升目の値は変更不可。
+   * - Off
+     - どれでも
+     - どれでも
+     - どれでも
+     - シナリオ升目の値は変更可で、シナリオはコピー戻しの設定によって更新された
+       りされなかったりする。
 
 Working with scenarios using the Navigator
 ----------------------------------------------------------------------
 
-ワークシートにシナリオを追加した後、特定のシナリオを表示するには、まず
-:guilabel:`Navigator` ダイアログボックスを次のいずれかの方法で開く：
+スプレッドシートにシナリオを追加した後、Navigator を使って特定のシナリオを見るこ
+とができる。
 
-* :menuselection:`&View --> Na&vigator`
-* :kbd:`F5`
+ワークシートにシナリオを追加した後、特定のシナリオを表示するには、まず Navigator
+を開く。[#calc10-footer-1]_ それから :guilabel:`Scenarios` 図像をクリックしろ。
+定義されたシナリオは、各シナリオの作成時に入力されたコメントと共に一覧表示される。
+|Sidebar| |NavigatorDeck| でも同等の機能を使用することができる。
 
-それから :guilabel:`Scenarios` 図像をクリックしろ。
+現在のワークシートにシナリオを適用するには、Navigator で当該シナリオ名をダブルク
+リックしろ。
 
-現在のワークシートにシナリオを適用するには、当該シナリオ名をダブルクリックしろ。
-動作が遅いのが気になる。
+.. admonition:: 読者ノート
+
+   動作が遅いのが気になる。
 
 シナリオを削除する方法は次のいずれか：
 
 * シナリオ名の右クリックメニューから :menuselection:`&Delete` を実行する。
-* シナリオ名を選択し :kbd:`Del` を押す。
+* シナリオ名を選択し |Del| を押す。
 
 シナリオを編集するには、シナリオ名の右クリックメニューから
 :menuselection:`&Properties...` を実行する。シナリオ作成時のものとよく似た
@@ -182,32 +460,50 @@ Working with scenarios using the Navigator
 Using the Multiple Operations tool
 ======================================================================
 
-データを単一ワークシートにまとめ、数式、変数、表の範囲をラベルで識別するようにす
-ると、このコマンドは使いやすいとある。
+シナリオと同様に、Multiple Operations ツールは計算の「もしも」分析を実行する。複
+数の計算式変数の値の集合を表すシナリオとは異なり、このツールは、一つまたは二つの
+変数の値の全範囲を使用する。そして、数式を使用して一致する解の範囲を作成する。各
+解は一つか二つの変数値に対応するので、変数と解の範囲の両方を表形式で簡単に配列す
+ることができる。Multiple Operations ツールは読みやすく、共有しやすい、またはグラ
+フを使用して視覚化しやすいデータを生成するのに適している。
+
+.. tip::
+
+   データを単一ワークシートにまとめ、数式、変数、表の範囲をラベルで識別するよう
+   にすると、このコマンドは使いやすい。
 
 Multiple Operations with one formula and one variable
 ----------------------------------------------------------------------
 
-一数式一変数の場合が基本だ。:menuselection:`&Data --> &Multiple Operations...`
-コマンドを実行する準備手順はこうだ：
+Muitiple Operations ツールの使い方を学ぶ最も簡単な方法は一数式一変数の場合だ。
+複数の数式または二つの変数を使ったツールの使い方については、それぞれ後述の
 
-#. ワークシートのセルに、数式と、それが用いる変数を一つ以上入力する。
-#. 同じワークシートで、列または行を占めるセル範囲（変数範囲）に値を入力する。
-#. 今定義した変数範囲と、それに続く隣接した空セルの両方を含む範囲を選択する。変
-   数範囲がどのように配列されているかによって、これらの空セルは、右の列（範囲
-   が列の場合）か、すぐ下の行（行の場合）のいずれかになる。
+* :ref:`calc10-anchor-several`
+* :ref:`calc10-anchor-two`
+
+を見ろ。
+
+:menuselection:`&Data-->&Multiple Operations...` コマンドを実行する準備手順はこ
+うだ：
+
+#. シートの升目に、数式と、それが用いる変数を一つ以上入力する。
+#. 同じシートで、列または行を占める升目範囲（変数範囲）に値を入力する。
+#. 今定義した変数範囲と、それに続く隣接した空升目の両方を含む範囲を選択する。変
+   数範囲がどのように配列されているかによって、これらの空升目は右の列（範囲が列
+   の場合）か、すぐ下の行（行の場合）のいずれかになる。
 
 これで :guilabel:`Multiple Operations` ダイアログボックスが開く。
 
-* :guilabel:`Formulas` には上述の最初手順で定義した（数式への）セル参照を指定す
+* :guilabel:`Formulas` には上述の最初手順で定義した（数式への）升目参照を指定す
   る。
 * 上述の変数範囲が列型ならば :guilabel:`&Column input cell` に、行型ならば
-  :guilabel:`&Row input cell` に使用したい変数へのセルを指定する。
+  :guilabel:`&Row input cell` に使用したい変数への升目を指定する。
 
-:guilabel:`&OK` をクリックして実行する。指定の空セルに結果が得られる。各結果値
-は、それに隣接する変数値に対応し、一緒になって結果表を形成する。
+|OK| をクリックして実行する。指定の空セルに結果が得られる。各結果値はそれに隣接
+する変数値に対応し、一緒になって結果表を形成する。
 
-----
+An example with one formula and one variable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ガイド本文の例の状況：
 
@@ -219,77 +515,111 @@ Multiple Operations with one formula and one variable
 だとしている。問題は、収支を均衡させるために何個の玩具を販売する必要があるか、
 だ。この問題を解く手順はこうなる：
 
-#. セル B5 に数式 ``=B4*(B1-B2)-B3`` を入力する。単純な一次式だ。
+#. 升目 B5 に数式 ``=B4*(B1-B2)-B3`` を入力する。単純な一次式だ。
 #. 例えばセル D2:D11 に 500 から 5000 までの値を 500 刻みで入力しておく。
-#. セル D2:E11 を選択して :menuselection:`&Data --> &Multiple Operations...` を
-   実行する
+#. 升目 D2:E11 を選択して :menuselection:`&Data-->&Multiple Operations...` を実
+   行する
 
 ダイアログボックスの指定はこのようにする：
 
-* :guilabel:`&Formulas` にはセル B5 を指定
-* :guilabel:`&Column input cell` にはセル B4 を指定
+* :guilabel:`&Formulas` には升目 B5 を指定
+* :guilabel:`&Column input cell` には升目 B4 を指定
 
-:guilabel:`&OK` をクリックすると空セルが埋まり、損益分岐が目視確認可能になる。
+|OK| を押すと空升目が埋まり、損益分岐が目視確認可能になる。
+
+.. _calc10-anchor-several:
 
 Calculating with several formulas simultaneously
 ----------------------------------------------------------------------
 
-数式を複数にすることも可能だ。
+複数の数式で Multiple Operations ツールを使用する場合は一数式を使用する場合とほ
+ぼ同じ手続きになるが、重要な違いが二つある：
 
 * 数式の個数ぶんだけ対応する列・行を出力表に用意する必要がある。
 * たとえば、数式 A, B, C をこの順序で一行に並べた場合、出力は表の一列目、二列
   目、三列目に A, B, C の順で格納される。
 
-----
+.. note::
+
+   Multiple Operations ツールは、結果表の向きによって、一行または一列に並んだ数
+   式しか受け付けない。表が列指向の場合、つまり、売上データの例では、数式は行に
+   配置する必要がある。表が行指向の場合は数式を列に配置する必要がある。
+
+.. caution::
+
+   数式と数式の間に空升目を追加すると、結果表に隙間ができ、表の行や列を十分に
+   選択しないと結果が表示されないことがあるので気をつけろ。
+
+An example with two formulas and one variable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 本文では、直前の販売データの例に年間全体の利益に加え、販売した商品ごとの年間利益
 を計算する問題を解いている。
 
-* セル C5 に ``=B5/B4`` を入力
-* セル D2:F11 を選択して :menuselection:`&Data --> &Multiple Operations...` を実
+* 升目 C5 に ``=B5/B4`` を入力
+* 升目 D2:F11 を選択して :menuselection:`&Data-->&Multiple Operations...` を実
   行する
 
 ダイアログボックスの指定はこのようにする：
 
-* :guilabel:`&Formulas` にはセル B5:C5 を指定
-* :guilabel:`&Column input cell` にはセル B4 を指定（変わらず）
+* :guilabel:`&Formulas` には升目 B5:C5 を指定
+* :guilabel:`&Column input cell` には升目 B4 を指定（変わらず）
 
 .. admonition:: 利用者ノート
 
    :guilabel:`&Column input cell` の指定を間違いやすい。
 
+.. _calc10-anchor-two:
+
 Multiple operations with two variables
 ----------------------------------------------------------------------
 
 二変数で Multiple Operations を使用すると、二次元の結果表が得られる。変数それぞ
-れが表の次元の一つを定義し、両方の変数の交代値がそれぞれ表の行見出しと列見出しに
-なる。表の各セルは、行見出し値と列見出し値の個別の対に対応する。
+れが表の次元の一つを定義し、両方の変数の代替値がそれぞれ表の行見出しと列見出しに
+なる。表の各セルは、行見出し値と列見出し値の個別の対に対応する。変数を二つ使うの
+で、それらを定義するために :guilabel:`&Column input cell` と :guilabel:`&Row
+input cell` 両方を使うことになる。
 
-順序が重要であって、:guilabel:`&Column input cell` 欄は行見出しの値に対応
-し、:guilabel:`&Row input cell` 欄は列見出しの値に対応する。
+.. tip::
 
-二変数を使用する場合、Multiple Operations は複数の数式では機能しない。
+   列見出しが表の一番上の行にあるので、:guilabel:`&Column input cell` 欄は行見出
+   しの値に対応する。同様に、行見出しが列にあるので :guilabel:`&Row input cell`
+   欄は列見出しの値に対応する。
 
-----
+.. note::
+
+   二変数を使用する場合、Multiple Operations は複数の数式では機能しない。余分な
+   数式を入力することは許されるが、最初の数式以上の数式に対して期待される結果は
+   生じない。
+
+Calculating with two variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 最後の例では販売数と販売単価を変数にする。手順の変更点をまとめる：
 
-* セル E1:H1 に直に値 8, 10, 15, 20 を入力する
-* セル D1:H11 を選択してコマンドを起動
+* 升目範囲 E1:H1 に直に値 8, 10, 15, 20 を入力する
+* 升目範囲 D1:H11 を選択してコマンドを起動
 
 ダイアログボックスの指定が増える：
 
 * :guilabel:`&Row input cell` に B1 を指定する。これにより、8, 10, 15, 20 が B1
   で定義された単価変数と連動する。
 * :guilabel:`&Column input cell` には従来どおり B4 を指定する。これは 500, ...,
-  5000 のセルが販売量変数 B4 に連動することを意味する。
+  5000 の升目が販売量変数 B4 に連動することを意味する。
 
 Using Goal Seek
 ======================================================================
 
-Goal Seek は、出力を与えて逆算して、どのような入力ならばその結果を生み出すかを発
-見する手法の一つだ。欲しい結果はすでに知っているが、それに到達する方法や、条件を
-変更した場合にどのように変化するかなどを見出すのに有用な機能だ。
+Goal Seek は出力を与えて逆算して、どのような入力ならばその結果を生み出すかを発見
+する「もしも」手法の一つだ。欲しい結果はすでに知っているが、それに到達する方法
+や、条件を変更した場合にどのように変化するかなどを見出すのに有用な機能だ。複数の
+引数を試行する必要がある場合は、それぞれについて別の Goal Seek を実行する必要が
+ある。
+
+.. note::
+
+   一度の Goal Seek で変更できる引数は一つしかない。複数の引数を試行する場合は、
+   それぞれの引数に対して個別に Goal Seek を実行する必要がある。
 
 Goal Seek example
 ----------------------------------------------------------------------
@@ -304,34 +634,54 @@ Goal Seek example
 知りたい。そこでまずは初期資本を 100,000 ドル (B1) と見積もるという話だ。ワーク
 シート上での手順例：
 
-1. セル B1, B2, B3 に上述の定数を入力する
-2. セル B4 に数式 ``=B1*B2*B3`` を入力する
-3. メインメニューから :menuselection:`&Tools --> &Goal Seek...` を実行する
+1. 升目 B1, B2, B3 に上述の定数を入力する
+2. 升目 B4 に数式 ``=B1*B2*B3`` を入力する
+3. |MenuBar| から :menuselection:`&Tools-->&Goal Seek...` を実行する
 
 :guilabel:`Goal Seek` ダイアログボックス上での指定例：
 
-* :guilabel:`&Formula cell` に年間益であるセル B4 を指定する
-* :guilabel:`&Variable cell` に初期資本であるセル B1 を指定する
+* :guilabel:`&Formula cell` に年間益である升目 B4 を指定する
+* :guilabel:`&Variable cell` に初期資本である升目 B1 を指定する
 * :guilabel:`&Target value` に希望額である 15000 を入力する
 
-:guilabel:`&OK` を押すとメッセージボックスが開き、解が得られる。ここで
-:guilabel:`&Yes` で終わると、変数セル B1 が解で上書きされる。
+|OK| を押すとメッセージボックスが開き、解が得られる。ここで |Yes| で終わると、変
+数升目 B1 が解で上書きされる。
 
-Goal Seek アルゴリズムは、内部的に数回反復して目標に収束する。 計算が失敗した場
-合、失敗を報告するメッセージボックスが開く（最も近い値を変数セルに挿入するかどう
-かを選択可能）。
+
+.. note::
+
+   Goal Seek アルゴリズムは、内部的に数回反復して目標に収束する。計算が失敗した
+   場合、失敗を報告するメッセージボックスが開く（最も近い値を変数升目に入れるか
+   どうかを選択可能）。
 
 Using the Solver
 ======================================================================
 
-数理計画問題や最適化問題を解くことができる。与えた制約条件の下で関数を最小化した
-り最大化したりする問題だ。
+Solver は Goal Seek をより精巧にしたもので、数理計画問題や最適化問題を解くことが
+できる。数理計画問題は、制約条件の下で関数を最小化・最大化する問題だ。
 
-Calc には現在、数種類の solver が備わっている。
+Calc には現在、数種類のエンジンが備わっている：
+
+* :abbr:`DEPS (Differential Evolution & Particle Swarm Optimization)`
+  Evolutionary Algorithm
+* :abbr:`SCO (Social Cognitive Optimization)` Evolutionary Algorithm
+* LibreOffice CoinMP Linear Solver
+* LibreOffice Linear Solver
+* LibreOffice Swarm Non-Linear Solver (experimental)
+
+.. caution::
+
+   Swarm Non-Linear Solver は実験的であり、Calc の将来の版では消える可能性があ
+   る。
+
+DEPS および SCO Evolutionary Algorithms は非線形問題を解くためのもので、計算機に
+Java ランタイム環境がインストールされており、|OptionsDlg|
+|LibreOfficeAdvancedPage| で :guilabel:`Use a Java runtime environment` がオンで
+ある場合に限り使用可能だ。DEPS Evolutionary Algorithm が利用可能である場合、
+LibreOffice CoinMP Linear Solver が既定となる。
 
 問題を解くのに solver を用いるのであれば、問題を次のように定式化しないといけな
-い。通常、目的は制約条件を満たし、目的関数の結果を最大化または最小化する決定変数
-の値を見つけることだ。
+い：
 
 決定変数
    :math:`n` 個の非負変数 :math:`{x_1, ..., x_n}` の集合
@@ -340,21 +690,53 @@ Calc には現在、数種類の solver が備わっている。
 目的関数
    決定変数を含む一次式
 
-Solver 設定は ODS ファイルに保存されて、各タブは独自のモデルを持つことが可能だ。
+通常、目的は制約条件を満たし、目的関数の結果を最大化または最小化する決定変数の値
+を見つけることだ。
+
+.. note::
+
+   Solver 設定は ODS ファイルに保存されて、各タブは独自のモデルを持つことが可能
+   だ。
 
 Solver dialog
 ----------------------------------------------------------------------
 
-:menuselection:`&Tools --> Sol&ver...` 実行でダイアログボックスを開く。JRE が無
-効の場合にはメッセージボックスが現れる。とりあえず :guilabel:`&No` で進んで様子
-見とする。
+:menuselection:`&Tools-->Sol&ver...` 実行で :guilabel:`Solver` ダイアログボック
+スが開く。
 
-:guilabel:`Solver` ダイアログボックスが開く。
+.. note::
 
-* Solver 設定が完了したら :guilabel:`&Solve` を押して値の調整と結果の計算を開始
-  する。
-* やり直す場合には :guilabel:`&Reset All` を押してダイアログボックス上をクリアす
-  る。
+   計算機の構成によっては、Calc を起動してから初めてこれを実施するとメッセージが
+   表示される場合がある。メッセージ内容は、システム上の Java 実行環境 (JRE) の存
+   在によって変わる。JRE が検出されない場合、メッセージは単にその旨の警告だ。
+   JRE が検出されたが、|OptionsDlg| |LibreOfficeAdvancedPage| で :guilabel:`Use
+   a Java runtime environment` がオフである場合は、それをオンにするためのボタン
+   が表示される。
+
+:guilabel:`&Target cell`
+   目的関数への升目参照を打ち込むかマウスで選択する。
+:guilabel:`Optimize result to`
+   目的関数の最大結果を求めるには :guilabel:`&Maximum` を、最小結果を求めるには
+   :guilabel:`Minim&um` を、特定の値に設定するには :guilabel:`&Value of` を選択
+   する。:guilabel:`Value of` を選択する場合は必要な値またはその値を含む升目への
+   参照を入力する。
+:guilabel:`&By changing cells`
+   決定変数を定義する升目の位置を入力する。
+:guilabel:`&Limiting Conditions`
+   この区画に制約を入力する。
+
+   :guilabel:`&Cell reference`
+      決定変数への升目参照を入力する。
+   :guilabel:`&Operator`
+      制約に対する引数を定義する。
+   :guilabel:`V&alue`
+      制約式に値または升目参照を入力する。
+   :guilabel:`Remove button`
+      現在定義されている制約を取り除く。
+
+Solver 設定が完了したら :guilabel:`&Solve` を押して値の調整と結果の計算を開始す
+る。やり直す場合には :guilabel:`&Reset All` を押してダイアログボックス上をクリア
+する。
 
 DEPS Evolutionary Algorithm または SCO Evolutionary Algorithm を使用している場
 合、エンジンの実行は定期的に中断して :guilabel:`Solver Status` ダイアログボックス
@@ -363,7 +745,7 @@ DEPS Evolutionary Algorithm または SCO Evolutionary Algorithm を使用して
 * このダイアログはエンジンの計算の現在の状態に関する診断情報を示すもので、専門家
   にとって興味がある。
 
-  * :guilabel:`&OK` を押せばこのダイアログを閉じて計算を終了する。
+  * |OK| を押せばこのダイアログを閉じて計算を終了する。
   * :guilabel:`&Continue` 押せば次のエンジン処理が中断するところまで待機する。
 * ダイアログボックスの表示は :guilabel:`Solver Options` ダイアログボックスの
   :guilabel:`Show enhanced solver status` をオフにすると生じない。
@@ -376,9 +758,20 @@ DEPS Evolutionary Algorithm または SCO Evolutionary Algorithm を使用して
 Solver options
 ----------------------------------------------------------------------
 
-:guilabel:`Solver dialog` 下部の :guilabel:`O&ptions...` ボタンを押すと
-:guilabel:`Options` ダイアログボックスが開き、エンジンそれぞれに関する設定を行え
-る。
+:guilabel:`Solver` 下部の :guilabel:`O&ptions...` ボタンを押すと |OptionsDlg| が
+開き、エンジンそれぞれに関する設定を行える。
+
+:guilabel:`&Solver engine`
+   標準の LibreOffice をダウンロードし、Java 実行環境を有効にすると、ドロップダ
+   ウンリストに選択肢が表示される。
+
+   * `DEPS Evolutionary Algorithm`
+   * `SCO Evolutionary Algorithm`
+   * `LibreOffice CoinMP Linear Solver`
+   * `LibreOffice Linear Solver`
+   * `LibreOffice Swarm Non-Linear Solver (experimental)`
+:guilabel:`Se&ttings`
+   選択エンジンの詳細な処理引数を調整する。選択肢はエンジンによって異なる。
 
 Solver example
 ----------------------------------------------------------------------
@@ -388,10 +781,10 @@ Solver example
 * ファンド X は金利 8% の低リスクファンドで、
 * ファンド Y は金利 12% の高リスクファンドだ。
 
-合計 1,000 ドルの利息を得るためには、それぞれのファンドにいくら投資すればよい
-か。この問題を solver を用いて解く。
+合計 1,000 ドルの利息を得るためには、それぞれのファンドにいくら投資すればよいか。
+この問題を solver を用いて解く。
 
-ワークシートを本文のように埋めて :menuselection:`&Tools --> Sol&ver...` を実行。
+ワークシートを本文のように埋めて :menuselection:`&Tools-->Sol&ver...` を実行。
 ダイアログを開く。
 
 * :guilabel:`&Target cell` には利子総額である B4 を指定
@@ -407,14 +800,14 @@ Solver example
 Using Statistics tools
 ======================================================================
 
-メインメニュー :menuselection:`&Data --> Statistics -->` に統計分析コマンド各種
-が並んでいる。今見たら 13 コマンドもある。
+|MenuBar| :menuselection:`&Data-->Statistics-->` に統計分析コマンド各種が並んで
+いる。今見たら 13 コマンドもある。
 
 Sampling tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Sampling...` コマンドは表から標本抽出
-して別の表を作成する。
+:menuselection:`&Data-->Statistics-->&Sampling...` コマンドは表から標本抽出して
+別の表を作成する。
 
 * 抽出はランダムに、または周期的になされる。
 * 抽出は行単位で行われる。
@@ -426,9 +819,9 @@ Sampling tool
 Descriptive Statistics tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Descriptive Statistics...` コマンドは
-指定データ集合の主な統計的特性（平均、標準偏差、等々）の報告表を作成する。確率統
-計の教科書で出てくる概念と同じだろう。
+:menuselection:`&Data-->Statistics-->&Descriptive Statistics...` コマンドは指定
+データ集合の主な統計的特性（平均、標準偏差、等々）の報告表を作成する。確率統計の
+教科書で出てくる概念と同じだろう。
 
 .. admonition:: 利用者ノート
 
@@ -443,8 +836,8 @@ Descriptive Statistics tool
 Analysis of Variance (ANOVA) tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Analysis of Variance (ANOVA)` コマンド
-は標本中の複数グループの平均を比較する。
+:menuselection:`&Data-->Statistics-->&Analysis of Variance (ANOVA)` コマンドは標
+本中の複数グループの平均を比較する。
 
 実行するとダイアログボックスが開いて、:guilabel:`&OK` を押すと分析するという流れ
 だ。
@@ -460,8 +853,8 @@ Analysis of Variance (ANOVA) tool
 Correlation tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Correlation...` コマンドは数値データの
-組の相関を計算し、相関係数を求める。
+:menuselection:`&Data-->Statistics-->&Correlation...` コマンドは数値データの組の
+相関を計算し、相関係数を求める。
 
 本書の例では数学、物理、生物の得点間の相関を検証するものということになる。出力を
 見ればどう理解すればいいかわかるだろう。
@@ -473,8 +866,8 @@ Correlation tool
 Covariance tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Covariance...` コマンドは共分散、数値
-データセットが共にどれだけ変化するかを測定する。
+:menuselection:`&Data-->Statistics-->&Covariance...` コマンドは共分散、数値デー
+タセットが共にどれだけ変化するかを測定する。
 
 ダイアログボックスの UI は相関係数コマンドと同じだ。
 
@@ -485,9 +878,9 @@ Covariance tool
 Exponential Smoothing tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics > Exponential Smoothing...` コマンドは、平
-滑化された結果を生成するようにデータ集合をいじる。株式市場分析や標本測定などの分
-野で用いられる機能とのことだ。
+:menuselection:`&Data-->Statistics > Exponential Smoothing...` コマンドは、平滑
+化された結果を生成するようにデータ集合をいじる。株式市場分析や標本測定などの分野
+で用いられる機能とのことだ。
 
 ダイアログボックス上の減衰係数 :guilabel:`&Smoothing factor` はコマンド実行後で
 も対応するセルの値を編集することで結果を更新することが可能だ。
@@ -500,8 +893,8 @@ Exponential Smoothing tool
 Moving Average tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Moving Average...` コマンドは時系列
-データ集合の移動平均を計算する。コマンドを実行するとダイアログボックスが開く。
+:menuselection:`&Data-->Statistics-->&Moving Average...` コマンドは時系列データ
+集合の移動平均を計算する。コマンドを実行するとダイアログボックスが開く。
 
 * :guilabel:`&Trim input range to actual data content` をオンにすると、計算前に
   入力範囲を実際のデータ内容に刈り取ることを許可する。処理性能に影響する。
@@ -513,9 +906,9 @@ Moving Average tool
 Regression tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Regression...` コマンドは独立変数複数
-個と従属変数一個からなるデータセットの線形回帰、対数回帰、累乗回帰のいずれかの分
-析を行う。
+:menuselection:`&Data-->Statistics-->&Regression...` コマンドは独立変数複数個と
+従属変数一個からなるデータセットの線形回帰、対数回帰、累乗回帰のいずれかの分析を
+行う。
 
 ダイアログボックス上では：
 
@@ -535,8 +928,8 @@ Confidence level の値はワークシート上に分析結果が生じてから
 Paired t-test tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> Paired &t-test...` コマンドは t 検定を
-実行する。関連する標本集合二つの母平均を比較し、それらの差を決定する。
+:menuselection:`&Data-->Statistics-->Paired &t-test...` コマンドは t 検定を実行
+する。関連する標本集合二つの母平均を比較し、それらの差を決定する。
 
 ダイアログボックスは統計コマンドでよくある単純なものだ。
 
@@ -550,8 +943,8 @@ Paired t-test tool
 F-test tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &F-test...` コマンドは標本二つの F 検定
-を行う。母集団二つの分散が等しいという仮説を検定する。
+:menuselection:`&Data-->Statistics-->&F-test...` コマンドは標本二つの F 検定を行
+う。母集団二つの分散が等しいという仮説を検定する。
 
 .. seealso::
 
@@ -560,8 +953,8 @@ F-test tool
 Z-test tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Z-test...` コマンドは標本二つの Z 検定
-を行う。帰無仮説を検定する。
+:menuselection:`&Data-->Statistics-->&Z-test...` コマンドは標本二つの Z 検定を行
+う。帰無仮説を検定する。
 
 ダイアログボックスで :menuselection:`&OK` を押すだけでは検定は完了しない。各標本
 の Known Variance 欄を手動で埋める必要がある。本文の例を再現する場合は次を入力し
@@ -584,7 +977,7 @@ Z 検定は標本数 30 を超える大きな標本に対してよりよく働�
 Chi-Square Test tool (Test of Independence)
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> &Chi-square Test...` コマンドは標本の
+:menuselection:`&Data-->Statistics-->&Chi-square Test...` コマンドは標本の
 :math:`\xi^2` 検定を計算し、測定値集合が対応する期待値集合にどの程度適合するかを
 決定する。
 
@@ -599,9 +992,8 @@ Chi-Square Test tool (Test of Independence)
 Fourier Analysis tool
 ----------------------------------------------------------------------
 
-:menuselection:`&Data --> Statistics --> F&ourier Analysis...` コマンドは複素数
-の入力配列の離散 Fourier 変換を計算することにより、データ集合の Fourier 解析を行
-う。
+:menuselection:`&Data-->Statistics-->F&ourier Analysis...` コマンドは複素数の入
+力配列の離散 Fourier 変換を計算することにより、データ集合の Fourier 解析を行う。
 
 ダイアログボックス上では：
 
@@ -625,3 +1017,9 @@ Fourier Analysis tool
 
    `Fourier analysis - Wikipedia
    <https://en.wikipedia.org/wiki/Fourier_analysis>`__
+
+----
+
+.. rubric:: 章末注
+
+.. [#calc10-footer-1] Navigator については |Calc01| を見ろ。

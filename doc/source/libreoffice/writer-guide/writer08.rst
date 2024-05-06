@@ -316,7 +316,7 @@ Applying frame styles
 * ハイパーリンクの追加：枠をクリックすると Web ページなどの他の文書が開くように
   する
 
-  * :menuselection:`&Insert-->&Hyperlink`
+  * |InsertHyperlinkM|
 
 枠が選択されると |FormattingToolbar| の代わりに |FrameToolbar| が表示され、コン
 テキストメニューにはアンカー、配置、折り返し、整列に関するコマンドが含まれる。

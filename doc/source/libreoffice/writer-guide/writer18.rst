@@ -84,9 +84,6 @@ Create a document
 Open the form toolbars
 ----------------------------------------------------------------------
 
-.. |FormControlsToolbar| replace:: :guilabel:`Form Controls` ツールバー
-.. |FormDesignToolbar| replace:: :guilabel:`Form Design` ツールバー
-
 二つのツールバーがフォームの作成を操作する：
 
 * |FormControlsToolbar|
@@ -602,7 +599,6 @@ Creating a form for data entry
 ここまでは最初のフォームを作成したときと同じ手順をたどっている。登録済みデータ給
 源とフォームを連動させるには、次のようにする：
 
-.. |ControlPropertiesItem| replace:: :menuselection:`Con&trol Properties...`
 .. |FormPropertiesDlg| replace:: :guilabel:`Form Properties` ダイアログボックス
 
 #. |FormDesignToolbar| の :guilabel:`Form Properties` 図像をクリックするか、はめ
@@ -616,8 +612,8 @@ Creating a form for data entry
 
    ダイアログボックスを閉じる。
 #. 各フォームコントロールを順番にクリックして選択し、|PropertiesDlg| を起動す
-   る。右クリックして |ControlPropertiesItem| を選択するか、|FormDesignToolbar|
-   の :guilabel:`Control Properties` 図像をクリックする。
+   る。右クリックして |ControlPropertiesC| を選択するか、|FormDesignToolbar| の
+   :guilabel:`Control Properties` 図像をクリックする。
 #. |PropertiesDlg| で |DataTab| をクリックする。フォームを正しく構成していれば、
    :guilabel:`&Data field` オプションにデータ給源の異なるフィールド（例えば、名
    前、住所、電話番号）の一覧が表示される。必要なフィールドを選択する。
@@ -636,8 +632,6 @@ Entering data into a form
 
 フォームを作成し、データベースと結びつけたら、そのフォームを使ってデータベースに
 データを入力したり、すでにあるデータを修正したりする：
-
-.. |FormNavigationToolbar| replace:: :guilabel:`Form Navigation` ツールバー
 
 #. フォームが設計モードでないことを確認する。
 #. |FormNavigationToolbar| がオンになっていることを確認する。このツールバーは通
@@ -721,8 +715,8 @@ Form control formatting options
 
 フォームコントロールの見てくれや動作はさまざまな方法でカスタマイズできる。これら
 はすべて設計モードで行う。フォームコントロールを右クリックし、コンテキストメ
-ニューから |ControlPropertiesItem| を選択し、|PropertiesDlg| |GeneralTab| を選択
-する。
+ニューから |ControlPropertiesC| を選択し、|PropertiesDlg| |GeneralTab| を選択す
+る。
 
 * :guilabel:`&Label` 欄にコントロールのラベルを設定する。プッシュボタンやオプ
   ションボタンなどのいくつかのフォームコントロールには設定可能な可視ラベルがあ

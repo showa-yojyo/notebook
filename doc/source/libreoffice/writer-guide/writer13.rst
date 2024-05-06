@@ -871,7 +871,7 @@ Sorting data in a table
 #. 並び替える表組（またはその一部）を選択する。
 #. |MenuBar| の :menuselection:`T&able-->So&rt...` を選択するか、|TableToolbar|
    の :guilabel:`Sort` 図像をクリックする。
-#. :guilabel:`Sort` ダイアログボックスが表示される。
+#. |SortDlg| が表示される。
 
    * 行と列のどちらの方向に並び替えるかを決める。既定の並び替え方向は行で、その
      結果、列のデータが並び替わる。

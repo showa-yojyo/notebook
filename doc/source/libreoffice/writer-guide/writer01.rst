@@ -306,7 +306,7 @@ Accessibility 検査状態
 
    * 上書きモードでは、キャレット位置以降のテキストが入力したテキストに置き換え
      られる。
-   * :menuselection:`&Edit-->Track Chan&ges-->&Record` が活動中では使えない。
+   * |EditTrackRecordM| が活動中では使えない。
 選択モード
    クリックすると選択モード一覧
 
@@ -403,9 +403,9 @@ Web ビュー
 
 .. tip::
 
-   |MenuBar| から :menuselection:`&Files-->Print Pr&eview...` を使うか、キーバイ
-   ンド |Ctrl+Shift| + :kbd:`O` で文書を表示することもできるが、こ
-   のビューで編集はできない。|Writer07| を参照しろ。
+   |MenuBar| から |FilePrintPreviewM| を選択するか、キーバインド |Ctrl+Shift| +
+   :kbd:`O` で文書を表示することもできるが、このビューで編集はできない。
+   |Writer07| を参照しろ。
 
 Starting a new document
 ======================================================================

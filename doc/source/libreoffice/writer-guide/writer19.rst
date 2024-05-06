@@ -58,9 +58,6 @@ Introduction: OLE and DDE objects
 Inserting a new OLE object
 ----------------------------------------------------------------------
 
-.. |InsertOLEM| replace:: :menuselection:`&Insert-->&OLE Object-->&OLE Object...`
-.. |InsertOLEDlg| replace:: :guilabel:`Insert OLE Object` ダイアログボックス
-
 新しい |OLE| 物を文書にはめ込むと、それは埋め込みになる。つまり、その物はその文
 書でしか使用可能ではなく、Writer を使用してしか編集不能だ。
 
@@ -130,9 +127,8 @@ Calc から Writer への |DDE| リンクを作成する手順：
 
 #. Writer 文書と Calc スプレッドシートの両方を開く。
 #. Calc で |DDE| リンクを作成する升目を選択する。それらをコピーする。
-#. Writer 文書で |DDE| リンクを作成する場所に移動する。
-   :menuselection:`&Edit-->Paste &Special-->Paste &Special...` を選択。Writer に
-   :guilabel:`Paste Special` ダイアログボックスが開く。
+#. Writer 文書で |DDE| リンクを作成する場所に移動する。|PasteSpecialM| を選択。
+   Writer に|PasteSpecialDlg| が開く。
 #. :guilabel:`&Selection` 一覧から :guilabel:`Dynamic Data Exchange (DDE link)`
    を選択する。
 #. |OK| を押す。これで Writer にリンクが作成される。Calc スプレッドシートが更新
@@ -247,24 +243,22 @@ Working with embedded sheets
 
 .. rubric:: Inserting sheets
 
-#. シート名を右クリックして、コンテキストメニューから :menuselection:`Insert
-   &Sheet...` を選択するか、Manu バーから :menuselection:`&Sheet-->Insert
-   &Sheet...` を選択して :guilabel:`Insert Sheet` ダイアログボックスを開く。
-#. :guilabel:`Insert Sheet` ダイアログボックスのオプションからシートの位置、はめ
-   込むシートの数、シート名、使用するスプレッドシートファイルを選択する。
+#. シート名を右クリックして、コンテキストメニューから |InsertSheetC| を選択する
+   か、|MenuBar| から |InsertSheetM| を選択して|InsertSheetDlg| を開く。
+#. |InsertSheetDlg| のオプションからシートの位置、はめ込むシートの数、シート名、
+   使用するスプレッドシートファイルを選択する。
 #. |OK| を押してダイアログボックスを閉じ、シートをはめ込む。
 
 .. rubric:: Renaming sheets
 
-シートタブを右クリックし、コンテキストメニューから :menuselection:`Rename
-S&heet...` を選択するか、|MenuBar| から :menuselection:`&Sheet-->Rename S&heet`
-を選択すると :guilabel:`Rename Sheet` ダイアログボックスが開く。
+シートタブを右クリックし、コンテキストメニューから |RenameSheetC| を選択するか、
+|MenuBar| から :menuselection:`&Sheet-->Rename S&heet` を選択すると
+|RenameSheetDlg| が開く。
 
 .. rubric:: Moving and copying sheets
 
-#. シート名を右クリックし、コンテキストメニューの :menuselection:`&Move or Copy
-   Sheet...` を選択するか、Manu 棒からの :menuselection:`&Sheet--> &Move or Copy
-   Sheet...` で :guilabel:`Move/Copy Sheet` ダイアログボックスを開く。
+#. シート名を右クリックし、コンテキストメニューの |MoveCopySheetC| を選択する
+   か、|MenuBar| から |MoveCopySheetM| で |MoveCopySheetDlg| を開く。
 #. シートを移動するかコピーするか、シートの場所と位置、新しいシート名を選択する。
 #. |OK| を押してダイアログボックスを閉じ、シートを移動またはコピーする。
 #. あるいは、シートタブをクリックし、埋め込みスプレッドシートの新しい位置にド
@@ -272,10 +266,9 @@ S&heet...` を選択するか、|MenuBar| から :menuselection:`&Sheet-->Rename
 
 .. rubric:: Deleting sheets
 
-#. シートタブを右クリックして、コンテキストメニューから :menuselection:`&Delete
-   Sheet` を選択するか、Menu バー :menuselection:`&Sheet-->&Delete Sheet...` を
-   選択する。スプレッドシートにシートが一つしか残っていない場合はそのシートを削
-   除できない。
+#. シートタブを右クリックして、コンテキストメニューから |DeleteSheetC| を選択す
+   るか、|MenuBar| |DeleteSheetM| を選択する。スプレッドシートにシートが一つしか
+   残っていない場合はそのシートを削除できない。
 #. |Yes| を押して確定する。
 
 Cell navigation

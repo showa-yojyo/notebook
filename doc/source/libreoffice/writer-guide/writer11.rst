@@ -859,8 +859,6 @@ Compressing images
 Using Writer's drawing tools
 ======================================================================
 
-.. |DrawingObjectProperties| replace:: :guilabel:`Drawing Object Properties` ツールバー
-
 Writer の図面ツールを使って、矩形、円、線、テキスト、その他の定義済み図形を使用
 して、簡単な図式などの画像を作成できる。複数の図面物をグループ化して、相対的な位
 置や比率を維持することもできる。
@@ -891,7 +889,7 @@ Creating drawing objects
 
 #. 図面を繋留したい場所をクリックする。必要ならば、後で錨を変更することが可能だ。
 #. |DrawingToolbar| でツールを選択する。ポインターが描画機能ポインターに変わり、
-   通常の |FormattingToolbar| が |DrawingObjectProperties| に変わる。
+   通常の |FormattingToolbar| が |DrawingObjPropToolbar| に変わる。
 #. 文書内の画像を表示したい場所に十字ポインターを移動し、クリック＆ドラッグして
    図面物を作成する。選択した描画機能は活動中のままなので、同じ種類の別の物を描
    画可能だ。
@@ -901,8 +899,8 @@ Creating drawing objects
    * |DrawingToolbar| の :guilabel:`Select` 図像（矢印）をクリックする。
 
 これで、図面物の性質（塗りつぶしの色、線の種類と太さ、錨など）を、
-|DrawingObjectProperties| か、図面物を右クリックして表示されるメニューやダイアロ
-グボックスを使って変更可能になる。
+|DrawingObjPropToolbar| か、図面物を右クリックして表示されるメニューやダイアログ
+ボックスを使って変更可能になる。
 
 Setting or changing properties for drawing objects
 ----------------------------------------------------------------------
@@ -910,7 +908,7 @@ Setting or changing properties for drawing objects
 描画する前に図面物の性質を設定する手順：
 
 #. |DrawingToolbar| で :guilabel:`Select` ツールをクリックする
-#. |DrawingObjectProperties| で各性質の図像をクリックし、その性質に必要な値を選
+#. |DrawingObjPropToolbar| で各性質の図像をクリックし、その性質に必要な値を選
    択する。
 #. さらに制御する場合や、新しい属性を定義する場合は、ツールバーの
    :guilabel:`Area` 図像や :guilabel:`Line` 図像をクリックすると、詳細ダイアログ
@@ -963,7 +961,7 @@ Grouping drawing objects
 #. 選択した状態で物の上にマウスポインターを置き、
 
    * |MenuBar| から :menuselection:`F&ormat-->&Group-->&Group` を選択
-   * |DrawingObjectProperties| の :guilabel:`Group` 図像をクリック
+   * |DrawingObjPropToolbar| の :guilabel:`Group` 図像をクリック
    * 右クリックメニューから :menuselection:`&Group` を選択する
 
 .. admonition:: 読者ノート
@@ -979,19 +977,19 @@ Grouping drawing objects
 きる。グループを選択し、次のいずれかを行う：
 
 #. |MenuBar| から :menuselection:`F&ormat-->&Group-->&Enter Group` を選択
-#. |DrawingObjectProperties| :guilabel:`Enter Group` 図像をクリック
+#. |DrawingObjPropToolbar| :guilabel:`Enter Group` 図像をクリック
 #. 右クリックメニュー :menuselection:`&Enter Group` を選択
 
 グループメンバーの編集が終了したら、次のいずれかを行え：
 
 #. |MenuBar| で:menuselection:`F&ormat-->&Group-->E&xit Group` を選択
-#. |DrawingObjectProperties| :guilabel:`Exit Group` 図像をクリック
+#. |DrawingObjPropToolbar| :guilabel:`Exit Group` 図像をクリック
 #. 右クリックメニューから :menuselection:`E&xit Group` を選択
 
 グループを解散するには、グループを選択し、次のいずれかを行う：
 
 #. |MenuBar| から :menuselection:`F&ormat-->&Group-->Ungroup` を選択
-#. |DrawingObjectProperties| :guilabel:`Ungroup` 図像をクリックする
+#. |DrawingObjPropToolbar| :guilabel:`Ungroup` 図像をクリックする
 #. 右クリックメニューから :menuselection:`Ungroup` を選択
 
 Rotating drawing objects
@@ -1000,7 +998,7 @@ Rotating drawing objects
 図面物の回転は :ref:`画像のそれ<writer11-anchor-rotating>` と同様の方法で行うこ
 とが可能だ。図面物を任意の角度に回転させるには、以下のいずれかの方法をとる：
 
-* 対話的操作。図面物を選択し、|DrawingObjectProperties| の :guilabel:`Rotate` 図
+* 対話的操作。図面物を選択し、|DrawingObjPropToolbar| の :guilabel:`Rotate` 図
   像をクリックする。回転ハンドルが物の周囲に表示される。マウスポインターをハンド
   ルの上に合わせ、ポインターの形が変わったら、必要な角度までドラッグする。
 * |Position&SizeDlg|。オブジェクトを右クリックし |Pos&SizeC| を選択する。ダイア

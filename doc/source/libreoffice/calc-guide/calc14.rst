@@ -1,5 +1,5 @@
 ======================================================================
-Chapter 14 Calc as a Database ノート
+Chapter 14, Calc as a Database ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -16,8 +16,8 @@ LibreOffice Base 部品は包括的な RDB 機能を有している一方、Calc
 当初は Calc スプレッドシートでデータを管理し、その後より包括的なデータベースシス
 テムを使用することを決めた場合、Calc データを Base へ移行することは容易だ。反対
 に、Calc の機能の一部を利用してデータの分析や表現を行いたい Base 利用者にとって
-は、Calc 文書からリンクされたデータ範囲の作成、ピボット表分析、図式の原データと
-して Base を使用することが可能だ。
+は、Calc 文書からリンクされたデータ範囲の作成、ピボット表分析、統計図表の原デー
+タとして Base を使用することが可能だ。
 
 A database primer
 ----------------------------------------------------------------------
@@ -25,19 +25,47 @@ A database primer
 一般的なデータベースでは、関連するデータは表に整理され、スプレッドシートに似た格
 子状の行と列に配列される。
 
-* 表の各行はデータレコードを表す。
-* 表の各列は各レコード内のフィールドを表す。
+* 表の各行はデータ登録項目を表す。
+* 表の各列は各登録項目内のフィールドを表す。
 
-  * フィールドの各セルは、名前のような個々のデータ項目または属性を含む。
-  * 各レコードは、人のような単一の実体に対応する関連属性で構成される。
-  * 表一つに対するフィールド数は一定であることが多いが、レコード数は決まっていな
-    い。
+  * フィールドの各升目は名前などといった個々のデータ項目または属性を含む。
+  * 各登録項目は人などといった単一の実体に対応する関連属性で構成される。
 
-テーブルには何百、何千という行があるかもしれないが、指定された条件を満たすレコー
-ドを検索する情報要求を使って、個々のレコードを簡単に見出し、検索し、更新すること
-が可能だ。スプレッドシートに対する利点の一つはこの検索性の良さにある。
+表一つに対するフィールド数は一定であることが多いが、登録項目数は決まっていない。
 
-本書では成績表を例示して解説している。
+表には何百、何千という行があるかもしれないが、指定された条件を満たす登録項目を検
+索する情報要求を使って、個々の登録項目を簡単に見出し、検索し、更新することが可能
+だ。スプレッドシートに対する利点の一つはこの検索性の良さにある。
+
+.. admonition:: 読者ノート
+
+   情報要求というのは SQL でいう SELECT 文を指す。
+
+このデータベース表の概念を説明するために、授業の成績表を例にとって考える。この
+シートでは、各行がクラスを受講している学生を表し、各列に学生の名前と成績が記載さ
+れいる。この表を使用すると、名前を検索するだけで個別の学生の成績をすばやく調べる
+ことができる。また、平均点が不合格の登録項目を絞り込むことで、どの学生がクラスに
+合格しているかを判断することができる。
+
+.. csv-table:: Grading sheet example
+   :delim: ;
+   :header: Student,HW #1,HW #2,HW #3,Quiz #1,Quiz #2,Test #1,Average
+   :widths: auto
+
+   Andrew ; 90 ; 100 ; 82 ; 90 ; 88 ; 92 ; 90.33
+   Bethany ; 95 ; 100 ; 82 ; 80 ; 88 ; 93 ; 89.67
+   Charles ; 80 ; 93 ; 73 ; 80 ; 75 ; 84 ; 80.83
+   David ; 75 ; 86 ; 91 ; 40 ; 88 ; 79 ; 76.50
+   Emily ; 100 ; 100 ; 81 ; 100 ; 75 ; 94 ; 91.67
+   Ferdinand ; 85 ; 93 ; 73 ; 60 ; 50 ; 72 ; 72.17
+   Georgia ; 70 ; 80 ; 55 ; 39 ; 75 ; 67 ; 64.33
+   Haley ; 85 ; 93 ; 82 ; 70 ; 75 ; 76 ; 80.17
+   Ian ; 100 ; 100 ; 91 ; 90 ; 100 ; 96 ; 96.17
+   Jennifer ; 85 ; 93 ; 73 ; 80 ; 100 ; 90 ; 86.83
+
+.. admonition:: 読者ノート
+
+   `Average` フィールドはもちろん `AVERAGE` 関数の値だ。
 
 LibreOffice Base は完全な機能を備えた RDB システムだが、Calc は RDB モデルに対応
 していない。
@@ -53,20 +81,25 @@ Calc as a database-like program
   * ピボット
   * 2D/3D 図式などによる視覚的表現
 
+Calc は完全な機能を備えたデータベースアプリケーションに取って代わるものではない
+が、小規模な個人的あるいは業務上のさまざまな場面でデータを管理するのに役立つ。
+
 Associating a range with a name
 ======================================================================
 
 シート内にデータベース表を仕込むには、その表が占める領域が要る。その領域とは、一
-つ以上のセルが連続するグループであるような範囲により表される。表に対する範囲にア
-クセスしやすくするために、範囲に意味のある名前を与えることが可能だ。
+つ以上の升目が連続するグループであるような範囲により表される。表に対する範囲に出
+入りしやすくするために、範囲に意味のある名前を与えることが可能だ。
 
 名前の利点を挙げると：
 
-* 範囲を特定しやすくなる。
-* アドレスだけでなく名前でも参照可能。
-* 名前付き範囲への名前による参照が範囲のアドレスが変更されるたびに自動的に更新
-  される。
-* 名前付き範囲はすべて Navigator (:kbd:`F5`) から閲覧可能かつアクセス可能。
+* 範囲を特定しやすくなる。特に文書内で複数の範囲を扱う場合は。
+* 名前付き範囲は、単にアドレスで参照するのではなく、名前で参照することが可能。例
+  えば、`Scores` という名前の範囲があれば、升目内で ``=SUM(Scores)`` のような数
+  式で参照することができる。
+* 名前付き範囲への名前による参照が範囲のアドレスが変更されるたびに自動的に更新さ
+  れる。これにより、範囲の位置が変更されるたびに参照を変更する必要がなくなる。
+* 名前付き範囲はすべて Navigator (|F5|) から閲覧可能かつ入手可能。
 
 Calc には二種類の名前付き範囲が存在する：
 
@@ -82,70 +115,96 @@ Calc には二種類の名前付き範囲が存在する：
 Named ranges
 ----------------------------------------------------------------------
 
+技術的には、名前付き範囲は名前付き数式であり、その内容は文字列として設定される。
+よく使われる式は、
+
+.. code:: text
+
+   $Sheet1.$A$1:$E$15
+
+のような絶対升目範囲だ。しかし、他の式型も可能だ。例えば、
+
+.. code:: text
+
+   $Sheet1.$A$1:$A$4~$Sheet1.$B$1:$B$4
+
+という式は、二つの別々の升目範囲を含む（チルダ文字は連結演算子）。あるいは、半径
+を指定して円の面積を計算するために、
+
+.. code:: text
+
+   PI()*B1*B1
+
+のような数式を定義することもできる。
+
 以下、単一の行列のような（連結成分が一つしかない）セル範囲として定義された名前付
 き範囲について述べられる。
 
 新しい名前付き範囲を作成する簡単な方法は：
 
-#. シートで関連するセルを選択
-#. 数式バーの左にある :guilabel:`Name Box` 欄に名前を入力
+#. シートで関連する升目を選択
+#. |FormulaBar| の左にある :guilabel:`Name Box` 欄に名前を入力
 #. 入力中に表示される :guilabel:`Define Name for Range` ツールチップに注目し、入
-   力が終わったら :kbd:`Enter` を押す
+   力が終わったら |Enter| を押す
 
 :guilabel:`Define Name` ダイアログボックスを使う方法もある。次のどちらかで開く：
 
-* メニュー :menuselection:`&Sheet --> &Named Ranges and Expressions -->
-  &Define...` 実行
-* :guilabel:`Manage Names` ダイアログボックスで :guilabel:`&Add...` を押す
+* |MenuBar| :menuselection:`&Sheet-->&Named Ranges and Expressions-->&Define...`
+  実行
+* |ManageNamesDlg| で :guilabel:`&Add...` を押す
 
-:guilabel:`Manage Names` ダイアログボックスの開き方は：
+|ManageNamesDlg| の開き方は：
 
-* :kbd:`Ctrl` + :kbd:`F3` を押す
-* 数式バーの左にある :guilabel:`Name Box` ドロップダウンリストで
+* |Ctrl| + |F3| を押す
+* |FormulaBar| の左にある :guilabel:`Name Box` ドロップダウンリストで
   :menuselection:`Manage Names...` を実行
 
 :guilabel:`Paste Names` ダイアログボックスを使えば、定義済み名前付き範囲を入力す
 るのが楽になる。開き方は次のどちらかを実行：
 
-* メニュー :menuselection:`&Insert --> &Named Ranges or Expressions...`
-* メニュー :menuselection:`&Sheet --> &Named Ranges and Expressions -->
-  &Insert...`
+* |MenuBar| :menuselection:`&Insert-->&Named Ranges or Expressions...`
+* |MenuBar| :menuselection:`&Sheet-->&Named Ranges and Expressions-->&Insert...`
 
 項目を選択して :guilabel:`&Paste` ボタンを押せば、現在のキャレット位置に選択した
 名前付き範囲が貼り付く。
 
-範囲については Chapter 7, 8 を参照しろ。
+範囲の作成と編集について詳しくは |Calc07|, |Calc08| を参照しろ。
 
 Creating named ranges using row or column headers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-メニュー :menuselection:`&Sheet --> &Named Ranges and Expressions -->
-&Create...` コマンドの用途：
+Create Names ツールでは、表のヘッダーから複数の名前付き範囲を同時に作成できる。
+これらのヘッダーは表の境界（上下の行、左右の列）から描画することができ、ヘッダー
+に対応する各行または各列は、名前付き範囲自体の作成に使用される。例えば、表のいち
+ばん上の行に含まれるヘッダーから範囲を作成することを選択した場合、各範囲は各ヘッ
+ダーラベルに対応する列から個別に生成される。
 
-表ヘッダーから名前付き範囲を複数同時に作成可能だ。これらのヘッダーは、表の境界線
-（上下の行、左右の列）から引くもので、ヘッダーに対応する各行または各列は名
-前付き範囲自体の作成に使用される。
+.. note::
 
-例えば、表の一番上の行に含まれるヘッダーから範囲を作成する場合、それぞれの範囲は
-ヘッダーラベルそれぞれに対応する列から生成される。
+   ヘッダー升目は Create Names ツールを使って生成された名前付き範囲には含まれな
+   い。これらの各升目のラベルが範囲の名前付けに使われるからだ。
 
-ヘッダーセルはこのコマンドを使って生成された名前付き範囲には含まれない。
-
-手順：
+Create Names ツールを使う手順：
 
 #. シートにて名前付き範囲を作成する表を選択する。ヘッダーの行や列も選択に含め
    ろ。
-#. 上記メニューを実行して :guilabel:`Create Names` ダイアログボックスを開く。
-#. チェックボックスのオンオフを確認する。
-#. :guilabel:`&OK`
+#. |MenuBar| :menuselection:`&Sheet-->&Named Ranges and
+   Expressions-->&Create...` を選択して :guilabel:`Create Names` ダイアログボッ
+   クスを開く。
+#. Calc はどの行または列にヘッダーが含まれているかを自動的に識別し、該当する
+   チェックボックス（最上行、左列、最下行、右列）にマークを付ける。この選択を変
+   更したい場合は、この時点でいずれかのボックスを手動でオンオフ可能。
+#. |OK| を押してダイアログボックスを閉じて新しい名前付き範囲を作成する。
 
-この挙動があるので、複数の行や列に同じラベルを付けてはいけない。
+.. tip::
+
+   この挙動があるので、複数の行や列に同じラベルを付けてはいけない。
 
 Database ranges
 ----------------------------------------------------------------------
 
 データベース範囲はデータベースの表のように使用することを意図して設計されている。
-各行はレコードを表し、各セルはレコード内のフィールドを表す。データベース範囲は名
+各行は登録項目を表し、各セルは登録項目内のフィールドを表す。データベース範囲は名
 前付き範囲と以下の点で異なる：
 
 * データベース範囲は数式ではあり得ない。
@@ -162,51 +221,77 @@ Database ranges
 データベース範囲の定義には :guilabel:`Define Database Range` ダイアログボックス
 を使う。
 
-#. （全範囲を自動決定させる場合）データベース表のセル領域内のセルを一つ選択する
-#. メニュー :menuselection:`&Data --> &Define Range...` 実行
+データベース範囲を作成する手順：
+
+.. |DataDefineRangeM| replace:: :menuselection:`&Data-->&Define Range...`
+.. |DataRefreshRangeM| replace:: :menuselection:`&Data-->R&efresh Range`
+
+#. （全範囲を自動決定させる場合）データベース表のセル領域内の升目を一つ選択する
+#. |MenuBar| |DataDefineRangeM| 実行
 #. :guilabel:`Name` 欄に範囲名を入力する（変な字は使うな）
-#. 必要なら :guilabel:`Options` を展開してオプションを指定する
+#. 必要なら :guilabel:`O&ptions` を展開してオプションを指定する
+
+   :guilabel:`Co&ntains column labels`
+      最上段をフィールドの見出し用に確保するかどうかを示す。
+   :guilabel:`Contains &totals row`
+      一番下の行を合計用に確保するかどうかを示す。
+   :guilabel:`Insert or delete &cells`
+      このオプションが有効な場合、給源に新しい登録項目が追加されると、データベー
+      ス範囲に新しい行と列が入る。外部データベース給源が範囲にリンクされている場
+      合のみ関係がある。手動でデータベース範囲を更新するには、|MenuBar| の
+      |DataRefreshRangeM| を使用する。
+   :guilabel:`Keep &formatting`
+      最初のデータ行の既存の升目書式をデータベース範囲全体に適用する。
+   :guilabel:`Don't save &imported data`
+      このオプションを選択すると、原データベースへの参照のみが保存され、範囲の升
+      目の内容は維持されない。
+   :guilabel:`Source`
+      現在のデータベース給源が存在する場合は、その情報を表示する。
+   :guilabel:`Operations`
+      データベース範囲にどのような操作が適用されたかを示す。例えば `Sort`,
+      `Filter`, `Subtotals` など。
+
 #. :guilabel:`&Add` を押してデータベース範囲一覧に範囲を追加する
-#. :guilabel:`&OK`
+#. |OK|
 
 既存データベース範囲を変更する手順：
 
-#. メニュー :menuselection:`&Data --> &Define Range...` 実行
+#. |MenuBar| |DataDefineRangeM| を選択。
 #. 範囲一覧から項目を一つ選ぶ（または名前を直接指定）とボタンのラベルが
-   :guilabel:`M&odify` に変化する
-#. ダイアログボックス内 :guilabel:`Range` や :guilabel:`Options` で変更を加える
-#. :guilabel:`M&odify`
-#. :guilabel:`&OK`
+   :guilabel:`M&odify` に変化する。
+#. ダイアログボックス内 :guilabel:`Range` や :guilabel:`O&ptions` で変更を加える。
+#. :guilabel:`M&odify` を押して範囲を更新する。
+#. |OK| を押してダイアログボックスを閉じ、変更したデータベース範囲を保存する。
 
 既存データベース範囲を削除する手順：
 
-#. メニュー :menuselection:`&Data --> &Define Range...` 実行
+#. |MenuBar| |DataDefineRangeM| 実行
 #. 範囲一覧から項目を一つ選ぶ（または名前を直接指定）
-#. :guilabel:`&Delete`
-#. :guilabel:`&Yes`
-#. :guilabel:`&OK`
+#. :guilabel:`&Delete` ボタンを押す
+#. 確認に対して |Yes| を押す
+#. |OK| を押してダイアログボックスを閉じる
 
 既存データベース範囲を選択する手順：
 
-#. メニュー :menuselection:`&Data --> &Select Range...` 実行
+#. |MenuBar| :menuselection:`&Data-->&Select Range...` 実行
 #. 一覧から項目を選択
-#. :guilabel:`&OK`
+#. |OK| を押す
 
 データ源からデータを取得して新規データベース範囲を作成する手順：
 
 #. Data Sources Explorer を開く
 #. 左窓で目的データ源ツリーを展開
 #. 必要な表または問い合わせをクリックし、その構成データを右窓に表示する
-#. 右窓の全データを選択
-#. データの左上隅になるスプレッドシートセルにデータをドラッグ＆ドロップ
+#. 右窓の左上にある空白の矩形領域をクリックし、表示されている表または質問内の全
+   データを選択する。
+#. データの左上隅になるスプレッドシート升目にデータをドラッグ＆ドロップ
 
-これでインポートされたデータのセル範囲を包含し、Import1, Import2 などの形式の既
-定の名前を持つ新規データベース範囲が自動的に生成する。
+これでインポートされたデータの升目範囲を包含し、`Import1`, `Import2` などの形式
+の既定の名前を持つ新規データベース範囲が自動的に生成する。
 
-メニュー :menuselection:`Data --> R&efresh Range` を選択すると、関連するデータ源
-のデータが更新されればデータベース範囲の内容が更新される。シートのデータは外部
-データベースのデータと一致するように更新される。リンク方法については Chapter 11
-を参照しろ。
+|MenuBar| |DataRefreshRangeM| を選択すると、関連するデータ源のデータが更新されれ
+ばデータベース範囲の内容が更新される。シートのデータは外部データベースのデータと
+一致するように更新される。リンク方法については |Calc11| を参照しろ。
 
 Sorting
 ======================================================================
@@ -214,13 +299,14 @@ Sorting
    Sorting is the process of rearranging data in a range or a sheet according to
    a specified sort order.
 
-単一列の値に基づいてデータベース表を並び替えるもっとも単純な方法：
+単一列の値に基づいてデータベース表を並び替えるもっとも単純な方法は、次のように
+Sort Ascending と Sort Descending ツールを使うものだ：
 
 #. 列のセルをどれでもよいので選択
 #. 昇順に並び替えるならば次のいずれかを実行（降順の場合は対応する UI を使用）：
 
-   * :menuselection:`&Data --> Sort &Ascending` を実行
-   * 標準ツールバーの :guilabel:`Sort Ascending` 図像をクリック
+   * :menuselection:`&Data-->Sort &Ascending` を実行
+   * |StandardToolbar| :guilabel:`Sort Ascending` 図像をクリック
    * AutoFilters を有効にしている場合は、関連列の AutoFilter コンボボックスで昇
      順並び替えを選択してもよい
 
@@ -228,19 +314,18 @@ Sorting
 の値のみに基づいて表全体を並べ替える。ただし、ヘッダー行はそれと認識され、並べ替
 えの対象から外れる。
 
-AutoFilter コンボボックスは次節で述べられるが、メニュー:menuselection:`Sort by
-Color` に加え、:menuselection:`Sort Ascending` と :menuselection:`Sort
-Descending` の項目もある。
+AutoFilter コンボボックスは次節で述べられるが、:menuselection:`Sort Ascending`,
+:menuselection:`Sort Descending` に加え、升目の背景色やフォント色で並び替える
+:menuselection:`Sort by Color` 項目もある。
 
-複雑な並び替えを実現するには、メニュー :menuselection:`&Data --> &Sort...` を実
-行して :guilabel:`Sort` ダイアログボックスを開く。開く前に表内のセルを一つ選択し
-ておけ。
+複雑な並び替えを実現するには、|MenuBar| |SortM| を実行して |SortDlg| を開く。開
+く前に表内の升目を一つ選択しておけ。
 
-タブ :guilabel:`Sort Criteria` では並び替えを三段階指定することが可能。
-:guilabel:`Sort Key` キー番号の小さいものから大きいのものへ順次並び替えられる。
+|SortCriteriaTab| では並び替えを三段階指定することが可能。:guilabel:`Sort Key`
+キー番号の小さいものから大きいのものへ順次並び替えられる。
 
-タブ :guilabel:`Options` にはさらなる並び替えオプションが用意されている。これら
-については Chapter 2 を参照しろ。
+|OptionsTab| にはさらなる並び替えオプションが用意されている。これらについては
+|Calc02| を参照しろ。
 
 Filtering
 ======================================================================
@@ -251,14 +336,14 @@ Filtering
 絞り込みは長いデータ一覧から特定の項目を発見するのに便利だ。三種類の絞り込みがあ
 る：
 
-* :menuselection:`&Data --> Auto&Filter`
-* :menuselection:`&Data --> More &Filters --> &Standard Filter...`
-* :menuselection:`&Data --> More &Filters --> &Advanced Filter...`
+* :menuselection:`&Data-->Auto&Filter`
+* :menuselection:`&Data-->More &Filters-->&Standard Filter...`
+* :menuselection:`&Data-->More &Filters-->&Advanced Filter...`
 
-データベース表に適用されている絞り込みを解除したい場合には :menuselection:`&Data
---> More &Filters --> &Reset Filter` を実行。
+データベース表に適用されている絞り込みを解除したい場合には
+:menuselection:`&Data-->More &Filters-->&Reset Filter` を実行。
 
-Chapter 2 も参照しろ。
+|Calc02| も参照しろ。
 
 AutoFilter
 ----------------------------------------------------------------------
@@ -271,23 +356,23 @@ AutoFilter
 #. 表内のセルをどれでもいいからクリック
 #. 次のいずれかを実行：
 
-   * :menuselection:`&Data --> Auto&Filter`
-   * :guilabel:`Standard` ツールバー :guilabel:`AutoFilter` 図像クリック
-   * :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`L` 押し
+   * :menuselection:`&Data-->Auto&Filter`
+   * |StandardToolbar| :guilabel:`AutoFilter` 図像クリック
+   * |Ctrl+Shift| + :kbd:`L` 押し
 
 AutoFilter 全解除手順は次のいずれかを実行：
 
-* :menuselection:`&Data --> Auto&Filter`
-* :menuselection:`&Data --> More &Filters --> &Hide AutoFilter`
-* :guilabel:`Standard` ツールバー :guilabel:`AutoFilter` 図像クリック
-* :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`L` 押し
+* :menuselection:`&Data-->Auto&Filter`
+* :menuselection:`&Data-->More &Filters-->&Hide AutoFilter`
+* |StandardToolbar| :guilabel:`AutoFilter` 図像クリック
+* |Ctrl+Shift| + :kbd:`L` 押し
 
 コンボボックスのオプション：
 
 * 昇順か降順で並び替え
 * 背景色か文字色で並び替え
 * 背景色か文字色で絞り込み
-* :menuselection:`Filter by Condition -->` 以下にある絞り込み項目
+* :menuselection:`Filter by Condition-->` 以下にある絞り込み項目
 
   * :menuselection:`Empty`
   * :menuselection:`Not Empty`
@@ -296,6 +381,9 @@ AutoFilter 全解除手順は次のいずれかを実行：
 * チェックボックス各種は値の絞り込みに対応
 * 列に絞り込みが適用中の場合、:guilabel:`Clear Filter` で解除
 
+AutoFilter のコンボボックスとそのオプションの使い方の詳細については |Calc02| を
+見ろ。
+
 Standard filters
 ----------------------------------------------------------------------
 
@@ -303,10 +391,10 @@ Standard filters
 * 強力絞り込みは正規表現により設定可能。
 * 標準絞り込みはダイアログボックスを使用する。開き方は：
 
-  * :menuselection:`&Data --> More &Filters --> &Standard Filter...`
+  * |MenuBar| から :menuselection:`&Data-->More &Filters-->&Standard Filter...`
   * AutoFilter コンボボックスの :menuselection:`Standard Filter...` オプション
 
-Chapter 2 参照。
+|Calc02| 参照。
 
 Advanced filters
 ----------------------------------------------------------------------
@@ -324,36 +412,47 @@ Advanced filters
    * 空セルは無視される
    * 絞り込み一つあたり最大八行定義可能
 
+.. tip::
+
+   基準領域には定義された絞り込み基準を持つ列の見出しだけを含めることも可能だが、
+   簡単のために、データベース表の見出しすべてを基準領域にコピーすることも可能だ。
+
 ここまでやって高度な絞り込みを設定することになる：
 
-#. 絞り込み対象セル範囲を選択（データベース表ならばセル一つでいい）
-#. :menuselection:`&Data --> More &Filters --> &Advanced Filter...`
-#. ダイアログボックス操作
-#. :guilabel:`&OK`
+#. 絞り込み対象セル範囲を選択（データベース表ならばセル一つでいい）。
+#. |MenuBar| から :menuselection:`&Data-->More &Filters-->&Advanced Filter...`
+   を選択して :guilabel:`Advanced Filter` ダイアログボックスを開く。
+#. :guilabel:`Read &Filter Criteria From` 欄にドロップダウンから名前付き範囲を選
+   択するか、参照を入力するか、シートから升目を選択して、基準範囲のアドレスを入
+   力する。
+#. |OK| を押して絞り込みを適用し、ダイアログボックスを閉じる。
 
-個々の名前付き範囲に対して、:guilabel:`Define Name` と :guilabel:`Manage Names`
-ダイアログボックスで :guilabel:`&Filter` にチェックを入れることができる。この方
-法で絞り込みのためにマークされた名前付き範囲しか :guilabel:`Advanced Filter` ダ
-イアログボックスの :guilabel:`Read Filter Criteria From` 欄のドロップダウンボッ
-クスで選択できない。データベースの範囲はドロップダウンボックスで選択できない。
+.. note::
 
-.. admonition:: 利用者ノート
+   個々の名前付き範囲に対して、|DefineNameDlg| と |ManageNamesDlg| で
+   :guilabel:`&Filter` にチェックを入れることができる。この方法で絞り込みのため
+   にマークされた名前付き範囲しか :guilabel:`Advanced Filter` ダイアログボックス
+   の :guilabel:`Read &Filter Criteria From` 欄のドロップダウンボックスで選択で
+   きない。データベースの範囲はドロップダウンボックスで選択できない。
 
-   本文のこの辺にあるデモを再現しろ。データは：
+高度なオプションは標準オプションと同じであり、|Calc02| でさらに詳しく説明されて
+いる。
 
-   .. code:: text
+例を再現するには次の内容を別のシートに用意しておく：
 
-      Student	HW #1	HW #2	HW #3	Quiz #1	Quiz #2	Test #1
-      Andrew	90	100	82	90	88	92
-      Bethany	95	100	82	80	88	93
-      Charles	80	93	73	80	75	84
-      David	75	86	91	40	88	79
-      Emily	100	100	81	100	75	94
-      Ferdinand	85	93	73	60	50	72
-      Georgia	70	80	55	39	75	67
-      Haley	85	93	82	70	75	76
-      Ian	100	100	91	90	100	96
-      Jennifer	85	93	73	80	100	90
+.. csv-table:: Advanced filter criteria range
+   :delim: ;
+   :header: Student,HW #1,HW #2,HW #3,Quiz #1,Quiz #2,Test #1,Average
+   :widths: auto
+
+   ;>75;>75;>75
+   Ferdinand;;;
+
+.. admonition:: 読者ノート
+
+   前掲のデータベース表を選択状態にして Advanced Filter を実行する。それからこの
+   表をドロップダウンボックスに指定する。その結果、元のデータベース表の行が絞り
+   込まれて、Ferdinand 自身の行と、それよりも成績の良い行だけに絞られる。
 
 Useful database-like functions
 ======================================================================
@@ -365,7 +464,7 @@ Overview
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Database 区分にある関数 12 個はスプレッドシート内の矩形領域を占める単純なデータ
-ベースを分析するのに役立つことを目的としており、データは各レコードごとに一行とし
+ベースを分析するのを助けることを目的としており、データは各登録項目ごとに一行とし
 て整理されている。各列のヘッダーセルには列の名前が表示され、通常、その列の各セル
 の内容を示す。
 
@@ -378,15 +477,21 @@ DatabaseField
 SearchCriteria
    検索条件を含む別領域セル範囲
 
+データベース区分の関数すべては同じ単純な操作の考え方を持つ。まず、指定された
+SearchCriteria を使用して、後続の計算で使用するデータベース内の登録項目の部分集
+合を識別する。それからデータ値を抽出し、特定の関数（平均、合計、積など）に関連付
+けられた計算を実行する。処理されるのは選択された登録項目の DatabaseField 列の値
+だ。
+
 Database function arguments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. rubric:: Database
 
 * 範囲の最初の行はフィールド名からなり、それ以降の行は対応するフィールド値を持つ
-  レコードだ。
-* セル範囲定義としては、矩形の左上と右下のセル参照をコロンで結合する。``A1:E10``
-  のように。
+  登録項目だ。
+* 升目範囲定義としては、矩形の左上と右下のセル参照をコロンで結合する。A1:E10 の
+  ように。
 * 名前付き範囲またはデータベース範囲名を指定してもよい。こちらのほうが可読性と保
   守性を向上する。
 
@@ -395,14 +500,15 @@ Database function arguments
 * 検索条件が適用されデータ行が選択された後、関数が計算に使用する列を指定する。
 * この引数を指定する方法はいろいろある。
 
-  * データベース領域内のヘッダーセルへの参照あるいは（有効な）名前を入力する。
+  * データベース領域内のヘッダー升目への参照あるいは（有効な）名前を入力する。
   * データベース領域内の列を 1 から開始する（有効な）番号で指定する。
   * データベース範囲の最初の行から見出し名をリテラル文字列で指定する。
-* ``DCOUNT``, ``DCOUNTA`` 以外の Database 関数ではこの引数は入力必須だ。
+* `DCOUNT`, `DCOUNTA` 以外の Database 関数ではこの引数は入力必須だ。
 
 .. rubric:: SearchCriteria
 
-* Database 引数と同様に、最初の行はフィールド名。それ以降の行は関連フィールドに
+* 検索条件を含む升目範囲を指定する。
+* Database 引数と同様に、最初の行もフィールド名。それ以降の行は関連フィールドに
   ついての条件だ。
 * Database 領域と SearchCriteria 領域は隣接している必要はない。同一シート内にあ
   る必要もない。
@@ -418,60 +524,111 @@ Defining search criteria
 * 比較演算子を用いて SearchCriteria 領域セルに条件を作成する。セルが空でなく、比
   較演算子で始まらないものは ``=`` とみなされる。
 
-.. admonition:: 利用者ノート
+一行に複数の条件を書くと、それらは AND で結ばれる。別々の行に書くと OR で結ばれ
+る。
 
-   正規表現に関する事項と MS Excel との互換性に関する事項は割愛。
+|OptionsDlg| |CalculatePage| の :guilabel:`Enable w&ildcards in formulas` が選択
+されていれば、ワイルドカードを使用して SearchCriteria を作成できる。スプレッド
+シートで Microsoft Excel との相互運用性が重要な場合はこれを選択する必要がある。
+
+:guilabel:`Enable r&egular expressions in formulas` が選択されていれば、正規表現
+を使用してさらに強力な条件を作成できる。
+
+.. tip::
+
+   検索基準文字列が正規表現である関数を使用する場合、最初の試みは基準文字列を数
+   値に変換することだ。例えば、``.0`` は 0.0 に変換される。成功すれば、正規表現
+   マッチではなく数値マッチとなる。しかし、小数の区切り文字が ``.`` でないロケー
+   ルに切り替えると、正規表現の変換が働くようになる。数値表現ではなく正規表現と
+   して強制的に評価するには、``.[0]`` や ``.\0``, ``(?i).0`` など、数値として誤
+   読されない表現を使用する。
+
+:guilabel:`Search criteria = and <> must apply to &whole cells` オプションはデー
+タベース関数に設定する検索条件が升目全体に正確に一致するかどうかを制御する。スプ
+レッドシートで Microsoft Excel との相互運用性が重要な場合はオンにする。
 
 Example of Database function use
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 本書のスクリーンショットに倣え。
 
-.. code:: text
+.. csv-table:: Example usage of a Database function (database table)
+   :delim: ;
+   :header: Name,Grade,Age,Distance (meters),Weight (kg)
+   :widths: auto
 
-   Name	Grade	Age	Distance (meters)	Weight (kg)
-   Andy	3	9	150	40
-   Betty	4	10	1000	42
-   Charles	3	10	300	51
-   Daniel	5	11	1200	48
-   Eva	2	8	650	33
-   Frank	2	7	300	42
-   Greta	1	7	200	36
-   Harry	3	9	1200	44
-   Irene	2	8	1000	42
+   Andy ; 3 ; 9 ; 150 ; 40
+   Betty ; 4 ; 10 ; 1000 ; 42
+   Charles ; 3 ; 10 ; 300 ; 51
+   Daniel ; 5 ; 11 ; 1200 ; 48
+   Eva ; 2 ; 8 ; 650 ; 33
+   Frank ; 2 ; 7 ; 300 ; 42
+   Greta ; 1 ; 7 ; 200 ; 36
+   Harry ; 3 ; 9 ; 1200 ; 44
+   Irene ; 2 ; 8 ; 1000 ; 42
+
+.. csv-table:: Example usage of a Database function (criteria table)
+   :delim: ;
+   :header: Name,Grade,Age,Distance (meters),Weight (kg)
+   :widths: auto
+
+   ;;;> 600;
+
+データベース区分の関数の使い方を示す簡単な例だ。選択された升目 E15 の数式は
+|FormulaBar| で見ることができ、`DCOUNT` 関数の呼び出しで構成されてる。この関数呼
+び出しの引数は：
+
+Database 引数
+   この例で使用するデータベース表はヘッダー行から Irene の行まで。
+DatabaseField 引数
+   `DCOUNT` 関数はさらに計算することなく条件に一致する登録項目を数えるので、この
+   引数に値を指定する必要はないが、ないことを示すために引数リストの区切り文字は
+   指定しないといけない。
+SearchCriteria 引数
+   この例で使用される検索条件領域は A12:E13 に及ぶ。D13 の条件 ``>600`` は
+   `DCOUNT` に `Distance (meters)` 列に 600 m より大きい値を持つすべての登録項目
+   を数えさせる。多くの場合、検索条件領域内にデータベース表の列見出しを複製する
+   と便利だ。しかし、これは必須ではなく、式 ``=DCOUNT(A1:E10,,D12:D13)`` は全く
+   同じ値 5 を与える。
+
+|Help| で *database functions* を検索するか、
+<https://wiki.documentfoundation.org/Documentation/Calc_Functions> の Calc
+Functions Wiki 内の各関数の関連ページにアクセスすると多くの例が見つかる。
 
 List of Database functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-これらの関数は計算中、日付や論理値を数値として扱う。
+.. note::
 
-DAVERAGE
+   これらの関数は計算中、日付や論理値を数値として扱う。
+
+`DAVERAGE`
    指定された検索条件に一致するすべての行について、指定された列のセル（フィール
    ド）の数値の平均を計算する。
-DCOUNT, DCOUNTA
+`DCOUNT`, `DCOUNTA`
    指定された検索条件に一致するすべての行に対して、指定された列のうち
 
    * 数値を含むセルの数を返す。
    * 空でないセルの数を返す。
 
    列が指定されていない場合、内容に関係なく、指定された検索条件に一致するすべて
-   のレコードの数を返す。
-DGET
+   の登録項目の数を返す。
+`DGET`
    指定された検索条件に一致する唯一の行に対して、指定された列のセル内容を返す。
-DMAX, DMIN
+`DMAX`, `DMIN`
    指定された検索条件に一致するすべての行について、数値を含む指定された列のセル
    全体の最大値、最小値を計算する。
 
    * 空白セルや数値以外の文字を含むセルは含まれない。
-   * 一致するレコードが見つからない場合など、変な場合には 0 を返す。
-DPRODUCT
+   * 一致する登録項目が見つからない場合など、変な場合には 0 を返す。
+`DPRODUCT`
    すべての数値の積を返す。
-DSTDEV, DSTDEVP
+`DSTDEV`, `DSTDEVP`
    指定された検索条件に一致するすべての行について、指定列のセル内の数値に基づい
    て標本標準偏差、母集団標準偏差を計算する。数値以外の値は無視。
-DSUM
+`DSUM`
    すべての数値の和を返す。
-DVAR, DVARP
+`DVAR`, `DVARP`
    標本分散、母集団分散。
 
 Other database-like functions
@@ -484,3 +641,7 @@ Calc に用意されている関数の中には、表形式のデータで使用
 本書の表はデータベースに Calc の表を使用する場合に役立つ関数の一覧だ。その多く
 は、データベース以外の状況で使用される典型的なスプレッドシート関数としておなじみ
 のものだが、中にはデータベース表テーブルで特に役立つものもある。
+
+.. todo::
+
+   Table 1: Some useful database-like functions の実習を考える。

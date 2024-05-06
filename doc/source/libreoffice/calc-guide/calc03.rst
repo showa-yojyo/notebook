@@ -1227,7 +1227,7 @@ Selecting multiple charts
 
 * |EditCutM| と |EditPasteM|
 * |Position&SizeDlg| 使用
-* :guilabel:`Drawing Object Properties` ツールバー使用
+* |DrawingObjPropToolbar| 使用
 
 Changing overall appearance of charts
 ----------------------------------------------------------------------

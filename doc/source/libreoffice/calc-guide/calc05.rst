@@ -1,5 +1,5 @@
 ======================================================================
-Calc Guide Chapter 5 Using Styles and Templates ノート
+Calc Guide Chapter 5, Using Styles and Templates ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -28,9 +28,9 @@ Direct formatting and style formatting
 可能だ。この書式を削除するには、対象オブジェクトを選択し次のいずれかを実行する：
 
 * 右クリックメニュー :menuselection:`Clear &Direct Formatting` を実行
-* :kbd:`Ctrl` + :kbd:`M`
-* :guilabel:`Standard` ツールバー :guilabel:`Clear Direct Formatting` を押す
-* メインメニュー :menuselection:`F&ormat --> Clear &Direct Formatting` を実行
+* |Ctrl| + :kbd:`M`
+* |StandardToolbar| :guilabel:`Clear Direct Formatting` を押す
+* |MenuBar| :menuselection:`F&ormat-->Clear &Direct Formatting` を実行
 
 .. admonition:: 利用者ノート
 
@@ -50,8 +50,8 @@ Cell styles
 * セルスタイルはセル内のデータを書式設定する。
 * セルスタイル要素の
 
-  * 多くはメインメニュー :menuselection:`St&yles -->` 以下に示されている。
-  * すべては Sidebar の :guilabel:`Styles` デッキに示されている。
+  * 多くは |MenuBar| :menuselection:`St&yles-->` 以下に示されている。
+  * すべては |Sidebar| |StylesDeck| に示されている。
 
 .. admonition:: 読書ノート
 
@@ -62,24 +62,25 @@ Drawing styles
 
 * 図面スタイルは Draw で言うグラフィックスタイルに似ている。
 * 図面スタイルは図形やコメントに適用される。
-* スプレッドシートには Default と Note という二つの図面スタイルが定義済みだ。
+* スプレッドシートには `Default` と `Note` という二つの図面スタイルが定義済みだ。
 
   * どちらも変更可能。
   * どちらも削除不可。
-  * スプレッドシートに追加した直後の図形オブジェクトには Default スタイルが適用
+  * スプレッドシートに追加した直後の図形オブジェクトには `Default` スタイルが適用
     されている。
-  * スプレッドシートに追加した直後のコメントオブジェクトには Note スタイルが適用
-    されている。
+  * スプレッドシートに追加した直後のコメントオブジェクトには `Note` スタイルが適
+    用されている。
 
 Page styles
 ----------------------------------------------------------------------
 
 * ページスタイルはページではなくシートに適用される。
 * シートごとに異なるページスタイルを適用可能。
-* スプレッドシートには Default と Report という二つのページスタイルが定義済みだ。
+* スプレッドシートには `Default` と `Report` という二つのページスタイルが定義済
+  みだ。
 * ページスタイルでは次を設定可能：
 
-  * サイズ
+  * 判型
   * 向き
   * 余白
   * ヘッダー
@@ -93,31 +94,31 @@ Applying cell styles
 
 セルスタイル適用方法：
 
-* メインメニュー :menuselection:`St&yles -->` コマンド各種
-* Sidebar :guilabel:`Styles` デッキ
+* |MenuBar| :menuselection:`St&yles-->` コマンド各種
+* |Sidebar| |StylesDeck|
 * :guilabel:`Fill Format` モード
-* :guilabel:`Formatting` ツールバー :guilabel:`Apply Style` コマンド
+* |FormattingToolbar| :guilabel:`Apply Style` コマンド
 * キーバインド各種
 
 Styles menu
 ----------------------------------------------------------------------
 
 セルスタイルを適用するには、書式設定するセルまたはセルグループを選択し、必要なス
-タイルコマンドを :menuselection:`St&yles -->` 以下から探して実行する。
+タイルコマンドを :menuselection:`St&yles-->` 以下から探して実行する。
 
 Styles deck in Sidebar
 ----------------------------------------------------------------------
 
-Sidebar の :guilabel:`Styles` デッキは使用可能なスタイルを一覧し、オプションでプ
-レビューを表示する。
+|Sidebar| |StylesDeck| は使用可能なスタイルを一覧し、オプションでプレビューを表
+示する。
 
-デッキの開き方は割愛。:kbd:`F11` 押しが早い。
+甲板の開き方は割愛。|F11| 押しが早い。
 
 スタイル適用手順：
 
-#. デッキ上部にある :guilabel:`Cell Styles` を押し、一覧を開く。
+#. 甲板上部にある |CellStylesTab| を押し、一覧を開く。
 #. ワークシート上でセルスタイルを適用したい対象セルを強調する。
-#. :guilabel:`Styles` デッキでセルスタイル名をダブルクリックする。
+#. |StylesDeck| でセルスタイル名をダブルクリックする。
 
 Fill Format mode
 ----------------------------------------------------------------------
@@ -125,10 +126,9 @@ Fill Format mode
 :guilabel:`Fill Format Mode` はスタイル適用したいセルがあちこちにある状況で便利
 だ。
 
-#. :guilabel:`Styles` デッキを開く。
+#. |StylesDeck| を開く。
 #. セルスタイルを選択する。
-#. デッキ右上にある :guilabel:`Fill Format Mode` を押す（マウスポインターに注
-   目）。
+#. 甲板右上にある :guilabel:`Fill Format Mode` を押す。マウスポインターに注目。
 #. ワークシート上で、選択セルを適用したいセルを順次クリックする。
 #. 適用が完了したら :guilabel:`Fill Format Mode` を再び押す。
 
@@ -138,11 +138,11 @@ Fill Format mode
 Apply Style list
 ----------------------------------------------------------------------
 
-:guilabel:`Apply Style` ドロップダウンリストは初期設定では
-:guilabel:`Formatting` ツールバーに含まれていない。次のようにして追加する：
+:guilabel:`Apply Style` ドロップダウンリストは初期設定では |FormattingToolbar|
+に含まれていない。次のようにして追加する：
 
-#. 当該ツールバーの UI のないところを右クリック。
-#. 右クリックメニューから :menuselection:`Visible &Buttons --> &Apply Style` を
+#. 当該ツールバーの |UI| のないところを右クリック。
+#. 右クリックメニューから :menuselection:`Visible &Buttons-->&Apply Style` を
    オンにする。
 
 おそらくツールバーの先頭にドロップダウンリストが現れる。これを使ってセルスタイル
@@ -158,34 +158,34 @@ Apply Style list
 Keyboard shortcuts
 ----------------------------------------------------------------------
 
-Chapter 15 で述べられる方法で、よく使うスタイル適用コマンドを実行するキーバイン
-ドを定義可能だ。
+|Calc15| で述べられる方法で、よく使うスタイル適用コマンドを実行するキーバインド
+を定義可能だ。
 
 Applying drawing styles
 ----------------------------------------------------------------------
 
 #. 対象の図形またはコメントを選択
-#. Sidebar の :guilabel:`Styles` デッキに行く
-#. デッキ上部 :guilabel:`Drawing Styles` をクリック
+#. |Sidebar| |StylesDeck| に行く
+#. 甲板上部 |DrawingStylesTab| をクリック
 #. 必要なスタイルをダブルクリック
 
 Applying page styles
 ======================================================================
 
-スプレッドシート内のシートに適用されているページスタイルはステータスバーに示され
-ている（左から三番目の区画辺りに :guilabel:`Default` などと記されている）。
+スプレッドシート内のシートに適用されているページスタイルは |StatusBar| に示され
+ている（左から三番目の区画辺りに `Default` などと記されている）。
 
 #. シートを選択（シートタブ）
-#. Sidebar の :guilabel:`Styles` デッキに行く
-#. デッキ上部 :guilabel:`Page Styles` をクリック
+#. |Sidebar| の |StylesDeck| に行く
+#. 甲板上部 |PageStylesTab| をクリック
 #. 必要なスタイルをダブルクリック
 
 Creating new styles
 ======================================================================
 
-#. Sidebar の :guilabel:`Styles` デッキに行く
-#. デッキ上部の :guilabel:`Cell Styles` ボタンなどをクリック
-#. デッキで右クリックし、メニューから :guilabel:`&New...` を選択
+#. |Sidebar| の |StylesDeck| に行く
+#. 甲板上部の |CellStylesTab| などをクリック
+#. 甲板で右クリックし、メニューから |NewC| を選択
 #. ダイアログボックスで新しいスタイルの属性を設定
 #. :guilabel:`OK` を押す
 
@@ -197,8 +197,7 @@ Creating new styles
 Cell style attributes
 ----------------------------------------------------------------------
 
-:guilabel:`Cell Style` ダイアログボックスはタブページからなる。:guilabel:`Format
-Cells` ダイアログボックスと酷似している。
+|CellStyleDlg| はタブページからなる。|FormatCellsDlg| と酷似している。
 
 Organizer tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -215,63 +214,287 @@ Organizer tab
 Numbers tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+:guilabel:`C&ategory`
+   区分を選択する。
+:guilabel:`Fo&rmat`
+   選択升目の内容をどのように表示するかを選択する。
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+区分として通貨を選択すると、ドロップダウンリストから通貨を選択し、かつその通貨で
+使用可能なオプションから使用形式を選択する必要がある。
+
+通貨書式は :guilabel:`&Language` ドロップダウンリストで選択した言語には依存しな
+い。セルの既定の通貨書式は OS の地域設定によって決まる。
+
+:guilabel:`&Language`
+   選択升目の言語設定を指定する。言語を既定値に設定すると、システムの既定言語に
+   関連付けられた数値書式が自動的に適用される。言語設定により、異なる既定の言語
+   設定を使用する OS で文書を開いても、日付と通貨の書式が維持される。
+:guilabel:`&Decimal places`
+   表示したい小数点以下の桁数を入力する。
+:guilabel:`Leading &zeroes`
+   小数点の前に表示するゼロの最大数を入力する。
+:guilabel:`&Negative numbers red`
+   オンにすると負の数の文字色が赤に変化する。
+:guilabel:`&Thousands separator`
+   オンにすると千の位に区切り文字が入る。区切り文字の種類（カンマや空白など）は
+   言語設定によって異なる。
+:guilabel:`&Format code`
+   選択した書式の番号書式コードが表示される。カスタムフォーマットを入力すること
+   も可能。
+
+チェックマークボタン
+   入力した番号形式コードを使用者定義区分に追加する。
+吹き出しボタン
+   選択した数値書式に説明を追加する。
+バツボタン
+   選択した番号書式を削除する。
+プレビュー欄
+   現在の選択部分のプレビューを表示する。
 
 Font tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+言語設定に応じて、このタブで以下のフォントタイプの書式を変更可能：
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+* `Western` ラテン文字セット
+* `Asian` 中国語、日本語、または韓国語の文字セット
+* `Complex` 右から左へのテキスト方向
+
+Figure 8 は |OptionsDlg| |LanguagesPage| の :guilabel:`Default Languages for
+Documents` 区画で :guilabel:`Asian` および :guilabel:`Complex &text layout` がオ
+ンである場合の|CellStyleDlg| の |FontTab| を示している。これらのいずれかがオフに
+なると、|FontTab| と |FontEffectsTab| の間取りが変化する。
+
+.. admonition:: 読者ノート
+
+   図版と現況で見てくれが合致していないが、意義はだいたい同じ。
+
+:guilabel:`&Font`
+   インストールされているフォントを一覧から選択する。
+:guilabel:`&Style`
+   太字、斜体、下線など、適用したい書式を選択する。
+:guilabel:`Si&ze`
+   適用するフォントサイズを選択または入力する。スケーラブルフォントの場合は、小
+   数値を入力することも可能。他のスタイルに基づいてスタイルを作成する場合は百分
+   率値またはポイント値 (e.g., 5 pt) を入力可能。
+:guilabel:`&Language`
+   綴字検査で使用する言語を設定する。綴字検査は対応する言語モジュールがインス
+   トールされている場合に限り機能する。言語登録項目の前にチェックマークがあるの
+   はその言語で綴字検査が活動中である場合だ。
+:guilabel:`Feat&ures...`
+   このボタンを押すと対する :guilabel:`Font Features` ダイアログボックスが開く。
+   フォントの一部に備わる :guilabel:`&Discretionary Ligatures` や
+   :guilabel:`Horizontal &Kerning` などの特別な機能を使えるようになる。
 
 Font Effects tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+.. rubric:: Font Color
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+:guilabel:`&Font color`
+   テキストの色を設定する。`Automatic` を選択した場合、テキストの色は明るい背景
+   の場合は黒に、暗い背景の場合は白に設定される。
+:guilabel:`&Transparency`
+   文字テキストの透明度を設定する。値 100% は完全に透明であることを意味し、0% は
+   全く透明でないことを意味する。
+
+.. rubric:: Text Decoration
+
+:guilabel:`O&verlining`
+   適用する上線スタイルを選択する。上線を単語のみに適用するには、
+   :guilabel:`&Individual words` をオンにする。以下同様。
+
+   ドロップダウンリスト横にあるパレットで上線の色を選択する。`Automatic` でフォ
+   ントの色と一致する。以下同様。
+:guilabel:`Stri&kethrough`
+   選択したテキストの取り消し線のスタイルを選択する。
+:guilabel:`&Underlining`
+   適用する下線スタイルを選択する。
+
+   上付きテキストに下線を適用すると、下線は上付きテキストの高さまで引き上げられ
+   る。上付き文字が通常のテキストを含む単語内にある場合、下線は引かれない。
+
+   下線フィールドの横にあるボタンをクリックすると表示されるパレットで、下線の色
+   を選択する。
+:guilabel:`&Individual words`
+   上線、取り消し線、下線効果を、単語間の空白を無視して適用せず、単語にのみ適用
+   する。
+:guilabel:`R&elief`
+   テキストに適用する浮彫効果を選択する。`Embossed` を使用すると文字が紙面の上に
+   浮き上がっているように見える。`Engraved` では文字が紙面に押し込まれているよう
+   に見える。
+:guilabel:`Outli&ne`
+   文字の輪郭を表示する。この効果が機能しないフォントもある。
+:guilabel:`Shado&w`
+   文字の右下に影をつける。
+:guilabel:`Emphasis &Mark`
+   選択したテキストの全長にわたって、上または下に表示する文字を選択する。
+:guilabel:`&Position`
+   強調マークを表示する位置を指定する。
 
 Alignment tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+.. rubric:: Text Alignment
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+現在升目の内容または選択升目の整列オプションを設定する。
+
+:guilabel:`Hori&zontal` ドロップダウンリストでは升目の内容に適用する水平方向の整
+列オプションを指定する。
+
+.. list-table:: Horitonzal options
+   :align: left
+   :header-rows: 0
+   :stub-columns: 0
+   :widths: auto
+
+   * - `Default`
+     - 数字を右に、テキストを左に配置する。
+   * - `Left`
+     - 升目の内容を左に揃える。
+   * - `Center`
+     - 升目の内容を水平方向に中央揃えにする。
+   * - `Right`
+     - 升目の内容を右に揃える。
+   * - `Justified`
+     - 升目の内容を左右境界に揃える。
+   * - `Filled`
+     - 升目の可視領域が埋まるまでセルの内容（数字とテキスト）を反復する。この機
+       能は改行を含むテキストでは機能しない。 * `Distributed` 升目全体の内容を均
+       等に揃える。`Justified` とは異なり、最後の行のテキストも揃えられる。
+
+:guilabel:`I&ndent` 欄で升目の左端からの字下げ量を指定する。
+
+:guilabel:`Vertical` ドロップダウンリストでは升目の内容に適用する垂直方向の整列
+オプションを指定する。
+
+.. list-table:: Vertical options
+   :align: left
+   :header-rows: 0
+   :stub-columns: 0
+   :widths: auto
+
+   * - `Default`
+     - 内容を升目の下端に揃える。
+   * - `Top`
+     - 内容を升目の上端に揃える。
+   * - `Bottom`
+     - 内容を升目の下端に揃える。
+   * - `Middle`
+     - 内容を垂直方向に中央揃えする。
+   * - `Justified`
+     - 内容を升目の上辺と下辺に揃える。
+   * - `Distributed`
+     - テキストの向きが縦でない限り `Justified` と似ている。その場合は、水平方向
+       の `Distributed` 設定と同様に動作し、最後の行が両端揃えになる。
+
+.. rubric:: Text Orientation
+
+升目内容のテキスト方向を定義する。
+
+ABCD
+   テキストの向きを設定するには車のどこかをクリックする。車上の文字 ABCD は新し
+   い設定に対応する。
+:guilabel:`Vertically s&tacked`
+   升目内容に垂直方向のテキストを割り当てる。
+:guilabel:`Asian layout &mode`
+   アジア言語の支援が有効で、テキストが縦書きに設定されている場合に限り使用可。
+   選択升目内のアジア文字を下に一つずつ並べる。升目に複数行テキストが含まれる場
+   合、行は右から左に並ぶテキスト列に変換される。変換されたテキスト内の欧米文字
+   は右に 90 度回転し、アジア文字は回転されない。
+:guilabel:`&Degrees`
+   向きの角度を手動で入力可能。
+:guilabel:`&Reference edge`
+   回転テキストを書き込む升辺を指定する。
+
+   * :guilabel:`Text Extension From Lower Cell Border`: 升下辺から外側に書く。
+   * :guilabel:`Text Extension From Upper Cell Border`: 升上辺から外側に書く。
+   * :guilabel:`Text Extension Inside Cell`: 升目内にのみ書く。
+
+.. rubric:: Properties
+
+升目内のテキストフローを決定する。
+
+:guilabel:`&Wrap text automatically`
+   升の境界でテキストを別の行に自動的に折り返す。行数は升の幅に依存する。手動で
+   改行するには升目内で |Ctrl| + |Enter| を押す。
+:guilabel:`Hyphenation &active`
+   テキストを次の行に折り返す際に単語分綴を有効にする。
+:guilabel:`&Shrink to fit cell size`
+   フォントの見かけのサイズを小さくして、升目内容が現在の升幅に収まるようにす
+   る。改行を含む升目には適用できない。
+:guilabel:`Te&xt direction`
+   `Left-to-right (LTR)`, `Right-to-left (RTL), `Use superordinate object
+   settings`, つまり直前のセルに適用された設定、から選べる。
 
 Asian Typography tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+アジア言語の支援が有効になっている場合、|CellStyleDlg| に :guilabel:`Asian
+Typography` タブが表示される。このタブで利用可能なオプションの詳細については
+|Calc02| の|CellStyleDlg| の対応するタブの説明を見ろ。
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+.. admonition:: 読者ノート
+
+   どのタブ？
 
 Borders tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+選択升目の境界の属性を設定する。
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+.. rubric:: Line Arrangement
+
+:guilabel:`Pr&esets` の境界スタイルを選択するか、:guilabel:`&User-defined` 図式
+内をクリックして独自の組み合わせを定義する。
+
+.. rubric:: Line
+
+適用する線のスタイル、幅、色を選択する。このスタイルはプレビューで選択されている
+枠線に適用される。
+
+.. rubric:: Padding
+
+境界と升目の内容の間に残す空きの量を指定する。各距離（左、右、上、下）を個別に設
+定することも、新しい値を入力する際に四方向すべてに同じ量を適用するために
+:guilabel:`&Synchronize` をオンにすることもできる。
+
+.. rubric:: Shadow Style
+
+境界に影効果を適用する。影の位置（右下、右上、左下、右下）、影の伸びる距離、色を
+指定する。
 
 Background tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
-
-   以前の章で扱っていなければ重要事項をここにまとめる。
+書式設定された升目の背景として使用する色を選択するには :guilabel:`&Color` ボタン
+を押す。パレットがいくかあるなかから選択可能。色を変更するには別のものを選択す
+る。背景色を削除するには :guilabel:`&None` ボタンを押す。
 
 Cell Protection tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo::
+このタブではスプレッドシートの基本的な保護を設定する。
 
-   以前の章で扱っていなければ重要事項をここにまとめる。
+.. rubric:: Protection
+
+:guilabel:`Hide &all`
+   選択升目の数式と内容を隠す。
+:guilabel:`&Protected`
+   選択升目が変更されるのを防ぐ。この升目保護はシートも保護する場合にのみ効果が
+   ある。
+:guilabel:`Hide &formula`
+   選択升目の数式を隠す。
+
+.. rubric:: Print
+
+:guilabel:`Hide &when printing`
+   選択升目が印刷されないようにする。
 
 Resetting cell style attributes
 ----------------------------------------------------------------------
 
-:guilabel:`Cell Style` ダイアログの底部ボタン群の機能は次のとおり：
+|CellStyleDlg| の底部ボタン群の機能は次のとおり：
 
 * :guilabel:`&Reset` ボタンは現在のタブページ内の値をダイアログボックスが開いた
   時点に適用されていた値に戻す。
@@ -282,32 +505,31 @@ Drawing style attributes
 ----------------------------------------------------------------------
 
 :guilabel:`Drawing Style` ダイアログボックスは Draw における :guilabel:`Graphics
-Styles` ダイアログボックスと同等だ。Draw Guide のほうに記述がある。
+Styles` ダイアログボックスと同等だ。|Draw| のほうに記述がある。
 
 本文ではダイアログボックスのタブページの構成を簡潔にまとめるに留めている。
 
 Page style attributes
 ----------------------------------------------------------------------
 
-:guilabel:`Page Style` ダイアログボックスのタブページの構成を見ていく。
+|PageStyleDlg| のタブページの構成を見ていく。
 
 Organizer tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Cell Style` ダイアログボックスの同名タブページと似ている。そのページ
-版という理解でいい。
+|CellStyleDlg| の同名タブページと似ている。そのページ版という理解でいい。
 
 Page tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 単一ページおよび複数ページのスプレッドシートのページレイアウト、ページ番号、用紙
-フォーマットなど。
+判型など。
 
 Borders and Background tabs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:guilabel:`Cell Style` ダイアログボックスのそれと同等の設定項目に加え、背景ビッ
-トマップ指定項目 :guilabel:`&Image` がある。
+|CellStyleDlg| のそれと同等の設定項目に加え、背景ビットマップ指定項目
+:guilabel:`&Image` がある。
 
 Header and Footer tabs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -317,7 +539,7 @@ Header and Footer tabs
 * ヘッダー：ページ天井の余白にテキストやグラフィックを追加可能である領域
 * フッター：ページ床下の余白にある同様の領域
 
-Chatpter 7 で詳しくやる。
+|Calc07| で詳しくやる。
 
 Sheet tab
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -325,7 +547,7 @@ Sheet tab
 ページスタイルを持つすべてのシートの印刷に含まれる要素を指定する。さらに、印刷順
 序、最初のページ番号、ページ尺度を設定可能。
 
-Chatpter 7 で詳しくやる。
+|Calc07| で詳しくやる。
 
 Using themes
 ======================================================================
@@ -338,27 +560,27 @@ Using themes
 
 スプレッドシートにテーマを適用する手順：
 
-#. メインメニュー :menuselection:`Format --> Spreadsheet Theme` などを実行
+#. |MenuBar| :menuselection:`Format-->Spreadsheet Theme` などを実行
 #. 適用したいテーマを選択する（即時反映される）
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 スプレッドシートテーマを使用すると、スプレッドシート内の範囲を表として書式設定す
 るときに効果的だ。スプレッドシートテーマを選択すると、スプレッドシートに新規セル
 スタイルが追加され、既定セルスタイルが変更される。追加されるセルスタイルは：
 
-* Column Header
-* Card
-* Card B (bottom)
-* Card BL (bottom left)
-* Card BR (bottom right)
-* Card L (left)
-* Card R (right)
-* Card T (top)
-* Card TL (top left)
-* Card TR (top right)
-* Background: 範囲の背景スタイル。表の辺にない表内容に適用される。
-* Input: データ入力に使用するセルスタイル。
-* Result2: 数式結果に対する第二選択肢。
+* `Column Header`
+* `Card`
+* `Card B (bottom)`
+* `Card BL (bottom left)`
+* `Card BR (bottom right)`
+* `Card L (left)`
+* `Card R (right)`
+* `Card T (top)`
+* `Card TL (top left)`
+* `Card TR (top right)`
+* `Background`: 範囲の背景スタイル。表の辺にない表内容に適用される。
+* `Input`: データ入力に使用するセルスタイル。
+* `Result2`: 数式結果に対する第二選択肢。
 
 Using spreadsheet themes
 ----------------------------------------------------------------------
@@ -373,11 +595,11 @@ Using spreadsheet themes
 Using document themes
 ----------------------------------------------------------------------
 
-定義済みテーマカラーには Dark 1, Light 2, Accent 3 などの名前が付けられてい
-る。スタイルで使用したり手動で適用したりする。
+定義済みテーマカラーには `Dark 1`, `Light 2`, `Accent 3` などの名前が付けられて
+いる。スタイルで使用したり手動で適用したりする。
 
-テーマを使用するようにスプレッドシートを設定するには、フォント、背景、またはオブ
-ジェクトの色を、テーマカラーパレットから選択する。
+テーマを使用するようにスプレッドシートを設定するには、フォント、背景、または物の
+色を、テーマカラーパレットから選択する。
 
 * パレットの最初の行にはテーマカラーが含まれ、他の行には修正が含まれる。
 * パレットのセル上にマウスポインターを置くと、その色の情報を示すツールチップが現
@@ -385,16 +607,16 @@ Using document themes
 
 テーマカラーを変更するには
 
-#. :menuselection:`F&ormat --> Theme...` を実行
+#. :menuselection:`F&ormat-->Theme...` を実行
 #. ダイアログボックス上で別のテーマを選択
 
 テーマカラーとして定義された色は文書内で変更される。
 
-既定テーマは LibreOffice (Standard) だ。
+既定テーマは `LibreOffice (Standard)` だ。
 
 .. admonition:: 利用者ノート
 
-   LibreOffice から Sunset の差し替えを実習しておく。
+   `LibreOffice` から `Sunset` の差し替えを実習しておく。
 
 Managing styles
 ======================================================================
@@ -402,10 +624,10 @@ Managing styles
 Modifying styles
 ----------------------------------------------------------------------
 
-#. SideBar の :guilabel:`Style` デッキで、変更したいスタイルの型アイコンを押す
+#. |SideBar| の |StylesDeck| で変更したいスタイルの型図像を押す
 #. スタイル名の右クリックメニューから :menuselection:`&Modify...` を選択
 #. スタイル属性に対して変更を加える
-#. :guilabel:`&OK` を押す
+#. |OK| を押す
 
 .. admonition:: 利用者ノート
 
@@ -416,7 +638,7 @@ Renaming styles
 ----------------------------------------------------------------------
 
 カスタムスタイルに限り名前を変えられる。上の手順でスタイルダイアログを開いて
-:guilabel:`Organizer` タブで変えろ。
+|OrganizerTab| で変えろ。
 
 Deleting styles
 ----------------------------------------------------------------------
@@ -424,8 +646,8 @@ Deleting styles
 カスタムスタイルに限り削除可。
 
 * カスタムセルスタイルは適用されていない限り削除可。
-* カスタムページスタイルを削除すると、影響を受けるシートは Default ページスタイ
-  ルに戻る。
+* カスタムページスタイルを削除すると、影響を受けるシートは `Default` ページスタ
+  イルに戻る。
 
 Hiding and showing cell styles
 ----------------------------------------------------------------------
@@ -435,7 +657,7 @@ Hiding and showing cell styles
 Filtering the list of styles
 ----------------------------------------------------------------------
 
-スタイル一覧を短くするための真っ当な機能。デッキ底部ドロップダウンリストがフィル
+スタイル一覧を短くするための真っ当な機能。甲板底部ドロップダウンリストがフィル
 ターになる。意味は見ればわかる。
 
 What is a template? Why use one?
@@ -455,27 +677,26 @@ What is a template? Why use one?
 Using a template to create a spreadsheet
 ======================================================================
 
-利用可能なスプレッドシートの雛形がある場合、それを使用して :guilabel:`Templates`
-ダイアログボックスまたは LibreOffice Start Center から新規スプレッドシートを作成
-可能だ。
+利用可能なスプレッドシートの雛形がある場合、それを使用して |TemplatesDlg| または
+LibreOffice Start Center から新規スプレッドシートを作成可能だ。
 
 Creating a spreadsheet from the Templates dialog
 ----------------------------------------------------------------------
 
 雛形を使ってスプレッドシートを作成する手順：
 
-#. :menuselection:`&File --> &New > Te&mplates...` (:kbd:`Ctrl` + :kbd:`Shift` +
-   :kbd:`N`) を選択
-#. :guilabel:`Templates` ダイアログボックス上部のリストから
-   :guilabel:`Spreadsheets` および所望の雛形の区分を選択する
-#. 必要な雛形を選択して :guilabel:`&OK` を押す
+#. :menuselection:`&File-->&New-->Te&mplates...` (|Ctrl+Shift| + :kbd:`N`) を選
+   択
+#. |TemplatesDlg| 上部のリストから `Spreadsheets` および所望の雛形の区分を選択す
+   る
+#. 必要な雛形を選択して |OK| を押す
 
 雛形とスプレッドシートの関係は、その雛形が変更されるまで維持される。次にその雛形
 に基づいたスプレッドシートを開いたとき、その修正内容に合わせてスプレッドシートを
 更新するか否かを選択可能。
 
-:guilabel:`Templates` ダイアログボックスのビュー形式を :guilabel:`List View` に
-切り替えると、Modfied や Size などの付加的情報を確認できる。
+|TemplatesDlg| のビュー形式を :guilabel:`List View` に切り替えると、Modfied や
+Size などの付加的情報を確認できる。
 
 Creating a spreadsheet from a template in the Start Center
 ----------------------------------------------------------------------
@@ -492,14 +713,13 @@ Creating a template
 #. 新規雛形を使用するたびに表示させたい内容を追加したり、不要な情報を削除したり
    する。
 #. 雛形で使用するセル、図面、ページ各スタイルを作成または変更する。
-#. :menuselection:`&File --> Te&mplates --> &Save as Template...` (:kbd:`Shift`
-   + :kbd:`F11`) を実行する。
+#. |SaveAsTemplateM| (|Shift| + |F11|) を実行する。
 #. 新しい雛形の名前を入力し、必要な雛形区分を選択する。この雛形を既定雛形にして
    もよい。
 #. :guilabel:`&Save` を押す。
 
-または :menuselection:`&File --> Save &As...` (:kbd:`Ctrl` + :kbd:`Shift` +
-:kbd:`S`) のオプションで雛形として保存することも可能。
+または |SaveAsM| (|Ctrl+Shift| + :kbd:`S`) のオプションで雛形として保存すること
+も可能。
 
 Editing a template
 ======================================================================
@@ -509,15 +729,14 @@ Editing a template
 
 編集手順：
 
-#. :menuselection:`&File --> Te&mplates --> &Manage Templates...` (:kbd:`Ctrl` +
-   :kbd:`Shift` + :kbd:`N`) を実行してダイアログボックスを開く。
+#. |ManageTemplatesM| (|Ctrl+Shift| + :kbd:`N`) を実行してダイアログボックスを開
+   く。
 #. 編集対象スプレッドシート雛形に移動し、右クリックメニューから
    :menuselection:`&Edit` を実行する。雛形が開く。
 #. 雛形を編集する。
 
-   * 雛形を上書き保存するならば :menuselection:`&File --> Save &As...`
-   * 雛形を新規雛形として保存するならば :menuselection:`&File --> Te&mplates -->
-     &Save As Template...`
+   * 雛形を上書き保存するならば |SaveAsM|
+   * 雛形を新規雛形として保存するならば |SaveAsTemplateM|
 
 Updating styles from a changed template
 ----------------------------------------------------------------------
@@ -536,7 +755,7 @@ Changing the template assigned to a document
 目的の雛形から新規文書を作成し、対象文書の内容をそれにコピーすればよい。
 
 Template Changer 拡張というものがあり、それを利用する方法もある。インストールし
-た後に、メニューに :menuselection:`&File --> Te&mplates --> Change template
+た後に、|MenuBar| に :menuselection:`&File-->Te&mplates-->Change template
 (current document)` というコマンドが出現するらしい。
 
 .. todo::
@@ -558,8 +777,8 @@ Installing templates
 
 インストールしたい雛形が手許にあるとして：
 
-#. :guilabel:`Templates` ダイアログボックスを開く
-#. :menuselection:`&Manage --> &Import...` を実行
+#. |TemplatesDlg| を開く
+#. :menuselection:`&Manage-->&Import...` を実行
 #. :guilabel:`Select Category` ダイアログボックスで雛形を保存する区分を決定する
 #. ファイルダイアログで雛形を選択して :guilabel:`&Open` を押す
 
@@ -568,17 +787,16 @@ Installing collections of templates
 
 Extension Manager を使うのが簡単だ。
 
-#. 上記ウェブサイトなどから .oxt ファイルをダウンロードしておく。
-#. :menuselection:`&Tools --> &Extensions...` (:kbd:`Ctrl` + :kbd:`Alt` +
-   :kbd:`E`) を実行
+#. 上記ウェブサイトなどから .oxt ファイルをダウンロードしておく
+#. |ExtensionsM| (|Ctrl+Alt| + :kbd:`E`) を実行
 #. ダイアログボックスで :guilabel:`&Add` を押す
 #. 対象雛形を選択して :guilabel:`&Open` を押す
 #. :guilabel:`&Restart now` などを押す
 
-雛形は :guilabel:`Templates` ダイアログボックスから使用可能に、拡張は
-:guilabel:`Extension Manager` に表示されるようになる。
+雛形は |TemplatesDlg| から使用可能に、拡張は :guilabel:`Extension Manager` に表
+示されるようになる。
 
-Chapter 15 に続く？
+|Calc15| に続く？
 
 .. admonition:: 利用者ノート
 
@@ -587,9 +805,9 @@ Chapter 15 に続く？
 Setting the default template
 ======================================================================
 
-:menuselection:`&File --> &New --> &Spreadsheet` コマンドで新規文書を作成する場
-合、スプレッドシート用の既定雛形から文書を作成する。任意の雛形を既定雛形として設
-定可能だ。
+:menuselection:`&File-->&New-->&Spreadsheet` コマンドで新規文書を作成する場合、
+スプレッドシート用の既定雛形から文書を作成する。任意の雛形を既定雛形として設定可
+能だ。
 
 また、既定雛形を Calc 既定雛形にリセットすることも可能だ。
 
@@ -598,12 +816,11 @@ Setting a template as the default
 
 既定 Calc 雛形を新しいものに置き換える方法がある。
 
-:guilabel:`Templates` ダイアログボックスに表示されている雛形を、その文書タイプの
-既定のものに設定する手順：
+|TemplatesDlg| に表示されている雛形を、その文書型の既定のものに設定する手順：
 
-#. :menuselection:`&File --> Te&mplates --> &Manage Templates...` (:kbd:`Ctrl` +
-   :kbd:`Shift` + :kbd:`N`) を実行。
-#. :guilabel:`Templates` ダイアログボックスで、既定としたい雛形を含む区分を開く。
+#. |ManageTemplatesM| (|Ctrl+Shift| +
+   :kbd:`N`) を実行。
+#. |TemplatesDlg| で、既定としたい雛形を含む区分を開く。
 #. 雛形の右クリックメニューから :menuselection:`Set as De&fault` を実行。
 
 次回新規文書からこの雛形を基に生成される。
@@ -613,8 +830,8 @@ Resetting the default template
 
 既定雛形を Calc 固有の既定雛形に直す方法：
 
-#. :guilabel:`Templates` ダイアログボックスで :menuselection:`&Manage --> Reset
-   De&fault Spreadsheet` を押す。
+#. |TemplatesDlg| で :menuselection:`&Manage-->Reset De&fault Spreadsheet` を押
+   す。
 
 このメニュー項目はカスタム雛形が既定して設定されている場合に限り現れる。
 
@@ -625,17 +842,16 @@ LibreOffice が管理できる雛形は特定のフォルダー（複数形）�
 しい雛形フォルダーを作成し、それを使って雛形を整理したり、これらのフォルダーにイ
 ンポートしたりすることが可能だ。
 
-LibreOffice の雛形フォルダーのパスは設定ダイアログの :menuselection:`LibreOffice
---> Paths` ページで確認しろ。
+LibreOffice の雛形フォルダーのパスは |OptionsDlg| |PathsPage| で確認しろ。
 
-本節の以降では :guilabel:`Templates` ダイアログボックスでの操作を述べている。
+本節の以降では |TemplatesDlg| での操作を述べている。
 
 Creating a template category
 ----------------------------------------------------------------------
 
-#. :menuselection:`&Manage --> &New Category...` を押す。
+#. :menuselection:`&Manage-->&New Category...` を押す。
 #. 開いたダイアログボックスの入力欄に名前を入力する。
-#. :guilabel:`&OK` を押す。
+#. |OK| を押す。
 
 Deleting a template category
 ----------------------------------------------------------------------
@@ -648,8 +864,8 @@ Deleting a template category
 それ以外の雛形区分の削除手順は：
 
 #. 削除対象の区分を選択。
-#. :menuselection:`&Manage --> &Delete Category...` を押す。
-#. 確認ダイアログボックスで :guilabel:`&Yes` を押す。
+#. :menuselection:`&Manage-->&Delete Category...` を押す。
+#. 確認ダイアログボックスで |Yes| を押す。
 
 Moving a template
 ----------------------------------------------------------------------
@@ -659,7 +875,7 @@ Moving a template
 #. 移動対象となる雛形を一覧から選択。
 #. 右クリックメニュー :menuselection:`&Move...` を選択。
 #. 開いたダイアログボックスで移動先区分を選択。
-#. :guilabel:`&OK` を押す。
+#. |OK| を押す。
 
 Deleting a template
 ----------------------------------------------------------------------
@@ -669,7 +885,7 @@ Deleting a template
 #. 削除対象の雛形が属する区分を :guilabel:`Filter` から選択
 #. 移動対象となる雛形を一覧から選択。
 #. 右クリックメニュー :menuselection:`&Delete...` を選択。
-#. :guilabel:`&Yes` を押す。
+#. |Yes| を押す。
 
 Exporting a template
 ----------------------------------------------------------------------

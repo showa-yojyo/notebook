@@ -299,6 +299,5 @@ Contextual Single インターフェイスは標準的なメニューと、状�
 
 .. rubric:: 章末注
 
-.. [#writer21-footnote-advanced] |OptionsDlg|
-   :menuselection:`LibreOffice-->Advanced` ページ :guilabel:`Enable experimental
-   features (may be unstable)` をオン
+.. [#writer21-footnote-advanced] |OptionsDlg| |LibreOfficeAdvancedPage|
+   :guilabel:`Enable experimental features (may be unstable)` をオン

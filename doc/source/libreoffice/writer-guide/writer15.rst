@@ -93,11 +93,10 @@ Creating a table of contents quickly
 
 .. caution::
 
-   :menuselection:`&Edit-->Track Chan&ges-->&Show` を有効にしている場合、目次を
-   更新すると、削除された見出しが目次に含まれ、削除されたテキストによって目次の
-   ページ番号が正しく表示されないため、エラーが発生する可能性がある。この問題を
-   避けるには、目次を更新する前に、このオプションが選択解除されていることを確認
-   しろ。
+   |EditTrackShowM| を有効にしている場合、目次を更新すると、削除された見出しが目
+   次に含まれ、削除されたテキストによって目次のページ番号が正しく表示されないた
+   め、エラーが発生する可能性がある。この問題を避けるには、目次を更新する前に、
+   このオプションが選択解除されていることを確認しろ。
 
 Customizing a table of contents
 ----------------------------------------------------------------------
@@ -985,8 +984,8 @@ Field details
 #. |DataSourceView| を開く。
 #. `Bibliography` データベースが選択されていることと、正しいデータ表が選択されて
    いることを確認する。
-#. テーブル登録項目 (e.g. `biblio`) を右クリックし、:menuselection:`Edit
-   &Database File...` を選択する。LibreOffice Base が開く。
+#. テーブル登録項目 (e.g. `biblio`) を右クリックし、|EditDatabaseFileC| を選択す
+   る。LibreOffice Base が開く。
 #. 左柱で :guilabel:`&Tables` を選択する。
 #. :guilabel:`Tables` で `biblio` を右クリックし :menuselection:`&Edit...` を選
    択すると設計ウィンドウが表示される。
@@ -1191,7 +1190,6 @@ Writer の書誌機能が制限されすぎていると感じる場合は、macO
 
 .. rubric:: 章末注
 
-.. [#writer15-footnote-hyperlink] :menuselection:`&Insert-->&Hyperlink...` で加
-   えたものなど。
+.. [#writer15-footnote-hyperlink] |InsertHyperlinkM| で加えたものなど。
 .. [#writer15-footnote-shading1] |OptionsDlg| |ApplicationColors| ページを確認
 .. [#writer15-footnote-shading2] |ViewFieldShadingsM| または |Ctrl| + |F8|

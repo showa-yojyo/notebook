@@ -1,5 +1,5 @@
 ======================================================================
-Calc Guide Chapter 12 Sharing and Reviewing Spreadsheets ノート
+Calc Guide Chapter 12, Sharing and Reviewing Spreadsheets ノート
 ======================================================================
 
 .. include:: ./calc-inc.txt
@@ -17,11 +17,11 @@ Introduction
 * 変更の記録
 * コメントの追加
 * 変更の査読
-* 文書のマージと比較
+* 文書の融合と比較
 * 保存
 * 版の使用
 
-共有または変更の追跡が active である場合、コマンドの一部は使用不能だ。
+共有または変更の追跡が活動中である場合、コマンドの一部は使用不能だ。
 
 Sharing spreadsheets
 ======================================================================
@@ -37,13 +37,15 @@ Sharing spreadsheets
   * 共同著者すべてがファイルを作成、削除、変更可能であるように、当該文書ファイル
     およびそのロックファイルの双方に対して適当なファイル権限を設定されている。
 
-共同編集をまともにするためには、オプション設定の :menuselection:`LibreOffice -->
-User Data` 画面の各項目を埋めておけ。
+.. tip::
+
+   共同編集をまともにするためには、|OptionsDlg| |UserDataPage| の各項目を埋めて
+   おけ。
 
 Setting up a spreadsheet for sharing
 ----------------------------------------------------------------------
 
-スプレッドシートを開いた状態で、メニューから :menuselection:`&Tools --> S&hare
+スプレッドシートを開いた状態で、メニューから :menuselection:`&Tools-->S&hare
 Spreadsheet...` を実行して、:guilabel:`&Share this spreadsheet with other users`
 で共有状態の有効性を設定しろ。
 
@@ -58,7 +60,55 @@ Spreadsheet...` を実行して、:guilabel:`&Share this spreadsheet with other 
 Opening a shared spreadsheet
 ----------------------------------------------------------------------
 
-本文にあるように、共有モードではコマンドの一部が使用不能になる。
+共有スプレッドシートを開くと、このモードでは一部の機能が使用できないというメッ
+セージが現れる。
+
+共有スプレッドシートでは、次の機能が不能になる：
+
+* :menuselection:`&Edit-->`
+
+  * :menuselection:`Merge Documen&t...` 以外の :menuselection:`Track
+    Chan&ges-->`
+* :menuselection:`&Insert-->`
+
+  * :menuselection:`&Media-->Audio or &Video...`
+  * :menuselection:`Comme&nt...`
+  * :menuselection:`&OLE Object-->`
+  * :menuselection:`&Chart...`
+  * :menuselection:`&Named Range or Expression...`
+  * :menuselection:`Pi&vot Table...`
+  * :menuselection:`Floating Frame`
+  * :menuselection:`Font&work...`
+  * :menuselection:`Signat&ure Line...`
+* :menuselection:`F&ormat-->`
+
+  * :menuselection:`M&erge and Unmerge Cells-->`
+  * :menuselection:`Prin&t Ranges-->`
+* :menuselection:`&Sheet-->`
+
+  * :menuselection:`&Move or Copy Sheet...`
+  * :menuselection:`&Delete Sheet...`
+  * :menuselection:`Insert Shee&t from File...`
+  * :menuselection:`&Named Ranges and Expressions-->`
+  * :menuselection:`Rename S&heet...`
+  * :menuselection:`Sheet &Tab Color...`
+
+* :menuselection:`&Data-->`
+
+  * :menuselection:`-->&Define Range...`
+  * :menuselection:`-->&Sort...`
+  * :menuselection:`-->Sort &Ascending`
+  * :menuselection:`-->Sort Descend&ing`
+  * :menuselection:`-->Sub&totals...`
+  * :menuselection:`-->&Validity...`
+  * :menuselection:`-->&Multiple Operations...`
+  * :menuselection:`-->&Consolidate...`
+  * :menuselection:`-->&Group and Outline-->`
+  * :menuselection:`-->&Pivot Table-->`
+* :menuselection:`&Tools-->`
+
+  * :menuselection:`Protect &Sheet...`
+  * :menuselection:`Protect &Spreadsheet Structure...`
 
 Saving a shared spreadsheet
 ----------------------------------------------------------------------
@@ -71,16 +121,15 @@ Saving a shared spreadsheet
 
 * 互いの編集内容が衝突しない場合、文書は保存される。メッセージ «Your spreadsheet
   has been updated with changes saved by other users» が示され、他の共同著者が変
-  更したセルが赤枠で描かれる。
+  更した升目が赤枠で描かれる。
 * 編集内容が衝突した場合、:guilabel:`Resolve Conflicts` ダイアログボックスが開く。
   バージョン管理ツールの要領でどちらの版を採るかを決めろ。
 
   * 衝突がすべて解決されれば文書が保存される。
   * 衝突解消中は他の共同著者は共有文書を保存することが不可能だ。
 
-    * 他の共同著者からは、マージ中のためにファイルがロックされているというメッ
-      セージを見ることになる。保存を取り消して後ほど改めて保存を試みることにな
-      る。
+    * 他の共同著者からは、融合中のためにファイルがロックされているというメッセー
+      ジを見ることになる。保存を取り消して後ほど改めて保存を試みることになる。
 
 共有スプレッドシートの保存に成功すると、共同著者すべてが保存した変更すべての最新
 版が表示される。
@@ -108,20 +157,37 @@ Preparing a document for review (optional)
 改訂マークを有効にした後、スプレッドシートをパスワードで保護し、正しいパスワード
 を入力しなければ変更を許可または拒否できないようにすることも可能だ。
 
-#. :menuselection:`&Edit --> Track Chan&ges --> &Record` を実行
-#. :menuselection:`&Edit --> Track Chan&ges --> &Protect...` を実行
-#. :guilabel:`Protect Records` ダイアログボックスでパスワードを入浴
+#. スプレッドシートを開き、|MenuBar| |EditTrackRecordM| を選択する。あるいは
+   |FilePropertiesM| を選択し |SecurityTab| で :guilabel:`Record &changes` をオ
+   ンにする。
+#. スプレッドシートを保護したい場合は、|MenuBar| :menuselection:`&Edit-->Track
+   Chan&ges-->&Protect...` を選択する。:guilabel:`Protect Records` ダイアログ
+   ボックスで、パスワードを入力し、|OK| を押す。あるいは上と同じタブで
+   :guilabel:`&Protect...` ボタンを押して、同様の :guilabel:`Enter Password` ダ
+   イアログを開くこともできる。
 
 Recording changes
 ----------------------------------------------------------------------
 
-変更記録が有効ならば :menuselection:`&Edit --> Track Chan&ges --> &Record` 項目
-に印がつく。
+変更記録が有効ならば |EditTrackRecordM| 項目に印がつく。
+
+.. caution::
+
+   変更を行った後、変更記録をオフにしてはいけない。オフにすると、記録された変更
+   すべてが受け入れられ、変更として表示されなくなる。これを実行しようとすると、
+   メッセージボックスで警告が表示される。
 
 * セルが変更されると左上隅に点のある色つき枠線がセルを囲むように表示される。
 * 削除された列や行は太い色の棒で示される。
 
 変更情報を見るにはマウスポインターを対象セルの上に持って行く。
+
+.. tip::
+
+   変更されたセルを示す色を変更するには、|OptionsDlg| |CalcChangesPage| を開く。
+
+変更の理由を説明することもできる。この場合、変更箇所にコメントを追加するか、スプ
+レッドシートに一般的なコメントを追加する。
 
 Adding comments to changes
 ----------------------------------------------------------------------
@@ -132,51 +198,98 @@ Adding comments to changes
 
 #. セルに変更を加える
 #. 変更のあるセルを選択する
-#. :menuselection:`&Edit --> Track Chan&ges --> &Comment...` を実行
+#. |EditTrackCommentM| を実行
 
-コメントは変更を受理したり却下したりするときにも :menuselection:`Manage Changes`
-ダイアログボックスに表示される。
+.. note::
+
+   この目的のために |MenuBar| |InsertCommentM| やコンテキストメニューの
+   |InsertCommentC| を使ってはいけない。それらの方法で加えたコメントは別の方法で
+   扱われ、|ManageChangesDlg| には現れない。 :ref:`calc12-anchor-general` を見
+   ろ。
+
+コメントは変更を受理したり却下したりするときにも |ManageChangesDlg| に表示される。
 
 Editing comments on changes
 ----------------------------------------------------------------------
 
-変更コメントのあるセルを選択してから上述のコマンドを実行しろ。
+#. 変更コメントのある升目を選択
+#. |EditTrackCommentM| を実行
+#. コメントを編集して |OK| を押す
 
-* Calc によって自動的に追加されたコメントは編集不能。
+Calc が自動的に追加したコメントは編集不能。
+
+ダイアログボックスの下にある矢印を使ってコメントを移動することが可能。
+
+.. _calc12-anchor-general:
 
 Adding other (general) comments
 ----------------------------------------------------------------------
 
-普通のコメント (:kbd:`Ctrl` + :kbd:`Alt` + :kbd:`C`) について。
+著者と査読者が意見交換や提案を求めるために用いる、もう一つの型のコメントについて。
+
+一般的なコメントを追加する手順：
+
+#. コメントを適用する升目を選択する。
+#. |MenuBar| から |InsertCommentM| を選択するか、右クリックしてコンテキストメ
+   ニューから |InsertCommentC| を選択するか、|Ctrl+Alt| + :kbd:`C` を押す。
+#. 箱にコメントを入力し、箱外側をクリックして閉じる。
+
+コメントを追加した升目には、右上隅に色の付いた三角形が表示される。その升目に変更
+コメントがない限り、色のついた枠線はない。
+
+.. tip::
+
+   |OptionsDlg| |ApplicationColors| で :guilabel:`Spreadsheet` 区画の `Notes
+   background` と `Comments` の色を調整することで、Calc がコメントに使用する色を
+   変更できる。
+
+追加したコメントを表示するには、コメントのある升目にマウスポインターを置く。コメ
+ント箱がポップアップする。
+
+.. note::
+
+   変更コメントと一般コメントの両方を持つセルにマウスポインターを合わせると、表
+   示されたヒントに両方のコメントが示される。
 
 Editing general comments
 ----------------------------------------------------------------------
 
-ここも省略。
+他のテキストと同じように、一般的なコメントのテキストを編集し、書式整形することが
+できる。
+
+#. コメントマーカーを含む升目を右クリックし、コンテキストメニューから
+   :menuselection:`Edit Co&mment` を選択するか、升目を左クリックして |Ctrl+Alt|
+   + :kbd:`C` を押す。
+#. 升目コメントが示される。ポインターは通常のテキスト入力ポインターに変わり、
+   |FormattingToolbar| はテキスト属性を表示するように変わる。
+#. 編集が終わったら、コメントの外側をクリックして選択を解除する。
 
 Formatting general comments
 ----------------------------------------------------------------------
 
 コメントの背景色、枠、透明性、その他特性を変更可能。コメント自身をクリックすると
-:guilabel:`Formatting` ツールバーが有効になるので、Chapter 6 で述べたように設定
-可能となる。
+|FormattingToolbar| が有効になるので、|Calc06| で述べたように設定可能となる。
 
-#. コメント印を含むセルから右クリックメニューで :menuselection:`Sho&w Comment`
+#. コメント印を含む升目から右クリックメニューで :menuselection:`Sho&w Comment`
    を実行する。
 #. コメントをクリックして上述したツールバーを用いるか、コメント右クリックメ
    ニューを用いてコメント欄書式を設定する。
 #. 設定が終わったらコメント欄の外側をクリックする。
-#. コメント印を含むセルから右クリックメニューで :menuselection:`&Hide Comment`
+#. コメント印を含む升目から右クリックメニューで :menuselection:`&Hide Comment`
    を実行する。
 
 Finding general comments
 ----------------------------------------------------------------------
 
-:menuselection:`&View > C&omments` を実行してシート内の通常コメントを一括表示
-する方法がある。
+:menuselection:`&View-->C&omments` を実行してシート内の通常コメントを一括表示す
+る方法がある。
 
-:guilabel:`Navigator` ウィンドウ (:kbd:`F5`) を使って、目的のコメントを含むセル
-にジャンプするのもいい。
+Navigator を使って、目的のコメントを含むセルにジャンプするのもいい。
+
+.. note::
+
+   これらの操作では一般的なコメントは表示されるが、追跡された変更に関連するコメ
+   ントは表示されない。
 
 Accepting or rejecting changes
 ----------------------------------------------------------------------
@@ -185,43 +298,56 @@ Accepting or rejecting changes
 めるかを決定する。
 
 #. 文書を開く。
-#. :menuselection:`&Edit --> Track Chan&ges --> &Manage...` を実行してダイアログ
+#. :menuselection:`&Edit-->Track Chan&ges-->&Manage...` を実行してダイアログ
    ボックスを開く。
 #. 変更を一つずつ確認し、その都度、変更を受理するか却下するかを選択する。また
    は、すべての変更を一度に受理または却下する。
 
+Comment 列には既定で変更点の説明を含む。査読者が変更にコメントを追加した場合は、
+そのコメントが表示され、変更の説明が続く。
+
+ある変更が後の変更（同一人物または別の人物によるもの）に取って代わられた場合、変
+更は階層的に配置され、階層を開くための展開記号が表示される。
+
+受理または拒否される変更の一覧の下には、以前に処理された変更が表示される。
+
+|ManageChangesDlg| の :guilabel:`Filter` タブでは、日付、作成者、升目範囲、特定
+の用語を含むコメントのどれかで、変更一覧を絞り込む方法を選択できる。絞り込み基準
+を選択した後、結果を見るために :guilabel:`List` タブに戻る。変更を絞り込むと、ダ
+イアログボックスの :guilabel:`List` タブ内容だけに影響し、スプレッドシートでは絞
+り込み結果は見えない。
+
 Merging documents
 ======================================================================
 
-査読者が複数いて、すべての変更版を一度に確認したい場合がある。こういうときにマー
-ジを行う。
+ここまで説明したプロセスは、単独の査読者が一度に行う場合には有効だ。しかし、査読
+者が複数いて、全員がスプレッドシートの編集コピーを返すこともある。こうなるとすべ
+ての変更版を一度に確認したいことがある。こういうときに融合を行う。
 
-* 文書をマージするには、受け取った版のすべてが変更記録されていることが必要。
-
-手順：
+文書を融合するには、受け取った版のすべてが変更記録されていることが必要だ。
 
 #. 元文書を開く。
-#. メニューから :menuselection:`&Edit --> Track Chan&ges --> Merge Documen&t...`
-   を実行。
-#. ファイル選択ダイアログボックスが開く。マージしたいものを選ぶ。
-#. マージ後に :guilabel:`Manage Changes` ダイアログボックスが開く。
-#. 査読版の数だけファイル選択からマージまでの操作を反復する。
+#. |MenuBar| から |EditTrackMergeM| を実行。
+#. |OpenFileDlg| が開く。融合したいものを選ぶ。
+#. 融合後に |ManageChangesDlg| が開く。
+#. 査読版の数だけファイル選択から融合までの操作を反復する。
 
 こうすると、すべての変更が一つの文書にまとめられ、変更を受理するか却下することが
-可能になる。
-
-* 異なる著者による変更は、異なる色でアウトライン化されたセルに表示される。
+可能になる。異なる著者による変更は、異なる色でアウトライン化された升目に表示され
+る。
 
 Comparing documents
 ======================================================================
 
-元文書と更新版が手許にあるとき、両者を比較する手順：
+査読者が変更点を記録していないことがある。この場合は文書を比較することで変更点を
+見つけることができる。
+
+元文書と更新版が手許にあるときの、両者を比較する手順：
 
 #. 元文書と比較したい更新版を開く
-#. :menuselection:`&Edit --> Track Chan&ges --> Co&mpare Document...` を実行
+#. |EditTrackCompareM| を実行
 #. ファイルダイアログボックスから元文書を開く。
-
-これで :menuselection:`Manage Changes` ダイアログボックスが開く。
+#. 確認された変更を表示する |ManageChangesDlg| が開く。
 
 Calc は次のように差分箇所を識別する：
 
@@ -234,25 +360,31 @@ Calc は次のように差分箇所を識別する：
 Saving versions
 ======================================================================
 
-スプレッドシートの新版を保存する必要がある場合がある。これを行うには、改訂のたび
-にスプレッドシートのコピーを別の名前で保存するか、Calc のバージョン機能を利用す
-る。
+監査やその他の目的のためにスプレッドシートの新版を保存する必要がある場合がある。
+これを行うには、改訂のたびにスプレッドシートのコピーを別の名前で保存するか、Calc
+の版機能を利用する。
 
-:menuselection:`&File -> Save &As...` による保存の場合、（それまで格納されてい
-た）旧版は格納されなくなる。
+.. caution::
 
-バージョン管理コマンドは :menuselection:`&File --> Versions...` を実行する。ダイ
-アログボックスが開く。このファイルに格納されている既存のバージョン一覧が示され
-る。新しいバージョンを保存するには、
+   |SaveAsM| による保存の場合、（それまで格納されていた）旧版はファイルに格納さ
+   れなくなる。
 
-#. :guilabel:`Save New Version` を押す
-#. コメントダイアログが開くので、この版に関するコメントを入力する
-#. :guilabel:`&OK` を押す
-#. ファイルを保存する
+版管理には :menuselection:`&File-->Versions...` を実行する。ファイル名をタイトル
+バーに持つダイアログボックスが開く。このファイルに格納されている既存の版一覧が示
+される。新しい版を保存するには、
+
+#. :guilabel:`Save New Version` を押す。
+#. :guilabel:`Insert Version Comment` ダイアログボックスが開くので、この版に関す
+   るコメントを入力する。
+#. |OK| を押す。新版が Existing Versions 一覧に加わる。
+#. ファイルを保存する。これで双方の版が同じファイルに含まれる。
 
 完了後、以下の動作が可能になる：
 
-* 旧版を閲覧する
-* すべての版を比較する
-* 版コメントを見直す
-* 版を削除する
+* 旧版を閲覧する。 版を選択し、|Open| を押す。旧版の読み取り専用コピーが開く。
+* すべての版を比較する。:guilabel:`&Compare...` を押すと文書の融合に似た動作が
+  実行される。|ManageChangesDlg| が開き、異版の変更すべてが表示される。
+* 版コメントを見直す。版を選択し、:guilabel:`&Show...` を押すと、著者自身または
+  他の査読者によるコメント全文が表示される。
+* 版を削除する。版を選択し、:guilabel:`&Delete` を押す。このオプションには気をつ
+  けろ。削除する際に確認要請はない。

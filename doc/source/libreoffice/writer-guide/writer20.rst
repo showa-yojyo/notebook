@@ -89,9 +89,8 @@ Writer は |UserDataPage| に保存されている名前や頭文字を、文書
 View options
 ----------------------------------------------------------------------
 
-:menuselection:`LibreOffice-->View` ページのオプションは文書ウィンドウの表示や動
-作に影響する。好みに合わせて設定しろ。詳細については |Help| または |Guide| を参
-照しろ。
+|LibreOfficeViewPage| のオプションは文書ウィンドウの表示や動作に影響する。好みに
+合わせて設定しろ。詳細については |Help| または |Guide| を参照しろ。
 
 Print options
 ----------------------------------------------------------------------
@@ -156,8 +155,8 @@ Security options
    れない限り、その情報の多くは |PDF| を含む他の形式で保存された場合でも保持され
    る。
 
-:guilabel:`O&ptions...` ボタンを押すと次のオプションがある別のダイアログボックス
-が開く：
+:guilabel:`O&ptions...` ボタンを押すと次のオプションがある
+|SecurityOptions&WarningsDlg| が開く：
 
 :guilabel:`&Remove personal information on saving`
    これをオンにすると、ファイルを保存する際、ファイル特性から使用者データが常に
@@ -492,8 +491,8 @@ Comparison options
 ----------------------------------------------------------------------
 
 :menuselection:`LibreOffice Writer-->Comparison` ページのオプションは、
-|Writer03| で説明する文書比較機能 :menuselection:`&Edit-->Track
-Chan&ges-->Co&mpare Document...` で使用する詳細度を決定する。
+|Writer03| で説明する文書比較機能 |EditTrackCompareM| で使用する詳細度を決定す
+る。
 
 単語単位で比較するか、文字単位で比較するか、または既定の :guilabel:`A&uto` によ
 るアルゴリズムを使用して比較するかを選択する。:guilabel:`By w&ord` または
@@ -691,10 +690,6 @@ Settings-->LanguageTool Server Settings` で :guilabel:`Enable LanguageTool` を
 
 Customizing menus
 ======================================================================
-
-.. |CustomizeM| replace:: :menuselection:`&Tools-->&Customize...`
-.. |MenusTab| replace:: :guilabel:`Menus` タブ
-.. |ContextMenusTab| replace:: :guilabel:`Context Menus` タブ
 
 |MenuBar| 上のメニューを追加、並べ替えしたり、コマンドを追加したり、その他の変更
 を行うことができる。右クリックメニューも同様に変更できる。
@@ -989,8 +984,8 @@ LibreOffice にはテーマ色の集合がいくつか用意されている。�
 
 #. |MenuBar| の :menuselection:`F&ormat-->The&me...` を選択する。|ThemeDlg| で開
    始点として使用するテーマを選択し、:guilabel:`&Add` ボタンを押す。
-#. :guilabel:`Theme Color Edit` ダイアログボックスで新しいテーマに名前を付け、利
-   用可能なパレットから色を選択する。
+#. |ThemeColorEditDlg| で新しいテーマに名前を付け、利用可能なパレットから色を選
+   択する。
 #. |OK| を押して新しいテーマを保存し、|ThemeDlg| に表示する。
 
 文書テーマの使い方については |Writer06| を参照しろ。
