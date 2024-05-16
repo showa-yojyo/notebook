@@ -2,19 +2,19 @@
 Miniconda 利用ノート
 ======================================================================
 
-Miniconda_ の利用に関する事実関係の覚え書きと、その利用について思うところを記
-す。
+Miniconda_ の利用に関する事実関係の覚え書きと、その利用について思うところを記す。
 
-.. contents:: ノート目次
+.. contents:: 目次見出し
+   :local:
 
 .. note::
 
    本稿執筆時の動作環境は次のとおり。
 
-   * OS: Windows 10 Home (64 bit)
-   * Cygwin: 2.5.2-1, 2.7.0 (64 bit)
-   * bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin)
-   * Miniconda_: 4.0.5, 4.1.11, 4.3.14, 4.7.5
+   :OS: Windows 10 Home (64 bit), WSL2
+   :Cygwin: 2.5.2-1, 2.7.0 (64 bit)
+   :bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin), 5.1.16(1)-release (x86_64-pc-linux-gnu)
+   :Miniconda_: 4.0.5, 4.1.11, 4.3.14, 4.7.5, 24.3.0
 
    Python 本体および Python 製パッケージのバージョンについては、必要に応じて本文
    で明記していく。
@@ -102,22 +102,63 @@ Miniconda_ のダウンロードページにある Python 3.5 の 64-bit (exe in
 とに分類しておき、整理結果を後の :code:`conda install` と :code:`pip install` の
 使い分けの基準とする。
 
-Conda の各種設定はホームディレクトリーに所定の書式で記述された構成ファイル
-:file:`.condarc` を作成することでも可能である。毎度特定のコマンドラインオプショ
-ンを指定するようなことがあれば、このテキストファイルにそのようなオプションを記述
-しておけば、コマンドラインの入力作業の省力化になる。
-
 デフォルト環境用の次回以降のアップグレードに備えて
 :command:`pip list --export` コマンドで要件文字列をファイル化しておくとよい。こ
 れについては次節で述べる。
+
+構成ファイルパスを変更する
+----------------------------------------------------------------------
+
+Conda の各種設定はホームディレクトリーに所定の書式で記述された構成ファイル
+:file:`.condarc` を作成することでも可能だ。毎度特定のコマンドラインオプションを
+指定するようなことがあれば、このテキストファイルにそのようなオプションを記述して
+おけば、コマンドラインの入力作業の省力化になる。
+
+:doc:`/xdg` に基づき、:file:`$HOME` 直下からドットファイルを配置するようにしたい。
+
+.. code:: console
+
+   $ mkdir -p $XDG_CONFIG_HOME/conda/
+   $ mv ~/.condarc $XDG_CONFIG_HOME/conda/condarc
+
+設定ファイルの中身をどのようにするかは調査中。現在のところは：
+
+.. code:: console
+
+   $ conda config --show-sources
+   ==> /home/USERNAME/.config/conda/condarc <==
+   auto_activate_base: False
+   envs_dirs:
+     - ${XDG_DATA_HOME}/conda/envs
+   pkgs_dirs:
+     - ${XDG_CACHE_HOME}/conda/pkgs
+   conda-build:
+     root-dir: ${XDG_DATA_HOME}/conda/conda-builds
+
+コマンド ``conda config --show`` でその他も含むディレクトリーパスを確認可能だ。
+
+.. admonition:: 利用者ノート
+
+   その出力によると、値の一部が意図通りに設定されていないことが示される：
+
+   .. code:: text
+
+      envs_dirs:
+        - /home/USERNAME/.local/share/conda/envs
+        - /home/USERNAME/.local/share/miniconda3/envs
+        - /home/USERNAME/.conda/envs
+
+   :file:`/home/USERNAME/.conda` を :file:`$XDG_DATA_HOME/conda/envs` に指定し
+   たはずなのだが？
 
 ノート
 ======================================================================
 
 * Anaconda ではなく Miniconda を選択した理由は、必要十分なパッケージを利用可能に
   したいからという、個人的な嗜好による。
-* Python の利用者が Conda が何であるかを理解するには、
-  `conda vs. pip vs. virtualenv <http://conda.pydata.org/docs/_downloads/conda-pip-virtualenv-translator.html>`_
+* Python の利用者が Conda が何であるかを理解するには、 `conda vs. pip vs.
+  virtualenv
+  <http://conda.pydata.org/docs/_downloads/conda-pip-virtualenv-translator.html>`__
   の表を見るのが手っ取り早い。
 
   * 要するに :program:`pip` + :program:`virtualenv` である。
@@ -159,7 +200,6 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
   この編集作業は本件がなかったとしても、厄介な cygdrive 問題の解決はもっと昔に実
   施してしかるべきだった。反省。
-
 * 非 Miniconda ベースの Python 環境で築いてきた :file:`site-packages` 下を
   Miniconda において再現するとなると、正規環境のそれにおける作業時間よりも長くな
   るのかもしれない。 Matplotlib_ のインストールを実施したところ、何やら依存パッ
@@ -172,7 +212,6 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
     でいいので捨てる。
   * 元の Python 環境での :command:`pip freeze` の出力結果を控えておくこと。
     :doc:`/python-pip` 参照。
-
 * :program:`conda` のコマンドライン操作の設計がドキュメントに頼る必要がないほど
   質素であるため、当ノートでは「呪文表」を作成しない。いつでも
   :command:`conda --help` なり :command:`conda command --help` の出力メッセージ
@@ -190,9 +229,6 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
     を :command:`pip install` したらおそらく動作すると思われる。そのためには先に
     別途非公式版をダウンロードしておく必要があるのだが、何のために Miniconda を
     導入したのかわからなくなる。
-
-* :program:`conda` の設定ファイル :file:`.condarc` は今のところ用意しないで済み
-  そうだ。各コマンドのオプション引数についての既定値が優秀であるところが大きい。
 * パッケージ P について、:command:`conda install P` してから
   :command:`pip install P` することが可能であることがある。可能な場合には、これ
   らが同一環境下に共存する。
@@ -222,7 +258,6 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
 
   * パッケージ間の依存関係とインストール時に用いたツールの違いが問題になることは
     あるだろうか。
-
 * 初回のパッケージ調達が一段落したら、上記の自動化に備えて :file:`reqconda.txt`
   と :file:`reqpip.txt` を作成しておくとよい。アップグレード目的のため、バージョ
   ン文字列はカットしたい。こうだろうか。
@@ -243,8 +278,7 @@ Conda の各種設定はホームディレクトリーに所定の書式で記�
   .. _python-pkg-proc:
 
   .. figure:: /_images/python-pkg-proc.png
-     :width: 657px
-     :height: 407px
+     :figwidth: image
      :scale: 100%
 
      一般のサードパーティー製 Python パッケージのインストール手順
