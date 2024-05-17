@@ -167,6 +167,7 @@
    vscode/index
    regex
    cygwin
+   xdg
    chrome
    git/index
    oh-my-posh
