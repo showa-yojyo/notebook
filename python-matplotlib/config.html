@@ -50,42 +50,73 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id3" role="doc-backlink">環境設定</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1>環境設定<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> を利用するための環境をもっと細かく整備してみよう。</p>
-<nav class="contents" id="contents">
-<p class="topic-title">Contents</p>
+<nav class="contents local" id="id2">
+<p class="topic-title">見出し一覧</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id3">環境設定</a></p>
-<ul>
 <li><p><a class="reference internal" href="#matplotlibrc" id="id4">設定ファイル <code class="file docutils literal notranslate"><span class="pre">matplotlibrc</span></code> 概要</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id5">カスタマイズする</a></p></li>
-</ul>
-</li>
+<li><p><a class="reference internal" href="#id3" id="id5">カスタマイズする</a></p></li>
 </ul>
 </nav>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>このページの一部に関しては次の動作環境を使用：</p>
+<dl class="field-list simple">
+<dt class="field-odd">OS<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Windows 10 Home x64 上の WSL2</p>
+</dd>
+<dt class="field-even">Python<span class="colon">:</span></dt>
+<dd class="field-even"><p>3.12.3</p>
+</dd>
+<dt class="field-odd">Matplotlib<span class="colon">:</span></dt>
+<dd class="field-odd"><p>3.8.4</p>
+</dd>
+</dl>
+</div>
 <section id="matplotlibrc">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">設定ファイル <code class="file docutils literal notranslate"><span class="pre">matplotlibrc</span></code> 概要</a><a class="headerlink" href="#matplotlibrc" title="Permalink to this heading">¶</a></h2>
 <p>Matplotlib 環境のユーザー設定ファイルについて記す。</p>
 <ul>
-<li><p>Matplotlib が扱う、図の大きさや図形の色といった、ほとんど全てのプロパティーを指定するために設定ファイルというものを利用することができる。</p></li>
-<li><p>設定ファイル名は <code class="file docutils literal notranslate"><span class="pre">matplotlibrc</span></code> である。</p></li>
+<li><p>Matplotlib が扱う、図式の寸法や図形の色といった、性質のほとんどを指定するために設定ファイルというものを利用することができる。</p></li>
+<li><p>設定ファイル名は <code class="file docutils literal notranslate"><span class="pre">matplotlibrc</span></code> だ。</p></li>
 <li><p>この設定ファイルによる設定のことを <strong>rc settings</strong> とか <strong>rc parameters</strong> とかと呼ぶ。</p></li>
-<li><p>その設定ファイルのあるディレクトリーは、次の優先度で決まる。</p>
-<ol class="arabic simple">
+<li><p>その設定ファイルのあるディレクトリーは次の優先度で決まる。</p>
+<ol class="arabic">
 <li><p>作業ディレクトリー。</p></li>
 <li><p>ユーザーの環境依存のディレクトリー。</p>
-<ul class="simple">
-<li><p>Windows 環境でもユーザーがわざわざ環境変数 <code class="docutils literal notranslate"><span class="pre">HOME</span></code> を設定している場合は、 Matplotlib はきちんとそのパスを参照してくれる。</p></li>
-<li><p>一度でも Matplotlib を利用すると、<code class="docutils literal notranslate"><span class="pre">$HOME</span></code> にフォルダー
+<ul>
+<li><p>Windows 環境でもユーザーがわざわざ環境変数 <code class="docutils literal notranslate"><span class="pre">HOME</span></code> を設定している場合は
+Matplotlib はきちんとそのパスを参照してくれる。</p></li>
+<li><p>一度でも Matplotlib を利用すると、<code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> にフォルダー
 <code class="file docutils literal notranslate"><span class="pre">.matplotlib</span></code> ができている。そこにテキストファイル
-<code class="file docutils literal notranslate"><span class="pre">matplotlibrc</span></code> を自分で作成する。</p></li>
+<code class="file docutils literal notranslate"><span class="pre">matplotlibrc</span></code> を自分で作成する。</p>
+<p>WSL2 などの Linux 系環境では XDG 環境変数を利用するのが定石となっている。
+Matplotlib の場合はこのようにしたい：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># E.g. in .bashrc:</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MATPLOTLIBRC</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_CONFIG_HOME</span><span class="s2">/matplotlib&quot;</span>
+</pre></div>
+</div>
+<p>次の状態にしたい：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import matplotlib as mpl; print(mpl.get_configdir())&#39;</span>
+<span class="go">/home/USERNAME/.config/matplotlib</span>
+</pre></div>
+</div>
+<p>この運用では環境変数 <code class="docutils literal notranslate"><span class="pre">MATPLOTLIBRC</span></code> の定義を明示的に与える必要はないが、コンソールで <strong class="command">cd</strong> するときに便利だ。</p>
+<p>既定の設定ファイルをそこへ移す：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$MATPLOTLIBRC</span>
+<span class="gp">$ </span>mv<span class="w"> </span>~/.matplotlib/*<span class="w"> </span><span class="nv">$MATPLOTLIBRC</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../xdg.html"><span class="doc">XDG Base Directory 利用ノート</span></a></p>
+</div>
+</li>
 </ul>
 </li>
 <li><p>Matplotlib インストール場所から決まるディレクトリー。</p>
-<ul class="simple">
-<li><p>私の場合は <code class="file docutils literal notranslate"><span class="pre">D:/Python35/lib/site-packages/matplotlib/mpl-data/</span></code> となる。</p></li>
-<li><p>Matplotlib のアップグレードの度に上書きされると思っていたほうがよい。したがって、この 設定ファイルを編集するような状況はまれだと思う。</p></li>
-</ul>
+<p>Matplotlib のアップグレードの度に上書きされると思っていたほうがよい。したがって、この設定ファイルを編集するような状況はまれだと思う。</p>
 </li>
 </ol>
 </li>
@@ -97,8 +128,8 @@
 python-mode 的な機能をサポートするエディターを使うのならば、それを ON にする。コードの見通しがよくなる（コメント文字列がコメント色になるだけだが）。</p></li>
 </ul>
 </section>
-<section id="id2">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">カスタマイズする</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">カスタマイズする</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>先述の方法でユーザー設定ファイルを生成し、次のように編集して手持ちのプロットの表示がどのように変化するのかを検証した。</p>
 <ul>
 <li><p>PyQt5 が使用可能な環境では試しに <code class="docutils literal notranslate"><span class="pre">backend</span> <span class="pre">:</span> <span class="pre">Qt5Agg</span></code> としてみる。</p>
@@ -107,8 +138,8 @@ python-mode 的な機能をサポートするエディターを使うのなら�
 </ul>
 </li>
 <li><p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> 管理下における Python 3.5.2 環境では既定のバックエンドである TkAgg
-が指定されたままであると、私の環境では実行時に Segmentation fault を引き起こす。そのため、唯一動作確認できたバックエンドである <code class="docutils literal notranslate"><span class="pre">backend</span> <span class="pre">:</span> <span class="pre">Qt4Agg</span></code>
-を、PyQt5 を利用可能な環境にあれば <code class="docutils literal notranslate"><span class="pre">backend</span> <span class="pre">:</span> <span class="pre">Qt5Agg</span></code> を設定してしのぎたい。</p></li>
+が指定されたままであると、私の環境では実行時に Segmentation fault を引き起こす。そのため、唯一動作確認できたバックエンドである <code class="docutils literal notranslate"><span class="pre">backend</span> <span class="pre">:</span> <span class="pre">Qt4Agg``を、PyQt5</span>
+<span class="pre">を利用可能な環境にあれば</span> <span class="pre">``backend</span> <span class="pre">:</span> <span class="pre">Qt5Agg</span></code> を設定してしのぎたい。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> の線の色は <code class="docutils literal notranslate"><span class="pre">axes.prop_cycle</span></code> で指定する。</p>
 <ul>
 <li><p>カンマ区切りで数色を一度に指定する。プロットを <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> 呼び出しで追加するたびに、カンマで区切られた色が cyclic に適用されるのだろう。これを確認するには <a class="reference internal" href="basic.html"><span class="doc">基本テク</span></a> で示したポリライン複数本描画スクリプトを利用できる。下記のリスト内の内容を修正すると、それにつれて曲線の色が変わることがわかる：</p>

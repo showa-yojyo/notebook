@@ -46,45 +46,41 @@
           <div class="body" role="main">
             
   <section id="ipython">
-<h1><a class="toc-backref" href="#id18" role="doc-backlink">IPython 利用ノート</a><a class="headerlink" href="#ipython" title="Permalink to this heading">¶</a></h1>
+<h1>IPython 利用ノート<a class="headerlink" href="#ipython" title="Permalink to this heading">¶</a></h1>
 <p>本稿は <a class="reference external" href="https://ipython.org/">IPython</a> に関する個人的な覚え書きである。 <a class="reference external" href="https://www.numpy.org/">NumPy</a>, <a class="reference external" href="https://www.scipy.org/">SciPy</a>, <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> のドキュメントを読んでいるとこのツールの名前が頻繁に出てくる。無視するのはもったいない気がするので調査する。</p>
-<nav class="contents" id="id1">
-<p class="topic-title">ノート目次</p>
+<nav class="contents local" id="id1">
+<p class="topic-title">見出し一覧</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#ipython" id="id18">IPython 利用ノート</a></p>
+<li><p><a class="reference internal" href="#id2" id="id18">IPython とは何か</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id19">インストールから初回起動まで</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id2" id="id19">IPython とは何か</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id20">インストールから初回起動まで</a></p>
+<li><p><a class="reference internal" href="#id4" id="id20">初回起動</a></p></li>
+<li><p><a class="reference internal" href="#pyreadline" id="id21">PyReadline をインストール</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id22">テスト</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id21">初回起動</a></p></li>
-<li><p><a class="reference internal" href="#pyreadline" id="id22">PyReadline をインストール</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id23">テスト</a></p>
-<ul>
-<li><p><a class="reference internal" href="#ipython-3-0-0" id="id24">IPython 3.0.0</a></p></li>
-<li><p><a class="reference internal" href="#ipython-4-0-0" id="id25">IPython 4.0.0</a></p></li>
-<li><p><a class="reference internal" href="#ipython-5-0-0" id="id26">IPython 5.0.0</a></p></li>
+<li><p><a class="reference internal" href="#ipython-3-0-0" id="id23">IPython 3.0.0</a></p></li>
+<li><p><a class="reference internal" href="#ipython-4-0-0" id="id24">IPython 4.0.0</a></p></li>
+<li><p><a class="reference internal" href="#ipython-5-0-0" id="id25">IPython 5.0.0</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id27">環境設定</a></p>
+<li><p><a class="reference internal" href="#id6" id="id26">環境設定</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id7" id="id28">環境変数による設定</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id29">設定ファイルによる設定</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id30">コマンドライン引数による設定</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id27">環境変数による設定</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id28">設定ファイルによる設定</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id29">コマンドライン引数による設定</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id10" id="id31">使い勝手を試す</a></p></li>
-<li><p><a class="reference internal" href="#qt" id="id32">Qt コンソールを試す</a></p>
+<li><p><a class="reference internal" href="#id10" id="id30">使い勝手を試す</a></p></li>
+<li><p><a class="reference internal" href="#qt" id="id31">Qt コンソールを試す</a></p>
 <ul>
-<li><p><a class="reference internal" href="#pyzmq" id="id33">PyZMQ をインストールする</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id34">Qt コンソールを起動する（シンプル）</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id35">Qt コンソールを起動する（プロットインライン）</a></p></li>
+<li><p><a class="reference internal" href="#pyzmq" id="id32">PyZMQ をインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id33">Qt コンソールを起動する（シンプル）</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id34">Qt コンソールを起動する（プロットインライン）</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id14" id="id36">その他</a></p></li>
-</ul>
-</li>
+<li><p><a class="reference internal" href="#id14" id="id35">その他</a></p></li>
 </ul>
 </nav>
 <div class="admonition note">
@@ -94,12 +90,13 @@
 <ul>
 <li><p>Windows 7 Home Premium x64 SP1</p></li>
 <li><p>Windows 10 Home x64</p></li>
+<li><p>設定ファイルの辺りだけ WSL2</p></li>
 </ul>
 </li>
 <li><p>本稿において、利用した各パッケージのバージョンは次のとおり。</p>
 <ul>
-<li><p><a class="reference external" href="https://www.python.org/">Python</a> 3.4.1, 3.5.0, 3.5.2, 3.6.6</p></li>
-<li><p><a class="reference external" href="https://ipython.org/">IPython</a> 3.0.0, 4.0.0, 5.0.0, 6.4.0</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> 3.4.1, 3.5.0, 3.5.2, 3.6.6, 3.12.3</p></li>
+<li><p><a class="reference external" href="https://ipython.org/">IPython</a> 3.0.0, 4.0.0, 5.0.0, 6.4.0, 8.24.0</p></li>
 <li><p><a class="reference external" href="http://ipython.org/pyreadline.html">PyReadline</a> 2.0, 2.1, n/a</p></li>
 <li><p><a class="reference external" href="https://nose.readthedocs.io/en/latest/">Nose</a> 1.3.4, 1.3.7</p></li>
 <li><p><a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/">PyQt</a> v5.3.1 for Python v3.4 (x64), n/a for Python v3.5 (x64), 4.11.4</p></li>
@@ -114,12 +111,12 @@
 <code class="file docutils literal notranslate"><span class="pre">D:\Miniconda3</span></code> である。</p>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id19" role="doc-backlink">IPython とは何か</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">IPython とは何か</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>ドキュメントによると &lt;IPython is meant to work as a drop-in replacement for the
 standard interactive interpreter&gt; だそうだ。標準の Python インタープリターの上位版のようなモノだ。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id20" role="doc-backlink">インストールから初回起動まで</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">インストールから初回起動まで</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>次の条件を初回条件と呼ぶことにする。</p>
 <ul class="simple">
 <li><p>Python がインストール済みである。</p></li>
@@ -196,7 +193,7 @@ standard interactive interpreter&gt; だそうだ。標準の Python インタ�
 </pre></div>
 </div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id21" role="doc-backlink">初回起動</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">初回起動</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p><code class="file docutils literal notranslate"><span class="pre">%PYTHONDIR%\Scripts\ipython3.exe</span></code> を起動するだけでよい。Windows の
 <span class="guilabel">ファイル名を指定して実行</span> で同実行ファイルを指定すると、コンソールウィンドウが出現する。</p>
 <p>私の環境でのスタートアップ時の出力を記す。</p>
@@ -223,7 +220,7 @@ standard interactive interpreter&gt; だそうだ。標準の Python インタ�
 </ul>
 </section>
 <section id="pyreadline">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">PyReadline をインストール</a><a class="headerlink" href="#pyreadline" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">PyReadline をインストール</a><a class="headerlink" href="#pyreadline" title="Permalink to this heading">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>このパッケージは IPython 5.0.0 では依存関係がなくなっているようだ。</p>
@@ -252,10 +249,10 @@ Emacs 風のキーバインドがなされている。これが一番ありが�
 <p>よい変化なので、PyReadline のインストールの状態を保ったまま先に進もう。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">テスト</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">テスト</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>ここで IPython の動作確認テストを行いたい。</p>
 <section id="ipython-3-0-0">
-<h4><a class="toc-backref" href="#id24" role="doc-backlink">IPython 3.0.0</a><a class="headerlink" href="#ipython-3-0-0" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">IPython 3.0.0</a><a class="headerlink" href="#ipython-3-0-0" title="Permalink to this heading">¶</a></h4>
 <p>公式ドキュメントに従い、初回条件で <strong class="program">iptest</strong> を実行すると以下のようになった。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ iptest3</span>
 <span class="go">Traceback (most recent call last):</span>
@@ -280,7 +277,7 @@ Emacs 風のキーバインドがなされている。これが一番ありが�
 <p>結論としては、これは面倒そうなので諦めた。</p>
 </section>
 <section id="ipython-4-0-0">
-<h4><a class="toc-backref" href="#id25" role="doc-backlink">IPython 4.0.0</a><a class="headerlink" href="#ipython-4-0-0" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id24" role="doc-backlink">IPython 4.0.0</a><a class="headerlink" href="#ipython-4-0-0" title="Permalink to this heading">¶</a></h4>
 <p>一連の自動テストが実行された。エラーがボロボロと現れる。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ iptest3</span>
 
@@ -307,14 +304,14 @@ Emacs 風のキーバインドがなされている。これが一番ありが�
 </div>
 </section>
 <section id="ipython-5-0-0">
-<h4><a class="toc-backref" href="#id26" role="doc-backlink">IPython 5.0.0</a><a class="headerlink" href="#ipython-5-0-0" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id25" role="doc-backlink">IPython 5.0.0</a><a class="headerlink" href="#ipython-5-0-0" title="Permalink to this heading">¶</a></h4>
 <p>Conda で IPython をインストールしたところ、<code class="file docutils literal notranslate"><span class="pre">Scripts</span></code> に <strong class="program">iptest3</strong>
 がないようだ。開発版では当然存在する。</p>
 </section>
 </section>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id27" role="doc-backlink">環境設定</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">環境設定</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>IPython の挙動を次の各項目により制御できるはずなので、本章ではそれらを調べていこう。</p>
 <ul class="simple">
 <li><p>環境変数</p></li>
@@ -322,58 +319,80 @@ Emacs 風のキーバインドがなされている。これが一番ありが�
 <li><p>コマンドライン引数</p></li>
 </ul>
 <section id="id7">
-<h3><a class="toc-backref" href="#id28" role="doc-backlink">環境変数による設定</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
-<p>IPython 固有の環境変数としては <code class="docutils literal notranslate"><span class="pre">IPYTHON_DIR</span></code> ただひとつしかない？これはユーザー設定データ、履歴、拡張モジュールを格納するディレクトリーのパスを表現する環境変数だろう。デフォルトでは <code class="file docutils literal notranslate"><span class="pre">~/.ipython</span></code> であり、通常の利用状況ではこの値をわざわざ変更することはなさそうだ。</p>
-<p>結論としては、環境変数のことは意識しない。</p>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">環境変数による設定</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<p>既定では、IPython は使用者固有の設定ファイル群（プロファイル）を次の優先順位で定まるディレクトリーから読み込む：</p>
+<ol class="arabic simple">
+<li><p>環境変数 <code class="docutils literal notranslate"><span class="pre">IPYTHONDIR</span></code> が定義されていればディレクトリー <code class="file docutils literal notranslate"><span class="pre">$IPYTHONDIR</span></code></p></li>
+<li><p>環境変数 <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code> が定義されていればディレクトリー
+<code class="file docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/.ipython/</span></code></p></li>
+<li><p>ディレクトリー <code class="file docutils literal notranslate"><span class="pre">$HOME/.config/</span></code> が存在すればディレクトリー
+<code class="file docutils literal notranslate"><span class="pre">$HOME/.config/ipython</span></code></p></li>
+<li><p>ディレクトリー <code class="file docutils literal notranslate"><span class="pre">$HOME/.ipython/</span></code></p></li>
+</ol>
+<p><a class="reference internal" href="xdg.html"><span class="doc">XDG Base Directory 利用ノート</span></a> の方針に従い、次のことを実施しておく：</p>
+<ul>
+<li><p>ディレクトリー <code class="file docutils literal notranslate"><span class="pre">$HOME/.config/ipython</span></code> を用意する</p></li>
+<li><p>上記ノートで述べように当該 XDG 環境変数を定義しておく</p></li>
+<li><p>心配なら対話シェル初期化スクリプトで次の定義を入れておく：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">IPYTHONDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_CONFIG_HOME</span><span class="s2">/ipython&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>現在の設定ファイル置場パスは、コマンドラインから次を実行して確認可能だ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ipython<span class="w"> </span>locate
+<span class="go">/home/USERNAME/.config/ipython</span>
+</pre></div>
+</div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id29" role="doc-backlink">設定ファイルによる設定</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
-<p>ドキュメントによると、IPython のセッティングを指定する方法の基本として
-<code class="file docutils literal notranslate"><span class="pre">~/.ipython/profile_default</span></code> ディレクトリー以下の py ファイルでプログラムを書くことがあるようだ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ipython3 profile create</span>
-<span class="go">[ProfileCreate] Generating default config file: &#39;D:/home/yojyo/.ipython/profile_default/ipython_config.py&#39;</span>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">設定ファイルによる設定</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<p>設定ファイル置場が定まったので、IPython 設定ディレクトリーにプロファイルと呼ばれる設定ファイルの雛形を作成する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ipython profile create</span>
+<span class="go">[ProfileCreate] Generating default config file: PosixPath(&#39;/home/USERNAME/.config/ipython/profile_dummy/ipython_config.py&#39;)</span>
+<span class="go">[ProfileCreate] Generating default config file: PosixPath(&#39;/home/USERNAME/.config/ipython/profile_dummy/ipython_kernel_config.py&#39;)</span>
 </pre></div>
 </div>
 <p>これでテンプレファイル <code class="file docutils literal notranslate"><span class="pre">ipython_config.py</span></code> ができあがった。テキストエディターでこれを開き、有効にしたい箇所のコメントアウトを解除するとよさそうだ。</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShellApp</span><span class="o">.</span><span class="n">pylab</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShellApp</span><span class="o">.</span><span class="n">pylab</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
 </pre></div>
 </div>
 <p>これぐらいやっておくと、NumPy や Matplotlib の構成要素のインポートを自動的に行なってくれる。例えば <code class="code docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code> しなくても <code class="code docutils literal notranslate"><span class="pre">np.arange(10)</span></code>
 のようなコードが通じる。さらに、下記の項目を有効にすると <code class="code docutils literal notranslate"><span class="pre">np.</span></code> すら不要になる。</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShellApp</span><span class="o">.</span><span class="n">pylab_import_all</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShellApp</span><span class="o">.</span><span class="n">pylab_import_all</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>一見タイプの手間が省けて便利なようだが、たまにこれらのパッケージの識別子の名前と
 Python 組み込みのオブジェクトの識別子がカブるようなもの (e.g. <code class="code docutils literal notranslate"><span class="pre">all</span></code>,
 <code class="code docutils literal notranslate"><span class="pre">any</span></code>, etc.) があると事態が少々複雑になる。個人的には全インポートは無効にしておき、 NumPy や Matplotlib のモジュールとしてのインポートだけに留めておきたい。</p>
 <p>敢えて NumPy と Matplotlib の自動インポートを抑制した状況でセッションを開きたい場合は名前付きプロファイルを生成して、設定ファイルの対応項目を False にする。そして、IPython 起動時に <code class="docutils literal notranslate"><span class="pre">--profile</span></code> コマンドラインオプションで設定名を指示する。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ipython3 profile create sympy</span>
-<span class="go">bash$ edit ~/.ipython/profile_sympy/ipython_config.py</span>
-<span class="go">bash$ ipython3 --profile=sympy</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ipython<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>sympy
+<span class="gp">$ </span>edit<span class="w"> </span><span class="nv">$XDG_CONFIG_HOME</span>/ipython/profile_sympy/ipython_config.py
+<span class="gp">$ </span>ipython<span class="w"> </span>--profile<span class="o">=</span>sympy
 </pre></div>
 </div>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">コマンドライン引数による設定</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">コマンドライン引数による設定</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p>プロファイルディレクトリーをコマンドラインから指定することも可能だ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ipython<span class="w"> </span>--ipython-dir<span class="o">=</span>/path/to/ipython-dir<span class="w"> </span>--profile<span class="o">=</span>my-profile
+</pre></div>
+</div>
+<p>IPython のすべての設定可能な値はコマンドライン引数から構成できる。</p>
 <ul class="simple">
-<li><p>IPython のすべての設定可能な値はコマンドラインパラメーターから構成できる。</p>
-<ul>
-<li><p>通常は次の形式で指定する： <strong class="command">ipython --ClassName.attribute=value</strong></p></li>
+<li><p>通常は次の形式で指定する： <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--ClassName.attribute=value</span></code></p></li>
 <li><p>ただし頻繁に用いられるオプションは短い別名形式が用意してある。例えば
-<strong class="command">ipython --matplotlib</strong> など。</p>
+<code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--matplotlib</span></code> など。</p>
 <ul>
-<li><p>そのようなオプションの一覧は <strong class="command">ipython help</strong> の Options のセクションで確認できる。</p></li>
+<li><p>そのようなオプションの一覧は <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">help</span></code> の Options のセクションで確認できる。</p></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>コマンドラインで指定したオプションは、設定ファイルのそれを上書きする。</p></li>
-</ul>
-<p>今のところ、特に毎回指定したくなるコマンドライン引数はなさそうだ。</p>
+<p>コマンドラインで指定したオプションは、設定ファイルのそれを上書きする。</p>
 </section>
 </section>
 <section id="id10">
-<h2><a class="toc-backref" href="#id31" role="doc-backlink">使い勝手を試す</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">使い勝手を試す</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <p>IPython コンソールウィンドウでの各種機能をひと通り試していこう。</p>
 <ul class="simple">
 <li><p>単に <code class="docutils literal notranslate"><span class="pre">?</span></code> を入力することで IPython に関するちょっとしたドキュメントが出力する。10 ページ弱で終了する。</p></li>
@@ -528,14 +547,14 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 </div>
 </section>
 <section id="qt">
-<h2><a class="toc-backref" href="#id32" role="doc-backlink">Qt コンソールを試す</a><a class="headerlink" href="#qt" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id31" role="doc-backlink">Qt コンソールを試す</a><a class="headerlink" href="#qt" title="Permalink to this heading">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>本節の記述は現時点では公式に deprecated 扱いされている。 Jupyter とやらを利用するようにとのことだ。</p>
 </div>
 <p><a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/">PyQt</a> と <a class="reference external" href="http://zeromq.github.io/pyzmq/">PyZMQ</a> が利用可能であれば、IPython を PyQt ウィンドウで再現できる。私の環境では PyQt はインストールが済んでいるものの、PyZMQ が入っていなかった。本節では PyZMQ のインストール作業から記す。</p>
 <section id="pyzmq">
-<h3><a class="toc-backref" href="#id33" role="doc-backlink">PyZMQ をインストールする</a><a class="headerlink" href="#pyzmq" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">PyZMQ をインストールする</a><a class="headerlink" href="#pyzmq" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference external" href="http://zeromq.github.io/pyzmq/">PyZMQ</a> が何であるのかを理解するのは後回しにして、まずはインストールだ。IPython
 のドキュメントにあるように、素直に <strong class="program">pip</strong> でインストールできる。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ pip install pyzmq</span>
@@ -549,7 +568,7 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 </div>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id34" role="doc-backlink">Qt コンソールを起動する（シンプル）</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Qt コンソールを起動する（シンプル）</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>Windows の <span class="guilabel">ファイル名を指定して実行</span> で次のように指定する。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%PYTHONDIR%\Scripts\ipython3.exe qtconsole
 </pre></div>
@@ -557,7 +576,7 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 <p>一旦真っ黒なウィンドウが表示され、次に Qt ウィンドウが表示される。後者がコンソールとなる。通常の IPython のように使えるだけでなく、よく見ると便利なコマンドを起動するメニューがウィンドウ上部に備えられている。</p>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id35" role="doc-backlink">Qt コンソールを起動する（プロットインライン）</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">Qt コンソールを起動する（プロットインライン）</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <p>Matplotlib のプロット図をインラインに Qt コンソール内に描画させる。この機能が Qt
 コンソールの目玉であると思われる。まずは IPython を次のようなコマンドライン引数を指定して起動する。ドキュメントには <strong class="command">qtconsole --matplotlib inline</strong> と指定すると記されているが、私の環境ではダメだった。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>%PYTHONDIR%\Scripts\ipython3.exe qtconsole --pylab=inline
@@ -571,7 +590,7 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 </section>
 </section>
 <section id="id14">
-<h2><a class="toc-backref" href="#id36" role="doc-backlink">その他</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id35" role="doc-backlink">その他</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>YouTube で <code class="code docutils literal notranslate"><span class="pre">IPython</span></code> で検索すると、面白いビデオが大量に見つかる。
 <code class="code docutils literal notranslate"><span class="pre">IPython</span> <span class="pre">Windows</span></code> 等もよい。</p></li>

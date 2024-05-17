@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>XDG Base Directory 利用ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Chrome DevTools 利用ノート" href="chrome.html" />
+    <link rel="prev" title="Cygwin 利用ノート [obsolete]" href="cygwin.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="cygwin.html" title="Previous">Cygwin 利用ノート [obsolete]</a>
+        </li>
+      
+        <li>
+          <a href="chrome.html" title="Next">Chrome DevTools 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="xdg-base-directory">
+<h1>XDG Base Directory 利用ノート<a class="headerlink" href="#xdg-base-directory" title="Permalink to this heading">¶</a></h1>
+<p>このページは他のツール系ノートからの参照されることを想定して執筆するものだ。</p>
+<nav class="contents local" id="id1">
+<p class="topic-title">見出し一覧</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id20">目的</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">概要</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id22">再配置作業</a></p>
+<ul>
+<li><p><a class="reference internal" href="#xdg" id="id23">XDG 環境変数を定義する</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id24">既存のドットファイルを再配置する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id25">バージョン管理を始める</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id26">余談：自作プログラム</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id27">資料</a></p></li>
+</ul>
+</nav>
+<section id="id2">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">目的</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>Linux, <a class="reference internal" href="wsl.html"><span class="doc">WSL</span></a>, <a class="reference internal" href="cygwin.html"><span class="doc">Cygwin</span></a>, MSYS2, MinGW 等のホームディレクトリー <code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> に散らかる各種アプリケーションのドットファイルを単一のリポジトリーに集約して <a class="reference internal" href="git/index.html"><span class="doc">Git</span></a> などでバージョン管理したい。<code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> 直下をリポジトリーにするわけには一般的にはいかないが、<a class="reference internal" href="#xdgspec" id="id3"><span>[XDGSpec]</span></a> に準拠しているアプリケーションのドットファイルに限定すれば、実現可能だ。</p>
+<p>本稿の目標は、<code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> にあるドットファイル群を可能な限り専用ディレクトリーに再配置し、バージョン管理対象にすることだ。理想的には、<code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> 直下からドットファイルが一掃されるようになりたい。</p>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">概要</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>UNIX またはそれを祖先に持つ計算機では、ユーザー固有のアプリケーション構成はファイル名が <code class="docutils literal notranslate"><span class="pre">.</span></code> で始まるテキストファイルに定義され保存される伝統がある。この手のテキストファイルを <em class="dfn">ドットファイル</em> と呼ぶ。アプリケーションによってはファイルではなくディレクトリーであることもある（そこに構成ファイルが複数収まる）。</p>
+<p>昔はドットファイルを収めるサブディレクトリーを一つ作成し、<code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> 直下にそれらを参照するシンボリックリンクを作成して管理するふりをしていた。<a class="reference internal" href="#xdgspec" id="id5"><span>[XDGSpec]</span></a> はその不便を解消する仕様とも考えられる。そのサブディレクトリーのほうを標準化すればいいという着想だ。</p>
+<p><a class="reference internal" href="#xdgspec" id="id6"><span>[XDGSpec]</span></a> ではサブディレクトリーの直下にアプリケーションごとに専用のサブディレクトリーを置くことを許し、そこに関係ドットファイルを集約させる方針だ。ありがちなのは、環境変数 <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code> に対して、ディレクトリー
+<code class="samp docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/</span><em><span class="pre">appname</span></em></code> 以下にアプリケーション <cite>appname</cite> に関するユーザー固有のドットファイル置かれるという状況だ。ここで、<cite>appname</cite> はアプリケーションが独自に定義する文字列であり、環境変数 <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code> ユーザーがアクセスを許されるような絶対パスとする。</p>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">再配置作業</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<section id="xdg">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">XDG 環境変数を定義する</a><a class="headerlink" href="#xdg" title="Permalink to this heading">¶</a></h3>
+<p>上述の環境変数を対話シェルの初期化時に定義する。Bash ならファイル
+<code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> のなるべく先頭に近い行に次のように記す：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">XDG_DATA_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.local/share
+<span class="nb">export</span><span class="w"> </span><span class="nv">XDG_CONFIG_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.config
+<span class="nb">export</span><span class="w"> </span><span class="nv">XDG_STATE_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.local/state
+<span class="nb">export</span><span class="w"> </span><span class="nv">XDG_CACHE_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.cache
+</pre></div>
+</div>
+<p>上記のサブディレクトリー群が存在しなければ、それを <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span></code> する。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>簡単のため、本稿では <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code> を中心に記し、他の XDG 変数についてはほとんど触れないことにする。詳しくは <a class="reference internal" href="#xdgwiki" id="id8"><span>[XDGWiki]</span></a> の関連記述を参照しろ。</p>
+</div>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">既存のドットファイルを再配置する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference internal" href="#xdgwiki" id="id10"><span>[XDGWiki]</span></a> の 2.2 節を眺めながら <a class="reference internal" href="#xdgspec" id="id11"><span>[XDGSpec]</span></a> に対応しているアプリケーションのドットファイルを <code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> から <code class="file docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> のサブディレクトリーに順次再配置する。例えば Git のドットファイル <code class="file docutils literal notranslate"><span class="pre">$HOME/.gitconfig</span></code> に対する手順は次のようなものだ：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span>
+<span class="gp">$ </span>mkdir<span class="w"> </span>-p<span class="w"> </span>./.config/git
+<span class="gp">$ </span>mv<span class="w"> </span>.gitignore<span class="w"> </span>./.config/git/config
+</pre></div>
+</div>
+<p>上述資料の表にあるアプリケーションすべてに対応したとしても <code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> 直下にドットファイルがいくつか残る。<a class="reference internal" href="#xdgwiki" id="id12"><span>[XDGWiki]</span></a> 2.3 節にある項目については少々手間をかけて
+<code class="file docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> に順次移す。アプリケーション固有の環境変数を XDG 変数で定義するパターンが多い。その <strong class="command">export</strong> は上述のシェル初期化ファイルで実行する。例えば Readline については：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">INPUTRC</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$XDG_CONFIG_HOME</span><span class="s2">&quot;</span>/readline/inputrc
+</pre></div>
+</div>
+<p>を <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> に記述しておき、ドットファイル <code class="file docutils literal notranslate"><span class="pre">.inputrc</span></code> をサブディレクトリーに名前を変えたうえで再配置する：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span>
+<span class="gp">$ </span>mkdir<span class="w"> </span>readline
+<span class="gp">$ </span>mv<span class="w"> </span>.inputrc<span class="w"> </span>readline/inputrc
+</pre></div>
+</div>
+<p><a class="reference internal" href="#xdgwiki" id="id13"><span>[XDGWiki]</span></a> 2.4 節にあるアプリケーションは直接対応はしていないので、工夫できるものはそうするという態度だ。まったくお手上げのアプリケーションもあるが、オープンソースプロジェクトで開発しているものならば、XDG 対応を開発陣に依頼するという手もある。</p>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">バージョン管理を始める</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<p><code class="file docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> 以下をまるごとバージョン管理する。バージョン管理というよりバックアップと復旧に対応するという意味が強い。Git を用いるならば
+<a class="reference internal" href="github/index.html"><span class="doc">GitHub</span></a> などのリポジトリーホストにリモートリポジトリーを構築して同期させればよい。</p>
+<p>上級者は計算機を複数使用するので、ドットファイルの集合をそれらで共有する目的でも使うようだ。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="git/index.html"><span class="doc">Git 利用ノート</span></a></p>
+</div>
+</section>
+</section>
+<section id="id15">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">余談：自作プログラム</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<p>自分でプログラムを設計するときには、設定ファイルの仕様を <a class="reference internal" href="#xdgspec" id="id16"><span>[XDGSpec]</span></a> に準拠することを誓う。ドットファイルを <code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> に直接置かせようものなら、プログラム使用者に不便をかける時代だ。</p>
+</section>
+<section id="id17">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">資料</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="xdgspec" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>XDGSpec<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id6">3</a>,<a role="doc-backlink" href="#id11">4</a>,<a role="doc-backlink" href="#id16">5</a>,<a role="doc-backlink" href="#id18">6</a>)</span>
+<p><a class="reference external" href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG Base Directory Specification</a></p>
+</div>
+<div class="citation" id="xdgwiki" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>XDGWiki<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id8">1</a>,<a role="doc-backlink" href="#id10">2</a>,<a role="doc-backlink" href="#id12">3</a>,<a role="doc-backlink" href="#id13">4</a>,<a role="doc-backlink" href="#id19">5</a>)</span>
+<p><a class="reference external" href="https://wiki.archlinux.org/title/XDG_Base_Directory">XDG Base Directory - ArchWiki</a></p>
+</div>
+</div>
+<p>当初は <a class="reference internal" href="#xdgspec" id="id18"><span>[XDGSpec]</span></a> の読書ノートを執筆するつもりでいたが、<a class="reference internal" href="#xdgwiki" id="id19"><span>[XDGWiki]</span></a> で十分要約されているのでその必要がなくなった。本稿では具体的な作業内容に絞ることができた。</p>
+</section>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="cygwin.html" title="Previous">Cygwin 利用ノート [obsolete]</a>
+        </li>
+      
+        <li>
+          <a href="chrome.html" title="Next">Chrome DevTools 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="index.html" title="読書ノート Home"><img src="_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

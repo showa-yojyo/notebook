@@ -46,25 +46,25 @@
           <div class="body" role="main">
             
   <section id="miniconda">
-<h1><a class="toc-backref" href="#id10" role="doc-backlink">Miniconda 利用ノート</a><a class="headerlink" href="#miniconda" title="Permalink to this heading">¶</a></h1>
+<h1>Miniconda 利用ノート<a class="headerlink" href="#miniconda" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> の利用に関する事実関係の覚え書きと、その利用について思うところを記す。</p>
-<nav class="contents" id="id1">
-<p class="topic-title">ノート目次</p>
+<nav class="contents local" id="id1">
+<p class="topic-title">目次見出し</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#miniconda" id="id10">Miniconda 利用ノート</a></p>
-<ul>
 <li><p><a class="reference internal" href="#id2" id="id11">概要</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id12">環境構築手順</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id13">ノート</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id14">3.5 から 3.6 への移行手順ノート</a></p>
+<li><p><a class="reference internal" href="#id3" id="id12">環境構築手順</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id15">バックアップ</a></p></li>
-<li><p><a class="reference internal" href="#root" id="id16">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id17">補足</a></p>
-<ul>
-<li><p><a class="reference internal" href="#v4-7-5" id="id18">V4.7.5</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id13">構成ファイルパスを変更する</a></p></li>
 </ul>
 </li>
+<li><p><a class="reference internal" href="#id5" id="id14">ノート</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id15">3.5 から 3.6 への移行手順ノート</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id16">バックアップ</a></p></li>
+<li><p><a class="reference internal" href="#root" id="id17">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id18">補足</a></p>
+<ul>
+<li><p><a class="reference internal" href="#v4-7-5" id="id19">V4.7.5</a></p></li>
 </ul>
 </li>
 </ul>
@@ -74,12 +74,20 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>本稿執筆時の動作環境は次のとおり。</p>
-<ul class="simple">
-<li><p>OS: Windows 10 Home (64 bit)</p></li>
-<li><p>Cygwin: 2.5.2-1, 2.7.0 (64 bit)</p></li>
-<li><p>bash: 4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin)</p></li>
-<li><p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>: 4.0.5, 4.1.11, 4.3.14, 4.7.5</p></li>
-</ul>
+<dl class="field-list simple">
+<dt class="field-odd">OS<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Windows 10 Home (64 bit), WSL2</p>
+</dd>
+<dt class="field-even">Cygwin<span class="colon">:</span></dt>
+<dd class="field-even"><p>2.5.2-1, 2.7.0 (64 bit)</p>
+</dd>
+<dt class="field-odd">bash<span class="colon">:</span></dt>
+<dd class="field-odd"><p>4.3.42(4)-release, 4.4.12(3)-release (x86_64-unknown-cygwin), 5.1.16(1)-release (x86_64-pc-linux-gnu)</p>
+</dd>
+<dt class="field-even"><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a><span class="colon">:</span></dt>
+<dd class="field-even"><p>4.0.5, 4.1.11, 4.3.14, 4.7.5, 24.3.0</p>
+</dd>
+</dl>
 <p>Python 本体および Python 製パッケージのバージョンについては、必要に応じて本文で明記していく。</p>
 </div>
 <section id="id2">
@@ -125,17 +133,49 @@
 <li><p>非公式版アーカイブからのインストールで得られたもの</p></li>
 </ol>
 <p>とに分類しておき、整理結果を後の <code class="code docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> と <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> の使い分けの基準とする。</p>
-<p>Conda の各種設定はホームディレクトリーに所定の書式で記述された構成ファイル
-<code class="file docutils literal notranslate"><span class="pre">.condarc</span></code> を作成することでも可能である。毎度特定のコマンドラインオプションを指定するようなことがあれば、このテキストファイルにそのようなオプションを記述しておけば、コマンドラインの入力作業の省力化になる。</p>
 <p>デフォルト環境用の次回以降のアップグレードに備えて
 <strong class="command">pip list --export</strong> コマンドで要件文字列をファイル化しておくとよい。これについては次節で述べる。</p>
-</section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id13" role="doc-backlink">ノート</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">構成ファイルパスを変更する</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>Conda の各種設定はホームディレクトリーに所定の書式で記述された構成ファイル
+<code class="file docutils literal notranslate"><span class="pre">.condarc</span></code> を作成することでも可能だ。毎度特定のコマンドラインオプションを指定するようなことがあれば、このテキストファイルにそのようなオプションを記述しておけば、コマンドラインの入力作業の省力化になる。</p>
+<p><a class="reference internal" href="xdg.html"><span class="doc">XDG Base Directory 利用ノート</span></a> に基づき、<code class="file docutils literal notranslate"><span class="pre">$HOME</span></code> 直下からドットファイルを配置するようにしたい。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$XDG_CONFIG_HOME</span>/conda/
+<span class="gp">$ </span>mv<span class="w"> </span>~/.condarc<span class="w"> </span><span class="nv">$XDG_CONFIG_HOME</span>/conda/condarc
+</pre></div>
+</div>
+<p>設定ファイルの中身をどのようにするかは調査中。現在のところは：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda<span class="w"> </span>config<span class="w"> </span>--show-sources
+<span class="go">==&gt; /home/USERNAME/.config/conda/condarc &lt;==</span>
+<span class="go">auto_activate_base: False</span>
+<span class="go">envs_dirs:</span>
+<span class="go">  - ${XDG_DATA_HOME}/conda/envs</span>
+<span class="go">pkgs_dirs:</span>
+<span class="go">  - ${XDG_CACHE_HOME}/conda/pkgs</span>
+<span class="go">conda-build:</span>
+<span class="go">  root-dir: ${XDG_DATA_HOME}/conda/conda-builds</span>
+</pre></div>
+</div>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">config</span> <span class="pre">--show</span></code> でその他も含むディレクトリーパスを確認可能だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>その出力によると、値の一部が意図通りに設定されていないことが示される：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>envs_dirs:
+  - /home/USERNAME/.local/share/conda/envs
+  - /home/USERNAME/.local/share/miniconda3/envs
+  - /home/USERNAME/.conda/envs
+</pre></div>
+</div>
+<p><code class="file docutils literal notranslate"><span class="pre">/home/USERNAME/.conda</span></code> を <code class="file docutils literal notranslate"><span class="pre">$XDG_DATA_HOME/conda/envs</span></code> に指定したはずなのだが？</p>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">ノート</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>Anaconda ではなく Miniconda を選択した理由は、必要十分なパッケージを利用可能にしたいからという、個人的な嗜好による。</p></li>
-<li><p>Python の利用者が Conda が何であるかを理解するには、
-<a class="reference external" href="http://conda.pydata.org/docs/_downloads/conda-pip-virtualenv-translator.html">conda vs. pip vs. virtualenv</a>
+<li><p>Python の利用者が Conda が何であるかを理解するには、 <a class="reference external" href="http://conda.pydata.org/docs/_downloads/conda-pip-virtualenv-translator.html">conda vs. pip vs.
+virtualenv</a>
 の表を見るのが手っ取り早い。</p>
 <ul class="simple">
 <li><p>要するに <strong class="program">pip</strong> + <strong class="program">virtualenv</strong> である。</p></li>
@@ -186,7 +226,6 @@ Miniconda において再現するとなると、正規環境のそれにおけ�
 <li><p>仮に <strong class="command">conda install matplotlib</strong> ではなく、いつもの非公式バイナリーを <strong class="command">pip install</strong> したらおそらく動作すると思われる。そのためには先に別途非公式版をダウンロードしておく必要があるのだが、何のために Miniconda を導入したのかわからなくなる。</p></li>
 </ul>
 </li>
-<li><p><strong class="program">conda</strong> の設定ファイル <code class="file docutils literal notranslate"><span class="pre">.condarc</span></code> は今のところ用意しないで済みそうだ。各コマンドのオプション引数についての既定値が優秀であるところが大きい。</p></li>
 <li><p>パッケージ P について、<strong class="command">conda install P</strong> してから
 <strong class="command">pip install P</strong> することが可能であることがある。可能な場合には、これらが同一環境下に共存する。</p>
 <ul>
@@ -219,25 +258,25 @@ Miniconda において再現するとなると、正規環境のそれにおけ�
 パッケージについての考察があるが、それらのどれにも書くハメになっていた、インストールおよびアップグレードの云々をする必要がなくなったのも大きい。</p></li>
 <li><p>一般のサードパーティー製 Python パッケージのインストール手順は次の図のようにすることにした。ここではローカルにあるソースコードを <strong class="command">pip install -e</strong>
 でインストールする状況は考慮していない。</p>
-<figure class="align-default" id="id9">
+<figure class="align-default" id="id10">
 <span id="python-pkg-proc"></span><a class="reference internal image-reference" href="_images/python-pkg-proc.png"><img alt="_images/python-pkg-proc.png" src="_images/python-pkg-proc.png" style="width: 657.0px; height: 407.0px;" /></a>
 <figcaption>
-<p><span class="caption-text">一般のサードパーティー製 Python パッケージのインストール手順</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">一般のサードパーティー製 Python パッケージのインストール手順</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </li>
 </ul>
 </section>
-<section id="id5">
-<h2><a class="toc-backref" href="#id14" role="doc-backlink">3.5 から 3.6 への移行手順ノート</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">3.5 から 3.6 への移行手順ノート</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>この節では <code class="docutils literal notranslate"><span class="pre">root</span></code> として Python 3.5 系の環境を構築してあるところに、そのバックアップ環境を残しながらも Python 3.6 系の環境を構築するときの手順の一例を記す。基本方針を列挙すると次のようになる：</p>
 <ul class="simple">
 <li><p>旧 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を <code class="docutils literal notranslate"><span class="pre">3.5</span></code> という名前の環境にバックアップする。</p></li>
 <li><p>旧 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境にあるサードパーティー製パッケージを可能な限り新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境にも導入する。</p></li>
 <li><p>新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境は Python 3.6 で動作するものとする。</p></li>
 </ul>
-<section id="id6">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">バックアップ</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<section id="id7">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">バックアップ</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>現在の <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境とそっくり同じものを <code class="docutils literal notranslate"><span class="pre">3.5</span></code> として作成し、管理されているパッケージ群を専用コマンドでテキストファイルに出力する。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ conda create -n 3.5</span>
 <span class="go">bash$ conda env export -n 3.5 &gt; 3.5.yml</span>
@@ -245,7 +284,7 @@ Miniconda において再現するとなると、正規環境のそれにおけ�
 </div>
 </section>
 <section id="root">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a><a class="headerlink" href="#root" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">新 <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境を構築</a><a class="headerlink" href="#root" title="Permalink to this heading">¶</a></h3>
 <p>まずは <code class="docutils literal notranslate"><span class="pre">root</span></code> 環境の Python を 3.6 にアップグレードする。これには <code class="docutils literal notranslate"><span class="pre">update</span></code>
 コマンドではなく <code class="docutils literal notranslate"><span class="pre">install</span></code> を用いる必要がある：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ conda install python=3.6</span>
@@ -366,14 +405,14 @@ Miniconda において再現するとなると、正規環境のそれにおけ�
 <p>この画面まで行けば問題はない。ここからは <strong class="program">conda</strong> が自動でパッケージを大量にダウンロード、インストールしてくれる。まだ <code class="docutils literal notranslate"><span class="pre">UnsatisfiableError</span></code> が生じるようならば、再度対象パッケージの <code class="docutils literal notranslate"><span class="pre">remove</span></code> を都度実行する。なお <strong class="program">conda</strong>
 以外の方法で導入したパッケージは別途インストールすること。</p>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id17" role="doc-backlink">補足</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">補足</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">UnsatisfiableError</span></code> を引き起こしたパッケージを改めてインストールしたい場合に注意が要る。<strong class="command">conda install</strong> の予告リストのパッケージバージョンが 3.6 に一致するか指差し確認したい。</p>
 <p>せっかく作った 3.6 環境に 3.5 のパッケージをインストールすると、それ以外のパッケージも 3.5 のものにダウングレードしてしまうようだ。そのことについては
 <strong class="program">conda</strong> は警告しない。</p>
 <p>欲しいパッケージの 3.6 版がない場合は、それ以上の作業は見送るのがよい。</p>
 <section id="v4-7-5">
-<h4><a class="toc-backref" href="#id18" role="doc-backlink">V4.7.5</a><a class="headerlink" href="#v4-7-5" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">V4.7.5</a><a class="headerlink" href="#v4-7-5" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>これまで <code class="docutils literal notranslate"><span class="pre">root</span></code> と書いたものは <code class="docutils literal notranslate"><span class="pre">base</span></code> と呼ばれるように変更されたらしい。</p></li>
 <li><p>どうやら <strong class="command">conda update</strong> 系のコマンド実行に OS の管理者権限が必要となったらしい。通常権限のコンソールで更新系のコマンドを実行すると、最後に例外が発生して正しくファイルが配置されない。これは Windows のスタートメニュー
