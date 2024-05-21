@@ -10,7 +10,8 @@ Windows 用フリーウェア 利用ノート
 Windows 用ということで、必然的に GUI を備えるソフトが主になる。CLI 編を本稿と対
 になる感じで別途作成したい。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 ソフトウェア一覧
 ======================================================================
@@ -200,6 +201,10 @@ Windows Package Manager CLI を使って自動インストールする
     ングプロトコルを再生できる、無料でオープンソースのプレーヤーでありフレーム
     ワークだ。主に MP3 や MP4 などのオーディーオやビデオファイルのプレイリストを
     作成、視聴するのに活躍している。
+
+    .. seealso::
+
+       :doc:`/vlc-media-player`
 
 `Windows Terminal <https://docs.microsoft.com/ja-jp/windows/terminal/>`__
     Windows Terminal はタブブラウザーならぬタブコンソールだ。かつて私が愛用して
