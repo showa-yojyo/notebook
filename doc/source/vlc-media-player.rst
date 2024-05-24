@@ -2,6 +2,10 @@
 VLC media player 利用ノート
 ======================================================================
 
+.. todo::
+
+   何か発展的な機能を見つける。
+
 .. include:: _include/kbd.txt
 .. |VLC| replace:: VLC media player
 
@@ -143,8 +147,8 @@ Windows 版 |VLC| は Qt で実装されているとのことで、十分柔軟�
 
    未知の概念を含むコマンド名を控えておき、後で調査する。
 
-   * Bookmarks
-   * Subtitle
+   * Bookmarks: メディアファイルを閉じるとこのデータが消えるのなら使えない。
+   * Subtitle: 字幕は今のところお呼びでない。
 
 トラックスライダー
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -632,7 +636,26 @@ Library やその他の給源から選択できる。
 CLI
 ======================================================================
 
-TBW
+コマンドラインから :program:`vlc` を実行すると、それ専用のプロンプトウィンドウが
+出現、処理内容がそこに出力されるという、どこか妙な方式を採っている。
+
+.. sourcecode:: ps1con
+   :caption: PowerShell から vlc を実行する例
+
+   PS> Set-Alias -Name vlc -Value "${Env:ProgramFiles}\VideoLAN\VLC\vlc.exe"
+   PS> vlc --version
+
+メディアファイルパスを渡せば |VLC| が GUI で開くので、単純に :program:`ffplay`
+などのように呼び出す用途は思いつく。
+
+FFmpeg のようにコンバーターとして応用することもあるようだ。
+
+.. todo::
+
+   面白いコマンド、役に立つコマンドを見つける。例えばこういうことが可能らしい：
+
+   `bash - VLC screen capture using terminal - Stack Overflow
+   <https://stackoverflow.com/questions/22084098/vlc-screen-capture-using-terminal>`__
 
 資料
 ======================================================================
