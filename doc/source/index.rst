@@ -173,6 +173,7 @@
    oh-my-posh
    twitter
    inkscape/index
+   vlc-media-player
    ffmpeg/index
    mathjax
    javascript-mermaid/index
