@@ -6,9 +6,11 @@
 気で狙うためのノート。
 
 .. figure:: https://pbs.twimg.com/media/FxwccoRaIAEsFps?format=jpg&name=small
-      :align: center
-      :alt: 2023-06-04; 9779
-      :target: https://twitter.com/showa_yojyo/status/1665312445215174656
+   :align: center
+   :alt: 2023-06-04; 9779
+   :target: https://twitter.com/showa_yojyo/status/1665312445215174656
+
+   本稿執筆時点の個人最高記録
 
 ..   .. figure:: https://pbs.twimg.com/media/E81tDaDVUAAFrh1?format=jpg&name=small
 ..      :align: center
