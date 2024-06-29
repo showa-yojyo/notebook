@@ -170,7 +170,7 @@
    xdg
    chrome
    git/index
-   docker
+   docker/index
    oh-my-posh
    twitter
    inkscape/index
