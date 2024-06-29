@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>呪文集 &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="環境変数集" href="envvars.html" />
+    <link rel="prev" title="Docker Docs 読書ノート" href="docs.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="docs.html" title="Previous">Docker Docs 読書ノート</a>
+        </li>
+      
+        <li>
+          &uarr;
+          <a href="index.html" title="Parent">Docker 利用ノート</a>
+        </li>
+        <li>
+          <a href="envvars.html" title="Next">環境変数集</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="id1">
+<h1>呪文集<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<p>プログラム <strong class="command">docker</strong> のコマンドラインを素早く組み立てるようになるのが目標だ。</p>
+<nav class="contents local" id="id2">
+<p class="topic-title">本章見出し</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id3" id="id24">オプション</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id25">共通オプション</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id26">出力コマンドにおける頻出オプション</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id27">常用コマンド</a></p>
+<ul>
+<li><p><a class="reference internal" href="#run" id="id28">呪文表 <code class="docutils literal notranslate"><span class="pre">run</span></code></a></p></li>
+<li><p><a class="reference internal" href="#exec" id="id29">呪文表 <code class="docutils literal notranslate"><span class="pre">exec</span></code></a></p></li>
+<li><p><a class="reference internal" href="#ps" id="id30">呪文表 <code class="docutils literal notranslate"><span class="pre">ps</span></code></a></p></li>
+<li><p><a class="reference internal" href="#build" id="id31">呪文表 <code class="docutils literal notranslate"><span class="pre">build</span></code></a></p></li>
+<li><p><a class="reference internal" href="#pull" id="id32">呪文表 <code class="docutils literal notranslate"><span class="pre">pull</span></code></a></p></li>
+<li><p><a class="reference internal" href="#push" id="id33">呪文表 <code class="docutils literal notranslate"><span class="pre">push</span></code></a></p></li>
+<li><p><a class="reference internal" href="#images" id="id34">呪文表 <code class="docutils literal notranslate"><span class="pre">images</span></code></a></p></li>
+<li><p><a class="reference internal" href="#login" id="id35">呪文表 <code class="docutils literal notranslate"><span class="pre">login</span></code></a></p></li>
+<li><p><a class="reference internal" href="#logout" id="id36">呪文表 <code class="docutils literal notranslate"><span class="pre">logout</span></code></a></p></li>
+<li><p><a class="reference internal" href="#search" id="id37">呪文表 <code class="docutils literal notranslate"><span class="pre">search</span></code></a></p></li>
+<li><p><a class="reference internal" href="#version" id="id38">呪文表 <code class="docutils literal notranslate"><span class="pre">version</span></code></a></p></li>
+<li><p><a class="reference internal" href="#info" id="id39">呪文表 <code class="docutils literal notranslate"><span class="pre">info</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id40">運営コマンド</a></p>
+<ul>
+<li><p><a class="reference internal" href="#builder" id="id41">呪文表 <code class="docutils literal notranslate"><span class="pre">builder</span></code></a></p></li>
+<li><p><a class="reference internal" href="#compose" id="id42">呪文表 <code class="docutils literal notranslate"><span class="pre">compose</span></code></a></p></li>
+<li><p><a class="reference internal" href="#container" id="id43">呪文表 <code class="docutils literal notranslate"><span class="pre">container</span></code></a></p></li>
+<li><p><a class="reference internal" href="#image" id="id44">呪文表 <code class="docutils literal notranslate"><span class="pre">image</span></code></a></p></li>
+<li><p><a class="reference internal" href="#network" id="id45">呪文表 <code class="docutils literal notranslate"><span class="pre">network</span></code></a></p></li>
+<li><p><a class="reference internal" href="#scout" id="id46">呪文表 <code class="docutils literal notranslate"><span class="pre">scout</span></code></a></p></li>
+<li><p><a class="reference internal" href="#system" id="id47">呪文表 <code class="docutils literal notranslate"><span class="pre">system</span></code></a></p></li>
+<li><p><a class="reference internal" href="#volume" id="id48">呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#swarm" id="id49">Swarm コマンド</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id50">無印コマンド</a></p>
+<ul>
+<li><p><a class="reference internal" href="#inspect" id="id51">呪文表 <code class="docutils literal notranslate"><span class="pre">inspect</span></code></a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id3">
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">オプション</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">共通オプション</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>ここでいう共通オプションとは、次のコマンド呼び出しの形式における
+<code class="docutils literal notranslate"><span class="pre">[common-options]</span></code> の部分に来るコマンドラインオプションのこととする。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Synopsys</span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span><span class="o">[</span>common-options<span class="o">]</span><span class="w"> </span>&lt;command&gt;<span class="w"> </span><span class="o">[</span>command-options<span class="o">]</span><span class="w"> </span>&lt;args&gt;
+</pre></div>
+</div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-v">
+<span id="cmdoption-version"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"><span class="pre">=true|false</span></span><a class="headerlink" href="#cmdoption-v" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong class="command">docker</strong> 自身のバージョン情報を出力して終了する。既定値は <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-help">
+<span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-help" title="Permalink to this definition">¶</a></dt>
+<dd><p>引数なしで実行すると Docker コマンド一覧と共通オプションを出力して終了する。
+<code class="samp docutils literal notranslate"><span class="pre">docker</span> <em><span class="pre">command</span></em> <span class="pre">--help</span></code> の形式で実行すると Docker コマンドの使用方法を出力して終了する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-config">
+<span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;path&gt;</span></span><a class="headerlink" href="#cmdoption-config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Docker クライアント構成ファイル（の格納されているディレクトリー）パスを指定する。既定値は <code class="file docutils literal notranslate"><span class="pre">~/.docker</span></code>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-D">
+<span id="cmdoption-debug"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"><span class="pre">=true|false</span></span><a class="headerlink" href="#cmdoption-D" title="Permalink to this definition">¶</a></dt>
+<dd><p>デバッグモードを有効にする。既定値は <code class="docutils literal notranslate"><span class="pre">false</span></code>,</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-l">
+<span id="cmdoption-log-level"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--log-level</span></span><span class="sig-prename descclassname"><span class="pre">=&quot;debug|info|warn|error|fatal&quot;</span></span><a class="headerlink" href="#cmdoption-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>ログ水準を指定する。既定値は <code class="docutils literal notranslate"><span class="pre">info</span></code> だ。</p>
+</dd></dl>
+
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">出力コマンドにおける頻出オプション</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="samp docutils literal notranslate"><span class="pre">docker</span> <em><span class="pre">command</span></em> <span class="pre">ls</span></code> や <code class="samp docutils literal notranslate"><span class="pre">docker</span> <em><span class="pre">command</span></em> <span class="pre">inspect</span></code> などに備わっているオプションをまとめておく。</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-a">
+<span id="cmdoption-all"></span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--all</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>「すべて」を意味する（コマンドによって集合が異なる）。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-digests">
+<span class="sig-name descname"><span class="pre">--digests</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-digests" title="Permalink to this definition">¶</a></dt>
+<dd><p>イメージにはダイジェストと呼ばれる content addressable な識別子がある。この値を出力するオプションだ。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-f">
+<span id="cmdoption-filter"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--filter</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;key&gt;[=&lt;value&gt;]</span></span><a class="headerlink" href="#cmdoption-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>条件に基づいて指定を絞り込む。キー単体、またはキーと値の対で指定する。コマンド一つでこのオプションを複数指定することが可能で、その場合にはすべての条件が真である対象が採用される。</p>
+<p>よく出てくる絞り込み名：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></li>
+</ul>
+<p>このオプションを使いこなせると手練れに見える。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-format">
+<span class="sig-name descname"><span class="pre">--format</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;template&gt;</span></span><a class="headerlink" href="#cmdoption-format" title="Permalink to this definition">¶</a></dt>
+<dd><p>カスタムテンプレートを使って出力をフォーマットする。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">table</span></code>: 列ヘッダー付きの表形式で出力する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json</span></code>: JSON 形式で出力する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TEMPLATE</span></code>: 指定された Go テンプレートを使って出力する。</p></li>
+</ul>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-no-trunc">
+<span class="sig-name descname"><span class="pre">--no-trunc</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-no-trunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID などの長い文字列を出力するときに切り捨てない。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-q">
+<span id="cmdoption-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID しか出力しない。これを使ったコマンド出力を <code class="samp docutils literal notranslate"><span class="pre">docker</span> <em><span class="pre">command</span></em> <span class="pre">rm</span></code> の入力にする用途がある。</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">常用コマンド</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>私が利用したいコマンドライン群、「呪文表」を示す。チートシートとして参照に耐え得るものを用意したい。また、ヘルプ出力による用途別分類を利用させてもらう。まずは常用に区分されているコマンド集の名称を示す：</p>
+<table class="docutils align-default" id="id11">
+<caption><span class="caption-text">Docker CLI Common Commands</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Create and run a new container from an image</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">exec</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ps</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">ls</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">build</span></code></p></td>
+<td><p>Build an image from a Dockerfile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pull</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">pull</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">push</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">push</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">images</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">ls</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">login</span></code></p></td>
+<td><p>Log in to a registry</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logout</span></code></p></td>
+<td><p>Log out from a registry</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">search</span></code></p></td>
+<td><p>Search Docker Hub for images</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>Show the Docker version information</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">system</span> <span class="pre">info</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<section id="run">
+<span id="docker-run"></span><h3><a class="toc-backref" href="#id28" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">run</span></code></a><a class="headerlink" href="#run" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">run</span></code> 実行時の基本動作は次のようなものだ：</p>
+<ol class="arabic simple">
+<li><p>Docker クライアントは指定のイメージをどうにかして見つけ、</p></li>
+<li><p>そのコンテナー内部で指定コマンドを実行する。</p></li>
+<li><p>その指定コマンドが終了するとコンテナーは終了する。</p></li>
+</ol>
+<p class="rubric">頻出オプション</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-name">
+<span id="cmdoption-name"></span><span class="sig-name descname"><span class="pre">-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;container_name&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;container_name&gt;</span></span><a class="headerlink" href="#cmdoption-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>コンテナー識別名を指定する。他のコマンド中にハッシュ値ではなくこの名前で参照することが可能になるという利点がある。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-d">
+<span id="cmdoption-detach"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--detach</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>バックグラウンドプロセスとしてコンテナーを稼働する（端末ウィンドウをブロックしない）。コンテナーは自身の実行に使用したルートプロセスが終了したときに終了する。ただし、<code class="docutils literal notranslate"><span class="pre">--rm</span></code> オプションとともに <code class="docutils literal notranslate"><span class="pre">-d</span></code> を使用すると、コンテナーは自身かデーモンのどちらかが早い方の終了時に削除される。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-i">
+<span id="cmdoption-interactive"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--interactive</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>コンテナーの標準入力を開いておき、それを通してコンテナーに入力を送ることができるようにする。</p>
+<p>コンテナーの入出力ストリームを擬似端末に束縛して、コンテナーの対話型端末セッションを作成するために <code class="docutils literal notranslate"><span class="pre">--tty</span></code> とともに使用されがちだ。次のオプション説明と合わせて理解する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-t">
+<span id="cmdoption-tty"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--tty</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>コンテナーに擬似 TTY を取り付け、端末をコンテナーの入出力ストリームに接続する。この割り当ては TTY デバイスが搭載する入出力機能とやりとりできることを意味する。</p>
+<p>本文ではパスワード入力を要求するコンテナーで <code class="docutils literal notranslate"><span class="pre">--tty</span></code> の意義を示している。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-rm">
+<span class="sig-name descname"><span class="pre">--rm</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-rm" title="Permalink to this definition">¶</a></dt>
+<dd><p>コンテナー終了時にそのファイルシステムを削除させる。短期間のフォアグランドプロセス実行時に指定しがちなオプションだ。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-w">
+<span id="cmdoption-workdir"></span><span class="sig-name descname"><span class="pre">-w</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--workdir</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></span><a class="headerlink" href="#cmdoption-w" title="Permalink to this definition">¶</a></dt>
+<dd><p>指定されたディレクトリー内でコマンドを実行する。パスが存在しない場合はコンテナー内に自動的に作成される。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-p">
+<span id="cmdoption-publish"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;port1&gt;:&lt;port2&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--publish</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;port1&gt;:&lt;port2&gt;,</span></span><a class="headerlink" href="#cmdoption-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>コンテナーのポート <code class="docutils literal notranslate"><span class="pre">&lt;port2&gt;</span></code> をホストのポート <code class="docutils literal notranslate"><span class="pre">&lt;port1&gt;</span></code> に束縛する。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-P">
+<span id="cmdoption-publish-all"></span><span class="sig-name descname"><span class="pre">-P</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--publish-all</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-P" title="Permalink to this definition">¶</a></dt>
+<dd><p>すべての公開ポートをホストに公開する。Docker は各公開ポートをホスト上のランダムなポートに束縛する。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> の <code class="docutils literal notranslate"><span class="pre">EXPOSE</span></code> 指定や <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> の <code class="docutils literal notranslate"><span class="pre">--expose</span></code> オプションは公開フラグが明示的に付けられたポート番号しか公開しない。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-0">
+<span id="cmdoption-volume"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dir1&gt;:&lt;dir2&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--volume</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dir1&gt;:&lt;dir2&gt;</span></span><a class="headerlink" href="#cmdoption-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>ホスト側ディレクトリー <code class="docutils literal notranslate"><span class="pre">&lt;dir1&gt;</span></code> をコンテナーの <code class="docutils literal notranslate"><span class="pre">&lt;dir2&gt;</span></code> にマウントする。</p>
+<p>バインドマウントされたボリュームのホストディレクトリーが存在しない場合、
+Docker が実行者に代わって <code class="docutils literal notranslate"><span class="pre">&lt;dir1&gt;</span></code> をホスト上に作成する。</p>
+<p>引数はコロンで区切られたフィールド三つで構成される。フィールドは正しい順序で並んでいなければならない。</p>
+<ul class="simple">
+<li><p>名前付きボリュームの場合、最初のフィールドはボリュームの名前で、指定されたホストマシン上で唯一無二だ。匿名ボリュームの場合、最初のフィールドは省略される。</p></li>
+<li><p>二番目のフィールドは、ファイルまたはディレクトリーがコンテナにマウントされるパスだ。</p></li>
+<li><p>三番目のフィールドは省略可能で、<code class="docutils literal notranslate"><span class="pre">ro</span></code> などのオプションからなる CSV だ。</p></li>
+</ul>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-mount">
+<span class="sig-name descname"><span class="pre">--mount</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;mount&gt;</span></span><a class="headerlink" href="#cmdoption-mount" title="Permalink to this definition">¶</a></dt>
+<dd><p>ボリュームやホストディレクトリーをコンテナー内にマウントする。「マウントする」の意味はファイルシステム解説書を当たれ。</p>
+<p>このオプションは <code class="docutils literal notranslate"><span class="pre">--volume</span></code> が対応しているオプションのほとんどを対応するものの、構文は異なる。</p>
+<p>本文で言われているように、<code class="docutils literal notranslate"><span class="pre">--volume</span></code> よりも <code class="docutils literal notranslate"><span class="pre">--mount</span></code> を優先して使え。</p>
+<p>引数はカンマ区切りの <code class="samp docutils literal notranslate"><em><span class="pre">key</span></em><span class="pre">=</span><em><span class="pre">value</span></em></code> で構成する。それらの順序は任意。有効なキーのうち重要なものを記すと：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> でマウントの型を指定する。このオプションでは <code class="docutils literal notranslate"><span class="pre">bind</span></code> 一択。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code> でマウント元を指定する。バインドマウントの場合、Docker デーモンホスト上のパスだ。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destination</span></code> はコンテナー内でファイルやディレクトリーがマウントされているパスを指定する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readonly</span></code> オプションを指定すると、バインドマウントは読み取り専用としてコンテナーにマウントされる。これは値を書かずに済む。このオプションが使用可能である場合は指定するのが望ましい。</p></li>
+</ul>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>UNIX の <strong class="program">mount</strong> のヘルプを読んでおくといいかもしれない。</p>
+</div>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-network">
+<span class="sig-name descname"><span class="pre">--network</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;network_name&gt;</span></span><a class="headerlink" href="#cmdoption-network" title="Permalink to this definition">¶</a></dt>
+<dd><p>コンテナーをネットワークに接続する。ネットワークは後述する関連コマンドでなんとかする。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-e">
+<span id="cmdoption-env"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;varname[=value]&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--env</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;varname[=value]&gt;</span></span><a class="headerlink" href="#cmdoption-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>稼働するコンテナー内部に対して環境変数を設定したり、コンテナーのイメージの
+<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> で定義された変数を上書きしたりする。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-env-file">
+<span class="sig-name descname"><span class="pre">--env-file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;file&gt;</span></span><a class="headerlink" href="#cmdoption-env-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>環境変数をファイルからロードする。ファイルの書式は変数名と値の代入文が並ぶというものだ。</p>
+</dd></dl>
+
+<p class="rubric">呪文例</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">alpine</span> <span class="pre">ls</span> <span class="pre">-l</span></code></dt><dd><p>コマンド <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> を指定したので、Docker はディレクトリー一覧出力をコンテナー内で実行する。出力が終了するとコンテナーはシャットダウンする。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name</span> <em><span class="pre">&lt;container_name&gt;</span></em> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>イメージからコンテナーを生成、稼働する。コンテナーに独自の名前を与える。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>コンテナーをバックグランドで稼働する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-it</span> <span class="pre">--rm</span> <span class="pre">ubuntu</span> <span class="pre">bash</span></code></dt><dd><p>コンテナー <code class="docutils literal notranslate"><span class="pre">ubuntu</span></code> を端末ウィンドウから入出力を行えるように稼働して、終了時にそのファイルシステムを削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-dt</span> <span class="pre">ubuntu</span> <span class="pre">sleep</span> <span class="pre">infinity</span></code></dt><dd><p>イメージ <code class="docutils literal notranslate"><span class="pre">ubuntu</span></code> に基づいて新しいコンテナーを作成し、バックグラウンドで実行し続けるために <strong class="command">sleep</strong> を実行する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-p</span> <em><span class="pre">&lt;host_port&gt;</span></em><span class="pre">:</span><em><span class="pre">&lt;container_port&gt;</span></em> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>実行元マシンに公開するポートを指定してコンテナーを稼働する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-v</span> <span class="pre">$PWD:/test</span> <span class="pre">-w</span> <span class="pre">/test</span> <span class="pre">golangci/golangci-lint</span> <span class="pre">golangci-lint</span> <span class="pre">run</span></code></dt><dd><p>コマンドはコンテナー内の <code class="file docutils literal notranslate"><span class="pre">/test</span></code> ディレクトリーで実行するものとする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-e</span> <span class="pre">POSTGRES_PASSWORD=secret</span> <span class="pre">-p</span> <span class="pre">5434:5432</span> <span class="pre">--network</span> <span class="pre">mynetwork</span> <span class="pre">postgres</span></code></dt><dd><p>Postgres コンテナーがバックグラウンドで起動し、ホストポート 5434 に写され、ネットワーク <code class="docutils literal notranslate"><span class="pre">mynetwork</span></code> に接続する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">8080:80</span> <span class="pre">nginx</span></code></dt><dd><p>ホストポート 8080 からコンテナーポート 80 へ写す。この状態でホスト端末から
+localhost:8080 へアクセスすると、コンテナーの 80 にアクセスしたことになる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-p</span> <span class="pre">80</span> <span class="pre">nginx</span></code></dt><dd><p>ホストのいずれかのポートからコンテナーのポート 80 へ写す。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-P</span> <span class="pre">nginx</span></code></dt><dd><p>イメージによって設定されたすべてのポートを公開する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--name=db</span> <span class="pre">-e</span> <span class="pre">POSTGRES_PASSWORD=secret</span> <span class="pre">-d</span> <span class="pre">-v</span> <span class="pre">postgres_data:/var/lib/postgresql/data</span> <span class="pre">postgres</span></code></dt><dd><p>ホスト側ディレクトリー <code class="docutils literal notranslate"><span class="pre">postgres_data</span></code> とコンテナー側ディレクトリー
+<code class="file docutils literal notranslate"><span class="pre">/var/lib/postgresql/data</span></code> にマウントして <strong class="command">postgres</strong> をバックグランウンドで稼働する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">80:80</span> <span class="pre">-v</span> <span class="pre">log-data:/logs</span> <span class="pre">docker/welcome-to-docker</span></code></dt><dd><p>コンテナが実行されると、<code class="file docutils literal notranslate"><span class="pre">/logs</span></code> ディレクトリーに書き込まれるすべてのファイルが、コンテナー外のこのボリューム <code class="docutils literal notranslate"><span class="pre">log-data</span></code> に保存される。コンテナーを削除し、同じボリュームを使用して新しいコンテナーを稼働してもファイルはそのまま残る。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--detach</span> <span class="pre">--publish</span> <span class="pre">80:80</span> <span class="pre">--name</span> <span class="pre">linux_tweet_app</span> <span class="pre">--mount</span> <span class="pre">type=bind,source=&quot;$(pwd)&quot;,target=/usr/share/nginx/html</span> <span class="pre">$DOCKERID/linux_tweet_app:1.0</span></code></dt><dd><p>マウント指定の例。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type=bind</span></code>: バインドマウントを適用し、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source=&quot;$(pwd)&quot;</span></code>: ホスト側のコマンド実行時のディレクトリーから、</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target=/usr/share/nginx/html</span></code>: コンテナー側の
+<code class="file docutils literal notranslate"><span class="pre">/usr/share/nginx/html</span></code> を利用可能にする。</p></li>
+</ul>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--mount</span> <span class="pre">type=bind,source=</span><em><span class="pre">HOST_PATH</span></em><span class="pre">,target=</span><em><span class="pre">CONTAINER_PATH</span></em><span class="pre">,readonly</span> <span class="pre">nginx`</span></code></dt><dd><p>マウント指定の例をもう一つ。バインドマウントを適用し、ホスト側の <cite>HOST_PATH</cite>
+からコンテナー側の <code class="file docutils literal notranslate"><span class="pre">/usr/share/nginx/html</span></code> を利用可能にする。かつ、パスにあるファイルを読み取りと専用する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">--name</span> <span class="pre">redis</span> <span class="pre">--network</span> <span class="pre">sample-app</span> <span class="pre">--network-alias</span> <span class="pre">redis</span> <span class="pre">redis</span></code></dt><dd><p>Redis コンテナーを起動し、先に作成したネットワーク <code class="docutils literal notranslate"><span class="pre">sample-app</span></code> に取り付けてネットワーク別名を作成する。DNS lookup に便利だ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-e</span> <span class="pre">foo=bar</span> <span class="pre">postgres</span> <span class="pre">env</span></code></dt><dd><p>コンテナー内側での環境変数 <code class="docutils literal notranslate"><span class="pre">foo</span></code> を指定する。値は文字列 <code class="docutils literal notranslate"><span class="pre">bar</span></code> とする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--env-file</span> <span class="pre">.env</span> <span class="pre">postgres</span> <span class="pre">env</span></code></dt><dd><p>環境変数の集合をファイル <code class="file docutils literal notranslate"><span class="pre">.env</span></code> で指定する。</p>
+</dd>
+</dl>
+<p class="rubric">少し高度なオプション例</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--memory=&quot;512m&quot;</span> <span class="pre">--cpus=&quot;0.5&quot;</span> <span class="pre">postgres</span></code></dt><dd><p>コンテナーのメモリー使用量と CPU 枠を制限する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-v</span> <em><span class="pre">HOST-DIRECTORY</span></em><span class="pre">:</span><em><span class="pre">CONTAINER-DIRECTORY</span></em><span class="pre">:rw</span> <span class="pre">nginx</span></code></dt><dd><p>TODO: おそらく read-write モードの例</p>
+</dd>
+</dl>
+</section>
+<section id="exec">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">exec</span></code></a><a class="headerlink" href="#exec" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code> の別名。<a class="reference internal" href="#docker-container-exec"><span class="std std-ref">呪文表 container exec</span></a> を参照しろ。</p>
+</section>
+<section id="ps">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">ps</span></code></a><a class="headerlink" href="#ps" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">ls</span></code> の別名。<a class="reference internal" href="#docker-container-ls"><span class="std std-ref">呪文表 container ls</span></a> を参照しろ。</p>
+</section>
+<section id="build">
+<span id="docker-build"></span><h3><a class="toc-backref" href="#id31" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">build</span></code></a><a class="headerlink" href="#build" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">build</span> <em><span class="pre">[OPTIONS]</span></em> <em><span class="pre">PATH</span></em></code></div>
+</div>
+<p><code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> と context からイメージをビルドするコマンドが <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> だ。ビルドの context とは指定されたパスや URL にあるファイルの集合だ。ビルド過程はコ
+context 内のどのファイルでも参照可能だ。例えば <code class="docutils literal notranslate"><span class="pre">COPY</span></code> 指令を使って参照する。</p>
+<p>既定では <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> は context ルートにある <code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> を探す。</p>
+<p>ほとんどの場合、<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> を空ディレクトリーに置くのが最善だ。そのディレクトリーにはビルドに必要なファイルしか追加しない。ビルドの性能を上げるには、そのディレクトリーに <code class="file docutils literal notranslate"><span class="pre">.dockerignore</span></code> を追加して、ファイルやディレクトリーを除外することも可能だ。</p>
+<p class="rubric">頻出オプション</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-1">
+<span id="cmdoption-tag"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;name&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--tag</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;name&gt;</span></span><a class="headerlink" href="#cmdoption-1" title="Permalink to this definition">¶</a></dt>
+<dd><p>ビルドするイメージに対して名前とオプションでタグを指定する。両者はコロンで区切る。このコマンドラインオプションを複数することも可能。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-2">
+<span id="cmdoption-file"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;path&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;path&gt;</span></span><a class="headerlink" href="#cmdoption-2" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> を指定する。レファレンスを見るとビルドターゲットに応じて
+<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> を分けて用意する場合に有用であるようだ。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-build-arg">
+<span class="sig-name descname"><span class="pre">--build-arg</span></span><span class="sig-prename descclassname"> <span class="pre">[&lt;varname&gt;=&lt;value&gt;]</span></span><a class="headerlink" href="#cmdoption-build-arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>ビルド実行時変数を設定する。イメージをビルドするホストにより、変数を分けて定義したい。<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> 内の <code class="docutils literal notranslate"><span class="pre">ARG</span></code> 指令にある変数に対して、このオプションを使ってビルド実行時に値を設定可能だ。</p>
+<p>ビルド引数それぞれに対して <code class="docutils literal notranslate"><span class="pre">--build-arg</span></code> を指定する必要がある。</p>
+<p>値を指定せずに使用する場合、デーモンはローカル環境からビルド中の Docker コンテナーに値を渡す。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-target">
+<span class="sig-name descname"><span class="pre">--target</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;stage&gt;</span></span><a class="headerlink" href="#cmdoption-target" title="Permalink to this definition">¶</a></dt>
+<dd><p>ビルドする対象ステージを指定する。</p>
+<p>複数のビルドステージを持つ <code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> でビルドする場合、このオプションを使用して、結果イメージの最終ステージとして中間ビルドステージを名前で指定可能だ。デーモンは対象ステージ以降のコマンドを実行しない。</p>
+<p>例えば <code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> に <code class="samp docutils literal notranslate"><span class="pre">FROM</span> <em><span class="pre">base_image</span></em> <span class="pre">AS</span> <em><span class="pre">stage</span></em></code> 指令がある場合、コマンド <code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--target</span> <em><span class="pre">stage</span></em> <span class="pre">...</span></code> が考えられる。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-o">
+<span id="cmdoption-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;target&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;target&gt;</span></span><a class="headerlink" href="#cmdoption-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>通常、ビルド結果からローカルコンテナーイメージを生成するのだが、このオプションを指定すると、この動作を上書きしてカスタムエクスポーターを指定可能だ。カスこれにより、ビルド結果を Docker イメージではなく、ローカルファイルシステム上のファイルとしてエクスポート可能だ。</p>
+<p>このオプションの引数の書式は CSV だ。</p>
+<p>このオプションは対象ステージからファイルすべてをエクスポートする。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-platform">
+<span class="sig-name descname"><span class="pre">--platform</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;value[,value]&gt;</span></span><a class="headerlink" href="#cmdoption-platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>ビルドの対象プラットフォームを設定する。<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> の中で <code class="docutils literal notranslate"><span class="pre">--platform</span></code> フラグを持たない <code class="docutils literal notranslate"><span class="pre">FROM</span></code> 指令はすべてこのプラットフォーム用のベースイメージを引いてくる。</p>
+<p>既定値はビルドを実行する BuildKit デーモンのプラットフォームだ。</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-progress">
+<span class="sig-name descname"><span class="pre">--progress</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;auto|plain|tty|rawjson&gt;</span></span><a class="headerlink" href="#cmdoption-progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>進捗出力の型を設定する。コンテナー出力を表示するには <code class="docutils literal notranslate"><span class="pre">plain</span></code> を指定する。</p>
+</dd></dl>
+
+<p class="rubric">呪文例</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">.</span></code></dt><dd><p>イメージを構築する。Docker に <code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> を <code class="file docutils literal notranslate"><span class="pre">.</span></code> から参照させる。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> からイメージを構築する。イメージ名は例えば <code class="docutils literal notranslate"><span class="pre">hello:v0.1</span></code> のような文字列で指定可。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <em><span class="pre">&lt;image_name&gt;</span></em> <span class="pre">.</span> <span class="pre">--no-cache</span></code></dt><dd><p>キャッシュなしで <code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> からイメージを構築する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--build-arg=&quot;GO_VERSION=1.19&quot;</span> <span class="pre">.</span></code></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> に <code class="docutils literal notranslate"><span class="pre">ARG</span></code> 指令で宣言されている変数 <code class="docutils literal notranslate"><span class="pre">GO_VERSION</span></code> の値を
+<code class="docutils literal notranslate"><span class="pre">1.19</span></code> に定義してビルドする。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--build-arg</span> <span class="pre">HTTP_PROXY=</span><em><span class="pre">url</span></em> <span class="pre">.</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">HTTP_PROXY</span></code> など、<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> に記されずともあらかじめ存在するビルド変数がある。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--tag=buildme-client</span> <span class="pre">--target=client</span> <span class="pre">.</span></code></dt><dd><p>タグ <code class="docutils literal notranslate"><span class="pre">buildme-client</span></code> を付与してイメージ <code class="docutils literal notranslate"><span class="pre">client</span></code> をビルドする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--target=client</span> <span class="pre">--progress=plain</span> <span class="pre">.</span> <span class="pre">2&gt;</span> <span class="pre">log1.txt</span></code></dt><dd><p>進捗をログファイル <code class="file docutils literal notranslate"><span class="pre">log1.txt</span></code> に出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--output=.</span> <span class="pre">--target=server</span> <span class="pre">.</span></code></dt><dd><p>対象 <code class="docutils literal notranslate"><span class="pre">server</span></code> のファイルをホストファイルシステム上の現在の作業ディレクトリーにエクスポートする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--target=server</span> <span class="pre">--platform=linux/arm/v7</span> <span class="pre">.</span></code></dt><dd><p>Linux/ARM/v7 プラットフォーム用の <code class="docutils literal notranslate"><span class="pre">server</span></code> イメージを構築する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-o</span> <span class="pre">out</span> <span class="pre">.</span></code></dt><dd><p>ビルドコンテキストを現在のディレクトリーとしてイメージをビルドする。そしてサブディレクトリー <code class="file docutils literal notranslate"><span class="pre">out</span></code> に成果物をエクスポートする。このサブディレクトリーは必要に応じて自動的に作成される。型オプションを省略した構文を <code class="docutils literal notranslate"><span class="pre">-o</span></code> オプションで使用しているため、既定のエクスポーター local が用いられる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--output</span> <span class="pre">type=local,dest=out</span> <span class="pre">.</span></code></dt><dd><p>上のコマンドと等価。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--output</span> <span class="pre">type=tar,dest=out.tar</span> <span class="pre">.</span></code></dt><dd><p>上のコマンドと同じ対象をビルドし、成果物ファイルを <code class="docutils literal notranslate"><span class="pre">.tar</span></code> アーカイブとしてエクスポートする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">node-docker-image-test</span> <span class="pre">--progress=plain</span> <span class="pre">--no-cache</span> <span class="pre">--target</span> <span class="pre">test</span> <span class="pre">.</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">test</span></code> ステージを対象として新しいイメージをビルドし、テスト結果を表示する。</p>
+<ul class="simple">
+<li><p>ビルド出力を表示するのは <code class="docutils literal notranslate"><span class="pre">--progress=plain</span></code> による。</p></li>
+<li><p>テストがつねに実行されるのは <code class="docutils literal notranslate"><span class="pre">--no-cache</span></code> による。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code> ステージが対象であるのは <code class="docutils literal notranslate"><span class="pre">--target</span> <span class="pre">test</span></code> による。</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">--provenance=true</span> <span class="pre">--sbom=true</span> <span class="pre">--tag</span> <span class="pre">ORG/scout-demo-service:v1</span> <span class="pre">--push</span> <span class="pre">.</span></code></dt><dd><p>認証オプション各種盛りの例。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--provenance=true</span></code> で来歴証をすべて有効にする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--sbom=true</span></code> で ソフトウェア部品証をすべて有効にする。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--push</span></code> でビルド結果を自動的にレジストリーに押す。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="pull">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">pull</span></code></a><a class="headerlink" href="#pull" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">pull</span></code> の別名。<a class="reference internal" href="#docker-image-pull"><span class="std std-ref">呪文表 image pull</span></a> を参照しろ。</p>
+</section>
+<section id="push">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">push</span></code></a><a class="headerlink" href="#push" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">push</span></code> の別名。<a class="reference internal" href="#docker-image-push"><span class="std std-ref">呪文表 image push</span></a> を参照しろ。</p>
+</section>
+<section id="images">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">images</span></code></a><a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">ls</span></code> の別名。<a class="reference internal" href="#docker-image-ls"><span class="std std-ref">呪文表 image ls</span></a> を参照しろ。</p>
+</section>
+<section id="login">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">login</span></code></a><a class="headerlink" href="#login" title="Permalink to this heading">¶</a></h3>
+<p>レジストリー、普通は <a class="reference external" href="https://hub.docker.com/">Docker Hub</a> にログインする。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span> <span class="pre">-u</span> <em><span class="pre">&lt;username&gt;</span></em></code></dt><dd><p>使用者を指定して Docker にログインする。Password のプロンプトが表示される。これに適切な入力を与えればレジストリーとやり取り可能になる。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span> <span class="pre">-u</span> <em><span class="pre">&lt;username&gt;</span></em> <span class="pre">-p</span> <em><span class="pre">PASSWORD</span></em></code></dt><dd><p>使用者とパスワードを両方指定してログインする。</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id7">
+<p class="admonition-title">Todo</p>
+<p>二因子認証の場合、ログアウトしてまたログインするときの対処法を記す。</p>
+</div>
+</section>
+<section id="logout">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">logout</span></code></a><a class="headerlink" href="#logout" title="Permalink to this heading">¶</a></h3>
+<p>レジストリーからログアウトする。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">logout</span></code></dt><dd><p>&lt;<a class="reference external" href="https://registry-1.docker.io/">https://registry-1.docker.io/</a>&gt; にある Docker の公開レジストリーからログアウトする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">logout</span> <span class="pre">localhost:8080</span></code></dt><dd><p>ローカルホストのレジストリーからログアウトする。</p>
+</dd>
+</dl>
+</section>
+<section id="search">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">search</span></code></a><a class="headerlink" href="#search" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">search</span> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>イメージを <a class="reference external" href="https://hub.docker.com/">Docker Hub</a> から検索する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">search</span> <span class="pre">--filter=is-official=true</span> <span class="pre">Python</span></code></dt><dd><p>Python に関係するであろう、公式イメージを検索する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">search</span> <span class="pre">--filter=stars=3</span> <span class="pre">sql</span></code></dt><dd><p>SQL に関係するであろうイメージで、ランク 3 かそれ以上のものを検索する。</p>
+</dd>
+</dl>
+</section>
+<section id="version">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">version</span></code></a><a class="headerlink" href="#version" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">version</span></code></dt><dd><p>Docker バージョン情報を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.Version}}'</span></code></dt><dd><p>サーバーバージョンを出力する。</p>
+</dd>
+</dl>
+</section>
+<section id="info">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">info</span></code></a><a class="headerlink" href="#info" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">system</span> <span class="pre">info</span></code> の別名。<a class="reference internal" href="#docker-system-info"><span class="std std-ref">呪文表 system info</span></a> を参照しろ。</p>
+</section>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">運営コマンド</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Docker CLI Management Commands</span><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>builder     Manage builds
+buildx*     Docker Buildx
+checkpoint  Manage checkpoints
+compose*    Docker Compose
+container   Manage containers
+context     Manage contexts
+image       Manage images
+manifest    Manage Docker image manifests and manifest lists
+network     Manage networks
+plugin      Manage plugins
+scout*      Docker Scout
+system      Manage Docker
+trust       Manage trust on Docker images
+volume      Manage volumes
+</pre></div>
+</div>
+</div>
+<section id="builder">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">builder</span></code></a><a class="headerlink" href="#builder" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">builder</span> <span class="pre">prune</span> <span class="pre">-af</span></code></dt><dd><p>ビルドキャッシュを消去する。リビルドの直前に実行する。</p>
+</dd>
+</dl>
+</section>
+<section id="compose">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">compose</span></code></a><a class="headerlink" href="#compose" title="Permalink to this heading">¶</a></h3>
+<p>マルチコンテナーアプリケーションの定義および実行に対するコマンドを構成する。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">down</span></code></dt><dd><p>コンテナーを完全に終了する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">down</span> <span class="pre">--volumes</span></code></dt><dd><p>コンテナーを完全に終了する。ボリュームをも削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span></code></dt><dd><p>プロジェクトディレクトリーから実行することでアプリケーションを起動する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span></code></dt><dd><p>サービスをバックグラウンドで実行したい場合はオプション <code class="docutils literal notranslate"><span class="pre">-d</span></code> を加える。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--build</span></code></dt><dd><p>コンテナーを開始する前にイメージをビルドし、バックグラウンドでコンテナープロセスを稼働する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">watch</span></code>, <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">--watch</span></code></dt><dd><p>アプリケーションをビルドして稼働し、ファイル監視モードを開始する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">ps</span></code></dt><dd><p>現在稼働中のコンテナー一覧を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">rm</span></code></dt><dd><p>停止サービスコンテナーを削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">run</span> <span class="pre">server</span> <span class="pre">npm</span> <span class="pre">run</span> <span class="pre">test</span></code></dt><dd><p>コンテナー内のファイル <code class="file docutils literal notranslate"><span class="pre">package.json</span></code> からテストスクリプトを実行する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">exec</span> <span class="pre">redis</span> <span class="pre">redis-cli</span> <span class="pre">monitor</span></code></dt><dd><p>サービス <code class="docutils literal notranslate"><span class="pre">redis</span></code> 内でコマンド <code class="docutils literal notranslate"><span class="pre">redis-cli</span> <span class="pre">monitor</span></code> を実行する。コマンドは既定で端末を割り当てるので、対話型のプロンプトが表示される。</p>
+</dd>
+</dl>
+</section>
+<section id="container">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">container</span></code></a><a class="headerlink" href="#container" title="Permalink to this heading">¶</a></h3>
+<p>コンテナーを運営するためのコマンド。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Subcommands of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span></code></span><a class="headerlink" href="#id13" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>attach      Attach local standard input, output, and error streams to a running container
+commit      Create a new image from a container&#39;s changes
+cp          Copy files/folders between a container and the local filesystem
+create      Create a new container
+diff        Inspect changes to files or directories on a container&#39;s filesystem
+exec        Execute a command in a running container
+export      Export a container&#39;s filesystem as a tar archive
+inspect     Display detailed information on one or more containers
+kill        Kill one or more running containers
+logs        Fetch the logs of a container
+ls          List containers
+pause       Pause all processes within one or more containers
+port        List port mappings or a specific mapping for the container
+prune       Remove all stopped containers
+rename      Rename a container
+restart     Restart one or more containers
+rm          Remove one or more containers
+run         Create and run a new container from an image
+start       Start one or more stopped containers
+stats       Display a live stream of container(s) resource usage statistics
+stop        Stop one or more running containers
+top         Display the running processes of a container
+unpause     Unpause all processes within one or more containers
+update      Update configuration of one or more containers
+wait        Block until one or more containers stop, then print their exit codes
+</pre></div>
+</div>
+</div>
+<section id="container-commit">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">commit</span></code><a class="headerlink" href="#container-commit" title="Permalink to this heading">¶</a></h4>
+<div class="line-block">
+<div class="line"><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">commit</span> <span class="pre">[</span><em><span class="pre">OPTIONS</span></em><span class="pre">]</span> <em><span class="pre">&lt;CONTAINER&gt;</span></em> <span class="pre">[</span><em><span class="pre">REPOSITORY</span></em><span class="pre">[:</span><em><span class="pre">TAG</span></em><span class="pre">]]</span></code></div>
+</div>
+<p>コンテナーの変化からイメージを新規作成するコマンド。コンテナーのファイル変更や設定を新しいイメージにコミットすると便利で、対話型シェルを実行してコンテナーをデバッグしたり、作業中のデータセットを別のサーバーにエクスポートしたりと、いろいろなことが可能になる。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">commit</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span> <em><span class="pre">CONTAINER_ID</span></em></code></dt><dd><p>差分をコミットする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Add</span> <span class="pre">node&quot;</span> <span class="pre">base-container</span> <span class="pre">node-base</span></code></dt><dd><p>コミットメッセージ “Add node” を与える。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span> <span class="pre">-c</span> <span class="pre">&quot;CMD</span> <span class="pre">node</span> <span class="pre">app.js&quot;</span> <span class="pre">-m</span> <span class="pre">&quot;Add</span> <span class="pre">app&quot;</span> <span class="pre">app-container</span> <span class="pre">sample-app</span></code></dt><dd><p>このコマンドは <code class="docutils literal notranslate"><span class="pre">sample-app</span></code> という新しいイメージを作成するだけでなく、
+<code class="file docutils literal notranslate"><span class="pre">Dockerfile</span></code> に記述を追加することでコンテナー起動時の既定コマンドを <code class="docutils literal notranslate"><span class="pre">node</span>
+<span class="pre">app.js</span></code> に（追加的に？）設定する。</p>
+</dd>
+</dl>
+</section>
+<section id="container-diff">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">diff</span></code><a class="headerlink" href="#container-diff" title="Permalink to this heading">¶</a></h4>
+<p>コンテナのファイルシステム上のファイルやディレクトリーの変更を検査する。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">diff</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">diff</span> <em><span class="pre">&lt;container</span> <span class="pre">ID&gt;</span></em></code></dt><dd><p>これは説明を読むよりも実際に実行して出力を見るほうが理解が早い。適当なコンテナーを与えて試せ。稼働中である必要はない。</p>
+</dd>
+</dl>
+</section>
+<section id="container-exec">
+<span id="docker-container-exec"></span><h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code><a class="headerlink" href="#container-exec" title="Permalink to this heading">¶</a></h4>
+<div class="line-block">
+<div class="line"><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">exec</span> <span class="pre">[</span><em><span class="pre">OPTIONS</span></em><span class="pre">]</span> <span class="pre">&lt;</span><em><span class="pre">CONTAINER</span></em><span class="pre">&gt;</span> <span class="pre">&lt;</span><em><span class="pre">COMMAND</span></em><span class="pre">&gt;</span> <span class="pre">[</span><em><span class="pre">ARG...</span></em><span class="pre">]</span></code></div>
+</div>
+<p>稼働中のコンテナーの中でコマンドを実行する。オプションは <code class="docutils literal notranslate"><span class="pre">run</span></code> と共通するものもある。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">exec</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <em><span class="pre">&lt;container_name&gt;</span></em> <em><span class="pre">command</span></em></code></dt><dd><p>稼働中のコンテナー <cite>container_name</cite> の内側で対話的に <strong class="command">command</strong> を実行する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <em><span class="pre">&lt;container_id&gt;</span></em> <span class="pre">ls</span></code></dt><dd><p>稼働中のコンテナー <cite>container_name</cite> の内側で <strong class="command">ls</strong> を実行する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">mydb</span> <span class="pre">sh</span></code></dt><dd><p>MySQL コンテナーである <code class="docutils literal notranslate"><span class="pre">mydb</span></code> 内に対話型シェル <strong class="program">sh</strong> が表示される。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">mydb</span> <span class="pre">mysql</span> <span class="pre">--user=root</span> <span class="pre">--password=$MYSQL_ROOT_PASSWORD</span> <span class="pre">--version</span></code></dt><dd><p>より実践的なコマンド。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">my-mysql</span> <span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">root</span> <span class="pre">-pmy-secret-pw</span> <span class="pre">-e</span> <span class="pre">&quot;SELECT</span> <span class="pre">*</span> <span class="pre">FROM</span> <span class="pre">mydb.myothertable;&quot;</span></code></dt><dd><p>実践的なコマンドその二。</p>
+</dd>
+</dl>
+</section>
+<section id="container-kill">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">kill</span></code><a class="headerlink" href="#container-kill" title="Permalink to this heading">¶</a></h4>
+<p>稼働中のコンテナーにシグナルを送る。複数指定可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">kill</span> <em><span class="pre">container1</span></em> <em><span class="pre">container2</span></em></code></dt><dd><p>コンテナー <cite>container1</cite>, <cite>container2</cite> を殺す。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">kill</span> <span class="pre">--signal=SIGHUP</span> <em><span class="pre">container</span></em></code></dt><dd><p>既定値は SIGKILL だが、シグナルをオプション <code class="docutils literal notranslate"><span class="pre">--signal</span></code> で指定することも可能。値によってはコンテナーが終了しないことに注意。</p>
+</dd>
+</dl>
+</section>
+<section id="container-logs">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">logs</span></code><a class="headerlink" href="#container-logs" title="Permalink to this heading">¶</a></h4>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">logs</span></code> を使用可。</p>
+<dl>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">logs</span> <span class="pre">-f</span> <em><span class="pre">&lt;container_name&gt;</span></em></code></dt><dd><p>コンテナーのログを取得、追跡する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">logs</span> <span class="pre">-f</span> <span class="pre">--until=2s</span> <span class="pre">test</span></code></dt><dd><p>コンテナー <code class="docutils literal notranslate"><span class="pre">test</span></code> のログを二秒まで取得、追跡する。</p>
+<p>この例では時刻を相対的に指示している。絶対時刻指定も可能。</p>
+</dd>
+</dl>
+</section>
+<section id="container-ls">
+<span id="docker-container-ls"></span><h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">ls</span></code><a class="headerlink" href="#container-ls" title="Permalink to this heading">¶</a></h4>
+<p>コンテナー一覧を示す。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">ps</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code></dt><dd><p>現在稼働中のコンテナーすべてを一覧する。稼働でないコンテナーは返されない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--all</span></code></dt><dd><p>稼働中でも停止中でも、コンテナーすべてを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--size</span></code></dt><dd><p>コンテナーそれぞれに対して、実消費量と仮想消費量の二つの容量を示す。仮想とあるのは、コンテナーで使用される読み取り専用のイメージデータと、書き込み可能なレイヤーに使用されるディスク容量の和を表す。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--filter</span> <span class="pre">&quot;label=color=blue&quot;</span></code></dt><dd><p>ラベル <code class="docutils literal notranslate"><span class="pre">color</span></code> が付いていて、かつその値が <code class="docutils literal notranslate"><span class="pre">blue</span></code> であるコンテナー一覧を出力する。値を問わない場合には <code class="docutils literal notranslate"><span class="pre">=blue</span></code> を指定しない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--filter</span> <span class="pre">&quot;name=nostalgic&quot;</span></code></dt><dd><p>名前に <code class="docutils literal notranslate"><span class="pre">nostalgic</span></code> を含むコンテナー一覧を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span> <span class="pre">--filter</span> <span class="pre">'exited=0'</span></code></dt><dd><p>終了したコンテナー一覧を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--filter</span> <span class="pre">ancestor=ubuntu</span></code></dt><dd><p>最新の <code class="docutils literal notranslate"><span class="pre">ubuntu</span></code> イメージを使用しているか、その子、孫、……、コンテナーの一覧を出力する。</p>
+</dd>
+</dl>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--filter</span></code> 用例</span><a class="headerlink" href="#id14" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>ps<span class="w"> </span>-f<span class="w"> </span><span class="nv">before</span><span class="o">=</span>&lt;container&gt;
+<span class="gp">$ </span>docker<span class="w"> </span>ps<span class="w"> </span>-f<span class="w"> </span><span class="nv">since</span><span class="o">=</span>&lt;container&gt;
+<span class="gp">$ </span>docker<span class="w"> </span>ps<span class="w"> </span>-f<span class="w"> </span><span class="nv">volume</span><span class="o">=</span>/data<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.ID}}\t{{.Mounts}}&quot;</span>
+<span class="gp">$ </span>docker<span class="w"> </span>ps<span class="w"> </span>-f<span class="w"> </span><span class="nv">publish</span><span class="o">=</span><span class="m">80</span>
+<span class="gp">$ </span>docker<span class="w"> </span>ps<span class="w"> </span>-f<span class="w"> </span><span class="nv">expose</span><span class="o">=</span><span class="m">8000</span>-8080/tcp
+</pre></div>
+</div>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--format</span> <span class="pre">&quot;{{.ID}}:</span> <span class="pre">{{.Command}}&quot;</span></code></dt><dd><p>ヘッダーのないテンプレートを使用し、稼働中のコンテナーすべてについて、コロンで区切りの ID とコマンドの登録項目を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--format</span> <span class="pre">&quot;table</span> <span class="pre">{{.ID}}\t{{.Labels}}&quot;</span></code></dt><dd><p>稼働中のコンテナーすべてをラベルとともに表形式で一覧表示する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">--format</span> <span class="pre">json</span></code></dt><dd><p>稼働中のコンテナーすべてを JSON 形式で一覧表示する。</p>
+</dd>
+</dl>
+<p>また、オプション <code class="docutils literal notranslate"><span class="pre">-q</span></code>, <code class="docutils literal notranslate"><span class="pre">--quiet</span></code> で ID のみを出力することを注意する。これはコマンドパイプラインの先頭で使って <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code> に流すというような使い方がある。次節参照。</p>
+</section>
+<section id="container-rm">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">rm</span></code><a class="headerlink" href="#container-rm" title="Permalink to this heading">¶</a></h4>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">rm</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span> <span class="pre">$(docker</span> <span class="pre">ps</span> <span class="pre">--filter</span> <span class="pre">status=exited</span> <span class="pre">-q)</span></code></dt><dd><p>停止中のコンテナーすべてを削除する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span> <span class="pre">-f</span> <em><span class="pre">&lt;container&gt;</span></em><span class="pre">`</span></code></dt><dd><p>コンテナーを稼働中であっても削除する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span> <span class="pre">--volumes</span> <em><span class="pre">&lt;container&gt;</span></em></code></dt><dd><p>コンテナーを関連ボリュームすべてと共に削除する。ただし、名前が指定されていたボリュームは削除しない。</p>
+</dd>
+</dl>
+</section>
+<section id="container-run">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">run</span></code><a class="headerlink" href="#container-run" title="Permalink to this heading">¶</a></h4>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">run</span></code> の別名。<a class="reference internal" href="#docker-run"><span class="std std-ref">呪文表 run</span></a> を参照しろ。</p>
+</section>
+<section id="container-start">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">start</span></code><a class="headerlink" href="#container-start" title="Permalink to this heading">¶</a></h4>
+<p>停止しているコンテナーを稼働する。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">start</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">start</span> <em><span class="pre">&lt;container&gt;</span></em></code></dt><dd><p>既存のコンテナーを開始する。</p>
+</dd>
+</dl>
+</section>
+<section id="container-stats">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">stats</span></code><a class="headerlink" href="#container-stats" title="Permalink to this heading">¶</a></h4>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">stats</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stats</span></code></dt><dd><p>稼働中のコンテナーそれぞれに対する資源使用統計を標準出力に出力する。<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd>
+で終了。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stats</span> <em><span class="pre">&lt;container&gt;</span></em></code></dt><dd><p>特定のコンテナーに対する統計を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stats</span> <span class="pre">nginx</span> <span class="pre">--no-stream</span> <span class="pre">--format</span> <span class="pre">&quot;{{</span> <span class="pre">json</span> <span class="pre">.</span> <span class="pre">}}&quot;</span></code></dt><dd><p>コンテナー <code class="docutils literal notranslate"><span class="pre">nginx</span></code> の統計を JSON 形式で出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stats</span> <span class="pre">--all</span> <span class="pre">--format</span> <span class="pre">&quot;table</span> <span class="pre">{{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}&quot;</span> <span class="pre">container</span></code></dt><dd><p>稼働中でも停止中でも、コンテナーすべてのそれぞれに対して、カスタマイズされたフォーマットで統計を表形式で出力する。</p>
+</dd>
+</dl>
+</section>
+<section id="container-stop">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">stop</span></code><a class="headerlink" href="#container-stop" title="Permalink to this heading">¶</a></h4>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">stop</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stop</span> <em><span class="pre">&lt;container&gt;</span></em></code></dt><dd><p>既存のコンテナーを停止する。</p>
+</dd>
+</dl>
+</section>
+<section id="container-top">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">top</span></code><a class="headerlink" href="#container-top" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">top</span> <em><span class="pre">&lt;container&gt;</span></em></code></dt><dd><p>コンテナー <cite>&lt;container&gt;</cite> の実行中プロセスを表示する。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="image">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">image</span></code></a><a class="headerlink" href="#image" title="Permalink to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">image</span></code> はサブコマンドで構成されている：</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Subcommands of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span></code></span><a class="headerlink" href="#id15" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>build       Alias for ``build``
+history     Show the history of an image
+import      Import the contents from a tarball to create a filesystem image
+inspect     Display detailed information on one or more images
+load        Load an image from a tar archive or STDIN
+ls          List images
+prune       Remove unused images
+pull        Download an image from a registry
+push        Upload an image to a registry
+rm          Remove one or more images
+save        Save one or more images to a tar archive (streamed to STDOUT by default)
+tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+</pre></div>
+</div>
+</div>
+<section id="image-build">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">build</span></code><a class="headerlink" href="#image-build" title="Permalink to this heading">¶</a></h4>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">build</span></code> の別名。<a class="reference internal" href="#docker-build"><span class="std std-ref">呪文表 build</span></a> を参照しろ。</p>
+</section>
+<section id="image-history">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">history</span></code><a class="headerlink" href="#image-history" title="Permalink to this heading">¶</a></h4>
+<p>イメージがどのようにビルドされてきたのかという履歴を示すコマンドだ。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">history</span> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>イメージのレイヤー一覧を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">history</span> <span class="pre">--no-trunc</span> <span class="pre">getting-started</span></code></dt><dd><p>オプション <code class="docutils literal notranslate"><span class="pre">--no-trunc</span></code> で完全な出力を得る。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">history</span> <span class="pre">--format</span> <span class="pre">&quot;{{.ID}}:</span> <span class="pre">{{.CreatedSince}}&quot;</span> <span class="pre">busybox</span></code></dt><dd><p>ヘッダーなしテンプレートを使い、<code class="docutils literal notranslate"><span class="pre">busybox</span></code> イメージの ID と CreatedSince 登録項目をコロンで区切って出力する。</p>
+</dd>
+</dl>
+</section>
+<section id="image-inspect">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">inspect</span></code><a class="headerlink" href="#image-inspect" title="Permalink to this heading">¶</a></h4>
+<p>イメージの詳細情報を得る。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">inspect</span> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>書式指定なしの場合、JSON 形式で情報を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">inspect</span> <span class="pre">--format</span> <span class="pre">&quot;{{</span> <span class="pre">json</span> <span class="pre">.RootFS.Layers</span> <span class="pre">}}&quot;</span> <span class="pre">container</span></code></dt><dd><p>イメージ層の一覧を得る。SHA 値が羅列される。</p>
+</dd>
+</dl>
+</section>
+<section id="image-ls">
+<span id="docker-image-ls"></span><h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">ls</span></code><a class="headerlink" href="#image-ls" title="Permalink to this heading">¶</a></h4>
+<div class="line-block">
+<div class="line"><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">ls</span> <span class="pre">[</span><em><span class="pre">OPTIONS</span></em><span class="pre">]</span> <span class="pre">[</span><em><span class="pre">REPOSITORY</span></em><span class="pre">[:</span><em><span class="pre">TAG</span></em><span class="pre">]]</span></code></div>
+</div>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">images</span></code> を使用可。打鍵数が少ない方を選べ。</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code></dt><dd><p>システムにあるイメージすべての一覧を出力する。トップレベルのイメージすべて、そのリポジトリーとタグ、サイズを表示する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span> <span class="pre">java</span></code></dt><dd><p>リポジトリー <code class="docutils literal notranslate"><span class="pre">java</span></code> にあるイメージすべてを一覧表示する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span> <span class="pre">--no-trunc</span></code></dt><dd><p>完全 ID を一覧表示。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span> <span class="pre">--filter</span> <span class="pre">&quot;dangling=true&quot;</span></code></dt><dd><p>タグなしイメージを一覧表示する。</p>
+<p>これに <code class="docutils literal notranslate"><span class="pre">--quiet</span></code> を加えた結果を <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rmi</span></code> に渡す場合がある。</p>
+</dd>
+</dl>
+<p>このコマンドもオプション <code class="docutils literal notranslate"><span class="pre">--filter</span></code> が使える。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Examples of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span> <span class="pre">--filter</span></code></span><a class="headerlink" href="#id16" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--filter<span class="w"> </span><span class="s2">&quot;label=com.example.version=1.0&quot;</span>
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--filter<span class="w"> </span><span class="s2">&quot;before=image1&quot;</span>
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--filter<span class="w"> </span><span class="s2">&quot;since=image3&quot;</span>
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--filter<span class="o">=</span><span class="nv">reference</span><span class="o">=</span><span class="s1">&#39;busy*:*libc&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>そしてオプション <code class="docutils literal notranslate"><span class="pre">--format</span></code> も使える。</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Examples of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span> <span class="pre">--format</span></code></span><a class="headerlink" href="#id17" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;{{.ID}}: {{.Repository}}&quot;</span>
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.ID}}\t{{.Repository}}\t{{.Tag}}&quot;</span>
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span>json
+</pre></div>
+</div>
+</div>
+</section>
+<section id="image-prune">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">prune</span></code><a class="headerlink" href="#image-prune" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">prune</span></code></dt><dd><p>タグを持たず、子を持たないイメージすべてを削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">prune</span> <span class="pre">-a</span></code></dt><dd><p>さらに未参照イメージすべても削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">prune</span> <span class="pre">-a</span> <span class="pre">--force</span> <span class="pre">--filter</span> <span class="pre">&quot;until=2017-01-04T00:00:00&quot;</span></code></dt><dd><p>2017-01-04T00:00:00 以前に作成されたイメージを削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">prune</span> <span class="pre">-a</span> <span class="pre">--force</span> <span class="pre">--filter</span> <span class="pre">&quot;until=240h&quot;</span></code></dt><dd><p>十日以上前に作成されたイメージを削除する。</p>
+</dd>
+</dl>
+</section>
+<section id="image-pull">
+<span id="docker-image-pull"></span><h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">pull</span></code><a class="headerlink" href="#image-pull" title="Permalink to this heading">¶</a></h4>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">pull</span></code> を利用可。</p>
+<p>端末ウィンドウで実行中に <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> を押すなどして <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span></code> 操作を取り消せる。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <em><span class="pre">image_name</span></em></code></dt><dd><p><a class="reference external" href="https://hub.docker.com/">Docker Hub</a> から指定イメージを取得し、システムに保存する。イメージにタグが指定されていない場合、<code class="docutils literal notranslate"><span class="pre">latest</span></code> タグを既定とする。</p>
+</dd>
+</dl>
+</section>
+<section id="image-push">
+<span id="docker-image-push"></span><h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">push</span></code><a class="headerlink" href="#image-push" title="Permalink to this heading">¶</a></h4>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">push</span></code> を利用可。</p>
+<p>これもコマンド実行中に <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> を押すと操作が取り消される。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">push</span> <em><span class="pre">&lt;username&gt;</span></em><span class="pre">/</span><em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>イメージを <a class="reference external" href="https://hub.docker.com/">Docker Hub</a> に押す。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">push</span> <span class="pre">--all-tags</span> <span class="pre">registry-host:5000/myname/myimage</span></code></dt><dd><p>オプション <code class="docutils literal notranslate"><span class="pre">--all-tags</span></code> を付けて押すと、イメージ
+<code class="docutils literal notranslate"><span class="pre">registry-host:5000/myname/myimage</span></code> のタグすべてが押される。</p>
+</dd>
+</dl>
+</section>
+<section id="image-rm">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">rm</span></code><a class="headerlink" href="#image-rm" title="Permalink to this heading">¶</a></h4>
+<p>ホストノードからイメージを削除したりタグを取ったりする。イメージにタグが複数ある場合、タグを引数にしてこのコマンドを実行することでタグだけを削除する。タグが一つの場合はイメージとタグのどちらも削除することになる。</p>
+<p>画像を参照しているタグが一つ以上ある場合は、イメージを削除する前にタグをすべて削除する必要がある。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">rmi</span></code> が打鍵量が最も少ない。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rmi</span> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>イメージを削除する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rmi</span> <span class="pre">-f</span> <em><span class="pre">&lt;image_id&gt;</span></em></code></dt><dd><p>指定された ID に一致するイメージのタグをすべて解除し、削除する。</p>
+</dd>
+</dl>
+</section>
+<section id="image-tag">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">tag</span></code><a class="headerlink" href="#image-tag" title="Permalink to this heading">¶</a></h4>
+<div class="line-block">
+<div class="line"><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">tag</span> <em><span class="pre">SOURCE_IMAGE</span></em><span class="pre">[:</span><em><span class="pre">TAG</span></em><span class="pre">]</span> <em><span class="pre">TARGET_IMAGE</span></em><span class="pre">[:</span><em><span class="pre">TAG</span></em><span class="pre">]</span></code></div>
+</div>
+<p><a class="reference external" href="https://hub.docker.com/">Docker Hub</a> などにイメージを押すために、名前とタグを用いてイメージをグループ化するためのコマンドだ。タグを指定しないと既定名 <code class="docutils literal notranslate"><span class="pre">latest</span></code> が採用される。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">tag</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span> <em><span class="pre">&lt;image_id&gt;</span></em> <em><span class="pre">&lt;image_name&gt;</span></em></code></dt><dd><p>イメージにラベルを付けてバージョン管理することができる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">my-username/my-image</span> <span class="pre">another-username/another-image:v1</span></code></dt><dd><p>イメージに別のタグを追加できる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">0e5574283393</span> <span class="pre">fedora/httpd:version1.0</span></code></dt><dd><p>ローカルイメージ 0e5574283393 に <code class="docutils literal notranslate"><span class="pre">fedora/httpd</span></code> としてタグ <code class="docutils literal notranslate"><span class="pre">version1.0</span></code>
+を付ける。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">httpd</span> <span class="pre">fedora/httpd:version1.0</span></code></dt><dd><p>ローカルイメージ <code class="docutils literal notranslate"><span class="pre">httpd</span></code> にタグ <code class="docutils literal notranslate"><span class="pre">version1.0</span></code> 付き名前 <code class="docutils literal notranslate"><span class="pre">fedora/httpd</span></code> を付ける。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">httpd:test</span> <span class="pre">fedora/httpd:version1.0.test</span></code></dt><dd><p>ローカルイメージ <code class="docutils literal notranslate"><span class="pre">httpd:test</span></code> に以下同文。上のコマンドの対象イメージは実際には <code class="docutils literal notranslate"><span class="pre">httpd:latest</span></code> であることに注意しろ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">0e5574283393</span> <span class="pre">myregistryhost:5000/fedora/httpd:version1.0</span></code></dt><dd><p>公衆レジストリーではなく、私設レジストリーにイメージを押すには、レジストリーのホスト名と、必要ならばポートをも指定する。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="network">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">network</span></code></a><a class="headerlink" href="#network" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default" id="id18">
+<caption><span class="caption-text">Subcommands of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span></code></span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">connect</span></code></p></td>
+<td><p>Connect a container to a network</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">create</span></code></p></td>
+<td><p>Create a network</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">disconnect</span></code></p></td>
+<td><p>Disconnect a container from a network</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inspect</span></code></p></td>
+<td><p>Display detailed information on one or more networks</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ls</span></code></p></td>
+<td><p>List networks</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prune</span></code></p></td>
+<td><p>Remove all unused networks</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rm</span></code></p></td>
+<td><p>Remove one or more networks</p></td>
+</tr>
+</tbody>
+</table>
+<section id="network-create">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">network</span> <span class="pre">create</span></code><a class="headerlink" href="#network-create" title="Permalink to this heading">¶</a></h4>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>このコマンドは難しいので習得を諦める。</p>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">create</span> <span class="pre">mynetwork</span></code></dt><dd><p>カスタムネットワークを新規作成する。</p>
+</dd>
+</dl>
+</section>
+<section id="network-inspect">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">network</span> <span class="pre">inspect</span></code><a class="headerlink" href="#network-inspect" title="Permalink to this heading">¶</a></h4>
+<p>ネットワークに関する情報を出力する。既定ではこのコマンドは結果を JSON 形式で表示する。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">inspect</span></code></dt><dd><p>コンテナーがネットワークに接続されているかどうかを確認できる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">inspect</span> <span class="pre">bridge</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">bridge</span></code> と呼ばれるネットワークの詳細を表示する。</p>
+</dd>
+</dl>
+<p>このコマンドでもオプション <code class="docutils literal notranslate"><span class="pre">--format</span></code> が使える。</p>
+</section>
+<section id="network-ls">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">network</span> <span class="pre">ls</span></code><a class="headerlink" href="#network-ls" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span></code></dt><dd><p>現在の Docker ホスト上の既存のコンテナーネットワークを表示する。既存というのは、デーモンが知っているネットワークすべてということだ。クラスター内のホスト複数にまたがるネットワークも含む。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">--no-trunc</span></code></dt><dd><p>ID を切り捨てずに出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">--filter</span> <span class="pre">driver=bridge</span></code></dt><dd><p>ネットワークドライバーが <code class="docutils literal notranslate"><span class="pre">bridge</span></code> と合致するものを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">--filter</span> <span class="pre">id=95e74588f40d</span></code></dt><dd><p>ID を指定して一覧する。存在さえすれば、ID の部分だけを指定して通じる。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">-f</span> <span class="pre">&quot;label=usage&quot;</span></code></dt><dd><p>ラベルフィルターはラベルと値の存在に基づいてネットワークを一覧する。ラベル
+<code class="docutils literal notranslate"><span class="pre">usage</span></code> を持つネットワークを一覧する。その値は何でもかまわない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">-f</span> <span class="pre">&quot;label=usage=prod&quot;</span></code></dt><dd><p>これは値の合致まで求める。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">--filter</span> <span class="pre">name=foo</span></code></dt><dd><p>名前に <code class="docutils literal notranslate"><span class="pre">foo</span></code> を含むネットワークを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">--filter</span> <span class="pre">type=custom</span> <span class="pre">-q</span></code></dt><dd><p>使用者定義のネットワークすべての ID を出力する。これを <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">rm</span></code>
+の入力としてネットワークを一掃する場合がある。</p>
+</dd>
+</dl>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--format</span></code> がある。</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Examples of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">ls</span> <span class="pre">--format</span></code></span><a class="headerlink" href="#id19" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;{{.ID}}: {{.Driver}}&quot;</span><span class="sb">``</span>
+<span class="gp">$ </span>docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span>json<span class="sb">``</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="network-rm">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">network</span> <span class="pre">rm</span></code><a class="headerlink" href="#network-rm" title="Permalink to this heading">¶</a></h4>
+<p>ネットワークを削除するコマンドだが、ネットワークを削除するには、まずそのネットワークに接続しているコンテナーをすべて切断する必要がある。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">rm</span> <em><span class="pre">&lt;network&gt;</span></em></code></dt><dd><p>ネットワークを削除する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">rm</span> <span class="pre">3695c422697f</span> <span class="pre">my-network</span></code></dt><dd><p>一度の実行で複数削除する。どれか削除に失敗しても残りのネットワークの削除を試みる。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="scout">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">scout</span></code></a><a class="headerlink" href="#scout" title="Permalink to this heading">¶</a></h3>
+<p>これは高級なコマンドなので後回しとする。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">scout</span> <span class="pre">repo</span> <span class="pre">enable</span> <span class="pre">ORG/scout-demo-service</span></code></dt><dd><p>リポジトリー上で Docker Scout を有効にする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">scout</span> <span class="pre">cves</span> <span class="pre">--only-cve-id</span> <span class="pre">CVE-2022-24999</span></code></dt><dd><p>イメージの脆弱性を表示する。CVE-2022-24999 という CVE を確認する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">scout</span> <span class="pre">cves</span> <span class="pre">--only-cve-id</span> <span class="pre">CVE-2022-24999</span> <span class="pre">--vex-location</span> <span class="pre">.</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">--vex-location</span></code> フラグを使うと VEX 文書を含むディレクトリーを指定できる。</p>
+</dd>
+</dl>
+</section>
+<section id="system">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">system</span></code></a><a class="headerlink" href="#system" title="Permalink to this heading">¶</a></h3>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Subcommands of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">system</span></code></span><a class="headerlink" href="#id20" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>df          Show docker disk usage
+events      Get real time events from the server
+info        Display system-wide information
+prune       Remove unused data
+</pre></div>
+</div>
+</div>
+<section id="system-info">
+<span id="docker-system-info"></span><h4>呪文表 <code class="docutils literal notranslate"><span class="pre">system</span> <span class="pre">info</span></code><a class="headerlink" href="#system-info" title="Permalink to this heading">¶</a></h4>
+<p>システム全体の情報を得るコマンド。</p>
+<p>別名 <code class="docutils literal notranslate"><span class="pre">info</span></code> を使用可。</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">info</span></code></dt><dd><p>システム全体の情報を表示する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">info</span> <span class="pre">--format</span> <span class="pre">'{{json</span> <span class="pre">.}}'</span></code></dt><dd><p>それを JSON 書式で出力する。</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="volume">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span></code></a><a class="headerlink" href="#volume" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default" id="id21">
+<caption><span class="caption-text">Subcommands of <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span></code></span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">create</span></code></p></th>
+<th class="head"><p>Create a volume</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inspect</span></code></p></td>
+<td><p>Display detailed information on one or more volumes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ls</span></code></p></td>
+<td><p>List volumes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prune</span></code></p></td>
+<td><p>Remove unused local volumes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rm</span></code></p></td>
+<td><p>Remove one or more volumes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">update</span></code></p></td>
+<td><p>Update a volume (cluster volumes only)</p></td>
+</tr>
+</tbody>
+</table>
+<section id="volume-create">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span> <span class="pre">create</span></code><a class="headerlink" href="#volume-create" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">create</span> <span class="pre">log-data</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">log-data</span></code> という名前のボリュームを作成する。後続する <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> コマンドに <code class="samp docutils literal notranslate"><span class="pre">-v</span> <span class="pre">log-data:</span><em><span class="pre">path</span></em></code> の形の引数を与えて実行する。</p>
+</dd>
+</dl>
+</section>
+<section id="volume-inspect">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span> <span class="pre">inspect</span></code><a class="headerlink" href="#volume-inspect" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">inspect</span> <em><span class="pre">&lt;volume&gt;</span></em><span class="pre">`</span></code></dt><dd><p>データをどこに保存しているのかなど、ボリュームの構成を出力する。</p>
+</dd>
+</dl>
+</section>
+<section id="volume-ls">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span> <span class="pre">ls</span></code><a class="headerlink" href="#volume-ls" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span></code></dt><dd><p>ボリュームすべてを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span> <span class="pre">-f</span> <span class="pre">dangling=true</span></code></dt><dd><p>どのコンテナーからも参照されていないボリュームを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span> <span class="pre">-f</span> <span class="pre">driver=local</span></code></dt><dd><p>ドライバー <code class="docutils literal notranslate"><span class="pre">local</span></code> で作成されたボリュームを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span> <span class="pre">--filter</span> <span class="pre">label=is-timelord</span></code></dt><dd><p>ラベル <code class="docutils literal notranslate"><span class="pre">is-timelord</span></code> を有するボリュームを一覧する。値は何でもかまわない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span> <span class="pre">--filter</span> <span class="pre">label=is-timelord=yes</span></code></dt><dd><p>ラベル <code class="docutils literal notranslate"><span class="pre">is-timelord</span></code> を有し、かつ値が <code class="docutils literal notranslate"><span class="pre">yes</span></code> に合致するボリュームを一覧する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span> <span class="pre">-f</span> <span class="pre">name=rose</span></code></dt><dd><p>名前に指定文字列を含むボリュームを一覧する例。</p>
+</dd>
+</dl>
+<p>例によってオプション <code class="docutils literal notranslate"><span class="pre">--format</span></code> が備わっている。</p>
+</section>
+<section id="volume-prune">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span> <span class="pre">prune</span></code><a class="headerlink" href="#volume-prune" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">prune</span></code></dt><dd><p>未使用の（どのコンテナーにも付属していない）ボリュームすべてを削除する。匿名ボリュームのみ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">prune</span> <span class="pre">-a</span></code></dt><dd><p>匿名ボリュームも込めてすべて削除する。</p>
+</dd>
+</dl>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--filter</span></code> が備わっている。</p>
+</section>
+<section id="volume-rm">
+<h4>呪文表 <code class="docutils literal notranslate"><span class="pre">volume</span> <span class="pre">rm</span></code><a class="headerlink" href="#volume-rm" title="Permalink to this heading">¶</a></h4>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">rm</span> <em><span class="pre">&lt;volume-name-or-id&gt;</span></em></code></dt><dd><p>ボリュームを削除する。ボリュームがどのコンテナーにも付属していない場合にのみ機能する。ボリュームを削除する前にそれをコンテナーから取り外す必要がある。</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="swarm">
+<h2><a class="toc-backref" href="#id49" role="doc-backlink">Swarm コマンド</a><a class="headerlink" href="#swarm" title="Permalink to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Docker CLI Management Commands</span><a class="headerlink" href="#id22" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config      Manage Swarm configs
+node        Manage Swarm nodes
+secret      Manage Swarm secrets
+service     Manage Swarm services
+stack       Manage Swarm stacks
+swarm       Manage Swarm
+</pre></div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>高度なコマンドゆえ、基本ができてからの後回しにする。</p>
+</div>
+</section>
+<section id="id9">
+<h2><a class="toc-backref" href="#id50" role="doc-backlink">無印コマンド</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<p>ほとんどは別のコマンドの別名であり、おそらく打鍵効率の便宜上設けられているものと考えられる。実際、環境変数 <span class="target" id="index-0"></span><a class="reference internal" href="envvars.html#envvar-DOCKER_HIDE_LEGACY_COMMANDS"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">DOCKER_HIDE_LEGACY_COMMANDS</span></code></a> を設定しておくとコマンド <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">--help</span></code> などの出力から下記の一覧出力が省かれる。</p>
+<table class="docutils align-default" id="id23">
+<caption><span class="caption-text">Docker CLI Commands</span><a class="headerlink" href="#id23" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">attach</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">attach</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">commit</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">commit</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cp</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">cp</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">create</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">create</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">diff</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">diff</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">events</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">system</span> <span class="pre">events</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">exec</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">export</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">export</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">history</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">history</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">import</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">import</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inspect</span></code></p></td>
+<td><p>Return low-level information on Docker objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kill</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">kill</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">load</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">logs</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">logs</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pause</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">pause</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">port</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">port</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rename</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">rename</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">restart</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">restart</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rm</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">rm</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rmi</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">rm</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">save</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">save</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">start</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">start</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">stats</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stop</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">stop</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tag</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">tag</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">top</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">top</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unpause</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">unpause</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">update</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">update</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wait</span></code></p></td>
+<td><p>Alias for <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">wait</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<section id="inspect">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">呪文表 <code class="docutils literal notranslate"><span class="pre">inspect</span></code></a><a class="headerlink" href="#inspect" title="Permalink to this heading">¶</a></h3>
+<p>Docker オブジェクトの低水準情報を出力するコマンド。通常は JSON 形式で出力する。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <em><span class="pre">&lt;container&gt;</span></em></code></dt><dd><p>稼働中のコンテナーを検査する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">--type=volume</span> <span class="pre">myvolume</span></code></dt><dd><p>名前が <code class="docutils literal notranslate"><span class="pre">myvolume</span></code> であるボリュームの情報を出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">--size</span> <span class="pre">mycontainer</span></code></dt><dd><p>コンテナー専用オプション。</p>
+</dd>
+</dl>
+<p>このコマンドはオプション <code class="docutils literal notranslate"><span class="pre">--format</span></code> が備わっている。かなり簡単な方法で任意のフィールドを JSON から引き出すことができる。</p>
+<dl class="simple">
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">--format='{{range</span> <span class="pre">.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'</span> <em><span class="pre">&lt;INSTANCE&gt;</span></em></code></dt><dd><p>IP アドレスを出力する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">--format='{{range</span> <span class="pre">.NetworkSettings.Networks}}{{.MacAddress}}{{end}}'</span> <em><span class="pre">&lt;INSTANCE&gt;</span></em></code></dt><dd><p>MAC アドレスを出力する。</p>
+</dd>
+<dt><code class="samp docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">--format='{{.LogPath}}'</span> <em><span class="pre">&lt;INSTANCE&gt;</span></em></code></dt><dd><p>ログパスを出力する。</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="docs.html" title="Previous">Docker Docs 読書ノート</a>
+        </li>
+      
+        <li>
+          &uarr;
+          <a href="index.html" title="Parent">Docker 利用ノート</a>
+        </li>
+        <li>
+          <a href="envvars.html" title="Next">環境変数集</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="../index.html" title="読書ノート Home"><img src="../_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
