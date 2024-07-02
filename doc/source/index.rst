@@ -196,6 +196,7 @@
    :caption: その他
    :maxdepth: 1
 
+   milestone08/index
    milestone09/index
 
 .. toctree::
