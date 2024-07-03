@@ -22,9 +22,10 @@ Oh My Posh 利用ノート
 
 .. csv-table::
    :delim: |
-   :header: タスク,Windows,Ubuntu
+   :header-rows: 1
    :widths: auto
 
+   タスク | Windows | Ubuntu
    Oh My Posh をシステムにインストールする | Yes | Yes
    推奨フォントを設定する | Yes | No
    プロンプトに Oh My Posh を組み込む | Yes | Yes
@@ -340,9 +341,10 @@ Segment
 
 .. csv-table::
    :delim: |
-   :header: 値,意味
+   :header-rows: 1
    :widths: auto
 
+   値 | 意味
    ``"git"``    | 位置する Git リポジトリーの情報を示す
    ``"node"``   | アクティブ Node.js バージョン示す
    ``"npm"``    | アクティブ NPM バージョンを示す
@@ -361,9 +363,10 @@ Segment
 
 .. csv-table::
    :delim: |
-   :header: 値,意味
+   :header-rows: 1
    :widths: auto
 
+   値 | 意味
    ``"powerline"`` | 属性 ``powerline_symbol`` の値により segment を分割
    ``"plain"``     | 透過背景に文字しかない単純な描画
    ``"diamond"``   | ``powerline`` の変種で、始点にも対応
@@ -382,9 +385,10 @@ Segment
 
 .. csv-table::
    :delim: |
-   :header: 値,意味
+   :header-rows: 1
    :widths: auto
 
+   値 | 意味
    ``"first_match"`` | 配列のうち最初の非空白文字列であるもの
    ``"join"``        | 配列要素すべてを評価し、非空白文字列のものすべてを結合したもの
 

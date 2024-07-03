@@ -34,8 +34,10 @@ Mouse Utilities
 
 .. csv-table::
    :delim: @
-   :header:
+   :header-rows: 1
+   :widths: auto
 
+   設定項目 @ 主旨
    :guilabel:`オーバーレイの不透明度 (%)` @ 下記背景色に適用するアルファブレンド用の値
    :guilabel:`背景色` @ マウスカーソルを中心とする円の外側の色
    :guilabel:`スポットライトの色` @ マウスカーソルを中心とする円の内側の色
@@ -72,8 +74,10 @@ Mouse Utilities
 
 .. csv-table::
    :delim: @
-   :header: 設定項目,主旨
+   :header-rows: 1
+   :widths: auto
 
+   設定項目 @ 主旨
    :guilabel:`プライマリボタンの強調表示の色` @ 左ボタンに対する強調色
    :guilabel:`セカンダリボタンの強調表示の色` @ 右ボタンに対する強調色
    :guilabel:`不透明度 (%)` @ 強調色のアルファブレンドに用いる値
@@ -100,8 +104,10 @@ Mouse Utilities
 
 .. csv-table::
    :delim: @
-   :header: 設定項目,主旨
+   :header-rows: 1
+   :widths: auto
 
+   設定項目 @ 主旨
    :guilabel:`十字線の色` @ 十字線の色
    :guilabel:`十字線の不透明度 (%)` @ アルファブレンドの値
    :guilabel:`十字線の中心半径 (px)` @ 十字線の交点を中心とするこの半径以内には線が引かれない

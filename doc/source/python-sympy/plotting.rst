@@ -83,9 +83,10 @@
 
 .. csv-table::
    :delim: @
-   :header: キーワード引数, 説明
+   :header-rows: 1
    :widths: auto
 
+   キーワード引数 @ 説明
    ``show``@プロットを表示するかどうかを指定する ``bool`` 値。
 
 プロットの見てくれを制御するパラメーター
@@ -96,9 +97,10 @@
 
 .. csv-table::
    :delim: @
-   :header: キーワード引数, 説明
+   :header-rows: 1
    :widths: auto
 
+   キーワード引数 @ 説明
    ``aspect_ratio``@プロットのアスペクト比を例えば :code:`(1.0, 1.0)` のようにするか、または文字列 ``auto`` で指定する。
    ``autoscale``@Matplotlib の :code:`Axes.set_autoscale_on` に渡す ``bool`` 値。
    ``axis``@Matplotlib の :code:`Axes.set_axis_off` を呼ぶかどうかを指定する ``bool`` 値。
@@ -123,9 +125,10 @@
 
 .. csv-table::
    :delim: @
-   :header: キーワード引数, 説明
+   :header-rows: 1
    :widths: auto
 
+   キーワード引数 @ 説明
    ``adaptive``@もし ``False`` を指定するならば、別途 ``nb_of_points`` を指定する必要がある。
    ``depth``@adaptive algorithm の深さを正の整数で指定する。
    ``label``@不明。Matplotlib の折れ線に付与するラベル？

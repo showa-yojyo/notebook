@@ -45,9 +45,10 @@ Writer Guide 読書ノート
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド,動作
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド | 動作
    :kbd:`F2` | Edit Formula | 数式編集欄を開く
    :kbd:`F3` | Run AutoText Entry | ノートで述べた
    :kbd:`F4` | Image Properties | :guilabel:`Image` ダイアログを開く

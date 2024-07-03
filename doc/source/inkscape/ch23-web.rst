@@ -293,9 +293,10 @@ Positioning SVG
 
 .. csv-table::
    :delim: |
-   :header: case, object width, object height, svg width, svg height, viewBox
+   :header-rows: 1
    :widths: auto
 
+   case | object width | object height | svg width | svg height | viewBox
    1 | 120 | 120 | 150 | 100 | undef
    2 | 120 | 120 | undef | undef | 0 0 150 100
    3 | undef | undef | 150 | 100 | undef

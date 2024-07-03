@@ -42,9 +42,10 @@
 
 .. csv-table::
    :delim: |
-   :header: クラス, 値
+   :header-rows: 1
    :widths: auto
 
+   クラス | 値
    ``BooleanTrue`` | :code:`S.true`
    ``BooleanFalse`` | :code:`S.false`
 
@@ -58,9 +59,10 @@
 
 .. csv-table::
    :delim: @
-   :header: クラス, 演算子, 演算の意味
+   :header-rows: 1
    :widths: auto
 
+   クラス @ 演算子 @ 演算の意味
    And@``&``@論理積、かつ、conjunction
    Or@``|``@論理和、または、[inclusive] disjunction
    Not@``~``@否定、でない、negation

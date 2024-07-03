@@ -488,8 +488,10 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 
 .. csv-table::
    :delim: @
-   :header: プレースホルダー, 許可される型
+   :header-rows: 1
+   :widths: auto
 
+   プレースホルダー @ 許可される型
    ``bvec`` @ ``bvec2``, ``bvec3``, ``bvec4``
    ``ivec`` @ ``ivec2``, ``ivec3``, ``ivec4``
    ``uvec`` @ ``uvec2``, ``uvec3``, ``uvec4``

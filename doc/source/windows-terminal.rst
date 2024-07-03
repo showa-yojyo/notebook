@@ -170,8 +170,10 @@ Profiles
 
 .. csv-table::
    :delim: @
-   :header: コマンド,ショートカットキー
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ ショートカットキー
    テキスト全選択 @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`A`
    検索 @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F`
    少量だけ上へスクロール @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`↑`

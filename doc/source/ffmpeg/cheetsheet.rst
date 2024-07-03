@@ -67,9 +67,10 @@
 
 .. csv-table::
    :delim: |
-   :header: 番号,名前,変換内容
+   :header-rows: 1
    :widths: auto
 
+   番号 | 名前 | 変換内容
    ``0`` | ``cclock_flip`` | +90 度回転してミラー
    ``1`` | ``clock`` | -90 度回転
    ``2`` | ``clock`` | +90 度回転
@@ -217,9 +218,10 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 
 .. csv-table::
    :delim: |
-   :header: 指定方式,コマンド,外で計算
+   :header-rows: 1
    :widths: auto
 
+   指定方式 | コマンド | 外で計算
    開始から指定時間だけ捨てる | ``-ss DURATION -i INPUT ... OUTPUT`` | NO
    開始から指定時刻まで捨てる | ``-ss POSITION -i INPUT ... OUTPUT`` | NO
    終了までの指定時間だけ捨てる | ``-i INPUT -t DURATION ... OUTPUT`` | YES
@@ -233,9 +235,10 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 
 .. csv-table::
    :delim: |
-   :header: 指定方式,コマンド,外で計算
+   :header-rows: 1
    :widths: auto
 
+   指定方式 | コマンド | 外で計算
    開始から指定時間だけ残す | ``-i INPUT -t DURATION ... OUTPUT`` | NO
    開始から指定時刻まで残す | ``-i INPUT -to POSITION ... OUTPUT`` | NO
    終了までの指定時間だけ残す | ``-sseof -DURATION -i INPUT ... OUTPUT`` | NO

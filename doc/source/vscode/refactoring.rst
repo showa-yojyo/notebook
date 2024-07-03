@@ -38,8 +38,10 @@ VS Code が機械的に修正できる不具合については、項目のクリ
 
 .. csv-table::
    :delim: @
-   :header: コマンド,キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ キーバインド @ 操作
    :menuselection:`Quick Fix...` @ :kbd:`Ctrl` + :kbd:`.` @ クイック修正
    :menuselection:`Refactor...` @ :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`R` @ リファクタリング表示
 

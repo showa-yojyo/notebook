@@ -33,8 +33,10 @@ Error object
 
 .. csv-table::
    :delim: |
-   :header: Property,Description
+   :header-rows: 1
+   :widths: auto
 
+   Property | Description
    ``name`` | ``"ReferenceError"`` などのエラー名を表す文字列
    ``message`` | エラーの詳細を述べる文字列
 

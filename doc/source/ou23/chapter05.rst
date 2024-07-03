@@ -40,9 +40,10 @@ Chapter 05: Smart Pointers and Memory Management
 
 .. csv-table::
    :delim: |
-   :header: メソッド,操作
+   :header-rows: 1
    :widths: auto
 
+   メソッド | 操作
    ``get()`` | 生のポインターを得る
    ``reset()`` | 参照カウントを減らす
    ``use_count()`` | 参照カウントを見る

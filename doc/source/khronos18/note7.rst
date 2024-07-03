@@ -243,8 +243,10 @@ Framebuffers" を参照。シェーダーが ``gl_Layer`` に静的に値を代�
 
 .. csv-table::
    :delim: @
-   :header: Face Value, Resulting Target
+   :header-rows: 1
+   :widths: auto
 
+   Face Value @ Resulting Target
    0 @ ``TEXTURE_CUBE_MAP_POSITIVE_X``
    1 @ ``TEXTURE_CUBE_MAP_NEGATIVE_X``
    2 @ ``TEXTURE_CUBE_MAP_POSITIVE_Y``

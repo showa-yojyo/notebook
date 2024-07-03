@@ -931,9 +931,10 @@ to &whole cells` をオンにし、数式内の検索条件がセルの内容全
 
 .. csv-table::
    :delim: @
-   :header: Field name,Condition,Value
+   :header-rows: 1
    :widths: auto
 
+   Field name @ Condition @ Value
    :guilabel:`Category` @ :guilabel:`=` @ :regexp:`Tennis|Golf`
    :guilabel:`Region` @ :guilabel:`=` @ :regexp:`North|East`
 
@@ -942,9 +943,10 @@ to &whole cells` をオンにし、数式内の検索条件がセルの内容全
 
 .. csv-table::
    :delim: |
-   :header: Date,Sales Value,Category,Region,Employee
+   :header-rows: 1
    :widths: auto
 
+   Date | Sales Value | Category | Region | Employee
    2024-02-21 | $410 | Tennis | North | Kurt
    2024-03-21 | $1,508 | Golf | East | Bridget
    2024-04-21 | $2,340 | Sailing | South | Brigid
@@ -965,9 +967,10 @@ to &whole cells` をオンにし、数式内の検索条件がセルの内容全
 
 .. csv-table::
    :delim: |
-   :header: Product Name,Sales,Revenue
+   :header-rows: 1
    :widths: auto
 
+   Product Name | Sales | Revenue
    Pencil | 20 | 65
    Pen | 35 | 85
    Notebook | 20 | 190

@@ -221,9 +221,10 @@ Jekyll プラグインを追加または削除する場合、3. の ``do`` ... `
 
 .. csv-table::
    :delim: |
-   :header: Option, Description or value
+   :header-rows: 1
    :widths: auto
 
+   Option | Description or value
    ``baseurl`` | :samp:`/{repository-name}`
    ``markdown_ext`` | ``md`` のみにする
    ``timezone`` | ``Asia/Tokyo``
@@ -234,9 +235,10 @@ Jekyll プラグインを追加または削除する場合、3. の ``do`` ... `
 
 .. csv-table::
    :delim: |
-   :header: Option, Description or value
+   :header-rows: 1
    :widths: auto
 
+   Option | Description or value
    ``author`` | サイト著者名
    ``minima.date_format`` | 好みだが ``"%Y-%m-%d (%a)"``
    ``description`` | サイトの内容などを説明した文章
@@ -263,9 +265,10 @@ Markdown 関係の設定項目を固定する。``markdown: kramdown`` である
 
 .. csv-table::
    :delim: |
-   :header: Option, Description or value
+   :header-rows: 1
    :widths: auto
 
+   Option | Description or value
    ``line_width`` | テキストエディターの設定値に合わせる
    ``math_engine`` | 既定値だが ``mathjax`` を明示する
    ``remove_line_breaks_for_cjk`` | ``true``
@@ -431,9 +434,10 @@ Liquid は Jekyll が採用しているテンプレート言語だ。Sphinx で�
 
 .. csv-table::
    :delim: @
-   :header: Filter, Description, Example
+   :header-rows: 1
    :widths: auto
 
+   Filter @ Description @ Example
    ``date`` @ 日付の書式を ``strftime`` 様式で指定して変換 @ ``{{ page.date | date: "%Y-%m-%d" }}``
    ``date_to_xmlschema`` @ 日付を ISO 8601 様式に変換 @ ``{{ post.date | date_to_xmlschema }}``
    ``default`` @ 値が空や偽の変数ならば指定値を出力 @ ``{{ page.lang | default: site.lang | default: "en" }}``

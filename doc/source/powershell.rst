@@ -834,9 +834,10 @@ UNIX では everything is a file だが、PowerShell では everything is an ite
 
 .. csv-table::
    :delim: |
-   :header: 番号,ストリーム,命令
+   :header-rows: 1
    :widths: auto
 
+   番号 | ストリーム | 命令
    1   | SUCCESS     | ``Write-Output``
    2   | ERROR       | ``Write-Error``
    3   | WARNING     | ``Write-Warning``

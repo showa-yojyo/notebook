@@ -179,9 +179,11 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
-   ``child::`` @ 子ノード @ 既定の軸
+   Name @ Description @ Comment
+   ``Child::`` @ 子ノード @ 既定の軸
    ``descendant::`` @ 子孫ノード @
    ``attribute::`` @ 属性ノード @
    ``self::`` @ 自身 @ 明示的に指定する場合があるのでこれがある
@@ -362,8 +364,10 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 
 .. csv-table::
    :delim: |
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name | Description | Comment
    ``boolean()`` | XPath 式を true または false に評価する | 明示的に真偽値に変換する必要があるときに使う
    ``ceiling()`` | C/C++ の ``ceil()`` と同様 | 使いそうにない
    ``concat()`` | 複数の文字列を ``cat`` する | 任意の個数の文字列を与えて構わない
@@ -453,8 +457,10 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 
 .. csv-table::
    :delim: @
-   :header: operator, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Operator @ Description @ Comment
    ``and`` @ logical and @ Python の ``and`` と同じ
    ``or``  @ logical or @ Python の ``or`` と同じ
    ``mod`` @ remainder @ JavaScript の ``%`` のそれと同じ（特に符号のあるオペランドに対して）

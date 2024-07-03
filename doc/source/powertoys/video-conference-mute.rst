@@ -45,8 +45,10 @@ VCM に備わるコマンドのショートカットキーを設定する。既�
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,コマンド
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ コマンド
    :kbd:`Win` + :kbd:`Shift` + :kbd:`Q` @ マイクとカメラ双方のミュート状態を切り替える
    :kbd:`Win` + :kbd:`Shift` + :kbd:`A` @ マイクのミュート状態を切り替わる
    :kbd:`Win` + :kbd:`Shift` + :kbd:`O` @ カメラのミュート状態を切り変わる

@@ -97,9 +97,10 @@ Bevels
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Bloom` | Soft, cushion-like bevel with matte highlights
    :menuselection:`Bright Metal` | Bright metallic effect for any color
    :menuselection:`Button` | Soft bevel, slightly depressed middle
@@ -128,9 +129,10 @@ Blurs
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Apparition` | Edges are partly feathered out
    :menuselection:`Blur Double` | Overlays two copies with different blur amounts and modifiable blend and composite
    :menuselection:`Evanescent` | Blur the contents of objects, preserving the outline and adding progressive transparency at edges
@@ -144,9 +146,10 @@ Bumps
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Basic Diffuse Bump` | Matte emboss effect
    :menuselection:`Basic Specular Bump` | Specular emboss effect
    :menuselection:`Basic Two Lights Bump` | Two types of lighting emboss effect
@@ -181,9 +184,10 @@ Color
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Black Light` | Light areas turn to black
    :menuselection:`Blend Opposites` | Blend an image with its hue opposite
    :menuselection:`Fluorescence` | Oversaturate colors which can be fluorescent in real world
@@ -198,9 +202,10 @@ Distort
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Chalk and Sponge` | Low turbulence gives sponge look and high turbulence chalk
    :menuselection:`Lapping` | Something like a water noise
    :menuselection:`Pixel Smear` | Van Gogh painting effect for bitmaps
@@ -218,9 +223,10 @@ Fill and Transparency
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Fast Crop` | Does not filter but adds a filter region
    :menuselection:`Fill Background` | Adds a colorizable opaque background
    :menuselection:`Flatten Transparency` | Adds a white opaque background
@@ -233,9 +239,10 @@ Image Effects
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Age` | Imitate aged photograph
    :menuselection:`Film Grain` | Adds a small scale graininess
    :menuselection:`Sharpen` | Sharpen edges and boundaries within the object, force=0.15
@@ -250,9 +257,10 @@ Image Effects, Transparent
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Alpha Draw Liquid` | Gives a transparent fluid drawing effect with rough line and filling
    :menuselection:`Alpha Engraving` | Gives a transparent engraving effect with rough line and filling
    :menuselection:`Alpha Engraving B` | Gives a controllable roughness engraving effect to bitmaps and materials
@@ -277,9 +285,10 @@ Materials
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`3D Marble` | 3D warped marble texture
    :menuselection:`3D Mother of Pearl` | 3D warped, iridescent pearly shell texture
    :menuselection:`3D Wood` | 3D warped, fibered wood texture
@@ -302,9 +311,10 @@ Morphology
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Black Hole` | Creates a black light inside and outside
    :menuselection:`Contouring Discrete` | Sharp multiple contour for objects
    :menuselection:`Contouring Table` | Blurred multiple contours for objects
@@ -317,9 +327,10 @@ Non Realistic 3D Shaders
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Aluminium` | Aluminium effect with sharp brushed reflections
    :menuselection:`Aluminium Emboss` | Satiny aluminium effect with embossing
    :menuselection:`Brush Draw` | Draft painted cartoon shading with a glassy look
@@ -347,9 +358,10 @@ Overlays
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Alpha Monochrome Cracked` | Basic noise fill texture; adjust color in Flood
    :menuselection:`Alpha Turbulent` | Basic noise fill texture; adjust color in Flood
    :menuselection:`Barbed Wire` | Gray bevelled wires with drop shadows
@@ -389,9 +401,10 @@ Protrusions
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Chewing Gum` | Creates colorizable blotches which smoothly flow over the edges of the lines at their crossings
    :menuselection:`Dripping` | Random paint streaks downwards
    :menuselection:`Fire` | Edges of object are on fire
@@ -402,9 +415,10 @@ Ridges
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Dragee` | Gel Ridge with a pearlescent look
    :menuselection:`Glowing Bubble` | Bubble effect with refraction and glow
    :menuselection:`Matte Ridge` | Soft pastel ridge
@@ -418,9 +432,10 @@ Scatter
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Air Spray` | Convert to small scattered particles with some thickness
    :menuselection:`Cubes` | Scattered cubes; adjust the Morphology primitive to vary size
    :menuselection:`Leaves` | Leaves on the ground in Fall, or living foliage
@@ -431,9 +446,10 @@ Shadows and Glows
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Cutout Glow` | In and out glow with a possible offset and colorizable flood
    :menuselection:`Dark and Glow` | Darkens the edge with an inner blur and adds a flexible glow
    :menuselection:`Emergence` | Cut out, add inner shadow and colorize some parts of an image
@@ -445,9 +461,10 @@ Textures
 
 .. csv-table::
    :delim: |
-   :header: Command,Tooltip
+   :header-rows: 1
    :widths: auto
 
+   Command | Tooltip
    :menuselection:`Bark` | Bark texture, vertical; use with deep colors
    :menuselection:`Blotting Paper` | Inkblot on blotting paper
    :menuselection:`Burnt edges` | Torn edges with a dark inner blur
