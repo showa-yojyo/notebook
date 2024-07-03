@@ -83,9 +83,10 @@ GitHub CLI quickstart
 
 .. csv-table::
    :delim: |
-   :header: コマンド,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド | 挙動
    ``gh status`` | 現在の自分の作業状況を示す
    ``gh repo view OWNER/REPO`` | リポジトリーの記述と README を示す
    ``gh repo clone OWNER/REPO`` | リポジトリーをローカルに clone する
@@ -255,9 +256,10 @@ GitHub CLI reference
 
 .. csv-table::
    :delim: |
-   :header: コマンド,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド | 挙動
    ``gh`` | 最上位コマンドすべてを示す
    ``gh COMMAND`` | ``COMMAND`` のサブコマンドすべてを示す
    ``gh environment`` | ``gh`` が参照する環境変数一覧を示す

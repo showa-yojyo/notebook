@@ -141,9 +141,10 @@ distribution とかで検索すると色々とわかる。
 
 .. csv-table::
    :delim: |
-   :header: 分布型, 名称, オブジェクト
+   :header-rows: 1
    :widths: auto
 
+   分布型 | 名称 | オブジェクト
    ``rv_discrete``|一様分布|``scipy.stats.randint``
    ``rv_discrete``|Bernoulli 分布|``scipy.stats.bernoulli``
    ``rv_discrete``|二項分布|``scipy.stats.binom``

@@ -185,9 +185,10 @@ MP4 形式でダウンロードする
 
 .. csv-table::
    :delim: |
-   :header: キー,値
+   :header-rows: 1
    :widths: auto
 
+   キー | 値
    ``description`` | ビデオの説明文
    ``duration`` | ビデオの再生時間（秒）
    ``fps`` | FPS
@@ -295,9 +296,10 @@ YouTube プレイリスト
 
 .. csv-table::
    :delim: |
-   :header: キー,値
+   :header-rows: 1
    :widths: auto
 
+   キー | 値
    ``n_entries`` | プレイリストが含むビデオの個数
    ``playlist_index`` | ビデオがプレイリストにある場合、そのインデックス
 
@@ -335,9 +337,10 @@ JSON は構造的でありすぎるという場合には CSV や TSV 形式に�
 
 .. csv-table::
    :delim: |
-   :header: パス,内容
+   :header-rows: 1
    :widths: auto
 
+   パス | 内容
    :file:`/etc/youtube-dl.conf` | システム全体の構成
    :file:`$HOME/.config/youtube-dl/config` | ユーザー個別の構成
 

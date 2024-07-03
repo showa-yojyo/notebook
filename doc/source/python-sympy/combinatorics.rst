@@ -254,9 +254,10 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 .. csv-table::
    :delim: @
-   :header: ジェネレーターまたは関数, 機能
+   :header-rows: 1
    :widths: auto
 
+   ジェネレーターまたは関数 @ 機能
    :code:`alternating(n)`@ ``n`` 次の交代群を列挙する。
    :code:`cyclic(n)`@ ``n`` 次の巡回群を列挙する。
    :code:`dihedral(n)`@ ``2 * n`` 次の二面体群を列挙する。
@@ -675,9 +676,10 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 .. csv-table::
    :delim: @
-   :header: 関数, 機能
+   :header-rows: 1
    :widths: auto
 
+   関数 @ 機能
    :code:`AbelianGroup(*cyclic_orders)`@ 巡回群の直積群を生成する。
    :code:`AlternatingGroup(n)`@ ``n`` 次交代群を生成する。
    :code:`CyclicGroup(n)`@ ``n`` 次巡回群を生成する。

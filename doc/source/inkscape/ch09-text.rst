@@ -222,9 +222,10 @@ Font Style
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド
    :kbd:`Ctrl` + :kbd:`B` | 太字オンオフ
    :kbd:`Ctrl` + :kbd:`I` | 斜体オンオフ
 
@@ -329,9 +330,10 @@ Kerning and Shifting
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド
    :kbd:`Alt` + 矢印 | 画面画素一個分だけ文字を対応するキー方向にずらす
    :kbd:`Shift` + :kbd:`Alt` + 矢印 | 上記の十倍バージョン
 
@@ -351,9 +353,10 @@ Rotating
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド
    :kbd:`Ctrl` + :kbd:`[` | 左回りに 90 度回転
    :kbd:`Ctrl` + :kbd:`]` | 右回りに 90 度回転
 

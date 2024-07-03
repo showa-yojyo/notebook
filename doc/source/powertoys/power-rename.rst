@@ -90,8 +90,10 @@ PowerRename 画面
 
 .. csv-table::
    :delim: @
-   :header: 値,主旨
+   :header-rows: 1
+   :widths: auto
 
+   値 @ 主旨
    :guilabel:`Filename + extension` @ ファイル名全体に置換を適用する
    :guilabel:`Filename only` @ ファイル名の :command:`basename` に置換を適用する
    :guilabel:`Extension only` @ 拡張子にしか置換を適用しない
@@ -143,8 +145,10 @@ PowerRename 画面
 
 .. csv-table::
    :delim: @
-   :header: 値,主旨
+   :header-rows: 1
+   :widths: auto
 
+   値 @ 主旨
    :guilabel:`既定および拡張コンテキストメニュー` @ メニュー表示時に常時出現する
    :guilabel:`拡張コンテキストメニューのみ` @ :kbd:`Shift` キーを押しながらメニューを表示しないと出現しない
 

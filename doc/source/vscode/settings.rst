@@ -18,7 +18,7 @@ VS Code は設定可能要素がとにかく多い。なおかつ作用域がユ
 
 次のどの方法でも設定エディターが開く：
 
-* メインメニューから :menuselection:`File > Preferences > Settings` を選択する
+* メインメニューから :menuselection:`File-->Preferences-->Settings` を選択する
 * コマンドパレットから :guilabel:`Preferences: Open Settings (UI)` を実行する
 * コマンドパレットから :guilabel:`Preferences: Open User Settings` を実行する
 * Activity Bar 歯車アイコンメニューから :menuselection:`Settings` を選択する
@@ -295,8 +295,10 @@ Settings precedence
 
 .. csv-table::
    :delim: @
-   :header: 型,設定値の例
+   :header-rows: 1
+   :widths: auto
 
+   型 @ 設定値の例
    String @ :code:`"files.autoSave": "afterDelay"`
    Boolean @ :code:`"editor.minimap.enabled": true`
    Number @ :code:`"files.autoSaveDelay": 1000`

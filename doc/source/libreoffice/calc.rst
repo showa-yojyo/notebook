@@ -127,9 +127,10 @@ Windows 標準のキーバインドは省略。便利なキーバインドを積
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド,動作
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド | 動作
    :kbd:`F2` | Cell Edit Mode | セル内容編集を開始する
    :kbd:`F4` | Cycle Cell Reference Types | 相対参照と絶対参照をトグルしていく
    :kbd:`F5` | Navigator | :guilabel:`Navigator` ダイアログを開く

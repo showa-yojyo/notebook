@@ -148,9 +148,10 @@
 
 .. csv-table::
    :delim: @
-   :header: ソルバー, 偏微分方程式
+   :header-rows: 1
    :widths: auto
 
+   ソルバー @ 偏微分方程式
    ``pde_1st_linear_constant_coeff`` @ :math:`{a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = G(x, y)}`
    ``pde_1st_linear_constant_coeff_homogeneous``@:math:`{a \frac{\partial f(x, y)}{\partial x} + b \frac{\partial f(x, y)}{\partial y} + c f(x, y) = 0}`
    ``pde_1st_linear_variable_coeff`` @ :math:`{a(x, y) \frac{\partial f(x, y)}{\partial x} + b(x, y) \frac{\partial f(x, y)}{\partial y} + c(x, y) f(x, y) = G(x, y)}`

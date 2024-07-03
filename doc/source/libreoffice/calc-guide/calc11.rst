@@ -184,9 +184,10 @@ Renaming sheets
 
    .. csv-table::
       :delim: @
-      :header: Description, Amount, Balance
+      :header-rows: 1
       :widths: auto
 
+      Description @ Amount @ Balance
       Opening Balance @ $75.00 @ $75.00
       Pay @ $425.00 @ $500.00
       Groceries @ -$75.00 @ $425.00
@@ -222,9 +223,10 @@ Creating the reference with the mouse
 
    .. csv-table::
       :delim: @
-      :header: Account, Balance
+      :header-rows: 1
       :widths: auto
 
+      Account @ Balance
       Checking Account @
       Savings Account @
       Credit Card 1 @

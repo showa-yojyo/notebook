@@ -63,9 +63,10 @@ Formatting numbers
 
 .. csv-table::
    :delim: @
-   :header: 書式,キーバインド
+   :header-rows: 1
    :widths: auto
 
+   書式 @ キーバインド
    金額 @ |Ctrl| + |Shift| + :kbd:`4`
    百分率 @ |Ctrl| + |Shift| + :kbd:`5`
    数値 @ |Ctrl| + |Shift| + :kbd:`1`
@@ -254,9 +255,10 @@ Cell value
 
 .. csv-table:: Conditions for number and text in cells
    :delim: |
-   :header: 項目,適用条件
+   :header-rows: 1
    :widths: auto
 
+   項目 | 適用条件
    is equal to | 指定値と等しい場合
    is not equal to | 指定値と等しくない場合
    is duplicate | 範囲内の最低一つのセルの内容が等しい場合

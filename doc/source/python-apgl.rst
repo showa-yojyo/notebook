@@ -103,9 +103,10 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
   .. csv-table::
      :delim: :
-     :header: クラス, データ, コメント
-     :widths: 8, 8, 82
+     :header-rows: 1
+     :widths: auto
 
+     クラス : データ : コメント
      ``DenseGraph``:``numpy.ndarray``:
      ``SparseGraph``:``scipy.sparse``:efficient for the storage of large graphs without many edges
      ``PySparseGraph``:``Pysparse``:written in C and hence may be faster

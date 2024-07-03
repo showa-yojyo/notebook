@@ -123,9 +123,10 @@ Writer, Calc など、LibreOffice プログラム共通に通用するキーバ�
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド,動作
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド | 動作
    :kbd:`Shift` + :kbd:`Esc` | Search Commands | コマンドパレットを開く
    :kbd:`Ctrl` + :kbd:`H` | Find and Replace | :guilabel:`Find and Replace` ダイアログを開く
    :kbd:`Ctrl` + :kbd:`K` | Hyperlink | ハイパーリンクを定義する

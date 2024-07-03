@@ -635,9 +635,10 @@ Convolve Matrix
 
    .. csv-table::
       :delim: |
-      :header: 名前,方式
+      :header-rows: 1
       :widths: auto
 
+      名前 | 方式
       :guilabel:`Duplicate` | 全端の画素を複製
       :guilabel:`Wrap` | 足りない画素を入力画像の逆側から取得
       :guilabel:`none` | ゼロ画素を使う

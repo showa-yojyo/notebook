@@ -107,8 +107,10 @@ Character classes
 
 .. csv-table::
    :delim: |
-   :header: Class,Specification
+   :header-rows: 1
+   :widths: auto
 
+   Class | Specification
    :regexp:`\\d` | 文字 ``0``, ``1``, ..., ``9``
    :regexp:`\\s` | ソフトスペース、タブ、改良文字等の空白文字各種
    :regexp:`\\w` | ラテンアルファベットおよび :regexp:`\\d` およびアンダーバー
@@ -419,8 +421,10 @@ Ranges
 
 .. csv-table::
    :delim: |
-   :header: Class,Character Set
+   :header-rows: 1
+   :widths: auto
 
+   Class | Character | Set
    :regexp:`\\d` | :regexp:`[0-9]`
    :regexp:`\\w` | :regexp:`[a-zA-Z0-9_]`
    :regexp:`\\s` | :regexp:`[\\t\\n\\v\\f\\r ]` に Unicode の珍しい空白文字を加えたもの
@@ -525,8 +529,10 @@ Shorthands
 
 .. csv-table::
    :delim: |
-   :header: Symbol,Description,Example
+   :header-rows: 1
+   :widths: auto
 
+   Symbol | Description | Example
    :regexp:`+` | :regexp:`{1,}` と等しい  | :regexp:`\\d+`
    :regexp:`?` | :regexp:`{0,1}` と等しい | :regexp:`https?`
    :regexp:`*` | :regexp:`{0,}` と等しい  | :regexp:`\\d0*`

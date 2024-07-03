@@ -35,9 +35,10 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
 
 .. csv-table::
    :delim: @
-   :header: タイプ, 方程式の形式
+   :header-rows: 1
    :widths: auto
 
+   タイプ @ 方程式の形式
    ``diop_linear``@ :math:`{a_1x_1 + a_2x_2 + \ldots + a_nx_n = b}`
    ``diop_quadratic``@ :math:`{ax^2 + bxy + cy^2 + dx + ey + f = 0}`
    ``diop_ternary_quadratic``@ :math:`{ax^2 + by^2 + cz^2 + dxy + eyz + fzx = 0}`

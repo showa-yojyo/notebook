@@ -31,9 +31,10 @@ Matplotlib を用いて描画することだ。
 
 .. csv-table::
    :delim: @
-   :header: 関数, 機能
+   :header-rows: 1
    :widths: auto
 
+   関数 @ 機能
    ``plt.plot(...)``@グラフを描く
    ``plt.hist(...)``@ヒストグラムを描く
    ``plt.show(...)``@イメージを一気に表示
@@ -54,9 +55,10 @@ Matplotlib には current figure と current axes という概念がある。こ
 
 .. csv-table::
    :delim: @
-   :header: 関数, 機能
+   :header-rows: 1
    :widths: auto
 
+   関数 @ 機能
    ``plt.figure(...)``@指定の figure をカレントにする
    ``plt.subplot(...)``@指定の axes をカレントにする
 
@@ -134,9 +136,10 @@ Axes
 
 .. csv-table::
    :delim: @
-   :header: 関数, 機能
+   :header-rows: 1
    :widths: auto
 
+   関数 @ 機能
    ``plt.text(...)``@ビューポート内にテキストを描く
    ``plt.xlabel(...)``@X 軸用キャプション
    ``plt.ylabel(...)``@Y 軸用キャプション
@@ -152,9 +155,10 @@ Axes
 
 .. csv-table::
    :delim: :
-   :header: キーワード, 意味
+   :header-rows: 1
    :widths: auto
 
+   キーワード : 意味
    ``color``:テキストの色。
    ``family``:テキストのフォント名。フォント名を直接指定するか ``"sans-serif"`` 等の予約名を指定する。
    ``rotation``:テキストの流し込む角度。度単位で直接指定する。
@@ -250,9 +254,10 @@ Artists 関連
 
 .. csv-table::
    :delim: @
-   :header: メンバー名, 内容物
+   :header-rows: 1
    :widths: auto
 
+   メンバー名 @ 内容物
    ``lines``@ ``plot`` 等で作成した ``Line2D`` オブジェクト。
    ``patches``@ 各種 ``Patch`` オブジェクト。``Ellipse``, ``Polygon``, etc.
    ``texts``@ ``text`` や ``annotate`` で作成した各種テキスト。
@@ -261,9 +266,10 @@ Artists 関連
 
 .. csv-table::
    :delim: @
-   :header: メンバー名, オブジェクト
+   :header-rows: 1
    :widths: auto
 
+   メンバー名 @ オブジェクト
    ``patch`` @ ``Axes`` の背景用 ``Rectangle`` オブジェクト。
    ``xaxis`` @ ``XAxis`` オブジェクト。
    ``yaxis`` @ ``YAxis`` オブジェクト。
@@ -278,9 +284,10 @@ Artists 関連
 
 .. csv-table::
    :delim: @
-   :header: メソッド, 機能
+   :header-rows: 1
    :widths: auto
 
+   メソッド @ 機能
    ``get_major_ticks`` @ 目盛 (``matplotlib.ticker.Ticker``) オブジェクトを返す。
    ``grid`` @ グリッド線を描画するしないを指示。
 

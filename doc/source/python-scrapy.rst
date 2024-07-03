@@ -240,8 +240,10 @@ DOM オブジェクトを含んでいると思って構わない。このオブ�
 
 .. csv-table::
    :delim: @
-   :header: command,description,comment
+   :header-rows: 1
+   :widths: auto
 
+   Command @ Description @ Comment
    bench@Run quick benchmark test@今は詳しく知らなくてよい
    check@Check spider contracts commands@自分の書いたスパイダーを調べる
    crawl@Run a spider@ スパイダーをふつうに実行
@@ -360,8 +362,10 @@ Scrapy ではスパイダーをクラスで表す。特定のウェブサイト�
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name @ Description @ Comment
    ``name``@ スパイダーの名前 @ ``genspider`` で決まる
    ``allowed_domains``@ 這いずり回ることを認めるドメイン @リストで指定
    ``start_urls``@ 這いずり回る URL の始点 @リストで指定
@@ -371,8 +375,10 @@ Scrapy ではスパイダーをクラスで表す。特定のウェブサイト�
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name @ Description @ Comment
    ``start_requests()``@ スパイダーが這い回るための ``Request`` の iterable を返す @ジェネレーターとして書くのが無難
    ``parse(response)``@ 応答を処理する既定のコールバック@応答を処理してデータか URL を返す
 
@@ -436,8 +442,10 @@ Scrapy ではスパイダーをクラスで表す。特定のウェブサイト�
 
 .. csv-table::
    :delim: @
-   :header: parameter, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Parameter @ Description @ Comment
    ``link_extractor``@クロール対象である URL を抽出する ``LinkExtractor`` オブジェクト@後述
    ``callback``@抽出されたリンクを処理する callable@そのような callable は ``Response`` オブジェクトを引数に取る
    ``cb_kwargs``@上記 callable のキーワード引数となる ``dict`` オブジェクト@
@@ -840,8 +848,10 @@ Scrapy シェルは UNIX や Python の IDLE のそれと同様に対話的シ�
 
 .. csv-table::
    :delim: @
-   :header: function, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Function @ Description @ Comment
    ``shelp()``@Scrapy 固有のシェル関数・変数を出力する@その他のオブジェクトも一覧に現れるようだ
    ``fetch(url[, redirect=True])``@新しい応答を取得して関連オブジェクトすべてを更新する@
    ``fetch(request)``@上記とだいたい同じ@こちらのほうが簡単
@@ -851,8 +861,10 @@ Scrapy シェルは UNIX や Python の IDLE のそれと同様に対話的シ�
 
 .. csv-table::
    :delim: @
-   :header: object, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Object @ Description @ Comment
    ``crawler``@現在の ``Crawler`` オブジェクト@未習
    ``spider``@与えた URL を処理することができる ``Spider`` オブジェクト@場合によっては ``None``
    ``request``@最後に取得したページの ``Request`` オブジェクト@``fetch()`` により更新
@@ -1013,8 +1025,10 @@ Cloud Storage なども使える。
 
 .. csv-table::
    :delim: @
-   :header: key, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Key @ Description @ Comment
    ``FEEDS``@ 設定全般を包含する ``dict`` オブジェクト @ 指定必須
    ``FEED_EXPORT_ENCODING`` @ エンコーディング @ 既定では UTF-8
    ``FEED_STORE_EMPTY`` @ 空のアイテムをエクスポートするかどうか @ 既定では ``False``
@@ -1063,8 +1077,10 @@ Cloud Storage なども使える。
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name @ Description @ Comment
    ``url`` @ この要求のエスケープ済み URL を表す文字列 @ read-only
    ``method`` @ HTTP メソッドを表す文字列 @ 大文字
    ``headers`` @ HTTP ヘッダーを保持する辞書 @
@@ -1136,8 +1152,10 @@ Scrapy が特別扱いするキーもある。例えばキー ``download_timeout
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name @ Description @ Comment
    ``url`` @ 応答の URL を表す文字列 @ read-only
    ``status`` @ HTTP コードを表す数 @ 200 とか 404 とか
    ``headers`` @ HTTP ヘッダーを表す辞書風オブジェクト @ これに対して ``.get()`` や ``.getlist()`` などを呼び出すこともある
@@ -1148,8 +1166,10 @@ Scrapy が特別扱いするキーもある。例えばキー ``download_timeout
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name @ Description @ Comment
    ``follow(url, ...)`` @ URL への ``Request`` オブジェクトを返す @
    ``follow_all(urls, ...)`` @ 複数 URL それぞれへの ``Request`` オブジェクトを iterable にして返す @ ``Request`` への引数はすべて共通
 
@@ -1164,8 +1184,10 @@ Scrapy による派生クラスを記す。``Response`` については派生ク
 
 .. csv-table::
    :delim: @
-   :header: name, description, comment
+   :header-rows: 1
+   :widths: auto
 
+   Name @ Description @ Comment
    ``text`` @ 応答本体を ``str`` で表したもの @ すなわち ``self.body.decode(self.encoding)`` に等しい
    ``encoding`` @ 応答のエンコーディングを表す文字列 @ Scrapy が適宜解決、決定する
    ``selector`` @ 応答本文を対象とする ``Selector`` オブジェクト @ これにより ``self.text`` を解析する

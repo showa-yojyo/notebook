@@ -515,10 +515,11 @@ Pillow の機能を応用した、画像操作のためのささやかなコマ�
 ティーだ。
 
 .. csv-table::
-   :header: スクリプト, 何をするのか
    :delim: @
-   :widths: 8, 92
+   :header-rows: 1
+   :widths: auto
 
+   スクリプト @ 何をするのか
    :file:`pilconvert.py`@画像ファイルの画像フォーマットや色モードを変換する。
    :file:`pildriver.py`@画像ファイルの画像の操作をする。対話モードあり。
    :file:`pilfile.py`@画像ファイルの鑑定をする。

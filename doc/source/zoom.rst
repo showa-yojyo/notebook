@@ -85,8 +85,10 @@ Android 側 iVCam
 
 .. csv-table::
    :delim: |
-   :header: 項目,値
+   :header-rows: 1
+   :widths: auto
 
+   項目 | 値
    :guilabel:`撮影時の画面の向き` | 環境に合わせて縦か横を決める
    :guilabel:`解像度` | 大き過ぎないようにする
    :guilabel:`フレームレート` | 大き過ぎないようにする
@@ -106,8 +108,10 @@ Zoom Cloud Meetings を実行する。
 
 .. csv-table::
    :delim: |
-   :header: 項目,値
+   :header-rows: 1
+   :widths: auto
 
+   項目 | 値
    :menuselection:`ビデオ --> カメラ` | :guilabel:`e2eSoft iVCam`
    :menuselection:`ビデオ --> マイビデオ --> マイビデオをミラーリング` | オン
    :menuselection:`オーディオ --> スピーカー` | いつものスピーカー

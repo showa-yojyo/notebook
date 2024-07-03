@@ -143,8 +143,10 @@ IntelliSense の既定の挙動としては、補完候補一覧の最初の項�
 
 .. csv-table::
    :delim: @
-   :header: 値,位置
+   :header-rows: 1
+   :widths: auto
 
+   値 @ 位置
    ``top`` @ 補完候補一覧よりも上に置く
    ``bottom`` @ 補完候補一覧よりも下に置く
    ``inline`` @ 両者の項目を混在させて配列する

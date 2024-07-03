@@ -13,9 +13,10 @@ PyOpenGL 利用ノート
 
    .. csv-table::
       :delim: :
-      :header: 名前, 値
+      :header-rows: 1
       :widths: auto
 
+      名前 : 値
       ``GL_VENDER``: Microsoft Corporation
       ``GL_RENDERER``: GDI Generic
       ``GL_VERSION``: 1.1.0

@@ -655,6 +655,8 @@ Vulkan ``gl_VertexIndex`` and ``gl_InstanceIndex``
 
 .. csv-table::
    :delim: @
+   :header-rows: 0
+   :widths: auto
 
    ``gl_VertexIndex`` @ base, base + 1, base + 2, ...
    ``gl_InstanceIndex`` @ base, base + 1, base + 2, ...

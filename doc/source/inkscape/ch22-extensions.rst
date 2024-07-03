@@ -43,9 +43,10 @@ Inkscape の拡張システムはプロセス内部から Python などのスク
 
 .. csv-table::
    :delim: |
-   :header: 分類,操作
+   :header-rows: 1
    :widths: auto
 
+   分類 | 操作
    Arrange | オブジェクトを配列し直す
    Color | オブジェクトの色を変える
    Generate from Path | パスオブジェクトからオブジェクトを新しく作成する
@@ -665,9 +666,10 @@ Presenting
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,操作
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | 操作
    :kbd:`→` or :kbd:`PgDn` | 進む
    :kbd:`←` or :kbd:`PgUp` | 戻る
    :kbd:`↑` or :kbd:`↓` | Effect 抜きで進行
@@ -1146,9 +1148,10 @@ Spirograph
 
 .. csv-table::
    :delim: |
-   :header: 引数,意味
+   :header-rows: 1
    :widths: auto
 
+   引数 | 意味
    :guilabel:`R - Ring Radius` | 固定円の半径
    :guilabel:`r - Gear Radius` | 運動円の半径
    :guilabel:`d - Pen Radius` | 描画点の半径
@@ -1368,9 +1371,10 @@ Set Attributes
 
 .. csv-table::
    :delim: |
-   :header: 項目,値
+   :header-rows: 1
    :widths: auto
 
+   項目 | 値
    :guilabel:`Attribute to set` | ``fill stroke stroke-width``
    :guilabel:`When the set must be done` | ``on click``
    :guilabel:`Value to set` | ``green black 5px``

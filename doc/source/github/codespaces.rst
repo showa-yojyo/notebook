@@ -943,9 +943,10 @@ Facilitating quick creation and resumption of codespaces
 
 .. csv-table::
    :delim: |
-   :header: URL,Codespace
+   :header-rows: 1
    :widths: auto
 
+   URL | Codespace
    ``https://codespaces.new/OWNER/REPO-NAME`` | REPO-NAME の既定ブランチ
    ``https://codespaces.new/OWNER/REPO-NAME/tree/BRANCH-NAME`` | REPO-NAME のブランチ ``BRANCH-NAME``
    ``https://codespaces.new/OWNER/REPO-NAME/pull/PR-SHA`` | Pull request ``PR-SHA`` のブランチ

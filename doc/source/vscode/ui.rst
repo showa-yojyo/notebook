@@ -291,8 +291,10 @@ Activity Bar 自身を :menuselection:`Hide from Activity Bar` で非表示に�
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,ビュー
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ ビュー
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`D` @ :guilabel:`RUN AND DEBUG`
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`E` @ :guilabel:`EXPLORER`
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F` @ :guilabel:`SEARCH`
@@ -317,8 +319,10 @@ VS Code で最も重要なキーバインドは、:kbd:`Ctrl` + :kbd:`Shift` + :
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ コマンド @ 操作
    :kbd:`Ctrl` + :kbd:`P` @ :guilabel:`Go to File...` @ 名前を指定してファイルへジャンプ
    :kbd:`Ctrl` + :kbd:`Tab` @ :guilabel:`View: Quick Open Previous Recently Used Editor in Group` @ 現在の Editor Group 内で直前のものにジャンプ
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`P` @ :guilabel:`Show All Commands` @ 上述
@@ -441,8 +445,10 @@ Editor および Editor Group 間を迅速にナビゲートするコマンド�
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`PageDown` @ 次の Editor へ行く
    :kbd:`Ctrl` + :kbd:`PageUp` @ 前の Editor へ行く
    :kbd:`Ctrl` + :kbd:`Tab` @ Editor Group で最近使われた Editor へ行く

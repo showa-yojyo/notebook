@@ -166,9 +166,10 @@ Reference range operator
 
 .. csv-table::
    :delim: |
-   :header: Example, Description
+   :header-rows: 1
    :widths: auto
 
+   Example | Description
    (A2:B4):C9 | セル A2 とセル C9 がそれぞれ左上と右下の矩形範囲
    Sheet1.A3:Sheet3.D4 | シート Sheet1, Sheet2, Sheet3 すべての A3:D4
    1:20 | 行 1 から 20 までのセルすべて

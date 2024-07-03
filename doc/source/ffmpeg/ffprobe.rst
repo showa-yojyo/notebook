@@ -177,9 +177,10 @@ CSV 形式のテキストが出力される。
 
 .. csv-table::
    :delim: |
-   :header: Writer,Format
+   :header-rows: 1
    :widths: auto
 
+   Writer| Format
    ``default`` | 既定の書式
    ``csv``     | CSV
    ``flat``    | プレーンテキスト

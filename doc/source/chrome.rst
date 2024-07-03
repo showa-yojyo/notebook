@@ -39,8 +39,10 @@ Web ブラウザー Google Chrome に付属している
 
 .. csv-table::
    :delim: |
-   :header: コマンド, 動作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド | 動作
    :menuselection:`Clear Console` | コンソールの入出力表示をすべて消去する
    :menuselection:`Clear Console History` | コンソールでの実行履歴を消去する
    :menuselection:`Save as...` | 実行ログをテキストファイルに保存する
@@ -59,8 +61,10 @@ Web ブラウザー Google Chrome に付属している
 
 .. csv-table::
    :delim: |
-   :header: メソッド, レベル, 動作
+   :header-rows: 1
+   :widths: auto
 
+   メソッド | レベル | 動作
    ``.assert(expression, object)`` | Error | 式が ``false`` のときに限りエラー出力をする。
    ``.clear()`` | n/a | コンソールを消去する。
    ``.count([label])`` | Info | このメソッドが呼び出された回数を出力する。
@@ -89,8 +93,10 @@ Chrome DevTool が提供するコンソール用オブジェクトと関数を�
 
 .. csv-table::
    :delim: |
-   :header: 機能, 意味
+   :header-rows: 1
+   :widths: auto
 
+   機能 | 意味
    ``$_`` | 直前に評価された式。シェルや IPython の ``_`` と同じ。
    ``$0``, ..., ``$4`` | 開発ツール内で評価された DOM 要素で直近の五個を参照する。
    ``$(selector, [startNode])`` | CSS セレクターにマッチする DOM 要素を一つ返す。

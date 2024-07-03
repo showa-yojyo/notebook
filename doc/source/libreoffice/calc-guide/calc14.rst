@@ -49,9 +49,10 @@ A database primer
 
 .. csv-table:: Grading sheet example
    :delim: ;
-   :header: Student,HW #1,HW #2,HW #3,Quiz #1,Quiz #2,Test #1,Average
+   :header-rows: 1
    :widths: auto
 
+   Student ; HW #1 ; HW #2 ; HW #3 ; Quiz #1 ; Quiz #2 ; Test #1 ; Average
    Andrew ; 90 ; 100 ; 82 ; 90 ; 88 ; 92 ; 90.33
    Bethany ; 95 ; 100 ; 82 ; 80 ; 88 ; 93 ; 89.67
    Charles ; 80 ; 93 ; 73 ; 80 ; 75 ; 84 ; 80.83
@@ -442,9 +443,10 @@ Advanced filters
 
 .. csv-table:: Advanced filter criteria range
    :delim: ;
-   :header: Student,HW #1,HW #2,HW #3,Quiz #1,Quiz #2,Test #1,Average
+   :header-rows: 1
    :widths: auto
 
+   Student ; HW #1 ; HW #2 ; HW #3 ; Quiz #1 ; Quiz #2 ; Test #1 ; Average
    ;>75;>75;>75
    Ferdinand;;;
 
@@ -554,9 +556,10 @@ Example of Database function use
 
 .. csv-table:: Example usage of a Database function (database table)
    :delim: ;
-   :header: Name,Grade,Age,Distance (meters),Weight (kg)
+   :header-rows: 1
    :widths: auto
 
+   Name ; Grade ; Age ; Distance (meters) ; Weight (kg)
    Andy ; 3 ; 9 ; 150 ; 40
    Betty ; 4 ; 10 ; 1000 ; 42
    Charles ; 3 ; 10 ; 300 ; 51
@@ -569,9 +572,10 @@ Example of Database function use
 
 .. csv-table:: Example usage of a Database function (criteria table)
    :delim: ;
-   :header: Name,Grade,Age,Distance (meters),Weight (kg)
+   :header-rows: 1
    :widths: auto
 
+   Name ; Grade ; Age ; Distance (meters) ; Weight (kg)
    ;;;> 600;
 
 データベース区分の関数の使い方を示す簡単な例だ。選択された升目 E15 の数式は

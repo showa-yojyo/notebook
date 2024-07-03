@@ -121,9 +121,11 @@ C++14 では以下のリテラル演算子が標準で提供される。
 の文字列型を指定することができる。
 
 .. csv-table::
-   :header: Example, Type, Encoding
    :delim: @
+   :header-rows: 1
+   :widths: auto
 
+   Example @ Type @ Encoding
    ``"hello"s`` @ ``std::string`` @ unspecified
    ``L"hello"s`` @ ``std::wstring`` @ unspecified
    ``u8"hello"s`` @ ``std::string`` @ utf-8
@@ -137,9 +139,11 @@ C++14 では以下のリテラル演算子が標準で提供される。
 加。
 
 .. csv-table::
-   :header: Suffix, Type
    :delim: @
+   :header-rows: 1
+   :widths: auto
 
+   Suffix @ Type
    ``ns`` @ ``nanoseconds``
    ``us`` @ ``microseconds``
    ``ms`` @ ``milliseconds``
@@ -153,9 +157,11 @@ C++14 では以下のリテラル演算子が標準で提供される。
 クラステンプレート ``std::complex`` の各特殊化に関するリテラル演算子が追加。
 
 .. csv-table::
-   :header: Suffix, Type
    :delim: @
+   :header-rows: 1
+   :widths: auto
 
+   Suffix @ Type
    ``i`` @ ``std::complex<double>``
    ``if`` @ ``std::complex<float>``
    ``il`` @ ``std::complex<long double>``
