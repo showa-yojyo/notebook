@@ -23,6 +23,7 @@
 * :doc:`/database/orientdb`
 * :doc:`/database/neo4j`
 * :doc:`/database/dynamodb`
+* :doc:`/database/mariadb`
 
 図書・書籍・教科書・仕様書
 ======================================================================
@@ -58,13 +59,5 @@ PostgreSQL
 
 :Since: 1996
 :Official site: <https://www.postgresql.org/>
-
-.. todo:: 学習する。
-
-MariaDB
-======================================================================
-
-:Since: 2013
-:Official site: <https://mariadb.org/>
 
 .. todo:: 学習する。
