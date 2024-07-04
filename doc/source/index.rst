@@ -149,6 +149,7 @@
    database/orientdb
    database/neo4j
    database/dynamodb
+   database/mariadb
 
 .. toctree::
    :caption: ソフトウェア・ツール・パッケージ・ライブラリーノート
