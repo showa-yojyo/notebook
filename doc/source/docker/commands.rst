@@ -663,6 +663,8 @@ context 内のどのファイルでも参照可能だ。例えば ``COPY`` 指�
    より実践的なコマンド。
 ``docker exec my-mysql mysql -u root -pmy-secret-pw -e "SELECT * FROM mydb.myothertable;"``
    実践的なコマンドその二。
+``docker exec -it mariadbtest mariadb -p``
+   MariaDB コンテナーで :program:`mariadb` シェルを実行する。
 
 呪文表 ``container kill``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1242,6 +1244,8 @@ Docker オブジェクトの低水準情報を出力するコマンド。通常�
 
 :samp:`docker inspect --format='\\{\\{range .NetworkSettings.Networks\\}\\}\\{\\{.IPAddress\\}\\}\\{\\{end\\}\\}' {<INSTANCE>}`
    IP アドレスを出力する。
+``docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadbtest``
+   その例。MariaDB コンテナーの IP アドレスを得る。
 :samp:`docker inspect --format='\\{\\{range .NetworkSettings.Networks\\}\\}\\{\\{.MacAddress\\}\\}\\{\\{end\\}\\}' {<INSTANCE>}`
    MAC アドレスを出力する。
 :samp:`docker inspect --format='\\{\\{.LogPath\\}\\}' {<INSTANCE>}`

@@ -7,8 +7,8 @@ MariaDB 利用ノート
 :CLI: :program:`mariadb`, :program:`mysql`
 :Server Version: 11.4.2-MariaDB-ubu2404 mariadb.org binary distribution
 
-MariaDB をとりあえず利用するまでの手順を記す。ただし、Docker を利用するものとす
-る。
+MariaDB をとりあえず利用するまでの手順を記す。ただし、
+:doc:`Docker</docker/index>` を利用するものとする。
 
 `Installing and Using MariaDB via Docker - MariaDB Knowledge Base
 <https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/>`__ の記述に
