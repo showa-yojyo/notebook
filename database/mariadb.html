@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MariaDB 利用ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="バックアップ＆復旧ノート" href="../backup-restore.html" />
+    <link rel="prev" title="Amazon DynamoDB 利用ノート" href="dynamodb.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="dynamodb.html" title="Previous">Amazon DynamoDB 利用ノート</a>
+        </li>
+      
+        <li>
+          <a href="../backup-restore.html" title="Next">バックアップ＆復旧ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="mariadb">
+<h1>MariaDB 利用ノート<a class="headerlink" href="#mariadb" title="Permalink to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Since<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2013</p>
+</dd>
+<dt class="field-even">Official site<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;<a class="reference external" href="https://mariadb.org/">https://mariadb.org/</a>&gt;</p>
+</dd>
+<dt class="field-odd">CLI<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong class="program">mariadb</strong>, <strong class="program">mysql</strong></p>
+</dd>
+<dt class="field-even">Server Version<span class="colon">:</span></dt>
+<dd class="field-even"><p>11.4.2-MariaDB-ubu2404 mariadb.org binary distribution</p>
+</dd>
+</dl>
+<p>MariaDB をとりあえず利用するまでの手順を記す。ただし、
+<a class="reference internal" href="../docker/index.html"><span class="doc">Docker</span></a> を利用するものとする。</p>
+<p><a class="reference external" href="https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/">Installing and Using MariaDB via Docker - MariaDB Knowledge Base</a> の記述に従えばデータベースシェル起動まではすんなり実現するはずだ。以下に要点をまとめておく。</p>
+<p class="rubric">イメージを入手してコンテナーを稼働する</p>
+<p>最初に Docker Hub から公式イメージを検索して、それをローカルに持ってくる：</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">MariaDB イメージ取得例</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>search<span class="w"> </span>mariadb<span class="w"> </span>--filter<span class="o">=</span><span class="nv">stars</span><span class="o">=</span><span class="m">5000</span>
+<span class="gp">$ </span>docker<span class="w"> </span>pull<span class="w"> </span>mariadb
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--filter<span class="w"> </span><span class="nv">reference</span><span class="o">=</span>mariadb
+</pre></div>
+</div>
+</div>
+<p>コンテナーに例えば <code class="docutils literal notranslate"><span class="pre">mariadbtest</span></code> などの名前を付けて稼働する。このときに
+MariaDB に対して必要な情報、環境変数を指定する：</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">MariaDB コンテナー稼働コマンド例</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mariadbtest<span class="w"> </span>-e<span class="w"> </span><span class="nv">MARIADB_ROOT_PASSWORD</span><span class="o">=</span>mypass<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>-d<span class="w"> </span>mariadb
+</pre></div>
+</div>
+</div>
+<p>あくまでも練習用の手順なので、パスワードの扱いはここではぞんざいだ。</p>
+<p class="rubric">データベースクライアントを実行する</p>
+<p>コンテナー内で稼働している MariaDB サーバーに CLI でアクセスしたい。このコンテナー内でアクセスする方法と、ホスト側で CLI を使ってアクセスする方法があり得る。前者は：</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">稼働中の MariaDB コンテナーで CLI を対話的に起動する例</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mariadbtest<span class="w"> </span>mariadb<span class="w"> </span>-p
+<span class="go">Enter password:</span>
+<span class="go">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span>
+<span class="go">Your MariaDB connection id is 4</span>
+<span class="go">Server version: 11.4.2-MariaDB-ubu2404 mariadb.org binary distribution</span>
+
+<span class="go">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span>
+
+<span class="go">Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.</span>
+
+<span class="go">MariaDB [(none)]&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>後者を行うにはコンテナーの IP アドレスが必要だ。次の例ではホスト側にある
+<strong class="program">mysql</strong> を使って接続するが、ホストにおいても <strong class="program">mariadb</strong> が実行可能であればもちろんそれが使える：</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">ホスト側 CLI からコンテナーの MariaDB サーバーに接続する例</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span><span class="w"> </span>mariadbtest
+<span class="go">172.17.0.2</span>
+<span class="gp">$ </span>mysql<span class="w"> </span>-h<span class="w"> </span><span class="m">172</span>.17.0.2<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<span class="go">Enter password:</span>
+<span class="go">Welcome to the MySQL monitor.  Commands end with ; or \g.</span>
+<span class="go">Your MySQL connection id is 5</span>
+<span class="go">Server version: 11.4.2-MariaDB-ubu2404 mariadb.org binary distribution</span>
+
+<span class="go">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</span>
+
+<span class="go">Oracle is a registered trademark of Oracle Corporation and/or its</span>
+<span class="go">affiliates. Other names may be trademarks of their respective</span>
+<span class="go">owners.</span>
+
+<span class="go">Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.</span>
+
+<span class="go">mysql&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>IP アドレスを適当な変数を定義してそれに代入しておくのが行儀が良いかもしれない。</p>
+</div>
+<p class="rubric">コンテナーを一時停止する</p>
+<p>MaridDB コンテナーを一時停止、再開するには次のどちらかの組み合わせを実行する：</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">コンテナー一時停止＆再開例</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>mariadbtest
+<span class="gp">$ </span>docker<span class="w"> </span>start<span class="w"> </span>mariadbtest
+
+<span class="gp">$ </span>docker<span class="w"> </span>pause<span class="w"> </span>mariadbtest
+<span class="gp">$ </span>docker<span class="w"> </span>unpause<span class="w"> </span>mariadbtest
+</pre></div>
+</div>
+</div>
+<p>後者の方法はシステム資源を一時的に解放する必要がある場合に便利であることを覚えておく。</p>
+<p class="rubric">SQL などの練習をする</p>
+<p><a class="reference external" href="https://mariadb.com/kb/en/beginner-mariadb-articles/">Beginner MariaDB Articles - MariaDB Knowledge Base</a> のいくつかの SQL 文やコマンドはそのまま実行可能。</p>
+<p>別のページにチュートリアルリンク一覧がある。</p>
+<p class="rubric">ドットファイル</p>
+<p>構成ファイルのパスはヘルプコマンドで確認可能：</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">ロードされるドットファイルパスを得る例</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mariadb<span class="w"> </span>--help<span class="w"> </span>--verbose<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+<span class="go">mariadb from 11.4.2-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper</span>
+<span class="go">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span>
+
+<span class="go">Usage: mariadb [OPTIONS] [database]</span>
+
+<span class="go">Default options are read from the following files in the given order:</span>
+<span class="go">/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</div>
+<p>次に述べるバインドマウントの手法を用いて、前項の構成ファイルをホスト側に用意することも可能。</p>
+<p class="rubric">データ格納場所</p>
+<p>データをホスト側のどこに格納するかを指定する方法はいくつかあるようだ。いずれにせよコンテナー稼働時に指定する。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Docker Hub の記事にあるコマンド例（改変）</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>datadir
+<span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mariadb<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/datadir,target<span class="o">=</span>/var/lib/mysql<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MARIADB_ROOT_PASSWORD</span><span class="o">=</span>mypass<span class="w"> </span>-d<span class="w"> </span>mariadb
+</pre></div>
+</div>
+</div>
+<p>これで <strong class="command">mariadb</strong> で実行したデータベース操作がホスト側ディレクトリー
+<code class="file docutils literal notranslate"><span class="pre">$(pwd)/datadir</span></code> 以下に作用する。きちんとした内容は <a class="reference external" href="https://hub.docker.com/_/mariadb">mariadb - Official
+Image</a> を参照しろ。</p>
+<p class="rubric">コンテナーを廃棄する</p>
+<p>MariaDB コンテナーが用済みになったらそれを削除することでデータベースも消去される。失いたくない場合には <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> の段階でマウントなどを指定するか、コンテナーにあるデータベースをホスト側に退避させるのだろう。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">コンテナーを捨てるコマンド例</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>mariadbtest
+<span class="gp">$ </span>docker<span class="w"> </span>rm<span class="w"> </span>mariadbtest
+</pre></div>
+</div>
+</div>
+<p>ディスクに余裕がなければ MariaDB イメージも削除する。</p>
+<hr class="docutils" />
+<p>ネットワークや Dockerfile など、未実施の項目が残っているが、ひとまず終わる。</p>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="dynamodb.html" title="Previous">Amazon DynamoDB 利用ノート</a>
+        </li>
+      
+        <li>
+          <a href="../backup-restore.html" title="Next">バックアップ＆復旧ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="../index.html" title="読書ノート Home"><img src="../_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
