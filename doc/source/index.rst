@@ -80,6 +80,7 @@
    :glob:
    :maxdepth: 1
 
+   bash
    bash-v[2-5]
    powershell
 
