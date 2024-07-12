@@ -34,23 +34,23 @@
 まず端末で :program:`ffmpeg` がインストール済みかどうかを試す。インストールされ
 ていなければ、Ubuntu 標準の方法でパッケージをインストールすればいい：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ sudo apt install ffmpeg
+   $ sudo apt install ffmpeg
 
 したがって、更新方法も Ubuntu 標準の方法による。私の場合は他のパッケージと同時に
 更新するのが普通だ。
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ sudo apt update
+   $ sudo apt update
 
 アンインストールするには次のコマンドを実行する。アンインストールしないほうがい
 い：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ sudo apt remove ffmpeg
+   $ sudo apt remove ffmpeg
 
 コマンドライン準備
 ======================================================================
@@ -86,29 +86,38 @@
 出力ファイルの拡張子から音声ファイルが求められていることを :program:`ffmpeg` が
 判断する。
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 output.mp3
+   $ ffmpeg -i input.mp4 output.mp3
 
 余裕があれば encoding オプションを付与するといい：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vn -c:a libmp3lame -q:a 1 output.mp3
+   $ ffmpeg -i input.mp4 -vn -c:a libmp3lame -q:a 1 output.mp3
 
 ビデオから音声を削除する
 ----------------------------------------------------------------------
 
-.. code:: console
+コンテナーファイルから音声ストリームを削除する方法と、音声をゼロにする方法が考え
+られる。どちらを採用するかを目的に応じて決めろ。
 
-   bash$ ffmpeg -i input.mp4 -c:v copy -an output.mp4
+.. sourcecode:: console
+   :caption: 音声ストリーム削除方式
+
+   $ ffmpeg -i input.mp4 -c:v copy -an output.mp4
+
+.. sourcecode:: console
+   :caption: 音量ゼロ方式
+
+   $ ffmpeg -i input.mp4 -c:v copy -af volume=0 output.mp4
 
 MP4 ファイルを Twitter 投稿用に最適化する
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -c:v h264 -crf 28 output.mp4
+   $ ffmpeg -i input.mp4 -c:v h264 -crf 28 output.mp4
 
 ビデオの解像度を確認する
 ----------------------------------------------------------------------
@@ -117,15 +126,15 @@ MP4 ファイルを Twitter 投稿用に最適化する
 だけを ``WxH`` の形式で出力できる。これは目視確認用途（機械向けでない）コマンド
 としたい：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffprobe -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 input.mp4
+   $ ffprobe -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 input.mp4
 
 ファイルを再生する
 ----------------------------------------------------------------------
 
 WSL 環境では WSLg が利用可能になっていることが前提だ。
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffplay input.mp4
+   $ ffplay input.mp4
