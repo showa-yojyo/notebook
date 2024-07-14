@@ -50,51 +50,67 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id19" role="doc-backlink">技法集と豆知識</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id21" role="doc-backlink">技法集と豆知識</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
 <p>本稿では FFmpeg を利用した手筋を集める。各トピックを論理的な塊に集約するほどの理解がないので、実現の簡単なものから難しいものに並べる。なお、このページに目を通す前に、<a class="reference internal" href="references.html"><span class="doc">参考文献</span></a> にある記事集を当たること。技術も記述も正確性において高い。</p>
 <p>解法がフィルター単品の適用による手筋については、公式文書の当該フィルターの記載をも併せて確認すること：
 <a class="reference external" href="https://ffmpeg.org/ffmpeg-filters.html">FFmpeg Filters Documentation</a></p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id19">技法集と豆知識</a></p>
+<li><p><a class="reference internal" href="#id1" id="id21">技法集と豆知識</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id2" id="id20">逆再生</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id21">回転および反転</a></p>
+<li><p><a class="reference internal" href="#id2" id="id22">倍速</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id23">逆再生</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id24">回転および反転</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id22">反転</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id23">回転</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id25">反転</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id26">回転</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#twitter" id="id24">ビデオを Twitter に投稿可能な状態にエンコードし直す</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id25">静止画像抽出</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id26">画像ファイル群からスライドショウを作成する</a></p>
+<li><p><a class="reference internal" href="#twitter" id="id27">ビデオを Twitter に投稿可能な状態にエンコードし直す</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id28">静止画像抽出</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id29">画像ファイル群からスライドショウを作成する</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id8" id="id27">一枚絵のビデオを作成する</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id30">一枚絵のビデオを作成する</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id9" id="id28">ビデオを結合する</a></p>
+<li><p><a class="reference internal" href="#id10" id="id31">ビデオを結合する</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id10" id="id29">同一形式のものを結合する</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id30">一般の条件で結合する</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id32">同一形式のものを結合する</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id33">一般の条件で結合する</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id12" id="id31">再生区間を抽出する</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id32">ビデオの画面を伸縮する</a></p>
+<li><p><a class="reference internal" href="#id13" id="id34">再生区間を抽出する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id35">ビデオの画面を伸縮する</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id14" id="id33">アスペクト比を維持して伸縮する</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id36">アスペクト比を維持して伸縮する</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id15" id="id34">テキスト</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id35">複数配置</a></p></li>
-<li><p><a class="reference internal" href="#id17" id="id36">ぼかし</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id37">映像遷移効果</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id37">テキスト</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id38">複数配置</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id39">ぼかし</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id40">映像遷移効果</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id20" role="doc-backlink">逆再生</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">倍速</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>ただし <code class="docutils literal notranslate"><span class="pre">speed</span></code> は 0.5 から 100 までの値でなければならない。</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">再生速度を倍にするコマンド例</span><a class="headerlink" href="#id20" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ speed=2
+$ ffmpeg -i input.mp4 -vf setpts=PTS/${speed} -af atempo=${speed} out.mp4
+</pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video">How to speed up / slow down a video - FFmpeg</a></p>
+</div>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">逆再生</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <ul class="simple">
@@ -103,14 +119,14 @@
 </ul>
 </div>
 <p>映像と音声を同時に逆転させることも、一方だけを逆転させることも可能だ。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf reverse output.mp4</span>
-<span class="go">bash$ ffmpeg -i input.mp4 -vf reverse -af areverse output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span>reverse<span class="w"> </span>output.mp4
+<span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span>reverse<span class="w"> </span>-af<span class="w"> </span>areverse<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <p>この処理は入力全体をメモリーに格納することに注意を要する。巨大なビデオに対しては、何分割かしてからそれぞれを個別に逆転させて結合する（上述）ことを検討する。</p>
 </section>
-<section id="id3">
-<h2><a class="toc-backref" href="#id21" role="doc-backlink">回転および反転</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">回転および反転</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>携帯電話で撮影した映像を扱うのであれば、ちょうど 90 度だけ回転させたり反転させたりする手筋を覚えておくと何かのときに助かる。</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -120,18 +136,18 @@
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/3937387/rotating-videos-with-ffmpeg">rotation - Rotating videos with FFmpeg - Stack Overflow</a></p></li>
 </ul>
 </div>
-<section id="id4">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">反転</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<section id="id5">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">反転</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>映像フィルター <code class="docutils literal notranslate"><span class="pre">hfilter</span></code>, <code class="docutils literal notranslate"><span class="pre">vfilter</span></code> を用いる。水平軸または垂直軸に関する反転を実現する。オプションがないので紛れがない。</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.avi -vf &quot;hflip&quot; -c:a copy output.avi</span>
-<span class="go">bash$ ffmpeg -i input.avi -vf &quot;vflip&quot; -c:a copy output.avi</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.avi<span class="w"> </span>-vf<span class="w"> </span><span class="s2">&quot;hflip&quot;</span><span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>output.avi
+<span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.avi<span class="w"> </span>-vf<span class="w"> </span><span class="s2">&quot;vflip&quot;</span><span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>output.avi
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">回転</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<section id="id6">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">回転</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>映像フィルター <code class="docutils literal notranslate"><span class="pre">transpose</span></code> を用いる。コマンドの基本形は次のとおり：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf &quot;transpose=dir=1&quot; -c:a copy output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="s2">&quot;transpose=dir=1&quot;</span><span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <p>引数 <code class="docutils literal notranslate"><span class="pre">dir</span></code> の値は数字かキーワードで指定できる。都合の良いほうを使っていい：</p>
@@ -166,13 +182,13 @@
 <li><p>180 度回転は <code class="docutils literal notranslate"><span class="pre">transpose</span></code> を合成すれば実現できる。</p></li>
 </ul>
 <p>縦長・横長を <strong class="program">ffmpeg</strong> 判定させて必要な場合に限り回転させるというコマンドもあり得る。引数 <code class="docutils literal notranslate"><span class="pre">passthrough=landscape</span></code> 等を指定する。「横長ならば横長のままとする」の指示を意味する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf &quot;transpose=dir=2:passthrough=landscape&quot; -c:a copy output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="s2">&quot;transpose=dir=2:passthrough=landscape&quot;</span><span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 </section>
 </section>
 <section id="twitter">
-<h2><a class="toc-backref" href="#id24" role="doc-backlink">ビデオを Twitter に投稿可能な状態にエンコードし直す</a><a class="headerlink" href="#twitter" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">ビデオを Twitter に投稿可能な状態にエンコードし直す</a><a class="headerlink" href="#twitter" title="Permalink to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference external" href="https://gist.github.com/nikhan/26ddd9c4e99bbf209dd7">twitter ffmpeg · GitHub</a></p>
@@ -180,15 +196,15 @@
 <p>携帯電話で撮影した MP4 ファイルに対してならば、上記リンク先スレッドの <code class="docutils literal notranslate"><span class="pre">foone</span>
 <span class="pre">commented</span> <span class="pre">on</span> <span class="pre">May</span> <span class="pre">18,</span> <span class="pre">2018</span></code> コメントのコマンドを加工して実行するといい。状況に応じてオプションを加えたり除いたりすることだ。</p>
 </section>
-<section id="id6">
-<h2><a class="toc-backref" href="#id25" role="doc-backlink">静止画像抽出</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<section id="id7">
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">静止画像抽出</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference external" href="https://ottverse.com/thumbnails-screenshots-using-ffmpeg/">Thumbnails &amp;amp; Screenshots using FFmpeg - 3 Efficient Techniques - OTTVerse</a></p>
 </div>
 </section>
-<section id="id7">
-<h2><a class="toc-backref" href="#id26" role="doc-backlink">画像ファイル群からスライドショウを作成する</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<section id="id8">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">画像ファイル群からスライドショウを作成する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <ul class="simple">
@@ -209,20 +225,20 @@
 </ul>
 </li>
 </ul>
-<section id="id8">
-<h3><a class="toc-backref" href="#id27" role="doc-backlink">一枚絵のビデオを作成する</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<section id="id9">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">一枚絵のビデオを作成する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>画像ファイル <code class="docutils literal notranslate"><span class="pre">input.jpg</span></code> を <code class="docutils literal notranslate"><span class="pre">10</span></code> 秒間表示するだけのビデオを作成したいとする。それには次のようなコマンドを実行する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -loop 1 -i input.jpg -c:v libx264 -t 10 output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-loop<span class="w"> </span><span class="m">1</span><span class="w"> </span>-i<span class="w"> </span>input.jpg<span class="w"> </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <p>次のコマンドは再生時間を音楽に合わせて <code class="docutils literal notranslate"><span class="pre">input.mp3</span></code> を BGM とする MP4 ビデオを出力する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -loop 1 -i input.jpg -i input.mp3 -c:v libx264 -c:a copy -shortest output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-loop<span class="w"> </span><span class="m">1</span><span class="w"> </span>-i<span class="w"> </span>input.jpg<span class="w"> </span>-i<span class="w"> </span>input.mp3<span class="w"> </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-c:a<span class="w"> </span>copy<span class="w"> </span>-shortest<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id9">
-<h2><a class="toc-backref" href="#id28" role="doc-backlink">ビデオを結合する</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="id10">
+<h2><a class="toc-backref" href="#id31" role="doc-backlink">ビデオを結合する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <ul class="simple">
@@ -231,8 +247,8 @@
 <li><p><a class="reference external" href="https://ottverse.com/3-easy-ways-to-concatenate-mp4-files-using-ffmpeg/">How to Concatenate mp4 Files Using FFmpeg Easily in 3 Different Ways! - OTTVerse</a></p></li>
 </ul>
 </div>
-<section id="id10">
-<h3><a class="toc-backref" href="#id29" role="doc-backlink">同一形式のものを結合する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<section id="id11">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">同一形式のものを結合する</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <p>いちばん単純な場合は画面寸法、ピクセルフォーマット、codec などが同じである MP4
 ファイル二つを連結するものだ。携帯電話で撮影して保存した MP4 ファイルに対して適用可能。結合処理は二段階からなる：</p>
 <ol class="arabic simple">
@@ -246,7 +262,7 @@ file<span class="w"> </span><span class="s1">&#39;/path/to/input1.mp4&#39;</span
 </pre></div>
 </div>
 <p>コマンドラインはこうなる：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -f concat -safe 0 -i fileList.txt -c copy output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-f<span class="w"> </span>concat<span class="w"> </span>-safe<span class="w"> </span><span class="m">0</span><span class="w"> </span>-i<span class="w"> </span>fileList.txt<span class="w"> </span>-c<span class="w"> </span>copy<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <ul class="simple">
@@ -254,16 +270,16 @@ file<span class="w"> </span><span class="s1">&#39;/path/to/input1.mp4&#39;</span
 <li><p><code class="docutils literal notranslate"><span class="pre">-safe</span> <span class="pre">0</span></code>: ファイルパスに対するチェックを大甘にする。</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">一般の条件で結合する</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<section id="id12">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">一般の条件で結合する</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>結合コマンドを実行する前に、対象ビデオファイル群を同一形式に再エンコードする必要がある。</p>
 <ul class="simple">
 <li><p>結合前のファイルに対して再エンコードする。結合する前に品質を正確に制御できる。</p></li>
 <li><p>映像フィルターのほうの <code class="docutils literal notranslate"><span class="pre">concat</span></code> を用いる。</p></li>
 </ul>
 <p>後者の例は次のようなものだ。ここでは与えないが、出力オプションで encoder を指定する余地がある：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input0.mp4 -i input1.mp4 -i input2.mp4 \</span>
-<span class="go">  -filter_complex &quot;[0:v][0:a][1:v][1:a][2:v][2:a]</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input0.mp4<span class="w"> </span>-i<span class="w"> </span>input1.mp4<span class="w"> </span>-i<span class="w"> </span>input2.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-filter_complex<span class="w"> </span><span class="s2">&quot;[0:v][0:a][1:v][1:a][2:v][2:a]</span>
 <span class="go">    concat=n=3:v=1:a=1[vv][aa]&quot; \</span>
 <span class="go">  -map &quot;[vv]&quot; -map &quot;[aa]&quot; output.mp4</span>
 </pre></div>
@@ -272,8 +288,8 @@ file<span class="w"> </span><span class="s1">&#39;/path/to/input1.mp4&#39;</span
 UNIX/Linux コマンドの <strong class="command">cat</strong> で直接連結が可能になる。詳しくは上述の文献を参照。</p>
 </section>
 </section>
-<section id="id12">
-<h2><a class="toc-backref" href="#id31" role="doc-backlink">再生区間を抽出する</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h2>
+<section id="id13">
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">再生区間を抽出する</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
 <p>時間帯を指定して元ビデオから再生時間がより短いビデオを得たい。</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -368,8 +384,8 @@ UNIX/Linux コマンドの <strong class="command">cat</strong> で直接連結�
 </ul>
 <p>最後に、再エンコードをするかしないかで結合処理の性質が異なることを考慮することだ。再エンコードせずに済むならば、変質せずに高速に処理される。</p>
 </section>
-<section id="id13">
-<h2><a class="toc-backref" href="#id32" role="doc-backlink">ビデオの画面を伸縮する</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<section id="id14">
+<h2><a class="toc-backref" href="#id35" role="doc-backlink">ビデオの画面を伸縮する</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <ul class="simple">
@@ -379,14 +395,14 @@ UNIX/Linux コマンドの <strong class="command">cat</strong> で直接連結�
 </ul>
 </div>
 <p>伸縮操作の基本は映像フィルター <code class="docutils literal notranslate"><span class="pre">scale</span></code> を用いるものだ。次のコマンド呼び出しは省略部分が同一ならばすべてが同値だ：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf scale=w=${width}:h=${height} ... output.mp4</span>
-<span class="go">bash$ ffmpeg -i input.mp4 -vf scale=${width}:${height} ... output.mp4</span>
-<span class="go">bash$ ffmpeg -i input.mp4 -vf scale=${width}x${height} ... output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">scale</span><span class="o">=</span><span class="nv">w</span><span class="o">=</span><span class="si">${</span><span class="nv">width</span><span class="si">}</span>:h<span class="o">=</span><span class="si">${</span><span class="nv">height</span><span class="si">}</span><span class="w"> </span>...<span class="w"> </span>output.mp4
+<span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">scale</span><span class="o">=</span><span class="si">${</span><span class="nv">width</span><span class="si">}</span>:<span class="si">${</span><span class="nv">height</span><span class="si">}</span><span class="w"> </span>...<span class="w"> </span>output.mp4
+<span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">scale</span><span class="o">=</span><span class="si">${</span><span class="nv">width</span><span class="si">}</span>x<span class="si">${</span><span class="nv">height</span><span class="si">}</span><span class="w"> </span>...<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <p>品質が劣化するのが気になる場合は出力オプション部に encoding 指定をする。例えば
 libx264 の低速プリセットで <code class="docutils literal notranslate"><span class="pre">crf=18</span></code> を使用するなど：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf scale=${width}:${height} -preset slow -crf 18 output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">scale</span><span class="o">=</span><span class="si">${</span><span class="nv">width</span><span class="si">}</span>:<span class="si">${</span><span class="nv">height</span><span class="si">}</span><span class="w"> </span>-preset<span class="w"> </span>slow<span class="w"> </span>-crf<span class="w"> </span><span class="m">18</span><span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <p>入力画面の幅と高さをそれぞれ <code class="docutils literal notranslate"><span class="pre">iw</span></code> と <code class="docutils literal notranslate"><span class="pre">ih</span></code> で参照できる。</p>
@@ -394,21 +410,21 @@ libx264 の低速プリセットで <code class="docutils literal notranslate"><
 <li><p>例：画面幅を二倍に拡大する <code class="docutils literal notranslate"><span class="pre">scale=iw*2:ih</span></code>. この <code class="docutils literal notranslate"><span class="pre">*</span></code> はシェルに展開されない。</p></li>
 <li><p>例：寸法を半分にする <code class="docutils literal notranslate"><span class="pre">scale=iw/2:ih/2</span></code>. こちらは引用符で囲むこと。</p></li>
 </ul>
-<section id="id14">
-<h3><a class="toc-backref" href="#id33" role="doc-backlink">アスペクト比を維持して伸縮する</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<section id="id15">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">アスペクト比を維持して伸縮する</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <p>アスペクト比を保ったまま動画を拡大縮小したい場合、 <code class="docutils literal notranslate"><span class="pre">height</span></code> か``width`` のどちらかの引数を値で設定し、もう一方の引数の値を負の値に設定するといい。</p>
 <p>映像形式によっては画面寸法が偶数であることを要求する。そのときは <code class="docutils literal notranslate"><span class="pre">-1</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">-2</span></code> を指定する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf scale=320:-2 output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="nv">scale</span><span class="o">=</span><span class="m">320</span>:-2<span class="w"> </span>output.mp4
 </pre></div>
 </div>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">min()</span></code> と <code class="docutils literal notranslate"><span class="pre">iw</span></code>, <code class="docutils literal notranslate"><span class="pre">ih</span></code> を組み合わせれば最小の幅と高さを決められる。単純な方法で質の悪い伸縮を防げる手筋だ：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 -vf &quot;scale=&#39;min(320,iw)&#39;:&#39;min(240,ih)&#39;&quot; output.mp4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span>-vf<span class="w"> </span><span class="s2">&quot;scale=&#39;min(320,iw)&#39;:&#39;min(240,ih)&#39;&quot;</span><span class="w"> </span>output.mp4
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id15">
-<h2><a class="toc-backref" href="#id34" role="doc-backlink">テキスト</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<section id="id16">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">テキスト</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
 <p>字幕という手もあるが、ここではフィルター <code class="docutils literal notranslate"><span class="pre">drawtext</span></code> を用いる方法を述べる。</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -419,7 +435,7 @@ libx264 の低速プリセットで <code class="docutils literal notranslate"><
 </ul>
 </div>
 <p>文字を打ち込む作業は何度も何度も画面を見直すから <strong class="program">ffplay</strong> で確認するといい：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffplay -vf &quot;drawtext=text=&#39;なんらかのテキスト&#39;:</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffplay<span class="w"> </span>-vf<span class="w"> </span><span class="s2">&quot;drawtext=text=&#39;なんらかのテキスト&#39;:</span>
 <span class="go">    fontfile=/path/to/fontfile:</span>
 <span class="go">    box=0:boxcolor=white@0.5:</span>
 <span class="go">    x=20:y=20:</span>
@@ -434,8 +450,8 @@ OK ではある。しかし、できれば WSL 側で適宜設定して単純な
 <p>あと、TrueType フォントを指定すると描画が乱れる現象が起こっている。現状、拡張子 <code class="docutils literal notranslate"><span class="pre">.ttc</span></code> のものしか描けない。</p>
 </div>
 </section>
-<section id="id16">
-<h2><a class="toc-backref" href="#id35" role="doc-backlink">複数配置</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h2>
+<section id="id17">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">複数配置</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
 <p>フィルター <code class="docutils literal notranslate"><span class="pre">hstack</span></code>, <code class="docutils literal notranslate"><span class="pre">vstack</span></code>, <code class="docutils literal notranslate"><span class="pre">xstack</span></code> がその目的にはふさわしい。</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -445,10 +461,10 @@ OK ではある。しかし、できれば WSL 側で適宜設定して単純な
 </ul>
 </div>
 <p>フィルター <code class="docutils literal notranslate"><span class="pre">hstack</span></code>, <code class="docutils literal notranslate"><span class="pre">vstack</span></code> を組み合わることで 2x2 レイアウトを実現することもできるが、効率がより良いフィルター <cite>xstack</cite> があるのでそれを利用したい。例を示す。簡単のために、入力映像の画面寸法はすべて同じであると仮定する：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg \</span>
-<span class="go">    -i input0.mp4 -i input1.mp4 \</span>
-<span class="go">    -i input2.mp4 -i input3.mp4 \</span>
-<span class="go">    -filter_complex &quot;xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0:shortest=1&quot;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>input0.mp4<span class="w"> </span>-i<span class="w"> </span>input1.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>input2.mp4<span class="w"> </span>-i<span class="w"> </span>input3.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-filter_complex<span class="w"> </span><span class="s2">&quot;xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0:shortest=1&quot;</span>
 <span class="go">    output.mp4</span>
 </pre></div>
 </div>
@@ -462,8 +478,8 @@ input1 input3
 <p>同系統のフィルターと同様に、入力映像すべてが同一のピクセルフォーマットでなければならない。</p>
 <p>グリッドの個数は 2 以上でも可能だし、極端に言えばグリッド状でなくてもいい。同一の映像入力を用いてもよい。演習として、ビートマニアの V のクリップのようなものを構成してみるといい。</p>
 </section>
-<section id="id17">
-<h2><a class="toc-backref" href="#id36" role="doc-backlink">ぼかし</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<section id="id18">
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">ぼかし</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
 <p>映像の空間的に、または時間的に一部をぼかす方法を記す。</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -474,8 +490,8 @@ input1 input3
 </div>
 <p>考え方を述べる。オリジナルの映像の一部を矩形に「クリップボード」にコピーし、ぼかしフィルターで加工する。加工した映像矩形を元映像の同じ位置に「貼り付ける」というのが基本的な考え方だ。コマンドラインも比較的単純な構造になる。オプション
 <code class="docutils literal notranslate"><span class="pre">-filter_complex</span></code> の引数だけを抜粋したものを示す：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg -i input.mp4 \</span>
-<span class="go">  -filter_complex &quot;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>input.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-filter_complex<span class="w"> </span><span class="s2">&quot;</span>
 <span class="go">    [0:v]crop=400:400:300:350,boxblur=10[fg];</span>
 <span class="go">    [0:v][fg]overlay=300:350[v]&quot; \</span>
 <span class="go">  -map &quot;[v]&quot; output.mp4</span>
@@ -499,8 +515,8 @@ input1 input3
 <p>ぼかしを矩形の周囲にしたい場合は全域を <code class="docutils literal notranslate"><span class="pre">boxblur</span></code> した絵にオリジナルの矩形を
 <code class="docutils literal notranslate"><span class="pre">crop</span></code> したものを <code class="docutils literal notranslate"><span class="pre">overlay</span></code> すればいい。また、フィルターには <code class="docutils literal notranslate"><span class="pre">boxblur</span></code> の他にも豊富にある。</p>
 </section>
-<section id="id18">
-<h2><a class="toc-backref" href="#id37" role="doc-backlink">映像遷移効果</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<section id="id19">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">映像遷移効果</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
 <p>Demuxer <code class="docutils literal notranslate"><span class="pre">concat</span></code> で物足りないときにはフィルター <code class="docutils literal notranslate"><span class="pre">xfade</span></code> を検討したい。これはある映像から別の映像へ切り替わるときに、スライドやワイプなどの視覚的効果を与えるものだ。</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -511,10 +527,10 @@ input1 input3
 </ul>
 </div>
 <p>次のコマンドは <code class="file docutils literal notranslate"><span class="pre">input0.mp4</span></code> から <code class="file docutils literal notranslate"><span class="pre">input1.mp4</span></code> へクロスフェイドする映像を出力するはずだ：</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ ffmpeg \</span>
-<span class="go">    -i input0.mp4 \</span>
-<span class="go">    -i input1.mp4 \</span>
-<span class="go">    -filter_complex &quot;xfade=transition=fade:</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ffmpeg<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>input0.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>input1.mp4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-filter_complex<span class="w"> </span><span class="s2">&quot;xfade=transition=fade:</span>
 <span class="go">    duration=${TRANSITION_DURATION_IN_SECONDS}:</span>
 <span class="go">    offset=${OFFSET_RELATIVE_TO_FIRST_STREAM_IN_SECONDS}&quot; \</span>
 <span class="go">    output.mp4</span>
