@@ -24,6 +24,11 @@
    $ speed=2
    $ ffmpeg -i input.mp4 -vf setpts=PTS/${speed} -af atempo=${speed} out.mp4
 
+.. seealso::
+
+   `How to speed up / slow down a video - FFmpeg
+   <https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video>`__
+
 逆再生
 ======================================================================
 

@@ -14,6 +14,15 @@
    * Filtering Guide は必読だろう。
    * Audio Volume Manipulation も読む。
    * Denoise Examples は必読。強風の音を消したい。
+   * Create a video slideshow from images はわかりやすい。
+   * Creating multiple outputs はいつか使うだろう。
+   * How to use ``-map`` option は重要。
+   * How to check if Fast Start is enabled for playback: MP4 をどこかにアップ
+     ロードして人に見せるのなら ``-movflags +faststart`` を付けておく。
+   * Changing the frame rate: 記事の締めにある Verifying frame rate changes で述
+     べられているカウンター描画技法は有用と考えられる。
+   * Limiting the output bitrate: ``-b:v``, ``-minrate``, ``-maxrate``,
+     ``-bufsize`` についての記述。
 `FFmpeg - OTTVerse <https://ottverse.com/category/ffmpeg/>`__
    呪文集が有用。
 `ffmpeg examples — ffmpeg examples <https://hhsprings.bitbucket.io/docs/programming/examples/ffmpeg/>`__
