@@ -21,16 +21,21 @@ Windows 用ということで、必然的に GUI を備えるソフトが主に�
 
 * CPU-Z
 * DeepL
+* Draw.io
 * Dropbox
 * FastStone Image Viewer
 * GIMP
 * Google 日本語入力
 * Inkscape
+* iVCam
 * LibreOffice
 * Mozilla Thunderbird
+* OBS Studio
+* pCloud Drive
 * PowerToys
 * Rapid Environment Editor
 * Sleipnir
+* SumatraPDF
 * Visual Studio Code
 * VLC media player
 * Windows Package Manager CLI (winget)
@@ -57,14 +62,16 @@ Windows Package Manager CLI をインストールする
 
    :doc:`/winget`
 
-資料 <https://docs.microsoft.com/ja-jp/windows/package-manager/winget/> によると、
-モダンな Windows 環境には既定で利用可能になっているとあり、本節は蛇足かもしれない。
-だから、まずはコンソールを開いて ``winget`` が存在するかどうかをテストする。
+資料 <https://docs.microsoft.com/ja-jp/windows/package-manager/winget/> による
+と、モダンな Windows 環境には既定で利用可能になっているとあり、本節は蛇足かもし
+れない。だから、まずはコンソールを開いて :program:`winget` が存在するかどうかを
+テストする。
 
-.. code:: doscon
+.. sourcecode:: ps1con
+   :caption: :program:`winget` のバージョンを確認する
 
-   > winget --version
-   v1.1.13405
+   PS> winget --version
+   v1.8.1911
 
 ない場合はスタートメニューから Microsoft Store を起動。
 :guilabel:`アプリ インストーラー` を選択してインストールするのだろう。
@@ -73,16 +80,17 @@ Windows Package Manager CLI を使って自動インストールする
 ----------------------------------------------------------------------
 
 ここで個別にインストールするコマンドは言及しない。現行環境から出力したインストー
-ル済みソフトウェア一覧を記した JSON ファイルから :command:`winget` に入力してイ
+ル済みソフトウェア一覧を記した JSON ファイルから :program:`winget` に入力してイ
 ンストールさせるのが最も復元効率が良い。
 
-.. code:: doscon
+.. sourcecode:: ps1con
+   :caption: 一括インポートコマンド例
 
-   > winget import -i winget.json
+   PS> winget import -i winget.json
 
-ファイル :file:`winget.json` は旧環境で :command:`winget export -o winget.json`
-により得られたものとする。現環境で定期的にこのコマンドを実行して、JSON ファイル
-を安全な場所にバックアップしておく。
+ファイル :file:`winget.json` は旧環境で ``winget export -o winget.json`` により
+得られたものとする。現環境で定期的にこのコマンドを実行して、JSON ファイルを安全
+な場所にバックアップしておく。
 
 以下、この手順終了によりシステムにインストールされていることを期待するソフトウェ
 アを記す。状況に応じて適宜調整する。
@@ -104,6 +112,10 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/deepl-translator`
+
+`Draw.io <https://www.drawio.com/>`__
+    図式製図ツール。モダンな UML 図式をどうしても描画したい場合に使い物になる
+    ツールがこれしかなかった。
 
 `Dropbox <https://www.dropbox.com/>`__
     プログラムとしての Dropbox は、当局固有のオンラインストレージを利用するため
@@ -134,16 +146,6 @@ Windows Package Manager CLI を使って自動インストールする
 
        :doc:`/google-ime`
 
-`LibreOffice <https://www.libreoffice.org/>`__
-    MS Office が高くて購入できないので、フリーウェアである LibreOffice をインス
-    トールすることを余儀なくされる。家計簿、履歴書、職務経歴書、業務報告書などを
-    Calc や Writer で作成し、 MS Office 対応の各ファイル形式や PDF に変換し、人
-    に送信したり印刷したりするという運用をしている。
-
-    .. seealso::
-
-       :doc:`/libreoffice/index`
-
 `Inkscape <https://inkscape.org/>`__
     Inkscape はベクトルデータベースの描画ツールで、主に SVG 形式の画像を作成する
     ために用いられる。他の形式フォーマットのインポートおよびエクスポートも可能
@@ -156,10 +158,32 @@ Windows Package Manager CLI を使って自動インストールする
 
        :doc:`/inkscape/index`
 
+`iVCam <https://www.e2esoft.com/ivcam/>`__
+    Windows PC に携帯電話を接続し、そのカメラとマイクを使えるようにするソフト
+    だ。PC 側に本ソフトウェアをインストールし、かつ、携帯電話側にも Android 版
+    iVCam をインストールする。
+
+`LibreOffice <https://www.libreoffice.org/>`__
+    MS Office が高くて購入できないので、フリーウェアである LibreOffice をインス
+    トールすることを余儀なくされる。家計簿、履歴書、職務経歴書、業務報告書などを
+    Calc や Writer で作成し、 MS Office 対応の各ファイル形式や PDF に変換し、人
+    に送信したり印刷したりするという運用をしている。
+
+    .. seealso::
+
+       :doc:`/libreoffice/index`
+
 `Mozilla Thunderbird <https://www.thunderbird.net/>`__
     Thunderbird は有名なメールクライアントだ。設定やカスタマイズが簡単であり、環
     境の移行作業にも考慮がなされている。仕事探しにメールをどうしても利用するの
     で、手放せない。
+
+`OBS Studio <https://obsproject.com/>`__
+    デスクトップ録画ソフトウェアとして利用する。
+
+`pCloud Drive <https://www.pcloud.com/>`__
+    Dropbox のようなオンラインストレージサービス。無料使用者でも努力次第では容量
+    を 10 GB まで拡大可能。
 
 `PowerToys <https://docs.microsoft.com/ja-jp/windows/powertoys/>`__
     PowerToys は Microsoft 製上級利用者向け便利ツール詰め合わせソフトウェアだ。
@@ -182,6 +206,10 @@ Windows Package Manager CLI を使って自動インストールする
 
     最近は WSL 環境で各種開発をすることが激増し、Windows の環境変数を編集する機
     会が激減したため、当ソフトウェアをインストールする優先度は以前より下がった。
+
+`SumatraPDF <https://www.sumatrapdfreader.org/free-pdf-reader>`__
+    軽量 PDF ビューワー。一度これを使うと Adobe Acrobat Reader を使う気にならな
+    くなる。
 
 `Ubuntu (WSL) <https://releases.ubuntu.com/>`__
     ここでいう Ubuntu は WSL を有効化してからの Linux ディストリビューションとし
@@ -253,7 +281,6 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/wsl`
-
 
 その他を必要に応じて手動インストールする
 ----------------------------------------------------------------------
