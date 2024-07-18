@@ -16,6 +16,7 @@
       DISTRIB_CODENAME=jammy
       DISTRIB_DESCRIPTION="Ubuntu 22.04.3 LTS"
 
+* :doc:`/database/postgresql`
 * :doc:`/database/firebird`
 * :doc:`/database/sqlite`
 * :doc:`/database/couchdb`
@@ -51,13 +52,5 @@ MySQL
 
 :Since: 1995
 :Official site: <https://www.mysql.com/>
-
-.. todo:: 学習する。
-
-PostgreSQL
-======================================================================
-
-:Since: 1996
-:Official site: <https://www.postgresql.org/>
 
 .. todo:: 学習する。

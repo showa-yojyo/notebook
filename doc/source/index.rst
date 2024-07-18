@@ -143,6 +143,7 @@
    :caption: データベース
    :maxdepth: 1
 
+   database/postgresql
    database/firebird
    database/sqlite
    database/couchdb
