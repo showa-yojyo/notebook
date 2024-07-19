@@ -6,8 +6,8 @@ PostgreSQL 利用ノート
 :Official site: <https://www.postgresql.org/>
 :Version: :program:`psql` 16.3 (Debian 16.3-1.pgdg120+1)
 
-PostgreSQL をとりあえず利用するまでの手順を記す。ただし、
-:doc:`Docker</docker/index>` を利用するものとする。
+PostgreSQL をとりあえず利用するまでの手順を記す。SQL 学習環境が得られれば十分
+だ。本稿では :doc:`Docker</docker/index>` を利用するものとする。
 
 .. rubric:: 以前の PostgreSQL 環境の残滓を一掃する
 
@@ -63,8 +63,8 @@ PostgreSQL が稼働しているコンテナーに「入って」クライアン
 .. sourcecode:: console
    :caption: 稼働中の PostgreSQL コンテナーで CLI を対話的に起動する例
 
-   $ docker exec -it some-postgres createdb -U postgres mydb
-   $ docker exec -it some-postgres psql -U postgres -s mydb
+   $ docker exec -it -u postgres some-postgres createdb mydb
+   $ docker exec -it -u postgres some-postgres psql -s mydb
    psql (16.3 (Debian 16.3-1.pgdg120+1))
    Type "help" for help.
 
@@ -96,9 +96,9 @@ Tutorial" などで Google 検索するとそれらしい教材がたくさん�
 
 .. rubric:: ドットファイル
 
-ここで言うドットファイルとは :file:`.psqlrc` とする。仮に PostgreSQL 環境を
-Docker コンテナーではなくホストに構築したとするならば、次のようにこのファイルを
-管理したい。まず、Bash ドットファイル :file:`.bashrc` で :envvar:`PSQLRC` と
+ここで言うドットファイルとは :file:`.psqlrc` とする。PostgreSQL 環境を Docker コ
+ンテナーではなくホストに構築したとするならば、次のようにこのファイルを管理した
+い。まず、Bash ドットファイル :file:`.bashrc` で :envvar:`PSQLRC` と
 :envvar:`PSQL_HISTORY` を設定する：
 
 .. sourcecode:: bash
@@ -111,13 +111,29 @@ Docker コンテナーではなくホストに構築したとするならば、�
 ここまで述べた方式はクライアントプログラム :program:`psql` をホスト環境にインス
 トールしている場合にはそのまま使える。
 
-コンテナー環境の場合、バージョン管理をしないでユーザー root で利用するならばもう
-生の :file:`/root/.psqlrc` と :file:`/root/.psql_history` のまま取り扱っていい。
+コンテナー環境の :program:`psql` を利用する場合。ユーザーは postgres であるとす
+ると、その :envvar:`HOME` は :file:`/var/lib/postgresql` だ。この直下にドット
+ファイルが置かれる。コンテナー稼働開始時にホストファイルを bind-mount すれば行け
+る。履歴はコンテナーに置いてかまわないと考えるので指定しない。
 
-.. todo::
+.. sourcecode:: console
 
-   少し捻りを入れて運用することを考える。これらの情報をコンテナー環境に引き渡す
-   方法を考える。
+   $ docker run -d \
+       --name some-postgres \
+       -e POSTGRES_PASSWORD=secret \
+       --mount type=bind,source=$PSQLRC,target=/var/lib/postgresql/.psqlrc,readonly \
+       postgres
+
+サーバードットファイルに関しても同様に、ホストにカスタム版を置いて bind-mount す
+ることが可能だ。ログが欲しい場合などに設定項目を編集することになる。
+
+.. sourcecode:: console
+
+   $ docker run -d \
+       --name some-postgres \
+       -e POSTGRES_PASSWORD=secret \
+       --mount type=bind,source=/path/to/my-postgres.conf,/etc/postgresql/postgresql.conf,readonly \
+       postgres -c config_file=/etc/postgresql/postgresql.conf
 
 .. rubric:: データ格納場所
 
@@ -131,13 +147,13 @@ Docker Hub 公式イメージ README によると :file:`/var/lib/postgresql` �
 る。
 
 .. sourcecode:: console
-   :caption: 例
+   :caption: :file:`/path/to` は差し当たり ``$(pwd)`` にしておけ
 
    $ docker run -d \
        --name some-postgres \
        -e POSTGRES_PASSWORD=secret \
        -e PGDATA=/var/lib/postgresql/data/pgdata \
-       --mount type=bind,source=$(pwd)/datadir,target=/var/lib/postgresql/data \
+       --mount type=bind,source=/path/to/datadir,target=/var/lib/postgresql/data \
        postgres
 
 この結果、ホスト側ファイルシステム部分である :file:`./data/pgdata` にデータベー
@@ -149,6 +165,44 @@ Docker Hub 公式イメージ README によると :file:`/var/lib/postgresql` �
    :file:`./data/pgdata` の所有権表記が ``999 root`` になる。コンテナーの
    :file:`/etc/passwd` を確認するとユーザー ``postgres`` に相当する。
 
+.. rubric:: まとめ
+
+.. sourcecode:: console
+   :caption: ここまでの諸々をまとめたコンテナー稼働コマンド
+
+   $ docker run -d \
+       --name some-postgres \
+       -e POSTGRES_PASSWORD=secret \
+       -e PGDATA=/var/lib/postgresql/data/pgdata \
+       --mount type=bind,source=$PWD/datadir,target=/var/lib/postgresql/data \
+       --mount type=bind,source=$PSQLRC,target=/var/lib/postgresql/.psqlrc,readonly \
+       postgres
+
+こんなコマンドを毎回書いていられないので Docker Compose を利用する。ファイル
+:file:`compose.yaml` を次のような内容で用意：
+
+.. sourcecode:: yaml
+   :caption: Example of :file:`compose.yaml`
+
+   services:
+     postgres:
+       container_name: some-postgres
+       image: postgres
+       environment:
+         PGDATA: /var/lib/postgresql/data/pgdata
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: secret
+       volumes:
+         - type: bind
+           source: ${PWD}/datadir
+           target: /var/lib/postgresql/data
+         - type: bind
+           source: ${PSQLRC}
+           target: /var/lib/postgresql/.psqlrc
+           read_only: true
+
+これで ``docker compose up -d`` や ``docker compose down`` が利用可能になる。
+
 .. rubric:: コンテナーを廃棄する
 
 PostgreSQL コンテナーが用済みになったらそれを削除することでデータベースも消去さ
@@ -156,7 +210,7 @@ PostgreSQL コンテナーが用済みになったらそれを削除すること
 テナーにあるデータベースをホスト側に退避させるのだろう。
 
 .. sourcecode:: console
-   :caption: コンテナーを捨てるコマンド例
+   :caption: コンテナーを処分するコマンド例
 
    $ docker stop some-postgres
    $ docker rm some-postgres
