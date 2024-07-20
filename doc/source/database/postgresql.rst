@@ -203,6 +203,56 @@ Docker Hub 公式イメージ README によると :file:`/var/lib/postgresql` �
 
 これで ``docker compose up -d`` や ``docker compose down`` が利用可能になる。
 
+.. rubric:: サンプルデータベースを構築する
+
+`Load PostgreSQL Sample Database
+<https://www.postgresqltutorial.com/postgresql-getting-started/load-postgresql-sample-database/>`__
+で配布されている SQL 練習用データベースを拝借する。まずホスト側ファイルシステム
+にアーカイブをダウンロードし、それからそのファイルをコンテナーに転送する。おしま
+いにコンテナー側で :program:`pg_restore` コマンドを実行するという流れだ：
+
+.. sourcecode:: console
+   :caption: ホスト側手順
+
+   $ curl -O https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
+   $ unzip dvdrental.zip
+   $ docker cp dvdrental.tar some-postgres:/tmp/dvdrental.tar
+
+チュートリアルに従い、データベース ``dvdrental`` を作成しておく。:program:`psql`
+セッションで ``CREATE DATABASE dvdrental;`` しておけ。その後ならばデータベースを
+ロードして良い：
+
+.. sourcecode:: console
+   :caption: コンテナー側手順
+
+   $ docker exec -it -u postgres some-postgres pg_restore -d dvdrental /tmp/dvdrental.tar
+
+.. sourcecode:: psql
+   :caption: データベース dvdrental を確認する例
+
+   postgres=# \c dvdrental
+   You are now connected to database "dvdrental" as user "postgres".
+   dvdrental=# \dt
+                List of relations
+    Schema |     Name      | Type  |  Owner
+   --------+---------------+-------+----------
+    public | actor         | table | postgres
+    public | address       | table | postgres
+    public | category      | table | postgres
+    public | city          | table | postgres
+    public | country       | table | postgres
+    public | customer      | table | postgres
+    public | film          | table | postgres
+    public | film_actor    | table | postgres
+    public | film_category | table | postgres
+    public | inventory     | table | postgres
+    public | language      | table | postgres
+    public | payment       | table | postgres
+    public | rental        | table | postgres
+    public | staff         | table | postgres
+    public | store         | table | postgres
+   (15 rows)
+
 .. rubric:: コンテナーを廃棄する
 
 PostgreSQL コンテナーが用済みになったらそれを削除することでデータベースも消去さ
@@ -219,4 +269,5 @@ PostgreSQL コンテナーが用済みになったらそれを削除すること
 
 ----
 
-ネットワークや Dockerfile など、未実施の項目が残っているが、ひとまず終わる。
+ネットワークやログ管理など、未実施の項目が残っているが、納得したのでひとまず終わ
+る。
