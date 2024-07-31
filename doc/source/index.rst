@@ -143,6 +143,7 @@
    :caption: データベース
    :maxdepth: 1
 
+   database/mssql-server
    database/postgresql
    database/firebird
    database/sqlite

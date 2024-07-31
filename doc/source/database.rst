@@ -16,6 +16,7 @@
       DISTRIB_CODENAME=jammy
       DISTRIB_DESCRIPTION="Ubuntu 22.04.3 LTS"
 
+* :doc:`/database/mssql-server`
 * :doc:`/database/postgresql`
 * :doc:`/database/firebird`
 * :doc:`/database/sqlite`
@@ -36,14 +37,6 @@ Oracle Database
 
 :Since: 1979
 :Official site: <https://www.oracle.com/in/database/>
-
-.. todo:: 学習する。
-
-Microsoft SQL Server
-======================================================================
-
-:Since: 1989
-:Official site: <https://www.microsoft.com/ja-jp/sql-server>
 
 .. todo:: 学習する。
 
