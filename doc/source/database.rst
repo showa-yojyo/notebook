@@ -17,6 +17,7 @@
       DISTRIB_DESCRIPTION="Ubuntu 22.04.3 LTS"
 
 * :doc:`/database/mssql-server`
+* :doc:`/database/mysql`
 * :doc:`/database/postgresql`
 * :doc:`/database/firebird`
 * :doc:`/database/sqlite`
@@ -37,13 +38,5 @@ Oracle Database
 
 :Since: 1979
 :Official site: <https://www.oracle.com/in/database/>
-
-.. todo:: 学習する。
-
-MySQL
-======================================================================
-
-:Since: 1995
-:Official site: <https://www.mysql.com/>
 
 .. todo:: 学習する。

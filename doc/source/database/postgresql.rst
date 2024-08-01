@@ -21,7 +21,7 @@ PostgreSQL をとりあえず利用するまでの手順を記す。SQL 学習�
 `How to Uninstall PostgreSQL from Ubuntu
 <https://www.postgresqltutorial.com/postgresql-administration/uninstall-postgresql-ubuntu/>`__
 
-.. sourcecode::
+.. sourcecode:: console
    :caption: アンインストール手順例
 
    $ sudo apt remove --purge postgresql
@@ -132,7 +132,7 @@ Tutorial" などで Google 検索するとそれらしい教材がたくさん�
    $ docker run -d \
        --name some-postgres \
        -e POSTGRES_PASSWORD=secret \
-       --mount type=bind,source=/path/to/my-postgres.conf,/etc/postgresql/postgresql.conf,readonly \
+       --mount type=bind,source=/path/to/my-postgres.conf,target=/etc/postgresql/postgresql.conf,readonly \
        postgres -c config_file=/etc/postgresql/postgresql.conf
 
 .. rubric:: データ格納場所
