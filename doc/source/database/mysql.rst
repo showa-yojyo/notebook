@@ -200,8 +200,19 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 
 .. admonition:: 利用者ノート
 
-   同様の考え方により、履歴ファイルをホスト側に配置することも可能だ。この手のメ
-   モを作成するのに大いに有用だ。
+   同様の考え方により、履歴ファイルをホスト側に配置したいのだが、MySQL の不具合
+   によりホストに用意した :file:`.mysql_history` に bind-mount することができな
+   いようだ。
+
+   .. sourcecode:: mysql
+
+      mysql> quit
+      mysql: Error on rename of '/root/.mysql_history.TMP' to '/root/.mysql_history' (OS errno 16 - Device or resource busy)
+      Bye
+
+   Google で検索すると Docker と関係なく起こり得る現象らしいことがわかる。解法を
+   見いだせないので、コンテナー停止後に履歴ファイルをホストへ手動コピーすること
+   でしのぐ。
 
 .. rubric:: データ格納場所
 
