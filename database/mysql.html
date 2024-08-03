@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MySQL 利用ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="PostgreSQL 利用ノート" href="postgresql.html" />
+    <link rel="prev" title="Microsoft SQL Server 利用ノート" href="mssql-server.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="mssql-server.html" title="Previous">Microsoft SQL Server 利用ノート</a>
+        </li>
+      
+        <li>
+          <a href="postgresql.html" title="Next">PostgreSQL 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="mysql">
+<h1>MySQL 利用ノート<a class="headerlink" href="#mysql" title="Permalink to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Since<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1995</p>
+</dd>
+<dt class="field-even">Official site<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;<a class="reference external" href="https://www.mysql.com/">https://www.mysql.com/</a>&gt;</p>
+</dd>
+<dt class="field-odd">Version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>9.0.1 for Linux on x86_64</p>
+</dd>
+<dt class="field-even">CLI<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong class="program">mysql</strong></p>
+</dd>
+<dt class="field-odd">Server<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong class="program">mysqld</strong></p>
+</dd>
+</dl>
+<p>MySQL をとりあえず利用するまでの手順を記す。ただし、
+<a class="reference internal" href="../docker/index.html"><span class="doc">Docker</span></a> を利用するものとする。</p>
+<p class="rubric">以前の MySQL 環境の残滓を一掃する</p>
+<p>環境が完全にクリーンである場合にはここを飛ばしてイメージ入手工程を読め。以前、何かの MySQL チュートリアルをやって上手くいかなかった場合にはこの工程が外せない。クライアントくらいは残しておいても良いが、便宜上 Docker ホスト側には MySQL の実行系は残さないことにする。</p>
+<p>Google で “How to uninstall MySQL on Ubuntu” などで検索すれば手順は山ほど見つかるが、簡単にまとめておく。</p>
+<p>おそらく <strong class="program">apt</strong> を利用して環境構築したはずなので、次の手順に従えばひじょうに上手くいく：</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">アンインストール手順例</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
+<span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>purge<span class="w"> </span>mysql-server<span class="w"> </span>mysql-common<span class="w"> </span>mysql-server-core-*<span class="w"> </span>mysql-client-core-*
+<span class="gp">$ </span>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="o">{</span>/var/lib/,/var/log/,/etc/<span class="o">}</span>mysql/
+<span class="gp">$ </span>sudo<span class="w"> </span>deluser<span class="w"> </span>--remove-home<span class="w"> </span>mysql
+<span class="gp">$ </span>sudo<span class="w"> </span>delgroup<span class="w"> </span>mysql
+<span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>dbconfig-mysql
+</pre></div>
+</div>
+</div>
+<p>この手順でも <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">list</span> <span class="pre">mysql*</span></code> などで関連パッケージが出力されるかもしれない。その場合は出処を確認してなじみのリポジトリーならば納得するしかない：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apt<span class="w"> </span>search<span class="w"> </span>mysql-client-8.0
+<span class="go">Sorting... Done</span>
+<span class="go">Full Text Search... Done</span>
+<span class="go">mysql-client/jammy-updates,jammy-security 8.0.39-0ubuntu0.22.04.1 all</span>
+<span class="go">  MySQL database client (metapackage depending on the latest version)</span>
+
+<span class="go">mysql-client-8.0/jammy-updates,jammy-security 8.0.39-0ubuntu0.22.04.1 amd64</span>
+<span class="go">  MySQL database client binaries</span>
+</pre></div>
+</div>
+<p class="rubric">イメージを入手してコンテナーを稼働する</p>
+<p>最初に Docker Hub から公式イメージを検索して、それをローカルに持ってくる：</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">MySQL イメージ取得例</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>search<span class="w"> </span>MySQL<span class="w"> </span>--filter<span class="o">=</span><span class="nv">stars</span><span class="o">=</span><span class="m">5000</span>
+<span class="go">NAME      DESCRIPTION                                     STARS     OFFICIAL</span>
+<span class="go">mysql     MySQL is a widely used, open-source relation…   15262     [OK]</span>
+<span class="go">mariadb   MariaDB Server is a high performing open sou…   5805      [OK]</span>
+<span class="gp">$ </span>docker<span class="w"> </span>pull<span class="w"> </span>mysql
+<span class="go">Using default tag: latest</span>
+<span class="go">latest: Pulling from library/mysql</span>
+<span class="go">ae34d51c6da2: Download complete</span>
+<span class="go">fe4b01031aab: Download complete</span>
+<span class="go">cc168a9482de: Download complete</span>
+<span class="go">d9a40b27c30f: Download complete</span>
+<span class="go">aa72c34c4347: Download complete</span>
+<span class="go">473ade985fa2: Download complete</span>
+<span class="go">10e5505c3ae4: Download complete</span>
+<span class="go">3e3fac98ea83: Download complete</span>
+<span class="go">a79ade39aab9: Download complete</span>
+<span class="go">3ca3786815dd: Download complete</span>
+<span class="go">Digest: sha256:d8df069848906979fd7511db00dc22efeb0a33a990d87c3c6d3fcdafd6fc6123</span>
+<span class="go">Status: Downloaded newer image for mysql:latest</span>
+<span class="go">docker.io/library/mysql:latest</span>
+<span class="gp">$ </span>docker<span class="w"> </span>images<span class="w"> </span>--filter<span class="w"> </span><span class="nv">reference</span><span class="o">=</span>mysql
+<span class="go">REPOSITORY   TAG       IMAGE ID       CREATED      SIZE</span>
+<span class="go">mysql        latest    d8df06984890   9 days ago   802MB</span>
+</pre></div>
+</div>
+</div>
+<p>コマンドライン引数を決めているのならばいきなり <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> で可。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>MariaDB については <a class="reference internal" href="mariadb.html"><span class="doc">MariaDB 利用ノート</span></a> で探求する。</p>
+</div>
+<p>コンテナーに例えば <code class="docutils literal notranslate"><span class="pre">some-mysql</span></code> などの名前を付けて稼働する。このときに MySQL
+に対して必要な情報、環境変数を指定する：</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">MySQL コンテナー稼働コマンド例</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>some-mysql<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>some-user<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_PASSWORD</span><span class="o">=</span>some-secret-pw<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>my-secret-pw<span class="w"> </span>mysql
+<span class="go">6460fcdc5e4b7b3b05c51b2ba3b903728cc3f5e97b2f832162d451355259590e</span>
+<span class="gp">$ </span>docker<span class="w"> </span>start<span class="w"> </span>some-mysql
+</pre></div>
+</div>
+</div>
+<p>あくまでも練習用の手順なので、パスワードの扱いはここではぞんざいだ。</p>
+<p class="rubric">データベースクライアントを実行する</p>
+<p>コンテナー内で稼働している MySQL サーバーに CLI でアクセスしたい。このコンテナー内でアクセスする方法と、Docker ホスト側で CLI を使ってアクセスする方法があり得る。ホストの MySQL 環境は破壊したという前提でノートをとっているので、後者は扱わない。</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">稼働中の MySQL コンテナーで CLI を対話的に起動する例</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>some-mysql<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>some-user<span class="w"> </span>-p
+<span class="go">Enter password:</span>
+<span class="go">Welcome to the MySQL monitor.  Commands end with ; or \g.</span>
+<span class="go">Your MySQL connection id is 10</span>
+<span class="go">Server version: 9.0.1 MySQL Community Server - GPL</span>
+
+<span class="go">Copyright (c) 2000, 2024, Oracle and/or its affiliates.</span>
+
+<span class="go">Oracle is a registered trademark of Oracle Corporation and/or its</span>
+<span class="go">affiliates. Other names may be trademarks of their respective</span>
+<span class="go">owners.</span>
+
+<span class="go">Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.</span>
+
+<span class="go">mysql&gt;</span>
+</pre></div>
+</div>
+</div>
+<p class="rubric">コンテナーを一時停止する</p>
+<p>MySQL コンテナーを一時停止、再開するには次のどちらかの組み合わせを実行する：</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">コンテナー一時停止＆再開例</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>some-mysql
+<span class="gp">$ </span>docker<span class="w"> </span>start<span class="w"> </span>some-mysql
+
+<span class="gp">$ </span>docker<span class="w"> </span>pause<span class="w"> </span>some-mysql
+<span class="gp">$ </span>docker<span class="w"> </span>unpause<span class="w"> </span>some-mysql
+</pre></div>
+</div>
+</div>
+<p>後者の方法はシステム資源を一時的に解放する必要がある場合に便利であることを覚えておく。</p>
+<p class="rubric">SQL などの練習をする</p>
+<p>MySQL 公式文書のチュートリアルも有用であるし、キーワード “MySQL Tutorial” などで
+Google 検索するとそれらしい教材がたくさん見つかる。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://dev.mysql.com/doc/refman/9.0/en/tutorial.html">MySQL :: MySQL 9.0 Reference Manual :: 5 Tutorial</a></p></li>
+<li><p><a class="reference external" href="https://www.mysqltutorial.org/">MySQL Tutorial - Learn MySQL Fast, Easy and Fun.</a></p></li>
+</ul>
+<p class="rubric">ドットファイル</p>
+<p>ここで言うドットファイルとは <strong class="program">mysql</strong> に対する <code class="file docutils literal notranslate"><span class="pre">.my.cnf</span></code> とする。</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>少し調べたら <strong class="program">mysql</strong> の他に <strong class="program">mysqlsh</strong> というクライアントプログラムが存在するようだ。こちらのほうがカスタマイズしやすい？</p>
+</div>
+<p>構成ファイルのパスを確認するには、ヘルプ出力の <code class="docutils literal notranslate"><span class="pre">Default</span> <span class="pre">options</span> <span class="pre">are</span> <span class="pre">read</span> <span class="pre">from</span>
+<span class="pre">the</span> <span class="pre">following</span> <span class="pre">files</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">given</span> <span class="pre">order</span></code> の行付近を見る：</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">ロードされるドットファイルパスを得る例</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>mysql<span class="w"> </span>--help<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A1<span class="w"> </span><span class="s2">&quot;Default options&quot;</span>
+<span class="go">Default options are read from the following files in the given order:</span>
+<span class="go">/etc/my.cnf /etc/mysql/my.cnf /usr/etc/my.cnf ~/.my.cnf</span>
+</pre></div>
+</div>
+</div>
+<p>残念なことに <code class="file docutils literal notranslate"><span class="pre">~/.my.cnf</span></code> はこのパス意外に設定不可能らしい。XDG Base
+Directory Specification に適合不能。仕方がないので、コンテナーを稼働するホスト側ディレクトリーにこのファイルを置いて、bind-mount を適宜指定する方針を採る。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">コンテナー再作成例</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>some-mysql<span class="p">;</span><span class="w"> </span>docker<span class="w"> </span>rm<span class="w"> </span>some-mysql
+<span class="gp">$ </span>docker<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>some-mysql<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>some-user<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_PASSWORD</span><span class="o">=</span>some-secret-pw<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>my-secret-pw<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span>/path/to/.my.cnf,target<span class="o">=</span>/root/.my.cnf,readonly<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>mysql
+</pre></div>
+</div>
+</div>
+<p>ドットファイルの中身は暫定的に次のようにしておく：</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Example of <code class="file docutils literal notranslate"><span class="pre">.my.cnf</span></code></span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[client]</span>
+<span class="na">user</span><span class="o">=</span><span class="s">some-user</span>
+<span class="na">password</span><span class="o">=</span><span class="s">some-secret-pw</span>
+<span class="na">prompt</span><span class="o">=</span><span class="s">&#39;\\u \\R:\\m:\\s [\\c]&gt;\\_&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>なぜか YYYY-mm-dd が表示できない。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>同様の考え方により、履歴ファイルをホスト側に配置したいのだが、MySQL の不具合によりホストに用意した <code class="file docutils literal notranslate"><span class="pre">.mysql_history</span></code> に bind-mount することができないようだ。</p>
+<div class="highlight-mysql notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quit</span>
+<span class="n">mysql</span><span class="o">:</span><span class="w"> </span><span class="k">Error</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">rename</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="s1">&#39;/root/.mysql_history.TMP&#39;</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;/root/.mysql_history&#39;</span><span class="w"> </span><span class="p">(</span><span class="n">OS</span><span class="w"> </span><span class="n">errno</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">resource</span><span class="w"> </span><span class="n">busy</span><span class="p">)</span>
+<span class="n">Bye</span>
+</pre></div>
+</div>
+<p>Google で検索すると Docker と関係なく起こり得る現象らしいことがわかる。解法を見いだせないので、コンテナー停止後に履歴ファイルをホストへ手動コピーすることでしのぐ。</p>
+</div>
+<p class="rubric">データ格納場所</p>
+<p>コンテナー内 <code class="file docutils literal notranslate"><span class="pre">/var/lib/mysql</span></code> が既定のデータベース格納場所であり、これをホスト側で管理したい場合には bind-mount を適宜指定する。ホスト側のディレクトリーは前もって手動で作成しておく。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><code class="file docutils literal notranslate"><span class="pre">/path/to</span></code> は差し当たり <code class="docutils literal notranslate"><span class="pre">$PWD</span></code> にしておけ</span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>some-mysql<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>some-user<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_PASSWORD</span><span class="o">=</span>some-secret-pw<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>my-secret-pw<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span>/path/to/.my.cnf,target<span class="o">=</span>/root/.my.cnf,readonly<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span>/path/to/datadir,target<span class="o">=</span>/var/lib/mysql<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>postgres
+</pre></div>
+</div>
+</div>
+<p>この結果、ホスト側ファイルシステム部分である <code class="file docutils literal notranslate"><span class="pre">./datadir</span></code> にデータベース実体が保存される。コンテナーをいったん廃棄して再度この <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> コマンドを実行すると、データベースが維持できていることが確認できる。</p>
+<p class="rubric">まとめ</p>
+<p>Docker Compose を利用する。ファイル <code class="file docutils literal notranslate"><span class="pre">compose.yaml</span></code> を次のような内容で
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> を実行してきたディレクトリー内に用意する：</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Example of <code class="file docutils literal notranslate"><span class="pre">compose.yaml</span></code></span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">db</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MYSQL_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-user</span>
+<span class="w">      </span><span class="nt">MYSQL_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-secret-pw</span>
+<span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-secret-pw</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/datadir</span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/mysql</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/.my.cnf</span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/root/.my.cnf</span>
+<span class="w">      </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
+<p>これで <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span></code> や <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">down</span></code> が利用可能になる。</p>
+<p class="rubric">サンプルデータベースを構築する</p>
+<p>まずコンテナーを停止して破棄する。</p>
+<p>先述のチュートリアルサイトからサンプルデータベースの素となるファイルをダウンロードする。圧縮ファイルの中身は <strong class="program">mysql</strong> が処理可能な形式だ。</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">サンプルデータベースをダウンロードして解答する</span><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>https://www.mysqltutorial.org/wp-content/uploads/2023/10/mysqlsampledatabase.zip
+<span class="gp">$ </span>unzip<span class="w"> </span>mysqlsampledatabase.zip
+</pre></div>
+</div>
+</div>
+<p>ここでコンテナーを稼働する。</p>
+<p>ここからはいろいろな方法があるが、紛れの少ないものを記す。得られたファイル
+<code class="file docutils literal notranslate"><span class="pre">mysqlsampledatabase.sql</span></code> をコンテナーの適当な一時ディレクトリーにコピーし、それを MySQL に処理させる。このとき、ユーザーを root としておくのがわかりやすい。</p>
+<p>それからコンテナーに対して <strong class="program">mysql</strong> をユーザー root で実行する：</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">ファイルをコンテナーにコピーした後、データベースにログイン</span><a class="headerlink" href="#id13" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>cp<span class="w"> </span>./mysqlsampledatabase.sql<span class="w"> </span>some-mysql:/tmp
+<span class="gp">$ </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>some-mysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-pmy-secret-pw
+</pre></div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p><strong class="program">mysql</strong> のコマンドラインオプションと値の間には空白文字を挟まないのが無難だ。特にパスワードを指定する <code class="docutils literal notranslate"><span class="pre">-p</span></code> においては。</p>
+</div>
+<p>MySQL セッションでは例のファイルを source する。それから作業用ユーザーにアクセス権を供与して root での作業は完了する：</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">サンプルデータベースをインポートする例</span><a class="headerlink" href="#id14" title="Permalink to this code">¶</a></div>
+<div class="highlight-mysql notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">mysqlsampledatabase</span><span class="p">.</span><span class="k">sql</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">classicmodels</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;some-user&#39;</span><span class="nv">@&#39;%&#39;</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quit</span>
+</pre></div>
+</div>
+</div>
+<p>最後にコンテナーに対して <strong class="program">mysql</strong> をユーザー some-user で実行し、データベースを classicmodels に切り替えてチュートリアルを実施可能であることを確認する：</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">サンプルデータベースを確認</span><a class="headerlink" href="#id15" title="Permalink to this code">¶</a></div>
+<div class="highlight-mysql notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">classicmodels</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">tables</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>先ほどの bind-mount が効いているので、コンテナーを再稼働しても、データベース
+classicmodels にアクセスできるはずだ。</p>
+<p class="rubric">コンテナーを廃棄する</p>
+<p>MySQL コンテナーが用済みになったらそれを削除することでデータベースも消去される。失いたくない場合には <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> の段階でマウントなどを指定するか、コンテナーにあるデータベースをホスト側に退避させるのだろう。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">コンテナーを捨てるコマンド例</span><a class="headerlink" href="#id16" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>some-mysql
+<span class="gp">$ </span>docker<span class="w"> </span>rm<span class="w"> </span>some-mysql
+</pre></div>
+</div>
+</div>
+<p>ディスクに余裕がなければ MySQL イメージも削除する。</p>
+<p class="rubric">参考文献一覧</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://hub.docker.com/_/mysql">mysql - Official Image</a></p></li>
+<li><p><a class="reference external" href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/">MySQL :: A Quick Guide to Using the MySQL APT Repository</a></p></li>
+<li><p><a class="reference external" href="https://askubuntu.com/questions/1270094/how-to-completely-remove-mysql-from-my-system">20.04 - How to completely remove MySQL from my system? - Ask Ubuntu</a></p></li>
+<li><p><a class="reference external" href="https://webhostinggeeks.com/howto/how-to-uninstall-mysql-on-ubuntu/">How to Uninstall MySQL on Ubuntu | Linux Tutorials for Beginners</a></p></li>
+<li><p><a class="reference external" href="https://www.fosslinux.com/96135/how-to-properly-uninstall-mysql-server-in-ubuntu.htm">How to properly uninstall MySQL Server in Ubuntu</a></p></li>
+</ul>
+<hr class="docutils" />
+<p>ネットワークや Dockerfile によるカスタムコンテナー作成など、未実施の項目が残っているが、ひとまず終わる。</p>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="mssql-server.html" title="Previous">Microsoft SQL Server 利用ノート</a>
+        </li>
+      
+        <li>
+          <a href="postgresql.html" title="Next">PostgreSQL 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="../index.html" title="読書ノート Home"><img src="../_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
