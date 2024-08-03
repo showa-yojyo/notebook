@@ -143,8 +143,8 @@
    :caption: データベースノート
    :maxdepth: 1
 
-   database/mysql
    database/mssql-server
+   database/mysql
    database/postgresql
    database/firebird
    database/sqlite
