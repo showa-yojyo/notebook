@@ -140,10 +140,11 @@
    ruby-jekyll
 
 .. toctree::
-   :caption: データベース
+   :caption: データベースノート
    :maxdepth: 1
 
    database/mssql-server
+   database/mysql
    database/postgresql
    database/firebird
    database/sqlite
