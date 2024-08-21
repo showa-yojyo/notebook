@@ -14,337 +14,151 @@ Installation and starting LibreOffice
 Installation
 ----------------------------------------------------------------------
 
-When LibreOffice is installed, the process is different depending on your operating system. Refer
-to the manufacturer’s information if necessary. After LibreOffice is installed, it will add the
-following items to your computer depending on the operating system:
-•
-
-Windows — A desktop icon is created during the installation of LibreOffice.
-
-•
-
-Linux — Entries for LibreOffice and each of the LibreOffice modules appear in
-Applications. Desktop icons can be created for LibreOffice and each of its modules.
-Refer to the operating system help or user guide for more information on how to create a
-desktop icon.
-
-•
-
-macOS — An entry for LibreOffice is added to Applications. A desktop icon can be
-created for LibreOffice. Refer to the operating system help or user guide for more
-information on how to create a desktop icon.
+Windows では LibreOffice インストール時にショートカットアイコンがデスクトップに
+生じるとある。個人的に邪魔なのでこれを削除する。
 
 Starting
 ----------------------------------------------------------------------
 
-New users should start with the LibreOffice Start Center, which will allow you to select individual
-modules of LibreOffice or any previously opened files. The Center can be accessed by clicking
-on LibreOffice in your Applications folder or clicking on the desktop icon (Figure 4). If you wish, a
-LibreOffice module can be opened in the Center using one of the following methods:
-•
+LibreOffice Start Center の使用法について。いちおう確認。
 
-Clicking on the name of a LibreOffice module.
+* Start Center に表示されているファイルアイコンを選択すれば、それに対応するアプ
+  リケーションが起動することで当該ファイルが開く。
+* Start Center で :guilabel:`Templates` を選択し、新規ファイルのテンプレートを選
+  択すると、そのテンプレートに関連するアプリケーションが開く。
+* :guilabel:`Open File` を選択するとファイルダイアログボックスが開く。そこでファ
+  イルを選択し、「開く」ボタンを押すと対応アプリケーションが起動して選択ファイル
+  が開く。
+* :guilabel:`Remote Files` は選択ファイルがリモートにある場合の方法。
 
-Figure 4: LibreOffice Start Center
-•
+:guilabel:`Filter` ドロップダウンリストに注意。
 
-Clicking on a file that is displayed in the Start Center, which will activate the module
-associated with that file.
+.. tip::
 
-24 | Chapter 1, LibreOffice Basics
+   Start Center 内にファイルをピン留めすることが可能。
 
-•
+.. note::
 
-Selecting Templates in the Start Center and choosing a template for a new file, which will
-open the LibreOffice module associated with that template.
-
-•
-
-Selecting Open File, which will allow you to navigate to the chosen file’s location, select
-it, then click on the Open button to open the file and the applicable LibreOffice module.
-
-•
-
-Select Remote File, which will open the Remote Files file browser and allow you to
-navigate to the file location, select it, then click on the Open button. When you open the
-file, LibreOffice will also open the applicable LibreOffice module.
-
-To reduce the number of files displayed in the Start Center, select a LibreOffice module from the
-Filter drop-down list. Only files that can be opened by the selected LibreOffice module are
-displayed in the Start Center.
-
-TIP
-To pin a document in the Start Center so it can be always visible, hover the
-corresponding document and click on the pin icon in the top left corner. The
-selected document will then be shown in a separate line at the beginning of the
-list, along with other pinned documents.
-
-Note
-A LibreOffice module will become active if you double-click the filename of an
-ODF document in a folder, or file browser. The document opens in the appropriate
-LibreOffice module. For more information on opening files, see “Opening existing
-documents” on page 37.
+   Windows Explorer で LibreOffice アプリケーションに関連するファイルアイコンを
+   ダブルクリックすると、対応アプリケーションが必要に応じて起動し、指定ファイル
+   が開く。
 
 Closing LibreOffice
 ----------------------------------------------------------------------
 
-There are multiple methods for closing LibreOffice:
+LibreOffice を終了するには、通常の Windows デスクトップアプリケーションに対する
+終了手段がそのまま使用可能だ。
 
-Windows and Linux
-•
-
-Go to File > Exit LibreOffice on the Menu bar.
-
-•
-
-Use the keyboard shortcut Ctrl+Q.
-
-•
-
-If only one LibreOffice document is open, click on the X on the right of the title bar to
-close the entire application.
-
-macOS
-•
-
-Go to LibreOffice > Quit LibreOffice on the Menu bar.
-
-•
-
-Use the keyboard shortcut ⌘+Q
-
-Note
-If any documents have not been saved since the last change, a warning message
-is displayed. Select whether to save or discard the changes.
+* |MenuBar| から :menuselection:`&File-->E&xit` を選択
+* キーバインド |Ctrl+Q| を押す
+* 開いている文書が一つしかない場合にはアプリケーションウィンドウ右上のバツジルシ
+  をクリック
 
 Main LibreOffice window
 ======================================================================
 
-Each LibreOffice module’s user interface is based on the main LibreOffice window. Each module
-has various details depending on the module’s functions.
+LibreOffice アプリケーションすべてに共通して、メインウィンドウの上部に Title
+バー、Menu バー、Standard ツールバーがあり、ウィンドウの下部に Status バーがあ
+る。
 
-Main LibreOffice window | 25
-
-Every module has the Title bar, Menu bar, and Standard toolbar at the top of the window and the
-Status bar at the bottom of the window, while the tools and information vary between each
-LibreOffice module.
-
-Note
-By default, LibreOffice commands are grouped in the Standard Toolbar user
-interface. Other user interface variants are available.. Go to View > User
-Interface on the Menu bar to change the user interface. For more information,
-see Chapter 13, Customizing LibreOffice.
+特殊な UI も搭載されている。それについては :doc:`common13` 参照。
 
 Title bar
 ----------------------------------------------------------------------
 
-The Title bar is located at the top of the LibreOffice window and it shows the file name of the
-current document. When a document is created the document name will be Untitled X, where X
-is a number. New documents are numbered in the order in which they are created.
+Title バーに基本的には現在の文書のファイル名が示される。文書が新規作成されると、
+文書名は :guilabel:`Untitled X` のようなものになる。ここで X は数字。新規文書に
+は作成順に番号が付けられる。
 
 Menu bar
-The Menu bar is located below the Standard toolbar in Windows and Linux operating systems
-and at the top of the desktop in macOS. When selecting one of the menus in the Menu bar, a
-specific submenu will appear. They feature commands that can do one of these commands:
-•
+----------------------------------------------------------------------
 
-Directly cause an action, for example File > Close or Save.
-
-•
-
-Open a dialog. Any command that opens a dialog has three dots following that command,
-for example: the command Edit > Find and Replace… on the Menu bar will open a
-dialog.
-
-•
-
-Open another submenu. Any command that opens yet another submenu has a rightpointing chevron ˃ that follows the command’s name. Moving the mouse’s arrow over
-one of these commands opens another submenu that contains additional commands, for
-example View > Rulers > Rulers, or Vertical Rulers.
-
-•
-
-Contains keyboard shortcuts for some commands.
-
-For example, the default Menu bar for LibreOffice Writer contains these menu items:
-File
-Lists commands that apply to the entire document, for example Open, Save, and Print.
-Edit
-Has commands for editing a document, including Undo, Find and Replace, Cut, Copy,
-Paste, and Track Changes.
-View
-Lists commands that control how a document is displayed, such as User Interface,
-Toolbars, Text Boundaries, Rulers, and Zoom.
-Insert
-Has commands that insert elements into a document, for example Image, Comment,
-Header and Footer, and Table of Contents and Index.
-Format
-Lists commands that are used to format a document’s layout.
-Styles
-Has commands that handle type styles. It includes commands that apply common styles
-and manage styles as well as commands for editing, loading, and creating styles.
-
-26 | Chapter 1, LibreOffice Basics
-
-Table
-Lists commands that allow you to insert and edit tables with text.
-Form
-Has commands that create fill-in forms.
-Tools
-Lists Writer functions that handle specific tasks, including Spelling, AutoCorrect,
-Customize, and Options.
-Window
-Has commands that affect the display window.
-Help
-Links to the LibreOffice Help, What’s This?, and information about LibreOffice.
+Writer を例に挙げて Menu バーにあるメニューを解説している。省略。
 
 Toolbars
 ----------------------------------------------------------------------
 
-LibreOffice’s toolbars can be in one of two states: docked and floating. A docked toolbar is
-attached to the document’s main window, while floating toolbars are independent of the main
-window and can be moved anywhere on your screen.
-In the default LibreOffice installation, the Standard toolbar is docked at the top of the window
-across all of the LibreOffice modules and the second toolbar is in a docked to the top of the
-window. The second toolbar changes depending on which LibreOffice module is open. For
-example, if Writer or Calc are opened, the second docked toolbar is the Formatting toolbar.
-Usually, the module’s second toolbar is context-sensitive and usually its set of tools change
-depending on which object is selected. So when a graphic object is selected in Writer, the
-Drawing Object Properties toolbar, which provides tools for formatting graphics, replaces the
-Formatting toolbar. When you deselect the graphic object, the Drawing Object Properties toolbar
-closes and the Formatting toolbar reopens.
+LibreOffice のツールバーはそれが見えている場合、docked か floating のどちらかの
+状態をとる。
 
-Note
-When it is necessary to reduce the number of toolbars displayed and provide
-more space for a document, the user interface can be changed to a single-toolbar
-as an alternative to the default double-toolbar user interface.
-This single-toolbar user interface contains the most-used commands. To activate
-a single toolbar user interface, go to View > User Interface and select Single
-Toolbar from the Select Your Preferred User Interface dialog. For more
-information, see Chapter 13, Customizing LibreOffice.
+既定では、Standard ツールバーはどのアプリケーションでもウィンドウ上部に docked
+であり、二番目のツールバーが何であるかはアプリケーションによって異なる。
+
+特に重要なのは、二番目のツールバーは状況依存型であることだ。通常は何が選択されて
+いるかによってツールセットが変化する。そのため、例えば Writer で描画物が選択され
+ている場合、描画物の書式設定ツールセットである Drawing Object Properties ツール
+バーが Formatting ツールバーに取って代わる。描画物の選択を解除すると、Drawing
+Object Properties ツールバーが閉じ、Formatting ツールバーが再び開く。
+
+.. note::
+
+   ツールバーが多いのが嫌な場合、別の UI を検討するといい。:doc:`common13` 参照。
 
 Displaying or closing toolbars
-To display a toolbar, go to View > Toolbars on the Menu bar, and select the name of a toolbar
-from the submenu. All active toolbars have a check-mark next to their name.
-To close a toolbar, you can either:
-•
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Go to View > Toolbars on the Menu bar and deselect the toolbar, or
-
-•
-
-Right-click in an empty space between the icons on a toolbar and select Close Toolbar
-from the context menu.
-
-Note
-The View menu does not include floating toolbars that were created from tool
-palettes, but they are displayed in the LibreOffice window.
-
-Main LibreOffice window | 27
+ツールバーを表示するには :menuselection:`&View-->&Toolbars-->` 以下を調べろ。
+チェック印の有無で表示状態がわかる。
 
 Submenus and tool palettes
-If a toolbar item has submenus, there will be a small triangle ▼ to the right of the tool’s icon.
-Clicking on the triangle will display submenus containing further commands, tool palettes, or
-alternative methods of selecting items.
-A tool palette is a pop-up collection of tools attached to a single tool on a toolbar. Tool palettes
-can be made into floating sub-toolbars using the following example:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Figure 5: Example of creating floating sub-toolbar from a tool palette
-1)
+ツールバーの項目にサブメニューがある場合、ツールアイコンの右側に▼が表示される。
+これをクリックすると、さらなるコマンド、ツールパレット、項目を選択する別の方法を
+含むサブメニューが表示される。ツールパレットとはツールバーの単一ツールに付属する
+ツールのポップアップの集まりだ。ツールパレットは、次の例を使用して floatingツー
+ルバーにすることが可能だ。
 
-Click on Basic Shapes on the Drawing toolbar to open the tool palette.
+#. |DrawingToolbar| の Basic Shapes をクリックしてツールパレットを開く。
+#. ツールバーハンドル（……に見える部分）をクリックし、ツールパレットを開いている
+   文書上めがけてドラッグする。
+#. ツールバーハンドルを離すと、ツールパレットは floating ツールバーになる。
 
-2)
+.. note::
 
-Click on the toolbar handle (highlighted in Figure 5) and drag the tool palette onto the
-open document.
-
-3)
-
-Release the toolbar handle and the tool palette becomes a floating toolbar.
-
-Note
-If the toolbar handle is not visible, the tool palette, or toolbar, is locked into its
-docked position and has to be unlocked. See “Locking and unlocking toolbars”
-below for more information.
+   ツールバーハンドルが表示されていない場合、ツールパレットまたはツールバーは
+   docked 位置に固定されているため、それを解除する必要がある。この次の節を参照。
 
 Locking and unlocking toolbars
-If you want to lock all toolbars into place, which will prevent all toolbars from being moved, select
-View > Toolbars on the Menu bar and select Lock Toolbars on the submenu. LibreOffice has to
-be restarted to lock all toolbars. If the command Lock Toolbars has a check mark next to it, all
-toolbars will be locked.
-To unlock all toolbars and allow all toolbars to be repositioned, or turned into floating toolbars, go
-to View > Toolbars on the Menu bar and select Lock Toolbars on the submenu. To finish
-unlocking all toolbars, LibreOffice has to be restarted to complete this task. Once you have
-finished unlocking the toolbars, the check mark will removed from the command Lock Toolbars.
-However, if you single toolbar to prevent it from being repositioned, or turned into a floating
-toolbar, right-click in an empty space on the toolbar and select Lock Toolbar Position from the
-submenu that opens. A check mark appears against Lock Toolbar Position.
-To unlock a single toolbar so that it can be repositioned, or used as a floating toolbar, right-click in
-an empty space on the toolbar and select Lock Toolbar Position from the submenu that opens.
-The check mark next to Lock Toolbar Position is removed.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ツールバー全部を完全固定する手段が用意されている。|MenuBar| から
+:menuselection:`&View-->&Toolbars-->&Lock Toolbars` を選択するのだ。ただ
+し、LibreOffice を再起動する必要がある。このコマンドメニュー項目にチェック印が付
+いていれば、ツールバーロックが機能していることを示す。
+
+この状態を解除するには、同じ手順でチェック印を外す。再起動がやはり必要。
+
+ツールバー全部ではなく、単一のツールバーに対して位置を固定したい場合には、ツール
+バーの空き地を右クリックして :menuselection:`&Lock Toolbar Position` を選択す
+る。項目にチェック印が付く。解除する場合も同じ項目を選択してチェックを外す。
 
 Moving, docking and floating toolbars
-If a toolbars is docked and not locked, it will have a toolbar handle at the left end of the toolbar.
-This dotted toolbar handle is highlighted in Figure 6. This handle is used to control the location of
-the toolbar.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-28 | Chapter 1, LibreOffice Basics
+ツールバーが docked かつ固定されていない場合、ツールバーの左端に︙のようなツール
+バーハンドルがある。このハンドルはツールバーの位置を制御するためのものだ。
 
-Figure 6: Example of toolbar handles
-1)
+このハンドルをマウスで適当にドラッグすればツールバーの位置がそれらしく移動する。
 
-Move the cursor over the toolbar handle (the small vertical bar of dots to the left of a
-docked toolbar). The cursor will change shape to the moving shape used by the computer
-system.
+ツールバーが floating である場合、その移動方法は簡単だ：
 
-2)
-
-Click on the toolbar handle and drag the toolbar to a new docked position, or create a
-floating toolbar, then release the toolbar. When the toolbar becomes a floating toolbar, the
-toolbar handle disappears.
-
-To move a floating toolbar, use one of the following methods:
-•
-
-Click in the toolbar title bar and drag the toolbar to a new floating position in the main
-window, then drop the toolbar.
-
-•
-
-Select the toolbar title bar and drag the toolbar into a location in which it can be docked.
-You can dock a toolbar at the top, the left side, and the bottom of the main window.
-
-•
-
-Select the downward triangle ▼ on the toolbar title bar, then select Dock Toolbar from
-the available options. The toolbar is docked in its default position. For example, the
-docked position for the Bullets and Numbering toolbar is at the bottom of the main
-window.
-
-Note
-When you are moving a toolbar into a docked location, LibreOffice will indicate
-that the toolbar is in a docked position when you see a hashed border around the
-toolbar. Once the hashed border appears, release the toolbar and the toolbar is
-docked.
+* ツールバーのタイトルバーをドラッグする
+* ▼をクリックしてドロップダウンメニューから適当なコマンドを実行する
 
 Context sensitive toolbars
-Some toolbars in LibreOffice are context sensitive and only open when an object is selected, or
-the cursor has been positioned in text. For example:
-•
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The cursor is positioned in a table and the Table toolbar opens.
+LibreOffice のツールバーの中には、物が選択されたとき、またはキャレットがテキスト
+内に置かれたときにしか開かない、状況依存型のものがある。例:
 
-•
-
-The cursor is positioned in an ordered or unordered list, and the Bullets and Numbering
-toolbar opens.
-
-•
-
-An image is selected and the Image toolbar opens.
+* 表組にキャレットが置かれると |TableToolbar| が開く
+* 順序付き一覧または順序なし一覧にキャレットが置かれると、|BnNToolbar| が開く
+* 画像が選択されると |ImageToolbar| が開く
 
 Customizing toolbars
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To customize a toolbar, you can add tools listed in Visible Buttons, or add new tools to a toolbar.
 Also, you can access the customization options for a toolbar by right-clicking in an empty space
 on a docked toolbar or clicking on the downward triangle ▼ on the title bar of a floating toolbar to
