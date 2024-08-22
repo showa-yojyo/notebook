@@ -11,4 +11,4 @@ LibreOffice 共通ノート（詳細版）
    :glob:
    :maxdepth: 2
 
-   ./common-*
+   ./common*
