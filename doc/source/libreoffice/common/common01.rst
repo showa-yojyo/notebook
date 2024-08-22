@@ -375,6 +375,166 @@ Closing documents
    アプリケーション本体を終了するコマンドと文書を閉じるコマンドは、関係はあるが
    別物であると考えたい。
 
+Printing
+======================================================================
+
+Default printer
+----------------------------------------------------------------------
+
+|StandardToolbar| :guilabel:`Print Directly` 図像にマウスをホバーさせると、
+ツールチップテキストで既定印刷機を確認可能。
+
+Quick printing
+----------------------------------------------------------------------
+
+上述のコマンドで開いている文書全体を既定印刷機を使って印刷する「クイック印刷」が
+可能だ。これは |StandardToolbar| にあるこの図像からでしか実行できないようなので、
+これだけはツールバーから隠さないようにしておくのがいい。
+
+Printer setup
+----------------------------------------------------------------------
+
+.. note::
+
+   |PrinterSetupDlg| に :guilabel:`Options` のある LibreOffice アプリケーション
+   は Writer か Calc しかない。
+
+LibreOffice に対して印刷機を設定する手順は次のようなものだ。印刷機を実際に備えな
+いといけない。Microsoft Print to PDF でもいいが。
+
+#. 印刷機と計算機を接続する。
+#. |MenuBar| :menuselection:`&File-->P&rinter Settings...` で |PrinterSetupDlg|
+   を開く。
+#. :guilabel:`Option&s...` ボタンを押して |PrinterOptionsDlg| を開く。
+#. 必要な選択肢を選択し、|OK| を押して |PrinterOptionsDlg| を閉じる。
+#. 必要に応じて |PrinterSetupDlg| :guilabel:`&Properties...` を押して OS 搭載の
+   既定印刷機プロパティーシートを開く。
+#. 必要な性質を選択し、|OK| を押してプロパティーシートを閉じる。
+#. |OK| を押して |PrinterSetupDlg| を閉じる。
+
+LibreOffice printing options
+----------------------------------------------------------------------
+
+General printing options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+計算機に印刷機をインストールした後ならば、LibreOffice の一般的な印刷オプションを
+カスタマイズ可能だ。|OptionsDlg| |LibreOfficePrintPage| を開く。LibreOffice の一
+般的な印刷オプションのうち、私が触りそうなものを挙げておく。
+
+* :guilabel:`Con&vert colors to grayscale` チェックボックス
+* :guilabel:`Warnings` 区画のチェックボックス全部
+
+  * :guilabel:`P&aper size`
+  * :guilabel:`Pap&er orientation`
+  * :guilabel:`&Transparency`
+
+.. note::
+
+   LibreOffice から印刷機への送信データ量を削減すると印刷ファイルが小さくなり、
+   印刷速度が向上する。ただし、印刷品質とのトレードオフとなる。
+
+LibreOffice modules printing options
+----------------------------------------------------------------------
+
+LibreOffice アプリケーション別印刷設定の出し方は：
+
+#. |OptionsDlg| を開く
+#. アプリケーションの名前 (e.g. LibreOffice Calc) ノードから
+   :menuselection:`Print` を選択する
+
+次の選択肢がアプリケーションによってあったりなかったりする：
+
+* 印刷するページ、シート、スライドを（個別に）選択する
+* 複数のページ、シート、スライドを一ページに印刷する
+* パンフレットとして印刷する
+* 封筒として印刷する
+* ラベルや名刺として印刷する
+* 印刷前にプレビューする
+
+Controlling printing
+----------------------------------------------------------------------
+
+印刷直前に |PrintDlg| で印刷をさらに制御することが可能だ。
+
+General printing options — Windows or Linux
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Impress の |PrintDlg| |GeneralTab| の例が述べられている。Writer や Calc でも似た
+構成になると考えられる。
+
+General printing options — macOS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+割愛。
+
+LibreOffice module printing options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+割愛。アプリケーション個別の説明書にある印刷の章を参照。
+
+Brochure printing
+----------------------------------------------------------------------
+
+Writer, Impress, Draw では、文書を正しい順序で印刷し、冊子に仕上げることが可能
+だ。ページ数のかさむ職務経歴書をまとめるのに使えるか？
+
+Single sided printing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+片面印刷しかできない印刷機で小冊子を作成する方法の例。
+
+#. |PrintDlg| を開く。
+#. |GeneralTab| では必要に応じて印刷機を選択する。
+#. :guilabel:`Pr&operties...` ボタンを押して印刷機のプロパティーシートを開き、紙
+   面に対するページ設定で指定したのと同じ向きに印刷機が設定されていることを確認
+   する。冊子印刷の場合はここが急所だ。
+#. |OK| を押して |PrintDlg| に戻る。
+#. |R&C| で :guilabel:`All Slides` を選択する。冊子を作成するには最低四頁が必
+   要。
+#. |R&C| で必要な部数に合わせて :guilabel:`&Number of copies required` を指定。
+#. :guilabel:`Label` で :guilabel:`Broch&ure` を選択。
+#. |R&C| :guilabel:`Inclu&de` ドロップダウンリストで :guilabel:`Even slides` を
+   選択。
+#. |OK| を押して文書の偶数頁を印刷する。
+#. 印刷したページを印刷機から取り出し、正しい向きで印刷機給紙場所に戻して、用紙
+   の反対側に印刷する用意をする（正しい配置を見つけるのに試行錯誤が必要な場合が
+   ある）。
+#. |R&C| :guilabel:`Inclu&de` ドロップダウンリストで :guilabel:`Odd slides` を選
+   択。
+#. |R&C| で :guilabel:`&Number of copies required` を偶数頁のときと同じ値に指定。
+#. |OK| を押して文書の奇数頁を印刷する。ダイアログボックスを閉じてよい。
+#. 冊子を綴じる。
+
+Double sided or duplex printing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+両面印刷が可能な印刷機で冊子を印刷すれば製本がさらに容易になる。片面手順のときと
+の違いは：
+
+* |R&C| で :guilabel:`Print on both sides (duplex long edge)` または
+  :guilabel:`Print on both sides (duplex short edge)` を選択。通常、縦印刷には長
+  辺綴じ、横印刷には短辺綴じを使用する。
+* |R&C| で :guilabel:`C&ollate` をオンにする。この選択肢は同じ文書を複数部印刷す
+  る場合に限り有効だ。
+
+Print previewing
+----------------------------------------------------------------------
+
+Writer および Calc では、印刷前にプレビュー可能。この機能は特に文書を両面印刷す
+る場合に便利で、文書を印刷する前に間違いがないことを確認する。
+
+#. |PrintPreviewToolbar| を次のように開く：
+
+   * |MenuBar| |FilePrintPreviewM| を選択
+   * |StandardToolbar| |TogglePrintPreviewI| をクリック
+   * キーバインド |Ctrl+Shift| + :kbd:`O` を押す
+#. ツールバーの左側にある図像から必要なプレビューを選択する
+#. 印刷プレビューから文書を印刷するには、|PrintPreviewToolbar| :guilabel:`Print`
+   図像をクリックして |PrintDlg| を開く。
+#. プレビューを閉じるには、|PrintPreviewToolbar| :guilabel:`Close Preview` をク
+   リックする。文書が通常の表示に戻る。
+
 ----
 
 .. rubric:: 章末注
