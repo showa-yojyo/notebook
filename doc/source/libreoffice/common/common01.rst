@@ -223,6 +223,158 @@ Sidebar
 * |Sidebar| 右上のハンバーガーをクリックして :menuselection:`Dock` を選択する。
 * キーバインド |Ctrl+Shift| + |F10| を押す。
 
+Working with documents
+======================================================================
+
+New documents
+----------------------------------------------------------------------
+
+LibreOffice アプリケーションは新規文書を作成する方法が複数ある。
+
+* Start Center を開いてアプリケーション名をクリックする
+* Start Center にある :guilabel:`Templates` をクリックする
+* |MenuBar| :menuselection:`&File-->&New-->` から文書形式を選択する
+* |StandardToolbar| にある :guilabel:`New` ボタン脇の ▼ をクリックして以下同様
+* キーバインド |Ctrl+N| を押す
+* |MenuBar| :menuselection:`&File-->&Wizards-->` サブメニューから以下同様
+
+Opening existing documents
+----------------------------------------------------------------------
+
+既存の LibreOffice 文書を適切なアプリケーションで開く方法も複数ある：
+
+* Start Center で :guilabel:`Open File` をクリック
+* |MenuBar| から :menuselection:`&File-->&Open...` を選択
+* |StandardToolbar| から :guilabel:`Open` を押す
+* キーバインド |Ctrl+O| を押す
+
+以上の方法ではファイルダイアログボックスが開く。そこで開くファイルを指定する。
+
+* Start Center で :guilabel:`Recent Documents` をクリック
+* |MenuBar| から :menuselection:`&File-->Recent Doc&uments-->` サブメニューを出す
+
+以上の方法ではファイル一覧が示される。そこで開くファイルを指定する。
+
+.. note::
+
+   直近ファイル一覧は LibreOffice が独自に覚えているファイルなので、ファイルシス
+   テムにはすでに存在しない場合がある。その場合にはサムネイル上の操作により一覧
+   から排除するといい。なお、右上のハンバーガーメニューに一括排除コマンドがあ
+   る。
+
+Saving documents
+----------------------------------------------------------------------
+
+LibreOffice は文書を保存する方式が複数ある。
+
+Save
+   現在のファイルパスを保持したまま、すべての変更を保存する。
+
+   * |MenuBar| :menuselection:`&File-->&Save...` を実行
+   * キーバインド |Ctrl+S| を押す
+   * |StandardToolbar| :guilabel:`Save` 図像を押す
+Save As
+   文書を新規作成したり、ファイルパスやファイル形式を変更したり、計算機システム
+   上の別の場所にファイルを保存したりする。
+
+   * |MenuBar| |SaveAsM| を実行
+   * キーバインド |Ctrl+Shift| + :kbd:`S` を押す
+   * |StandardToolbar| :guilabel:`Save` 図像脇 ▼ をクリックしてドロップダウンメ
+     ニューから :menuselection:`Save &As...` を実行
+Save a Copy
+   現在の文書のコピーを、計算機システムの別の場所に保存する。現在の文書は編集す
+   るために開いたままだ。
+
+   * |MenuBar| :menuselection:`&File-->&Save a cop&y...` を実行
+   * |StandardToolbar| :guilabel:`Save` 図像脇 ▼ をクリックしてドロップダウンメ
+     ニューから :menuselection:`&Save a cop&y...` を実行
+Save All
+   LibreOffice で開いているすべてのファイルを保存する。|MenuBar|
+   :menuselection:`&File-->Sa&ve All` を実行する。
+
+Saving documents automatically
+----------------------------------------------------------------------
+
+LibreOffice でファイルを自動的に保存する必要がある場合は、AutoRecovery 機能を使
+用する。ファイルが自動的に保存されると、LibreOffice は最後に保存された状態のファ
+イルを上書きする。ファイルの自動保存には次の設定が要る：
+
+#. |OptionsDlg| を開く
+#. |LoadSaveGeneralPage| を開く
+#. :guilabel:`Save` 区画にある関連項目を指定する
+#. |OK| を押してダイアログボックスを閉じる
+
+.. admonition:: 利用者ノート
+
+   この機能はオフにしておく。
+
+Using the Navigator
+----------------------------------------------------------------------
+
+Navigator は文書にある要素を木構造で表現するビューだと考えられる。これは専用ダイ
+アログボックスまたは |Sidebar| の一甲板として利用可能だ。
+
+* ダイアログボックス版は |F5| キーを押して表示切替
+* |Sidebar| 版はいったん全体を |Ctrl| + |F5| キーを押すなどして表示状態にしてから
+  対応図像をクリックするか、キーバインド |Alt| + :kbd:`4` を押す
+
+Navigator の利便性を損なわぬように、物を簡単に見つけることができるように、物には
+識別しやすい名前を付けろ。対象物を右クリックし、コンテキストメニューから
+:menuselection:`&Rename...` を実行すればいい。
+
+Displaying multiple view of a document
+----------------------------------------------------------------------
+
+LibreOffice は同じ文書に対してビューを複数開くことが可能だ。使わないので省略。
+
+Undoing and redoing changes
+----------------------------------------------------------------------
+
+Undoing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+いちばん普通の発動手順はキーバインド |Ctrl+Z| だ。
+
+Web ブラウザーの閲覧履歴のように、特定の状態に戻す方法もある。|StandardToolbar|
+の :guilabel:`Undo` 図像脇 ▼ ドロップダウンメニューから特定の時点を選択する。
+
+Redoing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+いちばん普通の発動手順はキーバインド |Ctrl+Y| だ。これも Undo コマンド同様に特定
+の時点まで文書の状態を復元できる。
+
+Repeating undo and redo commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+文書に対して最後に行った Undo または Redo 可能なコマンドを反復して実行する方法が
+ある：
+
+* キーバインド |Ctrl+Shift| + :kbd:`Y`
+* |MenuBar| :menuselection:`&Edit-->&Repeat`
+
+.. admonition:: 利用者ノート
+
+   これは意外に便利な可能性がある。
+
+Reloading documents
+----------------------------------------------------------------------
+
+|MenuBar| :menuselection:`&File-->Re&load` は GIMP でいうところの
+:menuselection:`&File-->Re&vert` に相当する。まず使わない。
+
+Closing documents
+----------------------------------------------------------------------
+
+|MenuBar| :menuselection:`&File-->&Close` コマンドを実行すると、開いている文書が
+閉じられる。その際、文書が一つしかなかった場合には LibreOffice Start Center が開
+く。
+
+.. admonition:: 利用者ノート
+
+   アプリケーション本体を終了するコマンドと文書を閉じるコマンドは、関係はあるが
+   別物であると考えたい。
+
 ----
 
 .. rubric:: 章末注
