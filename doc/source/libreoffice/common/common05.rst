@@ -691,3 +691,62 @@ Ungrouping
    * |MenuBar| :menuselection:`F&ormat-->&Group-->&Ungroup`
    * |Ctrl+Shift+Alt| + :kbd:`G`
    * 右クリックメニュー :menuselection:`&Ungroup`
+
+Fontwork
+======================================================================
+
+.. admonition:: 利用者ノート
+
+   この機能を使うつもりはないので読み流す。
+
+Fontwork ではテキスト美術作品を作成する。その作品にはさまざまな設定（線、面、位
+置、寸法）があり、さまざまな効果を選択できる。Fontwork は LibreOffice Writer,
+Calc, Draw, Impress で利用できるが、それぞれのアプリケーションにおける Fontwork
+の表示方法は若干異なる。
+
+Creating Fontwork
+----------------------------------------------------------------------
+
+#. |DrawingToolbar| の :guilabel:`Insert Fontwork` 図像をクリックするなどして
+   :guilabel:`Fontwork Gallery` ダイアログボックスを開く。
+#. ダイアログボックスから Fontwork スタイルを選択し、|OK| を押す。選択した
+   Fontwork がページの中央に表示され、ダイアログボックスが閉じる。
+#. Fontwork テキストをダブルクリックして編集モードに切り替える。
+#. Fontwork の既定テキストを置き換えるために必要なテキストを入力すると、テキスト
+   が既定テキストの上に表示される。
+#. |Esc| を押すか、Fontwork の外側をクリックすると、テキストが既定テキストに置き
+   換わる。
+
+Fontwork toolbar
+----------------------------------------------------------------------
+
+|FontworkToolbar| は Fontwork 物が選択されると表示され、活動する。ツールバーが表
+示されていない場合は、|MenuBar| :menuselection:`&View-->&Toolbars-->Fontwor&k`
+を選択する。また、|Sidebar| |PropertiesDeck| に :guilabel:`Fontwork` 盤が開き、
+そこには |FontworkToolbar| と同じ用具がある。
+
+:guilabel:`Insert Fontwork Text`
+   :guilabel:`Fontwork Gallery` ダイアログボックスを開く。
+:guilabel:`Fontwork Shape`
+   選択物の形状を変更する。図像脇にある ▼ をクリックするとサブツールバーが開き、
+   異なる Fontwork 形状を選択できるようになる。
+:guilabel:`Fontwork Same Letter Heights`
+   選択物の文字の高さを変更する。文字の高さが異なるという通常の高さにするのと、
+   すべての文字の高さが同じ高さにするのを切り替える。
+:guilabel:`Fontwork Alignment`
+   枠内のテキストの配置を指定する。テキストが二行以上にわたる場合にのみ文字揃え
+   の効果を見ることができる。:menuselection:`S&tretch Justfy` モードではすべての
+   行が完全に満たされる。
+:guilabel:`Fontwork Character Spacing`
+   文字間の間隔と kerning pairs を使用するかどうかを選択する。100% は通常の文字
+   間隔、100% 未満は文字間隔が狭く、100% 以上は文字間隔が狭くなる。
+:guilabel:`Toggle Extrusion`
+   Fontwork 物を押し出しを使って 3D 形状に変換する。詳しいことは |Draw| にある。
+
+Editing Fontwork
+----------------------------------------------------------------------
+
+Fontwork にはこの章で述べられている書式のすべてを適用することが可能だ。線の性質
+は 3D 効果のない Fontwork に割り当てろ。また、選択ハンドルとともに表示される点々
+トを動かして修正する Fontwor 図形もある。これは、台形や平行四辺形の基本図形の角
+度の変更と似ている。
