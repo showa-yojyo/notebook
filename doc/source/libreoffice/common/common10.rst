@@ -82,7 +82,6 @@ Draw では、Open Document の画像ファイル形式 (.odg, .otg) や |PDF| �
 * Portable Pixmap (.ppm)
 * |SVG| (.svg)
 * |GIF| (.gif)
-* Photoshop Document (.psd)
 
 Formulas
 ----------------------------------------------------------------------
@@ -160,6 +159,277 @@ Writer/Web は次の形式で保存可能：
 
 * |HTML| document (.html, .htm), as HTML 4.0 Transitional
 * Text and Text Encoded (LibreOffice Writer/Web) (.txt)
+
+Exporting files
+======================================================================
+
+LibreOffice では、ファイル形式が変更されるファイル操作に対してエクスポートという
+用語を使用する。Save As コマンドとは異なり、Export コマンドでは実際の文書の現在
+のファイル形式を維持したまま文書が作成される。|MenuBar| |SaveAsM| でファイル形式
+が見つからない場合は、|FileExportM| でファイル形式を確認しろ。
+
+|PDF| ファイル形式が必要な場合、LibreOffice は Writer, Calc, Impress, Draw の文
+書を |PDF| でエクスポート可能だ。Writer は |EPUB| で書き出すことも可能。また、
+LibreOffice は |HTML| および |XHTML| 形式でファイルをエクスポート可能。Draw と
+Impress がエクスポート可能な画像ファイル形式もある。
+
+.. note::
+
+   Export コマンドを使用すると、LibreOffice は選択された形式を使用して、ファイル
+   の複製を新規ファイルとして作成する。元のファイルは LibreOffice で開いたままだ。
+
+PDF quick export
+----------------------------------------------------------------------
+
+ファイルを |PDF| 形式に急速にエクスポートする必要がある場合、LibreOffice はファ
+イル形式、ページ範囲、画像圧縮などのさまざまなファイル選択肢を使用者に選択させな
+い。|PDF| 形式で急速にエクスポートするには次の手順を実行する：
+
+#. 対象のファイルを LibreOffice で開く。
+#. |ExportDlg| を開くために次のいずれかの方法を使う：
+
+   * |StandardToolbar| :guilabel:`Export Directly as PDF` 図像をクリックする。
+   * |MenuBar| :menuselection:`&File-->&Export As-->Export &Directly as PDF...`
+     を選択する。
+#. |ExportDlg| でファイル名を入力し、|PDF| ファイルを出力する場所を選択する。
+#. |Save| を押してファイルを作成し、|ExportDlg| を閉じる。
+
+.. note::
+
+   既定では、|PDF| ファイルは中身の改竄や編集から保護されていない。|PDF| ファイ
+   ルの内容は LibreOffice Draw などの専用ソフトウェアで編集することが可能だ。
+
+Controlled PDF export
+----------------------------------------------------------------------
+
+|PDF| でエクスポートされるファイルの内容や品質をさらに制御する必要がある場合は、
+|PDFOptionsDlg| で以下の操作を行う。
+
+#. 対象のファイルを LibreOffice で開く。
+#. :menuselection:`&File-->&Export As-->&Export as PDF...` を選択して
+   |PDFOptionsDlg| を開く。
+#. 各タブページで必要な選択肢を選択する。
+#. |ExportB| を押して |ExportDlg| を開く。あとは分かるだろう。
+
+General PDF options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PDFOptionsDlg| |GeneralTab| で利用可能な選択肢。
+
+Range
+   |PDF| ファイルに含まれるページを設定する。
+
+   :guilabel:`&Pages` ならばエクスポートするページを直接指定する。必要であれ
+   ば、``3-6;8;10;12`` のような書式を使って、ページ範囲と単一ページを組み合わせ
+   て指定可能。
+
+   :guilabel:`&Selection` ならば現在の選択すべてをエクスポートする。
+
+   :guilabel:`&View PDF after export` をオンにすると、エクスポート実行後に既定の
+   |PDF| 閲覧ソフトで開いてしまう。
+Images
+   |PDF| ファイル内の画像のオプションを設定する。既定の :guilabel:`&Lossless
+   compression` のままだとファイルサイズが大きくなることに注意したい。
+Watermark
+   ページの背景中央に薄緑色の透かしテキストを追加する。透かしは元文書の部分では
+   ない。
+
+   :guilabel:`Sign with &watermark` 欄に透かし署名に必要なテキストを記入する。こ
+   の選択肢を選択すると、透かし署名が |PDF| ページに描かれる。
+General
+   一般的な |PDF| エクスポート選択肢を設定する。
+
+   :guilabel:`Tagged PDF (add document structure)` をオンにすると、文書内容の構
+   造に関する情報を |PDF| ファイルに含める。エクスポートされるタグには、目次、ハ
+   イパーリンク、コントロールなどがある。ファイル容量が激増する可能性がある。
+Structure
+   しおり、コメント、ページレイアウトなど、多様な機能の選択肢を設定する。
+
+   :guilabel:`Export outl&ines` を用いると、Writer 文書のしおりを |PDF| のそれと
+   してエクスポートする。アウトライン段落および元文書でハイパーリンクが割り当て
+   られているすべての目次項目に対してしおりが作成される。アウトライン階層 1 から
+   10 の段落しかエクスポートされない。たとえば、Outline 階層が *Text Body* の場
+   合、*Paragraph Style* の既定版である *Title* はエクスポートされない。
+
+   :guilabel:`Comm&ents as PDF annotations` をオンにすると、コメントが註釈として
+   |PDF| ファイルに含まれる。LibreOffice で表示されているように Writer 文書のコ
+   メントをエクスポートするには、|OptionsDlg| :menuselection:`LibreOffice
+   Writer-->Print` ページ内 :guilabel:`Comments` ラジオボタングループで
+   :guilabel:`In margins` をオンにする。エクスポートされたページは縮小され、コメ
+   ントが余白に配置される。
+
+   :guilabel:`Exp&ort automatically inserted blank pages` をオンにすると、白紙
+   ページが |PDF| ファイルに自動的に挟み込まれる。両面印刷する場合に検討するべき
+   選択肢だ。たとえば、書籍では通常、奇数（右側）ページから章が始まるように設定
+   されている。前の章が奇数ページで終わっている場合、LibreOffice では二つの奇数
+   ページの間に空白ページが挟まる。
+
+Initial View PDF options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PDFOptionsDlg| :guilabel:`Initial View` タブでは、|PDF| ファイルを |PDF| 閲覧
+ソフトで既定で開く方法を決定する。
+
+Panes
+   基本的には :guilabel:`Out&line and page` を選びたい。ペラ一枚の文書などでは
+   :guilabel:`&Page only` でかまわない。
+Magnification
+   最適値は愛用する閲覧ソフトにより異なると考えられる。:guilabel:`&Default` があ
+   まり良くない。:guilabel:`Fit &width` が良いのではないか。
+Page layout
+   これは文書の目的により選択肢を選ぶのが望ましい。おそらく :guilabel:`&Single
+   page` か :guilabel:`Conti&nuous facing` になる。
+
+User Interface PDF options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PDFOptionsDlg| の :guilabel:`User Interface` タブでは、外部 |PDF| 閲覧ソフトの
+インターフェイスの表示方法を指定できる。スライドショーやキオスク型ディスプレイと
+して使用される |PDF| ファイルを作成する必要がある場合、これらのオプションは便利
+だ。
+
+Window Options
+   :guilabel:`&Resize window to initial page`
+      初期ページ全体を表示するウィンドウで表示される |PDF| ファイルを生成する。
+   :guilabel:`&Center window on screen`
+      |PDF| 閲覧ソフトを画面中央に表示させるファイルを生成する。
+   :guilabel:`&Open in full screen mode`
+      |PDF| 閲覧ソフトを全画面表示モードで開くファイルを生成する。
+   :guilabel:`&Display document title`
+      |PDF| 閲覧ソフトのタイトバーにファイルタイトルを示すファイルを生成する。
+User Interface Options
+   メニュー、ツールバー等を隠すかどうかを指定する項目からなる。割愛。
+Transitions
+   :guilabel:`&Use transition effects` はおそらく Impress 専用。スライド遷移効果
+   を |PDF| 効果それぞれにエクスポートする。
+Collapse Outlines
+   アウトライン木の表示に関わるので、
+
+   :guilabel:`Show &All`
+      |PDF| 閲覧ソフトでファイルを開いたときに、すべてのアウトラインレベルをしお
+      りとして表示するかどうか。
+   :guilabel:`&Visible levels`
+      |PDF| 閲覧ソフトでファイルを開いたときに、選択した階層までのしおりを表示す
+      る場合に選択する。
+
+Links PDF options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PDFOptionsDlg| の :guilabel:`Link` タブではアウトラインとハイパーリンクを文書内
+でどのように書き出すかを指定する。
+
+General
+   :guilabel:`&Export outlines as named destinations`
+      オンにすると、文書内の物体名を有効なしおり対象としてエクスポートすることが
+      可能になる。これにより、他の文書から名前によって物体をエクスポートすること
+      が可能になる。
+   :guilabel:`&Convert document references to PDF targets`
+      |URL| のファイル名拡張子を ``ODF`` から ``PDF`` に自動的に変換する。参照
+      |URL| の拡張子 ``.odt``, ``.odp``, ``.ods``, ``.odg``, ``.odm`` は拡張子
+      ``.pdf`` に変換する。
+   :guilabel:`Export &URLs relative to file system`
+      |URL| はファイルシステム内の相対 |URL| として他の文書にエクスポートする。
+Cross-document links
+   |PDF| ファイルから他のファイルへのハイパーリンクの処理方法を指定する。
+
+   :guilabel:`&Default mode`
+      計算機の OS に従う。
+   :guilabel:`&Open with PDF reader application`
+      自身以外文書へのリンクは、その文書を現在表示している |PDF| 閲覧ソフトで開
+      かれる。そのソフトがハイパーリンク内で指定されているファイル型を扱える必要
+      がある。
+   :guilabel:`Open &with Internet browser`
+      上記項目の Web ブラウザー版。
+
+Security PDF options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PDFOptionsDlg| :guilabel:`Security` タブではエクスポートされた |PDF| ファイルで
+使用される安全保障選択肢を指定する。
+
+.. note::
+
+   パスワードによって設定された文書権限制限は |PDF| 1.5 に準拠した |PDF| 閲覧ソ
+   フトによってしか確認されていない。それより古いソフトでは効かない可能性がある。
+
+File Encryption and Permission
+   :guilabel:`Set &Passwords...`
+      パスワードを入力するダイアログボックスを開く。|PDF| ファイル閲覧者が文書を
+      編集または印刷できるパスワードを設定する。
+Printing
+   :guilabel:`&Not permitted`
+      印刷不能。
+   :guilabel:`&Low resolution (150 dpi)`
+      文書は低解像度でしか印刷されない。この指定を無視するソフトもあるだろう。
+   :guilabel:`&High resolution`
+      高解像度で印刷可能。
+Changes
+   :guilabel:`No&t permitted`
+      変更不可。
+   :guilabel:`&Inserting, deleting, and rotating pages`
+      これらの操作を許可する。
+   :guilabel:`&Filling in form fields`
+      フォーム欄への記入を許可する。
+   :guilabel:`&Commenting, filling in form fields`
+      コメントとフォーム欄に限り、記入を許可する。
+   :guilabel:`&Any except extracting pages`
+      ページの抽出を除き、変更をすべて許可する。
+Contents
+   これらはオンでないと話にならない。
+
+   :guilabel:`Ena&ble copying of content`
+      内容はクリップボードにコピーできる。
+   :guilabel:`Enable text access for acce&ssibility tools`
+      この手段が何なのかわからないが、とにかく有効にする。
+
+Digital Signature PDF options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|PDFOptionsDlg| :guilabel:`Digital Signatures` タブではエクスポートした |PDF|
+ファイルにどのように電子署名を付けるかを指定する。
+
+* 電子署名は、|PDF| が本当に元の作者によって作成されたものであり、その文書が署名
+  された後に変更されていないことを保証するのに用いられる。
+* 署名付き |PDF| エクスポートは、既定の鍵置場かスマートカードにすでに保存
+  されている鍵 と X.509 証明書を使う。
+* スマートカードを使用する場合、既定の鍵置場で使用にすでに構成されている必要があ
+  る。これは通常、スマートカードソフトウェアのインストール時に済んでいる。
+
+.. admonition:: 読者ノート
+
+   この節の内容がまったく理解できないので、丸写ししておく。
+
+Certificate
+   :guilabel:`&Use this certificate to digitally sign PDF documents`
+      |PDF| エクスポートの署名に使用する証明書を選択する。
+
+      :guilabel:`&Select...`
+         :guilabel:`Select Certificate` ダイアログボックスを開く。
+
+         選択した鍵置場で見つかった証明書すべてが表示される。鍵置場がパスワード
+         で保護されている場合は、パスワードの入力を求めるプロンプトが表示され
+         る。|PIN| で保護されているスマートカードを使用している場合は |PIN| を入
+         力するプロンプトが表示される。
+
+         エクスポートした |PDF| の電子署名に使用する証明書を、該当する行をクリッ
+         クして選択し :guilabel:`Select` ボタンを押す。
+
+      :guilabel:`Digital Signature` タブの他の欄には証明書が選択された後にのみ出
+      入りできる。
+   :guilabel:`Certificate &password`
+      選択した証明書に関連する秘密鍵を保護するために使用するパスワードを入力す
+      る。通常は鍵場所のパスワードだ。
+   :guilabel:`&Location`, :guilabel:`Contact &information`, :guilabel:`&Reason`
+      |PDF| に適用された電子署名に関する追加情報を記入することができる。これらの
+      情報は適切な |PDF| 欄に埋め込まれ、閲覧者に示される。それぞれの欄はすべて
+      空白のままでもかまわない。
+   :guilabel:`&Time Stamp Authority`
+      |PDF| 署名工程が時刻認証局を使って電子署名された時刻標記を取得し、それを署
+      名に埋め込む。この時刻標記により、|PDF| の閲覧者は文書署名された時刻を検証
+      することができる。
+
+      当欄 |URL| が選択されていない場合、署名に付される時刻標記は現地計算機の現
+      在時刻が使用される。
 
 ----
 
