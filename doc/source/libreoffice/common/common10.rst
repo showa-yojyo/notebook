@@ -26,9 +26,9 @@ Writer は Open Document テキスト形式 (.odt、.ott、.oth、.odm、.fodt) 
 * Microsoft Word 2007/2010 XML (.docx, .docm, .dotx, .dotm)
 * Microsoft WinWord 5 (.doc)
 * Microsoft Works (.wps)
-* Text CSV (.csv)
+* Text |CSV| (.csv)
 * DocBook (.xml)
-* HTML Document (.htm, .html)
+* |HTML| Document (.htm, .html)
 * eBook (.pdb)
 
 .. admonition:: 読者ノート
@@ -47,8 +47,8 @@ Calc では Open Document のスプレッドシート形式 (.ods, .ots, .fods) 
 * Microsoft Excel 2007-365 (.xlsx, .xlsm, .xltx, .xltm)
 * Microsoft Excel 2007-2010 binary (.xlsb)
 * Rich Text Format (.rtf)
-* Text CSV (.csv and .txt)
-* HTML Document (.htm and .html files, including Web page queries)
+* Text |CSV| (.csv, .txt)
+* |HTML| Document (.htm, .html)
 
 Presentations
 ----------------------------------------------------------------------
@@ -94,6 +94,72 @@ Math は OpenOffice.org 1.x (.sxm), StarMath (.smf), MathML (.mml) ファイル�
 :menuselection:`Load/Save-->MicroOffice` ページで :guilabel:`MathType to
 LibreOffice Math or reverse` がオンである場合、MS 数式は LibreOffice Math 数式に
 自動的に変換される。
+
+File formats for saving
+======================================================================
+
+LibreOffice ではファイルを |ODF| 形式で保存するのが強く推奨される。ただし、必要
+に応じて他の形式で保存することも可能だ。
+
+.. tip::
+
+   文書を共有する必要があり、内容をもう変更する予定がない場合、|PDF| に変換する
+   ことが望ましい。LibreOffice ではその変換は用意だ。
+
+Text documents
+----------------------------------------------------------------------
+
+|ODF| 以外の保存可能形式は次のとおり：
+
+* Microsoft Word 2007-365 (.docx, .dotx)
+* Microsoft Word 97-2003 (.doc)
+* Microsoft Word 2003 XML (.xml)
+* Rich Text Format (.rtf)
+* Text (.txt)
+* |HTML| Document (.html, .htm)
+* DocBook (.xml)
+
+.. note::
+
+   LibreOffice はパスワードで保護された Microsoft Word 文書を保存可能だ。
+
+Spreadsheets
+----------------------------------------------------------------------
+
+|ODF| スプレッドシート形式 (.ods, .ots, and .fods) のほか、次の形式で保存可能：
+
+* Microsoft Excel 2007-365 XML (.xlsx)
+* Microsoft Excel 97-2003 (.xls, .xlw)
+* Microsoft Excel 97-2003 Template (.xlt)
+* Text |CSV| (.csv; .txt)
+* Microsoft Excel 2003 XML (.xml)
+* |HTML| Document (Calc) (.html, .htm)
+
+Presentations
+----------------------------------------------------------------------
+
+|ODF| (.odp, .otp, .fodp, .odg) のほか、次の形式で保存可能。また、Draw 互換の画
+像形式への書き出しも可能：
+
+* Microsoft PowerPoint 2007-365 (.pptx, .potm)
+* Microsoft PowerPoint 2007-365 AutoPlay (.ppsx)
+* Microsoft PowerPoint 97-2003 (.ppt)
+* Microsoft PowerPoint 97-2003 Template (.pot)
+* Microsoft PowerPoint 97-2003 AutoPlay (.pps)
+
+Drawings
+----------------------------------------------------------------------
+
+Draw は |ODF| Drawing 形式で保存でき、画像形式 BMP, |EPS|, |GIF|, |JPG|, |PNG|,
+|SVG|, |TIFF| などにエクスポートすることも可能だ。
+
+Writer/Web documents
+----------------------------------------------------------------------
+
+Writer/Web は次の形式で保存可能：
+
+* |HTML| document (.html, .htm), as HTML 4.0 Transitional
+* Text and Text Encoded (LibreOffice Writer/Web) (.txt)
 
 ----
 
