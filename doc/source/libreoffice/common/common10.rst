@@ -532,10 +532,10 @@ EPUB export options
 Creating HTML files
 ======================================================================
 
-Writer で :menuselection:`&View-->&Web` を選択すると、テキスト文書が Web ページ
-としてどのように描画されるかが示される。ただし、Web 表示ではどの機能が |HTML| 形
-式で正しく保存されるか、されないのかが表示されない。テキスト文書から Web ページ
-を作成する方法については :ref:`common10-anchor-A` を見ろ。
+Writer で |ViewWebM| を選択すると、テキスト文書が Web ページとしてどのように描画
+されるかが示される。ただし、Web 表示ではどの機能が |HTML| 形式で正しく保存される
+か、されないのかが表示されない。テキスト文書から Web ページを作成する方法につい
+ては :ref:`common10-anchor-A` を見ろ。
 
 .. admonition:: 利用者ノート
 
@@ -649,6 +649,83 @@ HTML options
 
 HTML files using Writer/Web
 ======================================================================
+
+LibreOffice Writer には |HTML| 形式のファイルを作成、編集、保存できる Writer/Web
+という構成がある。Writer/Web は |HTML| 形式の文書を扱う場合にしか使い物にならな
+い。
+
+Display modes
+----------------------------------------------------------------------
+
+既定では Writer/Web は |HTML| ファイルを Normarl ビューで開く。Writer/Web を Web
+ビューに変更するには、|MenuBar| |ViewWebM| を選択する。必要に応じて、Normal
+ビューまたは Web ビューを使用して |HTML| 文書の内容を編集および書式設定する。
+|HTML| 文書の中身は Web ブラウザーで展示されるように描画される。
+
+Writer/Web は |HTML| 文書のソースコードを表示することも可能だ。|MenuBar|
+:menuselection:`&View-->HT&ML Source` を使う。この表示モードは Web ページの書式
+やページ要素を変更するために用いる。マークアップの知識と経験が必要だ。
+
+Creating and editing
+----------------------------------------------------------------------
+
+|HTML| 文書を作成するには次のようにする：
+
+#. :menuselection:`&File-->&New-->&HTML Document` を選択する。Writer/Web は Web
+   表示モードで空白文書を開く。
+#. テキスト、画像などの内容物を入力または貼り付けて、文書に中身を追加する。
+#. スタイルで中身を編集して書式設定する機能を含め、Writer/Web で利用可能なすべて
+   の書式設定資源を使用する。
+#. 編集が完了したら、|SaveAsM| で |HTML| ファイル型で文書を保存する。
+#. Web ブラウザーで |HTML| 文書を眺め、正しく描画されていることを確認する。
+
+Editing source code
+----------------------------------------------------------------------
+
+|HTML| 文書のソースコードを編集するには：
+
+#. |HTML| 文書を開くか作成する。
+#. 次のいずれかでビューを開く：
+
+   * |MenuBar| :menuselection:`&View-->HT&ML Source` を選択する。
+   * |StandardToolbar| :guilabel:`HTML Source` 図像（中括弧対）をクリックする。
+#. ソースコードを編集する。
+#. 以下、保存手順に合流。
+
+Previewing HTML documents
+----------------------------------------------------------------------
+
+|HTML| ファイルはどの Web ブラウザーでも同じように表示されるわけではないため、複
+数のブラウザーで |HTML| 文書を検視する必要がある。LibreOffice で既定の Web ブラ
+ウザーを開き、|HTML| 文書ドキュメントを表示するには、次のいずれかの手段をとる：
+
+* |MenuBar| :menuselection:`&File-->Preview in Web &Browser`
+* |StandardToolbar| :guilabel:`Preview in Web Browser`
+* Web ブラウザーで直接開く。
+
+Writer/Web options
+----------------------------------------------------------------------
+
+|OptionsDlg| :menuselection:`LibreOffice Writer/Web` で |HTML| 形式 LibreOffice
+文書の基本設定を定義可能だ。
+
+:menuselection:`View`
+   テキスト文書の物体表示およびウィンドウ要素の既定の設定を定義する。
+:menuselection:`Formatting Aids`
+   LibreOffice テキストおよび |HTML| 文書の特定の文字とダイレクトカーソルの表示
+   を定義する。
+:menuselection:`Grid`
+   文書ページに対して構成可能な格子の設定を指定する。この格子は物体の正確な位置
+   を決定するのに役立つ。また、この格子を LibreOffice の吸着格子に合わせるように
+   設定することも可能だ。
+:menuselection:`Print`
+   テキストおよび |HTML| 文書に対する印刷設定を指定する。
+:menuselection:`Table`
+   テキスト文書内の表組の属性を定義する。
+:menuselection:`Background`
+   |HTML| 文書の背景を指定する。|HTML| 文書を新規に作成する場合と、すでに作成さ
+   れている |HTML| 文書に対して有効。この選択肢を使用するには、|HTML| 文書に背景
+   が定義されていない必要がある。
 
 ----
 
