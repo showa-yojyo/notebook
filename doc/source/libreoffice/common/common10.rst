@@ -727,6 +727,28 @@ Writer/Web options
    れている |HTML| 文書に対して有効。この選択肢を使用するには、|HTML| 文書に背景
    が定義されていない必要がある。
 
+Emailing documents
+======================================================================
+
+LibreOffice には文書を電子メールの添付ファイルとして送信する方法が複数ある。
+文書形式は次の三つから選べる：
+
+* Open Document Format
+* Microsoft Office 形式
+* Portable Document Format
+
+#. |MenuBar| :menuselection:`&File-->Send-->` から以下のいずれかを選ぶ：
+
+   * :menuselection:`&Email Document...`: 既定のメールプログラムが開き、文書が
+     メールメッセージに添付される。
+   * :menuselection:`Email as &OpenDocument XXXX...`: LibreOffice 文書形式
+     のままファイルを添付する？
+   * :menuselection:`Email as &Microsoft XXXX...`: LibreOffice が Microsoft
+     Office 形式のファイルを作成し、以下同様。
+   * :menuselection:`Email as &PDF...`: |PDFOptionsDlg| がまず開く。次に必
+     要な設定を選択し |OK| を押す。以下同様。
+#. メールプログラムでメールを送信する。
+
 ----
 
 .. rubric:: 章末注
