@@ -749,6 +749,39 @@ LibreOffice には文書を電子メールの添付ファイルとして送信�
      要な設定を選択し |OK| を押す。以下同様。
 #. メールプログラムでメールを送信する。
 
+Files on remote servers
+======================================================================
+
+LibreOffice はリモートサーバー [#1]_ に保存されたファイルを開いたり保存したりす
+ることが可能だ。
+
+LibreOffice は FTP, WebDav, Windows share, SSH などのよく知られたネットワークプ
+ロトコルを使用する文書サーバーを支援している。また、Google Drive や Microsoft
+OneNote のような一般的なサービスや、OASIS CMIS 標準を実装した商用およびオープン
+ソースのサーバーも支援している。
+
+以下の手順でリモートサーバー接続にアクセスする。実際の手順は OS, 計算機の構成、
+リモートファイルサービスの種類によって異なる。
+
+#. 以下のいずれかの方法で |RemoteFilesDlg| を開く：
+
+   * LibreOffice Start Center で :guilabel:`Remote File&s` をクリックする。
+   * |MenuBar| :menuselection:`&File-->Open &Remote...` を選択する。
+   * |MenuBar| :menuselection:`&File-->Sa&ve Remote...` を選択する。
+#. :menuselection:`&Manage Services-->&Add service` を選択して |FileServicesDlg|
+   を開く。
+#. 選択したファイルサービスによって、リモートサーバーへの接続に必要な引数が異な
+   る。
+#. テキスト欄に必要な情報を入力する。
+#. 必要に応じて :guilabel:`&Label` 欄にリモートサーバーのラベルを入力する。
+#. |OK| を押して詳細を保存し |FileServicesDlg| を閉じる。
+#. |RemoteFilesDlg| で :guilabel:`&Service` ドロップダウンリストからサービスを選
+   択する。
+#. リモートファイルがある場所に移動し、必要なファイルを選択する。
+#. |OpenB| を押してファイルを開き、|RemoteFilesDlg| を閉じる。
+
 ----
 
 .. rubric:: 章末注
+
+.. [#1] ネットワークの向こう側にある計算機。
