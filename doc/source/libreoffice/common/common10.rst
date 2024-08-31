@@ -1097,6 +1097,73 @@ Pasting contents
 クリップボードの内容が対象文書よりも高い保障分類度であることを LibreOffice が検
 出した場合、貼り付けようと試みると警告が出る。
 
+User and personal data
+======================================================================
+
+Removing data
+----------------------------------------------------------------------
+
+文書を人に送信する前に、個人情報、隠し情報、変更履歴をファイルから削除する必要が
+ある場合は、次の手順を実行する：
+
+#. |OptionsDlg| |SecurityPage| を開く。
+#. :guilabel:`O&ptions...` ボタンを押して |SecurityOptions&WarningsDlg| を開く。
+#. 警告の表示などの選択肢を選択する。次節を見ろ。
+#. |OK| を押す。
+#. |MenuBar| |FilePropertiesM| を選択して |PropertiesDlg| を開く。|GeneralTab|
+   を開く。
+#. :guilabel:`&Apply user data` をオフにし、:guilabel:`&Reset Properties` ボタン
+   を押す。
+
+   * 作成されたフィールドと変更されたフィールドの名前を除外する。
+   * 変更日と印刷日を削除する。
+   * 編集時間をゼロに、作成日時を現在の日時に、バージョン番号を 1 にリセットす
+     る。
+#. |OK| を押す。
+#. |MenuBar| :menuselection:`&File-->Versions...` で :guilabel:`Existing
+   Version` 一覧からバージョンを選択し、|DeleteB| を押す。
+
+Security options and warnings
+----------------------------------------------------------------------
+
+|SecurityOptions&WarningsDlg| の選択肢：
+
+.. rubric:: Security Warnings
+
+:guilabel:`&When saving or sending`
+   記録された変更、バージョン、コメントのいずれかを含む文書を保存または送信する
+   ときに警告する。
+:guilabel:`When &printing`
+   記録された変更やコメントを含む文書を印刷するときに警告する。
+:guilabel:`When &signing`
+   記録された変更、バージョン、フィールド、他の資料への参照、コメントのいずれか
+   を含む文書に署名するときに警告する。
+:guilabel:`When creating PDF &files`
+   Writer に記録された変更を表示したり、コメントを表示したりする文書を |PDF| 形
+   式にエクスポートするときに警告する。
+
+.. rubric:: Security Options
+
+:guilabel:`&Remove personal information on saving`
+   ファイル性質、コメント、変更履歴から使用者データを常に削除する。コメントや変
+   更の作者名は汎用値に置き換わる。時間は単一の標準値にリセットされる。
+   |PropertiesDlg| を開いて手動で削除しても同じらしい。
+:guilabel:`Recommend password protection on sa&ving`
+   |SaveAsDlg| で :guilabel:`Save with pass&word` を常に有効にする。
+:guilabel:`Ctrl-click required &to follow hyperlinks`
+   オフの場合には単純クリックだけでハイパーリンクが開いてしまう。
+:guilabel:`&Block any links from documents not among the trusted locations (see Macro Security)`
+   :guilabel:`Macro Security` ダイアログボックス :guilabel:`Trusted Source` タブ
+   で定義された信頼できる場所にない文書によるリンク画像の使用を阻止する。信頼さ
+   れていない供給源（例えばインターネット）からの文書を扱っていて、画像処理ソフ
+   トウェアの脆弱性を心配している場合、これにより安全性を高めることができる。リ
+   ンク使用を阻止すると、信頼されていない文書では画像が読み込まれず、場所確保の
+   枠しか見えない。
+
+.. admonition:: 利用者ノート
+
+   全部オンにしたいところだが、文書全てに対して適用されそうなので注意する。
+
 ----
 
 .. rubric:: 章末注
