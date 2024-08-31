@@ -1002,6 +1002,101 @@ Statistics
 
 現在のファイルの統計情報（ページ数、単語数、文字数など）を表示する。
 
+Document classification
+======================================================================
+
+.. |BAF| replace:: :abbr:`BAF (Business Authentication Framework)`
+.. |BAILS| replace:: :abbr:`BAILS (Business Authorization Identification and Labeling Scheme)`
+
+LibreOffice は :abbr:`TSCP (Transglobal Secure Collaboration Participation,
+Inc)` が作成した |BAF| 区分三つを含む開かれた標準を実装している：
+
+* 知的財産
+* 国家安全保障
+* 輸出管理
+
+この区分のそれぞれに |BAILS| という文書分類等級が四つある：
+
+* 非業務用
+* 一般業務用
+* 機密用
+* 社内専用
+
+.. admonition:: 読者ノート
+
+   冒頭の解説がよくわからないので後回し。
+
+文書分類を作動させるには |MenuBar| :menuselection:`&View-->&Toolbars-->TSCP
+Classification` を選択する。このツールバーはドロップダウンリスト一つを含む。それ
+を使って文書保障度を選ぶ。 LibreOffice は文書性質を追加することで分類策を文書の
+メタデータとして保管する。
+
+安全保障策の違反を防ぐため、高等級の内容を低等級の文書に貼り付けることは不可能
+だ。
+
+Business Authentication Framework (BAF) Categories
+----------------------------------------------------------------------
+
+次は LibreOffice 既定の |BAF| 区分だ：
+
+`Intellectual Property`
+   一般的な文書の分類にはこの区分を選択する。
+
+   .. tip::
+
+      `Intellectual Properties` 区分は、透かし、ヘッダーとフッターにあるフィール
+      ド、文書領域の上部にある情報バーを使って、文書のレイアウトを変更する。文書
+      に入る項目は分類構成ファイルが制御する。
+
+`National Security`
+   この区分を選択すると文書に国家安全保障策型が割り当てられる。選択された区分は
+   |BAILS| メタデータとして文書とともにファイル性質に保存される。文書レイアウト
+   や |UI| に変更は生じない。
+`Export Control`
+   この区分を選択すると文書に輸出管理策型が割り当てられる。後は National
+   Security と同様。
+
+.. note::
+
+   文書分類の支援については、企業のデータ保障策および情報保障責任者に問い合わせ
+   ろ。
+
+Default levels of classification
+----------------------------------------------------------------------
+
+LibreOffice には業務機密度の高い順に並べられた、以下の |BAILS| を既定で用意して
+いる：
+
+`Non-Business`
+   この文書に記載されている情報を公表しても業務に影響はない。
+`General Business`
+   軽微な影響。情報を公開すれば業務に影響を与え、恥をかき、ブランドイメージに軽
+   微な損害を与えることがある。
+`Confidential`
+   中程度の影響。開示された情報はブランドを傷つけ、否定的な報道を生み、収益を失
+   う可能性がある。
+`Internal use only`
+   大損害。否定的な国内メディア（の報道？）、訴訟、罰金、長期にわたるブランドへ
+   の印象毀損。
+
+.. admonition:: 利用者ノート
+
+   無記名の家計簿は `Non-Business` に位付けてで良かろう。
+
+Customizing classification levels
+----------------------------------------------------------------------
+
+.. admonition:: 利用者ノート
+
+   業務に対する分類の等級をカスタマイズすることは |OptionsDlg| を使えば可能だが、
+   おそらく実施しないほうがいい。
+
+Pasting contents
+----------------------------------------------------------------------
+
+クリップボードの内容が対象文書よりも高い保障分類度であることを LibreOffice が検
+出した場合、貼り付けようと試みると警告が出る。
+
 ----
 
 .. rubric:: 章末注
