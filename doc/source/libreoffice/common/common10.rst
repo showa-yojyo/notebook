@@ -1164,6 +1164,128 @@ Security options and warnings
 
    全部オンにしたいところだが、文書全てに対して適用されそうなので注意する。
 
+Redaction
+======================================================================
+
+LibreOffice 文書を黒塗り（不開示処理）すると、機密情報を削除または隠蔽すること可
+能だ。LibreOffice 文書を黒塗りすると、その部分はすべて削除され、黒塗りされた画素
+の塊に置き換えられた新しい |PDF| ファイルとしてエクスポートされる。黒塗りされた
+文書は出版や共有のために |PDF| 形式でエクスポートされる。
+
+Writer, Calc, Impress で redact された文書のコピーが Draw に自動的に転送され、そ
+こで redaction が実行される。
+
+Redaction tools
+----------------------------------------------------------------------
+
+|RedactToolbar| の構成：
+
+.. |RectangleRedactionI| replace:: :guilabel:`Rectangle Redaction` 図像
+.. |FreeformRedactionI| replace:: :guilabel:`Freeform Redaction` 図像
+.. |RedactedExportWhiteI| replace:: :guilabel:`Redacted Export (White)` 図像
+.. |RedactedExportBlackI| replace:: :guilabel:`Redacted Export (Black)` 図像
+.. |ExportPreviewPDFI| replace:: :guilabel:`Export Preview PDF` 図像
+
+|RectangleRedactionI|
+   中身を覆う透明な矩形を描くことで不開示箇所をマークする。ハンドルで修正矩形の
+   寸法を変更する。
+|FreeformRedactionI|
+   自由形状の線や多角形を描いて不開示箇所をマークする。
+|RedactedExportBlackI|
+   半透明の不開示領域を遮光性のある黒に変換し、|PDF| ファイル内の画素としてエク
+   スポートする。
+|RedactedExportWhiteI|
+   上記器具の白版。
+|ExportPreviewPDFI|
+   黒塗り文書の |PDF| ファイルを作成する前に、不開示処理をプレビューするために、
+   文書のコピーを |PDF| ファイルとして作成する。
+
+.. admonition:: 利用者ノート
+
+   Draw の |MenuBar| |ToolsRedactM| サブメニューからも上記コマンド各種を実行可
+   能。
+
+Documents, spreadsheets, or presentations
+----------------------------------------------------------------------
+
+文書、表計算、スライドショーの複製は Draw に自動的に転送され、そこで黒塗りが実行
+される。
+
+#. Writer, Calc, Impress で黒塗り対象文書を開き、|MenuBar|
+   :menuselection:`&Tools-->Re&dact` を選択すると次のようなことが起こる：
+
+   * 文書がコピー、準備され、無題ファイルとして Draw に転送される。
+   * 無題文書が表示された Draw が開く。
+   * |RedactToolbar| が自動的に開く。|RedactToolbar| が表示されていない場合は
+     Draw の |MenuBar| から :menuselection:`&View-->&Toolbars-->Redaction` を選
+     択する。
+
+#. |RedactToolbar| |RectangleRedactionI| または |FreeformRedactionI| をクリック
+   する。
+#. 文書内の機密領域を黒塗りするために必要な図形を描く。黒塗り図形は灰色で、文書
+   内の機密領域が黒塗りされる前に見えるようにする。
+#. 必要に応じて |ExportPreviewPDFI| をクリックし、|PDF| ファイルのプレビューコ
+   ピーを作成する。
+#. ファイル内の修正領域を確認した後、|PDF| コピーを削除する。
+#. |RedactToolbar| |RedactedExportWhiteI| または |RedactedExportBlackI| をクリッ
+   クして、文書ファイルを修正版 |PDF| ファイルとしてエクスポートする。
+#. 開いたファイルダイアログボックスで黒塗り |PDF| ファイルを保存するフォルダーに
+   移動し、ファイル名を入力する。
+#. |Save| を押して黒塗り |PDF| ファイルを作成する。灰色の不開示図形が白または黒
+   の図形に変換され、文書が |PDF| としてエクスポートされる。
+
+Drawings
+----------------------------------------------------------------------
+
+Draw で図面ファイルを開き、前節の手順の 2. 以降を使用して図面ファイルの不開示処
+理を施された |PDF| コピーを作成する。
+
+.. note::
+
+   黒塗りされた文書が新しい |PDF| ファイルとしてエクスポートされると、黒塗り領域
+   は新しい文書からは削除され、画素の塊に置き換えられる。この塊が黒塗り部分の元
+   の内容の復元、複製を阻止する。
+
+Automatic redaction
+----------------------------------------------------------------------
+
+LibreOffice で自動黒塗りを行う場合、使用者は自動的に黒塗りの対象となる単語やパ
+ターンを定義できる。自動黒塗りは名前や個人情報（クレジットカード、電話番号など）
+が複数回出現する文書に便利だ。
+
+Creating targets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+自動黒塗りのためにマークされるべき文書内の単語や情報を見つけるために使用するルー
+ルやパターンを定義する。手順の要所のみ記す：
+
+* |MenuBar| :menuselection:`&Tools-->Auto-Recact` を選択。
+* |AutoRedactionDlg| でルールとパターンをやりくりする。
+* :guilabel:`&Add Target` ボタンでルールやパターン定義を追加するダイアログボック
+  スを開く。これは触っていれば分かると思う。
+* |OK| を押して |AutoRedactionDlg| を閉じる。これにより、文書が Draw の図面とし
+  て開き、対象すべてが矩形を使用して自動的に黒塗りになる。
+
+Exporting targets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* |AutoRedactionDlg| :guilabel:`&Redaction targets` 一覧でエクスポートする対象を
+  選択する。
+* :guilabel:`&Save Target` ボタンを押してファイルダイアログボックスを開く。
+
+Importing targets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* |AutoRedactionDlg| :guilabel:`&Load Targets` ボタンを押してファイルダイアログ
+  ボックスを開き、自動黒塗りパターン定義 JSON ファイルを選択する。
+* |OK| を押して |AutoRedactionDlg| を閉じると、Draw の図面として文書が開き、黒塗
+  り対象すべてが矩形を使用して自動的に黒塗りになる。
+
+.. note::
+
+   自動黒塗り対象は文書に保存される。対象は、文書が保存され、閉じられた後に利用
+   可能になる。
+
 ----
 
 .. rubric:: 章末注
