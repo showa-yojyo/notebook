@@ -1149,7 +1149,7 @@ Security options and warnings
    更の作者名は汎用値に置き換わる。時間は単一の標準値にリセットされる。
    |PropertiesDlg| を開いて手動で削除しても同じらしい。
 :guilabel:`Recommend password protection on sa&ving`
-   |SaveAsDlg| で :guilabel:`Save with pass&word` を常に有効にする。
+   |SaveAsDlg| で |SaveWithPassword| を常に有効にする。
 :guilabel:`Ctrl-click required &to follow hyperlinks`
    オフの場合には単純クリックだけでハイパーリンクが開いてしまう。
 :guilabel:`&Block any links from documents not among the trusted locations (see Macro Security)`
@@ -1285,6 +1285,87 @@ Importing targets
 
    自動黒塗り対象は文書に保存される。対象は、文書が保存され、閉じられた後に利用
    可能になる。
+
+Password protection and OpenPGP encryption
+======================================================================
+
+LibreOffice にはパスワード保護と OpenPGP 暗号という二種類の文書保護機能がある。
+
+|SaveWithPassword| をオンにして暗号化したファイルをパスワードなしで復号すること
+は不可能だ。
+
+OpenPGP 暗号化ファイルは鍵を必要とするアルゴリズムを使って文書を暗号にかける。各
+鍵は一度だけ使用され、文書と一緒に受信者に送信される。
+
+Password protection
+----------------------------------------------------------------------
+
+LibreOffice はパスワード保護機能が二階層ある：
+
+* 文書を開くこと
+* 文書を編集すること
+
+この二つの選択肢により、ある班では文書を読むことができ、別の班では読んだり編集し
+たりすることができる。これは Microsoft Word のファイル保護と相性が良い。
+
+Adding passwords
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|SaveAsDlg| あるいはその亜種で |SaveWithPassword| をオンにして |Save| を押したと
+きに開く :guilabel:`Set Password` ダイアログボックスについての説明。
+
+#. :guilabel:`File Encryption Password` では、文書を開くためのパスワードを入力
+   し、確認として同じパスワードを入力する。大文字と小文字を区別する。
+#. :guilabel:`&Options` を展開して :guilabel:`File Sharing Password` を開く。
+#. :guilabel:`Open &file read-only` を選択し、文書の編集を防ぐ。
+#. 文書の編集を許可するには、:guilabel:`Enter password &to allow editing` にパス
+   ワードを入力し、確認のためにパスワード入力を繰り返す。
+#. |OK| を押してファイルをパスワード保護付きで保存する。
+
+Changing passwords
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+文書がパスワードで保護されている場合、文書を開いている間にパスワードを変更するこ
+とが可能だ。|MenuBar| |FilePropertiesM| を使え。
+
+OpenPGP encryption
+----------------------------------------------------------------------
+
+LibreOffice は計算機にインストールされている OpenPGP ソフトウェアを使用する。
+OpenPGP ソフトウェアがない場合は、OpenPGP 暗号化を使用する前に、計算機の OS と互
+換性のある OpenPGP ソフトウェアをインストールしろ。
+
+OpenPGP ソフトウェアを使用して、個人用の暗号鍵ペアを定義しろ。OpenPGP 暗号では受
+信者の公開鍵を使用する必要がある。この鍵は計算機に保存されている OpenPGP キー
+チェーンで利用可能であるものとする。
+
+.. admonition:: 利用者ノート
+
+   例えば Windows の場合、何をやっていいかわからない。以下、未検証。
+
+文書で OpenPGP 暗号を使用する方法の例：
+
+#. OpenPGP 暗号化と電子署名の優先公開鍵を設定する。この優先鍵は、文書が署名また
+   は暗号化されるたびに、鍵選択ダイアログボックスで前もって選択される。これによ
+   り、特定の鍵で頻繁に文書に署名するたびに、優先鍵を選択する必要がなくなる。
+#. |OptionsDlg| |UserDataPage| を開いて次の選択肢を決める：
+
+   * :guilabel:`&OpenPGP signing key`
+   * :guilabel:`OpenPGP encryption &key`
+   * :guilabel:`When &encrypting documents, always encrypt to self`: 公開鍵でも
+     ファイルが暗号化され、秘密鍵で文書を開くことができるようになる。
+
+   .. note::
+
+      暗号文書の復号化を他の人のために許可するにはこれをオンにする。
+
+#. |SaveAsDlg| を開く。
+#. ファイル名やファイル種別を指定する。
+#. :guilabel:`Encrypt with &GPG key` を選択し、|Save| を押して |SelectCertDlg|
+   を開く。
+#. 受信者の公開鍵を選択する。複数選択可能。
+#. :guilabel:`Encrypt` ボタンを押して選択した公開鍵で暗号化したファイルを保存す
+   る。
 
 ----
 
