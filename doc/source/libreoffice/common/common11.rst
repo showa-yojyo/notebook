@@ -32,13 +32,14 @@ LibreOffice Basic を中心にマクロ機能の概要を説明する。残り�
 Your first macros
 ======================================================================
 
+.. _common11-anchor-B:
+
 Adding a macro
 ----------------------------------------------------------------------
 
 ここでは、本やインターネットで見つけた既存のマクロを使用することを想定している。
-マクロを手に入れたら、そのマクロを含むライブラリーとモジュールを作成する。
-
-.. todo:: LINK
+マクロを手に入れたら、そのマクロを含むライブラリーとモジュールを作成する。その構
+成については :ref:`common11-anchor-D` を見ろ。
 
 .. sourcecode:: basic
 
@@ -55,13 +56,14 @@ Adding a macro
 .. |MacrosRunM| replace:: :menuselection:`&Tools-->&Macros-->R&un Macro...`
 .. |MacrosRecordM| replace:: :menuselection:`&Tools-->&Macros-->&Record Macro`
 .. |EditB| replace:: :guilabel:`&Edit` ボタン
+.. |OrganizerB| replace:: :guilabel:`&Organizer` ボタン
 .. |RunB| replace:: :guilabel:`&Run` ボタン
 .. |RunI| replace:: :guilabel:`&Run` 図像
+.. |LibrariesTab| replace:: :guilabel:`Libraries` タブ
 
 #. LibreOffice アプリケーションを何か開く。
 #. |MenuBar| |MacrosBasicM| を選択する。
-#. :guilabel:`&Organizer` ボタンを押す。|BasicMacroOrgDlg| で
-   :guilabel:`Libraries` タブを開く。
+#. |OrganizerB| を押す。|BasicMacroOrgDlg| で |LibrariesTab| を開く。
 #. :guilabel:`L&ocation` を既定の場所である `My Macros & Dialogs` に設定する。
 #. |NewB| を押す :guilabel:`New Library` ダイアログボックスが開く。
 #. ライブラリー名を記入して |OK| を押す。ここでは `TestLibrary` とする。
@@ -132,6 +134,8 @@ Running a macro
 #. 例えば、新しく作成したマクロ `EnterMyName` を選択し、|RunB| を押す。
 #. または、|MacrosBasicM| で |BasicMacrosDlg| を開き、マクロを選択して |RunB| を
    押す。
+
+.. _common11-anchor-C:
 
 Viewing and editing macros
 ----------------------------------------------------------------------
@@ -292,6 +296,116 @@ Other options
 
 Macro Recorder を使っても解決できない問題があるときに、LibreOffice 物体を使用し
 て実際のコードを記述する。LibreOffice 物体を学ぶのはたいへんだ。
+
+.. _common11-anchor-D:
+
+Macro organization
+======================================================================
+
+LibreOffice では「マクロ ⊂ モジュール ⊂ ライブラリー ⊂ コンテナー」という構造を
+とる。モジュールは通常、使用者との対話や計算などの機能を分割する。個々のマクロは
+サブルーチンや関数だ。
+
+|MacrosBasicM| を選択し、|BasicMacrosDlg| を開く。利用可能なコンテナーはすべて
+:guilabel:`Macro From` 一覧に表示され、文書はそれぞれライブラリーを複数含むこと
+ができるコンテナーだ。アプリケーション自体が二つのコンテナーとして機能する。一つ
+は LibreOffice とともに配布されるマクロ用のコンテナーで `LibreOffice Macros` と
+呼ばれ、もう一つは個人用マクロ用のコンテナーで `My Macros` と呼ばれる。
+
+`LibreOffice Macros` はアプリケーション実行時コードと一緒に保存され、基本、編集
+不可だ。`LibreOffice Macros` コンテナーには独自のマクロを保存してはいけない。
+
+マクロが単一の文書にしか適用されない場合を除き、マクロは `My Macros` コンテナー
+に格納される。`My Macros` コンテナーは使用者領域またはホームディレクトリーに保存
+される。
+
+.. admonition:: 利用者ノート
+
+   Windows ならば ``APPDATA`` とか ``USERPROFILE`` だ。
+
+マクロが文書に含まれている場合、記録されたマクロはその文書上で動作しようとする。
+というのも、その動作には主に ``ThisComponent`` を使用しているからだ。
+
+すべてのコンテナーは `Standard` という名前のライブラリーを含む。`Standard` ライ
+ブラリーを使用する代わりに、意味のある名前を持つ独自のライブラリーを作成するのが
+良い。`Standard` とは異なり、独自のライブラリーを他のコンテナーにインポートする
+ことが可能だ。
+
+.. caution::
+
+   LibreOffice では、ライブラリーをコンテナーにインポートすることは可能だが、
+   `Standard` という名前のライブラリーを上書きすることはできない。そのため、
+   `Standard` ライブラリーにマクロを保存すると、そのマクロを別のコンテナーにイン
+   ポートできなくなる。
+
+モジュールにも意味のある名前をなるべくつけろ。
+
+`My Macros` という名前のコンテナーに保存されたマクロはすべての文書で使用可能だ。
+文書にマクロを保存するのは、文書が共有され、マクロを文書に含めたい場合に便利だ。
+
+`Standard` ライブラリーと `Template` ライブラリーは自動的にロードされるが、その
+他のライブラリーマクロは、それらを含むライブラリーがロードされるまで使用可能にな
+らない。ロードされたライブラリーはロードされていないそれとは表示が異なる。ライブ
+ラリーとそれに含まれるモジュールをロードするには、ライブラリーをダブルクリックす
+る。
+
+Where are macros stored?
+----------------------------------------------------------------------
+
+LibreOffice は、使用者固有のデータをホームディレクトリー内のフォルダーに保存する。
+設定データの保存場所を確認するには、|OptionsDlg| |PathsPage| を開く。Basic で記
+述された使用者マクロは :file:`LibreOffice/4/user/basic` に保存される。
+
+Exporting macros
+----------------------------------------------------------------------
+
+マクロライブラリーをエクスポートして、再利用したり他の人と共有したりしたい場合は
+LibreOffice Basic Macro Organizer を用いる。
+
+#. |MacrosBasicM| を選択し、|OrganizerB| を押す。
+#. |LibrariesTab| をクリックし、エクスポートしたいライブラリーを選択する。
+#. :guilabel:`&Export...` ボタンを押し、:guilabel:`Export &as BASIC Library` を
+   選択する。
+#. ライブラリーの保存先を選択し、|Save| を押す。
+
+ライブラリーがエクスポートされると、LibreOffice はライブラリーに関連するすべての
+ファイルを含むフォルダーを作成する。
+
+.. admonition:: 読者ノート
+
+   拡張子 .xlb, .xba を持つファイルがある。
+
+Importing macros
+----------------------------------------------------------------------
+
+|BasicMacroOrgDlg| ではマクロライブラリーを文書にインポートしたり、ライブラリー、
+モジュール、ダイアログボックスの作成、削除、名前の変更が行える。
+
+#. |LibrariesTab| で使用するコンテナーを選択し、:guilabel:`&Import...` ボタンを
+   押してマクロライブラリーをインポートする。
+#. インポートするライブラリーのあるフォルダーに移動する。:file:`dialog.xlb` と
+   :file:`script.xlb` のどちらかを選択できる。どちらのファイルを選択しても、マク
+   ロをインポートできる。文書に含まれるライブラリーをインポートするには文書ファ
+   イルを選択する。
+#. ファイルを選択し、|Open| を押して続行し、:guilabel:`Import Libraries` ダイア
+   ログボックスを開く。
+#. ライブラリーをインポートするための選択肢を選択する。
+#. |OK| を押すと選択したマクロライブラリーがインポートされる。
+
+Downloading macros to import
+----------------------------------------------------------------------
+
+LibreOffice 社会が作成したマクロをインターネット上で見つけることができる。マクロ
+には、文書に含まれているもの、通常のファイルとしてインポートする必要があるもの、
+テキストとして公開されていて Basic IDE にコピー＆ペーストする必要があるものがあ
+ります。マクロをライブラリーに追加する方法については :ref:`common11-anchor-B` を、
+Basic IDE を使用してマクロを編集する方法については :ref:`common11-anchor-C` をそ
+れぞれ見ろ。
+
+* <https://www.pitonyak.org/oo.php>
+* <https://www.pitonyak.org/database/>
+* <https://wiki.documentfoundation.org/Macros>
+* <https://forum.openoffice.org/en/forum/>
 
 ----
 
