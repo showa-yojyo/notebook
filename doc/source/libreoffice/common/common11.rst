@@ -41,7 +41,7 @@ Adding a macro
 マクロを手に入れたら、そのマクロを含むライブラリーとモジュールを作成する。その構
 成については :ref:`common11-anchor-D` を見ろ。
 
-.. sourcecode:: basic
+.. sourcecode:: vbnet
 
    Sub HelloMacro
        Print "Hello"
@@ -278,7 +278,7 @@ Macro Recorder は発送フレームワークが生成するコマンドしか�
 なコマンドがすべて完了するというわけでもない。たとえば、物体を入れると次のような
 コードが生成される：
 
-.. sourcecode:: basic
+.. sourcecode:: vbnet
 
    dispatcher.executeDispatch(document, ".uno:InsertObject", "", 0, Array())
 
@@ -552,6 +552,39 @@ LibreOffice Calc の機能を拡張する強力な方法の一つは、繰り返
 
 マクロをライブラリーに追加手順は前節と同様。このマクロを実行するには、まず新しい
 Calc シートを作成し、升目範囲に数値を追加する。
+
+The ScriptForge library
+======================================================================
+
+ScriptForge ライブラリーは一連のサービスで構成されており、各サービスは特定の主題
+に関連するメソッドやプロパティーを与える。たとえば、Dialog サービスではスクリプ
+トモジュールで利用可能なダイアログボックスにアクセスでき、Database サービスでは
+Base 文書でSQL コマンドを実行できる。
+
+既存の Calc 文書を開き、`NewSheet` という名前の新しいシートを作成して、升目 A1
+に文字列 Hello を入れるマクロを ScriptForge ライブラリーを使用して Basic で記述し
+たコードだ。
+
+.. sourcecode:: vbnet
+   :caption: ScriptForge ライブラリーを使うマクロ例
+
+   Sub CreateSheetExample
+       GlobalScope.BasicLibraries.LoadLibrary("ScriptForge")
+       Dim ui as Object, myDoc as Object
+       ui = CreateScriptService("UI")
+
+       Set myDoc = ui.OpenDocument("/home/user/Documents/myfile.ods")
+       myDoc.InsertSheet("NewSheet")
+       myDoc.SetValue("NewSheet.A1", "Hello")
+       myDoc.Activate("NewSheet")
+       myDoc.Save()
+       myDoc.CloseDocument()
+   End Sub
+
+.. admonition:: 読者ノート
+
+   試すときにはファイルパスを既存のものに変える必要がある。保存メソッドか閉じる
+   メソッドをコメントアウトしておくとよい。
 
 ----
 
