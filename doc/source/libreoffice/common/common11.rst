@@ -510,7 +510,7 @@ Using extensions
 Writing macros without the recorder
 ======================================================================
 
-LibreOffice を構成する物体に直接アクセスするコードでマクロを書くことも可能だ。つ
+LibreOffice を構成する物体に直接入出するコードでマクロを書くことも可能だ。つ
 まり、より高度なプログラミング論理を用いて、文書を直接操作するマクロを作成するこ
 とが可能だ。
 
@@ -558,7 +558,7 @@ The ScriptForge library
 
 ScriptForge ライブラリーは一連のサービスで構成されており、各サービスは特定の主題
 に関連するメソッドやプロパティーを与える。たとえば、Dialog サービスではスクリプ
-トモジュールで利用可能なダイアログボックスにアクセスでき、Database サービスでは
+トモジュールで利用可能なダイアログボックスに入出でき、Database サービスでは
 Base 文書でSQL コマンドを実行できる。
 
 既存の Calc 文書を開き、`NewSheet` という名前の新しいシートを作成して、升目 A1
@@ -585,6 +585,52 @@ Base 文書でSQL コマンドを実行できる。
 
    試すときにはファイルパスを既存のものに変える必要がある。保存メソッドか閉じる
    メソッドをコメントアウトしておくとよい。
+
+UNO Object Inspector
+======================================================================
+
+LibreOffice にはアプリケーションのほぼすべての側面を自動化するために使用できる広
+範な |API| がある。LibreOffice で使用される部品モデルは |UNO| として知られてい
+る。
+
+スクリプト言語の LibreOffice マクロは |UNO| |API| を使用する。XSCRIPTCONTEXT イ
+ンターフェイスを LibreOffice Basic, Python, JavaScript, BeanShell のマクロスクリ
+プトに与え、文書に対して動作を実行するために必要なさまざまなインターフェイスへの
+入出手段を設けている。
+
+.. admonition:: 読者ノート
+
+   XSCRIPTCONTEXT とは？
+
+.. |Inspector| replace:: :guilabel:`UNO Object Inspector`
+
+|Inspector| はマクロ開発者が物体を検査し、物体への入出方法を学習し、マクロで
+使用するのに役立つ。この機能は Writer, Calc, Impress, Drawで利用できる。この機能
+を有効にするには |MenuBar| :menuselection:`&Tool-->Develo&pment Tool` を選択す
+る。
+
+ウィンドウ左側には |DOM| 補助装置があり、文書内の物体すべてを探索できる。物体を
+選択すると、それに関する情報がウィンドウの右側に表示される：
+
+:guilabel:`Interfaces`
+   実装されているインターフェイスすべての名前
+:guilabel:`Services`
+   物体が支援する工作すべての名前
+:guilabel:`Properties`
+   物体で利用可能な性質すべての名前と型
+:guilabel:`Methods`
+   物体が呼び出すことができるメソッドすべての名前、引数、戻り値の型
+
+.. |CurSelB| replace:: :guilabel:`Current Selection`
+
+|DOM| 補助装置を使って物体を検査する代わりに |CurSelB| を切り替えることで、文書内
+で現在選択されている物体を直接検査することもある。
+
+例えば、Writer 文書で選択テキストの背景色を変更したいとする。テキストの一部を選
+択し、|Inspector| を開いて |CurSelB| を切り替え、目的の効果に一致する性質を探し
+て物体の性質を調べることができる（この例では ``CharBackColor`` を見つけたい）。
+
+この性質を使用して、選択テキストの背景色を変更するマクロを書くことができる。
 
 ----
 
