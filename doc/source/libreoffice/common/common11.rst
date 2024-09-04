@@ -699,6 +699,37 @@ JavaScript Debugger に出入りできる。この道具の詳しい使い方は
 
    リンクが死んでいて話にならない。
 
-----
+Finding more information
+======================================================================
 
-.. rubric:: 章末注
+|F1| を押して LibreOffice ヘルプページを開く。LibreOffice ヘルプシステムの左上に
+あるヘルプセットを表示するドロップダウンリストから `Basic` を選択する。
+
+.. admonition:: 利用者ノート
+
+   ヘルプが出ない。
+
+Included material
+----------------------------------------------------------------------
+
+LibreOffice には多くの優れたマクロが含まれています。
+
+|BasicMacrosDlg| を開いて :menuselection:`Application Macros-->Tools` ライブラ
+リーを展開する。`WritedbgInfo` や `printdbgInfo` などの良い例がある。
+
+Online resources
+----------------------------------------------------------------------
+
+マクロプログラミングに関する情報資料：
+
+* <https://wiki.documentfoundation.org/Macros>
+* <https://ask.libreoffice.org/>
+* <https://wiki.documentfoundation.org/Documentation/Other_Documentation_and_Resources>
+* <http://forum.openoffice.org/en/forum/>
+
+Printed and ebook materials
+----------------------------------------------------------------------
+
+* `OpenOffice.org Macros Explained <https://www.pitonyak.org/OOME_3_0.pdf>`__:
+  LibreOffice Basic でも通用する。669 ページの大著。
+* <https://www.packtpub.com/openoffice-ooobasic-calc-automation/book>: 表計算なら。
