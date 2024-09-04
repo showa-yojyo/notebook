@@ -51,6 +51,7 @@ Adding a macro
 
 .. |BasicMacrosDlg| replace:: :guilabel:`BASIC Macros` ダイアログボックス
 .. |BasicMacroOrgDlg| replace:: :guilabel:`Basic Macro Organizer` ダイアログボックス
+.. |MacroSelectorDlg| replace:: :guilabel:`Macro Selector` ダイアログボックス
 .. |MacroToolbar| replace:: :guilabel:`Macro` ツールバー
 .. |MacrosBasicM| replace:: :menuselection:`&Tools-->&Macros-->&Organize Macros-->&Basic...`
 .. |MacrosRunM| replace:: :menuselection:`&Tools-->&Macros-->R&un Macro...`
@@ -349,6 +350,8 @@ LibreOffice では「マクロ ⊂ モジュール ⊂ ライブラリー ⊂ �
 ラリーとそれに含まれるモジュールをロードするには、ライブラリーをダブルクリックす
 る。
 
+.. _common11-anchor-E:
+
 Where are macros stored?
 ----------------------------------------------------------------------
 
@@ -477,8 +480,7 @@ LibreOffice では、たとえば、文書を開く、変更された状態が�
    し、イベントを保存する。
 #. 一般的な使用方法は、特定のマクロを呼び出すために文書を開くイベントを割り当て
    るものだ。マクロは文書の特定の準備作業を実行する。必要なイベントを選択し、
-   :guilabel:`M&acro...` ボタンを押して :guilabel:`Macro Selector` ダイアログ
-   ボックスを開く。
+   :guilabel:`M&acro...` ボタンを押して |MacroSelectorDlg| を開く。
 #. 必要なマクロを選択し、|OK| を押してマクロをイベントに割り当てる。イベントがマ
    クロに割り当てられたことが |EventsTab| に表示される。
 
@@ -631,6 +633,71 @@ LibreOffice にはアプリケーションのほぼすべての側面を自動�
 て物体の性質を調べることができる（この例では ``CharBackColor`` を見つけたい）。
 
 この性質を使用して、選択テキストの背景色を変更するマクロを書くことができる。
+
+Overview of Python, BeanShell, and JavaScript macros
+======================================================================
+
+LibreOffice では、馴染みのある言語で書かれたマクロを支援している。Python,
+BeanShell, JavaScript だ。
+
+マクロは、スクリプト言語すべてで同じように構成されている。`LibreOffice Macros`
+コンテナーには LibreOffice のインストール時に用意されているマクロがすべて格納さ
+れる。
+
+`My Macros` コンテナーには LibreOffice 文書で使用できるようにしたマクロが格納さ
+れる。各文書には他の文書では使用できないマクロを含めることもできる。
+
+記録機能を使用する場合、マクロは LibreOffice Basic で作成される。その他のスクリ
+プト言語を使用するには、自分でコードを記述する必要がある。
+
+|MacrosRunM| を使用してマクロの実行を選択すると、|MacroSelectorDlg| が現れる。こ
+こで利用可能な言語で書かれたマクロを選択して実行できる。
+
+:guilabel:`&Tools-->&Macro-->&Edit Macros..` を使用してマクロを編集すると
+LibreOffice Basic IDE が起動する。このウィンドウでは利用可能な LibreOffice Basic
+マクロを選択して編集できるが、他の言語のマクロは選択できない。
+
+.. tip::
+
+   <https://api.libreoffice.org/> を見ろ。
+
+Python macros
+----------------------------------------------------------------------
+
+:menuselection:`&Tools-->&Macros-->&Organize Macros-->&Python...` を選択する。
+
+:guilabel:`Python Macros` ダイアログボックスが現れる。Python スクリプトを編集お
+よびデバッグする機能は、現在のところ LibreOffice の標準 |UI| に統合されていな
+い。任意の Python エディターを使用してスクリプトを作成し、これらのファイルを適切
+なフォルダーに配置するのだ。:ref:`common11-anchor-E` を見ろ。
+
+.. tip::
+
+   :abbr:`APSO (Alternative Python Script Organizer)` 拡張機能を使うと Python ス
+   クリプトの編集や整理が簡単になる：<https://gitlab.com/jmzambon/apso> を見ろ。
+
+   LibreOffice での Python スクリプトの詳細については、
+   <https://wiki.documentfoundation.org/Macros/Python_Basics> を見ろ。
+
+BeanShell macros
+----------------------------------------------------------------------
+
+割愛。
+
+JavaScript macros
+----------------------------------------------------------------------
+
+:menuselection:`&Tools-->&Macros-->&Organize Macros-->&JavaScript...` を選択す
+る。
+
+:guilabel:`JavaScript Macros` ダイアログボックスの |EditB| を押すと Rhino
+JavaScript Debugger に出入りできる。この道具の詳しい使い方は
+<https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Debugger> で見
+つかる。
+
+.. admonition:: 読者ノート
+
+   リンクが死んでいて話にならない。
 
 ----
 
