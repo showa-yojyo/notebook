@@ -5,8 +5,19 @@ Chapter 12, Configuring LibreOffice ノート
 .. include:: ./common-inc.txt
 
 .. contents:: 章見出し
-   :depth: 3
+   :depth: 2
    :local:
+
+Introduction
+======================================================================
+
+|MenuBar| :menuselection:`&Tools-->&Options...` 選択で開く |OptionsDlg| につい
+て。
+
+.. tip::
+
+   選択肢の内容を理解するのが難しい場合は、使用者手引で設定の変更を推奨している
+   場合を除き、通常は既定設定のままにしておくのが良い。
 
 ----
 
