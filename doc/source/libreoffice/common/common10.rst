@@ -1123,6 +1123,8 @@ Removing data
 #. |MenuBar| :menuselection:`&File-->Versions...` で :guilabel:`Existing
    Version` 一覧からバージョンを選択し、|DeleteB| を押す。
 
+.. _common10-anchor-B:
+
 Security options and warnings
 ----------------------------------------------------------------------
 
@@ -1153,12 +1155,11 @@ Security options and warnings
 :guilabel:`Ctrl-click required &to follow hyperlinks`
    オフの場合には単純クリックだけでハイパーリンクが開いてしまう。
 :guilabel:`&Block any links from documents not among the trusted locations (see Macro Security)`
-   :guilabel:`Macro Security` ダイアログボックス :guilabel:`Trusted Source` タブ
-   で定義された信頼できる場所にない文書によるリンク画像の使用を阻止する。信頼さ
-   れていない供給源（例えばインターネット）からの文書を扱っていて、画像処理ソフ
-   トウェアの脆弱性を心配している場合、これにより安全性を高めることができる。リ
-   ンク使用を阻止すると、信頼されていない文書では画像が読み込まれず、場所確保の
-   枠しか見えない。
+   |MacroSecurityDlg| :guilabel:`Trusted Source` タブで定義された信頼できる場所
+   にない文書によるリンク画像の使用を阻止する。信頼されていない供給源（例えばイ
+   ンターネット）からの文書を扱っていて、画像処理ソフトウェアの脆弱性を心配して
+   いる場合、これにより安全性を高めることができる。リンク使用を阻止すると、信頼
+   されていない文書では画像が読み込まれず、場所確保の枠しか見えない。
 
 .. admonition:: 利用者ノート
 
