@@ -348,6 +348,148 @@ OpenCL
    :guilabel:`OpenCL is available for use` が表示されていればオンにするのがいい
    はずだ。
 
+Loading and saving documents
+======================================================================
+
+|OptionsDlg| :menuselection:`Load/Save-->` 各ページ。
+
+General
+----------------------------------------------------------------------
+
+|LoadSaveGeneralPage| では文書保存の既定設定とファイル形式を選択する。
+
+.. rubric:: Load
+
+:guilabel:`&Load user-specific settings with the document`
+   LibreOffice 文書には計算機システムから読み込まれた設定が含まれている。文書を
+   保存するとこれらの設定も一緒に保存される。オンにすると、文書の読み込み時に、
+   保存されている設定が無視され、計算機の設定が優先される。
+
+   これがオンでもオフでも、文書にリンクされたデータ供給源とそのビューは文書と一
+   緒に読み込まれる。
+:guilabel:`Load &printer settings with the document`
+   オンにすると印刷機設定が文書と一緒に読み込まれる。このため、文書がネットワー
+   クの向こうにある印刷機に印刷されることがある。これを防ぐには、|PrintDlg| でプ
+   印刷機を手動で変更しろ。オフにした場合、文書の印刷には既定の印刷機が使用される。
+
+   これがオンでもオフでも、現在の印刷機設定は文書とともに保存される。
+:guilabel:`Load view position with &the document even if it was saved by a different user`
+   本書に載っていない。オフにしておく。
+
+.. rubric:: Save
+
+:guilabel:`Save &AutoRecovery information every __ minutes`
+   オフでかまわない。
+:guilabel:`&Edit document properties before saving`
+   ファイルを初めて保存するときと、Save As 実行時に |PropertiesDlg| を開くように
+   指定する。オンにするのが上品だろう。
+:guilabel:`Al&ways create backup copy`
+   オフでいい。
+:guilabel:`Save &URLs relative to file system` :guilabel:`Save URLs relative to &internet`
+   これらをオンにすると、ファイルシステムやインターネット上の |URL| の相対アドレ
+   ス指定が既定で指定される。相対アドレス指定は元文書と被参照文書が同じドライブ
+   上にある場合にしか可能でない。
+
+   相対アドレスは常に現在の文書があるディレクトリーから始まる。絶対アドレスは常
+   にルートディレクトリーから始まる。
+
+   どちらもオンにしたい。
+
+.. rubric:: Default File Format and ODF Settings
+
+:guilabel:`ODF &format version`
+   後方互換性に問題があることもあるが `1.3 Extended (recommended)` が無難。
+:guilabel:`D&ocument type`
+   既定のファイル形式を定義する文書型を指定する。意外に意味不明。
+:guilabel:`Always sa&ve as`
+   上で選択された型の文書が、横のドロップダウンリストから選択されたファイル型と
+   して常に保存されることを指定する。現在の文書の別のファイル型を |SaveAsDlg| で
+   選択することが可能。
+:guilabel:`Warn when &not saving in ODF or default format`
+   オンにすると、選択された既定形式または |ODF| 形式以外の形式で文書を保存すると
+   きに警告が表示される。オンでもオフで問題ない？
+
+VBA properties
+----------------------------------------------------------------------
+
+:menuselection:`Load/Save-->VBA Properties` ページでは :abbr:`VBA (Visual Basic
+for Applications)` コードによる Microsoft Office 文書の読み込みと保存に関する一
+般的な性質を指定する。
+
+割愛。
+
+Microsoft Office
+----------------------------------------------------------------------
+
+:menuselection:`Load/Save-->Microsoft Office` ページでは Microsoft Office やその
+他の文書のインポートとエクスポートの設定を行う。
+
+.. rubric:: Embedded Objects
+
+Microsoft Office 物体またはその他の |OLE| 物体のインポートおよびエクスポート方法
+を指定する。これらの設定は、Microsoft またはその他の |OLE| サーバーが存在しない
+場合 (UNIX) または |OLE| 物体を編集できる LibreOffice |OLE| サーバーがない場合に
+有効だ。
+
+.. rubric:: Character Highlighting
+
+Microsoft Office には LibreOffice の文字強調表示と同様の文字属性が二つある。
+LibreOffice の文字強調表示を Microsoft Office ファイル形式にエクスポートするとき
+に LibreOffice が使用する属性（強調表示または網掛け）を選択するには、ここを使え。
+
+:guilabel:`Highlighting`
+   LibreOffice の強調表示色と Microsoft の強調表示色 16 色のうち、最も近い色を出
+   力する。この文字属性により、Microsoft Office 使用者が Microsoft Office アプリ
+   ケーションのハイライトツールで簡単に編集できるようになる。
+:guilabel:`Shading`
+   すべての RGB 色を他の Microsoft Office 文字属性にエクスポートする。これによ
+   り、LibreOffice 文書と Microsoft Office 文書の間で色の忠実性が保たれるもの
+   の、Microsoft Office 使用者は Microsoft Office アプリケーションでは一般的に
+   使用されていないか、簡単に見つからない道具を使用して、この文字属性を編集する
+   必要がある。これは LibreOffice 7.0 以降の既定値だ。
+
+.. rubric:: Lock files
+
+LibreOffice ロックファイルに加えて Microsoft Office ロックファイルを生成する。オ
+フだ。
+
+HTML compatibility
+----------------------------------------------------------------------
+
+:menuselection:`Load/Save-->HTML compatibility` ページで |HTML| の表示設定を行う。
+
+.. rubric:: Font sizes
+
+|HTML| の ``<font size=1>`` から ``<font size=7>`` タグそれぞれの文字寸法を与え
+る。|HTML| の教科書を当たるとこのタグを使うなとある。既定値のまま捨て置く。
+
+.. rubric:: Import
+
+|HTML| 文書をインポートするための設定。インポートする気がないので、項目が三つほ
+どあるがこれらも既定値で放置する。
+
+.. rubric:: Export
+
+:guilabel:`LibreOffice &Basic`
+   |HTML| 形式へのエクスポート時に LibreOffice Basic の命令を含める。LibreOffice
+   Basic スクリプトを作成する前にこれをオンにする必要がある。LibreOffice Basic
+   IDE でマクロが作成されると、|HTML| 文書のソーステキストのヘッダーに現れる。
+:guilabel:`Display &warning`
+   |HTML| にエクスポートするときに LibreOffice Basic マクロが失われる旨を警告する。
+:guilabel:`&Print layout`
+   選択した場合、現在の文書の印刷レイアウト（例えば、ページ番号と目次）もエクス
+   ポートされる。これは、LibreOffice、Mozilla Firefox、MS Internet Explorer で読
+   むことが可能だ。
+:guilabel:`&Copy local images to internet`
+   |FTP| を使用してアップロードする場合、埋め込み画像をインターネットサーバーに
+   自動的にアップロードする。|SaveAsDlg| を使用して文書を保存し、インターネット
+   上のファイル名として完全な |FTP| |URL| を入力する。
+
+.. note::
+
+   一部の選択肢は一度編集するとリセット不可能だ。手動で変更を戻すか、|CancelB|
+   を押して |OptionsDlg| を開き直せ。
+
 ----
 
 .. rubric:: 章末注
