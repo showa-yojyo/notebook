@@ -485,11 +485,294 @@ HTML compatibility
    自動的にアップロードする。|SaveAsDlg| を使用して文書を保存し、インターネット
    上のファイル名として完全な |FTP| |URL| を入力する。
 
+.. |XXXXX| replace:: 一部の選択肢は一度編集するとリセット不可能だ。手動で変更を
+   戻すか、|CancelB| を押して |OptionsDlg| を開き直せ。
+
+Language settings
+======================================================================
+
+.. |LangLocale| replace:: :menuselection:`Languages and Locales Settings-->Languages`
+.. |LangLocaleGeneralPage| replace:: :menuselection:`Languages and Locales Settings-->General` ページ
+.. |LangLocalJapanesePage| replace:: :menuselection:`Languages and Locales Settings-->Searching in Japanese` ページ
+.. |LangLocalLangAsianLayoutPage| replace:: :menuselection:`Languages and Locales Settings-->Asian Layout` ページ
+.. |LangLocalLangToolServerPage| replace:: :menuselection:`Languages and Locales Settings-->Language Tool Server` ページ
+.. |LangLocalEnglishSentencePage| replace:: :menuselection:`Languages and Locales Settings-->English Sentence Checking` ページ
+
+|OptionsDlg| |LangLocale| を選択すると、言語、筆記補助器具、言語器具の性質を定義
+するページが開く。
+
 .. note::
 
-   一部の選択肢は一度編集するとリセット不可能だ。手動で変更を戻すか、|CancelB|
-   を押して |OptionsDlg| を開き直せ。
+   |LangLocalJapanesePage| および |LangLocalLangAsianLayoutPage| 両ページは
+   |LangLocaleGeneralPage| ページの :guilabel:`Asian` がオンである場合に限り現れ
+   る。Complex Text Layout ページは :guilabel:`Complex &text layout` がオンであ
+   る場合に限り現れる。
+
+Languages
+----------------------------------------------------------------------
+
+|LangLocaleGeneralPage| で文書の既定言語とロケール [#1]_ を設定する。
+
+.. rubric:: Language of
+
+:guilabel:`&User interface`
+   メニュー、ウィンドウ、ヘルプファイルなどの |UI| に使用する言語を選択する。追
+   加言語パックがインストールされているか、多言語版 LibreOffice がインストールさ
+   れている必要がある。
+
+   `Default` 項目は計算機の OS が使用する |UI| 言語だ。この言語が LibreOffice の
+   インストールにない場合、LibreOffice のインストール言語が既定の言語だ。
+
+   .. admonition:: 利用者ノート
+
+      本ノートで何度かつづったように、ここは `English (USA)` 一択だ。
+
+.. rubric:: Formats
+
+:guilabel:`&Locale setting`
+   国設定のロケール設定を指定する。数値、通貨、度量衡単位の設定に影響する。
+
+   `Default` 項目は OS で使用されるロケールだ。この欄の変更は即座に適用される。
+:guilabel:`&Default currency`
+   通貨書式と通貨欄で使用する既定通貨を指定する。ロケールの設定が変更されると、
+   既定の通貨は自動的に変化する。
+
+   `Default` 項目は選択されているロケール設定によって割り当てられている通貨書式
+   に適用される。既定通貨を変更すると、開いているすべての文書が変化する。また、
+   通貨書式を使用するダイアログボックスや図像も変化する。
+:guilabel:`Decimal separator &key`
+   :guilabel:`&Same as locale setting` がオンならば、数字パッドのそれぞれのキー
+   が押されると、計算機システムで設定されている小数点区切りキーが使用される。オ
+   フの場合はキーボードドライバーソフトウェアで使用されている文字が用いられる。
+:guilabel:`Date acceptance &patterns`
+   現在のロケールが使用する日付の受け入れパターンを指定する。Calc 表計算や
+   Writer 表組の升目入力は、有効な日付として認識される前に、ロケールに依存する日
+   付受け入れパターンに一致しなければならない。
+
+   定義された日付受付パターンに対応する数字や文字を升目に入力し、カーソルを升目
+   の外に移動する。LibreOffice は自動的にデータ入力を認識し、入力を正しい日付形
+   式に変換する。
+
+   当項目の初期パターンはロケール設定によって決まり、これらの初期パターンを変更
+   したり、さらにパターンを追加したりすることも可能だ。各パターンを区切るにはセ
+   ミコロンを使用しろ。
+
+   .. admonition:: 利用者ノート
+
+      ``Y-M-D`` で通じるか？
+
+.. rubric:: Default Languages for Documents
+
+綴字、類語、分綴に関する言語を指定する。
+
+:guilabel:`&Western`
+   欧米アルファベットのスペルチェック機能で使用する言語を指定する（英語というこ
+   とになる）。
+:guilabel:`As&ian`
+   オンにするとアジア言語各種の支援が活動する。たとえば、中国語、日本語、韓国語
+   の文字を書くときにオンにすると、|UI| でこれらの言語の支援が活動する。
+:guilabel:`Complex &text layout`
+   |CTL| のスペルチェックの言語を指定する。本ノートではオフとする。
+:guilabel:`&For the current document only`
+   オンにすると、既定言語の設定が現在の文書に対してのみ有効にする。
+
+.. rubric:: Enhanced language support
+
+:guilabel:`Ignore s&ystem input language`
+   システム入力言語またはキーボードへの変更を無視するかどうかを示す。オンにする
+   場合、新しいテキストが入力されると、そのテキストは現在のシステム言語ではな
+   く、文書言語または現在の段落に従う。
+
+.. note::
+
+   |XXXXX|
+
+Writing Aids
+----------------------------------------------------------------------
+
+.. rubric:: Available Language Modules
+
+LibreOffice にインストールされている言語モジュール一覧。各サブモジュールは複数の
+言語で使用可能。モジュール名を選択すると、利用可能なサブモジュールすべてが同時に
+活動開始する。モジュール名の選択を解除すると、反対に活動終了する。個々のサブモ
+ジュールの活動を切り替えるには |EditButton| をクリックして :guilabel:`Edit
+Modules` ダイアログボックスを開く。
+
+.. rubric:: User-defined dictionaries
+
+利用可能な使用者辞書一覧。綴字と分綴に必要な辞書を選択する。
+
+|NewB|
+   新しい使用者定義辞書の詳細が追加され、言語が指定される :guilabel:`New
+   Dictionary` ダイアログボックスを開く。
+:guilabel:`Ed&it...`
+   :guilabel:`Edit Custom Dictionary` ダイアログボックスを開き、自作辞書に新しい
+   項目を追加したり、既存の項目を編集したりできるようにする。自作辞書が編集され
+   ると、ファイルの状態がチェックされる。ファイルが書き込み保護されている場合、
+   変更することはできない。
+
+.. rubric:: Options
+
+綴字と分綴に対する選択肢。
+
+Check spelling as you type
+   テキスト入力時に単語の綴りが怪しい場合に赤い下線で強調表示する。修正用のコン
+   テキストメニューが表示される。
+Check grammar as you type
+   テキスト入力時に文法的過誤を強調表示する。面白いのでオンにしたい。
+Check upper-case words
+   綴字検査時に大文字小文字を検査する。
+Check words with numbers
+   文字だけでなく数字も含む単語を検査する。オフでいいはず。
+Check special regions
+   綴字検査時に描画テキスト、ヘッダーやフッターのテキスト、表組、テキスト枠など
+   の特殊領域を検査する。
+Minimal number of characters for hyphenation
+   自動分綴に必要な最小文字数。
+Characters before line break
+   分綴する単語のうち、行末に残さなければならない最小文字数。
+Characters after line break
+   次の行の先頭に必要なハイフン付き単語の最小文字数。
+Hyphenate without inquiry
+   手動による分綴に関するプロンプトを表示させない。オフにすると、単語が認識され
+   ないときに、ハイフンを入力するための選択肢を含むダイアログボックスが現れる。
+Hyphenate special regions
+   分綴を脚注、ヘッダー、フッターで行う。
+:guilabel:`Edi&t...`
+   項目の値を変更するにはまずそれを選択にする。値が必要なものに対してはこのボタ
+   ンを押してダイアログボックスを開き、新しい値を入力する。
+
+.. note::
+
+   |XXXXX|
+
+Installing language dictionaries
+----------------------------------------------------------------------
+
+LibreOffice を計算機にインストールすると、言語モジュールがいくつか自動的にインス
+トールされる。 各言語モジュールには、綴字辞書、分綴辞書、類語辞典の最大三つのサ
+ブモジュールを含めることがでる。これらの言語モジュールは LibreOffice では辞書と
+通常呼ばれている。
+
+追加の辞書は拡張機能としてインストール可能だ。別の言語辞書を追加する例：
+
+#. |MenuBar| :menuselection:`&Tools-->&Language-->&More Dictionaries Online...`
+   で :guilabel:`Extension: Dictionary` ダイアログボックスを開く。
+#. 利用可能な辞書一覧から必要な辞書を選択する。
+#. 必要に応じて、選択した辞書の詳細情報を調べるために、Web サイトのリンクをク
+   リックする。
+#. 必要な辞書の下にある :guilabel:`Install` を押すと辞書が LibreOffice にインス
+   トールされる。
+#. |Close| を押してダイアログボックスを閉じる。
+#. 新しい辞書が LibreOffice に登録されるように、文書がすべて保存され、閉じられて
+   いることを確認してから LibreOffice を再起動する。
+
+.. admonition:: 利用者ノート
+
+   辞書が少なくてあてにならない。
+
+Searching in Japanese
+----------------------------------------------------------------------
+
+日本語の検索選択肢を定義する。これらのコマンドはアジア言語の支援が有効になってか
+らアクセスできる。|LangLocaleGeneralPage| から作動しろ。
+
+|LangLocalJapanesePage| では日本語に対する検索性質を指定可能。
+
+.. rubric:: Treat as equal
+
+検索時に等しいものとして扱う選択肢を指定する。
+
+.. rubric:: Ignore
+
+検索時に無視する文字を指定する。
+
+.. admonition:: 利用者ノート
+
+   |UI| 言語を英語することの唯一の難点が、このページが読みにくいことだ。日本語版
+   はこうだ：
+
+   .. figure:: https://pbs.twimg.com/media/GW4Q426XIAAPkLu?format=png&name=900x900
+      :align: center
+      :alt: LibreOffice Options - Languages and Locales Settings - Searching in Japanese
+      :figwidth: 100%
+      :target: https://pbs.twimg.com/media/GW4Q426XIAAPkLu?format=png&name=900x900
+
+Asian layout
+----------------------------------------------------------------------
+
+アジア言語の支援が動作するようになった後に、アジア言語のテキストの組版の既定設定
+を構成する。これらの選択肢を動作させるには、|OptionsDlg|
+|LangLocalLangAsianLayoutPage| を開く。アジア言語のレイアウトの性質を指定可能だ。
+
+.. rubric:: Kerning
+
+個々の文字間の文字同士の間隔調整の既定設定を定義する。
+
+:guilabel:`&Western text only`
+   欧文テキストにのみ適用する。こちらをオンか？
+:guilabel:`Western &text and Asian punctuation`
+   欧米テキストとアジアの句読点の両方に文字同士の間隔調整を適用する。
+
+.. rubric:: Character Spacing
+
+アジアテキスト、升目、図面物の文字間隔の既定設定を定義する。
+
+:guilabel:`&No compression`
+   詰めない。
+:guilabel:`&Compress only punctuation`
+   句読点のみを詰める。
+:guilabel:`Compress punctuation and Japanese Kana`
+   句読点と日本語のカナを詰める。
+
+.. rubric:: First and Last Characters
+
+:guilabel:`&Language`
+   最初と最後の文字を定義する言語を指定する。当然 `Japanese` を選択する。
+:guilabel:`&Default`
+   オンにすると選択言語の既定文字が次の二つの欄に入力される。
+:guilabel:`Not &at start of line`
+   行頭に単独で出現しない文字を指定する。ここで入力された文字が改行後の行頭に位
+   置する場合、その文字は自動的に前の行の行末に移動する。例えば、文末の感嘆符が
+   この欄に含まれれている場合、この記号が行頭に表示されることはない。
+:guilabel:`Not at &end of line`
+   行末に単独で出現しない文字を指定する。ここで入力された文字が改行によって行末
+   に位置する場合、その文字は自動的に次の行の先頭に移動する。例えば、金額の前に
+   表示される通貨記号がこの欄にある場合、この記号が行末に表示されることはない。
+
+.. admonition:: 利用者ノート
+
+   最後の二つの記号の羅列パターンを VS Code のエディター設定に流用できるか？
+
+Complex Text Layout
+----------------------------------------------------------------------
+
+現在、LibreOffice はヒンディー語、タイ語、ヘブライ語、アラビア語を |CTL| 言語と
+して支援している。
+
+右から左へのテキストフローが選択されている場合でも、埋め込まれた欧文テキストは左
+から右に流れる。キャレットは矢印キーに反応する。|ArrowR| と |ArrowL| はキャレッ
+トをテキスト終端方向と始端方向へそれぞれ移動させる。
+
+.. admonition:: 読者ノート
+
+   本節のノートは割愛する。
+
+Language tool server
+----------------------------------------------------------------------
+
+|LangLocalLangToolServerPage| で LibreOffice で利用可能な言語ツール補助を使用す
+るには、:guilabel:`Enable Language Tool` をオンにする。必要に応じて、リンク
+<https://languagetool.org/legal/privacy> をクリックして何かを操作する。
+
+English sentence checking
+----------------------------------------------------------------------
+
+|LangLocalEnglishSentencePage| では文書で使用されている言語を検査するための選択
+肢を選択できる。
 
 ----
 
 .. rubric:: 章末注
+
+.. [#1] ロケールという術語の定義は難しい。
