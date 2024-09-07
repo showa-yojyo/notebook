@@ -771,6 +771,26 @@ English sentence checking
 |LangLocalEnglishSentencePage| では文書で使用されている言語を検査するための選択
 肢を選択できる。
 
+Chart color options
+======================================================================
+
+|OptionsDlg| :menuselection:`Charts-->Default Colors` ページでは LibreOffice 統
+計図表の既定色が指定されている。変更された色は新しく作成された統計図表にのみ適用
+される。
+
+.. |ChartColors| replace:: :guilabel:`Chart Colors`
+.. |ColorTable| replace:: :guilabel:`Color Table`
+
+|ChartColors|
+   |ColorTable| で選択された色が選択されたデータ行に割り当てられる。
+|ColorTable|
+   |ChartColors| の供給源として使用するパレットをドロップダウンリストから選択す
+   る。
+:guilabel:`&Add`
+   |ChartColors| にデータ系列を追加するに使うボタン。
+:guilabel:`&Delete`
+   |ChartColors| 一覧から選択したデータ系列を削除するボタン。
+
 ----
 
 .. rubric:: 章末注
