@@ -802,6 +802,21 @@ Proxy
 MediaWiki
    MediaWiki 発行機能を使用するには |JRE| が必要だ。
 
+AutoCorrect functions
+======================================================================
+
+LibreOffice の AutoCorrect 機能は一般的な記号、綴字過誤、文法過誤を自動的に検出
+して置換する。AutoCorrect によって本来保持されるべき内容が変更されることがある。
+文書に原因不明の変更が現れた場合、AutoCorrect の設定が原因であることがよくある。
+くわしくは LibreOffice 各アプリケーションの関連使用者手引を見ろ。
+
+#. |MenuBar| :menuselection:`&Tools-->&AutoCorrect Options...` を選択し、
+   :guilabel:`AutoCorrect` ダイアログボックスを開く。このメニュー項目を表示する
+   には文書が開いている必要がある。
+#. ダイアログボックスの各タブを選択して、AutoCorrect の選択肢を追加、編集、削除
+   する。Writer ではタブが五つ、他の LibreOffice アプリケーションでは四つある。
+#. |OK| を押す。
+
 ----
 
 .. rubric:: 章末注
