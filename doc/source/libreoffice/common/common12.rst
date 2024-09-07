@@ -791,6 +791,17 @@ Chart color options
 :guilabel:`&Delete`
    |ChartColors| 一覧から選択したデータ系列を削除するボタン。
 
+Internet options
+======================================================================
+
+|OptionsDlg| :menuselection:`Internet` では、計算機の OS に応じてページ構成が異
+なるようだが、Windows 版では次の二つが見える：
+
+Proxy
+   LibreOffice で使用する proxy 設定を入力する。使わない。
+MediaWiki
+   MediaWiki 発行機能を使用するには |JRE| が必要だ。
+
 ----
 
 .. rubric:: 章末注
