@@ -17,7 +17,7 @@ Introduction
 * メニューやツールバーを追加したり、イベントにマクロを割り当てたりする
 * さまざまな |UI| の変種を選択して使用する
 
-改造は LibreOffice Web サイトまたは他の供給人からインストールできる拡張機能を追
+改造は LibreOffice Web サイトまたは他の供給人からインストールできる拡張を追
 加することでも行える。TODO を見ろ。
 
 .. note::
@@ -331,6 +331,93 @@ Assigning macros
 るには、|CustomizeDlg| |EventsTab| を用いる。イベントをマクロに割り当てる方法の
 詳細については :doc:`common11` を見ろ。
 
+Adding extensions
+======================================================================
+
+Installing extensions
+----------------------------------------------------------------------
+
+拡張とは LibreOffice の機能を向上させるために LibreOffice の中にインストールでき
+るプログラムだ。たとえば、雛形、辞書、クリップアートギャラリー、マクロ、ダイアロ
+グライブラリーなどを拡張として加えられる。
+
+LibreOffice を計算機にインストールする時点で拡張がいくつかインストールされる。そ
+の他の拡張は <https://extensions.libreoffice.org/> にある公式拡張保管庫から無料
+でダウンロード可能だ。
+
+拡張は他の供給源からもダウンロードし得る。これらの拡張の中には無料のものも有料の
+ものもある。どのような免許と料金が適用されるかはその記述を当たれ。
+
+Installing extensions
+----------------------------------------------------------------------
+
+公式拡張保管庫に掲載されている拡張のインストール方法：
+
+.. todo:: steps
+
+#. |MenuBar| |ExtensionsM| で |ExtensionsDlg| を開く。
+#. :guilabel:`Get more extensions online...` リンクをクリックする。LibreOffice
+   公式拡張保管庫が Webブラウザーで開く。
+#. ページ内の検索欄に検索語を入力し、:guilabel:`Search` ボタンを押す。
+#. 必要な拡張を見つけてクリックし、選択した拡張の Web ページを開く。
+#. 拡張の記述と、使用している LibreOffice のバージョンおよび計算機の OS との互換
+   性を確認する。
+#. 正しいバージョンの拡張については、:guilabel:`Download` をクリックすると、拡張
+   が計算機のダウンロードフォルダーにダウンロードされる。
+#. |ExtensionsDlg| で :guilabel:`&Add` ボタンを押してファイルダイアログボックス
+   を開く。
+#. 拡張のあるフォルダーに移動する。
+#. 拡張を選択し |Open| を押す。
+#. 拡張がインストールされ、|ExtensionsDlg| に表示される。
+#. 必要に応じて、拡張を有効にするために LibreOffice を再起動する。
+
+.. note::
+
+   公式保管庫所蔵でない拡張をインストールするには、その拡張の供給源からモノをダ
+   ウンロードし、上記方法の途中手順から再現して拡張をインストールする。
+
+Updating extensions
+----------------------------------------------------------------------
+
+.. |ExtensionUpdateDlg| replace:: :guilabel:`Extension Update` ダイアログボックス
+
+拡張の更新を定期的に調べることが必要だ。その方法：
+
+#. |ExtensionsDlg| を開く。
+#. :guilabel:`Check for &Updates` ボタンを押して |ExtensionUpdateDlg| を開く。
+#. :guilabel:`&Available extensions update` に表示されている拡張を選択し、
+   :guilabel:`&Install` を押して拡張を更新する。
+#. |ExtensionUpdateDlg| と |ExtensionsDlg| を閉じる。
+#. 必要に応じて、拡張の更新を有効にするために LibreOffice を再起動する。
+
+Removing extensions
+----------------------------------------------------------------------
+
+不要になった拡張を削除して完全にアンインストールするには次のようにする：
+
+#. |ExtensionsDlg| を開く。
+#. 削除する拡張を選択する。
+#. |RemoveButton| を押し、拡張の削除を確認する。
+#. |ExtensionsDlg| を閉じる。
+
+Disabling extensions
+----------------------------------------------------------------------
+
+.. |DisableB| replace:: :guilabel:`&Disable` ボタン
+
+LibreOffice から拡張を削除せずに、拡張を作動させなくする方法：
+
+#. |ExtensionsDlg| を開く。
+#. 作動させない拡張を選択する。
+#. |DisableB| を押す。ボタンのラベルが変わる。
+#. 必要に応じて、:guilabel:`&Enable` ボタンを押すと、LibreOffice で再び拡張機能
+   が作動する。
+
+.. note::
+
+   |ExtensionsDlg| で |RemoveButton| と |DisableB| が灰色表示されている場合、そ
+   の拡張は削除することも作動不能にさせることもできない。拡張が LibreOffice のイ
+   ンストールの一部であるなどに灰色表示になる。
 
 ----
 
