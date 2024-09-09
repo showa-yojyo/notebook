@@ -419,6 +419,96 @@ LibreOffice から拡張を削除せずに、拡張を作動させなくする�
    の拡張は削除することも作動不能にさせることもできない。拡張が LibreOffice のイ
    ンストールの一部であるなどに灰色表示になる。
 
+Creating custom colors
+======================================================================
+
+改造色を作成して LibreOffice 改造パレットに追加することができる。たとえば、文書
+を作成する際に、企業配色と正確に一致させるために改造色が必要になることがある。
+改造色は次の色表記のいずれかの値を変化させることで作成する：
+
+* RGB 記法
+* HSB 記法
+* CMYK 記法
+
+改造色を作成する以下の手順は、物体に色の領域塗りつぶしを作成する例だ。領域塗りつ
+ぶしで作成された改造色は改造パレットに保存され、線、矢印、テキストで改造色を使用
+できるようになる。改造色の作成に使用できるダイアログボックスは次のとおり：
+
+.. |ColorPage| replace:: :guilabel:`Color` ページ
+.. |PickAColorDlg| replace:: :guilabel:`Pick A Color` ダイアログボックス
+.. |AreaPanel| replace:: :guilabel:`Area` 盤
+
+* |PickAColorDlg|
+* |AreaTab| にある |ColorPage|
+* :guilabel:`Line` タブにある :guilabel:`Color` ドロップダウンリスト
+* :guilabel:`Character` ダイアログボックス、:guilabel:`Character Style` ダイアロ
+  グボックス、:guilabel:`Paragraph Style` ダイアログボックスにある
+  |FontEffectsTab| :guilabel:`&Font color` ドロップダウンリスト
+* |Sidebar| |PropertiesDeck| にある |AreaPanel| :guilabel:`Fill` ドロップダウン
+  リスト
+* |Sidebar| |PropertiesDeck| にある :guilabel:`Line` 盤 :guilabel:`Color` ドロッ
+  プダウンリスト
+* |Sidebar| |PropertiesDeck| にある :guilabel:`Character` 盤 :guilabel:`Font
+  Color` ドロップダウンリスト
+
+Using Area dialog for objects
+----------------------------------------------------------------------
+
+.. |AreaDlg| replace:: :guilabel:`Area` ダイアログボックス
+.. |CustomPalette| replace:: :guilabel:`Cust&om palette`
+.. |AddB| replace:: :guilabel:`&Add` ボタン
+
+#. 正方形などの塗りつぶし物体が選択されているとする。
+#. 選択物を右クリックし、:menuselection:`&Area...` を選択して |AreaDlg| を開く。
+#. |ColorPage| を開いて色塗りに使用できる選択肢を出す。
+#. :guilabel:`&R`, :guilabel:`&G`, :guilabel:`&B` の値を 0 から 255 の尺度で指定
+   するか、改造色の十六進数コードがわかっていればそれを :guilabel:`&Hex` に入力
+   する。
+#. |CustomPalette| で |AddB| を押し、開いた |NameDlg| で色の名前を入力する。
+#. |OK| を押して |NameDlg| を閉じるとその色が |CustomPalette| に追加される。
+#. |OK| を押して |AreaDlg| を閉じる。新しい改造色で選択物が塗りつぶされ、他の文
+   書で再利用できる。
+
+.. note::
+
+   色の表記同士は連動しており、通知集合の値を一つ変更すると、他の通知集合の値も
+   自動的に変化する。
+
+.. admonition:: 利用者ノート
+
+   他の文書で再利用可能ということは、定義色がどこかに使用者設定として保存されて
+   いるはずだ。バックアップしたい。
+
+Using Pick a Color dialog for objects
+----------------------------------------------------------------------
+
+.. |CustomColorC| replace:: :menuselection:`Custom Color...`
+
+#. 正方形などの塗りつぶし物体が選択されているとする。
+#. 次のいずれかの方法で |PickAColorDlg| を開く：
+
+   * |AreaDlg| |ColorPage| で :guilabel:`Pick` ボタンを押す。
+   * :guilabel:`Line and Filling` ツールバーの :guilabel:`Fill Color` 横の三角▼
+     をクリックし、|CustomColorC| を選択する。
+   * |Sidebar| |PropertiesDeck| |AreaPanel| の :guilabel:`Fill` 横の三角▼をク
+     リックし、|CustomColorC| を選択する。
+#. 次のいずれかの方法で改造色を作成する。作成される色のプレビューは色選択ボック
+   スの下にある元の色ボックスの左側に表示される。
+
+   * 色棒から色範囲を選択し、マウスカーソルを使って、必要な色にカーソルが来るま
+     で、色箱内の標的を移動する。
+   * :guilabel:`&Red`, :guilabel:`&Green`, :guilabel:`&Blue` に値を入力する。
+   * :guilabel:`&Cyan`, :guilabel:`&Magenta`, :guilabel:`&Yellow`,
+     :guilabel:`&Key` の値を入力する。
+   * :guilabel:`H&ue`, :guilabel:`&Saturation`, :guilabel:`Bright&ness` の値を入
+     力する。HSB 値は色を変更するのではなく、色の見え方を変更する。
+   * :guilabel:`Hex &#` に十六進数コードを入力する。
+#. |OK| を押して |PickAColorDlg| を閉じ、色を保存します。選択物がその色で塗りつ
+   ぶされる。
+#. |AreaDlg| |ColorPage| を開く。
+#. |CustomPalette| で |AddB| を押し、開いた |NameDlg| に色の名前を入力する。以下、
+   先述の手順に合流する。
+
 ----
 
 .. rubric:: 章末注
