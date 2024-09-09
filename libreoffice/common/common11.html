@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 11, Getting Started with Macros ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Chapter 12, Configuring LibreOffice ノート" href="common12.html" />
+    <link rel="prev" title="Chapter 10 Working with File Formats, Security, and Exporting ノート" href="common10.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="common10.html" title="Previous">Chapter 10 Working with File Formats, Security, and Exporting ノート</a>
+        </li>
+      
+        <li>
+          &uarr;
+          <a href="../index.html" title="Parent">LibreOffice 利用ノート</a>
+        </li>
+        <li>
+          &uarr;
+          <a href="index.html" title="Parent">LibreOffice 共通ノート（詳細版）</a>
+        </li>
+        <li>
+          <a href="common12.html" title="Next">Chapter 12, Configuring LibreOffice ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="chapter-11-getting-started-with-macros">
+<h1>Chapter 11, Getting Started with Macros ノート<a class="headerlink" href="#chapter-11-getting-started-with-macros" title="Permalink to this heading">¶</a></h1>
+<nav class="contents local" id="id1">
+<p class="topic-title">章見出し</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#your-first-macros" id="id6">Your first macros</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adding-a-macro" id="id7">Adding a macro</a></p></li>
+<li><p><a class="reference internal" href="#recording-a-macro" id="id8">Recording a macro</a></p></li>
+<li><p><a class="reference internal" href="#running-a-macro" id="id9">Running a macro</a></p></li>
+<li><p><a class="reference internal" href="#viewing-and-editing-macros" id="id10">Viewing and editing macros</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#creating-a-macro" id="id11">Creating a macro</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a-more-complex-example-of-a-macro" id="id12">A more complex example of a macro</a></p></li>
+<li><p><a class="reference internal" href="#running-a-macro-quickly" id="id13">Running a macro quickly</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#limitations-of-the-macro-recorder" id="id14">Limitations of the macro recorder</a></p>
+<ul>
+<li><p><a class="reference internal" href="#understanding-the-dispatch-framework" id="id15">Understanding the dispatch framework</a></p></li>
+<li><p><a class="reference internal" href="#how-the-macro-recorder-uses-the-dispatch-framework" id="id16">How the macro recorder uses the dispatch framework</a></p></li>
+<li><p><a class="reference internal" href="#other-options" id="id17">Other options</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#macro-organization" id="id18">Macro organization</a></p>
+<ul>
+<li><p><a class="reference internal" href="#where-are-macros-stored" id="id19">Where are macros stored?</a></p></li>
+<li><p><a class="reference internal" href="#exporting-macros" id="id20">Exporting macros</a></p></li>
+<li><p><a class="reference internal" href="#importing-macros" id="id21">Importing macros</a></p></li>
+<li><p><a class="reference internal" href="#downloading-macros-to-import" id="id22">Downloading macros to import</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#how-to-run-a-macro" id="id23">How to run a macro</a></p>
+<ul>
+<li><p><a class="reference internal" href="#toolbars-menu-items-and-keyboard-shortcuts" id="id24">Toolbars, menu items, and keyboard shortcuts</a></p></li>
+<li><p><a class="reference internal" href="#events" id="id25">Events</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-extensions" id="id26">Using extensions</a></p></li>
+<li><p><a class="reference internal" href="#writing-macros-without-the-recorder" id="id27">Writing macros without the recorder</a></p>
+<ul>
+<li><p><a class="reference internal" href="#an-example-of-a-macro-in-code-for-writer" id="id28">An example of a macro in code for Writer</a></p></li>
+<li><p><a class="reference internal" href="#an-example-of-a-macro-in-code-for-calc" id="id29">An example of a macro in code for Calc</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-scriptforge-library" id="id30">The ScriptForge library</a></p></li>
+<li><p><a class="reference internal" href="#uno-object-inspector" id="id31">UNO Object Inspector</a></p></li>
+<li><p><a class="reference internal" href="#overview-of-python-beanshell-and-javascript-macros" id="id32">Overview of Python, BeanShell, and JavaScript macros</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-macros" id="id33">Python macros</a></p></li>
+<li><p><a class="reference internal" href="#beanshell-macros" id="id34">BeanShell macros</a></p></li>
+<li><p><a class="reference internal" href="#javascript-macros" id="id35">JavaScript macros</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#finding-more-information" id="id36">Finding more information</a></p>
+<ul>
+<li><p><a class="reference internal" href="#included-material" id="id37">Included material</a></p></li>
+<li><p><a class="reference internal" href="#online-resources" id="id38">Online resources</a></p></li>
+<li><p><a class="reference internal" href="#printed-and-ebook-materials" id="id39">Printed and ebook materials</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>LibreOffice におけるマクロの意義は MS Office と同じようだ。</p>
+<p>マクロを作成する最も簡単な方法は、オープンソースの LibreOffice Basic スクリプト言語を使用して LibreOffice の UI で一連の操作を記録することだ。これらのマクロは、組み込みの LibreOffice Basic Integrated Development Environment (IDE) を使用して、記録後に編集および拡張することが可能だ。</p>
+<p>LibreOffice で最も強力なマクロは、スクリプト言語：</p>
+<ul class="simple">
+<li><p>LibreOffice Basic</p></li>
+<li><p>Python</p></li>
+<li><p>JavaScript</p></li>
+<li><p>BeanShell</p></li>
+</ul>
+<p>のいずれかを使用して作成する。この章では既定のマクロスクリプト言語である
+LibreOffice Basic を中心にマクロ機能の概要を説明する。残りのスクリプト言語については、入門的な例をいくつか含むのみ。</p>
+</section>
+<section id="your-first-macros">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Your first macros</a><a class="headerlink" href="#your-first-macros" title="Permalink to this heading">¶</a></h2>
+<section id="adding-a-macro">
+<span id="common11-anchor-b"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Adding a macro</a><a class="headerlink" href="#adding-a-macro" title="Permalink to this heading">¶</a></h3>
+<p>ここでは、本やインターネットで見つけた既存のマクロを使用することを想定している。マクロを手に入れたら、そのマクロを含むライブラリーとモジュールを作成する。その構成については <a class="reference internal" href="#common11-anchor-d"><span class="std std-ref">Macro organization</span></a> を見ろ。</p>
+<div class="highlight-vbnet notranslate"><div class="highlight"><pre><span></span><span class="k">Sub</span><span class="w"> </span><span class="nf">HelloMacro</span>
+<span class="w">    </span><span class="n">Print</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span>
+<span class="k">End</span><span class="w"> </span><span class="k">Sub</span>
+</pre></div>
+</div>
+<p>マクロを含むライブラリーを作成する手順：</p>
+<ol class="arabic">
+<li><p>LibreOffice アプリケーションを何か開く。</p></li>
+<li><p>Menu バー <span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> を選択する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>rganizer</span> ボタン を押す。<span class="guilabel">Basic Macro Organizer</span> ダイアログボックス で <span class="guilabel">Libraries</span> タブ を開く。</p></li>
+<li><p><span class="guilabel">L<span class="accelerator">o</span>cation</span> を既定の場所である <cite>My Macros &amp; Dialogs</cite> に設定する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">N</span>ew…</span> ボタン を押す <span class="guilabel">New Library</span> ダイアログボックスが開く。</p></li>
+<li><p>ライブラリー名を記入して <span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押す。ここでは <cite>TestLibrary</cite> とする。</p></li>
+<li><p><span class="guilabel">Basic Macro Organizer</span> ダイアログボックス に戻ったら <span class="guilabel">Modules</span> タブを開く。</p></li>
+<li><p>Module 一覧で <cite>My Macros</cite> を展開し、ライブラリー <cite>TestLibrary</cite> を選択する。
+<cite>Module1</cite> というモジュールがすでに存在し、マクロを含めることができる。必要であれば <span class="guilabel"><span class="accelerator">N</span>ew…</span> ボタン を押して、ライブラリーに別のモジュールを作成可能。</p></li>
+<li><p><cite>Module1</cite> 選択し、<span class="guilabel"><span class="accelerator">E</span>dit</span> ボタン を押して IDE を開く。これを使ってマクロの作成、編集、実行、デバッグを行う。</p></li>
+<li><p>新しいモジュールが作成されると、コメントと <code class="docutils literal notranslate"><span class="pre">Main</span></code> という空のマクロが含まれている。</p></li>
+<li><p>新しいマクロを <code class="docutils literal notranslate"><span class="pre">Sub</span> <span class="pre">Main</span></code> の前か <code class="docutils literal notranslate"><span class="pre">End</span> <span class="pre">Sub</span></code> の後に追加する。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">Main</span></code> サブルーチンを削ってもかまわない。</p>
+</div>
+</li>
+<li><p>（随意）マクロが期待どおりに記述されているかどうかを確認するには、
+<span class="guilabel">Macro</span> ツールバー <span class="guilabel">Compile</span> 図像をクリックする。</p></li>
+<li><p><span class="guilabel">Object Catalog</span> ウィンドウの <span class="menuselection">TestLibrary‣Module
+1</span> で <cite>HelloMacro</cite> サブルーチンをダブルクリックし、</p>
+<ul class="simple">
+<li><p><span class="guilabel">Macro</span> ツールバー <span class="guilabel"><span class="accelerator">R</span>un</span> 図像 をクリックするか、</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">F5</kbd> を押して、</p></li>
+</ul>
+<p>モジュール内の <cite>HelloMacro</cite> サブルーチンを実行する。</p>
+</li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押して結果を閉じる。</p></li>
+<li><p>モジュール内の任意のマクロを選択して実行するには、</p>
+<ul class="simple">
+<li><p><span class="guilabel">Standard</span> ツールバー <span class="guilabel">Select Macro</span> 図像をクリックするか、</p></li>
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> に進む。</p></li>
+</ul>
+</li>
+<li><p>マクロを選択し、<span class="guilabel"><span class="accelerator">R</span>un</span> ボタン を押す。</p></li>
+</ol>
+</section>
+<section id="recording-a-macro">
+<span id="common11-anchor-a"></span><h3><a class="toc-backref" href="#id8" role="doc-backlink">Recording a macro</a><a class="headerlink" href="#recording-a-macro" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice でマクロを記録するとき、実際にはプログラミング言語を使用して、特定の作業を実行するために必要な手順を記録する。たとえば、文書に同じ情報を繰り返し入力する必要がある場合、その都度手でコピー＆ペーストしなくても、自動的に情報を入力するマクロを作成すればいい。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Writer の場合は AutoText 機能の使用も検討しろ。</p>
+</div>
+<p><span class="guilabel">Options</span> ダイアログボックス <span class="menuselection">LibreOffice‣Advanced</span> ページ を開き、<span class="guilabel">Enable macro recording
+(may be limited)</span> をオンにしてマクロ記録を動作するようにする。</p>
+<ol class="arabic simple">
+<li><p>マクロの記録を開始するには、<span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">R</span>ecord Macro</span> を選択する。マクロ記録中であることを示す小さなダイアログボックスが現れる。</p></li>
+<li><p>マクロ実行時になったら入力したいテキストを文書に入力する</p></li>
+<li><p>ミニダイアログの Stop Recording を押す。これにより <span class="guilabel">BASIC Macros</span> ダイアログボックス が開く。</p></li>
+<li><p><cite>My Macros</cite> を開く。</p></li>
+<li><p><span class="menuselection">My Macros‣Standard</span></p></li>
+<li><p><cite>Standard</cite> ライブラリーを選択し、マクロを保存する既存のモジュールを選択する。</p></li>
+<li><p><span class="guilabel">Macro Name</span> を入力する。この説明では <cite>EntryMyName</cite> とする。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">S</span>ave</span> ボタン を押してマクロを保存し、<span class="guilabel">BASIC Macros</span> ダイアログボックス を閉じる。</p></li>
+</ol>
+<p>上記のすべての手順を実行すると、選択したモジュール内に <cite>EnterMyName</cite> というマクロが作成される。</p>
+</section>
+<section id="running-a-macro">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Running a macro</a><a class="headerlink" href="#running-a-macro" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣R<span class="accelerator">u</span>n Macro…</span> でマクロ選択ダイアログを開く。</p></li>
+<li><p>例えば、新しく作成したマクロ <cite>EnterMyName</cite> を選択し、<span class="guilabel"><span class="accelerator">R</span>un</span> ボタン を押す。</p></li>
+<li><p>または、<span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> で <span class="guilabel">BASIC Macros</span> ダイアログボックス を開き、マクロを選択して <span class="guilabel"><span class="accelerator">R</span>un</span> ボタン を押す。</p></li>
+</ol>
+</section>
+<section id="viewing-and-editing-macros">
+<span id="common11-anchor-c"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Viewing and editing macros</a><a class="headerlink" href="#viewing-and-editing-macros" title="Permalink to this heading">¶</a></h3>
+<p>作成したマクロを表示、編集するには：</p>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> で <span class="guilabel">BASIC Macros</span> ダイアログボックス を開く。</p></li>
+<li><p>新しいマクロ <cite>EnterMyName</cite> を選択し <span class="guilabel"><span class="accelerator">E</span>dit</span> ボタン を押す。IDE が開き、マクロコードが表示される。</p></li>
+</ol>
+<section id="commenting-with-rem">
+<h4>Commenting with REM<a class="headerlink" href="#commenting-with-rem" title="Permalink to this heading">¶</a></h4>
+<p>Basic マクロコードのコメントは <code class="docutils literal notranslate"><span class="pre">REM</span></code> や単引用符から始まり行末で終わる。</p>
+</section>
+<section id="defining-subroutines-with-sub">
+<h4>Defining subroutines with SUB<a class="headerlink" href="#defining-subroutines-with-sub" title="Permalink to this heading">¶</a></h4>
+<p>個々のマクロはサブルーチンに格納される。サブルーチンはキーワード <code class="docutils literal notranslate"><span class="pre">SUB</span></code> で始まり、終わりは <code class="docutils literal notranslate"><span class="pre">END</span> <span class="pre">SUB</span></code> で示される。</p>
+<ul class="simple">
+<li><p>引数を取るサブルーチンを書くことができる。これはサブルーチンをゼロから作成する場合にのみ可能だ。LibreOffice に記録されたマクロは引数を受け付けない。</p></li>
+<li><p>サブルーチンのもう一つの種類は関数と呼ばれるもので、これは処理の結果として値を返すサブルーチンだ。関数は先頭に <code class="docutils literal notranslate"><span class="pre">FUNCTION</span></code> というキーワードをつけて定義する。LibreOffice に記録されたマクロはサブルーチンのみを定義する。</p></li>
+</ul>
+</section>
+<section id="defining-variables-using-dim">
+<h4>Defining variables using DIM<a class="headerlink" href="#defining-variables-using-dim" title="Permalink to this heading">¶</a></h4>
+<p>変数を定義するときは <code class="docutils literal notranslate"><span class="pre">DIM</span></code> キーワードを使用する。</p>
+<p><cite>EnterMyName</cite> マクロでは、変数 <code class="docutils literal notranslate"><span class="pre">document</span></code> と <code class="docutils literal notranslate"><span class="pre">dispatcher</span></code> は <code class="docutils literal notranslate"><span class="pre">object</span></code> 型として定義されている。その他の一般的な変数型には文字列、整数、日付がある。配列型の変数は一つの変数に値を複数格納することができる。配列は通常ゼロから始まる。</p>
+</section>
+<section id="explaining-macro-code">
+<h4>Explaining macro code<a class="headerlink" href="#explaining-macro-code" title="Permalink to this heading">¶</a></h4>
+<p>割愛。ここに何かを綴るよりは本書を直接当たるほうがいい。</p>
+</section>
+</section>
+</section>
+<section id="creating-a-macro">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Creating a macro</a><a class="headerlink" href="#creating-a-macro" title="Permalink to this heading">¶</a></h2>
+<p>マクロを作成する場合、記録する前に次を思うことが重要だ：</p>
+<ul class="simple">
+<li><p>作業を単純なコマンドセットとして書けるか。</p></li>
+<li><p>マクロの最終コマンドで、カーソルが次のコマンドに対応できる状態になるようにステップを配置できるか。あるいは、使用者が対象文書のテキストやデータ入力に戻れるようにできるか。</p></li>
+</ul>
+<section id="a-more-complex-example-of-a-macro">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">A more complex example of a macro</a><a class="headerlink" href="#a-more-complex-example-of-a-macro" title="Permalink to this heading">¶</a></h3>
+<p>ある一般的なマクロ作業は、Web サイトからデータの行と列をコピーし、テキスト文書で表として整形することだ。通常、このマクロは次のように動作する：</p>
+<ol class="arabic simple">
+<li><p>Web サイトからデータをクリップボードにコピーする。</p></li>
+<li><p>おかしな書式や書体を避けるため、書式なしのテキストとして Writer 文書に貼り付ける。</p></li>
+<li><p><span class="menuselection">T<span class="accelerator">a</span>ble‣<span class="accelerator">C</span>onvert‣<span class="accelerator">T</span>ext to Table…</span> を使えるように、列間にタブを入れてテキストを再整形する。</p></li>
+</ol>
+<p>上記の二つの問いを念頭に置いて、テキストを検査し、整形するマクロを記録できることを確認する。コピーされたデータの例として、Web 上のどこかにある FontWeight 定数を説明するテキストを考える。この例の最初の列は定数名を示し、それぞれの後には空白とタブが続き、各行の末尾には二つの空白がある。</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">実際には間にタブ文字があったり行末に空白文字があったりする</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DONTKNOW       The font weight is not specified/known.
+THIN           specifies a 50% font weight.
+ULTRALIGHT     specifies a 60% font weight.
+LIGHT          specifies a 75% font weight.
+SEMILIGHT      specifies a 90% font weight.
+NORMAL         specifies a normal font weight.
+SEMIBOLD       specifies a 110% font weight.
+BOLD           specifies a 150% font weight.
+ULTRABOLD      specifies a 175% font weight.
+BLACK          specifies a 200% font weight.
+</pre></div>
+</div>
+</div>
+<p>この例では、表の一列目に書体の太さの数値を、二列目に定数名を、三列目にテキストの説明を記録する。この作業はある行を除けば簡単に達成する。以下は、カーソルがテキスト <code class="docutils literal notranslate"><span class="pre">THIN</span></code> から始まる行の先頭にあると仮定して、キーストロークを使用してこのマクロを記録する手順だ。</p>
+<ol class="arabic simple">
+<li><p>マクロ記録が作動する状態であることを確認する。</p></li>
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">R</span>ecord Macro</span> 選択。マクロ記録開始。</p></li>
+<li><p>キーボードのみで先ほどのテキストを編集する。細かい記述は割愛。</p></li>
+<li><p>マクロの記録を停止し、マクロを保存する。<a class="reference internal" href="#common11-anchor-a"><span class="std std-ref">Recording a macro</span></a> を見ろ。</p></li>
+</ol>
+<p>マクロを実際に記録するよりも、これらの手順を読んで書く方がはるかに時間がかかる。</p>
+<p>このマクロを実行するには、記録されたステップを適用したい行の先頭にカーソルを置く。次に <span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣R<span class="accelerator">u</span>n Macro…</span> を選択し、<cite>CopyNumToCol1</cite> マクロを選択して <span class="guilabel"><span class="accelerator">R</span>un</span> ボタン を押す。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>生成されたコードをよく観察すると、キーバインドに対応するコマンドがそのまま記述されていることがわかる。<kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">→</kbd> を押す、ではなく、GoToNextWord を実行する、のような表現だ。</p>
+</div>
+<p>上記の手順は、マクロ作成時に想定した書式に一行目が従っている場合にのみ正しく機能することに注意。このマクロを <code class="docutils literal notranslate"><span class="pre">DONTKNOW</span></code> や <code class="docutils literal notranslate"><span class="pre">NORMAL</span></code> の行で実行すると、これらの行は書式が異なるので、結果は期待どおりにはならない。</p>
+</section>
+<section id="running-a-macro-quickly">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Running a macro quickly</a><a class="headerlink" href="#running-a-macro-quickly" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣R<span class="accelerator">u</span>n Macro…</span> でマクロを繰り返し実行するのは不便なので、キーバインドを割り当てて、マクロを素速く起動する。<cite>CopyNumToCol1</cite> マクロに <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> を割り当てる手順：</p>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">C</span>ustomize…</span> を選択して <span class="guilabel">Customize</span> ダイアログボックス を開く。</p></li>
+<li><p><span class="guilabel">Keyboard</span> タブを開く。</p></li>
+<li><p>下側を適当に選択して <cite>CopyNumToCol1</cite> マクロを選択する。</p></li>
+<li><p>上側からキーバインド <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">K</kbd> を選択して <cite>CopyNumToCol1</cite> マクロに割り当てるのに <span class="guilabel"><span class="accelerator">A</span>ssign</span> ボタンを押す。</p></li>
+</ol>
+</section>
+</section>
+<section id="limitations-of-the-macro-recorder">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Limitations of the macro recorder</a><a class="headerlink" href="#limitations-of-the-macro-recorder" title="Permalink to this heading">¶</a></h2>
+<p>Macro Recorder には記録できない動作がある。この制限がどこから生じるのかを見ていく。</p>
+<section id="understanding-the-dispatch-framework">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Understanding the dispatch framework</a><a class="headerlink" href="#understanding-the-dispatch-framework" title="Permalink to this heading">¶</a></h3>
+<p>例えば Menu バー <span class="menuselection"><span class="accelerator">F</span>ile‣<span class="accelerator">S</span>ave</span> 選択やキーバインド <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">S</kbd> や
+<span class="guilabel">Standard</span> ツールバー <span class="guilabel">Save</span> 図像クリックは、それらが「ファイルを保存するコマンド」を何かに発送する。コマンドが処理可能な何かにまで到着すると、ファイル保存が実際に実行される。</p>
+<p>発送コマンドはテキストであり、例えば <code class="docutils literal notranslate"><span class="pre">.uno:GoToStartOfLine</span></code> のようなものだ。</p>
+</section>
+<section id="how-the-macro-recorder-uses-the-dispatch-framework">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">How the macro recorder uses the dispatch framework</a><a class="headerlink" href="#how-the-macro-recorder-uses-the-dispatch-framework" title="Permalink to this heading">¶</a></h3>
+<p>Macro Recorder は発送フレームワークが生成するコマンドしか登録しないが、そのようなコマンドがすべて完了するというわけでもない。たとえば、物体を入れると次のようなコードが生成される：</p>
+<div class="highlight-vbnet notranslate"><div class="highlight"><pre><span></span><span class="n">dispatcher</span><span class="p">.</span><span class="n">executeDispatch</span><span class="p">(</span><span class="n">document</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.uno:InsertObject&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Array</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>どのような物体を作成するかを指定することは不可能だ。物体をファイルから入れる場合、どのファイルを入れるかを指定できない。マクロの記録中に <span class="guilabel">Options</span> ダイアログボックス を使用して設定項目を開いて変更した場合、生成されたマクロは設定の変更を記録しない（コメントアウトされたコード片が生じる）。</p>
+<p>ダイアログボックスを何か開くとコマンドは生成するが、ダイアログボックス内で行われた作業は通常記録されない。Macro Recorder が何を捉えることができるかは、試してみるまでわからない（例えば、検索ダイアログボックスからの動作は適切に捉えられる）。</p>
+</section>
+<section id="other-options">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Other options</a><a class="headerlink" href="#other-options" title="Permalink to this heading">¶</a></h3>
+<p>Macro Recorder を使っても解決できない問題があるときに、LibreOffice 物体を使用して実際のコードを記述する。LibreOffice 物体を学ぶのはたいへんだ。</p>
+</section>
+</section>
+<section id="macro-organization">
+<span id="common11-anchor-d"></span><h2><a class="toc-backref" href="#id18" role="doc-backlink">Macro organization</a><a class="headerlink" href="#macro-organization" title="Permalink to this heading">¶</a></h2>
+<p>LibreOffice では「マクロ ⊂ モジュール ⊂ ライブラリー ⊂ コンテナー」という構造をとる。モジュールは通常、使用者との対話や計算などの機能を分割する。個々のマクロはサブルーチンや関数だ。</p>
+<p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> を選択し、<span class="guilabel">BASIC Macros</span> ダイアログボックス を開く。利用可能なコンテナーはすべて
+<span class="guilabel">Macro From</span> 一覧に表示され、文書はそれぞれライブラリーを複数含むことができるコンテナーだ。アプリケーション自体が二つのコンテナーとして機能する。一つは LibreOffice とともに配布されるマクロ用のコンテナーで <cite>LibreOffice Macros</cite> と呼ばれ、もう一つは個人用マクロ用のコンテナーで <cite>My Macros</cite> と呼ばれる。</p>
+<p><cite>LibreOffice Macros</cite> はアプリケーション実行時コードと一緒に保存され、基本、編集不可だ。<cite>LibreOffice Macros</cite> コンテナーには独自のマクロを保存してはいけない。</p>
+<p>マクロが単一の文書にしか適用されない場合を除き、マクロは <cite>My Macros</cite> コンテナーに格納される。<cite>My Macros</cite> コンテナーは使用者領域またはホームディレクトリーに保存される。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>Windows ならば <code class="docutils literal notranslate"><span class="pre">APPDATA</span></code> とか <code class="docutils literal notranslate"><span class="pre">USERPROFILE</span></code> だ。</p>
+</div>
+<p>マクロが文書に含まれている場合、記録されたマクロはその文書上で動作しようとする。というのも、その動作には主に <code class="docutils literal notranslate"><span class="pre">ThisComponent</span></code> を使用しているからだ。</p>
+<p>すべてのコンテナーは <cite>Standard</cite> という名前のライブラリーを含む。<cite>Standard</cite> ライブラリーを使用する代わりに、意味のある名前を持つ独自のライブラリーを作成するのが良い。<cite>Standard</cite> とは異なり、独自のライブラリーを他のコンテナーにインポートすることが可能だ。</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>LibreOffice では、ライブラリーをコンテナーにインポートすることは可能だが、
+<cite>Standard</cite> という名前のライブラリーを上書きすることはできない。そのため、
+<cite>Standard</cite> ライブラリーにマクロを保存すると、そのマクロを別のコンテナーにインポートできなくなる。</p>
+</div>
+<p>モジュールにも意味のある名前をなるべくつけろ。</p>
+<p><cite>My Macros</cite> という名前のコンテナーに保存されたマクロはすべての文書で使用可能だ。文書にマクロを保存するのは、文書が共有され、マクロを文書に含めたい場合に便利だ。</p>
+<p><cite>Standard</cite> ライブラリーと <cite>Template</cite> ライブラリーは自動的にロードされるが、その他のライブラリーマクロは、それらを含むライブラリーがロードされるまで使用可能にならない。ロードされたライブラリーはロードされていないそれとは表示が異なる。ライブラリーとそれに含まれるモジュールをロードするには、ライブラリーをダブルクリックする。</p>
+<section id="where-are-macros-stored">
+<span id="common11-anchor-e"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Where are macros stored?</a><a class="headerlink" href="#where-are-macros-stored" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice は、使用者固有のデータをホームディレクトリー内のフォルダーに保存する。設定データの保存場所を確認するには、<span class="guilabel">Options</span> ダイアログボックス <span class="menuselection">LibreOffice‣Paths</span> ページ を開く。Basic で記述された使用者マクロは <code class="file docutils literal notranslate"><span class="pre">LibreOffice/4/user/basic</span></code> に保存される。</p>
+</section>
+<section id="exporting-macros">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Exporting macros</a><a class="headerlink" href="#exporting-macros" title="Permalink to this heading">¶</a></h3>
+<p>マクロライブラリーをエクスポートして、再利用したり他の人と共有したりしたい場合は
+LibreOffice Basic Macro Organizer を用いる。</p>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> を選択し、<span class="guilabel"><span class="accelerator">O</span>rganizer</span> ボタン を押す。</p></li>
+<li><p><span class="guilabel">Libraries</span> タブ をクリックし、エクスポートしたいライブラリーを選択する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">E</span>xport…</span> ボタンを押し、<span class="guilabel">Export <span class="accelerator">a</span>s BASIC Library</span> を選択する。</p></li>
+<li><p>ライブラリーの保存先を選択し、<span class="guilabel">保存 (<span class="accelerator">S</span>)</span> ボタン を押す。</p></li>
+</ol>
+<p>ライブラリーがエクスポートされると、LibreOffice はライブラリーに関連するすべてのファイルを含むフォルダーを作成する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>拡張子 .xlb, .xba を持つファイルがある。</p>
+</div>
+</section>
+<section id="importing-macros">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Importing macros</a><a class="headerlink" href="#importing-macros" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Basic Macro Organizer</span> ダイアログボックス ではマクロライブラリーを文書にインポートしたり、ライブラリー、モジュール、ダイアログボックスの作成、削除、名前の変更が行える。</p>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Libraries</span> タブ で使用するコンテナーを選択し、<span class="guilabel"><span class="accelerator">I</span>mport…</span> ボタンを押してマクロライブラリーをインポートする。</p></li>
+<li><p>インポートするライブラリーのあるフォルダーに移動する。<code class="file docutils literal notranslate"><span class="pre">dialog.xlb</span></code> と
+<code class="file docutils literal notranslate"><span class="pre">script.xlb</span></code> のどちらかを選択できる。どちらのファイルを選択しても、マクロをインポートできる。文書に含まれるライブラリーをインポートするには文書ファイルを選択する。</p></li>
+<li><p>ファイルを選択し、<span class="guilabel">開く (<span class="accelerator">O</span>)</span> ボタン を押して続行し、<span class="guilabel">Import Libraries</span> ダイアログボックスを開く。</p></li>
+<li><p>ライブラリーをインポートするための選択肢を選択する。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押すと選択したマクロライブラリーがインポートされる。</p></li>
+</ol>
+</section>
+<section id="downloading-macros-to-import">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Downloading macros to import</a><a class="headerlink" href="#downloading-macros-to-import" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice 社会が作成したマクロをインターネット上で見つけることができる。マクロには、文書に含まれているもの、通常のファイルとしてインポートする必要があるもの、テキストとして公開されていて Basic IDE にコピー＆ペーストする必要があるものがあります。マクロをライブラリーに追加する方法については <a class="reference internal" href="#common11-anchor-b"><span class="std std-ref">Adding a macro</span></a> を、
+Basic IDE を使用してマクロを編集する方法については <a class="reference internal" href="#common11-anchor-c"><span class="std std-ref">Viewing and editing macros</span></a> をそれぞれ見ろ。</p>
+<ul class="simple">
+<li><p>&lt;<a class="reference external" href="https://www.pitonyak.org/oo.php">https://www.pitonyak.org/oo.php</a>&gt;</p></li>
+<li><p>&lt;<a class="reference external" href="https://www.pitonyak.org/database/">https://www.pitonyak.org/database/</a>&gt;</p></li>
+<li><p>&lt;<a class="reference external" href="https://wiki.documentfoundation.org/Macros">https://wiki.documentfoundation.org/Macros</a>&gt;</p></li>
+<li><p>&lt;<a class="reference external" href="https://forum.openoffice.org/en/forum/">https://forum.openoffice.org/en/forum/</a>&gt;</p></li>
+</ul>
+</section>
+</section>
+<section id="how-to-run-a-macro">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">How to run a macro</a><a class="headerlink" href="#how-to-run-a-macro" title="Permalink to this heading">¶</a></h2>
+<p>マクロを <span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣R<span class="accelerator">u</span>n Macro…</span> で実行するのは、マクロを頻繁に使用する場合は効率的ではない。マクロにキーバインドを割り当てることもできるが、ツールバー図像、メニュー項目、イベント、文書埋め込みボタンにマクロを接続することも可能だ。どの方法を採用するかを決めるのに、次のような質問をするのもよい：</p>
+<ul class="simple">
+<li><p>マクロは一つの文書だけで利用できるようにすべきか、それともすべての文書で利用できるようにしたいか？</p></li>
+<li><p>マクロは Calc 文書など特定の文書型用か？</p></li>
+<li><p>マクロの使用頻度は？</p></li>
+</ul>
+<p>その答えによって、マクロの保存場所と実行形態が決まる。例えば、めったに使わないマクロをツールバーに追加することはないだろう。選択肢を決めるのに、次の判断基準表を検討するといい（興味深いのでそのまま引用する）：</p>
+<table class="docutils align-left" id="id3">
+<caption><span class="caption-text">Where to store a macro</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head stub"><p>格納場所</p></th>
+<th class="head"><p>全ソフト</p></th>
+<th class="head"><p>特定ソフト</p></th>
+<th class="head"><p>文書専用</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>ツールバー</p></th>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>メニュー</p></th>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>キーバインド</p></th>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>イベント</p></th>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+<section id="toolbars-menu-items-and-keyboard-shortcuts">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Toolbars, menu items, and keyboard shortcuts</a><a class="headerlink" href="#toolbars-menu-items-and-keyboard-shortcuts" title="Permalink to this heading">¶</a></h3>
+<p><span class="guilabel">Customize</span> ダイアログボックス を使ってメニュー、キーバインド、ツールバーを改造する。このダイアログボックスを開くには <span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">C</span>ustomize…</span> を選択する。詳しくは <a class="reference internal" href="common13.html"><span class="doc">Chapter 13, Customizing LibreOffice ノート</span></a> を見ろ。</p>
+</section>
+<section id="events">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Events</a><a class="headerlink" href="#events" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice では、たとえば、文書を開く、変更された状態が変化する、マウスカーソルを移動するなどはすべてイベントだ。イベントを引き金としてマクロを実行し得る。マクロはイベントハンドラーと呼ばれる。</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>イベントハンドラーを設定する際には注意が必要だ。たとえば、文書が変更されるたびに呼び出されるイベントハンドラーを書くときに、そのイベントが正しく処理されないと、問題が発生し得る。その結果、イベントハンドラーが LibreOffice を強制終了させる可能性がある。</p>
+</div>
+<ol class="arabic simple">
+<li><p><span class="guilabel">Customize</span> ダイアログボックス を開き <span class="guilabel">Events</span> タブ を選択する。このダイアログボックスのイベントはアプリケーション全体と特定の文書に関連するものだ。</p></li>
+<li><p><span class="guilabel"><span class="accelerator">S</span>ave in</span> ドロップダウンで、<cite>LibreOffice</cite> または特定の文書を選択し、イベントを保存する。</p></li>
+<li><p>一般的な使用方法は、特定のマクロを呼び出すために文書を開くイベントを割り当てるものだ。マクロは文書の特定の準備作業を実行する。必要なイベントを選択し、
+<span class="guilabel">M<span class="accelerator">a</span>cro…</span> ボタンを押して <span class="guilabel">Macro Selector</span> ダイアログボックス を開く。</p></li>
+<li><p>必要なマクロを選択し、<span class="guilabel"><span class="accelerator">O</span>K</span> ボタン を押してマクロをイベントに割り当てる。イベントがマクロに割り当てられたことが <span class="guilabel">Events</span> タブ に表示される。</p></li>
+</ol>
+<p>文書内の多くの物体はイベント発生時にマクロを呼び出すように設定できる。最も一般的な使い方は、ボタンなどのコントロールを文書に追加することだ。図版をダブルクリックしても、<span class="guilabel">Macros</span> タブのあるダイアログボックスが開き、イベントにマクロを割り当てることが可能だ。</p>
+</section>
+</section>
+<section id="using-extensions">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">Using extensions</a><a class="headerlink" href="#using-extensions" title="Permalink to this heading">¶</a></h2>
+<p>拡張とは、LibreOffice にインストールして新しい機能を追加するコードのことだ。拡張はほとんどのプログラミング言語で記述でき、単純なものから洗練されたものまである。拡張は次のような型に分類される：</p>
+<ul class="simple">
+<li><p>Calc アドイン。Calc に新しい機能を搭載するもので、通常の組み込み関数のように動作する新しい関数を含む。</p></li>
+<li><p>新しい部品と機能。通常、新しいメニューやツールバーなど、ある程度の UI 統合を含む。</p></li>
+<li><p>新しい統計図表型の図表アドイン。</p></li>
+<li><p>綴字検査などの言語部品。</p></li>
+<li><p>文書雛形と画像。</p></li>
+</ul>
+<p>個々の拡張はいろいろな場所にあるが、現在、拡張の保管庫と文書は
+&lt;<a class="reference external" href="https://extensions.libreoffice.org/">https://extensions.libreoffice.org/</a>&gt; と
+&lt;<a class="reference external" href="https://libreplanet.org/wiki/Group:OpenOfficeExtensions/List">https://libreplanet.org/wiki/Group:OpenOfficeExtensions/List</a>&gt; にそれぞれある。拡張の入手とインストールの詳細については <a class="reference internal" href="common13.html"><span class="doc">Chapter 13, Customizing LibreOffice ノート</span></a> を見ろ。</p>
+</section>
+<section id="writing-macros-without-the-recorder">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">Writing macros without the recorder</a><a class="headerlink" href="#writing-macros-without-the-recorder" title="Permalink to this heading">¶</a></h2>
+<p>LibreOffice を構成する物体に直接入出するコードでマクロを書くことも可能だ。つまり、より高度なプログラミング論理を用いて、文書を直接操作するマクロを作成することが可能だ。</p>
+<p>LibreOffice の内部物体を直接操作することは、この章を超える高度な論題だ。それでも、これがどのように機能するかを簡単な例で説明する。</p>
+<section id="an-example-of-a-macro-in-code-for-writer">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">An example of a macro in code for Writer</a><a class="headerlink" href="#an-example-of-a-macro-in-code-for-writer" title="Permalink to this heading">¶</a></h3>
+<p>Writer 文書の末尾に文字列 Hello を追加するマクロを、記録なしで作成した簡単なコードをライブラリーに追加する手順：</p>
+<ol class="arabic simple">
+<li><p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">B</span>asic…</span> を選択。</p></li>
+<li><p><cite>My Macros</cite> でマクロを作成したいライブラリーに移動する。ここでは
+<cite>TestLibrary</cite> とする。</p></li>
+<li><p>ライブラリーですでに利用可能なモジュールの一つを選択する。新しいモジュールを作成したい場合は、<span class="guilabel"><span class="accelerator">O</span>rganizer</span> ボタン を押し、新しいモジュールを追加する。</p></li>
+<li><p>モジュールを選択した状態で <span class="guilabel"><span class="accelerator">E</span>dit</span> ボタン を押す。Basic IDE ウィンドウが開き、選択したモジュールに実装されているマクロのコードが表示される。</p></li>
+<li><p>コードをモジュールに入力する。</p></li>
+</ol>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>Basic コードの編集は IDE はもちろん、Visual Studio Code でさえ快適に行うことは期待できない。たとえば自動字下げ機能がすぐに見つけられない。</p>
+</div>
+</section>
+<section id="an-example-of-a-macro-in-code-for-calc">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">An example of a macro in code for Calc</a><a class="headerlink" href="#an-example-of-a-macro-in-code-for-calc" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice Calc の機能を拡張する強力な方法の一つは、繰り返し作業を自動化するマクロを作成することだ。単純な升目処理や書式設定から高度なデータ操作まで、さまざまな作業を実行するマクロを記述できる。</p>
+<p>本書のコード例は升目範囲を分析して、すべての値が 0 から 100 の間かどうかを判断する。50 から 100 までは薄緑色で、0 から 50 までは薄赤色で升目をマークする。範囲外の値が見つかった場合は、警告を表示し薄い灰色でマークする。</p>
+<p>マクロをライブラリーに追加手順は前節と同様。このマクロを実行するには、まず新しい
+Calc シートを作成し、升目範囲に数値を追加する。</p>
+</section>
+</section>
+<section id="the-scriptforge-library">
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">The ScriptForge library</a><a class="headerlink" href="#the-scriptforge-library" title="Permalink to this heading">¶</a></h2>
+<p>ScriptForge ライブラリーは一連のサービスで構成されており、各サービスは特定の主題に関連するメソッドやプロパティーを与える。たとえば、Dialog サービスではスクリプトモジュールで利用可能なダイアログボックスに入出でき、Database サービスでは
+Base 文書でSQL コマンドを実行できる。</p>
+<p>既存の Calc 文書を開き、<cite>NewSheet</cite> という名前の新しいシートを作成して、升目 A1
+に文字列 Hello を入れるマクロを ScriptForge ライブラリーを使用して Basic で記述したコードだ。</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">ScriptForge ライブラリーを使うマクロ例</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-vbnet notranslate"><div class="highlight"><pre><span></span><span class="k">Sub</span><span class="w"> </span><span class="nf">CreateSheetExample</span>
+<span class="w">    </span><span class="n">GlobalScope</span><span class="p">.</span><span class="n">BasicLibraries</span><span class="p">.</span><span class="n">LoadLibrary</span><span class="p">(</span><span class="s">&quot;ScriptForge&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">Dim</span><span class="w"> </span><span class="n">ui</span><span class="w"> </span><span class="ow">as</span><span class="w"> </span><span class="kt">Object</span><span class="p">,</span><span class="w"> </span><span class="n">myDoc</span><span class="w"> </span><span class="ow">as</span><span class="w"> </span><span class="kt">Object</span>
+<span class="w">    </span><span class="n">ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateScriptService</span><span class="p">(</span><span class="s">&quot;UI&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">Set</span><span class="w"> </span><span class="n">myDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ui</span><span class="p">.</span><span class="n">OpenDocument</span><span class="p">(</span><span class="s">&quot;/home/user/Documents/myfile.ods&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">myDoc</span><span class="p">.</span><span class="n">InsertSheet</span><span class="p">(</span><span class="s">&quot;NewSheet&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">myDoc</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="s">&quot;NewSheet.A1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">myDoc</span><span class="p">.</span><span class="n">Activate</span><span class="p">(</span><span class="s">&quot;NewSheet&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">myDoc</span><span class="p">.</span><span class="n">Save</span><span class="p">()</span>
+<span class="w">    </span><span class="n">myDoc</span><span class="p">.</span><span class="n">CloseDocument</span><span class="p">()</span>
+<span class="k">End</span><span class="w"> </span><span class="k">Sub</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>試すときにはファイルパスを既存のものに変える必要がある。保存メソッドか閉じるメソッドをコメントアウトしておくとよい。</p>
+</div>
+</section>
+<section id="uno-object-inspector">
+<h2><a class="toc-backref" href="#id31" role="doc-backlink">UNO Object Inspector</a><a class="headerlink" href="#uno-object-inspector" title="Permalink to this heading">¶</a></h2>
+<p>LibreOffice にはアプリケーションのほぼすべての側面を自動化するために使用できる広範な API がある。LibreOffice で使用される部品モデルは <abbr title="Universal Network Objects">UNO</abbr> として知られている。</p>
+<p>スクリプト言語の LibreOffice マクロは <abbr title="Universal Network Objects">UNO</abbr> API を使用する。XSCRIPTCONTEXT インターフェイスを LibreOffice Basic, Python, JavaScript, BeanShell のマクロスクリプトに与え、文書に対して動作を実行するために必要なさまざまなインターフェイスへの入出手段を設けている。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>XSCRIPTCONTEXT とは？</p>
+</div>
+<p><span class="guilabel">UNO Object Inspector</span> はマクロ開発者が物体を検査し、物体への入出方法を学習し、マクロで使用するのに役立つ。この機能は Writer, Calc, Impress, Drawで利用できる。この機能を有効にするには Menu バー <span class="menuselection"><span class="accelerator">T</span>ool‣Develo<span class="accelerator">p</span>ment Tool</span> を選択する。</p>
+<p>ウィンドウ左側には <abbr title="Document Object Model">DOM</abbr> 補助装置があり、文書内の物体すべてを探索できる。物体を選択すると、それに関する情報がウィンドウの右側に表示される：</p>
+<dl class="simple">
+<dt><span class="guilabel">Interfaces</span></dt><dd><p>実装されているインターフェイスすべての名前</p>
+</dd>
+<dt><span class="guilabel">Services</span></dt><dd><p>物体が支援する工作すべての名前</p>
+</dd>
+<dt><span class="guilabel">Properties</span></dt><dd><p>物体で利用可能な性質すべての名前と型</p>
+</dd>
+<dt><span class="guilabel">Methods</span></dt><dd><p>物体が呼び出すことができるメソッドすべての名前、引数、戻り値の型</p>
+</dd>
+</dl>
+<p><abbr title="Document Object Model">DOM</abbr> 補助装置を使って物体を検査する代わりに <span class="guilabel">Current Selection</span> を切り替えることで、文書内で現在選択されている物体を直接検査することもある。</p>
+<p>例えば、Writer 文書で選択テキストの背景色を変更したいとする。テキストの一部を選択し、<span class="guilabel">UNO Object Inspector</span> を開いて <span class="guilabel">Current Selection</span> を切り替え、目的の効果に一致する性質を探して物体の性質を調べることができる（この例では <code class="docutils literal notranslate"><span class="pre">CharBackColor</span></code> を見つけたい）。</p>
+<p>この性質を使用して、選択テキストの背景色を変更するマクロを書くことができる。</p>
+</section>
+<section id="overview-of-python-beanshell-and-javascript-macros">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">Overview of Python, BeanShell, and JavaScript macros</a><a class="headerlink" href="#overview-of-python-beanshell-and-javascript-macros" title="Permalink to this heading">¶</a></h2>
+<p>LibreOffice では、馴染みのある言語で書かれたマクロを支援している。Python,
+BeanShell, JavaScript だ。</p>
+<p>マクロは、スクリプト言語すべてで同じように構成されている。<cite>LibreOffice Macros</cite>
+コンテナーには LibreOffice のインストール時に用意されているマクロがすべて格納される。</p>
+<p><cite>My Macros</cite> コンテナーには LibreOffice 文書で使用できるようにしたマクロが格納される。各文書には他の文書では使用できないマクロを含めることもできる。</p>
+<p>記録機能を使用する場合、マクロは LibreOffice Basic で作成される。その他のスクリプト言語を使用するには、自分でコードを記述する必要がある。</p>
+<p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣R<span class="accelerator">u</span>n Macro…</span> を使用してマクロの実行を選択すると、<span class="guilabel">Macro Selector</span> ダイアログボックス が現れる。ここで利用可能な言語で書かれたマクロを選択して実行できる。</p>
+<p><span class="guilabel"><span class="accelerator">T</span>ools–&gt;<span class="accelerator">M</span>acro–&gt;<span class="accelerator">E</span>dit Macros..</span> を使用してマクロを編集すると
+LibreOffice Basic IDE が起動する。このウィンドウでは利用可能な LibreOffice Basic
+マクロを選択して編集できるが、他の言語のマクロは選択できない。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>&lt;<a class="reference external" href="https://api.libreoffice.org/">https://api.libreoffice.org/</a>&gt; を見ろ。</p>
+</div>
+<section id="python-macros">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Python macros</a><a class="headerlink" href="#python-macros" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">P</span>ython…</span> を選択する。</p>
+<p><span class="guilabel">Python Macros</span> ダイアログボックスが現れる。Python スクリプトを編集およびデバッグする機能は、現在のところ LibreOffice の標準 UI に統合されていない。任意の Python エディターを使用してスクリプトを作成し、これらのファイルを適切なフォルダーに配置するのだ。<a class="reference internal" href="#common11-anchor-e"><span class="std std-ref">Where are macros stored?</span></a> を見ろ。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><abbr title="Alternative Python Script Organizer">APSO</abbr> 拡張機能を使うと Python スクリプトの編集や整理が簡単になる：&lt;<a class="reference external" href="https://gitlab.com/jmzambon/apso">https://gitlab.com/jmzambon/apso</a>&gt; を見ろ。</p>
+<p>LibreOffice での Python スクリプトの詳細については、
+&lt;<a class="reference external" href="https://wiki.documentfoundation.org/Macros/Python_Basics">https://wiki.documentfoundation.org/Macros/Python_Basics</a>&gt; を見ろ。</p>
+</div>
+</section>
+<section id="beanshell-macros">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">BeanShell macros</a><a class="headerlink" href="#beanshell-macros" title="Permalink to this heading">¶</a></h3>
+<p>割愛。</p>
+</section>
+<section id="javascript-macros">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">JavaScript macros</a><a class="headerlink" href="#javascript-macros" title="Permalink to this heading">¶</a></h3>
+<p><span class="menuselection"><span class="accelerator">T</span>ools‣<span class="accelerator">M</span>acros‣<span class="accelerator">O</span>rganize Macros‣<span class="accelerator">J</span>avaScript…</span> を選択する。</p>
+<p><span class="guilabel">JavaScript Macros</span> ダイアログボックスの <span class="guilabel"><span class="accelerator">E</span>dit</span> ボタン を押すと Rhino
+JavaScript Debugger に出入りできる。この道具の詳しい使い方は
+&lt;<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Debugger">https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Debugger</a>&gt; で見つかる。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>リンクが死んでいて話にならない。</p>
+</div>
+</section>
+</section>
+<section id="finding-more-information">
+<h2><a class="toc-backref" href="#id36" role="doc-backlink">Finding more information</a><a class="headerlink" href="#finding-more-information" title="Permalink to this heading">¶</a></h2>
+<p><kbd class="kbd docutils literal notranslate">F1</kbd> を押して LibreOffice ヘルプページを開く。LibreOffice ヘルプシステムの左上にあるヘルプセットを表示するドロップダウンリストから <cite>Basic</cite> を選択する。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">利用者ノート</p>
+<p>ヘルプが出ない。</p>
+</div>
+<section id="included-material">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Included material</a><a class="headerlink" href="#included-material" title="Permalink to this heading">¶</a></h3>
+<p>LibreOffice には多くの優れたマクロが含まれています。</p>
+<p><span class="guilabel">BASIC Macros</span> ダイアログボックス を開いて <span class="menuselection">Application Macros‣Tools</span> ライブラリーを展開する。<cite>WritedbgInfo</cite> や <cite>printdbgInfo</cite> などの良い例がある。</p>
+</section>
+<section id="online-resources">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">Online resources</a><a class="headerlink" href="#online-resources" title="Permalink to this heading">¶</a></h3>
+<p>マクロプログラミングに関する情報資料：</p>
+<ul class="simple">
+<li><p>&lt;<a class="reference external" href="https://wiki.documentfoundation.org/Macros">https://wiki.documentfoundation.org/Macros</a>&gt;</p></li>
+<li><p>&lt;<a class="reference external" href="https://ask.libreoffice.org/">https://ask.libreoffice.org/</a>&gt;</p></li>
+<li><p>&lt;<a class="reference external" href="https://wiki.documentfoundation.org/Documentation/Other_Documentation_and_Resources">https://wiki.documentfoundation.org/Documentation/Other_Documentation_and_Resources</a>&gt;</p></li>
+<li><p>&lt;<a class="reference external" href="http://forum.openoffice.org/en/forum/">http://forum.openoffice.org/en/forum/</a>&gt;</p></li>
+</ul>
+</section>
+<section id="printed-and-ebook-materials">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">Printed and ebook materials</a><a class="headerlink" href="#printed-and-ebook-materials" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.pitonyak.org/OOME_3_0.pdf">OpenOffice.org Macros Explained</a>:
+LibreOffice Basic でも通用する。669 ページの大著。</p></li>
+<li><p>&lt;<a class="reference external" href="https://www.packtpub.com/openoffice-ooobasic-calc-automation/book">https://www.packtpub.com/openoffice-ooobasic-calc-automation/book</a>&gt;: 表計算なら。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="common10.html" title="Previous">Chapter 10 Working with File Formats, Security, and Exporting ノート</a>
+        </li>
+      
+        <li>
+          &uarr;
+          <a href="../index.html" title="Parent">LibreOffice 利用ノート</a>
+        </li>
+        <li>
+          &uarr;
+          <a href="index.html" title="Parent">LibreOffice 共通ノート（詳細版）</a>
+        </li>
+        <li>
+          <a href="common12.html" title="Next">Chapter 12, Configuring LibreOffice ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="../../index.html" title="読書ノート Home"><img src="../../_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
