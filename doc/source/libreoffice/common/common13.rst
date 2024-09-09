@@ -17,8 +17,8 @@ Introduction
 * メニューやツールバーを追加したり、イベントにマクロを割り当てたりする
 * さまざまな |UI| の変種を選択して使用する
 
-改造は LibreOffice Web サイトまたは他の供給人からインストールできる拡張を追
-加することでも行える。TODO を見ろ。
+改造は LibreOffice Web サイトまたは他の供給人からインストールできる拡張を追加す
+ることでも行える。:ref:`common13-anchor-D` を見ろ。
 
 .. note::
 
@@ -331,6 +331,8 @@ Assigning macros
 るには、|CustomizeDlg| |EventsTab| を用いる。イベントをマクロに割り当てる方法の
 詳細については :doc:`common11` を見ろ。
 
+.. _common13-anchor-D:
+
 Adding extensions
 ======================================================================
 
@@ -524,6 +526,27 @@ Adobe などの専売字体に加え、何百もの自由特許字体が利用�
 
 これらの字体の多くは古典的な字体の複製やそれに近い変種だが、原作品もある。
 
-----
+User interface variants
+======================================================================
 
-.. rubric:: 章末注
+既定では、LibreOffice のコマンドと機能は、|StandardToolbar| |UI| と呼ばれる、
+ツールバーで利用可能なツールと階層的メニューにまとめられている。その他の |UI| と
+して、コマンドや内容のコンテキストグループを表示するものもある。LibreOffice アプ
+リケーションごとに要件が異なるため、|UI| の変種や使用方法については、各
+LibreOffice アプリケーションの使用者手引を見ろ。
+
+.. seealso::
+
+   * :doc:`../writer-guide/writer21`
+   * :doc:`../calc-guide/calc16`
+
+所望の |UI| を次のようにして選択しろ：
+
+#. |UI| を変更する LibreOffice アプリケーションを開く。
+#. |MenuBar| :menuselection:`&View-->User &Interface...` を選択し、
+   :guilabel:`Select Your Preferred User Interface` ダイアログボックスを開く。
+#. :guilabel:`UI variants` で利用可能な選択肢から好みの |UI| を選択する。
+#. 選択した |UI| を LibreOffice 全アプリケーションで使用するには
+   :guilabel:`A&pply to All` ボタンを、開いているアプリケーションにのみ使用する
+   には、:guilabel:`&Apply to XXXX` ボタンを押す。
+#. |Close| を押す。
