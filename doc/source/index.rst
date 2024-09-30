@@ -62,6 +62,7 @@
    kantor22/index
    ou23/index
    github/index
+   libreoffice/common/index
    libreoffice/calc-guide/index
    libreoffice/writer-guide/index
 

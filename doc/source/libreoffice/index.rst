@@ -12,6 +12,11 @@ LibreOffice 利用ノート
    :maxdepth: 1
 
    main
-   common/index
    calc
    writer
+
+.. seealso::
+
+   * :doc:`/libreoffice/common/index`
+   * :doc:`/libreoffice/calc-guide/index`
+   * :doc:`/libreoffice/writer-guide/index`
