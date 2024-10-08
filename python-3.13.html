@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>What’s New In Python 3.13 ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="pip 利用ノート" href="python-pip.html" />
+    <link rel="prev" title="What’s New In Python 3.12 ノート" href="python-3.12.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-3.12.html" title="Previous">What’s New In Python 3.12 ノート</a>
+        </li>
+      
+        <li>
+          <a href="python-pip.html" title="Next">pip 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="what-s-new-in-python-3-13">
+<h1>What’s New In Python 3.13 ノート<a class="headerlink" href="#what-s-new-in-python-3-13" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://docs.python.org/3/whatsnew/3.13.html">What’s New In Python 3.13</a> をたどりながら調査。興味のあるものしか読まない。</p>
+<nav class="contents local" id="id1">
+<p class="topic-title">ノート目次</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#new-features" id="id11">New Features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a-better-interactive-interpreter" id="id12">A better interactive interpreter</a></p></li>
+<li><p><a class="reference internal" href="#improved-error-messages" id="id13">Improved error messages</a></p></li>
+<li><p><a class="reference internal" href="#defined-mutation-semantics-for-locals" id="id14">Defined mutation semantics for <code class="docutils literal notranslate"><span class="pre">locals()</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-language-changes" id="id15">Other Language Changes</a></p></li>
+<li><p><a class="reference internal" href="#new-modules" id="id16">New Modules</a></p></li>
+<li><p><a class="reference internal" href="#improved-modules" id="id17">Improved Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#argparse" id="id18"><code class="docutils literal notranslate"><span class="pre">argparse</span></code></a></p></li>
+<li><p><a class="reference internal" href="#array" id="id19"><code class="docutils literal notranslate"><span class="pre">array</span></code></a></p></li>
+<li><p><a class="reference internal" href="#asyncio" id="id20"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code></a></p></li>
+<li><p><a class="reference internal" href="#concurrent-futures" id="id21"><code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code></a></p></li>
+<li><p><a class="reference internal" href="#configparser" id="id22"><code class="docutils literal notranslate"><span class="pre">configparser</span></code></a></p></li>
+<li><p><a class="reference internal" href="#doctest" id="id23"><code class="docutils literal notranslate"><span class="pre">doctest</span></code></a></p></li>
+<li><p><a class="reference internal" href="#fractions" id="id24"><code class="docutils literal notranslate"><span class="pre">fractions</span></code></a></p></li>
+<li><p><a class="reference internal" href="#glob" id="id25"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a></p></li>
+<li><p><a class="reference internal" href="#itertools" id="id26"><code class="docutils literal notranslate"><span class="pre">itertools</span></code></a></p></li>
+<li><p><a class="reference internal" href="#math" id="id27"><code class="docutils literal notranslate"><span class="pre">math</span></code></a></p></li>
+<li><p><a class="reference internal" href="#multiprocessing" id="id28"><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code></a></p></li>
+<li><p><a class="reference internal" href="#os" id="id29"><code class="docutils literal notranslate"><span class="pre">os</span></code></a></p></li>
+<li><p><a class="reference internal" href="#pathlib" id="id30"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a></p></li>
+<li><p><a class="reference internal" href="#pdb" id="id31"><code class="docutils literal notranslate"><span class="pre">pdb</span></code></a></p></li>
+<li><p><a class="reference internal" href="#queue" id="id32"><code class="docutils literal notranslate"><span class="pre">queue</span></code></a></p></li>
+<li><p><a class="reference internal" href="#random" id="id33"><code class="docutils literal notranslate"><span class="pre">random</span></code></a></p></li>
+<li><p><a class="reference internal" href="#re" id="id34"><code class="docutils literal notranslate"><span class="pre">re</span></code></a></p></li>
+<li><p><a class="reference internal" href="#typing" id="id35"><code class="docutils literal notranslate"><span class="pre">typing</span></code></a></p></li>
+<li><p><a class="reference internal" href="#unicodedata" id="id36"><code class="docutils literal notranslate"><span class="pre">unicodedata</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#optimizations" id="id37">Optimizations</a></p></li>
+<li><p><a class="reference internal" href="#removed-modules-and-apis" id="id38">Removed Modules And APIs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#to3" id="id39"><strong class="program">2to3</strong></a></p></li>
+<li><p><a class="reference internal" href="#builtins" id="id40"><code class="docutils literal notranslate"><span class="pre">builtins</span></code></a></p></li>
+<li><p><a class="reference internal" href="#locale" id="id41"><code class="docutils literal notranslate"><span class="pre">locale</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id42"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a></p></li>
+<li><p><a class="reference internal" href="#unittest" id="id43"><code class="docutils literal notranslate"><span class="pre">unittest</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#new-deprecations" id="id44">New Deprecations</a></p></li>
+<li><p><a class="reference internal" href="#porting-to-python-3-13" id="id45">Porting to Python 3.13</a></p></li>
+</ul>
+</nav>
+<section id="new-features">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">New Features</a><a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h2>
+<section id="a-better-interactive-interpreter">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">A better interactive interpreter</a><a class="headerlink" href="#a-better-interactive-interpreter" title="Permalink to this heading">¶</a></h3>
+<p>対話型シェルが刷新された：</p>
+<ul class="simple">
+<li><p>履歴を保持した複数行編集。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">help</span></code>, <code class="docutils literal notranslate"><span class="pre">exit</span></code>, <code class="docutils literal notranslate"><span class="pre">quit</span></code> のような REPL 固有のコマンドを関数として呼び出すことなく直接サポート。</p></li>
+<li><p>色を有効にしたプロンプトとトレースバック。</p></li>
+<li><p>独立したコマンド履歴を持つ、<kbd class="kbd docutils literal notranslate">F1</kbd> による対話的なヘルプ閲覧。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">F2</kbd> を使用した履歴閲覧。</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">F3</kbd> による「貼り付けモード」。より大きなコード塊の貼り付けが簡単になった。</p></li>
+</ul>
+<p>従来のシェルを使うには環境変数 <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHON_BASIC_REPL</span></code> を 1 にあらかじめ定義しておく。</p>
+</section>
+<section id="improved-error-messages">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Improved error messages</a><a class="headerlink" href="#improved-error-messages" title="Permalink to this heading">¶</a></h3>
+<p>端末でトレースバックを表示する際に、色を使用するようになった。</p>
+<p>標準ライブラリーモジュールと同じ名前のスクリプトを書いてしまうと、より親切なエラーメッセージが現れるようになった。同様に、スクリプトがインポートしようとするサードパーティー製モジュールと同じ名前を持ち、その結果エラーが発生する場合にも、より親切なエラーメッセージが現れる。</p>
+<p>誤ったキーワード引数が関数に渡された場合、エラーメッセージが正しいキーワード引数を持ちかけるようになった。</p>
+</section>
+<section id="defined-mutation-semantics-for-locals">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Defined mutation semantics for <code class="docutils literal notranslate"><span class="pre">locals()</span></code></a><a class="headerlink" href="#defined-mutation-semantics-for-locals" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">locals()</span></code> が返すオブジェクトが、現在割り当てられているローカル変数の独立したスナップショットであることが保証される（実装によっては値を書き換えることが可能だった）。</p>
+</section>
+</section>
+<section id="other-language-changes">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Other Language Changes</a><a class="headerlink" href="#other-language-changes" title="Permalink to this heading">¶</a></h2>
+<p>コンパイラーは docstring の各行から共通する同じ長さの先頭空白を取り除くことにした。これにより .pyc ファイルなどのサイズが約 5% 削減される。</p>
+<p>例外構文において、<code class="docutils literal notranslate"><span class="pre">else</span></code> ブロック内で <code class="docutils literal notranslate"><span class="pre">global</span></code> 宣言が使用される場合には
+<code class="docutils literal notranslate"><span class="pre">except</span></code> ブロック内で <code class="docutils literal notranslate"><span class="pre">global</span></code> 宣言が許可されるようになった。</p>
+<p>ファイル <code class="file docutils literal notranslate"><span class="pre">.python_history</span></code> のパスを環境変数 <span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHON_HISTORY</span></code> で指定可能になった。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>この環境変数の追加は重要だ。Python スタータップスクリプトで履歴ファイルのパスに関して XDG Base Directory 対応をしている場合にはこれを最優先するような修正をする。</p>
+</div>
+<p>組み込み関数 <code class="docutils literal notranslate"><span class="pre">exec()</span></code> および <code class="docutils literal notranslate"><span class="pre">eval()</span></code> が <code class="docutils literal notranslate"><span class="pre">globals</span></code> および <code class="docutils literal notranslate"><span class="pre">locals</span></code> 引数をキーワードとして受け付ける（引数リストが以前と微妙に変化した）。</p>
+<p>例外 <code class="docutils literal notranslate"><span class="pre">PythonFinalizationError</span></code> を追加した。<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> の派生型だ。特に、
+<code class="docutils literal notranslate"><span class="pre">subprocess.Popen()</span></code> などが <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> の代わりに
+<code class="docutils literal notranslate"><span class="pre">PythonFinalizationError</span></code> を送出するようになる（既存の例外処理コードを書き換える必要はまずなさそうだ）。</p>
+<p>文字列メソッド <code class="docutils literal notranslate"><span class="pre">replace()</span></code> の <code class="docutils literal notranslate"><span class="pre">count</span></code> 引数はキーワード引数として指定できる（引数リストが以前と微妙に変化した）。</p>
+<p>ファイル記述子の引数に真偽値が渡される事例において、多くの関数が警告を発するようになった。従来は：</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">あまりにも作為的な例</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">os.path</span>
+
+<span class="gp">In [2]: </span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="gh">Out[2]: </span><span class="go">True</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="new-modules">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">New Modules</a><a class="headerlink" href="#new-modules" title="Permalink to this heading">¶</a></h2>
+<p>使いそうなものはない。</p>
+</section>
+<section id="improved-modules">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">Improved Modules</a><a class="headerlink" href="#improved-modules" title="Permalink to this heading">¶</a></h2>
+<p>興味のあるものや遭遇しそうな問題を含むモジュールに絞って記していく。</p>
+<section id="argparse">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">argparse</span></code></a><a class="headerlink" href="#argparse" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">add_argument()</span></code> および <code class="docutils literal notranslate"><span class="pre">add_parser()</span></code> に引数 <code class="docutils literal notranslate"><span class="pre">deprecated</span></code> が追加。</p>
+<p>引数やオプションを廃止する前の段階として、これが将来削除されるものであることを使用者に知らせる必要がある。その場合に用いる。引数やオプションを
+<code class="docutils literal notranslate"><span class="pre">deprecated=True</span></code> で定義し、その引数やオプションがコマンドラインで使用されると警告が <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> に出力される。</p>
+</section>
+<section id="array">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">array</span></code></a><a class="headerlink" href="#array" title="Permalink to this heading">¶</a></h3>
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">clear()</span></code> が実装された。これにより <code class="docutils literal notranslate"><span class="pre">array.array</span></code> が名実ともに
+<code class="docutils literal notranslate"><span class="pre">collections.abc.MutableSequence</span></code> であることになる。</p>
+</section>
+<section id="asyncio">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code></a><a class="headerlink" href="#asyncio" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">as_completed()</span></code> が非同期反復子でもあり、awaitable の（同期）反復子でもあるオブジェクトを返す。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">新方式である非同期処理の例</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tasks: Iterable[Task]</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">task</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">従来の方式</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tasks: Iterable[Task]</span>
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">task</span>
+</pre></div>
+</div>
+</div>
+<p>非同期反復によって返される awaitables には渡された元の <code class="docutils literal notranslate"><span class="pre">Task</span></code> や <code class="docutils literal notranslate"><span class="pre">Future</span></code> オブジェクトが含まれるため、完了した <code class="docutils literal notranslate"><span class="pre">Task</span></code> と結果を関連付けるのが容易になる。上の例で言えば、仮に <code class="docutils literal notranslate"><span class="pre">tasks</span></code> が <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> ならば``task`` と <code class="docutils literal notranslate"><span class="pre">tasks[0]</span></code> を比較することは正当だ。</p>
+<p>通常の反復子として用いる従来式の場合、各反復では結果を返す新しい coroutine を生成するか、次に完了した awaitable の例外を送出する。</p>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">Queue.shutdown()</span></code> が追加。それに伴い例外 <code class="docutils literal notranslate"><span class="pre">QueueShutDown</span></code> が追加。キューをシャットダウンし、<code class="docutils literal notranslate"><span class="pre">get()</span></code> と <code class="docutils literal notranslate"><span class="pre">put()</span></code> でこの例外が送出する。</p>
+</section>
+<section id="concurrent-futures">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code></a><a class="headerlink" href="#concurrent-futures" title="Permalink to this heading">¶</a></h3>
+<p>仕事スレッドとプロセスの既定個数が <code class="docutils literal notranslate"><span class="pre">os.cpu_count()</span></code> ではなく
+<code class="docutils literal notranslate"><span class="pre">os.process_cpu_count()</span></code> を使って決定されるように変更。</p>
+</section>
+<section id="configparser">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">configparser</span></code></a><a class="headerlink" href="#configparser" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ConfigParser</span></code> は無名区画を扱えるようになった。最上位のキーと値の対を使用できる。新引数 <code class="docutils literal notranslate"><span class="pre">allow_unnamed_section</span></code> で作動させる。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">無名区画にあるオプションを読み込む例</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">UNNAMED_SECTION</span>
+
+<span class="n">unnamed</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">(</span><span class="n">allow_unnamed_section</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">unnamed</span><span class="o">.</span><span class="n">read_string</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<span class="n">unnamed</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">UNNAMED_SECTION</span><span class="p">,</span> <span class="s1">&#39;option&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="doctest">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">doctest</span></code></a><a class="headerlink" href="#doctest" title="Permalink to this heading">¶</a></h3>
+<p>出力が着色する。環境変数 <span class="target" id="index-2"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHON_COLORS</span></code> と正規の環境変数である
+<span class="target" id="index-3"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">NO_COLOR</span></code> および <span class="target" id="index-4"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">FORCE_COLOR</span></code> で制御可能。Python インタプリターでのみ色出力を制御するなら <span class="target" id="index-5"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHON_COLORS</span></code> を使え。この変数を
+<span class="target" id="index-6"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">NO_COLOR</span></code> よりも優先し、<span class="target" id="index-7"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">NO_COLOR</span></code> を <span class="target" id="index-8"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">FORCE_COLOR</span></code>
+よりも優先する。</p>
+<p><code class="docutils literal notranslate"><span class="pre">DocTestRunner</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">run()</span></code> にスキップしたテストの数を勘定する動作が追加。それに伴い属性 <code class="docutils literal notranslate"><span class="pre">skips</span></code> が追加。さらに <code class="docutils literal notranslate"><span class="pre">TestResults</span></code> に <code class="docutils literal notranslate"><span class="pre">skipped</span></code> が追加。</p>
+</section>
+<section id="fractions">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">fractions</span></code></a><a class="headerlink" href="#fractions" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Fraction</span></code> オブジェクトに対する f-string 書式仕様の拡充。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Python 3.12 以前だと f-string や <code class="docutils literal notranslate"><span class="pre">format()</span></code> で次の指定が効かない場合があった：</p>
+<ul class="simple">
+<li><p>fill</p></li>
+<li><p>align</p></li>
+<li><p>sign</p></li>
+<li><p>width</p></li>
+<li><p>grouping_option</p></li>
+</ul>
+</div>
+</section>
+<section id="glob">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a><a class="headerlink" href="#glob" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">translate()</span></code> を追加。シェル様式のワイルドカードを含むパス指定を正規表現に変換する。</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>インストールしたら関数インターフェイスを確認する。</p>
+</div>
+</section>
+<section id="itertools">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">itertools</span></code></a><a class="headerlink" href="#itertools" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">zip()</span></code> における引数 <code class="docutils literal notranslate"><span class="pre">strict</span></code> と同様のものが関数 <code class="docutils literal notranslate"><span class="pre">batched()</span></code> に追加。最終部分が指定サイズより短い場合に``ValueError`` が送出する。</p>
+</section>
+<section id="math">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">math</span></code></a><a class="headerlink" href="#math" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">fma(x,</span> <span class="pre">y,</span> <span class="pre">z)</span></code> が追加。演算 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span> <span class="pre">+</span> <span class="pre">z</span></code> を、一回の丸め誤差を含む浮動小数点数で返す。中間的な精度の低下を避けることができる。</p>
+</section>
+<section id="multiprocessing">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code></a><a class="headerlink" href="#multiprocessing" title="Permalink to this heading">¶</a></h3>
+<p>前述のとおり、仕事スレッドとプロセスの既定数は <code class="docutils literal notranslate"><span class="pre">os.cpu_count()</span></code> ではなく
+<code class="docutils literal notranslate"><span class="pre">os.process_cpu_count()</span></code> を使って決定される。次の節も見ろ。</p>
+</section>
+<section id="os">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">os</span></code></a><a class="headerlink" href="#os" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">process_cpu_count()</span></code> が追加。現在のプロセスの呼び出しスレッドが使用可能である論理 CPU コア数を返す。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">cpu_count()</span></code> および <code class="docutils literal notranslate"><span class="pre">process_cpu_count()</span></code> は環境変数
+<span class="target" id="index-9"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHON_CPU_COUNT</span></code> またはコマンドラインオプション <code class="samp docutils literal notranslate"><span class="pre">-X</span> <em><span class="pre">cpu_count</span></em></code>
+によってオーバーライド可能となった。これが便利であるのは、アプリケーションコードやコンテナー自体を変更することなく、コンテナーシステムの CPU 資源を制限する必要がある使用者だ。</p>
+</section>
+<section id="pathlib">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a><a class="headerlink" href="#pathlib" title="Permalink to this heading">¶</a></h3>
+<p>例外 <code class="docutils literal notranslate"><span class="pre">UnsupportedOperation</span></code> が追加。従来実装されていないパス操作により送出されていた <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> に代わるものだ。</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">file:///</span></code> から始まるパス文字列から <code class="docutils literal notranslate"><span class="pre">Path</span></code> オブジェクトを作成するクラスメソッド <code class="docutils literal notranslate"><span class="pre">Path.from_uri()</span></code> が追加した。</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">PurePath.full_match()</span></code> 追加。再帰ワイルドカード <code class="docutils literal notranslate"><span class="pre">**</span></code> を含むシェル型ワイルドカードでパスを合致する。</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PurePath</span><span class="p">(</span><span class="s1">&#39;/a/b/c.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">full_match</span><span class="p">(</span><span class="s1">&#39;/a/**&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PurePath</span><span class="p">(</span><span class="s1">&#39;/a/b/c.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">full_match</span><span class="p">(</span><span class="s1">&#39;**/*.py&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>メソッド <code class="docutils literal notranslate"><span class="pre">Path.glob()</span></code> および <code class="docutils literal notranslate"><span class="pre">Path.rglob()</span></code> にキーワード限定引数
+<code class="docutils literal notranslate"><span class="pre">recurse_symlinks</span></code> が追加。この値を <code class="docutils literal notranslate"><span class="pre">True</span></code> に指定すると <code class="docutils literal notranslate"><span class="pre">**</span></code> 展開を除けばシンボリックリンクにつねに従うようになる。</p>
+<p>これらのメソッドに <code class="docutils literal notranslate"><span class="pre">**</span></code> で終わるパターンが指定された場合に、ディレクトリーだけでなくファイルも返すように改善した。</p>
+<hr class="docutils" />
+<p>キーワード限定引数 <code class="docutils literal notranslate"><span class="pre">follow_symlinks</span></code> をクラス <code class="docutils literal notranslate"><span class="pre">Path</span></code> の次のメソッドに追加：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is_file()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_dir()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">owner()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group()</span></code></p></li>
+</ul>
+<p>これらのメソッドは通常シンボリックをたどる。</p>
+</section>
+<section id="pdb">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">pdb</span></code></a><a class="headerlink" href="#pdb" title="Permalink to this heading">¶</a></h3>
+<p>組み込み関数 <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> と関数 <code class="docutils literal notranslate"><span class="pre">pdb.set_trace()</span></code> が実行されるコードの次の行ではなく、即座にデバッガーに入るように変更。この変更は <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> がコンテキストの最後に配置されたときに、コンテキスト外でデバッガーが break するのを防止する。</p>
+<hr class="docutils" />
+<p>新コマンド <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> 追加。<code class="docutils literal notranslate"><span class="pre">pm()</span></code> での死後デバッグ中に連鎖した例外間を移動する機能だ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>運用としては、何か例外が送出されたときに <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pdb;</span> <span class="pre">pdb.pm()</span></code> を実行して
+Pdb セッションを開始する。そこでコマンド <code class="samp docutils literal notranslate"><span class="pre">exceptions</span> <em><span class="pre">N</span></em></code> で例外間を渡り歩けるというものだ。引数なしで実行すれば例外一覧を示す。</p>
+</div>
+<hr class="docutils" />
+<p>接頭辞が pdb コマンドである式や文が正しく識別され、実行されるように改善。つまり、 Python コード中に例えば <code class="docutils literal notranslate"><span class="pre">jump</span></code>, <code class="docutils literal notranslate"><span class="pre">step</span></code>, <code class="docutils literal notranslate"><span class="pre">up</span></code> などという名前のオブジェクトが含まれていて、こういうものを参照するときに動作するようになったと述べている。</p>
+</section>
+<section id="queue">
+<h3><a class="toc-backref" href="#id32" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">queue</span></code></a><a class="headerlink" href="#queue" title="Permalink to this heading">¶</a></h3>
+<p>前述のとおり、キューの終了を管理するメソッド <code class="docutils literal notranslate"><span class="pre">Queue.shutdown()</span></code> と例外
+<code class="docutils literal notranslate"><span class="pre">ShutDown</span></code> が追加。</p>
+</section>
+<section id="random">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">random</span></code></a><a class="headerlink" href="#random" title="Permalink to this heading">¶</a></h3>
+<p>CLI が搭載された。適当に <strong class="command">alias</strong> を定義しておくと使いでが良いと考えられる。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Examples of <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">random</span></code></span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>random<span class="w"> </span><span class="m">6</span>
+<span class="go">6</span>
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>random<span class="w"> </span>--integer<span class="w"> </span><span class="m">6</span>
+<span class="go">3</span>
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>random<span class="w"> </span>--integer<span class="w"> </span><span class="m">6</span>
+<span class="go">5</span>
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>random<span class="w"> </span><span class="m">1</span>.8
+<span class="go">1.7080016272295635</span>
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>random<span class="w"> </span>--float<span class="w"> </span><span class="m">1</span>.8
+<span class="go">1.5666339105010318</span>
+<span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>random<span class="w"> </span>--float<span class="w"> </span><span class="m">6</span>
+<span class="go">3.1942323316565915</span>
+</pre></div>
+</div>
+</div>
+<p>オプション <code class="docutils literal notranslate"><span class="pre">--choice</span></code> と標本を指定する方式もある。</p>
+</section>
+<section id="re">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">re</span></code></a><a class="headerlink" href="#re" title="Permalink to this heading">¶</a></h3>
+<p>わかりやすさのために <code class="docutils literal notranslate"><span class="pre">re.error</span></code> を <code class="docutils literal notranslate"><span class="pre">PatternError</span></code> に改名した。従来の名前も後方互換性のために利用可能だ。</p>
+</section>
+<section id="typing">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">typing</span></code></a><a class="headerlink" href="#typing" title="Permalink to this heading">¶</a></h3>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>このモジュールはいつものように後回し。</p>
+</div>
+</section>
+<section id="unicodedata">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">unicodedata</span></code></a><a class="headerlink" href="#unicodedata" title="Permalink to this heading">¶</a></h3>
+<p>Unicode データベースがバージョン <a class="reference external" href="https://www.unicode.org/versions/Unicode15.1.0/">15.1.0</a> に更新した。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>このバージョンにはおもしろい文字が何かある気配を感じる。</p>
+</div>
+</section>
+</section>
+<section id="optimizations">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">Optimizations</a><a class="headerlink" href="#optimizations" title="Permalink to this heading">¶</a></h2>
+<p>ここは一般プログラマーには重要ではないかもしれない。ほとんどチェックしていない。</p>
+</section>
+<section id="removed-modules-and-apis">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">Removed Modules And APIs</a><a class="headerlink" href="#removed-modules-and-apis" title="Permalink to this heading">¶</a></h2>
+<section id="to3">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink"><strong class="program">2to3</strong></a><a class="headerlink" href="#to3" title="Permalink to this heading">¶</a></h3>
+<p>プログラム <strong class="program">2to3</strong> とモジュール <code class="docutils literal notranslate"><span class="pre">lib2to3</span></code> が削除。</p>
+</section>
+<section id="builtins">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">builtins</span></code></a><a class="headerlink" href="#builtins" title="Permalink to this heading">¶</a></h3>
+<p>連鎖した <code class="docutils literal notranslate"><span class="pre">&#64;classmethod</span></code> の維持を削除。この手法は <code class="docutils literal notranslate"><span class="pre">&#64;property</span></code> のような他の記述子をラップするのにもはや使えない。</p>
+</section>
+<section id="locale">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">locale</span></code></a><a class="headerlink" href="#locale" title="Permalink to this heading">¶</a></h3>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">resetlocale()</span></code> が削除。 代わりに <code class="docutils literal notranslate"><span class="pre">setlocale(LC_ALL,</span> <span class="pre">&quot;&quot;)</span></code> としろ。</p>
+<div class="admonition- admonition">
+<p class="admonition-title">読者ノート</p>
+<p>Ubuntu の <strong class="program">do-release-upgrade</strong> にまさにこの処理が存在するので控えておく。</p>
+</div>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">pathlib</span></code></a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Path</span></code> オブジェクトを context manager として使用する謎機能が存在したが、それが削除。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">Path</span></code> オブジェクトを context manager として用いたときの挙動例</span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="gp">In [2]: </span><span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/tmp&#39;</span><span class="p">):</span>
+<span class="gp">   ...: </span>    <span class="k">pass</span>
+<span class="gp">   ...:</span>
+<span class="go">&lt;ipython-input-3-a0cb68af6698&gt;:1: DeprecationWarning: pathlib.Path.__enter__() is deprecated and scheduled for removal in Python 3.13; Path objects as a context manager is a no-op</span>
+<span class="go">  with Path(&#39;/tmp&#39;):</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="unittest">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">unittest</span></code></a><a class="headerlink" href="#unittest" title="Permalink to this heading">¶</a></h3>
+<p>以下の関数が削除：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">findTestCases()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">makeSuite()</span></code>: これを使っていた記憶がある</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getTestCaseNames()</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="new-deprecations">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">New Deprecations</a><a class="headerlink" href="#new-deprecations" title="Permalink to this heading">¶</a></h2>
+<p>古いやり方をいつまで経っても採用し続けないように、一通りチェックする。文書化されていない機能や特定のプラットフォーム固有の挙動に関するものがほとんどだ。</p>
+</section>
+<section id="porting-to-python-3-13">
+<h2><a class="toc-backref" href="#id45" role="doc-backlink">Porting to Python 3.13</a><a class="headerlink" href="#porting-to-python-3-13" title="Permalink to this heading">¶</a></h2>
+<p>本節以降、個人的には対応項目なし。</p>
+<p>関数 <code class="docutils literal notranslate"><span class="pre">getpass.getuser()</span></code> で使用者名の取得に失敗した場合、送出する例外が
+<code class="docutils literal notranslate"><span class="pre">OSError</span></code> になった。以前はプラットフォームやパスワードデータベースの条件により異なる型の例外が送出していた。</p>
+<p>前述のように、クラス <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">glob()</span></code> および <code class="docutils literal notranslate"><span class="pre">rglob()</span></code>
+は <code class="docutils literal notranslate"><span class="pre">**</span></code> で終わるパターンが指定された場合、ディレクトリーのみではなくファイルとディレクトリーの両方を返すようになった。末尾に <code class="docutils literal notranslate"><span class="pre">/</span></code> を追加すると以前の動作が維持され、ディレクトリーのみに合致する。</p>
+<hr class="docutils" />
+<p>興味がある項目は以上？</p>
+</section>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-3.12.html" title="Previous">What’s New In Python 3.12 ノート</a>
+        </li>
+      
+        <li>
+          <a href="python-pip.html" title="Next">pip 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="index.html" title="読書ノート Home"><img src="_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
