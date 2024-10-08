@@ -124,14 +124,14 @@ Improved Modules
 .. sourcecode:: python
    :caption: 新方式である非同期処理の例
 
-   // tasks: Iterable[Task]
+   # tasks: Iterable[Task]
    async for task in as_completed(tasks):
         result = await task
 
 .. sourcecode:: python
    :caption: 従来の方式
 
-   // tasks: Iterable[Task]
+   # tasks: Iterable[Task]
    for task in as_completed(tasks):
        result = await task
 
@@ -363,17 +363,76 @@ Optimizations
 
 ここは一般プログラマーには重要ではないかもしれない。ほとんどチェックしていない。
 
-Deprecated
+Removed Modules And APIs
 ======================================================================
 
-古いやり方をいつまで経っても採用し続けないように、一通りチェックする。
+:program:`2to3`
+----------------------------------------------------------------------
 
-Removed
+プログラム :program:`2to3` とモジュール ``lib2to3`` が削除。
+
+``builtins``
+----------------------------------------------------------------------
+
+連鎖した ``@classmethod`` の維持を削除。この手法は ``@property`` のような他の記
+述子をラップするのにもはや使えない。
+
+``locale``
+----------------------------------------------------------------------
+
+関数 ``resetlocale()`` が削除。 代わりに ``setlocale(LC_ALL, "")`` としろ。
+
+.. admonition:: 読者ノート
+
+   Ubuntu の :program:`do-release-upgrade` にまさにこの処理が存在するので控えて
+   おく。
+
+``pathlib``
+----------------------------------------------------------------------
+
+``Path`` オブジェクトを context manager として使用する謎機能が存在したが、それが
+削除。
+
+.. sourcecode:: ipython
+   :caption: ``Path`` オブジェクトを context manager として用いたときの挙動例
+
+   In [1]: from pathlib import Path
+
+   In [2]: with Path('/tmp'):
+      ...:     pass
+      ...:
+   <ipython-input-3-a0cb68af6698>:1: DeprecationWarning: pathlib.Path.__enter__() is deprecated and scheduled for removal in Python 3.13; Path objects as a context manager is a no-op
+     with Path('/tmp'):
+
+``unittest``
+----------------------------------------------------------------------
+
+以下の関数が削除：
+
+* ``findTestCases()``
+* ``makeSuite()``: これを使っていた記憶がある
+* ``getTestCaseNames()``
+
+New Deprecations
 ======================================================================
 
-興味のあるものしかチェックしない。
+古いやり方をいつまで経っても採用し続けないように、一通りチェックする。文書化され
+ていない機能や特定のプラットフォーム固有の挙動に関するものがほとんどだ。
 
 Porting to Python 3.13
 ======================================================================
 
 本節以降、個人的には対応項目なし。
+
+関数 ``getpass.getuser()`` で使用者名の取得に失敗した場合、送出する例外が
+``OSError`` になった。以前はプラットフォームやパスワードデータベースの条件により
+異なる型の例外が送出していた。
+
+前述のように、クラス ``pathlib.Path`` のメソッド ``glob()`` および ``rglob()``
+は ``**`` で終わるパターンが指定された場合、ディレクトリーのみではなくファイルと
+ディレクトリーの両方を返すようになった。末尾に ``/`` を追加すると以前の動作が
+維持され、ディレクトリーのみに合致する。
+
+----
+
+興味がある項目は以上？
