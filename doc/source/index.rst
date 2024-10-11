@@ -100,6 +100,7 @@
    python-3.[0-9]
    python-3.1[0-9]
    python-pip
+   python-pipenv
    python-pylint
    python-docutils/index
    python-restview
