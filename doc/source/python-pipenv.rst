@@ -2,8 +2,10 @@
 Pipenv 利用ノート
 ======================================================================
 
+.. |pip| replace:: :program:`pip`
 .. |Pipfile| replace:: :file:`Pipfile`
 .. |Pipfile.lock| replace:: :file:`Pipfile.lock`
+.. |requirements.txt| replace:: :file:`requirements.txt`
 
 .. contents:: 見出し一覧
    :local:
@@ -23,9 +25,11 @@ Pipenv 利用ノート
 概要
 ======================================================================
 
-.. todo::
+Python を用いたプロジェクトに Pipenv_ を導入する手順と、よく用いるコマンドを記す。
 
-   TBW
+Pipenv_ は pip_ と仮想環境を一括して管理する道具であり、Ruby 開発における
+Bundler が処理するファイル群と類比するものを導入することで、|pip| が扱えないある
+種のバージョン依存関係問題を解決することを目的とする。
 
 導入
 ======================================================================
@@ -138,45 +142,37 @@ Python プロジェクトのディレクトリーを :file:`$PROJECT_DIR` と呼
 
 .. tip::
 
-   万が一ファイル :file:`requirements.txt` がない場合には ``pip freeze`` を実行
-   しろ。
+   万が一ファイル |requirements.txt| がない場合には ``pip freeze`` を実行しろ。
 
 紛れがないように旧環境を廃棄しておきたい：
 
 .. sourcecode:: console
    :caption: 旧環境の管理ディレクトリーを廃棄する
 
-   rm -rf .venv
+   $ rm -rf .venv
 
-GitHub Actions などの CI/CD 環境が :file:`requirements.txt` を必要とする場合があ
-るので、削除したいならばその点を確認してから行え。
+GitHub Actions などの CI/CD 環境が |requirements.txt| をまだ必要とする場合がある
+ので、削除したいならばその点を確認してから行え。
+
+仮想環境を作動させる
+======================================================================
+
+コマンド単発ならば :samp:`pipenv run {command}` を実行する。依存パッケージが備え
+ているスクリプト実行や :program:`make` などの処理をラップ実行する。
+
+実行したいコマンドが複数続く場合には ``pipenv shell`` を実行することで仮想環境に
+「入る」ことになる。概念としては ``venv`` の ``source .venv/bin/activate`` に等
+しい。このサブシェルで依存パッケージのスクリプトや :program:`make` を実行する。
 
 |Pipfile| と |Pipfile.lock|
 ======================================================================
 
-ファイル |Pipfile.lock| は :command:`pip` を用いる Python プロジェクトで使われて
-いる:file:`requirements.txt` を洗練させ、最後にロックされたパッケージのハッシュ
-を追跡するという安全保障上の改良点を加えたものだ。このコマンドを含むロック動作が
-このファイルを管理する。
+ファイル |Pipfile.lock| は :program:`pip` を用いる Python プロジェクトで使われて
+いる |requirements.txt| を洗練させ、最後にロックされたパッケージのハッシュを追跡
+するという安全保障上の改良点を加えたものだ。このコマンドを含むロック動作がこの
+ファイルを管理する。
 
-仮想環境にパッケージを加える
-======================================================================
-
-|Pipfile| と |Pipfile.lock| が生成されている仮想環境にさらなるパッケージを加える
-には、インストールコマンドをパッケージを指定して実行する：
-
-.. sourcecode:: console
-   :caption: パッケージを追加的にインストールする例
-
-   $ cd $PROJECT_DIR
-   $ pipenv install ANOTHER_PACKAGE
-   Installing ANOTHER_PACKAGE...
-   Resolving ANOTHER_PACKAGE...
-   Added ANOTHER_PACKAGE to Pipfile's [packages] ...
-   ✔ Installation Succeeded
-   （略）
-
-仮想環境にあるパッケージを更新する
+依存パッケージを更新する
 ======================================================================
 
 パッケージ自体とパッケージ管理ファイルを混同しないように、関連コマンドをまとめて
@@ -199,14 +195,14 @@ GitHub Actions などの CI/CD 環境が :file:`requirements.txt` を必要と�
    指定された依存関係と部分依存関係に限って lock を更新する。パッケージをインス
    トールすることはしない。
 
-GitHub Actions などの CI/CD 環境が :file:`requirements.txt` を必要とする場合、次
-のようにしてパッケージ一覧を更新することが可能だ（オプションは好みで）：
+GitHub Actions などの CI/CD 環境が |requirements.txt| を必要とする場合、次のよう
+にしてパッケージ一覧を更新することが可能だ（オプションは好みで）：
 
 .. sourcecode:: console
-   :caption: Pipenv の情報から :file:`requirements.txt` を更新する
+   :caption: Pipenv の情報から |requirements.txt| を更新する
 
-   cd $PROJECT_DIR
-   pipenv requirements --exclude-markers > requirements.txt
+   $ cd $PROJECT_DIR
+   $ pipenv requirements --exclude-markers > requirements.txt
 
 ロック
 ----------------------------------------------------------------------
@@ -220,25 +216,98 @@ GitHub Actions などの CI/CD において、次の Pipenv コマンドが実�
 * ``uninstall``
 * ``install``; ``install --deploy`` は可
 
-仮想環境を作動させる
+操作集
 ======================================================================
 
-コマンド単発ならば :samp:`pipenv run {command}` を実行する。
+先述のもの以外のコマンド :command:`pipenv` のコマンドラインでの実行例を挙げてい
+く。以下、作業ディレクトリーパスはプロジェクトの |Pipfile| などが置かれているの
+と同じとする。
 
-実行したいコマンドが複数続く場合には ``pipenv shell`` を実行することで仮想環境に
-「入る」ことになる。概念としては ``venv`` の ``source .venv/bin/activate`` に等
-しい。
+サブコマンドなしの操作集
+----------------------------------------------------------------------
 
-仮想環境からパッケージをアンインストールする
-======================================================================
+``pipenv --where``
+   このノートでいう :file:`$PROJECT_DIR` の完全パスを出力する。
+``pipenv --venv``
+   仮想環境を管理するディレクトリーパスを出力する。
+``pipenv --envs``
+   設定済みの Pipenv_ 環境変数を一覧する。環境変数については後述。
+``pipenv --rm``
+   仮想環境を消す。
+``pipenv --man``
+   :command:`pipenv` のマニュアルを出す。なぜか ``man pipenv`` ではダメだ。
+``pipenv --support``
+   GitHub Issues にバグを報告するときに添える情報を出力する。
 
-仮想環境からパッケージをアンインストールするにはコマンド ``pipenv uninstall`` を
-パッケージ名を指定して実行する。例えば：
+仮想環境に依存パッケージを追加的にインストールする
+----------------------------------------------------------------------
+
+|Pipfile| と |Pipfile.lock| が生成されている仮想環境にさらなるパッケージを加える
+には、インストールコマンドをパッケージを指定して実行する：
 
 .. sourcecode:: console
-   :caption: パッケージをアンインストールする例
+   :caption: パッケージを追加的にインストールする例
 
-   $ cd $PROJECT_DIR
+   $ pipenv install ANOTHER_PACKAGE
+   Installing ANOTHER_PACKAGE...
+   Resolving ANOTHER_PACKAGE...
+   Added ANOTHER_PACKAGE to Pipfile's [packages] ...
+   ✔ Installation Succeeded
+   （略）
+
+依存パッケージ集合の依存関係を示す
+----------------------------------------------------------------------
+
+コマンド ``pipenv graph`` が基本形で、ここに出力オプションを指定する。
+
+.. csv-table::
+   :delim: @
+   :header-rows: 1
+   :widths: auto
+
+   フラグ @ 出力
+   ``--bare``      @ 最小（おそらく既定）で
+   ``--json``      @ JSON で
+   ``--json-tree`` @ JSON を入れ子の木で
+   ``--reverse``   @ 依存関係を逆にしたグラフで
+
+|Pipfile.lock| から依存パッケージのバージョン情報を直接見るのがわずらわしいので、
+このコマンドを利用することでそれを見るということをしがちだ。
+
+依存パッケージのモジュールをテキストエディターで開く
+----------------------------------------------------------------------
+
+コマンド ``pipenv open`` を実行すると、モジュール名を指定して Python ファイルを
+開く機能がある。意外に便利である可能性がある。
+
+.. sourcecode:: console
+   :caption: コマンド ``pipenv open`` 実行例
+
+   $ pipenv open sphinxcontrib.mermaid
+   Opening '/path/to/.venv/lib/python3.12/site-packages/sphinxcontrib/mermaid.py' in your EDITOR.
+
+仮想環境から現在未使用のパッケージを消去する
+----------------------------------------------------------------------
+
+依存パッケージのバージョン変更や追加削除を繰り返していると、なんらかのパッケージ
+がいつの間にか不要になっている場合がある。それを片付けるにはコマンド ``pipenv
+clean`` を用いる：
+
+.. sourcecode:: console
+   :caption: ``pipenv clean`` 実行例
+
+   $ pipenv clean
+   Uninstalling UNUSED_PACKAGE...
+
+依存パッケージをアンインストールする
+----------------------------------------------------------------------
+
+依存パッケージをアンインストールするにはコマンド ``pipenv uninstall`` をパッケー
+ジ名を指定して実行する。例えば：
+
+.. sourcecode:: console
+   :caption: 依存パッケージをアンインストールする例
+
    $ pipenv uninstall SOME_PACKAGE
    Removed SOME_PACKAGE from Pipfile.
    Building requirements...
@@ -249,12 +318,31 @@ GitHub Actions などの CI/CD において、次の Pipenv コマンドが実�
    Uninstalling SOME_PACKAGE-x.y.z:
      Successfully uninstalled SOME_PACKAGEa-x.y.z
 
-操作集
+構成
 ======================================================================
 
-.. todo::
+Pipenv はドットファイルから既定値を読み込むような設計ではないないらしい。ただし、
+仮想環境に入るコマンド ``pip run`` と ``pip shell`` は、プロジェクトディレクト
+リーにあるファイル :file:`.env` を :command:`source` する。
 
-   インストールと更新以外のコマンド事例集
+|Pipfile| の ``[scripts]`` 区画にコマンド定義しておくという手法があるが、ここで
+は割愛する。
+
+Pipenv は名前が ``PIPENV_`` から始まる独自の環境変数群を利用する。今のところ、こ
+れを明示的に定義したいというものは見つからない（キャッシュパスも既定値が適切）。
+
+運用
+======================================================================
+
+* |Pipfile| と |Pipfile.lock| の両方をプロジェクトのバージョン管理ファイル集合に
+  加える。
+* 作業場では定期的に ``pipenv update`` を行い、依存パッケージを最新に保つように
+  努める。
+* 依存パッケージを更新したことでプロジェクトのビルドが失敗する場合、
+  |Pipfile.lock| を前のバージョンに復元して ``pip sync`` することで依存パッケー
+  ジ群を復元可能。
+* CI/CD のビルド工程では、ファイル |Pipfile.lock| を変更するようなコマンドを通常
+  実行しない。
 
 資料
 ======================================================================
