@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Exceptional C++ 読書ノート &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=c9b0a06a" />
+    <script src="_static/documentation_options.js?v=4354bf25"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="Modern C++ Design 読書ノート" href="alexandrescu01/index.html" />
     <link rel="prev" title="達人プログラマー 読書ノート 3/3" href="hunt00/note3.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -46,7 +48,7 @@
           <div class="body" role="main">
             
   <section id="exceptional-c">
-<h1><a class="toc-backref" href="#id41" role="doc-backlink">Exceptional C++ 読書ノート</a><a class="headerlink" href="#exceptional-c" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id41" role="doc-backlink">Exceptional C++ 読書ノート</a><a class="headerlink" href="#exceptional-c" title="Link to this heading">¶</a></h1>
 <p>2003 年の 3 月に本書をブックストア談浜松町駅店で購入した記録がある。が、当時読書ノートを遺していなかったので、再読し、ノートをとる次第だ。</p>
 <dl class="field-list simple">
 <dt class="field-odd">著者<span class="colon">:</span></dt>
@@ -157,7 +159,7 @@
 </ul>
 </nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id42" role="doc-backlink">はじめに</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">はじめに</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p>本書の目的、対象読者、執筆動機、そして謝辞で構成されている。</p>
 <ul>
 <li><p>&lt;C++ での実際的な商用ソフトウェアの設計を主眼としている&gt; (p. vii)</p></li>
@@ -176,9 +178,9 @@
 </ul>
 </section>
 <section id="c">
-<h2><a class="toc-backref" href="#id43" role="doc-backlink">汎用プログラミングと C++ 標準ライブラリ</a><a class="headerlink" href="#c" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id43" role="doc-backlink">汎用プログラミングと C++ 標準ライブラリ</a><a class="headerlink" href="#c" title="Link to this heading">¶</a></h2>
 <section id="id3">
-<h3><a class="toc-backref" href="#id44" role="doc-backlink">イテレータ</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">イテレータ</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>アルゴリズム <code class="docutils literal notranslate"><span class="pre">std::find</span></code> は、指定された値が見つからなかった場合に第 2 引数を返す。</p></li>
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">--e.end()</span></code> という表現が、不正であるかもしれない&gt; (p. 2) というのは盲点だった。普通はこういう書き方はしないから気にしていなかった。</p></li>
@@ -186,7 +188,7 @@
 </ul>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id45" role="doc-backlink">大文字小文字を区別しない文字列</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">大文字小文字を区別しない文字列</a><a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
 <p>まず最初に「大文字小文字を区別しない文字列クラス」を書くことを検討している。
 <code class="docutils literal notranslate"><span class="pre">basic_string</span></code> テンプレートの <code class="docutils literal notranslate"><span class="pre">traits</span></code> パラメータに相当する構造体を自作する手法による。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">ci_char_traits</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span>
@@ -210,7 +212,7 @@
 </ul>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id46" role="doc-backlink">最大限に再利用できる汎用コンテナ</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">最大限に再利用できる汎用コンテナ</a><a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">fixed_class</span></code> という固定長 <code class="docutils literal notranslate"><span class="pre">vector</span></code> クラスの、コピーコンストラクタおよび代入演算子を実装することがテーマ。</p>
 <p>&lt;できるだけ単純な設定で重要な問題の解決に当たろうとしていることを理解してほしい&gt;
 (p. 11)</p>
@@ -236,7 +238,7 @@
 </ul>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id47" role="doc-backlink">一時オブジェクト</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">一時オブジェクト</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;オブジェクトは値渡しではなく <code class="docutils literal notranslate"><span class="pre">const&amp;</span></code> で渡すこと&gt; (p. 20)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループの終了条件部で <code class="docutils literal notranslate"><span class="pre">end()</span></code> を呼ばぬよう注意。&lt;一度だけ値を計算して、ローカルオブジェクトに格納し再利用すべきである&gt; (p. 20)</p></li>
@@ -246,15 +248,15 @@
 </ul>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id48" role="doc-backlink">標準ライブラリの使用（もしくは、一時オブジェクト再考）</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">標準ライブラリの使用（もしくは、一時オブジェクト再考）</a><a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <p>前項のハンドメイドの <code class="docutils literal notranslate"><span class="pre">for</span></code> ループを <code class="docutils literal notranslate"><span class="pre">find</span></code> アルゴリズムに置き換えた上で、以下のように説く。&lt;ファンクタと <code class="docutils literal notranslate"><span class="pre">find_if</span></code> を用いて、もっと格好良くすることも可能だが、<code class="docutils literal notranslate"><span class="pre">find</span></code> の単純な再利用が、プログラミング努力の節減と実行時効率にどれだけ効果的か考えてほしい&gt; (p. 26)</p>
 </section>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id49" role="doc-backlink">例外安全に関する問題点とテクニック</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id49" role="doc-backlink">例外安全に関する問題点とテクニック</a><a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
 <p>本章の存在が本書の本書たる所以。</p>
 <section id="id9">
-<h3><a class="toc-backref" href="#id50" role="doc-backlink">例外に対して安全なコードを書く</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">例外に対して安全なコードを書く</a><a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
 <p>Cargill 氏の論文の <code class="docutils literal notranslate"><span class="pre">Stack</span></code> クラステンプレートを、例外安全かつ例外中立にしていく。</p>
 <dl class="simple">
 <dt>例外安全</dt><dd><p>例外が発生しても適切に処理する。</p>
@@ -290,7 +292,7 @@
 </li>
 </ul>
 <section id="id10">
-<h4><a class="toc-backref" href="#id51" role="doc-backlink">例外安全を保証する手段</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id51" role="doc-backlink">例外安全を保証する手段</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
 <dl class="simple">
 <dt>基本的な保証</dt><dd><p>例外が発生しても、リソースリークを生じない。</p>
 </dd>
@@ -301,7 +303,7 @@
 </dl>
 </section>
 <section id="stackimpl">
-<h4><a class="toc-backref" href="#id52" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> に分離する</a><a class="headerlink" href="#stackimpl" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id52" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> に分離する</a><a class="headerlink" href="#stackimpl" title="Link to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">Stack</span></code> のメモリ管理処理を分離してカプセル化する。&lt;<code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> が、元の
 <code class="docutils literal notranslate"><span class="pre">Stack</span></code> のデータメンバをすべて持っていることに注意&gt; (p. 44)</p>
 <dl class="simple">
@@ -314,7 +316,7 @@
 </dl>
 </section>
 <section id="stackimpl-private">
-<h4><a class="toc-backref" href="#id53" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> を private 継承で利用する場合</a><a class="headerlink" href="#stackimpl-private" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id53" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> を private 継承で利用する場合</a><a class="headerlink" href="#stackimpl-private" title="Link to this heading">¶</a></h4>
 <ul>
 <li><p>コンストラクタは、単に <code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> に初期要素数を渡すだけ。</p></li>
 <li><p>デストラクタは書く必要がなくなった。</p></li>
@@ -341,11 +343,11 @@
 <code class="docutils literal notranslate"><span class="pre">Stack</span></code> のコンストラクタとデストラクタに見ることができる&gt; (p. 54)</p>
 </section>
 <section id="id11">
-<h4><a class="toc-backref" href="#id54" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> を包含で利用する場合</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id54" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">StackImpl</span></code> を包含で利用する場合</a><a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
 <p>基本的には <code class="docutils literal notranslate"><span class="pre">private</span></code> 継承の場合と同じ。結合度が低くなるのはよいが、コーディングが面倒になる。著者は包含スタイルを推奨している。</p>
 </section>
 <section id="id12">
-<h4><a class="toc-backref" href="#id55" role="doc-backlink">例外を投げるデストラクタ</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id55" role="doc-backlink">例外を投げるデストラクタ</a><a class="headerlink" href="#id12" title="Link to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>&lt;<strong>例外で終了するようなデストラクタを書いてはいけない</strong> 。このようなデストラクタを持つクラスを書くと、オブジェクトの配列に対し、安全な <code class="docutils literal notranslate"><span class="pre">new[]</span></code> や
 <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> を保証できない&gt; (p. 63)</p></li>
@@ -355,7 +357,7 @@
 </section>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id56" role="doc-backlink">コードの複雑性</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">コードの複雑性</a><a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
 <p>「基本的な保証」「強い保証」「例外を投げない保証」を人に口頭で説明する場合は、以下のように言えばよさそうだ。</p>
 <blockquote>
 <div><p>&lt;基本的な保証は、デストラクタによる削除が完全に機能し、リークが発生しないことを保証する。強い保証は、これに加えて、完全なコミットロールバックの特徴を保証する。また、例外を投げない保証は、関数が例外を投げないことを保証する&gt; (p. 70)</p>
@@ -367,9 +369,9 @@
 </section>
 </section>
 <section id="id14">
-<h2><a class="toc-backref" href="#id57" role="doc-backlink">クラスの設計と継承</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id57" role="doc-backlink">クラスの設計と継承</a><a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
 <section id="id15">
-<h3><a class="toc-backref" href="#id58" role="doc-backlink">クラスの機構</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id58" role="doc-backlink">クラスの機構</a><a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
 <p>クラスの各種メンバー関数や演算子を定義するときの、一般的なガイドラインについて列挙している。</p>
 <ul class="simple">
 <li><p>オブジェクトは値渡しではなく <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照渡しの方がよい。無意味なコピーを省く。</p></li>
@@ -395,7 +397,7 @@
 </ul>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id59" role="doc-backlink">仮想関数のオーバーライド</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id59" role="doc-backlink">仮想関数のオーバーライド</a><a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>基底クラスのデストラクタを <code class="docutils literal notranslate"><span class="pre">virtual</span></code> とすること。ただし、派生クラスのオブジェクトを基底クラスへのポインタ経由で <code class="docutils literal notranslate"><span class="pre">delete</span></code> しないことになっている場合は別。</p></li>
 <li><p>継承された関数と同じ名前のメンバ関数を提供する場合、基底クラス側の関数は「隠れる」。</p>
@@ -409,7 +411,7 @@
 </ul>
 </section>
 <section id="id17">
-<h3><a class="toc-backref" href="#id60" role="doc-backlink">クラス間の関係</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">クラス間の関係</a><a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
 <p>最初の著者の主張は「実装のために <code class="docutils literal notranslate"><span class="pre">public</span></code> 継承を用いるな」ということだ。特に p. 91
 の最後の長いパラグラフが最高。</p>
 <ul class="simple">
@@ -420,21 +422,21 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id18">
-<h3><a class="toc-backref" href="#id61" role="doc-backlink">継承の使用と誤用</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id61" role="doc-backlink">継承の使用と誤用</a><a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
 <p>この項目は大切なことをたくさん述べている。まとめるのが難しく、ノートを取りにくい。</p>
 </section>
 <section id="id19">
-<h3><a class="toc-backref" href="#id62" role="doc-backlink">オブジェクト指向プログラミング</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">オブジェクト指向プログラミング</a><a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
 <p>ノート省略。</p>
 </section>
 </section>
 <section id="pimpl">
-<h2><a class="toc-backref" href="#id63" role="doc-backlink">コンパイラファイアウォールと Pimpl イディオム</a><a class="headerlink" href="#pimpl" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id63" role="doc-backlink">コンパイラファイアウォールと Pimpl イディオム</a><a class="headerlink" href="#pimpl" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>&lt;依存性の管理をうまく行うことは、強固なコードを書くための必要不可欠な部分である&gt; (p. 114)</p></li>
 </ul>
 <section id="id20">
-<h3><a class="toc-backref" href="#id64" role="doc-backlink">コンパイル時の依存性を最小限にする</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id64" role="doc-backlink">コンパイル時の依存性を最小限にする</a><a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p>&lt;プログラマの多くは、習慣的に、必要以上に多くのヘッダファイルをインクルードしている。あいにく、それはビルド時間に大きな打撃を与えることになる&gt; (p. 114)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;ostream&gt;</span></code> は <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;iosfwd&gt;</span></code> に置き換えられるか調べるとよさそうだ。</p></li>
@@ -462,7 +464,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id21">
-<h3><a class="toc-backref" href="#id65" role="doc-backlink">コンパイラファイアウォール</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id65" role="doc-backlink">コンパイラファイアウォール</a><a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">XImpl</span></code> の中に <code class="docutils literal notranslate"><span class="pre">X</span></code> の何を入れるべきかという問題。著者は <code class="docutils literal notranslate"><span class="pre">X</span></code> のすべての
 <code class="docutils literal notranslate"><span class="pre">private</span></code> メンバ（データと関数の両方）を <code class="docutils literal notranslate"><span class="pre">XImpl</span></code> に入れることを推奨している。ただし仮想関数は除外する。</p></li>
@@ -470,17 +472,17 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id22">
-<h3><a class="toc-backref" href="#id66" role="doc-backlink">高速 Pimpl イディオム</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id66" role="doc-backlink">高速 Pimpl イディオム</a><a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
 <p>この項はなかったことに────。</p>
 </section>
 </section>
 <section id="id23">
-<h2><a class="toc-backref" href="#id67" role="doc-backlink">名前の自動照合、名前空間、インターフェイス原則</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id67" role="doc-backlink">名前の自動照合、名前空間、インターフェイス原則</a><a class="headerlink" href="#id23" title="Link to this heading">¶</a></h2>
 <section id="id24">
-<h3><a class="toc-backref" href="#id68" role="doc-backlink">名前の自動照合とインターフェイス原則</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id68" role="doc-backlink">名前の自動照合とインターフェイス原則</a><a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
 <p>Koenig の自動照合の簡単な説明からスタートして、「クラスとインターフェイスを同一の場所に置く」という結論に至るように議論が進む。</p>
 <section id="koenig">
-<h4><a class="toc-backref" href="#id69" role="doc-backlink">Koenig の自動照合</a><a class="headerlink" href="#koenig" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id69" role="doc-backlink">Koenig の自動照合</a><a class="headerlink" href="#koenig" title="Link to this heading">¶</a></h4>
 <ul>
 <li><p>Koenig の自動照合を簡単に説明すると、次のようになる。&lt;関数の引数がクラス型の場合、コンパイラは、正しい関数名を照合するため、関数の引数の型定義を含む名前空間で、一致する関数名がないか調べる&gt; (p. 139)</p>
 <p>例えば、以下のコードはコンパイルされる。</p>
@@ -502,7 +504,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id25">
-<h4><a class="toc-backref" href="#id70" role="doc-backlink">クラスの「構成要素」とインターフェイス</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id70" role="doc-backlink">クラスの「構成要素」とインターフェイス</a><a class="headerlink" href="#id25" title="Link to this heading">¶</a></h4>
 <ul>
 <li><p>ここで、著者はインターフェイス原則を次のように提案する。</p>
 <p>ある関数がクラス <code class="docutils literal notranslate"><span class="pre">X</span></code> に対して次の条件を満たすときに、その関数は論理的にクラス <code class="docutils literal notranslate"><span class="pre">X</span></code> の構成要素である。</p>
@@ -559,7 +561,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="opearator">
-<h4><a class="toc-backref" href="#id71" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">opearator&lt;&lt;()</span></code> の最適な提供手段</a><a class="headerlink" href="#opearator" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id71" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">opearator&lt;&lt;()</span></code> の最適な提供手段</a><a class="headerlink" href="#opearator" title="Link to this heading">¶</a></h4>
 <p>クラスに対する <code class="docutils literal notranslate"><span class="pre">operator&lt;&lt;()</span></code> を書く方法は主に二つ。</p>
 <ol class="loweralpha">
 <li><p>クラスの通常のインターフェイスのみ使うフリー関数とする方法</p>
@@ -596,7 +598,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id26">
-<h4><a class="toc-backref" href="#id72" role="doc-backlink">名前の隠蔽</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id72" role="doc-backlink">名前の隠蔽</a><a class="headerlink" href="#id26" title="Link to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>&lt;該当する関数を全く見つけられなかった場合に限り、そのすぐ外を囲んでいるスコープを見にいく&gt; (p. 155)</p></li>
 <li><p>&lt;極端な例をあげると、パラメータの型だけを見た場合、ほぼ一致するメンバ関数が、完全に一致するグローバル関数よりも好まれるということは、直感的に予想できる&gt;
@@ -609,11 +611,11 @@ Methodデザインパターンを導入することを勧めている。完全�
 </section>
 </section>
 <section id="id27">
-<h2><a class="toc-backref" href="#id73" role="doc-backlink">メモリ管理</a><a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id73" role="doc-backlink">メモリ管理</a><a class="headerlink" href="#id27" title="Link to this heading">¶</a></h2>
 <section id="id28">
-<h3><a class="toc-backref" href="#id74" role="doc-backlink">メモリ管理</a><a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id74" role="doc-backlink">メモリ管理</a><a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
 <section id="id29">
-<h4><a class="toc-backref" href="#id75" role="doc-backlink">C++ で使用する主なメモリ領域</a><a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id75" role="doc-backlink">C++ で使用する主なメモリ領域</a><a class="headerlink" href="#id29" title="Link to this heading">¶</a></h4>
 <p>詳しい表が p. 164 にある。</p>
 <dl class="simple">
 <dt>定数データ</dt><dd><ul class="simple">
@@ -651,7 +653,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </section>
 </section>
 <section id="new-delete">
-<h3><a class="toc-backref" href="#id76" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">new/delete</span></code></a><a class="headerlink" href="#new-delete" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id76" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">new/delete</span></code></a><a class="headerlink" href="#new-delete" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;クラス専用の <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new[]()</span></code> は、それぞれ必ず
 <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete()</span></code>, <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">delete[]()</span></code> とのセットで提供すること&gt;
@@ -661,7 +663,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="auto-ptr">
-<h3><a class="toc-backref" href="#id77" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code></a><a class="headerlink" href="#auto-ptr" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id77" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code></a><a class="headerlink" href="#auto-ptr" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p>多くの商用ライブラリは、洗練されたスマートポインタを提供している。標準の
 <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> は単純かつ汎用目的のスマートポインタ。</p></li>
@@ -699,9 +701,9 @@ Methodデザインパターンを導入することを勧めている。完全�
 </section>
 </section>
 <section id="id30">
-<h2><a class="toc-backref" href="#id78" role="doc-backlink">罠、落とし穴、そして反イディオム</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id78" role="doc-backlink">罠、落とし穴、そして反イディオム</a><a class="headerlink" href="#id30" title="Link to this heading">¶</a></h2>
 <section id="id31">
-<h3><a class="toc-backref" href="#id79" role="doc-backlink">オブジェクトの同一性</a><a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id79" role="doc-backlink">オブジェクトの同一性</a><a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
 <p>代入演算子のコードにおける <code class="docutils literal notranslate"><span class="pre">this</span> <span class="pre">!=</span> <span class="pre">&amp;other</span></code> テストの是非について。</p>
 <ul class="simple">
 <li><p>代入のロジックが、自己代入時には通じぬようなものであってはならない。
@@ -714,7 +716,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id32">
-<h3><a class="toc-backref" href="#id80" role="doc-backlink">自動型変換</a><a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id80" role="doc-backlink">自動型変換</a><a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
 <p>これまでも何度か紹介されていたが、一般に、暗黙の型変換は安全ではないとされている。理由は次の二点にある。</p>
 <ol class="arabic simple">
 <li><p>オーバーロードの解決を阻害する。</p></li>
@@ -728,14 +730,14 @@ Methodデザインパターンを導入することを勧めている。完全�
 <p>結論：型変換演算子も、非 <code class="docutils literal notranslate"><span class="pre">explicit</span></code> 変換コンストラクタも書かないようにする。</p>
 </section>
 <section id="id33">
-<h3><a class="toc-backref" href="#id81" role="doc-backlink">オブジェクトの生存期間</a><a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id81" role="doc-backlink">オブジェクトの生存期間</a><a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
 <p>エキセントリックなコード例を挙げ、そういうことはするなという議論をする。</p>
 </section>
 </section>
 <section id="id34">
-<h2><a class="toc-backref" href="#id82" role="doc-backlink">その他のトピック</a><a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id82" role="doc-backlink">その他のトピック</a><a class="headerlink" href="#id34" title="Link to this heading">¶</a></h2>
 <section id="id35">
-<h3><a class="toc-backref" href="#id83" role="doc-backlink">変数の初期化──それとも？</a><a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id83" role="doc-backlink">変数の初期化──それとも？</a><a class="headerlink" href="#id35" title="Link to this heading">¶</a></h3>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w">  </span><span class="c1">// デフォルト初期化であり、T::T() で初期化される</span>
 <span class="n">T</span><span class="w"> </span><span class="nf">t</span><span class="p">();</span><span class="w"> </span><span class="c1">// T 型のオブジェクトを返す関数 t の宣言</span>
 <span class="n">T</span><span class="w"> </span><span class="nf">t</span><span class="p">(</span><span class="n">u</span><span class="p">);</span><span class="w"> </span><span class="c1">// 直接初期化であり、適当なコンストラクタ T::T(u) を呼び出す。</span>
@@ -744,7 +746,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </div>
 </section>
 <section id="const">
-<h3><a class="toc-backref" href="#id84" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">const</span></code> の正しい利用</a><a class="headerlink" href="#const" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id84" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">const</span></code> の正しい利用</a><a class="headerlink" href="#const" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>値渡しする関数のパラメータは <code class="docutils literal notranslate"><span class="pre">const</span></code> 宣言しない。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">const</span></code> 値を返す関数はテンプレートの実体化の邪魔になる。組み込み型に対してはそもそも冗長。</p></li>
@@ -755,20 +757,20 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id36">
-<h3><a class="toc-backref" href="#id85" role="doc-backlink">キャスト</a><a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">キャスト</a><a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;<code class="docutils literal notranslate"><span class="pre">const</span></code> または <code class="docutils literal notranslate"><span class="pre">volatile</span></code> 属性をキャストで取り除くのは、通常、まずいスタイル例である。ポインタまたは参照の <code class="docutils literal notranslate"><span class="pre">const</span></code> 属性を合法的に取り除きたい場合のほとんどは、クラスのメンバ変数に関係しており、<code class="docutils literal notranslate"><span class="pre">mutable</span></code> キーワードで処理される&gt; (p. 217)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dynamic_cast</span></code> はクロスキャストにも用いることができる。</p></li>
 </ul>
 </section>
 <section id="bool">
-<h3><a class="toc-backref" href="#id86" role="doc-backlink">真偽値 (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)</a><a class="headerlink" href="#bool" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id86" role="doc-backlink">真偽値 (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)</a><a class="headerlink" href="#bool" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">wchar_t</span></code> は C では <code class="docutils literal notranslate"><span class="pre">typedef</span></code> だったが、C++ では組み込み型。</p></li>
 </ul>
 </section>
 <section id="id37">
-<h3><a class="toc-backref" href="#id87" role="doc-backlink">転送関数</a><a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id87" role="doc-backlink">転送関数</a><a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;今日、コンパイラがコピーコンストラクタを取り除くことのできる状況は、戻り値の最適化 (Return Value Optimization) と、一時オブジェクトに関してのみである&gt;
 (p. 224)</p></li>
@@ -776,7 +778,7 @@ Methodデザインパターンを導入することを勧めている。完全�
 </ul>
 </section>
 <section id="id38">
-<h3><a class="toc-backref" href="#id88" role="doc-backlink">制御フロー</a><a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id88" role="doc-backlink">制御フロー</a><a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>コンストラクタの初期化リストにある <strong>基底クラスの</strong> リストは、クラス定義にそれらが出現する順と同じにしておく。</p></li>
 <li><p>コンストラクタの初期化リストにある <strong>メンバ変数の</strong> リストは、クラス定義にそれらが出現する順と同じにしておく。</p></li>
@@ -784,11 +786,11 @@ Methodデザインパターンを導入することを勧めている。完全�
 </section>
 </section>
 <section id="id39">
-<h2><a class="toc-backref" href="#id89" role="doc-backlink">あとがき</a><a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id89" role="doc-backlink">あとがき</a><a class="headerlink" href="#id39" title="Link to this heading">¶</a></h2>
 <p>次回作の予告みたいなことが記されている。実際、More Exceptional C++ はここに書かれている内容を盛り込んでいる。</p>
 </section>
 <section id="id40">
-<h2><a class="toc-backref" href="#id90" role="doc-backlink">参考文献</a><a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id90" role="doc-backlink">参考文献</a><a class="headerlink" href="#id40" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Lippman98 <em>C++ Primer</em> はアスキーから日本語版が出ているはず。</p></li>
 <li><p>Meyers98 <em>Effective C++, Second Edition</em> これは Third Edition が出ているはず。</p></li>

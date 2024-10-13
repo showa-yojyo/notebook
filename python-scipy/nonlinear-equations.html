@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>非線形方程式を解く &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script async="async" src="../_static/mathjax-v3.js?v=bf1ec211"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="線形方程式を解く" href="linear-equations.html" />
@@ -18,8 +19,9 @@
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -51,7 +53,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id4" role="doc-backlink">非線形方程式を解く</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">非線形方程式を解く</a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
 <p>本稿では <a class="reference external" href="https://www.scipy.org/">SciPy</a> を用いて非線形方程式を数値計算で解く方法について記す。</p>
 <p>まず、方程式を解くためのツールはモジュール <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> に色々とある。試しに <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html">ドキュメントのリファレンス</a> から Root
 finding という文字列を検索してみるとよい。問題となっている方程式の特徴を活かして、どのソルバーを採用するのかを検討するのが一般的には重要なのだが、ここではあまり細かいところには立ち寄らず、とにかくそれらしい根が求まればよいという態度で通す。</p>
@@ -69,7 +71,7 @@ finding という文字列を検索してみるとよい。問題となってい
 </ul>
 </nav>
 <section id="newton-raphson">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Newton-Raphson 法</a><a class="headerlink" href="#newton-raphson" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Newton-Raphson 法</a><a class="headerlink" href="#newton-raphson" title="Link to this heading">¶</a></h2>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">scipy.optimize.newton</span></code> は Newton-Raphson 法により、与えられた方程式の根の計算をする。この計算法については有名かつ基本的なものなので、忘れない自信があるのでここには記さない。</p>
 <p>コード的な手順は次のとおりとなる。</p>
 <ol class="arabic simple">
@@ -103,7 +105,7 @@ finding という文字列を検索してみるとよい。問題となってい
 <code class="docutils literal notranslate"><span class="pre">fprime2</span></code> で <code class="docutils literal notranslate"><span class="pre">func</span></code> の一次、二次の導関数を別途指定できる。導関数を指示する場合、解計算のアルゴリズムと収束率が良いほうに変わるようだ。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">多項式方程式</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">多項式方程式</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>SciPy というよりは <a class="reference external" href="https://www.numpy.org/">NumPy</a> だけで多項式の定義と根の計算が実現できるのだが本稿に記す。</p>
 <p>コード的な手順は次のとおりとなる：</p>
 <ul class="simple">

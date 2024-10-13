@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>クラス DeprecatedApp の実装 &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="クラス ModernApp の実装" href="modernapp.html" />
     <link rel="prev" title="クラス AppBase の実装" href="appbase.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -54,7 +56,7 @@
           <div class="body" role="main">
             
   <section id="deprecatedapp">
-<h1><a class="toc-backref" href="#id2" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> の実装</a><a class="headerlink" href="#deprecatedapp" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> の実装</a><a class="headerlink" href="#deprecatedapp" title="Link to this heading">¶</a></h1>
 <p>本稿で述べるクラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code> は、あくまでも過去に制作したOpenGL 3.0 以前の機能で実装した PyOpenGL プログラムをリファクタリングするためのみに利用する。</p>
 <p>もう少し具体的に説明すると、そのような古臭いソースコードが何十枚とある。そこでの処理で似通った部分、例えば</p>
 <ul class="simple">
@@ -82,7 +84,7 @@
 </ul>
 </nav>
 <section id="id1">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code></a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">DeprecatedApp</span></code></a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <p>まずクラス全景を示す。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;deprecatedapp.py: Do not use.</span>
@@ -164,7 +166,7 @@
 <p>各メソッドはほぼすべてベースクラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code> からのオーバーライドとなるが、その実装は OpenGL 3.0 以前の機能で実現する。</p>
 <p>以下、特徴的なメソッドの説明をする。</p>
 <section id="init">
-<h3><a class="toc-backref" href="#id4" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">__init__</span></code></a><a class="headerlink" href="#init" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">__init__</span></code></a><a class="headerlink" href="#init" title="Link to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize an instance of class DeprecatedApp.&quot;&quot;&quot;</span>
 
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;context_version&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -180,7 +182,7 @@
 </ul>
 </section>
 <section id="update-projection">
-<h3><a class="toc-backref" href="#id5" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">update_projection</span></code></a><a class="headerlink" href="#update-projection" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">update_projection</span></code></a><a class="headerlink" href="#update-projection" title="Link to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the projection matrix.&quot;&quot;&quot;</span>
 
         <span class="n">GL</span><span class="o">.</span><span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL</span><span class="o">.</span><span class="n">GL_PROJECTION</span><span class="p">)</span>
@@ -193,7 +195,7 @@
 <p>ご覧のとおり、古典的な射影行列の設定処理である。</p>
 </section>
 <section id="update-rotation">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">update_rotation</span></code></a><a class="headerlink" href="#update-rotation" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">update_rotation</span></code></a><a class="headerlink" href="#update-rotation" title="Link to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the model transform.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">quat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -210,7 +212,7 @@
 <p>最後の転置処理は、この <code class="docutils literal notranslate"><span class="pre">self.rotation_matrix</span></code> を <code class="docutils literal notranslate"><span class="pre">GL.glMultMatrixf</span></code> にそのまま渡したいため行う。</p>
 </section>
 <section id="set-modelview-matrix">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">set_modelview_matrix</span></code></a><a class="headerlink" href="#set-modelview-matrix" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">メソッド <code class="docutils literal notranslate"><span class="pre">set_modelview_matrix</span></code></a><a class="headerlink" href="#set-modelview-matrix" title="Link to this heading">¶</a></h3>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the modelview matrix with deprecated GL commands.&quot;&quot;&quot;</span>
 
         <span class="n">GL</span><span class="o">.</span><span class="n">glLoadIdentity</span><span class="p">()</span>

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>微分幾何 &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script async="async" src="../_static/mathjax-v3.js?v=bf1ec211"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="出力" href="printing.html" />
@@ -18,8 +19,9 @@
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -51,7 +53,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id19" role="doc-backlink">微分幾何</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id19" role="doc-backlink">微分幾何</a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
 <p>微分幾何に関係する機能を提供するモジュール <code class="docutils literal notranslate"><span class="pre">sympy.diffgeom</span></code> に関するメモを記す。</p>
 <p>これはふたつのサブモジュール <code class="docutils literal notranslate"><span class="pre">diffgeom</span></code> と <code class="docutils literal notranslate"><span class="pre">rn</span></code> から構成されている。理解の都合上、まず <code class="docutils literal notranslate"><span class="pre">diffgeom</span></code> に定義されている基礎的な諸クラスを見ていく。次にサブモジュール <code class="docutils literal notranslate"><span class="pre">rn</span></code> で定義されているすべてのオブジェクトを見ていく。最後に再度
 <code class="docutils literal notranslate"><span class="pre">diffgeom</span></code> に戻り、残りの（さらに複雑な概念を表現する）諸機能を見ていく。</p>
@@ -121,10 +123,10 @@
 </div>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id20" role="doc-backlink">多様体</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">多様体</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>本節ではサブモジュール <code class="docutils literal notranslate"><span class="pre">sympy.diffgeom.diffgeom</span></code> で定義されている、多様体を表現するための一連のクラス群について記す。</p>
 <section id="manifold">
-<h3><a class="toc-backref" href="#id21" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Manifold</span></code></a><a class="headerlink" href="#manifold" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Manifold</span></code></a><a class="headerlink" href="#manifold" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Manifold</span></code> は多様体をオブジェクトとして表現する。ここで言う多様体とは、微分可能多様体を意味するものとして話をすすめる。</p>
 <ul class="simple">
 <li><p>オブジェクトをコンストラクターから直接生成する。名前と多様体次元さえ用意すればよい。生成後にそれぞれをメンバーデータ <code class="docutils literal notranslate"><span class="pre">name</span></code> および <code class="docutils literal notranslate"><span class="pre">dim</span></code> で参照できる。</p>
@@ -138,7 +140,7 @@
 </ul>
 </section>
 <section id="patch">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Patch</span></code></a><a class="headerlink" href="#patch" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Patch</span></code></a><a class="headerlink" href="#patch" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Patch</span></code> は多様体上の座標近傍となる開集合一つを表現する型だ。</p>
 <p>例えば多様体 <span class="math notranslate nohighlight">\(M\)</span> とその座標近傍系が <span class="math notranslate nohighlight">\(\set{(U_\alpha,
 \varphi_\alpha)}_{\alpha \in I}\)</span> のように与えられているとする。この座標近傍
@@ -150,7 +152,7 @@
 </ul>
 </section>
 <section id="coordsystem">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">CoordSystem</span></code></a><a class="headerlink" href="#coordsystem" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">CoordSystem</span></code></a><a class="headerlink" href="#coordsystem" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">CoordSystem</span></code> は多様体の座標近傍ひとつの局所座標系を表現する型だ。</p>
 <p>先ほどのモデルで言うと、一つの座標近傍 <span class="math notranslate nohighlight">\({(U_\alpha, \varphi_\alpha)}\)</span> の局所座標系 <span class="math notranslate nohighlight">\({\fn{\varphi_\alpha}{U_\alpha}\RR^n}\)</span> に相当する概念だと解釈できる。</p>
 <ul class="simple">
@@ -214,7 +216,7 @@ x_n}\)</span> に相当する。</p>
 <p>利用例は後述する。</p>
 </section>
 <section id="point">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Point</span></code></a><a class="headerlink" href="#point" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Point</span></code></a><a class="headerlink" href="#point" title="Link to this heading">¶</a></h3>
 <p>多様体の一点を表現する型だ。</p>
 <ul class="simple">
 <li><p>オブジェクトの生成方法はふたつある。このクラスのコンストラクターから直接生成する方法と、クラス <code class="docutils literal notranslate"><span class="pre">CoordSystem</span></code> のメソッド <code class="docutils literal notranslate"><span class="pre">point</span></code> を呼ぶ方法だ。</p>
@@ -234,10 +236,10 @@ x_n}\)</span> に相当する。</p>
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id25" role="doc-backlink">多様体の場および微分演算各種</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">多様体の場および微分演算各種</a><a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
 <p>こちらも利用例は後述することにする。</p>
 <section id="basescalarfield">
-<h3><a class="toc-backref" href="#id26" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">BaseScalarField</span></code></a><a class="headerlink" href="#basescalarfield" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">BaseScalarField</span></code></a><a class="headerlink" href="#basescalarfield" title="Link to this heading">¶</a></h3>
 <p>多様体上で定義された関数 <span class="math notranslate nohighlight">\({\fn{f}{M}\RR}\)</span> を構成するための型だ。</p>
 <ul>
 <li><p>コンストラクターでオブジェクトを生成する場合、<code class="docutils literal notranslate"><span class="pre">CoordSystem</span></code> オブジェクトと座標成分番号 <code class="docutils literal notranslate"><span class="pre">i</span></code> を指定する。つまり多様体の局所座標系を一つ指定することになる。</p>
@@ -248,7 +250,7 @@ x_n}\)</span> に相当する。</p>
 </ul>
 </section>
 <section id="basevectorfield">
-<h3><a class="toc-backref" href="#id27" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">BaseVectorField</span></code></a><a class="headerlink" href="#basevectorfield" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">BaseVectorField</span></code></a><a class="headerlink" href="#basevectorfield" title="Link to this heading">¶</a></h3>
 <p>このクラスが表現するのは多様体上のベクトル場の基底の一つだと思われる。つまりベクトル場 <span class="math notranslate nohighlight">\(\displaystyle \sum_{i=0}^n a_i \frac{\partial}{\partial x_i}\)</span> の
 <span class="math notranslate nohighlight">\(\dfrac{\partial}{\partial x_i}\)</span> の部分を表現している。</p>
 <p>このクラスはベクトル場を表現するための素材に過ぎない。</p>
@@ -266,7 +268,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </ul>
 </section>
 <section id="commutator">
-<h3><a class="toc-backref" href="#id28" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Commutator</span></code></a><a class="headerlink" href="#commutator" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Commutator</span></code></a><a class="headerlink" href="#commutator" title="Link to this heading">¶</a></h3>
 <p>ふたつのベクトル場の交換子、括弧積を表現する。</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">Commutator(X,</span> <span class="pre">Y)</span></code> は <span class="math notranslate nohighlight">\({[X, Y]f \coloneqq X(Yf) - Y(Xf)}\)</span> で定義されるベクトル場を意味する。ここで <code class="docutils literal notranslate"><span class="pre">f</span></code> は多様体上で定義される関数を意味する。</p>
@@ -301,7 +303,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </div>
 </section>
 <section id="differential">
-<h3><a class="toc-backref" href="#id29" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Differential</span></code></a><a class="headerlink" href="#differential" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Differential</span></code></a><a class="headerlink" href="#differential" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Differential</span></code> は外微分を意味する。スカラー関数を含む微分形式の外微分をオブジェクトとして表現する。</p>
 <ul class="simple">
 <li><p>コンストラクターには k-形式として扱えるオブジェクトを渡す。ここで k はゼロ以上。</p>
@@ -320,7 +322,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </ul>
 </section>
 <section id="tensorproduct">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">TensorProduct</span></code></a><a class="headerlink" href="#tensorproduct" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">TensorProduct</span></code></a><a class="headerlink" href="#tensorproduct" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">TensorProduct</span></code> は多様体の座標近傍における（ふつうは一次の）微分形式とベクトル場からなるテンソルを表現することができる。</p>
 <p>次の例ではある五次元多様体で簡単な <span class="math notranslate nohighlight">\({(2, 3)}\)</span> テンソルを定義する：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">M</span> <span class="o">=</span> <span class="n">Manifold</span><span class="p">(</span><span class="s1">&#39;R^5&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -379,7 +381,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </div>
 </section>
 <section id="wedgeproduct">
-<h3><a class="toc-backref" href="#id31" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">WedgeProduct</span></code></a><a class="headerlink" href="#wedgeproduct" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">WedgeProduct</span></code></a><a class="headerlink" href="#wedgeproduct" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">WedgeProduct</span></code> は微分形式オブジェクト同士の外積を表現する。</p>
 <ul>
 <li><p>スーパークラスは <code class="docutils literal notranslate"><span class="pre">TensorProduct</span></code> だが、混ぜて使わないこと。前項で注意した点がそのまま当クラスの注意点でもある。</p></li>
@@ -393,7 +395,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </ul>
 </section>
 <section id="liederivative">
-<h3><a class="toc-backref" href="#id32" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">LieDerivative</span></code></a><a class="headerlink" href="#liederivative" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">LieDerivative</span></code></a><a class="headerlink" href="#liederivative" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">LieDerivative</span></code> はリー微分を表現する。あるベクトル場が生成するフローに沿う何かの微分を計算するのに利用できるはずだ。</p>
 <p>次の設定で簡単なテンソル場のリー微分を試すことにする：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">U</span> <span class="o">=</span> <span class="n">CoordSystem</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">Patch</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="n">Manifold</span><span class="p">(</span><span class="s1">&#39;R^5&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)))</span>
@@ -446,7 +448,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </section>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id33" role="doc-backlink">定義済み多様体オブジェクト</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">定義済み多様体オブジェクト</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
 <p>本節ではサブモジュール <code class="docutils literal notranslate"><span class="pre">sympy.diffgeom.rn</span></code> に定義されているオブジェクトを見ていく。</p>
 <p>前節で述べた一連の機能をすぐに試したいが、後で見るように比較的簡単な多様体を構成することすら面倒で困る。そこで、ここにある定義済みオブジェクトをインポートすることが考えられる。それらのオブジェクトを試して、感触を確かめるのがよいだろう。</p>
 <table class="docutils align-default">
@@ -507,7 +509,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </table>
 <p>どちらの次元の多様体にも開集合としての座標近傍は一つしか定義されていないが、それに対して複数の局所座標系が与えられていて、それらの間の座標変換も定義済みだ。</p>
 <section id="id7">
-<h3><a class="toc-backref" href="#id34" role="doc-backlink">二次元オブジェクト</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">二次元オブジェクト</a><a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">R2</span></code>, <code class="docutils literal notranslate"><span class="pre">R2_origin</span></code>, <code class="docutils literal notranslate"><span class="pre">R2_r</span></code>, <code class="docutils literal notranslate"><span class="pre">R2_p</span></code> には可能な限り次に示すメンバーデータが付与されている。可能な限りというのは「局所座標系 <span class="math notranslate nohighlight">\(A\)</span> 由来のデータは局所座標系 <span class="math notranslate nohighlight">\(B\)</span> には付与しない」という意味だ。</p>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">R2_r.coord_functions()</span></code> から値を設定。</p>
@@ -532,7 +534,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 <p>ただし <span class="math notranslate nohighlight">\({\varphi_{rp} = \varphi_r \circ \varphi_p\inv}\)</span> 等と記した。以下同様。</p>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id35" role="doc-backlink">三次元オブジェクト</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">三次元オブジェクト</a><a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">R3</span></code> 側でも同様の考えの下に、各オブジェクトに局所座標成分、接ベクトル基底、1-
 形式基底のメンバーデータが付与されて、関連する三座標系の間に相互に座標変換が定義されている。</p>
 <p>以下、座標変換だけ記す。直交座標系と円柱座標系間の座標変換は次のように与えられている：</p>
@@ -556,11 +558,11 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </section>
 </section>
 <section id="id9">
-<h2><a class="toc-backref" href="#id36" role="doc-backlink">コード例（基本編）</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id36" role="doc-backlink">コード例（基本編）</a><a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
 <p>コード例を書けるだけのクラスとオブジェクトの説明が終わったところで、基本的な用例を示したい。</p>
 <p>以下に示す例では、出来合いの <code class="docutils literal notranslate"><span class="pre">R2_r</span></code> 等のオブジェクトを多用する。</p>
 <section id="id10">
-<h3><a class="toc-backref" href="#id37" role="doc-backlink">局所座標系</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">局所座標系</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">CoordSystem</span></code>, <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">BaseScalarField</span></code> の座標成分に関係するメソッドの簡単な例を示す：</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">r</span><span class="p">,</span> <span class="n">th</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;r th&#39;</span><span class="p">)</span>
 
@@ -617,7 +619,7 @@ SymPy の <code class="docutils literal notranslate"><span class="pre">Add</span
 </ul>
 </section>
 <section id="s-1">
-<h3><a class="toc-backref" href="#id38" role="doc-backlink">単位円 <span class="math notranslate nohighlight">\(S^1\)</span></a><a class="headerlink" href="#s-1" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">単位円 <span class="math notranslate nohighlight">\(S^1\)</span></a><a class="headerlink" href="#s-1" title="Link to this heading">¶</a></h3>
 <p>ユークリッド空間 <span class="math notranslate nohighlight">\(\RR^2\)</span> の部分集合 <span class="math notranslate nohighlight">\({S^1 = \set{\bm x \in \RR^2
 \sth \norm{\bm x} = 1}}\)</span> を一次元多様体として表現してみよう（わかりやすさを優先して、変数を冗長に使い分けている）：</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -722,7 +724,7 @@ phim1(-0.5000) = phim0(-0.8660)
 </div>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id39" role="doc-backlink">ベクトル場</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">ベクトル場</a><a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">BaseVectorField</span></code> の例を示す。三次元空間に何か適当な、例えば原点からの距離の平方に反比例する値を返すスカラー場</p>
 <div class="math notranslate nohighlight">
 \[\fnm{f}{\RR^2}{\RR}{(r, \theta, \varphi)}-\frac{k}{r^2}.\]</div>
@@ -759,7 +761,7 @@ r}\)</span> 等が得られている。</p></li>
 </ul>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id40" role="doc-backlink">微分形式と外微分</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">微分形式と外微分</a><a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
 <p>クラス <code class="docutils literal notranslate"><span class="pre">Differential</span></code> と <code class="docutils literal notranslate"><span class="pre">WedgeProduct</span></code> の基本動作を見たい。例えば次の微分形式 <span class="math notranslate nohighlight">\(\omega\)</span> とその外微分 <span class="math notranslate nohighlight">\({\dd \omega}\)</span> をこれらのクラスを用いて再現したい。上側の数式（出典はネットで拾ってきたどこかのベクトル解析の演習問題）のほうをオブジェクトとして表現して、それをうまく処理して下側の数式に相当するオブジェクトを得たい。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align*}
@@ -829,7 +831,7 @@ r}\)</span> 等が得られている。</p></li>
 </section>
 </section>
 <section id="id13">
-<h2><a class="toc-backref" href="#id41" role="doc-backlink">積分曲線</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id41" role="doc-backlink">積分曲線</a><a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
 <p>再びサブモジュール <code class="docutils literal notranslate"><span class="pre">sympy.diffgeom.diffgeom</span></code> に戻り、残りの機能を調べる。</p>
 <p>ベクトル場の積分曲線を計算するための関数が定義されている。ベクトル場を <span class="math notranslate nohighlight">\(X\)</span>
 とし、局所的に対応する積分曲線を <span class="math notranslate nohighlight">\(\gamma(t)\)</span> とする常微分方程式
@@ -909,9 +911,9 @@ SymPy で解きたい。</p>
 </ul>
 </section>
 <section id="id15">
-<h2><a class="toc-backref" href="#id42" role="doc-backlink">補助関数</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">補助関数</a><a class="headerlink" href="#id15" title="Link to this heading">¶</a></h2>
 <section id="id16">
-<h3><a class="toc-backref" href="#id43" role="doc-backlink">基底ベクトルの変換</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">基底ベクトルの変換</a><a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
 <p>座標の変換は各種メソッドで行えるが、ベクトル場のそれは次の関数を用いる。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">vectors_in_basis(expr,</span> <span class="pre">to_sys)</span></code></dt><dd><p>式 <code class="docutils literal notranslate"><span class="pre">expr</span></code> に含まれる <code class="docutils literal notranslate"><span class="pre">BaseVectorField</span></code> オブジェクトを座標系 <code class="docutils literal notranslate"><span class="pre">to_sys</span></code> での表現に変換する。</p>
@@ -933,7 +935,7 @@ SymPy で解きたい。</p>
 <p>それほど面白い関数ではないので、サンプルコードの記載を省略する。</p>
 </section>
 <section id="id17">
-<h3><a class="toc-backref" href="#id44" role="doc-backlink">微分形式から行列を生成する</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">微分形式から行列を生成する</a><a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
 <p>この関数は後ほど記す関数群の実装のためにあるようだ。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">twoform_to_matrix(omega)</span></code></dt><dd><p>2-形式を表現する <code class="docutils literal notranslate"><span class="pre">omega</span></code> から次の性質を持つ行列を生成する。</p>
@@ -964,9 +966,9 @@ M_{ij} = \omega\left(\frac{\partial}{\partial x_j}, \frac{\partial}{\partial x_i
 </section>
 </section>
 <section id="id18">
-<h2><a class="toc-backref" href="#id45" role="doc-backlink">計量テンソル</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id45" role="doc-backlink">計量テンソル</a><a class="headerlink" href="#id18" title="Link to this heading">¶</a></h2>
 <section id="christoffel">
-<h3><a class="toc-backref" href="#id46" role="doc-backlink">Christoffel 記号</a><a class="headerlink" href="#christoffel" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">Christoffel 記号</a><a class="headerlink" href="#christoffel" title="Link to this heading">¶</a></h3>
 <p>第一種と第二種の Christoffel 記号を求める関数がそれぞれ存在する。ただし、どちらも戻り値の型が記号の概念そのものではなく、和をとる対象の数式を入れ子の <code class="docutils literal notranslate"><span class="pre">tuple</span></code>
 オブジェクトとして表現するようだ。テンソルが関係するので入れ子が多用される。</p>
 <dl>
@@ -991,7 +993,7 @@ M_{ij} = \omega\left(\frac{\partial}{\partial x_j}, \frac{\partial}{\partial x_i
 </dl>
 </section>
 <section id="riemman-christoffel">
-<h3><a class="toc-backref" href="#id47" role="doc-backlink">Riemman-Christoffel 曲率テンソル</a><a class="headerlink" href="#riemman-christoffel" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">Riemman-Christoffel 曲率テンソル</a><a class="headerlink" href="#riemman-christoffel" title="Link to this heading">¶</a></h3>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">metric_to_Riemann_components(expr)</span></code></dt><dd><p>計量テンソル <code class="docutils literal notranslate"><span class="pre">expr</span></code> から Riemman-Christoffel 曲率テンソルを求める。</p>
 <ul>
@@ -1015,7 +1017,7 @@ R^\rho{}_{\sigma \mu \nu} =
 </dl>
 </section>
 <section id="ricci">
-<h3><a class="toc-backref" href="#id48" role="doc-backlink">Ricci 曲率テンソル</a><a class="headerlink" href="#ricci" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">Ricci 曲率テンソル</a><a class="headerlink" href="#ricci" title="Link to this heading">¶</a></h3>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">metric_to_Ricci_components(expr)</span></code></dt><dd><p>計量テンソル <code class="docutils literal notranslate"><span class="pre">expr</span></code> から Ricci 曲率テンソルを求める。</p>
 <ul>

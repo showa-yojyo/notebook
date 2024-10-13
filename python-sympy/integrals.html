@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>積分 &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="常微分方程式" href="ode.html" />
     <link rel="prev" title="級数" href="series.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -50,7 +52,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id7" role="doc-backlink">積分</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id7" role="doc-backlink">積分</a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
 <p>本節ではモジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals</span></code> にある積分機能を見ていく。</p>
 <p><a class="reference external" href="https://www.sympy.org/">SymPy</a> は積分変数を含む数式の定積分および不定積分（原始関数）を評価することができる。また、各種 Laplace 変換および各種 Fourier 変換のための機能を提供している。例えば学生は数学の宿題を片付けるのにこの機能を利用してもよい。</p>
 <p>計算機を利用する限り、積分といえば普通は数値計算を想定するものだ。 SymPy においても、得意とする代数的な設計・実装による積分法のほかに、数値積分法もサポートしている。本節の最後にこれらを見ていくことにする。</p>
@@ -85,10 +87,10 @@
 </div>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">基本事項</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">基本事項</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>SymPy では、ある計算を実現するために、それの即時評価版と遅延評価版の両方を提供し、前者を後者で実装するという方式を多用している。積分の場合、前者と後者がそれぞれ関数 <code class="docutils literal notranslate"><span class="pre">integrate</span></code> とクラス <code class="docutils literal notranslate"><span class="pre">Integral</span></code> になる。本節ではこれらを簡単に記す。</p>
 <section id="integrate">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">integrate</span></code></a><a class="headerlink" href="#integrate" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">integrate</span></code></a><a class="headerlink" href="#integrate" title="Link to this heading">¶</a></h3>
 <p>積分を計算するには、関数 <code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">var,</span> <span class="pre">...)</span></code> をもっとも採用することになる。</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">integrate(f,</span> <span class="pre">x)</span></code> の形式で用いれば、被積分関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> の変数 <code class="docutils literal notranslate"><span class="pre">x</span></code> に関する不定積分（原始関数が一つ）が得られる。</p></li>
@@ -131,7 +133,7 @@
 </ul>
 </section>
 <section id="integral">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Integral</span></code></a><a class="headerlink" href="#integral" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">Integral</span></code></a><a class="headerlink" href="#integral" title="Link to this heading">¶</a></h3>
 <p>積分計算をオブジェクトにカプセル化するためのクラスに違いない。前述の関数
 <code class="docutils literal notranslate"><span class="pre">integrate</span></code> が本クラスの機能をラップしているはずだ。</p>
 <dl>
@@ -164,7 +166,7 @@
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">線積分</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">線積分</a><a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
 <p>線積分を求めるには、先述のものとは異なる関数を用いる。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">line_integrate(field,</span> <span class="pre">Curve,</span> <span class="pre">variables)</span></code></dt><dd><p>線積分を求める。</p>
@@ -182,11 +184,11 @@
 </dl>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">関数変換</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">関数変換</a><a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
 <p>モジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals.transforms</span></code> には、ある積分を用いることにより、与えられた関数から別の関数を生成するための一連の機能がある。ここではそのうち Laplace
 変換と Fourier 変換だけを見ていく。</p>
 <section id="laplace">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">Laplace 変換</a><a class="headerlink" href="#laplace" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Laplace 変換</a><a class="headerlink" href="#laplace" title="Link to this heading">¶</a></h3>
 <p>Laplace 変換およびその逆変換を計算する機能は、関数として提供されている。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">laplace_transform(f,</span> <span class="pre">t,</span> <span class="pre">s,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">f(t)</span></code> の Laplace 変換を計算して、結果を返す。</p>
@@ -256,7 +258,7 @@
 </dl>
 </section>
 <section id="fourier">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">Fourier 変換</a><a class="headerlink" href="#fourier" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Fourier 変換</a><a class="headerlink" href="#fourier" title="Link to this heading">¶</a></h3>
 <p>こちらも関数として提供されている。ユニタリー周波に関する変換方式を採用している。</p>
 <dl>
 <dt>関数 <code class="code docutils literal notranslate"><span class="pre">fourier_transform(f,</span> <span class="pre">x,</span> <span class="pre">k,</span> <span class="pre">**hints)</span></code></dt><dd><p>関数 <code class="code docutils literal notranslate"><span class="pre">f(x)</span></code> の Fourier 変換を計算して、結果を返す。</p>
@@ -327,7 +329,7 @@
 </section>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id15" role="doc-backlink">数値積分</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">数値積分</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
 <p>その名もモジュール <code class="docutils literal notranslate"><span class="pre">sympy.integrals.quadrature</span></code> に、数値積分系の関数が定義されている。すべてが Gauss 求積法の派生アルゴリズムということになる。まず各関数に共通する引数と戻り値の性質を説明する。</p>
 <ul class="simple">
 <li><p>引数 <code class="docutils literal notranslate"><span class="pre">n</span></code> は各求積法の order である。</p></li>

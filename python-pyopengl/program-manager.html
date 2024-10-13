@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>シェーダープログラム管理クラス &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="ベクトル・行列・座標変換" href="transform.html" />
     <link rel="prev" title="クラス ModernApp の実装" href="modernapp.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -54,7 +56,7 @@
           <div class="body" role="main">
             
   <section id="id1">
-<h1><a class="toc-backref" href="#id4" role="doc-backlink">シェーダープログラム管理クラス</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">シェーダープログラム管理クラス</a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
 <p>GLSL プログラムオブジェクトとシェーダーオブジェクトの生成と破棄の管理方法はワンパターンなので、この機能をカプセル化した管理クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code> を作成しておき、アプリケーションクラス <code class="docutils literal notranslate"><span class="pre">AppBase</span></code> にオブジェクトを保持させて用いるようにする。</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
@@ -73,7 +75,7 @@
 <p>私の環境でプログラムが適切なグラフィックドライバーを取得できない不具合が発生しており、関数 <code class="docutils literal notranslate"><span class="pre">glCreateShader</span></code> が <code class="docutils literal notranslate"><span class="pre">None</span></code> になるせいで本稿のクラスは動作しない。</p>
 </div>
 <section id="programmanager">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code></a><a class="headerlink" href="#programmanager" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">クラス <code class="docutils literal notranslate"><span class="pre">ProgramManager</span></code></a><a class="headerlink" href="#programmanager" title="Link to this heading">¶</a></h2>
 <p>次に挙げるようなコードを書いておく。部分的には PyOpenGL の某モジュールにも同様のコード片がある。</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;program_manager.py: Define class ProgramManager.</span>
@@ -136,7 +138,7 @@
 </div>
 </section>
 <section id="id2">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">メンバーデータの説明</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">メンバーデータの説明</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">program_id</span></code></dt><dd><p>関数 <code class="docutils literal notranslate"><span class="pre">glCreateProgram</span></code> の戻り値をここに保持する。アプリケーションは、GLSL 構成要素にアクセスするときにはこの値を参照することになる。</p>
 </dd>
@@ -148,7 +150,7 @@
 </dl>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">メソッドの説明</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">メソッドの説明</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>アプリケーションはメソッド <code class="docutils literal notranslate"><span class="pre">setup</span></code> と <code class="docutils literal notranslate"><span class="pre">cleanup</span></code> をその初期化処理と後始末処理にて呼び出す。</p>
 </section>
 </section>

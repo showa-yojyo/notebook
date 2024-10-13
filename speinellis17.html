@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Effective Debugging 読書ノート &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=c9b0a06a" />
+    <script src="_static/documentation_options.js?v=4354bf25"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="Modern C++ チャレンジ 読書ノート" href="bancila18.html" />
     <link rel="prev" title="Optimized C++ 下読みノート" href="guntheroth16.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -46,7 +48,7 @@
           <div class="body" role="main">
             
   <section id="effective-debugging">
-<h1><a class="toc-backref" href="#id82" role="doc-backlink">Effective Debugging 読書ノート</a><a class="headerlink" href="#effective-debugging" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id82" role="doc-backlink">Effective Debugging 読書ノート</a><a class="headerlink" href="#effective-debugging" title="Link to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">著者<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Diomidis Spinellis</p>
@@ -182,19 +184,19 @@
 </ul>
 </nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id83" role="doc-backlink">まえがき</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id83" role="doc-backlink">まえがき</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>本書は経験を積んだ開発者向けに書かれている。</p></li>
 <li><p>本書で紹介するデバッグ技法は、あえて詳細にまでこだわって記述した。</p></li>
 </ul>
 <section id="id3">
-<h3><a class="toc-backref" href="#id84" role="doc-backlink">本書の内容</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id84" role="doc-backlink">本書の内容</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>本書で扱うテーマは、一般的なものからより特殊なものに並んでいる。</p></li>
 </ul>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id85" role="doc-backlink">本書の利用法</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">本書の利用法</a><a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>戦略と手法</p></li>
 <li><p>スキルとツール</p>
@@ -206,7 +208,7 @@
 </ol>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id86" role="doc-backlink">仕事の流儀</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id86" role="doc-backlink">仕事の流儀</a><a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>ソフトウェア設計で行うすべての事項</p>
 <ul class="simple">
@@ -241,7 +243,7 @@
 </ol>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id87" role="doc-backlink">用語についての注意</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id87" role="doc-backlink">用語についての注意</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ISO/IEC/IEEE 24765:2010 という規格で用語が定義されているので、それに準拠すると言っている。</p>
 <ul>
@@ -255,16 +257,16 @@
 </ul>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id88" role="doc-backlink">本書の表記法</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id88" role="doc-backlink">本書の表記法</a><a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;コマンドラインツールのインターフェースは何十年も変わらないのに、GUI ではバージョンごとに異なる&gt;</p></li>
 </ul>
 </section>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id89" role="doc-backlink">1 章 高水準戦略</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id89" role="doc-backlink">1 章 高水準戦略</a><a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
 <section id="id9">
-<h3><a class="toc-backref" href="#id90" role="doc-backlink">項目 1: あらゆる問題を課題管理システムで扱う</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id90" role="doc-backlink">項目 1: あらゆる問題を課題管理システムで扱う</a><a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;課題管理システムに登録されていない問題を扱うことは断固拒否すること&gt; か。これは肝に銘じておきたい。</p></li>
 <li><p>問題の関係者（取引先の名前とか）を明らかにするのは優先度を決めるのに有用だ。</p></li>
@@ -276,7 +278,7 @@
 </dl>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id91" role="doc-backlink">項目 2: 問題に対する洞察を得るにはウェブで焦点を絞って検索する</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id91" role="doc-backlink">項目 2: 問題に対する洞察を得るにはウェブで焦点を絞って検索する</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>コード専用の検索エンジンを使ってみるのも吉。</p></li>
 <li><p>質問の出し方</p></li>
@@ -287,13 +289,13 @@
 </dl>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id92" role="doc-backlink">項目 3: 前条件と後条件が満たされていることを確認する</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id92" role="doc-backlink">項目 3: 前条件と後条件が満たされていることを確認する</a><a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ルーチンだけでなく、高水準の操作や設定に対しても同じ手法を使える。</p></li>
 </ul>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id93" role="doc-backlink">項目 4: 問題からバグをドリルアップするかプログラムの先頭からバグへドリルダウンする</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id93" role="doc-backlink">項目 4: 問題からバグをドリルアップするかプログラムの先頭からバグへドリルダウンする</a><a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ドリルアップ</p>
 <ol class="arabic simple">
@@ -313,7 +315,7 @@
 </ul>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id94" role="doc-backlink">項目 5: 既知の正常なシステムと問題を起こしているシステムとの違いを検出する</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id94" role="doc-backlink">項目 5: 既知の正常なシステムと問題を起こしているシステムとの違いを検出する</a><a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>トレースツールについて</p>
 <ul>
@@ -335,7 +337,7 @@
 </ul>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id95" role="doc-backlink">項目 6: ソフトウェアのデバッグ機能を使う</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id95" role="doc-backlink">項目 6: ソフトウェアのデバッグ機能を使う</a><a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>シェルの <code class="docutils literal notranslate"><span class="pre">-x</span></code> オプション。</p></li>
 <li><p>各種コマンドラインツールの <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> オプション。</p></li>
@@ -347,7 +349,7 @@
 </dl>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id96" role="doc-backlink">項目 7: ビルドと実行環境を多様化する</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id96" role="doc-backlink">項目 7: ビルドと実行環境を多様化する</a><a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>実行環境を変えてみることで、意外なバグが見つかるかもしれない。C/C++ のようにハードウェアと強く結びつく言語で書かれたソフトウェアでは特に期待できる。</p></li>
 <li><p>他の実行環境でデバッグする三つの方式</p>
@@ -362,7 +364,7 @@
 </ul>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id97" role="doc-backlink">項目 8: 作業の焦点を最も重要な問題に絞る</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id97" role="doc-backlink">項目 8: 作業の焦点を最も重要な問題に絞る</a><a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>デバッグの効率を上げるため、バグの優先度をつける。</p></li>
 <li><p>優先度が低いものは思い切って無視する。</p></li>
@@ -371,9 +373,9 @@
 </section>
 </section>
 <section id="id17">
-<h2><a class="toc-backref" href="#id98" role="doc-backlink">2 章 汎用の手法と実践</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id98" role="doc-backlink">2 章 汎用の手法と実践</a><a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
 <section id="id18">
-<h3><a class="toc-backref" href="#id99" role="doc-backlink">項目 9: デバッグを成功させるために心の準備をする</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id99" role="doc-backlink">項目 9: デバッグを成功させるために心の準備をする</a><a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;問題が再現可能な場合は、間違いなく解決できる&gt;</p></li>
 <li><p>&lt;寝ている間も取り組む&gt;</p></li>
@@ -381,7 +383,7 @@
 </ul>
 </section>
 <section id="id19">
-<h3><a class="toc-backref" href="#id100" role="doc-backlink">項目 10: 問題の効率的な再現を可能にする</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id100" role="doc-backlink">項目 10: 問題の効率的な再現を可能にする</a><a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>問題再現の最短手順のことを SSCCE と呼ぶようだ。</p></li>
 <li><p>再現可能な実行環境。</p></li>
@@ -393,17 +395,17 @@
 </dl>
 </section>
 <section id="id20">
-<h3><a class="toc-backref" href="#id101" role="doc-backlink">項目 11: 変更から結果までのターンアラウンド時間を最小化する</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id101" role="doc-backlink">項目 11: 変更から結果までのターンアラウンド時間を最小化する</a><a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
 <p>ラウンドトリップ時間のようなものか。</p>
 </section>
 <section id="id21">
-<h3><a class="toc-backref" href="#id102" role="doc-backlink">項目 12: 複雑なテストシナリオを自動化する</a><a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id102" role="doc-backlink">項目 12: 複雑なテストシナリオを自動化する</a><a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Lua という言語で C 言語の三角関数のテストコードを書いているのだが、利点が何なのかわかりにくい。テストコードの生産性が C より高いとか？</p></li>
 </ul>
 </section>
 <section id="id22">
-<h3><a class="toc-backref" href="#id103" role="doc-backlink">項目 13: デバッグデータを包括的に概観する</a><a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id103" role="doc-backlink">項目 13: デバッグデータを包括的に概観する</a><a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>データ全てを目の前に適切に並べると良い。関連性、パターンが見つかりやすくなる。</p></li>
 <li><p>老眼鏡をかけてでもフォントを小さくしてモニターに映る情報量を増やす。</p></li>
@@ -411,13 +413,13 @@
 </ul>
 </section>
 <section id="id23">
-<h3><a class="toc-backref" href="#id104" role="doc-backlink">項目 14: ソフトウェアのアップデートを考える</a><a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id104" role="doc-backlink">項目 14: ソフトウェアのアップデートを考える</a><a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>大抵の場合、サードパーティー製コードのせいだと思ったバグは、自分の問題によるものだ。</p></li>
 </ul>
 </section>
 <section id="id24">
-<h3><a class="toc-backref" href="#id105" role="doc-backlink">項目 15: サードパーティソースコードを調べて洞察を得る</a><a class="headerlink" href="#id24" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id105" role="doc-backlink">項目 15: サードパーティソースコードを調べて洞察を得る</a><a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>どのように動作するのかをよく理解するための工程。</p></li>
 <li><p>IDE や <strong class="command">ctags</strong> のコードナビゲーション機能を上手く活用して目当てのコードを探しやすくする。</p></li>
@@ -425,7 +427,7 @@
 </ul>
 </section>
 <section id="id25">
-<h3><a class="toc-backref" href="#id106" role="doc-backlink">項目 16: 特別な監視およびテスト装置を使う</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id106" role="doc-backlink">項目 16: 特別な監視およびテスト装置を使う</a><a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>前半はスペシャル過ぎて私の参考にならない。</p></li>
 <li><p>I/O やネットワークとかハード間のやりとり。</p></li>
@@ -436,7 +438,7 @@
 </dl>
 </section>
 <section id="id26">
-<h3><a class="toc-backref" href="#id107" role="doc-backlink">項目 17: 失敗による結果をさらに際立たせる</a><a class="headerlink" href="#id26" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id107" role="doc-backlink">項目 17: 失敗による結果をさらに際立たせる</a><a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ロボトミー（この本は医療用語がよく出るな）して、望みのように実行パスを強制する。例えば <code class="docutils literal notranslate"><span class="pre">if</span></code> 文の条件などは容易に改造できる。</p></li>
 <li><p>定数を極端な値に書き換えて、正常時との振る舞いの差を際立たせる。本書では CAD
@@ -448,7 +450,7 @@
 </dl>
 </section>
 <section id="id27">
-<h3><a class="toc-backref" href="#id108" role="doc-backlink">項目 18: 手に負えないシステムのデバッグを自分のデスクで行えるようにする</a><a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id108" role="doc-backlink">項目 18: 手に負えないシステムのデバッグを自分のデスクで行えるようにする</a><a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>リモートアクセスの話題。</p></li>
 <li><p>本書では KVM over IP と標語的に表現している。</p></li>
@@ -459,7 +461,7 @@
 </dl>
 </section>
 <section id="id28">
-<h3><a class="toc-backref" href="#id109" role="doc-backlink">項目 19: デバッグタスクを自動化する</a><a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id109" role="doc-backlink">項目 19: デバッグタスクを自動化する</a><a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><strong class="command">which</strong> コマンドの実行が遅いのを調べる例は興味深い。自分でもやってみたい。</p>
 <ul>
@@ -469,14 +471,14 @@
 </ul>
 </section>
 <section id="id29">
-<h3><a class="toc-backref" href="#id110" role="doc-backlink">項目 20: デバッグの前後で大掃除をする</a><a class="headerlink" href="#id29" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id110" role="doc-backlink">項目 20: デバッグの前後で大掃除をする</a><a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>コードクリーニングにはリスクがないこともない。</p></li>
 <li><p>作業の過程で得られた assertion, ログ出力文、デバッグコマンドは何らかの形で残す。</p></li>
 </ul>
 </section>
 <section id="id30">
-<h3><a class="toc-backref" href="#id111" role="doc-backlink">項目 21: 問題を起こすクラスのすべてのインスタンスを修正する</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id111" role="doc-backlink">項目 21: 問題を起こすクラスのすべてのインスタンスを修正する</a><a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>同じ欠陥を同時に潰すのが肝要。なおかつ、二度と起こらないように処置する。</p></li>
 <li><p>この過程でも <strong class="command">grep</strong> や <strong class="command">sort -u</strong> が役に立つ。</p></li>
@@ -484,10 +486,10 @@
 </section>
 </section>
 <section id="id31">
-<h2><a class="toc-backref" href="#id112" role="doc-backlink">3 章 汎用ツールと技法</a><a class="headerlink" href="#id31" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id112" role="doc-backlink">3 章 汎用ツールと技法</a><a class="headerlink" href="#id31" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/jlevy/the-art-of-command-line">The Art of Command Line</a> は気になるから確認しよう。</p>
 <section id="unix">
-<h3><a class="toc-backref" href="#id113" role="doc-backlink">項目 22: デバッグデータを Unix コマンドラインツールで分析する</a><a class="headerlink" href="#unix" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id113" role="doc-backlink">項目 22: デバッグデータを Unix コマンドラインツールで分析する</a><a class="headerlink" href="#unix" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>IDE だけでは問題を検討する能力が十分でないことがある。</p></li>
 <li><p>Unix ツールボックスのプログラムを短いパイプラインに組み合わせ、コマンドラインプロンプトから実行する方法が（スクリプトの使用より）効果を発揮する。</p></li>
@@ -500,7 +502,7 @@
 </dl>
 </section>
 <section id="id32">
-<h3><a class="toc-backref" href="#id114" role="doc-backlink">項目 23: コマンドラインツールのオプションとイディオムを活用する</a><a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id114" role="doc-backlink">項目 23: コマンドラインツールのオプションとイディオムを活用する</a><a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><strong class="command">grep</strong> のコツについて。特にオプション <code class="docutils literal notranslate"><span class="pre">-l</span></code>, <code class="docutils literal notranslate"><span class="pre">-r</span></code>, <code class="docutils literal notranslate"><span class="pre">-v</span></code>,
 <code class="docutils literal notranslate"><span class="pre">--color</span></code> など。</p></li>
@@ -513,14 +515,14 @@
 </ul>
 </section>
 <section id="id33">
-<h3><a class="toc-backref" href="#id115" role="doc-backlink">項目 24: デバッグデータをエディタで調べる</a><a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id115" role="doc-backlink">項目 24: デバッグデータをエディタで調べる</a><a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>本物のエディターを使うこと。</p></li>
 <li><p>テキスト同士の差分を比較する前に、本質的でない違いを「処理」しておくと効率的だ。</p></li>
 </ul>
 </section>
 <section id="id34">
-<h3><a class="toc-backref" href="#id116" role="doc-backlink">項目 25: 作業環境を最適化する</a><a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id116" role="doc-backlink">項目 25: 作業環境を最適化する</a><a class="headerlink" href="#id34" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>CPU やメモリは強力にしておくのが鉄則。</p></li>
 <li><p>キーバインド、エイリアス、スクリプト、ショートカット、環境変数等々の個人的設定も入念に整える。</p></li>
@@ -535,11 +537,11 @@
 </ul>
 </section>
 <section id="id35">
-<h3><a class="toc-backref" href="#id117" role="doc-backlink">項目 26: バグの原因と経緯とをバージョン管理システムで探す</a><a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id117" role="doc-backlink">項目 26: バグの原因と経緯とをバージョン管理システムで探す</a><a class="headerlink" href="#id35" title="Link to this heading">¶</a></h3>
 <p><strong class="command">git</strong> のよく使うコマンドラインが紹介されている。</p>
 </section>
 <section id="id36">
-<h3><a class="toc-backref" href="#id118" role="doc-backlink">項目 27: 独立なプロセスからなるシステムの監視ツールを使う</a><a class="headerlink" href="#id36" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id118" role="doc-backlink">項目 27: 独立なプロセスからなるシステムの監視ツールを使う</a><a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>知らなかった単語：</dt><dd><p><a class="reference external" href="https://www.nagios.org/">Nagios</a></p>
 </dd>
@@ -547,22 +549,22 @@
 </section>
 </section>
 <section id="id37">
-<h2><a class="toc-backref" href="#id119" role="doc-backlink">4 章 デバッガ技法</a><a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id119" role="doc-backlink">4 章 デバッガ技法</a><a class="headerlink" href="#id37" title="Link to this heading">¶</a></h2>
 <section id="id38">
-<h3><a class="toc-backref" href="#id120" role="doc-backlink">項目 28: シンボリックデバッグ用にコンパイルしたコードを使う</a><a class="headerlink" href="#id38" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id120" role="doc-backlink">項目 28: シンボリックデバッグ用にコンパイルしたコードを使う</a><a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>コンパイラーやリンカーのオプションで、各ソースファイルに関連する命令、メモリアドレス、行番号、等々をオブジェクトコードに埋め込めるものがある。</p></li>
 <li><p>いわゆるデバッグビルドの話題。最適化オプションは「なし」とする。</p></li>
 </ul>
 </section>
 <section id="id39">
-<h3><a class="toc-backref" href="#id121" role="doc-backlink">項目 29: コードをステップ実行する</a><a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id121" role="doc-backlink">項目 29: コードをステップ実行する</a><a class="headerlink" href="#id39" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ステップ実行中は step over やブレイクポイントを使いこなしたい。</p></li>
 </ul>
 </section>
 <section id="id40">
-<h3><a class="toc-backref" href="#id122" role="doc-backlink">項目 30: コードとデータのブレークポイントを活用する</a><a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id122" role="doc-backlink">項目 30: コードとデータのブレークポイントを活用する</a><a class="headerlink" href="#id40" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>行、ルーチンに対してブレイクポイントを設定できる。場合によっては <code class="docutils literal notranslate"><span class="pre">exit</span></code> や
 <code class="docutils literal notranslate"><span class="pre">abort</span></code> にも設定することがある。</p></li>
@@ -570,21 +572,21 @@
 </ul>
 </section>
 <section id="id41">
-<h3><a class="toc-backref" href="#id123" role="doc-backlink">項目 31: 逆デバッグ機能をよく知っておく</a><a class="headerlink" href="#id41" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id123" role="doc-backlink">項目 31: 逆デバッグ機能をよく知っておく</a><a class="headerlink" href="#id41" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Visual Studio でいうところの IntelliTrace の機能を逆デバッグ機能と呼ぶ。</p></li>
 <li><p><strong class="command">gdb</strong> では <code class="docutils literal notranslate"><span class="pre">reverse-</span></code> で始まるコマンド群が相当する。</p></li>
 </ul>
 </section>
 <section id="id42">
-<h3><a class="toc-backref" href="#id124" role="doc-backlink">項目 32: ルーチン間の呼び出しに沿って探索する</a><a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id124" role="doc-backlink">項目 32: ルーチン間の呼び出しに沿って探索する</a><a class="headerlink" href="#id42" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>スタックフレームの話題。</p></li>
 <li><p><strong class="command">gdb</strong> では <strong class="command">frame n</strong>, <strong class="command">up</strong>, <strong class="command">down</strong> のコマンドがある。</p></li>
 </ul>
 </section>
 <section id="id43">
-<h3><a class="toc-backref" href="#id125" role="doc-backlink">項目 33: 変数と式の値を調べてエラーを見つける</a><a class="headerlink" href="#id43" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id125" role="doc-backlink">項目 33: 変数と式の値を調べてエラーを見つける</a><a class="headerlink" href="#id43" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>特にローカル変数に対して値を調べる。</p></li>
 <li><p>任意の式の値も表示できる。Visual Studio ならば Quick Watch であり、
@@ -598,11 +600,11 @@
 </ul>
 </section>
 <section id="id44">
-<h3><a class="toc-backref" href="#id126" role="doc-backlink">項目 34: 実行プロセスにどのようにデバッガをアタッチするかを知っておく</a><a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id126" role="doc-backlink">項目 34: 実行プロセスにどのようにデバッガをアタッチするかを知っておく</a><a class="headerlink" href="#id44" title="Link to this heading">¶</a></h3>
 <p>これは高級で手に負えない。</p>
 </section>
 <section id="id45">
-<h3><a class="toc-backref" href="#id127" role="doc-backlink">項目 35: コアダンプの扱い方を知っておく</a><a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id127" role="doc-backlink">項目 35: コアダンプの扱い方を知っておく</a><a class="headerlink" href="#id45" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Windows の場合は注意を要する。専用の API を呼ばないとプロセスはダンプを生成しない。</p></li>
 <li><p>マネージド環境の言語ではコアダンプ的なものは期待できない。</p></li>
@@ -610,7 +612,7 @@
 </ul>
 </section>
 <section id="id46">
-<h3><a class="toc-backref" href="#id128" role="doc-backlink">項目 36: デバッグツールを整備する</a><a class="headerlink" href="#id46" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id128" role="doc-backlink">項目 36: デバッグツールを整備する</a><a class="headerlink" href="#id46" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>&lt;デバッグは GUI を使うほうが常に生産性が上がる&gt; (p. 91)</p></li>
 <li><p>IDE を使用しているならばまずは OK だ。色々考えないといけないのは
@@ -626,7 +628,7 @@
 </ul>
 </section>
 <section id="id47">
-<h3><a class="toc-backref" href="#id129" role="doc-backlink">項目 37: アセンブラコードとハードのメモリ内容を確認する方法を知っておく</a><a class="headerlink" href="#id47" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id129" role="doc-backlink">項目 37: アセンブラコードとハードのメモリ内容を確認する方法を知っておく</a><a class="headerlink" href="#id47" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>計算機の内部表現をよく知っていると、機械語レベルのデータをデバッグできる。</p></li>
 <li><p>昔のゲーム機のエミュレーターも教えてあげたい。</p></li>
@@ -634,9 +636,9 @@
 </section>
 </section>
 <section id="id48">
-<h2><a class="toc-backref" href="#id130" role="doc-backlink">5 章 プログラミング技法</a><a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id130" role="doc-backlink">5 章 プログラミング技法</a><a class="headerlink" href="#id48" title="Link to this heading">¶</a></h2>
 <section id="id49">
-<h3><a class="toc-backref" href="#id131" role="doc-backlink">項目 38: 怪しいコードをレビューして手動で実行する</a><a class="headerlink" href="#id49" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id131" role="doc-backlink">項目 38: 怪しいコードをレビューして手動で実行する</a><a class="headerlink" href="#id49" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>アナログ手法でコード（アルゴリズム）をデバッグする。</p>
 <ul>
@@ -648,14 +650,14 @@
 </ul>
 </section>
 <section id="id50">
-<h3><a class="toc-backref" href="#id132" role="doc-backlink">項目 39: コードとその内容を同僚に説明する</a><a class="headerlink" href="#id50" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id132" role="doc-backlink">項目 39: コードとその内容を同僚に説明する</a><a class="headerlink" href="#id50" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>コードを説明すると、脳の異なる部分が働いて問題の原因が明らかになりやすい。というか、レビューしてもらうと有益な指摘が返ってくることが普通に期待できる。</p></li>
 <li><p>マルチパーティーアルゴリズムとは何だ？</p></li>
 </ul>
 </section>
 <section id="id51">
-<h3><a class="toc-backref" href="#id133" role="doc-backlink">項目 40: デバッグ機能を追加する</a><a class="headerlink" href="#id51" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id133" role="doc-backlink">項目 40: デバッグ機能を追加する</a><a class="headerlink" href="#id51" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ログ出力、情報表示、専用コマンドなどを有効化するモード。</p></li>
 <li><p>マインクラフトのデバッグワールドの例は面白い。</p></li>
@@ -663,7 +665,7 @@
 </ul>
 </section>
 <section id="id52">
-<h3><a class="toc-backref" href="#id134" role="doc-backlink">項目 41: ロギング文を追加する</a><a class="headerlink" href="#id52" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id134" role="doc-backlink">項目 41: ロギング文を追加する</a><a class="headerlink" href="#id52" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ログ出力とデバッガーは相補的に利用できる。</p></li>
 <li><p>ログテキストに適切な書式を与えておくことで、後々のフィルターやクエリーが効率よくなる。</p></li>
@@ -673,7 +675,7 @@
 </ul>
 </section>
 <section id="id53">
-<h3><a class="toc-backref" href="#id135" role="doc-backlink">項目 42: ユニットテストを使う</a><a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id135" role="doc-backlink">項目 42: ユニットテストを使う</a><a class="headerlink" href="#id53" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>単体テストのフレームワークを利用する。次のような利点が考えられる：</p>
 <ul>
@@ -684,43 +686,43 @@
 </ul>
 </section>
 <section id="id54">
-<h3><a class="toc-backref" href="#id136" role="doc-backlink">項目 43: アサーションを使う</a><a class="headerlink" href="#id54" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id136" role="doc-backlink">項目 43: アサーションを使う</a><a class="headerlink" href="#id54" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>隙あらば <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文をコードに埋め込む。事前条件、不変条件、事後条件を明白にできる。</p></li>
 <li><p>コンパイルオプションを設定して <code class="docutils literal notranslate"><span class="pre">assert</span></code> 文をデバッグビルドでのみ有効化する。</p></li>
 </ul>
 </section>
 <section id="id55">
-<h3><a class="toc-backref" href="#id137" role="doc-backlink">項目 44: デバッグしたプログラムに変動を与えて推理を検証する</a><a class="headerlink" href="#id55" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id137" role="doc-backlink">項目 44: デバッグしたプログラムに変動を与えて推理を検証する</a><a class="headerlink" href="#id55" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>これは学習目的か？</p></li>
 </ul>
 </section>
 <section id="id56">
-<h3><a class="toc-backref" href="#id138" role="doc-backlink">項目 45: 稼働例と問題コードとの相違を最小化する</a><a class="headerlink" href="#id56" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id138" role="doc-backlink">項目 45: 稼働例と問題コードとの相違を最小化する</a><a class="headerlink" href="#id56" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>一方を他方に「変形」させていく途中で問題を生じさせる何かを発見できるはずだ。</p></li>
 </ul>
 </section>
 <section id="id57">
-<h3><a class="toc-backref" href="#id139" role="doc-backlink">項目 46: 怪しいコードを単純にする</a><a class="headerlink" href="#id57" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id139" role="doc-backlink">項目 46: 怪しいコードを単純にする</a><a class="headerlink" href="#id57" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>分割統治の話か。</p></li>
 </ul>
 </section>
 <section id="id58">
-<h3><a class="toc-backref" href="#id140" role="doc-backlink">項目 47: 怪しいコードを他の言語で書き直す</a><a class="headerlink" href="#id58" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id140" role="doc-backlink">項目 47: 怪しいコードを他の言語で書き直す</a><a class="headerlink" href="#id58" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>問題コードをより表現力に富む言語で書き直す。</p></li>
 <li><p>元の問題を解決するには、書き直したものにすっかり置き換えるか、項目 45 の技法を両者に対して適用するか。</p></li>
 </ul>
 </section>
 <section id="id59">
-<h3><a class="toc-backref" href="#id141" role="doc-backlink">項目 48: 怪しいコードの可読性と構造を改善する</a><a class="headerlink" href="#id59" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id141" role="doc-backlink">項目 48: 怪しいコードの可読性と構造を改善する</a><a class="headerlink" href="#id59" title="Link to this heading">¶</a></h3>
 <p>本項はリファクタリングについての基本的な事項が詳細に述べられている。必要に応じて本書を参照したい。</p>
 </section>
 <section id="id60">
-<h3><a class="toc-backref" href="#id142" role="doc-backlink">項目 49: バグの症状を取り除くのではなく、原因を取り除く</a><a class="headerlink" href="#id60" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id142" role="doc-backlink">項目 49: バグの症状を取り除くのではなく、原因を取り除く</a><a class="headerlink" href="#id60" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>問題を一般化して考えてから解決する。</p></li>
 <li><p>背後にある原因の方を重視するのが本質的な解決法であって、対処療法的修正は意味がない。</p></li>
@@ -728,9 +730,9 @@
 </section>
 </section>
 <section id="id61">
-<h2><a class="toc-backref" href="#id143" role="doc-backlink">6 章 コンパイル時の技法</a><a class="headerlink" href="#id61" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id143" role="doc-backlink">6 章 コンパイル時の技法</a><a class="headerlink" href="#id61" title="Link to this heading">¶</a></h2>
 <section id="id62">
-<h3><a class="toc-backref" href="#id144" role="doc-backlink">項目 50: 生成コードを調べる</a><a class="headerlink" href="#id62" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id144" role="doc-backlink">項目 50: 生成コードを調べる</a><a class="headerlink" href="#id62" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>プリプロセッサーを経た直後の C/C++ のコードを得るには、</p>
 <ul>
@@ -751,7 +753,7 @@ StringBuilder がアセンブリコードに出現するという話が面白い
 </ul>
 </section>
 <section id="id63">
-<h3><a class="toc-backref" href="#id145" role="doc-backlink">項目 51: 静的プログラム解析ツールを使う</a><a class="headerlink" href="#id63" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id145" role="doc-backlink">項目 51: 静的プログラム解析ツールを使う</a><a class="headerlink" href="#id63" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p>静的プログラム解析ツールとは、ソースコードを診断するツールという解釈でよいか？</p>
 <ul class="simple">
@@ -778,7 +780,7 @@ StringBuilder がアセンブリコードに出現するという話が面白い
 </ul>
 </section>
 <section id="id64">
-<h3><a class="toc-backref" href="#id146" role="doc-backlink">項目 52: ビルドと実行を決定的に構成する</a><a class="headerlink" href="#id64" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id146" role="doc-backlink">項目 52: ビルドと実行を決定的に構成する</a><a class="headerlink" href="#id64" title="Link to this heading">¶</a></h3>
 <p>翻訳本によるあるように、本書でも英語の deterministic を「決定的」とい表現している。辞書で調べると、計算機科学の文脈では次の意味にとるのが妥当らしい：</p>
 <blockquote>
 <div><p>Having each state depend only on the immediately previous state, as opposed to
@@ -793,7 +795,7 @@ backtracking upon failure.</p>
 </ul>
 </section>
 <section id="id65">
-<h3><a class="toc-backref" href="#id147" role="doc-backlink">項目 53: デバッグライブラリを使用してチェックするよう構成する</a><a class="headerlink" href="#id65" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id147" role="doc-backlink">項目 53: デバッグライブラリを使用してチェックするよう構成する</a><a class="headerlink" href="#id65" title="Link to this heading">¶</a></h3>
 <p>特に C/C++ の話となる。</p>
 <ul class="simple">
 <li><p>C++ の STL を利用したコードをデバッグビルドするときの例を説明している。GNU の実装では <code class="docutils literal notranslate"><span class="pre">_GLIBCXX_DEBUG</span></code> をプリプロセッサーに定義しておくことで、有害なコードに対しての警告メッセージが有効になる。</p></li>
@@ -803,10 +805,10 @@ backtracking upon failure.</p>
 </section>
 </section>
 <section id="id66">
-<h2><a class="toc-backref" href="#id148" role="doc-backlink">7 章 実行時の技法</a><a class="headerlink" href="#id66" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id148" role="doc-backlink">7 章 実行時の技法</a><a class="headerlink" href="#id66" title="Link to this heading">¶</a></h2>
 <p>テスト、ログ、監視ツールの話題。</p>
 <section id="id67">
-<h3><a class="toc-backref" href="#id149" role="doc-backlink">項目 54: テストケースを作って問題を発見する</a><a class="headerlink" href="#id67" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id149" role="doc-backlink">項目 54: テストケースを作って問題を発見する</a><a class="headerlink" href="#id67" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Defect-Driving Testing</p></li>
 <li><p>テストケース、手順、材料はパッケージということか。これらは最小化すること。</p></li>
@@ -823,14 +825,14 @@ backtracking upon failure.</p>
 </ul>
 </section>
 <section id="id68">
-<h3><a class="toc-backref" href="#id150" role="doc-backlink">項目 55: 迅速に失敗させる</a><a class="headerlink" href="#id68" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id150" role="doc-backlink">項目 55: 迅速に失敗させる</a><a class="headerlink" href="#id68" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>最速で問題を起こすようにソフトウェアを構成する。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">assert</span></code> 文やシェルの <code class="docutils literal notranslate"><span class="pre">-e</span></code> オプションのことを含む。</p></li>
 </ul>
 </section>
 <section id="id69">
-<h3><a class="toc-backref" href="#id151" role="doc-backlink">項目 56: アプリケーションのログファイルを調べる</a><a class="headerlink" href="#id69" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id151" role="doc-backlink">項目 56: アプリケーションのログファイルを調べる</a><a class="headerlink" href="#id69" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>障害を検討するのならば、まずはログファイルを調べる。</p></li>
 <li><p>ログファイルの在り処がわからない場合を説明している。</p>
@@ -849,7 +851,7 @@ backtracking upon failure.</p>
 </ul>
 </section>
 <section id="id70">
-<h3><a class="toc-backref" href="#id152" role="doc-backlink">項目 57: システムとプロセスの演算操作のプロファイルをとる</a><a class="headerlink" href="#id70" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id152" role="doc-backlink">項目 57: システムとプロセスの演算操作のプロファイルをとる</a><a class="headerlink" href="#id70" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>性能のデバッグ。</p></li>
 <li><p>Unix ならば <strong class="command">top</strong> で、Windows ならば Task Manager でプロファイルを見る。</p></li>
@@ -883,7 +885,7 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </ul>
 </section>
 <section id="id71">
-<h3><a class="toc-backref" href="#id153" role="doc-backlink">項目 58: コード実行をトレースする</a><a class="headerlink" href="#id71" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id153" role="doc-backlink">項目 58: コード実行をトレースする</a><a class="headerlink" href="#id71" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>サードパーティーライブラリーや OS のコンポーネントへの呼び出しを調べたい。</p></li>
 <li><p>呼び出しトレースツールには次のようなものがある：</p>
@@ -906,7 +908,7 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </ul>
 </section>
 <section id="id72">
-<h3><a class="toc-backref" href="#id154" role="doc-backlink">項目 59: 動的なプログラム解析ツールを使う</a><a class="headerlink" href="#id72" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id154" role="doc-backlink">項目 59: 動的なプログラム解析ツールを使う</a><a class="headerlink" href="#id72" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>実行が劇的に遅いので、デバッグ中の問題を示すためだけの特別なテストに対して使うのが最良。</p></li>
 <li><p>この手のツールは未初期化変数の使用、リーク、不当なメモリアクセスの検出機能を備えている。</p></li>
@@ -916,10 +918,10 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </section>
 </section>
 <section id="id73">
-<h2><a class="toc-backref" href="#id155" role="doc-backlink">8 章 マルチスレッドコードのデバッグ</a><a class="headerlink" href="#id73" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id155" role="doc-backlink">8 章 マルチスレッドコードのデバッグ</a><a class="headerlink" href="#id73" title="Link to this heading">¶</a></h2>
 <p>本章の内容は低水準並行処理機能を明示的に使用したコードについてのものだ（普通は高水準 API を使用する）。</p>
 <section id="id74">
-<h3><a class="toc-backref" href="#id156" role="doc-backlink">項目 60: デッドロックを事後検討デバッグで分析する</a><a class="headerlink" href="#id74" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id156" role="doc-backlink">項目 60: デッドロックを事後検討デバッグで分析する</a><a class="headerlink" href="#id74" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>二人が同じ何かを譲り合って先に進まない状態がデッドロックだ。</p></li>
 <li><p>&lt;デッドロックは実は並行性のバグの中で一番分析しやすい種類&gt; (p. 170) のものらしい。</p></li>
@@ -938,7 +940,7 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </ul>
 </section>
 <section id="id75">
-<h3><a class="toc-backref" href="#id157" role="doc-backlink">項目 61: キャプチャして複製する</a><a class="headerlink" href="#id75" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id157" role="doc-backlink">項目 61: キャプチャして複製する</a><a class="headerlink" href="#id75" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>非決定的バグをデバッグする話題。競合状態が起こることがあるコードを題材としている。</p></li>
 </ul>
@@ -959,7 +961,7 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </ol>
 </section>
 <section id="id76">
-<h3><a class="toc-backref" href="#id158" role="doc-backlink">項目 62: 専用ツールでデッドロックと競合条件を見つける</a><a class="headerlink" href="#id76" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id158" role="doc-backlink">項目 62: 専用ツールでデッドロックと競合条件を見つける</a><a class="headerlink" href="#id76" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="http://findbugs.sourceforge.net/">FindBugs</a> (Java)</p></li>
 <li><p>OpenMP, POSIX Threads のコードの問題の特定。Intel Inspector</p></li>
@@ -967,21 +969,21 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </ul>
 </section>
 <section id="id77">
-<h3><a class="toc-backref" href="#id159" role="doc-backlink">項目 63: 非決定性を切り分けて取り除く</a><a class="headerlink" href="#id77" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id159" role="doc-backlink">項目 63: 非決定性を切り分けて取り除く</a><a class="headerlink" href="#id77" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>隔離方式：決定性のものと非決定性のものとの直和になるようにプログラムを設計する。</p></li>
 <li><p>削除方式：置き換え。あくまでもデバッグとテストの用途とし、本番のコードとはしない。</p></li>
 </ul>
 </section>
 <section id="id78">
-<h3><a class="toc-backref" href="#id160" role="doc-backlink">項目 64: 競合制約状態を調べてスケーラビリティ問題を検討する</a><a class="headerlink" href="#id78" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id160" role="doc-backlink">項目 64: 競合制約状態を調べてスケーラビリティ問題を検討する</a><a class="headerlink" href="#id78" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>英語の contention のこの文脈での意味がよくわからない。</p></li>
 <li><p>Java Flight Recorder, <a class="reference external" href="https://software.intel.com/en-us/intel-vtune-amplifier-xe">VTune Amplifier</a></p></li>
 </ul>
 </section>
 <section id="id79">
-<h3><a class="toc-backref" href="#id161" role="doc-backlink">項目 65: 性能カウンタを使ってフォールスシェアリングを探す</a><a class="headerlink" href="#id79" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id161" role="doc-backlink">項目 65: 性能カウンタを使ってフォールスシェアリングを探す</a><a class="headerlink" href="#id79" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>False Sharing とは何かを説明できるようにすること。</p></li>
 <li><p>CPU の性能カウンター</p>
@@ -1003,7 +1005,7 @@ Control, <a class="reference external" href="https://clrprofiler.codeplex.com/">
 </ul>
 </section>
 <section id="id80">
-<h3><a class="toc-backref" href="#id162" role="doc-backlink">項目 66: 高水準な抽象化を用いてコードを書き直すことを検討する</a><a class="headerlink" href="#id80" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id162" role="doc-backlink">項目 66: 高水準な抽象化を用いてコードを書き直すことを検討する</a><a class="headerlink" href="#id80" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p>並列性に関するバグを回避するコードを書く（転嫁と言っている）。</p>
 <ul>
@@ -1037,7 +1039,7 @@ future tasks, lambda, etc.</p></li>
 </ul>
 </section>
 <section id="id81">
-<h3><a class="toc-backref" href="#id163" role="doc-backlink">訳者あとがき</a><a class="headerlink" href="#id81" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id163" role="doc-backlink">訳者あとがき</a><a class="headerlink" href="#id81" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>システム管理者（企画、運用担当含む）管理者にも本書を勧める。</p></li>
 <li><p>デバッグは重要であるが、文献が少ない。</p></li>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pipenv 利用ノート &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=c9b0a06a" />
+    <script src="_static/documentation_options.js?v=4354bf25"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/mermaid.js?v=578dbed1"></script>
+    <link rel="next" title="Pylint 利用ノート" href="python-pylint.html" />
+    <link rel="prev" title="pip 利用ノート [obsolete]" href="python-pip.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+    <div class="related top">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-pip.html" title="Previous">pip 利用ノート [obsolete]</a>
+        </li>
+      
+        <li>
+          <a href="python-pylint.html" title="Next">Pylint 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+
+          <div class="body" role="main">
+            
+  <section id="pipenv">
+<h1>Pipenv 利用ノート<a class="headerlink" href="#pipenv" title="Link to this heading">¶</a></h1>
+<nav class="contents local" id="id1">
+<p class="topic-title">見出し一覧</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id33">概要</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id34">導入</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id35">インストール</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id36">環境設定</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id37">仮想環境を作る</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id38">ゼロから創造する</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id39">既存の環境から乗り換える</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id9" id="id40">仮想環境を作動させる</a></p></li>
+<li><p><a class="reference internal" href="#pipfile-pipfile-lock" id="id41"><code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> と <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code></a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id42">依存パッケージを更新する</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id11" id="id43">ロック</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id12" id="id44">操作集</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id45">サブコマンドなしの操作集</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id46">仮想環境に依存パッケージを追加的にインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id47">依存パッケージ集合の依存関係を示す</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id48">依存パッケージのモジュールをテキストエディターで開く</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id49">仮想環境から現在未使用のパッケージを消去する</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id50">依存パッケージをアンインストールする</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id19" id="id51">構成</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id52">運用</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id53">資料</a></p></li>
+</ul>
+</nav>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>本記事の前提は次のとおり。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Python<span class="colon">:</span></dt>
+<dd class="field-odd"><p>3.12.7</p>
+</dd>
+<dt class="field-even">Shell<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bash 5.2.21(1)-release</p>
+</dd>
+</dl>
+<p>さらに次を加えておく：</p>
+<ul class="simple">
+<li><p>Python 本体を含むパッケージ管理を <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> で行っている</p></li>
+<li><p>使用者は root でない</p></li>
+</ul>
+</div>
+<section id="id2">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">概要</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<p>Python を用いたプロジェクトに <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> を導入する手順と、よく用いるコマンドを記す。</p>
+<p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> は <a class="reference external" href="https://pip.pypa.io/">pip</a> と仮想環境を一括して管理する道具であり、Ruby 開発における
+Bundler が処理するファイル群と類比するものを導入することで、<strong class="program">pip</strong> が扱えないある種のバージョン依存関係問題を解決することを目的とする。</p>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">導入</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="id4">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">インストール</a><a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>公式文書の一般的指示とは異なる手順をとる。<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> を用いているので、次のようなコマンドで自分の <a class="reference external" href="https://www.python.org/">Python</a> 環境に <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> 本体を導入する：</p>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Pipenv インストールコマンド例</span><a class="headerlink" href="#id23" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install conda-forge::pipenv</span>
+</pre></div>
+</div>
+</div>
+<p>あらかじめコマンド <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">search</span> <span class="pre">pipenv</span></code> で最新版がどこにあるかを確認しておくのもコツだ。</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="python-miniconda.html"><span class="doc">Miniconda 利用ノート</span></a></p>
+</div>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">環境設定</a><a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> はコマンドライン補完機能も備えている。これが使えると端末上でのタイピングの手間が大幅に省けるので、早めに有効にしておきたい。</p>
+<p>手順は公式文書の指示に従えばいい。自分の <code class="file docutils literal notranslate"><span class="pre">.bashrc</span></code> を編集して次の行を加える（インストールした直後ならば端末で直接実行）：</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Pipenv コマンドライン補完を動作させるコマンド</span><a class="headerlink" href="#id24" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">_PIPENV_COMPLETE</span><span class="o">=</span>bash_source<span class="w"> </span>pipenv<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>コツとしては、テスト <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">-x</span> <span class="pre">$(command</span> <span class="pre">-v</span> <span class="pre">pipenv)</span> <span class="pre">]</span></code> を入れるとよい。</p>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">仮想環境を作る</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<p>Python プロジェクトに対して <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> 仮想環境を用意する手順を述べる。仮想環境がまったくないところから建造する場合と、Python 標準モジュール <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> を使用して構築された環境から <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> に移行する場合とが考えられる。双方とも説明する。</p>
+<section id="id7">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">ゼロから創造する</a><a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>Python プロジェクトのディレクトリーを <code class="file docutils literal notranslate"><span class="pre">$PROJECT_DIR</span></code> と呼ぶ。仮想環境の初期化と同時に、必要なサードパーティー製パッケージをインストールするのが標準的だ。例えばパッケージ <code class="samp docutils literal notranslate"><span class="pre">SOME_PACKAGE</span></code> をインストールする場合にはこうする：</p>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">プロジェクトディレクトリーを Pipenv に認識させる</span><a class="headerlink" href="#id25" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$PROJECT_DIR</span>
+<span class="gp">$ </span>pipenv<span class="w"> </span>install<span class="w"> </span>SOME_PACKAGE
+<span class="go">Creating a virtualenv for this project</span>
+<span class="go">Pipfile: PROJECT_DIR/Pipfile</span>
+<span class="go">Using default python from /path/to/python/python3.12</span>
+<span class="go">3.12.7 to create virtualenv...</span>
+<span class="go">（略）</span>
+<span class="go">✔ Success!</span>
+<span class="go">Locking [dev-packages] dependencies...</span>
+<span class="go">Updated Pipfile.lock!</span>
+<span class="go">To activate this project&#39;s virtualenv, run pipenv shell.</span>
+<span class="go">Alternatively, run a command inside the virtualenv with pipenv run.</span>
+<span class="go">Installing dependencies from Pipfile.lock...</span>
+</pre></div>
+</div>
+</div>
+<p>事後、次のようになる。</p>
+<p>まず、<code class="file docutils literal notranslate"><span class="pre">$PROJECT_DIR</span></code> 直下にファイル <code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> および <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> が出力される。これらは Ruby 開発でいう <code class="file docutils literal notranslate"><span class="pre">Gemfile</span></code> および <code class="file docutils literal notranslate"><span class="pre">Gemfile.lock</span></code> にそれぞれ対応する意味を有する。</p>
+<p>そして、仮想環境を管理するディレクトリーが <code class="file docutils literal notranslate"><span class="pre">$PROJECT_DIR</span></code> 直下ではなく、おそらく既定では <code class="samp docutils literal notranslate"><span class="pre">$XDG_DATA_HOME/virtualenvs/PROJECT_DIR-</span><em><span class="pre">xxxxxxxx</span></em></code> のようなパスにある。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>管理ディレクトリーのパスはコマンド <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--venv</span></code> を実行することで確かめられる。</p>
+</div>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">既存の環境から乗り換える</a><a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>前の説明と同じ名前を使うが、本節では Python 標準モジュール <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> を使って仮想環境が <code class="file docutils literal notranslate"><span class="pre">$PROJECT_DIR/.venv</span></code> で管理されているところに、今から <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> を使うことにすることを仮定する。</p>
+<p>普通は何らかのサードパーティー製パッケージが仮想環境にインストールしてあり、その一覧を <code class="file docutils literal notranslate"><span class="pre">$PROJECT_DIR/requirements.txt</span></code> に記録してあるはずだ。この目録ファイルから <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> 仮想環境を構築することが可能だ。次のようにする：</p>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">旧環境から <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span></code> を実行して新環境を造る</span><a class="headerlink" href="#id26" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$PROJECT_DIR</span>
+<span class="gp">$ </span>deactivate
+<span class="gp">$ </span>pipenv<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>./requirements.txt
+<span class="go">Creating a Pipfile for this project...</span>
+<span class="go">Requirements file provided! Importing into Pipfile...</span>
+<span class="go">Pipfile.lock not found, creating...</span>
+<span class="go">Locking [packages] dependencies...</span>
+<span class="go">Building requirements...</span>
+<span class="go">Resolving dependencies...</span>
+<span class="go">✔ Success!</span>
+<span class="go">Locking [dev-packages] dependencies...</span>
+<span class="go">Updated Pipfile.lock!</span>
+<span class="go">To activate this project&#39;s virtualenv, run pipenv shell.</span>
+<span class="go">Alternatively, run a command inside the virtualenv with pipenv run.</span>
+<span class="go">Installing dependencies from Pipfile.lock...</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>万が一ファイル <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> がない場合には <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> を実行しろ。</p>
+</div>
+<p>紛れがないように旧環境を廃棄しておきたい：</p>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">旧環境の管理ディレクトリーを廃棄する</span><a class="headerlink" href="#id27" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>rm<span class="w"> </span>-rf<span class="w"> </span>.venv
+</pre></div>
+</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>これでプロジェクトに出入りするたびにコマンド <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code> や
+<strong class="program">deactivate</strong> を実行する習慣が廃止できた。</p>
+</div>
+<p>GitHub Actions などの CI/CD 環境が <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> をまだ必要とする場合があるので、削除したいならばその点を確認してから行え。</p>
+</section>
+</section>
+<section id="id9">
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">仮想環境を作動させる</a><a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
+<p>コマンド単発ならば <code class="samp docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <em><span class="pre">command</span></em></code> を実行する。依存パッケージが備えているスクリプト実行や <strong class="program">make</strong> などの処理をラップ実行する。</p>
+<p>実行したいコマンドが複数続く場合には <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">shell</span></code> を実行することで仮想環境に「入る」ことになる。概念としては <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> の <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code> に等しい。このサブシェルで依存パッケージのスクリプトや <strong class="program">make</strong> を実行する。</p>
+</section>
+<section id="pipfile-pipfile-lock">
+<h2><a class="toc-backref" href="#id41" role="doc-backlink"><code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> と <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code></a><a class="headerlink" href="#pipfile-pipfile-lock" title="Link to this heading">¶</a></h2>
+<p>ファイル <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> は <strong class="program">pip</strong> を用いる Python プロジェクトで使われている <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> を洗練させ、最後にロックされたパッケージのハッシュを追跡するという安全保障上の改良点を加えたものだ。このコマンドを含むロック動作がこのファイルを管理する。</p>
+</section>
+<section id="id10">
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">依存パッケージを更新する</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
+<p>パッケージ自体とパッケージ管理ファイルを混同しないように、関連コマンドをまとめておく：</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">lock</span></code></dt><dd><p>ファイル <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> を生成する。</p>
+<p>これはファイル <code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> の内容に基づいて、<code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> の依存関係すべてを最新の解決済みバージョンに更新する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">sync</span></code></dt><dd><p><code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> で指定されたパッケージすべてを（依存関係を込めて）仮想環境にインストールする。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> 自体を変更しない。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">update</span></code></dt><dd><p>指定された依存関係と部分依存関係に限って lock を更新する。パッケージをインストールする。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">upgrade</span></code></dt><dd><p>指定された依存関係と部分依存関係に限って lock を更新する。パッケージをインストールすることはしない。</p>
+</dd>
+</dl>
+<p>GitHub Actions などの CI/CD 環境が <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> を必要とする場合、次のようにしてパッケージ一覧を更新することが可能だ（オプションは好みで）：</p>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Pipenv の情報から <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> を更新する</span><a class="headerlink" href="#id28" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$PROJECT_DIR</span>
+<span class="gp">$ </span>pipenv<span class="w"> </span>requirements<span class="w"> </span>--exclude-markers<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</div>
+<section id="id11">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">ロック</a><a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>GitHub Actions などの CI/CD において、次の Pipenv コマンドが実行されないように注意しろ。これらは <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> を再構築する：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lock</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upgrade</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uninstall</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">install</span></code>; <code class="docutils literal notranslate"><span class="pre">install</span> <span class="pre">--deploy</span></code> は可</p></li>
+</ul>
+</section>
+</section>
+<section id="id12">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">操作集</a><a class="headerlink" href="#id12" title="Link to this heading">¶</a></h2>
+<p>先述のもの以外のコマンド <strong class="command">pipenv</strong> のコマンドラインでの実行例を挙げていく。以下、作業ディレクトリーパスはプロジェクトの <code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> などが置かれているのと同じとする。</p>
+<section id="id13">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">サブコマンドなしの操作集</a><a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--where</span></code></dt><dd><p>このノートでいう <code class="file docutils literal notranslate"><span class="pre">$PROJECT_DIR</span></code> の完全パスを出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--venv</span></code></dt><dd><p>仮想環境を管理するディレクトリーパスを出力する。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--envs</span></code></dt><dd><p>設定済みの <a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv</a> 環境変数を一覧する。環境変数については後述。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--rm</span></code></dt><dd><p>仮想環境を消す。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--man</span></code></dt><dd><p><strong class="command">pipenv</strong> のマニュアルを出す。なぜか <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">pipenv</span></code> ではダメだ。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">--support</span></code></dt><dd><p>GitHub Issues にバグを報告するときに添える情報を出力する。</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">仮想環境に依存パッケージを追加的にインストールする</a><a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<p><code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> と <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> が生成されている仮想環境にさらなるパッケージを加えるには、インストールコマンドをパッケージを指定して実行する：</p>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">パッケージを追加的にインストールする例</span><a class="headerlink" href="#id29" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pipenv<span class="w"> </span>install<span class="w"> </span>ANOTHER_PACKAGE
+<span class="go">Installing ANOTHER_PACKAGE...</span>
+<span class="go">Resolving ANOTHER_PACKAGE...</span>
+<span class="go">Added ANOTHER_PACKAGE to Pipfile&#39;s [packages] ...</span>
+<span class="go">✔ Installation Succeeded</span>
+<span class="go">（略）</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">依存パッケージ集合の依存関係を示す</a><a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">graph</span></code> が基本形で、ここに出力オプションを指定する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>フラグ</p></th>
+<th class="head"><p>出力</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--bare</span></code></p></td>
+<td><p>最小（おそらく既定）で</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--json</span></code></p></td>
+<td><p>JSON で</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--json-tree</span></code></p></td>
+<td><p>JSON を入れ子の木で</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--reverse</span></code></p></td>
+<td><p>依存関係を逆にしたグラフで</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> から依存パッケージのバージョン情報を直接見るのがわずらわしいので、このコマンドを利用することでそれを見るということをしがちだ。</p>
+</section>
+<section id="id16">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">依存パッケージのモジュールをテキストエディターで開く</a><a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<p>コマンド <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">open</span></code> を実行すると、モジュール名を指定して Python ファイルを開く機能がある。意外に便利である可能性がある。</p>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">コマンド <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">open</span></code> 実行例</span><a class="headerlink" href="#id30" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pipenv<span class="w"> </span>open<span class="w"> </span>sphinxcontrib.mermaid
+<span class="go">Opening &#39;/path/to/.venv/lib/python3.12/site-packages/sphinxcontrib/mermaid.py&#39; in your EDITOR.</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id17">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">仮想環境から現在未使用のパッケージを消去する</a><a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<p>依存パッケージのバージョン変更や追加削除を繰り返していると、なんらかのパッケージがいつの間にか不要になっている場合がある。それを片付けるにはコマンド <code class="docutils literal notranslate"><span class="pre">pipenv</span>
+<span class="pre">clean</span></code> を用いる：</p>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">clean</span></code> 実行例</span><a class="headerlink" href="#id31" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pipenv<span class="w"> </span>clean
+<span class="go">Uninstalling UNUSED_PACKAGE...</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id18">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">依存パッケージをアンインストールする</a><a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<p>依存パッケージをアンインストールするにはコマンド <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">uninstall</span></code> をパッケージ名を指定して実行する。例えば：</p>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">依存パッケージをアンインストールする例</span><a class="headerlink" href="#id32" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pipenv<span class="w"> </span>uninstall<span class="w"> </span>SOME_PACKAGE
+<span class="go">Removed SOME_PACKAGE from Pipfile.</span>
+<span class="go">Building requirements...</span>
+<span class="go">Resolving dependencies...</span>
+<span class="go">✔ Success!</span>
+<span class="go">Uninstalling SOME_PACKAGE...</span>
+<span class="go">Found existing installation: SOME_PACKAGE x.y.z</span>
+<span class="go">Uninstalling SOME_PACKAGE-x.y.z:</span>
+<span class="go">  Successfully uninstalled SOME_PACKAGEa-x.y.z</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="id19">
+<h2><a class="toc-backref" href="#id51" role="doc-backlink">構成</a><a class="headerlink" href="#id19" title="Link to this heading">¶</a></h2>
+<p>Pipenv はドットファイルから既定値を読み込むような設計ではないないらしい。ただし、仮想環境に入るコマンド <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">run</span></code> と <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">shell</span></code> は、プロジェクトディレクトリーにあるファイル <code class="file docutils literal notranslate"><span class="pre">.env</span></code> を <strong class="command">source</strong> する。</p>
+<p><code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> の <code class="docutils literal notranslate"><span class="pre">[scripts]</span></code> 区画にコマンド定義しておくという手法があるが、ここでは割愛する。</p>
+<p>Pipenv は名前が <code class="docutils literal notranslate"><span class="pre">PIPENV_</span></code> から始まる独自の環境変数群を利用する。今のところ、これを明示的に定義したいというものは見つからない（キャッシュパスも既定値が適切）。</p>
+</section>
+<section id="id20">
+<h2><a class="toc-backref" href="#id52" role="doc-backlink">運用</a><a class="headerlink" href="#id20" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">Pipfile</span></code> と <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> の両方をプロジェクトのバージョン管理ファイル集合に加える。</p></li>
+<li><p>作業場では定期的に <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">update</span></code> を行い、依存パッケージを最新に保つように努める。</p></li>
+<li><p>依存パッケージを更新したことでプロジェクトのビルドが失敗する場合、
+<code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> を前のバージョンに復元して <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">sync</span></code> することで依存パッケージ群を復元可能。</p></li>
+<li><p>CI/CD のビルド工程では、ファイル <code class="file docutils literal notranslate"><span class="pre">Pipfile.lock</span></code> を変更するようなコマンドを通常実行しない。</p></li>
+</ul>
+</section>
+<section id="id21">
+<h2><a class="toc-backref" href="#id53" role="doc-backlink">資料</a><a class="headerlink" href="#id21" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt><a class="reference external" href="https://pipenv.pypa.io/en/latest/">Pipenv documentation</a></dt><dd><p>公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。</p>
+</dd>
+<dt><a class="reference external" href="https://docs.python.org/3/library/venv.html">venv — Creation of virtual environment</a></dt><dd><p>Python 標準の仮想環境モジュール <code class="docutils literal notranslate"><span class="pre">venv</span></code> についての文書。このページの API 節の直前まで目を通せ。</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+    <div class="related bottom">
+      &nbsp;
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="python-pip.html" title="Previous">pip 利用ノート [obsolete]</a>
+        </li>
+      
+        <li>
+          <a href="python-pylint.html" title="Next">Pylint 利用ノート</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+    </div>
+
+      </div>
+      <div class="clearer"></div>
+    </div>
+<div class="footer">
+  <ul>
+    <li id="footer_logo">
+      <a class="image-reference" href="index.html" title="読書ノート Home"><img src="_images/logo.svg"/></a>
+    </li>
+    <li id="footer_copyright">
+      Copyright &copy; 1999-2024, プレハブ小屋 All rights reserved.
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>XPath 学習ノート &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=c9b0a06a" />
+    <script src="_static/documentation_options.js?v=4354bf25"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="HTML-XML-utils 利用ノート" href="hxutils.html" />
     <link rel="prev" title="CSS セレクター学習ノート" href="css-selector.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -46,7 +48,7 @@
           <div class="body" role="main">
             
   <section id="xpath">
-<h1><a class="toc-backref" href="#id21" role="doc-backlink">XPath 学習ノート</a><a class="headerlink" href="#xpath" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id21" role="doc-backlink">XPath 学習ノート</a><a class="headerlink" href="#xpath" title="Link to this heading">¶</a></h1>
 <p>Web スクレイピングの基本技術である XPath に関するノート。さしあたり XPath 1.0 だけで済ませるが、これしか習得しなくても十分いろいろなことが実現できる。</p>
 <nav class="contents" id="id1">
 <p class="topic-title">ノート目次</p>
@@ -111,10 +113,10 @@
 </ul>
 </nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">練習方法</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">練習方法</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p>ブラウザーの開発ツールのコンソールを利用するか、Scrapy のシェルを利用する。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">開発ツールのコンソール</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">開発ツールのコンソール</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <p>モダンなウェブブラウザーには開発ツールというのが実装されていて、そのうちのコンソールで XPath 式を評価することができる。<strong class="program">Chrome</strong> 系では関数 <code class="docutils literal notranslate"><span class="pre">$x()</span></code>
 が XPath を評価する。</p>
 <div class="admonition-todo admonition" id="id4">
@@ -131,7 +133,7 @@ XPath 式を丸括弧内にタイプする。</p></li>
 <p>あとは JavaScript で処理する。</p>
 </section>
 <section id="scrapy">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">Scrapy シェル</a><a class="headerlink" href="#scrapy" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Scrapy シェル</a><a class="headerlink" href="#scrapy" title="Link to this heading">¶</a></h3>
 <p>HTML ファイルまたはそのコードが手許にあるときには、それを対象として Scrapy シェルを起動する。以下、対象となる HTML ファイルが <code class="file docutils literal notranslate"><span class="pre">target.html</span></code> という名前でカレントディレクトリーにある場合の例を示す。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bash$ scrapy shell ./target.html --nolog</span>
 </pre></div>
@@ -163,12 +165,12 @@ XPath 式を丸括弧内にタイプする。</p></li>
 </section>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id25" role="doc-backlink">基本仕様</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">基本仕様</a><a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
 <p>XPath 1.0 の急所に絞って記す。</p>
 <section id="id6">
-<h3><a class="toc-backref" href="#id26" role="doc-backlink">文法・構文</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">文法・構文</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <section id="id7">
-<h4><a class="toc-backref" href="#id27" role="doc-backlink">ファイルパスのように表現する</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id27" role="doc-backlink">ファイルパスのように表現する</a><a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
 <p>スラッシュ一つから始まる UNIX のファイルシステムの絶対パス表記のような XPath 式は、ドキュメントルートからのパスを表現する。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA
 /AAA/CCC
@@ -178,7 +180,7 @@ XPath 式を丸括弧内にタイプする。</p></li>
 <p>以下、このような <code class="docutils literal notranslate"><span class="pre">AAA</span></code>, <code class="docutils literal notranslate"><span class="pre">BBB</span></code> などが何であるのかを敢えて説明しないが、例えば要素ノードの名前などは当てはまると記しておく。</p>
 </section>
 <section id="id8">
-<h4><a class="toc-backref" href="#id28" role="doc-backlink">文頭のダブルスラッシュ <code class="docutils literal notranslate"><span class="pre">//</span></code> は「文書内のすべての～」</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id28" role="doc-backlink">文頭のダブルスラッシュ <code class="docutils literal notranslate"><span class="pre">//</span></code> は「文書内のすべての～」</a><a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
 <p>スラッシュ二つ <code class="docutils literal notranslate"><span class="pre">//</span></code> から始まる XPath 式は、後続する条件を満たし、かつドキュメント内にある要素全てを表す。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//BBB
 //DDD/BBB
@@ -190,7 +192,7 @@ XPath 式を丸括弧内にタイプする。</p></li>
 </ul>
 </section>
 <section id="id9">
-<h4><a class="toc-backref" href="#id29" role="doc-backlink">星印 <code class="docutils literal notranslate"><span class="pre">*</span></code> は全ての要素にマッチする</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id29" role="doc-backlink">星印 <code class="docutils literal notranslate"><span class="pre">*</span></code> は全ての要素にマッチする</a><a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
 <p>星印 <code class="docutils literal notranslate"><span class="pre">*</span></code> はあらゆる要素にマッチする。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/CCC/DDD/*
 /*/*/*/BBB
@@ -203,7 +205,7 @@ XPath 式を丸括弧内にタイプする。</p></li>
 </ul>
 </section>
 <section id="id10">
-<h4><a class="toc-backref" href="#id30" role="doc-backlink">角括弧 <code class="docutils literal notranslate"><span class="pre">[]</span></code> は条件を与えて絞り込む</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id30" role="doc-backlink">角括弧 <code class="docutils literal notranslate"><span class="pre">[]</span></code> は条件を与えて絞り込む</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
 <p>角括弧 <code class="docutils literal notranslate"><span class="pre">[]</span></code> を使って要素をさらに限定するための何かを指定する。</p>
 <p>番号を指定すると、選択集合にある要素の位置を指定することになる。関数 <code class="docutils literal notranslate"><span class="pre">last()</span></code>
 を指定すると、選択集合の最後の要素を指定することになる。</p>
@@ -213,7 +215,7 @@ XPath 式を丸括弧内にタイプする。</p></li>
 </div>
 </section>
 <section id="id11">
-<h4><a class="toc-backref" href="#id31" role="doc-backlink">記号 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> で属性を表す</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id31" role="doc-backlink">記号 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> で属性を表す</a><a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
 <p>属性を指定するには <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> 接頭辞を用いることができる。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//BBB[@id]
 //@id
@@ -229,7 +231,7 @@ XML では要素も属性もノードと呼ばれる抽象概念の特殊概念�
 </ul>
 </section>
 <section id="id12">
-<h4><a class="toc-backref" href="#id32" role="doc-backlink">属性値</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">属性値</a><a class="headerlink" href="#id12" title="Link to this heading">¶</a></h4>
 <p>属性の値を選択の判定方法として用いることができる。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//BBB[@id=&#39;b1&#39;]
 //BBB[@name=&#39;bbb&#39;]
@@ -244,7 +246,7 @@ XML では要素も属性もノードと呼ばれる抽象概念の特殊概念�
 </section>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id33" role="doc-backlink">軸</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">軸</a><a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
 <p>XML 文書は単一ノードを根とする木構造であるから、特定のノードを基点として他のノードを指定するのに、両者の関係でそれを実現する仕組みがある。XPath の仕様はそれを
 axis と呼んでいる。日本語なら「軸」であるが、英語では祖先、子孫、親、子、兄弟、等々の関係を総称して軸と呼ぶのだろうか。</p>
 <table class="docutils align-default">
@@ -306,7 +308,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </tbody>
 </table>
 <section id="child">
-<h4><a class="toc-backref" href="#id34" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">child::</span></code></a><a class="headerlink" href="#child" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id34" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">child::</span></code></a><a class="headerlink" href="#child" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">child::</span></code> はコンテキストノードの子すべてを含む。軸 <code class="docutils literal notranslate"><span class="pre">child::</span></code> は既定の軸なので省略することができる。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA
 /child::AAA
@@ -319,7 +321,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 <p>どうやら軸の名称はすべて英語単数形らしいが、実際に表現されるものが複数あることは普通だ。</p>
 </section>
 <section id="descendant">
-<h4><a class="toc-backref" href="#id35" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">descendant::</span></code></a><a class="headerlink" href="#descendant" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">descendant::</span></code></a><a class="headerlink" href="#descendant" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">descendant::</span></code> はコンテキストノードの子、あるいはさらにその子、等々、を含む。結果的に <code class="docutils literal notranslate"><span class="pre">descendant::</span></code> は属性や名前空間を含むことはない。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/descendant::*
 /AAA/BBB/descendant::*
@@ -336,22 +338,22 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </ul>
 </section>
 <section id="attribute">
-<h4><a class="toc-backref" href="#id36" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">attribute::</span></code></a><a class="headerlink" href="#attribute" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">attribute::</span></code></a><a class="headerlink" href="#attribute" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">attribute::</span></code> はノードの属性を意味する。ふつうは略記法の <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> を用いる。</p>
 </section>
 <section id="self">
-<h4><a class="toc-backref" href="#id37" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">self::</span></code></a><a class="headerlink" href="#self" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id37" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">self::</span></code></a><a class="headerlink" href="#self" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">self::</span></code> はコンテキストノード自身を表す。</p>
 </section>
 <section id="parent">
-<h4><a class="toc-backref" href="#id38" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">parent::</span></code></a><a class="headerlink" href="#parent" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id38" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">parent::</span></code></a><a class="headerlink" href="#parent" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">parent::</span></code> はコンテキストノードの親ノードを表す。親ノードは高々一つ存在する。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//DDD/parent::*
 </pre></div>
 </div>
 </section>
 <section id="ancestor">
-<h4><a class="toc-backref" href="#id39" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">ancestor::</span></code></a><a class="headerlink" href="#ancestor" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id39" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">ancestor::</span></code></a><a class="headerlink" href="#ancestor" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">ancestor::</span></code> はコンテキストノードの親、あるいはその親、等々、を表す。コンテキストノードがルートでない限りは常にルートノードを含む。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/BBB/DDD/CCC/EEE/ancestor::*
 //FFF/ancestor::*
@@ -360,7 +362,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 <p>最初の例では <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/AAA</span></code>, <code class="docutils literal notranslate"><span class="pre">/AAA/BBB</span></code>, … などが得られることに注意。</p>
 </section>
 <section id="following-sibling">
-<h4><a class="toc-backref" href="#id40" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">following-sibling::</span></code></a><a class="headerlink" href="#following-sibling" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id40" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">following-sibling::</span></code></a><a class="headerlink" href="#following-sibling" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">following-sibling::</span></code> はコンテキストノードの「後続（文書のより後方にある）の兄弟ノードすべて」を含む。便宜上、これを「弟」と呼ぶことにする。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/BBB/following-sibling::*
 //CCC/following-sibling::*
@@ -368,7 +370,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 </section>
 <section id="preceding-sibling">
-<h4><a class="toc-backref" href="#id41" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">preceding-sibling::</span></code></a><a class="headerlink" href="#preceding-sibling" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id41" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">preceding-sibling::</span></code></a><a class="headerlink" href="#preceding-sibling" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">preceding-sibling::</span></code> はコンテキストノードの「先行（文書のより前方にある）兄弟ノードすべて」を含む。便宜上、これを「兄」と呼ぶことにする。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/XXX/preceding-sibling::*
 //CCC/preceding-sibling::*
@@ -376,7 +378,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 </section>
 <section id="following">
-<h4><a class="toc-backref" href="#id42" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">following::</span></code></a><a class="headerlink" href="#following" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id42" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">following::</span></code></a><a class="headerlink" href="#following" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">following::</span></code> はコンテキストノードの「文書内にあるより後方のノードすべて」を含む。ただしコンテキストノード自身の子孫ノード、属性ノード、名前空間ノードを含まない。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/XXX/following::*
 //ZZZ/following::*
@@ -384,11 +386,11 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 </section>
 <section id="namespace">
-<h4><a class="toc-backref" href="#id43" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">namespace::</span></code></a><a class="headerlink" href="#namespace" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id43" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">namespace::</span></code></a><a class="headerlink" href="#namespace" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">namespace::</span></code> はコンテキストノードの名前空間を表す。これは使わない。</p>
 </section>
 <section id="preceding">
-<h4><a class="toc-backref" href="#id44" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">preceding::</span></code></a><a class="headerlink" href="#preceding" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id44" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">preceding::</span></code></a><a class="headerlink" href="#preceding" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">preceding::</span></code> はコンテキストノードの「文書内にあるより前方のノードすべて」を含む。ただしコンテキストノード自身の祖先ノード、属性ノード、名前空間ノードを含まない。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/XXX/preceding::*
 //GGG/preceding::*
@@ -396,7 +398,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 </section>
 <section id="descendant-or-self">
-<h4><a class="toc-backref" href="#id45" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">descendant-or-self::</span></code></a><a class="headerlink" href="#descendant-or-self" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id45" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">descendant-or-self::</span></code></a><a class="headerlink" href="#descendant-or-self" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">descendant-or-self::</span></code> は軸 <code class="docutils literal notranslate"><span class="pre">descendant::</span></code> およびコンテキストノード自身を含む。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/XXX/descendant-or-self::*
 //CCC/descendant-or-self::*
@@ -404,7 +406,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 </section>
 <section id="ancestor-or-self">
-<h4><a class="toc-backref" href="#id46" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">ancestor-or-self::</span></code></a><a class="headerlink" href="#ancestor-or-self" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id46" role="doc-backlink">軸 <code class="docutils literal notranslate"><span class="pre">ancestor-or-self::</span></code></a><a class="headerlink" href="#ancestor-or-self" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">ancestor-or-self::</span></code> は軸 <code class="docutils literal notranslate"><span class="pre">ancestor::</span></code> およびコンテキストノード自身を含む。それゆえ常にルートノードを含む。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/AAA/XXX/DDD/EEE/ancestor-or-self::*
 //GGG/ancestor-or-self::*
@@ -412,7 +414,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 </section>
 <section id="id14">
-<h4><a class="toc-backref" href="#id47" role="doc-backlink">文書中の要素ノードを類別する</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id47" role="doc-backlink">文書中の要素ノードを類別する</a><a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
 <p>軸 <code class="docutils literal notranslate"><span class="pre">ancestor::</span></code>, <code class="docutils literal notranslate"><span class="pre">descendant::</span></code>, <code class="docutils literal notranslate"><span class="pre">following::</span></code>, <code class="docutils literal notranslate"><span class="pre">preceding::</span></code>, <code class="docutils literal notranslate"><span class="pre">self::</span></code>
 は属性と名前空間を無視すれば文書中のノード全体を類別する。この事実は XPath の設計の基本のはずなので、よく憶えておくことだ。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//GGG/ancestor::*
@@ -426,7 +428,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </section>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id48" role="doc-backlink">関数</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">関数</a><a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
 <p>関数一覧を表にしておく。引数リストは省略。</p>
 <table class="docutils align-default">
 <thead>
@@ -554,7 +556,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </div>
 <p>以下、有用な関数に絞って記す。</p>
 <section id="count">
-<h4><a class="toc-backref" href="#id49" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">count()</span></code></a><a class="headerlink" href="#count" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id49" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">count()</span></code></a><a class="headerlink" href="#count" title="Link to this heading">¶</a></h4>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">count()</span></code> は選択要素の個数を返す。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//*[count(BBB)=2]
 //*[count(*)=2]
@@ -567,7 +569,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </ul>
 </section>
 <section id="name-contains-starts-with">
-<h4><a class="toc-backref" href="#id50" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">name()</span></code>, <code class="docutils literal notranslate"><span class="pre">contains()</span></code>, <code class="docutils literal notranslate"><span class="pre">starts-with()</span></code></a><a class="headerlink" href="#name-contains-starts-with" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id50" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">name()</span></code>, <code class="docutils literal notranslate"><span class="pre">contains()</span></code>, <code class="docutils literal notranslate"><span class="pre">starts-with()</span></code></a><a class="headerlink" href="#name-contains-starts-with" title="Link to this heading">¶</a></h4>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//*[name()=&#39;BBB&#39;]
 //*[starts-with(name(),&#39;B&#39;)]
 //*[contains(name(),&#39;C&#39;)]
@@ -582,7 +584,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </ul>
 </section>
 <section id="string-length">
-<h4><a class="toc-backref" href="#id51" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">string-length()</span></code></a><a class="headerlink" href="#string-length" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id51" role="doc-backlink">関数 <code class="docutils literal notranslate"><span class="pre">string-length()</span></code></a><a class="headerlink" href="#string-length" title="Link to this heading">¶</a></h4>
 <p>関数 <code class="docutils literal notranslate"><span class="pre">string-length()</span></code> は文字列を構成する文字の個数を返す。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//*[string-length(name()) = 3]
 //*[string-length(name()) &lt; 3]
@@ -592,7 +594,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </section>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id52" role="doc-backlink">演算子</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id52" role="doc-backlink">演算子</a><a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
 <p>以下の表に挙げる演算子は基本的には二項演算子だ。演算子の記号の両辺にオペランドをとると解釈する。演算子 <code class="docutils literal notranslate"><span class="pre">//</span></code> だけは左辺に何も置かないで記述することができる。</p>
 <table class="docutils align-default">
 <thead>
@@ -673,7 +675,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 <li><p>一部の演算子はパス式の記号と混同されないように、前後に空白を入れるなどの配慮を必要とする。</p></li>
 </ul>
 <section id="id17">
-<h4><a class="toc-backref" href="#id53" role="doc-backlink">演算子 <code class="docutils literal notranslate"><span class="pre">|</span></code></a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id53" role="doc-backlink">演算子 <code class="docutils literal notranslate"><span class="pre">|</span></code></a><a class="headerlink" href="#id17" title="Link to this heading">¶</a></h4>
 <p>パイプ記号 <code class="docutils literal notranslate"><span class="pre">|</span></code> を使って複数のパスを結合することができる。というよりは、複数の XPath 式の和集合を得ると考えられる。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//CCC | //BBB
 /AAA/EEE | //BBB
@@ -683,7 +685,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 <p>この例だと最初のものは「文書内の要素 <code class="docutils literal notranslate"><span class="pre">CCC</span></code> すべてまたは文書内の要素 <code class="docutils literal notranslate"><span class="pre">BBB</span></code> すべて」を意味する。</p>
 </section>
 <section id="id18">
-<h4><a class="toc-backref" href="#id54" role="doc-backlink">論理演算</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id54" role="doc-backlink">論理演算</a><a class="headerlink" href="#id18" title="Link to this heading">¶</a></h4>
 <p>XPath 式は真偽値に対する二項演算の形式で論理演算をすることができる。演算の優先順位は次のリストに示す順番どおりになっている：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></li>
@@ -693,7 +695,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </ul>
 </section>
 <section id="id19">
-<h4><a class="toc-backref" href="#id55" role="doc-backlink">算術演算</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id55" role="doc-backlink">算術演算</a><a class="headerlink" href="#id19" title="Link to this heading">¶</a></h4>
 <p>演算の優先順位は一般のプログラミング言語と同様のようだ。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//BBB[position() mod 2 = 0]
 //BBB[position() = floor(last() div 2 + 0.5) or position() = ceiling(last() div 2 + 0.5)]
@@ -704,7 +706,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 </section>
 </section>
 <section id="id20">
-<h2><a class="toc-backref" href="#id56" role="doc-backlink">関連リンク</a><a class="headerlink" href="#id20" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id56" role="doc-backlink">関連リンク</a><a class="headerlink" href="#id20" title="Link to this heading">¶</a></h2>
 <p>仕様書や参考になる文書のリンクをまとめる。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.w3.org/TR/1999/REC-xpath-19991116/">XML Path Language (XPath)</a></p></li>

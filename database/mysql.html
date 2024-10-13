@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>MySQL 利用ノート &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="PostgreSQL 利用ノート" href="postgresql.html" />
     <link rel="prev" title="Microsoft SQL Server 利用ノート" href="mssql-server.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -46,7 +48,7 @@
           <div class="body" role="main">
             
   <section id="mysql">
-<h1>MySQL 利用ノート<a class="headerlink" href="#mysql" title="Permalink to this heading">¶</a></h1>
+<h1>MySQL 利用ノート<a class="headerlink" href="#mysql" title="Link to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Since<span class="colon">:</span></dt>
 <dd class="field-odd"><p>1995</p>
@@ -71,7 +73,7 @@
 <p>Google で “How to uninstall MySQL on Ubuntu” などで検索すれば手順は山ほど見つかるが、簡単にまとめておく。</p>
 <p>おそらく <strong class="program">apt</strong> を利用して環境構築したはずなので、次の手順に従えばひじょうに上手くいく：</p>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">アンインストール手順例</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">アンインストール手順例</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 <span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>purge<span class="w"> </span>mysql-server<span class="w"> </span>mysql-common<span class="w"> </span>mysql-server-core-*<span class="w"> </span>mysql-client-core-*
 <span class="gp">$ </span>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="o">{</span>/var/lib/,/var/log/,/etc/<span class="o">}</span>mysql/
@@ -95,7 +97,7 @@
 <p class="rubric">イメージを入手してコンテナーを稼働する</p>
 <p>最初に Docker Hub から公式イメージを検索して、それをローカルに持ってくる：</p>
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">MySQL イメージ取得例</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">MySQL イメージ取得例</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>search<span class="w"> </span>MySQL<span class="w"> </span>--filter<span class="o">=</span><span class="nv">stars</span><span class="o">=</span><span class="m">5000</span>
 <span class="go">NAME      DESCRIPTION                                     STARS     OFFICIAL</span>
 <span class="go">mysql     MySQL is a widely used, open-source relation…   15262     [OK]</span>
@@ -130,7 +132,7 @@
 <p>コンテナーに例えば <code class="docutils literal notranslate"><span class="pre">some-mysql</span></code> などの名前を付けて稼働する。このときに MySQL
 に対して必要な情報、環境変数を指定する：</p>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">MySQL コンテナー稼働コマンド例</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">MySQL コンテナー稼働コマンド例</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>some-mysql<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>some-user<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_PASSWORD</span><span class="o">=</span>some-secret-pw<span class="w"> </span><span class="se">\</span>
@@ -144,7 +146,7 @@
 <p class="rubric">データベースクライアントを実行する</p>
 <p>コンテナー内で稼働している MySQL サーバーに CLI でアクセスしたい。このコンテナー内でアクセスする方法と、Docker ホスト側で CLI を使ってアクセスする方法があり得る。ホストの MySQL 環境は破壊したという前提でノートをとっているので、後者は扱わない。</p>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">稼働中の MySQL コンテナーで CLI を対話的に起動する例</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">稼働中の MySQL コンテナーで CLI を対話的に起動する例</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>some-mysql<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>some-user<span class="w"> </span>-p
 <span class="go">Enter password:</span>
 <span class="go">Welcome to the MySQL monitor.  Commands end with ; or \g.</span>
@@ -166,7 +168,7 @@
 <p class="rubric">コンテナーを一時停止する</p>
 <p>MySQL コンテナーを一時停止、再開するには次のどちらかの組み合わせを実行する：</p>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">コンテナー一時停止＆再開例</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">コンテナー一時停止＆再開例</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>some-mysql
 <span class="gp">$ </span>docker<span class="w"> </span>start<span class="w"> </span>some-mysql
 
@@ -192,7 +194,7 @@ Google 検索するとそれらしい教材がたくさん見つかる。</p>
 <p>構成ファイルのパスを確認するには、ヘルプ出力の <code class="docutils literal notranslate"><span class="pre">Default</span> <span class="pre">options</span> <span class="pre">are</span> <span class="pre">read</span> <span class="pre">from</span>
 <span class="pre">the</span> <span class="pre">following</span> <span class="pre">files</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">given</span> <span class="pre">order</span></code> の行付近を見る：</p>
 <div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">ロードされるドットファイルパスを得る例</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">ロードされるドットファイルパスを得る例</span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>mysql<span class="w"> </span>--help<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A1<span class="w"> </span><span class="s2">&quot;Default options&quot;</span>
 <span class="go">Default options are read from the following files in the given order:</span>
 <span class="go">/etc/my.cnf /etc/mysql/my.cnf /usr/etc/my.cnf ~/.my.cnf</span>
@@ -202,7 +204,7 @@ Google 検索するとそれらしい教材がたくさん見つかる。</p>
 <p>残念なことに <code class="file docutils literal notranslate"><span class="pre">~/.my.cnf</span></code> はこのパス意外に設定不可能らしい。XDG Base
 Directory Specification に適合不能。仕方がないので、コンテナーを稼働するホスト側ディレクトリーにこのファイルを置いて、bind-mount を適宜指定する方針を採る。</p>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">コンテナー再作成例</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">コンテナー再作成例</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>some-mysql<span class="p">;</span><span class="w"> </span>docker<span class="w"> </span>rm<span class="w"> </span>some-mysql
 <span class="gp">$ </span>docker<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>some-mysql<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>some-user<span class="w"> </span><span class="se">\</span>
@@ -215,7 +217,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 </div>
 <p>ドットファイルの中身は暫定的に次のようにしておく：</p>
 <div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Example of <code class="file docutils literal notranslate"><span class="pre">.my.cnf</span></code></span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">Example of <code class="file docutils literal notranslate"><span class="pre">.my.cnf</span></code></span><a class="headerlink" href="#id9" title="Link to this code">¶</a></div>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[client]</span>
 <span class="na">user</span><span class="o">=</span><span class="s">some-user</span>
 <span class="na">password</span><span class="o">=</span><span class="s">some-secret-pw</span>
@@ -237,7 +239,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 <p class="rubric">データ格納場所</p>
 <p>コンテナー内 <code class="file docutils literal notranslate"><span class="pre">/var/lib/mysql</span></code> が既定のデータベース格納場所であり、これをホスト側で管理したい場合には bind-mount を適宜指定する。ホスト側のディレクトリーは前もって手動で作成しておく。</p>
 <div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text"><code class="file docutils literal notranslate"><span class="pre">/path/to</span></code> は差し当たり <code class="docutils literal notranslate"><span class="pre">$PWD</span></code> にしておけ</span><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text"><code class="file docutils literal notranslate"><span class="pre">/path/to</span></code> は差し当たり <code class="docutils literal notranslate"><span class="pre">$PWD</span></code> にしておけ</span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>some-mysql<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>some-user<span class="w"> </span><span class="se">\</span>
@@ -254,7 +256,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 <p>Docker Compose を利用する。ファイル <code class="file docutils literal notranslate"><span class="pre">compose.yaml</span></code> を次のような内容で
 <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> を実行してきたディレクトリー内に用意する：</p>
 <div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Example of <code class="file docutils literal notranslate"><span class="pre">compose.yaml</span></code></span><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">Example of <code class="file docutils literal notranslate"><span class="pre">compose.yaml</span></code></span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">db</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql</span>
@@ -279,7 +281,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 <p>まずコンテナーを停止して破棄する。</p>
 <p>先述のチュートリアルサイトからサンプルデータベースの素となるファイルをダウンロードする。圧縮ファイルの中身は <strong class="program">mysql</strong> が処理可能な形式だ。</p>
 <div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">サンプルデータベースをダウンロードして解答する</span><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">サンプルデータベースをダウンロードして解答する</span><a class="headerlink" href="#id12" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>https://www.mysqltutorial.org/wp-content/uploads/2023/10/mysqlsampledatabase.zip
 <span class="gp">$ </span>unzip<span class="w"> </span>mysqlsampledatabase.zip
 </pre></div>
@@ -290,7 +292,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 <code class="file docutils literal notranslate"><span class="pre">mysqlsampledatabase.sql</span></code> をコンテナーの適当な一時ディレクトリーにコピーし、それを MySQL に処理させる。このとき、ユーザーを root としておくのがわかりやすい。</p>
 <p>それからコンテナーに対して <strong class="program">mysql</strong> をユーザー root で実行する：</p>
 <div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">ファイルをコンテナーにコピーした後、データベースにログイン</span><a class="headerlink" href="#id13" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">ファイルをコンテナーにコピーした後、データベースにログイン</span><a class="headerlink" href="#id13" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>cp<span class="w"> </span>./mysqlsampledatabase.sql<span class="w"> </span>some-mysql:/tmp
 <span class="gp">$ </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>some-mysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-pmy-secret-pw
 </pre></div>
@@ -302,7 +304,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 </div>
 <p>MySQL セッションでは例のファイルを source する。それから作業用ユーザーにアクセス権を供与して root での作業は完了する：</p>
 <div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">サンプルデータベースをインポートする例</span><a class="headerlink" href="#id14" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">サンプルデータベースをインポートする例</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
 <div class="highlight-mysql notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">mysqlsampledatabase</span><span class="p">.</span><span class="k">sql</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">classicmodels</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;some-user&#39;</span><span class="nv">@&#39;%&#39;</span><span class="p">;</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quit</span>
@@ -311,7 +313,7 @@ Directory Specification に適合不能。仕方がないので、コンテナ�
 </div>
 <p>最後にコンテナーに対して <strong class="program">mysql</strong> をユーザー some-user で実行し、データベースを classicmodels に切り替えてチュートリアルを実施可能であることを確認する：</p>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">サンプルデータベースを確認</span><a class="headerlink" href="#id15" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">サンプルデータベースを確認</span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
 <div class="highlight-mysql notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">classicmodels</span><span class="p">;</span>
 <span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">tables</span><span class="p">;</span>
@@ -323,7 +325,7 @@ classicmodels にアクセスできるはずだ。</p>
 <p class="rubric">コンテナーを廃棄する</p>
 <p>MySQL コンテナーが用済みになったらそれを削除することでデータベースも消去される。失いたくない場合には <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> の段階でマウントなどを指定するか、コンテナーにあるデータベースをホスト側に退避させるのだろう。</p>
 <div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">コンテナーを捨てるコマンド例</span><a class="headerlink" href="#id16" title="Permalink to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">コンテナーを捨てるコマンド例</span><a class="headerlink" href="#id16" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>stop<span class="w"> </span>some-mysql
 <span class="gp">$ </span>docker<span class="w"> </span>rm<span class="w"> </span>some-mysql
 </pre></div>

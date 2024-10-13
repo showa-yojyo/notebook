@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pip 利用ノート &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <title>pip 利用ノート [obsolete] &#8212; 読書ノート 1.6dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=c9b0a06a" />
+    <script src="_static/documentation_options.js?v=4354bf25"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/mermaid.js?v=578dbed1"></script>
-    <link rel="next" title="Pylint 利用ノート" href="python-pylint.html" />
+    <link rel="next" title="Pipenv 利用ノート" href="python-pipenv.html" />
     <link rel="prev" title="What’s New In Python 3.13 ノート" href="python-3.13.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -35,7 +37,7 @@
         </li>
       
         <li>
-          <a href="python-pylint.html" title="Next">Pylint 利用ノート</a>
+          <a href="python-pipenv.html" title="Next">Pipenv 利用ノート</a>
           &rarr;
         </li>
     </ul>
@@ -45,8 +47,13 @@
 
           <div class="body" role="main">
             
-  <section id="pip">
-<h1>pip 利用ノート<a class="headerlink" href="#pip" title="Permalink to this heading">¶</a></h1>
+  <section id="pip-obsolete">
+<h1>pip 利用ノート [obsolete]<a class="headerlink" href="#pip-obsolete" title="Link to this heading">¶</a></h1>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>この記事は現在廃止された要素に関する記述を多数含む。</p>
+<p>仮想環境でのパッケージ管理用具としてはこれではなく <a class="reference internal" href="python-pipenv.html"><span class="doc">Pipenv</span></a> を利用しろ。</p>
+</div>
 <p>本稿は &lt;A tool for installing and managing Python packages&gt;(<a class="reference external" href="https://pip.pypa.io/">pip</a>) である
 <strong class="program">pip</strong> に関する覚え書きである。すべての Python ユーザーはそうなのではないかと思うのだが、 Python のバージョンアップのたびに、サードパーティー製のパッケージもインストールし直すという、かなり面倒な作業が発生してしまう。インストーラー実行で即セットアップ終了となるなのは、あくまでも Python 本体でしかない。
 NumPy や Sphinx 等は別途明示的なインストール作業が利用するパッケージの個数回必要となる。ハードコアな Python ユーザーはサードパーティー製パッケージを大量に持っているため、この作業の手間を軽減するのが重要になるのだ。それには <strong class="program">pip</strong> というパッケージを利用するのがたいへん具合がよい。そこで、この覚え書きを残して、Python のアップグレードのときに見返そうというわけだ。</p>
@@ -56,30 +63,30 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 <nav class="contents local" id="id1">
 <p class="topic-title">見出し一覧</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id20">関連リンク</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id21">入手からインストールまで</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id22">初歩的な利用例</a></p>
+<li><p><a class="reference internal" href="#id2" id="id19">関連リンク</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id20">入手からインストールまで</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">初歩的な利用例</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id5" id="id23">ヘルプ・バージョン表示</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id24">アンインストール</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id25">インストール・アップグレード</a></p>
+<li><p><a class="reference internal" href="#id5" id="id22">ヘルプ・バージョン表示</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">アンインストール</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id24">インストール・アップグレード</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id8" id="id26">インターネットからパッケージをダウンロードする</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id27">ダウンロード済みパッケージをインストールする</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id28">編集可能パッケージをインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id25">インターネットからパッケージをダウンロードする</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id26">ダウンロード済みパッケージをインストールする</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id27">編集可能パッケージをインストールする</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id29">インストール済みパッケージをリスト</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id30">更新対象パッケージを調べる</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id31">インストール済みパッケージの情報を表示する</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id32">ファイルからパッケージリストを読み込んで各種操作する</a></p></li>
-<li><p><a class="reference internal" href="#id15" id="id33">パッケージの検索</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id34">設定ファイル</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id28">インストール済みパッケージをリスト</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id29">更新対象パッケージを調べる</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id30">インストール済みパッケージの情報を表示する</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id31">ファイルからパッケージリストを読み込んで各種操作する</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id32">パッケージの検索</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id33">設定ファイル</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id17" id="id35">まれに使うことになるかもしれない使用例</a></p>
+<li><p><a class="reference internal" href="#id17" id="id34">まれに使うことになるかもしれない使用例</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id18" id="id36">ミラーサイトを指定してインストール</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id35">ミラーサイトを指定してインストール</a></p></li>
 </ul>
 </li>
 </ul>
@@ -107,7 +114,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id20" role="doc-backlink">関連リンク</a><a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">関連リンク</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt><a class="reference external" href="https://pip.pypa.io/">pip</a></dt><dd><p>公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。</p>
 </dd>
@@ -116,7 +123,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </dl>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id21" role="doc-backlink">入手からインストールまで</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">入手からインストールまで</a><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>Python 3.4 以前の環境では、手動でインストールする必要がある。以下に記す手順でインストールする。</p>
 <ul>
 <li><p>事実関係</p>
@@ -146,11 +153,11 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">初歩的な利用例</a><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">初歩的な利用例</a><a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
 <p><strong class="program">easy_install</strong> から乗り換えたばかりなので、当面それほど凝った操作を必要とはしていない。次に挙げる操作だけ覚えておく。</p>
 <p><strong class="program">pip</strong> は実行ファイル形式で <code class="file docutils literal notranslate"><span class="pre">$PYTHONHOME/Scripts</span></code> フォルダーに格納されている。</p>
 <section id="id5">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">ヘルプ・バージョン表示</a><a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">ヘルプ・バージョン表示</a><a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <p>言うまでもないが <strong class="command">help</strong> は目を通したほうがよい。コマンドラインオプションはそれほど多くはない。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span><span class="nb">help</span><span class="w"> </span><span class="c1"># ヘルプ表示</span>
 <span class="gp">$ </span>pip<span class="w"> </span>--version<span class="w"> </span><span class="c1"># バージョン表示</span>
@@ -158,7 +165,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">アンインストール</a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">アンインストール</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <p>以前に <strong class="program">easy_install</strong> でインストールしてしまったパッケージも
 <strong class="program">pip</strong> でアンインストールできる。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>uninstall<span class="w"> </span>simplejson
@@ -170,11 +177,11 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id25" role="doc-backlink">インストール・アップグレード</a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">インストール・アップグレード</a><a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <p>一番重要なインストールのやり方について記す。</p>
 <p>インストールしたいパッケージの形態によって、コマンドが異なる。いずれも重要な手順なので、すべて説明する。</p>
 <section id="id8">
-<h4><a class="toc-backref" href="#id26" role="doc-backlink">インターネットからパッケージをダウンロードする</a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id25" role="doc-backlink">インターネットからパッケージをダウンロードする</a><a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
 <p>パッケージ名を指定して <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> または <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span></code> を実行する。この方法でインストールやアップグレードができれば、手間が最小で済む。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>httplib2
 <span class="go">Downloading/unpacking httplib2 from http://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.4.tar.gz#md5=略</span>
@@ -191,7 +198,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id9">
-<h4><a class="toc-backref" href="#id27" role="doc-backlink">ダウンロード済みパッケージをインストールする</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id26" role="doc-backlink">ダウンロード済みパッケージをインストールする</a><a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
 <p>一部の手の込んだパッケージは、Visual C++ によるコンパイル処理などが含まれていたり、最新の Python のビルドに対応したバイナリーが公式に存在しなかったりする。このため、一般的な環境ではビルドできないことが考えられる。</p>
 <p>そういう場合は親切な人がビルドした whl 形式のパッケージを別途ダウンロードして、
 <strong class="command">pip</strong> の引数にそのファイル名を指定することでインストールやアップグレードが実現できる。</p>
@@ -202,7 +209,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id10">
-<h4><a class="toc-backref" href="#id28" role="doc-backlink">編集可能パッケージをインストールする</a><a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id27" role="doc-backlink">編集可能パッケージをインストールする</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
 <p>オープンソースなプロジェクトによるパッケージについては、公開レポジトリーから作業コピーをローカルに作成し、そこをインストールする方法がある。</p>
 <p>以下、手順のイメージを擬似コードで表現する。どのディレクトリーで作業をするかは
 <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> が存在する階層でよいことが多い。</p>
@@ -215,7 +222,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </section>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id29" role="doc-backlink">インストール済みパッケージをリスト</a><a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">インストール済みパッケージをリスト</a><a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>freeze
 <span class="go">PIL==1.1.7</span>
 <span class="go">babel==0.9.6</span>
@@ -227,7 +234,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 <p>余談だが、Google で <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> を検索すると、他の Python プログラマーがどのようなパッケージを利用しているか垣間見える。</p>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">更新対象パッケージを調べる</a><a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">更新対象パッケージを調べる</a><a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
 <p>最新のバージョンにアップグレードできるパッケージが何かあるか調べたい。こういう場合は <strong class="command">list</strong> コマンドにオプション <code class="docutils literal notranslate"><span class="pre">--outdated</span></code> を指定する。</p>
 <p>次に示すように現在 Python 環境にある各パッケージのバージョン、最新バージョンの情報、および <code class="docutils literal notranslate"><span class="pre">[wheel]</span></code> や <code class="docutils literal notranslate"><span class="pre">[sdist]</span></code> などのインストール形態がリストされる。例えばパッケージ <code class="docutils literal notranslate"><span class="pre">alabaster</span></code> は現在はバージョン 0.7.6 が .whl によりインストールされていて、更新すると 0.7.7 にアップグレードできることを示している。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>list<span class="w"> </span>--outdated
@@ -242,7 +249,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 に指定して実際に更新作業を開始することを勧める。出力リストからある種のパッケージを手動で取り除いておかねばならない。例えば手作業でダウンロードしたい .whl からインストールしたいパッケージ、ローカルリポジトリーからインストールしたいものは別途アップグレードする必要がある。</p>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id31" role="doc-backlink">インストール済みパッケージの情報を表示する</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">インストール済みパッケージの情報を表示する</a><a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
 <p>コマンド <strong class="command">pip show</strong> を実行することで、インストール済みパッケージの情報を出力できる。これは当ノートの更新作業のときにしばしば実行する。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>show<span class="w"> </span>matplotlib
 <span class="go">---</span>
@@ -261,7 +268,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 <p>コマンドライン引数にパッケージ名を複数指定すると、情報を上記の書式で連続して出力する。</p>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id32" role="doc-backlink">ファイルからパッケージリストを読み込んで各種操作する</a><a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">ファイルからパッケージリストを読み込んで各種操作する</a><a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
 <p><strong class="command">pip freeze</strong> の出力をテキストファイルに出力しておき、次のようにすることができる。今の環境の <code class="file docutils literal notranslate"><span class="pre">site-packages</span></code> を別の環境で再現するとき等に利用できるというわけだ。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>FILE
 <span class="go">...</span>
@@ -271,7 +278,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id33" role="doc-backlink">パッケージの検索</a><a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">パッケージの検索</a><a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
 <p>例えば Amazon 関係のパッケージがあるのか知りたいとする。しかも <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> で検索するよりも、コンソールで見たいような状況であれば <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">search</span></code> の出番だ。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>search<span class="w"> </span>amazon
 <span class="go">AWSpider                  - Amazon Web Services web crawler</span>
@@ -283,7 +290,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </div>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id34" role="doc-backlink">設定ファイル</a><a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">設定ファイル</a><a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
 <p>設定ファイルを特に意識せずに <strong class="command">pip</strong> を利用してきた場合、それを用意するのならばどのパスになるのかを確認する手段がある：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>config<span class="w"> </span>debug
 <span class="go">env_var:</span>
@@ -320,9 +327,9 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
 </section>
 </section>
 <section id="id17">
-<h2><a class="toc-backref" href="#id35" role="doc-backlink">まれに使うことになるかもしれない使用例</a><a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">まれに使うことになるかもしれない使用例</a><a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
 <section id="id18">
-<h3><a class="toc-backref" href="#id36" role="doc-backlink">ミラーサイトを指定してインストール</a><a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">ミラーサイトを指定してインストール</a><a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> のウェブサイトがダウンしているときには <strong class="command">pip install</strong> 系操作は失敗する。サーバーが復旧するまで待てない場合、ミラーサイトを指定してインストールを試みることができる。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>--use-mirrors<span class="w"> </span>--mirrors<span class="o">=</span>http://d.pypi.python.org/<span class="w"> </span>sphinx
 </pre></div>
@@ -352,7 +359,7 @@ Python 3.4 以前は <strong class="program">pip</strong> もまたサードパ�
         </li>
       
         <li>
-          <a href="python-pylint.html" title="Next">Pylint 利用ノート</a>
+          <a href="python-pipenv.html" title="Next">Pipenv 利用ノート</a>
           &rarr;
         </li>
     </ul>

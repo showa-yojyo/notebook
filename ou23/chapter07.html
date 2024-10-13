@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Chapter 07: Parallelism and Concurrency &#8212; 読書ノート 1.6dev documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1a9a5cd9" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5a6f99c4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=c9b0a06a" />
+    <script src="../_static/documentation_options.js?v=4354bf25"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/mermaid.js?v=578dbed1"></script>
     <link rel="next" title="Chapter 08: File System" href="chapter08.html" />
     <link rel="prev" title="Chapter 06: Regular Expression" href="chapter06.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -50,7 +52,7 @@
           <div class="body" role="main">
             
   <section id="chapter-07-parallelism-and-concurrency">
-<h1><a class="toc-backref" href="#id4" role="doc-backlink">Chapter 07: Parallelism and Concurrency</a><a class="headerlink" href="#chapter-07-parallelism-and-concurrency" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">Chapter 07: Parallelism and Concurrency</a><a class="headerlink" href="#chapter-07-parallelism-and-concurrency" title="Link to this heading">¶</a></h1>
 <p><a class="reference external" href="https://changkun.de/modern-cpp/en-us/07-thread/">Chapter 07: Parallelism and Concurrency</a>
 に関するノート。テーマが難解なので紙一枚で収まるわけがない。やれるところまでやる。</p>
 <div class="admonition- admonition">
@@ -101,7 +103,7 @@
 </ul>
 </nav>
 <section id="basic-of-parallelism">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">7.1 Basic of Parallelism</a><a class="headerlink" href="#basic-of-parallelism" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">7.1 Basic of Parallelism</a><a class="headerlink" href="#basic-of-parallelism" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">std::thread</span></code> が並行プログラミングの基礎となるものだ。</p></li>
 <li><p>使用する際にはヘッダーファイル <code class="docutils literal notranslate"><span class="pre">&lt;thread&gt;</span></code> を含める。</p></li>
@@ -121,7 +123,7 @@
 </div>
 </section>
 <section id="mutex-and-critical-section">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">7.2 Mutex and Critical Section</a><a class="headerlink" href="#mutex-and-critical-section" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">7.2 Mutex and Critical Section</a><a class="headerlink" href="#mutex-and-critical-section" title="Link to this heading">¶</a></h2>
 <div class="admonition- admonition">
 <p class="admonition-title">読者ノート</p>
 <p>英語の mutex だが、中国語の原書では「互斥量」と表記している概念を、本ノートでは排他制御と表記する。しかたがない。</p>
@@ -184,7 +186,7 @@
 <code class="docutils literal notranslate"><span class="pre">std::unique_lock</span></code> を使用する必要がある。条件変数については後述される。</p>
 </section>
 <section id="future">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">7.3 Future</a><a class="headerlink" href="#future" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">7.3 Future</a><a class="headerlink" href="#future" title="Link to this heading">¶</a></h2>
 <p>C++11 で <code class="docutils literal notranslate"><span class="pre">std::future</span></code> が導入される以前は、以下のようなやり方が普通だった：</p>
 <ol class="arabic simple">
 <li><p>スレッド A を作る</p></li>
@@ -221,7 +223,7 @@
 </div>
 </section>
 <section id="condition-variable">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">7.4 Condition Variable</a><a class="headerlink" href="#condition-variable" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">7.4 Condition Variable</a><a class="headerlink" href="#condition-variable" title="Link to this heading">¶</a></h2>
 <p><em class="dfn">条件変数</em> を表現するクラステンプレート <code class="docutils literal notranslate"><span class="pre">std::condition_variable</span></code> はデッドロックを解決するために生まれ、排他制御だけでは不十分な場合のために導入された。例えば、あるスレッドが実行を続けるために、ある条件が真になるのを待つ必要があるという場合がある。デッドウェイトループは、他のすべてのスレッドがクリティカルセクションに入るのに失敗するため、条件が真になったときにデッドロックが発生する可能性がある。メソッド <code class="docutils literal notranslate"><span class="pre">notify_one()</span></code> はスレッドを目覚めさせるために、
 <code class="docutils literal notranslate"><span class="pre">notify_all()</span></code> はすべてのスレッドに通知するために用いられる。</p>
 <div class="admonition- admonition">
@@ -303,7 +305,7 @@
 <p>とはいえ、実際には <code class="docutils literal notranslate"><span class="pre">std::mutex</span></code> の排他性から、複数の消費者が並列消費者キューで中身を生成できることは期待できないので、やはりよりきめ細かい取り組み方が必要だ。</p>
 </section>
 <section id="atomic-operation-and-memory-model">
-<h2><a class="toc-backref" href="#id9" role="doc-backlink">7.5 Atomic Operation and Memory Model</a><a class="headerlink" href="#atomic-operation-and-memory-model" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">7.5 Atomic Operation and Memory Model</a><a class="headerlink" href="#atomic-operation-and-memory-model" title="Link to this heading">¶</a></h2>
 <p>次のコードを実行すると、<code class="docutils literal notranslate"><span class="pre">b</span></code> の値は何であるかという問題だ：</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
@@ -339,7 +341,7 @@
 </div>
 <p>用語をよく習得しておくこと。</p>
 <section id="atomic-operation">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">Atomic Operation</a><a class="headerlink" href="#atomic-operation" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Atomic Operation</a><a class="headerlink" href="#atomic-operation" title="Link to this heading">¶</a></h3>
 <p>排他制御実装は、次の基本原則があるため OS レベルの機能となる：</p>
 <ol class="arabic simple">
 <li><p>スレッド間の自動的な状態遷移、つまり「ロック」状態を提供する</p></li>
@@ -404,13 +406,13 @@
 </div>
 </section>
 <section id="consistency-model">
-<h3><a class="toc-backref" href="#id11" role="doc-backlink">Consistency Model</a><a class="headerlink" href="#consistency-model" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Consistency Model</a><a class="headerlink" href="#consistency-model" title="Link to this heading">¶</a></h3>
 <p>複数のスレッドが並列に実行されるシステムはおおよそ分散システムと見なすことができる。分散システムでは、通信やローカル操作でさえも時間を消費し、信頼性の低い通信も発生する。</p>
 <p>複数のスレッドにまたがる変数 <code class="docutils literal notranslate"><span class="pre">v</span></code> の操作を不可分、つまり <code class="docutils literal notranslate"><span class="pre">v</span></code> を操作するどのスレッドも他のスレッドと並行して <code class="docutils literal notranslate"><span class="pre">v</span></code> の変化を認識するように強制すると、変数
 <code class="docutils literal notranslate"><span class="pre">v</span></code> に対して逐次実行として振る舞うプログラムは、マルチスレッドの導入による効率化の恩恵を受けられない。これを適切に高速化するためには、プロセス間同期条件を弱める。</p>
 <p>原理的には、各スレッドはクラスターノード一つに対応することができ、スレッド間の通信はクラスターノード間の通信とほぼ等価だ。プロセス間の同期条件を弱めるために、以下で述べられる四種の異なる整合性モデルを考慮する。</p>
 <section id="linear-consistency">
-<h4><a class="toc-backref" href="#id12" role="doc-backlink">Linear Consistency</a><a class="headerlink" href="#linear-consistency" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id12" role="doc-backlink">Linear Consistency</a><a class="headerlink" href="#linear-consistency" title="Link to this heading">¶</a></h4>
 <p>強い整合性、不可分整合性とも呼ばれる。ある読み出し操作が特定のデータの最新の書き込みを読み出し、操作の順序がグローバル時計下の順序とすべてのスレッドで一致することを必要とする。</p>
 <figure class="align-center" id="id1">
 <div class="mermaid">
@@ -422,14 +424,14 @@
     T2-&gt;&gt;+x: store(2)
     T1-&gt;&gt;+x: load()
         </div><figcaption>
-<p><span class="caption-text">Linear Consistency</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Linear Consistency</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>この場合、スレッド <code class="docutils literal notranslate"><span class="pre">T1</span></code>, <code class="docutils literal notranslate"><span class="pre">T2</span></code> による <code class="docutils literal notranslate"><span class="pre">x</span></code> への二度の書き込み操作は不可分であり、 <code class="docutils literal notranslate"><span class="pre">x.store(1)</span></code> は <code class="docutils literal notranslate"><span class="pre">x.store(2)</span></code> の前に厳密に起こり、<code class="docutils literal notranslate"><span class="pre">x.store(2)</span></code> は
 <code class="docutils literal notranslate"><span class="pre">x.load()</span></code> の前に厳密に起こる。線形一貫性のための大域時計の要件は達成するのが難しいので、この条件よりも弱い条件で他の一貫性のためのアルゴリズムを研究し続ける理由は注目に値する。</p>
 </section>
 <section id="sequential-consistency">
-<h4><a class="toc-backref" href="#id13" role="doc-backlink">Sequential Consistency</a><a class="headerlink" href="#sequential-consistency" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id13" role="doc-backlink">Sequential Consistency</a><a class="headerlink" href="#sequential-consistency" title="Link to this heading">¶</a></h4>
 <p>ここでも、どのような読み出し操作でも、最後に書き込まれたデータを読み出すことを要求する。ただし大域時計の順序との一貫性は要求しない。</p>
 <figure class="align-center" id="id2">
 <div class="mermaid">
@@ -444,14 +446,14 @@
     T1-&gt;&gt;+x: store(3)
     T1-&gt;&gt;+x: load()
         </div><figcaption>
-<p><span class="caption-text">Sequential Consistency</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Sequential Consistency</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>逐次整合性の要求下では、<code class="docutils literal notranslate"><span class="pre">x.load()</span></code> は最終的に書き込まれたデータを読まなければならない。<code class="docutils literal notranslate"><span class="pre">T2</span></code> の <code class="docutils literal notranslate"><span class="pre">x.store(2)</span></code> が <code class="docutils literal notranslate"><span class="pre">x.store(3)</span></code> より前に発生するならば、
 <code class="docutils literal notranslate"><span class="pre">x.store(1)</span></code> には何の保証もないことになる。</p>
 </section>
 <section id="causal-consistency">
-<h4><a class="toc-backref" href="#id14" role="doc-backlink">Causal Consistency</a><a class="headerlink" href="#causal-consistency" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id14" role="doc-backlink">Causal Consistency</a><a class="headerlink" href="#causal-consistency" title="Link to this heading">¶</a></h4>
 <p>要件はさらに緩和され、因果関係のある操作の順序しか保証されず、因果関係のない操作の順序は要求されない。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      a = 1      b = 2
 T1 ----+-----------+----------------------------&gt;
@@ -491,7 +493,7 @@ T2 ------+--------------------+--------+--------&gt;
 <p>ため、すべて因果的整合性がある（実際の場面では、<code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> が関連していないと判断するには何らかの根拠が要る）。</p>
 </section>
 <section id="final-consistency">
-<h4><a class="toc-backref" href="#id15" role="doc-backlink">Final Consistency</a><a class="headerlink" href="#final-consistency" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Final Consistency</a><a class="headerlink" href="#final-consistency" title="Link to this heading">¶</a></h4>
 <p>これが最も弱い整合性要件だ。操作が将来のある時点で観察されることの保証しかせず、それが観察される時間を要求しない。よって、例えば、操作が観測される時間が常に有界であることを指定するなどして、この条件を少し厳しくすることも可能だ。</p>
 <figure class="align-center" id="id3">
 <div class="mermaid">
@@ -508,7 +510,7 @@ T2 ------+--------------------+--------+--------&gt;
         end
     end
         </div><figcaption>
-<p><span class="caption-text">Final Consistency</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Final Consistency</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>上記の場合、<code class="docutils literal notranslate"><span class="pre">x</span></code> の初期値を <code class="docutils literal notranslate"><span class="pre">0</span></code> とすると、<code class="docutils literal notranslate"><span class="pre">T2</span></code> における四度の <code class="docutils literal notranslate"><span class="pre">x.read()</span></code>
@@ -537,7 +539,7 @@ T2 ------+--------------------+--------+--------&gt;
 </section>
 </section>
 <section id="memory-orders">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">Memory Orders</a><a class="headerlink" href="#memory-orders" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Memory Orders</a><a class="headerlink" href="#memory-orders" title="Link to this heading">¶</a></h3>
 <p>さまざまな強度要件整合性を実現するために、C++11 では不可分操作のためのメモリー順序を六種類定義している。列挙型 <code class="docutils literal notranslate"><span class="pre">std::memory_order</span></code> は複数スレッド間の同期モデルを四つ表現する。</p>
 <div class="admonition- admonition">
 <p class="admonition-title">読者ノート</p>
@@ -545,7 +547,7 @@ T2 ------+--------------------+--------+--------&gt;
 <p><code class="docutils literal notranslate"><span class="pre">std::memory_order</span></code> は通常の（可分な）メモリーアクセスを含むメモリアクセスが、不可分操作の周囲でどのように順序付けられるかを指定するものだ。マルチコアシステムでの制約がない場合、複数のスレッドが複数変数の読み書きを同時に行うと、あるスレッドは、別のスレッドが書き込んだ順番とは異なる順番で値が変化するのを観察できる。実際、見かけ上の変化の順序は、複数の観察スレッド間で異なることさえある。また、メモリーモデルによってコンパイラーが変換を行うため、単プロセッサーシステムでも同様の現象が発生することがある。</p>
 </div>
 <section id="relaxed-model">
-<h4><a class="toc-backref" href="#id17" role="doc-backlink">Relaxed model</a><a class="headerlink" href="#relaxed-model" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">Relaxed model</a><a class="headerlink" href="#relaxed-model" title="Link to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">std::memory_order_relaxed</span></code> で指定されるこのモデルでは、単一スレッド内の不可分操作は順次実行される。命令の並び替えは許されないが、異なるスレッド間の不可分操作の順序は任意である。例：</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vt</span><span class="p">;</span>
@@ -571,7 +573,7 @@ T2 ------+--------------------+--------+--------&gt;
 </div>
 </section>
 <section id="release-consumption-model">
-<h4><a class="toc-backref" href="#id18" role="doc-backlink">Release/consumption model</a><a class="headerlink" href="#release-consumption-model" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">Release/consumption model</a><a class="headerlink" href="#release-consumption-model" title="Link to this heading">¶</a></h4>
 <p>このモデルでは、あるスレッドが値を変更する必要があるときに、別のスレッドがその値に対する特定の操作に依存するようになる場合、つまり、後者が前者に依存するようになる場合、プロセス間の操作順序を制限するようにする。</p>
 <p>具体的には、スレッド A が <code class="docutils literal notranslate"><span class="pre">x</span></code> への書き込み三つを完了し、スレッド B が <code class="docutils literal notranslate"><span class="pre">x</span></code> への最初の二つの書き込みとは無関係に、<code class="docutils literal notranslate"><span class="pre">x</span></code> への書き込みのうち三番目だけに依存する場合、A が <code class="docutils literal notranslate"><span class="pre">x.release()</span></code> を開始すると（ここで <code class="docutils literal notranslate"><span class="pre">std::memory_order_release</span></code> を使う）、オプション <code class="docutils literal notranslate"><span class="pre">std::memory_order_consume</span></code> によって、B は <code class="docutils literal notranslate"><span class="pre">x.load()</span></code> が呼ばれたときに A 内の <code class="docutils literal notranslate"><span class="pre">x</span></code> への三度目の書き込みを観測する。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// initialize as nullptr to prevent consumer load a dangling pointer</span>
@@ -603,7 +605,7 @@ T2 ------+--------------------+--------+--------&gt;
 </div>
 </section>
 <section id="release-acquire-model">
-<h4><a class="toc-backref" href="#id19" role="doc-backlink">Release/Acquire model</a><a class="headerlink" href="#release-acquire-model" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">Release/Acquire model</a><a class="headerlink" href="#release-acquire-model" title="Link to this heading">¶</a></h4>
 <p>このモデルでは、<code class="docutils literal notranslate"><span class="pre">std::memory_order_release</span></code> と <code class="docutils literal notranslate"><span class="pre">std::memory_order_acquire</span></code>
 の間のタイミングを指定することで、異なるスレッド間の不可分操作の順序制限をさらに厳しくすることができる。解放操作の前の書き込み操作のすべてが他のどのスレッドからも見える。</p>
 <p><code class="docutils literal notranslate"><span class="pre">std::memory_order_release</span></code> は、解放操作後にそれ以前の書き込みが発生しないことを保証する（後方バリア）。</p>
@@ -638,7 +640,7 @@ T2 ------+--------------------+--------+--------&gt;
 <p>この例では <code class="docutils literal notranslate"><span class="pre">flag</span></code> と <code class="docutils literal notranslate"><span class="pre">expected</span></code> の値が一定の条件で exchange されるというのだろう。</p>
 </section>
 <section id="sequential-consistent-model">
-<h4><a class="toc-backref" href="#id20" role="doc-backlink">Sequential Consistent Model</a><a class="headerlink" href="#sequential-consistent-model" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">Sequential Consistent Model</a><a class="headerlink" href="#sequential-consistent-model" title="Link to this heading">¶</a></h4>
 <p>このモデルでは、不可分操作は順序整合性を満たすが、その分、性能上の損失が発生し得る。これを <code class="docutils literal notranslate"><span class="pre">std::memory_order_seq_cst</span></code> で明示的に指定する。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vt</span><span class="p">;</span>
@@ -659,7 +661,7 @@ T2 ------+--------------------+--------+--------&gt;
 </section>
 </section>
 <section id="conclusion">
-<h2><a class="toc-backref" href="#id21" role="doc-backlink">Conclusion</a><a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">Conclusion</a><a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>並行プログラミングの重要なツール</p>
 <ul>
@@ -672,14 +674,14 @@ T2 ------+--------------------+--------+--------&gt;
 </ul>
 </section>
 <section id="exercises">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">Exercises</a><a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ThreadPool</span></code> を実装しろ。コンストラクター、メソッド <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>, etc.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">std::atomic&lt;bool&gt;</span></code> を使って排他制御を実装しろ。</p></li>
 </ol>
 </section>
 <section id="further-readings">
-<h2><a class="toc-backref" href="#id23" role="doc-backlink">Further Readings</a><a class="headerlink" href="#further-readings" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">Further Readings</a><a class="headerlink" href="#further-readings" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt><a class="reference external" href="https://www.amazon.com/dp/1617294691/ref=cm_sw_em_r_mt_dp_U_siEmDbRMMF960">C++ Concurrency in Action</a></dt><dd><p>専門書</p>
 </dd>
