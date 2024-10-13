@@ -48,6 +48,10 @@ Bundler が処理するファイル群と類比するものを導入すること
 あらかじめコマンド ``conda search pipenv`` で最新版がどこにあるかを確認しておく
 のもコツだ。
 
+.. seealso::
+
+   :doc:`/python-miniconda`
+
 環境設定
 ----------------------------------------------------------------------
 
@@ -68,8 +72,8 @@ Pipenv_ はコマンドライン補完機能も備えている。これが使え
 ======================================================================
 
 Python プロジェクトに対して Pipenv_ 仮想環境を用意する手順を述べる。仮想環境が
-まったくないところから建造する場合と、Python 標準モジュール ``venv`` を使用して
-構築された環境から Pipenv_ に移行する場合とが考えられる。双方とも説明する。
+まったくないところから建造する場合と、Python 標準モジュール venv_ を使用して構築
+された環境から Pipenv_ に移行する場合とが考えられる。双方とも説明する。
 
 ゼロから創造する
 ----------------------------------------------------------------------
@@ -113,7 +117,7 @@ Python プロジェクトのディレクトリーを :file:`$PROJECT_DIR` と呼
 既存の環境から乗り換える
 ----------------------------------------------------------------------
 
-前の説明と同じ名前を使うが、本節では Python 標準モジュール ``venv`` を使って仮想
+前の説明と同じ名前を使うが、本節では Python 標準モジュール venv_ を使って仮想
 環境が :file:`$PROJECT_DIR/.venv` で管理されているところに、今から Pipenv_ を使
 うことにすることを仮定する。
 
@@ -151,6 +155,11 @@ Python プロジェクトのディレクトリーを :file:`$PROJECT_DIR` と呼
 
    $ rm -rf .venv
 
+.. important::
+
+   これでプロジェクトに出入りするたびにコマンド ``source .venv/bin/activate`` や
+   :program:`deactivate` を実行する習慣が廃止できた。
+
 GitHub Actions などの CI/CD 環境が |requirements.txt| をまだ必要とする場合がある
 ので、削除したいならばその点を確認してから行え。
 
@@ -161,8 +170,8 @@ GitHub Actions などの CI/CD 環境が |requirements.txt| をまだ必要と�
 ているスクリプト実行や :program:`make` などの処理をラップ実行する。
 
 実行したいコマンドが複数続く場合には ``pipenv shell`` を実行することで仮想環境に
-「入る」ことになる。概念としては ``venv`` の ``source .venv/bin/activate`` に等
-しい。このサブシェルで依存パッケージのスクリプトや :program:`make` を実行する。
+「入る」ことになる。概念としては venv_ の ``source .venv/bin/activate`` に等し
+い。このサブシェルで依存パッケージのスクリプトや :program:`make` を実行する。
 
 |Pipfile| と |Pipfile.lock|
 ======================================================================
@@ -349,12 +358,18 @@ Pipenv は名前が ``PIPENV_`` から始まる独自の環境変数群を利用
 
 `Pipenv documentation`_
    公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。
+`venv — Creation of virtual environment`_
+   Python 標準の仮想環境モジュール ``venv`` についての文書。このページの API 節
+   の直前まで目を通せ。
 
 .. _Python: https://www.python.org/
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _pip: https://pip.pypa.io/
 
+.. _venv:
+.. _venv — Creation of virtual environment:
+   https://docs.python.org/3/library/venv.html
+
 .. _Pipenv:
 .. _Pipenv documentation:
    https://pipenv.pypa.io/en/latest/
-
