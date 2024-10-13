@@ -11,40 +11,15 @@
 この記述は PC 盗難などの事故か何かが私の身に起こって、
 ゼロから環境を作らなければならなくなった事態を念頭に置いたものだ。
 
-ノートをつづる作業だけならば rst ファイルをテキストエディターで編集し続けていけばよい。
-これらから HTML ファイル群に変換して上記 URL に配備することになる。次の二通りの手段がある：
-
-1. ブランチ ``master`` または ``develop`` からの ``git push`` で起動する
-   GitHub Actions にビルド、配備させる。
-2. ローカルでビルドした成果物をブランチ ``gh-pages`` にコピーし ``git push``
-   を実行する。
-
-通常は方法 1. で事足りる。これを推奨方法とする。HTML ファイル配備までに必要なすべての処理を、
-GitHub が提供するワークフローランナーが実際にこなす。
-これはローカルリポジトリーでの ``git push`` 実行などの後、だいたい 3, 4 分で完了する。
-
-方法 2. が必要となる状況も考えられるが、この README では言及しない。
-次の小工程ごとにビルドまでの手順を以下述べる：
-
-#. 環境準備
-#. ローカルコピー作成
-#. Sphinx 環境作成
-
-ノート執筆の事前条件として、PC とインターネットアクセス可能であることを挙げる。
-GitHub のインターフェイスが優秀なので、モバイル環境でも面倒だができるかもしれないが、
-ここでは触れない。
-
 環境準備
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------------------
 
 最初にビルド環境と利用ツールを説明する。OS としては Linux あるいはそれに準じる
 OS での作業を必要とする。Winsows 環境ならば WSL2_ が望ましい。それが無理ならば
-Cygwin_ や MSYS2 ということになる。
-とにかくコンソールだ。試していないが macOS でも行けるのではないだろうか。
+Cygwin_ や MSYS2 ということになる。試していないが macOS でも行けるのではないだろうか。
 
-作業者に基本的なコマンドライン操作能力を要求する。プロンプトで多用するコマンドは次のとおり：
+作業者に基本的なコマンドライン操作能力を要求する。シェルは Bash を想定。端末で多用するコマンドは次のとおり：
 
-* bash
 * make
 * git_
 
@@ -61,12 +36,15 @@ Cygwin_ や MSYS2 ということになる。
 GitHub のリモートリポジトリーからファイルをダウンロードする。
 仮にゼロからビルド環境を構築するとなると、次のことをすれば最新の状態を再現できる：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ cd $MY_DEV_DIR
-   bash$ git clone https://github.com/showa-yojyo/notebook.git
-   bash$ cd notebook
-   bash$ git switch develop
+   $ cd $MY_DEV_DIR
+   $ git clone https://github.com/showa-yojyo/notebook.git
+   ...
+   $ cd notebook
+   $ git switch develop
+   Switched to branch 'develop'
+   Your branch is up to date with 'origin/develop'.
 
 この説明でわからないのなら `Git 利用ノート <https://showa-yojyo.github.io/notebook/git/index.html>`__
 を確認して欲しい。
@@ -74,39 +52,86 @@ GitHub のリモートリポジトリーからファイルをダウンロード�
 Sphinx 環境作成
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-まずは Python_ の仮想環境を作るのが望ましい。
+まずは Python_ の仮想環境を作るのが望ましい。Pipenv_ を用いる場合は次のようにできる：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: Pipenv_ を用いる仮想環境構築手順例
 
-   bash$ cd doc
-   bash$ python -m venv .venv
-   bash$ pip install -r requirements.txt
+   $ cd doc
+   $ pipenv install
+   Creating a virtualenv for this project...
 
-これで Sphinx_ 本体と、本ノートをビルドする際に必要とする拡張モジュール各種が
-OS またはユーザーの Python 環境か、仮想環境にインストールされる。
+Pipenv_ がなく、pip_ がある場合には次のようにする：
+
+.. sourcecode:: console
+   :caption: pip_ を用いる仮想環境構築手順例
+
+   $ cd doc
+   $ python -m venv .venv
+   $ source .venv/bin/activate
+   $ pip install -r requirements.txt
+   ...
+
+これで Sphinx_ 本体と、本ノートをビルドする際に必要とする拡張モジュール各種が使
+用者の Python 仮想環境にインストールされる。
 
 このコマンドが何をするのかわからないのなら
 `pip 利用ノート <https://showa-yojyo.github.io/notebook/python-pip.html>`__
 も確認して欲しい。
 
+執筆
+----------------------------------------------------------------------
+
+ノートをつづる作業だけならば ``doc/source`` 以下にある rst ファイルをテキストエディターで編集し続けていけばよい。
+ノート執筆の事前条件として、PC とインターネットアクセス可能であることを挙げる。
+GitHub のインターフェイスが優秀なので、モバイル環境でも面倒だができるかもしれないが、
+ここでは触れない。
+
 ビルド
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------------------
 
-リポジトリー内のディレクトリー ``notebook/doc`` に移動し、コマンド ``make html``
-を実行するとコマンド ``sphinx-build`` が呼び出されて HTML ファイル群が生成される。
+ローカルリポジトリー内のディレクトリー ``notebook/doc`` に移動し、コマンド
+``make html`` を実行するとコマンド ``sphinx-build`` が呼び出されて HTML ファイル
+群が生成される。
 
-.. code:: console
+Pipenv_ を用いて Sphinx_ 環境を整えた場合は次のようにビルドする：
 
-   bash$ cd doc
-   bash$ source .venv/activate
-   bash$ make html
-   bash$ deactivate
+.. sourcecode:: console
+   :caption: Pipenv_ を用いる文書ビルド手順例
+
+   $ cd doc
+   $ pipenv run make html
+
+.. sourcecode:: console
+   :caption: pip_ を用いる文書ビルド手順例
+
+   $ cd doc
+   $ source .venv/bin/activate
+   $ make html
+   $ deactivate
 
 万が一 ``make`` 利用不能な場合には、各環境の定める手順でインストールする。
 わからない場合には Google で "how to install GNU make" などのキーワードで検索して調べるといい。
 
 ビルドが成功すると、サブディレクトリー ``notebook/doc/build/html`` 以下に
 Sphinx_ がビルドした成果物のすべてが格納される。
+
+成果物配備
+----------------------------------------------------------------------
+
+原稿を HTML ファイル群に変換して上記 URL に配備することになる。次の二通りの手段がある：
+
+1. ブランチ ``master`` または ``develop`` からの ``git push`` で起動する
+   GitHub Actions にビルド、配備させる。
+2. ローカルでビルドした成果物をブランチ ``gh-pages`` にコピーし ``git push``
+   を実行する。
+
+通常は方法 1. で事足りる。これを推奨方法とする。HTML ファイル配備までに必要なすべての処理を
+GitHub が提供するワークフローランナーが実際にこなす。
+これはローカルリポジトリーでの ``git push`` 実行などの後、だいたい 3, 4 分で完了する。
+詳しくはファイル ``.github/workflows/build-sphinx.yml`` を見ろ。
+
+方法 2. が必要となる状況も考えられるが、この README では言及しない。
 
 ノートを更新するには
 ----------------------------------------------------------------------
@@ -116,12 +141,11 @@ Sphinx_ の定める構文に従って記述されたテキストを含む。
 これを好きなテキストエディターで開いて編集する。
 既存の ``.rst`` ファイルを何点か観察することで「ハウスルール」を理解して欲しい。
 
-ブランチ ``develop`` から目的に応じてブランチを作成し、そこで作業すること。完了
-したら ``git merge`` するか、そのまま GitHub 側リポジトリーに ``git push``
+ブランチ ``develop`` から目的に応じてブランチを作成し、そこで作業すること。
+完了したら ``git merge`` するか、そのまま GitHub 側リポジトリーに ``git push``
 して管理人が適宜マージする。どちらのマージもオプションは場合により異なる。
 
-``master`` ブランチは年末頃に ``develop`` を ``--squash`` マージする。タグを付け
-たりする（ようにする）。
+``master`` ブランチは年末頃に ``develop`` を ``--squash`` マージする。タグを付けたりする（ようにする）。
 
 一般の方々へ
 ----------------------------------------------------------------------
@@ -138,11 +162,12 @@ Licensing
 編集陣および開発陣
 ======================================================================
 
-* `プレハブ小屋 <https://showa-yojyo.github.io/>`_: 当読者ノート責任者。
+`プレハブ小屋 <https://showa-yojyo.github.io/>`_
+   当読者ノート責任者。
 
-  * Web site: https://github.com/showa-yojyo/notebook
-  * E-mail: <yojyo@hotmail.com>
-  * Twitter: `@showa_yojyo <https://twitter.com/showa_yojyo>`_
+   * Web site: https://github.com/showa-yojyo/notebook
+   * E-mail: <yojyo@hotmail.com>
+   * Twitter: `@showa_yojyo <https://twitter.com/showa_yojyo>`_
 
 .. _Python: https://www.python.org/
 .. _Sphinx: https://sphinx-doc.org/
@@ -150,3 +175,5 @@ Licensing
 .. _Git: https://git-for-windows.github.io/
 .. _Cygwin: https://www.cygwin.com/
 .. _WSL2: https://docs.microsoft.com/ja-jp/windows/wsl/
+.. _pip: https://pip.pypa.io/en/stable/
+.. _Pipenv: https://pipenv.pypa.io/en/stable/

@@ -8,12 +8,21 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build HTML
-      uses: ammaraskar/sphinx-action@8.0.2
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5.2.0
       with:
-        docs-folder: doc
+        python-version: '3.12'
 
-    - run: sudo rm -rf build/html/_sources
+    - name: Install Pipenv and requirements, and build docs
+      run: |
+        pip install --user pipenv
+        cd doc
+        pipenv sync
+        pipenv run make html
+        cd -
+
+    - name: Remove source reST files
+      run: rm -rf build/html/_sources
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
