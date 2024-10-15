@@ -21,6 +21,7 @@ Cygwin_ や MSYS2 ということになる。試していないが macOS でも�
 作業者に基本的なコマンドライン操作能力を要求する。シェルは Bash を想定。端末で多用するコマンドは次のとおり：
 
 * make
+* pipenv_
 * git_
 
 とりあえずこれらのコマンドすべてが実行可能であれば、次の工程に移ることができる。
@@ -59,25 +60,12 @@ Sphinx 環境作成
 
    $ cd doc
    $ pipenv install
-   Creating a virtualenv for this project...
-
-Pipenv_ がなく、pip_ がある場合には次のようにする：
-
-.. sourcecode:: console
-   :caption: pip_ を用いる仮想環境構築手順例
-
-   $ cd doc
-   $ python -m venv .venv
-   $ source .venv/bin/activate
-   $ pip install -r requirements.txt
-   ...
 
 これで Sphinx_ 本体と、本ノートをビルドする際に必要とする拡張モジュール各種が使
 用者の Python 仮想環境にインストールされる。
 
-このコマンドが何をするのかわからないのなら
-`pip 利用ノート <https://showa-yojyo.github.io/notebook/python-pip.html>`__
-も確認して欲しい。
+このコマンドが何をするのかわからないのなら `Pipenv 利用ノート
+<https://showa-yojyo.github.io/notebook/python-pipenv.html>`__ を確認しろ。
 
 執筆
 ----------------------------------------------------------------------
@@ -101,14 +89,6 @@ Pipenv_ を用いて Sphinx_ 環境を整えた場合は次のようにビルド
 
    $ cd doc
    $ pipenv run make html
-
-.. sourcecode:: console
-   :caption: pip_ を用いる文書ビルド手順例
-
-   $ cd doc
-   $ source .venv/bin/activate
-   $ make html
-   $ deactivate
 
 万が一 ``make`` 利用不能な場合には、各環境の定める手順でインストールする。
 わからない場合には Google で "how to install GNU make" などのキーワードで検索して調べるといい。
@@ -175,5 +155,4 @@ Licensing
 .. _Git: https://git-for-windows.github.io/
 .. _Cygwin: https://www.cygwin.com/
 .. _WSL2: https://docs.microsoft.com/ja-jp/windows/wsl/
-.. _pip: https://pip.pypa.io/en/stable/
 .. _Pipenv: https://pipenv.pypa.io/en/stable/
