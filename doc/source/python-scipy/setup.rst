@@ -5,8 +5,7 @@
 自分の Python_ 環境 (Windows XP, 7, 10) に SciPy_ をインストールする方法を記す。
 単体テストが走るところまで確認できたら、インストール成功とみなす。
 
-* :ref:`python-pkg-proc` の方針でインストールする。:program:`conda` を使えない
-  場合はかなりの確率で Gohlke ページに行くことになる。
+* :ref:`miniconda-anchor-pip` の方針でインストールする。
 * 各種計算結果の出力（表示）に Matplotlib_ を多用しているので、そちらもインス
   トール済みであるとする。
 * SciPy_ は単体テストに Nose_ を利用している。NumPy_ インストール時に併せてイン

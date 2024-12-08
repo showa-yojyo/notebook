@@ -51,8 +51,8 @@ standard interactive interpreter> だそうだ。標準の Python インター�
 * :program:`conda` または :program:`pip` の実行ファイルのあるフォルダーに
   ``PATH`` が通っている。
 
-これを満たす環境において、:ref:`python-pkg-proc` に示したようにすると IPython
-をインストールできる。
+これを満たす環境において、:ref:`miniconda-anchor-pip` に示したようにすると
+IPython をインストールできる。
 
 次に :program:`conda` によるインストール手続きの例を示す。
 

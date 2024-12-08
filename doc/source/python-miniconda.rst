@@ -490,7 +490,7 @@ Miniconda 自体の情報を示す
   を defaults から conda-forge に置き換えた。これがあらかじめ施されているなどの
   特徴がある。
 
-.. _python-pkg-proc:
+.. _miniconda-anchor-pip:
 
 :program:`pip` との兼ね合い
 ----------------------------------------------------------------------
