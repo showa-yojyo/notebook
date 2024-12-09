@@ -1,8 +1,17 @@
 ======================================================================
-Nose 利用ノート
+Nose 利用ノート [obsolete]
 ======================================================================
 
-.. contents:: ノート目次
+.. caution::
+
+   «Nose has been in maintenance mode for the past several years and will likely
+   cease without a new person/team to take over maintainership. New projects
+   should consider using Nose2, py.test, or just plain unittest/unittest2.»
+   (<https://nose.readthedocs.io/en/latest/>) とのことなので、本稿は少なくとも新
+   規プロジェクトでは役に立たない（代替パッケージとして pytest の学習を予定して
+   いる）。
+
+.. contents:: 見出し目次
 
 .. note::
 
