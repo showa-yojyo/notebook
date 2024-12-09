@@ -5,6 +5,7 @@ Miniconda 利用ノート
 .. |bashrc| replace:: :file:`.bashrc`
 .. |conda| replace:: :program:`conda`
 .. |condarc| replace:: :file:`.condarc`
+.. |mamba| replace:: :program:`mamba`
 
 Miniconda_ の利用に関する事実関係の覚え書きと、その利用について思うところを記す。
 
@@ -78,6 +79,16 @@ Anaconda documentation 内記事 `Uninstalling Miniconda
 
 構成ファイルを完全に削除する場合は、どのディレクトリーに置いたのかを忘れても、コ
 マンド ``conda info`` で確認しろ。構成ファイルについては後述する事項にも留意しろ。
+
+.. note::
+
+   Miniconda というより Miniforge の文書だが、アンインストールの手順が簡潔に記さ
+   れている： <https://github.com/conda-forge/miniforge/blob/main/README.md>
+
+.. admonition:: 利用者ノート
+
+   面白いのはコマンド ``conda init --reverse`` の適用だ。|bashrc| の関連コード片
+   をまっさらに戻す。
 
 インストール手順
 ======================================================================
@@ -300,6 +311,11 @@ Bash 使用者おなじみの |bashrc| に |conda| がシェルとうまく相�
 この作業により、特にコマンド ``conda activate`` と ``conda deactiate`` が
 Miniconda_ の想定どおりに機能するようになる。
 
+|conda| が機械的に追加した上記コード片は ``conda init --reverse`` で元の内容に戻
+せる。手動で編集したいのが普通なので実行はしないという場合でも、``--dry-run`` を
+オプション追加することで |bashrc| が変更されるかどうかをあらかじめ知ることが可能
+だ。
+
 ユーザー構成ファイルパスを変更する
 ----------------------------------------------------------------------
 
@@ -468,14 +484,6 @@ Miniconda 自体の情報を示す
 :samp:`conda run -n {myenv} {COMMAND}`
    仮想環境 `myenv` にあるものとしてコマンド `COMMAND` を実行させる。
 
-資料集
-======================================================================
-
-`Miniconda <https://docs.anaconda.com/miniconda/>`__
-   Miniconda 公式文書。
-`conda-forge documentation <https://conda-forge.org/docs/>`__
-   conda-forge 公式文書。User Documentation の章をまずは読め。
-
 雑多なノート
 ======================================================================
 
@@ -506,6 +514,18 @@ Miniconda 自体の情報を示す
 
 など、最善とは言えない条件であるならば、仕方なく ``pip install`` コマンド、また
 はプロジェクト指定のパッケージ管理ツールでインストールするしかない。
+
+資料集
+======================================================================
+
+Miniconda_
+   公式文書。用語集も有用。
+`conda-forge documentation <https://conda-forge.org/docs/>`__
+   conda-forge 公式文書。User Documentation の章をまずは読め。
+`mamba-org/mamba <https://github.com/mamba-org/mamba>`__
+   C++ で書き直された |conda| に独自機能を加えたものだとみなせる。
+`mamba-org/micromamba-releases <https://github.com/mamba-org/micromamba-releases>`__
+   :program:`micromamba` はそれ単体で動作する |mamba| だ。
 
 .. include:: /_include/python-refs-core.txt
 .. _Miniforge: https://github.com/conda-forge/miniforge
