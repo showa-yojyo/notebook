@@ -149,10 +149,17 @@ Licensing
    * E-mail: <yojyo@hotmail.com>
    * Twitter: `@showa_yojyo <https://twitter.com/showa_yojyo>`_
 
-.. _Python: https://www.python.org/
-.. _Sphinx: https://sphinx-doc.org/
-.. _IPython: https://ipython.org/
-.. _Git: https://git-for-windows.github.io/
-.. _Cygwin: https://www.cygwin.com/
-.. _WSL2: https://docs.microsoft.com/ja-jp/windows/wsl/
-.. _Pipenv: https://pipenv.pypa.io/en/stable/
+Contributors
+----------------------------------------------------------------------
+
+当プロジェクトは個人的な読書・学習ノートであるが、それにもかかわらず、快く貢献、協力、情報提供をいただいたすばらしい
+GitHub 使用者の一覧を
+<https://github.com/showa-yojyo/notebook/graphs/contributors> で閲覧可能だ。
+
+.. _Python: <https://www.python.org/>
+.. _Sphinx: <https://sphinx-doc.org/>
+.. _IPython: <https://ipython.org/>
+.. _Git: <https://git-for-windows.github.io/>
+.. _Cygwin: <https://www.cygwin.com/>
+.. _WSL2: <https://docs.microsoft.com/ja-jp/windows/wsl/>
+.. _Pipenv: <https://pipenv.pypa.io/en/stable/>
