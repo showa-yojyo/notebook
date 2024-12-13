@@ -107,6 +107,7 @@
    python-docutils/index
    python-restview
    python-nose
+   python-pytest
    python-ipython
    python-jupyter
    python-numpy/index
