@@ -90,7 +90,6 @@ Python のサードパーティー製ライブラリーのインストール手�
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
-.. _pytest: https://docs.pytest.org/en/latest/
 .. _Hypothesis: https://hypothesis.readthedocs.io/
 .. _openpyxl: https://openpyxl.readthedocs.io/
 .. _numexpr: https://github.com/pydata/numexpr
