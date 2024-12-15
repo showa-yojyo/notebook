@@ -28,6 +28,7 @@ Jekyll 利用ノート
    * :doc:`/javascript-mermaid/index`
    * :doc:`/python-jinja2`
    * :doc:`/python-sphinx`
+   * :doc:`/python-mkdocs`
 
 資料
 ======================================================================
