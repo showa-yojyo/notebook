@@ -3,6 +3,7 @@ Click 利用ノート
 ======================================================================
 
 .. |CLI| replace:: :abbr:`CLI (Command Line Interface)`
+.. |pyproject| replace:: :file:`pyproject.toml`
 
 .. contents:: 章見出し
    :local:
@@ -31,8 +32,7 @@ Python で |CLI| を書くときに Click_ はたいへん便利なパッケー�
 ======================================================================
 
 複数人で共用するプロジェクトの開発環境に Click_ をインストールする事例では、その
-プロジェクトの定める手順に従え。README や :file:`pyproject.toml` を読めば判明す
-る。
+プロジェクトの定める手順に従え。README や |pyproject| を読めば判明する。
 
 自分が所有する作業用仮想環境にインストールするならば、愛用している仮想環境ツール
 がインストールコマンドを実装している場合にはそれを使え。私ならば Miniconda_ であ
@@ -64,6 +64,19 @@ Python で |CLI| を書くときに Click_ はたいへん便利なパッケー�
 
 `Click Documentation`_
    公式文書。
+`Click and Python: Build Extensible and Composable CLI Apps <https://realpython.com/python-click/>`__
+   チュートリアル。Real Python の記事。Click_ を用いたプログラムを配布するための
+   プロジェクト構成ファイル |pyproject| の書き方を示しているのはありがたい。
+`Getting Acquainted with Python Click <https://medium.com/@afimaamedufie/getting-acquainted-with-python-click-fbfccf2bd990>`__
+   紹介記事。
+`Working with Python Click Package <https://chuan-zhang.medium.com/working-with-python-click-package-51602dc0ba2f>`__
+   紹介とささやかなチュートリアルからなる記事。Python パッケージを説明する前に、
+   開発の全ては仮想環境で行う断れば、残りの記述が簡潔になりがちになることを習っ
+   た。
+`Python click or how to write professional CLI applications <https://www.mndwrk.com/blog/python-click-or-how-to-write-professional-cli-applications>`__
+   詳しめの紹介記事。公式文書では上級者しかすぐにわからない概念を上手く説明して
+   いる。標準の ``argparse`` にあって Click_ にはない機能を挙げている記事は初め
+   て見た。
 
 .. include:: /_include/python-refs-core.txt
 .. _Click:

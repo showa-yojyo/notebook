@@ -64,14 +64,39 @@ Jekyll_ と同じだが、MkDocs_ は Ruby ではなく Python で実装され�
 構成・カスタマイズ
 ======================================================================
 
+テーマに関しては次の節。
+
 使用方法・コツ
 ======================================================================
+
+.. todo::
+
+   * テーマ
+   * 生編集サーバー
+   * プラグイン
 
 資料集
 ======================================================================
 
+MkDocs_ は難しいツールではないので、機能を詳細に解説することを目的とする記事は多
+くは存在しない。
+
 MkDocs_
-   公式文書。
+   公式文書。これだけを熟読することで習得は十分可能だ。
+`MkDocs - Full Stack Python <https://www.fullstackpython.com/mkdocs.html>`__
+   MkDocs_ をどう発音するのかがわかる。
+`GETTING STARTED WITH MKDOCS: A BEGINNER'S GUIDE <https://medium.com/@TemitopeVictoria/getting-started-with-mkdocs-a-beginners-guide-e6dcdcc98493>`__
+   入門記事。内容はバランス良くまとまっている。開発環境は Windows を想定。
+`System Health Lab Mkdocs Tutorial and Template <https://tutorial-mkdocs.systemhealthlab.com/>`__
+   入門記事。チュートリアルで構成。GitHub テンプレリポジトリーから作業を始める。
+   この手の Markdown 仕様の解説は初めて見た。
+`A beginner guide to using MKDocs <https://coreyodonis.hashnode.dev/a-beginner-guide-to-using-mkdocs>`__
+   入門記事。プラグインに関する記述が少々ある。
+`MKDocs: The Ideal Tool for Effective Documentation <https://medium.com/cranecloud/mkdocs-the-ideal-tool-for-effective-documentation-31da0666bb05>`__
+   なぜ MkDocs_ が良いのかを説明している。
+`Learn / MkDocs <https://learn.openwaterfoundation.org/owf-learn-mkdocs/>`__
+   MkDocs_ 利用環境のセットアップと、利用に必要な情報や作業を順序立てて述べてい
+   る。
 
 .. include:: /_include/python-refs-core.txt
 .. _Jekyll: https://jekyllrb.com/
