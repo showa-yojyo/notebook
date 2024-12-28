@@ -85,8 +85,10 @@ Android 側 iVCam
 
 .. csv-table::
    :delim: |
-   :header: 項目,値
+   :header-rows: 1
+   :widths: auto
 
+   項目 | 値
    :guilabel:`撮影時の画面の向き` | 環境に合わせて縦か横を決める
    :guilabel:`解像度` | 大き過ぎないようにする
    :guilabel:`フレームレート` | 大き過ぎないようにする
@@ -106,8 +108,10 @@ Zoom Cloud Meetings を実行する。
 
 .. csv-table::
    :delim: |
-   :header: 項目,値
+   :header-rows: 1
+   :widths: auto
 
+   項目 | 値
    :menuselection:`ビデオ --> カメラ` | :guilabel:`e2eSoft iVCam`
    :menuselection:`ビデオ --> マイビデオ --> マイビデオをミラーリング` | オン
    :menuselection:`オーディオ --> スピーカー` | いつものスピーカー
@@ -171,6 +175,35 @@ Meetings からログインする。
 
 面接が終了したら接続をただちに切断し、アプリケーションをすべて終了する。
 
+おまけ：スクリーンキャプチャー
+======================================================================
+
+Zoom を全画面撮影ツールとして利用することも可能だ。XBox Game Bar と違って、デス
+クトップ全体を撮影可能なのがありがたい。
+
+収録開始手順の概略を示す：
+
+1. Zoom にログインしておく
+2. :guilabel:`新規ミーティング` を押す
+3. :guilabel:`コンピュータ オーディオに参加する` を押す
+4. 画面下部 :guilabel:`画面共有` を押す
+
+   1. :guilabel:`画面` を選択
+   2. :guilabel:`サウンドを共有` ドロップダウンから :guilabel:`ステレオ` を
+      チェックし、その上でドロップダウンリストをチェック
+
+5. :guilabel:`共有` を押し、画面共有中モードに移行する
+6. 画面上部バー :menuselection:`詳細 --> このコンピュータにレコーディング` を押
+   す
+
+収録終了手順：
+
+1. 画面上部にある収録停止ボタンを押す
+2. 会議を終了、退出する
+3. Zoom のメッセージボックスにより、エンコードが開始する
+
+Zoom メイン設定からそれらしい項目を自分好みに前もって変えておくといい。
+
 リンク
 ======================================================================
 
@@ -180,9 +213,11 @@ Meetings からログインする。
 `iVCam - Use mobile phone as a PC webcam | E2ESOFT <https://www.e2esoft.com/ivcam/>`__
   携帯電話を PC に接続してカメラ・マイクの代用にするためのアプリケーションを入手
   できる。二つの機器のどちらにもインストールすることに注意。
-`パソコンの内蔵カメラやスマホをWebカメラとして使用する方法 <https://jp.norton.com/internetsecurity-etc-pc-camera.html>`__:
+`パソコンの内蔵カメラやスマホをWebカメラとして使用する方法 <https://jp.norton.com/internetsecurity-etc-pc-camera.html>`__
   この文書の iVCam 周りの記述にたいへん助けられた。これを知ったので私は職探しを
   転職サイトとオンライン面接主体に移行した。
+`💻 5 Best FREE Screen Recorders - no watermarks or time limits - YouTube <https://www.youtube.com/watch?v=nCNri04lHaI>`__
+  Zoom を画面収録ツールとして利用する方法を紹介している。
 
 .. _Zoom: https://zoom.us/
 .. _e2eSoft iVCam: https://www.e2esoft.com/ivcam

@@ -252,8 +252,10 @@ JSON ファイルはモニターやレイアウトのキーバインドなどの
 
 .. csv-table::
    :delim: @
-   :header: 値,主旨
+   :header-rows: 1
+   :widths: auto
 
+   値 @ 主旨
    :guilabel:`ユーザー設定の色` @ レイアウトに対する色味を指定および適用する
    :guilabel:`Windows の既定値` @ Windows ユーザー設定の色味を適用する
 
@@ -265,8 +267,10 @@ JSON ファイルはモニターやレイアウトのキーバインドなどの
 
 .. csv-table::
    :delim: @
-   :header: 項目,主旨
+   :header-rows: 1
+   :widths: auto
 
+   項目 @ 主旨
    :guilabel:`強調表示の色` @ ウィンドウのドラッグ中にアクティブなドロップ対象である場合のゾーンの色
    :guilabel:`非アクティブの色` @ ウィンドウのドラッグ中にアクティブドロップでない場合のゾーンの色
    :guilabel:`罫線の色` @ アクティブゾーンと非アクティブゾーンの境界の色

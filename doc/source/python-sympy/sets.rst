@@ -177,9 +177,10 @@ SymPy としてもこれらを持っているのだろう。
 
 .. csv-table::
    :delim: @
-   :header: サブクラス, C++ <algorithm>
+   :header-rows: 1
    :widths: auto
 
+   サブクラス @ C++ <algorithm>
    ``Union``@:code:`std::set_union`
    ``Complement``@:code:`std::set_difference`
    ``Intersection``@:code:`std::set_intersection`

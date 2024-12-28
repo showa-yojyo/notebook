@@ -100,9 +100,10 @@ Some extra useful functions
 
 .. csv-table::
    :delim: |
-   :header: 関数呼び出し,プロット
+   :header-rows: 1
    :widths: auto
 
+   関数呼び出し | プロット
    ``mod(x, 0.5)``        | いわば半三角波。連続部分は単調増加。
    ``fract(x)``           | これも半三角波だが上のものの倍の三角形を描く。
    ``ceil(x)``            | 上り階段。 :math:`{[-1, 1]}` を通る。

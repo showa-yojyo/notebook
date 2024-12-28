@@ -70,8 +70,10 @@ Levels
 
 .. csv-table::
    :delim: !
-   :header: 記号, 要素
+   :header-rows: 1
+   :widths: auto
 
+   記号 ! 要素
    ``.`` ! 空
    ``#`` ! 壁とか床
    ``+`` ! 溶岩

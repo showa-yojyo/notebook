@@ -13,6 +13,22 @@
 
 .. contents::
 
+倍速
+======================================================================
+
+ただし ``speed`` は 0.5 から 100 までの値でなければならない。
+
+.. sourcecode::
+   :caption: 再生速度を倍にするコマンド例
+
+   $ speed=2
+   $ ffmpeg -i input.mp4 -vf setpts=PTS/${speed} -af atempo=${speed} out.mp4
+
+.. seealso::
+
+   `How to speed up / slow down a video - FFmpeg
+   <https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video>`__
+
 逆再生
 ======================================================================
 
@@ -23,10 +39,10 @@
 
 映像と音声を同時に逆転させることも、一方だけを逆転させることも可能だ。
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf reverse output.mp4
-   bash$ ffmpeg -i input.mp4 -vf reverse -af areverse output.mp4
+   $ ffmpeg -i input.mp4 -vf reverse output.mp4
+   $ ffmpeg -i input.mp4 -vf reverse -af areverse output.mp4
 
 この処理は入力全体をメモリーに格納することに注意を要する。巨大なビデオに対して
 は、何分割かしてからそれぞれを個別に逆転させて結合する（上述）ことを検討する。
@@ -49,27 +65,28 @@
 映像フィルター ``hfilter``, ``vfilter`` を用いる。水平軸または垂直軸に関する反転
 を実現する。オプションがないので紛れがない。
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.avi -vf "hflip" -c:a copy output.avi
-   bash$ ffmpeg -i input.avi -vf "vflip" -c:a copy output.avi
+   $ ffmpeg -i input.avi -vf "hflip" -c:a copy output.avi
+   $ ffmpeg -i input.avi -vf "vflip" -c:a copy output.avi
 
 回転
 ----------------------------------------------------------------------
 
 映像フィルター ``transpose`` を用いる。コマンドの基本形は次のとおり：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf "transpose=dir=1" -c:a copy output.mp4
+   $ ffmpeg -i input.mp4 -vf "transpose=dir=1" -c:a copy output.mp4
 
 引数 ``dir`` の値は数字かキーワードで指定できる。都合の良いほうを使っていい：
 
 .. csv-table::
    :delim: |
-   :header: 番号,名前,変換内容
+   :header-rows: 1
    :widths: auto
 
+   番号 | 名前 | 変換内容
    ``0`` | ``cclock_flip`` | +90 度回転してミラー
    ``1`` | ``clock`` | -90 度回転
    ``2`` | ``clock`` | +90 度回転
@@ -83,9 +100,9 @@
 ドもあり得る。引数 ``passthrough=landscape`` 等を指定する。「横長ならば横長のま
 まとする」の指示を意味する：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf "transpose=dir=2:passthrough=landscape" -c:a copy output.mp4
+   $ ffmpeg -i input.mp4 -vf "transpose=dir=2:passthrough=landscape" -c:a copy output.mp4
 
 ビデオを Twitter に投稿可能な状態にエンコードし直す
 ======================================================================
@@ -132,16 +149,16 @@ commented on May 18, 2018`` コメントのコマンドを加工して実行す�
 画像ファイル ``input.jpg`` を ``10`` 秒間表示するだけのビデオを作成したいとす
 る。それには次のようなコマンドを実行する：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -loop 1 -i input.jpg -c:v libx264 -t 10 output.mp4
+   $ ffmpeg -loop 1 -i input.jpg -c:v libx264 -t 10 output.mp4
 
 次のコマンドは再生時間を音楽に合わせて ``input.mp3`` を BGM とする MP4 ビデオを
 出力する：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -loop 1 -i input.jpg -i input.mp3 -c:v libx264 -c:a copy -shortest output.mp4
+   $ ffmpeg -loop 1 -i input.jpg -i input.mp3 -c:v libx264 -c:a copy -shortest output.mp4
 
 ビデオを結合する
 ======================================================================
@@ -164,7 +181,7 @@ commented on May 18, 2018`` コメントのコマンドを加工して実行す�
 
 テキストファイルの内容は次のようなものだ：
 
-.. code:: shell
+.. sourcecode:: shell
 
    # fileList.txt
    file '/path/to/input0.mp4'
@@ -172,9 +189,9 @@ commented on May 18, 2018`` コメントのコマンドを加工して実行す�
 
 コマンドラインはこうなる：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -f concat -safe 0 -i fileList.txt -c copy output.mp4
+   $ ffmpeg -f concat -safe 0 -i fileList.txt -c copy output.mp4
 
 * ``-f concat``: demuxer を ``concat`` とする。
 * ``-safe 0``: ファイルパスに対するチェックを大甘にする。
@@ -191,9 +208,9 @@ commented on May 18, 2018`` コメントのコマンドを加工して実行す�
 後者の例は次のようなものだ。ここでは与えないが、出力オプションで encoder を指定
 する余地がある：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input0.mp4 -i input1.mp4 -i input2.mp4 \
+   $ ffmpeg -i input0.mp4 -i input1.mp4 -i input2.mp4 \
      -filter_complex "[0:v][0:a][1:v][1:a][2:v][2:a]
        concat=n=3:v=1:a=1[vv][aa]" \
      -map "[vv]" -map "[aa]" output.mp4
@@ -217,9 +234,10 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 
 .. csv-table::
    :delim: |
-   :header: 指定方式,コマンド,外で計算
+   :header-rows: 1
    :widths: auto
 
+   指定方式 | コマンド | 外で計算
    開始から指定時間だけ捨てる | ``-ss DURATION -i INPUT ... OUTPUT`` | NO
    開始から指定時刻まで捨てる | ``-ss POSITION -i INPUT ... OUTPUT`` | NO
    終了までの指定時間だけ捨てる | ``-i INPUT -t DURATION ... OUTPUT`` | YES
@@ -233,9 +251,10 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 
 .. csv-table::
    :delim: |
-   :header: 指定方式,コマンド,外で計算
+   :header-rows: 1
    :widths: auto
 
+   指定方式 | コマンド | 外で計算
    開始から指定時間だけ残す | ``-i INPUT -t DURATION ... OUTPUT`` | NO
    開始から指定時刻まで残す | ``-i INPUT -to POSITION ... OUTPUT`` | NO
    終了までの指定時間だけ残す | ``-sseof -DURATION -i INPUT ... OUTPUT`` | NO
@@ -280,18 +299,18 @@ UNIX/Linux コマンドの :command:`cat` で直接連結が可能になる。�
 伸縮操作の基本は映像フィルター ``scale`` を用いるものだ。次のコマンド呼び出しは
 省略部分が同一ならばすべてが同値だ：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf scale=w=${width}:h=${height} ... output.mp4
-   bash$ ffmpeg -i input.mp4 -vf scale=${width}:${height} ... output.mp4
-   bash$ ffmpeg -i input.mp4 -vf scale=${width}x${height} ... output.mp4
+   $ ffmpeg -i input.mp4 -vf scale=w=${width}:h=${height} ... output.mp4
+   $ ffmpeg -i input.mp4 -vf scale=${width}:${height} ... output.mp4
+   $ ffmpeg -i input.mp4 -vf scale=${width}x${height} ... output.mp4
 
 品質が劣化するのが気になる場合は出力オプション部に encoding 指定をする。例えば
 libx264 の低速プリセットで ``crf=18`` を使用するなど：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf scale=${width}:${height} -preset slow -crf 18 output.mp4
+   $ ffmpeg -i input.mp4 -vf scale=${width}:${height} -preset slow -crf 18 output.mp4
 
 入力画面の幅と高さをそれぞれ ``iw`` と ``ih`` で参照できる。
 
@@ -308,16 +327,16 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 映像形式によっては画面寸法が偶数であることを要求する。そのときは ``-1`` の代わり
 に ``-2`` を指定する：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf scale=320:-2 output.mp4
+   $ ffmpeg -i input.mp4 -vf scale=320:-2 output.mp4
 
 関数 ``min()`` と ``iw``, ``ih`` を組み合わせれば最小の幅と高さを決められる。単
 純な方法で質の悪い伸縮を防げる手筋だ：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 -vf "scale='min(320,iw)':'min(240,ih)'" output.mp4
+   $ ffmpeg -i input.mp4 -vf "scale='min(320,iw)':'min(240,ih)'" output.mp4
 
 テキスト
 ======================================================================
@@ -333,9 +352,9 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 文字を打ち込む作業は何度も何度も画面を見直すから :program:`ffplay` で確認すると
 いい：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffplay -vf "drawtext=text='なんらかのテキスト':
+   $ ffplay -vf "drawtext=text='なんらかのテキスト':
        fontfile=/path/to/fontfile:
        box=0:boxcolor=white@0.5:
        x=20:y=20:
@@ -366,9 +385,9 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 ともできるが、効率がより良いフィルター `xstack` があるのでそれを利用したい。例を
 示す。簡単のために、入力映像の画面寸法はすべて同じであると仮定する：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg \
+   $ ffmpeg \
        -i input0.mp4 -i input1.mp4 \
        -i input2.mp4 -i input3.mp4 \
        -filter_complex "xstack=inputs=4:layout=0_0|0_h0|w0_0|w0_h0:shortest=1"
@@ -407,9 +426,9 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 のが基本的な考え方だ。コマンドラインも比較的単純な構造になる。オプション
 ``-filter_complex`` の引数だけを抜粋したものを示す：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg -i input.mp4 \
+   $ ffmpeg -i input.mp4 \
      -filter_complex "
        [0:v]crop=400:400:300:350,boxblur=10[fg];
        [0:v][fg]overlay=300:350[v]" \
@@ -453,9 +472,9 @@ Demuxer ``concat`` で物足りないときにはフィルター ``xfade`` を�
 次のコマンドは :file:`input0.mp4` から :file:`input1.mp4` へクロスフェイドす
 る映像を出力するはずだ：
 
-.. code:: console
+.. sourcecode:: console
 
-   bash$ ffmpeg \
+   $ ffmpeg \
        -i input0.mp4 \
        -i input1.mp4 \
        -filter_complex "xfade=transition=fade:

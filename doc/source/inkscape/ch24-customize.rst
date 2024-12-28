@@ -109,9 +109,10 @@ Outline Mode Colors
 
 .. csv-table::
    :delim: |
-   :header: 属性,意味
+   :header-rows: 1
    :widths: auto
 
+   属性 | 意味
    ``onlight`` | 描線が明るい背景をまたぐときの色
    ``ondark`` | 描線が暗い背景をまたぐときの色
    ``images`` | 像の輪郭色
@@ -136,9 +137,10 @@ SVG Output
 
 .. csv-table::
    :delim: |
-   :header: 属性,意味
+   :header-rows: 1
    :widths: auto
 
+   属性 | 意味
    ``usenamedcolors`` | ``blue``, ``black`` などのキーワードを使うか 16 進数表記を使うか
    ``numericalprecision`` | 数値に対して書き出される有効数字の桁数
    ``minimumexponent`` | :math:`{10^x}` までの正の値をゼロとみなす（指数は負）
@@ -275,9 +277,10 @@ Inkscape が用意しているキーバインド定義 :abbr:`XML` ファイル�
 
 .. csv-table::
    :delim: |
-   :header: ファイル,キーバインド
+   :header-rows: 1
    :widths: auto
 
+   ファイル | キーバインド
    :file:`acd-canvas.xml` | ACD Systems Canvas 11
    :file:`adobe-illustrator-cs2.xml` | Adobe Illustrator
    :file:`carbon.xml` | Inkscape carbon MacOSX

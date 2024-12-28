@@ -42,9 +42,10 @@ WSLg が有効になっている必要があるが、:program:`ffplay` でコン
 
 .. csv-table::
    :delim: |
-   :header: Keybind,Command
+   :header-rows: 1
    :widths: auto
 
+   Keybind | Command
    :kbd:`Q` or :kbd:`ESC` | プレイヤーを終了する
    :kbd:`P`, :kbd:`SPC` | 一時停止
    :kbd:`F` | 全画面モードを切り替える
@@ -62,9 +63,10 @@ WSLg が有効になっている必要があるが、:program:`ffplay` でコン
 
 .. csv-table::
    :delim: |
-   :header: Event,Command
+   :header-rows: 1
    :widths: auto
 
+   Event | Command
    右クリック | 幅の割合に対応する尺を百分率でシーク
    左ダブルクリック | 全画面モードを切り替え
 
@@ -75,9 +77,10 @@ WSLg が有効になっている必要があるが、:program:`ffplay` でコン
 
 .. csv-table::
    :delim: |
-   :header: オプション,操作
+   :header-rows: 1
    :widths: auto
 
+   オプション | 操作
    ``-autoexit`` | 再生が終了するとプレイヤーも直ちに終了する
    ``-loop N`` | 再生を反復する
    ``-x WIDTH`` | プレイヤーウィンドウの幅（座標ではない）

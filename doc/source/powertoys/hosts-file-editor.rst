@@ -37,8 +37,10 @@ Hosts File Editor を使用して新しいエントリーを追加するには�
 
 .. csv-table::
    :delim: @
-   :header: 入力欄,入力値
+   :header-rows: 1
+   :widths: auto
 
+   入力欄 @ 入力値
    :guilabel:`アドレス` @ IP アドレス
    :guilabel:`ホスト`   @ ホスト名
    :guilabel:`コメント` @ 記入目的を確認するためのコメント
@@ -71,8 +73,10 @@ Hosts File Editor は編集前にファイル :file:`hosts` をバックアッ�
 
 .. csv-table::
    :delim: @
-   :header: 設定項目,主旨
+   :header-rows: 1
+   :widths: auto
 
+   設定項目 @ 主旨
    :guilabel:`管理者として実行する` @ これを有効にしないと :file:`hosts` を保存できない
    :guilabel:`起動時に警告を表示する` @ DNS の名前解決変更可能性があることを警告するかどうか
    :guilabel:`追加の行の位置` @ :guilabel:`上部` か :guilabel:`下部` か

@@ -43,9 +43,10 @@ Level 1
 
 .. csv-table:: Level 1
    :delim: @
-   :header: セレクター例, 選択要素
-   :widths: 200,600
+   :header-rows: 1
+   :widths: auto
 
+   セレクター例 @ 選択要素
    ``E``@文書中の ``<E></E>`` すべてを指定する。
    ``E.warning``@文書中の ``<E class="warning"></E>`` すべてを指定する。
    ``E#myid``@文書中の ``<E id="myid"></E>`` を指定する。
@@ -70,9 +71,10 @@ Level 2
 
 .. csv-table:: Level 2
    :delim: @
-   :header: セレクター例, 選択要素
-   :widths: 200,600
+   :header-rows: 1
+   :widths: auto
 
+   セレクター例 @ 選択要素
    ``*``@すべての要素を表す。
    ``E[attr]``@要素 ``E`` であって、属性 ``attr`` を有するものを指定する。
    ``E[attr="value"]``@要素 ``E`` であって、属性 ``attr`` の値が ``value`` に厳密に等しいものを指定する。
@@ -142,9 +144,10 @@ Level 3 で一気にセレクターのバリエーションが増える。
 
 .. csv-table:: Level 3
    :delim: @
-   :header: セレクター例, 選択要素
-   :widths: 200,600
+   :header-rows: 1
+   :widths: auto
 
+   セレクター例 @ 選択要素
    ``E:not(sel)``@要素 ``E`` であって、セレクター ``sel`` にマッチしないもの。
    ``E[attr^="val"]``@要素 ``E`` であって、その属性 ``attr`` の値が ``val`` で始まるようなものを指定する。
    ``E[attr$="val"]``@要素 ``E`` であって、その属性 ``attr`` の値が ``val`` で終わるようなものを指定する。
@@ -235,9 +238,10 @@ Level 4
 
 .. csv-table:: Level 4
    :delim: @
-   :header: セレクター例, 選択要素
-   :widths: 200,600
+   :header-rows: 1
+   :widths: auto
 
+   セレクター例 @ 選択要素
    ``E:not(s1, s2, ..., sn)``@引数が複数あっても構わなくなった。
    ``E:is(s1, s2, ..., sn)``@要素 ``E`` であって、セレクター ``s1``, ``s2``, ..., ``sn`` に and/or でマッチする。
    ``E:where(s1, s2, ..., sn)``@``E:is()`` の「指定度」無視版。

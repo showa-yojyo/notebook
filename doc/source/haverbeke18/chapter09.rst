@@ -54,8 +54,10 @@ Sets of characters
 
 .. csv-table::
    :delim: |
-   :header: 記号, 意味
+   :header-rows: 1
+   :widths: auto
 
+   記号 | 意味
    :regexp:`\\d` | アラビア数字
    :regexp:`\\w` | アルファベットおよびアラビア数字
    :regexp:`\\s` | ホワイトスペース（スペース、タブ、改行など）を表す文字

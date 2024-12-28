@@ -65,8 +65,10 @@ Sort フィルターを組み合わせる。検索入力例：
 
 .. csv-table::
    :delim: @
-   :header: 項目,操作
+   :header-rows: 1
+   :widths: auto
 
+   項目 @ 操作
    :menuselection:`Check for Extension Updates` @ 拡張の更新が容易されているかを見に行く
    :menuselection:`Update All Extensions` @ 更新可能な拡張すべてを更新する
    :menuselection:`Enable All Extensions` @ 拡張すべてを有効にする
@@ -81,8 +83,10 @@ Sort フィルターを組み合わせる。検索入力例：
 
 .. csv-table::
    :delim: @
-   :header: 項目,操作
+   :header-rows: 1
+   :widths: auto
 
+   項目 @ 操作
    :menuselection:`Enable` @ この拡張機能を有効にする
    :menuselection:`Enable (Workspace)` @ この拡張機能を現在のワークスペースに対しては有効にする
    :menuselection:`Disable` @ この拡張機能を無効にする

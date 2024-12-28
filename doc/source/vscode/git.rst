@@ -48,8 +48,10 @@ VS Code で次のいずれかの操作により、Side バーに :guilabel:`SOUR
 
 .. csv-table::
    :delim: @
-   :header: メニュー項目,操作
+   :header-rows: 1
+   :widths: auto
 
+   メニュー項目 @ 操作
    :guilabel:`Open Changes` @ 対象ファイルのインデックスに対する差分を read-only エディターで開く。
    :guilabel:`Open File` @ 対象ファイルをエディターで開く。
    :guilabel:`Open File (HEAD)` @ 対象ファイルの HEAD 版を read-only エディターで開く。
@@ -74,8 +76,10 @@ VS Code で次のいずれかの操作により、Side バーに :guilabel:`SOUR
 
 .. csv-table::
    :delim: @
-   :header: メニュー項目,相当する Git 操作
+   :header-rows: 1
+   :widths: auto
 
+   メニュー項目 @ 相当する Git 操作
    :guilabel:`Stage All Changes`   @ :command:`git add -A .`
    :guilabel:`Unstage All Changes` @ :command:`git restore --staged .`
    :guilabel:`Discard All Changes` @ :command:`git restore .``
@@ -99,8 +103,10 @@ VS Code で次のいずれかの操作により、Side バーに :guilabel:`SOUR
 
 .. csv-table::
    :delim: @
-   :header: メニュー項目,相当する Git 操作
+   :header-rows: 1
+   :widths: auto
 
+   メニュー項目 @ 相当する Git 操作
    :guilabel:`Commit` @ ステージにファイルがある場合に :command:`git commit`
    :guilabel:`Commit Staged` @ ステージにファイルがある場合に :command:`git commit`
    :guilabel:`Commit All` @ :command:`git add -A . && git commit`
@@ -180,8 +186,10 @@ VS Code から離れずにブランチを操作することが可能だ。コマ
 
 .. csv-table::
    :delim: @
-   :header: コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 操作
    :guilabel:`Add Remote...` @ :command:`git remote add` 相当
    :guilabel:`Remove Remote` @ :command:`git remote rm` 相当
 
@@ -221,8 +229,10 @@ VS Code の左下には、リポジトリーの状態を示すインジケータ
 
 .. csv-table::
    :delim: @
-   :header: 記号,意味
+   :header-rows: 1
+   :widths: auto
 
+   記号 @ 意味
    赤い三角形 @ 直前の版でここにあったテキストが削除されていることを示す
    緑の線 @ 直前の版から追加された行であることを示す
    青い線 @ 直前の版から内容が変更された行であることを示す
@@ -252,8 +262,10 @@ VS Code の左下には、リポジトリーの状態を示すインジケータ
 
 .. csv-table::
    :delim: @
-   :header: アクション,操作
+   :header-rows: 1
+   :widths: auto
 
+   アクション @ 操作
    :guilabel:`Accept Current` @ 現在ブランチの内容を採用する
    :guilabel:`Accept Incoming` @ マージブランチの内容を採用する
    :guilabel:`Accept Both` @ 双方の内容を連結したものを採用する（適用順序は？）
@@ -267,8 +279,10 @@ VS Code の左下には、リポジトリーの状態を示すインジケータ
 
 .. csv-table::
    :delim: @
-   :header: アクション,操作
+   :header-rows: 1
+   :widths: auto
 
+   アクション @ 操作
    :guilabel:`Remove Current` @ 現在ブランチ部分の採用を取り消す
    :guilabel:`Remove Incoming` @ マージブランチ部分の採用を取り消す
    :guilabel:`Reset to base` @ マージ編集を全部捨てる

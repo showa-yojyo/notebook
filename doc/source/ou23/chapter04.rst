@@ -63,9 +63,10 @@ Basic Operations
 
 .. csv-table::
    :delim: |
-   :header: 関数,操作
+   :header-rows: 1
    :widths: auto
 
+   関数 | 操作
    ``std::make_tuple`` | 生成する
    ``std::get`` | 要素を得る
    ``std::tie`` | unpack する

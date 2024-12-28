@@ -29,10 +29,11 @@
 まずは確率変数生成関数を表に示す。
 
 .. csv-table::
-   :header: 関数, 確率空間, 説明
    :delim: |
+   :header-rows: 1
    :widths: auto
 
+   関数 | 確率空間 | 説明
    Bernoulli|SingleFinitePSpace|
    Binomial|SingleFinitePSpace|
    Coin|SingleFinitePSpace|コイントスをモデル化した確率変数。
@@ -89,10 +90,11 @@
 は、次に示す各種確率統計的関数の引数として用いる。
 
 .. csv-table::
-   :header: 関数, 説明, 別名
    :delim: |
+   :header-rows: 1
    :widths: auto
 
+   関数 | 説明 | 別名
    ``probability`` | ``X`` に関するある条件が真となる確率を求める。 | ``P``
    ``expectation`` | ``X`` に関するある式の期待値を求める。 | ``E``
    ``density`` | ``X`` の確率密度を求める。 |
@@ -222,10 +224,11 @@
 まかす。
 
 .. csv-table::
-   :header: クラス, 直接基底クラス
    :delim: |
+   :header-rows: 1
    :widths: auto
 
+   クラス | 直接基底クラス
    ``RandomDomain`` | ``Basic``
    ``SingleDomain`` | ``RandomDomain``
    ``ProductDomain`` | ``RandomDomain``
@@ -256,10 +259,11 @@
 ヤモンド継承関係があるので表でごまかす。
 
 .. csv-table::
-   :header: クラス, 直接基底クラス
    :delim: |
+   :header-rows: 1
    :widths: auto
 
+   クラス | 直接基底クラス
    ``PSpace`` | ``Basic``
    ``SinglePSpace`` | ``PSpace``
    ``ProductPSpace`` | ``PSpace``

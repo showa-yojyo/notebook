@@ -69,8 +69,10 @@ VS Code が端末画面を新規に生成する。
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,コマンド
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ コマンド
    :kbd:`Ctrl` + :kbd:`PageDown` @ :guilabel:`Terminal: Focus Next Terminal Group`
    :kbd:`Ctrl` + :kbd:`PageUp` @ :guilabel:`Terminal: Focus Previous Terminal Group`
 
@@ -100,8 +102,10 @@ VS Code が端末画面を新規に生成する。
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,コマンド
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ コマンド
    :kbd:`Alt` + :kbd:`→` @ :guilabel:`Terminal: Focus Next Terminal in Terminal Group`
    :kbd:`Alt` + :kbd:`←` @ :guilabel:`Terminal: Focus Previous Terminal in Terminal Group`
 
@@ -145,8 +149,10 @@ VS Code が端末画面を新規に生成する。
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`PageUp` @ 上に一行だけスクロールする
    :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`PageDown` @ 下に一行だけスクロールする
    :kbd:`Shift` + :kbd:`PageUp` @ 上に一ページだけスクロールする
@@ -190,8 +196,10 @@ Windows クリップボード間のやり取りでは、Windows 標準のショ�
 
 .. csv-table::
    :delim: @
-   :header: 値,処理
+   :header-rows: 1
+   :widths: auto
 
+   値 @ 処理
    ``default`` @ 端末画面用コンテキストメニューを表示する。
    ``copyPaste`` @ 選択があればクリップボードにコピーし、なければクリップボードの中身を貼り付ける。
    ``paste`` @ クリップボードの中身を貼り付ける。
@@ -221,8 +229,10 @@ Windows クリップボード間のやり取りでは、Windows 標準のショ�
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Enter` @ 前のマッチへ移動
    :kbd:`Shift` + :kbd:`Enter` @ 次のマッチへ移動
 
@@ -498,8 +508,10 @@ VS Code の端末画面タブに関する初期設定は、横方向の空間を
 
   .. csv-table::
      :delim: @
-     :header: 設定値,操作
+     :header-rows: 1
+     :widths: auto
 
+     設定値 @ 操作
      ``always`` @ 常時
      ``singleTerminal`` @ 端末が一つしかないとき
      ``singleTerminalOrNarrow`` @ 端末が一つしかないとき、またはビューが狭いとき

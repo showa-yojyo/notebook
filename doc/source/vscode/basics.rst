@@ -20,8 +20,10 @@ VS Code のユーザー設定が初期状態であれば、Windows のエディ�
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,キャレットの移動または移動先
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ キャレットの移動または移動先
    矢印キー各種 @ 矢印方向に一文字または一行移動する
    :kbd:`Home` @ 行頭
    :kbd:`End` @ 行末
@@ -97,8 +99,10 @@ VS Code 独特のキャレット操作に「分身」がある。分身自体は
 
 .. csv-table::
    :delim: @
-   :header: コマンド,キャレットの分身位置
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ キャレットの分身位置
    :guilabel:`Add Cursors To Top` @ 現在位置からバッファー先頭までの行すべての対応する桁
    :guilabel:`Add Cursors To Bottom` @ 現在位置からバッファー末端までの行すべての対応する桁
 
@@ -119,8 +123,10 @@ VS Code 独特のキャレット操作に「分身」がある。分身自体は
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Shift` + :kbd:`Alt` + :kbd:`←` @ スコープ方向に選択を縮小する
    :kbd:`Shift` + :kbd:`Alt` + :kbd:`→` @ スコープ方向に選択を拡大する
 
@@ -146,8 +152,10 @@ VS Code の公式文書では列選択モードという言い回しをしてい
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Backspace` @ キャレットの左の文字を削除する
    :kbd:`Delete` @ キャレットの右の文字を削除する
    :kbd:`Ctrl` + :kbd:`Backspace` @ キャレットがある単語の先頭まで文字を削除する
@@ -158,8 +166,10 @@ VS Code の公式文書では列選択モードという言い回しをしてい
 
 .. csv-table::
    :delim: @
-   :header: コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 操作
    ``deleteWordStartLeft`` @ キャレットから単語の先頭まで削除する
    ``deleteWordStartRight`` @ キャレットから単語の末尾まで＋区切り文字を削除する
    ``deleteWordEndLeft`` @ キャレットから単語の先頭まで＋区切り文字を削除する
@@ -185,8 +195,10 @@ VS Code の公式文書では列選択モードという言い回しをしてい
 
 .. csv-table::
    :delim: @
-   :header: コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 操作
    :guilabel:`Sort Lines Ascending` @ 行単位で昇順に並び替える
    :guilabel:`Sort Lines Descending` @ 行単位で降順に並び替える
    :guilabel:`Delete Duplicated Lines` @ 行単位で重複するものを一つを除いて削除する
@@ -200,8 +212,10 @@ Windows 標準の意味でのクリップボード操作は VS Code でも有効
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`X` @ 切り取り
    :kbd:`Ctrl` + :kbd:`C` @ コピー
    :kbd:`Ctrl` + :kbd:`V` @ 貼り付け
@@ -214,8 +228,10 @@ HTML や JavaScript などは VS Code 自身が整形規則を規定しており
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Shift` + :kbd:`Alt` + :kbd:`F` @ バッファー内容全体を整形する
    :kbd:`Ctrl` + :kbd:`K` :kbd:`Ctrl` + :kbd:`F` @ 選択部分を整形する
 
@@ -236,8 +252,10 @@ HTML や JavaScript などは VS Code 自身が整形規則を規定しており
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`[` @ キャレット位置のブロックを畳む
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`]` @ キャレット位置のブロックを展開する
 
@@ -253,8 +271,10 @@ Markdown ならば、文字列 ``<!-- #region -->`` から文字列 ``<!-- #endr
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`]` @ キャレットのある行をインデントする
    :kbd:`Ctrl` + :kbd:`[` @ キャレットのある行のインデントを一単位戻す
 
@@ -272,8 +292,10 @@ VS Code は開いているファイルを分析し、採用されているイン
 
 .. csv-table::
    :delim: @
-   :header: コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 操作
    :guilabel:`Indent Using Spaces` @ 空白文字を使ってインデントすることにする
    :guilabel:`Indent Using Tabs` @ タブ文字を使ってインデントすることにする
    :guilabel:`Detect Indentation from Content` @ インデント設定を検出する
@@ -300,8 +322,10 @@ MS Office のソフトウェアと同様に、バッファーの内容を編集�
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`Z` @ 元に戻す
    :kbd:`Ctrl` + :kbd:`Y` @ やり直す
 
@@ -340,8 +364,10 @@ Hot Exit
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`F` @ バッファー内から文字列を検索する
    :kbd:`Ctrl` + :kbd:`H` @ バッファー内の文字列を置換
 
@@ -381,8 +407,10 @@ Hot Exit
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`F` @ ファイル群から文字列を検索する
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`H` @ ファイル群に対して文字列を置換する
 

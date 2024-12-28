@@ -434,9 +434,10 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 .. csv-table::
    :delim: @
-   :header: オブジェクト, クラス, 名前, 意味
+   :header-rows: 1
    :widths: auto
 
+   オブジェクト @ クラス @ 名前 @ 意味
    ``R2`` @ ``Manifold``  @  ``'R^2'`` @ ユークリッド空間 :math:`\RR^2` を多様体としてみたもの
    ``R2_origin`` @ ``Patch`` @ ``'origin'`` @ ``R2`` の局所（というか大域）座標近傍
    ``R2_r`` @ ``CoordSystem`` @ ``'rectangular'`` @ ``R2_origin`` の局所座標を直交座標系で表現したもの

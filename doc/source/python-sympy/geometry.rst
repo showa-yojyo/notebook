@@ -259,9 +259,10 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 
     .. csv-table::
        :delim: @
-       :header: 名前, Point, Circle, 何の交点か
+       :header-rows: 1
        :widths: auto
 
+       名前 @ Point @ Circle @ 何の交点か
        外心 (O) @ ``circumcenter`` @ ``circumcircle`` @ :code:`sides().perpendicular_bisector()`
        垂心 (H) @ ``orthocenter`` @ なし @ ``altitudes``
        内心 (I) @ ``incenter`` @ ``incircle`` @ ``bisectors``

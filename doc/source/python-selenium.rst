@@ -324,8 +324,10 @@ Selenium は「指定要素が指定状態になるまでプログラム実行�
 
 .. csv-table:: 条件一覧
    :delim: @
-   :header: コンストラクター, 待機解除条件
+   :header-rows: 1
+   :widths: auto
 
+   コンストラクター @ 待機解除条件
    ``title_is(title)``@ HTML の ``<title>`` タグの値が指定値と一致する。
    ``title_contains(title)``@ HTML の ``<title>`` タグの値が指定値を部分文字列とする。
    ``presence_of_element_located(locator)``@ HTML の DOM に指定要素が存在する。

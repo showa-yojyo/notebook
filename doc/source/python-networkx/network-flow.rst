@@ -56,9 +56,10 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。図の各辺
 
 .. csv-table::
    :delim: @
-   :header: 関数, 計算量, コメント
+   :header-rows: 1
    :widths: auto
 
+   関数 @ 計算量 @ コメント
    ``preflow_push``@:math:`O(n^2 \sqrt{m})`@デフォルトのアルゴリズム。
    ``ford_fulkerson``@:math:`O(nm^2)`@レガシーな実装とのこと。
    ``edmonds_karp``@:math:`O(n m^2)`@``ford_fulkerson`` の「特殊版」の実装。

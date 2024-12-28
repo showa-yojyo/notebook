@@ -22,9 +22,10 @@ Creating and Opening Files
 
 .. csv-table::
    :delim: #
-   :header: コマンド,キーバインド,
+   :header-rows: 1
    :widths: auto
 
+   コマンド # キーバインド,
    :menuselection:`New` # :kbd:`Ctrl` + :kbd:`N` # 内容を新規作成する
    :menuselection:`New from Template...` # :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`N` # テンプレートを選択して内容を作成する
    :menuselection:`Open...` # :kbd:`Ctrl` + :kbd:`O` # ファイルから内容をロードする
@@ -53,9 +54,10 @@ Saving Files
 
 .. csv-table::
    :delim: #
-   :header: コマンド,キーバインド,
+   :header-rows: 1
    :widths: auto
 
+   コマンド # キーバインド,
    :menuselection:`Save` # :kbd:`Ctrl` + :kbd:`S` # 通常の意味での上書き保存
    :menuselection:`Save As...` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`S` # 通常の意味での別名保存
    :menuselection:`Save a Copy...` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`S` # 下記参照

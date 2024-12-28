@@ -258,8 +258,10 @@ SendToCygwin の Windows 7 版が存在しないことを除いて、前述と�
 
 .. csv-table::
    :delim: |
-   :header: 環境変数,設定値
+   :header-rows: 1
+   :widths: auto
 
+   環境変数 | 設定値
    ``PYTHONIOENCODING`` | UTF-8
    ``PYTHONPATH``       | 自作モジュールのパス
 
@@ -385,9 +387,10 @@ Cygwin :program:`bash` で作業をするため、主にエイリアスとパス
 
 .. csv-table::
    :delim: |
-   :header: Task,Command
-   :widths: 12, 88
+   :header-rows: 1
+   :widths: auto
 
+   Task | Command
    {Python} | :command:`D:\\Python35\\python.exe -i`
    {IPython}| :command:`D:\\Python35\\Scripts\\ipython3.exe`
    {isympy} | :command:`D:\\Python35\\python.exe "D:\\home\\yojyo\\devel\\sympy\\bin\\isympy" -- --profile=sympy`

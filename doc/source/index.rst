@@ -1,6 +1,11 @@
-======================================================================
-読書ノート
-======================================================================
+.. title:: 読書ノート
+
+.. figure:: /_images/logo.svg
+   :align: center
+   :alt: 読書ノート
+   :figwidth: image
+   :scale: 100%
+   :width: 100%
 
 * 本ノートの内容は常に実利的であること。
 * 読書ノートで扱う書物は、基本的に現在から五年以上昔に出版されたものを優先するこ
@@ -57,6 +62,9 @@
    kantor22/index
    ou23/index
    github/index
+   libreoffice/common/index
+   libreoffice/calc-guide/index
+   libreoffice/writer-guide/index
 
 .. toctree::
    :caption: ノートにまとまっていない書籍類一覧
@@ -73,6 +81,7 @@
    :glob:
    :maxdepth: 1
 
+   bash
    bash-v[2-5]
    powershell
 
@@ -90,7 +99,10 @@
 
    python-3.[0-9]
    python-3.1[0-9]
+   python-upgrade
+   python-miniconda
    python-pip
+   python-pipenv
    python-pylint
    python-docutils/index
    python-restview
@@ -122,8 +134,6 @@
    python-pytube
    youtube-dl
    python-py2exe
-   python-upgrade
-   python-miniconda
 
 .. toctree::
    :caption: Ruby
@@ -132,9 +142,12 @@
    ruby-jekyll
 
 .. toctree::
-   :caption: データベース
+   :caption: データベースノート
    :maxdepth: 1
 
+   database/mssql-server
+   database/mysql
+   database/postgresql
    database/firebird
    database/sqlite
    database/couchdb
@@ -142,26 +155,33 @@
    database/orientdb
    database/neo4j
    database/dynamodb
+   database/mariadb
 
 .. toctree::
    :caption: ソフトウェア・ツール・パッケージ・ライブラリーノート
    :maxdepth: 1
 
+   backup-restore
    freeware
    google-ime
    deepl-translator
    winget
+   libreoffice/index
    powertoys/index
    windows-terminal
    wsl
    wslg
    vscode/index
+   regex
    cygwin
+   xdg
    chrome
    git/index
+   docker/index
    oh-my-posh
    twitter
    inkscape/index
+   vlc-media-player
    ffmpeg/index
    mathjax
    javascript-mermaid/index
@@ -174,9 +194,16 @@
    zoom
 
 .. toctree::
+   :caption: ハードウェア・システムノート
+   :maxdepth: 1
+
+   android
+
+.. toctree::
    :caption: その他
    :maxdepth: 1
 
+   milestone08/index
    milestone09/index
 
 .. toctree::

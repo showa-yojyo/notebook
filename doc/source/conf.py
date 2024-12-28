@@ -3,9 +3,9 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import sys
-import os
 from datetime import date
+import os
+import sys
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -14,25 +14,22 @@ from datetime import date
 sys.path.append(os.path.abspath('./_extension'))
 
 # -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-# The documented project’s name.
 project = '読書ノート'
-
-# The author name(s) of the document.
 author = 'プレハブ小屋'
-
-# A copyright statement in the style '2008, Author Name'.
 copyright = f'1999-{date.today().year}, {author} All rights reserved'
-
-# The short X.Y version.
-# The major project version, used as the replacement for |version|.
-version = '1.5'
-
-# The full project version, used as the replacement for |release| and e.g. in
-# the HTML templates.
-release = '1.5'
+release = '1.6dev'
+version = '1.6'
 
 # -- General configuration -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+exclude_patterns = [
+    '_include',
+    '_sample',
+    'savefig',
+]
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
@@ -46,14 +43,6 @@ extensions = [
     'sphinx.ext.todo',
     'sphinxcontrib.mermaid',]
 
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
-
-# The master toctree document.
-root_doc = 'index'
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -61,11 +50,8 @@ templates_path = ['_templates']
 suppress_warnings = ['autosectionlabel.*']
 
 # -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes:
-# https://www.sphinx-doc.org/en/master/usage/theming.html
-#
 # Alabaster and Scrolls themes are mobile-optimated.
 html_theme = 'alabaster'
 
@@ -95,6 +81,9 @@ html_theme_options = {
     'sidebar_link_underscore': 'deeppink',
     'sidebar_text': 'initial',
 }
+
+html_title = f'{project} {release}'
+html_short_title = f'{project}'
 
 # A list of JavaScript filename.
 html_js_files = [

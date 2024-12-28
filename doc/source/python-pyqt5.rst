@@ -256,8 +256,10 @@ Qt Desinger
 
 .. csv-table::
    :delim: |
-   :header: ファイルの名前,ファイルの意味
+   :header-rows: 1
+   :widths: auto
 
+   ファイルの名前 | ファイルの意味
    :file:`myform.ui`    | Qt Designer での GUI 設計内容を保存した XML ファイル
    :file:`ui_myform.py` | 上記 ui ファイルを :file:`pyuic5.bat` でコンバートした内容を保存したもの
    :file:`myapp.py`     | 設計した GUI を利用する Python スクリプトファイル

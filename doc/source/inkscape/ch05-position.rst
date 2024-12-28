@@ -170,9 +170,10 @@ Translations
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,挙動
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | 挙動
    矢印キー | :guilabel:`Arrow Keys move by` 量だけ移動
    :kbd:`Shift` + 矢印キー | 矢印キー単発だけのときの十倍移動
    :kbd:`Alt` + 矢印キー | 画面画素一個分だけ移動
@@ -185,9 +186,10 @@ Scaling
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,挙動
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | 挙動
    :kbd:`.` or :kbd:`>` | 拡大
    :kbd:`,` or :kbd:`<` | 縮小
    :kbd:`Ctrl` + :kbd:`.` or :kbd:`Ctrl` + :kbd:`>` | 二倍の大きさになる
@@ -214,9 +216,10 @@ Rotation
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,操作
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | 操作
    :kbd:`[` | 左にユーザー設定値だけ回転
    :kbd:`]` | 右にユーザー設定値だけ回転
    :kbd:`Ctrl` + :kbd:`[` | 左に 90 度回転
@@ -236,9 +239,10 @@ Flipping
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,操作
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | 操作
    :kbd:`H` | 水平に反転
    :kbd:`V` | 垂直に反転
 
@@ -595,9 +599,10 @@ Align
 
    .. csv-table::
       :delim: |
-      :header: キーバインド,操作
+      :header-rows: 1
       :widths: auto
 
+      キーバインド | 操作
       :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`H` | Center on vertical axis
       :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`T` | Center on horizontal axis
       :kbd:`Ctrl` + :kbd:`Alt` + :kbd:`Num5` | 上記の操作の合成

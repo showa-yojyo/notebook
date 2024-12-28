@@ -1,10 +1,64 @@
 {% extends "alabaster/layout.html" %}
 
+{#
+  See:
+
+  * /site-packages/alabaster/layout.html
+  * /site-packages/sphinx/themes/basic/layout.html
+  * <https://www.sphinx-doc.org/en/master/development/templating.html>
+#}
+
+{%- macro markup_rellinks_with_parent() %}
+  <nav id="rellinks">
+    <ul>
+      {%- if prev %}
+        <li>
+          &larr;
+          <a href="{{ prev.link | e }}" title="Previous">{{ prev.title }}</a>
+        </li>
+      {%- endif %}
+      {# XXX #}
+      {%- for parent in parents %}
+        {%- if prev != parent %}
+        <li>
+          &uarr;
+          <a href="{{ parent.link | e }}" title="Parent">{{ parent.title }}</a>
+        </li>
+        {%- endif %}
+      {%- endfor %}
+      {%- if next %}
+        <li>
+          <a href="{{ next.link | e }}" title="Next">{{ next.title }}</a>
+          &rarr;
+        </li>
+      {%- endif %}
+    </ul>
+  </nav>
+{%- endmacro %}
+
+{%- block relbar_top %}
+  {%- if theme_show_relbar_top | tobool %}
+    <div class="related top">
+      &nbsp;
+      {{- markup_rellinks_with_parent() }}
+    </div>
+  {%- endif %}
+{% endblock %}
+
+{%- block relbar_bottom %}
+  {%- if theme_show_relbar_bottom | tobool %}
+    <div class="related bottom">
+      &nbsp;
+      {{- markup_rellinks_with_parent() }}
+    </div>
+  {%- endif %}
+{% endblock %}
+
 {%- block footer %}
 <div class="footer">
   <ul>
     <li id="footer_logo">
-      <a class="image-reference" href="https://showa-yojyo.github.io/" title="プレハブ小屋 Since 1999"><img src="{{ pathto('_static/logos.png', 1) }}"/></a>
+      <a class="image-reference" href="{{ pathto(root_doc) }}" title="読書ノート Home"><img src="{{ pathto('_images/logo.svg', 1) }}"/></a>
     </li>
     <li id="footer_copyright">
       Copyright &copy; {{ copyright }}.

@@ -80,9 +80,10 @@ Fill and Stroke Paint
 
 .. csv-table::
    :delim: |
-   :header: ボタン,塗り
+   :header-rows: 1
    :widths: auto
 
+   ボタン | 塗り
    :guilabel:`No paint` | 透明
    :guilabel:`Flat` | ベタ塗り
    :guilabel:`Linear Gradient` | 線形グラデーション
@@ -260,9 +261,10 @@ Display
 
 .. csv-table::
    :delim: |
-   :header: 表示,意味
+   :header-rows: 1
    :widths: auto
 
+   表示 | 意味
    実際の色 | 左側と右側がそれぞれアルファーなしありの色
    :guilabel:`N/A` | オブジェクトが選択されていない
    :guilabel:`None` | 定義されている塗りつぶしがない
@@ -277,9 +279,10 @@ Display
 
 .. csv-table::
    :delim: |
-   :header: 表示,意味
+   :header-rows: 1
    :widths: auto
 
+   表示 | 意味
    :guilabel:`m` | すべてが同じ塗りつぶし色だ
    :guilabel:`a` | 異なる塗りつぶし色がある（平均色を表示）
 
@@ -489,9 +492,10 @@ Onscreen Editing
 
 .. csv-table::
    :delim: |
-   :header: ハンドル,停止点
+   :header-rows: 1
    :widths: auto
 
+   ハンドル | 停止点
    ○ | 開始
    ◇ | 中間
    □ | 終了
@@ -614,9 +618,10 @@ Adjusting Gradients
 
 .. csv-table::
    :delim: |
-   :header: モード,グラデーション
+   :header-rows: 1
    :widths: auto
 
+   モード | グラデーション
    :guilabel:`None` | 停止点の色で塗りつぶす
    :guilabel:`Direct` | 同じグラデーションを反復
    :guilabel:`Reflected` | 同じグラデーションを反射

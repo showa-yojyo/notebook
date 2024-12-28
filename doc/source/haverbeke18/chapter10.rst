@@ -323,8 +323,10 @@ NPM_ であらかじめ書かれたものはどのようなものがあるか。
 
 .. csv-table::
    :delim: |
-   :header: モジュール, 内容, ～に依存する
+   :header-rows: 1
+   :widths: auto
 
+   モジュール | 内容 | ～に依存する
    ``mailRoute.js`` | ``mailRoute`` | なし
    ``graph.js`` | ``buildGraph`` | なし
    ``randomPick.js`` | ``randomPick`` | なし

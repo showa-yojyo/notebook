@@ -8,15 +8,24 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build HTML
-      uses: ammaraskar/sphinx-action@master
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5.2.0
       with:
-        docs-folder: doc
+        python-version: '3.12'
 
-    - run: sudo rm -rf build/html/_sources
+    - name: Install Pipenv and requirements, and build docs
+      run: |
+        pip install --user pipenv
+        cd doc
+        pipenv sync
+        pipenv run make html
+        cd -
+
+    - name: Remove source reST files
+      run: rm -rf build/html/_sources
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: ${{ github.ref == 'refs/heads/master' }}
       with:
         name: html-docs
@@ -25,7 +34,7 @@ jobs:
           !doc/build/html/_sources
 
     - name: Deploy HTML
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
