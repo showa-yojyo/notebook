@@ -4,55 +4,60 @@ Jupyter 利用ノート
 
 本稿は Python 製 Web アプリケーション Jupyter_ についての私的なノートだ。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
    :depth: 3
+   :local:
 
 .. note::
 
    本稿執筆時の動作環境は次のとおり。
 
-   * OS: Windows 10 Home (64 bit)
-   * Python_: 3.5.2 (64 bit)
-   * Jupyter_: 1.0.0
+   * OS: Windows 10 Home (64 bit), WSL2
+   * Python_: 3.5.2 (64 bit), 3.12.3
+   * Jupyter_: 1.0.0, etc.
 
-     * jupyter_client: 4.3.0
+     * jupyter_client: 4.3.0, 8.6.1
      * jupyter_console: 5.0.0
-     * jupyter_core: 4.1.1
+     * jupyter_core: 4.1.1, 5.7.2
+
+.. include:: /_include/abbr.txt
+.. include:: /_include/kbd.txt
 
 関連リンクおよび参考サイト
 ======================================================================
 
 `Project Jupyter <http://jupyter.org/>`__
   Jupyter 開発サイトのホームページ。
-
 `Jupyter console <https://jupyter-console.readthedocs.io/en/latest/>`__
   Jupyter Console 開発サイトのホームページ。中身は開発者向けであり、利用者に対す
   る気の利いた文書のようなものはない。
-
 `The Jupyter notebook <https://jupyter-notebook.readthedocs.io/en/latest/>`__
   Jupyter Notebook 開発サイトのホームページ。
-
 `A Qt Console for Jupyter <https://jupyter.org/qtconsole/stable/>`__
   Jupyter QtConsole 開発サイトのホームページ。
-
 `IPython kernels for other languages <https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages>`__
   カーネル一覧。どうやら一般的にカーネルごとにインストール方法が異なるらしい。
-
 Pandoc_
-  Notebook ファイルを LaTeX やさらには PDF 形式に変換するのにこれが必要になる。
+  Notebook ファイルを LaTeX やさらには |PDF| 形式に変換するのにこれが必要にな
+  る。
 
 Jupyter の概要を把握する
 ======================================================================
 
-IPython と Jupyter Notebook がどのように作用し合うかをまとめた次の文書を読むと
-良い：
+IPython と Jupyter Notebook がどのように作用し合うかをまとめた次の文書を読むと良
+い：
 
-* `How IPython and Jupyter Notebook work <http://jupyter.readthedocs.io/en/latest/architecture/how_jupyter_ipython_work.html>`__
+* `How IPython and Jupyter Notebook work
+  <http://jupyter.readthedocs.io/en/latest/architecture/how_jupyter_ipython_work.html>`__
 
 Terminal IPython
 ----------------------------------------------------------------------
 
-* 承知しているが IPython とは REPL モデルの端末である。
+* 承知しているが IPython とは REPL モデルの端末だ。
+
+.. seealso::
+
+   :doc:`/python-ipython`
 
 The IPython Kernel
 ----------------------------------------------------------------------
@@ -75,35 +80,34 @@ The IPython Kernel
 Notebooks
 ----------------------------------------------------------------------
 
-* Notebook も IPython Kernel のフロントエンドの一つであるが、ある特別なことをす
-  る。
-* ユーザーコードを走らせることに加えて、 Notebook 専用の書式の編集可能な文書に
+* Notebook も IPython Kernel のフロントエンドの一つだが、ある特別なことをする。
+* ユーザーコードを走らせることに加えて、Notebook 専用の書式の編集可能な文書に
   コード、出力、Markdown テキストを保存する。
 * ユーザーが保存するときに、ブラウザーからサーバーに文書データが送信されて、ディ
   スクに拡張子 ``.ipynb`` の JSON ファイルとして保存する。
 * カーネルではなくサーバーが Notebook データの保存や読み込みを行う。そのため、編
-  集したいノートの言語カーネルをユーザーが持っていなくても編集は可能である。
+  集したいノートの言語カーネルをユーザーが持っていなくても編集は可能だ。
 
 Exporting notebooks to other formats
 ----------------------------------------------------------------------
 
-* Nbconvert についての概要。後述する :code:`jupyter nbconvert` の覚え書きで見て
-  いく。
-* ウェブ上の ``ipynb`` ファイルの URL を指定すると HTML に変換してそのままブラウ
-  ザーで閲覧できる `nbviewer <http://nbviewer.jupyter.org/>`__ というサービスが
-  ある。
+* Nbconvert についての概要。後述する ``jupyter nbconvert`` の覚え書きで見てい
+  く。
+* ウェブ上の ``ipynb`` ファイルの |URL| を指定すると |HTML| に変換してそのままブ
+  ラウザーで閲覧できる `nbviewer <http://nbviewer.jupyter.org/>`__ というサービ
+  スがある。
 
 IPython.parallel
 ----------------------------------------------------------------------
 
 IPython は IPython.parallel という名の平行計算フレームワークを含む。多数の個々の
-エンジンを制御することができる、上に述べた IPython Kernel の拡張版である。
+エンジンを制御することができる、上に述べた IPython Kernel の拡張版だ。
 
 Jupyter をインストールする
 ======================================================================
 
-:ref:`python-pkg-proc` を参照してインストールすること。図で示されているところの
-:program:`conda` を利用するルートになる。
+:ref:`miniconda-anchor-pip` を参照してインストールしろ。:program:`conda` を利用
+するルートになるはずだ。
 
 参考までに私の Miniconda 環境で Python 本体しか使えない更地の仮想環境を作成し、
 そこに Jupyter をインストールしようとすると、どのような他の必要パッケージが一緒
@@ -178,7 +182,7 @@ Jupyter をインストールする
   いる。ダウンロードとインストールに要する時間は上記のリストから想像するよりは短
   くなる。
 * 同じことを確認するためのコマンドライン入力は
-  :code:`conda create --dry-run -n jupyter-demo jupyter` でもよい。
+  ``conda create --dry-run -n jupyter-demo jupyter`` でもよい。
 
 設定を理解する
 ======================================================================
@@ -190,14 +194,14 @@ Jupyter をインストールする
 用の設定ファイルが対応する。設定ファイル自身は optional なので、利用者が不要と判
 断すればわざわざ作成することはない。
 
-例えば後述するサブコマンド :code:`jupyter nbconvert` はそれ専用の設定ファイルを
-扱っており、その既定のパスは :file:`$HOME/.jupyter/jupyter_nbconvert_config.py`
-である。このファイルのスケルトンを得るには、次のようにする（一部加工済）。
+例えば後述するサブコマンド ``jupyter nbconvert`` はそれ専用の設定ファイルを扱っ
+ており、その既定のパスは :file:`$HOME/.jupyter/jupyter_nbconvert_config.py` だ。
+このファイルのスケルトンを得るには、次のようにする（一部加工済）。
 
 .. code:: console
 
    bash$ jupyter nbconvert --generate-config
-   Writing default config to: $HOME\.jupyter\jupyter_nbconvert_config.py
+   Writing default config to: /home/USERNAME/.jupyter/jupyter_nbconvert_config.py
 
 * 他のサブコマンドも同様にオプション ``--generate-config`` を指定することでその
   サブコマンド専用設定ファイルのスケルトンを既定のディレクトリーに生成することが
@@ -214,17 +218,21 @@ Jupyter をインストールする
 
 .. code:: console
 
-   bash$ jupyter --paths
+   $ jupyter --paths
    config:
-       $HOME\.jupyter
-       D:\Miniconda3\etc\jupyter
-       C:\ProgramData\jupyter
+       /home/USERNAME/.local/share/conda/envs/python-3.12/etc/jupyter
+       /home/USERNAME/.config/jupyter
+       /home/USERNAME/.local/share/python/etc/jupyter
+       /usr/local/etc/jupyter
+       /etc/jupyter
    data:
-       C:\Users\$USER\AppData\Roaming\jupyter
-       D:\Miniconda3\share\jupyter
-       C:\ProgramData\jupyter
+       /home/USERNAME/.local/share/conda/envs/python-3.12/share/jupyter
+       /home/USERNAME/.local/share/jupyter
+       /home/USERNAME/.local/share/python/share/jupyter
+       /usr/local/share/jupyter
+       /usr/share/jupyter
    runtime:
-       C:\Users\$USER\AppData\Roaming\jupyter\runtime
+       /home/USERNAME/.local/share/jupyter/runtime
 
 * :program:`jupyter` は上の三種の区分別にディレクトリーを表示するためのコマンド
   ラインオプションも提供している。
@@ -243,36 +251,54 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
 環境変数のどれかに何らかのディレクトリーパスを指定すると、それが対応する区分のも
 のの地点を表すものとして取り扱われる。
 
-サブコマンドを確認する
-======================================================================
+当ノートでは :doc:`XDG Base Directory 仕様</xdg>` に則り設定ファイル置場
+を指定する。Jupyter は当該仕様に対応しており、使用者は適切な場所で次のような定義
+を与えればよい：
 
-:program:`jupyter` のサブコマンドを知るには、この実行ファイルがあるディレクト
-リーでファイル :file:`jupyter-*.exe` を表示すればよい。ハイフン以降拡張子以前の
-文字列がサブコマンド名と合致する。
+.. code:: bash
+
+   export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+
+なお、XDG 環境変数 ``XDG_DATA_HOME`` のほうは Jupyter が慮ってくれる：
 
 .. code:: console
 
-   bash$ cd /d/Miniconda3/Scripts
-   bash$ ls jupyter*.exe
-   jupyter.exe*             jupyter-nbextension.exe*
-   jupyter-console.exe*     jupyter-notebook.exe*
-   jupyter-kernelspec.exe*  jupyter-qtconsole.exe*
-   jupyter-migrate.exe*     jupyter-serverextension.exe*
-   jupyter-nbconvert.exe*   jupyter-trust.exe*
+   $ echo $XDG_DATA_HOME
+   /home/USERNAME/.local/share
+   $ jupyter --data-dir
+   /home/USERNAME/.local/share/jupyter
+   $ jupyter --runtime-dir
+   /home/USERNAME/.local/share/jupyter/runtime
 
-* :code:`jupyter subcommand args` を実行すると、実際には
-  :code:`jupyter-subcommand args` を実行することと同じであると考えられる。
-* どのサブコマンドもオプション ``--help`` と ``--help-all`` を提供している。
-* サブコマンドにはさらにサブコマンドが存在することがある。一例を挙げると
-  :code:`jupyter nbextenion list` だ。
+サブコマンドを確認する
+======================================================================
 
-サブコマンド :command:`jupyter console`
+:program:`jupyter` のサブコマンドを知るには、``jupyter --help`` の出力末尾付近、
+Available subcommands の記述を見ればよい：
+
+   Available subcommands: console dejavu events execute fileid kernel kernelspec
+   lab labextension labhub migrate nbclassic nbconvert notebook qtconsole run
+   server troubleshoot trust
+
+``jupyter subcommand args`` を実行すると、実際には ``jupyter-subcommand args`` を
+実行することと同じであると考えられる。次を確認してみろ：
+
+.. code:: console
+
+   $ ls $(dirname $(which jupyter))/jupyter*
+
+どのサブコマンドもオプション ``--help`` と ``--help-all`` を備えている。
+
+サブコマンドにはさらにサブコマンドが存在することがある。一例を挙げると ``jupyter
+nbextenion list`` だ。
+
+サブコマンド ``jupyter console``
 ======================================================================
 
 このサブコマンドはコンソールアプリケーションのセッションを現在の端末ウィンドウに
 開始する。
 
-:command:`jupyter console`
+``jupyter console``
   このコマンドを実行すると、その場で IPython のセッションが開始する。
   :doc:`/python-ipython` で習得した物事が全て通用する。
 
@@ -282,7 +308,7 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
 
 * コマンドラインオプション ``--existing`` はこのことと関係する？
 
-:command:`jupyter console --kernel kernel_name`
+``jupyter console --kernel kernel_name``
   開始するための既定のカーネルを指定する。このオプションがないと ``python`` が指
   定されたものとして振る舞う。
 
@@ -291,41 +317,7 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
   ル :file:`jupyter_console_config.py` のスケルトンを前述のディレクトリーに生成
   する。
 
-bash_kernel_ をインストールして（次の節参照）コンソールを起動してみたところ、謎
-の例外が発生した。
-
-.. code:: console
-
-   bash$ jupyter console --kernel=bash
-   Traceback (most recent call last):
-     File "D:\Miniconda3\lib\runpy.py", line 184, in _run_module_as_main
-       "__main__", mod_spec)
-     File "D:\Miniconda3\lib\runpy.py", line 85, in _run_code
-       exec(code, run_globals)
-     File "D:\Miniconda3\lib\site-packages\bash_kernel\__main__.py", line 3, in <module>
-       IPKernelApp.launch_instance(kernel_class=BashKernel)
-     File "D:\Miniconda3\lib\site-packages\traitlets\config\application.py", line 595, in launch_instance
-       app.initialize(argv)
-     File "<decorator-gen-121>", line 2, in initialize
-     File "D:\Miniconda3\lib\site-packages\traitlets\config\application.py", line 74, in catch_config_error
-       return method(app, *args, **kwargs)
-     File "D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py", line 454, in initialize
-       self.init_kernel()
-     File "D:\Miniconda3\lib\site-packages\ipykernel\kernelapp.py", line 365, in init_kernel
-       user_ns=self.user_ns,
-     File "D:\Miniconda3\lib\site-packages\traitlets\config\configurable.py", line 412, in instance
-       inst = cls(*args, **kwargs)
-     File "D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py", line 46, in __init__
-       self._start_bash()
-     File "D:\Miniconda3\lib\site-packages\bash_kernel\kernel.py", line 55, in _start_bash
-       self.bashwrapper = replwrap.bash()
-     File "D:\Miniconda3\lib\site-packages\pexpect\replwrap.py", line 110, in bash
-       child = pexpect.spawn(command, ['--rcfile', bashrc], echo=False,
-   AttributeError: module 'pexpect' has no attribute 'spawn'
-
-他所製のモジュールで困ったことになっているようだ。
-
-サブコマンド :command:`jupyter kernelspec`
+サブコマンド ``jupyter kernelspec``
 ======================================================================
 
 このサブコマンドは Jupyter のカーネルの詳細を管理するためのものだ。Jupyter イン
@@ -333,9 +325,9 @@ bash_kernel_ をインストールして（次の節参照）コンソールを�
 
 .. code:: console
 
-   bash$ jupyter kernelspec list
+   $ jupyter kernelspec list
    Available kernels:
-     python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
+     python3    /home/USERNAME/.local/share/conda/envs/python-3.12/share/jupyter/kernels/python3
 
 * 上記ディレクトリーの中身は Python ロゴが描かれたサイズの異なる PNG ファイル 2
   個だ。
@@ -345,26 +337,21 @@ bash_kernel_ をインストールして（次の節参照）コンソールを�
 
 .. code:: console
 
-   bash$ pip install bash_kernel
+   $ pip install bash_kernel
    Collecting bash_kernel
-     Downloading bash_kernel-0.4.1-py2.py3-none-any.whl
-   Collecting pexpect>=3.3 (from bash_kernel)
-     Downloading pexpect-4.2.1-py2.py3-none-any.whl (55kB)
-       100% |笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎笆遺毎| 61kB 140kB/s
-   Collecting ptyprocess>=0.5 (from pexpect>=3.3->bash_kernel)
-     Downloading ptyprocess-0.5.1-py2.py3-none-any.whl
-   Installing collected packages: ptyprocess, pexpect, bash-kernel
-   Successfully installed bash-kernel-0.4.1 pexpect-4.2.1 ptyprocess-0.5.1
-
-   bash$ python -m bash_kernel.install
+     Downloading bash_kernel-0.9.3-py2.py3-none-any.whl.metadata (3.4 kB)
+   （中略）
+   Installing collected packages: bash_kernel
+   Successfully installed bash_kernel-0.9.3
+   $ python -m bash_kernel.install
    Installing IPython kernel spec
 
-   bash$ jupyter kernelspec list
+   $ jupyter kernelspec list
    Available kernels:
-     python3    D:\Miniconda3\lib\site-packages\ipykernel\resources
-     bash       $APPDATA\Roaming\jupyter\kernels\bash
+     python3    /home/USERNAME/.local/share/conda/envs/python-3.12/share/jupyter/kernels/python3
+     bash       /home/USERNAME/.local/share/jupyter/kernels/bash
 
-サブコマンド :command:`jupyter migrate`
+サブコマンド ``jupyter migrate``
 ======================================================================
 
 私はこれを利用する必要はないらしい。事実、IPython から Jupyter に移行したい資源
@@ -372,10 +359,10 @@ bash_kernel_ をインストールして（次の節参照）コンソールを�
 
 .. code:: console
 
-   bash$ jupyter migrate
+   $ jupyter migrate
    [JupyterMigrate] Found nothing to migrate.
 
-サブコマンド :command:`jupyter nbconvert`
+サブコマンド ``jupyter nbconvert``
 ======================================================================
 
 このサブコマンドを ipynb ファイルから HTML, LaTeX, PDF, Markdown,
@@ -384,23 +371,22 @@ reStructuredText といった、指定する形式のファイルを生成変換
 
 実際にいくつかの用例を試したので、感想を記す。
 
-:command:`jupyter nbconvert helloworld.ipynb`
+``jupyter nbconvert --to html helloworld.ipynb``
   ファイル :file:`helloworld.ipynb` から :file:`helloworld.html` を生成する。
 
 * これは Jupyter Notebook 稼働中にブラウザーで目にするものと同じだが、これをブラ
   ウザー上で編集することはできない。
-
 * ちなみにこのコマンドラインで生成する HTML ファイルはサイズが思いのほか大きくな
   る。見栄えがショボくても気にならないようなときにはオプション
-  :code:`--template basic` を与えることで単純な HTML ファイルを生成させたい。
+  ``--template basic`` を与えることで単純な HTML ファイルを生成させたい。
 
-:code:`jupyter nbconvert --to latex helloworld.ipynb`
+``jupyter nbconvert --to latex helloworld.ipynb``
   このサブコマンドが動作する事前条件の一つに Pandoc_ が利用可能であることがあ
   る。正常に動作すれば、次のようにファイル拡張子が ``.tex`` のものが生成される：
 
   .. code:: console
 
-     bash$ jupyter nbconvert --to=latex helloworld.ipynb
+     $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
      [NbConvertApp] Writing 18947 bytes to helloworld.tex
 
@@ -408,7 +394,7 @@ reStructuredText といった、指定する形式のファイルを生成変換
 
   .. code:: console
 
-     bash$ jupyter nbconvert --to=latex helloworld.ipynb
+     $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
      [NbConvertApp] ERROR | Error while converting 'helloworld.ipynb'
      Traceback (most recent call last):
@@ -423,8 +409,6 @@ reStructuredText といった、指定する形式のファイルを生成変換
      Please check that pandoc is installed:
      http://pandoc.org/installing.html
 
-* オプション ``--to`` を明示的に指示しないと ``html`` と指定されたものとして振る
-  舞う。
 * オプション ``--to`` の受け付ける引数には ``html`` の他に ``latex``, ``pdf``,
   ``markdown``, ``rst`` といった、試しがいのある書式が含まれているようだ。
 * オプション ``--stdout`` を与えると、指示した変換内容を標準出力に書き出す。
@@ -469,20 +453,20 @@ reStructuredText といった、指定する形式のファイルを生成変換
 設定ファイルを編集する
 ----------------------------------------------------------------------
 
-Notebook 文書から PDF ファイルに書式変換する際のコマンドラインオプションに
-相当する設定を :file:`$HOME/.jupyter/jupyter_nbconvert_config.py` に指定する。
-それ以外に Dashboard のダウンロードメニューの挙動を制御する術がない。
+Notebook 文書から PDF ファイルに書式変換する際のコマンドラインオプションに相当す
+る設定を :file:`$XDG_CONFIG_HOME/jupyter/jupyter_nbconvert_config.py` に指定す
+る。それ以外に Dashboard のダウンロードメニューの挙動を制御する術がない。
 
 Google を利用する等して色々と調査した結果、日本語文書を扱うには
 :program:`ptex2pdf` を用いるのが一般的なようなので、それをコマンドラインで実行す
 る際の定番オプションをここに適用する。
 
-.. code:: python3
+.. code:: python
 
    # Shell command used to compile latex.
    c.PDFExporter.latex_command = ['ptex2pdf', '-l', '-ot', '-kanji=utf8', '{filename}']
 
-サブコマンド :command:`jupyter nbextension`
+サブコマンド ``jupyter nbextension``
 ======================================================================
 
 このサブコマンドは Notebook の拡張を管理するためのものだ。 Jupyter インストール
@@ -506,17 +490,16 @@ Google を利用する等して色々と調査した結果、日本語文書を�
          nb_conda/tree enabled
          - Validating: ok
 
-サブコマンド :command:`jupyter notebook`
+サブコマンド ``jupyter notebook``
 ======================================================================
 
 このサブコマンドは Jupyter Notebook を管理するものだ。通常実行することで Tornado
 ベースの HTTP サーバーを起動し、 Notebook クライアントが利用可能になる。
 
-:command:`jupyter notebook`
+``jupyter notebook``
   Jupyter Notepad を起動する。同時にダッシュボードページをブラウザーで開く。次節
   で詳しく述べる。
-
-:command:`jupyter notebook --no-browser`
+``jupyter notebook --no-browser``
   Jupyter Notepad を起動するが、ブラウザーでダッシュボードページを開かない。つま
   り、開きたい ipynb ファイルがあれば利用者がそれに対応するアドレスに、好きな手
   段によりアクセスする。
@@ -533,36 +516,14 @@ Jupyter Notebook を起動する
 
 .. code:: console
 
-   bash$ jupyter notebook
-   [W HH:MM:SS.352 NotebookApp] Unrecognized JSON config file version, assuming version 1
-   [I HH:MM:SS.571 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
-   [I HH:MM:SS.905 NotebookApp] [nb_conda] enabled
-   [I HH:MM:SS.573 NotebookApp] ✓ nbpresent HTML export ENABLED
-   [W HH:MM:SS.575 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named 'nbbrowserpdf'
-   [I HH:MM:SS.960 NotebookApp] [nb_anacondacloud] enabled
-   [I HH:MM:SS.592 NotebookApp] Serving notebooks from local directory: D:\home\yojyo
-   [I HH:MM:SS.592 NotebookApp] 0 active kernels
-   [I HH:MM:SS.592 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
-   [I HH:MM:SS.607 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+   $ jupyter notebook
 
-* このログ表示直後に、ウェブブラウザーがアクティブになり、そこに Jupyter
-  Notebook のメイン画面（ダッシュボードと呼ばれている）を表示し、さらにそこには
-  このサービスを起動したディレクトリーにあるファイルとサブディレクトリーの一覧を
-  表示するはずだ。
-
-* これはサービスプロセスなので、専用のコンソールウィンドウで実行するのがよいだろ
-  う。 ConEmu の Tasks にコマンドラインを定義しておくか。下にコマンドラインの一
-  例を記す。好みで ConEmu に対するアイコンやタブ名を指定するのもよい。
-
-  .. code:: text
-
-     D:\Miniconda3\Scripts\jupyter.exe notebook
-     -new_console:d:%USERPROFILE%\jupyter-doc
-     -new_console:t:"Jupyter"
-     -new_console:C:D:\Miniconda3\envs\3.6\Menu\jupyter.ico
-
-* :command:`jupyter notebook` には当然ながらコマンドラインオプションがある。利用
-  価値のありそうなものがあれば洗い出しておきたい。
+* ログ表示直後に Web ブラウザーがアクティブになり、そこに Jupyter Notebook のメ
+  イン画面（ダッシュボードと呼ばれている）を表示し、さらにそこにはこのサービスを
+  起動したディレクトリーにあるファイルとサブディレクトリーの一覧を表示するはず
+  だ。
+* ``jupyter notebook`` には当然ながらコマンドラインオプションがある。利用価値の
+  ありそうなものがあれば洗い出しておきたい。
 * 起動時ログの警告の類を解決しておきたい。PDF うんぬんは気になる。
 
 ダッシュボードを理解する
@@ -589,11 +550,11 @@ Jupyter Notebook を起動する
   文書の修正方法を習得するのが効率が良い。
 * 何はともあれ、メニューから次の項目を選択して内容を確認したい：
 
-  :menuselection:`Help --> User Interface Tour`
+  :menuselection:`Help-->User Interface Tour`
     画面上に小さなダイアログボックスが表示され、ちょっとした UI に関する註釈が記
     されている。矢印キーの右で次にジャンプする。吹き出しの示す位置もジャンプす
     る。これを一巡すれば、ごく基本的な UI の意味は習得できることになる。
-  :menuselection:`Help --> Keyboard Shortcuts`
+  :menuselection:`Help-->Keyboard Shortcuts`
     ショートカットキーの一覧をポップアップ表示する。これを見ると、このエディター
     には Edit モードと Command モードの概念があることが理解できる。ここにあるコ
     マンドを眺めることと、エディターが REPL モデルで設計されていることを総合する
@@ -604,8 +565,8 @@ Jupyter Notebook を起動する
 は、例えばツールバーのドロップダウンリストを使えば可能だ。
 
 * セルの左端が水色だったり黄緑色だったりするが、これはモードによって変わる。
-* セルの評価方法だが、まずは :kbd:`Shift` + :kbd:`Enter` を押せば十分だろう。
-  評価コマンドには色々な変種がある。
+* セルの評価方法だが、まずは |Shift| + |Enter| を押せば十分だろう。評価コマンド
+  には色々な変種がある。
 * セルの挿入、移動、削除は重要なので早く習得することだ。編集を繰り返すうちに
   Python セルのプロンプト番号が文書の時系列順から乱れてくるということが起こりが
   ちだ。これをソートするには :menuselection:`Cell` や :menuselection:`Kernel` の
@@ -619,7 +580,7 @@ Jupyter Notebook を起動する
 単にブラウザー（のタブ）を閉じればよいというわけではない。次のどちらかの方法で編
 集を終える：
 
-* 文書のメニューで :menuselection:`File --> Close and Halt` を選択する
+* 文書のメニューで :menuselection:`File-->Close and Halt` を選択する
 * ダッシュボードの :guilabel:`Running` タブにある :guilabel:`Notebooks` の下から
   対象文書の :guilabel:`Shutdown` ボタンを押す
 
@@ -628,18 +589,16 @@ Jupyter Notebook を起動する
 文書をダウンロードする
 ----------------------------------------------------------------------
 
-メニュー項目 :menuselection:`File --> Download as` のいずれかを選択すると、現在
-編集中の文書を指定の書式にエクスポートをしてダウンロードする。サブメニューに現れ
-る各書式の意味を記す。
+メニュー項目 :menuselection:`File-->Download as` のいずれかを選択すると、現在編
+集中の文書を指定の書式にエクスポートをしてダウンロードする。サブメニューに現れる
+各書式の意味を記す。
 
 :menuselection:`Notebook (.ipynb)`
   原稿ファイルそのものをダウンロードする。
-
 :menuselection:`Python (.py)`
   Python コードとして変換したものをダウンロードする。ファイル内容のうち、
   IPython のプロンプト部分は Python のコードとしてそのまま表現され、それ以外のテ
   キストはコメントアウトされた ``.py`` ファイルとしてエクスポートされる。
-
 :menuselection:`HTML (.html)`
   今ブラウザーで見えている HTML ファイルそのものをダウンロードする。
   CSS や JavaScript などの外付けのファイルのようなものはなく、
@@ -647,7 +606,6 @@ Jupyter Notebook を起動する
 
   * ブラウザーの提供する :menuselection:`名前を付けて保存...` により得られる
     HTML ファイルと同等のものを得ることになる。
-
 :menuselection:`Markdown (.md)`
   Markdown 形式にエクスポートされたファイルをダウンロードする。ファイル内容のう
   ち、 Markdown 部分はそのままに、それ以外のテキストは適切なコードブロックに収ま
@@ -656,13 +614,11 @@ Jupyter Notebook を起動する
   * この形式のファイルを GitHub のリポジトリーに格納することで、他の人には読み取
     り専用として扱わせるのに便利と思うかもしれないが、実際には GitHub も
     ``.ipynb`` ビューワーを提供しているのでそれには及ばない。
-
 :menuselection:`reST (.rst)`
   reStructuredText 形式にエクスポートされたファイルをダウンロードする。エクス
   ポートの方針は ``.md`` のときとたいへん似ている。
 
   * これは本稿のように Sphinx で管理する文書のページの基にすることができそうだ。
-
 :menuselection:`PDF via LaTeX (.pdf)`
   いったん ``.tex`` ファイルに変換してから ``.pdf`` ファイルに変換したものをダウ
   ンロードする。
@@ -672,26 +628,24 @@ Jupyter Notebook を起動する
     例えば日本語で書かれた文書を既定のテンプレートで出力しようとしていたり、イン
     ターネット上の URL により参照される画像を含んでいたりするものはまず失敗する
     だろう。
-
   * 某チュートリアルの ``.ipynb`` ファイルでテストしたところ、目次ツリー付きの素
     晴らしい PDF ファイルが生成された。
-
 :menuselection:`Presentation (.html)`
   要調査。
 
 Jupyter Notebook を終了する
 ----------------------------------------------------------------------
 
-サービスを起動した端末ウィンドウで :kbd:`Ctrl` + :kbd:`C` を押すと、サービスが停
-止する。
+サービスを起動した端末ウィンドウで |Ctrl| + :kbd:`C` を押すと、サービスが停止す
+る。
 
 .. code:: console
 
-   [I HH:MM:SS.570 NotebookApp] Shutting down kernels
-   [I HH:MM:SS.298 NotebookApp] Kernel shutdown: f887fdc0-f81c-410c-a941-6820a4b2a5c7
-   bash$
+   [C 2024-05-16 22:42:46.602 ServerApp] Shutdown confirmed
+   [I 2024-05-16 22:42:46.603 ServerApp] Shutting down 8 extensions
+   $
 
-サブコマンド :command:`jupyter qtconsole`
+サブコマンド ``jupyter qtconsole``
 ======================================================================
 
 このサブコマンドは Jupyter QtConsole アプリケーション、すなわち Qt ベースのコン
@@ -702,23 +656,23 @@ Jupyter Notebook を終了する
 .. figure:: /_images/jupyter-qtconsole.png
    :align: center
    :alt: Jupyter QtConsole
+   :figwidth: image
    :scale: 50%
 
    Jupyter QtConsole
 
-:command:`jupyter qtconsole`
+``jupyter qtconsole``
   Jupyter QtConsole を起動する。
 
-* 何か既視感があると思ったが、これは :doc:`/python-ipython` で調査した
-  :command:`ipython qtconsole` の挙動と酷似している。確認のために久しぶりに
-  :command:`ipython qtconsole` してみたら、ウィンドウタイトルが
-  :guilabel:`Jupyter QtConsole` となっていた。つまり、両者は同一のアプリケーショ
-  ンなのだろう。
+* 何か既視感があると思ったが、これは :doc:`/python-ipython` で調査した ``ipython
+  qtconsole`` の挙動と酷似している。確認のために久しぶりに ``ipython qtconsole``
+  してみたら、ウィンドウタイトルが :guilabel:`Jupyter QtConsole` となっていた。
+  つまり、両者は同一のアプリケーションなのだろう。
 * オプション ``--generate-config`` を与えると、このサブコマンド専用の設定ファイ
   ル :file:`jupyter_qtconsole_config.py` のスケルトンを前述のディレクトリーに生
   成する。
 
-サブコマンド :command:`jupyter serverextension`
+サブコマンド ``jupyter serverextension``
 ======================================================================
 
 Jupyter インストール直後にサブコマンド :command:`list` を実行するとこのような結
@@ -726,7 +680,7 @@ Jupyter インストール直後にサブコマンド :command:`list` を実行�
 
 .. code:: console
 
-   bash$ jupyter serverextension list
+   $ jupyter serverextension list
    config dir: D:\Miniconda3\etc\jupyter
        nb_anacondacloud enabled
        - Validating...
@@ -740,7 +694,7 @@ Jupyter インストール直後にサブコマンド :command:`list` を実行�
 
 * この情報は Jupyter Notebook のダッシュボードでも形を変えて確認できそうだ。
 
-サブコマンド :command:`jupyter trust`
+サブコマンド ``jupyter trust``
 ======================================================================
 
 .. todo:: 調査する。
@@ -761,21 +715,20 @@ Jupyter の一連の機能を利用して気付いた点や思い付き等を記
   気になる。
 * :program:`jupyter` の利用可能な「サブコマンド」の集合が文書化されていない？
 * Pandoc は Windows ではすぐにインストールできる。Graphviz や Git と同じようにし
-  て環境変数 ``PATH`` を参照させることでサブコマンドから :program:`pandoc` にアク
-  セス可能にしておく。
-* 問題になりそうなのは :command:`jupyter nbconvert` で直接 PDF ファイルを生成す
-  る場合だ。「原稿」に日本語文字を使うことが多いはずなので、既定の後処理では中間
-  生成物の ``tex`` ファイルから PDF に変換するのに失敗する。単に処理がエラーコー
-  ドを返す等して失敗する場合と、 PDF ファイルは生成したものの、日本語文字がまっ
-  たく印字できていない等して失敗する場合が考えられる。
+  て環境変数 ``PATH`` を参照させることでサブコマンドから :program:`pandoc` にア
+  クセス可能にしておく。
+* 問題になりそうなのは ``jupyter nbconvert`` で直接 |PDF| ファイルを生成する場合
+  だ。「原稿」に日本語文字を使うことが多いはずなので、既定の後処理では中間生成物
+  の ``tex`` ファイルから |PDF| に変換するのに失敗する。単に処理がエラーコードを
+  返す等して失敗する場合と、|PDF| ファイルは生成したものの、日本語文字がまったく
+  印字できていない等して失敗する場合が考えられる。
 
   * 日本語が出ない件は :program:`ptex2pdf` を指定することで解決する。 Google で
     調べたところによると :program:`xelatex` を使う国の人もいるようだ。
   * 日本語に対応するべく LaTeX のテンプレートを自作し、そこで指定する文書クラス
     に ``pandoc`` と指定する作戦まであるようだ。
-
-* 余談に近いが :command:`jupyter nbconvert --to pdf` を実行するときには環境変数
-  ``PATH`` の内容に注意。Windows のコンソールでは PDF が生成されるのに、Cygwin
+* 余談に近いが ``jupyter nbconvert --to pdf`` を実行するときには環境変数
+  ``PATH`` の内容に注意。Windows のコンソールでは |PDF| が生成されるのに、Cygwin
   のコンソールでは :program:`ptex2pdf` が失敗するので調べたら、私が
   :program:`bash` で作業するときに :file:`$SYSTEMROOT/System32` を削っていたのが
   どうやら原因らしい。
@@ -783,8 +736,9 @@ Jupyter の一連の機能を利用して気付いた点や思い付き等を記
   ンダリングをしてくれる。ただ、LaTeX コードのレンダリングがローカルでの見栄えに
   比べて少々異なる。
 
-  なお、Jupyter 公式による `Jupyter Notebook Viewer <http://nbviewer.jupyter.org/>`__
-  というサービスもある。こちらの見栄えは期待通りだ。
+  なお、Jupyter 公式による `Jupyter Notebook Viewer
+  <http://nbviewer.jupyter.org/>`__ というサービスもある。こちらの見栄えは期待通
+  りだ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

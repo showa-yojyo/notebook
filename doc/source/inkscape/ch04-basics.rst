@@ -89,9 +89,10 @@ Selecting with the Keyboard
 
 .. csv-table::
    :delim: #
-   :header: キーバインド,コマンド
+   :header-rows: 1
    :widths: auto
 
+   キーバインド # コマンド
    :kbd:`Tab` # Z オーダーで上のオブジェクトを選択
    :kbd:`Shift` + :kbd:`Tab` # Z オーダーで下のオブジェクトを選択
    :kbd:`Ctrl` + :kbd:`A` # Select All
@@ -125,9 +126,10 @@ Copying, Pasting, and Deleting Objects
 
 .. csv-table::
    :delim: #
-   :header: コマンド,キーバインド,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド # キーバインド # 挙動
    :menuselection:`Edit --> Duplicate` # :kbd:`Ctrl` + :kbd:`D` # オブジェクトを即時コピー
    :menuselection:`Edit --> Paste Style` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`V` # オブジェクトにスタイルを上書き
    :menuselection:`Edit --> Delete` # :kbd:`Delete` # オブジェクトを即時削除
@@ -152,9 +154,10 @@ UNIX でいうと :command:`cp` に対する :command:`ln -s` の考え方に相
 
 .. csv-table::
    :delim: #
-   :header: コマンド,キーバインド,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド # キーバインド # 挙動
    :menuselection:`Edit --> Clone --> Create Clone` # :kbd:`Alt` + :kbd:`D` # 複製し、元の真上に配置する。
    :menuselection:`Edit --> Clone --> Unlink Clone` # :kbd:`Shift` + :kbd:`Alt` + :kbd:`D` # 複製関係を廃止する。
    :menuselection:`Edit --> Clone --> Relink to Copied` # n/a # 後述
@@ -186,9 +189,10 @@ Ordering Objects (Z-Order)
 
 .. csv-table::
    :delim: #
-   :header: コマンド,キーボード,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド # キーボード # 挙動
    :menuselection:`Object --> Raise` # :kbd:`PgUp` # z-order を一段階上げる
    :menuselection:`Object --> Lower` # :kbd:`PgDn` # z-order を一段階下げる
    :menuselection:`Object --> Raise to Top` # :kbd:`Home` # z-order を最上層に上げる
@@ -274,9 +278,10 @@ Layers Menu
 
 .. csv-table::
    :delim: #
-   :header: コマンド,キーバインド,補足
+   :header-rows: 1
    :widths: auto
 
+   コマンド # キーバインド # 補足
    :menuselection:`Layer --> Layers and Objects...` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`L` # 前述
    :menuselection:`Layer --> Add Layer...` # :kbd:`Shift` + :kbd:`Ctrl` + :kbd:`N` # レイヤー作成ダイアログボックスが出現する
    :menuselection:`Layer --> Rename Layer...` # n/a # ミニダイアログボックス出現

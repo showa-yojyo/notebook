@@ -230,9 +230,10 @@
 
   .. csv-table::
      :delim: :
-     :header: サブクラス, ``component_type`` の値
+     :header-rows: 1
      :widths: auto
 
+     サブクラス : ``component_type`` の値
      ``Reader``:``'reader'``
      ``Parser``:``'parser'``
      ``Writer``:``'writer'``

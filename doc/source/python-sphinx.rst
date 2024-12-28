@@ -13,6 +13,7 @@ Sphinx 利用ノート
 
 .. contents::
    :depth: 3
+   :local:
 
 インストール
 ======================================================================
@@ -25,48 +26,50 @@ Sphinx 利用ノート
 グローバルにインストールする
 ----------------------------------------------------------------------
 
-Miniconda も使えるが、以下 :program:`pip` を利用する方法を記す。
+いつもの Miniconda を使う。インストール成功の確認は :program:`sphinx-build` など
+の CLI のバージョンを出力する。
 
-.. code:: console
+.. sourcecode:: console
+   :caption: :program:`conda` を使って Sphinx をインストールする例
 
-   $ pip install sphinx
+   $ conda install -n DEFAULT_ENVNAME sphinx
+   （略）
+   $ sphinx-build --version
+   sphinx-build 8.1.2
 
 プロジェクト個別にインストールする
 ----------------------------------------------------------------------
 
-グローバルにインストールしてから実施することを勧める。プロジェクトディレクトリー
-に移動して仮想環境を作成したら直ちにインストールするという想定で：
+プロジェクトディレクトリーに移動して仮想環境を作成したら直ちにインストールすると
+いう想定で：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: :program:`pipenv` を使って Sphinx をインストールする例
 
    $ cd $PROJECT_DIR
-   $ python -m env .venv
-   $ pip install --upgrade pip
-   $ pip install sphinx
-
-インストール成功を確認する
-----------------------------------------------------------------------
-
-Sphinx のバージョンを確認する：
-
-.. code:: console
-
-   $ sphinx-build --version
-   sphinx-build 7.2.6
+   $ pipenv install sphinx
+   （略）
+   $ pipenv run sphinx-build --version
+   sphinx-build 8.1.2
 
 原稿ディレクトリーを初期化する
 ======================================================================
+
+.. note::
+
+   以下、コマンドラインは Pipenv で用意した仮想環境で実行することを前提とする。
 
 将来的に生成した HTML ファイル群を GitHub に配備するので、プロジェクトディレクト
 リーのルートにサブディレクトリー :file:`docs` を作成し、そこを Sphinx 用作業場と
 する：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: :program:`sphinx-quickstart` 実行例
 
    $ cd $PROJECT_DIR
    $ mkdir docs
-   $ sphinx-quickstart
-   ...
+   $ pipenv run sphinx-quickstart
+   （略）
 
 :program:`sphinx-quickstart` 成功後、生成されたファイルを確認すること。
 
@@ -87,7 +90,8 @@ Sphinx のバージョンを確認する：
 
 以下の説明では :program:`sphinx-quickstart` の入力は次を仮定する：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: 説明用 :program:`sphinx-quickstart` 入力例
 
    $ sphinx-quickstart --sep \
        --project 読者ノート \
@@ -112,9 +116,10 @@ Sphinx のバージョンを確認する：
 
 :file:`Makefile` のあるディレクトリーに移動して：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: Pipenv 仮想環境での :program:`make` 実行例
 
-   $ make html
+   $ pipenv run make html
 
 成果物はサブディレクトリー :file:`build/html` 以下の内容すべてだ。
 
@@ -131,7 +136,7 @@ GitHub のリポジトリーに Sphinx 用原稿を格納する場合、GitHub A
 online <https://www.sphinx-doc.org/en/master/tutorial/deploying.html>`__ にあ
 る。まとめておくと：
 
-* リポジトリーの :menuselection:`Settings --> Pages` ページで各種項目を設定する：
+* リポジトリーの :menuselection:`Settings-->Pages` ページで各種項目を設定する：
 
   * Publish を有効にする
   * :guilabel:`Source` を :guilabel:`Deploy from a branch` に設定にする
@@ -140,8 +145,9 @@ online <https://www.sphinx-doc.org/en/master/tutorial/deploying.html>`__ にあ
     * 左ドロップダウンリストを :guilabel:`gh-pages` に設定
     * 右ドロップダウンリストを :file:`Makefile` のあるほうのディレクトリーに設定
 
-* :file:`Makefile` のあるディレクトリーに :program:`pip` 用のファイル
-  :file:`requirements.txt` を置く。当読書ノートの場合は：
+* :file:`Makefile` のあるディレクトリーに :program:`pipenv` 用のファイル
+  :file:`Pipfile` および :file:`Pipfile.lock` があることを確認する。必要に応じて
+  前者に対してサードパーティー製パッケージのバージョン条件を明記する。例えば：
 
   .. parsed-literal::
 
@@ -213,7 +219,7 @@ reStructuredText の基本
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``:doc:``
-   頻出。ページパスを指定してリンクする。
+   頻出。ページパスを指定してリンクする。リンクテキストを指定することもある。
 ``:ref:``
    たまに用いる。アンカー :samp:`.. _{anchor-name}:` を手動で定義する必要があ
    る。これが面倒で多用しない。
@@ -257,8 +263,8 @@ reStructuredText の基本
    :kbd:`C-x C-f`
    :kbd:`Control-x Control-f`
 ``:menuselection:``
-   ツール利用ノートで ``:guilabel:`` と共に頻繁に使う。タイプするのが面倒なの
-   で VS Code キーバインドを両者それぞれに設定するといい。
+   ツール利用ノートで ``:guilabel:`` と共に頻繁に使う。タイプするのが面倒なので
+   VS Code キーバインドを両者それぞれに設定するといい。
 ``:program:``
    ``:command:`` の実行形式版として使うという認識でいい。
 ``:regexp:``
@@ -280,8 +286,9 @@ Sphinx に搭載されている指令のうち、本ノートで用いるもの�
    関連文書を列挙するのに利用。
 :samp:`.. rubric:: {title}`
    便利である可能性が高い。見出しリンクの要らない見出し。
-:samp:`.. code-block:: {[language]}`
-   複数行プログラムコードを示すのに利用。
+:samp:`.. sourcecode:: {[language]}`
+   複数行プログラムコードを示すのに利用。オプション ``:caption:`` をなるべく添え
+   ろ。
 :samp:`.. literalinclude:: {filename}`
    テキストファイルの中身を reST 原稿内に丸々写す。有用なオプションがある。
 ``.. glossary::``
@@ -306,12 +313,13 @@ Sphinx に搭載されている指令のうち、本ノートで用いるもの�
 基本的には :program:`sphinx-quickstart` が生成した値を採用する。ただ一箇所、コ
 ピーライト表示にビルド時の日付を反映させたいので改造する：
 
-.. code:: python
+.. sourcecode:: python
 
    from datetime import date
 
    copyright = f'1999-{date.today().year}, {author}'
 
+公式文書によると ``%Y`` でビルド時点での西暦に置換されるとあるが、されないようだ。
 項目 ``version`` および ``release`` は手動で編集するのがいいだろう。
 
 全般
@@ -319,7 +327,8 @@ Sphinx に搭載されている指令のうち、本ノートで用いるもの�
 
 まず、Sphinx 拡張に手動追加するものがあるのでサブディレクトリーにパスを通す：
 
-.. code:: python
+.. sourcecode:: python
+   :caption: 拡張配置ディレクトリー指定準備コード例
 
    import sys
    import os
@@ -331,7 +340,8 @@ Sphinx に搭載されている指令のうち、本ノートで用いるもの�
 
 当読者ノートにおける本稿執筆時点での拡張の編成は次のようなものだ：
 
-.. code:: python
+.. sourcecode:: python
+   :caption: ``extensions`` リストにモノを列挙する例
 
    extensions = [
        'disablesearchindex',
@@ -389,13 +399,14 @@ HTML 出力
    ラッパースクリプトのファイル名を設定する。例えばそれが
    :file:`source/_static/mathjax-v3.js` であるとすると：
 
-   .. code:: python
+   .. sourcecode:: python
+      :caption: MathJax スクリプト指定例
 
       mathjax_path = "mathjax-v3.js"
 
 .. seealso::
 
-   MathJax 利用ノート
+   :doc:`/mathjax`
 
 ``sphinx.ext.todo``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -417,7 +428,8 @@ HTML 出力
    スクリプトのファイル名を追加する。例えばそれが
    :file:`source/_static/mermaid.js` であるとすると：
 
-   .. code:: python
+   .. sourcecode:: python
+      :caption: Mermaid.js スクリプト指定例
 
       html_js_files = ['mermaid.js']
 
@@ -433,9 +445,9 @@ HTML 出力
 ``sphinx.ext`` から始まる名前の拡張は Sphinx 組み込みの拡張だ。:file:`conf.py`
 内のリスト ``extensions`` に含まれるだけで利用可能だ。
 
-:program:`pip` でインストールされない拡張については、前述の構成上、サブディレク
-トリー :file:`source/_extensions` に拡張用 Python ファイルを手動で追加する必要が
-ある。
+:program:`pipenv` でインストールされない拡張については、前述の構成上、サブディレ
+クトリー :file:`source/_extensions` に拡張用 Python ファイルを手動で追加する必要
+がある。
 
 ``sphinx.ext.githubpages``
 ----------------------------------------------------------------------
@@ -469,13 +481,13 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 
 .. ipython::
 
-   In [136]: x = 2
+   In [1]: x = 2
 
-   In [137]: x**3
-   Out[137]: 8
+   In [2]: x**3
+   Out[2]: 8
 
-拡張モジュールはビルド時の Python 環境にインストールされている必要がある。先述の
-:file:`requirements.txt` に関する記述を参照。
+先述のように、拡張モジュールはビルド時の Python 環境にインストールされている必要
+がある。
 
 .. seealso::
 
@@ -498,8 +510,8 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
      Moving --> Crash
      Crash --> [*]
 
-拡張モジュールはビルド時の Python 環境にインストールされている必要がある。先述の
-:file:`requirements.txt` に関する記述を参照。
+先述のように、拡張モジュールはビルド時の Python 環境にインストールされている必要
+がある。
 
 .. seealso::
 
@@ -554,7 +566,8 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 
 構成ファイルで ``html_theme_options`` の値を辞書で指定する：
 
-.. code:: python
+.. sourcecode:: python
+   :caption: HTML テーマオプション設定例
 
    html_theme = 'alabaster'
    html_theme_options = {
@@ -597,7 +610,7 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 当ノートではフッターを描画するための :file:`layout.html` を次のように改造してあ
 る（一部略）：
 
-.. code:: html+jinja
+.. sourcecode:: html+jinja
 
    {% extends "alabaster/layout.html" %}
 
@@ -620,7 +633,7 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 関連ノート
 ======================================================================
 
-* :doc:`/python-pip`
+* :doc:`/python-pipenv`
 * :doc:`/python-jinja2`
 * :doc:`/python-pygments`
 * :doc:`/github/index`

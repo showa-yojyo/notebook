@@ -67,9 +67,10 @@ Implicit capture
 
 .. csv-table::
    :delim: |
-   :header: 記法,分類
+   :header-rows: 1
    :widths: auto
 
+   記法 | 分類
    ``[]`` | 空
    ``[name1, name2, ...]`` | 値捕捉
    ``[&]`` | 参照捕捉（コンパイラー自身に参照リストであることを推論させる）

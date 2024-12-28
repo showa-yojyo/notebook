@@ -23,8 +23,10 @@ VS Code は編集モードとデバッグモードを区別している。デバ
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ コマンド @ 操作
    :kbd:`F5` @ :guilabel:`Start Debugging` @ デバッグセッションを開始し、最初のブレイクポイントで停止する。
    :kbd:`Ctrl` + :kbd:`F5` @ :guilabel:`Run Without Debugging` @ デバッガーなしでプロセスを起動する。
    :kbd:`F11` @ :guilabel:`Start Debugging and Stop on Entry` @ デバッグセッションを開始し、エントリーポイントで停止する。
@@ -122,8 +124,10 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ コマンド @ 操作
    :kbd:`F5` @ :guilabel:`Continue` @ 次のブレイクまでプログラムカウンターを進める
    :kbd:`F5` @ :guilabel:`Pause` @ 進行中のプログラムを一時停止する
    :kbd:`F10` @ :guilabel:`Step Over` @ プログラムカウンターをワンステップ進める
@@ -153,8 +157,10 @@ Step Into 対象（関数）すべての一覧がポップアップされる。�
 
 .. csv-table::
    :delim: @
-   :header: コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 操作
    :guilabel:`Toggle Activate Breakpoints` @ ブレイクポイントすべてに対する :guilabel:`Toggle Breakpoint`
    :guilabel:`Edit Breakpoint` @ ブレイクポイントに停止条件を与える
    :guilabel:`Remove Breakpoint` @ ブレイクポイント一つを削除する
@@ -236,8 +242,10 @@ VS Code 内蔵 JavaScript デバッガーを含むデバッガーのいくつか
 
 .. csv-table::
    :delim: @
-   :header: コマンド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 操作
    :menuselection:`Set Value` @ 現時点での変数の値を任意に変更する
    :menuselection:`Copy Value` @ 値をクリップボードにコピーする
    :menuselection:`Copy as Expression` @ 識別子や評価式をクリップボードにコピーする

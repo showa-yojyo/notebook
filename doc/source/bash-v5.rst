@@ -236,9 +236,10 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 
 .. csv-table::
    :delim: |
-   :header: キーバインド,コマンド
+   :header-rows: 1
    :widths: auto
 
+   キーバインド | コマンド
    :kbd:`M-C-b` | ``shell-backward-word``
    :kbd:`M-C-d` | ``shell-kill-word``
    :kbd:`M-C-f` | ``shell-forward-word``

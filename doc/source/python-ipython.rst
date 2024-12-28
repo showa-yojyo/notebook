@@ -6,7 +6,8 @@ IPython 利用ノート
 ドキュメントを読んでいるとこのツールの名前が頻繁に出てくる。無視するのはもったい
 ない気がするので調査する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -14,11 +15,12 @@ IPython 利用ノート
 
      * Windows 7 Home Premium x64 SP1
      * Windows 10 Home x64
+     * 設定ファイルの辺りだけ WSL2
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_ 3.4.1, 3.5.0, 3.5.2, 3.6.6
-     * IPython_ 3.0.0, 4.0.0, 5.0.0, 6.4.0
+     * Python_ 3.4.1, 3.5.0, 3.5.2, 3.6.6, 3.12.3
+     * IPython_ 3.0.0, 4.0.0, 5.0.0, 6.4.0, 8.24.0
      * PyReadline_ 2.0, 2.1, n/a
      * Nose_ 1.3.4, 1.3.7
      * PyQt_ v5.3.1 for Python v3.4 (x64), n/a for Python v3.5 (x64), 4.11.4
@@ -49,8 +51,8 @@ standard interactive interpreter> だそうだ。標準の Python インター�
 * :program:`conda` または :program:`pip` の実行ファイルのあるフォルダーに
   ``PATH`` が通っている。
 
-これを満たす環境において、:ref:`python-pkg-proc` に示したようにすると IPython
-をインストールできる。
+これを満たす環境において、:ref:`miniconda-anchor-pip` に示したようにすると
+IPython をインストールできる。
 
 次に :program:`conda` によるインストール手続きの例を示す。
 
@@ -267,29 +269,49 @@ IPython の挙動を次の各項目により制御できるはずなので、本
 環境変数による設定
 ----------------------------------------------------------------------
 
-IPython 固有の環境変数としては ``IPYTHON_DIR`` ただひとつしかない？これはユー
-ザー設定データ、履歴、拡張モジュールを格納するディレクトリーのパスを表現する環境
-変数だろう。デフォルトでは :file:`~/.ipython` であり、通常の利用状況ではこの値を
-わざわざ変更することはなさそうだ。
+既定では、IPython は使用者固有の設定ファイル群（プロファイル）を次の優先順位で定
+まるディレクトリーから読み込む：
 
-結論としては、環境変数のことは意識しない。
+#. 環境変数 ``IPYTHONDIR`` が定義されていればディレクトリー :file:`$IPYTHONDIR`
+#. 環境変数 ``XDG_CONFIG_HOME`` が定義されていればディレクトリー
+   :file:`$XDG_CONFIG_HOME/.ipython/`
+#. ディレクトリー :file:`$HOME/.config/` が存在すればディレクトリー
+   :file:`$HOME/.config/ipython`
+#. ディレクトリー :file:`$HOME/.ipython/`
+
+:doc:`/xdg` の方針に従い、次のことを実施しておく：
+
+* ディレクトリー :file:`$HOME/.config/ipython` を用意する
+* 上記ノートで述べように当該 XDG 環境変数を定義しておく
+* 心配なら対話シェル初期化スクリプトで次の定義を入れておく：
+
+  .. code:: bash
+
+     export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+
+現在の設定ファイル置場パスは、コマンドラインから次を実行して確認可能だ：
+
+.. code:: console
+
+   $ ipython locate
+   /home/USERNAME/.config/ipython
 
 設定ファイルによる設定
 ----------------------------------------------------------------------
 
-ドキュメントによると、IPython のセッティングを指定する方法の基本として
-:file:`~/.ipython/profile_default` ディレクトリー以下の py ファイルでプログラム
-を書くことがあるようだ。
+設定ファイル置場が定まったので、IPython 設定ディレクトリーにプロファイルと呼ばれ
+る設定ファイルの雛形を作成する：
 
 .. code:: console
 
-   bash$ ipython3 profile create
-   [ProfileCreate] Generating default config file: 'D:/home/yojyo/.ipython/profile_default/ipython_config.py'
+   bash$ ipython profile create
+   [ProfileCreate] Generating default config file: PosixPath('/home/USERNAME/.config/ipython/profile_dummy/ipython_config.py')
+   [ProfileCreate] Generating default config file: PosixPath('/home/USERNAME/.config/ipython/profile_dummy/ipython_kernel_config.py')
 
 これでテンプレファイル :file:`ipython_config.py` ができあがった。テキストエディ
 ターでこれを開き、有効にしたい箇所のコメントアウトを解除するとよさそうだ。
 
-.. code:: python3
+.. code:: python
 
    c.InteractiveShellApp.pylab = 'auto'
 
@@ -298,7 +320,7 @@ IPython 固有の環境変数としては ``IPYTHON_DIR`` ただひとつしか�
 のようなコードが通じる。さらに、下記の項目を有効にすると :code:`np.` すら不要に
 なる。
 
-.. code:: python3
+.. code:: python
 
    c.InteractiveShellApp.pylab_import_all = True
 
@@ -315,25 +337,29 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 
 .. code:: console
 
-   bash$ ipython3 profile create sympy
-   bash$ edit ~/.ipython/profile_sympy/ipython_config.py
-   bash$ ipython3 --profile=sympy
+   $ ipython profile create sympy
+   $ edit $XDG_CONFIG_HOME/ipython/profile_sympy/ipython_config.py
+   $ ipython --profile=sympy
 
 コマンドライン引数による設定
 ----------------------------------------------------------------------
 
-* IPython のすべての設定可能な値はコマンドラインパラメーターから構成できる。
+プロファイルディレクトリーをコマンドラインから指定することも可能だ：
 
-  * 通常は次の形式で指定する： :command:`ipython --ClassName.attribute=value`
-  * ただし頻繁に用いられるオプションは短い別名形式が用意してある。例えば
-    :command:`ipython --matplotlib` など。
+.. code:: console
 
-    * そのようなオプションの一覧は :command:`ipython help` の Options のセクショ
-      ンで確認できる。
+   $ ipython --ipython-dir=/path/to/ipython-dir --profile=my-profile
 
-* コマンドラインで指定したオプションは、設定ファイルのそれを上書きする。
+IPython のすべての設定可能な値はコマンドライン引数から構成できる。
 
-今のところ、特に毎回指定したくなるコマンドライン引数はなさそうだ。
+* 通常は次の形式で指定する： ``ipython --ClassName.attribute=value``
+* ただし頻繁に用いられるオプションは短い別名形式が用意してある。例えば
+  ``ipython --matplotlib`` など。
+
+  * そのようなオプションの一覧は ``ipython help`` の Options のセクションで確認
+    できる。
+
+コマンドラインで指定したオプションは、設定ファイルのそれを上書きする。
 
 使い勝手を試す
 ======================================================================
@@ -576,8 +602,7 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
 .. figure:: /_images/ipython-qtconsole-inline.png
    :align: center
    :alt: IPython Qt Console
-   :width: 614px
-   :height: 602px
+   :figwidth: image
    :scale: 50%
 
 インラインでグラフを描画できて何がうれしいのかと言うと、このコンソールウィンドウ

@@ -39,8 +39,10 @@ Image Resizer は Windows エクスプローラーのコンテキストメニュ
 
 .. csv-table::
    :delim: @
-   :header: 属性,主旨
+   :header-rows: 1
+   :widths: auto
 
+   属性 @ 主旨
    :guilabel:`名前` @ UI に表示されるラベル
    :guilabel:`サイズに合わせて調整` @ リサイズ後の寸法仕様
    :guilabel:`幅` @ リサイズ後の画像の幅

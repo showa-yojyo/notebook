@@ -1193,8 +1193,10 @@ HTTP-headers
 
 .. csv-table::
    :delim: |
-   :header: Method,Parameters,Behavior
+   :header-rows: 1
+   :widths: auto
 
+   Method | Parameters | Behavior
    ``setRequestHeader`` | ``name``, ``value`` | 指定された ``name`` と ``value`` を持つ要求ヘッダーを与える
    ``getResponseHeader`` | ``name`` | 指定された ``name`` の応答ヘッダーを得る
    ``getAllResponseHeaders`` | | すべての応答ヘッダーを得る
@@ -1642,8 +1644,10 @@ Connection state
 
 .. csv-table::
    :delim: |
-   :header: Code,Value,State
+   :header-rows: 1
+   :widths: auto
 
+   Code | Value | State
    0 | ``"CONNECTING"`` | 接続がまだ確立されていない
    1 | ``"OPEN"`` | 通信中
    2 | ``"CLOSING"`` | 接続を閉じている

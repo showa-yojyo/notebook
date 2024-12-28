@@ -319,6 +319,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 .. csv-table::
    :delim: @
+   :header-rows: 0
+   :widths: auto
 
    ``{ x, y, z, w }`` @ 点や法線を表すベクトルにアクセスするときに便利
    ``{ r, g, b, a }`` @ 色を表すベクトルにアクセスする際に便利
@@ -455,6 +457,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 .. csv-table::
    :delim: @
+   :header-rows: 0
+   :widths: auto
 
    field selector @ ``.``
    equality @ ``==``, ``!=``

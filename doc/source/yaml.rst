@@ -71,6 +71,9 @@ Jekyll や GitHub Actions など、構成ファイルを YAML 形式で記述す
    * Python
    * 正典 YAML
 
+`YAMLine.com - The YAML Semantic Comparator <https://yamline.com/compare/>`__
+   2つのYAML間の差分を生成するオンラインサービス。
+
 差し当たり上記のものをブックマークしておけば十分だろう。
 
 エディター拡張

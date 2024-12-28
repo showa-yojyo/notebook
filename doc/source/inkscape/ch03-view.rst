@@ -36,9 +36,10 @@ Zooming the Canvas
 
 .. csv-table::
    :delim: #
-   :header: 操作,ズーム,基準位置
+   :header-rows: 1
    :widths: auto
 
+   操作 # ズーム # 基準位置
    :kbd:`+` # ズームイン # キャンバス中央
    :kbd:`-` # ズームアウト # キャンバス中央
    :kbd:`Ctrl` + 右クリック # ズームイン # マウスカーソル位置
@@ -82,9 +83,10 @@ Rotating the Canvas
 
 .. csv-table::
    :delim: #
-   :header: コマンド,操作
+   :header-rows: 1
    :widths: auto
 
+   コマンド # 操作
    :menuselection:`Rotate Clockwise` # キャンバスを右回りに 15 度回転する
    :menuselection:`Rotate Counter-Clockwise` # キャンバスを左回りに 15 度回転する
    :menuselection:`Reset Rotation` # キャンバスの回転をクリアする
@@ -107,9 +109,10 @@ Flipping the Canvas
 
 .. csv-table::
    :delim: #
-   :header: コマンド,操作
+   :header-rows: 1
    :widths: auto
 
+   コマンド # 操作
    :menuselection:`Flip Horizontally` # キャンバス全体を水平に反転する
    :menuselection:`Flip Vertically` # キャンバス全体を垂直に反転する
    :menuselection:`Reset Flipping` # キャンバスの反転状態をクリアする

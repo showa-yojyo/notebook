@@ -128,9 +128,10 @@ Python3 動作版 pydot のセットアップ
 
 .. csv-table::
    :delim: @
-   :header: 関数, 呼び出し結果
+   :header-rows: 1
    :widths: auto
 
+   関数 @ 呼び出し結果
    ``nx.nx_pydot.from_pydot(P)``@OK
    ``nx.nx_pydot.to_pydot(N, ...)``@OK
    ``nx.nx_pydot.write_dot(P, path)``@OK

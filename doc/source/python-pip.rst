@@ -1,6 +1,13 @@
 ======================================================================
-pip 利用ノート
+pip 利用ノート [obsolete]
 ======================================================================
+
+.. caution::
+
+   この記事は現在廃止された要素に関する記述を多数含む。
+
+   仮想環境でのパッケージ管理用具としてはこれではなく :doc:`Pipenv
+   </python-pipenv>` を利用しろ。
 
 本稿は <A tool for installing and managing Python packages>(pip_) である
 :program:`pip` に関する覚え書きである。すべての Python ユーザーはそうなのではな
@@ -20,7 +27,8 @@ Python 3.4 以前は :program:`pip` もまたサードパーティー製パッ�
 ので、後述するインストールの手順を飛ばして、いきなりその他のサードパーティー製
 パッケージのインストール作業に取り掛かることができる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -29,11 +37,12 @@ Python 3.4 以前は :program:`pip` もまたサードパーティー製パッ�
      * Windows XP Home Edition SP3
      * Windows 7 Home Premium x64 SP1
      * Windows 10 Home x64
+     * WSL2
 
    * 本稿において、利用した各パッケージのバージョンは次のとおり。
 
-     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0
-     * pip_: 1.1, 1.5.6, 7.1.2, 8.1.1
+     * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.12.3
+     * pip_: 1.1, 1.5.6, 7.1.2, 8.1.1, 24.0
      * setuptools_: 0.6c11
      * distribute_: 未使用
      * virtualenv: 未使用
@@ -43,7 +52,6 @@ Python 3.4 以前は :program:`pip` もまたサードパーティー製パッ�
 
 pip_
   公式サイト。インストール方法から基本的な利用方法、応用等が文書化されている。
-
 `easy_install`_
   easy_install の公式サイト。
 
@@ -69,10 +77,10 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
       .. code:: console
 
-         bash$ easy_install pip
+         $ easy_install pip
 
-    * ソースコードを入手、解凍してコマンドプロンプトから
-      :command:`setup.py install` でインストールするやり方もある。
+    * ソースコードを入手、解凍してコマンドプロンプトから ``setup.py install`` で
+      インストールするやり方もある。
 
 .. admonition:: 利用者ノート
 
@@ -95,8 +103,8 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ pip help # ヘルプ表示
-   bash$ pip --version # バージョン表示
+   $ pip help # ヘルプ表示
+   $ pip --version # バージョン表示
 
 アンインストール
 ----------------------------------------------------------------------
@@ -106,7 +114,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ pip uninstall simplejson
+   $ pip uninstall simplejson
    Uninstalling simplejson:
      d:\python26\lib\site-packages\simplejson
      d:\python26\lib\site-packages\simplejson-2.4.0-py2.6.egg-info
@@ -123,13 +131,12 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 インターネットからパッケージをダウンロードする
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-パッケージ名を指定して :command:`pip install` または
-:command:`pip install --upgrade` を実行する。この方法でインストールやアップグ
-レードができれば、手間が最小で済む。
+パッケージ名を指定して ``pip install`` または ``pip install --upgrade`` を実行す
+る。この方法でインストールやアップグレードができれば、手間が最小で済む。
 
 .. code:: console
 
-   bash$ pip install --upgrade httplib2
+   $ pip install --upgrade httplib2
    Downloading/unpacking httplib2 from http://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.4.tar.gz#md5=略
      Downloading httplib2-0.7.4.tar.gz (106Kb): 106Kb downloaded
      Running setup.py egg_info for package httplib2
@@ -156,8 +163,8 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ (download) PyXYZ-x.y.z-cp35-none-win_amd64.whl
-   bash$ pip install PyXYZ-x.y.z-cp35-none-win_amd64.whl
+   $ wget PyXYZ-x.y.z-cp35-none-win_amd64.whl
+   $ pip install PyXYZ-x.y.z-cp35-none-win_amd64.whl
 
 編集可能パッケージをインストールする
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -170,17 +177,17 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ git clone https://github.com/XYZ/XYZ.git
+   $ git clone https://github.com/XYZ/XYZ.git
    ...
-   bash$ cd XYZ/src/
-   bash$ pip install -e .
+   $ cd XYZ/src/
+   $ pip install -e .
 
 インストール済みパッケージをリスト
 ----------------------------------------------------------------------
 
 .. code:: console
 
-   bash$ pip freeze
+   $ pip freeze
    PIL==1.1.7
    babel==0.9.6
    coverage==3.5.1
@@ -203,7 +210,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ pip list --outdated
+   $ pip list --outdated
    alabaster (0.7.6) - Latest: 0.7.7 [wheel]
    astroid (1.3.8) - Latest: 1.4.5 [wheel]
    Babel (2.1.1) - Latest: 2.2.0 [wheel]
@@ -224,7 +231,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ pip show matplotlib
+   $ pip show matplotlib
    ---
    Metadata-Version: 2.0
    Name: matplotlib
@@ -249,25 +256,74 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 .. code:: console
 
-   bash$ pip freeze > FILE
+   $ pip freeze > FILE
    ...
-   bash$ pip install -r=FILE
-   bash$ pip install --upgrade -r=FILE
+   $ pip install -r=FILE
+   $ pip install --upgrade -r=FILE
 
 パッケージの検索
 ----------------------------------------------------------------------
 
 例えば Amazon 関係のパッケージがあるのか知りたいとする。しかも PyPI_ で検索する
-よりも、コンソールで見たいような状況であれば :command:`pip search` の出番だ。
+よりも、コンソールで見たいような状況であれば ``pip search`` の出番だ。
 
 .. code:: console
 
-   bash$ pip search amazon
+   $ pip search amazon
    AWSpider                  - Amazon Web Services web crawler
    boto                      - Amazon Web Services Library
    bellatrix                 - Bellatrix is a comprehensive set of tools to
                                automate the management of Amazon EC2 services.
    以下略
+
+設定ファイル
+----------------------------------------------------------------------
+
+設定ファイルを特に意識せずに :command:`pip` を利用してきた場合、それを用意するの
+ならばどのパスになるのかを確認する手段がある：
+
+.. code:: console
+
+   $ pip config debug
+   env_var:
+   env:
+   global:
+     /etc/xdg/pip/pip.conf, exists: False
+     /etc/pip.conf, exists: False
+   site:
+     /home/USERNAME/.local/share/conda/envs/python-3.12/pip.conf, exists: False
+   user:
+     /home/USERNAME/.pip/pip.conf, exists: False
+     /home/USERNAME/.config/pip/pip.conf, exists: False
+
+個人設定は :doc:`/xdg` に従いたいので、対象パスは
+:file:`$XDG_CONFIG_HOME/pip/pip.conf` となる。何かのために空の :file:`pip.conf`
+を置いておくのが良いと思われる。
+
+.. note::
+
+   ただし、:command:`pip` は仮想環境のものを利用することが開発現場では通例であ
+   り、プロジェクトに対応する設定ファイルもまた、用意するとすれば、その仮想環境
+   が関係するディレクトリーに置くことが普通だろう。
+
+設定ファイルはサブコマンド節の集合で記述されており、各節はサブコマンドのオプショ
+ン既定値を key-value 方式で列挙する。例えば、
+
+.. code:: console
+
+   $ pip config set download.timeout 10
+
+を実行する。これはコマンド ``pip download`` がオプション ``--download`` を明示的
+に与えられずに実行する場合、これに対して値 10 が指定されたものとして動作するよう
+に構成するものだ。この指定は設定ファイルに書き込まれる：
+
+.. code:: console
+
+   $ pip config set download.timeout 100
+   Writing to /home/USERNAME/.config/pip/pip.conf
+   $ cat $XDG_CONFIG_HOME/pip/pip.conf
+   [download]
+   timeout = 100
 
 まれに使うことになるかもしれない使用例
 ======================================================================
@@ -281,7 +337,7 @@ PyPI_ のウェブサイトがダウンしているときには :command:`pip in
 
 .. code:: console
 
-   bash$ pip install --use-mirrors --mirrors=http://d.pypi.python.org/ sphinx
+   $ pip install --use-mirrors --mirrors=http://d.pypi.python.org/ sphinx
 
 ミラーサイトのリストは次の通り。
 

@@ -15,9 +15,10 @@ NumPy の開発者はこれらを基に NumPy User Guide を作成している�
 
 .. csv-table::
    :delim: |
-   :header: ファイル, 内容
+   :header-rows: 1
    :widths: auto
 
+   ファイル | 内容
    :file:`basics.py` | ``array`` に関する基本的な内容。
    :file:`broadcasting.py` | ``array`` の broadcasting rules についての議論。
    :file:`byteswapping.py` | ``array`` オブジェクトのメモリレイアウトに関する議論。

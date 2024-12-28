@@ -147,9 +147,10 @@ Windows メニューの Ubuntu フォルダー以下にある項目を何か選�
 
 .. csv-table::
    :delim: |
-   :header: Application,Command
+   :header-rows: 1
    :widths: auto
 
+   Application | Command
    Caffeine (Ubuntu) | ``wslg.exe -d Ubuntu --cd "~" -- /usr/bin/caffeine``
    ImageMagick (color depth=q16) (Ubuntu) | ``wslg.exe -d Ubuntu --cd "~" -- /usr/bin/display-im6.q16 -nostdin``
    Tilix (Ubuntu) | ``wslg.exe -d Ubuntu --cd "~" -- /usr/bin/tilix``

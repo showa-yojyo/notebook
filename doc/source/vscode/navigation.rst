@@ -20,8 +20,10 @@ Quick Open
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`Tab` @ 次のタブへ移動
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`Tab` @ 前のタブへ移動
 
@@ -47,8 +49,10 @@ VS Code が編集場所の履歴を記録して、何箇所か戻ったり、戻
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Alt` + :kbd:`←` @ 一つ前の編集箇所にキャレットを移動する
    :kbd:`Alt` + :kbd:`→` @ 戻したキャレットの位置をより最近の場所に復元する
 
@@ -66,8 +70,10 @@ VS Code が編集場所の履歴を記録して、何箇所か戻ったり、戻
 
 .. csv-table::
    :delim: @
-   :header: キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   キーバインド @ 操作
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`.` @ パンクズリストにフォーカスを移す
    :kbd:`Ctrl` + :kbd:`Shift` + :kbd:`:` @ パンクズリストの末端ノードにフォーカスを移す
    :kbd:`Ctrl` + :kbd:`←` @ パンクズ上ではフォーカスをパンクズリストの左のノードに移す
@@ -87,8 +93,10 @@ Go to コマンド群
 
 .. csv-table::
    :delim: @
-   :header: コマンド,既定キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 既定キーバインド @ 操作
    :guilabel:`Go to Definition` @ :kbd:`F12` @ 対象シンボルの定義箇所にジャンプする
    :guilabel:`Go to Type Definition` @ n/a @ 対象シンボルの型の定義箇所にジャンプする
    :guilabel:`Go to Declaration` @ n/a @ 対象シンボルの宣言箇所にジャンプする
@@ -152,8 +160,10 @@ Peek コマンド群
 
 .. csv-table::
    :delim: @
-   :header: コマンド,既定キーバインド,操作
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 既定キーバインド @ 操作
    :guilabel:`Peek Definition` @ :kbd:`Alt` + :kbd:`F12` @ 対象の定義を :guilabel:`Peek` ウィンドウに表示する
    :guilabel:`Peek Type Definition` @ n/a @ 対象の型に対する定義を :guilabel:`Peek` ウィンドウに表示する
    :guilabel:`Peek Declaration` @ n/a @ 対象の宣言を :guilabel:`Peek` ウィンドウに表示する
@@ -190,8 +200,10 @@ Peek コマンド群
 
 .. csv-table::
    :delim: @
-   :header: コマンド,既定キーバインド,ジャンプ先
+   :header-rows: 1
+   :widths: auto
 
+   コマンド @ 既定キーバインド @ ジャンプ先
    :guilabel:`Go to Next Problem` @ :kbd:`F8` @ 現在のエディター内の次の問題箇所
    :guilabel:`Go to Previous Problem` @ :kbd:`Shift` + :kbd:`F8` @ 現在のエディター内の前の問題箇所
    :guilabel:`Go to Next Problem In Files` @ :kbd:`Alt` + :kbd:`F8` @ 全てのエディター内の次の問題箇所

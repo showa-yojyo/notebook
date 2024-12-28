@@ -5,8 +5,9 @@ GitHub CLI documentation ノート
 `GitHub CLI documentation <https://docs.github.com/en/github-cli>`__ を見ていく。
 ブラウザーとコンソールを往復するのが億劫な人に最適な道具だ。
 
-.. contents::
+.. contents:: 見出し一覧
    :depth: 3
+   :local:
 
 * :guilabel:`Overview` → :ref:`About GitHub CLI <cli-overview>`
 * :guilabel:`Quickstart` → :ref:`GitHub CLI <cli-quickstart>`
@@ -73,7 +74,7 @@ GitHub CLI quickstart
 
    bash$ gh auth status
    github.com
-     ✓ Logged in to github.com as showa-yojyo (/home/work/.config/gh/hosts.yml)
+     ✓ Logged in to github.com as showa-yojyo (/home/USERNAME/.config/gh/hosts.yml)
      ✓ Git operations for github.com configured to use ssh protocol.
      ✓ Token: gho_************************************
      ✓ Token scopes: admin:public_key, gist, read:org, repo
@@ -82,9 +83,10 @@ GitHub CLI quickstart
 
 .. csv-table::
    :delim: |
-   :header: コマンド,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド | 挙動
    ``gh status`` | 現在の自分の作業状況を示す
    ``gh repo view OWNER/REPO`` | リポジトリーの記述と README を示す
    ``gh repo clone OWNER/REPO`` | リポジトリーをローカルに clone する
@@ -127,6 +129,11 @@ GitHub CLI quickstart
    Create or add custom commands with GitHub CLI extensions.
 
 これも Git に同等の機能があるから理解可能。しかし使わない。
+
+.. admonition:: 読者ノート
+
+   :program:`gh` の設定ファイルは既定では :file:`$XDG_CONFIG_HOME/gh` 以下に配置
+   される。このディレクトリーの意味については :doc:`/xdg` 参照。
 
 Creating GitHub CLI extensions
 ======================================================================
@@ -249,9 +256,10 @@ GitHub CLI reference
 
 .. csv-table::
    :delim: |
-   :header: コマンド,挙動
+   :header-rows: 1
    :widths: auto
 
+   コマンド | 挙動
    ``gh`` | 最上位コマンドすべてを示す
    ``gh COMMAND`` | ``COMMAND`` のサブコマンドすべてを示す
    ``gh environment`` | ``gh`` が参照する環境変数一覧を示す

@@ -334,8 +334,10 @@ Form fields
 
 .. csv-table::
    :delim: |
-   :header: 型, 様式
+   :header-rows: 1
+   :widths: auto
 
+   型 | 様式
    ``text`` | 単一行エディットボックス
    ``password`` | ``text`` と同じだがタイプされた文字をマスクする
    ``checkbox`` | チェックボックス

@@ -293,8 +293,10 @@ Exercises
 
 .. csv-table::
    :delim: |
-   :header: 変数・関数, コメント
+   :header-rows: 1
+   :widths: auto
 
+   変数・関数 | コメント
    ``roads`` | エッジリスト。これはもう要らない。
    ``buildGraph`` | エッジリストからグラフを構築する。これももう要らない。
    ``roadGraph`` | 隣接グラフ。これを使い回す。
