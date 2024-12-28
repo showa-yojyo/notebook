@@ -51,12 +51,11 @@ TestSuite を集めて TestRunner に渡すコードを書くという、これ�
 インストール
 ======================================================================
 
-方法については :ref:`python-pkg-proc` で図示したので、そちらを参照して欲しい。イ
-ンストールが成功終了後は、Python 環境は次のように変化している。
+:ref:`miniconda-anchor-pip` の記述に従え。インストール成功終了後、Python 環境は
+次のように変化している：
 
-* :file:`Lib/site-packages/nose` フォルダーが存在する。
-  当然その中には py モジュールが含まれている。
-
+* :file:`Lib/site-packages/nose` フォルダーが存在する。当然その中には py モ
+  ジュールが含まれている。
 * :file:`Scripts` フォルダーに実行ファイル :file:`nosetests` が存在する。特に
   Windows の場合、これは exe ファイルである。
 

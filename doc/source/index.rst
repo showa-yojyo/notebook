@@ -99,6 +99,8 @@
 
    python-3.[0-9]
    python-3.1[0-9]
+   python-upgrade
+   python-miniconda
    python-pip
    python-pipenv
    python-pylint
@@ -132,8 +134,6 @@
    python-pytube
    youtube-dl
    python-py2exe
-   python-upgrade
-   python-miniconda
 
 .. toctree::
    :caption: Ruby
