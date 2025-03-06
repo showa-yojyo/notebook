@@ -2,6 +2,9 @@
 Pytest 利用ノート
 ======================================================================
 
+.. |pip| replace:: :program:`pip`
+.. |pytest| replace:: :program:`pytest`
+
 Python のテストフレームワークとして著名かつ人気のある pytest_ に関するノートだ。
 
 .. contents:: 章見出し
@@ -25,16 +28,16 @@ Python のテストフレームワークとして著名かつ人気のある pyt
 Miniconda_ であるから、例えば次のようにする：
 
 .. sourcecode:: console
-   :caption: 現在の conda 仮想環境に pytest をインストールする
+   :caption: 現在の conda 仮想環境に |pytest| をインストールする
    :force:
 
    conda install -c conda-forge pytest
 
 仮想環境ツールがインストールコマンドを持っていない場合には、対象仮想環境が有効で
-あることを確認してから :program:`pip` を使え：
+あることを確認してから |pip| を使え：
 
 .. sourcecode:: console
-   :caption: 昔ながらの pip による pytest インストール手順例
+   :caption: 昔ながらの |pip| による |pytest| インストール手順例
    :force:
 
    pip install pytest
@@ -69,7 +72,7 @@ Pytest_ はプロジェクトごとに構成ファイルを設ける流儀であ
 る。次のようなコードを与える：
 
 .. sourcecode:: toml
-   :caption: :file:`pyproject.toml` における pytest 構成記述例
+   :caption: :file:`pyproject.toml` における |pytest| 構成記述例
    :force:
 
    [tool.pytest.ini_options]
@@ -120,7 +123,7 @@ Pytest_ はプロジェクトごとに構成ファイルを設ける流儀であ
 標準テストモジュール ``unittest`` を使って構築したテスト一式がある場合、pytest_
 に適合させるための作業は本質的には発生しない。コマンドラインで起点となるパスと
 :envvar:`PYTHONPATH` を（上述の構成ファイルに記述する方式が望ましい）適当に指定
-すれば pytest_ は動作する。
+すれば |pytest| は動作する。
 
 Nose_ から移行する場合、nose2pytest_ を試せ。初回は学習目的で、敢えて手作業で移
 行するのも考えられる（時間的余裕が十分ある場合に限る）。
@@ -196,8 +199,8 @@ fixture 関数定義をここで行え。さらに、テストモジュールが
 内容と同じものを読み取ることが可能だ。これは標準出力に対してしか出力しない機能を
 テストするときや、エラー出力をテストするときに有用だ。要点は：
 
-* この fixture は ``pytest`` 組み込みであるため、テスト関数の引数リストに即列挙
-  可能だ。
+* この fixture は pytest_ 組み込みであるため、テスト関数の引数リストに即列挙可能
+  だ。
 * ``capsys.readouterr()`` は標準出力と標準エラー出力の内容と同じ文字列の対を返
   す。それぞれを参照するには ``out``, ``err`` を指定する。
 
@@ -322,7 +325,7 @@ fixture 関数定義をここで行え。さらに、テストモジュールが
    :caption: ``pytestmark`` 使用例
    :force:
 
-   # tests/test_xxxx.py
+   # In a test module
 
    from mypackage.config import check_config
 
@@ -334,6 +337,86 @@ fixture 関数定義をここで行え。さらに、テストモジュールが
 :file:`__init__.py` などで別のオブジェクト (e.g. ``requires_config``) に代入して
 おき、各モジュールからそれを ``import`` して ``pytestmark = requires_config`` な
 どとすればコード量がさらに抑えられるだろう。
+
+知っていると便利なコマンドラインオプション
+----------------------------------------------------------------------
+
+重要なオプション設定は構成ファイルに記述するので、ここに挙げるのは実行時にしか指
+定することがないオプションとする。
+
+テストを実行しないコマンドを先に挙げる：
+
+``pytest --version``
+   |pytest| 本体と、もしあればプラグインのバージョンを出力する。
+``pytest --help``
+   |pytest| インターフェイス仕様記述を出力する。構成ファイルの項目名を確認するこ
+   とも可能だ。
+``pytest -q``
+   実行結果を許される範囲でコンパクトに出力する。ドットなどが縦横に並んで表示さ
+   れ、定型的文言は省かれる。
+``pytest --collect-only``
+   実行テスト一覧を階層的に表現して出力する。後述する実行コマンドに付加して用い
+   る。
+``pytest --fixtures``
+   使用可能な fixtures 一覧を、その関数 docstring と共に出力する。基本的には組み
+   込み、プラグイン、自作の順番に fixtures が並ぶようだ。
+``pytest --fixtures-per-test``
+   テスト関数それぞれに対して仕込まれる fixtures を一覧する。言い換えると、テス
+   ト関数の引数リストに現れる仮引数がすべて示される。この出力にも docstring が使
+   われる。
+``pytest --markers``
+   使用可能な markers 一覧を出力する。
+
+テスト動作を調整するオプションを指定したコマンド：
+
+:samp:`pytest -k {keyword}`
+   文字列 `keyword` を部分文字列とする名前のテストに限定して実行する。アルファ
+   ベットの大文字小文字は区別しない。実際はもっと高機能だが、とりあえずこれだけ
+   憶えておく。文字列を適宜引用符で囲むのがよい。
+
+   利点：テスト対象ファイル名を憶えていなくて済む。
+:samp:`pytest -m {marker-spec}`
+   テストのうち、その ``@pytest.mark`` が `marker-spec` に合致するものしか実行し
+   ない。
+``pytest --pdb``
+   エラー時または例外 ``KeyboardInterrupt`` が発生した場合に対話型 Python デバッ
+   ガーを起動させる。
+
+.. note:: 利用者ノート
+
+   再テスト順序指定オプションやログオプションなど、まだまだ機能がある。
+
+コマンドライン引数
+----------------------------------------------------------------------
+
+コマンドライン引数を何も指定しない場合、一般的にコマンド |pytest| は作業ディレク
+トリーとその下位にある :file:`test_*.py` または :file:`*_test.py` というファイル
+名の全てのテストを実行する。特定のテストを実行するには、例えば次のいずれかのパ
+ターンのコマンドを組み立てる：
+
+``pytest tests/``
+   ディレクトリー :file:`tests/` およびその下位にあるテストモジュールのテスト全
+   てを対象とする。
+``pytest tests/test_mod.py``
+   モジュール :file:`tests/test_mod.py` にあるテスト全てを対象とする。
+``pytest tests/test_mod.py::test_func``
+   モジュール :file:`tests/test_mod.py` にあるテスト関数 ``test_func`` を唯一の
+   テスト対象とする。
+``pytest tests/test_mod.py::test_func[x1,y2]``
+   モジュール :file:`tests/test_mod.py` にあるテスト関数 ``test_func`` を唯一の
+   テスト対象とし、さらにその引数指定を ``x1,y2`` とする。
+``pytest tests/test_mod.py::TestClass``
+   モジュール :file:`tests/test_mod.py` にあるテストクラス ``TestClass`` にある
+   テスト全てを対象とする。
+``pytest tests/test_mod.py::TestClass::test_method``
+   モジュール :file:`tests/test_mod.py` にあるテストクラス ``TestClass`` にある
+   メソッド ``test_method`` を唯一のテスト対象とする。
+
+.. note:: 利用者ノート
+
+   ツール等を経由して |pytest| を実行する場合、パスを入力するのにファイルパスに
+   対するタブ補完が効かずに、面倒である場合があることに注意。そういう場合は前項
+   で見たオプション :samp:`-k {keyword}` を用いる。
 
 資料集
 ======================================================================
