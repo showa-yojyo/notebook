@@ -90,6 +90,43 @@ Hatch 自身に対する構成
 以下、ツールが出力する |pyproject.toml| の内容のうち、|hatch| しか認識しないもの
 を |hatch.toml| に（適宜整形して）分離することにする。
 
+頻出コマンド一覧
+----------------------------------------------------------------------
+
+構成がいったん落ち着くと、ローカルレポジトリーで使う |hatch| コマンドは次くらい
+しかない：
+
+``hatch env find``
+   プロジェクトの仮想環境が収められているディレクトリーのパスを示す。
+``hatch env show``
+   定義されている Hatch 環境一覧を出力する。使い勝手が良いのはオプション
+   ``--json`` を付けて :program:`jq` にパイプして対象を絞り込むのが見易い。
+``hatch env show --internal``
+   Hacth 内蔵環境一覧を出力する。既定の依存を調べるのに有用だ。
+``hatch fmt --check``
+   コードを静的解析する。ファイルを上書きしない。
+``hatch fmt --check --sync``
+   コード書式整形既定規則が Hatch 側で更新されたときに、プロジェクトの整形ツール
+   が参照する規則ファイルにそれを適用する。構成項目 ``config-path`` が示すファイ
+   ルを上書きする。
+``hatch fmt --formatter``
+   コードを書式整形する。コードファイルを上書きする。
+``hatch fmt --linter``
+   コードを静的解析し、望ましくない記述を可能な限り修正する。コードファイルを上
+   書きする。
+:samp:`hatch new {project-name} {location}`
+   Python プロジェクト `project-name` を構成するディレクトリー群および構成ファイ
+   ルをパス `location` に新規作成する。実行頻度はプロジェクト開始時に一度きりだ。
+   適当な一時ディレクトリーでこのコマンドを実行して出力を見るがいい。
+:samp:`hatch run {env-name:command}`
+   環境 `env-name` に入ってからコマンド `command` を走らせる。
+``hatch run types:check``
+   既定構成では |mypy| が走るはず。
+``hatch test``
+   単体テストを実施する。
+
+詳しくはサブコマンドごとに節を設けて後述する。
+
 環境
 ----------------------------------------------------------------------
 
@@ -113,8 +150,15 @@ Hatch_ で言う環境とは、例えば次のような特定の課題を達成�
    明示的に構成された環境を出力する。既定では ``default`` と ``types`` の二つの
    環境が存在することが示されるはずだ。
 ``hatch env show -i``
-   内蔵環境と呼ばれるものを出力する。重要なスクリプトを含む環境が揃っている。詳
-   しくはビルドおよびテストの節で後述する。
+   内蔵環境と呼ばれるものの構成を出力する。重要なスクリプトを含む環境が揃ってい
+   る。詳しくはビルドおよびテストの節で後述する。
+:samp:`hatch env show {env-name}`
+   環境 `env-name` の構成を出力する。内蔵環境でもかまわない。
+
+.. admonition:: 利用者ノート
+
+   書式オプション ``--json`` を指定し、:program:`jq` などで出力を絞り込むのと見
+   通しが良い。
 
 プロジェクトに環境を新規作成する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,8 +166,6 @@ Hatch_ で言う環境とは、例えば次のような特定の課題を達成�
 環境を定義するには |hatch.toml| に区画 :samp:`[envs.{env-name}]` を設け、そこに
 環境 `env-name` を構成する属性を指定する。詳細を記述したら、適当な |hatch| コマ
 ンドを実行することによりこの環境が成立する。
-
-TBD: 属性一覧など？
 
 環境を特定してコマンド（やスクリプト）を実行するには次のいずれかを実行する：
 
@@ -141,7 +183,7 @@ TBD: 属性一覧など？
 の形式で環境固有のスクリプトと呼ばれるコマンドを定義することが可能だ。
 
 .. sourcecode:: toml
-   :caption: スクリプト定義例
+   :caption: スクリプト定義例（二番目のものは実践しないこと）
    :force:
 
    # Suppose the environments [envs.types] and [envs.styles] are properly defined.
@@ -162,13 +204,10 @@ TBD: 属性一覧など？
 
 定義済みスクリプトを確認するには、コマンド ``hatch env show`` の出力を見ればいい。
 
-----
-
 .. todo::
 
    * 継承 ``type``, ``template``
    * ``detached``: インストールを省く
-   * ``dependencies`` 後述
    * 定数を :samp:`[envs.{env-name}.env-vars]` に :samp:`{name} = {value}` の形
      で定義可能。
 
@@ -391,13 +430,17 @@ Hatch_ 既定構成をいっさい採用せず、完全に自分の構成を与�
    * そもそも :program:`coverage` を理解していない。
    * ``hatch test --all`` は互換な環境全てで実行
 
+.. seealso::
+
+   Pytest_ については :doc:`/python-pytest` に記す。
+
 環境選択
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-環境には ``matrix`` という属性を有する場合がある。内蔵環境 ``envs.hatch-test``で
-あり得る組み合わせ全てがテストの対象となる。テストの順序は見てくれと一致するとは
-限らず、|hatch| をインストールした Python のバージョンをまず優先する。互換でない
-環境に対しては |hatch| はテストを飛ばすことを告げる。
+環境には ``matrix`` という属性を有する場合がある。内蔵環境 ``envs.hatch-test``
+であり得る組み合わせ全てがテストの対象となる。テストの順序は見てくれと一致すると
+は限らず、|hatch| をインストールした Python のバージョンをまず優先する。互換でな
+い環境に対しては |hatch| はテストを飛ばすことを告げる。
 
 コマンド ``hatch env show -i`` で Matrices 区画を見ろ。環境 ``hatch-test`` の
 ``Envs`` として選択可能なものが一覧になっている。
@@ -425,45 +468,99 @@ Hatch_ 既定構成をいっさい採用せず、完全に自分の構成を与�
 ビルド
 ----------------------------------------------------------------------
 
-* コマンド ``hatch build`` は構成 ``build.targets.sdist`` と
-  ``build.targets.wheel`` それぞれに基づいた成果物をビルドする。
-* コマンド :samp:`hatch build -t {target}` で個別ビルド。
+コマンド ``hatch build`` について記す。ビルドに関する構成は内蔵環境
+``envs.hatch-build`` にあり、ビルドコマンドの実装はスクリプト群
+``envs.hatch-build.scripts`` が規定する。
+
+``hatch build -t sdist``
+   スクリプト ``build-sdist`` が走る。既定はおそらく ``python -m build --sdist
+   {args}``.
+``hatch build -t wheel``
+   スクリプト ``build-wheel`` が走る。既定はおそらく ``python -m build --wheel
+   {args}``.
+``hatch build``
+   スクリプト ``build-all`` が走る。既定はおそらく ``python -m build {args}``.
+
+どの場合でもフラグオプション ``-c``/``--clean`` をつければ、既存の成果物をまず消
+去してからビルドする。環境変数 :envvar:`HATCH_BUILD_CLEAN` も使える。
+
+使う機会はほとんどないが、コマンド ``build`` の代わりに ``clean`` を使うと、
+|hatch| は対象成果物の消去のみを行う。
+
+ビルドシステム
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+構成ファイル |pyproject.toml| で次の記述が必須だ：
+
+.. sourcecode:: toml
+   :caption: ``[build-system]`` 定義
+   :force:
+
+   [build-system]
+   requires = ["hatchling"]
+   build-backend = "hatchling.build"
+
+その他
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+次のような機能があるが、当面は上述の基本機能だけで十分だ。
+
+* 環境 ``envs.hatch-build`` の配列 ``dependencies`` を上書き可能。
+* 構成 ``[envs.hatch-build.env-vars]`` で定数を定義可能。
+* 構成 :samp:`[build.targets.{targ-name}]` でビルド対象 `targ-name` を構成する。
+
+  * 配列 ``include``, ``exclude`` でビルド対象の Python ファイルをパターンで選択
+    可能。
+  * 配列 ``artifacts`` で成果物ファイルをパターンで指定可能。
+  * 配列 ``dependencies`` が利用可能。
+* ビルドフック
 
 リリース
 ----------------------------------------------------------------------
 
-TODO: ``hatch publish``
+コマンド ``hatch publish`` は自作成果物をレジストリーに公開する場合に活用する。
 
-頻出コマンド一覧
+Bash 端末におけるタブ補完
 ----------------------------------------------------------------------
 
-TBW
+Bash の対話的モードでの起動時読み込みシェルスクリプトファイルに次のようなコード
+を書いておけば十分だ：
 
-不明 or 未定
+.. sourcecode:: bash
+
+   [ -x "$(command -v hatch)" ] && eval "$(_HATCH_COMPLETE=bash_source hatch)"
+
+GitHub Actions
 ----------------------------------------------------------------------
 
-.. todo::
+ワークフローファイルの ``jobs`` の ``steps`` に次のように書け：
 
-   * ``hatch new [OPTIONS] [NAME] [LOCATION]``
-   * ``hatch new --init``: このレポジトリーでやってみるか？
-   * ``dev-mode``
-   * ``skip-install``
-   * GitHub Actions ``pypa/hatch@install``
-   * Miniconda との連携
+.. sourcecode:: yaml
 
-   .. code:: console
+   jobs:
+     run:
+       # ...
+       steps:
 
-      hatch run hatch-build:build-all # OK
-      hatch run hatch-build:build-sdist # OK
-      hatch run hatch-build:build-wheel # OK
-      hatch run hatch-static-analysis:format-check # OK
-      hatch run hatch-static-analysis:format-fix # OK
-      hatch run hatch-static-analysis:lint-check # OK
-      hatch run hatch-static-analysis:lint-fix # OK
-      #hatch run hatch-test:cov-combine
-      #hatch run hatch-test:cov-report
-      #hatch run hatch-test:run
-      #hatch run hatch-test:run-cov
+       - name: Install Hatch
+         uses: pypa/hatch@install
+
+通常は ``install`` の部分を適当な固定コミット ID に置き換える。
+
+Visual Studio Code は Hatch を認識する
+----------------------------------------------------------------------
+
+Visual Studio Code の Python 拡張は Hatch がパスにさえあれば、関連した便宜を図
+るように振る舞う：
+
+   Hatch environments are now discovered and activated by default, similar to
+   other common environments, such as Venv, Conda, and Poetry. Furthermore, in
+   the case of Hatch, where an explicit environment identifier is not
+   registered, the extension is able to determine the environment type (Hatch)
+   from the environment locator. <https://code.visualstudio.com/updates/v1_88>
+
+VS Code のステータスバーにある :guilabel:`Select Interpreter` をクリックし、
+:guilabel:`Hatch` と記されている Python を選んでからデバッグなりなんなりしろ。
 
 資料集
 ======================================================================
@@ -472,6 +569,8 @@ Hatch_
    公式。キーボードでページをめくれるのは楽しい。
 `PEP 508 Dependency specification for Python Software Packages`_
    依存の意味をこの文書で規定されるように解釈する。
+`Install Hatch Action pypa/hatch <https://github.com/pypa/hatch/tree/install>`__
+   GitHub Actions ワークフロー用アクション。
 
 .. include:: /_include/python-refs-core.txt
 .. _mypy: https://mypy.readthedocs.io/en/stable/
