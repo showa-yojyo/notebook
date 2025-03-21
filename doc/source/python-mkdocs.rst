@@ -2,6 +2,7 @@
 MkDocs 利用ノート
 ======================================================================
 
+.. |highlight.js| replace:: `highlight.js`_
 .. |mkdocs| replace:: :program:`mkdocs`
 .. |mkdocs.yml| replace:: :file:`mkdocs.yml`
 
@@ -204,7 +205,12 @@ MkDocs_ プロジェクトの構成手段は既定では YAML ファイル |mkdo
       カスタムテーマを含むディレクトリー。やらないと思うが絶対パス指定が可能であ
       り、その場合はローカルファイルシステムのルートからのパスと解釈される。
    ``locale``
-      TBW
+      サイト全体の言語テーマを構築するのに用いる言語地域を ISO 639-1 言語コード
+      で指示する。無効値や未実装値を指定すると既定の言語地域が設定されたものとし
+      て処理される。
+
+      検索プラグインを機能させる場合、そこで言語を明示的に設定しない場合にこの値
+      が参照される。
    ``name``
       テーマ名。
    ``static_templates``
@@ -392,27 +398,115 @@ MkDocs_ プロジェクトの構成手段は既定では YAML ファイル |mkdo
 テーマ
 ======================================================================
 
-内蔵テーマは二つだ。
+MkDocs_ におけるテーマという術語は、Sphinx_ や Jekyll_ におけるそれと同一と考え
+る。ビルド文書の容貌に整合した調子を適用するための枠組だ。Mkdocs_ 内蔵テーマは次
+の二つであり、それぞれを試してみると自作文書の見栄えがよその既存プロジェクトの
+Web サイトにそっくりであることが確認できる：
 
-* ``mkdocs``
+* ``mkdocs``: MkDocs_, Hatch_ など
 * ``readthedocs``
 
-サードパーティー製テーマは次で見つけろ：
+サードパーティー製テーマは `MkDocs Themes
+<https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes>`__ で探すことが可能。適用
+方法はそれぞれの仕様書に記載されている。一般的にはテーマにより機能が異なる。
 
-* `MkDocs Themes <https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes>`__
-* TBD
+テーマ構成のあり方
+----------------------------------------------------------------------
 
-テーマによって機能が異なる。
+テーマを構成する要素は全テーマで共通するものとテーマ個別のものとに分類して考えた
+い。
 
-構成は全テーマ共通のものとテーマ個別のものとに分かれる。テーマ ``mkdocs`` なら：
+MkDocs テーマ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* ``color_mode: light|dark|auto``
-* ``user_color_mode_toggle: ????``
-* ``nav_style: primary|dark|light``
-* ``highlightjs: True|False`` と highlight.js 関連構成項目
-* ``shortcuts``: これは使いたい
-* ``navigation_depth: 2``
-* ``locale: en``: 英語のまま使いたい
+次に示すのは内蔵テーマの一つである ``mkdocs`` の固有構成要素だ：
+
+``analytics``
+   Google Analytics に関係する項目。使用しないので割愛。
+``color_mode``
+   ページ描画に関する明暗モード。値は ``auto``, ``dark``, ``light`` から指定す
+   る。読者の利便性を第一に考えろ。
+``highlightjs``
+   既定値 ``True`` をそのまま採用したいので、明示的に上書きしないようにする。
+
+   |highlight.js| を使用してのコードブロック内のプログラミングコードの強調描画を
+   オンにする。
+``hljs_style``
+   |highlight.js| を用いる場合、その配色仕様を `Examples
+   <https://highlightjs.org/examples>`__ で確認可能な名前で指定する。既定値は
+   ``github`` だ。もう一つの有力な配色仕様は Visual Studio 系だろう。
+``hljs_style_dark``
+   ページ描画の明暗モードが ``dark`` のときに |highlight.js| が処理するコードブ
+   ロックのテーマ。
+``hljs_languages``
+   |highlight.js| は特別に要求しないと強調表示を行えない言語がある。この構成項目
+   はそのような言語を配列で指定する。
+``nav_style``
+   平たく言うとページ天井の背景色。値は ``primary``, ``dark``, ``light`` から指
+   定する。
+
+   この構成要素は ``color_mode`` とは独立している。したがって、この二つの値の組
+   み合わせによっては天井の文字色と背景色の対比が低くなり、つまり可読性が低下す
+   る。
+``navigation_depth``
+   サイドバーの木の深さ。既定値 2 より大きくしたい場合に明示的に設定する。
+``shortcuts``
+   ページ内でのキーバインドを定義可能。目玉機能だと感じる。コマンドは四つある：
+
+   .. csv-table::
+      :delim: @
+      :header-rows: 1
+      :widths: auto
+
+      項目 @ コマンド動作 @ キーコード @ キー
+      ``help`` @ キーバインドをポップアップ表示する @ 191 @ :kbd:`?`
+      ``next`` @ 次のページを要求 @ 78 @ :kbd:`N`
+      ``previous`` @ 前のページを要求する @ 80 @ :kbd:`P`
+      ``search`` @ 検索ポップアップを表示する @ 83 @ :kbd:`S`
+
+   キーを番号で指定する必要があることに注意。
+
+   例えば Hatch_ の用例が素晴らしいので猿真似したい。
+``user_color_mode_toggle``
+   これを ``True`` にしておくと、上述した明暗モードを切り替える操作盤がページ内
+   に出現する。
+
+Read the Docs テーマ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+次に示すのは内蔵テーマの一つである ``readthedocs`` の固有構成要素だ。要素のいく
+つかは ``mkdocs`` と共通する。
+
+``analytics``
+   先述のものと同じ。
+``collapse_navigation``
+   現在のページのサイドバーに当該ページ節の見出ししか含めないようにする。
+``highlightjs``
+   先述のものと同じ。
+``hljs_languages``
+   先述のものと同じ。
+``include_homepage_in_sidebar``
+   サイドバーメニューにホームページを表示するか否か。含めたくない場合に値
+   ``False`` を指示する。
+``locale``
+   先述のものと同じ。
+``logo``
+   画像パスを設定することでプレーンテキストの ``site_name`` 文字列の代わりにロゴ
+   タイプ画像を表示することが可能。指定しない場合は ``null`` とする。
+``navigation_depth``
+   先述のものと同じ。
+``prev_next_buttons_location``
+   ページ移動ボタンを ``bottom``, ``both``, ``none``, ``top`` のいずれかに指定す
+   る。既定では ``bottom`` が設定される。
+``sticky_navigation``
+    ページをスクロールするとサイドバーがメインページの内容と共にスクロールさせた
+    い場合に ``True`` を指示する。
+``titles_only``
+   サイドバーにページタイトルしか含めない場合には ``True`` を指示する。
+
+.. admonition:: 利用者ノート
+
+   サイドバーが仕様どおりに動作しない。
 
 テーマをカスタマイズする
 ----------------------------------------------------------------------
@@ -468,13 +562,14 @@ MkDocs_
 `Read the Docs user documentation <https://docs.readthedocs.com/platform/stable/>`__
    Read the Docs は Git ワークフローを使用して文書をここに配備する。最新の原稿
    ファイルを GitHub に push すると文書を更新作成する。
-
-`highlight.js <https://highlightjs.org/>`__
-   TBW
+|highlight.js|
+   構文強調スクリプト。対応言語数が二百近くあり、テーマが豊富。
 LUNR_
    既定の検索エンジンは JavaScript で実装されている。
 
 .. include:: /_include/python-refs-core.txt
+.. _Hatch: https://hatch.pypa.io/
+.. _`highlight.js`: https://highlightjs.org/
 .. _Jekyll: https://jekyllrb.com/
 .. _LUNR: https://lunrjs.com/
 .. _MkDocs: https://www.mkdocs.org/
