@@ -11,15 +11,11 @@ MkDocs 利用ノート
 
 .. todo::
 
-   * テーマ
-   * 生編集サーバー
-
    * :file:`site` 微調整
 
      * ``sitemap.xml``
      * ``mkdocs/search_index.json``
    * :file:`index.md` と :file:`README.md`
-   * テンプレート
 
 概要
 ======================================================================
@@ -38,8 +34,8 @@ Jekyll_ と同じだが、MkDocs_ は Ruby ではなく Python で実装され�
 
    MkDocs comes with a built-in dev-server that lets you preview your
    documentation as you work on it. Make sure you're in the same directory as
-   the :file:`mkdocs.yml` configuration file, and then start the server by
-   running the ``mkdocs serve`` command
+   the |mkdocs.yml| configuration file, and then start the server by running the
+   ``mkdocs serve`` command
 
 このコマンドで作動しているサーバーは自動リロードに対応している。構築構成、文書
 ディレクトリー、テーマーディレクトリーに変更が生じた場合、生で再構築する。
@@ -125,12 +121,8 @@ MkDocs_ プロジェクトの構成手段は既定では YAML ファイル |mkdo
    論理的には ``docs_dir`` に存在するファイルの集合を値に取る。本来ならばビルド
    入力となるファイルを、ここに指定することで除外する。
 ``nav``
-   サイト全体にわたるサイドバーの整形と台割を決定する項目だ。
-
-   .. todo::
-
-      詳しく述べる。
-
+   サイト全体にわたるサイドバーの整形と台割を決定する項目だ。リンクテキストと
+   パスのペアの配列。
 ``not_in_nav``
    サイトには含めたいが、サイドバーからは除外したいページがある場合、対応する入
    力ファイルを指示する。
@@ -191,7 +183,8 @@ MkDocs_ プロジェクトの構成手段は既定では YAML ファイル |mkdo
    生成 HTML ファイルの内容としては ``head`` 要素内の ``script`` 要素として反映
    される。
 ``extra_templates``
-   TBW
+   使用者独自の Jinja2_ テンプレートファイルの配列か。実体は ``docs_dir`` 以下に
+   あることを想定していると公式文書から読める。
 
    指定方式は ``extra_css`` などと同様。
 ``site_dir``
@@ -516,26 +509,51 @@ Read the Docs テーマ
 
 前者は ``docs_dir`` を用いる。CSS と JavaScript は構成項目 ``extra_css`` と
 ``extra_javascript`` それぞれに追加的に指定が可能。ここにファイル名を指示する。
+例えば Read the Docs テーマにおけるサイドバーの背景色を変えたい場合には、対応する
+CSS クラスの背景色を指定したファイルを作ればよい。次のような内容の CSS ファイルを
 
-後者は ``custom_dir`` を用いる。既存のテーマを上書きすることになる。上書きする
-ファイルをディレクトリーに格納し、それを :file:`mkdocs.yml` で指示するという方法
-だ。
+.. sourcecode:: css
+   :caption: 例えば :file:`docs/css/override.css` とする
+   :force:
+
+   div .wy-side-nav-search {
+       background-color: deeppink;
+   }
 
 .. sourcecode:: yaml
-   :caption: :file:`mkdocs.yml`
+   :caption: ``extra_css`` 指定例
+   :force:
+
+   extra_css:
+     - css/override.css
+
+後者は ``custom_dir`` を用いる。既存のテーマを上書きすることになる。上書きする
+ファイルをこの構成項目ディレクトリーに格納し、それを |mkdocs.yml| で指示するとい
+う方法だ。例えば、Favicon ファイルを自作のものに差し替える場合にはこちらの方式を
+採る必要がある。
+
+.. sourcecode:: yaml
+   :caption: |mkdocs.yml| における ``custom_dir`` 指定例
    :force:
 
    theme:
      name: mkdocs
      custom_dir: custom_theme/
 
-基底テーマにないファイルを置いても無視されるわけではない。
+Favicon ファイルを自作のものに差し替えるにはファイル
 
-テンプレートシステムは Jinja2 を採用している。
+| :file:`custom_theme/img/favicon.ico`
+
+を作成すればよい。
+
+オリジナルのファイル構成は Python インストールディレクトリーの
+:file:`site-packages/mkdocs/themes/mkdocs` で確認可能。Jinja2_ 用テンプレートを
+確認、複製するときもここから参照して、必要ならテンプレートファイルを
+:file:`custom_dir/` の適切なサブディレクトリーに置き、Jinja2_ 方式で「オーバーラ
+イド」することになる。Sphinx_ と考え方は同じだ。
 
 .. seealso::
-
-   :doc:`/python-jinja2`
+   Jinja2_ については :doc:`/python-jinja2` を見て思い出せ。
 
 資料集
 ======================================================================
@@ -571,5 +589,6 @@ LUNR_
 .. _Hatch: https://hatch.pypa.io/
 .. _`highlight.js`: https://highlightjs.org/
 .. _Jekyll: https://jekyllrb.com/
+.. _Jinja2: http://jinja.pocoo.org/
 .. _LUNR: https://lunrjs.com/
 .. _MkDocs: https://www.mkdocs.org/
