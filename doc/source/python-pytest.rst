@@ -47,8 +47,10 @@ Miniconda_ であるから、例えば次のようにする：
 使っているのならば ``conda uninstall pytest`` を走らせる、というようにだ。
 
 .. seealso::
-
+   :doc:`/python-hatch`
+      必要になれば自動でインストールするツールを使うのがいちばん楽だ。
    :doc:`/python-miniconda`
+      仮想環境管理管理ツール。
 
 構成・カスタマイズ
 ======================================================================
@@ -108,12 +110,10 @@ Pytest_ はプロジェクトごとに構成ファイルを設ける流儀であ
 
 .. todo::
 
-   * GitHub Actions
-   * プロジェクトファイルでの指定例
+   * Hatch_ を利用することで pytest_ を間接的にインストールする
 
      * :file:`Pipfile`
      * :file:`pyproject.toml`
-     * :file:`hatch.toml`
    * 自作 marks
    * doctest
    * 前回失敗したエラーからテストを再開
@@ -518,5 +518,6 @@ fixture 関数定義をここで行え。さらに、テストモジュールが
    Stack Overflow より。
 
 .. include:: /_include/python-refs-core.txt
+.. _Hatch: https://hatch.pypa.io/latest/
 .. _pytest documentation: https://docs.pytest.org/en/stable/
 .. _nose2pytest: https://github.com/pytest-dev/nose2pytest
