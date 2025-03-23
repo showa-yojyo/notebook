@@ -104,11 +104,14 @@
    python-pip
    python-pipenv
    python-pylint
-   python-docutils/index
-   python-restview
+   python-mypy
+   python-ruff
    python-nose
+   python-pytest
+   python-hatch
    python-ipython
    python-jupyter
+   python-click
    python-numpy/index
    python-scipy/index
    python-sympy/index
@@ -120,7 +123,10 @@
    python-quaternion
    python-jinja2
    python-pygments
+   python-docutils/index
+   python-restview
    python-sphinx
+   python-mkdocs
    python-bs4
    python-selenium
    python-scrapy
