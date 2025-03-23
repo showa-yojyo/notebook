@@ -181,7 +181,17 @@ MkDocs_ プロジェクトの構成手段は既定では YAML ファイル |mkdo
       生成される ``script`` 要素の属性 ``src`` に対応。
 
    生成 HTML ファイルの内容としては ``head`` 要素内の ``script`` 要素として反映
-   される。
+   される。例えば MathJax_ のラッパー :file:`js/load-mathjax.js` を自作し、出力
+   ファイルがそれを読み込むようにするには：
+
+   .. sourcecode:: yaml
+      :caption: ``extra_javascript`` 例
+      :force:
+
+      extra_javascript:
+        - path: js/load-mathjax.js
+          async: true
+
 ``extra_templates``
    使用者独自の Jinja2_ テンプレートファイルの配列か。実体は ``docs_dir`` 以下に
    あることを想定していると公式文書から読める。
@@ -591,4 +601,5 @@ LUNR_
 .. _Jekyll: https://jekyllrb.com/
 .. _Jinja2: http://jinja.pocoo.org/
 .. _LUNR: https://lunrjs.com/
+.. _MathJax: http://docs.mathjax.org/en/latest/
 .. _MkDocs: https://www.mkdocs.org/
