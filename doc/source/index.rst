@@ -30,6 +30,7 @@
    alexandrescu01/index
    meyers01
    sutter02
+   The Art of Unix Programming 読書ノート <https://showa-yojyo.github.io/taoup/>
    joel04/index
    graham04
    angel05/index
