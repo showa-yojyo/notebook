@@ -1,0 +1,76 @@
+name: CI
+
+env:
+  artifact_name: "my-artifact"
+  publish_dir: "doc/build/html"
+  working_dir: "doc"  # only applies to `run` in steps
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: ${{ env.working_dir }}
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        python:
+          - '3.13'
+        platform:
+          - ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Install dependencies
+      run: |
+        pip install --user pipenv
+        pipenv sync
+
+    - name: Build documentation
+      run: |
+        pipenv run make html
+        rm -rf build/html/_sources
+
+    - name: Upload artifacts
+      if: github.event_name != 'pull_request'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.artifact_name }}
+        path: |
+          ${{ env.publish_dir }}
+          !${{ env.publish_dir }}/_sources
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ env.artifact_name }}
+        path: ${{ env.publish_dir }}
+
+    - name: Deploy artifacts
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        force_orphan: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ env.publish_dir }}
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        user_name: 'github-actions[bot]'
