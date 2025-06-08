@@ -1,6 +1,9 @@
 ======================================================================
-読書ノート
+読書ノート README
 ======================================================================
+
+.. image:: https://github.com/showa-yojyo/notebook/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/showa-yojyo/notebook/actions/workflows/ci.yml
 
 概要
 ======================================================================
@@ -78,9 +81,8 @@ GitHub のインターフェイスが優秀なので、モバイル環境でも�
 ビルド
 ----------------------------------------------------------------------
 
-ローカルリポジトリー内のディレクトリー ``notebook/doc`` に移動し、コマンド
-``make html`` を実行するとコマンド ``sphinx-build`` が呼び出されて HTML ファイル
-群が生成される。
+ローカルリポジトリー内のディレクトリー ``doc`` に移動し、コマンド ``make html``
+を実行するとコマンド ``sphinx-build`` が呼び出されて HTML ファイル群が生成される。
 
 Pipenv_ を用いて Sphinx_ 環境を整えた場合は次のようにビルドする：
 
@@ -93,7 +95,7 @@ Pipenv_ を用いて Sphinx_ 環境を整えた場合は次のようにビルド
 万が一 ``make`` 利用不能な場合には、各環境の定める手順でインストールする。
 わからない場合には Google で "how to install GNU make" などのキーワードで検索して調べるといい。
 
-ビルドが成功すると、サブディレクトリー ``notebook/doc/build/html`` 以下に
+ビルドが成功すると、サブディレクトリー ``doc/build/html`` 以下に
 Sphinx_ がビルドした成果物のすべてが格納される。
 
 成果物配備
@@ -109,14 +111,14 @@ Sphinx_ がビルドした成果物のすべてが格納される。
 通常は方法 1. で事足りる。これを推奨方法とする。HTML ファイル配備までに必要なすべての処理を
 GitHub が提供するワークフローランナーが実際にこなす。
 これはローカルリポジトリーでの ``git push`` 実行などの後、だいたい 3, 4 分で完了する。
-詳しくはファイル ``.github/workflows/build-sphinx.yml`` を見ろ。
+詳しくはファイル ``.github/workflows/ci.yml`` を見ろ。
 
 方法 2. が必要となる状況も考えられるが、この README では言及しない。
 
 ノートを更新するには
 ----------------------------------------------------------------------
 
-サブディレクトリー ``notebook/doc/source`` 以下の拡張子 ``.rst`` のファイル群が
+サブディレクトリー ``doc/source`` 以下の拡張子 ``.rst`` のファイル群が
 Sphinx_ の定める構文に従って記述されたテキストを含む。
 これを好きなテキストエディターで開いて編集する。
 既存の ``.rst`` ファイルを何点か観察することで「ハウスルール」を理解して欲しい。
@@ -145,7 +147,7 @@ Licensing
 `プレハブ小屋 <https://showa-yojyo.github.io/>`_
    当読者ノート責任者。
 
-   * Web site: https://github.com/showa-yojyo/notebook
+   * Web site: <https://github.com/showa-yojyo/notebook/>
    * E-mail: <yojyo@hotmail.com>
    * Twitter: `@showa_yojyo <https://twitter.com/showa_yojyo>`_
 
