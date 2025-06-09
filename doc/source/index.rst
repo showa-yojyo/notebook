@@ -63,9 +63,9 @@
    kantor22/index
    ou23/index
    github/index
-   libreoffice/common/index
-   libreoffice/calc-guide/index
-   libreoffice/writer-guide/index
+   LibreOffice Getting Started Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/common/>
+   LibreOffice Calc Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/calc-guide/>
+   LibreOffice Writer Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/writer-guide/>
 
 .. toctree::
    :caption: ノートにまとまっていない書籍類一覧
@@ -173,7 +173,9 @@
    google-ime
    deepl-translator
    winget
-   libreoffice/index
+   LibreOffice 基本ノート <https://showa-yojyo.github.io/libreoffice-notes/main.html>
+   LibreOffice Calc 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/calc.html>
+   LibreOffice Writer 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/writer.html>
    powertoys/index
    windows-terminal
    wsl
