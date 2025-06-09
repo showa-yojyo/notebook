@@ -1,9 +1,16 @@
-/* custum.css: CSS file to override rules that the Alabaster provide */
+/* custum.css: CSS file to override rules that the Alabaster provides */
 /* General rules. */
 
 :root {
     --quote-border-left: thick solid hotpink;
     --quote-padding: 0 0 0 12px;
+
+    --hyperlink-color: deeppink;
+    --hyperlink-border-bottom: 1px dotted var(--hyperlink-color);
+    --hyperlink-background-color: pink;
+
+    --code-border: 1px solid lightpink;
+    --code-border-radius: 0.25em;
 }
 
 body {
@@ -16,17 +23,13 @@ pre,
 tt,
 code {
     background-color: inherit;
-    border: 1px solid lightpink;
-    border-radius: 0.25em;
+    border: var(--code-border);
+    border-radius: var(--code-border-radius);
     color: inherit;
     font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-blockquote {
-    border-left: var(--quote-border-left);
-    padding: var(--quote-padding);
-}
-
+blockquote,
 div.line-block {
     border-left: var(--quote-border-left);
     padding: var(--quote-padding);
@@ -120,8 +123,8 @@ em.dfn {
 }
 
 strong.command {
-    border: 1px solid lightpink;
-    border-radius: 0.25em;
+    border: var(--code-border);
+    border-radius: var(--code-border-radius);
     color: inherit;
     font-family: monospace;
     font-size: inherit;
@@ -143,28 +146,19 @@ a {
 }
 
 a:link {
-    color: deeppink;
+    color: var(--hyperlink-color);
 }
 
-a:visited {
-    filter: brightness(2%);
-}
-
-a:focus {
-    background-color: pink;
-    border-bottom: 1px dotted deeppink;
-    text-decoration: none;
-}
-
-a:hover {
-    background-color: pink;
-    border-bottom: 1px dotted deeppink;
+a:focus,
+a:hover,
+a.external:hover {
+    background-color: var(--hyperlink-background-color);
+    border-bottom: var(--hyperlink-border-bottom);
     text-decoration: none;
 }
 
 a:active {
-    background: deeppink;
-    color: white;
+    filter: invert(100%);
 }
 
 a.reference,
@@ -175,7 +169,7 @@ div.sphinxsidebar a {
 
 a.reference:hover,
 div.sphinxsidebar a:hover {
-    border-bottom: 1px dotted deeppink;
+    border-bottom: var(--hyperlink-border-bottom);
     text-decoration: none;
 }
 
