@@ -4,6 +4,10 @@
 :root {
     --quote-border-left: thick solid hotpink;
     --quote-padding: 0 0 0 12px;
+
+    --hyperlink-color: deeppink;
+    --hyperlink-border-bottom: 1px dotted var(--hyperlink-color);
+    --hyperlink-background-color: pink;
 }
 
 body {
@@ -143,28 +147,19 @@ a {
 }
 
 a:link {
-    color: deeppink;
+    color: var(--hyperlink-color);
 }
 
-a:visited {
-    filter: brightness(2%);
-}
-
-a:focus {
-    background-color: pink;
-    border-bottom: 1px dotted deeppink;
-    text-decoration: none;
-}
-
-a:hover {
-    background-color: pink;
-    border-bottom: 1px dotted deeppink;
+a:focus,
+a:hover,
+a.external:hover {
+    background-color: var(--hyperlink-background-color);
+    border-bottom: var(--hyperlink-border-bottom);
     text-decoration: none;
 }
 
 a:active {
-    background: deeppink;
-    color: white;
+    filter: invert(100%);
 }
 
 a.reference,
@@ -175,7 +170,7 @@ div.sphinxsidebar a {
 
 a.reference:hover,
 div.sphinxsidebar a:hover {
-    border-bottom: 1px dotted deeppink;
+    border-bottom: var(--hyperlink-border-bottom);
     text-decoration: none;
 }
 
