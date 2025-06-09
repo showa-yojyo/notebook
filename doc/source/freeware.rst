@@ -171,7 +171,7 @@ Windows Package Manager CLI を使って自動インストールする
 
     .. seealso::
 
-       :doc:`/libreoffice/index`
+       `LibreOffice 関連ノート <https://showa-yojyo.github.io/libreoffice-notes/>`__
 
 `Mozilla Thunderbird <https://www.thunderbird.net/>`__
     Thunderbird は有名なメールクライアントだ。設定やカスタマイズが簡単であり、環
