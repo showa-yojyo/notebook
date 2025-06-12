@@ -59,7 +59,7 @@ SciPy_
 
 * :doc:`/python-numpy/index`
 * :doc:`/python-matplotlib/index`
-* :doc:`/python-nose`
+* :doc:`/python-nose`: ただし NumPy 2.x を使う場合は忘れろ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

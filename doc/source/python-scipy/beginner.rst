@@ -40,7 +40,7 @@ How to work with SciPy
   * IPython_: インターフェイス。環境と言ったほうが伝わる。
   * Pandas_: データ構造パッケージ。
   * SymPy_: 計算機数学・計算機代数パッケージ。
-  * Nose_: 単体テストに便利なパッケージ。
+  * Nose_: 単体テストに便利なパッケージ。SciPy 0.x のみ。
 
 * NumPy_ も SciPy_ もプロット機能を提供しない。プロットパッケージとしては
   Matplotlib_ が最も普通に利用されている。
@@ -52,7 +52,7 @@ How to work with SciPy
    * :doc:`/python-ipython`
    * :doc:`/python-pandas/index`
    * :doc:`/python-sympy/index`
-   * :doc:`/python-nose`
+   * :doc:`/python-nose`: ただし SciPy 1.x を使う場合は忘れろ。
 
 Learning to work with SciPy
 ======================================================================
@@ -64,10 +64,10 @@ Learning to work with SciPy
   * 各種ツールに関する理解を得る方法のひとつは、次に挙げるオンラインリソースを当
     たることだ：
 
-    * <http://scipy-lectures.github.io/index.html>
-    * <http://docs.scipy.org/doc/scipy/reference/tutorial/index.html>
+    * <https://lectures.scientific-python.org/>
+    * <http://docs.scipy.org/doc/scipy/reference/tutorial/index.html>: リンク切れ
 
-  * それに加えて、書籍が多数あるので活用すること。 Google で ``SciPy scientific
+  * それに加えて、書籍が多数あるので活用すること。Google で ``SciPy scientific
     python`` 等のキーワードで検索するとよい。
 
 An example session
