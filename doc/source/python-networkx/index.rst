@@ -50,7 +50,7 @@ NetworkX_
 関連ノート
 ======================================================================
 
-* :doc:`/python-nose`
+* :doc:`/python-nose`: NetworkX 3.x を使う場合は忘れろ。
 * :doc:`/python-matplotlib/index`
 
 .. include:: /_include/python-refs-core.txt
