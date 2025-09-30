@@ -189,6 +189,7 @@
    docker/index
    oh-my-posh
    twitter
+   GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>
    inkscape/index
    vlc-media-player
    ffmpeg/index
