@@ -181,6 +181,10 @@ Windows Package Manager CLI を使って自動インストールする
 `OBS Studio <https://obsproject.com/>`__
     デスクトップ録画ソフトウェアとして利用する。
 
+    .. seealso::
+
+       `OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>`__
+
 `pCloud Drive <https://www.pcloud.com/>`__
     Dropbox のようなオンラインストレージサービス。無料使用者でも努力次第では容量
     を 10 GB まで拡大可能。

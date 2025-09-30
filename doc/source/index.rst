@@ -191,6 +191,7 @@
    twitter
    inkscape/index
    vlc-media-player
+   OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>
    ffmpeg/index
    mathjax
    javascript-mermaid/index
