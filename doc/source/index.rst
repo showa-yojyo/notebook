@@ -62,6 +62,7 @@
    khronos18/index
    kantor22/index
    ou23/index
+   入門モダン Linux 読書ノート <https://gist.github.com/showa-yojyo/caf7c68a253184fd07ac5e78cf9270f8>
    github/index
    LibreOffice Getting Started Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/common/>
    LibreOffice Calc Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/calc-guide/>
