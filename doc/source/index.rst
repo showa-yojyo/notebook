@@ -68,7 +68,7 @@
    LibreOffice Writer Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/writer-guide/>
 
 .. toctree::
-   :caption: ノートにまとまっていない書籍類一覧
+   :caption: 読書目録
    :glob:
    :maxdepth: 1
 
