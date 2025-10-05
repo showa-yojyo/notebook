@@ -69,13 +69,10 @@
 
 .. toctree::
    :caption: ノートにまとまっていない書籍類一覧
+   :glob:
    :maxdepth: 1
 
-   preliminary2014
-   preliminary2015
-   preliminary2016
-   preliminary2017
-   preliminary2018
+   bibliography*
 
 .. toctree::
    :caption: シェルノート
