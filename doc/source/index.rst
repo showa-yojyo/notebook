@@ -62,6 +62,7 @@
    khronos18/index
    kantor22/index
    ou23/index
+   入門モダン Linux 読書ノート <https://gist.github.com/showa-yojyo/caf7c68a253184fd07ac5e78cf9270f8>
    github/index
    LibreOffice Getting Started Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/common/>
    LibreOffice Calc Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/calc-guide/>
@@ -186,8 +187,10 @@
    docker/index
    oh-my-posh
    twitter
+   GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>
    inkscape/index
    vlc-media-player
+   OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>
    ffmpeg/index
    mathjax
    javascript-mermaid/index

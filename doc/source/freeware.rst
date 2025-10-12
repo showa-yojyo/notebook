@@ -137,6 +137,12 @@ Windows Package Manager CLI を使って自動インストールする
     GIMP は Photoshop のようなソフトウェアだ。ベクトル的ではない、ビットマップ的
     な画像の編集に用いる。
 
+    2025 年になって GIMP のメジャーバージョンが 3 に上がった。
+
+    .. seealso::
+
+       `GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>`__
+
 `Google 日本語入力 <https://www.google.co.jp/ime/>`__
     Google 日本語入力は Windows 組み込みの IME よりも使いやすい。日本語で記述す
     るどんなテキスト作業においてもこちらを有効にするべきだ。本稿では扱わないが、
@@ -180,6 +186,10 @@ Windows Package Manager CLI を使って自動インストールする
 
 `OBS Studio <https://obsproject.com/>`__
     デスクトップ録画ソフトウェアとして利用する。
+
+    .. seealso::
+
+       `OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>`__
 
 `pCloud Drive <https://www.pcloud.com/>`__
     Dropbox のようなオンラインストレージサービス。無料使用者でも努力次第では容量
