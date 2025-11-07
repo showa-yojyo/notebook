@@ -250,7 +250,7 @@ Windows Package Manager CLI を使って自動インストールする
 
     .. seealso::
 
-       :doc:`/windows-terminal`
+       :doc:`/wt`
 
 `Zoom Cloud Meetings <https://zoom.us/>`__
     略称は Zoom だ。これはオンライン会議ツールだ。転職サイトの求人応募時には面接

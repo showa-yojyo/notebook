@@ -63,7 +63,7 @@ Windows Terminal 構成
 
 .. seealso::
 
-   :doc:`/windows-terminal`
+   :doc:`/wt`
 
 Visual Studio Code 構成
 ----------------------------------------------------------------------

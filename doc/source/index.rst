@@ -177,7 +177,7 @@
    LibreOffice Calc 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/calc.html>
    LibreOffice Writer 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/writer.html>
    powertoys/index
-   windows-terminal
+   wt
    wsl
    wslg
    vscode/index
