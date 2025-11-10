@@ -26,7 +26,7 @@ Linux 用 Windows Subsytem for Linux (WSL) を使用すると、従来の仮想�
    その後かなり間が空き Windows 10 のサポート終了に伴う環境移行を敢行。移行後の
    環境は次のとおり：
 
-   :OS: Windows 11 Pro version 25H2 ビルド	26200.7019
+   :OS: Windows 11 Pro version 25H2 ビルド 26200.7019
    :WSL 2: 6.6.87.2-1
    :Ubuntu: 24.04.3 LTS
 
@@ -428,12 +428,20 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
    [automount]
    enable = true
    root = /mnt/
-   options = "metadata,uid=1000,gid=1000,umask=22"
+   options = "metadata,uid=1000,gid=1000,umask=22,fmask=111"
 
 項目 ``enable = true`` だけで固定ドライブ (e.g. C:) は項目 ``root`` に従うパスに
-より (e.g. :file:`/mnt/c`) アクセス可能になる。ここでは指定しないが、項目
-``mountFsTab = true`` により、WSL 開始時にファイル :file:`/etc/fstab` を処理する
-ようになる。
+より (e.g. :file:`/mnt/c`) アクセス可能になる。
+
+.. admonition:: 利用者ノート
+
+   ここでは指定しないが、項目 ``mountFsTab = true`` により、WSL 開始時にファイル
+   :file:`/etc/fstab` を処理するようになる。そのファイルを適切に編集することで、
+   USB 外付けストレージ、Google Drive, pCloud といった、WSL 外の記憶域にも自動マ
+   ウントさせることが可能になる。
+
+   個人的には手動マウントを好む。マウントする処理をシェル関数に定義しておいて
+   セッションで :command:`source` するのが良かろう。
 
 ブート構成
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
