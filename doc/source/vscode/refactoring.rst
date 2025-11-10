@@ -57,7 +57,8 @@ VS Code が機械的に修正できる不具合については、項目のクリ
 
 説明のための JavaScript コードを次に示す：
 
-.. code:: javascript
+.. sourcecode:: javascript
+   :caption: JavaScript コード例
 
    class Circle {
        constructor(radius){

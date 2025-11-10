@@ -58,7 +58,8 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
 
 構成ファイル :file:`launch.json` の書式について簡単に記す。
 
-.. code:: json
+.. sourcecode:: json
+   :caption: :file:`launch.json` の例
 
    {
        "version": "0.2.0",

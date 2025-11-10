@@ -65,9 +65,10 @@ VS Code セッションで特定のロケールを使用したい場合、コマ
 例はコマンドラインオプション ``--locale`` を使用して、VS Code の UI 言語をフラン
 ス語に設定するものだ：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: UI 言語を指定して VS Code を起動する例
 
-   bash$ code . --locale=fr
+   code . --locale=fr
 
 このようにコマンドラインオプションで言語指定をする場合には、適切な Language Pack
 がインストールされている必要がある。合致するものがインストールされていない場合、

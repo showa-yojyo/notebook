@@ -108,7 +108,7 @@ IntelliSense を適宜ポップアップさせて利用可能なプロパティ�
 とができる。例えばラベル ``Task1``, ``Task2`` を持つタスクが定義されているとする
 と、次のタスクはそれらを順次走らせる：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "label": "Composite Task",
@@ -202,9 +202,10 @@ VS Code はタスク出力をスキャンして既知の警告やエラーの文
 * GitHub Actions に任せるので、配備タスクは自分では書かないことが多い。
 * HTTPS サーバーを起動するタスクはありがちだ。コマンドはいろいろ考えられる：
 
-  .. code:: console
+  .. sourcecode:: console
+     :caption: HTTP サーバーを稼働するコマンド例
 
-     bash$ python -m http.server 8000 --bind 127.0.0.1'
+     python -m http.server 8000 --bind 127.0.0.1
 
 Sphinx プロジェクト
 -----------------------------------------------------------------------

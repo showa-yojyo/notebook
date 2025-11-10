@@ -34,7 +34,7 @@ VS Code の設定ファイル :file:`settings.json` で制御できる Emmet オ
 Emmet 展開をなるべくさせない言語モード ID 文字列からなる配列を指定する。
 既定値に Markdown が含まれていることに注意。
 
-.. code:: json
+.. sourcecode:: json
 
    "emmet.excludeLanguages": ["markdown"]
 

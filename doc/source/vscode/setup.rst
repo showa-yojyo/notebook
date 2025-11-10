@@ -9,7 +9,7 @@
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: ノート目次
 
 インストール
 ======================================================================
@@ -19,11 +19,13 @@ VS Code をインストールする手段は複数用意されている。主な
 * `公式ダウンロードページ <https://code.visualstudio.com/Download>`__ からインス
   トーラーをダウンロードして実行する。
 * Microsoft Store からインストールする。
-* Windows Package Manager つまり :program:`winget` でインストールする。
+* Windows Package Manager つまり :program:`winget` でインストールする：
 
-  .. code:: doscon
+  .. sourcecode:: pwsh-session
+     :caption: ``winget install`` によるインストール例（システムインストール）
+     :force:
 
-     > winget install -e --id Microsoft.VisualStudioCode
+     PS> winget install -e --id Microsoft.VisualStudioCode --scope machine
 
 新調するマシンにインストールするときには :program:`winget` を利用することになる
 だろう。それも、おそらくインポート方式になる。:doc:`/winget` 参照。
@@ -36,7 +38,9 @@ WSL の端末から VS Code を開けるようにしておく。実行ファイ�
 :file:`$HOME/.bash_profile`と :file:`$HOME/.bashrc` を適切に選んで次のような記述
 を適宜与える：
 
-.. code:: shell
+.. sourcecode:: bash
+   :caption: Bash スタータップで VS Code を使えるようにする例
+   :force:
 
    # probably in .bash_profile
    if [[ -n "$WSL_DISTRO_NAME" ]]; then
@@ -57,8 +61,8 @@ WSL の端末から VS Code を開けるようにしておく。実行ファイ�
 更新
 ======================================================================
 
-VS Code 本体の更新もインストール同様、手段が複数ある。
-通常は VS Code メインウィンドウの UI から実施する。
+VS Code 本体の更新もインストール同様、手段が複数ある。通常は VS Code メインウィ
+ンドウの UI から実施する。
 
 1. :guilabel:`Help` メニューまたは Activity Bar 下の歯車アイコンメニューを開く。
 2. :guilabel:`Check for Updates...` を選択する。
@@ -81,16 +85,20 @@ VS Code におけるバックアップ、復元の考え方はユーザー設定
 ======================================================================
 
 Windows から VS Code 本体をアンインストールし、残滓のようなファイル群を手動で削
-除するまでを記す。
+除するまでを記す。誤ってユーザーインストールをしてしまった直後などに実行する場合
+がある。
 
 まず、次のいずれかの（あるいは他の）方法で VS Code 本体を OS から削除する：
 
-* Windows の :guilabel:`プログラムの追加と削除` などからアンインストールを実行する。
+* Windows の :guilabel:`プログラムの追加と削除` などからアンインストールを実行す
+  る。
 * Windows Package Manager つまり :program:`winget` でアンインストールする。
 
-  .. code:: doscon
+  .. sourcecode:: pwsh-session
+     :caption: ``winget uninstall`` によるアンインストール例
+     :force:
 
-     > winget uninstall -e --id Microsoft.VisualStudioCode
+     PS> winget uninstall -e --id Microsoft.VisualStudioCode
 
 次に設定ファイルなどを手動で削除する。以下のフォルダーを確認して必要なら削除する：
 

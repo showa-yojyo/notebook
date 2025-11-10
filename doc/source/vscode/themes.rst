@@ -32,7 +32,7 @@
 
 現在適用されているテーマは、ユーザー設定に保存される：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "workbench.colorTheme": "Default Dark+"
@@ -93,7 +93,7 @@ Workbench 色
 
 特定のテーマだけをカスタマイズする場合は、例えば以下のように指定する：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "workbench.colorCustomizations": {
@@ -106,7 +106,7 @@ Workbench 色
 複数のテーマに対して一つのカスタマイズを適用する場合には、カスタマイズにテーマ名
 を複数付けるか、テーマ名にワイルドカードとして記号 ``*`` を使用することができる。
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "workbench.colorCustomizations": {
@@ -128,7 +128,7 @@ Editor の構文強調の色を調整するには、ユーザー設定ファイ�
 ば、TextMate のテーマ色規則を直接指定することで調整可能だ。
 直接設定するには、TextMate の文法に対する理解と高度な技能が要求される。
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "editor.tokenColorCustomizations": {
@@ -177,7 +177,7 @@ Editor の意味論的強調
 
 次の方法でテーマ設定を上書きできる：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "editor.semanticTokenColorCustomizations": {
@@ -196,7 +196,7 @@ Editor の意味論的強調
 その他のスタイル規則は設定項目 ``editor.semanticTokenColorCustomizations`` 中に
 ユーザーが構成することができる：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "editor.semanticTokenColorCustomizations": {
@@ -275,7 +275,7 @@ VS Code には Minimal と Seti のファイルアイコンテーマが同梱さ
 
 アクティブなファイルアイコンテーマは、ユーザー設定に記録される：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "workbench.iconTheme": "vs-seti"
