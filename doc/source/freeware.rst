@@ -1,14 +1,17 @@
 ======================================================================
-Windows 用フリーウェア 利用ノート
+Windows 用フリーウェア利用ノート
 ======================================================================
 
-私が作業する Windows 10 Home (64bit) コンピューターにインストールするべきソフト
-ウェアをここに記録する。ソフトウェアによっては、さらにモジュール、プラグイン、拡
-張機能などを追加的にインストールすることになる。それらについては、ソフトウェア個
-別の利用ノートを綴り、そちらに重要事項を記す。
+.. |WSL| replace:: :abbr:`WSL (Windows Subsystem for Linux)`
+.. |winget| replace:: :program:`winget`
 
-Windows 用ということで、必然的に GUI を備えるソフトが主になる。CLI 編を本稿と対
-になる感じで別途作成したい。
+私が作業する Windows (64 bit) コンピューターにインストールするべきソフトウェアを
+ここに記録する。ソフトウェアによっては、さらにモジュール、プラグイン、拡張機能な
+どを追加的にインストールすることになる。それらについては、ソフトウェア個別の利用
+ノートを綴り、そちらに重要事項を記す。
+
+Windows 用ということで、必然的に GUI を備えるソフトが主になる。本稿と対になる感
+じで CLI 編をいずれ執筆したい。
 
 .. contents:: 見出し一覧
    :local:
@@ -38,8 +41,8 @@ Windows 用ということで、必然的に GUI を備えるソフトが主に�
 * SumatraPDF
 * Visual Studio Code
 * VLC media player
-* Windows Package Manager CLI (winget)
-* Windows Subsystem for Linux
+* Windows Package Manager CLI (|winget|)
+* |WSL|
 * Windows Terminal
 * Zoom Cloud Meetings
 * 圧縮解凍ソフト Noah
@@ -50,7 +53,7 @@ Windows 用ということで、必然的に GUI を備えるソフトが主に�
 効率的なインストール手順
 ======================================================================
 
-1. Windows Package Manager CLI を優先的にインストールする
+1. Windows Package Manager CLI (|winget|) を優先的にインストールする
 2. Windows Package Manager CLI を使って自動インストールできるものをする
 3. 優先度の高いソフトウェアを手動インストールする
 4. その他を必要に応じて手動インストールする
@@ -63,15 +66,14 @@ Windows Package Manager CLI をインストールする
    :doc:`/winget`
 
 資料 <https://docs.microsoft.com/ja-jp/windows/package-manager/winget/> による
-と、モダンな Windows 環境には既定で利用可能になっているとあり、本節は蛇足かもし
-れない。だから、まずはコンソールを開いて :program:`winget` が存在するかどうかを
-テストする。
+と、モダンな Windows 環境には既定で利用可能になっている。まずはコンソールを開い
+て |winget| が存在するかどうかをテストする。
 
 .. sourcecode:: ps1con
-   :caption: :program:`winget` のバージョンを確認する
+   :caption: |winget| のバージョンを確認する
 
    PS> winget --version
-   v1.8.1911
+   v1.12.350
 
 ない場合はスタートメニューから Microsoft Store を起動。
 :guilabel:`アプリ インストーラー` を選択してインストールするのだろう。
@@ -80,17 +82,22 @@ Windows Package Manager CLI を使って自動インストールする
 ----------------------------------------------------------------------
 
 ここで個別にインストールするコマンドは言及しない。現行環境から出力したインストー
-ル済みソフトウェア一覧を記した JSON ファイルから :program:`winget` に入力してイ
-ンストールさせるのが最も復元効率が良い。
+ル済みソフトウェア一覧を記した JSON ファイルから |winget| に入力してインストール
+させるのが最も復元効率が良い。
 
 .. sourcecode:: ps1con
-   :caption: 一括インポートコマンド例
+   :caption: |winget| による一括インポートコマンド例
+   :force:
 
    PS> winget import -i winget.json
 
 ファイル :file:`winget.json` は旧環境で ``winget export -o winget.json`` により
 得られたものとする。現環境で定期的にこのコマンドを実行して、JSON ファイルを安全
 な場所にバックアップしておく。
+
+インポートではなく、ソフトウェアを一つずつインストールする場合にはコマンド
+``winget install`` を実行することになる。このとき、ユーザーインストールではなく、
+システムインストールが望ましい。オプション ``--scope machine`` を可能な限り付けろ。
 
 以下、この手順終了によりシステムにインストールされていることを期待するソフトウェ
 アを記す。状況に応じて適宜調整する。
@@ -102,7 +109,6 @@ Windows Package Manager CLI を使って自動インストールする
 
     ノート PC を新調した直後に、メモリーを増設する際の情報を得るのに本ソフトを
     チェックする。
-
 `DeepL Translator <https://www.deepl.com/ja/app/>`__
     DeepL と単に呼ぶときはこのサービスを意味することが多い。ショートカットキー一
     発で選択テキストを翻訳するプログラムだ。
@@ -112,18 +118,15 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/deepl-translator`
-
 `Draw.io <https://www.drawio.com/>`__
     図式製図ツール。モダンな UML 図式をどうしても描画したい場合に使い物になる
     ツールがこれしかなかった。
-
 `Dropbox <https://www.dropbox.com/>`__
     プログラムとしての Dropbox は、当局固有のオンラインストレージを利用するため
     のインターフェイスだ。家計簿や履歴書などの非テキストデータファイル、または機
     微に触れる情報を暗号化したファイルをバックアップするのに利用する。私はこのソ
     フトのおかげで、ホームレスのときにノート PC を盗まれても、職探しを比較的円滑
     に開始することができた。
-
 `FastStone Image Viewer <https://www.faststone.org/FSViewerDetail.htm>`__
     FastStone Image Viewer は、画像閲覧・変換・編集ソフトウェアだ。部分的に
     Photoshop 並の画像調整機能を備えている。主要なグラフィックフォーマットおよび
@@ -132,7 +135,6 @@ Windows Package Manager CLI を使って自動インストールする
     携帯電話で撮影した写真群をバッチ処理するのに利用したり、インターネットから
     crawling でダウンロートした大量の画像ファイルを目視でチェックするのにたいへ
     ん便利だ。
-
 `GIMP <https://www.gimp.org/>`__
     GIMP は Photoshop のようなソフトウェアだ。ベクトル的ではない、ビットマップ的
     な画像の編集に用いる。
@@ -142,7 +144,6 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        `GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>`__
-
 `Google 日本語入力 <https://www.google.co.jp/ime/>`__
     Google 日本語入力は Windows 組み込みの IME よりも使いやすい。日本語で記述す
     るどんなテキスト作業においてもこちらを有効にするべきだ。本稿では扱わないが、
@@ -151,7 +152,6 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/google-ime`
-
 `Inkscape <https://inkscape.org/>`__
     Inkscape はベクトルデータベースの描画ツールで、主に SVG 形式の画像を作成する
     ために用いられる。他の形式フォーマットのインポートおよびエクスポートも可能
@@ -163,12 +163,6 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/inkscape/index`
-
-`iVCam <https://www.e2esoft.com/ivcam/>`__
-    Windows PC に携帯電話を接続し、そのカメラとマイクを使えるようにするソフト
-    だ。PC 側に本ソフトウェアをインストールし、かつ、携帯電話側にも Android 版
-    iVCam をインストールする。
-
 `LibreOffice <https://www.libreoffice.org/>`__
     MS Office が高くて購入できないので、フリーウェアである LibreOffice をインス
     トールすることを余儀なくされる。家計簿、履歴書、職務経歴書、業務報告書などを
@@ -178,23 +172,19 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        `LibreOffice 関連ノート <https://showa-yojyo.github.io/libreoffice-notes/>`__
-
 `Mozilla Thunderbird <https://www.thunderbird.net/>`__
     Thunderbird は有名なメールクライアントだ。設定やカスタマイズが簡単であり、環
     境の移行作業にも考慮がなされている。仕事探しにメールをどうしても利用するの
     で、手放せない。
-
 `OBS Studio <https://obsproject.com/>`__
     デスクトップ録画ソフトウェアとして利用する。
 
     .. seealso::
 
        `OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>`__
-
 `pCloud Drive <https://www.pcloud.com/>`__
     Dropbox のようなオンラインストレージサービス。無料使用者でも努力次第では容量
     を 10 GB まで拡大可能。
-
 `PowerToys <https://docs.microsoft.com/ja-jp/windows/powertoys/>`__
     PowerToys は Microsoft 製上級利用者向け便利ツール詰め合わせソフトウェアだ。
     本稿執筆時点では Always on Top, Awake, Color Picker, FancyZones, File
@@ -209,23 +199,19 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/powertoys/index`
-
 `Rapid Environment Editor <https://www.rapidee.com/en/about>`__
     Windows 環境変数編集ソフトウェア。インターフェイスがとにかく秀でいている。パ
     スの編集が容易という理由だけで導入する価値がある。
 
-    最近は WSL 環境で各種開発をすることが激増し、Windows の環境変数を編集する機
-    会が激減したため、当ソフトウェアをインストールする優先度は以前より下がった。
-
+    最近は |WSL| 環境で各種開発をすることが激増し、Windows の環境変数を編集する
+    機会が激減したため、当ソフトウェアをインストールする優先度は以前より下がった。
 `SumatraPDF <https://www.sumatrapdfreader.org/free-pdf-reader>`__
     軽量 PDF ビューワー。一度これを使うと Adobe Acrobat Reader を使う気にならな
     くなる。
-
-`Ubuntu (WSL) <https://releases.ubuntu.com/>`__
-    ここでいう Ubuntu は WSL を有効化してからの Linux ディストリビューションとし
-    てのそれだ。本環境については考慮する点が多数あるため、専用のノートを設けてそ
-    こで詳述する。
-
+`Ubuntu <https://releases.ubuntu.com/>`__
+    ここでいう Ubuntu は |WSL| を有効化してからの Linux ディストリビューションと
+    してのそれだ。本環境については考慮する点が多数あるため、専用のノートを設けて
+    そこで詳述する。
 `Visual Studio Code <https://azure.microsoft.com/ja-jp/products/visual-studio-code/>`__
     私の現時点でのメインテキストエディター。本プログラムについても注意点が多数あ
     るので、専用ノートに要点を述べていく。
@@ -233,7 +219,6 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/vscode/index`
-
 `VLC media player <https://www.videolan.org/>`__
     VLC media player はマルチメディアファイルのほとんどと、さまざまなストリーミ
     ングプロトコルを再生できる、無料でオープンソースのプレーヤーでありフレーム
@@ -243,15 +228,6 @@ Windows Package Manager CLI を使って自動インストールする
     .. seealso::
 
        :doc:`/vlc-media-player`
-
-`Windows Terminal <https://docs.microsoft.com/ja-jp/windows/terminal/>`__
-    Windows Terminal はタブブラウザーならぬタブコンソールだ。かつて私が愛用して
-    いた ConEmu と目的意識を共有していると思われる。
-
-    .. seealso::
-
-       :doc:`/wt`
-
 `Zoom Cloud Meetings <https://zoom.us/>`__
     略称は Zoom だ。これはオンライン会議ツールだ。転職サイトの求人応募時には面接
     でこれを使いがちだ。画面撮影ツールとして応用することもある。
@@ -275,18 +251,15 @@ Windows Package Manager CLI を使って自動インストールする
     愛用のウェブブラウザー。Google Chrome を子ウィンドウとするタブブラウザーと解
     釈される。ブックマークを作り込み過ぎて、本家 Google Chrome や Mozilla
     Firefox などの有力ブラウザーに乗り換えらるのが億劫だ。それゆえ、インストール
-    の優先度は私の中では相当高い。 RSS ビューワーもあるし、当分このままでいるの
-    が吉だろう。
-
+    の優先度は私の中では相当高い。RSS ビューワーもあるし、当分このままでいるのが
+    吉だろう。
 `Windows Subsystem for Linux <https://docs.microsoft.com/ja-jp/windows/wsl/install>`__
-    WSL と略称で呼称するのが一般的だ。Windows で Linux を使えるようになる何か
-    だ。私はテキストベースの執筆物および創作物をこの上でバージョン管理しているた
-    め、インストールの優先度はきわめて高い。
+    |WSL| と略称で呼称するのが一般的だ。Windows で Linux を使えるようになる何か
+    だと考えていればいい。
 
-    Cygwin 利用時代のドットファイルや関数群を流用できているのもうれしい。
-
-    このシステムについてはまだまだ理解が不足しているので、別途学習してノートにす
-    る。
+    テキストベースの執筆物および創作物をこの上でバージョン管理するため、インス
+    トールの優先度はきわめて高い。Cygwin 利用時代から使い込んできたドットファイ
+    ルや関数群を流用できているのもうれしい。
 
     .. seealso::
 
@@ -297,12 +270,25 @@ Windows Package Manager CLI を使って自動インストールする
 
 以下のソフトウェアは急いでインストールする必要はないものだ。
 
+`iVCam <https://www.e2esoft.com/ivcam/>`__
+    Windows PC に携帯電話を接続し、そのカメラとマイクを使えるようにするソフトだ。
+
+    PC 側に本ソフトウェアをインストールし、かつ、携帯電話側にも Android 版 iVCam
+    をインストールする。
+
+    このソフトをインストールするのは PC に webcam が組み込まれていない場合だ。
+`Windows Terminal <https://docs.microsoft.com/ja-jp/windows/terminal/>`__
+    Windows Terminal がインストール済みでない場合には |winget| でインストールしろ。
+
+    .. seealso::
+
+       :doc:`/wt`
 `圧縮解凍ソフト Noah <http://www.kmonos.net/lib/noah.ja.html>`__
     エクスプローラーのコンテキストメニューから圧縮ファイルを解凍したり、逆にファ
     イルやフォルダーを圧縮できたりする。あくまでも利便性があるというだけであっ
-    て、解凍・圧縮操作をするだけならばWSL 環境で実現できる。そのための別名定義な
-    り、シェル関数なりを用意してあるはずで、そちらを採用するほうが便利である場合
-    もある。そういう意味で、本ツールのインストール優先度は高くない。
+    て、解凍・圧縮操作をするだけならば |WSL| 環境で実現できる。そのための別名定
+    義なり、シェル関数なりを用意してあるはずで、そちらを採用するほうが便利である
+    場合もある。そういう意味で、本ツールのインストール優先度は高くない。
 
 ゲームプログラムについては、セーブデータなどがあるため一からダウンロードすること
 は稀だ。一般論をバックアップノートで述べる。
