@@ -10,7 +10,8 @@ VS Code の snippets 機能は、テンプレートというよりは、ルー�
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 基本
 ======================================================================
@@ -23,7 +24,8 @@ VS Code の snippets 機能は、テンプレートというよりは、ルー�
 補完を有効にした状態で :kbd:`Tab` キーを押せばいい。展開可能状態の snippet が置
 かれる。
 
-.. code:: json
+.. sourcecode:: json
+   :caption: タブ補完をオンにする設定
 
    {
        "editor.tabCompletion": "on"
@@ -124,7 +126,9 @@ snippets を共有するのに用いられる。
 ファイル :file:`/path/to/Code/User/snippets/javascript.json` に定義されている
 JSON オブジェクトの一部ということだ：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: コード辺設定例
+   :force:
 
    {
        "For Loop": {
@@ -193,7 +197,7 @@ JSON オブジェクトの一部ということだ：
 プレースホルダーにドロップダウンリストを仕掛けて、そこから文字列を選べるようにす
 る機能がある。日記で使っているものを引用する：
 
-.. code:: text
+.. sourcecode:: text
 
    ${2|晴れ,曇り,雨|}
 
@@ -212,7 +216,7 @@ JSON オブジェクトの一部ということだ：
 :program:`Bash` の変数のように、変数の値を挿入する前に加工することができる。
 変数名の後に文字 ``/`` で三つの部分に分けて、それぞれで変換のための指定をする：
 
-.. code:: text
+.. sourcecode:: text
 
    ${PLACEHOLDER_OR_VARIABLE/PART1/PART2/PART3}
 
@@ -225,7 +229,7 @@ JSON オブジェクトの一部ということだ：
 ``PART2`` では書式またはリテラル文字列を指定する。書式については説明が難しいので
 公式文書でも文章の形式では述べられていない。文法定義から急所を抜粋する：
 
-.. code:: text
+.. sourcecode:: text
 
    transform   ::= '/' regex '/' (format | text)+ '/' options
    format      ::= '$' int | '${' int '}'

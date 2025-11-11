@@ -8,16 +8,11 @@ Visual Studio Code 利用ノート
 
 .. attention::
 
-   次の環境・条件で VS Code を利用していることを先に断っておく。
+   次の環境・条件で VS Code を利用している：
 
-   OS は Windows 10 Home で、WSL (Ubuntu) のファイルシステムにあるファイルを主に
-   編集する。:program:`Git` を中心とする端末コマンドは Ubuntu にあるものを実行す
-   る。
-
-   バージョン管理ツールは :program:`Git` しか使わない。他の SCM まで調査の手が回
-   らない。
-
-   VS Code の GUI は英語のまま変えない。
+   * OS は Windows 10 Home または Windows 11 Pro を使う。
+   * WSL (Ubuntu) のファイルシステムにあるファイルを主に編集する。
+   * VS Code の GUI は英語のまま変えない。
 
 .. toctree::
    :maxdepth: 2

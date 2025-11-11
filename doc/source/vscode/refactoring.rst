@@ -9,7 +9,8 @@ VS Code にあるリファクタリングに関係する機能について記す
 リファクタリング用インターフェイスおよびコマンドは、プログラミング言語によって異
 ならないように設計されている。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Code Actions
 ======================================================================
@@ -57,7 +58,8 @@ VS Code が機械的に修正できる不具合については、項目のクリ
 
 説明のための JavaScript コードを次に示す：
 
-.. code:: javascript
+.. sourcecode:: javascript
+   :caption: JavaScript コード例
 
    class Circle {
        constructor(radius){

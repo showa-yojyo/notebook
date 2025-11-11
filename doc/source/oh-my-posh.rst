@@ -42,7 +42,7 @@ Oh My Posh 利用ノート
 .. seealso::
 
    * :doc:`/wsl`
-   * :doc:`/windows-terminal`
+   * :doc:`/wt`
    * :doc:`vscode/index`
 
 Oh My Posh をシステムにインストールする

@@ -10,7 +10,8 @@ VS Code でもコマンドを実行するショートカットキーをユーザ
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Keyboard Shortcuts Editor
 ======================================================================
@@ -120,7 +121,7 @@ JSON を編集してカスタマイズする
 
 Chord を記述することも可能。キーストロークを空白文字で分離して記述する。例：
 
-.. code:: text
+.. sourcecode:: text
 
    "Ctrl+K Ctrl+C"
 
@@ -150,7 +151,7 @@ Chord を記述することも可能。キーストロークを空白文字で�
 
 キー自身としては次のものが使用可能だ：
 
-.. code:: text
+.. sourcecode:: text
 
    {a..z}
    {0..9}
@@ -170,7 +171,8 @@ Chord を記述することも可能。キーストロークを空白文字で�
 コマンドに引数をつけて起動することができる。カスタムキーバインドを追加してそれを
 実行する。次の例は :kbd:`Enter` キーを上書きしてテキストを出力する：
 
-.. code:: json
+.. sourcecode:: json
+   :force:
 
    {
        "key": "enter",
@@ -192,7 +194,9 @@ Chord を記述することも可能。キーストロークを空白文字で�
 規則というものを定義する。対象となるキーバインドを削除するには、設定ファイル
 :file:`keybindings.json` を直接編集し、コマンド名の先頭に ``-`` を追加する。例：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: キーバインドを削除する例
+   :force:
 
    { "key": "tab", "command": "-jumpToNextSnippetPlaceholder" }
 
@@ -235,7 +239,9 @@ UI も用意されている。これを起動するには :kbd:`Ctrl` + :kbd:`K`
 スキャンコードを使用すると、キーボードレイアウトを変更しても変わらないキーバイン
 ドを定義することができる。例：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: スキャンコードを指定するキーバインド設定例
+   :force:
 
    {
        "key": "cmd+[Slash]",
@@ -245,7 +251,8 @@ UI も用意されている。これを起動するには :kbd:`Ctrl` + :kbd:`K`
 
 受理されるキーコードは次の文字列だ：
 
-.. code:: text
+.. sourcecode:: text
+   :caption: 有効なキーコード
 
    [F{1..19}]
    [Key{A..Z}],
@@ -294,7 +301,8 @@ UI のどの要素が表示され、アクティブになっているかによ�
 :guilabel:`Preferences: Open Default Keyboard Shortcuts (JSON)` 実行などで直接確
 認することが可能だ。
 
-.. code:: json
+.. sourcecode:: json
+   :caption: ``when`` 使用例
 
    {
        "key": "f5",
@@ -323,7 +331,8 @@ UI のどの要素が表示され、アクティブになっているかによ�
 に対するキーバインドを設定することが可能だ。例えば、次のキーバインド定義は
 :menuselection:`Extract function` リファクタリング Code Actions を実行する：
 
-.. code:: json
+.. sourcecode:: json
+   :force:
 
    {
        "key": "ctrl+shift+r ctrl+e",

@@ -9,7 +9,8 @@ VS Code は GUI アプリケーションだが、コマンドラインにおけ�
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 事前条件
 ======================================================================
@@ -18,7 +19,7 @@ VS Code は GUI アプリケーションだが、コマンドラインにおけ�
 稿では WSL 環境を想定しているので、VS Code を標準的な構成でインストールをしてい
 る場合には次のパスを ``PATH`` に含めておくべきだ：
 
-.. code:: text
+.. sourcecode:: text
 
    /mnt/c/Program Files/Microsoft VS Code/bin
 
@@ -141,7 +142,8 @@ Bash
 環境変数 ``VISUAL`` や ``EDITOR`` に VS Code を指定するといい。おそらくファイル
 ``$HOME/.bash_profile`` に次のように書いておく：
 
-.. code:: bash
+.. sourcecode:: bash
+   :caption: Bash 対話環境でエディターを VS Code に設定する例
 
    export VISUAL='code --wait'
 
