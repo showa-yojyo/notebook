@@ -167,6 +167,7 @@
    :maxdepth: 1
 
    backup-restore
+   Windows 11 初期換装ノート <https://gist.github.com/showa-yojyo/d419470d0f9f432c1e8147cdec737fb5>
    Windows 11 初期設定ノート <https://gist.github.com/showa-yojyo/75c261c12efa8c782d0bee1907025466>
    Windows 11 データ＆アプリケーション移行ノート <https://gist.github.com/showa-yojyo/4bc08711c7f0c55357754b9a711689b1>
    freeware
