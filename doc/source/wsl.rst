@@ -429,7 +429,7 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
    [automount]
    enable = true
    root = /mnt/
-   options = "metadata,uid=1000,gid=1000,umask=22,fmask=111"
+   options = "metadata,uid=1000,gid=1000,umask=22,fmask=11"
 
 項目 ``enable = true`` だけで固定ドライブ (e.g. C:) は項目 ``root`` に従うパスに
 より (e.g. :file:`/mnt/c`) アクセス可能になる。
