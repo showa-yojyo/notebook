@@ -179,7 +179,7 @@ Using custom workflows with GitHub Pages
 
 これは聞いたことがない。
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Configure GitHub Pages
      uses: actions/configure-pages@v3
@@ -210,14 +210,14 @@ Workflow の書き方を工夫する：
 Configuring a publishing source for your GitHub Pages site
 ----------------------------------------------------------------------
 
-ブランチからサイトを掲載する方法は、
+ブランチから Web サイトを掲載する方法は、
 
 #. リポジトリー :menuselection:`Settings --> Pages` を開く。
 #. :menuselection:`Build and deployment --> Source` を :guilabel:`Deploy from a
    branch` にする。
 #. :guilabel:`Branch` 下のドロップダウンリストから :guilabel:`gh-pages` など目当
    てのブランチを選択する。
-#. 原稿ディレクトリーを指定する場合がある。
+#. Web サイトの内容を保持するディレクトリーを指定する。
 #. :guilabel:`Save` を押して終わる。
 
    Commits pushed by a GitHub Actions workflow that uses the ``GITHUB_TOKEN`` do
@@ -238,10 +238,21 @@ Configuring a publishing source for your GitHub Pages site
    detect the state that the branch does not need a build step, and will execute
    only the steps necessary to deploy the site to GitHub Pages servers.
 
+.. admonition:: 利用者ノート
+
+   本題とは外れるが、GitHub に Web サイトを置くためだけに ``gh-pages`` のような
+   ブランチを用意するのはやめたほうがいい。このすぐ下で述べるような方法を採用し、
+   ワークフローを巧みに構成することで、``gh-pages`` のようなブランチを設けること
+   を避けたい。
+
+   生の HTML や Markdown ファイルをこのブランチで直接バージョン管理している場合
+   に限って ``gh-pages`` 管理方式を認めたい。
+
 カスタム GitHub Actions でサイトを掲載する方法は、
 
 #. リポジトリー :menuselection:`Settings --> Pages` を開く。
-#. :menuselection:`Build and deployment --> Source` を :guilabel:`GitHub Actions` にする。
+#. :menuselection:`Build and deployment --> Source` を :guilabel:`GitHub Actions`
+   にする。
 #. 画面が変わり、初期設定時ならば出来合いの workflow を選択し、動作する workflow
    が自分のところにあればいらない。
 
@@ -287,7 +298,7 @@ Creating a custom 404 page for your GitHub Pages site
 掲載元ルートディレクトリーに :file:`404.html` または :file:`404.md` を作成する。
 Markdown ならば front matter に次を入れる：
 
-.. code:: markdown
+.. sourcecode:: markdown
 
    ---
    permalink: /404.html
@@ -386,13 +397,15 @@ Creating a GitHub Pages site with Jekyll
 
 掲載元初期状態でのコマンド実行の流れ概要：
 
-.. code:: console
+.. sourcecode:: econsole
+   :caption: Jekyll 使用プロジェクトの初期構築工程例
+   :force:
 
-   bash$ mkdir docs
-   bash$ cd docs
-   bash$ git checkout --orphan gh-pages
-   bash$ git rm -rf .
-   bash$ jekyll new --skip-bundle .
+   mkdir docs
+   cd docs
+   git switch --orphan gh-pages
+   rm -rf .
+   jekyll new --skip-bundle .
 
 ファイル :file:`Gemfile` が生成される。これを本書の指示どおり編集する。その後に
 コマンド ``bundle install`` を実行してモノをインストールする。これで Jekyll が動
@@ -404,9 +417,10 @@ Testing your GitHub Pages site locally with Jekyll
 Jekyll がローカルリポジトリーで動作するようになったら、サーバーを稼働させてテス
 ト可能となる：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: Jekyll サーバー稼働コマンド
 
-   bash$ bundle exec jekyll serve
+   bundle exec jekyll serve
 
 この出力から localhost のアドレスを拾ってブラウザーで開いて、ページを閲覧するこ
 とに成功すればよい。
@@ -417,9 +431,10 @@ Jekyll がローカルリポジトリーで動作するようになったら、�
 
 定期的に（できれば自動で）更新したい：
 
-.. code:: console
+.. sourcecode:: console
+   :caption: ``github-pages`` gem を更新するコマンド例
 
-   bash$ bundle update github-pages
+   bundle update github-pages
 
 Adding content to your GitHub Pages site using Jekyll
 ----------------------------------------------------------------------
@@ -582,9 +597,10 @@ Managing a custom domain for your GitHub Pages site
 次に DNS provider に移動して ``CNAME`` レコードを作成する。詳細不明。最後にコン
 ソールからコマンド :command:`dig` で確認する。
 
-.. code:: console
+.. sourcecode:: console
+   :caption: DNS 解決コマンド例（出力抑えめ）
 
-   bash$ dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
+   dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
 
 カスタムドメインを削除する場合は :guilabel:`Save` ではなく :guilabel:`Remove` を
 押す。
