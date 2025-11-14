@@ -2,13 +2,6 @@
 入門 HTML5 読書ノート
 ======================================================================
 
-.. admonition:: 読者ノート
-
-   なにぶん古い図書なので、
-
-   * リンク切れの URL は可能な範囲で更新する（無意味かもしれない）。
-   * Internet Explorer に関する記述は無視する。
-
 :著者: Mark Pilgrim
 :訳者: 水原文
 :監訳者: 矢倉眞隆
@@ -16,7 +9,28 @@
 :発行年: 2011 年
 :ISBN: 978-4-87311-482-8
 
-.. contents::
+.. admonition:: 読者ノート
+
+   なにぶん古い図書なので、
+
+   * リンク切れの URL は可能な範囲で更新する（無意味かもしれない）。
+   * Internet Explorer に関する記述は無視する。
+
+.. admonition:: 読者ノート
+
+   本稿を目にした海外の方からメールで助言をもらった。日本語を読める同僚に本稿を
+   読ませたところ、次の記事を推薦したという：
+
+   `Learn HTML Free in 2025 – Basic HTML Codes for Beginners <Cristy>`_
+
+   本稿対象図書に較べると、第三章の内容を初学者向けにより絞って記述したように読
+   める。閲覧者曰く、«Since your readers might need this for either their work
+   or personal life, I do believe they'll find it useful if you add it to your
+   page» とのことであり、本稿維持編集のついでと言っては何だが、ここに付記する次
+   第だ。
+
+.. contents:: 見出し一覧
+   :local:
 
 監訳者まえがき
 ======================================================================
@@ -188,7 +202,7 @@ DOCTYPE の記述は単純に済ませるのが HTML5 だ：
 
    これがその、HTML5 の DOCTYPE だ。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <!DOCTYPE html>
 
@@ -213,7 +227,7 @@ VS Code でコードを編集するのであれば補完候補に現れるから
    実は、HTML5 ではその（引用註：``<meta>`` タグ）使い方も少しやさしくなってい
    る。以下のように書けるのだ。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <meta charset="utf-8" />
 
@@ -659,7 +673,7 @@ Cookie は HTTP 要求すべてに含まれてしまい、送受信が重複し�
 
 すなわち、
 
-.. code:: js
+.. sourcecode:: js
 
    window.addEventListener("storage", handle_storage, false);
 
@@ -700,7 +714,7 @@ Cookie は HTTP 要求すべてに含まれてしまい、送受信が重複し�
    させるには、``<html>`` 要素の ``manifest`` 属性を使ってマニフェストファイルを
    指定する必要がある。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <!DOCTYPE html>
       <html manifest="/cache.manifest">
@@ -747,7 +761,7 @@ Cookie は HTTP 要求すべてに含まれてしまい、送受信が重複し�
 
 HTML5 仕様から引用したらしい例を示したうえで：
 
-   .. code:: text
+   .. sourcecode:: text
 
       CACHE MANIFEST
       FALLBACK:
@@ -761,7 +775,7 @@ HTML5 仕様から引用したらしい例を示したうえで：
 
    ホームページだけではなく、サイトのすべてのページにマッチする。
 
-NETWORK 区画の米印は
+``NETWORK`` 区画の米印は
 
    「オンライン指定リストのワイルドカードフラグ」と呼ばれ、インターネットに接続
    している限り、AppCache にないページは元の Web アドレスからダウンロードしてよ
@@ -854,7 +868,7 @@ iPhone4 では：
 数値入力用のコントロールにはスピンボックスとスライダーを用意できる。前者は MFC
 の ``CSpinEdit`` と同じ機能を期待してよい。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <input type="number"
              min="0"
@@ -915,7 +929,7 @@ JavaScript でプロパティー ``.value`` を見ると例えば ``'#0cdeed'`` 
    フォルトで有効だからだ。逆に検証を無効にしたい場合は、``novalidate`` 属性を使
    う。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <form novalidate>
         <input type="email" id="addr">
@@ -994,7 +1008,7 @@ JavaScript でプロパティー ``.value`` を見ると例えば ``'#0cdeed'`` 
 ここからキーと値のペアを HTML 上で行う。表 10-1 のように、要素ごとに値の在り処が
 異なる。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <h1 itemprop="name">Mark Pilgrim</h1>
 
@@ -1016,7 +1030,7 @@ JavaScript でプロパティー ``.value`` を見ると例えば ``'#0cdeed'`` 
    それぞれの箇所をダミーの ``<span>`` 要素で囲えば、それぞれの ``<span>`` に別
    個のプロパティを宣言できる。
 
-   .. code:: html
+   .. sourcecode:: html
 
       <dt>Position</dt>
       <dd><span itemprop="title">Developer advocate</span> for
@@ -1025,7 +1039,7 @@ JavaScript でプロパティー ``.value`` を見ると例えば ``'#0cdeed'`` 
 Person 語彙の ``address`` は、これ自身が独自の語彙を持っている。したがって
 Mailing Address の項目部分を
 
-.. code:: html
+.. sourcecode:: html
 
    <dd itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
 
@@ -1149,3 +1163,5 @@ W3C Widgets は存在しない。
 * <https://www.w3.org/TR/widgets/> は «obsoleted 11 October 2018» とある。
 
 .. 以上
+
+.. _Cristy: https://www.websiteplanet.com/blog/html-guide-beginners/
