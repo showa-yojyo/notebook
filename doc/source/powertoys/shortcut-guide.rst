@@ -11,17 +11,17 @@ Shortcut Guide は :kbd:`Win` キーを伴うショートカットキー一覧�
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 使い方
 ======================================================================
 
 前提として、設定画面で当機能が有効であるものとする。
 
-Shortcut Guide を表示するには、ショートカットキー :kbd:`Win` + :kbd:`Shift` +
-:kbd:`/` を押すか、:kbd:`Win` キーを一定時間押し続ける。画面全体にオーバーレイ表
-示が生じる。:kbd:`Win` キーを使うキーバインド、つまりキーストロークとコマンドの
-一覧が示される。
+Shortcut Guide を表示するには :kbd:`Win` キーを一定時間押し続ける。すると画面全
+体にオーバーレイ表示が生じる。:kbd:`Win` キーを使うキーバインド、つまりキースト
+ロークとコマンドの一覧が示される。
 
 もう一度ショートカットキーを押すと Shortcut Guide が消える。
 
@@ -36,26 +36,30 @@ Shortcut Guide を表示するには、ショートカットキー :kbd:`Win` + 
 設定
 ======================================================================
 
-:guilabel:`アクティブ化の方法`
-    Shortcut Guide 表示方法をショートカットキーを押すか、:kbd:`Win` キーを押し続
-    けるかのどちらかから選択する。
+Shortcut
+----------------------------------------------------------------------
 
-    :guilabel:`表示する前に長押しする時間 (ms)`
-       Shortcut Guide を開くときの :kbd:`Win` キーを押し続ける時間をミリ秒単位で
-       指定する。
+:guilabel:`Activation method`
+   Shortcut Guide 表示方法をショートカットキーを押すか、:kbd:`Win` キーを押し続
+   けるかのどちらかから選択する。後者が良い。
+:guilabel:`Press duration before showing global Windows shortcuts (ms)`
+   Shortcut Guide を開くときの :kbd:`Win` キーを押し続ける時間をミリ秒単位で指定
+   する。既定値からかなり小さく変えておくといい。
 
-:guilabel:`アクティブ化のショートカット`
-    Shortcut Guide を表示するキーバインドを指定する。
+   もう一つの時間設定値も整合するように変えておく。
 
-:guilabel:`アプリのテーマ`
-    オーバーレイ表示の背景色を主に指定するようだ。次のいずれかから選択する：
-    * :guilabel:`ダーク`
-    * :guilabel:`ライト`
-    * :guilabel:`Windows の既定値`
+Appearance & behavior
+----------------------------------------------------------------------
 
-:guilabel:`背景の透過度`
-    オーバーレイ表示の透過度だが、補数を指定する。数値が低いほど透明により近い。
-    翻訳ミスだろう。
+:guilabel:`Theme`
+   オーバーレイ表示の背景色を主に指定する。:guilabel:`Windows default` に設定す
+   るのが自然だ。
+:guilabel:`Background opacity (%)`
+   オーバーレイの斜光度を指定可能。デスクトップ画面が見えなくなっても問題ないは
+   ずなので、100 に近い値でもかまわない。
 
-:guilabel:`アプリの除外`
-    :doc:`./always-on-top` や :doc:`./mouse-utilities` の同名設定項目と同様。
+Excluded apps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:guilabel:`Excluded apps`
+   :doc:`./always-on-top` や :doc:`./mouse-utilities` の同名設定項目と同様。
