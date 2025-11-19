@@ -130,10 +130,8 @@ Microsoft PowerToys 利用ノート
    keyboard-manager
    mouse-utilities
    power-rename
-   powertoys-run
    quick-accent
    screen-ruler
    shortcut-guide
-   text-extractor
 
 .. 以上
