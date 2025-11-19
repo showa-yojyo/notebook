@@ -2,30 +2,21 @@
 Microsoft PowerToys 利用ノート
 ======================================================================
 
+.. |toys| replace:: PowerToys
+
 `Microsoft PowerToys <https://docs.microsoft.com/ja-jp/windows/powertoys/>`__
 についての雑多なノートを綴る。
 
 .. note::
 
-   本ノートを記すのに用いている Windows および :program:`PowerToys` のバージョン
-   情報はそれぞれ次のとおりだ。
+   本ノートを記すのに用いている Windows および |toys| のバージョン情報はそれぞれ
+   次のとおりだ。
 
-   :OS: Windows 10 Home version 22H2
-   :PowerToys: v0.64.1
+   :OS: Windows 11 Home Pro version 25H2
+   :PowerToys: v0.95.1
 
-   本当は GUI 言語を英語にしたいが OS に強く依存するようなので日本語で行く。
-
-.. caution::
-
-   PowerToys の日本語ローカライズが現在のところ大甘で、当ノートの文言は私が意味
-   を取れるように実際のものとは変えてあることがある。
-
-.. contents::
-
-なぜ PowerToys を導入するのか
-======================================================================
-
-今のところ特に理由はないが、いざというときの選択肢を増やしておく意味はある。
+.. contents:: 見出し一覧
+   :local:
 
 事前条件
 ======================================================================
@@ -39,57 +30,66 @@ Microsoft PowerToys 利用ノート
 インストール方法は複数あるが、:program:`winget` での JSON ファイルから他のソフト
 ウェアと一斉にインストールする運用を想定している。
 
-:program:`PowerToys` 単体をインストールするならば、コンソールから次のコマンドを
-実行する：
+|toys| 単体をインストールするならば、コンソールから次のコマンドを実行する：
 
-.. code:: doscon
+.. sourcecode:: pwsh-session
+   :caption: :program:`winget` による PowerToys インストール例
+   :force:
 
-   > winget install -e --id Microsoft.PowerToys
+   PS> winget install -e --id Microsoft.PowerToys --scope machine
 
-:program:`PowerToys` のアップグレード手段はインストールのそれ以上に用意されてい
-る。通常はアプリケーションの既定の設定である自動更新が有効になっているのに頼れば
-よい。手動で更新したい場合には、:program:`PowerToys` 設定画面のボタン
-:guilabel:`更新プログラムを確認する` を押して、あとは手なりで進行する。あるいは
-:program:`winget` の一括アップグレード運用で更新されるだろう。
+更新はコマンド ``winget update`` で行う。
 
 全般設定
 ======================================================================
 
-:guilabel:`バージョン` とある場所からは、次のことができる：
+|toys| の設定画面を開くには、タスクトレイのアイコンをクリックして現れるポップ
+アップにある歯車アイコンをクリックする。左柱から :guilabel:`General` をクリック
+する。ここで |toys| に関する全般的な構成をする。
 
-* 起動中の :program:`PowerToys` のバージョン番号、
+.. note::
+
+   UI 言語は英語に設定するものとして記述する。
+
+:guilabel:`Version & updates` とある場所からは次のことができる：
+
+* 起動中の |toys| のバージョン番号、
 * 更新プログラムの有無確認、
 * リリースノートの確認、および
-* :guilabel:`更新プログラムを自動ダウンロードする` かどうかの切り替えをする。
+* :guilabel:`Show notifications for new updates` するかどうかの切り替えをする。
 
-:guilabel:`管理者モード` とある場所からは、次のことができる：
+:guilabel:`Administrator mode` とある場所からは次のことができる：
 
-* 管理者モードの確認および設定。
-* 管理者モードに関する詳細情報の確認。
+* 管理者モードの確認および設定
+* 管理者モードに関する詳細情報の確認
 
-一般モードから管理者モードに切り替えるときには :program:`PowerToys` が再起動す
-る。その逆は不能になっており、管理者モードで :program:`PowerToys` を開くと、この
-設定項目が変更不能になる。
+一般モードから管理者モードに切り替えるときには |toys| が再起動する。その逆は不能
+になっており、管理者モードで |toys| を開くと、この設定項目が変更不能になる。
 
-:guilabel:`外観および動作` とある場所からは、次のことができる：
+:guilabel:`Appearance & behavior` とある場所からは、次のことができる：
 
-* テーマをライト、ダーク、Windows 既定のいずれかに指定する。
-* :guilabel:`起動時に実行` スイッチで、OS 起動時に :program:`PowerToys` を起動す
-  るかどうかを決める。
+* UI 言語指定。当ノートでは :guilabel:`English` を設定。
+* :guilabel:`Theme` を次のいずれかに指定する：
+
+  * :guilabel:`Dark`
+  * :guilabel:`Light`
+  * :guilabel:`Windows default`
+* :guilabel:`Run at startup` スイッチで、OS 起動時に |toys| を起動するかどうかを
+  決める。
 
 バックアップ
 ======================================================================
 
-次のフォルダー以下に JSON ファイル群が大量に保存されている。これらが
-:program:`PowerToys` およびサブソフト群の設定内容を保持しているのだろう。したがっ
-て、このフォルダーを丸ごとバックアップしておこう。
+次のフォルダー以下に JSON ファイル群が大量に保存されている。これらが |toys| およ
+びサブソフト群の設定内容を保持しているのだろう。
 
-.. code:: text
+.. sourcecode:: text
+   :caption: |toys| 設定ファイル群格納フォルダーパス
 
    %LOCALAPPDATA%\Microsoft\PowerToys
 
-参考：
-`Import and Export of PowerToys Settings <https://github.com/microsoft/PowerToys/issues/14149>`__
+全般設定画面の :guilabel:`Back up & restore` 区画にバックアップ用のボタンがある
+のでそれを利用するといい。
 
 精選機能集
 ======================================================================
@@ -103,21 +103,18 @@ Microsoft PowerToys 利用ノート
 * Keyboard Manager は条件付きで採用。レジストリーを別の手段で変更していないとき
   に使う。次に Windows PC を新調したときから利用するか。
 * PowerRename はいちおう採用。
-* PowerToys Run はたいへん便利なので採用。Windows の
-  :program:`ファイル名を指定して実行` を上書きしたいくらいだ。
 * Shortcut Guide はこれらのショートカットキーを習得するまで有効にする。
-* Text Extractor は採用。日本語文字列に空白文字がしばしばサンドイッチされるが。
 
-こんなものだろう。不採用の機能は設定画面のスイッチで無効にしておく。
+不採用の機能は設定画面のスイッチで無効にしておく。
 
 ユーティリティー概要
 ======================================================================
 
-:program:`PowerToys` は各種アプリケーションの複合体と考えるほうがわかりやすい。
-アプリケーション同士の連携は全くないものと捉えるべきだ。
+|toys| は各種アプリケーションの複合体と考えるほうがわかりやすい。アプリケーショ
+ン同士の連携は全くないものと捉えるべきだ。
 
-以下では :program:`PowerToys` をそれぞれのアプリケーション単位について簡単に述べ
-ていく。きちんとした仕様は先述の文書のリンク先各ページに述べられている。
+以下では |toys| をそれぞれのアプリケーション単位について簡単に述べていく。きちん
+とした仕様は先述の文書のリンク先各ページに述べられている。
 
 .. toctree::
    :maxdepth: 1
@@ -138,12 +135,5 @@ Microsoft PowerToys 利用ノート
    screen-ruler
    shortcut-guide
    text-extractor
-   video-conference-mute
 
-関連ノート
-======================================================================
-
-* :doc:`/freeware`: :program:`PowerToys` の機能には、他のフリーウェアのほうが高
-  性能であることがある部分がある。
-* :doc:`/winget`: :program:`PowerToys` 自身を初インストールするときの参考になる
-  かもしれないノート。
+.. 以上
