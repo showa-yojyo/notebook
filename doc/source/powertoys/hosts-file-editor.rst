@@ -1,39 +1,41 @@
 ======================================================================
-Hosts File Editor
+Hosts File Editor 利用ノート
 ======================================================================
 
-Hosts File Editor はファイル :file:`hosts` の設定を編集するためのユーティリ
-ティーだ。
+.. |editor| replace:: Hosts File Editor
+.. |hosts| replace:: :file:`%SystemRoot%\\System32\\drivers\\etc\\hosts`
+.. |toys| replace:: :program:`PowerToys`
 
-Windows にもドメイン名とそれに対応する IP アドレスを含むローカルのファイル
-:file:`hosts` があり、 IP ネットワーク上のホストを識別して位置を特定するための対
-応表として機能する。ウェブサイトを訪問するたびに、コンピューターはまずファイル
-:file:`hosts` を検査して、どの IP アドレスに接続するかを確認する。情報がない場
-合、ISP はサイトを読み込むための資源を DNS に照会する。
+|editor| はファイル |hosts| の設定を編集するためのユーティリティーだ。観念的には
+UNIX 系 OS において :file:`/etc/hosts` としてよく知られているファイルと同じもの
+だ。
 
-これはウェブサイトを新しいホスティングプロバイダーやドメイン名に移行するようなシ
-ナリオで、一、二日のダウンタイムがかかる場合に便利だ。ホストファイルを使用してド
-メインに関連付けるカスタム IP アドレスを作成すると、新しいサーバー上でどのように
-見えるかを確認できる。
-
-.. admonition:: 利用者ノート
-
-   ファイルパスがわかっていれば VS Code で編集しても全然構わない。
+ファイルパスがわかっていて、管理者権限をどうにでもできる使用者ならば、普通のテキ
+ストエディターで編集しても全然構わないものだ。
 
 .. attention::
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
-新しいエントリー
+Hosts File Editor ウィンドウ
 ======================================================================
 
-:program:`PowerToys` 本体の設定で Hosts File Editor が有効になっていることをまず
-確認する必要がある。
+|editor| ウィンドウはファイル |hosts| の内容を一覧形式で表現する UI だ。この UI
+は登録済みのホスト項目の On/Off を切り替えたり、項目を削除したりするのに用いるた
+めのものだ。
 
-Hosts File Editor を使用して新しいエントリーを追加するには、ボタン
-:guilabel:`新しいエントリー` を押して追加画面を表示する。それから次の項目を埋める：
+以下、このウィンドウのコントロールを記す。
+
+New entry ボタン
+----------------------------------------------------------------------
+
+|toys| 本体の設定で |editor| が有効になっていることをまず確認する必要がある。
+
+新しいエントリーを追加するにはボタン :guilabel:`New entry` を押して
+:guilabel:`Add new entry` フォームを表示する。それから次の項目を埋める：
 
 .. csv-table::
    :delim: @
@@ -41,42 +43,75 @@ Hosts File Editor を使用して新しいエントリーを追加するには�
    :widths: auto
 
    入力欄 @ 入力値
-   :guilabel:`アドレス` @ IP アドレス
-   :guilabel:`ホスト`   @ ホスト名
-   :guilabel:`コメント` @ 記入目的を確認するためのコメント
+   :guilabel:`Address` @ IP アドレス
+   :guilabel:`Host`    @ ホスト名
+   :guilabel:`Comment` @ 記入目的を確認するためのコメント
 
-最後にスイッチ :guilabel:`アクティブ` が有効になっていることを確認し、
-:guilabel:`追加` をクリックする。
+最後にスイッチ :guilabel:`Active` が有効になっていることを確認し、ボタン
+:guilabel:`Add` を押す。
 
-フィルター
-======================================================================
+Filters ボタン
+----------------------------------------------------------------------
 
 ホストファイルのエントリーを絞るには、漏斗アイコンをクリックし、
 
-* :guilabel:`アドレス`
-* :guilabel:`ホスト`
-* :guilabel:`コメント`
+* :guilabel:`Address`
+* :guilabel:`Host`
+* :guilabel:`Comment`
 
 のいずれかに文字列を入力する。
+
+Open hosts file ボタン
+----------------------------------------------------------------------
+
+:guilabel:`Open hosts file` ボタンを押すと、ファイル |hosts| がテキストエディ
+ターで開く。
+
+.. admonition:: 利用者ノート
+
+   このテキストエディターはメモ帳固定？
+
+Settings ボタン
+----------------------------------------------------------------------
+
+:guilabel:`Settings` ボタンを押すと、|toys| 設定画面の |editor| ページに移動す
+る。
 
 バックアップ
 ======================================================================
 
-Hosts File Editor は編集前にファイル :file:`hosts` をバックアップする。
-バックアップファイルは、:file:`%SystemRoot%\\System32\\drivers\\etc` に
-:file:`hosts_PowerToysBackup_YYYYMMDDHHMSS` のような名前で置かれる。
+|editor| は編集前にファイル |hosts| をバックアップする。バックアップファイルはこ
+のフォルダーに :file:`hosts_PowerToysBackup_YYYYMMDDHHMSS` のような名前で置かれ
+る。
 
 設定
 ======================================================================
 
-歯車アイコンメニューから次のオプションを構成できる：
+:guilabel:`Enable Hosts File Editor` を On にすれば |editor| を開くことが可能に
+なる。
 
-.. csv-table::
-   :delim: @
-   :header-rows: 1
-   :widths: auto
+Activation
+----------------------------------------------------------------------
 
-   設定項目 @ 主旨
-   :guilabel:`管理者として実行する` @ これを有効にしないと :file:`hosts` を保存できない
-   :guilabel:`起動時に警告を表示する` @ DNS の名前解決変更可能性があることを警告するかどうか
-   :guilabel:`追加の行の位置` @ :guilabel:`上部` か :guilabel:`下部` か
+:guilabel:`Open Hosts File Editor`
+   この設定画面でこの項目を選択することで |editor| を開いてもかまわない。
+:guilabel:`Open as administrator`
+   これが On であることがファイル |hosts| を保存するのに必要だ。
+:guilabel:`Show a warning at startup`
+   専用エディターを開いた瞬間に、DNS の名前解決変更可能性があることを警告しても
+   らうかどうかを決める。案外うっとうしいので Off とする。
+
+Behavior
+----------------------------------------------------------------------
+
+:guilabel:`Placement of additional content`
+   行を :guilabel:`Top` と :guilabel:`Bottom` のどちらから追加していくかを選ぶ。
+:guilabel:`Consider loopback addresses as duplicates`
+   Off とする。
+:guilabel:`No leading spaces`
+   有効ホスト指定行の先頭を空白文字から始めたくないときには On にするという理解
+   でいい？
+:guilabel:`Encoding`
+   なんでもいいはずだが :guilabel:`UTF-8` を指定しておくのが無難だ。
+
+.. 以上
