@@ -117,21 +117,10 @@ Microsoft PowerToys 利用ノート
 とした仕様は先述の文書のリンク先各ページに述べられている。
 
 .. toctree::
+   :glob:
    :maxdepth: 1
+   :titlesonly:
 
-   always-on-top
-   awake
-   color-picker
-   fancy-zones
-   file-explorer-add-ons
-   file-locksmith
-   hosts-file-editor
-   image-resizer
-   keyboard-manager
-   mouse-utilities
-   power-rename
-   quick-accent
-   screen-ruler
-   shortcut-guide
+   *
 
 .. 以上
