@@ -1,9 +1,9 @@
 ======================================================================
-File Locksmith
+File Locksmith 利用ノート
 ======================================================================
 
 File Locksmith はどのファイルがどのプロセスで使用されているかをチェックするため
-の Windows シェル拡張機能だ。まずは :guilabel:`File Locksmith` をON にしろ。
+の Windows シェル拡張機能だ。まずは :guilabel:`File Locksmith` を On にしろ。
 
 .. attention::
 

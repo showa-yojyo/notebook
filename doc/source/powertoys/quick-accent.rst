@@ -84,6 +84,6 @@ Behavior
    稼働キーをどのくらい押し続けるとアクセント文字一覧ツールバーが出現するかを指
    定する。
 :guilabel:`Excluded apps`
-   Always On Top 機能などと同様。
+   :doc:`./always-on-top` や :doc:`./mouse-utilities` の同名設定項目と同様。
 
 .. 以上

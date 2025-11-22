@@ -1,5 +1,5 @@
 ======================================================================
-Shortcut Guide
+Shortcut Guide 利用ノート
 ======================================================================
 
 Shortcut Guide は :kbd:`Win` キーを伴うショートカットキー一覧を表示する。ただそ
@@ -45,8 +45,8 @@ Shortcut
 :guilabel:`Press duration before showing global Windows shortcuts (ms)`
    Shortcut Guide を開くときの :kbd:`Win` キーを押し続ける時間をミリ秒単位で指定
    する。既定値からかなり小さく変えておくといい。
-
-   もう一つの時間設定値も整合するように変えておく。
+:guilabel:`Press duration before showing taskbar icon shortcuts (ms)`
+   この時間設定値も上のものと整合するように変えておく。
 
 Appearance & behavior
 ----------------------------------------------------------------------
@@ -59,7 +59,7 @@ Appearance & behavior
    ずなので、100 に近い値でもかまわない。
 
 Excluded apps
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------------------
 
 :guilabel:`Excluded apps`
    :doc:`./always-on-top` や :doc:`./mouse-utilities` の同名設定項目と同様。
