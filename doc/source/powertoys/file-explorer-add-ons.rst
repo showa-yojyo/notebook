@@ -18,6 +18,8 @@ File Explorer add-ons は Windows Explorer のプレビュー表示を拡張す�
 
 PowerToys 自体の稼働と共に File Explorer add-ons 機能も稼働するらしい。
 
+.. _anchor-add-ons-preview:
+
 Preview Pane
 ----------------------------------------------------------------------
 

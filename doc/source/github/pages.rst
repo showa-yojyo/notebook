@@ -397,7 +397,7 @@ Creating a GitHub Pages site with Jekyll
 
 掲載元初期状態でのコマンド実行の流れ概要：
 
-.. sourcecode:: econsole
+.. sourcecode:: console
    :caption: Jekyll 使用プロジェクトの初期構築工程例
    :force:
 
