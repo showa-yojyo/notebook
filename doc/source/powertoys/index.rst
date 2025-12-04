@@ -51,61 +51,86 @@ Microsoft PowerToys 利用ノート
 
    UI 言語は英語に設定するものとして記述する。
 
-:guilabel:`Version & updates` とある場所からは次のことができる：
+Version & updates
+----------------------------------------------------------------------
 
-* 起動中の |toys| のバージョン番号、
-* 更新プログラムの有無確認、
-* リリースノートの確認、および
-* :guilabel:`Show notifications for new updates` するかどうかの切り替えをする。
+起動中の |toys| のバージョン番号を確認することができ、この項目をクリックすると次
+の UI が現れる：
 
-:guilabel:`Administrator mode` とある場所からは次のことができる：
+:guilabel:`Download and install updates automatically`
+   チェックを入れる。
+:guilabel:`Show notifications for new updates`
+   チェックを外しておく。
+:guilabel:`Show the release notes after an update`
+   チェックを入れる。
 
-* 管理者モードの確認および設定
-* 管理者モードに関する詳細情報の確認
+この画面を開いた時点で更新プログラムがある場合、:samp:`An update is ready to
+install: v{X}.{Y}.{Z}` のような文言が示される。:guilabel:`Install now` ボタンを
+押してパッケージを更新しろ。
+
+Administrator mode
+----------------------------------------------------------------------
+
+管理者モードの確認および設定、管理者モードに関する詳細情報の確認をすることが可能
+だ。
+
+:guilabel:`Running as administrator`
+   右側のドロップダウンリストが :guilabel:`Restart PowerToys as administrator`
+   を示したまま無効化されているはずだ。
+:guilabel:`Always run as administrator`
+   チェックを入れたままにしておくのが無難のはずだ。
+:guilabel:`Show a warning for functionality issues when running alongside elevated applications`
+   これもチェックを入れておく。
 
 一般モードから管理者モードに切り替えるときには |toys| が再起動する。その逆は不能
 になっており、管理者モードで |toys| を開くと、この設定項目が変更不能になる。
 
-:guilabel:`Appearance & behavior` とある場所からは、次のことができる：
+Appearance & behavior
+----------------------------------------------------------------------
 
-* UI 言語指定。当ノートでは :guilabel:`English` を設定。
-* :guilabel:`Theme` を次のいずれかに指定する：
+:guilabel:`Language`
+   :guilabel:`English` を設定する。既定では OS 言語に合致する値だ。
+:guilabel:`Theme`
+   OS に合わせるのが無難だ。次のいずれかに指定する：
 
-  * :guilabel:`Dark`
-  * :guilabel:`Light`
-  * :guilabel:`Windows default`
-* :guilabel:`Run at startup` スイッチで、OS 起動時に |toys| を起動するかどうかを
-  決める。
+   * :guilabel:`Dark`
+   * :guilabel:`Light`
+   * :guilabel:`Windows default`
+:guilabel:`Run at startup`
+   Off にしておく。好きなタイミングで手動で起動したい。
+:guilabel:`Show system tray icon`
+   On にしておくが、慣れたら Off でも行けるだろう。
 
-バックアップ
-======================================================================
+Back up & restore
+----------------------------------------------------------------------
 
-次のフォルダー以下に JSON ファイル群が大量に保存されている。これらが |toys| およ
-びサブソフト群の設定内容を保持しているのだろう。
+:guilabel:`Back up and restore your settings`
+   この項目自体をクリックすると、バックアップに関する詳細が示される。
 
-.. sourcecode:: text
-   :caption: |toys| 設定ファイル群格納フォルダーパス
+   :guilabel:`Location` によると、次のフォルダー以下に JSON ファイル群が大量に保
+   存されることを確認できる。これらが |toys| およびサブソフト群の設定内容を保持
+   しているのだろう：
 
-   %LOCALAPPDATA%\Microsoft\PowerToys
+   .. sourcecode:: text
+      :caption: |toys| 設定ファイル群格納フォルダーパス
 
-全般設定画面の :guilabel:`Back up & restore` 区画にバックアップ用のボタンがある
-のでそれを利用するといい。
+      %LOCALAPPDATA%\Microsoft\PowerToys
 
-精選機能集
-======================================================================
+Experimentation
+----------------------------------------------------------------------
 
-私が重用したい機能を順不同に記す。使用の度合いはおそらくばらつきがあるだろう。
+:guilabel:`Allow experimentation with new features`
+   On にしておく。
 
-* File Explorer add-ons は採用決定。テキストエディターを開かなくても JSON ファイ
-  ルが確認できたりするのは大きい。
-* Image Resizer は使ってみると手軽なので採用する。プリセットは不要。小だけ使う。
-  タイムスタンプを保持する設定を推奨。
-* Keyboard Manager は条件付きで採用。レジストリーを別の手段で変更していないとき
-  に使う。次に Windows PC を新調したときから利用するか。
-* PowerRename はいちおう採用。
-* Shortcut Guide はこれらのショートカットキーを習得するまで有効にする。
+Diagnostics & feedback
+----------------------------------------------------------------------
 
-不採用の機能は設定画面のスイッチで無効にしておく。
+:guilabel:`Diagnostic data`
+   Off にする。
+:guilabel:`Save logs to this device`
+   診断を無効にするのでログファイルは保存する必要がない。
+:guilabel:`Generate bug report package`
+   ログファイルを保存しないので、圧縮ファイルを作ることもない。
 
 ユーティリティー概要
 ======================================================================
