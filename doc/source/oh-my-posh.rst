@@ -5,7 +5,8 @@ Oh My Posh 利用ノート
   Oh My Posh is a custom prompt engine for any shell that has the ability to
   adjust the prompt string with a function or variable.
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 目標
 ======================================================================

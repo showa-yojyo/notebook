@@ -1,5 +1,5 @@
 ======================================================================
-GitHub Issues documentation
+GitHub Issues documentation ノート
 ======================================================================
 
 `GitHub Issues documentation <https://docs.github.com/en/issues>`__ を読んでこの
