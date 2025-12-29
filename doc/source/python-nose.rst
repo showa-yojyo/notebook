@@ -11,7 +11,8 @@ Nose 利用ノート [obsolete]
    規プロジェクトでは役に立たない。代替パッケージとして pytest の学習を行ってい
    る。:doc:`/python-pytest`
 
-.. contents:: 見出し目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

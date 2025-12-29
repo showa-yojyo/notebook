@@ -2,7 +2,8 @@
 Annex E: XMI Serialization and Schema
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 E.1 Summary

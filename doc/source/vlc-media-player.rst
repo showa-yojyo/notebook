@@ -16,7 +16,7 @@ VLC media player 利用ノート
    :Windows: 10 Home 22H2
    :VLC media player: 3.0.20
 
-.. contents:: 本章見出し
+.. contents:: 見出し一覧
    :depth: 3
    :local:
 

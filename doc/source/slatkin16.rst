@@ -9,7 +9,8 @@ Effective Python 読書ノート
 
 .. include:: /_include/book-details/slakin16.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 1 章 Python 流思考
 ======================================================================

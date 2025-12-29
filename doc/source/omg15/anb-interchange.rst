@@ -2,7 +2,8 @@
 Annex B: UML Diagram Interchange
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 B.1 Summary

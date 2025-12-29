@@ -5,7 +5,8 @@ GitHub Pages documentation ノート
 `GitHub Pages documentation <https://docs.github.com/en/pages>`__ は当読書ノート
 を公表する場の基盤となる機能に関する文書だ。全部読んで然るべきだろう。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Quickstart` → 個別記事である Quickstart for GitHub Pages

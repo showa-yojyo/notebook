@@ -4,7 +4,8 @@ Preface
 
 `Prafece <https://changkun.de/modern-cpp/en-us/00-preface/>`__ についてのノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Introduction
 ======================================================================

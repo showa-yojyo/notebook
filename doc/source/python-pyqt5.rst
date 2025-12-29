@@ -4,7 +4,8 @@ PyQt5 利用ノート
 
 本稿は PyQt_ の現時点での最新版、PyQt5 についての覚え書きである。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

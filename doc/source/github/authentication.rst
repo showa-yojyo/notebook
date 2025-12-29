@@ -5,7 +5,8 @@ Authentication documentation ノート
 `Authentication documentation <https://docs.github.com/en/authentication>`__ を
 読んでおく。:guilabel:`Overview` は About authentication to GitHub に移動する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Account security
 ======================================================================

@@ -6,7 +6,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 6
 
 先に仕様書の内容をそっくりに写して、それから削る形でノートに仕上げたい。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 6. Statements and Structure
 ======================================================================

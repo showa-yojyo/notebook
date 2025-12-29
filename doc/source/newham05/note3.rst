@@ -4,7 +4,8 @@
 
 .. include:: /_include/book-details/newham05.txt
 
-.. contents:: ノートの目次
+.. contents:: 見出し一覧
+   :local:
 
 8 章 プロセスの操作
 ======================================================================

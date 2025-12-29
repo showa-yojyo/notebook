@@ -2,7 +2,8 @@
 9 Classification
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 9.1 Summary

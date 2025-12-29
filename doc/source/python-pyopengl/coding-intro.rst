@@ -19,7 +19,8 @@
       import OpenGL.GLU as GLU
       import OpenGL.GLUT as GLUT
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 PyOpenGL プログラム共通の注意事項およびコツ
 ======================================================================

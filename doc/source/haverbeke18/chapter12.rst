@@ -6,7 +6,8 @@ Project: A Programming Language
 
 本章では JavaScript でプログラミング言語を自作する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Parsing
 ======================================================================

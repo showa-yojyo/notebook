@@ -2,7 +2,8 @@
 Chapter 23. SVG and the Web
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 ページ右側の囲み記事 The origins of HTML5 では :abbr:`XHTML` の衰亡と
 :abbr:`HTML5` の契機について述べている。読まなくていいはずだ。

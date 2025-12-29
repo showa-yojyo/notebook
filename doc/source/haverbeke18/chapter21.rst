@@ -9,7 +9,8 @@ Project: Skill-Sharing Website
 * 完全なコードは <https://eloquentjavascript.net/code/skillsharing.zip> からダウ
   ンロードできる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Design
 ======================================================================

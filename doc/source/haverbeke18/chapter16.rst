@@ -6,7 +6,8 @@ Project: A Platform Game
 
 この章では JavaScript と HTML とで 2D アクションゲームを実装する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 The game
 ======================================================================

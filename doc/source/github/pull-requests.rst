@@ -5,7 +5,8 @@ Pull requests documentation ノート
 `Pull requests documentation <https://docs.github.com/en/pull-requests>`__ は
 GitHub が生み出した文化、pull request に関する記述からなる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` は妙に深い節にある :ref:`About pull requests

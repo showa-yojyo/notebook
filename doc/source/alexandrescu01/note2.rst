@@ -4,7 +4,8 @@ Modern C++ Design 読書ノート 2/3
 
 .. include:: /_include/book-details/alexandrescu01.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 第 5 章 汎用のファンクタ
 ======================================================================

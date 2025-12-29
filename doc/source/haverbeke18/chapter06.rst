@@ -8,7 +8,8 @@ The Secret Life of Objects
 Python との考え方の違いに注目するといいかもしれない。私がモダンな Java を知って
 いたらとよかったのだが。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Encapsulation
 ======================================================================

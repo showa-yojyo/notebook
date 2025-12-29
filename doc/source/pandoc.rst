@@ -5,7 +5,8 @@ Pandoc 利用ノート
 本稿は `Pandoc <https://pandoc.org/>`__ を利用して Markdown ファイルを
 reStrucutredText ファイルに変換することに関するノートだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 利用に関する想定
@@ -181,7 +182,8 @@ smart      OFF
 .. code:: text
 
    $if(toc)$
-   .. contents::
+   .. contents:: 見出し一覧
+   :local:
       :depth: $toc-depth$
    ..
 

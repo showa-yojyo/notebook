@@ -5,7 +5,8 @@ Chapter 06: Regular Expression
 `Chapter 06: Regular Expression <https://changkun.de/modern-cpp/en-us/06-regex/>`__
 に関するノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 6.1 Introduction
 ======================================================================

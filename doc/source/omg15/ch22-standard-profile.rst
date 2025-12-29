@@ -2,7 +2,8 @@
 22 Standard Profile
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 22.1 Summary

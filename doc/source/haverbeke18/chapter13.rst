@@ -4,7 +4,8 @@ JavaScript and the Browser
 
 `Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 13 の読書ノート。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Networks and the Internet
 ======================================================================

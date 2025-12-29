@@ -2,7 +2,8 @@
 Storing data in the browser
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Cookies, ``document.cookie``

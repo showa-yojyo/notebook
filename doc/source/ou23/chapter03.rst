@@ -5,7 +5,8 @@ Chapter 03: Language Runtime Enhancements ノート
 `Chapter 03: Language Runtime Enhancements <https://changkun.de/modern-cpp/en-us/03-runtime/>`__
 についてのノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 3.1 Lambda Expression
 ======================================================================

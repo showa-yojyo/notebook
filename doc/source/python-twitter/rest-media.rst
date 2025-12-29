@@ -13,7 +13,8 @@
 
 `bin/twmedia.py <https://github.com/showa-yojyo/bin/blob/master/twmedia.py>`_
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET media/upload
 ======================================================================

@@ -16,7 +16,8 @@ Chapter 07: Parallelism and Concurrency
        複数のタスクが特定の順序によらず、重なり合う時間帯に開始、実行、完了する
        ような処理を指す。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 7.1 Basic of Parallelism
 ======================================================================

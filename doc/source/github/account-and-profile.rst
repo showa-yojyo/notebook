@@ -5,7 +5,8 @@ Account and profile documentation ノート
 `Account and profile documentation <https://docs.github.com/en/account-and-profile>`__
 を読んで、自分のアカウントを作り込もう。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Setting up and managing your personal account on GitHub
 ======================================================================

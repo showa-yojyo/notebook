@@ -2,7 +2,8 @@
 11 Structured Classifiers
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 11.1 Summary

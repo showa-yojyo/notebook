@@ -5,7 +5,8 @@ GitHub Packages documentation ノート
 `GitHub Packages documentation <https://docs.github.com/en/packages>`__ を読んで
 いく。以下、組織回りの記述は読解を割愛することがある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Quickstart` → :ref:`Quickstart for GitHub Packages <packages-quickstart>`

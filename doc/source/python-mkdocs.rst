@@ -6,7 +6,7 @@ MkDocs 利用ノート
 .. |mkdocs| replace:: :program:`mkdocs`
 .. |mkdocs.yml| replace:: :file:`mkdocs.yml`
 
-.. contents:: 章見出し
+.. contents:: 見出し一覧
    :local:
 
 .. todo::

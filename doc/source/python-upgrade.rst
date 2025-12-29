@@ -16,7 +16,8 @@ Python 移行ノート [obsolete]
 さらに 2015 年秋、Windows 10 に無料アップグレードしてしばらくしてから Python 3.5
 へ移行した。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

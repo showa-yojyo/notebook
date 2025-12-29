@@ -2,7 +2,8 @@
 Frames and windows
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Popups and window methods

@@ -5,7 +5,8 @@ Chapter 09: Minor Features
 `Chapter 09: Minor Features <https://changkun.de/modern-cpp/en-us/09-others/>`__
 に関するノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 9.1 New Type
 ======================================================================

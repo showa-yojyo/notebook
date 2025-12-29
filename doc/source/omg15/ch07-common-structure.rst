@@ -2,7 +2,8 @@
 7 Common Structure
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 7.1 Summary

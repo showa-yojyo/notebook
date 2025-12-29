@@ -6,7 +6,8 @@
 <http://mathworld.wolfram.com/RiemannianMetric.html>`__ を持つ `リーマン多様体
 <http://mathworld.wolfram.com/RiemannianManifold.html>`__ という。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 7.1 ユークリッド空間内の多様体上の曲線（基礎）
 ======================================================================

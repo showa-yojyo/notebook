@@ -2,7 +2,8 @@
 10 Simple Classifiers
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 10.1 Summary

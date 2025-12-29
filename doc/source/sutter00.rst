@@ -7,7 +7,8 @@ Exceptional C++ 読書ノート
 
 .. include:: /_include/book-details/sutter00.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 はじめに
 ======================================================================

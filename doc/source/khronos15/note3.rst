@@ -5,7 +5,8 @@ WebGL Specification 1.0 読書ノート 3 of 4
 `WebGL Specification <https://www.khronos.org/registry/webgl/specs/latest/1.0/>`__
 を読んでいく。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. _khronos15-6:
 

@@ -19,7 +19,8 @@ Cygwin 利用ノート [obsolete]
    * OS: Windows 10 Home (Version 1709)
    * Cygwin Net Release Setup Program: 2.891 (64 bit)
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 なぜ Cygwin なのか
 ======================================================================

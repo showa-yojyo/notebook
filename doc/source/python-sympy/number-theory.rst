@@ -4,7 +4,8 @@
 
 SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

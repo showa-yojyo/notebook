@@ -6,7 +6,8 @@ Bezier and Other Parametric Shaping Functions
 <http://www.flong.com/archive/texts/code/shapers_bez/>`__ ノート。区間
 :math:`{[0, 1]}` を定義域とする Bezier 曲線を描く整形関数。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Quadratic Bezier
 ======================================================================

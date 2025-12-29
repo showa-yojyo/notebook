@@ -7,7 +7,8 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 
 .. include:: /_include/book-details/saha16.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 1 章 数を扱う
 ======================================================================

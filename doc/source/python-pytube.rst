@@ -10,7 +10,8 @@ Pytube 利用ノート
 
    単純な場合には :command:`download-yt` を使え。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

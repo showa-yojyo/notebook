@@ -9,7 +9,8 @@ Restview 利用ノート
 具体例を挙げると :file:`README.rst` のような、 Sphinx のビルド対象外の孤立した
 rstファイルの確認に用いる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

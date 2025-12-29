@@ -5,7 +5,8 @@
 本節では Twitter REST API の application 系機能について記す。と言ってはみたもの
 の、実のところ利用するものは一つだけだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET application/rate_limit_status
 ======================================================================

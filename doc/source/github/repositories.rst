@@ -5,7 +5,8 @@ Repositories documentation ノート
 `Repositories documentation <https://docs.github.com/en/repositories>`__ は
 GitHub の基本機能であるリポジトリーに関する記述なので全文読みたい。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 * :guilabel:`Quickstart` は Get started の Quickstart へ
 * :guilabel:`Overview` は Creating and managing repositories の About

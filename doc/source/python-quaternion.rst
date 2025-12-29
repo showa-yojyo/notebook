@@ -5,7 +5,8 @@ Quaternion 利用ノート
 本稿では Python_ パッケージ Quaternion_ について記す。このパッケージを利用する目
 的、導入方法、私が興味のある機能の利用方法について調べる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

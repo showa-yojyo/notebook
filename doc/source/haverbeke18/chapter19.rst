@@ -6,7 +6,8 @@ Project: A Pixel Art Editor
 
 この章では MS Paint のようなアプリケーションをブラウザーの上に実装する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Components
 ======================================================================

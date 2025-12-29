@@ -5,7 +5,8 @@ Introduction
 `Eloquent JavaScript <https://eloquentjavascript.net/>`__ 序章の読書ノート。
 この章は読み飛ばしても問題ない。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 On programming
 ======================================================================

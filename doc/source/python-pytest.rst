@@ -7,7 +7,7 @@ Pytest 利用ノート
 
 Python のテストフレームワークとして著名かつ人気のある pytest_ に関するノートだ。
 
-.. contents:: 章見出し
+.. contents:: 見出し一覧
    :local:
 
 概要

@@ -4,7 +4,8 @@ Another Python Graph Library (APGL) 利用ノート
 
 本稿は :doc:`python-networkx/index` を書くよりも昔に書いたものだ。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

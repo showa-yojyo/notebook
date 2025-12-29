@@ -4,7 +4,8 @@
 
 確率統計機能のモジュールである ``sympy.stats`` を調べてみよう。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

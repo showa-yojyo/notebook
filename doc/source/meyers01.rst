@@ -7,7 +7,8 @@ Effective STL 読書ノート
 
 .. include:: /_include/book-details/meyers01.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 はじめに
 ======================================================================

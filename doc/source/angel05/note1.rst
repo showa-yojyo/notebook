@@ -4,7 +4,8 @@ OpenGL: A Primer Second Edition 読書ノート 1/4
 
 .. include:: /_include/book-details/angel05.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Preface
 ======================================================================

@@ -10,7 +10,7 @@ Hatch 利用ノート
 .. |pytest| replace:: :program:`pytest`
 .. |ruff.toml| replace:: :file:`ruff.toml`
 
-.. contents:: 章見出し
+.. contents:: 見出し一覧
    :local:
 
 概要

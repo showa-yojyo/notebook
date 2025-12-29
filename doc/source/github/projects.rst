@@ -7,7 +7,8 @@ Planning and tracking with Projects ノート
 
 本ノートでは組織回りを割愛することがある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 Learning about Projects

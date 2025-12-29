@@ -4,7 +4,8 @@ Document
 
 JavaScript を使って Web ページを操作する方法を学ぶ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Browser environment, specs

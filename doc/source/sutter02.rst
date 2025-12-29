@@ -8,7 +8,8 @@ More Exceptional C++ 読書ノート
 
 .. include:: /_include/book-details/sutter02.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 序章
 ======================================================================

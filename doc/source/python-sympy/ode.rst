@@ -5,7 +5,8 @@
 モジュール ``sympy.solvers.ode`` が提供する、常微分方程式を解くための機能に関す
 る覚え書きを記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

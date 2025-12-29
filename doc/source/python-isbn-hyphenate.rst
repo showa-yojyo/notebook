@@ -4,7 +4,8 @@ isbn-hyphenate 利用ノート
 
 本稿は Python パッケージ isbn-hyphenate_ について記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

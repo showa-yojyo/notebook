@@ -11,7 +11,8 @@ Python で画像処理といえば、長い間 PIL_ が活躍していた。だ�
 す。なお、PyOpenGL や Pygame との連携で PIL を利用していた既存コードのそれについ
 ては、各ノートにて言及していく。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

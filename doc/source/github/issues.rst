@@ -5,7 +5,8 @@ GitHub Issues documentation ノート
 `GitHub Issues documentation <https://docs.github.com/en/issues>`__ を読んでこの
 機能を理解し、上手に利用する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → :ref:`About issues <issues-overview>`

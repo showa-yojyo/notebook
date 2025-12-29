@@ -5,7 +5,8 @@ What's New In Python 3.8 ノート
 `What's New In Python 3.8 <https://docs.python.org/3/whatsnew/3.8.html>`__ をた
 どりながら調査。興味のあるものしか読まない。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 New Features
 ======================================================================

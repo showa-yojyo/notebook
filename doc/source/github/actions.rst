@@ -5,7 +5,8 @@ GitHub Actions documentation ノート
 `GitHub Actions documentation <https://docs.github.com/en/actions>`__ 読書ノー
 ト。自動化を実現する機能を極めればある意味最強なので、熟読したい。しかし、長い。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → :ref:`Understanding GitHub Actions <actions-overview>`

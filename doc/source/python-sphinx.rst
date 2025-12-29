@@ -11,7 +11,7 @@ Sphinx 利用ノート
    bunch of reStructuredText or Markdown documents, Sphinx can generate a series
    of HTML files, a PDF file (via LaTeX), man pages and much more.
 
-.. contents::
+.. contents:: 見出し一覧
    :depth: 3
    :local:
 

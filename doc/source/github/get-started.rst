@@ -5,7 +5,8 @@ Get started with GitHub documentation ノート
 `Get started with GitHub documentation <https://docs.github.com/en/get-started>`__
 をよく読もう。他の章はここまで網羅的に目を通さないようにしたい。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Quickstart
 ======================================================================

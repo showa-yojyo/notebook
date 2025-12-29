@@ -5,7 +5,8 @@ Deployment
 Mermaid v10 でモジュールのインポートと初期化を一気に行えるようになったようだ。
 ノートを少しでも更新しておく。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Four ways of using mermaid

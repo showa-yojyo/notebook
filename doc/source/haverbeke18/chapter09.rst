@@ -7,7 +7,8 @@ Regular Expressions
 JavaScript における正規表現について述べた章だ。正規表現については JavaScript と
 は別に集中的に学ぶほうが学習効率が良いだろう。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Creating a regular expression
 ======================================================================

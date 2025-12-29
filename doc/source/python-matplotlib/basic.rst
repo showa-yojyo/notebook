@@ -6,7 +6,8 @@
 基本の手順は、NumPy_/SciPy_ の機能でデータを生成し、その 2D プロットを
 Matplotlib を用いて描画することだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

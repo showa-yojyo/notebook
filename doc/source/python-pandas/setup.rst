@@ -6,7 +6,8 @@ Pandas_ の環境構築について記す。当ノート著者は Windows PC で
 しており、 Python_ は Windows Subsystem for Linux (Ubuntu) 環境に Miniconda_ を
 インストールすることでそのサードパーティー製ライブラリーを管理している。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 ドキュメント準備
 ======================================================================

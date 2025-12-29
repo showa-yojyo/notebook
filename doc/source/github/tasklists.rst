@@ -5,7 +5,8 @@ Managing your issues with tasklists ノート
 本章は GitHub Issues documentation の部分だ。見出しが Issues と並列しているので
 ノートを分割した。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 About tasklists
 ======================================================================

@@ -6,7 +6,8 @@ GitHub Codespaces documentation ノート
 書がたくさんあるので読むのが厳しい。Codespace は本質的に有料機能なので、私はまず
 利用しないはずだ。全文調査せずに切り上げる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 * :guilabel:`Overview` は個別ページの GitHub Codespaces overview へ
 * :guilabel:`Quickstart` は Quickstart for GitHub Codespaces へ

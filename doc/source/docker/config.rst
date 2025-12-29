@@ -6,7 +6,7 @@
 
 .. include:: ./docker-inc.txt
 
-.. contents:: 本章見出し
+.. contents:: 見出し一覧
    :local:
 
 :file:`config.json`

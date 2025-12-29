@@ -4,7 +4,8 @@
 
 本節では statuses 系 API について述べる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET statuses/mentions_timeline
 ======================================================================

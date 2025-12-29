@@ -5,7 +5,8 @@ Values, Types, and Operators
 `Eloquent JavaScript <https://eloquentjavascript.net/>`__ Chapter 1 の読書ノート。
 他の高級言語と JavaScript の違いに注目すればいいだろう。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 * 計算機はデータではないものは言及できない。
 * どんな離散的な情報でも、0 と 1 の列に還元することができる。

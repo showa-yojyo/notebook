@@ -6,7 +6,7 @@ Click 利用ノート
 .. |CLI| replace:: :abbr:`CLI (Command Line Interface)`
 .. |pyproject| replace:: :file:`pyproject.toml`
 
-.. contents:: 章見出し
+.. contents:: 見出し一覧
    :local:
 
 概要

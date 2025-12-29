@@ -4,7 +4,8 @@ Search on GitHub documentation ノート
 
 `Search on GitHub documentation <https://docs.github.com/en/search-github>`__
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → :ref:`About searching on GitHub <search-overview>`

@@ -13,7 +13,8 @@
 
 `bin/twhelp.py <https://github.com/showa-yojyo/bin/blob/master/twhelp.py>`_
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET help/configuration
 ======================================================================

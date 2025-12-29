@@ -9,7 +9,8 @@ Chapter 02: Language Usability Enhancements
 の定義、コードの流れの制御、オブジェクト指向関数、テンプレートプログラミングなど
 が該当する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 2.1 Constants
 ======================================================================

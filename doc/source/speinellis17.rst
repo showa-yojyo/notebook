@@ -8,7 +8,8 @@ Effective Debugging 読書ノート
 :ISBN: 978-4-87311-799-7
 :関連 URL: `O'Reilly Japan - Effective Debugging <https://www.oreilly.co.jp/books/9784873117997/>`__
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 まえがき
 ======================================================================

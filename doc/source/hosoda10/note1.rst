@@ -10,7 +10,8 @@ Windows XP の Python 2.6.6 を利用して、本書を読み解いていく。�
 
 .. include:: /_include/book-details/hosoda10.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 第 1 章 Python へようこそ
 ======================================================================

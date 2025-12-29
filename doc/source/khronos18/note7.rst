@@ -4,7 +4,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 7
 
 `仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#built-in-variables>`__
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. _khronos18-7:
 

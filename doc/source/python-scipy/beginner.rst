@@ -5,7 +5,8 @@ Getting Started
 初心者をなるべく速く SciPy_ を理解させ、かつ生産的にさせることを目的とするペー
 ジ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 What are NumPy, SciPy, matplotlib, ...?
 ======================================================================

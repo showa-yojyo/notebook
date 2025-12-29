@@ -4,7 +4,8 @@
 
 SymPy オブジェクトを表現するいろいろな方法について記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -334,4 +335,3 @@ TeX ファイルを保存する
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
-

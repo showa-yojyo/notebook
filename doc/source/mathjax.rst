@@ -7,8 +7,9 @@ MathJax 利用ノート
 の HTML ファイルと Sphinx が生成する HTML ファイルそれぞれから利用する手順を、マ
 クロを定義する方法を、それも保守が容易な方法を含めて説明する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
    :depth: 3
+   :local:
 
 .. note::
 

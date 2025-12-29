@@ -12,7 +12,8 @@ Program Structure
 なお、C/C++ と Python を十分理解している読者はこの章を流し読みで済ませて良いと思
 われる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Expressions and statements
 ======================================================================

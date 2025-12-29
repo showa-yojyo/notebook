@@ -7,7 +7,8 @@ What's New In C++17 言語仕様
 
 タイピングの都合で訳語は cpprefjp_ のものと一部変更して記す。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. include:: /_include/cpp-refs.txt
 

@@ -6,7 +6,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 だんだん翻訳だけで済ませるようになってきた。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 5. Operators and Expressions
 ======================================================================

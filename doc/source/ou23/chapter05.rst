@@ -5,7 +5,8 @@ Chapter 05: Smart Pointers and Memory Management
 `Chapter 05 Smart Pointers and Memory Management <https://changkun.de/modern-cpp/en-us/05-pointers/>`__
 についてのノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 5.1 RAII and Reference Counting
 ======================================================================

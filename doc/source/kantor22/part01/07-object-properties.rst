@@ -4,7 +4,8 @@ Object properties configuration
 
 オブジェクトの特性をさらに深く研究する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Property flags and descriptors

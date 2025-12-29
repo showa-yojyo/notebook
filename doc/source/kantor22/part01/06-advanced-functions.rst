@@ -2,7 +2,8 @@
 Advanced working with functions
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Recursion and stack

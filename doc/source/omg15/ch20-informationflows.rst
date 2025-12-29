@@ -2,7 +2,8 @@
 20 InformationFlows
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 20.1 Information Flows
