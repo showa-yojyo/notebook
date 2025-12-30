@@ -30,7 +30,7 @@ A primitive as an object
 一瞬生成されて、そのメソッドが呼び出される。その戻り値がメソッド呼び出しの結果に
 なる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "Hello".toUpperCase(); // == String("Hello").toUpperCase()
 
@@ -87,7 +87,7 @@ Rounding
 
 基本的な関数：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Math.floor(3.1) == 3;
    Math.floor(-1.1) == -2;
@@ -516,7 +516,7 @@ Iterate: ``forEach``
 
 メソッド ``forEach()`` は ``for`` ループを書かずに要素を反復することができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    arr.forEach(function(item, index, array) {
        // ... do something with item
@@ -539,7 +539,7 @@ Searching in array
 
 述語を与えて要素を検索するメソッドだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let result = arr.find(function(item, index, array) {
        // if true is returned, item is returned and iteration is stopped
@@ -564,7 +564,7 @@ Transform an array
 
 メソッド ``map()`` は写像を与えてその像を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let result = arr.map(function(item, index, array) {
        // returns the new value instead of item
@@ -578,7 +578,7 @@ Transform an array
 
 デフォルトの比較は文字列の比較であることに注意する。これは一般的には使えない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    arr.sort((a, b) => a - b);
 
@@ -792,7 +792,7 @@ Iteration over ``Map``
 ``Object.entries``: ``Map`` from ``Object``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new Map(Object.entries(obj));
 
@@ -801,7 +801,7 @@ Iteration over ``Map``
 
 ``Object`` を ``Map`` に変換するには ``Object.entries()`` を併用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Object.fromEntries(map.entries());
    // or
@@ -894,7 +894,7 @@ Use case: additional data
 キーオブジェクトがゴミ収集されたときに、その値が自動的に消えるとうれしい場合に
 ``WeakMap`` を利用するといい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    weakMap.set(john, "secret documents");
 
@@ -1005,7 +1005,7 @@ Array destructuring
 
 左辺値の書き方に特徴がある。右辺は配列とする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let arr = ["John", "Smith"]
 
@@ -1033,7 +1033,7 @@ The rest ``...``
 
 分解代入において、主要でない部分に ``...`` を付加して値を押し込むことができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 
@@ -1045,7 +1045,7 @@ Default values
 次の構文で既定値を定義できる（右辺値は定数である必要はない。何なら関数呼び出しで
 もいい）。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let [name = "Guest", surname = "Anonymous"] = arr;
 
@@ -1054,7 +1054,7 @@ Object destructuring
 
 ``Object`` バージョンの分解代入構文の例を本文からいくつか引用する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let options = {
        title: "Menu",
@@ -1064,19 +1064,19 @@ Object destructuring
 
 このとき、次のような分解代入を書ける：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {width, height} = options;
 
 既定値を指定する（配列の分解代入と同様に、値は定数である必要はない）：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {width = 111, height = 222} = options;
 
 変数名をオリジナルのものと変える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {width: w, height: h} = options;
 
@@ -1087,7 +1087,7 @@ The rest pattern ``...``
 
 配列の ``...`` と同様に、オブジェクトでも適用できる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {title, ...rest} = options;
 
@@ -1101,7 +1101,7 @@ Smart function parameters
 
 この構文は関数のオプショナル引数を実装するのにうってつけだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function showMenu({title = "Untitled", width = 200, height = 100, items = []}) {
        // function body...

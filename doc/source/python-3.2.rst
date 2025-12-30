@@ -13,7 +13,7 @@ What's New In Python 3.2 を読んで、個人的に関心のある項目に注�
 * ``format()`` 系の ``#`` が浮動小数点数、複素数、``Decimal`` も対象とするように
   なった。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [46]: format(12345.6789, '#5.0f')
      Out[46]: '12346.'

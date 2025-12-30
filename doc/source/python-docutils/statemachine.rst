@@ -66,7 +66,7 @@ reStructuredText というテキスト形式を処理するために存在する
 クライアントコードの骨格はこうなる。まずは ``WS`` でも ``Search`` でもない版を説
 明する。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from statemachine import StateMachine, State, string2lines
    import re
@@ -118,7 +118,7 @@ reStructuredText というテキスト形式を処理するために存在する
       されるメソッドがクラス ``SecondState`` のリスト ``initial_transitions`` の
       どれかが示すメソッドになるはず。
 
-      .. code:: python3
+      .. sourcecode:: python3
 
          def atransition(self, match, context, next_state):
              # do something

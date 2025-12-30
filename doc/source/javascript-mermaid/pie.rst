@@ -21,7 +21,7 @@ Syntax
 
   Drawing a pie chart is really simple in mermaid.
 
-  .. code:: text
+  .. sourcecode:: text
 
      [pie] [showData] (OPTIONAL)
           [title] [titlevalue] (OPTIONAL)

@@ -93,7 +93,7 @@ docstring によるとこのサブパッケージの機能は次のようなも�
 ``title``, ``topic``, ``pending`` それぞれのオブジェクトを生成する。最後にドキュ
 メントの然るべき場所に収める。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from docutils import nodes, languages
    from docutils.transforms import Transform, parts

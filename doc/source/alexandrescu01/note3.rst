@@ -19,7 +19,7 @@ Modern C++ Design 読書ノート 3/3
 <ゲーム中に登場する全てのオブジェクトを生成する関数を 1 ヶ所に集めておくのが良い
 でしょう> (p. 232)
 
-.. code:: c++
+.. sourcecode:: c++
 
    class AbstractEnemyFactory
    {
@@ -51,7 +51,7 @@ Modern C++ Design 読書ノート 3/3
 構造は、以前取り扱った ``GenScatterHierarchy`` と、ファクトリーユニットなるクラ
 ステンプレートの群を合体させたようなもの。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 235 より引用。
    template <class T>
@@ -99,7 +99,7 @@ Modern C++ Design 読書ノート 3/3
 * ``ConcreteFactory`` はクラステンプレート ``GenLinearHierarchy`` から導出する。
   何をしたいのかと言うと、Factory Unit のクラス継承を直列させたいわけだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 238 より引用
    template <class ConcreteProduct, class Base>
@@ -136,7 +136,7 @@ Prototype バージョンを設計する。
   は、何かオブジェクトを参照しておいて、そこからクローン作成。
 * 先程の ``ConcreteFactory`` がそのまま利用できる。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      typedef ConcreteFactory
      <
@@ -165,7 +165,7 @@ Prototype バージョンを設計する。
 
 ここから架空の文書エディターを開発する場合を考察していく。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // pp. 250-251 引用一部略
    class DocStats // 文書の統計情報
@@ -203,7 +203,7 @@ Prototype バージョンを設計する。
 ``DocStats`` が、処理対象となる具体的な ``DocElement`` に依存することになります>
 (p. 252)
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 252 より引用一部略
    void DocStats::UpdateStats(DocElement& elem)
@@ -222,7 +222,7 @@ Prototype バージョンを設計する。
 ここで Visitor の導入となる。まずはデザインパターンの教科書通りのインターフェイ
 スを持つクラスを書いてみる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 253 より
    // まず Visitor の抽象基底クラス
@@ -288,7 +288,7 @@ Prototype バージョンを設計する。
     ``DocElementVisitor`` を ``XxxxVisitor`` に ``dynamic_cast`` するテストを加
     える。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        // p. 259 より引用
        void Paragraph::Accept(DocElementVisitor& v)
@@ -302,7 +302,7 @@ Prototype バージョンを設計する。
 
   * 具体的な Visitor クラスの定義は、例えば次のようになる。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        // p. 260 より引用。
        class DocStats :
@@ -337,7 +337,7 @@ Prototype バージョンを設計する。
 * ``BaseVisitor``: 先の例の ``DocElementVisitor`` と同じ。
 * ``Visitor``: ``XxxxVisitor`` 用。クラステンプレートとして宣言。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 263
      template <class T, typename R = void>
@@ -374,7 +374,7 @@ Prototype バージョンを設計する。
 
 循環式の場合、ユーザーコードが圧倒的に少なくて済むようだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // pp. 270-271 より引用
    typedef CyclicVisitor
@@ -427,7 +427,7 @@ C++ におけるポリモフィズムとは何かをまず考える。関数オ�
 最初に一番愚直と思われる方法、力任せに ``dynamic_cast`` テストをして、動的な型に
 見合うオーバーロード関数に引き渡すコードを示している。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // pp. 280-281 より一部抜粋（一部だけで雰囲気が思い出せるから）
 
@@ -465,7 +465,7 @@ C++ におけるポリモフィズムとは何かをまず考える。関数オ�
 クラステンプレート ``StaticDispatcher`` とクラス ``HatchingExecutor`` に分割し
 て、次のような構造で表現する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // pp. 283-286 から断続的に引用。
 
@@ -529,7 +529,7 @@ C++ におけるポリモフィズムとは何かをまず考える。関数オ�
 * <``StaticDispatcher`` は境界条件が発生した場合、元々の（キャストしない）
   ``lhs`` と ``rhs`` を用いて単に ``Executor::OnError`` を呼び出します> (p. 286)
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 286 より。
    typedef StaticDispatcher<HatchingExecutor, Shape,
@@ -564,7 +564,7 @@ C++ におけるポリモフィズムとは何かをまず考える。関数オ�
   * ``StaticDispatcher::DispatchRhs`` の定義で、``if`` ブロック内をこのようにす
     る。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        // p. 291 より引用
        enum { swapArgs = symmetric &&
@@ -601,7 +601,7 @@ C++ におけるポリモフィズムとは何かをまず考える。関数オ�
     できるようにする。
   * ``Go`` は次のようになる。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        ResultType Go(BaseLhs& lhs, BaseRhs& rhs)
        {
@@ -686,7 +686,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
 
 ライブラリでアトミック演算をまとめるようだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename T>
    class SomeThreadingModel
@@ -733,7 +733,7 @@ C++ に関する書籍は、マルチスレッドをテーマにした文章が�
 * <オブジェクト指向プログラムでは、リソースはオブジェクトになります> (p. 323)
 * オブジェクト・レベルのロックと、クラス・レベルのロックがある。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename Host>
    class ObjectLevelLockable

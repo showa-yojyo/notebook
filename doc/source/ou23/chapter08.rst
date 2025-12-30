@@ -192,7 +192,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 ``std::filesystem`` では、ファイル種別を次の列挙型の値で表現する。各定数の値はど
 れをとっても互いに等しくない：
 
-.. code:: c++
+.. sourcecode:: c++
 
    enum class file_type {
        none,
@@ -221,7 +221,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 各定数はビット演算が効くように定義されている。UNIX の :command:`chmod` と同じと
 思っていい：
 
-.. code:: c++
+.. sourcecode:: c++
 
    enum class perms{
        none = 0,
@@ -238,7 +238,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 さらにオプション指定のために列挙型 ``perm_opsions`` がある。意味が通じる限りはメ
 ンバーの論理ビット演算が許されるようだ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    enum class perm_options{
        replace,
@@ -249,7 +249,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 
 用例を引用しておく：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::filesystem::permissions(
        "test.txt",
@@ -266,7 +266,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 関数 ``space`` は指定パスに関する利用可能な空き容量を返す。戻り値は次の構造体オ
 ブジェクトだ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct space_info {
        std::uintmax_t capacity;
@@ -304,7 +304,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 う装置だ。オブジェクトはコンストラクターを直接呼び出すことで生成する。普通はディ
 レクトリーを指示するパスを指定する。オプションとして次の列挙型の値を与えてもよい：
 
-.. code:: c++
+.. sourcecode:: c++
 
    enum class directory_options {
        none,
@@ -317,7 +317,7 @@ C++ の言葉というより、ファイルシステムのそれだ：
 リックリンク、ファイルサイズ、最終書き込み時間）を追加的に格納することもできる。
 例コードを引用する：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::filesystem::path sandbox /* = ... */;
    for (const& auto entry : std::filesystem::recursive_directory_iterator{sandbox})

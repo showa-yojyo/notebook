@@ -43,7 +43,7 @@ Pytube 利用ノート
 
 pip_ でのインストールになる。アップグレード手順もこれに準じる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install pytube
    bash$ pip install --upgrade pytube
@@ -72,7 +72,7 @@ pip_ でのインストールになる。アップグレード手順もこれに
 がビデオファイルを MP4 形式でローカルディスクに保存する処理でもっとも単純なもの
 になるだろう。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> from pytube import YouTube
    >>> watch_url = 'https://www.youtube.com/watch?v=wDmlxKLqgGo'
@@ -87,7 +87,7 @@ pip_ でのインストールになる。アップグレード手順もこれに
 
 * まずは ``YouTube()`` に与える URL に
 
-  .. code:: text
+  .. sourcecode:: text
 
      watch?v=XXXXXXXXXXX
 
@@ -159,7 +159,7 @@ YouTube 側仕様変更に伴う回避策
 次のコード片は ``Playlist._extract_videos()`` の終了部の抜粋だ。
 ``Channel._extract_videos()`` にも同様の処理がある。
 
-.. code:: python
+.. sourcecode:: python
 
    # remove duplicates
    return (
@@ -188,7 +188,7 @@ FFmpeg を併用して MP3 に変換する
 
 次のようなシェル関数を作成していつでも利用可能にしておくと楽ができるだろう：
 
-.. code:: bash
+.. sourcecode:: bash
 
    convert_mp3 ()
    {

@@ -12,7 +12,7 @@
    特に断らない限り、以降のテキストおよびコード片においては、各種 ``import`` を
    次のようにしたものと仮定している。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       import numpy as np
       import OpenGL.GL as GL

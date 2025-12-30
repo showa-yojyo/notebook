@@ -113,7 +113,7 @@ Default ``F.prototype``, constructor property
 
 ``F.property`` の既定値は次のオブジェクトだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    {
        constructor: F,
@@ -184,7 +184,7 @@ Borrowing from prototypes
 ト``arguments`` が自作のオブジェクトであって、かつプロトタイプに制約がなければ次
 のように書けた：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    arguments.join = Array.prototype.join;
    // ...
@@ -226,7 +226,7 @@ Prototype methods, objects without ``__proto__``
 
 ``obj`` を複製するのには次の呼び出しが有効だ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 

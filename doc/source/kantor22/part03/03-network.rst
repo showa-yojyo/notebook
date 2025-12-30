@@ -17,7 +17,7 @@ XML を意味するが、別にそれを使う必要はない。古い時代の�
 ネットワーク要求を送信して、サーバーから情報を取得する方法は複数ある。現代的で汎
 用性が高いメソッド ``fetch()`` から始める。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let response = fetch(url, [options])
 
@@ -40,7 +40,7 @@ HTTP 状態は ``response`` の次のプロパティーで見える：
 * ``status``: HTTP 状態コード。例えば 200 など。
 * ``ok``: HTTP 状態コードが 200 から 299 までの値であるかどうか。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let response = await fetch(url);
    if (response.ok) {
@@ -68,7 +68,7 @@ Method                     Behavior
 
 本書では JSON 読み込みの例として、次のようなコードを紹介している：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
    let response = await fetch(url);
@@ -76,7 +76,7 @@ Method                     Behavior
 
 プレーンテキストとして読み込むには：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    response = await fetch(url);
    let text = await response.text();
@@ -95,7 +95,7 @@ Response headers
 る。これは厳密には ``Map`` ではないものの、個々のヘッダーを名前で取得したり、
 ヘッダーを反復処理したりするための類似のメソッドがある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // get one header
    console.debug(response.headers.get('Content-Type')); // application/json; charset=utf-8
@@ -110,7 +110,7 @@ Request headers
 ``fetch`` で要求ヘッダーを設定するには、オプションの引数 ``headers`` を使用す
 る。次のコードのようにして、オブジェクトに発信ヘッダーを持たせる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let response = fetch(protectedUrl, {
        headers: {
@@ -186,7 +186,7 @@ GitHub のログイン名の配列を入力とし、GitHub からユーザーを
 HTML フォームの送信について習う。``FormData`` から始める。フォームデータを表すオ
 ブジェクトだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let formData = new FormData([form]);
 
@@ -256,7 +256,7 @@ Sending a form with Blob data
 生のバイナリーデータよりも multipart 符号化されたフォームを受け入れるのに適して
 いる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    formData.append("image", imageBlob, "image.png");
 
@@ -279,7 +279,7 @@ Fetch: Download progress
 
 出力 ``response`` を得た後に次のようにすることができるとある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const reader = response.body.getReader();
    while(true) {
@@ -298,7 +298,7 @@ Fetch: Download progress
 
 勝手に調べてみたところ、次のように書けるはずらしい（手許の Chrome では動かず）：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for await (const value of response.body) {
        console.log(`Received ${value.length} bytes`);
@@ -340,7 +340,7 @@ The ``AbortController`` object
 ``AbortController`` は構造が単純だ。メソッド ``abort()`` と、イベントリスナーを
 設定するためのプロパティー ``signal`` がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let controller = new AbortController();
 
@@ -358,7 +358,7 @@ Using with ``fetch``
 ように書いておき、適当なタイミングで ``controller.abort()`` を呼び出すことにな
 る：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let controller = new AbortController();
    fetch(url, {
@@ -373,7 +373,7 @@ Using with ``fetch``
 
 ``AbortController`` は複数の非同期タスクを一度に中止することができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let urls; // a list of urls to fetch in parallel
 
@@ -433,7 +433,7 @@ Using scripts
 
 もう一つの方法は ``SCRIPT`` タグを使うことだ。スクリプトは
 
-.. code:: html
+.. sourcecode:: html
 
    <script src="http://another.com/...">
 
@@ -494,7 +494,7 @@ CORS for safe requests
 る。例では ``https://javascript.info/page`` から ``https://anywhere.com/request``
 を要求するときのヘッダーを示している。
 
-.. code:: text
+.. sourcecode:: text
 
    GET /request
    Host: anywhere.com
@@ -510,7 +510,7 @@ CORS for safe requests
 下記のような応答がサーバーから得られる。そうでない場合は失敗だ。本書ではこの説明
 を Sequence diagram で表現している。
 
-.. code:: text
+.. sourcecode:: text
 
    200 OK
    Content-Type:text/html; charset=UTF-8
@@ -535,7 +535,7 @@ JavaScript に他の応答ヘッダーへのアクセスを許可するには、
 ``Access-Control-Expose-Headers`` ヘッダーを送信する必要がある。これには、アクセ
 スしたいヘッダー名をカンマで区切ったリストが入っている。
 
-.. code:: text
+.. sourcecode:: text
 
    200 OK
    Content-Type:text/html; charset=UTF-8
@@ -582,7 +582,7 @@ GET, POST, PATCH, DELETE など、あらゆる HTTP method を利用すること
 本書では、オリジン横断的 PATCH 要求を例に、その仕組みを順を追って解説している。
 PATCH method というのはデータの更新によく使われる HTTP method とのことだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let response = await fetch('https://site.com/service.json', {
      method: 'PATCH',
@@ -608,7 +608,7 @@ Step 1 (preflight request)
 
 このような要求を送信する前に、ブラウザーが独自に次のような予備要求を送信する：
 
-.. code:: text
+.. sourcecode:: text
 
    OPTIONS /service.json
    Host: site.com
@@ -627,7 +627,7 @@ Step 2 (preflight response)
 あれば、それらをリストに追加することで事前に許可するのが自然だ。たとえば、次の応
 答例は PUT, DELETE, さらなるヘッダーも許可していると取れる：
 
-.. code:: text
+.. sourcecode:: text
 
    200 OK
    Access-Control-Allow-Origin: https://javascript.info
@@ -664,7 +664,7 @@ JavaScript コードによって開始されたオリジン横断的要求には
 への要求は、そのドメインからのすべての Cookies を伴う。一方、JavaScript のメソッ
 ドによって行われるオリジン横断的要求は例外だ。たとえば
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch('http://another.com');
 
@@ -676,7 +676,7 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 るだろうか。ならば、追加ヘッダーで資格証付き要求を明示的に許可しなければならな
 い。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch('http://another.com', {
        credentials: "include"
@@ -688,7 +688,7 @@ JavaScript に供与することになる。サーバーはスクリプトを本
 サーバーが認証情報を含む要求を受け入れることに同意した場合、
 ``Access-Control-Allow-Origin`` に加えて、応答に
 
-.. code:: text
+.. sourcecode:: text
 
    Access-Control-Allow-Credentials: true
 
@@ -756,14 +756,14 @@ Fetch API
 ``fetch`` を呼び出すと、既定ではページの完全な URL を含む Referer ヘッダーがつね
 に送信される。なお、HTTPS から HTTP への要求ではないと仮定する。
 
-.. code:: text
+.. sourcecode:: text
 
    Referer: https://javascript.info/admin/secret/paths
 
 もし、他のウェブサイトが URL パスではなく、オリジン部分のみを知りたい場合は、オ
 プションを設定することができる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch('https://another.com/page', {
        referrerPolicy: "origin-when-cross-origin" // Referer: https://javascript.info
@@ -852,7 +852,7 @@ SHA-384, SHA-512 であり、ブラウザーによっては他の関数もある
 abcdef であることがわかったとする。それをオプション ``integrity`` に書くと、次の
 ようになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch('http://site.com/file', {
        integrity: 'sha256-abcdef'
@@ -870,7 +870,7 @@ abcdef であることがわかったとする。それをオプション ``inte
 いての統計を収集する。閲覧者がページを離れるとき、そのデータをサーバーに保存した
 い。そのためにイベント ``window.onunload`` が使える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.onunload = function() {
        fetch('/analytics', {
@@ -914,7 +914,7 @@ abcdef であることがわかったとする。それをオプション ``inte
 Creating a ``URL``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new URL(url, [base])
 
@@ -923,7 +923,7 @@ Creating a ``URL``
 
 既存の URL からの相対パスに基づいて、新しい URL を簡単に作成できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let url = new URL('https://javascript.info/profile/admin');
    let newUrl = new URL('tester', url); // "https://javascript.info/profile/tester"
@@ -941,7 +941,7 @@ Property     Specification
 
 HTTP 認証がある場合にはプロパティー ``user``, ``password`` もある。
 
-.. code:: text
+.. sourcecode:: text
 
    `http://login:password@site.com`
 
@@ -992,7 +992,7 @@ RFC3986 という規格があり、URL で利用が許される文字が定義�
 （歴史的な理由から記号 ``+`` で符号化できる）。``URL`` はこれらすべてを自動的に
 処理する。すべての引数を生で与え、``URL`` を文字列に変換すればよい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let url = new URL('https://ru.wikipedia.org/wiki/Тест'); // "https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82"
 
@@ -1018,7 +1018,7 @@ Encoding strings
 つまり、URL 全体に対しては ``encodeURI`` を使うことができるが、URL 引数に対して
 は ``encodeURIComponent`` を代わりに使用するべきなのだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let music = encodeURIComponent('Rock&Roll');
    let url = `https://google.com/search?q=${music}`; // "https://google.com/search?q=Rock%26Roll"
@@ -1067,7 +1067,7 @@ The basics
 2. オブジェクトを初期化する。
 3. 送信する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let xhr = new XMLHttpRequest();
    xhr.open(method, url, async, user, password);
@@ -1105,7 +1105,7 @@ GET のような要求メソッドには本文がないものもある一方、P
 
 基本的に ``xhr.addEventListener('load', ...)`` のようにして設定できると思われる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    xhr.onload = function() {
        if (xhr.status != 200) {
@@ -1125,7 +1125,7 @@ GET のような要求メソッドには本文がないものもある一方、P
 
 また、プロパティーを用いてタイムアウトを指定することもできる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    xhr.timeout = 10000; // timeout in ms, 10 seconds
 
@@ -1167,7 +1167,7 @@ Aborting request
 要求はいつでも終了させることができる。これにより、``abort`` イベントが発生して
 ``xhr.status`` の値が 0 になる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    xhr.abort();
 
@@ -1259,7 +1259,7 @@ Cross-origin requests
 行うことができる。``fetch`` 同様に、既定では Cookie と HTTP 認証を別のオリジンに
 送信しない。これらを有効にするには、次のようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    xhr.withCredentials = true;
 
@@ -1291,7 +1291,7 @@ Not-so-useful progress event
 Algorithm
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let fileId = file.name + '-' + file.size + '-' + file.lastModified;
    let response = await fetch('status', {
@@ -1303,7 +1303,7 @@ Algorithm
    // The server has that many bytes
    let startByte = +await response.text();
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    xhr.open("POST", "upload", true);
    xhr.setRequestHeader('X-File-Id', fileId);
@@ -1353,13 +1353,13 @@ Algorithm
    る。まず、必要なサードパーティー製パッケージをダウンロードしたディレクトリー
    でインストールする。
 
-   .. code:: console
+   .. sourcecode:: console
 
       bash$ npm install node-static
 
    そして :file:`server.js` をサーバーとして稼動させる。
 
-   .. code:: console
+   .. sourcecode:: console
 
       bash$ node server.js
 
@@ -1423,7 +1423,7 @@ Long polling
   subscribe()`` する。
 * それ以外のステータスの場合には一秒待って再び自分自身を呼び出す。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      await new Promise(resolve => setTimeout(resolve, 1000));
      await subscribe();
@@ -1480,7 +1480,7 @@ WebSocket はオンラインゲームやリアルタイム取引システムな�
 A simple example
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let socket = new WebSocket("ws://javascript.info");
 
@@ -1562,7 +1562,7 @@ Extensions and subprotocols
 用するデータ書式が記述されている。このオプションのヘッダーは、新しい WebSocket
 の第二引数で設定される：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
 
@@ -1620,7 +1620,7 @@ Connection close
 接続を閉じたい側は、数字コードとテキストによる理由を書いた接続終了フレームを送信
 するのが普通だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    socket.close([code], [reason]);
 
@@ -1696,7 +1696,7 @@ Getting messages
 ``Content-Type: text/event-stream`` というヘッダーで応答し、接続を維持したまま、
 次のように特別な書式でメッセージを書き込むはずだ：
 
-.. code:: text
+.. sourcecode:: text
 
    data: Message 1
 
@@ -1714,7 +1714,7 @@ Getting messages
 に、``data:`` 一つがちょうどメッセージ一つを保持していると仮定できる。そのような
 メッセージごとに、イベント ``message`` が発生する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let eventSource = new EventSource("/events/subscribe");
    // or eventSource.addEventListener('message', function(event){ ... })
@@ -1734,7 +1734,7 @@ Cross-origin requests
 
 証明証を渡すには、追加オプションの ``withCredentials`` を設定しなくてはならない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let source = new EventSource("https://another-site.com/events", {
        withCredentials: true
@@ -1749,7 +1749,7 @@ Reconnection
 
 サーバーは ``retry:`` を応答に使って推奨遅延時間を設定できる。
 
-.. code:: text
+.. sourcecode:: text
 
    retry: 15000
    data: Hello, I set the reconnection delay to 15 seconds
@@ -1781,7 +1781,7 @@ Message ``id``
 メッセージが受信されていないのかを確認できない。接続を正しく再開するために、メッ
 セージそれぞれには ``id`` フィールドがあるといい：
 
-.. code:: text
+.. sourcecode:: text
 
    data: Message 1
    id: 1
@@ -1810,7 +1810,7 @@ Connection status: ``readyState``
 ``EventSource`` はプロパティー ``readyState`` を持ち、その値は三つのうちの一つ
 だ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    EventSource.CONNECTING = 0; // connecting or reconnecting
    EventSource.OPEN = 1;       // connected
@@ -1832,7 +1832,7 @@ Event types
 イベント開始時に、サーバーは ``event: ...`` で別の型のイベントを指定してもよい。
 たとえば：
 
-.. code:: text
+.. sourcecode:: text
 
    event: join
    data: Bob
@@ -1845,7 +1845,7 @@ Event types
 カスタムイベントを処理するには、``onmessage`` ではなく、``addEventListener`` を
 使用する必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    eventSource.addEventListener('join', event => {
        alert(`Joined ${event.data}`);

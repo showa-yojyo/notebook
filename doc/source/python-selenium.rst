@@ -43,13 +43,13 @@ Selenium_ の Python パッケージをインストールする手順を記す�
 手順はひじょうに簡単で、他のサードパーティー製 Python パッケージと同様だ。すなわ
 ち：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install selenium
 
 アップグレードやアンインストールも標準の手順に従う。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install -U selenium
    bash$ pip uninstall selenium
@@ -84,7 +84,7 @@ HTML ファイルが表示されるというようなもので十分だ。
 
 これ以降にあげるコード片は次の文を事前に実行しているものと仮定する：
 
-.. code:: python
+.. sourcecode:: python
 
    from selenium import webdriver
 
@@ -96,7 +96,7 @@ HTML ファイルをブラウザーで開く
 
 URL またはローカルファイルパスを指定してブラウザーを開く。
 
-.. code:: python
+.. sourcecode:: python
 
    driver.get('http://www.python.org')
    driver.get('file://C:/Temp/tmp.html')
@@ -110,7 +110,7 @@ Ajax をふんだんに用いているページを開くときは、呼び出し
 ブラウザーごと終了するのであれば ``quit()`` を、タブを閉じるのであれば
 ``close()`` を呼ぶ。ただしタブが一つの場合は事実上ブラウザーが終了する。
 
-.. code:: python
+.. sourcecode:: python
 
    driver = ...
    driver.get(...)
@@ -154,7 +154,7 @@ Ajax をふんだんに用いているページを開くときは、呼び出し
   * `W3C XPath Recommendation <http://www.w3.org/TR/xpath>`__
   * `XPath Tutorial <http://www.zvon.org/comp/r/tut-XPath_1.html>`__
 
-.. code:: python
+.. sourcecode:: python
 
    images = driver.find_elements_by_css_selector('div#porno-album > a > img')
 
@@ -164,13 +164,13 @@ HTML 要素の指定する属性の値を得る
 HTML 要素から属性の値を得るには ``elem.get_attribute()`` を用いる。例えば、次の
 要素 ``elem`` から ``src`` を得たいとする：
 
-.. code:: html
+.. sourcecode:: html
 
    <img name="porno-001" src="/path/to/porno-001.jpg" />
 
 このときは次のようにする：
 
-.. code:: python
+.. sourcecode:: python
 
    jpeg_url = elem.get_attribute('src')
 
@@ -181,7 +181,7 @@ HTML 要素から属性の値を得るには ``elem.get_attribute()`` を用い�
 このコード作成者は URL 一覧をテキストファイルに出力し、コンソールで別途
 :program:`wget` を実行することでポルノ画像の一括ダウンロードを企んでいる。
 
-.. code:: python
+.. sourcecode:: python
 
    images = driver.find_elements_by_css_selector('div#porno-album > a > img')
    image_paths = [i.get_attribute('src') for i in images]
@@ -193,7 +193,7 @@ HTML 要素の値を得るには ``elem.text`` を参照する。開始タグと
 分のブラウザーに描画されているテキスト内容と同等の ``str`` オブジェクトが得られ
 る。
 
-.. code:: python
+.. sourcecode:: python
 
    element = driver.find_elements_by_tag_name('h1')
    print(element.text)
@@ -204,14 +204,14 @@ HTML 要素の値を得るには ``elem.text`` を参照する。開始タグと
 Selenium はキーボードのキー操作を再現するインターフェイスを提供している。それを
 利用するには次の ``import`` 文が必要だ：
 
-.. code:: python
+.. sourcecode:: python
 
    from selenium.webdriver.common.keys import Keys
 
 現在の画面にキーイベントを送るには例えば次のようにする。もっと自然なコードがある
 かもしれない。
 
-.. code:: python
+.. sourcecode:: python
 
    from selenium.webdriver.common.action_chains import ActionChains
 
@@ -224,7 +224,7 @@ Selenium はキーボードのキー操作を再現するインターフェイ�
 
 特定の HTML 要素に対してキーイベントを送るには例えば次のようにする：
 
-.. code:: python
+.. sourcecode:: python
 
    user_name = driver.find_elements_by_css_selector('input[id="user_name"]')
    user_name.send_keys('showa_yojyo')
@@ -235,7 +235,7 @@ Selenium はキーボードのキー操作を再現するインターフェイ�
 ボタン系 GUI のマウスクリックとフォーム送信のコード例を示す。ページの HTML の
 フォーム部分はこのようになっていると仮定する：
 
-.. code:: html
+.. sourcecode:: html
 
    <form method="post" action="...">
        <input type="checkbox" id="agree" value="1" />
@@ -250,7 +250,7 @@ Selenium はキーボードのキー操作を再現するインターフェイ�
 ン :guilabel:`確認画面へ` をクリックするなどしてフォームを送信する。これを
 WebDriver で自動化するとこうなる：
 
-.. code:: python
+.. sourcecode:: python
 
    agree = driver.find_element_by_id('agree')
    agree.click()
@@ -289,7 +289,7 @@ Selenium は「指定要素が指定状態になるまでプログラム実行�
 明示的待機を説明する。例えば登録画面、プログレスバー表示画面、終了画面という遷移
 を考える。終了画面が出る前に ``.close()`` したくないはずなので、次のようにする：
 
-.. code:: python
+.. sourcecode:: python
 
    from selenium.webdriver.common.by import By
    from selenium.webdriver.support import expected_conditions
@@ -368,7 +368,7 @@ Selenium は「指定要素が指定状態になるまでプログラム実行�
 を設定するものだ。指定後は上記のような ``.until()`` をしなくても ``.until()`` 相
 当のことをしてくれる。
 
-.. code:: python
+.. sourcecode:: python
 
    driver = Edge()
    driver.implicitly_wait(60)

@@ -37,7 +37,7 @@ Parsing
 アプリケーションの記述方法は、JavaScript と同様とする。式の後に括弧を付け、その
 括弧の間に任意の数の引数を、コンマで区切って記述するものとする。
 
-.. code:: text
+.. sourcecode:: text
 
    do(define(x, 10),
       f(>(x, 5),
@@ -66,7 +66,7 @@ Parsing
 
 先ほどのコード片における ``>(x, 5)`` の部分は次のように表現されるだろう：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    {
        type: "apply",
@@ -93,7 +93,7 @@ Parsing
 
 解析器の最初の部分はこのようなものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function parseExpression(program) {
        program = skipSpace(program);
@@ -135,7 +135,7 @@ Parsing
 関数 ``parseApply`` に引き渡す。式がアプリケーションであるかどうかをチェックし、
 そうならば括弧でくくられた引数を解析する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function parseApply(expr, program) {
        program = skipSpace(program);
@@ -178,7 +178,7 @@ Parsing
 うかを確認する便利な関数 ``parse`` でラップする。そしてプログラムのデータ構造が
 得られる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function parse(program) {
        let {expr, rest} = parseExpression(program);
@@ -200,7 +200,7 @@ The evaluator
 評価器に構文木と名前と値を関連付けるスコープオブジェクトを与えると構文木が表現す
 る式を評価して、それが生成する値を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const specialForms = Object.create(null);
 
@@ -256,7 +256,7 @@ Special forms
 
 まず ``if`` を追加する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    specialForms.if = (args, scope) => {
        if (args.length != 3) {
@@ -283,7 +283,7 @@ Special forms
 
 ``while`` 形式も同様にする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    specialForms.while = (args, scope) => {
        if (args.length != 2) {
@@ -301,7 +301,7 @@ Special forms
 ``do`` ループはすべての引数を上から下へ実行する。評価は最後の引数が生成する値
 だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    specialForms.do = (args, scope) => {
        let value = false;
@@ -316,7 +316,7 @@ Special forms
 * 第一引数：単語
 * 第二引数：その単語に割り当てる値を生成する式
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    specialForms.define = (args, scope) => {
        if (args.length != 2 || args[0].type != "word") {
@@ -341,7 +341,7 @@ The environment
 い。真偽値は二つしかないので、特別な構文は不要だ。単に二つの名前を ``true`` と
 ``false`` に束縛する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const topScope = Object.create(null);
 
@@ -351,7 +351,7 @@ The environment
 * ここで ``topScope`` は大域名前空間を表す。
 * これにより真偽値を否定する簡単な式を評価できるようになった。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let prog = parse(`if(true, false, true)`);
      evaluate(prog, topScope); // → false
@@ -360,7 +360,7 @@ The environment
 する。コードを短く保つために、演算子を個別に定義するのではなく JavaScript にある
 ``Function`` を利用してループ内で一連の演算子を合成する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for (let op of ["+", "-", "*", "/", "==", "<", ">"]) {
        topScope[op] = Function("a, b", `return a ${op} b;`);
@@ -369,7 +369,7 @@ The environment
 値を出力する手段が欲しいので ``console.log`` を関数にラップしてそれを ``print``
 を名付けることにする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    topScope.print = value => {
        console.log(value);
@@ -380,7 +380,7 @@ The environment
 
 次の関数 ``run`` は、プログラムを解析して新しいスコープで実行するものだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function run(program) {
        return evaluate(parse(program), Object.create(topScope));
@@ -390,7 +390,7 @@ The environment
 ムが大域名前空間を変更することなしに、そのローカルスコープに変数を追加できるはず
 だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    run(`
    do(define(total, 0),
@@ -412,7 +412,7 @@ Functions
 * 最後の引数を関数の本体として扱い、
 * それ以外の引数すべてを関数の引数リストとして使用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    specialForms.fun = (args, scope) => {
        if (!args.length) {
@@ -442,7 +442,7 @@ Egg の関数は固有の関数スコープを有する。``fun`` が生成す�
 プを作成し、実引数の変数を追加する。それから、このスコープで関数本体を評価して結
 果を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    run(`
    do(define(plusOne, fun(a, +(a, 1))),
@@ -507,7 +507,7 @@ Arrays
 
 **解答** これは単純に書いてよいだろう：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   topScope.array = (...args) => [...args];
   topScope.length = arr => arr.length;
@@ -524,7 +524,7 @@ Closure
 数に追加する関数を返す。つまり、変数 ``a`` を使えるようにするには、``f`` 内部の
 ローカルスコープにアクセスする必要がある。
 
-.. code:: text
+.. sourcecode:: text
 
    run(`
        do(define(f, fun(a, fun(b, +(a, b)))),
@@ -537,7 +537,7 @@ Closure
 
 **解答** このコードを JavaScript に翻訳すると：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   function f(a){
       function b(){
@@ -549,7 +549,7 @@ Closure
 ``specialForms.fun`` の定義において、関数の本体とスコープを決定するコードは次の
 ものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let localScope = Object.create(scope);
    //console.log(Object.getPrototypeOf(localScope));
@@ -580,7 +580,7 @@ JavaScript の ``//`` と同じようにそれを無視したい。
 
 **解答** 素直に考えると次のようになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function skipSpace(string) {
        const first = string.search(/\S/);
@@ -610,14 +610,14 @@ Fixing scope
   ``hasOwnProperty`` を呼び出すには、次のような不器用な式を使わなければならない
   ことにも留意しろ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Object.prototype.hasOwnProperty.call(scope, name);
 
 **解答** これは時間がかかった。キーワードを ``put`` にすると次のようなコードにな
 る：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    specialForms.put = (args, scope) => {
        if (args.length != 2 || args[0].type != "word") {
@@ -640,7 +640,7 @@ Fixing scope
 急所は問題文から推察されるように、プロトタイプの理解ができているかどうかだ。次の
 ようなコードを修正して色々なパターンを試す：
 
-.. code:: text
+.. sourcecode:: text
 
    run(`
        do(

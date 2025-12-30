@@ -43,7 +43,7 @@ GitHub の自動化に利用したい。
 
 導入および更新は :command:`conda` で行う：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda install gh --channel conda-forge
    bash$ conda update gh --channel conda-forge
@@ -70,7 +70,7 @@ GitHub CLI quickstart
 
 となる。これを検証するには ``gh auth status`` を実行すればいいようだ：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh auth status
    github.com
@@ -151,7 +151,7 @@ Creating GitHub CLI extensions
 
 拡張コマンド名を指示して作成開始する方法：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh extension create EXTENSION-NAME
 
@@ -171,7 +171,7 @@ Go 以外のプログラミング言語でコードを書く場合：
 スクリプト型実行可能ファイルでもカスタムコマンドを定義可能。スクリプトを作り
 ``gh extension install .`` を実行する。皆に利用させるためにはさらに：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git init -b main
    bash$ git add . && git commit -m "initial commit"
@@ -216,7 +216,7 @@ Using GitHub CLI extensions
 
 インストール方法：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh extension install REPO
 
@@ -238,7 +238,7 @@ Using GitHub CLI extensions
 
 カスタムコマンドを更新する方法はある：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh extension upgrade EXTENSION
    bash$ gh extension upgrade --all

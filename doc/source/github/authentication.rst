@@ -500,7 +500,7 @@ Using SSH agent forwarding
 
 :command:`ssh-agent` の簡単な説明がある。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ssh -T git@github.com
    Hi showa-yojyo! You've successfully authenticated, but GitHub does not provide shell access.
@@ -513,7 +513,7 @@ Using SSH agent forwarding
 本文では転送設定を述べているが、ここでは行わない。コマンド ``echo
 $SSH_AUTH_SOCK`` でそれらしい出力が得られればそれでいい。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ssh-add -L
 
@@ -530,7 +530,7 @@ Managing deploy keys
 以前の節で述べられていた手順でこれをオンにして、配備スクリプトが SSH agent
 forwading をするように仕向けろとある：
 
-.. code:: bash
+.. sourcecode:: bash
 
    bash$ ssh -A serverA 'bash -s' < deploy.sh
 
@@ -561,7 +561,7 @@ Checking for existing SSH keys
   DSA keys (ssh-dss) are no longer supported. You cannot add new DSA keys to
   your personal account on GitHub.com.
 
-.. code:: bash
+.. sourcecode:: bash
 
    bash$ ls -al ~/.ssh
 
@@ -583,7 +583,7 @@ Generating a new SSH key and adding it to the ssh-agent
   When you generate an SSH key, you can add a passphrase to further secure the
   key. Whenever you use the key, you must enter the passphrase.
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ssh-keygen -t ed25519 -C YOUR_EMAIL
 
@@ -592,7 +592,7 @@ Generating a new SSH key and adding it to the ssh-agent
 
 これを実行する前に passphrase を決めておく。そして次の用意して鍵を追加する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ eval "$(ssh-agent -s)"
    bash$ ssh-add ~/.ssh/id_ed25519
@@ -619,7 +619,7 @@ Testing your SSH connection
 
 再び：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ssh -T git@github.com
 
@@ -632,7 +632,7 @@ Working with SSH key passphrases
 
 PC が盗まれたときに備えた仕掛けだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ssh-keygen -p -f ~/.ssh/id_ed25519
 
@@ -651,13 +651,13 @@ Using SSH over the HTTPS port
 
 HTTPS ポート経由の SSH が可能かどうかを試すコマンドは：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ssh -T -p 443 git@ssh.github.com
 
 初回実行時にはプロンプトが出るが、次の文言ならば yes と答えて構わない：
 
-.. code:: text
+.. sourcecode:: text
 
    The authenticity of host '[ssh.github.com]:443 ([20.27.177.118]:443)' can't be established.
    ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -673,7 +673,7 @@ HTTPS ポート経由の SSH が可能かどうかを試すコマンドは：
 
 次の内容を :file:`~/.ssh/config` に追加する：
 
-.. code:: text
+.. sourcecode:: text
 
    Host github.com
        Hostname ssh.github.com
@@ -759,7 +759,7 @@ Error: Agent admitted failure to sign
   You should be able to fix this error by loading your keys into your SSH agent
   with :command:`ssh-add`
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ eval "$(ssh-agent -s)"
    bash$ ssh-add PATH_TO_KEY
@@ -915,7 +915,7 @@ Checking for existing GPG keys
   Before you generate a GPG key, you can check to see if you have any existing
   GPG keys.
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gpg --list-secret-keys --keyid-format=long
 
@@ -929,7 +929,7 @@ Checking for existing GPG keys
 コミットやタグの署名に使いたい GPG 鍵対が用意してある場合は、次のコマンドを使っ
 て公開キーを表示し、使いたい GPG 鍵 ID を割り当てることが可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gpg --armor --export XXXXXXXXXXXXX
 
@@ -941,7 +941,7 @@ Generating a new GPG key
 コマンド実行に入る前に利用者情報と passphrase を用意しておく。メールアドレスの入
 力はいつもの ``noreply`` アドレスに関する注意をする。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gpg --full-generate-key
    ...
@@ -951,7 +951,7 @@ Generating a new GPG key
 
 出力された長い文字列を定型コードに埋め込んで GitHub に設定（次節参照）。
 
-.. code:: text
+.. sourcecode:: text
 
    -----BEGIN PGP PUBLIC KEY BLOCK-----
    略
@@ -979,7 +979,7 @@ Telling Git about your signing key
 
 GPG 鍵が複数ある場合に意味がある。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git config --global --unset gpg.format
    bash$ gpg --list-secret-keys --keyid-format=long
@@ -992,7 +992,7 @@ GPG 鍵が複数ある場合に意味がある。
   You can use an existing SSH key to sign commits and tags, or generate a new
   one specifically for signing.
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git config --global gpg.format ssh
    bash$ git config --global user.signingkey /PATH/TO/.SSH/KEY.PUB
@@ -1010,7 +1010,7 @@ Associating an email with your GPG key
   verified email address associated with your account on GitHub.com, then you
   can begin signing commits and signing tags.
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gpg --edit-key XXXXXXXXXXX
    gpg> adduid

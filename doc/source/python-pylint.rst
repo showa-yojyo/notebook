@@ -50,7 +50,7 @@ Pylint_
 ことにしている。環境変数 ``$PATH`` には既に :file:`$PYTHONDIR/Scripts` を含ませ
 てあるゆえ、私が Pylint をコマンドラインから呼び出すときの記法は次のようになる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pylint.bat args
    # or
@@ -68,7 +68,7 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 を発する。設定ファイルの有無は Pylint の機能に支障はないが、この警告文が毎度目に
 つくと煩わしいので、まずはダミーの設定ファイルを作成しておく。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pylint --generate-rcfile > ~/.pylintrc
 
@@ -76,7 +76,7 @@ Pylint の設定ファイルについて記す。デフォルトでは Pylint �
 :command:`pylint --version` をすることで、:file:`.pylintrc` のチェックをさせるこ
 とにもなる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pylint --version
    Warning: option ignore-iface-methods is obsolete and it is slated for removal in Pylint 1.6.
@@ -115,7 +115,7 @@ Pylint はオプションなしで実行すると、どんなに品の良いコ�
 興味があるのは、コードのどの行がどのような「まずさ」を有するかということだけなの
 だ。
 
-.. code:: console
+.. sourcecode:: console
 
    # Suppress statistics, i.e. display only
    # R: refactor, C: convention, W: warning, and E: error.
@@ -137,7 +137,7 @@ Pylint の出力はコード解析結果と統計結果のふたつの部分か�
 パッケージと、環境変数 ``$PYTHONPATH`` にあるそれとを Pylint に混同させないよう
 に注意する必要があるそうだ。
 
-.. code:: console
+.. sourcecode:: console
 
    # Specify the package name.
    bash$ pylint -rn mypackage
@@ -181,7 +181,7 @@ Pylint の忠告に従いたいが、難しい場合もある。あるいは、P
 Python のマニュアルを参照して欲しいが、こうすることで私のクラスには
 ``__subclasses__`` というメンバーが確かに存在する。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from abc import ABCMeta
    from abc import abstractmethod
@@ -192,7 +192,7 @@ Python のマニュアルを参照して欲しいが、こうすることで私�
 
 しかたがないので、このクラスの宣言の直前に次のコメントを追加しておく。
 
-.. code:: python3
+.. sourcecode:: python3
 
    # pylint: disable=no-member
    class AbstractMapper(metaclass=ABCMeta):

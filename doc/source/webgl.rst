@@ -54,7 +54,7 @@ WebGL に翻訳しながら学習するということも有力だ。
   マンドでカレントディレクトリーをルートにしてサーバーが開始する。
   <http://localhost:8000/> を開くと :file:`./index.html` が表示される。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python -m http.server 8000 --bind 127.0.0.1
 
@@ -66,7 +66,7 @@ WebGL プログラミングの技法を思いつくまま、なるべく初歩�
 
 基本的には WebGL 2 を採用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const canvas = document.querySelector("#mycanvas");
    const gl = canvas.getContext('webgl2');
@@ -78,7 +78,7 @@ WebGL プログラミングの技法を思いつくまま、なるべく初歩�
 
   * GLSL コードの物理的な一行目を次の内容にする：
 
-    .. code:: glsl
+    .. sourcecode:: glsl
 
        #version 300 es
 
@@ -86,7 +86,7 @@ WebGL プログラミングの技法を思いつくまま、なるべく初歩�
     ``layout(location = i)`` 記法が利用できるのは大きい。
   * VAO を使う必要があるはず。次のような構造のコードができる：
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        const vao = gl.createVertexArray();
        gl.bindVertexArray(vao);
@@ -97,7 +97,7 @@ WebGL プログラミングの技法を思いつくまま、なるべく初歩�
 
 * シェーダーコードに次のような宣言が必要：
 
-  .. code:: glsl
+  .. sourcecode:: glsl
 
      precision highp float;
 
@@ -108,7 +108,7 @@ Hello world
   初の目標にするといい。
 * ``script`` タグで GLSL コードが書ける。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <script type="x-shader/x-vertex" id="shader">...</script>
 
@@ -204,7 +204,7 @@ WebGL に限った話ではないが：
 * マウスドラッグに対応するイベントハンドラーは次のものにするのが現代的だ。こうす
   るとタッチスクリーンでのタッチイベントにも対応してくれる（と思われる）：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      canvas.onpointerdown = (event) => {
          canvas.onpointermove = (event) => {
@@ -233,7 +233,7 @@ WebGL に限った話ではないが：
 
   これを頭の片隅に入れておけば混乱しない：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // c++
      struct Mat4x4 {
@@ -274,7 +274,7 @@ WebGL に限った話ではないが：
 * サポートされているテクスチャーユニットの数をシェーダーごとにあらかじめ確認して
   おくといい。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
      gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
@@ -309,7 +309,7 @@ WebGL に限った話ではないが：
 の扱いだ。ベタ移植して出力イメージが何かおかしいときにはアルファーの扱いの違いが
 原因になっていることがある。次のようにしてもう一度実行して画像をチェックしろ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   const gl = canvas.getContext('webgl2', {alpha: false});
 

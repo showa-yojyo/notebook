@@ -373,7 +373,7 @@ Bridge
 * ``Window`` のサブクラスのメソッドの実装は、すべて ``WindowImp`` のメソッドで実
   装している。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 170
      void Window::DrawRect(const Point& p1, const Point& p2){
@@ -458,7 +458,7 @@ Decorator
 
 サンプルコード。コンストラクタの呼び出し方にインパクトあり。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 194
    window->SetContents(

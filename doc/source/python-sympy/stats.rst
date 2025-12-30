@@ -12,7 +12,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy.stats import *
       init_printing(pretty_print=False)
@@ -130,7 +130,7 @@
 ラスは、前述の各種同じ名前からなる確率変数生成関数によってオブジェクト化され、そ
 れから、分布に対応する確率空間クラスのオブジェクトを生成する。
 
-.. code:: text
+.. sourcecode:: text
 
    ContinuousDistribution
        SingleContinuousDistribution
@@ -310,7 +310,7 @@
 
 短い別名 ``P`` が付いているので、対話型コードでは主にこちらを採用する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Normal('X', mean=0, std=1)
 
@@ -320,7 +320,7 @@
 * [1] ``Normal`` の各引数はデフォルト引数として定義して欲しいという気がする。あ
   と引数が「期待値・分散」ではなく「期待値・標準偏差」であることに注意を要する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Poisson('X', symbols('m', positive=True))
 
@@ -348,14 +348,14 @@
 
 * [1][2] どうも ``Poisson`` は動作しにくい傾向がある。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
    In [2]: P((X - 1)**2 <= 3*X)
    Out[2]: -erf(sqrt(2)*(-sqrt(21)/2 + 5/2)/2)/2 + erf(sqrt(2)*(sqrt(21)/2 + 5/2)/2)/2
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Die('X', 3)
 
@@ -364,7 +364,7 @@
 
 次の例は数値計算になってしまっているが、真の値は :math:`\frac{1}{e}` だ。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Laplace('X', 0, 1/2)
 
@@ -378,21 +378,21 @@
 自然対数の底にもこの名前が付いているので注意。冒頭に述べたインポート文でこれが上
 書きされる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
    In [2]: E(2*X + 3)
    Out[2]: 3
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Poisson('X', symbols('m', positive=True))
 
    In [2]: E(X**2 + 7*X + 8)
    Out[2]: m*(m + 1) + 7*m + 8
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = DiscreteUniform('X', symbols('a, b, c, d'))
 
@@ -405,7 +405,7 @@
 確率密度関数は下のように ``pspace`` オブジェクトを経由しないとアクセスできないの
 か。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
@@ -419,7 +419,7 @@
 
 累積分布関数を得るにはフリー関数 ``cdf`` を用いる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: cdf(Weibull('X', 2, 5), 4)
    Out[1]: Lambda(_z, Piecewise((1 - exp(-_z**5/32), _z >= 0), (0, True)))
@@ -432,7 +432,7 @@
 
 分布から標本点を抽出すると、毎回結果が異なる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = Normal('X', 0, 1)
 
@@ -444,7 +444,7 @@
 
 ここでは二次のモーメントを計算する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: moment(DiscreteUniform('X', symbols('x1:4')), 2)
    Out[1]: x1**2/3 + x2**2/3 + x3**2/3
@@ -462,7 +462,7 @@
 
 数値計算の例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X = DiscreteUniform('X', [1.21, 3.4, 2, 4.66, 1.5, 5.61, 7.22])
 
@@ -477,7 +477,7 @@
 
 あまりやることがない。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X, Y = DiscreteUniform('X', symbols('a b')), DiscreteUniform('Y', symbols('x y'))
 
@@ -489,7 +489,7 @@
 
 これもあまりやることがない。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: X, Y = DiscreteUniform('X', symbols('a b')), DiscreteUniform('Y', symbols('x y'))
 
@@ -501,7 +501,7 @@
 
 色々な確率分布の二次の中央モーメントを評価しよう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: cmoment(DiscreteUniform('X', symbols('x1:4')), 2)
    Out[1]: (-x1/3 - x2/3 + 2*x3/3)**2/3 + (-x1/3 + 2*x2/3 - x3/3)**2/3 + (2*x1/3- x2/3 - x3/3)**2/3
@@ -526,7 +526,7 @@
 関数 ``skewness`` は三次の ``smoment`` を評価する。この指標は例えば戻り値の符号
 でグラフの裾野が広いほうがわかる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: skewness(DiscreteUniform('X', symbols('a b c')))
    Out[1]: ((-a/3 - b/3 + 2*c/3)**3/3 + (-a/3 + 2*b/3 - c/3)**3/3 + (2*a/3 - b/3- c/3)**3/3)/((-a/3 - b/3 + 2*c/3)**2/3 + (-a/3 + 2*b/3 - c/3)**2/3 + (2*a/3 - b/3 - c/3)**2/3)**(3/2)

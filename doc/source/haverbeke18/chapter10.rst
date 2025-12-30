@@ -71,7 +71,7 @@ Improvised modules
   を所望する人々が独自のモジュールシステムを設計した。
 * 次のコードは曜日名と対応する数字を変換する機能があるモジュールだ：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      const weekDay = function() {
          const names = ["Sunday", "Monday", "Tuesday", "Wednesday",
@@ -104,7 +104,7 @@ Evaluating data as code
   ``,`` 区切りの引数リストからなる文字列と、関数本体からなる文字列を受け取って
   コード化し、結果を返すというものだ。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let plusOne = Function("n", "return n + 1;");
      console.assert(plusOne(4) == 5);
@@ -127,7 +127,7 @@ JavaScript モジュールを追加するのに最も広く使われている方
 
 依存モジュールが二つあるモジュールの作成例が示されている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const ordinal = require("ordinal");
    const {days, months} = require("date-names");
@@ -160,7 +160,7 @@ JavaScript モジュールを追加するのに最も広く使われている方
   に ``formatDate`` を追加する。
 * この自作モジュールを使うには次のようにする：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      const {formatDate} = require("./format-date");
      console.log(formatDate(new Date(2017, 9, 13), "dddd the Do")); // → Friday the 13th
@@ -194,7 +194,7 @@ CommonJS モジュールには癖がある。モジュールシステムが空�
 * 前章のような INI ファイルの読み取り機能を自作する代わりに、NPM_ にあるものを
   使うことができる：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      const {parse} = require("ini");
      console.log(parse("x = 10\ny = 20")); // → {x: "10", y: "20"}
@@ -213,7 +213,7 @@ ECMAScript modules
 * キーワード ``export`` はモジュール要素をエクスポートするのに使う。このキーワー
   ドは関数、クラス、変数各種の前に現れることがある。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      import ordinal from "ordinal";
      import {days, months} from "date-names";
@@ -222,13 +222,13 @@ ECMAScript modules
 * ES モジュールのインターフェイスは単一の値ではなく、名前のある変数の集合だ。
 * ``export default`` を使うと、エクスポートする要素を指定できる。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      export default ["Winter", "Spring", "Summer", "Autumn"];
 
 * Python のようにキーワード ``as`` を用いてインポート名を指定することができる。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      import {days as dayNames} from "date-names";
 
@@ -352,7 +352,7 @@ Roads module
 
 **解答** 前問のようにモジュール群を編成するとして：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {buildGraph} = require("./graph");
 

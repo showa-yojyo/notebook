@@ -22,7 +22,7 @@ The protocol
 #. そのサーバーが存在し、かつ接続が受け入れられると、ブラウザーは次のようなもの
    を送信する：
 
-.. code:: http
+.. sourcecode:: http
 
    GET /18_http.html HTTP/1.1
    Host: eloquentjavascript.net
@@ -30,7 +30,7 @@ The protocol
 
 すると、サーバーは同じ接続を介して次のように応答する：
 
-.. code:: http
+.. sourcecode:: http
 
    HTTP/1.1 200 OK
    Content-Length: 65585
@@ -47,7 +47,7 @@ The protocol
 
 * クライアントから送られてくる情報を :dfn:`リクエスト` という。次の行で始まる：
 
-  .. code:: text
+  .. sourcecode:: text
 
      GET /18_http.html HTTP/1.1
 
@@ -104,7 +104,7 @@ The protocol
 
 * ヘッダーとは ``name: value`` 形式の行で、リクエストや応答に関する追加情報だ。
 
-  .. code:: text
+  .. sourcecode:: text
 
      Content-Length: 65585
      Content-Type: text/html
@@ -134,7 +134,7 @@ Browsers and HTTP
 HTML ページにはユーザーが情報を入力してサーバーに送信するためのフォームが含まれ
 ていることがある。
 
-.. code:: html
+.. sourcecode:: html
 
    <form method="GET" action="example/message.html">
      <p>Name: <input type="text" name="name"></p>
@@ -150,7 +150,7 @@ HTML ページにはユーザーが情報を入力してサーバーに送信す
     略されている場合、フォーム情報は問い合わせ文字列としてアクション URL の末尾
     に追加される。
 
-    .. code:: text
+    .. sourcecode:: text
 
        GET /example/message.html?name=Jean&message=Yes%3F HTTP/1.1
 
@@ -163,7 +163,7 @@ HTML ページにはユーザーが情報を入力してサーバーに送信す
       * JavaScript にはこのための関数 ``encodeURIComponent`` および
         ``decodeURIComponent`` がある。
 
-        .. code:: javascript
+        .. sourcecode:: javascript
 
            console.assert(encodeURIComponent("Yes?") == "Yes%3F");
            console.assert(decodeURIComponent("Yes%3F") == "Yes?");
@@ -174,7 +174,7 @@ HTML ページにはユーザーが情報を入力してサーバーに送信す
 は ``POST`` メソッドを使用することになり、問い合わせ文字列をURL の末尾に追加する
 のではなく、リクエストの本体に追加することになる。
 
-.. code:: text
+.. sourcecode:: text
 
    POST /example/message.html HTTP/1.1
    Content-length: 24
@@ -195,7 +195,7 @@ Fetch
 ``fetch`` という。これは比較的新しいものなので、ブラウザーのインターフェイスとし
 ては珍しい ``Promise`` を使っている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch("example/data.txt").then(response => {
        console.log(response.status); // → 200
@@ -228,7 +228,7 @@ Fetch
 * 初めの ``Promise`` はレスポンスのヘッダーを受信するとすぐに解決される。そし
   て、応答本体は読むのに時間がかかるので、これも ``Promise`` を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch("example/data.txt")
        .then(resp => resp.text())
@@ -243,7 +243,7 @@ Fetch
 含まれない。これを、第二引数に追加のオプションを含むおオブジェクトを渡すことで、
 異なる設定ができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    fetch("example/data.txt", {method: "DELETE"}).then(resp => {
        console.log(resp.status); // → 405
@@ -257,7 +257,7 @@ Fetch
   * 例えば、このリクエストにはヘッダー ``Range`` があり、サーバーに応答の一部だ
     けを返すように指示する。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        fetch("example/data.txt", {headers: {Range: "bytes=8-19"}})
            .then(resp => resp.text())
@@ -279,7 +279,7 @@ HTTP sandboxing
 バーは、次のようなヘッダーを応答に含めることで、他のドメインからのリクエストを許
 可することをクライアントに明示することができる：
 
-.. code:: text
+.. sourcecode:: text
 
    Access-Control-Allow-Origin: *
    Appreciating HTTP
@@ -354,7 +354,7 @@ Form fields
 複数行のテキスト記入欄には ``<textarea>`` という独自のタグがある。このタグは終了
 タグを必要とし、値の代わりにこのタグの間にはさまれたテキストを使用する。
 
-.. code:: html
+.. sourcecode:: html
 
    <textarea>
    one
@@ -366,7 +366,7 @@ Form fields
 
 ``<select>`` タグは、あらかじめ定義された選択肢の中から記入欄を作成するのに使う。
 
-.. code:: html
+.. sourcecode:: html
 
    <select>
      <option>Pancakes</option>
@@ -397,7 +397,7 @@ HTML の要素の大部分とは違って、フォーム記入欄はキーボー
   * プロパティー ``document.activeElement`` の値は、現在フォーカスされている要素
     だ。
 
-.. code:: html
+.. sourcecode:: html
 
    <input type="text">
    <script>
@@ -419,7 +419,7 @@ HTML の要素の大部分とは違って、フォーム記入欄はキーボー
 伝統的なブラウザーでは、ユーザーが :kbd:`Tab` キーを押して文書内でフォーカスを移
 動することができる。要素がフォーカスされる順序を属性 ``tabindex`` で変更できる。
 
-.. code:: html
+.. sourcecode:: html
 
    <input type="text" tabindex=1> <a href=".">(help)</a>
    <button onclick="console.log('ok')" tabindex=2>OK</button>
@@ -434,7 +434,7 @@ Disabled fields
 
 フォーム記入欄のすべては属性 ``disabled`` により無効化できる。
 
-.. code:: html
+.. sourcecode:: html
 
     <button>I'm all right</button>
     <button disabled>I'm out</button>
@@ -461,7 +461,7 @@ The form as a whole
 
   * 配列風のオブジェクトとしても、マップ風のオブジェクトとしてもふるまう。
 
-.. code:: html
+.. sourcecode:: html
 
    <form action="example/submit.html">
      Name: <input type="text" name="name"><br>
@@ -486,7 +486,7 @@ The form as a whole
 JavaScript を使って処理し、イベントオブジェクトのメソッド ``preventDefault`` を呼
 び出すことで既定の振る舞いを防ぐことができる。
 
-.. code:: html
+.. sourcecode:: html
 
    <form action="example/submit.html">
      Value: <input type="text" name="value">
@@ -526,7 +526,7 @@ Text fields
 :kbd:`F2` キーを押すと ``Khasekhemwy`` という文字列を挿入するイベントハンドラー
 を仕込むものだ：
 
-.. code:: html
+.. sourcecode:: html
 
    <textarea></textarea>
    <script>
@@ -564,7 +564,7 @@ Checkboxes and radio buttons
 
 チェックボックスの値は真偽値をとるプロパティー ``checked`` で読み書きする。
 
-.. code:: html
+.. sourcecode:: html
 
    <label>
      <input type="checkbox" id="purple"> Make this page purple
@@ -589,7 +589,7 @@ Checkboxes and radio buttons
 次の例はラジオボタンの選択を変更するたびに文書の背景色をラベルが示すものに変化さ
 せるというものだ：
 
-.. code:: html
+.. sourcecode:: html
 
    Color:
    <label>
@@ -636,7 +636,7 @@ Select fields
 この例では、複数選択欄から選択値を抽出して、個々のビットから二進数を構成する。
 :kbd:`Ctrl` を押しながら複数の選択肢を選択する。
 
-.. code:: html
+.. sourcecode:: html
 
    <select multiple>
      <option value="1">0001</option>
@@ -669,7 +669,7 @@ File fields
 ファイル欄は通常、:guilabel:`choose` や :guilabel:`browse` などのラベルが付いた
 ボタンのように見え、その横には選択されたファイルの情報が表示されている。
 
-.. code:: html
+.. sourcecode:: html
 
    <input type="file">
    <script>
@@ -696,7 +696,7 @@ File fields
 ファイルの内容を持つプロパティーはないので、自分で取得する。ディスクからのファイ
 ルの読み込みには時間がかかるので、非同期処理を書く：
 
-.. code:: html
+.. sourcecode:: html
 
    <input type="file" multiple>
    <script>
@@ -722,7 +722,7 @@ File fields
 ``error`` に格納される。このインターフェースは ``Promise`` が言語の一部になる前
 に設計されたものだ。次のように ``Promise`` でラップすることもできる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function readFileText(file) {
        return new Promise((resolve, reject) => {
@@ -752,7 +752,7 @@ JavaScript の変数はページが閉じられるたびに捨てられてしま
 でデータを保存できる。このオブジェクトでは、名前の下に文字列の値を収めることがで
 きる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    localStorage.setItem("username", "marijn");
    console.log(localStorage.getItem("username")); // → marijn
@@ -814,7 +814,7 @@ HTTP の仕組みについて議論した。
 * ブラウザー JavaScript が HTTP リクエストを行うためのインターフェイスを
   ``fetch`` という。こういうふうにしてリクエストする：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      fetch("/18_http.html").then(r => r.text()).then(text => {
          console.log(`The page starts with ${text.slice(0, 15)}`);
@@ -877,7 +877,7 @@ application/json で識別される。
 
 **解答** 応答を出力しろとは問題にはないが、コンソールに出力する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    ['text/plain', 'text/html', 'application/json'].forEach(i => {
        fetch('https://eloquentjavascript.net/author', {headers: {Accept: i}})
@@ -902,7 +902,7 @@ A JavaScript workbench
 **解答** 次のような HTML を書くものと思われる。ただし、JavaScript のコード片が
 ``return`` 文で終わらないと出力がまともに出てこない。
 
-.. code:: html
+.. sourcecode:: html
 
    <form>
        <textarea name="workbench" rows="20" cols="80" placeholder="Type pieces of JavaScript code..."></textarea>
@@ -959,13 +959,13 @@ Conway の Game of Life とは、グリッド上に人工的な「生命」を�
 
 まず、第 6 章で出てきたクラス ``Matrix`` を利用可能な状態にしておく。
 
-.. code:: html
+.. sourcecode:: html
 
    <script src='./matrix.js'></script>
 
 HTML の本体に次のようなコードを入れておく：
 
-.. code:: html
+.. sourcecode:: html
 
    <div id="cells"></div>
    <button onclick="updateCells()">Next</button>
@@ -977,7 +977,7 @@ HTML の本体に次のようなコードを入れておく：
 あとは未完成の部品を補う作業になる。関数 ``createCells`` は成分が真偽値の行列を
 返す。行数と列数は 8 くらいでいい：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function createCells(width = 8, height = 8) {
        return new Matrix(width, height, (i, j) => {
@@ -988,7 +988,7 @@ HTML の本体に次のようなコードを入れておく：
 関数 ``createUI`` は第一引数の HTML ノードにチェックボックスの行列を追加するもの
 だ。それらの初期状態はセル行列に基づいて決定する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function createUI(parentNode, cells) {
        const width = cells.width, height = cells.height;
@@ -1013,7 +1013,7 @@ HTML の本体に次のようなコードを入れておく：
 
 後半のイベントハンドラー系統の関数を組み立てていく。まずはボタンのリスナーだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function updateCells() {
        curCells = computeNextGeneration(curCells);
@@ -1039,7 +1039,7 @@ HTML の本体に次のようなコードを入れておく：
 
 ライフゲームの急所である関数を実装する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function computeNextGeneration(cells) {
        const width = cells.width, height = cells.height;
@@ -1070,7 +1070,7 @@ HTML の本体に次のようなコードを入れておく：
 
 隣接セルの生存状態を確認する関数 ``countLiveNeighbors`` は低水準なコードになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function countLiveNeighbors(cells, x, y) {
        const width = cells.width, height = cells.height;

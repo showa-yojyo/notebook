@@ -141,7 +141,7 @@ Rest parameters ``...``
 
 引数リストの最後の仮引数名の直前に ``...`` を付けると、この機能が有効になる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function showName(firstName, lastName, ...titles) {
        // function body
@@ -165,7 +165,7 @@ Spread syntax
 
 反復可能オブジェクトを「カンマ区切りの値の列」に変換する機能だと理解する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Math.max(3, 5, 1);
 
@@ -181,7 +181,7 @@ Copy an array/object
 
 配列やオブジェクトを複製するのに ``...`` を応用することができる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let arr = [1, 2, 3];
    let arrCopy = [...arr];
@@ -212,7 +212,7 @@ JavaScript ではある関数を定義するのに、別の関数の内側でそ
   の結果として返すことができる。その関数はほかの場所で使用することができ、どこに
   いても同じ外部変数にアクセスできる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function makeCounter() {
        let count = 0;
@@ -391,7 +391,7 @@ IIFE
 昔の JavaScript プログラマーは ``var`` 変数をどうしてもスコープに持たせたいときには
 このようにした：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    (function() {
        var message = "Hello";
@@ -472,7 +472,7 @@ Set and decrease for counter
 オリジナルの実装は次のもので、ここに処理を加えて ``set(value)`` や ``decrease()``
 を呼び出せるようにする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function makeCounter() {
        function counter() {
@@ -501,7 +501,7 @@ The ``new Function`` syntax
 Syntax
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let sum = new Function('a', 'b', 'return a + b');
 
@@ -546,7 +546,7 @@ Scheduling: ``setTimeout`` and ``setInterval``
 ``setTimeout``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...);
 
@@ -561,14 +561,14 @@ Canceling with ``clearTimeout``
 ``setTimeout`` の戻り値はタイマー ID であり、呼び出し時間調整を取り消すときに必
 要となる値だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    clearTimeout(timerId);
 
 ``setInterval``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...);
 
@@ -646,7 +646,7 @@ Using ``func.call`` for the context
 先ほどのデコレーターにオブジェクトメソッドを入力するとエラーが起こる。関数には組
 み込みメソッド ``call`` があり、これを用いて明示的に関数を呼び出す必要があった。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    func.call(context, arg1, arg2, ...);
 
@@ -669,7 +669,7 @@ Going multi-argument
 先ほどのデコレーターをより一般化する。``func`` の引数リストを任意にしたい。これ
 には、以前学んだ ``arguments`` と ``...`` を組み合わせるとしっくり来る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let result = func.call(this, ...arguments);
 
@@ -682,7 +682,7 @@ Going multi-argument
 
 ``call`` とよく似た ``apply`` が存在する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    func.call(context, ...args);
    func.apply(context, args);
@@ -698,7 +698,7 @@ Borrowing a method
 はないのでそのメソッドはない。そこで、次のように別の配列の ``join`` を間借りする
 ために ``call`` を応用する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function hash() {
        return [].join.call(arguments);
@@ -739,7 +739,7 @@ Delaying decorator
    矢関数を採用しない場合には ``this`` を変なスコープで保存しないとうまく動かな
    い。
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       function delay(f, ms){
           function wrapper(...args){
@@ -822,7 +822,7 @@ Losing ``this``
 
 現象のおさらい。次のコードが ``undefined`` を出すとする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let user = {
        firstName: "John",
@@ -838,7 +838,7 @@ Solution 1: a wrapper
 
 関数ブロックで包む：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    setTimeout(function() {user.sayHi();}, 1000);
 
@@ -851,7 +851,7 @@ Solution 2: ``bind``
 ジェクトを指す可能性が否定できない。このあとの ``askPassword()`` の演習問題は上
 の方法を使いたくなるが、``bind()`` を採用する版に比べて品質が劣る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let sayHi = user.sayHi.bind(user);
    // ...
@@ -865,7 +865,7 @@ Partial functions
 
 ``bind`` できるのは ``this`` に限らない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let bound = func.bind(context, [arg1], [arg2], ...);
 
@@ -874,7 +874,7 @@ Going partial without context
 
 次のような呼び出しが有効である関数 ``partial`` を実装することができる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let user = {
        firstName: "John",
@@ -889,7 +889,7 @@ Going partial without context
 
    こういう変種も考えられる：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       function partial(func, ...args) {
           return function(...argsBound) {
@@ -958,7 +958,7 @@ Arrows have no ``arguments``
 
 この性質をデコレーターを書くときに利用することができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function defer(f, ms) {
        return function() {

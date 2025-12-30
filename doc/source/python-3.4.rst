@@ -43,7 +43,7 @@ What's New In Python 3.4 を読んで、個人的に関心のある項目に注�
     を使うデモコードのサーバー側の出力がなぜか表示されない。明示的に文字列出力を
     フラッシュしないとメッセージが見えない。
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        # Serve requests until Ctrl+C is pressed
        print(f'Serving on {server.sockets[0].getsockname()}', flush=True)

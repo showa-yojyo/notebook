@@ -47,7 +47,7 @@ Requirement
   A requirement definition contains a requirement ``type``, ``name``, ``id``,
   ``text``, ``risk``, and ``verification`` method. The syntax follows:
 
-  .. code:: text
+  .. sourcecode:: text
 
      <type> user_defined_name {
          id: user_defined_id
@@ -84,7 +84,7 @@ Element
   lightweight but allow requirements to be connected to portions of other
   documents.
 
-  .. code:: text
+  .. sourcecode:: text
 
      element user_defined_name {
          type: user_defined_type
@@ -101,13 +101,13 @@ Relationship
 
   Each follows the definition format of
 
-  .. code:: text
+  .. sourcecode:: text
 
      {name of source} - <type> -> {name of destination}
 
   or
 
-  .. code:: text
+  .. sourcecode:: text
 
      {name of destination} <- <type> - {name of source}
 

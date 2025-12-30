@@ -81,7 +81,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
   さらにテスト名を指定したり、あるいはモジュールフルパスプラステスト名という指定
   の仕方がサポートされているようだ。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ nosetests test.module
      bash$ nosetests another.test:TestCase.test_method
@@ -90,7 +90,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
 
 * ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ nosetests /path/to/tests /another/path/to/tests
 
@@ -106,7 +106,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
   * 設定ファイルの書き方で注意が要るのは、設定項目を ``[nosetests]`` セクション
     に書かねばならないことだ。
 
-    .. code:: ini
+    .. sourcecode:: ini
 
        [nosetests]
        verbosity=2
@@ -124,7 +124,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
 * さらに ``--with-id`` を併用し、テストのインデックスリストも得られる。
 * ``--verbosity`` オプションを併用して、テスト名等を明示させるのがコツ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests --collect-only --with-id --verbosity=2
    #1 A regular test case ... ok
@@ -160,7 +160,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
 .. literalinclude:: /_sample/nose/testattr2.py
    :language: python3
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests -a '!online' testattr2.py
    bash$ nosetests -A "speed != slow" testattr2.py
@@ -177,7 +177,7 @@ Python の :program:`pdb` デバッガが起動する。
 * :program:`pdb` はコンソールベースのデバッガ。正直なところ不慣れなツールだが、
   この際慣れておく。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests --pdb-failures testeven.py
    .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()
@@ -210,7 +210,7 @@ Python の :program:`pdb` デバッガが起動する。
 この機能を利用するには、別途 coverage_ という別のパッケージが必要だ。インストー
 ルは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests --with-coverage -v testrandom.py
    test_choice (testrandom.TestSequenceFunctions) ... ok
@@ -237,7 +237,7 @@ Python の :program:`pdb` デバッガが起動する。
 間の統計を取れる。いつものテスト結果を出力した直後に、プロファイル結果を出力す
 る。
 
-.. code:: console
+.. sourcecode:: console
 
             4101 function calls (4084 primitive calls) in 0.201 CPU seconds
 
@@ -393,7 +393,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     ば Jinja2_ の ``testsuite`` フォルダーの各ファイルからテストを全部抽出してリ
     ストを作成できたりする。
 
-    .. code:: console
+    .. sourcecode:: console
 
        bash$ cd site-packages/jinja2/
        bash$ python34 -c 'import jinja2; print(jinja2.__version__)'
@@ -426,7 +426,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     例えば線形代数サブパッケージだけテストしたいのならば、Python インタープリ
     ターから次のようにタイプしてみるだけでよい。
 
-    .. code:: pycon
+    .. sourcecode:: pycon
 
        >>> import numpy as np
        >>> np.linalg.test(verbose=2)

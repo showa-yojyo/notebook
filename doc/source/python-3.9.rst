@@ -19,7 +19,7 @@ New Features
 * 文字列系クラスに接頭辞・接尾辞を削除するためのメソッド ``.removeprefix()``,
   ``.removesuffix()`` が追加
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> '<td>19</td>'.removeprefix('<td>').removesuffix('</td>')
      '19'
@@ -68,7 +68,7 @@ New Modules
 
 クラス ``zoneinfo.ZoneInfo()`` で適当にタイムゾーンを二つ作って時刻の変換処理。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> from datetime import datetime
    >>> import zoneinfo
@@ -97,7 +97,7 @@ New Modules
 今のところ、トポロジカルソートのためのクラス ``TopologicalSorter`` がある。
 NetworkX で学習したようなことができる。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> from graphlib import TopologicalSorter
    >>> graph = {
@@ -174,7 +174,7 @@ Improved Modules
 単なる ``tuple`` から ``namedtuple`` に置き換わった。メンバー ``.year``,
 ``.week``, ``.weekday`` を持つ。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> from datetime import date
 
@@ -214,7 +214,7 @@ IPv6 に対応。IPv6 をサポートする新しいクラスがいくつかと�
 * 関数 ``gcd()`` が任意の個数の整数を引数として受け付けるようになった。これで複
   数の整数の最大公約数が欲しいときに ``functools.reduce()`` する必要がなくなる。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> import math
      >>> import functools
@@ -231,7 +231,7 @@ IPv6 に対応。IPv6 をサポートする新しいクラスがいくつかと�
   ``x`` と明確に異なる値ならば何でもよい。紛れがないように ``math.inf`` や
   ``-math.inf`` でもいい。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> import math
      >>> math.nextafter(1.11, 2)
@@ -247,7 +247,7 @@ IPv6 に対応。IPv6 をサポートする新しいクラスがいくつかと�
     成り立つ。
   * ``x < 0`` の場合、:code:`math.ulp(x) == -math.ulp(x)` が成り立つ。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> import math
      >>> x = 2
@@ -283,7 +283,7 @@ IPv6 に対応。IPv6 をサポートする新しいクラスがいくつかと�
 私の WSL 環境の例。ホームに Windows のユーザープロファイルフォルダーのサブフォル
 ダーへのシンボリックリンクがいくつかあるので、一つ試す。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> import pathlib
    >>> p = pathlib.Path('Documents')
@@ -396,7 +396,7 @@ Removed
 * 関数 ``json.loads()`` の引数 ``encoding`` が削除。
 * 次の二つの構文はもうサポートされない：
 
-  .. code:: python
+  .. sourcecode:: python
 
      with (await asyncio.lock):
          # ...
@@ -406,7 +406,7 @@ Removed
 
   代わりに次のように書く：
 
-  .. code:: python
+  .. sourcecode:: python
 
      async with lock:
          # ....

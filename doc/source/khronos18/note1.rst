@@ -177,7 +177,7 @@ API 入場地点を仕様にする。
 のエラーは、コンパイル時またはリンク時に報告する。「死にコード」であってもエラー
 チェックは必要だ。例えば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    if (false)     // changing false to true cannot uncover additional errors
        statement; // statement must be error checked regardless

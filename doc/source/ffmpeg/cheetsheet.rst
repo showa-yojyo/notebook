@@ -396,7 +396,7 @@ libx264 の低速プリセットで ``crf=18`` を使用するなど：
 
 これは次のようなレイアウトになる：
 
-.. code:: text
+.. sourcecode:: text
 
    input0 input2
    input1 input3

@@ -14,7 +14,7 @@ SymPy としてもこれらを持っているのだろう。
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       init_printing(pretty_print=False)
 
@@ -321,7 +321,7 @@ Python 組み込みの ``range`` とよく似ている集合。
   がおもしろい。
 * 座標平面上の原点を中心とする円の定義法の例。テストコード改。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: r, th = symbols('r theta', real=True)
 

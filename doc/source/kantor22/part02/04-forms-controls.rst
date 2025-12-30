@@ -73,7 +73,7 @@ Form elements
 ``document.createElement('option')`` でもいいかもしれないが、便利なクラスがあ
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    option = new Option(text, value, defaultSelected, selected);
 

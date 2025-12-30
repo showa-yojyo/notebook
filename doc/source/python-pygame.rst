@@ -45,14 +45,14 @@ Python 3.x 系や 64 ビット環境の場合は公式サイトではなく、
 
 コンソールから次のようにタイプすると、テストを実行することになっている。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python34 -m pygame.tests
 
 別のウィンドウがパカパカ開いたり閉じたりするが、根気よく待つ。すると、いつもの単
 体テストの結果らしきテキストがコンソールウィンドウに出力される。
 
-.. code:: console
+.. sourcecode:: console
 
    skipping pygame.tests._movie_test (tag 'subprocess_ignore')
    skipping pygame.tests.cdrom_test (tag 'interactive')

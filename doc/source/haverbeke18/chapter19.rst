@@ -86,7 +86,7 @@ The state
 * ``pixel``: 第 6 章の行列クラスと同様に、ピクセルが上から下に向かって一行ずつ一
   つの配列に格納される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Picture {
        constructor(width, height, pixels) {
@@ -139,7 +139,7 @@ The state
 と、``{color: field.value}`` のようなオブジェクトがディスパッチされ、そこからこ
 の更新関数が新しい状態を計算することできる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function updateState(state, action) {
        return Object.assign({}, state, action);
@@ -162,7 +162,7 @@ DOM building
 に冗長な DOM メソッド群を直接使用したくないので、ここでは関数 ``elt`` を少し拡張
 したバージョンを使用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function elt(type, props, ...children) {
        let dom = document.createElement(type);
@@ -180,7 +180,7 @@ DOM building
 
 これにより、次のようにしてイベントハンドラーを登録することができる：
 
-.. code:: html
+.. sourcecode:: html
 
    <body>
      <script>
@@ -203,7 +203,7 @@ The canvas
   に反応するときには、このコンポーネントを作成したコードが与えたコールバックを呼
   び出して、アプリケーション固有の部分を処理する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const scale = 10;
 
@@ -231,7 +231,7 @@ The canvas
 実際の描画関数は、``scale`` と ``picture`` の寸法に基づいて ``canvas`` のそれを
 設定し、各ピクセルに一つ一つ、一連の正方形で埋めていく。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawPicture(picture, canvas, scale) {
        canvas.width = picture.width * scale;
@@ -254,7 +254,7 @@ The canvas
 * このコールバックは、別のコールバック関数を返すことができ、ボタンを押している間
   にポインターが別のピクセルに移動したときに通知される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    PictureCanvas.prototype.mouse = function(downEvent, onDown) {
        if (downEvent.button != 0) return;
@@ -320,7 +320,7 @@ The application
   として受け取る。また、ポインターが別のピクセルに移動すると、新しい位置と現在の
   状態を指定して呼び出される移動ハンドラー関数を返すこともある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class PixelEditor {
        constructor(state, config) {
@@ -361,7 +361,7 @@ The application
 異なるツールを選択すると、アプリケーションの状態を更新するイベント ``change`` に
 対するイベントハンドラーを仕込む。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class ToolSelect {
        constructor(state, {tools, dispatch}) {
@@ -392,7 +392,7 @@ HTML の ``<input>`` 要素の属性 ``type`` に ``color`` を指定すると�
 当コントロールはそのような記入欄を作成し、アプリケーションの ``state`` のプロパ
 ティー ``color`` と同期するように結びつける。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class ColorSelect {
        constructor(state, {dispatch}) {
@@ -416,7 +416,7 @@ Drawing tools
 色に変える。このツールは指定ピクセルが現在選択中の色に変更されるように絵を更新す
 るアクションをディスパッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function draw(pos, state, dispatch) {
        function drawPixel({x, y}, state) {
@@ -435,7 +435,7 @@ Drawing tools
 
 矩形ツールはドラッグを開始した点とドラッグした点の間に矩形を描く。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function rectangle(start, state, dispatch) {
        function drawRectangle(pos) {
@@ -470,7 +470,7 @@ Drawing tools
 * 塗りつぶしのアルゴリズムは第 7 章の経路探索に少し似ている。グラフから経路を探
   すのではなく、格子から連結しているピクセルを探す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const around = [{dx: -1, dy: 0}, {dx: 1, dy: 0},
                    {dx: 0, dy: -1}, {dx: 0, dy: 1}];
@@ -503,7 +503,7 @@ Drawing tools
 
 色摘出ツールは絵の中の色を指定して、それを現在の描画色として使う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function pick(pos, state, dispatch) {
        dispatch({color: state.picture.pixel(pos.x, pos.y)});
@@ -514,7 +514,7 @@ Saving and loading
 
 現在の絵を画像ファイルとしてダウンロードするためのボタンを追加する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class SaveButton {
        constructor(state) {
@@ -558,7 +558,7 @@ Saving and loading
 既存の画像ファイルをアプリケーションに読み込めるようにする。
 そのために再びボタンコンポーネントを定義する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class LoadButton {
        constructor(_, {dispatch}) {
@@ -592,7 +592,7 @@ Saving and loading
 ``<img>`` 要素を作ることができるが、画像のピクセルに直接アクセスすることができな
 いため、そこから ``Picture`` オブジェクトを作ることはできない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function finishLoad(file, dispatch) {
        if (file == null) return;
@@ -613,7 +613,7 @@ Saving and loading
 読み取れる。つまり、画像をキャンバスに描画したら、それにアクセスして ``Picture``
 オブジェクトを構築できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function pictureFromImage(image) {
        let width = Math.min(100, image.width);
@@ -659,7 +659,7 @@ Undo history
 変更のすべてではなく、一定の時間的間隔をおいた変更しか保存したくない。そうするに
 は、最後に絵を履歴に保存した時刻を追跡するプロパティー ``doneAt`` が要る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function historyUpdateState(state, action) {
        if (action.undo == true) {
@@ -691,7 +691,7 @@ Undo history
 元に戻すボタンコンポーネントは多くをしない。クリックされると元に戻すアクションを
 ディスパッチし、元に戻すものがないときは自身をグレーアウトする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class UndoButton {
        constructor(state, {dispatch}) {
@@ -712,7 +712,7 @@ Let's draw
 パッチ関数を生成する必要がある。これらを ``PixelEditor`` コンストラクターに渡し
 て主要コンポーネントを作成できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const startState = {
        tool: "draw",
@@ -750,7 +750,7 @@ Let's draw
 
 次のようにして実際のエディターを画面に表示する：
 
-.. code:: html
+.. sourcecode:: html
 
    <div></div>
    <script>
@@ -786,7 +786,7 @@ Keyboard bindings
 **解答** ツール選択は ``PixelEditor.constructor`` のコードで ``this.dom`` を定義
 するところを次のように変更する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    this.dom = elt("div", {
        tabIndex: 0,
@@ -809,7 +809,7 @@ Keyboard bindings
 後半のアンドゥ発動は、この ``onkeydown`` にさらにコードを追加するわけだが、凝っ
 たことをするとハマりがちだ。とりあえずこう書いておき：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for(const dom of this.controls.map(i => c.dom)){
        if(dom.onkeydown){
@@ -819,7 +819,7 @@ Keyboard bindings
 
 クラス ``UndoButton`` の ``this.dom`` に ``onkeydown`` を追加しておく：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    onkeydown: (event) => {
        if(event.key == "z" && event.ctrlKey){
@@ -850,7 +850,7 @@ Efficient drawing
 クセルバッファーが一瞬同時に存在するので、これを比較して差分だけを描画しろという
 のが題意だ。したがって、まず呼び出し側を次のように変更する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     syncState(picture) {
         if (this.picture == picture) return;
@@ -860,7 +860,7 @@ Efficient drawing
 
 描画関数を差分のみ彩色するように書き換える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawPicture(newPicture, oldPicture, canvas, scale) {
        // Also note that changing the size of a <canvas> element,
@@ -886,7 +886,7 @@ Efficient drawing
 
 最後に ``SaveButton`` のハンドラーを調整する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    save() {
        const canvas = elt("canvas");
@@ -903,7 +903,7 @@ Circles
 **解答** マウスやタッチによる操作が矩形ツールと似ているので、コードもそれに倣
 う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function circle(start, state, dispatch) {
        function drawCircle(pos) {
@@ -936,7 +936,7 @@ Circles
 
 このツールをエディターに組み込むには、例えば次のように変更する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const baseTools = { draw, fill, rectangle, circle, pick };
 

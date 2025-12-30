@@ -59,7 +59,7 @@
 次の別名をシェルのドットファイルに定義しておく。本ノートの以降の
 記述では、この別名を無断で用いる：
 
-.. code:: shell
+.. sourcecode:: shell
 
    alias ffmpeg='ffmpeg -hide_banner'
    alias ffplay='ffplay -hide_banner -v error'

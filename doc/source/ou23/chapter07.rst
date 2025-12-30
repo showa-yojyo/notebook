@@ -27,7 +27,7 @@ Chapter 07: Parallelism and Concurrency
 * ID を取得する ``get_id()`` やスレッドの実行が終了するのを待つ ``join()`` な
   ど、基本的な操作がいくつかある。
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <iostream>
    #include <thread>
@@ -74,7 +74,7 @@ C++11 で最も基本的な排他制御クラスは ``std::mutex`` だ。これ�
    上の規則一覧は ``lock()`` で説明したが、``try_lock()`` という似たメソッドもあ
    る。これはブロックの代わりに ``false`` が戻るというものだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    int v = 1;
 
@@ -102,7 +102,7 @@ C++11 で最も基本的な排他制御クラスは ``std::mutex`` だ。これ�
 い。一方 ``std::unique_lock`` は宣言後の任意の場所でそのどちらも呼び出すことがで
 きる。所有権専有域を狭め、より高い並行性を実現する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    int v = 1;
 
@@ -147,7 +147,7 @@ C++11 で ``std::future`` が導入される以前は、以下のようなやり
 ``packaged_task`` というものを用いているが、後でスレッド同期 (``result.wait()``)
 を実現する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <iostream>
    #include <thread>
@@ -209,7 +209,7 @@ C++11 で ``std::future`` が導入される以前は、以下のようなやり
 本書のコード生産者消費者モデルの例。まずは ``main`` の先頭の変数宣言を調べる。こ
 れらのオブジェクト、変数すべてを生産者と消費者のどちらも参照する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::queue<int> produced_nums;
    std::mutex mtx;
@@ -220,7 +220,7 @@ C++11 で ``std::future`` が導入される以前は、以下のようなやり
 0.5 秒ふかしてからキューに値を押し込み、フラグをオンにして ``cv.notify_all`` を
 呼び出すというものだ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto producer = [&]() {
        for (int i = 0; ; i++) {
@@ -242,7 +242,7 @@ C++11 で ``std::future`` が導入される以前は、以下のようなやり
 消費者スレッドタスク。消費者は複数ある。排他制御スコープが二つに分かれていること
 に注意。生産物を消費した後のフラグの変更が怪しい。
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto consumer = [&]() {
        for (;;) {
@@ -280,7 +280,7 @@ C++11 で ``std::future`` が導入される以前は、以下のようなやり
 
 次のコードを実行すると、``b`` の値は何であるかという問題だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <thread>
    #include <iostream>
@@ -337,7 +337,7 @@ Atomic Operation
 きでは、``std::atomic`` の導入により、不可分型をインスタンス化することになる。不
 可分型の読み書きは、命令集合から単一の CPU 命令へ最小化される。例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::atomic<int> counter;
 
@@ -353,7 +353,7 @@ Atomic Operation
 
 また、整数や浮動小数点数の不可分型に対応した基本的な数値演算関数が用意されている：
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <atomic>
    #include <thread>
@@ -381,7 +381,7 @@ Atomic Operation
 不可分操作を提供できない操作もある。そこで、型が ``T`` 不可分操作をサポートする
 かどうかを確認するには、``std::atomic<T>::is_lock_free`` をチェックすればいい。
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <atomic>
    #include <iostream>
@@ -478,7 +478,7 @@ Causal Consistency
 要件はさらに緩和され、因果関係のある操作の順序しか保証されず、因果関係のない操作
 の順序は要求されない。
 
-.. code:: text
+.. sourcecode:: text
 
          a = 1      b = 2
    T1 ----+-----------+---------------------------->
@@ -489,7 +489,7 @@ Causal Consistency
 
 または
 
-.. code:: text
+.. sourcecode:: text
 
          a = 1      b = 2
    T1 ----+-----------+---------------------------->
@@ -500,7 +500,7 @@ Causal Consistency
 
 または
 
-.. code:: text
+.. sourcecode:: text
 
         b = 2       a = 1
    T1 ----+-----------+---------------------------->
@@ -587,7 +587,7 @@ Relaxed model
 操作は順次実行される。命令の並び替えは許されないが、異なるスレッド間の不可分操作
 の順序は任意である。例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::atomic<int> counter = {0};
    std::vector<std::thread> vt;
@@ -622,7 +622,7 @@ Release/consumption model
 使う）、オプション ``std::memory_order_consume`` によって、B は ``x.load()`` が
 呼ばれたときに A 内の ``x`` への三度目の書き込みを観測する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // initialize as nullptr to prevent consumer load a dangling pointer
    std::atomic<int*> ptr(nullptr);
@@ -670,7 +670,7 @@ Release/Acquire model
 レッドのメモリーへの読み書きが、この操作の前後で順序が変わって交差しないように、
 メモリーバリアを一意に決定する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::vector<int> v;
    std::atomic<int> flag = {0};
@@ -713,7 +713,7 @@ Sequential Consistent Model
 このモデルでは、不可分操作は順序整合性を満たすが、その分、性能上の損失が発生し得
 る。これを ``std::memory_order_seq_cst`` で明示的に指定する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::atomic<int> counter = {0};
    std::vector<std::thread> vt;

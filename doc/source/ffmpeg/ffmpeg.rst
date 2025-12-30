@@ -14,7 +14,7 @@
 
 :program:`ffmpeg` のコマンドラインの書式は次のように定められている：
 
-.. code:: text
+.. sourcecode:: text
 
    ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_options] output_url} ...
 
@@ -80,7 +80,7 @@
 例えば次のようなコマンドでは、オプション ``-vf yadif,scale=256:224`` 部分が単純
 フィルターグラフを構成している：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i input.mp4 -vf yadif,scale=256:224 output.mp4
 
@@ -89,7 +89,7 @@
 もある（この例では ``scale`` でそうしている）。どのフィルターオプションにおいて
 も次の書式になると思っていい：
 
-.. code:: text
+.. sourcecode:: text
 
    filtername=param1=arg1:param2=arg2:...
    filtername=arg1:arg2:...
@@ -234,7 +234,7 @@ encoder を選択する。
 のものだ。いずれも次のような入力ファイルがあるとする。この三つすべてを入力とす
 る：
 
-.. code:: text
+.. sourcecode:: text
 
    input file 'A.avi'
        stream 0: video 640x360
@@ -258,7 +258,7 @@ encoder を選択する。
 自動ストリーム選択の例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i A.avi -i B.mp4 \
      out1.mkv \
@@ -299,7 +299,7 @@ codec と一致しない場合がある。
 自動字幕選択の例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i C.mkv out1.mkv -c:s dvdsub -an out2.mkv
 
@@ -314,7 +314,7 @@ codec と一致しない場合がある。
    ここでは字幕コピーオプションを明示しないと失敗する挙動を逆用しているというこ
    と。
 
-.. code:: text
+.. sourcecode:: text
 
    -c:s dvdsub -an out2.mkv
 
@@ -325,7 +325,7 @@ dvdsub``) ので、映像ストリームに加えて、字幕ストリームが�
 ラベルなしフィルターグラフ出力の例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i A.avi -i C.mkv -i B.mp4 \
      -filter_complex "overlay" \
@@ -355,7 +355,7 @@ dvdsub``) ので、映像ストリームに加えて、字幕ストリームが�
 ラベルありフィルターグラフ出力の例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i A.avi -i B.mp4 -i C.mkv \
        -filter_complex "[1:v]hue=s=0[outv];overlay;aresample" \
@@ -366,7 +366,7 @@ dvdsub``) ので、映像ストリームに加えて、字幕ストリームが�
 ラベル ``[outv]`` の付いた出力パッドが二度 ``-map`` されているので、上記のコマン
 ドは失敗する。どの出力ファイルも処理されない。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i A.avi -i B.mp4 -i C.mkv \
        -filter_complex "[1:v]hue=s=0[outv];overlay;aresample" \
@@ -377,7 +377,7 @@ dvdsub``) ので、映像ストリームに加えて、字幕ストリームが�
 上記のコマンドも失敗する。フィルター ``hue`` の出力は ``[outv]`` というラベルが
 ありながら、どこにも ``-map`` されていない。次が修正済みコマンドだ：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -i A.avi -i B.mp4 -i C.mkv \
        -filter_complex "[1:v]hue=s=0,split=2[outv1][outv2];overlay;aresample" \

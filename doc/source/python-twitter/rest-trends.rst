@@ -21,7 +21,7 @@ GET trends/available は他の機能のパラメーターとして指定する W
 
 次に実行例を示す。極めて長くなるので大部分をカットした。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./trends-available.py
    [
@@ -86,7 +86,7 @@ GET trends/closest は指定地点を対応できる WOEID を取得する機能
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./trends-closest.py
    [
@@ -125,7 +125,7 @@ GET trends/place は指定する場所でトレンドとなっているものを
 
 次に実行例を示す。かなり長いので一部のみ掲載する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./trends-place.py
    [

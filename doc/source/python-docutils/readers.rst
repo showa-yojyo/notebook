@@ -126,7 +126,7 @@
 
 モジュール ``docutils.core`` でオブジェクトの生成処理が確認できる。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def set_reader(self, reader_name, parser, parser_name):
         """Set `self.reader` by name."""

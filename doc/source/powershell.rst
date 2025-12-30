@@ -30,7 +30,7 @@ PowerShell 本体回り
 コンソールで :program:`winget` を用いてインストールするのが公式推奨手段だ。更新
 やアンインストールも本ツールを用いる：
 
-.. code:: console
+.. sourcecode:: console
 
    winget install --id Microsoft.Powershell.Preview --source winget
 
@@ -46,7 +46,7 @@ PowerShell ファイルが Bash で言うところの :file:`.bash_profile` に�
 まずは空のファイルを作成しておく。Windows Explorer で作成してもよいし、せっかく
 だから PowerShell で作成してもよい：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    New-Item -ItemType File -Path $PROFILE
 
@@ -99,7 +99,7 @@ Terminal 周りの設定を追加する
 VS Code 基本機能の設定項目を適宜調整する。PowerShell 拡張にインストールにより自
 動的に調整されることはなさそうだ。例：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.profiles.windows": {
@@ -142,7 +142,7 @@ PowerShell コンソールを起動する
 :file:`Microsoft.PowerShell_profile.ps1` を VS Code などで開いて次のように編集し
 て保存。PowerShell セッションを起動する：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    $OMP_CONFIG_PATH = /path/to/oh-my-posh.json
    try{
@@ -629,7 +629,7 @@ CIM
 
 ``-Class`` の適切な実引数を ``Get-CimClass`` で知ることができる：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    Get-CimClass -Namespace root/CIMV2 | Sort-Object CimClassName
 
@@ -872,14 +872,14 @@ UNIX では everything is a file だが、PowerShell では everything is an ite
 ``Get-Clipboard`` でクリップボードからデータを受け取る。WSL のシェル環境で利用す
 ることになる：
 
-.. code:: bash
+.. sourcecode:: bash
 
    alias getclip='/path/to/pwsh.exe -noprofile -command Get-Clipboard'
 
 ``Set-Clipboard`` も存在するが、WSL では :program:`iconv` をインストールしている
 ので敢えて使わなくていい：
 
-.. code:: bash
+.. sourcecode:: bash
 
    alias putclip='iconv -f utf-8 -t utf-16le | clip.exe'
 
@@ -1004,7 +1004,7 @@ GUI
 :samp:`Add-Type -AssemblyName {assembly}` で .NET Framework クラスを利用可能にな
 る。これを利用して GUI を実現することが可能だ。
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    Add-Type -AssemblyName System.Windows.Forms
    Add-Type -AssemblyName System.Drawing

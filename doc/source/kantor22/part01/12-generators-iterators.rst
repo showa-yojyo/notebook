@@ -19,7 +19,7 @@ Generator functions
 
 ジェネレーターを定義するには専用の構文を書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function* generateSequence() {
        // function body...
@@ -56,7 +56,7 @@ Using generators for iterables
 
 以前習った ``range`` をジェネレーター関数に書き直す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let range = {
        from: 0,
@@ -76,7 +76,7 @@ Generator composition
 ジェネレーター合成とは、ジェネレーター同士を透過的に「埋め込む」ことを可能にする
 特別な機能だ。それには ``yield*`` 文を使う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function* generatePasswordCodes() {
        // 0..9

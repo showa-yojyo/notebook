@@ -35,7 +35,7 @@ Bindings
 本書では binding という用語が頻出するが、当ノートではそれらを変数に適宜置き換え
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let caught = 5 * 5;
    let one = 1, two = 2;
@@ -115,7 +115,7 @@ Conditional execution
 他のプログラミング同様、JavaScript でもキーワード ``if`` により条件付き実行を定
 義する。構文も同じだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let num = Number(prompt("Pick a number"));
    if (num < 10) {
@@ -135,7 +135,7 @@ Conditional execution
 
 この二つのループも他のプログラミング言語のそれらと同様の仕様だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let number = 0;
    while (number <= 12) {
@@ -167,7 +167,7 @@ Indenting Code
 JavaScript や 類似の言語では、前述のループ構文よりも少し短くてより包括的な形式で
 ある ``for`` ループを提供している。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for (let number = 0; number <= 12; number = number + 2) {
        console.log(number);
@@ -179,7 +179,7 @@ Breaking Out of a Loop
 JavaScript では C/C++ と同様の ``break`` 文と ``continue`` 文がサポートされてい
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for (let current = 20; ; current = current + 1) {
        if (current % 7 == 0) {
@@ -204,7 +204,7 @@ Dispatching on a value with switch
 C や Java から継承した ``switch`` 文もサポートするが、そのぎこちなさもそっくり受
 け継いでいる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    switch (prompt("What is the weather like?")) {
    case "rainy":
@@ -253,7 +253,7 @@ Looping a triangle
 
 **問題**：``console.log`` を 7 回呼び出して次の三角形を出力するループを書け：
 
-.. code:: text
+.. sourcecode:: text
 
    #
    ##
@@ -266,7 +266,7 @@ Looping a triangle
 **解答**：私の解答を次に記す。ちなみに本書に解答が付いているのかどうかは知らな
 い。以下の演習問題もすべて勝手に解くことにする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for(let i = 1; i < 8; ++i){
        console.log('#'.repeat(i));
@@ -286,7 +286,7 @@ FizzBuzz
 
 **解答**：この問題はしばしば目にするのだが、何が面白いのかわからない。前半は：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for(let i = 1; i < 101; ++i){
        if(i % 3 == 0){
@@ -302,7 +302,7 @@ FizzBuzz
 
 後半はこれを改造するわけだが、最初の ``if`` ブロックだけを修正すれば十分だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for(let i = 1; i < 101; ++i){
        if(i % 3 == 0){
@@ -337,7 +337,7 @@ Chessboard
 
 **解答**：いきなり後半から取り組んでもいいだろう：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const size = 8;
    for(let i = 0; i < size; ++i){

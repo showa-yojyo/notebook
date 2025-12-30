@@ -24,7 +24,7 @@ Jekyll や GitHub Actions など、構成ファイルを YAML 形式で記述す
    Python で YAML を扱う方法を述べている。コードが少々壊れているので読者が直す。
    これも学習だ。
 
-   .. code:: python
+   .. sourcecode:: python
 
       #!/usr/bin/env python
 
@@ -91,7 +91,7 @@ Jekyll や GitHub Actions など、構成ファイルを YAML 形式で記述す
    README の記述から :command:`jq` の上位互換を目指すものであることが期待できる。
    インストールには Homebrew が使用可能。
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ yq '.' foo.yaml
       foo: bar

@@ -25,7 +25,7 @@
 
 実行結果は次のようになる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python connectivity.py
    G0 is 1-connected and 1-edge connected.
@@ -56,7 +56,7 @@
 
 実行結果は次のようになる。よく見るとあまり面白くない。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python cutset.py
    G: [(0, 1), (0, 2), (1, 3), (1, 4), (2, 4), (3, 4), (3, 5), (4, 6), (5, 6), (5, 7)]

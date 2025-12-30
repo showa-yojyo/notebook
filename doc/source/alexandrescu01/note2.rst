@@ -45,7 +45,7 @@ Command デザインパターンの解説セクション。
 * ``FunctorImpl`` を部分特殊化をしまくって、引数リストのパラメータ数が十分大きく
   ても対応できるようにしておく。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 114 より引用
      template <typename R, class TList>
@@ -112,7 +112,7 @@ Command デザインパターンの解説セクション。
 * 「参照の参照」問題回避のため、traits を ``Functor::operator()`` にクッションす
   る。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // 例えば型 Parm1 が組み込み型でない場合、
      // p1 の型は Parm1& となる。
@@ -160,7 +160,7 @@ Command デザインパターンの解説セクション。
 
 * 次のタイプの実装を Meyers の Singleton と呼ぶことにする。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      Singleton& Singleton::Instance()
      {
@@ -226,7 +226,7 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
 * 今では有名になった手法だが、Doug Schdmit と Tim Harrison が発案した (1996)
   Double-Checked Locking パターンを紹介している。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 157 より引用
      Singleton& Singleton::Instance()
@@ -257,7 +257,7 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
     ている。
   * ``Threading``: シングルスレッド or マルチスレッド。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 160 より引用
      template <
@@ -293,7 +293,7 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
 * <既存の高品質なスマート・ポインタでは、たいていの場合、以下のコードのようにポ
   インタの型によってテンプレート化されています> (p. 168)
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T>
      class SmartPtr
@@ -324,7 +324,7 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
   なぜかというと、``T`` の解放のためのメンバ関数呼び出しと、``SmartPtr<T>`` のそ
   れが似ていて紛らわしいから。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      SmartPtr<Printer> spRes = ...
      ...
@@ -422,7 +422,7 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
 * <``SmartPtr`` の宣言中に現れるポリシーの順序は、最も良くカスタマイズされるもの
   が先頭に来るようになっています> (p. 201)
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template
      <
@@ -505,7 +505,7 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
 
 ----
 
-.. code:: c++
+.. sourcecode:: c++
 
    template
    <
@@ -528,14 +528,14 @@ Phoenix Singleton なる概念を導入する。デストラクトされたオ�
 
 オブジェクト・ファクトリは通常 Singleton であることが自然。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 228 より引用
    typedef SingletonHolder< Factory<Shape, std::string> > ShapeFactory;
 
 以前の ``Functor`` を ``ProductCreator`` とすることも可能。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 228 より引用
    typedef SingletonHolder

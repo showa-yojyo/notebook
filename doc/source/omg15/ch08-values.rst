@@ -78,7 +78,7 @@ UML 標準 PrimitiveTypes のそれぞれに対して LiteralSpecification の�
 * LiteralReal の記法は p. 70 の BNF 記法を見る限り、C/C++ 言語の ``double`` の
   それに酷似している：
 
-     .. code:: bnf
+     .. sourcecode:: bnf
 
         <natural-literal> ::= ('0'..'9')+
         <decimal-literal> ::= ['+' | '-' ] <natural-literal> | ['+' | '-' ] [<natural-literal>] '.' <natural-literal>
@@ -206,7 +206,7 @@ OpaqueExpression を含む要素の文脈で表示するのに使用される。
 8.3.5.1 Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   .. code:: text
+   .. sourcecode:: text
 
       xor
       else
@@ -216,7 +216,7 @@ OpaqueExpression を含む要素の文脈で表示するのに使用される。
 8.3.5.2 Opaque Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   .. code:: text
+   .. sourcecode:: text
 
       a > 0
       {OCL} i > j and self.size > i
@@ -480,7 +480,7 @@ IntervalConstraint の ``constrainedElements`` はその Interval で指定さ�
 8.5.4.1 Intervals
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <interval> ::= <min-value> ‘..’ <max-value>
 

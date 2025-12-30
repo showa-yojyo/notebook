@@ -82,7 +82,7 @@ Fork a repo
 
 GitHub では fork と pull request はセットで行う。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh repo fork REPOSITORY
    bash$ gh repo fork REPOSITORY --clone=true
@@ -95,7 +95,7 @@ GitHub では fork と pull request はセットで行う。
 
 これをやらないとオリジナルに対して中身がどんどんかけ離れていく。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh repo fork REPOSITORY --remote=true
 
@@ -157,7 +157,7 @@ Contributing to projects
 フォークすなわち新しいリポジトリー。フォークはクローンありとなしがある。クローン
 はローカルにリポジトリーを作る。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh repo fork REPOSITORY --clone=true
 
@@ -979,7 +979,7 @@ Getting started with Git
 Set your username
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git config --global user.name XXXXXXX
 
@@ -1102,7 +1102,7 @@ Manage remote repositories
 Associate text editors
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git config --global core.editor "code --wait"
 
@@ -1159,7 +1159,7 @@ About Git
 Push commits to a remote
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git push REMOTE-NAME :BRANCH-NAME
 
@@ -1183,7 +1183,7 @@ Non-fast-forward error
 
 個人でやっていれば出ないエラーだが、対処法は知っておく必要がある。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git fetch origin
    bash$ git merge origin YOUR_BRANCH_NAME
@@ -1200,7 +1200,7 @@ Splitting a subfolder
     However, note that the new repository won't have the branches and tags of
     the original repository.
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/USERNAME/REPOSITORY-NAME
    bash$ cd REPOSITORY-NAME
@@ -1218,7 +1218,7 @@ About Git subtree merges
 
 この記事のコマンドをまねて理解することは可能。ポイントは：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git merge -s ours --no-commit --allow-unrelated-histories spoon-knife/main
    bash$ git read-tree --prefix=spoon-knife/ -u spoon-knife/main
@@ -1311,7 +1311,7 @@ Support for Subversion clients
 以降の記述からすると、任意の GitHub Repository を :command:`svn` で取り扱い可能
 であるように読める？
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ svn co --depth empty https://github.com/USER/REPO
    bash$ svn up trunk

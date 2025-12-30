@@ -95,7 +95,7 @@ Custom elements
 されたときに何をするか、等。これを特別なメソッドを持つクラスを作成することで行
 う。メソッドの数は少なく、すべてオプショナルなので簡単だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class MyElement extends HTMLElement {
        // 本書参照
@@ -108,7 +108,7 @@ Custom elements
 スタンスが生成され、前述のメソッドが呼び出されるようになった。 JavaScript からで
 も
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.createElement('my-element')
 
@@ -125,7 +125,7 @@ Example: ``time-formatted``
 は何の書式化もできない。そこで、言語を意識した美しい書式で時刻を表示する
 ``<time-formatted>`` を作成する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class TimeFormatted extends HTMLElement {
        connectedCallback() {
@@ -144,7 +144,7 @@ Example: ``time-formatted``
 ``Intl.DateTimeFormat`` データフォーマッターを使用して、きれいにフォーマットされ
 た時間を表示する。
 
-.. code:: html
+.. sourcecode:: html
 
    <time-formatted datetime="2019-12-01"
      year="numeric" month="long" day="numeric"
@@ -196,7 +196,7 @@ Observing attributes
 
 属性が変更されたときに自動更新されるようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class TimeFormatted extends HTMLElement {
        render() {
@@ -247,7 +247,7 @@ HTML 解析器 が DOM を構築するとき、要素は親から子へと順番
 ``setTimeout()`` が最初に発生し、次に内側のものが発生する。つまり、外側の要素が
 内側の要素より先に初期化を終えてしまうのだ。
 
-.. code:: html
+.. sourcecode:: html
 
    <user-info id="outer">
      <user-info id="inner"></user-info>
@@ -256,7 +256,7 @@ HTML 解析器 が DOM を構築するとき、要素は親から子へと順番
 次のように実装すると、外側の要素が内側の要素よりも先に初期化を終えていることを確
 認できる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    connectedCallback() {
        alert(`${this.id} connected.`);
@@ -281,7 +281,7 @@ Customized built-in elements
 3. 自作要素を使用するために通常の ``<button>`` タグを挿入するが、
    ``is="hello-button"`` を追加する。
 
-.. code:: html
+.. sourcecode:: html
 
    <script>
    // The button that says "hello" on click
@@ -319,7 +319,7 @@ Live timer element
 3. 刻みごとに、カスタムイベント ``tick`` が生成され、現在の日付を
    ``event.detail`` に入れろ。
 
-.. code:: html
+.. sourcecode:: html
 
    <live-timer id="elem"></live-timer>
 
@@ -354,7 +354,7 @@ Built-in shadow DOM
 
    このオプションがどこにあるのか不明。
 
-.. code:: html
+.. sourcecode:: html
 
    <input type="range">
        #shadow-root (user-agent)
@@ -371,7 +371,7 @@ Built-in shadow DOM
 な属性 ``pseudo`` があることがわかる。これは非標準的なもので、歴史的な理由から存
 在する。この属性は、CSS で部分要素のスタイルを指定するために用いられる。
 
-.. code:: css
+.. sourcecode:: css
 
    input::-webkit-slider-runnable-track {
        background: red;
@@ -400,7 +400,7 @@ Shadow tree を自作要素で使用して、コンポーネント内部を隠�
 は shadow tree でその内部 DOM を隠蔽する。 Google Chrome の開発ツールで結果の
 DOM を見ると、内容物すべてが ``#shadow-root`` の下にあることがわかる。
 
-.. code:: html
+.. sourcecode:: html
 
    <show-hello name="John">
        #shadow-root (open)
@@ -490,7 +490,7 @@ Inserting template
 
 本書のコードを示す：
 
-.. code:: html
+.. sourcecode:: html
 
    <template id="tmpl">
      <script>
@@ -515,7 +515,7 @@ Inserting template
 前章の shadow DOM の例（に似たもの）を ``template`` を使って書き換える。Shadow
 DOM 版はこういう感じ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    elem.attachShadow({mode: 'open'});
    elem.shadowRoot.innerHTML = `
@@ -525,7 +525,7 @@ DOM 版はこういう感じ：
 
 これがこうなる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    elem.attachShadow({mode: 'open'});
    elem.shadowRoot.append(tmpl.content.cloneNode(true));
@@ -546,7 +546,7 @@ Shadow DOM slots, composition
 に、自作 ``<custom-tabs>`` や ``<custom-menu>`` は実際のタブ中身やメニュー項目が
 渡されることを期待するだろう。
 
-.. code:: html
+.. sourcecode:: html
 
    <custom-menu>
      <title>Candy menu</title>
@@ -606,7 +606,7 @@ DOM で同じ名前の ``<slot="...">`` を見つける。これらの要素は�
 次の例では二番目の ``<span>`` は ``<user-card>`` の最上位の子ではないので無視さ
 れる。
 
-.. code:: html
+.. sourcecode:: html
 
    <user-card>
      <span slot="username">John Smith</span>
@@ -628,7 +628,7 @@ Slot fallback content
 たとえば、この shadow DOM の断片で light DOM に ``slot="username"`` がない場
 合、Anonymous が表示される：
 
-.. code:: html
+.. sourcecode:: html
 
    <div>Name:
      <slot name="username">Anonymous</slot>
@@ -642,7 +642,7 @@ Shadow DOM の ``<slot>`` で名前を持たない最初のものが既定スロ
 
 例えば shadow DOM を次のようにする：
 
-.. code:: html
+.. sourcecode:: html
 
    <div>Name:
      <slot name="username"></slot>
@@ -661,7 +661,7 @@ Shadow DOM の ``<slot>`` で名前を持たない最初のものが既定スロ
 
 対応する light DOM を次のようにしてみる：
 
-.. code:: html
+.. sourcecode:: html
 
    <user-card>
      <div>I like to swim.</div>
@@ -680,7 +680,7 @@ Menu example
 本章冒頭の ``<custom-menu>`` を考える。スロットを使って、要素を分散させることが
 できる。``<custom-menu>`` を次のように定義する：
 
-.. code:: html
+.. sourcecode:: html
 
    <custom-menu>
      <span slot="title">Candy menu</span>
@@ -691,7 +691,7 @@ Menu example
 
 これに対応する、適切なスロットを持つ shadow DOM テンプレートをこうする：
 
-.. code:: html
+.. sourcecode:: html
 
    <template id="tmpl">
      <style> /* menu styles */ </style>
@@ -812,7 +812,7 @@ Shadow host（ここでは ``<custom-dialog>`` 自体が相当する）は light
 例えば、``<custom-dialog>`` が属性 ``centered`` を持っている場合にのみ、中央寄せ
 にしたい場合は次でいい：
 
-.. code:: html
+.. sourcecode:: html
    :force:
 
    <template id="tmpl">
@@ -871,7 +871,7 @@ Styling slotted content
 で CSS の継承が有効であるからだ。しかし、CSS 自体では、プロパティーすべてが継承
 されるわけではない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    this.shadowRoot.innerHTML = `
      <style>
@@ -891,7 +891,7 @@ Styling slotted content
 本書の例では ``::slotted(div)`` は ``<div slot="username">`` を厳密に選択するの
 であって、その子要素は選択しない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    this.shadowRoot.innerHTML = `
      <style>
@@ -924,7 +924,7 @@ CSS hooks with custom properties
 自作 CSS プロパティーは shadow DOM を貫通し、どこでも見えるので、内側の
 ``.field`` 規則はそれを利用することになる。
 
-.. code:: html
+.. sourcecode:: html
 
    <style>
      user-card {
@@ -993,7 +993,7 @@ Light DOM に物理的に存在するスロット要素においてイベント�
 ベントの対象は shadow ハンドラーと light ハンドラーの両方で、まさにこの ``span``
 要素だ。
 
-.. code:: html
+.. sourcecode:: html
 
    <user-card id="userCard">
      <span slot="username">John Smith</span>
@@ -1034,7 +1034,7 @@ Bubbling, ``event.composedPath()``
 
 前述の例の平坦化 DOM はこうなっている：
 
-.. code:: html
+.. sourcecode:: html
 
    <user-card id="userCard">
      #shadow-root
@@ -1048,7 +1048,7 @@ Bubbling, ``event.composedPath()``
 
 ``<span slot="username">`` をクリックすると、``event.composedPath()`` は配列
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    [span, slot, div, shadow-root, user-card, body, html, document, window]
 
@@ -1095,7 +1095,7 @@ Custom events
 に対してイベントを二つ発射させている。``composed: true`` を指定したイベントだけ
 が、ドキュメントの外に出て来る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /*
    div(id=outer)

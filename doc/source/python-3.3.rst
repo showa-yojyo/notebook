@@ -43,7 +43,7 @@ What's New In Python 3.3 を読んで、個人的に関心のある項目に注�
 
   * ``IOError`` や ``WindowsError`` が ``OSError`` に吸収されたと考えてよい。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [29]: IOError
        Out[29]: OSError
@@ -68,7 +68,7 @@ What's New In Python 3.3 を読んで、個人的に関心のある項目に注�
     同値。
   * この構文のおかげで generator を小分けにできる。
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        def generator(args1, args2):
            yield from subgenerator1(args1)
@@ -100,7 +100,7 @@ What's New In Python 3.3 を読んで、個人的に関心のある項目に注�
 
   * この場合 ``@abstractmethod`` のほうを内側に置く。
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        class SomeClass(metaclass=ABCMeta):
 
@@ -145,7 +145,7 @@ What's New In Python 3.3 を読んで、個人的に関心のある項目に注�
   * ``clock()`` はプラットフォーム依存。
     これではなく ``perf_counter()`` や ``process_time()`` を使う。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [16]: import time
 

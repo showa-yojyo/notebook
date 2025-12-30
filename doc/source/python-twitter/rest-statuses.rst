@@ -22,7 +22,7 @@ GET statuses/mentions_timeline はいわゆるリプを取得する機能だ。�
 
 実行例を示す。自分で自分に話しかけているツイートが多いので後半をカットした。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-mentions_timeline.py
    Sun Feb 22 15:52:49 +0000 2015|@showa_yojyo 今さっき復旧したもよう。
@@ -65,7 +65,7 @@ GET statuses/home_timeline
 
 実行例を示す。途中は長いので省略。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-home_timeline.py
    Fri Nov 27 16:58:39 +0000 2015|体が冷えまくり。
@@ -99,7 +99,7 @@ GET statuses/retweets/:id は指定ツイートの直近 100 リツイートま�
 
 誰もリツイートしていないツイートを調べると次のようになる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-retweets-id.py
    []
@@ -117,7 +117,7 @@ GET statuses/show/:id は指定ツイートの詳細を得る機能だ。この�
 
 実行結果を次に示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-show-id.py
    {'contributors': None,
@@ -157,7 +157,7 @@ POST statuses/destroy/:id は自分のツイートに限るが、指定ツイー
 
 実行結果を次に示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-destroy-id.py
    {
@@ -235,7 +235,7 @@ POST statuses/retweet/:id は指定ツイートを自分のアカウントから
 
 実行結果を次に示す。なぜか失敗した。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-retweet-id.py
    Traceback (most recent call last):
@@ -285,7 +285,7 @@ will be returned with the same Tweet object but no action> とあるので、元
 がリツイートして、新たに ID が 708317138675630082 のツイートが生成されている。こ
 こでは後者の ID を指定する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-unretweet-id.py
    {
@@ -409,14 +409,14 @@ HTML 文書の中に埋め込むコード片としてツイートを表現する
 exist メッセージが返ってきた。 PTT のドキュメントによると Python 側のキーワード
 引数名を ``_id`` にする必要があるとのことだ。
 
-.. code:: python3
+.. sourcecode:: python3
 
    response = tw.statuses.oembed(_id=674636677982257152)
 
 そういうわけで実行例を示す。JSON データの ``html`` の値が確かに HTML コード片に
 なっている。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./statuses-oembed.py
    {'author_name': 'プレハブ小屋',

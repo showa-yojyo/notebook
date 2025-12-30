@@ -139,7 +139,7 @@ Requirements for the Mermaid API
 
   a. The embedded mermaid diagram definition inside a ``<pre class="mermaid">``:
 
-  .. code:: html
+  .. sourcecode:: html
 
      <body>
        Here is a mermaid diagram:
@@ -173,7 +173,7 @@ Jekyll がこのブロックコードをクラスが ``mermaid`` である ``div
   ``<div class="mermaid">`` tags that it finds in the html body and renders them
   into diagrams. Example:
 
-  .. code:: html
+  .. sourcecode:: html
 
      <body>
        <script type="module">
@@ -208,7 +208,7 @@ Jekyll がこのブロックコードをクラスが ``mermaid`` である ``div
 
    :file:`conf.py` で例えばこのように定義する：
 
-   .. code:: python
+   .. sourcecode:: python
 
       mermaid_version = ""
       mermaid_init_js = ""
@@ -220,7 +220,7 @@ Jekyll がこのブロックコードをクラスが ``mermaid`` である ``div
    :file:`_static` ディレクトリーにスクリプトファイル :file:`mermaid.js` を次の
    ような内容で保存する（よりスマートなコードにしたい）：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       window.addEventListener('load', () => {
           const MERMAID_CLASS_NAME = '.mermaid';
@@ -255,7 +255,7 @@ Working Examples
 
   Here is a full working example of the mermaidAPI being called through the CDN:
 
-  .. code:: html
+  .. sourcecode:: html
 
      <html>
        <body>
@@ -289,7 +289,7 @@ CDN からロードするモジュールを取り込む ``script`` タグを ``b
   **Another Option:** In this example mermaid.js is referenced in ``src`` as a
   separate JavaScript file, in an example Path.
 
-  .. code:: html
+  .. sourcecode:: html
 
      <html lang="en">
        <head>

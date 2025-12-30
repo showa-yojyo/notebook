@@ -12,7 +12,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       init_printing(pretty_print=False)
 
@@ -128,7 +128,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
   * クラス ``Function`` のサブクラスなので、評価をするには :code:`totient(n)` の
     ようにする。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: [totient(10 ** i) for i in range(10)]
        Out[1]: [1, 4, 40, 400, 4000, 40000, 400000, 4000000, 40000000, 400000000]
@@ -147,7 +147,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
   中国剰余定理に基づく問題を解くのに利用できる。同定理の名前の由来となった問題を
   解いてみる：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: crt([3, 5, 7], [2, 3, 2])
      Out[1]: (23, 105)
@@ -159,7 +159,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
     必要に応じて非負で得られる。
   * キーワード引数 :code:`check=False` の使いどころが不明。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: crt([6, 10], [1, 2], check=True)
 
@@ -212,7 +212,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
   ``n`` を法とする ``a`` の位数、すなわち :code:`a ** k % n == 1` を満たす最小の
   整数 ``k`` を返す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: n_order(10**100 + 1, prime(1000))
      Out[1]: 3959
@@ -231,7 +231,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
   :math:`{27 = 3^3}` の原始根を一つ求める：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: primitive_root(27)
      Out[1]: 2
@@ -263,7 +263,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
   解が存在しない場合は ``None`` を返す：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy.ntheory import sqrt_mod
 
@@ -278,7 +278,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
   平方剰余の相互法則第一法則および第二法則を実験してみよう：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy.ntheory import legendre_symbol, primerange
 
@@ -305,7 +305,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 関数 :code:`discrete_log(n, a, b, order=None, prime_order=None`
   離散対数、つまり :math:`{b^x \equiv a \pmod{n}}` を満たす数を返す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy.ntheory import discrete_log
 
@@ -331,7 +331,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
   * これは微妙に使いにくい。値によっては自分でループを書く必要があるだろう。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: from itertools import islice
 
@@ -350,7 +350,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
   :math:`{\sqrt{2} + \sqrt{3}}` を 30 項ほど連分数展開し、近似分数を求めるには次
   のようにする：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from itertools import islice
 
@@ -381,7 +381,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 関数 :code:`continued_fraction_reduce(cf)`
   連分数 ``cf`` を連分数でない形で返す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy.abc import a, b, c
 
@@ -390,7 +390,7 @@ SymPy_ の整数論モジュール ``sympy.ntheory`` について記す。
 
   :math:`\pi^2` を 6 項で近似する：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy import pi, ntheory
 

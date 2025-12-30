@@ -46,7 +46,7 @@ Getting started with GitHub Desktop
 
 インストーラーは `GitHub Desktop <https://desktop.github.com/>`__ にある。
 
-.. code:: powershell
+.. sourcecode:: powershell
 
    PS > winget install -e --id GitHub.GitHubDesktop --source winget
 

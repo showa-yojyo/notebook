@@ -33,7 +33,7 @@ Meadowfield
     ``.map()`` を適用した一時配列を反復するというのはスクレイピングではよくあ
     る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function buildGraph(edges) {
        let graph = Object.create(null);
@@ -71,7 +71,7 @@ The task
     * そうでない場合は小包の場所をチェックすることになる。次のようにして新しい
       ``VillageState`` を返す：
 
-      .. code:: javascript
+      .. sourcecode:: javascript
 
          let parcels = this.parcels.map(p => {
              if (p.place != this.place) return p;
@@ -84,7 +84,7 @@ The task
 このクラスを例えば次のように使う。``roads`` の定義によると郵便局と Alice の家が
 隣接しているのでこういう結果となる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let first = new VillageState(
        "Post Office",
@@ -105,7 +105,7 @@ Persistent data
 * 本文の感じからすると、これを使うことで何らかの効率上のトレードオフが生じるよう
   だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let object = Object.freeze({value: 5});
    object.value = 10;
@@ -120,7 +120,7 @@ Simulation
   渡し、新しい記憶を返すようにする。そのため、ロボットが返すのは、移動したい方向
   と、次に移動したときに返される記憶の値を含むオブジェクトだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function runRobot(state, robot, memory) {
        for (let turn = 0;; turn++) {
@@ -141,7 +141,7 @@ Simulation
 * かなりの確率で最終的にすべての小包を見つけて、ある時点で配達すべき場所に到達す
   る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function randomPick(array) {
        let choice = Math.floor(Math.random() * array.length);
@@ -165,7 +165,7 @@ Simulation
 ロボットを動かすために、小包いくつかから新しい状態を生成する関数を定義したい。こ
 れをクラス ``VillageState`` の静的メソッドとして実装する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    VillageState.random = function(parcelCount = 5) {
        let parcels = [];
@@ -192,7 +192,7 @@ The mail truck's route
 らせて確実に配達することができる。それが郵便局から開始するとして次のようなものだ
 とわかっているとする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const mailRoute = [
        "Alice's House", "Cabin", "Alice's House", "Bob's House",
@@ -203,7 +203,7 @@ The mail truck's route
 
 経路をたどるロボットを実装するためには、ロボットに記憶が必要だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function routeRobot(state, memory) {
        if (memory.length == 0) {
@@ -223,7 +223,7 @@ Pathfinding
 * A から B への経路を探すときには、A から始まるものしか興味がない。
 * 同じ場所を 2 回通るような効率の悪いに決まっているルートには興味がない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     function findRoute(graph, from, to) {
         let work = [{at: from, route: []}];
@@ -261,7 +261,7 @@ Pathfinding
 
 本章の最後のロボット関数は次のものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function goalOrientedRobot({place, parcels}, route) {
        if (route.length == 0) {
@@ -320,7 +320,7 @@ Measuring a robot
 
 **解答** まず関数 ``runRobot`` をターン数を返すように修正する必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function runRobot(state, robot, memory) {
        for (let turn = 0; ; turn++) {
@@ -337,7 +337,7 @@ Measuring a robot
 
 その上で次のようなベンチマークを書くことが考えられる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function mean(array){
        console.assert(array.length != 0);
@@ -391,7 +391,7 @@ Persistent group
 
 **解答** コンストラクターを private にする手段が不明。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class PGroup{
        // for private use
@@ -425,7 +425,7 @@ Persistent group
 
 こうするとオブジェクトを次のように生成できるようだが……。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    g1 = PGroup.empty.add(0).add(1).add(2);
    g2 = PGroup.empty.add('x').add('y').add('z');

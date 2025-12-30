@@ -18,7 +18,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy.diffgeom import *
       from sympy.diffgeom.rn import *
@@ -222,7 +222,7 @@
 と右辺それぞれに対応する SymPy オブジェクトを生成して、さらに多様体上で定義され
 た適当な関数を評価することによって、間接的に両辺を比較する：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: M = Manifold('R^5', 5)
 
@@ -277,7 +277,7 @@
 
 次の例ではある五次元多様体で簡単な :math:`{(2, 3)}` テンソルを定義する：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: M = Manifold('R^5', 5)
 
@@ -303,7 +303,7 @@
 それぞれ指定する必要がある。テンソルの各成分ごとの演算結果の積を計算するものと考
 えるのがわかりやすい：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [7]: from sympy import var
 
@@ -318,7 +318,7 @@
 
 空の ``TensorProduct`` オブジェクトは ``1`` と評価される。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [11]: TensorProduct()
    Out[11]: 1
@@ -327,7 +327,7 @@
 る。次の例は三次元ユークリッド空間にテキトーな計量 :math:`g` を定義して、接空間
 の各基底（当然テンソルの一種とみなせる）と ``None`` を引数として呼び出すものだ：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [12]: TP = TensorProduct
 
@@ -365,7 +365,7 @@
 
 次の設定で簡単なテンソル場のリー微分を試すことにする：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: U = CoordSystem('x', Patch('U', Manifold('R^5', 5)))
 
@@ -381,7 +381,7 @@
 最初に :math:`{\mathcal L_xf = X(f)}` と :math:`{\mathcal L_XY = [X, Y]}` を試し
 てみよう：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [5]: f = x0 ** 2 + x1 ** 2
 
@@ -393,7 +393,7 @@
 
 次にライプニッツ則スカラー場バージョンを試す：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [9]: g = x_3 ** 2 + x_4 ** 2
 
@@ -535,7 +535,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 クラス ``CoordSystem``, ``Point``, ``BaseScalarField`` の座標成分に関係するメ
 ソッドの簡単な例を示す：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: r, th = symbols('r th')
 
@@ -565,7 +565,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 ドキュメントのそれとたいして変わらないが、ヤコビアンの例を示す：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: x, y, r, th = symbols('x y r th')
 
@@ -629,7 +629,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 実行結果は次のようになる：
 
-.. code:: text
+.. sourcecode:: text
 
    Jacobian phip0 -> phip1: Matrix([[-x1/sqrt(-x1**2 + 1)]])
    Jacobian phip1 -> phip0: Matrix([[-x0/sqrt(-x0**2 + 1)]])
@@ -660,7 +660,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 を ``f`` として定義し、各座標成分について適用させて方向微分を見よう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: k = symbols('k')
 
@@ -712,7 +712,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 
 まずは ``Differential`` だけでがんばる：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: a, b, c = symbols('a b c')
 
@@ -744,7 +744,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 次に手動で WedgeProduct を適用することで :math:`{\dd \omega}` を求めるやり方をと
 る：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [8]: domega2 = sum(WedgeProduct(Differential(f), oneform)\
       ...: for (f, oneform) in zip((fx, fy, fz), R3_r.base_oneforms()))
@@ -767,7 +767,7 @@ SymPy の FAQ にあるように、こういう複雑な等式のテストには
 ``test_functional_diffgeom_ch6`` を参考にして、 ``omega`` と ``omega2`` が同じら
 しいことを確認するにはこうする：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [10]: from itertools import permutations
 
@@ -824,7 +824,7 @@ y_0)` を通るようなものを、上述のそれぞれの関数を用いて�
 
    X = -y \frac{\partial}{\partial x} + x \frac{\partial}{\partial y}.
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: x0, y0, t = symbols('x0 y0 t', real=True)
 
@@ -919,7 +919,7 @@ y_0)` を通るようなものを、上述のそれぞれの関数を用いて�
 添字の順序については、実装を正とするならばドキュメントの記述が誤りだと思う。例と
 して、先ほどの外微分 :math:`\dd{\omega}` がちょうど 2-形式なので、ここで試そう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: # See [1]-[6] in section Differential Form and Exterior Derivative
 

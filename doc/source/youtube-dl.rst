@@ -22,7 +22,7 @@ youtube-dl_ について記す。
 私の場合は Windows の WSL 2 (Ubuntu) で動作させることが可能だ。
 コンソールから次の形式のコマンドラインを実行することで、上述の操作を遂行できる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ youtube-dl [OPTIONS] URL [URL...]
 
@@ -51,7 +51,7 @@ jq_
 GNU 製コマンドラインツールのように次のコマンドで標準出力にオプション一覧を出力す
 る。もっとも、GitHub に置いてある README_ をブラウザーで閲覧するのが便利だろう。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --help
 
@@ -60,14 +60,14 @@ GNU 製コマンドラインツールのように次のコマンドで標準出�
 
 GNU ツールに従っている：
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --version
 
 このツールは日付でバージョンを識別するようだ。本稿執筆時点での最新版の出力はこう
 なる：
 
-.. code:: text
+.. sourcecode:: text
 
    2021.12.17
 
@@ -78,7 +78,7 @@ GNU ツールに従っている：
 
 オプションなしで URL を指定するだけでダウンロードは可能だ：
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl "https://www.youtube.com/watch?v=$VIDEO_ID"
 
@@ -86,7 +86,7 @@ GNU ツールに従っている：
 ション ``--id`` を指定するか、またはオプション ``-o`` or ``--output`` でファイル
 名を直接または間接的に指定することを強く勧める：
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --id "https://www.youtube.com/watch?v=$VIDEO_ID"
    youtube-dl --output "%(id)s-%(title)s.%(ext)s" "https://www.youtube.com/watch?v=$VIDEO_ID"
@@ -104,7 +104,7 @@ MP4 形式でダウンロードする
 次のオプションを前述のコマンドに追加的に指定すれば MP4 形式が生成される。利用者
 側に途中工程の理解が求められる：
 
-.. code:: text
+.. sourcecode:: text
 
    -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best
 
@@ -120,13 +120,13 @@ MP4 形式でダウンロードする
 
 オプション ``-x`` 単体だと既定では M4A ファイルを保存する。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl -x "https://www.youtube.com/watch?v=$VIDEO_ID"
 
 普通は MP3 で保存したいので、オプション ``--audio-format mp3`` を追加的に指定する：
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl -x --audio-format mp3 -o "%(id)s-%(title)s.%(ext)s" "https://www.youtube.com/watch?v=$VIDEO_ID"
 
@@ -150,7 +150,7 @@ MP4 形式でダウンロードする
 タイトル、再生時間、ビデオ形式などの属性単品の情報を取得するには、対応するオプ
 ション ``--get-xxxx`` を指定する。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --skip-download --get-title "https://www.youtube.com/watch?v=$VIDEO_ID"
    youtube-dl --skip-download --get-url "https://www.youtube.com/watch?v=$VIDEO_ID"
@@ -164,7 +164,7 @@ MP4 形式でダウンロードする
 一度の実行で属性を複数指定してもよい。その場合は各属性値が改行されて出力される。
 したがってテキスト処理が難しい。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --skip-download --get-title --get-description "https://www.youtube.com/watch?v=$VIDEO_ID"
 
@@ -176,7 +176,7 @@ MP4 形式でダウンロードする
 実際には改行文字を入れるかどうかくらいの差しかなさそうだ。どうせ :program:`jq`
 を利用するので、改行文字を用いない後者のオプションを使おう。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl -J "https://www.youtube.com/watch?v=$VIDEO_ID" > $VIDEO_ID.json
 
@@ -214,7 +214,7 @@ MP4 形式でダウンロードする
 URL だけを知っておき、後ほど選択的に別ツールでダウンロードするということだ。オプ
 ション ``--list-thumbnails`` は有効なサムネイル全部の URL を得る。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --skip-download --get-thumbnail "https://www.youtube.com/watch?v=$VIDEO_ID"
    youtube-dl --skip-download --list-thumbnails "https://www.youtube.com/watch?v=$VIDEO_ID"
@@ -224,7 +224,7 @@ URL だけを知っておき、後ほど選択的に別ツールでダウンロ�
 
 JPEG ファイルとして保存することになる。こちらも単複両バージョン用意されている。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --skip-download --write-thumbnail "https://www.youtube.com/watch?v=$VIDEO_ID"
    youtube-dl --skip-download --write-all-thumbnails "https://www.youtube.com/watch?v=$VIDEO_ID"
@@ -242,7 +242,7 @@ YouTube プレイリスト
 オプション ``--get-xxxx`` 系はプレイリストに対しても有効だ。各ビデオに対する情報を
 出力する。属性単品を見るときに手軽で便利だ。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --skip-download --get-title "https://www.youtube.com/playlist?list=$PLAYLIST_ID"
    youtube-dl --skip-download --get-id "https://www.youtube.com/playlist?list=$PLAYLIST_ID"
@@ -254,7 +254,7 @@ YouTube プレイリスト
 目に対して簡単な属性集合を得るようだ。完全版に比べると処理が短時間で終わることが
 期待できる。プレイリストの概要を把握するのに最適だ。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --flat-playlist -J "https://www.youtube.com/playlist?list=$PLAYLIST_ID" > flat-playlist.json
    jq -r '.title, .webpage_url, .uploader' < RA.json
@@ -262,7 +262,7 @@ YouTube プレイリスト
 
 こうすると、``.entries[] | keys`` は次しかない：
 
-.. code:: text
+.. sourcecode:: text
 
    _type
    description
@@ -276,7 +276,7 @@ YouTube プレイリスト
 
 引数はプレイリストの URL でなくても、例えば YouTube ユーザーのビデオ一覧のそれでも動作する：
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --flat-playlist -J "https://www.youtube.com/@$USERNAME/videos" > "$USERNAME-videos.json"
 
@@ -288,7 +288,7 @@ YouTube プレイリスト
 ビデオ単品の場合と同じだ。一般には出力が多いので、いったん JSON をファイルに保存
 するのを勧める。これを :program:`jq` で解析、整形するのが実践的だろう。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl -J "https://www.youtube.com/playlist?list=$PLAYLIST_ID" > dump-single-line.json
    jq -r '.entries[] | [.webpage_url, .title] | @tsv' < dump-single.json
@@ -307,7 +307,7 @@ YouTube プレイリスト
 JSON は構造的でありすぎるという場合には CSV や TSV 形式に変換するといい。スプ
 レッドシートに貼り付けて帳簿のように用いるなどできる：
 
-.. code:: console
+.. sourcecode:: console
 
    jq -r '.entries[] | [.playlist_index, .title, .webpage_url] | @tsv' < dump-single-playlist.json
    jq -r '.entries[] | [.upload_date, .title, .webpage_url] | @tsv' < dump-single-channel.json
@@ -323,7 +323,7 @@ JSON は構造的でありすぎるという場合には CSV や TSV 形式に�
 これを採用すると、一度ダウンロードしたファイルは次回以降のダウンロードを省略して
 くれる。
 
-.. code:: console
+.. sourcecode:: console
 
    youtube-dl --download-archive archive.txt "https://www.youtube.com/playlist?list=$PLAYLIST_ID"
 
@@ -366,7 +366,7 @@ JSON は構造的でありすぎるという場合には CSV や TSV 形式に�
 
 出力テンプレートには任意の階層パスを含めてもよい。たとえば、
 
-.. code:: text
+.. sourcecode:: text
 
    -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s
 
@@ -430,7 +430,7 @@ GNU 様式のオプション：
 日付の書式は README_ の当該箇所を参照（相対日付の仕様に曖昧な点がある気がして引
 用がはばかられる）。例はしかしそのまま引用しておく：
 
-.. code:: console
+.. sourcecode:: console
 
    # Download only the videos uploaded in the last 6 months
    youtube-dl --dateafter now-6months
@@ -555,13 +555,13 @@ JSON を得るオプションをまとめておく：
 
 JSON ダンプの構造をチェックするコマンド例などを記す。
 
-.. code:: console
+.. sourcecode:: console
 
    jq -r '.entries[0] | keys | join("\n")' < dump.json
 
 本稿執筆時点での出力：
 
-.. code:: text
+.. sourcecode:: text
 
    abr
    acodec

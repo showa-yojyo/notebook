@@ -67,7 +67,7 @@ in world coortinates> (p. 83)
 
 * カメラの設定コードはほぼ必ず以下のようになる。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glMatrixMode(GL_MODELVIEW);
      glLoadIdentity();
@@ -110,7 +110,7 @@ Vertex Arrays
 
 * コード例
 
-  .. code:: c
+  .. sourcecode:: c
 
      GLfloat vertices[][3] = {...};
      GLfloat colors[][3] = {...};
@@ -122,7 +122,7 @@ Vertex Arrays
 
   とすると、とりあえずは以下のように面を描画できる。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glEnableClientState(GL_COLOR_ARRAY);
      glEnableClientState(GL_VERTEX_ARRAY);
@@ -134,7 +134,7 @@ Vertex Arrays
 
   ループはさらにシンプルにできる。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, cubeIndices);
 
@@ -144,7 +144,7 @@ Hidden-Surface Removal
 * 観察者からは角度的に見えない面を描画しない手法を指す。
 * 例えば
 
-  .. code:: c
+  .. sourcecode:: c
 
      glEnable(GL_CULL_FACE);
      glCullFace(GL_BACK);
@@ -156,7 +156,7 @@ Hidden-Surface Removal
 * <In most programs, the depth buffer should be cleared whenever the color
   buffer is cleared> (p. 91)
 
-  .. code:: c
+  .. sourcecode:: c
 
      glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
      // ...
@@ -250,7 +250,7 @@ Perspective Projections
   * ``far > near > 0`` に注意。
   * ほぼ必ず以下の手順で利用する。
 
-    .. code:: c
+    .. sourcecode:: c
 
        glMatrixMode(GL_PROJECTION);
        glLoadIdentity();
@@ -354,7 +354,7 @@ Concatenation: Rotation with Arbitrary Fixed Point
 * 任意の点を fixed point として回転変換を生じさせたいとする。このときは
   ``glTranslate`` と ``glRotate`` を組み合わせて実現する。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glMatrixMode(GL_MODELVIEW);
      glLoadIdentity();
@@ -406,7 +406,7 @@ Setting Matrices Directly
 
 * :dfn:`Oblique projection` を実現することもできる。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glMatrixMode(GL_PROJECTION);
      glLoadIdentity();
@@ -432,7 +432,7 @@ Setting Matrices Directly
 
   で与えられる。コードは大体次のような構造になる。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glMatrixMode(GL_MODELVIEW);
      cube();
@@ -472,7 +472,7 @@ Instancing
   object to its desired size, then orient it, and finally translate it to its
   desired position in that order> (p. 114)
 
-  .. code:: c
+  .. sourcecode:: c
 
      glMatrixMode(GL_MODELVIEW);
      glLoadIdentity();

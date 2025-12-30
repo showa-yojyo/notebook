@@ -35,7 +35,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。図の各辺
 実行結果は次のようになる。最大フローが得られており、各辺の流量が Wikipedia_ の図
 の各辺のキャプションの ``/`` の左側の値と一致した。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python maxflow.py
    maximum flow: 5
@@ -72,7 +72,7 @@ Wikipedia_ の説明文の図を拝借して、実行してみる。図の各辺
 インポートについては、例えば ``shortest_augmenting_path`` ならば次のように書けば
 よい。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from networkx.algorithms.flow import shortest_augmenting_path
 

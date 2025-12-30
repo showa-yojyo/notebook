@@ -68,6 +68,6 @@ Project 検索欄で課題一覧が関わるフィルターを適用可能だと
 
 フィルターの書式は次のとおり：
 
-.. code:: text
+.. sourcecode:: text
 
    tracked-by:"<OWNER>/<REPO>#<ISSUE NUMBER>"

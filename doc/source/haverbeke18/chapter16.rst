@@ -54,7 +54,7 @@ Levels
 めてもかまわないので、各文字がゲーム要素を表すような大きな文字列を使う。小さなス
 テージでは次のようなものになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let simpleLevelPlan = `
    ......................
@@ -100,7 +100,7 @@ Reading a level
 
 * コンストラクターの引数は、前節で仕様を定めた文字列とする。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      constructor(plan) {
          let rows = plan.trim().split("\n").map(l => [...l]);
@@ -215,7 +215,7 @@ Actors
 これで先述のオブジェクト ``levelChars`` を定義できる。``Level`` オブジェクトを
 生成するのに必要な部品を全て与える。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const levelChars = {
        ".": "empty",
@@ -263,7 +263,7 @@ Drawing
 
 次の補助関数 (p.280) は要素を作成して、属性と子ノードを与える簡単な手段となる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function elt(name, attrs, ...children) {
        let dom = document.createElement(name);
@@ -312,7 +312,7 @@ Drawing
 
 メソッド ``syncState`` (p. 282) は特定の状態を表示させるために呼び出す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   DOMDisplay.prototype.syncState = function(state) {
       if (this.actorLayer) this.actorLayer.remove();
@@ -327,7 +327,7 @@ Drawing
 * ステージの現在の状態をクラス名としてラッパーに追加することで、ゲームに勝ったと
   きと負けたときとでプレイヤーのスタイルを変えることができる。
 
-  .. code:: css
+  .. sourcecode:: css
 
      .lost .player {
          background: rgb(160, 64, 64);
@@ -361,7 +361,7 @@ Drawing
 
 これで小さなステージを表示することができるようになった。
 
-.. code:: html
+.. sourcecode:: html
 
    <link rel="stylesheet" href="css/game.css">
    <script>
@@ -406,7 +406,7 @@ Motion and collision
 ある矩形が指定する種類の格子要素に接触するかどうかを判定するメソッド (p. 286)
 だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Level.prototype.touches = function(pos, size, type) {
        let xStart = Math.floor(pos.x);
@@ -434,7 +434,7 @@ Motion and collision
 クラス ``State`` のメソッド ``update`` (pp. 286-287) ではクラス ``Level`` のメ
 ソッド ``touches`` を用いてプレイヤーが溶岩に接触しているかどうかを理解する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    State.prototype.update = function(time, keys) {
        let actors = this.actors.map(actor => actor.update(time, this, keys));
@@ -487,7 +487,7 @@ Motion and collision
 * コインは触れると消滅する。ステージ中の最後のコインのときには状態が ``"won"``
   になる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Lava.prototype.collide = function(state) {
        return new State(state.level, state.actors, "lost");
@@ -510,7 +510,7 @@ Actor updates
 
 ``Lava`` では ``keys`` を無視する。引数リストにも書かない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Lava.prototype.update = function(time, state) {
        let newPos = this.pos.plus(this.speed.times(time));
@@ -536,7 +536,7 @@ Actor updates
 コインはメソッド ``update`` (p. 289) を使うことでフラフラと揺らす。コインについ
 ては格子との衝突はない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const wobbleSpeed = 8, wobbleDist = 0.07;
 
@@ -557,7 +557,7 @@ Actor updates
 方向の動きは変わらないし、壁に当たるときには落下やジャンプの動きは変わらないから
 だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const playerXSpeed = 7;
    const gravity = 30;
@@ -620,7 +620,7 @@ Tracking keys
 * イベントが含むキーコードが追跡中のコードの集合にあれば、オブジェクトを更新す
   る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function trackKeys(keys) {
        let down = Object.create(null);
@@ -652,7 +652,7 @@ Running the game
   * その関数 ``frameFunc`` が ``false`` を返すときには、アニメーションは停止す
     る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function runAnimation(frameFunc) {
        let lastTime = null;
@@ -684,7 +684,7 @@ Running the game
 * ステージが終了すると、さらに 1 秒待機する。それから表示を消去し、アニメーショ
   ンを停止し、ゲームの終了状態に対する ``Promise`` を解決する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function runLevel(level, Display) {
        let display = new Display(document.body, level);
@@ -719,7 +719,7 @@ Running the game
 これを次の非同期関数 ``runGame`` (pp. 292-293) で実現する。ステージ設計（文字
 列）の配列と表示コンストラクターを引数にとる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    async function runGame(plans, Display) {
        for (let level = 0; level < plans.length;) {
@@ -738,7 +738,7 @@ Running the game
 ``GAME_LEVELS`` で利用可能なステージ設計の集合がある。このページではそれらを関数
 ``runGame`` に与えて実際にゲームを開始する。
 
-.. code:: html
+.. sourcecode:: html
 
    <link rel="stylesheet" href="css/game.css">
    <body>
@@ -762,7 +762,7 @@ Game over
 
 **解答** 残機がゼロになると最初のステージからやり直しという意味で実装する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const lifeMax = 3;
 
@@ -808,7 +808,7 @@ Pausing the game
 **解答** まず :kbd:`Esc` のハンドラーとフラグをいったんグローバルスコープに定義
 する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let paused = false;
 
@@ -823,7 +823,7 @@ Pausing the game
 関数 ``runAnimation`` の呼び出しにおいて、実引数のコールバックの最初を次のように
 変える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    state = state.update(time, arrowKeys);
    if (paused) {
@@ -834,7 +834,7 @@ Pausing the game
 ときにポーズがかかったのならば ``requestAnimationFrame`` に対するコールバックを
 専用のものに差し替える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    if (frameFunc(timeStep) === false){
        if (paused) {
@@ -846,7 +846,7 @@ Pausing the game
 
 ポーズ専用コールバックの中身は次のようなものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function suspend() {
        requestAnimationFrame(paused ? suspend : frame);
@@ -855,7 +855,7 @@ Pausing the game
 
 後半はまず ``trackKeys`` の終了間際をこうする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const untrack = () => {
        window.removeEventListener("keydown", track);
@@ -866,7 +866,7 @@ Pausing the game
 
 それから ``arrowKeys`` の初期化を ``runLevel`` の序盤に移転する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const [arrowKeys, untrack] = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
 

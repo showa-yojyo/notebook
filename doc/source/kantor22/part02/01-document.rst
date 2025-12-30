@@ -141,7 +141,7 @@ On top: ``documentElement`` and ``body``
 
 まずは公式三つを覚える：
 
-.. code:: text
+.. sourcecode:: text
 
    <html> = document.documentElement
    <body> = document.body
@@ -286,7 +286,7 @@ Search for elements
 ``$()`` とあわせて ``$x()`` でも XPath を指定することで参照できるように能力をつ
 ける。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    $x('/html/body//table[@id="age-table"]')[0];
    $x('/html/body//table//label');
@@ -749,7 +749,7 @@ Resetting the style property
 
 CSS の特定の属性を既定値に戻すには、空文字列を割り当てる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.body.style.display = "";
 
@@ -762,7 +762,7 @@ Mind the units
 
 単位付きの属性には、単位付きの値を文字列として設定する必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.body.style.margin = '20px';
 
@@ -773,7 +773,7 @@ Computed styles: ``getComputedStyle``
 ような状況だと、属性を直接参照してもまともな値が得られない。次のようにすること
 で、意味のある値が得られる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let computedStyle = getComputedStyle(document.body);
    alert(computedStyle.marginTop);
@@ -787,7 +787,7 @@ Computed styles: ``getComputedStyle``
    ``getComputedStyle(elem)`` の用途は具体的なスタイル定義を参照することだ。例え
    ば、空のドキュメント上で次の二つの値を比較するといい：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       getComputedStyle(document.body).background;
       document.body.style.background;
@@ -1068,7 +1068,7 @@ Forbid the scrolling
 
 ページ全体でのスクロールを禁止するには次のようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.body.style.overflow = "hidden";
 
@@ -1133,7 +1133,7 @@ Find window coordinates of the field
 ``getComputedStyle()`` を思い出せる人ならば、このチュートリアルをそもそも今頃習っ
 ていないと思う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const rect = field.getBoundingClientRect();
    `

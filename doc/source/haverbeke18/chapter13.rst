@@ -85,7 +85,7 @@ HTML and JavaScript
 
 HTML タグ ``<script>`` を使うと JavaScript の断片を文書に含めることができる。
 
-.. code:: html
+.. sourcecode:: html
 
    <h1>Testing alert</h1>
    <script>alert("hello!");</script>
@@ -98,7 +98,7 @@ HTML タグ ``<script>`` を使うと JavaScript の断片を文書に含める�
 ``<script>`` タグに ``src`` 属性を付与することで、値の ``URL`` からスクリプト
 ファイルを取得するようになる。
 
-.. code:: html
+.. sourcecode:: html
 
    <h1>Testing alert</h1>
    <script src="code/hello.js"></script>
@@ -115,7 +115,7 @@ HTML のタグには JavaScript コードを含むことができる属性もあ
 * ``<button>`` タグの ``onclick`` 属性の値は、ボタンがクリックされるたびに実行さ
   れる。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <button onclick="alert('Boom!');">DO NOT PRESS</button>
 

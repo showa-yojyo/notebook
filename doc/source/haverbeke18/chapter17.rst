@@ -18,7 +18,7 @@ SVG
 
 これは単純な SVG 画像のある HTML 文書だ：
 
-.. code:: html
+.. sourcecode:: html
 
    <p>Normal HTML here.</p>
    <svg xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@ SVG
 * これらのタグは DOM 要素を生成する。HTML タグと同様に JavaScript から操作でき
   る。例えば次のようなコードは有効だ：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let circle = document.querySelector("circle");
      circle.setAttribute("fill", "cyan");
@@ -58,7 +58,7 @@ The canvas element
 
 * ``<canvas>`` DOM 要素のメソッド ``getContext`` を使ってコンテキストを作成する。
 
-.. code:: html
+.. sourcecode:: html
 
    <p>Before canvas.</p>
    <canvas width="120" height="60"></canvas>
@@ -94,7 +94,7 @@ Lines and surfaces
   * プロパティー ``lineWidth`` は描線の太さを決定する。任意の正の数を指定でき
     る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.strokeStyle = "blue";
@@ -115,7 +115,7 @@ Paths
 
 次の例 (pp. 298-299) は水平な線分を 9 本描くものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.beginPath();
@@ -141,7 +141,7 @@ Paths
   * メソッド ``closePath`` を使って、そのような線分を明示的に追加することもでき
     る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.beginPath();
@@ -160,7 +160,7 @@ Curves
   * さらに、この曲線の曲率を決めるのに目標点と制御点を与える。
   * これが放物線の始点における接線ベクトルを指示すると考える。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.beginPath();
@@ -176,7 +176,7 @@ Curves
 メソッド ``bezierCurveTo`` もまた曲線を描くものだ。これは始点と終点とそれぞれに
 接線を与えるインターフェイスがある（三次曲線なので点が 4 つ要る）。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.beginPath();
@@ -200,7 +200,7 @@ Curves
 * 開始角度
 * 終了角度
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.beginPath();
@@ -221,7 +221,7 @@ Drawing a pie chart
 
 次の JSON 風データから円グラフを描くことを考える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const results = [
        {name: "Satisfied", count: 1043, color: "lightblue"},
@@ -233,7 +233,7 @@ Drawing a pie chart
 円グラフを構成する扇形の内角を ``count`` の割合に応じて計算するところまで示すと
 次のようなコード (p. 303) になる：
 
-.. code:: html
+.. sourcecode:: html
 
    <canvas width="200" height="200"></canvas>
    <script>
@@ -262,7 +262,7 @@ Text
 テキストを描くメソッドには ``fillText`` と ``strokeText`` がある。後者はアウトラ
 インしている文字には便利だが、ふつうは ``fillText`` が必要とするものだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    cx.font = "28px Georgia";
@@ -299,7 +299,7 @@ Images
 * ブラウザーがまだ読み込めていない可能性があるのですぐには描き始めない。イベント
   ``load`` のハンドラーを登録して、読み込まれてから描画する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    let img = document.createElement("img");
@@ -331,7 +331,7 @@ Images
 次のコードは画像をロードし、次のフレーム（コマ）を描画するための時間的間隔を仕込
 んでそれをする。各スプライトの寸法が 24x30 であることはわかっているとする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    let img = document.createElement("img");
@@ -362,7 +362,7 @@ Transformation
 
   次のコードは円の幅と逆さをそれぞれ 3 倍、半分にする：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let cx = document.querySelector("canvas").getContext("2d");
      cx.scale(3, .5);
@@ -394,7 +394,7 @@ Transformation
 
 ある垂直軸に沿って絵を反転させるには次のようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function flipHorizontally(context, around) {
        context.translate(around, 0);
@@ -404,7 +404,7 @@ Transformation
 
 これで位置 :math:`(100, 100)` に鏡像を描くことができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cx = document.querySelector("canvas").getContext("2d");
    let img = document.createElement("img");
@@ -452,7 +452,7 @@ Back to the game
 メソッド ``syncState`` (p. 311) は、最初に新しいビューポートを計算して、適当な位
 置にゲームシーンを描画する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    CanvasDisplay.prototype.syncState = function(state) {
        this.updateViewport(state);
@@ -626,7 +626,7 @@ Shapes
 **解答** 関数を書くときは引数をどうするかが重要だ。座標変換で済むものは省く方針
 で行く。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   function drawTrapezoid(cx, a, b, s){
       cx.beginPath();
@@ -641,7 +641,7 @@ Shapes
 赤いダイヤは外接する円の半径を引数としたい。中心は呼び出し元が座標変換を施すこと
 で設定される：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawDiamond(cx, radius){
        cx.fillStyle = "red";
@@ -657,7 +657,7 @@ Shapes
 ジグザグは外接する矩形の寸法と間隔を与える。間隔がゼロのときは例外を送出したいが
 略。それ以外の幾何的性質は呼び出し元で座標変換を与えることで設定する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawZigzag(cx, size, pitch){
        const count = size / pitch;
@@ -674,7 +674,7 @@ Shapes
 螺旋などのパラメトリック曲線を描くにはそれを近似する折れ線を描くことになる（以
 下、三角関数の呼び出しを最適化することはしない）：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawSpiral(cx, size, winding = 5){
        const numLine = 100;
@@ -693,7 +693,7 @@ Shapes
 
 黄色い星の問題が実はいちばん易しい：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawStar(cx, r = 1, num = 8){
        cx.fillStyle = "yellow";
@@ -721,7 +721,7 @@ The pie chart
 
 まず ``for`` ループの外側でフォントの静的な性質を設定する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    cx.font = "16px Georgia";
    cx.textBaseline = "middle";
@@ -730,7 +730,7 @@ The pie chart
 
 ループを次のように修正する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const centerX = 200, centerY = 150;
    const radius = 100;
@@ -782,7 +782,7 @@ A bouncing ball
 **解答** まず以前手に入れた ``Vec`` のコードを利用可能にしておく。下準備部分の
 コードは次のようになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const canvas = document.querySelector("canvas");
    const cx = canvas.getContext("2d");
@@ -795,7 +795,7 @@ A bouncing ball
 
 次にアニメーションのコードの骨格を書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function animate(time, lastTime) {
        if (lastTime != null) {
@@ -823,7 +823,7 @@ A bouncing ball
 コメントを入れた箇所に玉の運動を定義する。前章の ``Player.prototype.update`` が
 参考になる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const newx = ball.pos.x + ball.speed.x;
    if (ball.pos.x < ball.radius) {
@@ -876,7 +876,7 @@ Precomputed mirroring
 
 あまり興味がないので巻末のヒントを読む。こういう感じで鏡像を仕込んでおくようだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const cvSource = document.createElement("canvas");
    cvSource.setAttribute("id", "image-source");
@@ -895,7 +895,7 @@ Precomputed mirroring
 
 以後、任意のキャンバス上で鏡像を描画することができる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function drawFlippedImage(dest, x, y){
        dest.drawImage(document.querySelector("image-flipped"), x, y);

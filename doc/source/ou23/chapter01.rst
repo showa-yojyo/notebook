@@ -17,7 +17,7 @@ Chapter 01: Towards Modern C++
    :file:`.vscode/tasks.json` のコマンドラインオプション配列に次のコマンドライン
    と同等の引数を指定しておく：
 
-   .. code:: console
+   .. sourcecode:: console
 
       g++ -fdiagnostics-color=always \
           -g -Werror -Wall -Wextra -ansi -pedantic -std=c++17 \

@@ -62,7 +62,7 @@ MathJax を自作 HTML ファイルから機能させるための手順を列挙
 正式な方法は MathJax の文書にあるが、本稿では最も単純な指定方式を採用する。差し
 当たり、HTML の ``head`` 部に次のような ``script`` タグを仕込めば準備は整う。
 
-.. code:: html
+.. sourcecode:: html
 
    <script type="text/javascript" async
        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -84,7 +84,7 @@ MathJax のロード指定と併せて、本文中のどの数式を MathJax に
 次のような構成指定を実行するコードからなる ``script`` タグを、先ほど述べた
 :file:`MathJax.js` をロードする ``script`` タグの直前に配置する。
 
-.. code:: html
+.. sourcecode:: html
 
    <script type="text/x-mathjax-config">
      MathJax.Hub.Config({
@@ -130,7 +130,7 @@ Sphinx で生成する場合の方法
 ゼロから Sphinx プロジェクトを開始する場合には :program:`sphinx-quickstart` の対
 話的処理で MathJax の拡張機能を有効とするように指示すればよい。
 
-.. code:: text
+.. sourcecode:: text
 
    Please indicate if you want to use one of the following Sphinx extensions:
    ...
@@ -162,7 +162,7 @@ MathJax の構成ファイルを作成する
 後ほど MathJax の機能を調整することを見込んで、 Sphinx プロジェクトディレクト
 リー :file:`_static` に次の内容のテキストファイルを作成する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.MathJax = {
 
@@ -185,7 +185,7 @@ HTML テンプレートを編集する
     という名前である）に空の内容の :file:`layout.html` を作成し、以下の内容で保
     存すればよい。
 
-    .. code:: text
+    .. sourcecode:: text
 
        {% extends "!layout.html" %}
        {% set script_files = ["_static/mathjaxconf.js"] + script_files %}
@@ -204,7 +204,7 @@ HTML テンプレートを編集する
 ``MathJax.Hub.Config`` 呼び出しの実引数または ``window.MathJax`` に設定する
 JavaScript オブジェクトに次のようなオブジェクトを挿入する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    TeX:
    {

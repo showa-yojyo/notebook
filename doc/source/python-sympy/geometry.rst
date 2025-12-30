@@ -348,7 +348,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
   :code:`simplify(numer/denom)` が返って来なかった。
 * 具体的な座標を与えた方の検証はうまくいく。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ ./menelaous.py
      P= Point(-346.683333333333, -346.683333333333)
@@ -368,7 +368,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
   :code:`simplify(numer/denom)` が返って来なかった。
 * 具体的な座標を与えた方の検証はうまくいく。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ ./ceva.py
      P= Point(13.9279086822051, 228.152408889456)
@@ -390,7 +390,7 @@ SymPy_ のサブパッケージ ``sympy.geometry`` に関わる覚え書きを�
 円を単位円に固定する代わり、円周上の四点をランダムにとり、それらを結ぶ二弦の交点
 に対する方べきの定理を検証しよう。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./circle_power.py
    PA * PB = 0.245325501000245

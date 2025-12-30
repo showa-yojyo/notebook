@@ -53,7 +53,7 @@
 
 言い忘れたが、頂点シェーダーでの各行列の名前は次のとおりとする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #version 330 core
 

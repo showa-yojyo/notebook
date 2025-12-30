@@ -39,7 +39,7 @@ Methods
 
 メソッドは関数値を保持するプロパティーに過ぎない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let rabbit = {};
    rabbit.speak = function(line) {
@@ -59,13 +59,13 @@ Methods
 メソッドの元になる関数に対して ``call`` メソッドをオブジェクトを第一引数として呼
 び出すと、オブジェクトのメソッドの形式でそれが呼び出される：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    speak.call(hungryRabbit, "Burp!");
 
 * キーワード ``this`` を次のようにして用いることもある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function normalize() {
        console.log(this.coords.map(n => n / this.length));
@@ -91,7 +91,7 @@ Prototype
   ``Object.prototype`` に到達する。
 * ``Object.getPrototypeOf`` は与えられたオブジェクトのプロトタイプを返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert(Object.getPrototypeOf({}) == Object.prototype);
    console.assert(Object.getPrototypeOf(Object.prototype) == null);
@@ -101,7 +101,7 @@ Prototype
 * 関数は ``Function.prototype`` から派生する。
 * 配列は ``Array.prototype`` から派生する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert(Object.getPrototypeOf(Math.max) == Function.prototype);
    console.assert(Object.getPrototypeOf([]) == Array.prototype);
@@ -109,7 +109,7 @@ Prototype
 * ``Object.create`` を使用して、特定のプロトタイプを持つオブジェクトを作成するこ
   とができる。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let protoRabbit = {
          speak(line) {
@@ -138,7 +138,7 @@ JavaScript のプロトタイプシステムは、クラスと呼ばれるオブ
 * プロトタイプは、メソッドなど、クラスのすべてのインスタンスが同じ値を持つプロパ
   ティーを定義するのに便利だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function makeRabbit(type) {
        let rabbit = Object.create(protoRabbit);
@@ -151,7 +151,7 @@ JavaScript はコンストラクターという考え方もサポートする。
 イプを持つオブジェクトが自動的に作成され、``return`` 文はないものの、それが返さ
 れる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function Rabbit(type) {
        this.type = type;
@@ -170,7 +170,7 @@ JavaScript はコンストラクターという考え方もサポートする。
 * プロトタイプがコンストラクターに関連付けられているかどうかを理解することは重
   要。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert(Object.getPrototypeOf(Rabbit) == Function.prototype);
    console.assert(Object.getPrototypeOf(weirdRabbit) == Rabbit.prototype);
@@ -182,7 +182,7 @@ Class notation
 を見た。2015 年までは、そのように書く必要があったが、最近ではそれほど厄介ではな
 い記法を採用している。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Rabbit {
        constructor(type) {
@@ -210,7 +210,7 @@ Class notation
 * 関数と同様に、クラスは文の中でも式の中でも使うことができる。
 * クラス式では、クラス名を省略することが許される。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let object = new class { getWord() { return "hello"; } };
      console.log(object.getWord());
@@ -223,7 +223,7 @@ Overriding derived properties
 * プロトタイプに同じ名前のプロパティーが既に存在していた場合、オブジェクトのプロ
   パティーの後ろに隠れてしまうので、これはオブジェクトに影響を与えない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Rabbit.prototype.teeth = "small";
    console.assert(killerRabbit.teeth == "small");
@@ -242,7 +242,7 @@ Map
 
 今までは Python の ``dict`` のようなデータ構造として次のようにしていた：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let ages = {
        Boris: 39,
@@ -255,7 +255,7 @@ Map
 
 これは危ないのでクラス ``Map`` を利用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let ages = new Map();
    ages.set("Boris", 39);
@@ -273,7 +273,7 @@ Map
 * 演算子 ``in`` の代わりにメソッド ``hasOwnProperty`` を使うこともできる。これは
   オブジェクトのプロトタイプを無視する。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      console.assert({x: 1}.hasOwnProperty("x"));
      console.assert(!{x: 1}.hasOwnProperty("toString"));
@@ -284,7 +284,7 @@ Polymorphism
 例えば次のように ``toString()`` を上書きすることができる。こういう技法をポリモー
 フィズムという。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Rabbit.prototype.toString = function() {
        return `a ${this.type} rabbit`;
@@ -299,7 +299,7 @@ Symbols
 * プロパティー名は通常は ``String`` だが ``Symbol`` であることがある。
 * ``Symbol`` のオブジェクトは一意的であり、同じ値を二度作ることができない。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let sym = Symbol("name");
      console.assert(sym != Symbol("name"));
@@ -309,7 +309,7 @@ Symbols
 
 * 次のような不思議なことができる。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      const toStringSymbol = Symbol("toString");
      Array.prototype[toStringSymbol] = function() {
@@ -327,7 +327,7 @@ The iterator interface
 あるオブジェクトが iterable であるとは、それが名前が ``Symbol.iterator`` である
 メソッドを持つことをいう。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let okIterator = "OK"[Symbol.iterator]();
    console.log(okIterator.next()); // → {value: "O", done: false}
@@ -354,7 +354,7 @@ Getters, setters, and statics
   ている。
 * Python で言う ``@staticmethod`` のような機能もサポートされている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Temperature {
        constructor(celsius) {
@@ -379,7 +379,7 @@ Inheritance
 
 JavaScript でもサブクラスを定義することができる。本書の例をそのまま引用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class SymmetricMatrix extends Matrix {
        constructor(size, element = (x, y) => undefined) {
@@ -418,7 +418,7 @@ The instanceof operator
 あるかどうかをテストする。第一オペランドと第二オペランドにオブジェクトとコンスト
 ラクター関数をそれぞれ渡す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert(new SymmetricMatrix(2) instanceof SymmetricMatrix);
    console.assert(new SymmetricMatrix(2) instanceof Matrix);
@@ -467,7 +467,7 @@ A vector type
 
 **解答** そういえば JavaScript には演算子のオーバーロード機能はないのだろうか。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Vec{
        constructor(x, y){
@@ -516,7 +516,7 @@ Groups
 **解答** 基本型 ``Array`` を使って実装して構わないと解釈する。本物の集合クラスを
 書くのは無理がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Group{
        constructor(){
@@ -565,7 +565,7 @@ Iterable groups
 
 まず ``Group.prototype`` を次のように拡張する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Group.prototype[Symbol.iterator] = function(){
        return new GroupIterator(this);
@@ -573,7 +573,7 @@ Iterable groups
 
 まだ ``GroupIterator`` を書いていないので、書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class GroupIterator{
        constructor(group){
@@ -613,7 +613,7 @@ Borrowing a method
 **解答** ある。``Object.prototype`` と ``call`` を理解していることが急所の問題
 だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const myobj = {
        myproperty: "my value",

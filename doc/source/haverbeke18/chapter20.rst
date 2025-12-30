@@ -40,14 +40,14 @@ The node command
 ンツールが使える。例えば、次の内容のスクリプトファイル :file:`hello.js` があると
 する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   let message = "Hello world";
   console.log(message);
 
 これをコンソールから以下のようにして実行する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ node hello.js
    Hello world
@@ -60,7 +60,7 @@ The node command
 JavaScript のコードを入力するためのプロンプトが表示され、すぐに結果を見ることが
 できる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ node
    > 1 + 1
@@ -80,7 +80,7 @@ JavaScript のコードを入力するためのプロンプトが表示され、
     * ``process.argv[1]`` はスクリプトファイル名
     * したがって、実質的にはコマンドライン引数はインデックス 2 から始まる。
 
-    .. code:: console
+    .. sourcecode:: console
 
        bash$ node showargv.js one --and two
        ["node", "/tmp/showargv.js", "one", "--and", "two"]
@@ -117,7 +117,7 @@ Modules
 といい、コマンドラインから呼び出すことができるスクリプトであって、文字列を反転す
 るのに使うものとする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // main.js
 
@@ -130,7 +130,7 @@ Modules
 二番目のものは :file:`reverse.js` で、文字列を反転させる機能を定義する。これは
 :file:`main.js` からでも、その他のスクリプトからでも使用できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   // reverse.js
 
@@ -145,7 +145,7 @@ Modules
 
 以上で、このツールを次のように呼び出すことができる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ node main.js JavaScript
    tpircSavaJ
@@ -160,7 +160,7 @@ Installing with NPM
 NPM_ の主な用途はパッケージをダウンロードすることだ。これを使ってパッケージを取
 得、インストールすることができる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ npm install ini
    npm WARN enoent ENOENT: no such file or directory,
@@ -200,7 +200,7 @@ Package files
 で、次のようなファイル :file:`package.json` があるかもしれない（まだ取り組んでい
 ないのでない）：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "author": "Marijn Haverbeke",
@@ -254,7 +254,7 @@ The file system module
 Node_ で最もよく使われる組み込みモジュールの一つが ``fs`` で、ファイルシステムを
 意味する。ファイルやディレクトリーを扱うための関数をエクスポートする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {readFile} = require("fs");
    readFile("file.txt", "utf8", (error, text) => {
@@ -262,7 +262,7 @@ Node_ で最もよく使われる組み込みモジュールの一つが ``fs`` 
        console.log("The file contains:", text);
    });
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {readFile} = require("fs");
    readFile("file.txt", (error, buffer) => {
@@ -270,7 +270,7 @@ Node_ で最もよく使われる組み込みモジュールの一つが ``fs`` 
        console.log("The file contained", buffer.length, "bytes.", "The first byte is:", buffer[0]);
    });
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {writeFile} = require("fs");
    writeFile("graffiti.txt", "Node was here", err => {
@@ -294,7 +294,7 @@ Node_ で最もよく使われる組み込みモジュールの一つが ``fs`` 
 をエクスポートするようになった。これは関数版とほとんど同じだが、コールバックでは
 なく ``Promise`` を使用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {readFile} = require("fs").promises;
    readFile("file.txt", "utf8")
@@ -303,7 +303,7 @@ Node_ で最もよく使われる組み込みモジュールの一つが ``fs`` 
 ``fs`` の関数の多くに同期版もあり、同じ名前の関数の末尾に ``Sync`` が付く。例え
 ば ``readFile`` の同期版は ``readFileSync`` という。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {readFileSync} = require("fs");
    console.log("The file contains:", readFileSync("file.txt", "utf8"));
@@ -317,7 +317,7 @@ The HTTP module
 を起動したり、HTTP リクエストを行うための機能がある。これだけで HTTP サーバーを
 起動することができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {createServer} = require("http");
    let server = createServer((request, response) => {
@@ -335,7 +335,7 @@ The HTTP module
 <http://localhost:8000/hello> にアクセスして自分のサーバーにリクエストを送ると、
 小さな HTML ページが返ってくる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ wget -qO- http://localhost:8000/hello
 
@@ -376,7 +376,7 @@ The HTTP module
 
 HTTP クライアントとして動作するには、関数 ``request`` を使用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {request} = require("http");
    let requestStream = request({
@@ -451,7 +451,7 @@ Node でイベントを発信するオブジェクトには、ブラウザーの
 次のコードは、リクエスト本体を読み取り、すべて大文字のテキストとしてクライアント
 にストリームバックするサーバーを作成する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {createServer} = require("http");
 
@@ -470,7 +470,7 @@ Node でイベントを発信するオブジェクトには、ブラウザーの
 次のコードは大文字サーバーが稼働している状態で起動すると、そのサーバーにリクエス
 トを送信し、取得した応答を出力する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {request} = require("http");
 
@@ -511,7 +511,7 @@ A file server
 メソッドハンドラは非同期関数であって、リクエストオブジェクトを引数として受け取り、
 応答を記述したオブジェクトに解決する ``Promise`` を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {createServer} = require("http");
    const methods = Object.create(null);
@@ -560,7 +560,7 @@ A file server
 ようなパス名を受け取り、それを複号して %20 スタイルのエスケープコードを取り除
 き、プログラムの作業ディレクトリーからの相対パスに解決する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {parse} = require("url");
    const {resolve, sep} = require("path");
@@ -604,7 +604,7 @@ A file server
 次の :program:`npm` コマンドは、サーバースクリプトが存在するディレクトリーに、特
 定のバージョンの ``mime`` をインストールする：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ npm install mime@2.2.0
 
@@ -614,7 +614,7 @@ A file server
 だ。ファイルの情報を調べる関数 ``stat`` を使って、ファイルが存在するかどうかと、
 ディレクトリーであるかどうかの両方を調べる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {createReadStream} = require("fs");
    const {stat, readdir} = require("fs").promises;
@@ -657,7 +657,7 @@ A file server
 
 DELETE リクエストを処理するコードは、もう少し単純だ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {rmdir, unlink} = require("fs").promises;
 
@@ -690,7 +690,7 @@ DELETE リクエストを処理するコードは、もう少し単純だ：
 
 以下、PUT リクエストのハンドラーだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {createWriteStream} = require("fs");
 
@@ -733,7 +733,7 @@ DELETE リクエストを処理するコードは、もう少し単純だ：
   * オプション ``-X`` はリクエストのメソッドを指定する。
   * オプション ``-d`` はリクエスト本体を含むのに使う。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ curl http://localhost:8000/file.txt
      File not found
@@ -789,7 +789,7 @@ Search tool
 
 **解答** オリジナルの ``grep`` のような内容の出力に変えた：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // USAGE: node grep.js PATTERNS FILES
 
@@ -839,13 +839,13 @@ Directory creation
 
 **解答** クライアントはサーバーに次の方式でリクエストを送信する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ curl -X MKCOL http://localhost:8000/dirname
 
 サーバー側のコードは次のようなものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const { mkdir } = require("fs").promises;
 

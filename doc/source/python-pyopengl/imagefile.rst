@@ -143,7 +143,7 @@ Pillow + ``glReadPixels`` によるスクリーンショット取得
 のような関数を定義しておくとよい。この関数をクラス ``AppBase`` のキーボードイベ
 ントコールバックあたりから呼び出すようにしておくと便利。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def capture_screen():
       sx = glutGet(GLUT_WINDOW_WIDTH)

@@ -42,7 +42,7 @@ isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
 他のパッケージと同様、:program:`pip` を用いるのが最短であろう。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install isbn-hyphenate
 
@@ -57,7 +57,7 @@ isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 ようだ。インストールが成功したのかを確認するのには、これを単に実行し、その結果を
 評価すればよいだろう。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd D:/Python34/Lib/site-packages/isbn_hyphenate/test
    bash$ python34 isbn_hyphenate_test.py
@@ -79,7 +79,7 @@ isbn-hyphenate_ は ISBN の数字列に適切にハイフンを配置するた�
 
 これだけだ。二冊のある本について例を示す。ハイフンの入り方が異なることがわかる。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> from isbn_hyphenate import hyphenate
    >>> hyphenate('978-4001140088')

@@ -31,7 +31,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 
 * コンテナーのコピー、ムーブ、および ``swap()`` に例外仕様 ``noexcept`` が追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      vector::vector(vector&& x) noexcept;
 
@@ -94,7 +94,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 * 関数テンプレート ``std::sample()`` が追加。後述。
 * 関数テンプレート ``std::for_each_n()`` が追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class InputIterator, class Size, class Function>
      InputIterator for_each_n(
@@ -111,7 +111,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 
 * 関数テンプレート ``std::clamp()`` が追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T>
      constexpr const T& clamp(const T& v, const T& low, const T& high);
@@ -126,7 +126,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 
 * 関数テンプレート ``std::reduce()`` が追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class InputIterator>
      typename iterator_traits<InputIterator>::value_type
@@ -230,7 +230,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 関数テンプレート ``std::as_const()`` が追加。左辺値参照を ``const`` 左辺値参照に
 変換する。ユースケース不明。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    constexpr add_const_t<T>& as_const(T& t) noexcept;
@@ -352,7 +352,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 * ヘッダーファイル ``<numeric>`` に関数 ``std::gcd()`` と ``std::lcm()`` が追
   加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class M, class N>
      constexpr common_type_t<M, N> gcd(M m, N n);
@@ -368,7 +368,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 
 * 関数テンプレート ``std::apply()`` 追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template<class F, class Tuple>
      constexpr decltype(auto) apply(F&& f, Tuple&& t);
@@ -377,7 +377,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 
 * 関数テンプレート ``std::make_from_tuple()`` 追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T, class Tuple>
      constexpr T make_from_tuple(Tuple&& t);
@@ -396,7 +396,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
   追加。例えばクラステンプレート ``std::is_integral`` に対応する変数テンプレート
   は ``std::is_integral_v`` といい、次のように宣言される：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T>
      inline constexpr bool is_integral_v = is_integral<T>::value;
@@ -404,14 +404,14 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 * クラステンプレート ``std::void_t`` 追加。次のような仕組みであり、SFINAE と組み
   合わせるというライブラリー設計の手筋があるようだ。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class...>
      using void_t = void;
 
 * クラステンプレート ``std::bool_constant`` 追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <bool B>
      using bool_constant = integral_constant<bool, B>;
@@ -478,7 +478,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 * 上記二つのクラステンプレートの変更操作を ``constexpr`` に対応。
   ``std::chrono::duration`` のほうを次に示す：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      std::chrono::duration& operator++();
      std::chrono::duration& operator--();

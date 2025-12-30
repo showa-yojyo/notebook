@@ -78,14 +78,14 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 上述の文法が示すように、有効なシェーダーは一連の大域宣言と関数定義からなる。関数
 一つは次の例が示すように宣言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // prototype
    returnType functionName (type0 arg0, type1 arg1, ..., typen argn);
 
 そして関数一つは次のように定義される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // definition
    returnType functionName (type0 arg0, type1 arg1, ..., typen argn)
@@ -97,7 +97,7 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 ここで ``returnType`` は欠かすことができず、かつ ``void`` であってはならない。ま
 た：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    void functionName (type0 arg0, type1 arg1, ..., typen argn)
    {
@@ -128,7 +128,7 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 関数はすべて、呼び出される前に、プロトタイプで宣言するか、または本体を伴って定義
 するかのどちらかが必要だ。例えば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float myfunc (float f,      // f is an input parameter
                  out float g); // g is an output parameter
@@ -137,7 +137,7 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 ``return`` 引数なしで ``return`` を使用することができる。``return`` 文は値しか受
 け付けない。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    void func1() { }
    void func2() { return func1(); } // illegal return statement
@@ -155,7 +155,7 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 
 例：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 f(in vec4 x, out vec4 y);       // (A)
    vec4 f(in vec4 x, out uvec4 y);      // (B) okay, different argument type
@@ -201,7 +201,7 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 上記の関数プロトタイプ (A), (B), (C) に対して、規則が呼び出し引数の型の異なる集
 合にどのように適用されるかを次に示す：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    f(vec4, vec4)   // exact match of vec4 f(in vec4 x, out vec4 y)
    f(vec4, uvec4)  // exact match of vec4 f(in vec4 x, out uvec4 y)
@@ -228,7 +228,7 @@ OpenGL Shading Language の基本的な言語構成要素は次のとおり：
 うでなければリンクエラーとなる。この関数は引数のない、戻り値のない ``void`` 型の
 関数として宣言しなければならない。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    void main()
    {
@@ -344,7 +344,7 @@ SPIR-V の生成時にはサブルーチン機能は使用できない。
 サブルーチン型は、関数宣言と同様の文を用いて、次のように ``subroutine`` キーワー
 ドを用いて宣言する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    subroutine returnType subroutineTypeName(type0 arg0, type1 arg1,
                                             ..., typen argn);
@@ -353,7 +353,7 @@ SPIR-V の生成時にはサブルーチン機能は使用できない。
 ワードと関数が合致するサブルーチン型のリストを使って関数を定義することで、マッチ
 する宣言のサブルーチン型と関連付けられる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    subroutine(subroutineTypeName0, ..., subroutineTypeNameN)
    returnType functionName(type0 arg0, type1 arg1, ..., typen argn)
@@ -373,7 +373,7 @@ SPIR-V の生成時にはサブルーチン機能は使用できない。
 サブルーチン型変数は **サブルーチン一様変数** (subroutine uniforms) であることが
 要求され、サブルーチン一様変数宣言で特定のサブルーチン型で宣言される。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    subroutine uniform subroutineTypeName subroutineVarName;
 
@@ -544,7 +544,7 @@ SPIR-V の生成時にはサブルーチン機能は使用できない。
 る制御パスを取る場合）、その後の暗黙的または明示的な微分係数は未定義となる。これ
 は通常、例えば条件文の中で使用される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    if (intensity < 0.0)
        discard;

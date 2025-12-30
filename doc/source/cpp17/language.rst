@@ -61,14 +61,14 @@ What's New In C++17 言語仕様
 
 Python における次のようなコードと同等の代入構文が追加。
 
-.. code:: python
+.. sourcecode:: python
 
    values = (100, 200, 300,)
    first, second, third = values
 
 C++17 ではこのように書く：
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto [first, second, third] = value;
 
@@ -156,7 +156,7 @@ C++17 ではこのように書く：
 Python で言うところの ``:=`` のような役割を果たすのだろうか？セミコロンを使うこ
 とになるので、書く手間は Python と同じ程度？
 
-.. code:: c++
+.. sourcecode:: c++
 
    if(size_t n = v.size(); n < 10){
        // ...
@@ -185,7 +185,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 ``constexpr`` を挟むだけの単純なものだ。使い方はふつうの ``constexpr`` と同程度
 に難しい。
 
-.. code:: c++
+.. sourcecode:: c++
 
    if constexpr (condition){
        statement;
@@ -196,7 +196,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 
 対象となる範囲の ``begin()`` と ``end()`` の型が異なっていても OK となる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    //auto first = range.begin(), last = range.end();
    auto first = range.begin();
@@ -236,7 +236,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 
   * 畳み込み式は丸括弧で囲まれることで表すものとする。シンプルだ。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        template <typename... T>
        auto fold(T... args)
@@ -270,7 +270,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
   基底クラスのメンバーをまとめてパック展開する使い方が許される。cpprefjp_ より
   引用：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      #include <iostream>
 
@@ -297,7 +297,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 * 変数テンプレートの「デフォルトテンプレート」が許される。cpprefjp_ の例を一部改
   変：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      #include <cassert>
 
@@ -325,7 +325,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 * ダブルコロンを連結した名前を書くことでスコープを入れ子にすることなく部分名前空
   間を定義することが許される。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      namespace aaa::bbb::cc
      {
@@ -334,7 +334,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 
 * 名前空間に対して属性を与えることが許される。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      namespace [[deprecated]] aaa
      {
@@ -345,7 +345,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 
   次のように ``using`` 宣言の行にカンマ区切りで識別子を並べることができる。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      using std::cout, std::endl;
 
@@ -372,7 +372,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 * 属性 ``[[fallthrough]]`` が追加。先述のとおり。
 * 属性 ``[[maybe_unused]]`` が追加。コンパイラーの未使用変数の警告を抑止する。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      [[maybe_unused]] int x = 0;
      [[maybe_unused]] void f();
@@ -383,7 +383,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 * 属性 ``[[nodiscard]]`` が追加。関数の戻り値を呼び出し側が無視してはならないこ
   とを指示する。ユーザー定義型に与える方法と関数宣言に与える方法がある。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      struct [[nodiscard]] error_info {};
 
@@ -397,7 +397,7 @@ Python で言うところの ``:=`` のような役割を果たすのだろう�
 * 属性内の名前空間の指定をいちどにできる構文が追加。属性の先頭部分に ``using``
   名前空間 ``:`` の順に記述し、その後に続けて属性の名前を記述する。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
     // [[CC::opt(1), CC::debug]] void f(){} と同じ
     [[using CC: opt(1), debug]] void f(){}

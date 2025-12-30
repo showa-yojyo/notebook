@@ -292,7 +292,7 @@ Property に対する多重度は、部品箱の右上隅に多重度マーク�
 
 Connector は Association と同様の記法で描く：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <connector> ::= ( [<name>] ‘:’ <associationname> )
        | ([<name>] ‘:’ <associationclassname> )

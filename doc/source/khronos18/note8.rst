@@ -78,7 +78,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 テクスチャー採取、画像ロード、画像格納の各関数では、戻り値型の精度はテクスチャー
 を混合した採取器型の精度と合致する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    uniform lowp sampler2D texSampler;
    highp vec2 coord;
@@ -109,7 +109,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
    この節以降も、ノートには関数シグニチャーをすべて記す。機能が自明なものについ
    ては演算仕様を書かない。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    genFType radians(genFType degrees);
    genFType degrees(genFType radians);
@@ -140,7 +140,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
 
 これらはすべて成分ごとに演算する。記述は成分ごとに成り立つ。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    genFType pow(genFType x, genFType y);
    genFType exp(genFType x);
@@ -236,7 +236,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
        edge1`` のときは 0 と 1 の間で滑らかな Hermite 補間を行う。滑らかな遷移を
        する閾値関数が欲しい場合にこれは便利だ。これは次と等価だ：
 
-       .. code:: glsl
+       .. sourcecode:: glsl
 
           genFType t;
           t = clamp ((x - edge0) / (edge1 - edge0), 0, 1);
@@ -412,7 +412,7 @@ OpenGL Shading Language はスカラーおよびベクトル演算について�
        変換されることを保証する。これは ``gl_Position`` を計算する用途を意図して
        いる：
 
-       .. code:: glsl
+       .. sourcecode:: glsl
 
           gl_Position = ftransform()
 
@@ -910,7 +910,7 @@ i_0 j_0)}` の順に取ることで組み立てられる。
    ``vec4 textureGather(sampler2DShadow sampler, vec2 P, float refZ)``, ...
        次を返す：
 
-       .. code:: glsl
+       .. sourcecode:: glsl
 
           vec4(Sample_i0_j1(P, base).comp,
                Sample_i1_j1(P, base).comp,

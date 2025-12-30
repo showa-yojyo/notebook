@@ -18,7 +18,7 @@ Concept
 引数を検証したり制限したりすることができなかったから起こるのだ。次のようなコード
 でさえ読みにくいエラーメッセージを大量に出力する：
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <list>
    #include <algorithm>
@@ -35,7 +35,7 @@ Concept
 子というコンセプトの制約を満たさない．コンセプトを導入した後、次のようにテンプ
 レート引数を制約することができる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename T>
    requires Sortable<T> // Sortable is a concept
@@ -43,14 +43,14 @@ Concept
 
 これをこう略す：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<Sortable T> // T is a Sortable typename
    void sort(T& c);
 
 型として直接使うこともある：
 
-.. code:: c++
+.. sourcecode:: c++
 
    void sort(Sortable& c); // c is a Sortable type object
 
@@ -58,7 +58,7 @@ Concept
 
    ここまでは本書をそのまま書き写しただけだ。
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       template<typename T>
       concept Sortable = requires (T a)
@@ -160,7 +160,7 @@ Range
    存在する。例として配列を ``views::drop`` にパイプして先頭要素二個を捨てるコー
    ドを挙げる：
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       const auto nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
@@ -173,7 +173,7 @@ Range
    ``views::repeat``, ``views::cartesian_product`` などがある。たぶん次のコード
    がコンパイルできる（手許のコンパイラーではエラー）：
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       const auto cq = std::array{"", "c"};
       const auto rq = std::array{"", "r"};

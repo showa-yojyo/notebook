@@ -29,7 +29,7 @@ POST friendships/create は他人をフォローする機能だ。オプショ�
 
 次に実行例を示す。自分自身をフォローすることはできないようだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-create.py
    Traceback (most recent call last):
@@ -78,7 +78,7 @@ POST friendships/destroy は他人をフォローするのをやめる機能だ�
 次に実行例を示す。フォローに失敗したはずのユーザーでも相手のユーザーオブジェクト
 が得られる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-destroy.py
    {
@@ -106,7 +106,7 @@ GET friendships/incoming は自分が保護ユーザー、つまりツイート�
 次に実行例を示す。空のデータが得られる。私が公開アカウントであることか、誰からも
 相手にされていないことかのいずれかが成り立っている。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-incoming.py
    []
@@ -128,7 +128,7 @@ GET friendships/outgoing は自分がフォローしたい非公開アカウン�
 次に実行例を示す。どんな非公開アカウントをもフォローしようとしていないからこうな
 る。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-outgoing.py
    []
@@ -151,7 +151,7 @@ GET friendships/lookup は自分と任意の他人との関係性を知る機能
 
 次に実行例を示す。一部省略する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-lookup.py
    [
@@ -204,7 +204,7 @@ GET friendships/show は任意の二人のユーザー間の関係を得る機�
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-show.py
    {
@@ -284,7 +284,7 @@ GET friendships/no_retweets/ids はリツイートを受信したくないユー
 
 次に実行例を示す。当方誰でもウェルカムなので空のデータが返ってくる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-no_retweets-ids.py
    []
@@ -306,7 +306,7 @@ POST friendships/update は指定ユーザーに対して、リツイート受�
 
 次に実行例を示す。自分で自分の通知をオンにする。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./friendships-update.py
    {

@@ -63,7 +63,7 @@ Strings
 
 バッククォートの仕様だけ注意。他の引用符ではダメらしい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    `half of 100 is ${100 / 2}`
    // → "half of 100 is 50"

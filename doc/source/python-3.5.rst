@@ -21,7 +21,7 @@ What's New In Python 3.5 を読んで、個人的に関心のある項目に注�
 * 関数呼び出しにおける unpacking が複数の引数で行えるようになった。この系とし
   て、次のようなこともできる：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [159]: *range(10),
      Out[159]: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
@@ -60,7 +60,7 @@ What's New In Python 3.5 を読んで、個人的に関心のある項目に注�
   済み。
 * ``csv``: ``writerows()`` が iterator 一般を入力として受け取れるようになった。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [162]: import csv, sys
 
@@ -72,7 +72,7 @@ What's New In Python 3.5 を読んで、個人的に関心のある項目に注�
 * ``enum``: ``Enum`` が引数 ``start`` を追加。最初の列挙項目に対応する整数値を指
   定するのに用いる。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [175]: from enum import Enum
 
@@ -109,7 +109,7 @@ What's New In Python 3.5 を読んで、個人的に関心のある項目に注�
   * ``isclose()`` が追加。浮動小数点数同士を比較する関数。NumPy のそれの簡易版
     か。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [211]: from math import isclose
 

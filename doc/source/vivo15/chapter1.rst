@@ -94,7 +94,7 @@ Why are Shaders famously painful?
 
 GLSL ではユーザー関数を定義することができる。ここではいちばん素朴な実装を示す。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 red(){
        return vec4(1.0, 0.0, 0.0, 1.0);
@@ -147,7 +147,7 @@ Uniforms
 は ``T`` だから周波数すなわち ``1./T`` を上げるならば ``T`` をゼロに近づける必要
 がある。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    uniform float u_time;
 
@@ -190,7 +190,7 @@ Uniforms
 マウスの問題は微妙で、変数 ``st`` と一緒に用いるには正規化する必要がある。色を動
 かすには、例えば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    gl_FragColor = vec4(st.x, step(u_mouse.y / u_resolution.y, st.y), 0.0, 1.0);
 
@@ -216,7 +216,7 @@ Running your shaders on the browser
   いい。シェルスクリプトやパイプラインにシェーダーを組み込み、ImageMagick と同様
   の方法で使用することができる。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ glslViewer yourShader.frag yourInputImage.png —w 500 -h 500 -E screenshot,yourOutputImage.png
 

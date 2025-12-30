@@ -19,7 +19,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 * それらのオブジェクトを関数 ``input`` で生成することもできる。ただし、文字列を
   実引数とするコンストラクターの処理が空白文字に不寛容だ：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [155]: Fraction(input('Enter a fraction: '))
      Enter a fraction: 1 / 273
@@ -82,7 +82,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
   * サンプルコードを見て思うのだが、本書はリストの内包表現を紹介するべきだった。
     こちらのほうがわかりやすいだろう：
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        x_data = [u * np.cos(theta) * t for t in intervals]
        y_data = [u * np.sin(theta) * t - 0.5 * g * t**2 for t in intervals]
@@ -93,7 +93,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 * 章末問題で棒グラフ（ヒストグラムではない）を紹介。これは pyplot ベースのコード
   なので、あえて IPython で pylab ベースで試す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [236]: steps = (6534, 7000, 8900, 10786, 3467, 11045, 5095)
 
@@ -131,7 +131,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 
   お手本コードを改造して、比も同時に返すようなジェネレーターを書くのが楽だ：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [272]: def fibo(n):
           ...:     f1 = f2 = 1
@@ -256,7 +256,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 
   * 問題が物足りないので ``venn3`` でチャレンジした：
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        from random import randint
        data = ((i, randint(0, 1), randint(0, 1), randint(0, 1)) for i in range(500))
@@ -275,7 +275,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 
   * 大数の法則のコードは次のようなものだろう：
 
-    .. code:: python
+    .. sourcecode:: python
 
        from statistics import mean
 
@@ -286,7 +286,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 
   * カードのシャッフルは私なら次のようにしたい：
 
-    .. code:: python
+    .. sourcecode:: python
 
        from collections import namedtuple
        from itertools import product
@@ -302,7 +302,7 @@ Python で数学を「やる」本。標準パッケージに加え、Matplotlib
 
   * 円周率の推定はこう：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [96]: def estimate_pi(N):
            ...:     darts = ((uniform(0, 1), uniform(0, 1)) for _ in range(N))
@@ -360,7 +360,7 @@ Matplotlib のより高度な API を利用する。
 
   * ``initialize_image`` は内包表記をうまく使えば一行コードだ。
 
-    .. code:: python
+    .. sourcecode:: python
 
        def initialize_image(x_p, y_p):
            return [[0] * x_p for i in range(y_p)]
@@ -395,7 +395,7 @@ Matplotlib のより高度な API を利用する。
 
   * 正規分布を自作しているが、もちろん SymPy も備えている。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [62]: from sympy.stats import Normal, density
 
@@ -407,7 +407,7 @@ Matplotlib のより高度な API を利用する。
 * 章末問題に曲線の長さを求める主題のものがある。図の放物線の与えられた範囲の長さ
   は次のようにして得られた：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
     In [91]: from sympy import integrate, diff, sqrt, symbols
 

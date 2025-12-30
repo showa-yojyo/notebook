@@ -375,7 +375,7 @@ WebGL は、任意の ``DOMString`` [DOMSTRING]_ をエラーなしで ``shaderS
 * コメント中の非 ASCII Unicode 文字
 * 前処理器が排除するブロック内にある無効な文字
 
-  .. code:: glsl
+  .. sourcecode:: glsl
 
      #ifdef __cplusplus
      #line 42 "foo.glsl"
@@ -673,14 +673,14 @@ OpenGL ES 2.0 の 節 2.1.2 "Data Conversions" の部分節 "Conversion from Int
 to Floating-Point" では、ビット幅が ``b`` である正規化された符号付き整数 ``c``
 から浮動小数点値 ``f`` への変換を次のように定義している：
 
-.. code:: c
+.. sourcecode:: c
 
    f = (2*c + 1) / (2^b - 1)
 
 正規化された符号付き頂点 ``attribute`` を浮動小数点に変換する際、WebGL 1.0 の実
 装ではオプションでこの変換則を使用することができ、ゼロが保持される：
 
-.. code:: c
+.. sourcecode:: c
 
    f = max(c / (2^(b - 1) - 1), -1.0)
 

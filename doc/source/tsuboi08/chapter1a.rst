@@ -428,7 +428,7 @@
 
   * :math:`{\rot(\grad(f)) = 0}` を SymPy で確かめるとこのような感じになる：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: from sympy import Function, symbols
 
@@ -447,7 +447,7 @@
 
   * :math:`{\div(\rot(f)) = 0}` はこのような感じになる：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [7]: f1, f2, f3 = symbols('f1:4', cls=Function)
 

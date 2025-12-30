@@ -787,7 +787,7 @@ Effective Debugging 読書ノート
   * GNU :command:`parallel` で複数コアに作業を分割する。コマンドライン例を引用す
     る：
 
-    .. code:: console
+    .. sourcecode:: console
 
        bash$ ls *.jpg | parallel 'djpeg -scale 1/16 {} | cjpeg > thumb/{}'
 

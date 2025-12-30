@@ -187,40 +187,40 @@ Python というよりは計算機の基礎を理解するための章だ。
   い。
 * 標準モジュール ``timeit`` をコマンドラインから実行する。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python -m timeit -n 5 -r 5 -s "COMMANDS"
 
 * Unix の :command:`time` コマンド。組み込み版を呼ばぬよう注意すること。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ /usr/bin/time -p python SCRIPT
      bash$ /usr/bin/time --verbose -p python SCRIPT
 
 * 標準モジュール ``cProfile`` をコマンドラインから実行する。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python -m cProfile -s cumulative SCRIPT
 
   あるいは IPython で :command:`%run -p` コマンドを実行する。:command:`%prun` で
   もいい。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: %run -p -s cumulative SCRIPT
 
   統計情報をファイルに書き出して、標準モジュール ``pstats`` の機能で分析する。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python -m cProfile -s profile.stats SCRIPT
 
   IPython ならばこうする。ダンプファイルは IPython セッションで分析するのが便利
   なので、こちらのほうがいいか。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: %run -p -D profile.stats cpu_profiling/julia1_nopil.py
 
@@ -235,7 +235,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * 簡単なコード片ならば IPython の ``%timeit`` コマンドが手軽に使える。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: %timeit CODE
 
@@ -268,7 +268,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
   * コマンド :command:`mprof run` を使うときのコマンドラインは次のようにする：
 
-    .. code:: console
+    .. sourcecode:: console
 
        bash$ python D:/Miniconda3/Scripts/mprof run julia1_memoryprofiler.py
 
@@ -430,7 +430,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 * :file:`naive_hash_function.py`: 粗雑なハッシュ関数実装例。
 * :file:`namespace.py`: インポートされた関数の呼び出し効率について。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [45]: import namespace
 
@@ -445,7 +445,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * :file:`namespace_loop.py`: 上と同様。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [50]: import namespace_loop
 
@@ -513,7 +513,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 * :file:`fibonacci.py`: ある値以下の Fibonacci 数を勘定する実装が 3 個ある。これ
   までの知識をもって計測するといい。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [63]: %timeit fibonacci.fibonacci_naive()
      8.64 μs ± 23 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
@@ -531,7 +531,7 @@ Python というよりは計算機の基礎を理解するための章だ。
   * ``memory_profiler`` が利用可能になったので、イテレーターと内包表記の比較結果
     を記す。数値出力周りのコードを一部改変した：
 
-    .. code:: console
+    .. sourcecode:: console
 
        bash$ python iter_vs_list_comprehension.py
        divisible_by_three_list with 10,000,000 entries took 2.903 seconds and used 126.980 MB
@@ -623,7 +623,7 @@ Python というよりは計算機の基礎を理解するための章だ。
   実行すると :file:`README.md` のようなテキストが出力される。ただしこのディレク
   トリーにあるものはたぶんミス。私の実行結果を次に示す：
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python _benchmark.py
      Grid size:  (1024,)
@@ -657,7 +657,7 @@ Python というよりは計算機の基礎を理解するための章だ。
 
 * :file:`diffusion_2d/`: 上記の 2 次元版。256 サイズだけ試す（重いから）：
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python _benchmark.py
      Grid size:  (256, 256)
@@ -844,7 +844,7 @@ Pool の選択肢が大幅に狭められていることに気づく。
 * 素数分布のコード、出力結果がソートされているわけではないことに注意。
 * 省略されている ``create_range.create()`` 関数の実装は次のようなものと思われる：
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      def create(start, end, num_processes):
          a = np.linspace(start, int(np.sqrt(end)) + 1, num_range, dtype=int)
@@ -898,7 +898,7 @@ Pool の選択肢が大幅に狭められていることに気づく。
 
       * らしいのだが、意味をなさないコードがある。修正方法も推測不能。
 
-        .. code:: python3
+        .. sourcecode:: python3
 
            if args.processes:
                xargs.append("--processes")

@@ -372,13 +372,13 @@ Classifier が継承した ``members`` を仮に ``member`` が継承されて�
 れたであろうテキスト的表現に対して先頭にキャレット記号を付けることで Classifier
 の図式上に示してよい。継承されたプロパティーの記法は次のように定義される：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <inherited-property> ::= ’^’ <property>
 
 同様に、継承された Connectorの表記は：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <inherited-connector> ::= ’^’ <connector>
 
@@ -553,14 +553,14 @@ ClassifierTemplateParameter の ``constrainingClassifier`` 特性は引数とし
    The general notation for template parameters specified in 7.3.4 is extended
    for the parameters of a template Classifier to include the following:
 
-   .. code:: bnf
+   .. sourcecode:: bnf
 
       <template-parameter> ::= <classifier-template-parameter> | <operation-template-parameter> | <connectable-element-template-parameter>
 
 ClassifierTemplateParameter は TemplateParameter の表記を拡張して、オプションの
 型制約を含むようにしたものだ：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <classifier-template-parameter> ::= <parameter-name> [ ‘:‘ <parameter-kind> ] [‘>’ <constraint>] [‘=’ <default>]
    <constraint> ::= [‘{contract}’] <classifier-name>*
@@ -908,7 +908,7 @@ Feature に対する一般的な記法はない。サブクラスが特有の記
 
 Parameter テキスト文字列として示す：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <parameter> ::= [<direction>] <parameter-name> ’:’ <type-expression>
      [’[’ <multiplicity-range> ’]’] [’=’ <default>]
@@ -1149,7 +1149,7 @@ AggregationKind は次のリテラル値からなる列挙型だ：
 Property の特殊化のいくつかには追加の表記形式がある。これらは、それらのクラスの
 適切な記法のサブクラスで扱う。
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <property> ::= [<visibility>] [‘/’] <name> [‘:’ <prop-type>]
        [‘[‘ <multiplicity-range> ‘]’]
@@ -1161,7 +1161,7 @@ Property の特殊化のいくつかには追加の表記形式がある。こ�
 * ``/`` は Property が導出されていることを示す。
 * Property に名前がない場合は ``<name>`` は空文字列となる。
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <prop-modifier> ::= ‘readOnly’ | ‘union’
        | ‘subsets’ <property-name>
@@ -1198,7 +1198,7 @@ Classifier においては、属性の個々の特性が連続する文字列と
 Property によるテンプレート Classifier の引数化に用いられる
 ConnectableElementTemplateParameter の記法：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <connectable-element-template-parameter> ::= <property-name> ‘: Property’
 
@@ -1394,7 +1394,7 @@ Classifier 内の実 Operation への参照となる。例えば、OperationTemp
 
 Operation のテキスト表記法：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    [<visibility>] <name> ‘(‘ [<parameter-list>] ‘)’
        [‘:’ [<return-type>] [‘[‘ <multiplicity-range> ‘]’]
@@ -1422,7 +1422,7 @@ Operation のテキスト表記法：
    The TemplateParameters of a template Operation are in a list between the name
    of the Operation and the Parameters of the Operation.
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    [<visibility>] <name> ‘<‘ <template-parameter-list> ‘>’ ‘(‘ [<parameter-list>] ‘)’
        [‘:’ [<return-type>] [‘[‘ <multiplicity> ‘]’]
@@ -1431,7 +1431,7 @@ Operation のテキスト表記法：
    The TemplateParameter bindings of a bound template Operation are in a list
    between the name of the Operation and the Parameters of the Operation.
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    [<visibility>] <name> ‘<<‘ <binding-expression-list> ‘>>’ ‘(‘ [<parameter-list>] ‘)’
        [‘:’ [<return-type>] [‘[‘ <multiplicity> ‘]’]
@@ -1444,7 +1444,7 @@ Operation のテキスト表記法：
 
 OperationTemplateParameter の記法は TemplateParameter の記法を拡張したものだ：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <operation-template-parameter> ::= <parameter> [ ‘: Operation’] [‘=’ <default>]
 
@@ -1460,7 +1460,7 @@ OperationTemplateParameter の記法は TemplateParameter の記法を拡張し�
 
 通常 Operation の例：
 
-.. code:: text
+.. sourcecode:: text
 
    display ()
    -hide ()
@@ -1469,13 +1469,13 @@ OperationTemplateParameter の記法は TemplateParameter の記法を拡張し�
 
 テンプレート操作の例：
 
-.. code:: text
+.. sourcecode:: text
 
    f <T:Class>(x : T)
 
 そのテンプレート Operation を束縛したもの：
 
-.. code:: text
+.. sourcecode:: text
 
    f << T -> Window >>(x : Window)
 
@@ -1888,7 +1888,7 @@ StructuredClassifier により分類される InstanceSpecification では、そ
 すオブジェクトを表す入れ子の矩形を含んでよい。このような入れ子
 InstanceSpecificationの名前文字列の記法は次のとおり：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    {<name> [‘/’ <rolename>] | ‘/’ <rolename>} [‘:’ <classifiername> [‘,’ <classifiername>]*]
 

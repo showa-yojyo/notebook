@@ -24,7 +24,7 @@ GET account/verify_credentials は自分の credentials が効力があるのか
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-verify_credentials.py
    {
@@ -106,7 +106,7 @@ POST account/remove_profile_banner は自分の Twitter のページのバナー
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-remove_profile_banner.py
    {
@@ -132,7 +132,7 @@ GET account/settings は自分のアカウント設定情報を得る機能だ�
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-settings.py
    {
@@ -194,7 +194,7 @@ POST account/settings は自分のアカウント設定情報を更新する機�
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-settings-p.py
    {
@@ -256,7 +256,7 @@ POST account/update_delivery_device
 ..
 .. 次に実行例を示す。
 ..
-.. .. code:: console
+.. .. sourcecode:: console
 ..
 ..    bash$ ./account-update_delivery_device.py
 
@@ -274,7 +274,7 @@ POST account/update_profile は自分のプロフィール部分の更新をす�
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-update_profile.py
    {
@@ -369,7 +369,7 @@ POST account/update_profile_banner は自分の Twitter のページのバナー
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-update_profile_banner.py
    {}
@@ -397,7 +397,7 @@ POST account/update_profile_image はたぶんユーザーのアイコンの画�
 次に実行例を示す。出力はいつもの自分のユーザーオブジェクトなので興味のある所だけ
 を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-update_profile_image.py
    {
@@ -437,7 +437,7 @@ POST account/update_profile_background_image は自分の Twitter のページ�
 次に実行例を示す。出力はいつもの自分のユーザーオブジェクトなので興味のある所だけ
 を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./account-update_profile_background_image.py
    {

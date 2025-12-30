@@ -118,7 +118,7 @@ Level 2
 :code:`div > p:first-child` を挙げる。これは要素 ``div`` 内に最初にある要素が
 ``p`` であるならば、それを指定する：
 
-.. code:: html
+.. sourcecode:: html
 
    <p>The last P before the note.</p> <!-- マッチしない -->
    <div class="note">
@@ -215,7 +215,7 @@ Level 3 で一気にセレクターのバリエーションが増える。
 
 親要素を意識しない序数によるセレクターもある。例をまとめて挙げる：
 
-.. code:: css
+.. sourcecode:: css
 
    img:nth-of-type(2n+1){ float: right; }
    img:nth-of-type(2n){ float: left; }
@@ -259,7 +259,7 @@ Level 4
 
 ``E:where()`` は説明が少々難しい。まず、次のコード片は期待通り働かない：
 
-.. code:: css
+.. sourcecode:: css
 
    a:not(:hover) {
      text-decoration: none;
@@ -271,7 +271,7 @@ Level 4
 
 こういうときに ``:where()`` を用いる。次なら期待通り働く。
 
-.. code:: css
+.. sourcecode:: css
 
    a:where(:not(:hover)) {
      text-decoration: none;
@@ -303,7 +303,7 @@ Level 4
 灰色にする。HTML では C, E は 3 列目にあり、G は 2 列目と 3 列目にまたがってい
 る。 G の文字は何も指定がなければ 2 列目に描画されると思う。
 
-.. code:: css
+.. sourcecode:: css
 
    col.selected || td {
      background: gray;
@@ -311,7 +311,7 @@ Level 4
      font-weight: bold;
    }
 
-.. code:: html
+.. sourcecode:: html
 
    <table>
      <col span="2">
@@ -335,7 +335,7 @@ Level 4
 
 例：
 
-.. code:: css
+.. sourcecode:: css
 
    *               /* (0, 0, 0). universal selector は無視するものとする */
    LI              /* (0, 0, 1). HTML タグ名は型セレクターの一つ */

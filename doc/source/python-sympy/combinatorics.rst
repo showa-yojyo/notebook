@@ -13,7 +13,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy.combinatorics import *
       from itertools import islice
@@ -52,7 +52,7 @@
 * 巡回置換を合成するにはコンストラクター呼び出し直後にさらに括弧を付けて巡回置換
   を追加する。例を示す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: Cycle(0, 3, 7)(1, 2).list()
      Out[1]: [3, 2, 1, 7, 4, 5, 6, 0]
@@ -75,7 +75,7 @@
 
 コンストラクターの記法が複数ある。好きなものを使えるようにしておく。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Permutation(2, 1)(0, 5, 6)
    Out[1]: (0 5 6)(1 2)
@@ -90,7 +90,7 @@
 * キーワード引数 ``size`` が便利。要素数は多いが置換部分が少ない置換を生成すると
   きにはこれだ。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: Permutation([[44, 88],], size=100) Out[1]: (99)(44 88)
 
@@ -123,7 +123,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 オブジェクトの丸括弧演算子を用いる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6)
 
@@ -132,7 +132,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 同サイズの文字列・コレクションの像も同様に得られる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p('ABCDEFG')
    Out[1]: ['F', 'C', 'B', 'D', 'E', 'G', 'A']
@@ -145,7 +145,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 メソッド :code:`support()` を用いる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Permutation(2, 1)(0, 5, 6).support()
    Out[1]: [0, 1, 2, 5, 6]
@@ -162,7 +162,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 ランダムな置換の生成にはクラスメソッド :code:`random(n)` を用いる。次数 `n` の対
 称群にある置換をランダムに一個返すと言えばよい？
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Permutation.random(10)
    Out[1]: (0 5 3 4 8)(1 2 9)(6 7)
@@ -182,7 +182,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 べき乗演算子 ``**`` を置換オブジェクトに適用することができる。試しに適当な置換オ
 ブジェクトをその位数乗すると、恒等置換が得られることを見よう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6); p
    Out[1]: (0 5 6)(1 2)
@@ -199,7 +199,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 逆置換オブジェクトを生成するにはべき乗演算子 ``**`` を援用する。指数を ``-1`` に
 すればよい。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6); p
    Out[1]: (0 5 6)(1 2)
@@ -216,7 +216,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 メソッド :code:`transpositions()` を用いることで、置換を互換の積として表現でき
 る。置換と同等のあみだくじの描き方がわかるということだ。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p = Permutation(2, 1)(0, 5, 6); p
    Out[1]: (0 5 6)(1 2)
@@ -234,7 +234,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 先ほどの三つの互換の積で表せる ``p`` を再利用して動作を確認する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p.signature()
    Out[1]: -1
@@ -268,7 +268,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 ジェネレーターの動きを見よう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: for i in symmetric(4): print(i.cyclic_form)
    []
@@ -358,7 +358,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
     例。五次の対称群 :code:`S5 = SymmetricGroup(5)` を下処理（後述の
     ``is_group`` の記述を参照）したものに対して試す。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: all(
        .....:    (not all(
@@ -374,7 +374,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
   * 例。テキトーに作った置換群で動作確認をする。``basic_orbits`` と ``base`` が
     すべての軌道とそれらの代表元をそれぞれ表しているのか。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: G = PermutationGroup([Permutation(0, 2, 4)(1, 3), Permutation(5, 6)])
 
@@ -405,7 +405,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
     例。八次の対称群 :code:`S8 = SymmetricGroup(8)` で試す。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: L = S8.basic_stabilizers
 
@@ -424,7 +424,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
   * 型は ``dict`` の ``list`` である。キーと値は ``basic_orbits`` の要素とそれに
     対応する代表元をそれぞれ表す。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: G.base
        Out[1]: [0, 5, 1]
@@ -482,7 +482,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
   群の部分群 ``G`` と ``H`` の交換子を生成する。特に引数として両方とも自身を与え
   ると、交換子群が生成する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: S4 = SymmetricGroup(4)
 
@@ -506,7 +506,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
     れる。
   * さきほどの ``G`` で試そう。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [5]: G.basic_transversals
        Out[5]: [{0: (6), 2: (6)(0 2 4)(1 3), 4: (6)(0 4 2)}, {5: (6), 6: (5 6)}, {1: (6), 3: (6)(1 3)}]
@@ -557,7 +557,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
   * 後述する名前付き群オブジェクトと正多面体群オブジェクトを用いるときは要注意。
     次のように前処理をしないと ``True`` を返してくれない場合がある：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: S5 = SymmetricGroup(5)
 
@@ -578,7 +578,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 :code:`is_primitive(randomized=True)`
   この群が原始的かどうかを返す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: CyclicGroup(3).is_primitive()
      Out[1]: True
@@ -694,7 +694,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 名前はアーベル群だが、実体は先ほどの ``DirectProduct`` の計算の利用による巡回群
 の直積群である。引数で与えたものの和が次数、積が位数になると覚えておくとよい。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: G = AbelianGroup(2, 2, 3); G
    Out[1]:
@@ -731,7 +731,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 交代群。ここでは群の要素がすべて偶置換であることを見ておく。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: AlternatingGroup(1) == AlternatingGroup(2)
    Out[1]: True
@@ -746,7 +746,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 巡回群。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: CyclicGroup(0) == CyclicGroup(1)
    Out[1]: True
@@ -779,7 +779,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 二面体群。引数は次数の半分を指定する。ここでは位数 2, 4, 6, 8 の二面体群の乗法表
 をそれぞれ出力する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: %paste
    def group_multiplication_table(G):
@@ -826,7 +826,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 対称群。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: A5, C5, S5 = AlternatingGroup(5), CyclicGroup(5), SymmetricGroup(5)
 
@@ -851,7 +851,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 ルービックキューブ群を生成する。通常は 3x3 なので 3 を指定する。整数点とキューブ
 小面との対応関係のイラストを用意しないと読み解けない。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: R3 = RubikGroup(3)
 
@@ -872,7 +872,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
 そこでこの群の軌道を見る。何か違和感がある。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [5]: for i in R3.orbits(): print(i, len(i))
    {0} 1
@@ -910,7 +910,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
   例。生成済み多面体の頂点数を出力する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: solids = (tetrahedron, cube, octahedron, dodecahedron, icosahedron)
 
@@ -924,7 +924,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
   例。正四面体の辺と面を出力する。また、各多面体において Euler の多面体公式を確
   認する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: tetrahedron.edges
      Out[1]: {(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)}
@@ -940,7 +940,7 @@ Permutation オブジェクトを出力する方法がいくつかある。
 
   例。正四面体群の位数が 12 であることと四次の交代群と同型であることを見る。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: T4 = tetrahedron.pgroup
 

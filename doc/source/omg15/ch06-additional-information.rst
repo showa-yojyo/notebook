@@ -405,7 +405,7 @@ Notation の節では図式は白地に黒で描画されることを想定し�
 * 明示的に命名されていない関連については、次の生成規則に従い「構築」する (p.
   19)。ここで ``<association-end-nameX>`` はそれぞれの関連端の名前とする：
 
-  .. code:: text
+  .. sourcecode:: text
 
      "A_" <association-end-name1> "_" <association-end-name2>
 

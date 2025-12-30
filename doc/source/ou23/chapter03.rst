@@ -34,7 +34,7 @@ Value capture
 重要なのは、取り込まれた変数が、ラムダ式が呼び出されたときではなく、ラムダ式が定
 義されたときにコピーされることだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    void lambda_value_capture() {
        int value = 1;
@@ -53,7 +53,7 @@ Reference capture
 
 上記コードのラムダ式を以下に替えると、今度は ``stored_value == 100`` で終了する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto copy_value = [&value] {
         return value;
@@ -92,7 +92,7 @@ C++14 からは捕捉対象を任意の式で初期化でき、rvalue の捕捉�
 ることになる捕捉変数の型は式によって判定され、その判定は ``auto`` を使うのと同じ
 だ。例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <iostream>
    #include <memory>  // std::make_unique
@@ -120,7 +120,7 @@ Generic Lambda
 
 ラムダ関数の仮引数にキーワード ``auto`` を使えばテンプレートのように扱える。
 
-.. code:: c++
+.. sourcecode:: c++
 
    void lambda_generic() {
        auto generic = [](auto x, auto y) {
@@ -152,7 +152,7 @@ JavaScript 感覚だ。
 だ。関数ポインターに比べれば型安全度が相対的に高い。関数ポインターをラップする
 例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <functional>
    #include <iostream>
@@ -168,7 +168,7 @@ JavaScript 感覚だ。
 
 ラムダ式をラップする例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <functional>
    #include <iostream>
@@ -187,7 +187,7 @@ JavaScript 感覚だ。
 関数呼び出しの実引数を束縛するために ``std::bind`` が使われる。実引数の用意がで
 きるタイミングがバラバラのときに有用だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    int foo(int a, int b, int c) {
        // ...
@@ -235,7 +235,7 @@ xvalue (expiring value) は C++11 が rvalue 参照を導入するために提�
 （つまり従来の C++ では、prvalue と rvalue は同じ概念）、破棄されるが移動できる
 値を意味する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::vector<int> foo() {
        std::vector<int> temp = {1, 2, 3, 4};
@@ -260,7 +260,7 @@ C++11 では、lvalue 引数を無条件に rvalue に変換する ``std::move``
 ``std::move`` は宣言がヘッダーファイル ``<utility>`` にある。これを使えば、例え
 ば rvalue の一時オブジェクトを簡単に取得することができる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::string lv1 = "string,";       // lv1 is a lvalue
    // std::string&& r1 = lv1;          // illegal, rvalue can't ref to lvalue
@@ -279,7 +279,7 @@ Move semantics
 
 本文の例では、次のコンストラクターが鍵だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    class A{
       int* pointer;
@@ -322,7 +322,7 @@ Move semantics
 標準ライブラリーにもこの形式のコンストラクター、代入演算子が提供されている。文字
 列の例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::string str = "Hello world.";
    std::vector<std::string> v;

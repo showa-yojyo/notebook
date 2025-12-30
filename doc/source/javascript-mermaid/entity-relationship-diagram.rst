@@ -61,7 +61,7 @@ Entities and Relationships
   Mermaid syntax for ER diagrams is compatible with PlantUML, with an extension
   to label the relationship. Each statement consists of the following parts:
 
-  .. code:: text
+  .. sourcecode:: text
 
      <first-entity> [<relationship> <second-entity> : <relationship-label>]
 
@@ -81,7 +81,7 @@ ER 図に関しては PlantUML 用に書いた図式を Mermaid で描画でき�
 
   For example:
 
-  .. code:: text
+  .. sourcecode:: text
 
      PROPERTY ||--|{ ROOM : contains
 
@@ -169,7 +169,7 @@ Class diagram の用語でいう composition と aggrigation の概念と類似�
   ``PERSON`` and a ``CAR`` - the relationships become identifying and would be
   specified using hyphens, which translate to a solid line:
 
-  .. code:: text
+  .. sourcecode:: text
 
      erDiagram
          CAR ||--o{ NAMED-DRIVER : allows

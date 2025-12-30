@@ -37,7 +37,7 @@ Class
 
 次のように ``classDiagram`` 行でクラス図を宣言する。これはクラス一つを含む。
 
-  .. code:: text
+  .. sourcecode:: text
 
      ---
      title: Bank example
@@ -61,7 +61,7 @@ Define a class
   * Via a relationship which defines two classes at a time along with their
     relationship. For instance, ``Vehicle <|-- Car``.
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDiagram
          class Animal
@@ -79,7 +79,7 @@ Class labels
 
   In case you need to provide a label for a class, you can use the following syntax:
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDiagram
          class Animal["Animal with a label"]
@@ -104,7 +104,7 @@ Defining Members of a class
   * Associate a member of a class using ``:`` (colon) followed by member name,
     useful to define one member at a time. For example:
 
-    .. code:: text
+    .. sourcecode:: text
 
        classDiagram
            class BankAccount
@@ -117,7 +117,7 @@ Defining Members of a class
     grouped within curly brackets. Suitable for defining multiple members at
     once. For example:
 
-    .. code:: text
+    .. sourcecode:: text
 
        classDiagram
        class BankAccount{
@@ -149,7 +149,7 @@ Generic Types
   Generics can be represented as part of a class definition and also in the
   parameters or the return value of a method/function:
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDiagram
        class Square~Shape~{
@@ -195,7 +195,7 @@ Defining Relationship
   A relationship is a general term covering the specific types of logical
   connections found on class and object diagrams.
 
-  .. code:: text
+  .. sourcecode:: text
 
      [classA][Arrow][ClassB]
 
@@ -238,7 +238,7 @@ Labels on Relations
 
   It is possible to add a label text to a relation:
 
-  .. code:: text
+  .. sourcecode:: text
 
      [classA][Arrow][ClassB]:LabelText
 
@@ -249,14 +249,14 @@ Two-way relations
 
   Relations can logically represent an N:M association:
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDiagram
          Animal <|--|> Zebra
 
   Here is the syntax:
 
-  .. code:: text
+  .. sourcecode:: text
 
      [Relation Type][Link][Relation Type]
 
@@ -281,7 +281,7 @@ Cardinality / Multiplicity on relations
   Cardinality can be easily defined by placing the text option within quotes
   ``"`` before or after a given arrow. For example:
 
-  .. code:: text
+  .. sourcecode:: text
 
      [classA] "cardinality1" [Arrow] "cardinality2" [ClassB]:LabelText
 
@@ -311,7 +311,7 @@ Annotations on classes
 
   * In a *separate line* after a class is defined. For example:
 
-    .. code:: text
+    .. sourcecode:: text
 
        classDiagram
          class Shape
@@ -321,7 +321,7 @@ Annotations on classes
 
   * In a *nested structure* along with class definition. For example:
 
-    .. code:: text
+    .. sourcecode:: text
 
        classDiagram
            class Shape{
@@ -368,7 +368,7 @@ Sequence diagram が対応しているのと同じ機能だ。現在私のブラ
   You would define these actions on a separate line after all classes have been
   declared.
 
-  .. code:: text
+  .. sourcecode:: text
 
      action className "reference" "tooltip"
      click className call callback() "tooltip"
@@ -402,7 +402,7 @@ Styling a node
 Flowchart の要領でクラスを表現する四角いオブジェクトにスタイルを与えることができ
 る。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <style>
        .styleClass > rect {
@@ -416,27 +416,27 @@ Flowchart の要領でクラスを表現する四角いオブジェクトにス�
 
   Then attaching that class to a specific node:
 
-  .. code:: text
+  .. sourcecode:: text
 
          cssClass "nodeId1" cssClass;
 
   It is also possible to attach a class to a list of nodes in one statement:
 
-  .. code:: text
+  .. sourcecode:: text
 
          cssClass "nodeId1,nodeId2" cssClass;
 
   A shorter form of adding a class is to attach the classname to the node using
   the ``:::`` operator:
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDiagram
          class Animal:::styleClass
 
   Or:
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDiagram
          class Animal:::styleClass {

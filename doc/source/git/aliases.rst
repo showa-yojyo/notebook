@@ -15,13 +15,13 @@
 Git にもある。方法はファイル :file:`$HOME/.gitconfig` での設定による。つまりコン
 ソールで次のようにタイプするか、
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git config --global alias.ci 'commit -a'
 
 またはテキストエディターで下のように編集する：
 
-.. code:: ini
+.. sourcecode:: ini
 
    [alias]
        ci = commit -a
@@ -251,7 +251,7 @@ Git にもある。方法はファイル :file:`$HOME/.gitconfig` での設定�
 て、そのコマンドを別名にしておくのもいいし、ダサい気もするがシェルの
 :command:`alias` にしてもいい。
 
-.. code:: console
+.. sourcecode:: console
 
    $bash git config git config --get-regexp ^alias\.
    $bash git config --global alias.alias "! git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ / | sort -k1"

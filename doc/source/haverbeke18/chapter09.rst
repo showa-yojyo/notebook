@@ -18,7 +18,7 @@ Creating a regular expression
 * コンストラクター ``RegExp`` を使う。
 * スラッシュ文字 ``/`` で囲んだリテラル値として書く。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let re1 = new RegExp("abc");
    let re2 = /abc/;
@@ -33,7 +33,7 @@ Testing for matches
 正規表現のメソッドで最も単純なものは ``test`` だ。引数の文字列がパターンに合致し
 ていれば ``true`` を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     console.assert(/abc/.test("abcde"));
     console.assert(! /abc/.test("abxde"));
@@ -85,7 +85,7 @@ Repeating parts of a pattern
 * 疑問符 ``?`` はパターンの一部をオプションにする。つまり、0 回または 1 回だけの
   出現に合致する。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let neighbor = /neighbou?r/;
      console.assert(neighbor.test("neighbour"));
@@ -104,7 +104,7 @@ Grouping subexpressions
 * 正規表現の中で括弧で囲まれた部分は、それに続く演算子に関してはひとかたまりに扱
   われる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let cartoonCrying = /boo+(hoo+)+/i;
    console.log(cartoonCrying.test("Boohoooohoohooo"));
@@ -132,7 +132,7 @@ Matches and groups
   * 次の要素は、最初のグループに合致した部分となり、次に 2 番目のグループ、とい
     うようになる。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        let quotedText = /'([^']*)'/;
        console.log(quotedText.exec("she said 'hello'")); // → ["'hello'", "hello"]
@@ -141,7 +141,7 @@ Matches and groups
     ``undefined`` となる。
   * 同様に、あるグループが複数回合致した場合、最後のものだけが配列に入る。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        console.log(/bad(ly)?/.exec("bad")); // → ["bad", undefined]
        console.log(/(\d)+/.exec("123")); // → ["123", "3"]
@@ -153,7 +153,7 @@ The ``Date`` class
 
 JavaScript では日付オブジェクトを ``Date`` コンストラクターで生成する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new Date;
    new Date(2009, 11, 9);
@@ -167,7 +167,7 @@ JavaScript では日付オブジェクトを ``Date`` コンストラクター�
   * 以前の時間には負の数を使用できる。
   * ``Date`` オブジェクトのメソッド ``getTime`` は、この数値を返す。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        console.log(new Date(2013, 11, 19).getTime()); // → 1387407600000
        console.log(new Date(1387407600000));
@@ -208,7 +208,7 @@ Choice patterns
 * 括弧を使うと、パイプ演算子が適用されるパターンの部分を限定できる。
 * 複数のパイプ演算子を並べることで、二つ以上の選択肢を表現できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let animalCount = /\b\d+ (pig|cow|chicken)s?\b/;
    console.assert(animalCount.test("15 pigs"));
@@ -235,7 +235,7 @@ The ``replace`` method
     には、最初の合致部分しか置換しない。
   * ただし、正規表現に ``g`` オプションがあれば、すべての合致部分を置換する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert("papa".replace("p", "m") == "mapa");
    console.assert("Borobudur".replace(/[ou]/, "a") == "Barobudur");
@@ -260,7 +260,7 @@ Greed
 * 本書の失敗版デモコードにある「コメントに合致する正規表現」のうち、C 言語スタイ
   ルのほうの正規表現に注目したい。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      function stripComments(code) {
          return code.replace(/\/\/.*|\/\*[^]*\*\//g, "");
@@ -294,7 +294,7 @@ The ``search`` method
   様に正規表現が見つかった最初のインデックスを返し、見つからなかった場合は
   ``-1`` を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert("  word".search(/\S/) == 2);
    console.log("    ".search(/\S/) == -1);
@@ -310,7 +310,7 @@ The ``lastIndex`` property
   * その状況とは、正規表現に ``g`` または ``y`` オプションが有効である必要があ
     り、そしてマッチがメソッド ``exec`` を通じて見つかる必要があるというものだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let pattern = /y/g;
    pattern.lastIndex = 3;
@@ -329,7 +329,7 @@ The ``lastIndex`` property
   ない。
 * ``g`` が有効なの場合は、合致部分を先に探す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let global = /abc/g;
    console.log(global.exec("xyz abc")); // → ["abc"]
@@ -350,7 +350,7 @@ Looping over matches
 
 次の構文でループで回す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let input = "A string with 3 numbers in it... 42 and 88.";
    let number = /\b\d+\b/g;
@@ -367,7 +367,7 @@ Parsing an INI file
 
 いわゆる INI ファイルを読むコードを JavaScript で正規表現を使って書く。
 
-.. code:: ini
+.. sourcecode:: ini
 
    searchengine=https://duckduckgo.com/?q=$1
    spitefulness=9.7
@@ -418,7 +418,7 @@ International characters
   ている文字に対しては、おかしな動作をする。
 * ``u`` オプションを付加すれば Unicode 文字列に対しても動作する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert(! /🍎{3}/.test("🍎🍎🍎"));
    console.assert(! /<.>/.test("<🌹>"));
@@ -427,7 +427,7 @@ International characters
 Unicode オプションを有効にした正規表現で規格で指定された ``\p{Property=Value}``
 のパターン？を使用することもできる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert(/\p{Script=Greek}/u.test("α"));
    console.assert(! /\p{Script=Arabic}/u.test("α"));
@@ -479,7 +479,7 @@ Regexp golf
 **解答** 問題の趣旨は :regexp:`.+` とか :regexp:`(car|cat)` のような露骨な正規表
 現に甘えるなと言っている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // 1. car and cat
    /ca[rt]/
@@ -515,7 +515,7 @@ Quoting style
 **解答** 短縮形内の引用符か否かを「引用符の直前と直後の文字が両方とも区切り位置でない」
 に決め打ちする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    text.replace(/(\B'\b|\b'\B)/g, '"');
 
@@ -537,7 +537,7 @@ Numbers again
 **解答** 問題文では JavaScript の数値と言っているが、簡単のために十進数のみに絞
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   /[+-]?((\d+(\.\d*)?)|(\.\d+))([eE][+-]?\d+)?/
 

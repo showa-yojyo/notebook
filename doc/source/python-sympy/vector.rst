@@ -16,7 +16,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、以下の出力書式設定が
    済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       init_printing(pretty_print=False)
 
@@ -115,7 +115,7 @@
 * オブジェクトをコンストラクターで直接生成することはまれであり、通常は
   ``Vector`` のメソッド ``outer`` もしくは演算子 ``|`` により生成する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy.vector import *
 
@@ -135,7 +135,7 @@
 * 零元はオブジェクト :code:`Dyaric.zero` で表現している。
 * ベクトルのスカラー積、クロス積とも混ぜて利用可能。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [6]: c = sum((i * j for i, j in zip(symbols('c0:3'), N.base_vectors())), Vector.zero)
 
@@ -270,7 +270,7 @@
 
 例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -295,7 +295,7 @@
 
 例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -324,7 +324,7 @@
 
 例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -351,7 +351,7 @@
 例を示す。または関数メソッド ``gradient`` を呼ぶことで、スカラー関数から勾配ベク
 トル場オブジェクトが生成できている。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from sympy.vector import *
 
@@ -379,7 +379,7 @@
 
 例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: # Create N, a, b, f(x, y, z), fx, fy, and fz.
 
@@ -432,7 +432,7 @@ z^4 \mathbf{j} + 4 x^2 y^3 z^3 \mathbf{k}}` が保存場であることを確認
 :math:`{P_0(0, 0, 0)}` と :math:`{P_1(10, 10, 10)}` とする、何らかの経路上の線積
 分を関数 ``scalar_potential_difference`` を利用して求める手続きの例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from sympy.vector import *
 

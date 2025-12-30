@@ -15,14 +15,14 @@ PyOpenGL がなぜこういう仕様にしたのかわからないが、関数 `
 を返すようだ。よって、OpenGL から受け取る戻り値を確認するときはメソッド
 ``decode`` で読めるようにする。
 
-.. code:: python3
+.. sourcecode:: python3
 
    print("Version: ", GL.glGetString(GL.GL_VERSION).decode())
 
 関数 ``glutCreateWindow`` 等、引数に文字列を取るものについても、``str`` オブジェ
 クトではなく ``bytes`` オブジェクトを受け付けると思っていたほうがよい。
 
-.. code:: python3
+.. sourcecode:: python3
 
    GLUT.glutCreateWindow(b"Texture Demo")
    # or
@@ -35,13 +35,13 @@ GLUT の引数コールバックに、自作クラスのメソッドを渡せる
 
 例えば関数 ``glutReshapeFunc`` のシグニチャーは、オリジナルではこうだった。
 
-.. code:: c
+.. sourcecode:: c
 
    void glutReshapeFunc(void (*func)(int width, int height));
 
 PyOpenGL では次のようなコードが有効だ。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def reshape(width, height):
        """the reshape callback for the current window"""
@@ -53,7 +53,7 @@ PyOpenGL では次のようなコードが有効だ。
 
 そして、次のようなコードも有効だ。
 
-.. code:: python3
+.. sourcecode:: python3
 
    class MyPyOpenGLApp(object):
 
@@ -80,7 +80,7 @@ PyOpenGL では次のようなコードが有効だ。
 
 これを破棄するときを考えると、頭が痛いわけだ。
 
-.. code:: python3
+.. sourcecode:: python3
 
    glDeleteBuffers(1, [buffer])
    # or
@@ -117,7 +117,7 @@ NumPy の ``np.array`` を配列として扱う
 厳密にやりたい場合は、やはりオブジェクト ``np.array`` の生成時にコンストラクター
 で ``dtype`` を明示するのがベストであろう。
 
-.. code:: python3
+.. sourcecode:: python3
 
    # for GL_FLOAT interface
    vertex = np.array([0, 0, 0, 1], dtype=np.float32)
@@ -130,7 +130,7 @@ NumPy の ``np.array`` を配列として扱う
 
 組み込み型のバイトサイズをハードコードしたくない人は次のようにする：
 
-.. code:: python3
+.. sourcecode:: python3
 
    # GL_FLOAT, float
    assert np.nbytes[np.float32] == 4

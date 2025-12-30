@@ -10,7 +10,7 @@ NetworkX を利用する
 
 以降、次のインポートを断りなしに用いる：
 
-.. code:: python3
+.. sourcecode:: python3
 
   import networkx as nx
   import matplotlib.pyplot as plt

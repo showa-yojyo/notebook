@@ -40,13 +40,13 @@ HTML ファイルまたはそのコードが手許にあるときには、それ
 ルを起動する。以下、対象となる HTML ファイルが :file:`target.html` という名前で
 カレントディレクトリーにある場合の例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy shell ./target.html --nolog
 
 それから次のようにして XPath 式を試すことができる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    [s] Available Scrapy objects:
    [s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
@@ -84,7 +84,7 @@ XPath 1.0 の急所に絞って記す。
 スラッシュ一つから始まる UNIX のファイルシステムの絶対パス表記のような XPath 式
 は、ドキュメントルートからのパスを表現する。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA
    /AAA/CCC
@@ -99,7 +99,7 @@ XPath 1.0 の急所に絞って記す。
 スラッシュ二つ ``//`` から始まる XPath 式は、後続する条件を満たし、かつドキュメ
 ント内にある要素全てを表す。
 
-.. code:: text
+.. sourcecode:: text
 
    //BBB
    //DDD/BBB
@@ -112,7 +112,7 @@ XPath 1.0 の急所に絞って記す。
 
 星印 ``*`` はあらゆる要素にマッチする。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/CCC/DDD/*
    /*/*/*/BBB
@@ -129,7 +129,7 @@ XPath 1.0 の急所に絞って記す。
 番号を指定すると、選択集合にある要素の位置を指定することになる。関数 ``last()``
 を指定すると、選択集合の最後の要素を指定することになる。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/BBB[1]
    /AAA/BBB[last()]
@@ -139,7 +139,7 @@ XPath 1.0 の急所に絞って記す。
 
 属性を指定するには ``@`` 接頭辞を用いることができる。
 
-.. code:: text
+.. sourcecode:: text
 
    //BBB[@id]
    //@id
@@ -158,7 +158,7 @@ XML では要素も属性もノードと呼ばれる抽象概念の特殊概念�
 
 属性の値を選択の判定方法として用いることができる。
 
-.. code:: text
+.. sourcecode:: text
 
    //BBB[@id='b1']
    //BBB[@name='bbb']
@@ -203,7 +203,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``child::`` はコンテキストノードの子すべてを含む。軸 ``child::`` は既定の軸な
 ので省略することができる。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA
    /child::AAA
@@ -223,7 +223,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``descendant::`` はコンテキストノードの子、あるいはさらにその子、等々、を含
 む。結果的に ``descendant::`` は属性や名前空間を含むことはない。
 
-.. code:: text
+.. sourcecode:: text
 
    /descendant::*
    /AAA/BBB/descendant::*
@@ -252,7 +252,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 
 軸 ``parent::`` はコンテキストノードの親ノードを表す。親ノードは高々一つ存在する。
 
-.. code:: text
+.. sourcecode:: text
 
    //DDD/parent::*
 
@@ -262,7 +262,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``ancestor::`` はコンテキストノードの親、あるいはその親、等々、を表す。
 コンテキストノードがルートでない限りは常にルートノードを含む。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/BBB/DDD/CCC/EEE/ancestor::*
    //FFF/ancestor::*
@@ -275,7 +275,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``following-sibling::`` はコンテキストノードの「後続（文書のより後方にある）
 の兄弟ノードすべて」を含む。便宜上、これを「弟」と呼ぶことにする。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/BBB/following-sibling::*
    //CCC/following-sibling::*
@@ -286,7 +286,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``preceding-sibling::`` はコンテキストノードの「先行（文書のより前方にある）
 兄弟ノードすべて」を含む。便宜上、これを「兄」と呼ぶことにする。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/XXX/preceding-sibling::*
    //CCC/preceding-sibling::*
@@ -298,7 +298,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 を含む。ただしコンテキストノード自身の子孫ノード、属性ノード、名前空間ノードを含
 まない。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/XXX/following::*
    //ZZZ/following::*
@@ -315,7 +315,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 を含む。ただしコンテキストノード自身の祖先ノード、属性ノード、名前空間ノードを含
 まない。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/XXX/preceding::*
    //GGG/preceding::*
@@ -326,7 +326,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``descendant-or-self::`` は軸 ``descendant::`` およびコンテキストノード自身を
 含む。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/XXX/descendant-or-self::*
    //CCC/descendant-or-self::*
@@ -337,7 +337,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 軸 ``ancestor-or-self::`` は軸 ``ancestor::`` およびコンテキストノード自身を含
 む。それゆえ常にルートノードを含む。
 
-.. code:: text
+.. sourcecode:: text
 
    /AAA/XXX/DDD/EEE/ancestor-or-self::*
    //GGG/ancestor-or-self::*
@@ -349,7 +349,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 は属性と名前空間を無視すれば文書中のノード全体を類別する。この事実は XPath の設
 計の基本のはずなので、よく憶えておくことだ。
 
-.. code:: text
+.. sourcecode:: text
 
    //GGG/ancestor::*
    //GGG/descendant::*
@@ -400,7 +400,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 ちなみにこの図表のインデックス列はブラウザーの開発ツールのコンソールで XPath か
 ら生成、ソートした：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for(let i of $x('//a[starts-with(@name, "function-")]/b[2]/text()')){
         console.log(i);
@@ -413,7 +413,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 
 関数 ``count()`` は選択要素の個数を返す。
 
-.. code:: text
+.. sourcecode:: text
 
    //*[count(BBB)=2]
    //*[count(*)=2]
@@ -425,7 +425,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 関数 ``name()``, ``contains()``, ``starts-with()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: text
+.. sourcecode:: text
 
    //*[name()='BBB']
    //*[starts-with(name(),'B')]
@@ -444,7 +444,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 
 関数 ``string-length()`` は文字列を構成する文字の個数を返す。
 
-.. code:: text
+.. sourcecode:: text
 
    //*[string-length(name()) = 3]
    //*[string-length(name()) < 3]
@@ -489,7 +489,7 @@ axis と呼んでいる。日本語なら「軸」であるが、英語では祖
 パイプ記号 ``|`` を使って複数のパスを結合することができる。
 というよりは、複数の XPath 式の和集合を得ると考えられる。
 
-.. code:: text
+.. sourcecode:: text
 
    //CCC | //BBB
    /AAA/EEE | //BBB
@@ -514,7 +514,7 @@ XPath 式は真偽値に対する二項演算の形式で論理演算をする�
 
 演算の優先順位は一般のプログラミング言語と同様のようだ。
 
-.. code:: text
+.. sourcecode:: text
 
    //BBB[position() mod 2 = 0]
    //BBB[position() = floor(last() div 2 + 0.5) or position() = ceiling(last() div 2 + 0.5)]

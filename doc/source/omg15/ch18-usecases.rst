@@ -268,7 +268,7 @@ UseCase の記法：
 
 各 ExtensionPoint は、次の構文に従い、UseCase の楕円の記号内の文字列で示される：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <extension point> ::= <name> [: <explanation>]
 

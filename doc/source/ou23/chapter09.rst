@@ -35,7 +35,7 @@ C++11 では例外宣言を二つの場合に単純化している：
 
 この両方の動作を制限するために ``noexcept`` を使用する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    void no_throw() noexcept;
 
@@ -45,7 +45,7 @@ C++11 では例外宣言を二つの場合に単純化している：
    ``true`` に評価されるならば、その関数は例外を投げることができないものとされ
    る。したがって、上の宣言は次と等価ということになる：
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       void no_throw() noexcept(true);
 
@@ -62,7 +62,7 @@ C++11 では例外宣言を二つの場合に単純化している：
 はその例だ。対象の関数を実際には呼び出さない（ので、宣言のみで済むものはそうして
 ある）。コンパイル時に評価している：
 
-.. code:: c++
+.. sourcecode:: c++
 
    void may_throw();
    void no_throw() noexcept;
@@ -90,7 +90,7 @@ Raw String Literal
 丸括弧を引用符の内側に書く必要があるに注意。つまり ``R"(`` と ``)"`` で囲むとい
 うことだ。これは C++11 から利用可能な記法だ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    R"(raw string literal)"
 
@@ -108,7 +108,7 @@ Custom Literal
 二重引用符接尾辞演算子をオーバーロードすることで、リテラルをカスタマイズする機能
 が C++11 から導入されている。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // String literal customization must be set to the following parameter list
    std::string operator"" _wow1(const char *wow1, size_t len) {
@@ -168,7 +168,7 @@ Custom Literal
 
 次の構造体を考える：
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct Storage
    {
@@ -185,7 +185,7 @@ Custom Literal
 な整列を弱めることにならない場合に限り、その整列要件値は、その宣言で使用されたす
 べての ``alignas`` 指定子の最も厳しい（最大）非ゼロ式に等しくなる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct alignas(std::max_align_t) AlignasStorage
    {

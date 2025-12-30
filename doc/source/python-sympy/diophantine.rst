@@ -18,7 +18,7 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
 * 方程式の構成方法にコツがある。未知数文字を明示的に整数型にする。次のパターンを
   覚えておけば間に合う。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      x, y, z = symbols('x y z', integer=True)
      u, v, w = symbols('u v w', integer=True, positive=True)
@@ -63,7 +63,7 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
 もし ``diophantine`` が（存在するにもかかわらず）解を見つけなかった場合に、関数
 ``classify_diop`` を単独で用いると良い。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = 7*x + 7*y + 7*z - 2*x*y - 2*y*z - 2*z*x
 
@@ -104,7 +104,7 @@ SymPy のドキュメントの出来が良いので、特に付け足すこと�
 
 もう一個見てみよう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: x, y, z = symbols('x y z', integer=True, positive=True)
 

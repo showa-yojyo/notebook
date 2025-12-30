@@ -57,7 +57,7 @@ Promise
 
 マルチスレッド処理でよく説明される consumer/producer のパターンで理解する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = new Promise(function(resolve, reject) {
        // the producing code
@@ -101,7 +101,7 @@ Promise
 
    ``Promise`` の基本動作を確認しておくといい。
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       let p = new Promise((resolve, reject) => {
           reject("POOR");
@@ -135,7 +135,7 @@ Consumers: ``then``, ``catch``, ``finally``
 ``Primise`` のメソッドでいちばん基本的かつ重要なのは ``then`` だ。その引数リスト
 は ``Promise`` のコンストラクター関数と同様だ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    promise.then(
        function(result) { /* handle a successful result */ },
@@ -226,7 +226,7 @@ Bigger example: ``fetch``
 
 リモートサーバーから情報を読み込むにはメソッド ``fetch`` を使用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = fetch(url);
 
@@ -263,7 +263,7 @@ Implicit ``try`` ... ``catch``
 ``Promise`` executor やコールバックの周りには見えない ``try`` ブロックがあると考
 える。エラーが起こると、それを捕まえて ``reject`` するように扱う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new Promise((resolve, reject) => {
        throw new Error("Whoops!"); // == reject(new Error("Whoops!"));
@@ -288,7 +288,7 @@ Unhandled rejections
 ブラウザーの場合には、``Promise`` が送出した捕捉されなかった例外を扱うイベント
 ハンドラーがある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.addEventListener('unhandledrejection', function(event) {
    });
@@ -326,7 +326,7 @@ Promise API
 ``Promise.all``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = Promise.all(iterable);
 
@@ -356,7 +356,7 @@ Polyfill
 ``Promise.all`` と似ているが、最初に決済された promise だけを待ち、その結果また
 はエラーを得る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = Promise.race(iterable);
 
@@ -368,7 +368,7 @@ Polyfill
 ``AggregateError`` で ``reject`` される。これにはエラー全てをが含むプロパティー
 ``errors`` がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = Promise.any(iterable);
 
@@ -382,7 +382,7 @@ Polyfill
 
 ``Promise.resolve(value)`` は次と同じ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = new Promise(resolve => resolve(value));
 
@@ -391,7 +391,7 @@ Polyfill
 
 ``Promise.reject(error)`` は次と同じ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let promise = new Promise((resolve, reject) => reject(error));
 
@@ -467,7 +467,7 @@ Await
 キーワード ``await`` は非同期関数の中だけで機能する。例えば、下のコードは
 ``await`` の行で一時停止することになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    async function f() {
        let promise = new Promise((resolve, reject) => {
@@ -495,7 +495,7 @@ Error handling
 ``await promise`` は reject された場合には、その行に ``throw`` 文があるかのよう
 にエラーを送出する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    async function f() {
        await Promise.reject(new Error("Whoops!")); // == throw new Error("Whoops!");

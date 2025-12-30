@@ -172,7 +172,7 @@ SPIR-V 特殊化定数は、クライアント API で後から設定するこ�
 ``layout(constant_id=...)`` を用いて宣言することができる。例えば、既定値が 12 の
 特殊化定数を作るには次のようにする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(constant_id = 17) const int arraySize = 12;
 
@@ -187,13 +187,13 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 特殊化定数は、畳み込みがないということ以外は ``const`` のセマンティクスを持つ。
 したがって、配列は ``arraySize`` で宣言することができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 data[arraySize];  // legal, even though arraySize might change
 
 特殊化定数は式の中に入れることができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 data2[arraySize + 2];
 
@@ -203,7 +203,7 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 特殊化定数で形成された式もまた、シェーダー内では特殊化定数のように振る舞う。定数
 のようにではない。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    arraySize + 2       // a specialization constant (with no constant_id)
 
@@ -215,7 +215,7 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 基本的な演算子とコンストラクターしか特殊化定数に適用できず、結果として特殊化定数
 が得られる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(constant_id = 17) const int arraySize = 12;
    sin(float(arraySize));    // result is not a specialization constant
@@ -223,7 +223,7 @@ API や中間ツールは、実行コードに完全に下げられる前に、�
 SPIR-V 特殊化定数はスカラーしか対象としていないが、ベクトルはスカラーの演算で作
 ることができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(constant_id = 18) const int scX = 1;
    layout(constant_id = 19) const int scZ = 1;
@@ -231,7 +231,7 @@ SPIR-V 特殊化定数はスカラーしか対象としていないが、ベク�
 
 組み込み変数には ``constant_id`` を付けることができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(constant_id = 18) gl_MaxImageUnits;
 
@@ -241,7 +241,7 @@ SPIR-V 特殊化定数はスカラーしか対象としていないが、ベク�
 組み込みベクトル ``gl_WorkGroupSize`` は、``in`` 修飾子に適用される特別レイアウ
 ト ``local_size_{xyz}_id`` を用いて特化できる。例えば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(local_size_x_id = 18, local_size_z_id = 19) in;
 
@@ -257,7 +257,7 @@ SPIR-V 特殊化定数はスカラーしか対象としていないが、ベク�
 ``push-constant`` バッファーに書き込み、シェーダーは ``push_constant`` ブロック
 から定数を読み込む：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(push_constant) uniform BlockName {
        int member1;
@@ -279,7 +279,7 @@ SPIR-V 特殊化定数はスカラーしか対象としていないが、ベク�
 配列要素は、配列の最初の要素のインデックスがゼロに等しい（非配列変数の場合は配列
 要素がゼロ）ことから、暗黙のうちに連続して割り当てられる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // Assign set number = M, binding number = N, array element = 0
    layout (set=M, binding=N) uniform sampler2D variableName;
@@ -302,13 +302,13 @@ Storage Images
 格納画像は GLSL シェーダーソースの中で、適切な次元の一様画像変数と、必要に応じて
 フォーマットレイアウト修飾子を用いて宣言される。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n, r32f) uniform image2D myStorageImage;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -330,13 +330,13 @@ Samplers
 SPIR-V 採取器は GLSL シェーダーのソースでは一様 ``sampler`` 型と ``samplerShadow``
 型を使って宣言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n) uniform sampler mySampler;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -357,13 +357,13 @@ Textures (Sampled Images)
 テクスチャーは GLSL シェーダソースでは、適切な次元の一様テクスチャー変数を使って
 宣言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n) uniform texture2D mySampledImage;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -385,13 +385,13 @@ Combined Texture and Samplers
 混合テクスチャーと採取器は GLSL シェーダソースの中では適切な次元の一様テクス
 チャー混合採取器変数を使って宣言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n) uniform sampler2D myCombinedImageSampler;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -417,21 +417,21 @@ Combining Separate Samplers and Textures
 キーワード ``sampler`` で宣言された採取器は、フィルタリング情報のみを含み、
 テクスチャーや画像を含まない：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    uniform sampler s;    // a handle to filtering information
 
 ``texture2D`` のようなキーワードで宣言されたテクスチャーは、画像情報のみを含み、
 フィルタリング情報を含まない：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    uniform texture2D t;  // a handle to a texture (an image in SPIR-V)
 
 コンストラクターを使用して、テクスチャー検索呼び出しを行う際に、
 採取器とテクスチャーを合成することができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    texture(sampler2D(t, s), ...);
 
@@ -443,13 +443,13 @@ Texture Buffers (Uniform Texel Buffers)
 テクスチャーバッファーは、GLSL シェーダソースでは一様 ``textureBuffer`` 変数を
 使って宣言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n) uniform textureBuffer myUniformTexelBuffer;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -471,13 +471,13 @@ Image Buffers (Storage Texel Buffers)
 画像バッファーは、GLSL シェーダーソース中では一様 ``imageBuffer`` 変数を使って宣
 言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n, r32f) uniform imageBuffer myStorageTexelBuffer;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -499,7 +499,7 @@ Storage Buffers
 GLSL シェーダーのソースでは、バッファー格納修飾子とブロック構文を使って格納バッ
 ファーを宣言する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n) buffer myStorageBuffer
    {
@@ -508,7 +508,7 @@ GLSL シェーダーのソースでは、バッファー格納修飾子とブロ
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -537,7 +537,7 @@ Uniform Buffers
 GLSL シェーダーのソースでは、一様格納修飾子とブロック構文を使って一様バッファー
 を宣言する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (set=m, binding=n) uniform myUniformBuffer
    {
@@ -546,7 +546,7 @@ GLSL シェーダーのソースでは、一様格納修飾子とブロック構
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
            ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -594,13 +594,13 @@ Subpass Inputs
 入力付属物は、記述子集合と束縛番号に加えて、入力付属物のインデックスで装飾され
 る。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout (input_attachment_index=i, set=m, binding=n) uniform subpassInput myInputAttachment;
 
 これは次の SPIR-V に対応する：
 
-.. code:: text
+.. sourcecode:: text
 
         ...
    %1 = OpExtInstImport "GLSL.std.450"
@@ -622,7 +622,7 @@ Subpass Inputs
 
 これらのオブジェクトは、以下の関数によってサブパス入力の読み込みを対処している。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    gvec4 subpassLoad(gsubpassInput   subpass);
    gvec4 subpassLoad(gsubpassInputMS subpass, int sample);

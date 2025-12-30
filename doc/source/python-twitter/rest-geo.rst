@@ -34,7 +34,7 @@ GET geo/id/:place_id は場所 ID というものを指定して、その詳細�
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    $ geo-id-place_id.py
    {
@@ -155,7 +155,7 @@ GET geo/reverse_geocode は基本的には緯度経度を与えて、Twitter API
 
 次に実行例を示す（一部加工済み）。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ geo-reverse_geocode.py
    {
@@ -498,7 +498,7 @@ GET geo/search は緯度経度は言うに及ばず、地名、IP アドレス�
 県千代田町、名古屋市千種区、茨城県八千代町、兵庫県神戸市長田区、北海道札幌市清田
 区、長野県御代田町等も候補として返っており、紙幅の都合上ほとんどを省略する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ geo-search.py
    {

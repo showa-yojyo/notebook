@@ -80,14 +80,14 @@ Firefighter の例。
 * 5.4 匿名メソッド
 * 5.5 ラムダ式。記法に慣れること。
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      Predicate<Document> pred = doc => !doc.Text.Contains("?");
 
 * 5.7 ``Function<T, TResult>``
 * 5.8 ``event EventHandler``
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      (sender, e) => ...
 
@@ -123,7 +123,7 @@ Firefighter の例。
 
 * 8.1 まずは ``Dictionary.EnumerateFiles`` を利用した例。
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      var q = from file in Dictionary.EnumerateFiles(...)
              where new FileInfo(file).Length > 10000000
@@ -136,7 +136,7 @@ Firefighter の例。
 * 8.1.2 拡張メソッド。既存のクラスに対して、メンバーメソッドを追加定義できる。だ
   から ``Where`` はこういうモノだ。
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      public static IEnumerable<TSource> Where<TSource>(
      this IEnumerable<TSource> src,
@@ -144,7 +144,7 @@ Firefighter の例。
 
 * 8.1.3 ``let`` 句。先程の例では ``new FileInfo`` の処理が勿体ない。こうする。
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      var q = from file in Dictionary.EnumerateFiles(...)
              let info = new FileInfo(file)
@@ -203,7 +203,7 @@ Firefighter の例。
 * 12.3 ``XDocument``, ``XElement``, ...
 * 12.4 LINQ との絡み。
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      from customer in customerXml.Descendants("Customers")
          where customer.Elemen("EmailAddress").Value == "dAdams@....com"
@@ -217,7 +217,7 @@ Firefighter の例。
 
 * 13.3 HTTP
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      WebClient client = new WebClient();
      string pageContent = client.DownloadString("http://oreilly.com/");
@@ -259,13 +259,13 @@ speculation
 * 16.1.5.3 ...
 * 16.2.1 必要以上にロックオブジェクトを保持するのは避ける。
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      lock(lockObject)
          while(!canGo)
              Monitor.Wait(lockObject);
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      lock(lockObject)
          canGo = true;
@@ -274,7 +274,7 @@ speculation
 * 16.3 非同期プログラミング ``IAsyncResult``, ``AsyncCallback``
 * 16.4 タスク並列 TPL
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      Task.Factory.StartNew(Go, "One");
      Task.WaitAll(t1, t2);
@@ -288,7 +288,7 @@ speculation
 
 * 16.5 データ並列性
 
-  .. code:: c#
+  .. sourcecode:: c#
 
      Parallel.For((0, pixelHeight, pixelY) =>
      {

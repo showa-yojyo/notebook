@@ -33,7 +33,7 @@ Twitter API の利用法は当然ながらリクエストごとに異なるの�
 PTT を利用するプログラムに共通して書く必要のあるコードは次のようなものである。認
 証と Twitter 本体とのインターフェイスとなるインスタンスのセットアップからなる。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from twitter import *
 
@@ -91,7 +91,7 @@ PTT を利用するプログラムに共通して書く必要のあるコード�
    ``%%HOME%%\my-python-modules`` を含める。
 #. PTT を利用する使い捨てのスクリプトの構造を次のようにする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from secret import twitter_instance
 
@@ -105,7 +105,7 @@ Twitter にリクエストを送信すると、原則的にその結果を JSON 
 Python 的には単に組み込みのコンテナーオブジェクトに変換されている節があるので、
 その辺をうまく加工して画面にテキストを出力するようにしたい。
 
-.. code:: python3
+.. sourcecode:: python3
 
    response = tw.statuses.user_timeline(**kwargs)
 
@@ -170,7 +170,7 @@ PTT ではこれを ``_id`` と呼び変えて値を渡すのが無難だ。
 
 コードを示す。
 
-.. code:: python3
+.. sourcecode:: python3
 
    kwargs = dict(
        screen_name='showa_yojyo',
@@ -214,7 +214,7 @@ PTT ではこれを ``_id`` と呼び変えて値を渡すのが無難だ。
 
 前項コードとの差分だけを示そう。
 
-.. code:: python3
+.. sourcecode:: python3
 
    max_id = response[0]['id']
    kwargs['since_id'] = max_id
@@ -239,7 +239,7 @@ PTT ではこれを ``_id`` と呼び変えて値を渡すのが無難だ。
 ジェクトであり、``process_something`` は Twitter からの応答オブジェクトを処理す
 る関数か何かを意味する。
 
-.. code:: python3
+.. sourcecode:: python3
 
    next_cursor = -1
    while next_cursor:

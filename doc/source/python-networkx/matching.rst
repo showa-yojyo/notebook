@@ -24,7 +24,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、それぞれ
 リジナルで、下の行が本プログラムによる極大マッチングだ。確かにこのエッジセットも
 それぞれのグラフの極大マッチングである
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python maximal-matching.py
    {(0, 1)}
@@ -61,7 +61,7 @@ Wikipedia_ のイラストを参考にしてグラフを構築し、それぞれ
 実行結果は次の通り。戻り値の型がノードとノードの辞書なのがマッチング感を演出して
 いるように見受けられる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python maximum_matching.py
    {0: 2, 1: 5, 2: 0, 5: 1}

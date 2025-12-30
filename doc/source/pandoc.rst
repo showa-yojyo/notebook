@@ -17,7 +17,7 @@ reStrucutredText ファイルに変換することに関するノートだ。
 
 したがって、実行するコマンドは次のものの派生形しかない：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pandoc -o output.rst input.md
 
@@ -27,7 +27,7 @@ reStrucutredText ファイルに変換することに関するノートだ。
 ここではインストール手順を記さない。WSL で Miniconda で構築した Python 環境に他
 のパッケージにまぎれて入ったものと思われる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pandoc --version
    pandoc 2.12
@@ -110,7 +110,7 @@ smart      OFF
 例えば、次のテキストを :file:`.defaults.yaml` という名前のファイルで保存する。場
 所はひとまず作業ディレクトリーとしておく。
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    verbosity: INFO
    from: markdown-smart+east_asian_line_breaks
@@ -127,13 +127,13 @@ smart      OFF
 
 その上で次のコマンドを実行すると、
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pandoc -d defaults.yaml -o output.rst input.md
 
 次のコマンドの実行と同じ効果が得られる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pandoc
        --from markdown-smart+east_asian_line_breaks \
@@ -154,7 +154,7 @@ smart      OFF
 
 したがって、YAML ファイルでの設定内容に満足したら次のようにする：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ mkdir -p ~/.local/share/pandoc/defaults
    bash$ mv defaults.yaml ~/.local/share/pandoc/defaults
@@ -179,7 +179,7 @@ smart      OFF
 例えば出力内容の ``contents`` ディレクティブの終端に必ずコメント行が入るのが気に
 入らないとする。
 
-.. code:: text
+.. sourcecode:: text
 
    $if(toc)$
    .. contents:: 見出し一覧

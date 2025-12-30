@@ -69,7 +69,7 @@ OpenGL Shading Language に使用されるソースコードを構成する文�
 はないことを意味する。すなわち、ある行の終わりの文字とその次の行の始まりの文字を
 連結することで、単一トークンが形成される。
 
-.. code:: glsl
+.. sourcecode:: glsl
    :force:
 
    // equivalent to "float foo;"
@@ -104,7 +104,7 @@ C++ 前処理器の標準機能である ``#define`` および ``#undef`` 機能
 
 以下の定義済みマクロが用意されている：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    __LINE__
    __FILE__
@@ -175,7 +175,7 @@ etc.) はなく、演算子 ``sizeof`` もない。
 処理器のマクロ展開の対象にはならない。実装が ``#pragma`` に続くトークンを認識し
 ない場合は、それを無視する。次の pragmas は言語の一部として定義されている：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #pragma STDGL
 
@@ -183,7 +183,7 @@ etc.) はなく、演算子 ``sizeof`` もない。
 めに使用される。どのような実装でも、最初のトークンが ``STDGL`` である pragma を
 使用することは許さない。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #pragma optimize(on)
    #pragma optimize(off)
@@ -192,7 +192,7 @@ etc.) はなく、演算子 ``sizeof`` もない。
 めに使用できる。これは、関数定義の外側でしか使用できない。既定では、すべての
 シェーダーで ``optimize`` がオンになっている。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #pragma debug(on)
    #pragma debug(off)
@@ -203,7 +203,7 @@ etc.) はなく、演算子 ``sizeof`` もない。
 
 シェーダーは言語のバージョンを宣言する必要がある。それは次のように指定される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #version number profile_opt
 
@@ -250,19 +250,19 @@ etc.) はなく、演算子 ``sizeof`` もない。
 実装が対処する各プロファイルには組み込みマクロ定義がある。すべての実装には次のマ
 クロが用意されている：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #define GL_core_profile 1
 
 互換性プロファイルを提供する実装には次のマクロが用意されている：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #define GL_compatibility_profile 1
 
 ``es`` プロファイルを提供する実装では、次のマクロが用意されている：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #define GL_es_profile 1
 
@@ -274,7 +274,7 @@ etc.) はなく、演算子 ``sizeof`` もない。
 も、最初に有効にする必要がある。拡張機能に関するコンパイラーの動作を制御するため
 の指令は ``#extension`` 指令で宣言される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #extension extension_name : behavior
    #extension all : behavior
@@ -327,7 +327,7 @@ etc.) はなく、演算子 ``sizeof`` もない。
 
 コンパイラーの初期状態は、あたかも指令：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #extension all : disable
 
@@ -360,19 +360,19 @@ etc.) はなく、演算子 ``sizeof`` もない。
    ``#line`` 指令の中で定数表現を許可している実装と、そうでない実装がある。式が
    対処される場合でも、文法が曖昧なので、結果は実装依存となる。例えば：
 
-   .. code:: glsl
+   .. sourcecode:: glsl
 
       #line +2 +2 // Line number set to 4, or file to 2 and line to 2
 
 OpenGL SPIR-V 用にシェーダーをコンパイルした場合、次の定義済みマクロが利用できる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #define GL_SPIRV 100
 
 Vulkan を対象にする場合、次の定義済みマクロが利用できる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #define VULKAN 100
 
@@ -390,7 +390,7 @@ Vulkan を対象にする場合、次の定義済みマクロが利用できる�
 コメントが処理される前に、論理的には行継続文字による改行の除去が行われる。つま
 り、文字 ``\`` で終わる単一行コメントは、次の行も含めてコメントになる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // a single-line comment containing the next line \
    a = b; // this is still in the first comment
@@ -490,7 +490,7 @@ uniform) であるとは、動的インスタンスを実行する（呼び出�
 ループに入ったときに制御フローが一様であり、その後、呼び出しグループのすべての呼
 び出しがその選択肢やループから離れると、制御フローは一様に収束し直す。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    main()
    {

@@ -10,7 +10,7 @@
 ルターと組み合わせて、より高度な処理、例えば統計処理やプロットを行うというような
 用途に便利だ。コマンドの構文は次のように単純なものだ：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffprobe [options] input_url
 
@@ -24,7 +24,7 @@
 例えば、ビデオのフレーム数を得るには次のコマンドを実行するのだが、長くて覚えられ
 ない：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffprobe \
      -select_streams v:0
@@ -62,7 +62,7 @@ CSV 形式のテキストが出力される。
 度は見ておくことを強く勧める。後ほど述べる ``-show`` 系オプション各種の意味を把
 握しやすくなる。
 
-.. code:: console
+.. sourcecode:: console
 
    ffprobe -show_sections input.mp4
 
@@ -78,7 +78,7 @@ CSV 形式のテキストが出力される。
 
 例コマンドをいくつか挙げる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffprobe -of flat -select_streams v:0 -show_entries stream=width,height input.mp4
    bash$ ffprobe -of default=nw=1 -select_streams v:0 -show_entries packet=pts_time input.mp4 | head
@@ -98,7 +98,7 @@ CSV 形式のテキストが出力される。
 * ``-show_packets``
 * ``-show_frames``
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffprobe -show_streams input.mp4
    bash$ ffprobe -show_format input.mp4
@@ -113,7 +113,7 @@ CSV 形式のテキストが出力される。
 うセクションに含まれる。例えば JSON 形式で出力すると、次のような構造のテキストが
 出力される（キー名は小文字になる）：
 
-.. code:: text
+.. sourcecode:: text
 
    {
        "streams": [
@@ -193,7 +193,7 @@ CSV 形式のテキストが出力される。
 
 書式 ``default`` は次のような出力をする：
 
-.. code:: text
+.. sourcecode:: text
 
    [SECTION]
    key1=val1
@@ -206,7 +206,7 @@ CSV 形式のテキストが出力される。
 ``nokey``, ``nk``
     ``1`` を指定すると、フィールドのキー部分を出力しないようになる。
 
-    .. code:: text
+    .. sourcecode:: text
 
        [SECTION]
        val1
@@ -217,7 +217,7 @@ CSV 形式のテキストが出力される。
 ``noprint_wrappers``, ``nw``
     ``1`` を指定すると、セクションタグを出力しないようになる。
 
-    .. code:: text
+    .. sourcecode:: text
 
        key1=val1
        ...
@@ -228,7 +228,7 @@ CSV 形式のテキストが出力される。
 
 既定では、書式 ``csv`` は次のような出力を生じる：
 
-.. code:: text
+.. sourcecode:: text
 
    section,val1, ... ,valN
 

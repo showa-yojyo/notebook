@@ -35,7 +35,7 @@ twitter-follow
 * 初回起動時においてはファイル :file:`$HOME/.twitter-follow_oauth` がないことを確認しておく。
 * 毎回起動時にコマンドラインオプション ``--oauth`` を指定する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter-follow --oauth --followers showa_yojyo
    Hi there! We're gonna get you all set up to use Twitter-Follow.
@@ -80,7 +80,7 @@ twitter-follow
 各行の先頭に Twitter ユーザーの user_id を示すようにするもので、
 利用できれば確かに便利だ。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter-follow.exe -o -r -i showa_yojyo
    Browsing showa_yojyo followers, new: 25
@@ -103,7 +103,7 @@ twitter-log
 コツとしては任意指定引数の ``max_id`` をなるべく明示的に指定するとよい。
 あらかじめ不要とわかっているツイートをリクエストせずに済ませられる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter-log showa_yojyo 665555132273192960 > mylog.txt
    Hi there! We're gonna get you all set up to use the Python Twitter Logger.
@@ -201,7 +201,7 @@ twitter-archiver
 いい具合に API の利用制限状況を見るだけのモードがあるので、
 それを利用して認証を済ませよう。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter-archiver -o -a showa_yojyo
    Hi there! We're gonna get you all set up to use Twitter-Archiver.
@@ -227,7 +227,7 @@ mentions
 オプション ``--mentions <file>`` により、
 指定ユーザーに話しかけているツイートをアーカイブすることができる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter-archiver -o -m showa_yojyo
    * Archiving own mentions in .\showa_yojyo
@@ -256,7 +256,7 @@ mentions
 アーカイブツールということで、次回以降の実行時に以前の出力結果を再利用する。
 しかし、そのデータのロードで失敗する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter-archiver -o -m showa_yojyo
    * Archiving own mentions in .\showa_yojyo
@@ -279,7 +279,7 @@ twitter-stream-example
 
 以下、次のシェル関数を実装したものとして話を進める。
 
-.. code:: bash
+.. sourcecode:: bash
 
    function my-stream-example()
    {
@@ -302,7 +302,7 @@ twitter-stream-example
 すると、Ctrl+C を押すまでの間は延々と何らかのツイートの垂れ流しが続く。
 単に実行開始時点に Twitter のデータベース的なものにある全ツイートを若い順に表示しているだけかもしれない。
 
-.. code:: console
+.. sourcecode:: console
 
    $ my-stream-example
    -- Some data: {'delete': {'timestamp_ms': '1447787581389', 'status': {'id': <censored>, 'user_id': <censored>, 'id_str': '<censored>', 'user_id_str': '<censored>'}}}
@@ -370,7 +370,7 @@ twitter-stream-example
 オプション track-keywords を指定して実行すると、
 Twitter 検索のライブバージョンのように振る舞うのではないかと期待して実行する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ my-stream-example --track-keywords="Terror France"
    [France 24 fr] Cinq ex-"terroristes" demandent la suspension de leur déchéance de nationalité: Cinq ex-"terror... https://t.co/WKD8KzXTnG
@@ -391,7 +391,7 @@ Twitter 検索のライブバージョンのように振る舞うのではない
 ----------------------------------------------------------------------
 オプション user-stream をして実行すると Twitter API の site が適用される。
 
-.. code:: console
+.. sourcecode:: console
 
    $ my-stream-example --user-stream
    -- Some data: {'friends': []}
@@ -407,7 +407,7 @@ Twitter 検索のライブバージョンのように振る舞うのではない
 Applications are no longer being accepted> とのことなので、
 これは動作を期待できない。
 
-.. code:: console
+.. sourcecode:: console
 
    $ my-stream-example --site-stream
    Traceback (most recent call last):
@@ -448,7 +448,7 @@ twitter
 
 * 認証キー格納ファイル :file:`$HOME/.twitter_oauth`
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter authorize
    Hi there! We're gonna get you all set up to use the Command-Line Tool.
@@ -472,7 +472,7 @@ twitter
 コマンド friends はホームタイムラインを出力する。
 ちなみにこのツールのデフォルトのコマンドはこれなので、コマンド名の入力を省略できる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ [work tmp 243]$ twitter friends -dt
    2015-11-16 01:47:40 @<censored> Your branch is ahead of なんちゃらのコミット数とプッシュされたコミット数が一致していないだと？
@@ -494,7 +494,7 @@ twitter
 リスト名と説明だけを表示するのでたいへん単純だ。
 そして余計な空行が気になる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter mylist
    【MJ5】Twitter連動
@@ -523,7 +523,7 @@ twitter
 コマンド list は指定ユーザーの作成リストと購読リストの両方を出力する。
 上述の mylist コマンドと酷似しているので詳細は省略。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter mylist twitter
    Developers                     (Learn how to build with Twitter from our platform relations teams and developer advocates.)
@@ -554,7 +554,7 @@ twitter
 コマンド rate は Twitter API の利用制限状況を一覧するのにたいへん便利。
 出力行数がかなり多いので、ファイルにリダイレクトするとよい。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter rate
    Remaining API requests for /blocks/list: 15 / 15
@@ -576,7 +576,7 @@ twitter
 コマンド repl は対話モードでオブジェクト ``t`` と ``u`` を操作するものだ。
 困ったことに ``t`` の使い方はよく知っているが ``u`` の使い方がわからない。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter repl
 
@@ -605,7 +605,7 @@ twitter
 ----------------------------------------------------------------------
 これは動作しない。検索ならば別のツールを使うのがよい。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter search Abandaned
    Twitter sent status 410 for URL: search.json using parameters: (...)
@@ -616,7 +616,7 @@ twitter
 ----------------------------------------------------------------------
 コマンド set は名前からはそれとわかりにくいが、ツイートを生成する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter set "もっとモット日本語テスト"
    $ twitter -l1
@@ -629,7 +629,7 @@ twitter
 コマンド shell は対話モードでスクリプトを起動する。
 プロンプトで通常のコマンドライン引数をタイプすることになる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ twitter shell -dt
    twitter> ppp

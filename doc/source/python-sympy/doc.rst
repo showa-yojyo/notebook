@@ -15,7 +15,7 @@
 SymPy のドキュメントは Sphinx_ を用いて生成する。いつもブラウザーで見ているファ
 イル群を生成する手順はこのようなものだろう：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ make -C ~/devel/sympy/doc html
 
@@ -50,7 +50,7 @@ Sphinx 拡張モジュールコードの編集を必要とした。本節では�
 Cygwin のインストーラーでパッケージ構成を更新したら、これらの各ユーティリティー
 のパスを確認して、問題がないようにしておく。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ which rsvg-convert
    /bin/rsvg-convert
@@ -81,7 +81,7 @@ Sphinx 拡張モジュールの修正
 
 ロゴファイル群の生成が成功しても、ドキュメント本体のファイル生成で失敗した。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ make html
    ...略...
@@ -112,7 +112,7 @@ Sphinx 拡張モジュールの修正
 ``-nw`` オプションで元ファイルを上書きしてしまう。なんならローカルで適宜 branch
 を作成してここでの修正を commit するのもありだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cp D:/Python34/Tools/Scripts/2to3.py ext
    bash$ pushd ext

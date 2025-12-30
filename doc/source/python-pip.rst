@@ -75,7 +75,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
     * :program:`easy_install` が環境にあれば、下記コマンドプロンプト入力で
       :program:`pip` のインストールは実現できる。
 
-      .. code:: console
+      .. sourcecode:: console
 
          $ easy_install pip
 
@@ -101,7 +101,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 言うまでもないが :command:`help` は目を通したほうがよい。コマンドラインオプショ
 ンはそれほど多くはない。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip help # ヘルプ表示
    $ pip --version # バージョン表示
@@ -112,7 +112,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 以前に :program:`easy_install` でインストールしてしまったパッケージも
 :program:`pip` でアンインストールできる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip uninstall simplejson
    Uninstalling simplejson:
@@ -134,7 +134,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 パッケージ名を指定して ``pip install`` または ``pip install --upgrade`` を実行す
 る。この方法でインストールやアップグレードができれば、手間が最小で済む。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip install --upgrade httplib2
    Downloading/unpacking httplib2 from http://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.4.tar.gz#md5=略
@@ -161,7 +161,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 
 以下、手順のイメージを擬似コードで表現する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ wget PyXYZ-x.y.z-cp35-none-win_amd64.whl
    $ pip install PyXYZ-x.y.z-cp35-none-win_amd64.whl
@@ -175,7 +175,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 以下、手順のイメージを擬似コードで表現する。どのディレクトリーで作業をするかは
 :file:`setup.py` が存在する階層でよいことが多い。
 
-.. code:: console
+.. sourcecode:: console
 
    $ git clone https://github.com/XYZ/XYZ.git
    ...
@@ -185,7 +185,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 インストール済みパッケージをリスト
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip freeze
    PIL==1.1.7
@@ -208,7 +208,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 ばパッケージ ``alabaster`` は現在はバージョン 0.7.6 が .whl によりインストールさ
 れていて、更新すると 0.7.7 にアップグレードできることを示している。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip list --outdated
    alabaster (0.7.6) - Latest: 0.7.7 [wheel]
@@ -229,7 +229,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 コマンド :command:`pip show` を実行することで、インストール済みパッケージの情報
 を出力できる。これは当ノートの更新作業のときにしばしば実行する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip show matplotlib
    ---
@@ -254,7 +254,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 ができる。今の環境の :file:`site-packages` を別の環境で再現するとき等に利用でき
 るというわけだ。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip freeze > FILE
    ...
@@ -267,7 +267,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 例えば Amazon 関係のパッケージがあるのか知りたいとする。しかも PyPI_ で検索する
 よりも、コンソールで見たいような状況であれば ``pip search`` の出番だ。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip search amazon
    AWSpider                  - Amazon Web Services web crawler
@@ -282,7 +282,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 設定ファイルを特に意識せずに :command:`pip` を利用してきた場合、それを用意するの
 ならばどのパスになるのかを確認する手段がある：
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip config debug
    env_var:
@@ -309,7 +309,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 設定ファイルはサブコマンド節の集合で記述されており、各節はサブコマンドのオプショ
 ン既定値を key-value 方式で列挙する。例えば、
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip config set download.timeout 10
 
@@ -317,7 +317,7 @@ Python 3.4 以前の環境では、手動でインストールする必要があ
 に与えられずに実行する場合、これに対して値 10 が指定されたものとして動作するよう
 に構成するものだ。この指定は設定ファイルに書き込まれる：
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip config set download.timeout 100
    Writing to /home/USERNAME/.config/pip/pip.conf
@@ -335,7 +335,7 @@ PyPI_ のウェブサイトがダウンしているときには :command:`pip in
 する。サーバーが復旧するまで待てない場合、ミラーサイトを指定してインストールを試
 みることができる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip install --use-mirrors --mirrors=http://d.pypi.python.org/ sphinx
 

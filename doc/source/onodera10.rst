@@ -55,7 +55,7 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
 本章では ``SELECT`` 文を学習する。ここは理解に問題はない。例だけを書いてあとで補
 足する。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT employee_id, first_name FROM employees;
 
@@ -111,7 +111,7 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
 
 言い忘れたが SQL 文の出力はここには書かない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- それぞれ数値、文字列、日付を検索条件にする
    SELECT employee_id, last_name, department_id FROM employees
@@ -192,7 +192,7 @@ ORACLE MASTER Bronze 11g SQL 基礎 I 必修教本 読書ノート
 ソート
 ----------------------------------------------------------------------
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT employee_id, last_name, department_id FROM employees
        ORDER BY department_id;
@@ -225,7 +225,7 @@ SQL Server なと他社製品では使用できない。
 
 つぶしが効かないとわかっているので、ここに時間を割かない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT LOWER(last_name) FROM employees;
    SELECT last_name FROM employees
@@ -250,7 +250,7 @@ SQL Server なと他社製品では使用できない。
 * 関数 ``ROUND``, ``TRUNC`` は第二引数に注意。小数点の左、つまり桁が大きくなるほ
   うに行くのが負。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT SYSDATE FROM dual;
    SELECT MONTHS_BETWEEN('15-AUG-09', '15-MAY-09') FROM dual;
@@ -276,14 +276,14 @@ SQL Server なと他社製品では使用できない。
 
 明示的な変換は関数を呼び出すことで行う。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') today FROM dual;
    SELECT TO_CHAR(123456, '999,999') counts FROM dual;
 
 ``TO_DATE`` と ``TO_NUMBER`` の例文がない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT last_name NVL(commission_pct, 0) comm_pct FROM employees;
    SELECT last_name NVL2(commission_pct, 'Sales', 'No Sales') comm_pct FROM employees;
@@ -313,7 +313,7 @@ SQL Server なと他社製品では使用できない。
 集計関数は値が ``NULL`` であるものを無視する。ただし ``COUNT(*)`` は ``NULL`` を
 含むものも拾い上げる。そもそも ``COUNT(*)`` は使うべきではない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT AVG(salary), SUM(salary), MIN(salary), MAX(salary), COUNT(salary)
        FROM employees;
@@ -325,7 +325,7 @@ SQL Server なと他社製品では使用できない。
 次にグループを定義してから集計する方法を記す。``GROUP BY`` 句で列名を指定するこ
 とでそうなる。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT department_id, AVG(salary) FROM employees
        GROUP BY department_id;
@@ -343,7 +343,7 @@ SQL Server なと他社製品では使用できない。
 ``HAVING`` 句の用途
 ----------------------------------------------------------------------
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT department_id, AVG(salary) FROM employees
        GROUP BY department_id
@@ -364,7 +364,7 @@ SQL Server なと他社製品では使用できない。
 
 表の定義を示さないと SQL 文の読解ができないのだが、そうしない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- 同じデータ型および同じ列名の列同士で表を結合する
    SELECT employee_id, last_name, department_name
@@ -406,7 +406,7 @@ SQL Server なと他社製品では使用できない。
 自己結合の場合には表に別名を二つつけて、列がどちらのものなのか表名を明示する必要
 がある。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT e.employee_id, e.last_name, e.salary, j.grade_level
        FROM employees e
@@ -448,7 +448,7 @@ SQL Server なと他社製品では使用できない。
 表の直積
 ----------------------------------------------------------------------
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT last_name, department_name
        FROM employees CROSS JOIN departments;
@@ -461,7 +461,7 @@ SQL Server なと他社製品では使用できない。
 副問い合わせは ``WHERE``, ``HAVING``, ``FROM``, ``SET`` 句などに含まれる
 ``SELECT`` 文のことをいう。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT last_name FROM employees
        WHERE salary > (SELECT AVG(salary) FROM employees);
@@ -526,7 +526,7 @@ SQL Server なと他社製品では使用できない。
 * ``UNION`` と ``UNION ALL`` の違いは C++ でいうと ``std::set`` と
   ``std::multiset`` の違いに相当するだろう。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT employee_id, last_name FROM employees
    UNION
@@ -554,7 +554,7 @@ SQL Server なと他社製品では使用できない。
 レコードの追加・更新・削除
 ----------------------------------------------------------------------
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    INSERT INTO countries (country_id, country_name, region_id)
        VALUES ('KR', 'Korea', 3);
@@ -636,7 +636,7 @@ SQL Server なと他社製品では使用できない。
 ロックとは、同一データの同時更新を防止することだ。ふつうは行単位での暗黙的なロッ
 クが有効に機能する。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    SELECT employee_id, last_name FROM employees FOR UPDATE;
 
@@ -655,7 +655,7 @@ SQL Server なと他社製品では使用できない。
 ``TRUNCATE`` 文
 ----------------------------------------------------------------------
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    TRUNCATE TABLE it_employees;
 
@@ -682,7 +682,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 表の作成・変更・削除
 ----------------------------------------------------------------------
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE TABLE emp(
        emp_no NUMBER,
@@ -706,7 +706,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * 列の既定値をキーワード ``DEFAULT`` に続けて指定してもよい。これは ``INSERT``
   処理で対応する列に値が指定されないときに意味がある。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    ALTER TABLE departments READ ONLY;
 
@@ -731,7 +731,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * ``FOREIGN KEY``
 * ``CHECK``
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE TABLE employees(
        employee_id NUMBER,
@@ -744,7 +744,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * ``NOT NULL`` 制約を設定すると、その列に ``NULL`` を格納することが許されない。
 * ``NOT NULL`` 制約を設定するのは列とする。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE TABLE employees(
        employee_id NUMBER,
@@ -795,7 +795,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 ``PRIMARY KEY`` 制約は ``UNIQUE`` 制約であって ``NULL`` の値を許さないものとみな
 せる。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE TABLE employees(
        employee_id NUMBER,
@@ -828,7 +828,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
   * ``ON DELETE SET NULL``: 参照されているデータを削除するときに、参照するデータ
     の値を ``NULL`` にする。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE TABLE employees(
        employee_id NUMBER,
@@ -856,7 +856,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * ``CHECK`` 制約は上のように列に書く方法と表に書く方法がある。どちらも同じことに
   なる。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    ALTER TABLE on_master MODIFY id NUMBER(6) PRIMARY KEY;
    ALTER TABLE on_master ADD CONSTRAINT on_m_pk PRIMARY KEY(id);
@@ -874,7 +874,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 ビューとは既存の表の問い合わせ結果を表のように扱えるようにしたものと考えられる。
 ビューをうまく利用すれば、ある種の処理を簡略化することができる。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- いちばん普通のビューの作成方法
    CREATE VIEW emp_v
@@ -900,7 +900,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 更されることに注意する。本文にあるように相当な制限がある。例えば ``GROUP BY`` を
 用いたビューに対しては DML 文を何もできない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE OR REPLACE VIEW empdept30_v
        AS SELECT employee_id, last_name, department_id
@@ -911,7 +911,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 ``WITH CHECK OPTION`` 句でビューを定義すると、``WHERE`` 句の条件を満たさないよう
 な DML 文による処理を許さない。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- WITH READ ONLY 句を使うことでビューを読み取り専用にする
    CREATE OR REPLACE VIEW emp50_v
@@ -933,7 +933,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 順序オブジェクトには ``nextval`` および ``currval`` という名前の「列」が存在す
 る。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    CREATE SEQUENCE emp_cp_seq
        INCREMENT BY 1 -- 増分間隔を明示的に指示する（おそらくデフォルト値）
@@ -951,7 +951,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * ``CYCLE`` オプションを指定するときは ``MAXVALUE`` の明示的な指定が必要。
   ``NOCYCLE`` オプションを指定すると、発番は最大値に達すると終了する。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- 最大値が 200 に達すると発番を最初から戻すオプションをやめてみる。
    -- これは上の定義に矛盾するので失敗する。
@@ -965,7 +965,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 * 発番に矛盾を生じるような変更は許されない。
 * ``ALTER SEQUENCE`` 文では変更したい性質だけを命令すればよい。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    DROP SEQUENCE emp_cp_seq;
 
@@ -977,7 +977,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 索引オブジェクトとは、表のデータの位置情報を保持するものだ。これがあると、その表
 に対する問い合わせが高速化されると一般には期待される。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- 表 emp_copy の列 employee_id に対して索引を作成する
    CREATE INDEX empid_cp_idx ON emp_copy (employee_id);
@@ -1006,7 +1006,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 シノニムには public と private の二種類が存在する。それらの意味はオブジェクト指
 向プログラミング用語のそれとほぼ同じ。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    -- ユーザー scott が所有する employees 表に対して emp という別名をつける
    CREATE SYNONYM emp FOR scott.employees;
@@ -1022,7 +1022,7 @@ Oracle Database はデータベース構成要素を ``schema_name.object_name``
 
 本書で扱われなかった構文だけ列挙しておく。
 
-.. code:: plpgsql
+.. sourcecode:: plpgsql
 
    ALTER FUNCTION
    ALTER INDEX
