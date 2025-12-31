@@ -2,7 +2,8 @@
 Storing data in the browser
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Cookies, ``document.cookie``
@@ -49,7 +50,7 @@ Writing to ``document.cookie``
 の中に記述された cookie だけを更新し、他の cookie には触れない。例えば、この呼び
 出しは ``user`` という名前と ``John`` という値を持つ cookie を設定する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.cookie = "user=John";
 
@@ -59,7 +60,7 @@ Writing to ``document.cookie``
 技術的には、名前と値はどんな文字でも持つことができる。有効な書式を維持するため
 に、組み込み関数 ``encodeURIComponent`` を使ってエスケープする必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
 
@@ -78,14 +79,14 @@ Cookie にはオプションがいくつかあり、その多くは重要なの�
 
 オプションは ``key=value`` の後にセミコロンで区切って、以下のように並べる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
 
 ``path``
 ----------------------------------------------------------------------
 
-.. code:: text
+.. sourcecode:: text
 
    path=/mypath
 
@@ -98,14 +99,14 @@ cookie にアクセスできるようにする。既定値は現在のパスだ�
 通常、cookie をすべてのページからアクセスできるように、``path`` をルートに設定
 する必要がある：
 
-.. code:: text
+.. sourcecode:: text
 
    path=/
 
 ``domain``
 ----------------------------------------------------------------------
 
-.. code:: text
+.. sourcecode:: text
 
    domain=site.com
 
@@ -122,7 +123,7 @@ forum.site.com のようなサブドメインにも共有されない。しか�
 定するときに、``domain`` オプションを明示的にルートドメインに設定する必要があ
 る。そうすれば、すべてのサブドメインがそのような cookie を見ることになる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // at site.com
    // make the cookie accessible on any subdomain *.site.com:
@@ -147,7 +148,7 @@ cookie はセッション cookie と呼ばれる。
 ブラウザーを閉じても cookie が残るようにするには、オプション ``expires`` かオプ
 ション ``max-age`` のどちらかを設定する。
 
-.. code:: text
+.. sourcecode:: text
 
    expires=Tue, 19 Jan 2038 03:14:07 GMT
 
@@ -156,21 +157,21 @@ Cookie の有効期限は、ブラウザーが自動的に cookie を削除す�
 日付は GMT で、正確にこの形式でなければならない。日付は ``date.toUTCString()``
 で得られる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let date = new Date(Date.now() + 86400e3);
    document.cookie = "user=John; expires=" + date.toUTCString();
 
 オプション ``expires`` を過去の日付に設定すると、その cookie は消える。
 
-.. code:: text
+.. sourcecode:: text
 
    max-age=3600
 
 Cookie の有効期限を現在の時点から秒単位で指定する。0 または負の値を設定した場
 合、その cookie は消える。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // cookie will die in +1 hour from now
    document.cookie = "user=John; max-age=3600";
@@ -231,7 +232,7 @@ Cookie オプション ``samesite`` は、このような攻撃から守るた�
 は理論的には XSRF 保護トークンを必要としないはずだ。このオプションには取り得る値
 が二つある。
 
-.. code:: text
+.. sourcecode:: text
 
    samesite=strict
 
@@ -256,7 +257,7 @@ Cookie を二つ使うことでそれを回避できる。一つは一般的な�
 トの外から来た人は歓迎されることを見るが、二つ目の cookie を送信するためには、銀
 行のウェブサイトから支払いを開始する必要がある。
 
-.. code:: text
+.. sourcecode:: text
 
    samesite=lax
 
@@ -335,7 +336,7 @@ Appendix: Cookie functions
 Cookie にアクセスする最も短い方法は、正規表現を用いることだ。関数
 ``getCookie(name)`` は与えられた名前を持つ cookie を返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function getCookie(name) {
        let matches = document.cookie.match(new RegExp(
@@ -362,7 +363,7 @@ Cookie の名前を、既定では ``path=/`` であるように、指定され�
 
 Cookie を削除するには、有効期限を負の値にして呼び出すことで行う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function deleteCookie(name) {
        setCookie(name, "", {
@@ -496,14 +497,14 @@ Cookie がすでにありながら、さらなるオブジェクトがなぜ必�
 
 例えば、次のコードをまず実行する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    localStorage.setItem('test', 1);
 
 そしてブラウザーを閉じたり開いたり、あるいは同じページを別のウィンドウで開くだけ
 で、このようにして値を取得できる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    localStorage.getItem('test'); // 1
 
@@ -541,7 +542,7 @@ Strings only
 オブジェクトを保存したければ JSON がある。また、デバッグ用にストレージオブジェク
 トを JSON にすることもある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    JSON.stringify(localStorage, null, 2);
 
@@ -559,13 +560,13 @@ Strings only
 
 * データはページの更新には耐えるが、タブを閉じたり開いたりするのには耐えられない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    sessionStorage.setItem('test', 1);
 
 このコードを実行して、画面を更新すると
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    sessionStorage.getItem('test');
 
@@ -661,7 +662,7 @@ Open database
 
 IndexedDB を使い始めるには、まずデータベースを開く（接続する）。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let openRequest = indexedDB.open(name, version);
 
@@ -693,7 +694,7 @@ IndexedDB には、サーバーサイドデータベースにはない「スキ�
 バージョンを公開したとする。そして、バージョン 1 のデータベースを開
 き、``upgradeneeded`` ハンドラーで次のように初期化できる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let openRequest = indexedDB.open("store", 1);
 
@@ -714,7 +715,7 @@ IndexedDB には、サーバーサイドデータベースにはない「スキ�
 そして後日、バージョン 2 を公開する。次のようにアップグレードを実行することがで
 きる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let openRequest = indexedDB.open("store", 2);
 
@@ -742,7 +743,7 @@ IndexedDB には、サーバーサイドデータベースにはない「スキ�
 
 データベースを削除するには次のようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    indexedDB.deleteDatabase(name);
 
@@ -794,7 +795,7 @@ Parallel update problem
 導入し、現在のデータベース接続が古くなった場合（他の場所で DB バージョンが更新さ
 れた場合）に引き起こして、接続を閉じる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let openRequest = indexedDB.open("store", 2);
 
@@ -862,7 +863,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 トのプロパティーをキーとして設定することができ、より便利だ。あるいは、キーを自動
 生成することもできる。しかし、まずはオブジェクトストアを作成する必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    db.createObjectStore(name[, keyOptions]);
 
@@ -880,7 +881,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 的に指定する必要がある。例えば、このオブジェクトストアでは、キーとして ``id`` プ
 ロパティーを用いる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    db.createObjectStore('books', {keyPath: 'id'});
 
@@ -903,7 +904,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 
 小規模なデータベースでは、後者の方法がより単純かもしれない。デモ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let openRequest = indexedDB.open("db", 2);
 
@@ -921,7 +922,7 @@ IndexedDB の核となる概念だ。他のデータベースにおけるテー�
 
 オブジェクトストアを削除するにはこうする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    db.deleteObjectStore('books');
 
@@ -942,7 +943,7 @@ Transactions
 IndexedDB では、すべてのデータ操作はトランザクション内で行う必要がある。トランザ
 クションを開始するには：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    db.transaction(store[, type]);
 
@@ -967,7 +968,7 @@ IndexedDB では、すべてのデータ操作はトランザクション内で�
 
 トランザクションが作成されたら、ストアに商品を追加できる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let transaction = db.transaction("books", "readwrite"); // (1)
 
@@ -1029,7 +1030,7 @@ Transactions' autocommit
 以下のコードでは、(*) 行の ``request2`` が失敗する。なぜなら、トランザクションは
 すでにコミットされており、その中ではいかなる要求も行えないからだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let request1 = books.add(book);
 
@@ -1070,7 +1071,7 @@ IndexedDB は、主に性能上の理由から、トランザクションは短�
 
 手動でトランザクションを中止するには、次のようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    transaction.abort();
 
@@ -1095,7 +1096,7 @@ Error handling
 ソッド ``store.add()`` は ``"ConstraintError "`` を引き起こす。トランザクション
 を取り消すことなく、このエラーを処理する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let transaction = db.transaction("books", "readwrite");
 
@@ -1131,7 +1132,7 @@ IndexedDB のイベントは ``request``, ``transaction``, ``database`` の順�
 段階しか用いられない。そのため、ハンドラー ``db.onerror`` を使ってすべてのエラー
 を捕捉し、報告やその他の目的に利用できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    db.onerror = function(event) {
        let request = event.target; // the request that caused the error
@@ -1142,7 +1143,7 @@ IndexedDB のイベントは ``request``, ``transaction``, ``database`` の順�
 ``event.stopPropagation()`` を使うことで、bubbling を停止して ``db.onerror`` を
 停止できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    request.onerror = function(event) {
        if (request.error.name == "ConstraintError") {
@@ -1214,7 +1215,7 @@ By a field using an index
 トアの追加機能だ。そのフィールドの値それぞれに対して、その値を持つオブジェクトの
 キーのリストを格納する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    objectStore.createIndex(name, keyPath, [options]);
 
@@ -1234,7 +1235,7 @@ By a field using an index
 
 本書よりも先にコードを示す：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    openRequest.onupgradeneeded = function() {
        // we must create the index here, in versionchange transaction
@@ -1267,7 +1268,7 @@ price list
 
 ある価格を検索したいときは、同じ検索方法をインデックスに適用するだけでよい：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let transaction = db.transaction("books"); // readonly
    let books = transaction.objectStore("books");
@@ -1291,7 +1292,7 @@ price list
 ``IDBKeyRange`` を用いて安い本/高い本を探すこともできる。次の例では ``price`` が
 5 またはそれ未満の本を検索する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let request = priceIndex.getAll(IDBKeyRange.upperBound(5));
 
@@ -1306,7 +1307,7 @@ Deleting from store
 
 * ``delete(query)``: 問い合わせにマッチする値を削除する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // delete the book with id='js'
    books.delete('js');
@@ -1314,7 +1315,7 @@ Deleting from store
 もし ``price`` や他のオブジェクトフィールドに基づいて本を削除したいのであれば、
 まずインデックスでキーを見つけ、それから ``delete()`` を呼び出す必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let request = priceIndex.getKey(5);
 
@@ -1325,7 +1326,7 @@ Deleting from store
 
 全削除をするにはメソッド ``clear()`` を呼ぶ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    books.clear();
 
@@ -1341,7 +1342,7 @@ Cursors
 ストアは内部的にキーでソートされているので、カーソルはキー順に走査する。未指定時
 は昇順。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let request = store.openCursor(query, [direction]);
 
@@ -1367,7 +1368,7 @@ Cursors
 カーソルに一致する値がさらにあるかどうかにかかわらず ``onsuccess`` が呼び出さ
 れ、その結果、カーソルが次のレコードを指すか、``undefined`` であるかになる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let transaction = db.transaction("books");
    let books = transaction.objectStore("books");
@@ -1407,7 +1408,7 @@ Promise wrapper
 IndexedDB のメソッドを持つグローバルなオブジェクト ``idb`` を生成する。すると
 ``onsuccess``/``onerror`` の代わりに、次のように書ける：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let db = await idb.openDB('store', 1, db => {
        if (db.oldVersion == 0) {
@@ -1441,7 +1442,7 @@ Error handling
 落ちる。捕捉されなかったエラーは、オブジェクト ``window`` の "unhandled promise
 rejection" イベントになる。このようなエラーは、次のように処理できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.addEventListener('unhandledrejection', event => {
        let request = event.target; // IndexedDB native request object
@@ -1460,7 +1461,7 @@ rejection" イベントになる。このようなエラーは、次のように
 ``Promise`` ラッパーと ``async``/``await`` の場合も状況は同じだ。次のものはトラ
 ンザクションの途中で ``fetch()`` する例だ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let transaction = db.transaction("inventory", "readwrite");
    let inventory = transaction.objectStore("inventory");

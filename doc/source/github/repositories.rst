@@ -5,7 +5,8 @@ Repositories documentation ノート
 `Repositories documentation <https://docs.github.com/en/repositories>`__ は
 GitHub の基本機能であるリポジトリーに関する記述なので全文読みたい。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 * :guilabel:`Quickstart` は Get started の Quickstart へ
 * :guilabel:`Overview` は Creating and managing repositories の About
@@ -88,7 +89,7 @@ Creating a new repository
 URL で直接生成する方法もある。次のような URL にアクセスするとリポジトリーが生成
 されるようだ：
 
-.. code:: text
+.. sourcecode:: text
 
    https://github.com/new?name=XXXX&owner=YYYY
 
@@ -129,7 +130,7 @@ Duplicating a repository
 
 これは用語の確認と Git だけで閉じた操作ということで意味がある。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone --bare https://github.com/EXAMPLE-USER/OLD-REPOSITORY.git
    bash$ cd OLD-REPOSITORY.git
@@ -139,7 +140,7 @@ Duplicating a repository
 
 LFS 絡みのときは：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone --bare https://github.com/EXAMPLE-USER/OLD-REPOSITORY.git
    bash$ cd OLD-REPOSITORY.git
@@ -154,7 +155,7 @@ Cloning a repository
 
 GitHub のリポジトリーをローカルにクローンする方法。超基本。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/PATH-TO/REPOSITORY
    # or
@@ -317,7 +318,7 @@ Displaying a sponsor button in your repository
   You can configure your sponsor button by editing a :file:`FUNDING.yml` file in
   your repository's :file:`.github` folder, on the default branch.
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    github: [octocat, surftocat]
    patreon: octocat
@@ -585,7 +586,7 @@ Renaming a branch
 
 ローカルで必要となる作業は：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git branch -m OLD-BRANCH-NAME NEW-BRANCH-NAME
    bash$ git fetch origin
@@ -870,7 +871,7 @@ Customizing how changed files appear on GitHub
   Use a :file:`.gitattributes` file to mark files that match a given "pattern"
   with the specified attributes.
 
-.. code:: text
+.. sourcecode:: text
 
    search/index.json linguist-generated=true
 
@@ -920,7 +921,7 @@ Getting permanent links to files
 
 この URL は欲しい場合があるかもしれない。
 
-.. code:: text
+.. sourcecode:: text
 
    https://github.com/github/USERNAME/blob/SHA/FILEPATH
 
@@ -970,7 +971,7 @@ Working with non-code files
   To display your 3D file elsewhere on the internet, modify this template and
   place it on any HTML page that supports JavaScript:
 
-  .. code:: html
+  .. sourcecode:: html
 
      <script src="https://embed.github.com/view/3d/<username>/<repo>/<ref>/<path_to_file>"></script>
 
@@ -1018,7 +1019,7 @@ Installing Git Large File Storage
 `git-lfs.github.com <https://git-lfs.com/>`__ でモノをダウンロードする。同梱され
 ている :file:`install.sh` を実行する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ sudo ./install.sh
    bash$ git lfs install
@@ -1039,7 +1040,7 @@ Configuring Git Large File Storage
 
 ファイルパターンと LFS を関連付ける：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git lfs track "*.psd"
 
@@ -1083,7 +1084,7 @@ Removing files from Git Large File Storage
 
 LFS 自身をリポジトリーから外すには：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git lfs uninstall
 
@@ -1095,7 +1096,7 @@ Resolving Git Large File Storage upload failures
 
 ここに述べられていることは怪しい。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git lfs install
    bash$ git lfs push --all origin
@@ -1131,7 +1132,7 @@ Managing releases in a repository
 
 GitHub CLI では次のようにタグを指定して、対話的にリリースする。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh release create TAG
    # or specify arguments
@@ -1142,7 +1143,7 @@ GitHub CLI では次のようにタグを指定して、対話的にリリース
 
 みっともないが削除も可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh release delete TAG -y
 
@@ -1154,7 +1155,7 @@ a new release` から手なりで。
 Viewing your repository's releases and tags
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh release view
 
@@ -1201,7 +1202,7 @@ Automation for release forms with query parameters
 
 URL に引数を付ければ自動でリリースを定義できる？
 
-.. code:: text
+.. sourcecode:: text
 
    https://github.com/OWNER/REPO/releases/new?tag=TAG
    https://github.com/OWNER/REPO/releases/new?target=TARGET

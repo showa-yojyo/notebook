@@ -2,7 +2,8 @@
 11 Structured Classifiers
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 11.1 Summary
@@ -291,7 +292,7 @@ Property に対する多重度は、部品箱の右上隅に多重度マーク�
 
 Connector は Association と同様の記法で描く：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <connector> ::= ( [<name>] ‘:’ <associationname> )
        | ([<name>] ‘:’ <associationclassname> )

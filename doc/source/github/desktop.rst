@@ -6,7 +6,8 @@ GitHub Desktop documentation ノート
 しかし、CLI のほうをメインでやってきたいので、Desktop は読み流す程度に留める。
 以下、組織回りや Enterprise は割愛することがある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → すぐ下の章
@@ -45,7 +46,7 @@ Getting started with GitHub Desktop
 
 インストーラーは `GitHub Desktop <https://desktop.github.com/>`__ にある。
 
-.. code:: powershell
+.. sourcecode:: powershell
 
    PS > winget install -e --id GitHub.GitHubDesktop --source winget
 

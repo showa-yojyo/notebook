@@ -2,7 +2,8 @@
 Chapter 8. Live Path Effects (LPEs)
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 *Live Path Effects* は Inkscape 独自のシステムであり、他の :abbr:`SVG` ビュー
 ワーで表示されないことがある。最終結果パスは :abbr:`SVG` パスとして表現される：

@@ -2,7 +2,8 @@
 12 Packages
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 12.1 Summary
@@ -925,7 +926,7 @@ UML Standard Profile のような OMG 標準 Profile は、URI の OMG 標準命
 
    For non-standard profiles a recommended convention is:
 
-   .. code:: text
+   .. sourcecode:: text
 
       nsUri = http://<profileParentQualifiedName>/<version>/<profileName>.xmi
       nsPrefix = <profileName>
@@ -1255,14 +1256,14 @@ instance of the Stereotype or one of its subclasses is required.
 
    The name of the Property typed by the extended metaclass is:
 
-   .. code:: text
+   .. sourcecode:: text
 
       ‘base_’ extendedMetaclassName
 
    The name of the Property typed by the extension Stereotype (the ExtensionEnd)
    is:
 
-   .. code:: text
+   .. sourcecode:: text
 
       ‘extension_’ stereotypeName
 
@@ -1270,7 +1271,7 @@ Stereotype に Constraints が追加されることはよくある。上記の P
 回航を表現するために使用してもよい。例えば、次の OCL 式は ``Home`` Interface
 に属性を持たせてはならないことを述べている：
 
-.. code:: c++
+.. sourcecode:: c++
 
    self.base_Interface.ownedAttributes->isEmpty()
 
@@ -1371,14 +1372,14 @@ Profiles は異なる規約を用いてよい。
 
    The values are displayed as name-value pairs:
 
-   .. code:: bnf
+   .. sourcecode:: bnf
 
       <namestring> ‘=’ <valuestring>
 
    If a Stereotype Property is multi-valued, then the ``<valuestring>`` is
    displayed as a comma-separated list:
 
-   .. code:: bnf
+   .. sourcecode:: bnf
 
       <valuestring> ::= <value> [‘,’ <value>]*
 

@@ -13,7 +13,8 @@
 
 `bin/twmedia.py <https://github.com/showa-yojyo/bin/blob/master/twmedia.py>`_
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET media/upload
 ======================================================================
@@ -43,7 +44,7 @@ GET media/upload を用いることである程度の画像ファイル等をア
 比較的サイズの小さい PNG 画像ファイルを上述のスクリプトでアップロードすると、次
 のようになる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./twmedia.py ../illvelo.png
    file size = 0 MB

@@ -13,14 +13,14 @@ Amazon DynamoDB 利用ノート
 インストール手順は次のようなものだ。あらかじめ適当なディレクトリーに移動しておく
 こと：
 
-.. code:: console
+.. sourcecode:: console
 
    $ curl -O https://d1ni2b6xgvw0s0.cloudfront.net/v2.x/dynamodb_local_latest.tar.gz
    $ tar xvzf dynamodb_local_latest.tar.gz --one-top-level dynamodb
 
 サービス稼動方法はこう：
 
-.. code:: console
+.. sourcecode:: console
 
    $ cd dynamodb
    $ java -D"java.library.path=./DynamoDBLocal_lib" -jar DynamoDBLocal.jar -sharedDb
@@ -37,7 +37,7 @@ Amazon DynamoDB 利用ノート
 実はまだサービスを稼動する条件が整っていない。並行して AWS Command Line
 Interface (AWS CLI) をインストールする：
 
-.. code:: console
+.. sourcecode:: console
 
    $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
    $ unzip awscliv2.zip
@@ -60,7 +60,7 @@ Interface (AWS CLI) をインストールする：
 http://localhost:8000`` を追加的に指定する必要が本来ある。ここで、その代わりとな
 る環境変数を設定する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ export AWS_ENDPOINT_URL=http://localhost:8000
 
@@ -79,7 +79,7 @@ Get started の章で試せるコマンド群を列挙しておく。`先頭の 
 
 操作によっては ``execute-statement`` コマンドを実行する別解もある。例えば
 
-.. code:: console
+.. sourcecode:: console
 
    $ aws dynamodb query \
      --table-name Music \
@@ -88,7 +88,7 @@ Get started の章で試せるコマンド群を列挙しておく。`先頭の 
 
 は次のコマンド実行でも同じ出力を得る：
 
-.. code:: console
+.. sourcecode:: console
 
    $ aws dynamodb execute-statement --statement "SELECT * FROM Music
      WHERE Artist='Acme Band'"
@@ -103,7 +103,7 @@ Getting started with DynamoDB and the AWS SDKs の実習は Python からやり�
 必要最低限のファイルを手作業でダウンロード、環境構築、デモ実施をする手順の概略を
 次に示す：
 
-.. code:: console
+.. sourcecode:: console
 
    $ mkdir -p sandbox-dynamodb/python/GettingStarted
    $ cd sandbox-dynamodb/python

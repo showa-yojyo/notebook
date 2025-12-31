@@ -14,7 +14,7 @@
   と。NumPy_ のときと同様、Nose_ が環境にあれば単体テストが実行できる。例によっ
   て実行時間は決して短くない。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> import scipy
      >>> scipy.test()

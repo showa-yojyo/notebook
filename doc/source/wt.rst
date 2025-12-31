@@ -225,7 +225,7 @@ Windows Terminal 自身へのコマンドライン引数
 |wt| を :guilabel:`ファイル名を指定して実行ダイアログ` やコマンドラインから起動
 する場合には、次のようなコマンドライン引数およびオプションを与えることもできる：
 
-.. code:: text
+.. sourcecode:: text
 
    wt.exe [options] [command ; ]
 

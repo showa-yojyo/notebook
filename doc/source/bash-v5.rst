@@ -5,7 +5,8 @@ What's New In Bash 5 ノート
 Bash バージョン 5.x で追加された新機能のメモ。全部を追跡するのは無理だから気にな
 るものと便利とされている機能を中心に拾っていく。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 バージョン 5.0
 ======================================================================
@@ -57,7 +58,7 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 コープに宣言する。このオプションを有効にすると、局所変数スコープ突入前に同名の変
 数に値が初期化済みならば、その値を引き継ぐようになる。
 
-.. code:: shell
+.. sourcecode:: shell
 
    function demo_localvar_inherit
    {
@@ -76,7 +77,7 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 
 オプションを変えて関数を呼んだ結果を比較する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ shopt -u localvar_inherit; demo_localvar_inherit
    Before call: globalvar
@@ -99,14 +100,14 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 コマンド履歴を履歴番号範囲を指定することで削除できるようになった。次を実行すると
 コマンド履歴番号 1103 から 1118 までの履歴を削除する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ history -d 1103-1118
 
 先ほど挙げた負のオフセットを ``start`` および ``end`` の値として受け入れる。例え
 ば次のようなコマンドが考えられる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ history -d -16--1
 
@@ -212,7 +213,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 な手段、関数で生成されるため、``srand`` のようなものを使って乱数列を再現すること
 は不可能のようだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ echo $SRANDOM
    3687839026
@@ -304,7 +305,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 今まで知らなかったが、実は ``local`` はシェル関数であったのだ。キーワードかと
 思っていた。何らかの関数中で ``local -p`` を呼び出すと、上述のように機能する。
 
-.. code:: shell
+.. sourcecode:: shell
 
    function test-local {
        local a=3
@@ -315,7 +316,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 
 実行結果の例（この出力と一致しない場合があり得る）：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ test-local
    test local
@@ -332,7 +333,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 
 やってみよう：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ declare -a myarray
    bash$ echo ${myarray@a}
@@ -360,7 +361,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 応された。それぞれの変換は Emacs における ``upcase-word``, ``capitalize-word``,
 ``lowercase-word`` に相当すると憶えておくといい。
 
-.. code:: console
+.. sourcecode:: console
 
    myvar=varName
    bash$ echo ${myvar@u} ${myvar@U} ${myvar@L}
@@ -374,7 +375,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 変数 ``PROMPT_COMMAND`` は ``PS1`` を表示する前に毎回実行されるコマンドを指定す
 るものだ。複数のコマンドを実行するために配列を代入することが可能になった。例えば
 
-.. code:: shell
+.. sourcecode:: shell
 
    PROMPT_COMMAND=( "command1" "command2" ... )
 
@@ -395,7 +396,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 連想配列への key-value の代入および追加方法が次のような式が合法になるように拡張
 された：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ declare -A mymap=(k0 v0 k1 v1)
    bash$ echo "${mymap[@]}"
@@ -412,7 +413,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 連想配列の値を引用符で囲まれた可能性のある出力を生成する。先ほどの例の ``mymap``
 に適用すると：
 
-.. code:: console
+.. sourcecode:: console
 
    echo "${mymap[@]@K}"
    k0 "v0" k1 "v1" k2 "v2" k3 "v3"
@@ -439,7 +440,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 
 制限シェル :command:`rbash` を起動して変数の属性を先ほど習った変数展開で調べる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ echo ${HISTFILE@a}
    r

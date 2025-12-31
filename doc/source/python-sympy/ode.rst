@@ -5,7 +5,8 @@
 モジュール ``sympy.solvers.ode`` が提供する、常微分方程式を解くための機能に関す
 る覚え書きを記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -14,7 +15,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: pycon
+   .. sourcecode:: pycon
 
       >>> from sympy import *
       >>> init_printing(pretty_print=False)
@@ -238,7 +239,7 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 このタイプ判定が下の図のように入れ子になっていて、末端のソルバーでは結局
 ``dsolve`` を単一の方程式に対して適用することを繰り返す。
 
-.. code:: text
+.. sourcecode:: text
 
    sysode_linear_neq_order<M>
        sysode_linear_neq_order1
@@ -292,7 +293,7 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 例えば微分方程式 :math:`{y^\prime = y}` を解くには次のようにするのがいちばん早
 い：
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> y = f(x)
    >>> dsolve(y.diff(x) - y, y)
@@ -304,7 +305,7 @@ SymPy のドキュメントが関数名と微分方程式の数式 (LaTeX) を�
 次のデモは単に ``integrate`` するだけで解が得られる常微分方程式を与えるものだ。
 SymPy のソルバーは一階線形常微分方程式の特別に単純な場合として処理する。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> eq = f(x).diff(x) - x**2 * sin(x) + sqrt(1 + x**2)
    >>> dsolve(eq, hint='all_Integral')
@@ -327,7 +328,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 
 変数分離系は微分方程式入門の最初の方に乗っている基本形だ。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> eq = y.diff(x) - (x**2 * y**2)/sqrt(3 - x**2)
    >>> classify_ode(eq)
@@ -355,7 +356,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
    >>> _['best'].doit()
    Eq(f(x), 2/(C1 + x*sqrt(3 - x**2) - 3*asin(sqrt(3)*x/3)))
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> eq = y.diff(x) - (x**2 * exp(y))/sqrt(3 - x**2)
    >>> dsolve(eq, hint='all')
@@ -375,7 +376,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 
 変数変換 :math:`{z = y/x}` で変数分離形常微分方程式になるものを一つ示す。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> eq = y.diff(x) + (x**2 - 3*y**2)/(x*y)
    >>> dsolve(eq, y, hint='all')
@@ -393,7 +394,7 @@ SymPy のソルバーは一階線形常微分方程式の特別に単純な場�
 一階線形方程式の例だ。非同次項があるものを試す。``exp`` と ``Integral`` が目につ
 くのがいかにもそれらしい。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> eq = y.diff(x) + x*y - exp(3*x)
    >>> dsolve(eq, y, hint='all')
@@ -419,7 +420,7 @@ Bernoulli 常微分方程式
 
 Bernoulli 常微分方程式を解く。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x) + 11*x*f(x) - x**3 * f(x)**3
 
@@ -453,7 +454,7 @@ Riccati 常微分方程式
 Riccati 型 :math:`{y^\prime = P(x)y + Q(x)y + R(x)y^2,\;P(x) \ne 0,\;R(x) \ne
 0}` を試す。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> dsolve(y.diff(x) - 3 * y**2 + 2/x**2, y, hint='all')
    {'separable_reduced_Integral': Eq(Integral(1/(_y*(3*_y + 1 - 2/_y)), (_y, x*f(x))), C1 + Integral(1/x, x)),
@@ -499,7 +500,7 @@ Riccati 型 :math:`{y^\prime = P(x)y + Q(x)y + R(x)y^2,\;P(x) \ne 0,\;R(x) \ne
 特性方程式の解のパターン別に試す。ソルバーが適切なタイプ判定をしていることがわか
 る。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x, 2) + 5 * f(x).diff(x) - 6 * f(x)
 
@@ -536,7 +537,7 @@ Euler 常微分方程式
 
 Euler 常微分方程式のデモを示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + 5 * x * f(x).diff(x) + 6 * f(x)
 
@@ -550,7 +551,7 @@ Euler 常微分方程式のデモを示す。
 
 次のものは非同次？
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) - 2 * f(x) - x**3 * exp(x)
 
@@ -575,7 +576,7 @@ Euler 常微分方程式のデモを示す。
 Airy 微分方程式を解く。ここではべき級数の形で一般解を得たが、よそではある広義積
 分で与えられる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x, 2) - x * f(x)
 
@@ -594,7 +595,7 @@ Bessel 微分方程式を解く。またしてもべき級数の形で一般解�
 関数も Bessel 関数も持っているのに、微分方程式のモジュールには関与していないとい
 うことだろうか。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + x * f(x).diff(x) + (x**2 - 16)*f(x)
 
@@ -681,7 +682,7 @@ Bessel 微分方程式を解く。またしてもべき級数の形で一般解�
 解けているように見えるが、ヒントを ``all`` にすると返って来ない？後半で同次版も
 解いてみる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = x**2 * f(x).diff(x, 2) + f(x) - x**2
 
@@ -707,7 +708,7 @@ Bessel 微分方程式を解く。またしてもべき級数の形で一般解�
 
 Liouville 型は解ける。それ以外が解けない。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x, 2) - 5 * x * f(x).diff(x) - f(x).diff(x)**2
 
@@ -751,7 +752,7 @@ Liouville 型は解ける。それ以外が解けない。
 
 SymPy のソルバーは二階以上は全部高階扱い。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x, 5) - 17 * f(x).diff(x, 4) + 108 * f(x).diff(x, 3) -330 * f(x).diff(x, 2) + 488 * f(x).diff(x) - 280 * f(x)
 
@@ -771,7 +772,7 @@ SymPy のソルバーは二階以上は全部高階扱い。
 
 SymPy のソルバーは二階以上は全部高階扱い。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = x**4 * f(x).diff(x, 4) - 2*x**3 * f(x).diff(x, 3) - x**2 * f(x).diff(x, 2) + 5 * x * f(x).diff(x) + f(x)
 
@@ -812,7 +813,7 @@ SymPy のソルバーは二階以上は全部高階扱い。
 二階で望みの形が得られないようならば、高階でもそうだ。次の例題は Airy 関数と
 Bessel 関数で一般解を返して欲しいもの。これはアウトのようだ。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x, 3) - 4*(x + 2)*f(x).diff(x) - 2 * f(x)
 
@@ -826,7 +827,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 次の例題はある高次整方程式の解で一般解が表現できる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = f(x).diff(x, 4) - 13 * f(x).diff(x, 2) + 19 * f(x).diff(x) + 33 * f(x) - cos(2*x)
 
@@ -841,7 +842,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 こちらは完全にダメだ。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: eq = 7 * f(x).diff(x) * f(x).diff(x, 3) - 11 * f(x).diff(x, 2)**2
    In [1]: classify_ode(eq)
@@ -859,14 +860,14 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 以下の例では、次の前処理を実施済みであることを事前条件としている。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from sympy.solvers.ode import classify_sysode
    x, y, z = symbols('x y z', function=True)
 
 まずは定数係数の例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: A = Matrix([[4, -6], [1, -1]])
 
@@ -902,7 +903,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 次の常微分方程式系は ``type_of_equation`` が ``None`` とされている。つまりタイプ
 不明ゆえ解けない。こういう場合は ``dsolve`` の呼び出しを諦めてしまってよい。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: sys = [x(t).diff(t, 3) + y(t), y(t).diff(t, 3) - 64 * x(t)]
 
@@ -934,7 +935,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 次は非定数係数の線形常微分方程式系の一例だが、解きたそうなのに解けないようだ。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: sys = [x(t).diff(t) - sin(t)*x(t), y(t).diff(t) - t**2 * y(t)]
 
@@ -999,7 +1000,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 次は成功例。積分もおそらく評価し切れる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: A = Matrix([[exp(t), tan(t)], [-tan(t), exp(t)]]; X = Matrix([x(t), y(t)])
 
@@ -1029,7 +1030,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 次のものは解けないと言われる。本筋とは外れるが、関数 ``classify_sysode`` の出力
 にある ``dict`` オブジェクトのアイテム順はなんとかならないか。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: A = Matrix([[exp(t), 2, 3], [0, 2, -1], [0, 0, 1]]); X = Matrix([x(t), y(t), z(t)])
 
@@ -1069,7 +1070,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 謎のエラーが出てソルバーにたどり着けない。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: p, q, r, s = symbols('p q r s', function=True)
 
@@ -1099,7 +1100,7 @@ Bessel 関数で一般解を返して欲しいもの。これはアウトのよ�
 
 次の例ではソルバーの処理中に謎のエラーが出る。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: u, v = symbols('u v', function=True)
 

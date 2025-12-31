@@ -6,7 +6,8 @@ Pandas_ の環境構築について記す。当ノート著者は Windows PC で
 しており、 Python_ は Windows Subsystem for Linux (Ubuntu) 環境に Miniconda_ を
 インストールすることでそのサードパーティー製ライブラリーを管理している。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 ドキュメント準備
 ======================================================================
@@ -24,7 +25,7 @@ Pandas 本体をインストールする
 上述の理由から、Miniconda の適当な仮想環境を ``conda activate`` した状態で次の一
 行を実行することで終わる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda install pandas
 
@@ -53,7 +54,7 @@ install`` コマンドまたは ``pip install`` コマンドを実行するこ�
 
 IPython_ のセッションを起動して、次のように単体テストを実行する：
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: import pandas as pd
 

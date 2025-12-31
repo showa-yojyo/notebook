@@ -2,7 +2,8 @@
 Animation
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Bezier curve
@@ -163,7 +164,7 @@ CSS 遷移の考え方は単純だ。あるプロパティーを記述し、そ�
 せる。これで、要素に ``.animated`` クラスがあれば 3 秒間の背景色の変化がアニメー
 ションで表示される：
 
-.. code:: css
+.. sourcecode:: css
 
    .animated {
        transition-property: background-color;
@@ -188,7 +189,7 @@ CSS 遷移を記述するプロパティーは四つある：
 ``timing-function`` ``delay`` の順番でまとめて宣言できることと、複数のプロパ
 ティーを一度にアニメーションさせることができることを押さえておく。
 
-.. code:: html
+.. sourcecode:: html
 
    <style>
    #growing {
@@ -260,7 +261,7 @@ Bezier curve
 
 CSS での Bezier 曲線の構文はこうなる：
 
-.. code:: text
+.. sourcecode:: text
 
    cubic-bezier(x2, y2, x3, y3)
 
@@ -319,7 +320,7 @@ Steps
 タイミング関数の ``steps(number of steps[, start/end])`` は、遷移を複数の段階に
 分割できる。
 
-.. code:: html
+.. sourcecode:: html
 
    <div id="digit"> <!-- border: 1px solid red; width: 1.2em; -->
        <div id="stripe">0123456789</div> <!-- display: inline-block; font: 32px monospace; -->
@@ -335,7 +336,7 @@ Steps
 
    この表現がわかりにくい。
 
-.. code:: css
+.. sourcecode:: css
    :force:
 
    #stripe.animate{
@@ -494,7 +495,7 @@ Animate a plane (CSS)
 
 私の答案はこう：
 
-.. code:: css
+.. sourcecode:: css
 
    #flyjet {
        width: 40px;
@@ -503,7 +504,7 @@ Animate a plane (CSS)
        transition-duration: 3s;
    }
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let done = false;
    flyjet.onclick = function(event){
@@ -544,7 +545,7 @@ Animated circle
 2. テンプレのスタイルシートの ``width``, ``height`` をゼロにしておく。
 3. スクリプト。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function showCircle(cx, cy, radius){
        const circle = document.querySelector('div');
@@ -568,7 +569,7 @@ Animated circle with callback
 
 このようにしたい：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    showCircle(150, 150, 100, div => {
        div.classList.add('message-ball');
@@ -580,7 +581,7 @@ Animated circle with callback
 
 しかし、本問の急所はここだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    circle.addEventListener('transitionend', function handler() {
        circle.removeEventListener('transitionend', handler);
@@ -605,7 +606,7 @@ Using ``setInterval``
 せ、1 秒間に 50 回のように小さな遅延で ``2px`` ずつ変化させると滑らかに見える。
 これは映画と同じ原理で、1秒間に 24 フレームあれば十分滑らかに見える。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let timer = setInterval(function() {
        if (style.left >= 100px){
@@ -629,7 +630,7 @@ Using ``requestAnimationFrame``
 始時間が異なるため、20ms ごとがアニメーションの種類によって異なるからだ。間隔が
 揃っていないのだから、20ms の中に独立した複数の実行があることになる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    setInterval(animate1, 20); // independent animations
    setInterval(animate2, 20); // in different places of the script
@@ -652,7 +653,7 @@ JavaScript でそれを知るにはどうしたらいいのか。Animation timin
 り、``requestAnimationFrame()`` という関数が用意されている。これは、これらすべて
 とそれ以上の問題に対応している。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let requestId = requestAnimationFrame(callback);
 
@@ -674,7 +675,7 @@ JavaScript でそれを知るにはどうしたらいいのか。Animation timin
 
 戻り値 ``requestId`` は、呼び出しを取り消すために用いる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    cancelAnimationFrame(requestId);
 
@@ -691,7 +692,7 @@ JavaScript でそれを知るにはどうしたらいいのか。Animation timin
 以下のコードは、``requestAnimationFrame()`` の最初の十回の実行の間の時間を示す。
 通常、10ms から 20ms になる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let prev = performance.now();
    let times = 0;
@@ -711,7 +712,7 @@ Structured animation
 
 ``requestAnimationFrame()`` の上に、より汎用的なアニメーション機能を作る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function animate({timing, draw, duration}) {
        let start = performance.now();
@@ -743,7 +744,7 @@ Structured animation
     座標のようなもの）を返す関数だ。例えば、一次関数を与えると、アニメーションは
     一様に同じ速度で進行する。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        function linear(timeFraction) {
            return timeFraction;
@@ -756,7 +757,7 @@ Structured animation
     ``progress=0`` はアニメーションの開始状態、
     ``progress=1`` は終了状態を表す。実際にアニメーションを描くのはこの関数である。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        function draw(progress) {
            train.style.left = progress + 'px';
@@ -799,7 +800,7 @@ Back: bow shooting
 異なり、追加の引数である「弾性係数」にも依存する。弓の弦を引く距離は、これによっ
 て定義される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function back(x, t) {
        return Math.pow(t, 2) * ((x + 1) * t - x);
@@ -812,7 +813,7 @@ Bounce
 とをするが、順序は逆だ。跳ね返りが直ちに始まる。そのために、特殊な係数がいくつか
 使われている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function bounce(t) {
        for (let a = 0, b = 1; ; a += b, b /= 2) {
@@ -831,7 +832,7 @@ Elastic animation
 
 プロットを見ると、順序が逆の減衰関数だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function elastic(x, t) {
        return Math.pow(2, 10 * (t - 1)) * Math.cos(20 * Math.PI * x / 3 * t);
@@ -850,7 +851,7 @@ easeOut モードでは、タイミング関数はラッパー ``timingEaseOut``
 まり、通常のタイミング関数を取り、そのラッパーを返す変換関数 ``makeEaseOut`` が
 あるのだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function makeEaseOut(timing) {
        return function(t) {
@@ -861,7 +862,7 @@ easeOut モードでは、タイミング関数はラッパー ``timingEaseOut``
 例えば、先ほどの関数 ``bounce()`` に適用できる。そうすると、跳ねるのがアニメー
 ションの最初ではなく、最後になる。具合が良い。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let bounceEaseOut = makeEaseOut(bounce);
 
@@ -876,7 +877,7 @@ easeInOut
 また、アニメーションの最初と最後の両方で効果を示す変換も考えられる。これを
 easeInOut と呼ぶ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function makeEaseInOut(timing) {
        return function(t) {
@@ -915,7 +916,7 @@ Animate the bouncing ball
 
 次の量を先に計算しておく必要がある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    field.clientHeight - ball.clientHeight;
 
@@ -927,7 +928,7 @@ Animate the ball bouncing to the right
 水平方向に等速運動させたい。こういう場合には座標軸別に ``aminate()`` するという
 発想をする。次の呼び出しを前問の解答に追加：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    animate({
        duration: 2000,

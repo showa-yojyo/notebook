@@ -2,7 +2,8 @@
 Sequence Diagrams
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ..
@@ -27,7 +28,7 @@ Participants
   different order than how they appear in the first message. It is possible to
   specify the actor's order of appearance by doing the following:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          participant Alice
@@ -45,7 +46,7 @@ Actors
   If you specifically want to use the actor symbol instead of a rectangle with
   text you can do so by using actor statements as per below.
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          actor Alice
@@ -60,7 +61,7 @@ Aliases
 
   The actor can have a convenient identifier and a descriptive label.
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          participant A as Alice
@@ -79,7 +80,7 @@ Grouping / Box
   it will be transparent) and/or a descriptive label using the following
   notation:
 
-  .. code:: text
+  .. sourcecode:: text
 
      box Aqua Group Description
      ... actors ...
@@ -102,7 +103,7 @@ Messages
 
   Messages can be of two displayed either solid or with a dotted line.
 
-  .. code:: text
+  .. sourcecode:: text
 
      [Actor][Arrow][Actor]:Message text
 
@@ -130,7 +131,7 @@ Activations
   It is possible to activate and deactivate an actor. ``(de)activation`` can be
   dedicated declarations:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          Alice->>John: Hello John, how are you?
@@ -145,7 +146,7 @@ UML の仕様としては、activation 要素は、オブジェクトがメッ�
   There is also a shortcut notation by appending ``+``/``-`` suffix to the
   message arrow:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          Alice->>+John: Hello John, how are you?
@@ -169,7 +170,7 @@ Notes
 
   See the example below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          participant John
@@ -180,7 +181,7 @@ Notes
 
   It is also possible to create notes spanning two participants:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          Alice->John: Hello John, how are you?
@@ -199,7 +200,7 @@ Loops
   It is possible to express loops in a sequence diagram. This is done by the
   notation
 
-  .. code:: text
+  .. sourcecode:: text
 
      loop Loop text
      ... statements ...
@@ -207,7 +208,7 @@ Loops
 
   See the example below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          Alice->John: Hello John, how are you?
@@ -223,7 +224,7 @@ Alt
   It is possible to express alternative paths in a sequence diagram. This is
   done by the notation
 
-  .. code:: text
+  .. sourcecode:: text
 
      alt Describing text
      ... statements ...
@@ -236,7 +237,7 @@ Alt
 
   or if there is sequence that is optional (if without else).
 
-  .. code:: text
+  .. sourcecode:: text
 
      opt Describing text
      ... statements ...
@@ -260,7 +261,7 @@ Parallel
 
   This is done by the notation
 
-  .. code:: text
+  .. sourcecode:: text
 
      par [Action 1]
      ... statements ...
@@ -292,7 +293,7 @@ Critical Region
 
   This is done by the notation
 
-  .. code:: text
+  .. sourcecode:: text
 
      critical [Action that must be performed]
      ... statements ...
@@ -318,7 +319,7 @@ Break
 
   This is done by the notation
 
-  .. code:: text
+  .. sourcecode:: text
 
      break [something happened]
      ... statements ...
@@ -329,7 +330,7 @@ Break
 
   See the example below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          Consumer-->API: Book something
@@ -349,7 +350,7 @@ Background Highlighting
 
   The colors are defined using rgb and rgba syntax.
 
-  .. code:: text
+  .. sourcecode:: text
 
      rect rgb(0, 255, 0)
      ... content ...
@@ -363,7 +364,7 @@ Background Highlighting
 
   See the examples below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          participant Alice
@@ -391,7 +392,7 @@ Comments
   ``%%`` (double percent signs). Any text after the start of the comment to the
   next newline will be treated as a comment, including any diagram syntax.
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          Alice->>John: Hello John, how are you?
@@ -404,7 +405,7 @@ Comments
 Entity codes to escape characters
 ======================================================================
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          A->>B: I #9829; you!
@@ -421,7 +422,7 @@ Entity codes to escape characters
   diagram. This can be configured when adding mermaid to the website as shown
   below:
 
-  .. code:: html
+  .. sourcecode:: html
 
      <script>
        mermaid.initialize({
@@ -432,7 +433,7 @@ Entity codes to escape characters
 図式単位で番号機能の有無を分ける場合には ``sequenceDiagram`` に ``autonumber`` と
 書くことでそうする：
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          autonumber
@@ -457,13 +458,13 @@ Actor Menus
 
   This can be configured by adding one or more link lines with the format:
 
-  .. code:: text
+  .. sourcecode:: text
 
      link <actor>: <link-label> @ <link-url>
 
 単一の参加者に複数のリンクを割り当てるには、このパターンを複数書くことになる：
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          participant Alice
@@ -487,13 +488,13 @@ Advanced Menu Syntax
 
   This can be configured by adding the links lines with the format:
 
-  .. code:: text
+  .. sourcecode:: text
 
      links <actor>: <json-formatted link-name link-url pairs>
 
   An example is below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      sequenceDiagram
          participant Alice
@@ -532,7 +533,7 @@ Configuration
 
   Is it possible to adjust the margins for rendering the sequence diagram.
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      mermaid.sequenceConfig = {
          diagramMarginX: 50,

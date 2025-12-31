@@ -2,7 +2,8 @@
 Forms, controls
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 HTML の ``FORM``, ``INPUT``, ``SELECT`` 各要素に関係するイベントを習う。
@@ -72,7 +73,7 @@ Form elements
 ``document.createElement('option')`` でもいいかもしれないが、便利なクラスがあ
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    option = new Option(text, value, defaultSelected, selected);
 

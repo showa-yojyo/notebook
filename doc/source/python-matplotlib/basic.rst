@@ -6,14 +6,15 @@
 基本の手順は、NumPy_/SciPy_ の機能でデータを生成し、その 2D プロットを
 Matplotlib を用いて描画することだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
    特に断らない限り、以降のテキストおよびコード片においては、各種 ``import``
    を次のようにしたものと仮定している。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       import numpy as np
       import scipy as sp
@@ -91,7 +92,7 @@ Axes
 
 * ``plt`` のプロットコマンドはすべて current axes に作用する。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      import matplotlib as mpl
      import matplotlib.pyplot as plt
@@ -171,7 +172,7 @@ Axes
   引数で指示できる。例えば `x`, `y` 引数をテキストの右下位置としたい場合には次の
   ようにする：
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      plt.text(x, y, 'aaaa', verticalalignment='bottom', horizontalalignment='right')
 
@@ -291,7 +292,7 @@ Artists 関連
    ``get_major_ticks`` @ 目盛 (``matplotlib.ticker.Ticker``) オブジェクトを返す。
    ``grid`` @ グリッド線を描画するしないを指示。
 
-.. code:: python3
+.. sourcecode:: python3
 
    import matplotlib.pyplot as plt
    ax = plt.gca()
@@ -323,7 +324,7 @@ Artists 関連
 例えば PyQt5 の UI でグラフをウィンドウに表示する場合、次のようにするとそうな
 る。
 
-.. code:: python3
+.. sourcecode:: python3
 
    import matplotlib as mpl
    mpl.use('Qt5Agg')
@@ -350,7 +351,7 @@ Artists 関連
 イルを作成することができる。コードで実現するには、次のような手順にしておけばよ
 い。
 
-.. code:: python3
+.. sourcecode:: python3
 
    import matplotlib as mpl
    mpl.use('PDF')  # We want the image as PDF file.

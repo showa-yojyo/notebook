@@ -4,7 +4,8 @@
 
 .. include:: /_include/book-details/newham05.txt
 
-.. contents:: ノートの目次
+.. contents:: 見出し一覧
+   :local:
 
 まえがき
 ======================================================================
@@ -89,7 +90,7 @@ Korn シェル (:program:`ksh`)
 
 * 後で以下の入力を試してみる。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      echo b{ed,olt,ar}s
      echo b{ar{d,n,k},ed}s
@@ -230,7 +231,7 @@ Korn シェル (:program:`ksh`)
 * <変数を設定するには、:file:`.inputrc` ファイルで ``set`` コマンドを使用する>
   (p. 55)
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      # bash を vi モードで起動するようにする
      set editing-mode vi
@@ -243,7 +244,7 @@ Korn シェル (:program:`ksh`)
 * <キー配列にシェルコマンドをバインドしたい場合には、:command:`bind -x` が便利
   である>
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      # :kbd:`Ctrl` +L を ls コマンドにバインドする
      bind -x '"\C-l":ls'
@@ -294,7 +295,7 @@ Korn シェル (:program:`ksh`)
 
 * エイリアスは再帰的であるが、無限ループに陥らないようにできている。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
     # 無限ループにならない
     alias ls='ls -l'
@@ -389,7 +390,7 @@ Korn シェル (:program:`ksh`)
 
 * 特定のサブプロセス環境だけで使用する環境変数を定義することもできる。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      TERM=trythisone emacs file-name
 
@@ -403,7 +404,7 @@ Korn シェル (:program:`ksh`)
 * <原則としては、:file:`.bash_profile` 内の定義をできるだけ減らし、環境定義ファ
   イル (:command:`.bashrc`) の定義をできるだけ増やす> (p. 84)
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      stty stop ^S intr ^C erase ^?
      date

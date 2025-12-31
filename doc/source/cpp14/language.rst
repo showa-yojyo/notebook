@@ -7,7 +7,8 @@ What's New In C++14 言語仕様
 
 タイピングの都合で訳語は cpprefjp_ のものと一部変更して記す。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 言語機能
 ======================================================================
@@ -44,7 +45,7 @@ C++14 における言語機能の追加および変更は C++11 からのマイ�
 ``decltype`` に与える式を右辺の式で置き換えて型推論できるようになった。
 cpprefjp_ の例を引用する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    int a = 3;
    int b = 2;
@@ -59,7 +60,7 @@ cpprefjp_ の例を引用する。
 と書くことも考えられる。その場合は ``int`` 型関数として決定される。他方で
 ``decltype(auto)`` とすると関数 ``f`` は ``int&`` 型となる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    decltype(auto) f(int& r)
    {
@@ -87,13 +88,13 @@ cpprefjp_ の例を引用する。
 C++11 のラムダ式が拡張されて、パラメーターにテンプレートを使用できるようになっ
 た。ただしその構文はキーワード ``template`` ではなく ``auto`` を用いる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto plus = [](auto a, auto b) { return a + b; };
 
 このラムダ式は意味としては次の関数テンプレートと同様だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T1, class T2>
    auto operator()(T1 a, T2 b) const
@@ -113,7 +114,7 @@ C++11 のラムダ式が拡張されて、パラメーターにテンプレー�
 関数テンプレート、クラステンプレートの類比で、変数（というか定数）もテンプレート
 化することができるようになった。 cpprefjp_ の例を引用する：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    constexpr T pi = static_cast<T>(3.14159265358979323846);
@@ -153,13 +154,13 @@ C++11 で導入されたこのキーワードは、C++14 で次のように適�
 またしても cpprefjp_ の例を引用する。C++11 では次のように括弧を二度書くところ
 を：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::array<int, 3> ar = {{ 1, 2, 3 }};
 
 C++14 では括弧を省略しても許される：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::array<int, 3> ar = { 1, 2, 3 };
 
@@ -189,7 +190,7 @@ Python などではアンダースコアを用いるところを C++ ではシ�
 以下の演算子 ``operator delete``, ``operator delete[]`` のオーバーロードが許され
 る：
 
-.. code:: c++
+.. sourcecode:: c++
 
    void operator delete(void* ptr, std::size_t size) noexcept;
    void operator delete(void* ptr, std::size_t size,
@@ -219,7 +220,7 @@ g++ (GCC) 10.0.2 ではすべて定義されていることを確認。使わな
 
 下の行の記法でも許されるようになった。
 
-.. code:: c++
+.. sourcecode:: c++
 
    return_type operator"" _xyz(const char*){ ... }
    return_type operator""_xyz(const char*){ ... }
@@ -233,7 +234,7 @@ g++ (GCC) 10.0.2 ではすべて定義されていることを確認。使わな
 ``typename`` でもないようなテンプレート引数として、型 ``nullptr_t`` を書くことが
 許される。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename C, typename V, std::nullptr_t P>
    class MyClass{

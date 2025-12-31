@@ -6,7 +6,8 @@
 パターンの Visitor パターンであり、作用する対象はクラス名が示すように ``Node``
 オブジェクトだ。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 クラス図
 ======================================================================
@@ -23,7 +24,7 @@
 サブクラスが存在することに注意が要る。下に ``NodeVisitor`` のサブクラスをテキス
 トで列挙しておく。
 
-.. code:: text
+.. sourcecode:: text
 
    NodeVisitor
        writers.html4css1.HTMLTranslator
@@ -45,7 +46,7 @@
 メソッド ``Node.walk`` の簡略版コードを次に示す。ログ出力と、こちらは重要なので
 載せたいところだが、例外処理コードを省いている。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def walk(self, visitor):
        stop = False
@@ -75,7 +76,7 @@
 
 メソッド ``Node.walkabout`` の簡略版コードを次に示す。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def walkabout(self, visitor):
        call_depart = True
@@ -118,7 +119,7 @@
 
 ログ出力等、本質的でない処理を取り除いた簡易コードを示す。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def dispatch_visit(self, node):
        node_name = node.__class__.__name__
@@ -178,7 +179,7 @@ Visitor のスーパークラスとして利用する。具体的に言うと、
 クラス ``HTMLTranslator`` を見るとこういうコードがある。これの直接スーパークラス
 は ``NodeVisitor`` だ。
 
-.. code:: python3
+.. sourcecode:: python3
 
    # From class docutils.writers.html4css1.HTMLTranslator
 
@@ -190,7 +191,7 @@ Visitor のスーパークラスとして利用する。具体的に言うと、
 
 どのように呼び出されるかというと、このようなものだ。
 
-.. code:: python3
+.. sourcecode:: python3
 
    # From class docutils.writers.html4css1.Writer:
 

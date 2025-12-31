@@ -2,7 +2,8 @@
 Classes
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Class basic syntax
@@ -13,7 +14,7 @@ Class basic syntax
 The ``class`` syntax
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class MyClass {
        constructor() { ... }
@@ -55,7 +56,7 @@ Class Expression
 
 無名関数と同様にして、無名クラスの定義も（名前付きにも）できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let MyClass = class {
        ...
@@ -74,7 +75,7 @@ Computed names ``[...]``
 機能を忘れかけているので、コード例を引いておく（角括弧内はふつうは実行時評価され
 る）：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class User {
        ['say' + 'Hi']() {
@@ -87,7 +88,7 @@ Class fields
 
 クラスフィールドはプロトタイプではなく、個々のオブジェクトに備わる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class MyClass {
        field1 /* [= expr1] */;
@@ -124,7 +125,7 @@ Class inheritance
 The ``extends`` keyword
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Derived extends Base{
        // ...
@@ -197,7 +198,7 @@ Error creating an instance
 コードをブラウザーで実行すると、デバッガーがエラーメッセージで解答を教えてくれ
 る。
 
-.. code:: text
+.. sourcecode:: text
 
    ReferenceError: Must call super constructor in derived class before accessing
    'this' or returning from derived constructor
@@ -314,7 +315,7 @@ Extending built-in classes
 は、サブクラスに特別な静的アクセッサープロパティー ``Symbol.species`` を追加すれ
 ばいい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class PowerArray extends Array {
        static get [Symbol.species]() {
@@ -343,7 +344,7 @@ Class checking: ``instanceof``
 The ``instanceof`` operator
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    obj instanceof Class
 
@@ -391,7 +392,7 @@ A mixin example
 Mixin を実装する簡単な方法は、使えるメソッドを持つオブジェクトを作り、それを任意
 のクラスのプロトタイプにマージできるようにすることだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let sayHiMixin = {
        // useful methods...
@@ -426,7 +427,7 @@ Mixin の仕様：
 利用例。メニュー項目が選択されたときにイベント ``"select"`` を生成し、他のオブ
 ジェクトは、そのイベントに反応するハンドラーを割り当てることができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Menu {
        choose(value) {
@@ -439,11 +440,11 @@ Mixin の仕様：
 メニューの選択に反応するコードが必要な場合は ``menu.on`` でそれを listen するこ
 とができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    menu.on("select", value => alert(`Value selected: ${value}`));
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    menu.choose("123");
 

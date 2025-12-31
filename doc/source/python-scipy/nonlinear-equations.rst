@@ -16,7 +16,8 @@ finding という文字列を検索してみるとよい。問題となってい
 
 なお、線形連立方程式のそれについてはページを改めて述べる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Newton-Raphson 法
 ======================================================================
@@ -79,7 +80,7 @@ SciPy というよりは NumPy_ だけで多項式の定義と根の計算が実
    本節で例示した方程式は SymPy_ を用いれば代数的処理で解を得られる。
    :doc:`/python-sympy/index` 参照。
 
-   .. code:: ipython
+   .. sourcecode:: ipython
 
       In [1]: solve(x - 2 * sqrt(x - 1))
       Out[1]: [2]

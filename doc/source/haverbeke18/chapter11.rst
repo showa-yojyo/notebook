@@ -7,7 +7,8 @@ Asynchronous Programming
 この章はひじょうに重要かつかなり難解な内容であるので、しばらくの間見返すことが多
 くなるだろう。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Asynchronicity
 ======================================================================
@@ -46,7 +47,7 @@ Callbacks
   * Node.js とブラウザーの両方で使用可能である関数 ``setTimeout`` は、指定された
     ミリ秒待機したのち、コールバック関数を呼び出す。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        setTimeout(() => console.log("Tick"), 500);
 
@@ -68,7 +69,7 @@ Callbacks
 は、実際のキャッシュを示す他のデータを示す名前の配列を保持することができる。巣
 Big Oak の球根にある貯蔵食料を探すために、カラスは次のようなコードを実行する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    //import {bigOak} from "./crow-tech";
    const {bigOak} = require("./crow-tech");
@@ -106,7 +107,7 @@ Big Oak の球根にある貯蔵食料を探すために、カラスは次のよ
 コールバック型関数が備わっている。巣にはリクエストを送信するメソッド ``send`` が
 ある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     bigOak.send(
         "Cow Pasture",
@@ -121,7 +122,7 @@ Big Oak の球根にある貯蔵食料を探すために、カラスは次のよ
 * ハンドラーコードはカラスが全ての巣に飛び回ってインストールしていくようなので気
   にしないものとする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    //import {defineRequestType} from "./crow-tech";
    const {defineRequestType} = require("./crow-tech");
@@ -183,7 +184,7 @@ Promises
   * そうでない場合は、指定された値を結果として返すような、すぐに終了する新しい
     ``Promise`` を返す。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let fifteen = Promise.resolve(15);
      fifteen.then(value => console.log(`Got ${value}`));
@@ -219,7 +220,7 @@ Promises
 関数 ``readStorage`` に対する ``Promise`` ベースのインターフェイスは次のように定
 義する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function storage(nest, name) {
        return new Promise(resolve => {
@@ -294,7 +295,7 @@ Failure
   * 例外を投げた場合は拒絶、
   * それらのいずれかを返した場合は ``Promise`` の結果となる。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      new Promise((_, reject) => reject(new Error("Fail")))
          .then(value => console.log("Handler 1"))
@@ -339,7 +340,7 @@ Networks are hard
 これらは、ラッパーによって ``Promise`` の解決と却下に変換できる。この
 ``request`` は後ほどしばしば参照されるたいせつな機能だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class Timeout extends Error {}
 
@@ -381,7 +382,7 @@ Networks are hard
 ラッパーを定義しておく。このラッパーでは、ハンドラー関数が ``Promise`` や普通の
 値を返すことができ、それをコールバックに送ってくれるというものだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function requestType(name, handler) {
        defineRequestType(name, (nest, content, source,
@@ -423,7 +424,7 @@ Collections of promises
   順序で返す。
 * いずれかの ``Promise`` が却下された場合 ``Promise.all`` 自体が却下される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    requestType("ping", () => "pong");
 
@@ -454,7 +455,7 @@ Network flooding
 隣の巣に転送するという方法がある。ネットワーク全体がメッセージを受け取るまで、こ
 れらの巣がさらにそれらの隣の巣に転送する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    import {everywhere} from "./crow-tech";
    //const {everywhere} = require("./crow-tech");
@@ -511,7 +512,7 @@ Message routing
 るかどうかをチェックする代わりに、与えられた巣の隣人の新しい集合が、現在持ってい
 る集合と等しいかどうかをチェックする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    requestType("connections", (nest, {name, neighbors},
                                source) => {
@@ -552,7 +553,7 @@ Message routing
 ステップを返すだけだ。その次の巣では、ネットワークに関する最新の情報を使って、
 メッセージをどこに送るかを決定する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function findRoute(from, to, connections) {
        let work = [{at: from, via: null}];
@@ -574,7 +575,7 @@ Message routing
 * そうでない場合は、メッセージをオブジェクトにパックして ``route`` リクエストを
   使って、目標に近い隣人に送り、その隣人は同じ動作を繰り返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function routeRequest(nest, target, type, content) {
        if (nest.neighbors.includes(target)) {
@@ -609,7 +610,7 @@ Async functions
 * 巣の計算機は、自分のストレージにない情報を取り出すために、それがある巣を見つけ
   るまで、ネットワーク上の他の巣をランダムに調べる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    requestType("storage", (nest, name) => storage(nest, name));
 
@@ -706,7 +707,7 @@ Generators
 * 関数を ``function*`` で定義すると、その関数はジェネレーターになる。ジェネレー
   タを呼び出すと第 6 章で説明した反復子が返される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function* powers(n) {
        for (let current = n;; current *= n) {
@@ -726,7 +727,7 @@ Generators
 * ジェネレータ関数を使うと反復子を書くのがはるかに簡単になる。第 6 章の練習問題
   で出てきたクラス ``Group`` の反復子はジェネレーターを使って書ける：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      Group.prototype[Symbol.iterator] = function*() {
          for (let i = 0; i < this.members.length; i++) {
@@ -752,7 +753,7 @@ The event loop
   とんど空のスタックから始まるので、捕捉ハンドラーが例外を送出するときには、ハン
   ドラーはスタック上にない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    try {
        setTimeout(() => { throw new Error("Woosh");}, 20);
@@ -772,7 +773,7 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 次の例ではタイムアウトを設定するが、タイムアウトが意図した時点を過ぎるまでダレて
 しまい、タイムアウトが遅れる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let start = Date.now();
    setTimeout(() => {console.log("Timeout ran at", Date.now() - start);}, 20);
@@ -785,7 +786,7 @@ JavaScript 環境では一度に一つのプログラムしか実行しない。
 に解決されていても、それが待機されていると、コールバックはすぐにではなく、現在の
 スクリプトが終了してから実行されることになる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Promise.resolve("Done").then(console.log);
    console.log("Me first!");
@@ -803,7 +804,7 @@ Asynchronous bugs
 カラスには毎年村中で孵化するヒナの数を数えるという趣味がある。巣ではこの数をスト
 レージ球根に保存する。次のコードは、ある年のすべての巣の数を列挙するものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function anyStorage(nest, source, name) {
        if (source == nest.name) return storage(nest, name);
@@ -841,7 +842,7 @@ Asynchronous bugs
 * いつものように、新しい値を計算することは、既存の値を変更することよりも間違いに
   くい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    async function chicks(nest, year) {
        let lines = network(nest).map(async name => {
@@ -854,7 +855,7 @@ Asynchronous bugs
 適当な巣 ``nest`` に対して例えば ``chicks(nest, 2009)`` を呼び出すと次のよう
 なデータが得られる：
 
-.. code:: text
+.. sourcecode:: text
 
   Big Oak: 1
   Gilles' Garden: 4
@@ -914,7 +915,7 @@ Tracking the scalpel
 **解答** 目標は ``nest.scalpel == nest.name`` なる ``nest`` を見つけることだ。問
 いの前半は次のコードで見つかる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    async function locateScalpel(nest) {
        try{
@@ -936,7 +937,7 @@ Tracking the scalpel
 
 同じ関数を非同期キーワードを用いずに書くと：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function locateScalpelSync(nest){
        for(const target of network(nest)){
@@ -976,7 +977,7 @@ Building ``Promise.all``
 **解答** これは二時間くらい考えて諦めた。``Promise`` の配列に対するループを
 ``Promise`` のコンストラクターに与えるのが急所のようだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function Promise_all(promises) {
        let results = [];

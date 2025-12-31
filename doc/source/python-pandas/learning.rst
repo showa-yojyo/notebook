@@ -6,21 +6,22 @@ Pandas_ の初期段階での学習方法について思いつくままに記す
 的には IPython_ を利用する前提だ。プロットなどでは Jupyter Notebook を利用するの
 が自然かも知れない。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 IPython のプロファイルを仕込む
 ======================================================================
 
 Pandas_ を学習するときには次のコードを毎回コンソールに打ち込むことになる：
 
-.. code:: python
+.. sourcecode:: python
 
    import pandas as pd
    import numpy as np
 
 この手間を省略するために、IPython のプロファイル機能を活用する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ PANDAS_PROFILE_NAME=pandas
    bash$ ipython profile create $PANDAS_PROFILE_NAME
@@ -34,7 +35,7 @@ Pandas_ を学習するときには次のコードを毎回コンソールに打
 
 そして IPython セッションを開始するときには次のようにするのだ：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ipython --profile $PANDAS_PROFILE_NAME
 
@@ -58,7 +59,7 @@ Getting started tutorials ノート
 CSV ファイルから ``DataFrame`` オブジェクトを生成するコードを上述のスクリプトに
 含めておくといい。
 
-.. code:: python
+.. sourcecode:: python
 
    titanic = pd.read_csv("path/to/titanic.csv")
    air_quality_short = pd.read_csv("path/to/air_quality_no2.csv", index_col=0, parse_dates=True)
@@ -148,7 +149,7 @@ CSV ファイルから ``DataFrame`` オブジェクトを生成するコード�
       利用するのも楽だ。``.ipynb`` ファイルを作成するように VS Code を開くとい
       い。
 
-      .. code:: console
+      .. sourcecode:: console
 
          bash$ code pandas-plot.ipynb
 

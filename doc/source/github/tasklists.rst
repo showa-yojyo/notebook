@@ -5,7 +5,8 @@ Managing your issues with tasklists ノート
 本章は GitHub Issues documentation の部分だ。見出しが Issues と並列しているので
 ノートを分割した。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 About tasklists
 ======================================================================
@@ -67,6 +68,6 @@ Project 検索欄で課題一覧が関わるフィルターを適用可能だと
 
 フィルターの書式は次のとおり：
 
-.. code:: text
+.. sourcecode:: text
 
    tracked-by:"<OWNER>/<REPO>#<ISSUE NUMBER>"

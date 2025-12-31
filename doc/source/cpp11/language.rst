@@ -7,7 +7,8 @@ What's New In C++11 言語仕様
 
 タイピングの都合で訳語は cpprefjp_ のものと一部変更して記す。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 一般的な機能
 ======================================================================
@@ -20,7 +21,7 @@ What's New In C++11 言語仕様
 
 テンプレートの型推論機能と同等のものと考えて良いようだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto x = 5; // OK: x has type int
    const auto* v = &x, u = 6; // OK: v has type const int*, u has type const int
@@ -64,7 +65,7 @@ What's New In C++11 言語仕様
 
 以下、標準の例コードからの引用だ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    const int&& foo();
    int i;
@@ -83,7 +84,7 @@ What's New In C++11 言語仕様
 よそのプログラミング言語ではおなじみの機能が C++11 に追加された。cpprefjp_ の
 コードを引用する：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::vector<int> v;
 
@@ -100,7 +101,7 @@ What's New In C++11 言語仕様
 生の配列や POD 構造体のように、オブジェクトを ``{ ... };`` の構文で初期化できる
 機能だ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::complex<double> z{1, 2};
    std::map<std::string, int> anim = {
@@ -112,7 +113,7 @@ What's New In C++11 言語仕様
 パラメーターリストにクラステンプレート ``std::initializer_list`` の引数を取るコ
 ンストラクターが提供されているクラスに対してそのような初期化が許される。
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <initializer_list>
 
@@ -140,7 +141,7 @@ What's New In C++11 言語仕様
 * 例えばデフォルトコンストラクターの呼び出しですら（厳密には細かい条件があるもの
   の）こう書ける：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // いずれもデフォルトコンストラクターによる初期化を意味する。
      // コピーコンストラクターもコピー代入演算子も呼び出されない。
@@ -208,7 +209,7 @@ What's New In C++11 言語仕様
   辺値参照とは区別して処理される。また、こうした処理のことを「:dfn:`ムーブ`」と
   呼ぶ〉
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      std::vector<int> v, vv;
      v = vv; // 代入式 1
@@ -268,7 +269,7 @@ What's New In C++11 言語仕様
     * lvalue ならば ``x`` は lvalue 参照となる。
     * rvalue ならば ``x`` は rvalue 参照となる。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        template <typename T>
        void f(T&& x) {}
@@ -309,7 +310,7 @@ What's New In C++11 言語仕様
 
 * 文法を習得する。
 
-  .. code:: text
+  .. sourcecode:: text
 
      "[" キャプチャリスト "]"
      "(" パラメータリスト ")" "mutable" 例外仕様 属性
@@ -349,7 +350,7 @@ What's New In C++11 言語仕様
 * 新キーワード ``noexcept`` は、関数宣言において、例外を送出するか否かを明示する
   キーワードだ。必ずしも書かなくともよい。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      void f() noexcept;
      void g() noexcept(true);
@@ -452,7 +453,7 @@ What's New In C++11 言語仕様
   けることと、引数依存の名前探索ルールを理解することだろう。例えば cpprefjp_ の
   例だが：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      namespace my_namespace
      {
@@ -555,7 +556,7 @@ cpprefjp_ のサンプルコードが実のところ少し高級かもしれな�
 メンバ関数の左辺値／右辺値修飾
 ----------------------------------------------------------------------
 
-.. code:: c++
+.. sourcecode:: c++
 
    class MyClass
    {
@@ -604,13 +605,13 @@ Scoped ``enum``
 
 これは仕事で C++ をやった人間なら一発で理解できる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::map<int, std::vector<double> > positions;
 
 みたいなものが次のように書けるようになったということ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::map<int, std::vector<double>> positions;
 
@@ -627,7 +628,7 @@ Scoped ``enum``
 このとき、別の cpp で次のように宣言すると、その cpp では実体化をしなくなる。別の
 cpp の実体化を参照するのだろう。
 
-.. code:: c++
+.. sourcecode:: c++
 
    extern template class C<T1>;
    extern template F<T2>(the_parameter_list);
@@ -639,7 +640,7 @@ cpp の実体化を参照するのだろう。
 
 テンプレートを含む型に別名をつける方法ができた。例えば次のようにする。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    using Vec = std::vector<T>;
@@ -647,7 +648,7 @@ cpp の実体化を参照するのだろう。
 キーワード ``using`` の強化の話をまだ学習していないことに注意。別名定義はテンプ
 レートが関係していなくてもいい。例えば次のような宣言も正しい：
 
-.. code:: c++
+.. sourcecode:: c++
 
    using VecInt = std::vector<int>;
 

@@ -52,7 +52,7 @@ XDG 環境変数を定義する
 上述の環境変数を対話シェルの初期化時に定義する。Bash ならファイル
 :file:`.bashrc` のなるべく先頭に近い行に次のように記す：
 
-.. code:: bash
+.. sourcecode:: bash
 
    export XDG_DATA_HOME=$HOME/.local/share
    export XDG_CONFIG_HOME=$HOME/.config
@@ -76,7 +76,7 @@ XDG 環境変数を定義する
 る。例えば Git のドットファイル :file:`$HOME/.gitconfig` に対する手順は次のよう
 なものだ：
 
-.. code:: console
+.. sourcecode:: console
 
    $ cd
    $ mkdir -p ./.config/git
@@ -88,14 +88,14 @@ XDG 環境変数を定義する
 るパターンが多い。その :command:`export` は上述のシェル初期化ファイルで実行す
 る。例えば Readline については：
 
-.. code:: bash
+.. sourcecode:: bash
 
    export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
 を :file:`.bashrc` に記述しておき、ドットファイル :file:`.inputrc` をサブディレ
 クトリーに名前を変えたうえで再配置する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ cd
    $ mkdir readline

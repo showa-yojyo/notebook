@@ -2,7 +2,8 @@
 Binary data, files
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 JavaScript でバイナリーデータやバイナリーファイルを扱う方法を学習する。
@@ -29,7 +30,7 @@ JavaScript のバイナリーデータは、他の言語の標準的な実装と
 域への参照だ。次のコードで 16 バイトの連続したメモリー領域を確保し、ゼロで埋めて
 おく：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let buffer = new ArrayBuffer(16);
 
@@ -91,7 +92,7 @@ JavaScript のバイナリーデータは、他の言語の標準的な実装と
 
 本書ではオーバーロードのようなものが五つあると言っている：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new TypedArray(buffer, [byteOffset], [length]);
    new TypedArray(object);
@@ -125,7 +126,7 @@ JavaScript のバイナリーデータは、他の言語の標準的な実装と
 したがって、元のバッファーを共有させながら、一つのビューから別のビューに移動する
 ことができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let arr8 = new Uint8Array([0, 1, 2, 3]);
    // another view on the same data
@@ -189,7 +190,7 @@ Out-of-bounds behavior
   でデータを参照する。フォーマットはコンストラクターの実行時ではなく、メソッド呼
   び出し時に選択する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new DataView(buffer, [byteOffset], [byteLength]);
 
@@ -232,7 +233,7 @@ TextDecoder and TextEncoder
 
 その処理をするために、次のオブジェクトをまず生成する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let decoder = new TextDecoder([label], [options]);
 
@@ -246,7 +247,7 @@ TextDecoder and TextEncoder
 
 それからメソッドを呼び出すことで文字列を得る：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = decoder.decode([input], [options]);
 
@@ -265,7 +266,7 @@ TextDecoder and TextEncoder
 
 ``TextEncoder`` はその逆で、文字列をバイト列に変換する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let encoder = new TextEncoder();
 
@@ -299,7 +300,7 @@ JavaScript の一部でもある。ブラウザーには高水準のオブジェ
 
    本書の模式図を頭に叩き込んでおくといい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new Blob(blobParts, options);
 
@@ -315,7 +316,7 @@ JavaScript の一部でもある。ブラウザーには高水準のオブジェ
 ``Blob`` オブジェクトから部分を取り出すにはメソッド ``slice()`` を用いる。引数は
 ``array.slice()`` と同様で、負の数も許される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    blob.slice([byteStart], [byteEnd], [contentType]);
 
@@ -347,7 +348,7 @@ JavaScript では、こういうオブジェクトの性質を「オブジェク
 リンクをクリックすると、hello world の中身を含む動的に生成された ``Blob`` がファ
 イルとしてダウンロードされる例：
 
-.. code:: html
+.. sourcecode:: html
 
    <!-- download attribute forces the browser to download instead of navigating -->
    <a download="hello.txt" href='#' id="link">Download</a>
@@ -362,7 +363,7 @@ JavaScript では、こういうオブジェクトの性質を「オブジェク
 と、ダウンロードが自動的に開始する。 HTML を一切使用せずに、動的に生成された
 ``Blob`` をダウンロードさせる類似のコード：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let link = document.createElement('a');
    link.download = 'hello.txt';
@@ -380,7 +381,7 @@ JavaScript では、こういうオブジェクトの性質を「オブジェク
 
 ``link.href`` の値はこのようなものだ：
 
-.. code:: text
+.. sourcecode:: text
 
    blob:https://javascript.info/1e67e00e-860d-40a5-89ae-6ab0cbee6273
 
@@ -422,13 +423,13 @@ URL が無効になるからだ。失効後、写像が削除されると、URL 
 
 データ URL は次のような形式をとる。
 
-.. code:: text
+.. sourcecode:: text
 
    data:[<mediatype>][;base64],<data>
 
 このような URL は通常の URL と同じように、どこでも使用できる。
 
-.. code:: html
+.. sourcecode:: html
 
    <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
 
@@ -487,7 +488,7 @@ Image to blob
 
 コールバックではなく、非同期呼び出しも対応している：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let blob = await new Promise(resolve => canvasElem.toBlob(resolve, 'image/png'));
 
@@ -515,7 +516,7 @@ From ``Blob`` to stream
 ``Blob`` のメソッド ``stream()`` は ``ReadableStream`` を返し、これを読み込むと
 ``Blob`` に含まれるデータが返される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // get readableStream from blob
    const readableStream = blob.stream();
@@ -544,7 +545,7 @@ File and FileReader
 ``File`` オブジェクトは ``Blob`` を継承し、ファイルシステム関連の機能を拡張した
 ものだ。まず、コンストラクターだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new File(fileParts, fileName, [options])
 
@@ -564,7 +565,7 @@ File and FileReader
 
 ``<input type="file">`` から ``File`` オブジェクトを取得する方法：
 
-.. code:: html
+.. sourcecode:: html
 
    <input type="file" onchange="showFile(this)">
 
@@ -587,7 +588,7 @@ File and FileReader
 オブジェクトだ。ディスクからの読み込みに時間がかかることがあるため、イベントを使
 用してデータを届ける。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let reader = new FileReader(); // no arguments
 

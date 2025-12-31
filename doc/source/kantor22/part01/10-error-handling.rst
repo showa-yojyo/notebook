@@ -2,7 +2,8 @@
 Error handling
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Error handling, ``try`` ... ``catch``
@@ -18,7 +19,7 @@ The ``try`` ... ``catch`` syntax
 
 ほかのプログラミング言語にも似たものがある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    try {
        // code...
@@ -45,7 +46,7 @@ Optional ``catch`` binding
 
 ``catch`` 節でエラーを参照しないつもりならば、次のように書ける：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    try {
        // code...
@@ -58,7 +59,7 @@ Using ``try`` ... ``catch``
 
 本文では次のコードを例示している。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let json = "{ bad json }";
    try {
@@ -91,7 +92,7 @@ Throwing our own errors
 JavaScript には組み込みエラーがたくさんある。状況に合致すればそれらを利用しても
 いい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let error = new Error(message);
    // or = new SyntaxError(message);
@@ -174,7 +175,7 @@ Extending ``Error``
 ない場合のエラーをも自作することを考える。そのエラーの定義は、組み込みエラー
 ``Error`` から継承することにすると、さしあたり次のようなものになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class ValidationError extends Error {
        constructor(message) {
@@ -189,7 +190,7 @@ Extending ``Error``
 ``readUser(json)`` の呼び出し例は次のようになる。他の言語と比べて ``catch`` 節の
 書き方が面倒であることに気づく：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    try {
        let user = readUser('{ "age": 25 }');

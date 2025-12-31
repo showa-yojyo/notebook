@@ -4,7 +4,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 1
 
 `仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#introduction>`__
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 1. Introduction
 ======================================================================
@@ -176,7 +177,7 @@ API 入場地点を仕様にする。
 のエラーは、コンパイル時またはリンク時に報告する。「死にコード」であってもエラー
 チェックは必要だ。例えば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    if (false)     // changing false to true cannot uncover additional errors
        statement; // statement must be error checked regardless

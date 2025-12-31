@@ -4,7 +4,8 @@
 
 .. include:: /_include/book-details/gamma95.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 ローマ数字ページ
 ======================================================================
@@ -197,13 +198,13 @@ Smalltalk とはなんぞや。後で調べる気になったら調べればい�
 * <コンストラクタコールを使ってしまうと、このようなことを直接行えない> (p. 57)
   そこで、オブジェクト生成プロセスの抽象化という発想が生まれる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    ScrollBar* sb = new MotifScrollBar;
 
 ではなく、
 
-.. code:: c++
+.. sourcecode:: c++
 
    ScrollBar* sb = guiFactory->CreateScrollBar();
 
@@ -255,7 +256,7 @@ Iterator パターンの話になってくる。
 
 Visitor パターンの話になってくる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 83
    class Visitor{

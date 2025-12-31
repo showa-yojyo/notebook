@@ -4,7 +4,8 @@ Another Python Graph Library (APGL) 利用ノート
 
 本稿は :doc:`python-networkx/index` を書くよりも昔に書いたものだ。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -62,7 +63,7 @@ apgl
 ----------------------------------------------------------------------
 pip_ を利用してインストールする。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install apgl
 
@@ -70,7 +71,7 @@ pip_ を利用してインストールする。
 動するのがよいだろう。<The automatic testing routine requires Python 2.7 or
 later, or the unittest2 testing framework for Python 2.3-2.6> (p. 2)
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >> import apgl
    >> apgl.test()
@@ -186,7 +187,7 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 ぶ最短経路のエッジウェイトの総和になっている。無向グラフの経路は
 ``dists[i, j]== dists[j, i]`` となる。
 
-.. code:: text
+.. sourcecode:: text
 
    [[  0.  10.  14.  12.  29.  33.]
     [ 10.   0.   8.  15.  19.  30.]
@@ -203,7 +204,7 @@ APGL_ のウェブページに "An Introduction to APGL" という PDF ファイ
 
 :file:`PySparseGraph` の冒頭のインポートがおかしいので、自分で修正する。
 
-.. code:: python3
+.. sourcecode:: python3
 
    #from pysparse.sparse.pysparseMatrix import PysparseMatrix
    from pysparse.pysparseMatrix import PysparseMatrix

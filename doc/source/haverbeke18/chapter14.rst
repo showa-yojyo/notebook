@@ -10,7 +10,8 @@ Web ページをブラウザーで開くと、第 12 章の解析器がプログ
 
 この章の内容は Web スクレイピングの初等知識が満載なので、必ず履修すること。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Document structure
 ======================================================================
@@ -99,7 +100,7 @@ Moving through the tree
 入れ子構造を扱うときには再帰関数がしばしば役に立つ。次の関数は、文書をスキャンし
 て指定する文字列を含むテキストノードを検索する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function talksAbout(node, string) {
        if (node.nodeType == Node.ELEMENT_NODE) {
@@ -142,7 +143,7 @@ DOM のデータ構造は、ほとんどすべてを変更できる。文書木�
   * ``appendChild``
   * ``insertBefore``
 
-  .. code:: html
+  .. sourcecode:: html
 
      <p>One</p>
      <p>Two</p>
@@ -173,7 +174,7 @@ Creating nodes
 ストノードを追加する必要がある。それにはメソッド ``document.createTextNode`` を
 使う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function replaceImages() {
        let images = document.body.getElementsByTagName("img");
@@ -201,7 +202,7 @@ Attributes
   どにプロパティーとしては表示されない。メソッド ``getAttribute``,
   ``setAttribute`` を使って扱う必要がある。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <p data-classified="secret">The launch code is 00000000.</p>
      <p data-classified="unclassified">I have two feet.</p>
@@ -259,7 +260,7 @@ Styling
 * HTML の要素には既定のスタイリングがある。これを ``style`` 属性で上書きすること
   ができる。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <p><a href=".">Normal link</a></p>
      <p><a href="." style="color: green">Green link</a></p>
@@ -273,7 +274,7 @@ Styling
   * これらのプロパティーの値は文字列であり、要素のスタイルの特定の観点を変更する
     ために書くことができる。
 
-    .. code:: javascript
+    .. sourcecode:: javascript
 
        let para = document.getElementById("para");
        console.log(para.style.color);
@@ -292,7 +293,7 @@ Cascading styles
 * スタイルシートとは、文書内の要素にスタイルを与えるための規則の集合体だ。
 * スタイルシートは ``<style>`` タグの中に記述する。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <style>
      strong {
@@ -329,7 +330,7 @@ CSS セレクターはスタイルシートでスタイルの適用対象とな�
 て、セレクター式を文字列で受け取り、それに合致する要素全てからなる ``NodeList``
 を返す。
 
-.. code:: html
+.. sourcecode:: html
 
    <p>And if you go chasing<span class="animal">rabbits</span></p>
    <p>And you know you're going to fall</p>
@@ -374,7 +375,7 @@ Positioning and animating
 これを利用してアニメーションを作れる。本書 p. 247 のコードは楕円を動き回るネコの
 絵を描画する。
 
-.. code:: html
+.. sourcecode:: html
 
    <p style="text-align: center">
    <img src="img/cat.png" style="position: relative">
@@ -441,7 +442,7 @@ Build a table
 
 HTML のテーブルは、以下のようなタグ構造をしている：
 
-.. code:: html
+.. sourcecode:: html
 
    <table>
      <tr>
@@ -474,7 +475,7 @@ HTML のテーブルは、以下のようなタグ構造をしている：
 
 **解答** いちばん単純なコードをまず書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function buildTable(mountains){
        const table = document.createElement('table');
@@ -500,7 +501,7 @@ HTML のテーブルは、以下のようなタグ構造をしている：
 
 テーブルヘッダー行を自動生成するには：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    if(montains.length == 0){
        return table;
@@ -515,7 +516,7 @@ HTML のテーブルは、以下のようなタグ構造をしている：
 
 できあがったテーブルを属性 ``id`` が ``mountains`` である要素に追加するコードは次のようになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const mountains = [
        {name: "Killmanjaro", height: 5895, place: Tanzania},
@@ -526,7 +527,7 @@ HTML のテーブルは、以下のようなタグ構造をしている：
 
 右揃えはテーブル作成後ならば：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.querySelectorAll('#mountains > table > tr > td:nth-child(2)');
    nodes.forEach(node => node.style.textAlign = "right");
@@ -546,7 +547,7 @@ Elements by tag name
 
 **解答** これで良いと思われる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function getAncestors(node, tagName){
        return Array.from(node.querySelectorAll(tagName));
@@ -568,7 +569,7 @@ The cat's hat
 
 **解答** こういうのは得意。
 
-.. code:: html
+.. sourcecode:: html
 
    <p style="text-align: center">
      <img id="cat" src="img/cat.png" style="position: absolute">

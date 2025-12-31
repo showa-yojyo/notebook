@@ -2,7 +2,8 @@
 第 1 章 ユークリッド空間上の微分形式 1/2
 ======================================================================
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 1.1 微積分学の基本定理（基礎）
 ======================================================================
@@ -427,7 +428,7 @@
 
   * :math:`{\rot(\grad(f)) = 0}` を SymPy で確かめるとこのような感じになる：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: from sympy import Function, symbols
 
@@ -446,7 +447,7 @@
 
   * :math:`{\div(\rot(f)) = 0}` はこのような感じになる：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [7]: f1, f2, f3 = symbols('f1:4', cls=Function)
 

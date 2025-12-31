@@ -7,8 +7,9 @@ Matplotlib を手足のように使いこなせるようになるには、相当
 `見本コード集 <http://matplotlib.org/examples/>`__
 からいろいろと吸収することを考えてみよう。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
    :depth: 3
+   :local:
 
 コードを収集する
 ======================================================================
@@ -27,7 +28,7 @@ PC のディスク残量とインターネットの接続環境に不満がな�
 にあるリポジトリーのクローンを :command:`pip install -e` していて、そのソース
 コードをそのまま利用中であるならば、前者の方法で問題はない。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/matplotlib/matplotlib.git
    bash$ cd matplotlib/examples
@@ -38,7 +39,7 @@ PC のディスク残量とインターネットの接続環境に不満がな�
 Git リポジトリーの特定のディレクトリーのスナップショットを得るのに古の VCS ツー
 ルである :program:`svn` が利用できる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ svn export https://github.com/matplotlib/matplotlib.git/trunk/examples
    bash$ mv examples mpl-examples
@@ -914,7 +915,7 @@ Git リポジトリーの特定のディレクトリーのスナップショッ�
   * マーカーを指示するのに有効な値は ``Line2D.markers``,
     ``Line2D.filled_markers``, ``Line2D.filled_markers`` から得られる。例えば：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: Line2D.filled_markers
        Out[1]: ('o', 'v', '^', '<', '>', '8', 's', 'p', '*', 'h', 'H', 'D', 'd')
@@ -995,7 +996,7 @@ Git リポジトリーの特定のディレクトリーのスナップショッ�
 :file:`tight_bbox_test.py`
   プロットをウィンドウだけでなく、さまざまな形式のファイルに出力するデモコード。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: %run ./misc/tight_bbox_test.py
      saving tight_bbox_test.png
@@ -1496,7 +1497,7 @@ Git リポジトリーの特定のディレクトリーのスナップショッ�
   IPython セッションからの実行例を次に示そう。途中で :kbd:`Ctrl` + :kbd:`C` して
   中断した。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: %run ./backend_driver.py -bqt5agg
       ..\pylab_examples files not tested: agg_buffer.py, agg_buffer_to_array.py, ...

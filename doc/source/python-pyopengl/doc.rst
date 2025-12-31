@@ -6,7 +6,8 @@ PyOpenGL_ は Python におけるラッパーに過ぎない。OpenGL が一通�
 ば、必要な勉強は C 言語でのプログラミングと Python でのそれとの差分を確認するだ
 けということになる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 PyOpenGL for OpenGL Programmers
 ======================================================================

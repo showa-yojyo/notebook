@@ -11,7 +11,8 @@ Modern C++ チャレンジ 読書ノート
 :発行年: 2019 年
 :ISBN: 978-4-87311-869-7
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 まえがき
 ======================================================================
@@ -49,7 +50,7 @@ Modern C++ チャレンジ 読書ノート
 * 解答 2 の自作関数は ``constexpr`` 宣言できる。
 * C++17 には ``<numeric>`` に ``std::lcm()`` がある (p. 5)
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<class InputIt>
    constexpr int lcmr(InputIt first, InputIt last) noexcept
@@ -62,7 +63,7 @@ Modern C++ チャレンジ 読書ノート
 
 * C++17 ならば ``if`` 文の変数スコープも細かく直そうと思えば直せる。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      if (auto sum1 = sum_proper_divisors(number); sum1 < limit)
      {
@@ -76,7 +77,7 @@ Modern C++ チャレンジ 読書ノート
   ズム呼び出しが多い。
 * 解答 9 改変例
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      auto prime_factors(unsigned long long n) -> std::vector<decltype(n)>
      {
@@ -107,7 +108,7 @@ Modern C++ チャレンジ 読書ノート
 * 解答 18 でパラメーターパックが出る。
   ちなみに ``std::min()`` が本問の要求の本質的に満たす：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      std::cout << std::min({5, 4, 2, 3}) << std::endl;
      std::cout << std::min({3, 2, 1, 0}, std::less<>()) << std::endl;
@@ -195,7 +196,7 @@ Modern C++ チャレンジ 読書ノート
 
 * 解答 43 は :file:`curlcpp` をリンクする必要がある。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ ./build/problem_43
      Hour:23
@@ -267,7 +268,7 @@ WSL でビルドする場合には、コンパイルオプション ``-pthread``
 
 解答 67 はパスワードの検証ということで Decorator パターンを適用している。
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto validator = std::make_unique<symbol_password_validator>(
        std::make_unique<case_password_validator>(
@@ -284,7 +285,7 @@ WSL でビルドする場合には、コンパイルオプション ``-pthread``
 前項の Decorator パターンと同様に ``std::unique_ptr`` を駆使するのがコツとなる。
 状況によって ``std::shared_ptr`` になることもあるだろう。
 
-.. code:: c++
+.. sourcecode:: c++
 
    composite_password_generator generator;
    generator.add(std::make_unique<symbol_generator>(2));
@@ -372,7 +373,7 @@ C++ 新機能の学習からは離れていく。最初の 2, 3 問は標準ラ�
 * 解答 90 は ``unsigned`` の切り替えが何なのかよくわからない。
 * 範囲を引数に取るコンストラクターを使って勝手に書き直す：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      auto from_string(std::string_view data)
      {
@@ -469,13 +470,13 @@ WSL (Ubuntu) 環境でこのビルドを実行すると失敗する。原因は�
 * ``include_directories(${LIBS_PATH}/stduuid)``
 * リンクするライブラリー名が他の環境と異なっている？
 
-  .. code:: cmake
+  .. sourcecode:: cmake
 
      #add_library (cryptlib STATIC ${headers} ${sources})
      add_library (cryptopp STATIC ${headers} ${sources})
 
 * リンク順がビルドの結果に影響する可能性がある。気のせいかも知れない。
 
-  .. code:: cmake
+  .. sourcecode:: cmake
 
      target_link_libraries(problem_97 curl curlcpp)

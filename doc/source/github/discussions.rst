@@ -5,7 +5,8 @@ GitHub Discussions documentation ノート
 `GitHub Discussions <https://docs.github.com/en/discussions>`__ は全然知らなかっ
 た機能なので全部読む。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Quickstart` は Quickstart for GitHub Discussions へ

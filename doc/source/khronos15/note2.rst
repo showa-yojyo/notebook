@@ -5,7 +5,8 @@ WebGL Specification 1.0 読書ノート 2 of 4
 `WebGL Specification <https://www.khronos.org/registry/webgl/specs/latest/1.0/>`__
 を読んでいく。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 5 DOM Interfaces
 ======================================================================
@@ -31,7 +32,7 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
 
 有用なので既定値を JavaScript の形式で転載する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    {
        alpha: true,
@@ -182,7 +183,7 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
    ページ上に ``canvas1`` という名前の ``canvas`` 要素が存在することを仮定してい
    る。
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       const canvas = document.getElementById('canvas1');
       const gl = canvas.getContext('webgl',
@@ -317,7 +318,7 @@ JavaScript ではなく C 言語のコードで書かれているのが気にな
    バッファーには浮動小数点の頂点位置 ``(x, y, z)`` と、それに続く四つの
    unsigned byte の色 ``(r, g, b, a)`` を含む：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       const numVertices = 100; // for example
 
@@ -1596,7 +1597,7 @@ WebGL はレンダリングコンテキストの状態の重要な変更に対�
    以下のコードは、``webglcontextlost`` イベントのデフォルトの動作を防ぎ、
    ``webglcontextrestored`` イベントの発信を可能にするものだ：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       canvas.addEventListener("webglcontextlost", e => {
           e.preventDefault();
@@ -1632,7 +1633,7 @@ WebGL はレンダリングコンテキストの状態の重要な変更に対�
    アプリケーションがコンテキストの消失と復元をどのように処理するかを示す擬似
    コード：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       function initializeGame() {
           initializeWorld();
@@ -1693,7 +1694,7 @@ WebGL はレンダリングコンテキストの状態の重要な変更に対�
    次のコードは、アプリケーションがコンテキスト作成の失敗に関する情報を取得する
    方法を示すものだ：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       let errorInfo = "";
 

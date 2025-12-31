@@ -5,7 +5,8 @@
 本稿では、ベクトル・行列・座標の変換を PyOpenGL 利用プログラムでどのように実現す
 るかについて記す。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 基本方針
 ======================================================================
@@ -44,7 +45,7 @@ OpenGL は新旧共通で行列データを 16 要素の浮動小数点型数の
 ひとつは次の擬似コードのように ``np.array.transpose`` を用いて、内部配列を
 column-major に並び替えることによるものだ：
 
-.. code:: python3
+.. sourcecode:: python3
 
    matrix = np.identity(4)
    # Set matrix elements...
@@ -55,7 +56,7 @@ column-major に並び替えることによるものだ：
 もうひとつは、配列はそのままにして OpenGL の「転置バージョン」の行列関数、つまり
 ``glLoadTransposeMatrix`` および ``glMultTransposeMatrix`` を利用するものだ：
 
-.. code:: python3
+.. sourcecode:: python3
 
    matrix = np.identity(4)
    # Set matrix elements...
@@ -80,7 +81,7 @@ OpenGL 側から行列データを受け取る方法について述べる。い�
 
 頂点シェーダーのコードをこのように書くとする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #version 330 core
 
@@ -94,7 +95,7 @@ OpenGL 側から行列データを受け取る方法について述べる。い�
   ということを宣言するものだ。このオブジェクトの内容を設定するには、「外側」から
   OpenGL の関数を用いる必要がある。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       def init_transform(self):
           # ...
@@ -121,7 +122,7 @@ OpenGL 側から行列データを受け取る方法について述べる。い�
 先の例に対応する、行列データの取得コードは次のようなものになる。受け取った後に
 ``.transpose`` をしないと、数学の教科書通りの並びにならない。
 
-.. code:: python3
+.. sourcecode:: python3
 
    camera_matrix = np.empty(4, dtype=np.float32)
    glGetUniformfv(

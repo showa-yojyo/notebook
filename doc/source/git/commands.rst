@@ -6,7 +6,8 @@
 用価値が高いコマンドの用例を優先して掲載する。Git はコマンドもオプションも数が多
 くてとにかく憶えにくい。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 記法規約
 ======================================================================
@@ -20,7 +21,7 @@
 ``[common-options]`` の部分に来るコマンドラインオプションのこととする。自分が使
 う可能性の高いものを記す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git [common-options] <command> [command-options] <args>
 
@@ -80,7 +81,7 @@ Git 利用者の必修コマンドのようなものか。ヘルプドキュメ�
 まずはメインとされているコマンド群の名称を記す。このテキストはコマンド ``git
 help -a`` の出力による：
 
-  .. code:: text
+  .. sourcecode:: text
 
      add                  Add file contents to the index
      am                   Apply a series of patches from a mailbox
@@ -823,7 +824,7 @@ help -a`` の出力による：
 
 次のコマンド群が操作用とされている：
 
-  .. code:: text
+  .. sourcecode:: text
 
      config               Get and set repository or global options
      fast-export          Git data exporter
@@ -839,7 +840,7 @@ help -a`` の出力による：
 
 そして次のコマンド群が問い合わせ用とされている：
 
-  .. code:: text
+  .. sourcecode:: text
 
      annotate             Annotate file lines with commit information
      blame                Show what revision and author last modified each line of a file
@@ -964,7 +965,7 @@ help -a`` の出力による：
 バージョン管理システムとのデータ変換という意味と、他の利用者とのリポジトリーデー
 タの交換という意味があるようだ。
 
-  .. code:: text
+  .. sourcecode:: text
 
      archimport           Import a GNU Arch repository into Git
      cvsexportcommit      Export a single commit to a CVS checkout
@@ -992,7 +993,7 @@ help -a`` の出力による：
 
 リポジトリーにあるオブジェクトやインデックスを操作するコマンド群である。
 
-  .. code:: text
+  .. sourcecode:: text
 
      apply                Apply a patch to files and/or to the index
      checkout-index       Copy files from the index to the working tree
@@ -1029,7 +1030,7 @@ help -a`` の出力による：
 る。原則的にこれらは作業コピーのファイルを :command:`touch` しないコマンドという
 ことになっているので、安心して実行してよさそうだ。
 
-  .. code:: text
+  .. sourcecode:: text
 
      cat-file             Provide content or type and size information for repository objects
      cherry               Find commits yet to be applied to upstream
@@ -1065,7 +1066,7 @@ help -a`` の出力による：
 次のものはシェルでインデックスから削除されたファイルを本当に削除するときのコマン
 ド例だ：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ rm $(git ls-files --deleted)
 
@@ -1073,7 +1074,7 @@ help -a`` の出力による：
 がかなりある。そのときは次のようなワンライナーで一気に片付く。次にファイル内の文
 字列 ``OLD_PATTERN`` を ``NEW_PATTERN`` に置換する例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git ls-files -z | xargs -0 sed -i -e 's/OLD_PATTERN/NEW_PATTERN/g'
 
@@ -1095,7 +1096,7 @@ help -a`` の出力による：
 
 次のコマンド群が操作用とされている：
 
-  .. code:: text
+  .. sourcecode:: text
 
      daemon               A really simple server for Git repositories
      fetch-pack           Receive missing objects from another repository
@@ -1108,7 +1109,7 @@ help -a`` の出力による：
 
 ヘルプによると、次のコマンド群は内部コマンドとして位置づけられている：
 
-  .. code:: text
+  .. sourcecode:: text
 
      check-attr           Display gitattributes information
      check-ignore         Debug gitignore / exclude files

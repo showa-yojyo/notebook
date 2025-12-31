@@ -4,7 +4,8 @@ Modern C++ Design 読書ノート 1/3
 
 .. include:: /_include/book-details/alexandrescu01.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 ローマ数字ページ各種
 ======================================================================
@@ -68,7 +69,7 @@ Modern C++ Design 読書ノート 1/3
 * <さらに、多重パラメータのクラス・テンプレートを用いた場合、部分的にテンプレー
   トの特殊化を行うこともできます> (p. 6)
 
-.. code:: c++
+.. sourcecode:: c++
 
    // こういう定義がある場合、
    template <class T, class U> class SmartPtr { ... };
@@ -138,7 +139,7 @@ Modern C++ Design 読書ノート 1/3
   コンパイル時の定数になるのであれば、実行時ではなく、コンパイル時にチェックを行
   うことができるはずです> (p. 26)
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<bool> struct CompileTimeError;
    template<> struct CompileTimeError<true>{};
@@ -152,7 +153,7 @@ Modern C++ Design 読書ノート 1/3
 
 ----
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class Window, class Controller>
    class Widget
@@ -193,7 +194,7 @@ Modern C++ Design 読書ノート 1/3
 
 ----
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <int v>
    struct Int2Type
@@ -207,7 +208,7 @@ Modern C++ Design 読書ノート 1/3
 
 ----
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename T>
    struct Type2Type
@@ -223,7 +224,7 @@ Modern C++ Design 読書ノート 1/3
 * <ブーリアン定数によって様々な型から特定の型を選択しなければならない場合>
   (p. 35)
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <bool flag, typename T, typename U>
    struct Select
@@ -237,7 +238,7 @@ Modern C++ Design 読書ノート 1/3
        typedef U Result;
    };
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename T, bool isPolymorphic>
    class NiftyContainer
@@ -276,7 +277,7 @@ Modern C++ Design 読書ノート 1/3
 
 ----
 
-.. code:: c++
+.. sourcecode:: c++
 
    class NullType{};
    struct EmptyType{}; // 継承を許す。
@@ -318,7 +319,7 @@ Modern C++ Design 読書ノート 1/3
 
 ----
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T, class U>
    struct Typelist
@@ -335,14 +336,14 @@ Modern C++ Design 読書ノート 1/3
 
 <タイプリストは Lisp 的> (p. 57) なので、色々補助的なマクロを用意する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    typedef Typelist<signed char,
          Typelist<short int,
             Typelist<int, Typelist<long int, NullType> > > >
       SignedIntegrals;
 
-.. code:: c++
+.. sourcecode:: c++
 
    #define TYPELIST_1(T1) Typelist<T1, NullType>
    #define TYPELIST_2(T1, T2) Typelist<T1, Typelist_1(T2) >
@@ -417,7 +418,7 @@ Modern C++ Design 読書ノート 1/3
 
 ``Chunk`` は「固定長ブロックを保持するメモリのチャンク」を保持・管理する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 87 より引用。細部省略。
    struct Chunk
@@ -448,7 +449,7 @@ Modern C++ Design 読書ノート 1/3
 
 ``FixedAllocator`` は ``Chunk`` の ``vector`` として実装する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 91 より引用。
    class FixedAllocator
@@ -471,7 +472,7 @@ Modern C++ Design 読書ノート 1/3
 <``SmallObjAllocator`` は、いくつかの ``FixedAllocator`` オブジェクトを集約する
 ことによって実現されています> (p. 94)
 
-.. code:: c++
+.. sourcecode:: c++
 
    // pp. 94-95 参照。
    class SmallObjAllocator
@@ -500,7 +501,7 @@ Modern C++ Design 読書ノート 1/3
 
 ``SmallObject`` はほぼ教科書通りのインターフェイスになる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 96
    class SmallObject
@@ -523,7 +524,7 @@ Modern C++ Design 読書ノート 1/3
 章ではここまでテンプレートがなかなか出てこなかった感があるが、ここでようやく登
 場。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // p. 100 より引用。
    template

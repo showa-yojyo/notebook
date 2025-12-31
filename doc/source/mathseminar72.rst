@@ -9,7 +9,8 @@
 
 .. include:: /_include/book-details/mathseminar72.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 16 世紀まで
 ======================================================================

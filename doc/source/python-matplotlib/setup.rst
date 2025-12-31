@@ -4,7 +4,8 @@
 
 本稿では Matplotlib_ の（ごく限定的な環境向けの）インストール手順を記す。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Matplotlib の依存パッケージと関連パッケージをインストール
 ======================================================================
@@ -63,7 +64,7 @@ VC のコンパイラーを要するような特殊な Python パッケージに
 アップグレードしておくほうが無難だ。公式の NumPy の whl ファイルを参照するよう
 で、これが私の環境にとっては都合が悪い。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install --upgrade matplotlib
    Downloading/unpacking matplotlib from https://pypi.python.org/packages/cp34/m/matplotlib/matplotlib-1.4.3-cp34-none-win_amd64.whl#md5=72e96f66866523cb5974f52038d25242
@@ -104,7 +105,7 @@ Matplotlib の初回インストールまたはアップグレード直後に確
 Matplotlib のモジュールから直接バージョン番号を得ることで確認するには次のように
 する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python -c 'import matplotlib as mpl; print(mpl.__version__)'
    1.4.3
@@ -112,7 +113,7 @@ Matplotlib のモジュールから直接バージョン番号を得ることで
 Anaconda または Miniconda で Python 環境を管理しているのであれば、コマンドライン
 で :program:`conda` を用いる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda list matplotlib
    # packages in environment at D:\Miniconda3:
@@ -121,7 +122,7 @@ Anaconda または Miniconda で Python 環境を管理しているのであれ�
 
 もしくは :program:`pip` を用いる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip show matplotlib
    ---

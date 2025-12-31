@@ -6,7 +6,8 @@
 「ベース」となるものだ。 OpenGL 3.0 以降の新機能と、古参かつ現役の機能とから何か
 を描画するためのクラスだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. warning::
 
@@ -52,7 +53,7 @@
 
 言い忘れたが、頂点シェーダーでの各行列の名前は次のとおりとする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    #version 330 core
 

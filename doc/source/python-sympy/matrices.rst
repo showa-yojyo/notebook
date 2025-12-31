@@ -5,7 +5,8 @@
 モジュール ``sympy.matrices`` に関するメモを記す。ここにある機能は、行列を処理す
 るものと、行列に関する数式を処理するものとに分類できる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -14,7 +15,7 @@
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy.matrices import *
       init_printing(pretty_print=False)
@@ -58,7 +59,7 @@
 
 継承ツリーの右側に関連するフリー関数、行列クラスのメソッド、メモを併記する。
 
-.. code:: text
+.. sourcecode:: text
 
    MatrixExpr
        MatrixSymbol                    シンボル（記号）としての行列
@@ -570,7 +571,7 @@ NumPy インターフェイス
 関数 :code:`symarray(prefix, shape)`
   説明するよりも動きを示したほうが早い。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: symarray('ppppp', (3, 3))
      Out[1]: array([[ppppp_0_0, ppppp_0_1, ppppp_0_2],
@@ -590,7 +591,7 @@ Berkowitz のアルゴリズムを検証する
 シンボルベースの三次正方行列を定義して、メソッド ``berkowitz`` を呼び出して戻り
 値を得る。この戻り値から行列のさまざまな属性が得られることを見よう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: M = Matrix(3, 3, symbols('a:3:3')); M
    Out[1]:
@@ -648,7 +649,7 @@ LU 分解再挑戦
 :doc:`/python-scipy/linear-equations` で LU 分解した行列を SymPy で分解すると結
 果が異なるのではないか。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: A = Matrix([[1, 2, 2], [2, 5, 6], [3, 8, 12]])
 
@@ -697,7 +698,7 @@ LU 分解再挑戦
 列の和になっていることがわかる。そこで Jordan 分解を次のように求めることができ
 る。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: A = Matrix([[1, 0, -1],
                        [2, 1, 0],

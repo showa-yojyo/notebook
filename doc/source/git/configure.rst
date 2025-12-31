@@ -25,7 +25,7 @@ Git の個人的構成オプションは既定でファイル :file:`$HOME/.gitc
 環境変数 ``XDG_CONFIG_HOME`` を :doc:`/xdg` で記したように定義した上で、既定パス
 の設定ファイル各種を再配置することを推奨する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ mv ~/.gitconfig $XDG_CONFIG_HOME/git/gitconfig
 
@@ -67,14 +67,14 @@ Cygwin の場合はサブセクションを ``"default-browser"`` とし、``cmd
 とすれば Windows の既定のブラウザーを開かせるようにできる。なおかつ固有名詞を
 ハードコードすることを避けられる。
 
-.. code:: ini
+.. sourcecode:: ini
 
    [browser "default-browser"]
        cmd = cygstart
 
 同様に、WSL の場合には ``cmd = wslview`` とする。
 
-.. code:: ini
+.. sourcecode:: ini
 
    [browser "default-browser"]
        cmd = wslview
@@ -88,7 +88,7 @@ Cygwin の場合はサブセクションを ``"default-browser"`` とし、``cmd
 ``color.branch.<slot>``
   ブランチの色をカスタマイズする場合は次のように設定する：
 
-  .. code:: ini
+  .. sourcecode:: ini
 
      [color "branch"]
          current = yellow reverse
@@ -98,7 +98,7 @@ Cygwin の場合はサブセクションを ``"default-browser"`` とし、``cmd
 ``color.diff.<slot>``
   差分テキストの色をカスタマイズする場合は次のように設定する：
 
-  .. code:: ini
+  .. sourcecode:: ini
 
      [color "diff"]
          meta = yellow bold
@@ -110,7 +110,7 @@ Cygwin の場合はサブセクションを ``"default-browser"`` とし、``cmd
   ``git status`` の出力する各種テキストの色を次のようにして設定することが
   できる：
 
-  .. code:: ini
+  .. sourcecode:: ini
 
      [color "status"]
          added = yellow
@@ -164,7 +164,7 @@ Cygwin の場合はサブセクションを ``"default-browser"`` とし、``cmd
 ツールの特性に合わせて敢えてこれらのパラメーターを入れ替えて指定することもあり得
 る。
 
-.. code:: ini
+.. sourcecode:: ini
 
    [difftool vscode]
        cmd = code --wait --diff $LOCAL $REMOTE
@@ -206,7 +206,7 @@ Cygwin の場合はサブセクションを ``"default-browser"`` とし、``cmd
 で ``BASE`` や ``REMOTE`` などのシェル変数を、マージ処理に関連する一時ファイル名
 として指示するのに用いる。
 
-.. code:: ini
+.. sourcecode:: ini
 
    [mergetool "vscode"]
        cmd = code --wait $MERGED
@@ -242,7 +242,7 @@ GitHub にリポジトリーを設置するのであれば要設定。ただし�
 :file:`$HOME/.gitconfig` に直接記入するのではなく、別のファイルに記載して
 ``include`` する運用を取ること。
 
-.. code:: ini
+.. sourcecode:: ini
 
    # in ~/.gitconfig:
    [include]
@@ -272,7 +272,7 @@ GitHub にリポジトリーを設置するのであれば要設定。ただし�
   "default-browser"`` を設けて、そこで ``browser.<tool>.cmd`` なり
   ``browser.<tool>.path`` を設定することになる。
 
-  .. code:: ini
+  .. sourcecode:: ini
 
      [web]
          browser = default-browser

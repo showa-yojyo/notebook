@@ -2,7 +2,8 @@
 UI Events
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 重要なユーザーインターフェースイベントとその扱い方を見ていく。
@@ -275,7 +276,7 @@ Correct positioning
 ドラッグ開始時点のマウスポインターの座標を要素座標系に変換する。そして、ドラッグ
 中の要素の座標を、現在のマウス座標から上記座標の変位を加味して決める。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // mousedown
    const rc = elem.getBoundingClientRect();
@@ -552,7 +553,7 @@ Endless page
 * 今はドキュメントの下部がそこから何ピクセルか以上離れていないときを知る必要があ
   る。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      const doc = document.documentElement;
      while(doc.clientHeight + 100 < doc.getBoundingClientRect().bottom){

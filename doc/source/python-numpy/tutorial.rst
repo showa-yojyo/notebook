@@ -6,7 +6,8 @@ Tentative NumPy Tutorial ノート
 度は目を通したハズだが、今ザッとリンク先を読んでみたら記憶から抜けている事項が妙
 に多いので、テキストの形でノートを残すことにした。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Prerequisites
 ======================================================================
@@ -239,7 +240,7 @@ Broadcasting rules
 
    例を示す：
 
-   .. code:: text
+   .. sourcecode:: text
 
       a.shape: (2, 3, 4, 5)
       b.shape: (6, 7)
@@ -259,7 +260,7 @@ Broadcasting rules
 
    先ほどの配列で考えてみる：
 
-   .. code:: text
+   .. sourcecode:: text
 
       (a + b).shape   ValueError: operands could not be broadcast together with shapes (2,3,4,5) (6,7)
                       (4, 5) != (6, 7) ゆえ。
@@ -297,7 +298,7 @@ Indexing with strings
 
 配列の要素に名前でアクセスする方法がある。
 
-.. code:: python3
+.. sourcecode:: python3
 
    img = array([[(0,0,0), (1,0,0)],
                 [(0,1,0), (0,0,1)]],

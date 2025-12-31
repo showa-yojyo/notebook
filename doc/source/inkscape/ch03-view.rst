@@ -2,7 +2,8 @@
 Chapter 3. Changing the View
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. admonition:: 利用者ノート
 

@@ -5,7 +5,8 @@
 NetworkX_ 自身のインストールおよび、依存パッケージのインストールについて説明す
 る。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 NetworkX をインストールする
 ======================================================================
@@ -15,7 +16,7 @@ NetworkX をインストールする
 もしくは開発版レポジトリーからモジュールをクローンして、場合によっては改造して利
 用するのもありだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/networkx/networkx.git
    ...
@@ -29,7 +30,7 @@ NetworkX の単体試験を実行して結果が正常であればインスト�
 Nose_ が環境にあれば次の操作で試験となる。NumPy_ や SciPy_ のそれと同じスタイル
 なので馴染みやすい：
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> import networkx as nx
    >>> nx.test(verbosity=2)
@@ -47,7 +48,7 @@ Nose_ が環境にあれば次の操作で試験となる。NumPy_ や SciPy_ �
 NetworkX がサポートしていて現在の環境に存在しないサードパーティー製パッケージが
 判明する。
 
-.. code:: text
+.. sourcecode:: text
 
    SKIP: PyGraphviz not available.
    SKIP: pydot not available.

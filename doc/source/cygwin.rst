@@ -19,7 +19,8 @@ Cygwin 利用ノート [obsolete]
    * OS: Windows 10 Home (Version 1709)
    * Cygwin Net Release Setup Program: 2.891 (64 bit)
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 なぜ Cygwin なのか
 ======================================================================
@@ -219,19 +220,19 @@ Windows のそれをそのまま使うのではなく :file:`.bash_profile` で�
 ようにするか、あるいはファイル :file:`/etc/fstab.d/$USER` を作成して次の内容にす
 る：
 
-.. code:: text
+.. sourcecode:: text
 
    none / cygdrive binary,posix=0,noacl,user 0 0
 
 これを設定することで、ドライブ直下に :command:`cd` する際には例えば
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd /cygdrive/d
 
 ではなく
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd /d
 
@@ -254,7 +255,7 @@ Windows のそれをそのまま使うのではなく :file:`.bash_profile` で�
 以前、パッケージを更新した直後に :command:`make` を実行したら次のようなエラーが
 発生した：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ make
    bash$ D:/cygwin64/bin/make.exe: error while loading shared libraries: ?:

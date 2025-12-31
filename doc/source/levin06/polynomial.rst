@@ -6,7 +6,8 @@ Polynomial Shaping Functions
 <http://www.flong.com/archive/texts/code/shapers_poly/>`__ ノート。区間
 :math:`{[0, 1]}` を定義域とする多項式整形関数が紹介されている。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Blinn-Wyvill Approximation to the Raised Inverted Cosine
 ======================================================================

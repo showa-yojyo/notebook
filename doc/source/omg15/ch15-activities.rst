@@ -2,7 +2,8 @@
 15 Activities
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 4
 
 15.1 Summary
@@ -575,7 +576,7 @@ ActivityEdge は連結器を使って記すことも許されている。連結�
 
 ActivityEdge の重みは中括弧で囲んで表記する：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <weight-annotation> :: =‘{’ ‘weight’ ‘=’ <value-specification> ‘}’
 
@@ -1071,7 +1072,7 @@ ForkNode と JoinNode の両者に対する表記法は、単に線分だ。こ�
 
 JoinNode 上の ``joinSpec`` は JoinNode 記号の近くの註釈で示される。
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <join-spec-annotation> ::= ‘{’ ‘joinSpec’ ‘=’ <value-specification> ‘}’
 
@@ -1147,7 +1148,7 @@ JoinNode は ``Ship Order`` と ``Send Invoice`` の処理を同期するのに�
 自動販売機の制御が ``Dispense Drink`` に引き渡されるには、この ``joinSpec`` にあ
 る条件が満たされる必要がある：
 
-   .. code:: text
+   .. sourcecode:: text
 
       {joinSpec =
        A and B
@@ -1458,7 +1459,7 @@ ObjectNode に States の ``inState`` 集合がある場合、この集合にあ
    placing an annotation with the following form beneath the ObjectNode symbol
    (as shown in Figure 15.50):
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <object-node-annotation> ::= ‘{’ <object-node-property> ( ‘,’ <object-node-property> )* ‘}’
    <object-node-property> ::= ‘upperBound’ ‘=’ <value-specification> |

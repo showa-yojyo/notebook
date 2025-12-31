@@ -5,7 +5,8 @@ What's New In Python 3.1 ノート
 What's New In Python 3.1 を読んで、個人的に関心のある項目に注釈を付けていく。
 3.1 は見るべき項目は多くはない。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 新規機能
 ======================================================================
@@ -18,7 +19,7 @@ What's New In Python 3.1 を読んで、個人的に関心のある項目に注�
 
   このカンマが追加要素だ。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [7]: format(1234567890)
      Out[7]: '1234567890'
@@ -72,7 +73,7 @@ What's New In Python 3.1 を読んで、個人的に関心のある項目に注�
 
   * ``combinations_with_replacement()``: 重複アリ置換部分列を生成する。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [30]: list(combinations_with_replacement('もくし', 3))
        Out[30]:
@@ -106,7 +107,7 @@ What's New In Python 3.1 を読んで、個人的に関心のある項目に注�
 * ``sys.version_info`` が ``namedtuple`` になった。このオブジェクトをコンソール
   に出力しておくと、あとで見返すときに便利そうだ。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [42]: sys.version
      Out[42]: '3.6.5 |Anaconda, Inc.| (default, Mar 29 2018, 13:32:41) [MSC v.1900 64 bit (AMD64)]'

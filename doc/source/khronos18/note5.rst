@@ -6,7 +6,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 だんだん翻訳だけで済ませるようになってきた。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 5. Operators and Expressions
 ======================================================================
@@ -61,7 +62,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 スカラー型同士の変換は、以下のプロトタイプが示すように行われる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    int(uint)     // converts an unsigned integer to a signed integer
    int(bool)     // converts a Boolean value to an int
@@ -128,7 +129,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 便利なベクトルコンストラクターには次のようなものがある：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3(float)          // initializes each component of the vec3 with the float
    vec4(ivec4)          // makes a vec4 with component-wise conversion
@@ -146,7 +147,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 これらの利用例を挙げる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 color = vec4(0.0, 1.0, 0.0, 1.0);
    vec4 rgba = vec4(1.0);      // sets each component to 1.0
@@ -154,7 +155,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 行列の対角成分を、他のすべての要素がゼロになるように初期化するには：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat2(float)
    mat3(float)
@@ -167,7 +168,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 ベクトルやスカラーを指定して行列を初期化する場合、成分は列優先で行列の要素に割り
 当てられる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat2(vec2, vec2);                 // one column per argument
    mat3(vec3, vec3, vec3);           // one column per argument
@@ -193,7 +194,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 行列を初期化するのに十分な成分があれば、ベクトルやスカラーから行列を構成すること
 も可能で、他にも様々な可能性がある。例：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat3x3(mat4x4); // takes the upper-left 3x3 of the mat4x4
    mat2x3(mat4x2); // takes the upper-left 2x2 of the mat4x4, last row is 0,0
@@ -208,7 +209,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 構造体がいったん定義され、その型に名前が付けられると、その構造体のインスタンスを
 構築するために、同じ名前のコンストラクターが利用可能になる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    struct light {
        float intensity;
@@ -230,7 +231,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 配列型はコンストラクター名としても使用でき、式や初期化子の中で使用することができ
 る：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    const float c[3] = float[3](5.0, 7.2, 1.1);
    const float d[3] = float[](5.0, 7.2, 1.1);
@@ -249,7 +250,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 配列の配列も同様に構築され、どの次元のサイズもオプションだ。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 b[2] = ...;
    vec4[3][2](b, b, b);    // constructor
@@ -267,7 +268,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 る初期化子を使って宣言することができ、テクスチャーと ``sampler`` または
 ``samplerShadow`` を消費する。例えば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(...) uniform sampler s;   // handle to filtering information
    layout(...) uniform texture2D t; // handle to a texture
@@ -277,7 +278,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 テクスチャー混合採取器コンストラクターの結果は変数に代入できない：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    ... sampler2D sConstruct = sampler2D(t, s);  // ERROR
 
@@ -285,7 +286,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 配列のテクスチャー混合採取器コンストラクターは非合法だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    layout(...) uniform texture2D tArray[6];
    ...
@@ -335,7 +336,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 型に対して宣言されている以上の成分にアクセスするとコンパイルエラーになる。例えば
 次のようになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 pos;
    float height;
@@ -347,7 +348,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 成分選択構文では、ピリオド ``.`` の後に（同じ名前集合の）名前を付けて、複数の成
 分を選択することができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 v4;
    v4.rgba;    // is a vec4 and the same as just using v4,
@@ -358,13 +359,13 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 四つを超える成分を選択することはできない：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 v4;
 
 成分の順序を変えてかきまぜ (swizzle) たり、複製したりすることができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 pos = vec4(1.0, 2.0, 3.0, 4.0);
    vec4 swiz = pos.wzyx;   // swiz = (4.0, 3.0, 2.0, 1.0)
@@ -375,7 +376,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 成分グループ記法は式の左辺に出現することができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 pos = vec4(1.0, 2.0, 3.0, 4.0);
    pos.xw = vec2(5.0, 6.0);        // pos = (5.0, 2.0, 3.0, 6.0)
@@ -389,7 +390,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 配列添字構文は数値インデックスを提供するためにベクトルにも適用できる。つまり：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 pos;
 
@@ -402,7 +403,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 メソッドは ``length()`` ベクトルに適用できる。結果はベクトルの成分の個数だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 v;
    const int L = v.length();
@@ -420,7 +421,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 トルを先にベクトルについて定義したように操作する。したがって、二つの添字はまず列
 を選択し、次に行を選択する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat4 m;
    m[1] = vec4(2.0);   // sets the second column to all 2.0
@@ -436,7 +437,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 メソッド ``length()`` を行列に適用することができる。結果は行列の列数だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat3x4 v;
    const int L = v.length();
@@ -476,7 +477,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 配列の要素にアクセスするには，配列添字演算子 ``[ ]`` を使用する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    diffuseColor += lightIntensity[3] * NdotL;
 
@@ -489,7 +490,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 配列は、メソッド演算子 ``.`` と ``length`` メソッドを使ってアクセスし、配列のサ
 イズを問い合わせることもできる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    lightIntensity.length() // return the size of the array
 
@@ -550,7 +551,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 操作する場合、その演算子はベクトルや行列の各成分を独立して操作する。例えば、以下
 のようになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 v, u;
    float f;
@@ -558,20 +559,20 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 これは次と同値だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    v.x = u.x + f;
    v.y = u.y + f;
    v.z = u.z + f;
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 v, u, w;
    w = v + u;
 
 これは次と同値だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    w.x = v.x + u.x;
    w.y = v.y + u.y;
@@ -581,7 +582,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 いても同様だ。例外は、行列とベクトルの乗算、ベクトルと行列の乗算、行列と行列の乗
 算だ。これらは成分ごとの演算ではなく、正しい線形代数的な乗算を行う。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 v, u;
    mat3 m;
@@ -589,7 +590,7 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 これは次と同値だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    u.x = dot(v, m[0]); // m[0] is the left column of m
    u.y = dot(v, m[1]); // dot(a,b) is the inner (dot) product of a and b
@@ -597,13 +598,13 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 そして
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    u = m * v;
 
 これは次と同値だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    u.x = m[0].x * v.x + m[1].x * v.y + m[2].x * v.z;
    u.y = m[0].y * v.x + m[1].y * v.y + m[2].y * v.z;
@@ -611,14 +612,14 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 5
 
 そして
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat3 m, n, r;
    r = m * n;
 
 これは次と同値だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    r[0].x = m[0].x * n[0].x + m[1].x * n[0].y + m[2].x * n[0].z;
    r[1].x = m[0].x * n[1].x + m[1].x * n[1].y + m[2].x * n[1].z;

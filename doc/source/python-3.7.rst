@@ -5,7 +5,8 @@ What's New In Python 3.7 ノート
 `What's New In Python 3.7 <https://docs.python.org/3/whatsnew/3.7.html>`__ をた
 どりながら調査。興味のあるものだけ拾い読みしよう。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 New Features
 ======================================================================
@@ -32,7 +33,7 @@ New Features
     resolution on Linux and Windows> だそうだ。
   * サンプルコードで面白い呼び出しを見つけたので控えておく：
 
-    .. code:: python
+    .. sourcecode:: python
 
        min_dt = [abs(time.time_ns() - time.time_ns()) for _ in range(LOOPS)]
        min_dt = min(filter(bool, min_dt))
@@ -84,7 +85,7 @@ Improved Modules
 
   * 例えば次のように書ける：
 
-    .. code:: python
+    .. sourcecode:: python
 
        # old
        loop = asyncio.get_event_loop()
@@ -104,7 +105,7 @@ Improved Modules
 * 関数 ``namedtuple()`` で属性に対するデフォルト値が指定できる。Docstring の記
   述をコード化するとこうなる：
 
-  .. code:: python
+  .. sourcecode:: python
 
      Point = namedtuple('Point', ['x', 'y', 'z'], defaults=[0, 0])
 

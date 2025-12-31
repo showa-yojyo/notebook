@@ -4,7 +4,8 @@ Joel on Software 読書ノート 2/2
 
 .. include:: /_include/book-details/joel04.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 第 20 章
 ======================================================================

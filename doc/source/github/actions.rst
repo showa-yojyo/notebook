@@ -5,7 +5,8 @@ GitHub Actions documentation ノート
 `GitHub Actions documentation <https://docs.github.com/en/actions>`__ 読書ノー
 ト。自動化を実現する機能を極めればある意味最強なので、熟読したい。しかし、長い。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → :ref:`Understanding GitHub Actions <actions-overview>`
@@ -177,7 +178,7 @@ Finding and customizing actions
 するようだ。よく見かける ``actions/setup-node@v3`` のような指定はその実例の一つ
 だ。
 
-.. code:: text
+.. sourcecode:: text
 
    |-- hello-world (repository)
    |   |__ .github
@@ -198,7 +199,7 @@ Finding and customizing actions
 
 この YAML はリポジトリーのルートにあると言っている。
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    inputs:
      file-path: # id of input
@@ -220,7 +221,7 @@ Essential features of GitHub Actions
    If you need to use custom environment variables, you can set these in your
    YAML workflow file.
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    jobs:
      example-job:
@@ -250,7 +251,7 @@ client.js`` からそれらの値が参照可能になる。
 
 ジョブ同士が何かを共有する手段はこのファイルしかない？
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    uses: actions/upload-artifact@v3
    with:
@@ -259,7 +260,7 @@ client.js`` からそれらの値が参照可能になる。
 
 を先にやってから、
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    uses: actions/download-artifact@v3
    with:
@@ -283,7 +284,7 @@ Expressions
 
 環境変数を式で設定する：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    env:
      MY_ENV_VAR: ${{ <expression> }}
@@ -295,7 +296,7 @@ Expressions
 
 リテラル式は JavaScript に似ている：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    env:
      myNull: ${{ null }}
@@ -590,7 +591,7 @@ Triggering a workflow
 
 例えば：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      issues:
@@ -612,7 +613,7 @@ Triggering a workflow
 
 例：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      pull_request:
@@ -635,7 +636,7 @@ Triggering a workflow
 
 例：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      push:
@@ -657,7 +658,7 @@ Triggering a workflow
 
 次の例は JavaScript ファイルを push すると発動する：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      push:
@@ -672,7 +673,7 @@ Triggering a workflow
 次の workflow は ``Build`` という workflow が ``canary`` 以外のブランチで実行さ
 れた場合に限り発動する：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      workflow_run:
@@ -704,7 +705,7 @@ Triggering a workflow
 
 例えば
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    if: github.event.label.name == 'bug'
 
@@ -732,7 +733,7 @@ Manually running a workflow
 
 GitHub CLI を使うことでも手動発動可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh workflow run WORKFLOW
 
@@ -756,7 +757,7 @@ Disabling and enabling a workflow
 
 GitHub CLI を使うことでも設定可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh workflow disable WORKFLOW
    bash$ gh workflow enable WORKFLOW
@@ -822,7 +823,7 @@ Reusing workflows
    For a workflow to be reusable, the values for on must include
    ``workflow_call``:
 
-   .. code:: yaml
+   .. sourcecode:: yaml
 
       on:
         workflow_call:
@@ -934,7 +935,7 @@ Storing workflow data as artifacts
 
 YAML 例から抜粋：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Archive production artifacts
      uses: actions/upload-artifact@v3
@@ -958,7 +959,7 @@ YAML 例から抜粋：
    uploaded an artifact without specifying a name, the default name is
    ``artifact``.
 
-   .. code:: yaml
+   .. sourcecode:: yaml
 
       - name: Download a single artifact
         uses: actions/download-artifact@v3
@@ -1039,7 +1040,7 @@ Using GitHub CLI in workflows
 
 :command:`gh` を使う ``run`` のあるスコープから次が有効ならばいい：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    env:
        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -1057,7 +1058,7 @@ Using jobs in a workflow
 次の例では ``job1``, ``job2``, ``job3`` の順に走ることになる。ただし、必要とされ
 ている job が成功終了した場合に限る：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    jobs:
      job1:
@@ -1076,7 +1077,7 @@ Choosing the runner for a job
 
 私個人では Linux だけ対応すれば十分だ。これでいい：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    jobs:
      job_id:
@@ -1088,7 +1089,7 @@ Using conditions to control job execution
    You can use the ``jobs.<job_id>.if`` conditional to prevent a job from running
    unless a condition is met.
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    jobs:
      job_id:
@@ -1117,7 +1118,7 @@ Using environments for jobs
 
 下のように構成すると、ステップ出力を URL として用いることになる：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    environment:
      name: production_environment
@@ -1149,7 +1150,7 @@ Setting default values for jobs
 次のコードですべてのジョブで ``shell`` と ``working-directory`` の既定値を決め
 る：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    defaults:
      run:
@@ -1186,7 +1187,7 @@ Assigning permissions to jobs
 
 例えば ``pages: write`` は GitHub Pages の構築を要求する動作だ。
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    permissions:
      pages: write
@@ -1425,7 +1426,7 @@ Building and testing Python
 
 単一バージョンを指定したい。次のように書く：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Set up Python
      # This is the version of the action for setting up Python, not the Python version.
@@ -1441,7 +1442,7 @@ Building and testing Python
 
 依存パッケージをインストールするようにしたい。ステップとして次のように書く：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Install dependencies
      run: python -m pip install --upgrade pip setuptools wheel
@@ -1449,7 +1450,7 @@ Building and testing Python
 :command:`pip` 自体を upgrade してから :file:`requirements.txt` に指定された依存
 パッケージを更新させる方法もある：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Install dependencies
      run: |
@@ -1458,7 +1459,7 @@ Building and testing Python
 
 依存パッケージをキャッシュする機能も有している：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - uses: actions/setup-python@v4
      with:
@@ -1469,7 +1470,7 @@ Building and testing Python
 
 ビルドの次はテストだ。本文の例は pytest を採用している：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Test with pytest
      run: |
@@ -1478,7 +1479,7 @@ Building and testing Python
 
 成果物をアップロードするには ``actions/upload-artifact`` を用いる：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - name: Upload pytest test results
      uses: actions/upload-artifact@v3
@@ -1655,7 +1656,7 @@ Adding labels to issues
 
 次の YAML コードはその用例だ。確かに API を直接操作しているように読める：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - uses: actions/github-script@v6
      with:
@@ -1670,7 +1671,7 @@ Adding labels to issues
 YAML ルートに以下のコードを書くと、当該リポジトリーの issue が開いた時にこの
 workflow が引き起こされる：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      issues:
@@ -1686,7 +1687,7 @@ Closing inactive issues
 
 Workflow を定期的に引き起こすコード：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    on:
      schedule:
@@ -1699,7 +1700,7 @@ Workflow を定期的に引き起こすコード：
 ステップでは `actions/stale
 <https://github.com/marketplace/actions/close-stale-issues>`__ を用いる：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    - uses: actions/stale@v5
      with:
@@ -2165,7 +2166,7 @@ UNIX と同じでゼロが成功で、それ以外は失敗。
    ``@actions/core`` package to log a message and set a failure exit code. For
    example:
 
-   .. code:: java
+   .. sourcecode:: java
 
       try {
         // something

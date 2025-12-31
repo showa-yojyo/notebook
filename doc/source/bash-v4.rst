@@ -4,7 +4,8 @@ What's New In Bash 4 ノート
 
 Bash バージョン 4.x で追加された新機能のメモ。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 バージョン 4.0
 ======================================================================
@@ -27,7 +28,7 @@ Bash バージョン 4.x で追加された新機能のメモ。
 
 * ``coproc``
 
-  .. code:: shell
+  .. sourcecode:: shell
 
      coproc [coprocess_name] { statement* }
 
@@ -126,7 +127,7 @@ Bash 4.2 はバグ修正に加えて、新機能と改良の追加があった�
 
 * Unicode エスケープを ``\u`` や ``\U`` で表せる。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ echo -e '\u2622'
      ☢

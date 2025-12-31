@@ -9,7 +9,8 @@ docstring によるとこのサブパッケージの機能は次のようなも�
 * 文書中のハイパーリンクを自動で生成する
 * 文書データから情報を抽出し、索引や目次を生成する
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 クラス図
 ======================================================================
@@ -92,7 +93,7 @@ docstring によるとこのサブパッケージの機能は次のようなも�
 ``title``, ``topic``, ``pending`` それぞれのオブジェクトを生成する。最後にドキュ
 メントの然るべき場所に収める。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from docutils import nodes, languages
    from docutils.transforms import Transform, parts

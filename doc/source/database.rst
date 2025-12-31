@@ -9,7 +9,7 @@
 
 .. note::
 
-   .. code:: text
+   .. sourcecode:: text
 
       DISTRIB_ID=Ubuntu
       DISTRIB_RELEASE=22.04

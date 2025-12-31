@@ -9,7 +9,8 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 以下、断っても断らなくても名前空間 ``std`` またはその部分空間にライブラリー要素
 があるものとする。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 コンテナー
 ======================================================================
@@ -35,7 +36,7 @@ cpprefjp_ を利用して、読みながら急所を記していくことにす�
 全部同じだろうから ``std::map::find()`` について言うと、次のオーバーロードが追加
 された：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class K>
    iterator find(const K& x);
@@ -73,7 +74,7 @@ ForwardIterator に分類される反復子の初期化に関する仕様追加�
 念のため ``std::match()`` の述語なし版の従来版と C++14 追加版の関数シグニチャー
 を記す：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class InputIterator1, class InputIterator2>
    pair<InputIterator1, InputIterator2> mismatch(
@@ -177,14 +178,14 @@ C++14 では以下のリテラル演算子が標準で提供される。
 
 * ヘッダーファイル ``<utility>`` に関数テンプレート ``std::exchange()`` が追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T, class U=T>
      T exchange(T& obj, U&& new_val);
 
   関数の中身の意味は次の通り：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      T old_val = std::move(obj);
      obj = std::forward<U>(new_val);
@@ -197,7 +198,7 @@ C++14 では以下のリテラル演算子が標準で提供される。
 
 * ヘッダーファイル ``<utility>`` にクラステンプレート ``std::integer_sequence`` が追加。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T, T... I>
      struct integer_sequence {
@@ -211,7 +212,7 @@ C++14 では以下のリテラル演算子が標準で提供される。
   ドが追加。それは自身を型の組とみなし、型を指定することで対応する値を返すもの
   だ。例えば ``std::get<0>(t)`` ではなく ``std::get<int>(t)`` のように呼び出す。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      template <class T, class... Types>
      constexpr T& get(tuple<Types...>& t) noexcept;

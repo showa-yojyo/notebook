@@ -4,7 +4,8 @@
 
 .. include:: /_include/book-details/newham05.txt
 
-.. contents:: ノートの目次
+.. contents:: 見出し一覧
+   :local:
 
 4 章 基本的なシェルプログラミング
 ======================================================================
@@ -27,7 +28,7 @@
   ドが格納される。
 * 定義方法は次のどちらかとなる。機能差はない。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
     function function-name
     {
@@ -102,7 +103,7 @@
 * <位置パラメータの値をわかりやすい名前の変数に代入すれば、変数名を改善すること
   ができる> (p. 98)
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      filename=$1
      howmany=${2:-10}
@@ -120,7 +121,7 @@
 
 * 置換は ``${variable/pattern/string}`` か ``${variable//pattern/string}`` で行う。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      outfile=${filename%.pcx}.jpg
 
@@ -140,7 +141,7 @@
   ``!(pattern-list)``  一致しないものを検出
   ===================  ====================
 
-  .. code:: console
+  .. sourcecode:: console
 
     bash$ shopt -s extglob
     bash$ echo *.+(txt|html)
@@ -156,7 +157,7 @@
 * 昔はバッククォートで囲んでいたようだが、読みにくいうえに入れ子にできない。ドル
   カッコのほうを使うべし。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      ls -l $(type -path -all command-name)
 
@@ -391,7 +392,7 @@
 
 * 配列の定義方法はいくつかある。とりあえず次の方法だけ覚える。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      # 方法 1
      names[2]=alice
@@ -478,7 +479,7 @@
 * 関数は標準入出力デスクリプタを独自に持つ。関数呼び出しの右側にリダイレクタを書
   いたり、関数定義の終了直後にリダイレクタを書いたりできる。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      findterm () {
         # ...関数定義
@@ -486,7 +487,7 @@
 
      findterm < /etc/terms
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      findterm () {
        # ...関数定義
@@ -501,7 +502,7 @@
   -n` で改行を抑制していることと、``>&2`` で標準出力を標準エラー出力に切り替えて
   いることがポイント。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      echo -n 'terminal? ' >&2
 
@@ -540,7 +541,7 @@
   ラッシュには、:command:`eval` コマンド自体が実行されるまでの変数の評価を先送り
   するという働きがある> (p. 198)
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      eval sort -nr \$1 ${2:+"| head -\$2"}
 

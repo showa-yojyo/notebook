@@ -2,7 +2,8 @@
 Windows Subsystem for Linux GUI 利用ノート
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 WSLg に関する利用ノートをつづる。次の課題を解決したい：
 
@@ -86,7 +87,7 @@ WSLg 稼働実績がない場合
 WSLg を一度も動作したことがない場合には Windows 側のコンソールで次のコマンドを実
 行しておく必要があるはずだ：
 
-.. code:: posh
+.. sourcecode:: posh
 
    > wsl --update
    > wsl --shutdown
@@ -123,7 +124,7 @@ WSLg をアンインストールする方法はない。WSL をインストー�
     file (located at :file:`c:\\users\\MyUser\\.wslconfig`). This will turn off
     support for GUI applications in WSL.
 
-    .. code:: ini
+    .. sourcecode:: ini
 
        [wsl2]
        guiApplications=false
@@ -174,7 +175,7 @@ Ubuntu から
 
 ImageMagick ならばこう：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ sudo apt update
    bash$ sudo apt install imagemagick
@@ -190,14 +191,14 @@ ImageMagick ならばこう：
 画像ファイル、音声ファイル、映像ファイルを好きなプログラムで表示、視聴したい。
 FFmpeg をインストールすれば :command:`ffplay` でそれらすべてを再生できる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffplay speaking-cat.mp4
 
 ImageMagick をインストールすれば、コマンド :command:`display` で画像を専用ウィン
 ドウに出力できる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ display funny-cat.jpg
 

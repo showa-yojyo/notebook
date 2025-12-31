@@ -4,7 +4,8 @@ Search on GitHub documentation ノート
 
 `Search on GitHub documentation <https://docs.github.com/en/search-github>`__
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → :ref:`About searching on GitHub <search-overview>`
@@ -182,7 +183,7 @@ File finder というのはリポジトリー :guilabel:`Go to File` を押す�
    For example, the following :file:`.gitattributes` file would cause files in
    the ``build/`` directory to be available to the file finder:
 
-   .. code:: text
+   .. sourcecode:: text
 
       build/** linguist-generated=false
 
@@ -522,7 +523,7 @@ Understanding GitHub Code Search syntax
 
 修飾子 ``language:`` には非コード検索とは異なり、プログラミング言語を与える。
 
-.. code:: text
+.. sourcecode:: text
 
    language:ruby OR language:cpp OR language:csharp
 
@@ -531,7 +532,7 @@ Understanding GitHub Code Search syntax
 修飾子 ``path:``
 はワイルドカードも正規表現も使えるらしい。正規表現はスラッシュで囲んで認識させる：
 
-.. code:: text
+.. sourcecode:: text
 
    path:/(^|\/)README\.md$/
    path:*.txt

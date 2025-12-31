@@ -4,7 +4,8 @@ Walk Through
 
 本節はラジルギノアに対しての評者の個人的なプレイノートである。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 

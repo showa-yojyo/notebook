@@ -11,7 +11,7 @@ Sphinx で記述された公式文書 `Apache CouchDB® 3.3 Documentation
 <https://docs.couchdb.org/en/stable/>`__ の品質が良く、インストール手順で詰まるこ
 とはないはずだ。
 
-.. code:: console
+.. sourcecode:: console
 
    $ curl https://couchdb.apache.org/repo/keys.asc |
      gpg --dearmor |
@@ -29,7 +29,7 @@ CouchDB in Ubuntu 22.04
 サービスを手動で稼働する。別のコンソールウィンドウで実施するか、バックグラウンド
 実行すると何かの時に小回りが利く：
 
-.. code:: console
+.. sourcecode:: console
 
    $ service couchdb status
    $ sudo -i -u couchdb /opt/couchdb/bin/couchdb
@@ -39,7 +39,7 @@ CouchDB in Ubuntu 22.04
    まともなサービス停止方法が判明していない。現状 :command:`kill` コマンドで強引
    に殺している。
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ su couchdb service couchdb stop
       Password:
@@ -50,7 +50,7 @@ CouchDB in Ubuntu 22.04
 
 サービス稼働中に管理者権限を有するアカウントを作成する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ COUCHDB_HOST=http://admin:${ADMIN_PASSWORD}@localhost:5984
    $ curl -X PUT ${COUCHDB_HOST}/_node/couchdb@127.0.0.1/_config/admins/${NEW_USER} -d '"${NEW_PASSWORD}"'
@@ -58,7 +58,7 @@ CouchDB in Ubuntu 22.04
 ここまで準備が整ったらチュートリアルを実施する。アカウントは今作成したものに変え
 て、変数の値もそれに合わせる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ curl http://localhost:5984/
    $ COUCHDB_HOST=http://${NEW_USER}:${NEW_PASSWORD}@localhost:5984

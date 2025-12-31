@@ -2,7 +2,8 @@
 State diagrams
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ..
@@ -32,14 +33,14 @@ States
   A state can be declared in multiple ways. The simplest way is to define a
   state with just an id:
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          stateId
 
   Another way is by using the ``state`` keyword with a description as per below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          state "This is a state description" as s2
@@ -47,7 +48,7 @@ States
   Another way to define a state with a description is to define the state id
   followed by a colon and the description:
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          s2 : This is a state description
@@ -64,7 +65,7 @@ Transitions
   defined the undefined states are defined with the id from the transition. You
   can later add descriptions to states defined this way.
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          s1 --> s2
@@ -73,7 +74,7 @@ Class diagram の構文でも見られた、ノード二つとリンクを同時
 
   It is possible to add text to a transition. To describe what it represents.
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          s1 --> s2: A transition
@@ -87,7 +88,7 @@ Start and End
   These are written with the ``[*]`` syntax and the direction of the transition
   to it defines it either as a start or a stop state.
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          [*] --> s1
@@ -108,7 +109,7 @@ Composite states
   followed by an id and the body of the composite state between ``{}``. See the
   example below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          [*] --> First
@@ -121,7 +122,7 @@ Composite states
 
   You can also define transitions also between composite states:
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          [*] --> First
@@ -154,7 +155,7 @@ Choice
   Sometimes you need to model a choice between two or more paths, you can do so
   using ``<<choice>>``.
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          state if_state <<choice>>
@@ -185,7 +186,7 @@ UML 仕様書で言うところのコメントに相当するものを定義す�
   Here you can choose to put the note to the *right of* or to the *left of* a
   node.
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          State1: The state with a note
@@ -216,7 +217,7 @@ Setting the direction of the diagram
   With state diagrams you can use the direction statement to set the direction
   which the diagram will render like in this example.
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram
          direction LR
@@ -242,7 +243,7 @@ Sequence diagram や Class diagram のコメントと同じ仕様と思いきや
   ``%%`` (double percent signs). Any text after the start of the comment to the
   next newline will be treated as a comment, including any diagram syntax
 
-  .. code:: text
+  .. sourcecode:: text
 
      stateDiagram-v2
          [*] --> Still
@@ -279,13 +280,13 @@ Styling with classDefs
 次の定義例は ``movement`` という名前のスタイルを定義しており、テキストを斜体で描
 画する：
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDef movement font-style:italic;
 
 次の定義例はプロパティーを複数指定する：
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDef badBadEvent fill:#f00,color:white,font-weight:bold,stroke-width:2px,stroke:yellow
 
@@ -303,7 +304,7 @@ Apply classDef styles to states
 State diagram コード片の例。``movement`` および `` badBadEvent`` を ``classDef``
 名とする。まずキーワード記法では次のようになる：
 
-.. code:: text
+.. sourcecode:: text
 
    class Crash badBadEvent
    class Moving, Crash movement
@@ -311,7 +312,7 @@ State diagram コード片の例。``movement`` および `` badBadEvent`` を `
 トリプルコロン記法では次のように、エッジ指定行のノードの右側に ``classDef`` 名を
 付加すればいい：
 
-.. code:: text
+.. sourcecode:: text
 
    [*] --> Still:::notMoving
    Still --> [*]

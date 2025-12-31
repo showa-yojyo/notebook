@@ -2,7 +2,8 @@
 Pie chart diagrams
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ..
@@ -20,7 +21,7 @@ Syntax
 
   Drawing a pie chart is really simple in mermaid.
 
-  .. code:: text
+  .. sourcecode:: text
 
      [pie] [showData] (OPTIONAL)
           [title] [titlevalue] (OPTIONAL)

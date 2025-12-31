@@ -11,7 +11,7 @@ Neo4j 利用ノート
 Neo4j Community Edition インストール手順を記す。場合によっては Java の調整を行う
 ことがある（説明割愛）。
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo apt update && suto apt upgrade -y
    $ curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/neo4j.gpg
@@ -23,7 +23,7 @@ Neo4j Community Edition インストール手順を記す。場合によって�
 管理者アカウントの初期パスワードを明示的に設定変更する必要があるようで、次のコマ
 ンドによる。:samp:`{XXXXXX}` 部分を適宜指定する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo neo4j-admin dbms set-initial-password XXXXXX
    [sudo] password for work:
@@ -34,7 +34,7 @@ Neo4j サービスを稼動する方法は複数ある：
 * Ubuntu につき :program:`service` から起動する
 * ``sudo neo4j start`` を実行する
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo service neo4j start
    Directories in use:
@@ -61,7 +61,7 @@ Neo4j サービスを稼動する方法は複数ある：
    サーバーをいったん停止して、構成ファイル :file:`/etc/neo4j/neo4j.conf` を管理
    者権限で編集することで解決する。次の行のコメントアウトを外せ：
 
-   .. code:: shell
+   .. sourcecode:: shell
 
       # With default configuration Neo4j only accepts local connections.
       # To accept non-local connections, uncomment this line:
@@ -72,7 +72,7 @@ Neo4j サービスを稼動する方法は複数ある：
 
 とりあえず作業ユーザーを作成する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ cypher-shell
    username: neo4j

@@ -114,7 +114,7 @@ Jupyter をインストールする
 にインストールされるのかを調べた。下に端末での入出力を掲載するが、かなりの数の
 パッケージを必要とすることがわかる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda install jupyter
    Fetching package metadata .........
@@ -198,7 +198,7 @@ Jupyter をインストールする
 ており、その既定のパスは :file:`$HOME/.jupyter/jupyter_nbconvert_config.py` だ。
 このファイルのスケルトンを得るには、次のようにする（一部加工済）。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ jupyter nbconvert --generate-config
    Writing default config to: /home/USERNAME/.jupyter/jupyter_nbconvert_config.py
@@ -216,7 +216,7 @@ Jupyter をインストールする
 端末から :program:`jupyter` を次のように実行すると Jupyter が参照するディレクト
 リーをすべて確認できる（一部加工済）：
 
-.. code:: console
+.. sourcecode:: console
 
    $ jupyter --paths
    config:
@@ -255,13 +255,13 @@ Jupyter は先述の関係ディレクトリーの区分に対応する環境変
 を指定する。Jupyter は当該仕様に対応しており、使用者は適切な場所で次のような定義
 を与えればよい：
 
-.. code:: bash
+.. sourcecode:: bash
 
    export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 なお、XDG 環境変数 ``XDG_DATA_HOME`` のほうは Jupyter が慮ってくれる：
 
-.. code:: console
+.. sourcecode:: console
 
    $ echo $XDG_DATA_HOME
    /home/USERNAME/.local/share
@@ -283,7 +283,7 @@ Available subcommands の記述を見ればよい：
 ``jupyter subcommand args`` を実行すると、実際には ``jupyter-subcommand args`` を
 実行することと同じであると考えられる。次を確認してみろ：
 
-.. code:: console
+.. sourcecode:: console
 
    $ ls $(dirname $(which jupyter))/jupyter*
 
@@ -323,7 +323,7 @@ nbextenion list`` だ。
 このサブコマンドは Jupyter のカーネルの詳細を管理するためのものだ。Jupyter イン
 ストール直後にサブコマンド :command:`list` を実行するとこのような結果を出力する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ jupyter kernelspec list
    Available kernels:
@@ -335,7 +335,7 @@ nbextenion list`` だ。
 なお、bash_kernel_ を Python 環境にインストールし、それから Jupyter 環境にイン
 ストールし、最後に本サブコマンドを実行すると次のようになる（一部加工済）：
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip install bash_kernel
    Collecting bash_kernel
@@ -357,7 +357,7 @@ nbextenion list`` だ。
 私はこれを利用する必要はないらしい。事実、IPython から Jupyter に移行したい資源
 は何もなかったはずだ。
 
-.. code:: console
+.. sourcecode:: console
 
    $ jupyter migrate
    [JupyterMigrate] Found nothing to migrate.
@@ -384,7 +384,7 @@ reStructuredText といった、指定する形式のファイルを生成変換
   このサブコマンドが動作する事前条件の一つに Pandoc_ が利用可能であることがあ
   る。正常に動作すれば、次のようにファイル拡張子が ``.tex`` のものが生成される：
 
-  .. code:: console
+  .. sourcecode:: console
 
      $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
@@ -392,7 +392,7 @@ reStructuredText といった、指定する形式のファイルを生成変換
 
   Pandoc が利用可能でなければ次のように失敗する：
 
-  .. code:: console
+  .. sourcecode:: console
 
      $ jupyter nbconvert --to=latex helloworld.ipynb
      [NbConvertApp] Converting notebook helloworld.ipynb to latex
@@ -419,7 +419,7 @@ reStructuredText といった、指定する形式のファイルを生成変換
 端末からのコマンドライン入力だけでなく、例えば IPython のセッションから本サブコ
 マンドの機能をモジュールの形で参照、利用することも可能だ。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: import nbconvert
 
@@ -461,7 +461,7 @@ Google を利用する等して色々と調査した結果、日本語文書を�
 :program:`ptex2pdf` を用いるのが一般的なようなので、それをコマンドラインで実行す
 る際の定番オプションをここに適用する。
 
-.. code:: python
+.. sourcecode:: python
 
    # Shell command used to compile latex.
    c.PDFExporter.latex_command = ['ptex2pdf', '-l', '-ot', '-kanji=utf8', '{filename}']
@@ -472,7 +472,7 @@ Google を利用する等して色々と調査した結果、日本語文書を�
 このサブコマンドは Notebook の拡張を管理するためのものだ。 Jupyter インストール
 直後にサブコマンド :command:`list` を実行するとこのような結果を出力する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ jupyter nbextension list
    Known nbextensions:
@@ -514,7 +514,7 @@ Jupyter Notebook を起動する
 端末ウィンドウで作業する。適当な作業ディレクトリーに移動してから
 :program:`jupyter` を実行する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ jupyter notebook
 
@@ -639,7 +639,7 @@ Jupyter Notebook を終了する
 サービスを起動した端末ウィンドウで |Ctrl| + :kbd:`C` を押すと、サービスが停止す
 る。
 
-.. code:: console
+.. sourcecode:: console
 
    [C 2024-05-16 22:42:46.602 ServerApp] Shutdown confirmed
    [I 2024-05-16 22:42:46.603 ServerApp] Shutting down 8 extensions
@@ -678,7 +678,7 @@ Jupyter Notebook を終了する
 Jupyter インストール直後にサブコマンド :command:`list` を実行するとこのような結
 果を出力する。
 
-.. code:: console
+.. sourcecode:: console
 
    $ jupyter serverextension list
    config dir: D:\Miniconda3\etc\jupyter

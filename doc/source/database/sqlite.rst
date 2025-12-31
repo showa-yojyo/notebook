@@ -14,7 +14,7 @@ SQLite 利用ノート
 
 業務目的ではない場合、インストール手順は Python 環境に手を入れる手っ取り早い：
 
-.. code:: console
+.. sourcecode:: console
 
    $ conda install sqlite
 
@@ -29,14 +29,14 @@ SQLite 利用ノート
 CLI のドットファイルのパスは :file:`$XDG_HOME_CONFIG/sqlite3/sqliterc` にした
 い。:doc:`/xdg` 参照。
 
-.. code:: bash
+.. sourcecode:: bash
 
    # .bashrc
    export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
 
 内容は適当：
 
-.. code:: console
+.. sourcecode:: console
 
    $ cat $XDG_CONFIG_HOME/sqlite3/sqliterc
    .headers ON

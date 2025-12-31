@@ -56,7 +56,7 @@ IPython をインストールできる。
 
 次に :program:`conda` によるインストール手続きの例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda install ipython
    Fetching package metadata: ....
@@ -132,7 +132,7 @@ IPython をインストールできる。
 
 私の環境でのスタートアップ時の出力を記す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    WARNING: Readline services not available or not loaded.
    WARNING: Proper color support under MS Windows requires the pyreadline library.
@@ -164,7 +164,7 @@ PyReadline をインストール
 名前からして Python 版 readline と思われるパッケージを :program:`pip` でインス
 トールして、再度 IPython を起動したい。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install pyreadline
    Downloading/unpacking pyreadline
@@ -201,7 +201,7 @@ IPython 3.0.0
 公式ドキュメントに従い、初回条件で :program:`iptest` を実行すると以下のように
 なった。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ iptest3
    Traceback (most recent call last):
@@ -226,7 +226,7 @@ IPython 4.0.0
 
 一連の自動テストが実行された。エラーがボロボロと現れる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ iptest3
 
@@ -285,13 +285,13 @@ IPython の挙動を次の各項目により制御できるはずなので、本
 * 上記ノートで述べように当該 XDG 環境変数を定義しておく
 * 心配なら対話シェル初期化スクリプトで次の定義を入れておく：
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 
 現在の設定ファイル置場パスは、コマンドラインから次を実行して確認可能だ：
 
-.. code:: console
+.. sourcecode:: console
 
    $ ipython locate
    /home/USERNAME/.config/ipython
@@ -302,7 +302,7 @@ IPython の挙動を次の各項目により制御できるはずなので、本
 設定ファイル置場が定まったので、IPython 設定ディレクトリーにプロファイルと呼ばれ
 る設定ファイルの雛形を作成する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ipython profile create
    [ProfileCreate] Generating default config file: PosixPath('/home/USERNAME/.config/ipython/profile_dummy/ipython_config.py')
@@ -311,7 +311,7 @@ IPython の挙動を次の各項目により制御できるはずなので、本
 これでテンプレファイル :file:`ipython_config.py` ができあがった。テキストエディ
 ターでこれを開き、有効にしたい箇所のコメントアウトを解除するとよさそうだ。
 
-.. code:: python
+.. sourcecode:: python
 
    c.InteractiveShellApp.pylab = 'auto'
 
@@ -320,7 +320,7 @@ IPython の挙動を次の各項目により制御できるはずなので、本
 のようなコードが通じる。さらに、下記の項目を有効にすると :code:`np.` すら不要に
 なる。
 
-.. code:: python
+.. sourcecode:: python
 
    c.InteractiveShellApp.pylab_import_all = True
 
@@ -335,7 +335,7 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 して、IPython 起動時に ``--profile`` コマンドラインオプションで設定名を指示す
 る。
 
-.. code:: console
+.. sourcecode:: console
 
    $ ipython profile create sympy
    $ edit $XDG_CONFIG_HOME/ipython/profile_sympy/ipython_config.py
@@ -346,7 +346,7 @@ Python 組み込みのオブジェクトの識別子がカブるようなもの 
 
 プロファイルディレクトリーをコマンドラインから指定することも可能だ：
 
-.. code:: console
+.. sourcecode:: console
 
    $ ipython --ipython-dir=/path/to/ipython-dir --profile=my-profile
 
@@ -457,7 +457,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
 * スクリプトを IPython のセッションから起動できる。次のコード片は自作のスクリプ
   トを :command:`%run` コマンドにより起動した様子を再現したものだ。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: %run ~/bin/listmanager.py remove showa_yojyo bot zzz
      0-15: Wait...
@@ -468,7 +468,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   * オプション :code:`-t` で実行時間を測定する。コマンドラインでいうところの
     :command:`time python commands` のようなものだ。例を示す。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: %run -t ./bin/mjscore.py -F --today
        集計期間           2016/09/01 00:40 - 2016/09/01 02:13
@@ -496,7 +496,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   開く。ここでコードを書いて保存して閉じる。すると IPython のセッションにその内
   容が伝わる。エディターで定義した関数を呼び出すことができる。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [2]: %edit
      IPython will make a temporary file named: D:\Temp\ipython_edit_3cn_y47j\ipython_edit_osmxydqq.py
@@ -510,7 +510,7 @@ IPython コンソールウィンドウでの各種機能をひと通り試して
   :program:`notepad` では逆にテキスト編集の効率が落ちるはずなので、オプション
   ``TerminalInteractiveShell.editor`` で馴染みのテキストエディターを指定する。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      # Set the editor used by IPython (default to $EDITOR/vi/notepad).
      c.TerminalInteractiveShell.editor = 'D:/Program Files/xyzzy/xyzzy.exe'
@@ -562,7 +562,7 @@ PyZMQ をインストールする
 PyZMQ_ が何であるのかを理解するのは後回しにして、まずはインストールだ。IPython
 のドキュメントにあるように、素直に :program:`pip` でインストールできる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install pyzmq
    Downloading/unpacking pyzmq
@@ -577,7 +577,7 @@ Qt コンソールを起動する（シンプル）
 
 Windows の :guilabel:`ファイル名を指定して実行` で次のように指定する。
 
-.. code:: text
+.. sourcecode:: text
 
    %PYTHONDIR%\Scripts\ipython3.exe qtconsole
 
@@ -593,7 +593,7 @@ Matplotlib のプロット図をインラインに Qt コンソール内に描�
 を指定して起動する。ドキュメントには :command:`qtconsole --matplotlib inline` と
 指定すると記されているが、私の環境ではダメだった。
 
-.. code:: text
+.. sourcecode:: text
 
    %PYTHONDIR%\Scripts\ipython3.exe qtconsole --pylab=inline
 

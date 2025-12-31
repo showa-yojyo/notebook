@@ -10,7 +10,7 @@ Mypy 利用ノート
 .. |mypy.ini| replace:: :file:`mypy.ini`
 .. |pyproject| replace:: :file:`pyproject.toml`
 
-.. contents:: 章見出し
+.. contents:: 見出し一覧
    :local:
 
 概要

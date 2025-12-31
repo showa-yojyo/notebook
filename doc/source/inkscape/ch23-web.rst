@@ -2,7 +2,8 @@
 Chapter 23. SVG and the Web
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 ページ右側の囲み記事 The origins of HTML5 では :abbr:`XHTML` の衰亡と
 :abbr:`HTML5` の契機について述べている。読まなくていいはずだ。
@@ -108,7 +109,7 @@ The ``<object>`` Tag
 タグの定義例から急所の :abbr:`HTML` コードを次に抜粋する。上記の記述に沿っている
 ことを確認できる：
 
-   .. code:: html
+   .. sourcecode:: html
 
       <object type="image/svg+xml" data="web_square.svg">
         <img src="web_square.png" alt="Blue Square"/>
@@ -132,7 +133,7 @@ The ``<embed>`` Tag
    Here is an example of using the ``<embed>`` tag. Only the src attribute is
    required.
 
-   .. code:: html
+   .. sourcecode:: html
 
       <embed src="web_square.svg"/>
 
@@ -160,7 +161,7 @@ The ``<iframe>`` Tag
 
 こちらは終了タグが必要となる：
 
-   .. code:: html
+   .. sourcecode:: html
 
       <iframe src="web_square.svg"></iframe>
 
@@ -195,7 +196,7 @@ Inline SVG
 
 コードは急所を抜粋：
 
-   .. code:: html
+   .. sourcecode:: html
 
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +218,7 @@ CSS Background
 
 古いブラウザーのための fallback も込めた定義例：
 
-   .. code:: css
+   .. sourcecode:: css
 
       body {
         background-image: url('background.png');
@@ -398,7 +399,7 @@ Adding Links
 :abbr:`SVG` ファイルとして保存して、ブラウザーにドラッグアンドドロップして手軽に
 試すといい。
 
-   .. code:: xml
+   .. sourcecode:: xml
 
       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <svg
@@ -435,7 +436,7 @@ Using Style Sheets
 
 コード例を引用する：
 
-   .. code:: xml
+   .. sourcecode:: xml
 
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -564,7 +565,7 @@ Simple Animation
 完全な :abbr:`SVG` コードが掲載されているが、要所に絞って見ていく。まずルート要
 素だ：
 
-   .. code:: xml
+   .. sourcecode:: xml
 
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -577,7 +578,7 @@ Simple Animation
 属性 ``onload`` は :abbr:`HTML` と同じ意味。このコードを実行する。関数 ``Start``
 本体はこの次にある：
 
-.. code:: xml
+.. sourcecode:: xml
 
    <script type="text/ecmascript">
    <![CDATA[

@@ -2,7 +2,8 @@
 14 StateMachines
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 4
 
 14.1 Summary
@@ -1205,7 +1206,7 @@ Transition が有効になり、射出するために選択されると、次の
 この場合、StateMachine が State ``S11`` にある間、イベント ``sig`` が発送され
 て、次の一連の動作が実行される：
 
-    .. code:: text
+    .. sourcecode:: text
 
        xS11; t1; xS1; t2; eT1; eT11; t3; eT111
 
@@ -1287,7 +1288,7 @@ Regions が二つある複合 State を示す。
   この区画では State に付随する内部 Behaviors のリストを保持する。リストの各項目
   は次の書式だ：
 
-  .. code:: bnf
+  .. sourcecode:: bnf
 
      <behavior-type-label> [‘/’ <behavior-expression>]
 
@@ -1309,7 +1310,7 @@ Regions が二つある複合 State を示す。
 内部 Transitions 区画
   この区画では **internal** Transitions のリストを含む。各項目は次の構文で表す：
 
-  .. code:: bnf
+  .. sourcecode:: bnf
 
      {<trigger>}* [‘[’ <guard>‘]’] [/<behavior-expression>]
 
@@ -1379,7 +1380,7 @@ State だ（最初の黒丸と最後の二重丸は今は無視）。
 
 部分機械 State は通常の State として描かれる。名前区画の文字列は次の構文だ：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <state-name> ‘:’ <name-of-referenced-StateMachine>
 
@@ -1588,7 +1589,7 @@ Fig. 14.30 のことだと思われる。
 
 Transition を表すテキスト表記法は既定では：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    [<trigger> [‘,’ <trigger>]* [‘[’ <guard>‘]’] [‘/’ <behavior-expression>]]
 
@@ -1649,7 +1650,7 @@ Transition の ``trigger`` に写像され、``effect`` Behavior を指定する
 は写像されない。この Trigger の Signals の名前と ``guards`` は次の書式で記号内に
 記述する：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <trigger> [‘,’ <trigger>]* [‘[’ <guard> ‘]’]
 
@@ -2164,7 +2165,7 @@ ProtocolStateMachine では複数の Transitions が同じ操作 (e.g. Fig 14.43
 を参照することが可能だ。その場合、事前条件と事後条件はすべて以下のように操作の事
 前条件に組み合わされる：
 
-.. code:: text
+.. sourcecode:: text
 
    Operation m1()
    Pre:  in state S1 and condition C1

@@ -8,7 +8,8 @@ Docutils_ の構文解析サブパッケージ ``docutils.parsers`` について
 りと読み込んでいきたい。余力があれば後者も ``RSTStateMachine`` という面白い教材
 があるので解読したい。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 クラス図
 ======================================================================
@@ -95,7 +96,7 @@ Docutils_ の構文解析サブパッケージ ``docutils.parsers`` について
 ``RSTStateMachine`` と ``RSTState`` 系に委譲している。次にメソッド ``parse`` の
 コードを一部改変引用する。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from docutils.statemachine import string2lines
    from .states import RSTStateMachine
@@ -113,7 +114,7 @@ Docutils_ の構文解析サブパッケージ ``docutils.parsers`` について
 
 クラス ``Parser`` の何らかのサブクラスのオブジェクトを利用する擬似コードを次に示す。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from docutils.utils import new_document
    from docutils.parsers import get_parser_class

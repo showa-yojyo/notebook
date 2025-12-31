@@ -2,7 +2,8 @@
 Chapter 24. Customization
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 この章はもっと前に持ってきてもいいかもしれない。
 
@@ -97,7 +98,7 @@ Outline Mode Colors
 
 :file:`preferences.xml` の実際の内容を記すとわかりやすい：
 
-.. code:: xml
+.. sourcecode:: xml
 
    <group
       id="wireframecolors"
@@ -194,7 +195,7 @@ GIMP とファイル形式が同じなので、シンボリックリンクで共
    The file format is very simple, as the following example five-color palette
    file shows.
 
-   .. code:: text
+   .. sourcecode:: text
 
       GIMP Palette
       Name: MyPalette
@@ -240,7 +241,7 @@ Custom Markers
    the diamond markers included with Inkscape in that the center of the diamond
    is gray and the orientation doesn't depend on the slope of the lines.
 
-   .. code:: xml
+   .. sourcecode:: xml
 
       <marker style="overflow:visible;"
          id="DiamondNode"
@@ -313,7 +314,7 @@ Right Handed Illustration が面白い：
    *Extensions* to keys. Here is an example of binding the / key to the *Add
    Nodes* extension:
 
-   .. code:: xml
+   .. sourcecode:: xml
 
       <?xml version="1.0"?>
       <keys name="My Customization">

@@ -4,7 +4,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 4
 
 `仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#variables-and-types>`__
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 4. Variables and Types
 ======================================================================
@@ -117,7 +118,7 @@ C 言語と同様にしてリテラル整数定数を十進数、八進数、16 
 
 浮動小数点変数は、以下の例のように定義される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a, b = 1.5; // single-precision floating-point
    double c, d = 2.0LF; // double-precision floating-point
@@ -155,7 +156,7 @@ C 言語と同様にしてリテラル整数定数を十進数、八進数、16 
   果などを格納するのに使用できる。
 * 真偽値のベクトルは、数値のベクトルの成分ごとの比較に使用できる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 texcoord1, texcoord2;
    vec3 position;
@@ -176,7 +177,7 @@ C 言語と同様にしてリテラル整数定数を十進数、八進数、16 
 * 型の最初の数字は列数、二番目の数字は行数をそれぞれ表す。数字が一つしかない場
   合、それは正方行列だ。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat2 mat2D;
    mat3 optMatrix;
@@ -328,7 +329,7 @@ Subpass Inputs
 
 C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    struct light {
        float intensity;
@@ -353,7 +354,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 * 匿名構造体は対処されていない。
 * 埋め込み構造体の定義は対処されていない。コンパイルエラーになる。
 
-  .. code:: glsl
+  .. sourcecode:: glsl
 
      struct S { float f; };
 
@@ -409,7 +410,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 ブロックの最後のメンバーの長さが異なっていたとしても、配列を形成することができ
 る。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float frequencies[3];
    uniform vec4 lightPosition[4];
@@ -429,7 +430,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 配列型は、非配列型の後に配列指定子を指定することで形成できる。このような配列指定
 子の次元すべてにサイズを含める必要がある。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float[5]    // an array of size [5] of float
    float[2][3] // an array of size [2][3] of float, not size [3] of float[2]
@@ -437,25 +438,25 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 この型は、他の型が使用できる場所であればどこでも使用できる。関数からの戻り値で
 あってもいい：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float[5] foo() { }
 
 配列のコンストラクターとして：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float[5](3.4, 4.2, 5.0, 5.2, 1.1)
 
 名前なし引数として：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    void foo(float[5])
 
 または変数や関数の引数パラメータを宣言する手段の代わりとしても使用できる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float[5] a;
 
@@ -463,7 +464,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 配列は、配列コンストラクターから形成される初期化子を持つことができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a[5] = float[5](3.4, 4.2, 5.0, 5.2, 1.1);
    float a[5] = float[](3.4, 4.2, 5.0, 5.2, 1.1);  // same thing
@@ -473,7 +474,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 配列の配列を宣言することができる。次の宣言はどれも ``vec4`` の長さ 2 の一次元配
 列の長さ 3 の一次元配列だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 a[3][2]; // size-3 array of size-2 array of vec4
    vec4[2] a[3]; // size-3 array of size-2 array of vec4
@@ -483,7 +484,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 元よりも速く反復されるレイアウトになっている。上記の配列の場合、メモリー上の順序
 は次のようになる：
 
-.. code:: text
+.. sourcecode:: text
 
    Low address : a[0][0] : a[0][1] : a[1][0] : a[1][1] : a[2][0] : a[2][1] : High address
 
@@ -492,7 +493,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 コンストラクターと名前なしの引数の両方に必要な ``a`` の型は ``vec4[3][2]`` とな
 る：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 b[2] = vec4[2](vec4(0.0), vec4(0.1));
    vec4[3][2] a = vec4[3][2](b, b, b); // constructor
@@ -500,7 +501,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 初期化子リスト構文を使って配列の配列を初期化することもできる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 a[3][2] = { vec4[2](vec4(0.0), vec4(1.0)),
                     vec4[2](vec4(0.0), vec4(1.0)),
@@ -510,7 +511,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 サイズなし配列を宣言時に初期化子で明示的にサイズを指定することができる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a[5];
    ...
@@ -522,7 +523,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 入が異なるセマンティクスを持っているように見えるまれなケースだ。配列の配列では、
 サイズなし次元は初期化子によってサイズが明示的に決まる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 a[][] = { vec4[2](vec4(0.0), vec4(1.0)), // okay, size to a[3][2]
                   vec4[2](vec4(0.0), vec4(1.0)),
@@ -532,7 +533,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 配列は ``length()`` メソッドを使って含まれる要素の数を取得できる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a[5];
    a.length(); // returns 5
@@ -555,7 +556,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 式に他の効果が含まれている場合、コンパイルエラー報告を含め、動作と結果は未定義
 だ。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a, b;
    const int s = float[2](a=3.0, ++b).length(); // illegal side effects
@@ -564,7 +565,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 ``length()`` は配列の配列に対しても同様に機能する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec4 a[3][2];
    a.length()    // this is 3
@@ -578,7 +579,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 る。例えば、``x`` がコンパイル時定数ではなく、範囲外の場合は、未定義の値を返す。
 より一般的には、関係する式すべてが完全に評価され、実行される。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // for a compile time-sized array b containing a member array a:
    b[x+3].a.length(); // b is never dereferenced, x+3 is evaluated and checked
@@ -653,7 +654,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 初期化子が中括弧で囲まれた初期化子リストの場合、宣言する変数はベクトル、行列、配
 列、構造体のいずれかでなければならない。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    int i = { 1 }; // illegal, i is not a composite
 
@@ -672,7 +673,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 これらの規則が適用されるので、次の宣言はすべて同値だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    mat2x2 a = mat2(  vec2( 1.0, 0.0 ), vec2( 0.0, 1.0 ) );
    mat2x2 b =      { vec2( 1.0, 0.0 ), vec2( 0.0, 1.0 ) };
@@ -680,7 +681,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 次の宣言はすべてコンパイルエラーだ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a[2] = { 3.4, 4.2, 5.0 };         // illegal
    vec2 b = { 1.0, 2.0, 3.0 };             // illegal
@@ -696,7 +697,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 :ref:`khronos18-4.1.10` に従ってオブジェクトの型に変換できる型でなければならな
 い。後者の場合、代入が行われる前に初期化子に対して暗黙の変換が行われる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    struct {
        float a;
@@ -709,7 +710,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 
 次の宣言はすべてコンパイルエラーだ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    int a = true;                         // illegal
    vec4 b[2] = { vec4(0.0), 1.0 };       // illegal
@@ -729,7 +730,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 初期化子内のトップレベルの（入れ子になっていない）初期化子の数が決定する。以下の
 宣言はすべて、明示的に 5 要素を持つ配列を生成する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a[] = float[](3.4, 4.2, 5.0, 5.2, 1.1);
    float b[] = { 3.4, 4.2, 5.0, 5.2, 1.1 };
@@ -771,7 +772,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 ``for`` ループも ``while`` ループも、部分文自体は変数名の新しいスコープを導入し
 ていないので、以下は再宣言のコンパイルエラーになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    for ( /* nested scope begins here */ int i = 0; i < 10; i++) {
        int i; // redeclaration error
@@ -780,7 +781,7 @@ C/C++ 言語の構造体 ``struct`` と同じようなことができる：
 ``do`` ... ``while`` ループの本体では、本体が単文か複文かによらず、``do`` と
 ``while`` の間（判定式は含まない）だけ続く新しいスコープが導入される。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    int i = 17;
    do

@@ -4,7 +4,8 @@
 
 本節では users 系 API の応用方法について述べる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET users/lookup
 ======================================================================
@@ -60,7 +61,7 @@ GET users/profile_banner では指定ユーザーのプロフィール画像の�
 と、現在のプロフィール画像が描画されるはずだ。なお、私が新しいものに更新しない限
 り有効だ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./users-profile_banner.py
    {'1500x500': {'h': 500,
@@ -106,7 +107,7 @@ GET users/suggestions は Twitter によるおすすめアカウントのカテ�
 ストには山ほどユーザーを収容していることからこういう構成になっているのだろうかと
 思う。お笑い系はどこにもいないのだが？
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./users-suggestions.py
    Twitter|twitter|13
@@ -139,7 +140,7 @@ GET users/suggestions/:slug は上記のあるカテゴリーのユーザー群�
 
 次に実行結果を示す。大部分を省略する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./users-suggestions-slug.py
    {
@@ -179,7 +180,7 @@ GET users/suggestions/:slug/members は上記の GET users/suggestions/:slug の
 
 次に実行結果を示す。大部分を省略する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./users-suggestions-slug-members.py
    [

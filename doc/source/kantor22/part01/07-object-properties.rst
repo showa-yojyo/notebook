@@ -4,7 +4,8 @@ Object properties configuration
 
 オブジェクトの特性をさらに深く研究する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Property flags and descriptors
@@ -42,7 +43,7 @@ Non-writable
 
 次のようにすると ``user.name`` への代入が無効化される：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let user = {
        name: "John"
@@ -86,7 +87,7 @@ Non-configurable
 
 このメソッドは一度にプロパティー複数を定義する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Object.defineProperties(user, {
        name: { value: "John", writable: false },
@@ -154,7 +155,7 @@ Getters and setters
 
 オブジェクトリテラルに対する「値の取得や設定を実行するメソッド」を定義する方法。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let obj = {
        get propName() {
@@ -176,7 +177,7 @@ Accessor descriptors
 既存のオブジェクトに ``Object.defineProperty()`` 系メソッドで「値の取得や設定を
 実行するメソッド」を定義する方法。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    Object.defineProperty(obj, 'propName', {
        get propName() {

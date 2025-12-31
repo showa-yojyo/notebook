@@ -2,14 +2,15 @@
 NetworkX を利用する
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 基本的なコードの書き方を習得する
 ======================================================================
 
 以降、次のインポートを断りなしに用いる：
 
-.. code:: python3
+.. sourcecode:: python3
 
   import networkx as nx
   import matplotlib.pyplot as plt

@@ -2,7 +2,8 @@
 Objects: the basics
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Objects
@@ -26,7 +27,7 @@ Square brackets
 
 プロパティー値を参照するにはドット記法の他に、角括弧を用いる方法もある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    obj["key"] = value;
    delete obj["key"];
@@ -40,7 +41,7 @@ Computed properties
 キーのほうが動的に定義される仕組みがある。これを computed property という。この
 応用が後ほどたくさん出てくる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let fruit = prompt("Which fruit to buy?", "apple");
    let bag = {
@@ -53,7 +54,7 @@ Property value shorthand
 属性値の略記法が存在することを確認。キー識別子と値識別子が一致する場合に適用され
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let name = "John";
    let user = {
@@ -73,7 +74,7 @@ Property existence test, "in" operator
 
 プロパティーキーの存在テストに演算子 ``in`` を用いることができる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "key" in obj;
 
@@ -82,7 +83,7 @@ The ``for`` ... ``in`` loop
 
 オブジェクトのキーを ``for ... in`` 文で順次アクセスできる。構文：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for (let key in object) {
        // executes the body for each key among object properties
@@ -121,7 +122,7 @@ Multiply numeric property values by 2
 
 ヒントに ``typeof`` を使えとあるから問題はないに等しい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    typeof obj[key] == 'number'
 
@@ -151,20 +152,20 @@ Cloning and merging, ``Object.assign``
    オブジェクトの複製方法を理解しておく。対象オブジェクトのプロパティーは指示さ
    れなければ保存されるので、実態としてはマージと言いたい。
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       Object.assign(dest, [src1, src2, src3...]);
 
    キーと値の集合ではなく、オブジェクトを ``src`` としてもよい。その場合には元オ
    ブジェクトのプロパティーのキーと値がマージされる。
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       let clone = Object.assign({}, user);
 
    ``Object.assign()`` を使わない方法もある：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       let clone = {...user};
 
@@ -262,7 +263,7 @@ Method shorthand
 
 オブジェクトリテラルの形でメソッドを定義するために、略記法が用意されている：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    user = {
        sayHi() { // same as "sayHi: function(){...}"
@@ -386,7 +387,7 @@ Optional chaining ``?.``
 
 既存の ``?`` 系演算子に比べるとそれほど便利ではないようだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    user?.address?.street;
    document.querySelector('.elem')?.innerHTML;
@@ -418,7 +419,7 @@ Other variants: ``?.()``, ``?.[]``
 オブジェクト ``userAdmin`` と ```userGuest`` があり、もしかしたらメソッド
 ``admin()`` があるかもしれない場合に次のようなコードがあり得る：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    userAdmin.admin?.();
    userGuest.admin?.();
@@ -426,7 +427,7 @@ Other variants: ``?.()``, ``?.[]``
 オブジェクト ``user1`` と ``user2`` があり、もしかしたらプロパティー
 ``firstName`` があるかもしれない場合に次のようなコードがあり得る：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    user1?.["firstName"];
    user2?.["firstName"];
