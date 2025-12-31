@@ -4,7 +4,8 @@
 
 .. include:: /_include/book-details/newham05.txt
 
-.. contents:: ノートの目次
+.. contents:: 見出し一覧
+   :local:
 
 8 章 プロセスの操作
 ======================================================================
@@ -180,7 +181,7 @@ Cygwin ユーザーが読んでも役に立つと信じて本章を読む。
 8.7 プロセス置換
 ----------------------------------------------------------------------
 
-.. code:: bash
+.. sourcecode:: bash
 
    cmp <(program1) <(program2)
 
@@ -222,7 +223,7 @@ Cygwin ユーザーが読んでも役に立つと信じて本章を読む。
 * <1 行目では、``$PATH`` 環境変数を ``for`` ループの項目リストとして使用できるよ
   うにしている> (p. 268)
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      IFS=:
      for d in $PATH; do
@@ -359,7 +360,7 @@ B.8 入出力リダイレクト
 * :kbd:`Tab` キーが押されたときのシェルの対応を :command:`complete` コマンドで指
   定する。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      # -A file が「補完するのはファイルリストだ」ということを指示する
      #
@@ -368,6 +369,6 @@ B.8 入出力リダイレクト
 
 * :command:`compgen` は補完文字列を確認するのに利用できる。
 
-  .. code:: bash
+  .. sourcecode:: bash
 
      complete -A file -X '!*.@(Z|gz|tgz)'

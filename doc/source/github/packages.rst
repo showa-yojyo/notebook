@@ -5,7 +5,8 @@ GitHub Packages documentation ノート
 `GitHub Packages documentation <https://docs.github.com/en/packages>`__ を読んで
 いく。以下、組織回りの記述は読解を割愛することがある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Quickstart` → :ref:`Quickstart for GitHub Packages <packages-quickstart>`
@@ -370,7 +371,7 @@ Package ページの UI からそうだと思う。
 このトークンを手許の環境に環境変数の値として控えておくことを推奨している。変数名
 は ``CR_PAT`` として説明を続けている。こういうコマンドを実行することがあるので：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
@@ -414,7 +415,7 @@ Gem を作って配るのが目的だ。その設定をローカルでまず行�
 正確なパスをコマンド ``gem env`` で調べるといい。
 :file:`~/.local/share/gem/credentials` の可能性がある。
 
-.. code:: text
+.. sourcecode:: text
 
    ---
    :github: Bearer TOKEN
@@ -425,7 +426,7 @@ Gem 設定：
    gem sources to include
    ``https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/``
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gem sources --add https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/
 
@@ -436,7 +437,7 @@ Bundler 設定：
    with your personal access token, and ``NAMESPACE`` with the name of the
    personal account or organization to which the gem is scoped.
 
-   .. code:: console
+   .. sourcecode:: console
 
       bash$ bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN
 
@@ -447,7 +448,7 @@ Bundler 設定：
 これを先述の方法で public に変える。ビルドしたら次のようにして GitHub に発行す
 る：
 
-.. code:: console
+.. sourcecode:: console
 
    $bash gem push --key github --host https://rubygems.pkg.github.com/NAMESPACE GEM_NAME-0.0.1.gem
 
@@ -457,7 +458,7 @@ Bundler 設定：
    published by including the URL of the GitHub repository in the
    ``github_repo`` field in ``gem.metadata``.
 
-.. code:: ruby
+.. sourcecode:: ruby
 
    gem.metadata = { "github_repo" => "ssh://github.com/OWNER/REPOSITORY" }
 
@@ -468,7 +469,7 @@ Bundler 設定：
 
 :file:`Gemfile` に ``source`` を追加する：
 
-.. code:: ruby
+.. sourcecode:: ruby
 
    source "https://rubygems.pkg.github.com/NAMESPACE"
    source "https://rubygems.org"
@@ -493,7 +494,7 @@ Working with the npm registry
 設定ファイルパスは :file:`$XDG_CONFIG_HOME/npm/npmrc` とした。以下ではそう読み替
 える。こんな感じの行を書く：
 
-.. code:: text
+.. sourcecode:: text
 
    //npm.pkg.github.com/:_authToken=TOKEN
 
@@ -506,7 +507,7 @@ Working with the npm registry
 
 下のコマンドのようにする：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ npm login --scope=@NAMESPACE --auth-type=legacy --registry=https://npm.pkg.github.com
    npm notice Log in on https://npm.pkg.github.com/
@@ -531,7 +532,7 @@ Working with the npm registry
 
 さっきの ``_authToken=`` 行の近くに書くといい：
 
-.. code:: text
+.. sourcecode:: text
 
    @NAMESPACE:registry=https://npm.pkg.github.com
 
@@ -540,7 +541,7 @@ Working with the npm registry
 
 ``publishConfig`` を用いる場合は：
 
-.. code:: json
+.. sourcecode:: json
 
    "publishConfig": {
      "registry": "https://npm.pkg.github.com"
@@ -558,7 +559,7 @@ Working with the npm registry
 
 :file:`package.json` では依存関係の定義が急所となる：
 
-.. code:: json
+.. sourcecode:: json
 
    "dependencies": {
      "ORGANIZATION_NAME/PACKAGE_NAME": "1.0.0"
@@ -585,7 +586,7 @@ Maven のユーザー設定ファイルは :file:`~/.m2/settings.xml` である�
 
 パッケージディレクトリーのファイル :file:`pom.xml` を次のようにする：
 
-.. code:: xml
+.. sourcecode:: xml
 
    <distributionManagement>
       <repository>
@@ -600,7 +601,7 @@ Maven のユーザー設定ファイルは :file:`~/.m2/settings.xml` である�
    To install an Apache Maven package from GitHub Packages, edit the
    :file:`pom.xml` file to include the package as a dependency.
 
-.. code:: xml
+.. sourcecode:: xml
 
    <dependencies>
     <dependency>
@@ -654,7 +655,7 @@ Working with the NuGet registry
    Actions workflow using the ``GITHUB_TOKEN`` instead of hardcoding a personal
    access token in a :file:`nuget.config` file in the repository:
 
-   .. code:: console
+   .. sourcecode:: console
 
       bash$ dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/NAMESPACE/index.json"
 
@@ -665,7 +666,7 @@ Working with the NuGet registry
 
 この設定ファイルは XML だ。次のように記述する：
 
-.. code:: xml
+.. sourcecode:: xml
 
    <?xml version="1.0" encoding="utf-8"?>
    <configuration>
@@ -694,14 +695,14 @@ Working with the NuGet registry
 トークンを API キーとして用いるか、:file:`nuget.config` を用いるかしてパッケージ
 を発行する方法がある。前者は：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ dotnet pack --configuration Release
    bash$ dotnet nuget push "bin/Release/PROJECT_NAME.1.0.0.nupkg" --api-key YOUR_GITHUB_PAT --source "github"
 
 後者ではプロジェクトの ``.csproj`` ファイルをこのように書き換えて：
 
-.. code:: xml
+.. sourcecode:: xml
 
    <Project Sdk="Microsoft.NET.Sdk">
      <PropertyGroup>
@@ -718,7 +719,7 @@ Working with the NuGet registry
 
 コマンド実行する（オプションが一つ減る）：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ dotnet pack --configuration Release
    bash$ dotnet nuget push "bin/Release/PROJECT_NAME.1.0.0.nupkg" --source "github"

@@ -5,13 +5,14 @@ Scrapy 利用ノート
 Scrapy_ の利用に関するいろいろなことを記す。公式ドキュメントの注釈という形式にし
 たかったが、分量が多いのでやめて、前半部分を見ていくだけにする。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
    本稿執筆時の動作環境は次のとおり。
 
-   .. code:: console
+   .. sourcecode:: console
 
       bash$ scrapy version -v
       Scrapy       : 2.4.1
@@ -71,7 +72,7 @@ Scrapy ではスパイダーというクラスを実装することでスクレ�
 クトリー構造を作成する。このためには次のコマンドを適当なディレクトリーからコン
 ソールで実行する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy startproject PROJECT_NAME [PROJECT_DIR]
    bash$ cd PROJECT_DIR
@@ -89,7 +90,7 @@ Scrapy ではスパイダーというクラスを実装することでスクレ�
 集するが、次のように Scrapy のコマンドを利用したものを編集する習慣をつけるとよ
 い：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy genspider quotes quotes.toscrape.com
    bash$ mv quotes.py spiders
@@ -104,7 +105,7 @@ Scrapy ではスパイダーというクラスを実装することでスクレ�
 このようにして作成したスパイダーを実行するのに、Scrapy のコマンドラインツールを
 起動する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy crawl quotes
 
@@ -154,7 +155,7 @@ DOM オブジェクトを含んでいると思って構わない。このオブ�
 コマンドラインからスパイダーを実行するときに、ふつうは出力先を指定する。ファイル
 に出力する場合、Scrapy はその拡張子で出力フォーマットを決定する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy crawl quotes -O quotes.json
    bash$ scrapy crawl quotes -o quotes.jl
@@ -188,7 +189,7 @@ DOM オブジェクトを含んでいると思って構わない。このオブ�
 
 コマンドラインから ``-a`` オプションで引数をスパイダーに引き渡すことができる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy crawl quotes -a KEY1=VALUE1 -a KEY2=VALUE2 -a ...
 
@@ -220,7 +221,7 @@ DOM オブジェクトを含んでいると思って構わない。このオブ�
 
 構成ファイルの書式はいわゆる INI ファイルのそれと同じようなものだ。
 
-.. code:: ini
+.. sourcecode:: ini
 
    [settings]
    default = myproject.settings
@@ -313,7 +314,7 @@ DOM オブジェクトを含んでいると思って構わない。このオブ�
 
   * :command:`scrapy shell -c CODE` でコードを実行。例えば：
 
-    .. code:: bash
+    .. sourcecode:: bash
 
        bash$ scrapy shell --nolog http://www.example.com/ -c '(response.status, response.url)'
 
@@ -392,7 +393,7 @@ Scrapy ではスパイダーをクラスで表す。特定のウェブサイト�
 コンソールからコマンド ``crawl`` や ``runspider`` を実行するときにオプション
 ``-a KEY=VALUE`` でスパイダーに引数を渡せる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy crawl MYSPIDER -a KEY1=VALUE1 -a KEY2=VALUE2 ...
 
@@ -512,7 +513,7 @@ Scrapy_ に限らず有用なので XPath の基本は別途学習しておく�
 
 XPath 式で変数を埋め込むことができる。次のコード片はドキュメントより引用した：
 
-.. code:: python
+.. sourcecode:: python
 
    response.xpath('//div[@id=$val]/a/text()', val='images')
    response.xpath('//div[count(a)=$cnt]/@id', cnt=5)
@@ -612,7 +613,7 @@ Scrapy がサポートするアイテムの種類
 スパイダークラスでのよくあるアイテムローダーの利用例コードを見ていく。これは
 Scrapy のドキュメントから引用したものだ：
 
-.. code:: python
+.. sourcecode:: python
 
    import scrapy
    from scrapy.loader import ItemLoader
@@ -693,7 +694,7 @@ Scrapy のドキュメントから引用したものだ：
 プロセッサーを指定することもできる。ドキュメントのサンプルコードを一部抜粋すると
 こうだ：
 
-.. code:: python
+.. sourcecode:: python
 
    class Product(scrapy.Item):
        name = scrapy.Field(
@@ -720,7 +721,7 @@ Scrapy のドキュメントから引用したものだ：
 例えば、関数 ``parse_length()`` という処理関数があって、それはテキスト値を受け
 取って、そこから長さを抽出する関数だとする。
 
-.. code:: python
+.. sourcecode:: python
 
    def parse_length(text, loader_context):
        unit = loader_context.get('unit', 'm')
@@ -739,7 +740,7 @@ Scrapy のドキュメントから引用したものだ：
 3. ローダー定義における入力・出力処理器の生成時にキーワード引数を与える。
    ``MapCompose`` はそれをするものの一つだ。
 
-.. code:: python
+.. sourcecode:: python
 
    # 1.
    loader = ItemLoader(product)
@@ -770,7 +771,7 @@ Scrapy のドキュメントから引用したものだ：
 
 次のような HTML を文字列解析することを考える：
 
-.. code:: html
+.. sourcecode:: html
 
    <footer>
        <a class="social" href="https://facebook.com/whatever">Like Us</a>
@@ -782,7 +783,7 @@ Scrapy のドキュメントから引用したものだ：
 の式の右辺のオブジェクトは、フィールド ``social`` と ``email`` があるアイテムで
 なければならない。
 
-.. code:: python
+.. sourcecode:: python
 
    # 1. load stuff not in the footer
    loader = ItemLoader(item=Item())
@@ -833,7 +834,7 @@ Scrapy シェルは UNIX や Python の IDLE のそれと同様に対話的シ�
 ふつうだ。ただし、カレントディレクトリーにあるファイルを指定するときには ``./``
 を明示しないと文字列は URL を表すものとして Scrapy に解釈されて失敗する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ scrapy shell https://www.example.com/
    bash$ scrapy shell ./path/to/file.html
@@ -939,7 +940,7 @@ Scrapy シェルは UNIX や Python の IDLE のそれと同様に対話的シ�
 し、アイテムが「良くない」場合には ``DropItem`` を送出してこのアイテムをないもの
 とする。
 
-.. code:: python
+.. sourcecode:: python
 
    def process_item(self, item, spider):
        adapter = ItemAdapter(item)
@@ -993,7 +994,7 @@ MongoDB なるものをよく知らないのだが、サンプルコードを見
 自作アイテムパイプラインを有効にするには設定 ``ITEM_PIPELINES`` に当該クラスを追
 加する必要がある。
 
-.. code:: python
+.. sourcecode:: python
 
    ITEM_PIPELINES = {
        'myproject.pipelines.PricePipeline': 300,
@@ -1060,7 +1061,7 @@ Cloud Storage なども使える。
 コンストラクターの使い方を先に習得する。スパイダーの適当なメソッドから次のような
 感じで生成する：
 
-.. code:: python
+.. sourcecode:: python
 
    Request(sample_url, callback=self.parse_sample)
    Request(sample_url, callback=self.parse_sample, cb_kwargs=dict(main_url=response.url)
@@ -1068,7 +1069,7 @@ Cloud Storage なども使える。
 このようなオブジェクトを ``return`` または ``yield`` すると、新たに ``Response``
 オブジェクトを伴って指定したコールバックが呼び出される。
 
-.. code:: python
+.. sourcecode:: python
 
    def parse_sample(self, response, main_url):
        # ...
@@ -1106,7 +1107,7 @@ Scrapy が特別扱いするキーもある。例えばキー ``download_timeout
 できる。つまり ``bytes_received`` シグナルのハンドラーを次のように書いて、そこで
 例外 ``StopDownload`` を送出する。
 
-.. code:: python
+.. sourcecode:: python
 
    def on_bytes_received(self, data, request, spider):
        raise scrapy.exceptions.StopDownload(fail=False)
@@ -1122,7 +1123,7 @@ Scrapy が特別扱いするキーもある。例えばキー ``download_timeout
 * ``FormRequest``: 何かを POST するフォームの対応する ``Request`` と考えてよい。
   例えば、よくあるログインページを通過するにはこれを利用することができる。
 
-  .. code:: python
+  .. sourcecode:: python
 
      def parse(self, response, **kwargs):
          if (uid := getattr(self, 'uid', None)) is None:
@@ -1137,7 +1138,7 @@ Scrapy が特別扱いするキーもある。例えばキー ``download_timeout
 * ``JsonRequest``: JSON リクエストを処理できるクラス。コンストラクターの
   ``data`` に JSON シリアライズ可能なオブジェクトを渡せるということだ。
 
-   .. code:: python
+   .. sourcecode:: python
 
       payload = dict(name1=value1, name2=value2)
       yield JsonRequest(url, data=payload)
@@ -1271,7 +1272,7 @@ Scrapy の動作をカスタマイズするための設定方法について記�
 スパイダー別の設定とは、次のように自作スパイダークラスのフィールドに
 ``custom_settings`` を辞書で与えることで指定するものをいう。
 
-.. code:: python
+.. sourcecode:: python
 
    class MySpider(scrapy.Spider):
        name = 'myspider'
@@ -1317,7 +1318,7 @@ Scrapy の動作をカスタマイズするための設定方法について記�
 文書化されていないが、関数 ``scrapy.cmdline.execute()`` というのがある。
 ここからコマンド :command:`scrapy runspider` を実行するなどの方法が考えられる：
 
-.. code:: python
+.. sourcecode:: python
 
    #!/usr/bin/env python
 

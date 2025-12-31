@@ -16,7 +16,8 @@ Python 移行ノート [obsolete]
 さらに 2015 年秋、Windows 10 に無料アップグレードしてしばらくしてから Python 3.5
 へ移行した。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -47,7 +48,7 @@ Python 2.6 site-packages の状態を保存
 
 ただし、バージョンは不要なので :command:`cut` にて削っておく。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd D:/Python26/lib/site-packages
    bash$ pip freeze | cut -d= -f 1 > mypkgs.txt
@@ -78,7 +79,7 @@ Python 2.6 フォルダーから一部のファイルをコピーする
 
 * pip_: :file:`pip.1.1-tar.gz` を入手して、解凍後 :file:`setup.py` を利用する。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python27 setup.py install
 
@@ -115,7 +116,7 @@ Windows インストーラーを利用するもの
 インストーラーモノの行を削除して、このテキストファイルを上書きする。編集後、おも
 むろに下記コマンドラインを実行する。かなり時間がかかることを覚悟することだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd D:/Python27/Scripts
    bash$ ./pip install -r mypkgs.txt
@@ -158,7 +159,7 @@ Subversion の Python binding を利用しているため、これをセット�
 
 エイリアス ``python27`` を追加。
 
-.. code:: bash
+.. sourcecode:: bash
 
    alias a='alias'
    a python26='D:/Python26/python.exe'
@@ -175,7 +176,7 @@ Subversion の Python binding を利用しているため、これをセット�
 「Cygwin に送る」というユーティリティがあり、私はこれを偏愛している。その設定
 ファイルを更新しておく。
 
-.. code:: ini
+.. sourcecode:: ini
 
    *.py =python27 %F ||
    *.pyw =python27 %F ||
@@ -234,7 +235,7 @@ PyQt5 など、それ以外のパッケージについては、それぞれの�
    ジの行を削除する。
 #. 前回移行時と同様の手順に従う。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd D:/Python34/Scripts
    bash$ ./pip install -r mypkgs.txt

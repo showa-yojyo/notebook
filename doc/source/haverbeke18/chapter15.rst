@@ -7,7 +7,8 @@ Handling Events
 マウスやキーボードの操作など、ユーザーが直接入力することで動作するものがある。そ
 のようなものをリアルタイムで処理する方法を学習する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Event handlers
 ======================================================================
@@ -17,7 +18,7 @@ Event handlers
 * ブラウザーでは、特定のイベントを処理するハンドラーとして関数を登録することがで
   きる。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <p>Click this document to activate the handler.</p>
      <script>
@@ -40,7 +41,7 @@ Events and DOM nodes
 * :dfn:`イベントリスナー` とは、イベントハンドラーが登録されているオブジェクトで
   あって、イベントが起こるときにしか呼び出されないものをいう。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <button>Click me</button>
      <p>No handler here.</p>
@@ -69,7 +70,7 @@ Event objects
   はイベントに関する付加情報が含まれる。例えば、どのマウスボタンが押されたかなど
   を得ることができる。
 
-  .. code:: html
+  .. sourcecode:: html
 
      <button>Click me any way you want</button>
      <script>
@@ -104,7 +105,7 @@ Propagation
 * イベントハンドラーは、イベントメソッド ``stopPropagation`` を呼び出して、この
   連鎖を断ち切ることがいつでもできる。これは次のような状況で役に立つ：
 
-  .. code:: html
+  .. sourcecode:: html
 
      <p>A paragraph with a <button>button</button>.</p>
      <script>
@@ -127,7 +128,7 @@ Propagation
   ``document.body`` にハンドラーを登録しておくことで、イベント発生元がボタンのと
   きに限り処理することになる：
 
-  .. code:: html
+  .. sourcecode:: html
 
      <button>A</button>
      <button>B</button>
@@ -157,7 +158,7 @@ Default actions
     きる。
   * 禁じ手だが、ユーザーが期待する動作を不当に妨害することができる：
 
-    .. code:: html
+    .. sourcecode:: html
 
        <a href="https://developer.mozilla.org/">MDN</a>
        <script>
@@ -186,7 +187,7 @@ Key events
 * 修飾キーも普通のキーと同様にイベントを生成するが、キーの組み合わせを探すときに
   はプロパティー ``shiftKey``, ``altKey``, ``metaKey`` の値を見るといい。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      window.addEventListener("keydown", event => {
          if (event.key == " " && event.ctrlKey) {
@@ -246,7 +247,7 @@ Mouse motion
 マウスポインターが動くごとにイベント ``mousemove`` が発射する。このイベントが有
 用なのは、マウスドラッグ機能を実装する場合だろう。
 
-.. code:: html
+.. sourcecode:: html
 
    <p>Drag the bar to change its width:</p>
    <div style="background: orange; width: 60px; height: 20px">
@@ -306,7 +307,7 @@ Touch events
 
 次の例は、画面を指すごとに赤い丸を描くというものだ：
 
-.. code:: html
+.. sourcecode:: html
 
    <style>
      dot { position: absolute; display: block;
@@ -344,7 +345,7 @@ Scroll events
 * 以下の例は、文書上にプログレスバーを描き、スクロールダウンするとそれが満たされ
   るように更新する：
 
-  .. code:: html
+  .. sourcecode:: html
 
      <style>
        #progress {
@@ -395,7 +396,7 @@ Focus events
 
 次の例は、フォーカスされているテキストフィールドのヘルプを表示する：
 
-.. code:: html
+.. sourcecode:: html
 
    <p>Name: <input type="text" data-help="Your full name"></p>
    <p>Age: <input type="text" data-help="Your age in years"></p>
@@ -467,7 +468,7 @@ Events and the event loop
 レッドで実行したいとする。そこで :file:`code/squareworker.js` というスクリプトを
 書き、メッセージに応答して平方を計算し、メッセージを返すようにする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    addEventListener("message", event => {
        postMessage(event.data * event.data);
@@ -479,7 +480,7 @@ Events and the event loop
 次のコードはスクリプトを実行しているワーカーを作り出し、メッセージをいくつか送信
 して、応答を出力する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let squareWorker = new Worker("code/squareworker.js");
    squareWorker.addEventListener("message", event => {
@@ -505,7 +506,7 @@ Timers
 * 時々この関数のスケジュールを取り消したいことがある。それには ``setTimeout`` の
   戻り値を保存しておき、それを関数``clearTimeout`` に引き渡して呼び出せばよい。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let bombTimer = setTimeout(() => {
          console.log("BOOM!");
@@ -522,7 +523,7 @@ Timers
 * 関数 ``setInterval``, ``clearInterval`` は繰り返しタイマーを設定するために用い
   られる。指定のミリ秒間隔で何かを繰り返させるものだ。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      let ticks = 0;
      let clock = setInterval(() => {
@@ -554,7 +555,7 @@ debouncing という。これにはわずかに違うアプローチがいくつ
   * タイムアウト遅延よりも短いようなイベントが近接して発生した場合、直前のタイム
     アウトも解除する。
 
-.. code:: html
+.. sourcecode:: html
 
    <textarea>Type something here...</textarea>
    <script>
@@ -579,7 +580,7 @@ debouncing という。これにはわずかに違うアプローチがいくつ
 で、"mousemove " イベントに 250ms ごとに応答したいとする。次のコードはそれを実現
 する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let scheduled = null;
    window.addEventListener("mousemove", event => {
@@ -637,7 +638,7 @@ Balloon
 
 **解答** 前半と後半をまとめて：
 
-.. code:: html
+.. sourcecode:: html
 
    <span id="baloon" style="font-size: 100px;">🎈</span>
    <script>
@@ -693,7 +694,7 @@ JavaScript の黎明期はアニメーションを多用した派手なページ
 
 **解答** 軌跡の尻尾の色を減衰させるなどして派手にすることもできるが単純にする：
 
-.. code:: html
+.. sourcecode:: html
 
    <style>
    .dot {
@@ -740,7 +741,7 @@ Tabs
 
 **解答** 前半だけ解く。汎用性を求めていないので殴り書きのまま提出する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function asTabs(node){
        const newNode = document.createElement("div");
@@ -771,7 +772,7 @@ Tabs
 
 HTML 側ではこういう感じになる：
 
-.. code:: html
+.. sourcecode:: html
 
    <ul id="tab_target">
      <li data-tabname="Tab0">Pane A</li>

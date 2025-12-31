@@ -6,7 +6,8 @@
 
 .. include:: /_include/book-details/subramaniam06.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 目次以前のローマ数字ページ
 ======================================================================

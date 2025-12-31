@@ -14,7 +14,8 @@ VS Code は編集モードとデバッグモードを区別している。デバ
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 実行＆デバッグ
 =======================================================================
@@ -58,7 +59,8 @@ Side バー内 :guilabel:`RUN` ビューの :guilabel:`create a launch.json file
 
 構成ファイル :file:`launch.json` の書式について簡単に記す。
 
-.. code:: json
+.. sourcecode:: json
+   :caption: :file:`launch.json` の例
 
    {
        "version": "0.2.0",

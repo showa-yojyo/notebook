@@ -37,7 +37,7 @@ SYSDBA で初回はログインして、マニュアルの勧めに従って作�
 る。二つ作っておくと良い。また、一方にはテーブル操作権限を付与しておくとなお良
 い。SQL を試すときには :program:`isql` セッションに作業ユーザーでログインし直す。
 
-.. code:: console
+.. sourcecode:: console
 
    $ isql localhost:employee -u SYSDBA -p masterkey;
    SQL> grant create table to user USERNAME;
@@ -63,7 +63,7 @@ SYSDBA で初回はログインして、マニュアルの勧めに従って作�
 
 ユーザー名とパスワードを毎回入力するのは煩雑なので、環境変数二つに設定しておく：
 
-.. code:: bash
+.. sourcecode:: bash
 
    export ISC_USER=USERNAME
    export ISC_PASSWORD=PASSWORD
@@ -80,7 +80,7 @@ SYSDBA で初回はログインして、マニュアルの勧めに従って作�
 
 Firebird サーバーを停止するには：
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo service firebird stop
 
@@ -92,7 +92,7 @@ Firebird サーバーを停止するには：
 
 以上を行うスクリプトがインストールされているので、それを実行する：
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo bash /opt/firebird/bin/FirebirdUninstall.sh
 

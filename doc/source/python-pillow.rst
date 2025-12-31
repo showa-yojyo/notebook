@@ -11,7 +11,8 @@ Python で画像処理といえば、長い間 PIL_ が活躍していた。だ�
 す。なお、PyOpenGL や Pygame との連携で PIL を利用していた既存コードのそれについ
 ては、各ノートにて言及していく。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -64,7 +65,7 @@ Anaconda_ または Miniconda_ で Python 環境を管理しているのであ�
 Anaconda_ または Miniconda_ で Python 環境を管理していて、コマンドラインで作業を
 しているならば、次のように :program:`conda` ツールを用いる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda list Pillow
    # packages in environment at D:\Miniconda3:
@@ -186,7 +187,7 @@ Windows 版ビルドでは Windows のフォトビューワーが起動して、
    * (WSL) ImageMagick はインストールされているか
    * (WSL) 環境変数 ``DISPLAY`` を正しくセットしたか
 
-   .. code:: bash
+   .. sourcecode:: bash
 
       export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0.0
 
@@ -532,14 +533,14 @@ Pillow の機能を応用した、画像操作のためのささやかなコマ�
 コマンドラインで :file:`pilconvert.py` を利用する。例えば :file:`sample.gif` か
 ら PNG 形式のファイル :file:`sample.png` を作成するには次のように入力する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pilconvert.py sample.gif sample.png
 
 カレントディレクトリーのすべての GIF ファイルから PNG ファイルに変換したいならば
 こうなる。ちなみにシェルは bash である。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ for name in *.gif ; do \
    >   pilconvert.py $name ${name%.*}.png ; \
@@ -551,7 +552,7 @@ Pillow の機能を応用した、画像操作のためのささやかなコマ�
 コマンドラインで :file:`pildriver.py` を利用する。以前にも記したが、バッチモード
 とインタラクティブモードがある。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pildriver.py
    PILDriver says hello.

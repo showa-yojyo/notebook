@@ -12,14 +12,15 @@ SymPy_ は積分変数を含む数式の定積分および不定積分（原始�
 ても、得意とする代数的な設計・実装による積分法のほかに、数値積分法もサポートして
 いる。本節の最後にこれらを見ていくことにする。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       init_printing(pretty_print=False)
 
@@ -51,7 +52,7 @@ SymPy では、ある計算を実現するために、それの即時評価版�
 
 比較的わかりやすい例を示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: integrate(1/(x**3 + 1), x)
    Out[1]: log(x + 1)/3 - log(x**2 - x + 1)/6 + sqrt(3)*atan(2*sqrt(3)*x/3 - sqrt(3)/3)/3
@@ -102,7 +103,7 @@ SymPy では、ある計算を実現するために、それの即時評価版�
 
   高校数学のテキストから拝借したある積分を評価してみるとこうなる。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: J = Integral(sqrt(x + 1)*(x + 2))
 
@@ -127,7 +128,7 @@ SymPy では、ある計算を実現するために、それの即時評価版�
   * 引数 ``Curve`` で積分区間となる曲線オブジェクトを指定する。これは平面曲線で
     なければならないようだ。このクラスについては :doc:`./geometry` で見た。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: C = Curve([cos(t), sin(t)], (t, 0, 2 * pi))
 
@@ -162,7 +163,7 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   いくつか実行例を示す。変換したい関数はよそのドキュメントから拝借した。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: t, s = symbols('t s')
 
@@ -203,7 +204,7 @@ Laplace 変換およびその逆変換を計算する機能は、関数として
 
   いくつか実行例を示す。逆変換の対象となる関数はよそのドキュメントから拝借した。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [8]: inverse_laplace_transform(1 / (1 + s), s, t)
      Out[8]: exp(-t)*Heaviside(t)
@@ -242,7 +243,7 @@ Fourier 変換
 
   実行例を示す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: fourier_transform(1, x, k)
      Out[1]: 0
@@ -269,7 +270,7 @@ Fourier 変換
 
   実行例を示す。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [6]: inverse_fourier_transform(1, k, x)
      Out[6]: 0
@@ -334,7 +335,7 @@ Fourier 変換
 
 最後に、関数 ``gauss_legendre`` だけデモを示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: integrate(exp(-x**2/2), (x, -1, 1))
    Out[1]: sqrt(2)*sqrt(pi)*erf(sqrt(2)/2)

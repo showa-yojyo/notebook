@@ -6,7 +6,8 @@ GitHub Codespaces documentation ノート
 書がたくさんあるので読むのが厳しい。Codespace は本質的に有料機能なので、私はまず
 利用しないはずだ。全文調査せずに切り上げる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 * :guilabel:`Overview` は個別ページの GitHub Codespaces overview へ
 * :guilabel:`Quickstart` は Quickstart for GitHub Codespaces へ
@@ -220,7 +221,7 @@ GitHub CLI の場合：
 
 コマンドを細かく記載すると紙面が煩雑になるので、コンソールでヘルプを確認しよう：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh codespace --help
 
@@ -246,7 +247,7 @@ Creating a codespace for a repository
 
 GitHub CLI では次のようなコマンドを実行して Codespace を生成する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh codespace create -r OWNER/REPO -b BRANCH --devcontainer-path PATH -m MACHINE-TYPE
 
@@ -300,7 +301,7 @@ GitHub CLI を使って削除する場合：
   To delete a codespace use the gh codespace delete subcommand and then choose a
   codespace from the list that's displayed.
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ gh codespace delete
 
@@ -325,7 +326,7 @@ Opening an existing codespace
 
 GitHub CLI を使って再開する場合、どの環境に再開するのかを指定することも可能だ：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh codespace code
    bash$ gh codespace code --web
@@ -393,7 +394,7 @@ Stopping and starting a codespace
 
 GitHub CLI で停止する場合、次のコマンドを実行する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh codespace stop
 
@@ -441,7 +442,7 @@ Docker を知らないが、とにかく読み続ける。
 
 GutHub CLI を使って codespace を再構築する場合、次のコマンドがそれを実行する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh codespace rebuild
    bash$ gh codespace rebuild --full
@@ -481,7 +482,7 @@ Persisting environment variables and temporary files
 
 方法その一では、次のように記述すると環境変数が定義できるらしい：
 
-  .. code:: json
+  .. sourcecode:: json
 
      {
          "remoteEnv": {
@@ -863,7 +864,7 @@ Setting a minimum specification for codespace machines
 
   You can't change the machine type of an unpublished codespace.
 
-.. code:: json
+.. sourcecode:: json
 
    "hostRequirements": {
       "cpus": 8,
@@ -888,7 +889,7 @@ Automatically opening files in the codespaces for a repository
 
 VS Code ブラウザー版限定。演習における README が実例。
 
-.. code:: json
+.. sourcecode:: json
 
    "customizations": {
      "codespaces": {
@@ -907,7 +908,7 @@ Specifying recommended secrets for a repository
   codespace, rather than the owner of the repository or organization, must
   provide.
 
-.. code:: json
+.. sourcecode:: json
 
    "secrets": {
      "NAME_OF_SECRET_1": {
@@ -1242,7 +1243,7 @@ Troubleshooting GitHub Codespaces
 GitHub Codespaces logs
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh codespace logs
    bash$ gh codespace logs -c <CODESPACE-NAME>
@@ -1291,7 +1292,7 @@ Getting the most out of your included usage
   You can check which image was used to create a codespace's dev container. In
   the Terminal of your codespace, run this command.
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ devcontainer-info
 
@@ -1309,7 +1310,7 @@ Exporting changes to a branch
 Troubleshooting creation and deletion of codespaces
 ----------------------------------------------------------------------
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ sudo apt autoremove
    bash$ sudo apt clean
@@ -1339,7 +1340,7 @@ up your codespace` ページに事前構築が codesace があったと示され
 
 Codespace 生成後、次の GitHub CLI コマンドで事前構築か否かを知ることが可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh api /user/codespaces/$CODESPACE_NAME --jq .prebuild
 

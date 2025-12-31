@@ -2,11 +2,12 @@
 Jekyll 利用ノート
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
-   .. code:: text
+   .. sourcecode:: text
 
       DISTRIB_ID=Ubuntu
       DISTRIB_RELEASE=22.04
@@ -28,6 +29,7 @@ Jekyll 利用ノート
    * :doc:`/javascript-mermaid/index`
    * :doc:`/python-jinja2`
    * :doc:`/python-sphinx`
+   * :doc:`/python-mkdocs`
 
 資料
 ======================================================================
@@ -101,7 +103,7 @@ Ubuntu 環境を想定しているので Jekyll on Ubuntu の節に従う。
 RubyGems と Bundler が参照する環境変数各種の値を XDG Base Directory
 Specification 愛好家としては次のようにしたい：
 
-.. code:: bash
+.. sourcecode:: bash
 
    export GEM_HOME="$XDG_DATA_HOME/gem"
    export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
@@ -124,7 +126,7 @@ Jekyll サイト仮設
 :file:`myblog` というディレクトリーに Jekyll サイトのルートを合わせるように作
 る：
 
-.. code:: console
+.. sourcecode:: console
 
    $ mkdir myblog && cd $_
    $ jekyll new .
@@ -151,7 +153,7 @@ GitHub Pages での厳密な運用を想定している場合、1. の行を削�
 を一致させたいということだそうだ。それが気にならないならば既定の Jekyll のままで
 良い。
 
-.. code:: ruby
+.. sourcecode:: ruby
 
    gem "github-pages", "~> 228", group: :jekyll_plugins
 
@@ -164,7 +166,7 @@ GitHub Pages での厳密な運用を想定している場合、1. の行を削�
    いう gem が必要になる可能性が高い。手作業で :file:`Gemfile` を編集してもよい
    が、この場合はコマンド実行のほうが早い：
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ bundle add webrick
 
@@ -177,7 +179,7 @@ Jekyll プラグインを追加または削除する場合、3. の ``do`` ... `
 以上の編集により gem 構成が変化した場合、サイト動作確認までに次のコマンドを実行
 して当該 gem をローカル環境にインストールしろ：
 
-.. code:: console
+.. sourcecode:: console
 
    $ bundle install
 
@@ -282,7 +284,7 @@ Markdown 関係の設定項目を固定する。``markdown: kramdown`` である
 
 Jekyll サイトの内容が整ったら HTTP サーバーを稼動する。次のコマンドが良い：
 
-.. code:: console
+.. sourcecode:: console
 
    $ bundle exec jekyll serve --incremental --livereload --baseurl ''
 
@@ -295,7 +297,7 @@ VS Code で作業する場合、何かの拡張のトーストが持つ URL そ�
 
 まず ``jekyll new`` が生成したファイル名を微調整しておく：
 
-.. code:: console
+.. sourcecode:: console
 
    $ find myblog -name '*.markdown' | xargs rename 's/.markdown$/.md/'
 
@@ -320,7 +322,7 @@ VS Code で作業する場合、何かの拡張のトーストが持つ URL そ�
 
 :file:`_config.yml` に追加する設定はこういうものだ：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    defaults:
      - scope:
@@ -337,7 +339,7 @@ VS Code で作業する場合、何かの拡張のトーストが持つ URL そ�
 加すると、それらの front matter で次が指定されたとみなされる（明示的に指定しない
 限り）：
 
-.. code:: yaml
+.. sourcecode:: yaml
 
    ---
    author: "AUTHOR-NAME"
@@ -355,7 +357,7 @@ VS Code で作業する場合、何かの拡張のトーストが持つ URL そ�
 例えば次のような HTML をサイトに組み込んでおく。開発モードでだけ出現するように仕
 掛ける：
 
-.. code:: html
+.. sourcecode:: html
 
    <h2>Configuration</h2>
    <h3>Global Configuration</h3>
@@ -517,7 +519,7 @@ Rouge に関するノート
 
 Rouge の使いどころは構文強調コードブロックの言語指定しかない。
 
-.. code:: markdown
+.. sourcecode:: markdown
 
    ```lang
    code
@@ -525,7 +527,7 @@ Rouge の使いどころは構文強調コードブロックの言語指定し�
 
 とか、
 
-.. code:: liquid
+.. sourcecode:: liquid
 
    {% highlight lang %}
    code
@@ -559,7 +561,7 @@ Minima に関するノート
 コマンド ``bundle info minima --path`` が Minima のパスだけを出力する。ファイル
 を覗きたいときに有用だ：
 
-.. code:: console
+.. sourcecode:: console
 
    $ MINIMA_DIR=$(bundle info minima --path)
    $ find $MINIMA_DIR -type f
@@ -603,20 +605,20 @@ Minima 組み込みのファイルのうち、重要なものを次に挙げる�
 
    Google などの検索エンジンクローラーに負荷をかけさせないため、次を追加：
 
-   .. code:: html
+   .. sourcecode:: html
 
       <meta name="robots" content="noarchive,noindex,follow">
 
    ページの前後関係を明確に示したいので、次を追加：
 
-   .. code:: liquid
+   .. sourcecode:: liquid
 
       {% if page.previous.url %}<link rel="prev" href="{{ page.previous.url | relative_url }}">{% endif %}
       {% if page.next.url %}<link rel="next" href="{{ page.next.url | relative_url }}">{% endif %}
 
    用意してある Favicon パスを追加：
 
-   .. code:: html
+   .. sourcecode:: html
 
       <link rel="icon" href="{{ '/assets/images/favicon/favicon.ico' | relative_url }}" />
 
@@ -626,7 +628,7 @@ Minima 組み込みのファイルのうち、重要なものを次に挙げる�
    全ページ共通天井。このテンプレートを上書きするのではなく、:file:`_config.yml`
    でリンク対象となるファイルを列挙すれば十分だ：
 
-   .. code:: yaml
+   .. sourcecode:: yaml
 
       header_pages:
         - biblography.md
@@ -647,7 +649,7 @@ Sass
 い内容なら SCSS の仕様に則った方法で実現可能だ。自作 Jekyll サイト側
 :file:`assets/main.scss` で定数を定義してからオリジナルを ``import`` する：
 
-.. code:: scss
+.. sourcecode:: scss
 
    $text-color: #f0e7d5;
    $background-color: #252525;
@@ -661,14 +663,14 @@ Sass
 
 :file:`assets/main.css` をロードしようとする。オリジナルの SCSS ファイルでは
 
-.. code:: scss
+.. sourcecode:: scss
 
    @import "minima";
 
 するだけ。インポートするのは :file:`$MINIMA_DIR/_sass/minima.scss` であり、そこ
 では最後に
 
-.. code:: scss
+.. sourcecode:: scss
 
    @import
      "minima/base",
@@ -731,7 +733,7 @@ jekyll-archives
 ``jekyll build`` コマンドの実行手順は次が普通だ。これで :file:`_site` に生じる成
 果物が配備可能なものになる：
 
-.. code:: console
+.. sourcecode:: console
 
    $ JEKYLL_ENV=production bundle exec jekyll build
 
@@ -740,7 +742,7 @@ jekyll-archives
 単一 issue のサイトであれば既定の永続リンクパスは冗長に感じられる。部分パスを適
 当に省くと利便性が増す：
 
-  .. code:: yaml
+  .. sourcecode:: yaml
 
      #permalink: /:categories/:year/:month/:day/:title:output_ext
      permalink: /diary/:year/:month/:day:output_ext

@@ -2,7 +2,8 @@
 17 Interactions
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 4
 
 17.1 Summary
@@ -451,7 +452,7 @@ Lifeline に沿った OccurrenceSpecifications の順序は、これらが発生
 Lifeline は「頭」となる矩形と、参加者の生存線を表現する破線スタイルの垂直線から
 なる記号で示される。生存線を識別する情報は以下の形式で矩形の内側に示される：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <lifelineident> ::= (
      [<connectable-element-name>[‘[’ <selector> ‘]’]]
@@ -698,7 +699,7 @@ Message は送信側 MessageEnd から受信側 MessageEnd までの線分とし
 
 図中の Message ラベルの構文は BNF で定義されている：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <message-label> ::= <request-message-label> | <reply-message-label> | ‘*’
 
@@ -754,7 +755,7 @@ Message に署名がある場合、実引数は順番に Operation の in およ
 
 ``<reply-message-label>`` は応答 Message に使われる：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <reply-message-label> ::=
      [<assignment-target> ‘=’]
@@ -1209,7 +1210,7 @@ InteractionConstraint はその包含 Interaction または InteractionOperand �
 り、最初のイベント発生が起こる生存線を覆う角括弧で示され、そのイベントの上に位置
 する。
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <interactionconstraint> ::= ‘[’ (<Boolean-expression> | ‘else’) ‘]’
 
@@ -1235,7 +1236,7 @@ ConsiderIgnoreFragment の表記は CombinedFragments のすべてと同じで�
 **consider** または **ignore** が演算子を示す。そのメッセージの一覧は次の書式に
 従って中括弧で囲まれた作用対象に続く：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    (‘ignore’ | ‘consider’) ‘{’ <message-name> [‘,’ <message-name>]* ‘}’
 
@@ -1280,7 +1281,7 @@ CombinedFragment の全範囲において重要であることを意味する。
 17.6.4.9 Loop interactionOperator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    ‘loop’ [ ‘(’ <minint> [‘,’ <maxint> ] ‘)’]
 
@@ -1421,7 +1422,7 @@ CombinedFragment がその Interaction において分解 Lifeline を覆うこ�
 InteractionUse は演算子が **ref** と呼ばれる CombinedFragment 記号として示され
 る。名前の構文：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <name> ::=
       [<attribute-name>‘=’]
@@ -1621,7 +1622,7 @@ Table 17.4 は項目が一つしかない図表だ。Message はラベル付き�
 各項は、全体的な相互作用の中での手続き的入れ子の階層を表す。すべての制御が同時に
 行われる場合、入れ子は生じない。各列項は以下の構文を持つ：
 
-.. code:: text
+.. sourcecode:: text
 
    [ integer | name ] [ recurrence ]
 
@@ -1645,7 +1646,7 @@ Table 17.4 は項目が一つしかない図表だ。Message はラベル付き�
 
 選択肢は：
 
-.. code:: text
+.. sourcecode:: text
 
    ‘*’ ‘[’ iteration-clause ‘]’an iteration
    ‘[’ guard ‘]’a branch

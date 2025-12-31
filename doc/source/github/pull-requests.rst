@@ -5,7 +5,8 @@ Pull requests documentation ノート
 `Pull requests documentation <https://docs.github.com/en/pull-requests>`__ は
 GitHub が生み出した文化、pull request に関する記述からなる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` は妙に深い節にある :ref:`About pull requests
@@ -58,7 +59,7 @@ Creating a commit with multiple authors
 Git では共同コミット者を指定するには、コミットログを次のように記入する。空行二つ
 に注意：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git commit -m "Refactor usability tests.
    >
@@ -83,7 +84,7 @@ GitHub にプッシュする前かつコミット直後なら ``git commit --ame
 事足りる。そうでない場合、ローカルで ``git rebase -i`` などでログメッセージを修
 正し、プッシュし直す：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git push --force-with-lease origin BRANCH
 
@@ -157,7 +158,7 @@ Commit exists on GitHub but not in my local clone
 誰かが対象コミットを含むブランチを削除した場合、一時的に当該ブランチを GitHubに
 プッシュしてもらう：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git branch recover-B B
    bash$ git push upstream B:recover-B
@@ -278,7 +279,7 @@ Configuring a remote repository for a fork
 
 これは Git の基本なので必ず習得するべし。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
 
@@ -289,13 +290,13 @@ Syncing a fork
 
 ローカルからコマンドで実行する方法がある：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh repo sync owner/cli-fork -b BRANCH_NAME
 
 Git では（この方法はフォークの意義をよく表していると思う）：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git fetch upstream
    bash$ git checkout main
@@ -367,7 +368,7 @@ Pull request 画面の :guilabel:`Checks` で確認。
 コミットの checks を省略させたり、要求させたりすることをコミットログで指示可能。
 例によって二行の空行の後に指示をする：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git commit -m "Refactor usability tests
    >
@@ -560,7 +561,7 @@ Request` を押す。
 
 GitHub CLI でも作成可能だ。コマンドラインオプションにブランチは指定したい：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh pr create \
      --base my-base-branch --head my-changed-branch \
@@ -914,7 +915,7 @@ Checking out pull requests locally
 休眠 pull request を再生するには、pull request ID がわかっていれば、次のコマン
 ドでコードを得られる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git fetch origin pull/ID/head:BRANCH_NAME
 
@@ -927,7 +928,7 @@ Checking out pull requests locally
 
 GitHub CLI が使えるなら：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh pr checkout PULL-REQUEST
 
@@ -1018,7 +1019,7 @@ Merging a pull request
 
 GitHub CLI で処理することも可能。このようにするようだ：
 
-.. code:: console
+.. sourcecode:: console
 
    gh pr merge MERGE_ID \
      --squash \

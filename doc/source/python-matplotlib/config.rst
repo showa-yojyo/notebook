@@ -39,14 +39,14 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
        WSL2 などの Linux 系環境では XDG 環境変数を利用するのが定石となっている。
        Matplotlib の場合はこのようにしたい：
 
-       .. code:: bash
+       .. sourcecode:: bash
 
           # E.g. in .bashrc:
           export MATPLOTLIBRC="$XDG_CONFIG_HOME/matplotlib"
 
        次の状態にしたい：
 
-       .. code:: console
+       .. sourcecode:: console
 
           $ python -c 'import matplotlib as mpl; print(mpl.get_configdir())'
           /home/USERNAME/.config/matplotlib
@@ -56,7 +56,7 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
 
        既定の設定ファイルをそこへ移す：
 
-       .. code:: console
+       .. sourcecode:: console
 
           $ mkdir -p $MATPLOTLIBRC
           $ mv ~/.matplotlib/* $MATPLOTLIBRC
@@ -105,14 +105,14 @@ Matplotlib 環境のユーザー設定ファイルについて記す。
     には :doc:`./basic` で示したポリライン複数本描画スクリプトを利用できる。下記
     のリスト内の内容を修正すると、それにつれて曲線の色が変わることがわかる：
 
-    .. code:: text
+    .. sourcecode:: text
 
        axes.prop_cycle: cycler('color', ['deeppink', 'pink', 'b', 'g', 'r', 'c', 'm', 'y', 'k'])
 
 * LaTeX 周りの設定は要研究。特にフォントの指定は大切そうだ。
 * ハードコピーバックエンドのデフォルト値を ``savefig.format`` で設定できる。
 
-  .. code:: text
+  .. sourcecode:: text
 
      savefig.format: png # png, ps, pdf, svg
 

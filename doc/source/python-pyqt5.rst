@@ -4,7 +4,8 @@ PyQt5 利用ノート
 
 本稿は PyQt_ の現時点での最新版、PyQt5 についての覚え書きである。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -92,7 +93,7 @@ Miniconda による方法
 
 実行例を示す。言い忘れたが Cygwin :program:`bash` のセッションだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ conda install -c mmcauliffe pyqt5
    Fetching package metadata ...........
@@ -237,7 +238,7 @@ Qt Desinger
   にコピーして、コンソールから同バッチを実行する。コマンドライン引数は Designer
   で保存した ui ファイル一丁。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ pyuic5.bat myform.ui > ui_myform.py
 
@@ -323,7 +324,7 @@ ui ファイルから直接 ``Widget`` をロードする方法
 
 #. :file:`qmytextbrowser.py` ファイルを作成し、自分でクラスを実装すればよい。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from PyQt5 import QtWidgets
 

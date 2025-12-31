@@ -14,7 +14,8 @@ VS Code にはバージョン管理機能も有しており、特に :program:`G
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 SOURCE CONTROL ビュー
 ======================================================================
@@ -339,11 +340,12 @@ Git 側の設定で VS Code を絡める
 各種ログエディター、差分、マージに VS Code を使用するように、:program:`Git` の
 ユーザー構成ファイル :file:`$HOME/.gitconfig` または
 :file:`$HOME/.config/gitconfig` に次の記述を含めるといい。特に、この記述があれば
-:command:`git difftool` と:command:`git mergetool` それぞれのコマンド実行で VS
+:command:`git difftool` と :command:`git mergetool` それぞれのコマンド実行で VS
 Code が利用できることに注目したい。差分確認や手動マージでは GUI ベースの作業の方
 が楽だ。
 
-.. code:: text
+.. sourcecode:: text
+   :caption: :file:`.gitconfig` で VS Code を使う項目例
 
    [core]
        editor = code --wait

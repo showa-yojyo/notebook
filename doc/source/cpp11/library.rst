@@ -8,7 +8,8 @@ cpprefjp_ がそのへんをきれいに整理している。それを利用し�
 
 以下、断っても断らなくても名前空間 ``std`` にライブラリー要素があるものとする。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 コンテナー
 ======================================================================
@@ -83,13 +84,13 @@ cpprefjp_ がそのへんをきれいに整理している。それを利用し�
 
   例えば次のコードが有効であるとする。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      commands.push_back(Command("save", false, false));
 
   このコードは次のように書ける：
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      commands.emplace_back("save", false, false);
 
@@ -99,7 +100,7 @@ cpprefjp_ がそのへんをきれいに整理している。それを利用し�
 :doc:`./language` で習ったように、特に標準ライブラリーのコンテナーのオブジェクト
 を次のようにしても初期化することができる（実はイコール記号も不要）：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::vector<int> v = {1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9};
 
@@ -173,7 +174,7 @@ Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。指�
 の戻り値も Python と同様の考え方（というより数学）に基づき、それぞれ ``true``,
 ``false`` を返す。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class InputIterator, class Predicate>
    bool all_of(InputIterator first,
@@ -192,7 +193,7 @@ Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。指�
 く ``std::find()`` とラムダ式と否定を組み合わせるのが面倒だから提供されているの
 だろう。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class InputIterator, class Predicate>
    InputIterator find_if_not(InputIterator first,
@@ -204,7 +205,7 @@ Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。指�
 
 反復子の指す要素から初めて、指定個数だけ要素をコピーするアルゴリズムだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class InputIterator, class Size, class OutputIterator>
    OutputIterator copy_n(InputIterator first,
@@ -219,7 +220,7 @@ Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。指�
 範囲 ``[first, last)`` にある要素から、述語 ``pred`` が真であるような要素だけを
 反復子 ``result`` 以降に戻すアルゴリズムだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class InputIterator, class OutputIterator, class Predicate>
    OutputIterator copy_if(InputIterator first,
@@ -235,7 +236,7 @@ Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。指�
 これらは ``std::copy()``, ``std::copy_backward()`` の move 版アルゴリズムだ。だ
 いたい次のようなものだと覚えておいて良い。実際の実装はもっと凝っているだろう：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class InputIterator, class OutputIterator>
    OutputIterator move(
@@ -275,7 +276,7 @@ Python の組み込み関数 ``all()`` および ``any()`` の C++ 版だ。指�
 
 範囲 ``[first, last)`` がソート済みであるかどうかをテストするアルゴリズムだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class ForwardIterator>
    bool is_sorted(ForwardIterator first,
@@ -298,7 +299,7 @@ C++03 までは引数をちょうど二つとる関数しかなかったが、C+
 ``std::initializer_list<T>`` 型オブジェクトを受け取るものが追加された。これによ
 り、``std::min()`` は有限集合を引数に取るとみなすことができるようになった。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    T min(initializer_list<T> t);
@@ -316,7 +317,7 @@ C++03 までは引数をちょうど二つとる関数しかなかったが、C+
 そうなると、一度の呼び出しで最小値と最大値を同時に得ることもできる。そこでこれら
 のアルゴリズムも C++11 で提供されるようになった。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    pair<const T&, const T&> minmax(const T& a, const T& b);
@@ -342,7 +343,7 @@ C++03 までは引数をちょうど二つとる関数しかなかったが、C+
 で、開始値を指定して、そこから連続した値の数列を生成するために用いられる。シェル
 で言うなら ``seq`` のような、Python で言うなら ``range()`` のような働きをする。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class ForwardIterator, class T>
    void iota(ForwardIterator first, ForwardIterator last, T value);
@@ -406,7 +407,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 のアドレスを取得することが可能であるように、関数 ``std::addressof()`` が追加され
 た。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    T* addressof(T& r) noexcept;
@@ -418,7 +419,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 ``operator>>()`` および ``operator<<()`` が追加。一時オブジェクトとしてのスト
 リームというのが想像しづらいのだが。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // <istream>
    template<class CharT, class Traits, class T>
@@ -440,7 +441,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 のところで見てきた ``char16_t`` と ``char32_t`` をそれぞれ文字型とする文字列型
 だ。両方ともヘッダーファイル ``<string>`` にある。
 
-.. code:: c++
+.. sourcecode:: c++
 
    using u16string = basic_string<char16_t>;
    using u32string = basic_string<char32_t>;
@@ -464,7 +465,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 ヘッダーファイル ``<string>`` に以下の関数が追加された。これらのオーバーロードは
 ``sprintf()`` または ``swprintf()`` によって数値を文字列に変換する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    string to_string(int);
    string to_string(unsigned int);
@@ -491,7 +492,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 ヘッダーファイル ``<string>`` に以下の関数が追加された。いずれも文字列を数値に変
 換する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    double stod(const std::string& str, std::size_t* idx = nullptr);
    double stod(const std::wstring& str, std::size_t* idx = nullptr);
@@ -542,7 +543,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 なオブジェクトを保持し、``operator()`` でそれを呼び出すことができるクラステンプ
 レートだ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class R, class... ArgTypes>
    class function<R(ArgTypes...)>;
@@ -562,7 +563,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 ブジェクトと、その引数の一部をとる。そして本体を呼び出すときになって初めて残りの
 引数を指定して本体を呼び出す装置だ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class F, class... BoundArgs>
    unspecified bind(F&& f, BoundArgs&&... bound_args);
@@ -576,7 +577,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 * ヘッダーファイル ``<functional>`` をインクルードして利用する。
 * プレースホルダーは ``_1``, ``_2``, ... のような識別子であり、ふつうは
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      using namespace std::placeholders;
 
@@ -593,7 +594,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 
 関数オブジェクトのメンバー関数版と言っていいのか。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class R, class T>
    unspecified mem_fn(R T::* pm);
@@ -601,7 +602,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 よくあるユースケースは、ユーザー定義型のオブジェクト（のポインター）からなるコン
 テナーがあるときに、
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::for_each(c.begin(), c.end(), std::mem_fn(&MyClass::func));
 
@@ -616,7 +617,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 
 アダプターやバインダーで引数として参照を明示的に指定するための一連の要素を記す。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    class reference_wrapper;
@@ -649,7 +650,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 先述のようにハッシュ系連想コンテナーが提供される。そのためにはキーのためにハッ
 シュ計算が必要だ。Python でいう特殊メソッド ``__hash__()`` に相当する。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T> struct hash;
 
@@ -673,7 +674,7 @@ C++11 では強力なスマートポインターが追加された。Boost 出�
 
 シグニチャーはすべて同様なので、``&`` を示す。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <typename T>
    struct bit_and
@@ -725,7 +726,7 @@ Python の ``threading.thread`` のようなクラスが新規追加されたよ
 理をしたくないときに利用するものだ。メインスレッドで支度しておけばよさそうなもの
 だが？
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class Callable, class ...Args>
    void call_once(once_flag& flag, Callable func, Args&&... args);
@@ -795,7 +796,7 @@ C++03 ではたいへん重宝した関数テンプレート ``std::swap()`` の
 左辺値を右辺値にキャストする便利関数 ``std::move()`` がヘッダーファイル
 ``<utility>`` に宣言されている。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class T>
    typename remove_reference<T>::type&& move(T&& t) noexcept;
@@ -816,7 +817,7 @@ cpprefjp_ のサンプルコードが単純かつ全てを語る素晴らしい�
 ``.emplace_back()`` に引き渡される。その結果オブジェクトを適切にキューに追加す
 る。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class... Args>
    void emplace(Args&&... args)
@@ -829,7 +830,7 @@ cpprefjp_ のサンプルコードが単純かつ全てを語る素晴らしい�
 
 それぞれの要素型のコンストラクター引数を直接受け取れるようになった
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct piecewise_construct_t { };
 
@@ -851,7 +852,7 @@ cpprefjp_ のサンプルコードが単純かつ全てを語る素晴らしい�
 Python の ``tuple`` のようなクラステンプレートがヘッダーファイル ``<tuple>`` で
 宣言されている。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <class... Args>
    class tuple;

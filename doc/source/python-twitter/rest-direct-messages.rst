@@ -5,7 +5,8 @@
 ダイレクトメッセージを操作する各機能について記す。これもまた個人的にまったく活用
 しない機能の一つだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 POST direct_messages/new
 ======================================================================
@@ -23,7 +24,7 @@ POST direct_messages/new はダイレクトメッセージを作成・送信す�
 
 次に実行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./direct_messages-new.py
    {

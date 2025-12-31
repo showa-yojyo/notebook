@@ -5,7 +5,8 @@ What's New In Python 3.8 ノート
 `What's New In Python 3.8 <https://docs.python.org/3/whatsnew/3.8.html>`__ をた
 どりながら調査。興味のあるものしか読まない。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 New Features
 ======================================================================
@@ -15,7 +16,7 @@ New Features
   * ふつうの ``=`` と微妙に異なる。
   * この演算子は内包記法と相性が良いようだ。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> [y for x in range(10) if (y := x**2 - x) > 0]
      [2, 6, 12, 20, 30, 42, 56, 72]
@@ -27,7 +28,7 @@ New Features
   * この構文は私は使わないだろうが、既存関数のヘルプを参照するときにこの知識が要
     るわけだ。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> help(len)
      Help on built-in function len in module builtins:
@@ -46,7 +47,7 @@ New Features
     ま保たれる機能だ。
   * 次は公式文書からそっくり拝借した利用例だ。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> from math import cos, radians
      >>> theta = 30
@@ -62,7 +63,7 @@ Other Language Changes
     ``int``, ``fractions.Fraction`` もこれをサポートするようになった。
   * ``Fraction`` にこれまでサポートされていなかったというのは驚きだ。
 
-    .. code:: pycon
+    .. sourcecode:: pycon
 
        >>> True.as_integer_ratio()
        (1, 1)
@@ -81,7 +82,7 @@ Other Language Changes
 * 正規表現で Unicode の文字名を :regexp:`\\N{name}` の形で書けるようになった。例
   えば「🀀」にマッチする正規表現は次でもよい：
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> import re
      >>> text = 'ドラは🀀になりました'
@@ -93,7 +94,7 @@ Other Language Changes
   ``mod`` と互いに素ならば ``exp`` に負の数を許容するようになった。次のコードは
   公式文書からとってきたものだ：
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> pow(38, -1, 137)
      119
@@ -115,7 +116,7 @@ Other Language Changes
 
     Python で次のコードで :math:`x` および :math:`y` を求められることに気づく：
 
-    .. code:: pycon
+    .. sourcecode:: pycon
 
        >>> x = 369 * pow(4258, -1, 147) % 147
        >>> y = (4258 * x - 369) // -147
@@ -132,7 +133,7 @@ New Modules
   * このモジュールはサードパーティー製パッケージからバージョン、エントリーポイン
     トなどの諸データを得る機能を提供する。
 
-    .. code:: pycon
+    .. sourcecode:: pycon
 
        >>> import importlib.metadata
        >>> importlib.metadata.version('sympy')
@@ -203,7 +204,7 @@ Improved Modules
 * クラス ``Profile`` がコンテキストマネジャーをサポートした。つまり ``with`` 文
   でプロファイルがとれる。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> def fib(n):
      ...     if n == 0:
@@ -262,7 +263,7 @@ Improved Modules
   * ``date.fromisocalendar(year, week, day)``
   * ``datetime.fromisocalendar(year, week, day)``
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> from datetime import date, datetime
      >>> date.fromisocalendar(2020, 18, 7)
@@ -276,7 +277,7 @@ Improved Modules
 * ``lru_cache()`` が従来の用法に加えて decorator そのものとしても使えるように
   なった。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> from functools import lru_cache
      >>> @lru_cache

@@ -8,7 +8,8 @@ Data Structures: Objects and Arrays
 沿ったコードを実行することができる。別の環境で演習問題に取り組む場合は、本章の完
 全なコードをリンク先からダウンロードすることになる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 The weresquirrel
 ======================================================================
@@ -22,7 +23,7 @@ JavaScript には値の並びを格納するためのデータ型が用意され
 ばれ、角括弧で囲まれた値のリストをカンマで区切って定義する。構文は Python の
 ``list`` に似ているようだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let listOfNumbers = [2, 3, 5, 7, 11];
    console.assert(listOfNumbers[2] == 5);
@@ -52,7 +53,7 @@ Objects
 * 型 ``object`` の値は、プロパティーのコレクションとみなせる。オブジェクトを作成
   する一つの方法は、中括弧を使ってプロパティーを列挙するというものだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let day1 = {
        squirrel: false,
@@ -76,7 +77,7 @@ Objects
 * 関数 ``Object.assign`` は、あるオブジェクトのすべてのプロパティーを別のオブ
   ジェクトにコピーする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.log(Object.keys({x: 0, y: 0, z: 2}));
    // → ["x", "y", "z"]
@@ -128,7 +129,7 @@ Array loop
 現代の JavaScript では配列、文字列、その他のデータ構造をループするのに次の構文を
 使える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for (let entry of JOURNAL) {
        console.log(`${entry.events.length} events.`);
@@ -158,7 +159,7 @@ Strings and their properties
 * ``trim`` は Python の ``strip`` に相当する。
 * ``padStart`` というメソッドが存在する。
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      console.assert("6".padStart(3, "0") == "006");
 
@@ -174,7 +175,7 @@ Rest parameters
 * 引数の配列をとる関数を呼び出す際にも、同様の三点表記が使える。
 * ある配列を他の配列に埋め込むようなこともできる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function max(...numbers) {
        let result = -Infinity;
@@ -201,7 +202,7 @@ The Math object
 Destructuring
 ======================================================================
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function phi(table) {
        return (table[3] * table[0] - table[2] * table[1]) /
@@ -213,7 +214,7 @@ Destructuring
 
 これは次のようにも書ける：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function phi([n00, n01, n10, n11]) {
        return (n11 * n00 - n10 * n01) /
@@ -223,7 +224,7 @@ Destructuring
 
 また、次のようにすることでオブジェクトのプロパティーの値を得られる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {name} = {name: "Faraji", age: 23};
    // or let {age} = {name: "Faraji", age: 23};
@@ -273,7 +274,7 @@ The sum of a range
 
 **解答**：単純な ``range`` をまず書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function range(start, end) {
        console.assert(Number.isSafeInteger(start));
@@ -289,7 +290,7 @@ The sum of a range
 
 関数 ``sum`` は色々書き方がありそうだが：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function sum(a){
        return a.reduce((total, current) => total + current, 0);
@@ -299,7 +300,7 @@ The sum of a range
 
 関数 ``range`` のステップバージョン：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function range(start, end, step = 1) {
        console.assert(Number.isSafeInteger(start));
@@ -334,7 +335,7 @@ Reversing an array
 
 **解答**：関数 ``reverseArray`` を先に実装する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function reverseArray(a){
        let newArray = new Array(a.length);
@@ -346,7 +347,7 @@ Reversing an array
 
 あるいは ``a`` をコピーして ``reverseArrayInPlace`` を呼び出す実装も考えられる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function reverseArrayInPlace(a){
        const mid = a.length / 2;
@@ -363,7 +364,7 @@ A list
 
 JavaScript では単方向リストを次のように表現することが考えられる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let list = {
        value: 1,
@@ -394,7 +395,7 @@ JavaScript では単方向リストを次のように表現することが考え
 
 **解答**：あまりエレガントではないコードだが：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function arrayToList(a){
        let list = {"value": null, "rest": null};
@@ -427,7 +428,7 @@ JavaScript では単方向リストを次のように表現することが考え
 
 後半は新しいリストを作成することに注意する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function prepend(element, list){
        let arr = listToArray(list);
@@ -465,7 +466,7 @@ Deep comparison
 
 **解答**：問題文から求めるものが再帰関数であることが明らかだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function deepEqual(lhs, rhs){
        if (lhs && rhs && typeof lhs == 'object' && typeof rhs == 'object') {

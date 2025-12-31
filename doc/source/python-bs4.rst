@@ -7,7 +7,8 @@ BeautifulSoup4 利用ノート
 
 なお、本稿に示すコード片においては例外の存在性をすべて無視する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 目的
 ======================================================================
@@ -27,7 +28,7 @@ BeautifulSoup4 利用ノート
 次のようにして ``BeautifulSoup`` オブジェクトを生成する（公式文書からほぼそのま
 ま引用した）：
 
-.. code:: python
+.. sourcecode:: python
 
    from bs4 import BeautifulSoup
 
@@ -45,7 +46,7 @@ BeautifulSoup4 利用ノート
   ローカルにある HTML ファイルから読み込むには次のようにする。エンコーディングの
   ことを考えるのは面倒なので、バイナリーで取り扱うことを勧める：
 
-  .. code:: python
+  .. sourcecode:: python
 
      with open('./example.html', 'rb') as source:
          html_doc = source.read()
@@ -54,7 +55,7 @@ BeautifulSoup4 利用ノート
   るという手間が入る。このあと HTML の解析に試行錯誤することを想定すると、ローカ
   ルにファイルを保存することを勧める。
 
-  .. code:: python
+  .. sourcecode:: python
 
      from urllib.request import urlopen
 
@@ -63,7 +64,7 @@ BeautifulSoup4 利用ノート
 
   もしくは requests が利用可能ならばこうもできる：
 
-  .. code:: python
+  .. sourcecode:: python
 
      import requests
 
@@ -74,7 +75,7 @@ BeautifulSoup4 利用ノート
 
 * 第二引数は解析エンジンを指定する。lxml が使える場合はそれを指定するのが望ましい。
 
-  .. code:: python
+  .. sourcecode:: python
 
      soup = BeautifulSoup(html_doc, 'lxml')
 
@@ -83,7 +84,7 @@ BeautifulSoup4 利用ノート
 
 以下、私がよく実行するコードを記す。
 
-.. code:: python
+.. sourcecode:: python
 
    # 文書内の a 要素（タグ）を全て取得する
    soup.find_all('a')
@@ -102,7 +103,7 @@ BeautifulSoup4 利用ノート
 なお ``soup.find_all(...)`` は ``soup(...)`` と同値である。コンソールでの作業で
 は後者を用いるといい。
 
-.. code:: python
+.. sourcecode:: python
 
    # <th>所在地</th><td>????</td> というノードから ???? の部分にあるテキストを取得したい
    soup.find('th', string='所在地').find_next('td').text
@@ -110,7 +111,7 @@ BeautifulSoup4 利用ノート
    # 所在地の次に来る最初の p 要素のノードを取得する
    soup.find(string='所在地').find_next('p')
 
-.. code:: python
+.. sourcecode:: python
 
    # <h3 class="shop-casset__ttl"> 要素を全て取得する
    soup.select('h3.shop-casset__ttl')

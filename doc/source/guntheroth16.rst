@@ -10,7 +10,8 @@ Optimized C++ 下読みノート
 
 .. include:: /_include/book-details/guntheroth16.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 1 章 最適化とは
 ======================================================================

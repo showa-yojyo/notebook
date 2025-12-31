@@ -2,7 +2,8 @@
 Regular expressions
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Patterns and flags
@@ -18,13 +19,13 @@ Regular Expressions
 
 コンストラクターから正規表現オブジェクトを定義する方法：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let regexp = new RegExp("pattern", "flags");
 
 Perl のようなリテラル正規表現による定義方法もある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let regexp = /pattern/gmi;
 
@@ -91,7 +92,7 @@ Testing: ``regexp.test``
 
 呼び出し ``regexp.test(str)`` は、マッチがあるかどうかを ``Boolean`` 値で返す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /LOVE/i.test("I love JavaScript"); // true
 
@@ -117,7 +118,7 @@ Character classes
 
 正規表現には、普通の文字と文字クラスの両方が含まれることがある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "Is there CSS4?".match(/CSS\d/); // 'CSS4'
    "I love HTML5!".match(/\s\w\w\w\w\d/); // ' HTML5'
@@ -128,7 +129,7 @@ Inverse classes
 各文字クラスには、同じ文字で大文字に表記される「裏クラス」が存在する。裏クラス
 は、対応する表クラスの補集合だと考えられる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const str = "+7(903)-123-45-67";
    str.match(/\d/g).join(''); // 79031234567
@@ -146,7 +147,7 @@ Dot as literally any character with ``s`` flag
 い場面はたくさんある。これはフラグ ``s`` が行う。正規表現がこのフラグを持ってい
 る場合、ドット :regexp:`.` は文字通り任意の文字にマッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "A\nB".match(/A.B/s); // A\nB
 
@@ -184,7 +185,7 @@ Unicode の各文字には多くのプロパティーがある。その文字が
 例えば、``\p{Letter}`` は任意の言語の文字を表す。略記 ``\p{L}`` も通じる。次の検
 索は「何でもいいから言語の文字を全て探す」であり、三文字それぞれがマッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "Aბㄱ".match(/\p{L}/gu); // A,ბ,ㄱ
 
@@ -197,7 +198,7 @@ Unicode の各文字には多くのプロパティーがある。その文字が
 Example: hexadecimal numbers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /x\p{Hex_Digit}\p{Hex_Digit}/u
 
@@ -208,7 +209,7 @@ Unicode のプロパティーに Script がある。これは値を取ること�
 ギリシャ文字、アラビア文字、漢字など、さまざまな文字がある。例えば、キリル文字に
 は ``\p{sc=Cyrillic}``, 漢字には ``\p{sc=Han}``, など。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    `Hello Привет 你好 123_456`.match(/\p{sc=Han}/gu); // 你,好
 
@@ -218,7 +219,7 @@ Example: currency
 通貨記号であることを示す Unicode プロパティーは ``\p{Currency_Symbol}``,
 ``\p{Sc}`` が対応する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /\p{Sc}\d/gu
 
@@ -228,7 +229,7 @@ Anchors: string start :regexp:`^` and end :regexp:`$`
 メタキャラクター :regexp:`^` と :regexp:`$` はアンカーの一種だ。それぞれ文字では
 なく、テキストの先頭位置とテキストの末尾位置にそれぞれマッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /^Mary/.test("Mary had a little lamb"); // true
    /snow$/.test("its fleece was white as snow"); // true
@@ -264,7 +265,7 @@ Searching at line start :regexp:`^`
 次の文字列に対する ``match(/^\d/gm)`` と ``match(/^\d/g)`` の結果は異なる。前者
 は長さ 3 の配列を返すが、後者は長さ 1 の配列を返す。
 
-.. code:: text
+.. sourcecode:: text
 
    1st place: Winnie
    2nd place: Piglet
@@ -276,7 +277,7 @@ Searching at line end :regexp:`$`
 次の文字列に対する ``match(/\d$/gm)`` と ``match(/\d$/g)`` の結果は前項と同様の
 違いがある。
 
-.. code:: text
+.. sourcecode:: text
 
    Winnie: 1
    Piglet: 2
@@ -303,7 +304,7 @@ Word boundary: :regexp:`\\b`
    :regexp:`\\W` にマッチする場合。
 3. 文字列の末尾の文字が :regexp:`\\w` にマッチする場合、その末尾。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "Hello, Java!".match(/\bJava\b/); // "Java"
    "Hello, JavaScript!".match(/\bJava\b/); // null
@@ -314,7 +315,7 @@ Word boundary: :regexp:`\\b`
 
 :regexp:`\\d` は :regexp:`\\w` の部分集合であるので、次もマッチする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "1 23 456 78".match(/\b\d\d\b/g); // ["23", "78"]
    "12,34,56".match(/\b\d\d\b/g); // ["12", "34", "56"]
@@ -347,7 +348,7 @@ Escaping
 文字を通常の文字として表現するには、その文字の直前にバックスラッシュ ``\`` を付
 ける。このような行為を「文字をエスケープする」と言う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "Chapter 5.1".match(/\d\.\d/); // "5.1"
    "Chapter 511".match(/\d\.\d/); // null
@@ -373,7 +374,7 @@ A slash
 る。リテラル文字列ではバックスラッシュが「食われる」ので、これをエスケープせねば
 ならない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let regexp = new RegExp("\\d\\.\\d");
 
@@ -393,7 +394,7 @@ Sets
 このようなパターンを集合と言う。通常の文字と混在して正規表現を形成することができ
 る。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // find [t or m], and then "op"
    "Mop top".match(/[tm]op/gi); // ["Mop", "top"]
@@ -408,7 +409,7 @@ Ranges
 の範囲にある文字一文字に、``[0-5]`` は ``0`` から ``5`` までの数字一文字にそれぞ
 れマッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "Exception 0xAF".match(/x[0-9A-F][0-9A-F]/g); // "xAF"
 
@@ -437,7 +438,7 @@ Example: multi-language :regexp:`\\w`
 なものを自作する。以前やった Unicode プロパティーを角括弧内に列挙することで、そ
 れを達成する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]/gu;
 
@@ -449,7 +450,7 @@ Excluding ranges
 
 補集合を指定するには、同じ要素列を ``[^ ]`` で囲む。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /[^ ]/;
 
@@ -468,7 +469,7 @@ Escaping in ``[...]``
 
 エスケープを要しない、されない、というのは、してもしなくても動くということだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "1 + 2 - 3".match(/[-().^+]/g) // ["+", "-"]
    "1 + 2 - 3".match(/[\-\(\)\.\^\+]/g); // ["+", "-"]
@@ -573,13 +574,13 @@ Greedy and lazy quantifiers
 
 次の例を考える。このテキストから二重引用符で囲まれている部分文字列をすべて得たい：
 
-.. code:: text
+.. sourcecode:: text
 
    a "witch" and her "broom" is one
 
 単純に ``/".+"/g`` とすると、狙い通りにマッチしない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    'a "witch" and her "broom" is one'.match(/".+"/g); // "witch" and her "broom"
 
@@ -616,7 +617,7 @@ Lazy mode
 だ。このモードを有効にするには、元となる量指定子に ``?`` を付ける（単独の ``?``
 とは異なる意味であることに注意）。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    'a "witch" and her "broom" is one'.match(/".+?"/g); // ["witch", "broom"]
 
@@ -645,7 +646,7 @@ Alternative approach
 
 同じことをする正規表現が複数あることはよくある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    'a "witch" and her "broom" is one'.match(/"[^"]+"/g); // ["witch", "broom"]
 
@@ -659,13 +660,13 @@ class="doc">`` の形式で、何でもいいから ``href`` を持つリンク�
 
 そこで正規表現を不精にする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /<a href=".*?" class="doc">/g
 
 しかし、次のようなテキストに対してはまた狙いを外れる：
 
-.. code:: html
+.. sourcecode:: html
 
    ...<a href="link1" class="wrong">... <p style="" class="doc">...
 
@@ -708,14 +709,14 @@ Examples
 Example: gogogo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    'Gogogo now!'.match(/(go)+/ig) ); // "Gogogo"
 
 Example: domain
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "site.com my.site.com".match(/(\w+\.)+\w+/g); // ["site.com", "my.site.com"]
 
@@ -726,7 +727,7 @@ Example: email
 ``-`` や ``.`` も使用可能であるから、正規表現では :regexp:`[-.\\w]+` あたりにな
 る。ドメインも若干手直しする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "my@mail.com @ his@site.com.uk".match(/[-.\w]+@([\w-]+\.)+[\w-]+/g); // ["my@mail.com", "his@site.com.uk"]
 
@@ -746,7 +747,7 @@ Parentheses contents in the match
 例えば、HTML タグ :regexp:`<.*?>` を見つけて処理したい。タグの内容を別の変数に格
 納する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = '<h1>Hello, world!</h1>';
    let tag = str.match(/<(.*?)>/);
@@ -759,7 +760,7 @@ Nested groups
 
 捕捉グループを入れ子にすることもできる。番号はやはり左から右へと割り当てられる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let result = '<span class="my">'.match(/<(([a-z]+)\s*([^>]*))>/);
    result[0]; // '<span class="my">'
@@ -774,7 +775,7 @@ Optional groups
 )*`` のようなものがある場合だ。それでも、対応する結果配列の項目は存在し、値は
 ``undefined`` に等しい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let match = 'a'.match(/a(z)?(c)?/);
 
@@ -785,7 +786,7 @@ Optional groups
 
 マッチするグループとしないグループがある例：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let match = 'ac'.match(/a(z)?(c)?/)
 
@@ -808,7 +809,7 @@ Searching for all matches with groups: matchAll
 
 マッチを ``for`` ... ``of`` ループで得たり、次のように変数に代入したりする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let [tag1, tag2] = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
 
@@ -824,7 +825,7 @@ Python のように、捕捉グループに名前を付けることもできる�
 も同じだ。メソッド ``match`` の戻り値のプロパティー ``groups`` から、指定した
 ``name`` でマッチそれぞれを参照する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let dateRegexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/;
 
@@ -835,7 +836,7 @@ Python のように、捕捉グループに名前を付けることもできる�
 
 メソッド ``matchAll`` の場合には、個々のマッチにプロパティー ``groups`` がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let results = "2019-10-30 2020-01-01".matchAll(dateRegexp);
    for(let result of results) {
@@ -851,13 +852,13 @@ Capturing groups in replacement
 
 その参照には、ドルマークと番号を組み合わせて指定する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "John Bull".replace(/(\w+) (\w+)/, '$2, $1'); // "Bull, John"
 
 名前付きグループを使った場合には、ドルマークと名前を組み合わせて指定する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let regexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
    let str = "2019-10-30, 2020-01-01";
@@ -924,7 +925,7 @@ Backreference by number: ``\N``
 
 番号が振られていない :regexp:`(?: )` は参照されない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    `He said: "She's the one!".`.match(/(['"])(.*?)\1/g); // "She's the one!"
 
@@ -933,7 +934,7 @@ Backreference by name: ``\k<name>``
 
 名前付きグループ ``(?<name> )`` を使った場合には ``\k<name>`` で参照できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    `He said: "She's the one!".`.match(/(?<quote>['"])(.*?)\k<quote>/g); // "She's the one!"
 
@@ -946,7 +947,7 @@ Alternation (OR) ``|``
 に」マッチする表現となる。例えば、プログラミング言語を探すとする。 HTML, PHP,
 Java, JavaScript にマッチするかを調べるには、例えば次のように書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "First HTML appeared, then CSS, then JavaScript".match(
        /html|php|css|java(script)?/gi); // ['HTML', 'CSS', 'JavaScript']
@@ -976,7 +977,7 @@ MM 部分も似たように組み立てて :regexp:`[0-5]\\d` を得る。
 これらを ``:`` で連結する。ただし見えない括弧問題を避けるために HH 部分に丸括弧
 を付ける。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "00:00 10:10 23:59 25:99 1:2".match(
        /([01]\d|2[0-3]):[0-5]\d/g)); // ["00:00", "10:10", "23:59"]
@@ -1027,7 +1028,7 @@ Find quoted strings
   * エスケープでない文字
   * 二重引用符でない文字
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /"(\\.|[^"\\])*"/
 
@@ -1044,7 +1045,7 @@ Find the full tag
   * 文字 ``>`` で終わる。
   * 空白文字、それに続いて任意で何かの文字が任意の個数、最後に文字 ``>`` で終わる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /<style(>|\s.*?>)/
 
@@ -1062,7 +1063,7 @@ Lookahead
 正規表現 :regexp:`X(?=Y)` は「パターン :regexp:`X` が欲しいが、パターン
 :regexp:`Y` が続く場合のみ欲しい」ときに使う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "1 turkey costs 30€".match(/\d+(?=€)/); // ["30"]
 
@@ -1072,7 +1073,7 @@ Lookahead
 :regexp:`X(?=Y)(?=Z)` を考える。これは :regexp:`Y` でも :regexp:`Z` でもマッチす
 るパターンが :regexp:`X` に続いているようなものにマッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = "1 turkey costs 30€";
 
@@ -1089,7 +1090,7 @@ Negative lookahead
 
 今度は価格ではなく、七面鳥の数量が欲しいとする（ユーロが付かないほうの数字）。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "2 turkeys cost 60€".match(/\d+\b(?!€)/g); // ["2"]
 
@@ -1105,7 +1106,7 @@ Lookbehind は lookahead に似ているが、チェックする向きが反対�
 :regexp:`(?<!Y)X`: その直前にパターン :regexp:`Y` がないときに限りパターン
 :regexp:`X` にマッチする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = "2 turkey costs $30";
 
@@ -1123,7 +1124,7 @@ Capturing groups
 一般的には lookaround の丸括弧内のパターンはマッチ結果の一部とはならない。そのよ
 うなパターンを参照したい場合には、別途丸括弧で包み込む。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /\d+(?=(€|kr))/
    /(?<=(\$|£))\d+/
@@ -1172,7 +1173,7 @@ Simplified example
 
 正規表現を単純にして要点を理解する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /^(\d+)*$/.test("012345678901234567890123456789z");
 
@@ -1194,7 +1195,7 @@ Simplified example
 こんな感じで数字部分 :math:`n` 桁の分割 :math:`2^{n - 1}` 通りをすべてチェックす
 るから CPU が固まるのだ。
 
-.. code:: text
+.. sourcecode:: text
 
    (0...123456789)z
    (0...12345678)(9)z
@@ -1274,7 +1275,7 @@ Lookahead to the rescue!
 例えば、``JavaScript`` という単語では、``Java`` にマッチするだけでなく、
 ``Script`` を省いて残りのパターンにマッチさせることもある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "JavaScript".match(/\w+Script/); // "JavaScript"
 
@@ -1282,7 +1283,7 @@ Lookahead to the rescue!
 ``+`` が一文字ずつバックトラックして、パターンの残りの部分にマッチしようと試み
 る。このバックトラックは :regexp:`\\w+` が ``Java`` にマッチした時点で成功する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "JavaScript".match(/(?=(\w+))\1Script/); // null
 
@@ -1298,13 +1299,13 @@ Lookahead to the rescue!
 
 最初の例を、バックトラックを防ぐために lookahead を使って書き直す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /^((?=(\w+))\2\s?)*$/
 
 名前グループでわずかに見やすくする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    /^((?=(?<word>\w+))\k<word>\s?)*$/
 
@@ -1330,7 +1331,7 @@ Sticky flag ``"y"``, searching at position
 
 次のようにすると、変数名を得ることだけができる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = 'let varName = "value"';
    let regexp = /\w+/g;
@@ -1341,7 +1342,7 @@ Sticky flag ``"y"``, searching at position
 ``lastIndex`` の位置から厳密に検索するようにする。上の例は実は ``lastIndex = 3``
 でも同じ結果となった。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = 'let varName = "value"';
    let regexp = /\w+/y;
@@ -1375,7 +1376,7 @@ Methods of ``RegExp`` and ``String``
 
 いつでも配列として結果を扱いたい場合には、次のように書くといい：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let result = str.match(regexp) ?? [];
 
@@ -1396,7 +1397,7 @@ Methods of ``RegExp`` and ``String``
 
 正規表現または部分文字列で区切り方を指定して文字列を分割する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    '12-34-56'.split('-'); // ['12', '34', '56']
 
@@ -1441,7 +1442,7 @@ Methods of ``RegExp`` and ``String``
 2. 第一引数が正規表現の場合、フラグ ``g`` がないとエラーになる。フラグを付けると
    ``replace`` と同じように動作する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    '12-34-56'.replaceAll("-", ":"); // 12:34:56
 
@@ -1453,7 +1454,7 @@ Methods of ``RegExp`` and ``String``
 以前、JavaScript にメソッド ``str.matchAll`` が追加されるまでは、ループ内で
 ``regexp.exec`` を呼び出して、グループを持つすべてのマッチを取得していたらしい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let str = 'More about JavaScript at https://javascript.info';
    let regexp = /javascript/ig;
@@ -1476,7 +1477,7 @@ Methods of ``RegExp`` and ``String``
 ``regexp.test`` は ``regexp.lastIndex`` を進めるので、別の文字列での検索がゼロ以
 外の位置から始まることがあるからだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let regexp = /javascript/g;
    // regexp.lastIndex == 0

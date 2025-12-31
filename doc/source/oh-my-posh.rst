@@ -5,7 +5,8 @@ Oh My Posh 利用ノート
   Oh My Posh is a custom prompt engine for any shell that has the ability to
   adjust the prompt string with a function or variable.
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 目標
 ======================================================================
@@ -42,7 +43,7 @@ Oh My Posh 利用ノート
 .. seealso::
 
    * :doc:`/wsl`
-   * :doc:`/windows-terminal`
+   * :doc:`/wt`
    * :doc:`vscode/index`
 
 Oh My Posh をシステムにインストールする
@@ -65,7 +66,7 @@ Homebrew についてはノートを割愛する。 Homebrew がなくても Oh 
 
 インストール、更新、アンインストールのコマンドはそれぞれ次のとおり：
 
-.. code:: console
+.. sourcecode:: console
 
    $ brew install jandedobbeleer/oh-my-posh/oh-my-posh
    $ brew update && brew upgrade oh-my-posh
@@ -82,7 +83,7 @@ Oh My Posh 本体を Windows へインストールするには :program:`winget`
 たがって Oh My Posh を更新、アンインストールするのにも :program:`winget` を用い
 る。
 
-.. code:: doscon
+.. sourcecode:: doscon
 
    winget install --id JanDeDobbeleer.OhMyPosh
    winget upgrade --id JanDeDobbeleer.OhMyPosh
@@ -111,7 +112,7 @@ Oh My Posh を余すとこなく利用するのにフォントを別途インス
 や、Oh My Posh 自身がフォントのインストールをサポートしている。次のコマンドを管
 理者権限で起動したコンソールから実行する：
 
-.. code:: doscon
+.. sourcecode:: doscon
 
    oh-my-posh font install
 
@@ -178,7 +179,7 @@ Oh My Posh は UNIX/Linux 系シェルの対応しているものの、私は Ba
   Add the following to :file:`~/.bashrc` (could be :file:`~/.profile` or
   :file:`~/.bash_profile` depending on your environment):
 
-  .. code:: shell
+  .. sourcecode:: shell
 
      eval "$(oh-my-posh init bash)"
 
@@ -203,13 +204,13 @@ Bash でいうところの :file:`.bash_profile` のようなファイルをテ�
 開く。実際には :file:`Microsoft.PowerShell_profile.ps1` のような名前のファイル
 だ。そして次のような行を加えておく：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    oh-my-posh init pwsh | Invoke-Expression
 
 この起動ファイルを編集、保存する。PowerShell セッションが開いていればそこで
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    . $PROFILE
 
@@ -238,7 +239,7 @@ Bash
 シェルのスタートアップファイルに追加した :command:`eval` 呼び出しを、例えば次の
 ように書き換える：
 
-.. code:: shell
+.. sourcecode:: shell
 
    eval "$(oh-my-posh init bash --config ~/.omp.json)"
 
@@ -252,7 +253,7 @@ PowerShell
 
 考え方は Bash の場合と同じだ。スタートアップファイル `$PROFILE` に加えた行を次のように修正する：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    oh-my-posh init pwsh --config "$env:USERPROFILE\omp.json" | Invoke-Expression
 
@@ -265,7 +266,7 @@ PowerShell
 Windows から WSL にある設定ファイルを指定するならば、WSL Ubuntu がドライブ U に
 マウントされているとして次のように書ける：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    oh-my-posh init pwsh --config "U:\home\USERNAME\PATH\TO\omp.json" | Invoke-Expression
 
@@ -414,7 +415,7 @@ Segment の看板属性とも言える ``template`` の書式の仕様だ。Go �
 1. 一時的な設定ファイルを用意する。以降の説明では :file:`omp-temp.json` とする。
 2. 次のコマンドを実行する：
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ oh-my-posh print primary --config omp-temp.json --shell uni
 
@@ -435,7 +436,7 @@ Segment 単位のオンオフ切り替え
 れが表示されるが、今は Node.js に依存するプロジェクトを開発しているので、一時的
 に Python 情報表示をオフにしたいとする。こういうときに
 
-.. code:: console
+.. sourcecode:: console
 
    $ oh-my-posh toggle python
 
@@ -452,14 +453,14 @@ Segment 単位のオンオフ切り替え
 PowerShell ならば次のコマンドでインストールされているテーマとそのプレビューを一
 覧することが可能だ：
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    Get-PoshThemes
 
 Bash ならばテーマディレクトリーが次のパスにある。演習として PowerShell
 ``Get-PoshThemes`` 相当の機能を自分で実装してみるのもありだろう。
 
-.. code:: shell
+.. sourcecode:: shell
 
    $HOMEBREW_PREFIX/Cellar/oh-my-posh/$(oh-my-posh version)/themes
 
@@ -473,7 +474,7 @@ Bash ならばテーマディレクトリーが次のパスにある。演習と
 には属性 ``properties`` の値オブジェクトにおいて、キー ``home_enabled``,
 ``display_mode``, ``fetch_version``, その他が共通して有効だ。
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "type": "xxxx",
@@ -502,7 +503,7 @@ Bash ならばテーマディレクトリーが次のパスにある。演習と
 
 Segment の構成を模索中。時刻書式の指定を Go 言語方式でする。これは難解だ。
 
-.. code:: json
+.. sourcecode:: json
 
    {
         "type": "time",

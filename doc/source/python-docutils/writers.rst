@@ -5,7 +5,8 @@
 本節では Docutils_ のサブパッケージ ``docutils.writers`` を見ていく。構文木オブ
 ジェクトの走査、文字列化、および出力処理をカプセル化した諸クラスを提供する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 クラス図
 ======================================================================
@@ -132,7 +133,7 @@
   ``translate`` のコードが同一だが、Visitor のオブジェクトが異なるときに、その型
   だけをクラス間で区別して指定できるようにメンバーデータとして括り出している。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      class SuperWriter(Writer):
 
@@ -167,7 +168,7 @@
 
 モジュール ``docutils.core`` でオブジェクトの生成処理が確認できる。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def set_writer(self, writer_name):
         """Set `self.writer` by name."""

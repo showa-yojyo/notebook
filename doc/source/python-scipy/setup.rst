@@ -14,7 +14,7 @@
   と。NumPy_ のときと同様、Nose_ が環境にあれば単体テストが実行できる。例によっ
   て実行時間は決して短くない。
 
-  .. code:: pycon
+  .. sourcecode:: pycon
 
      >>> import scipy
      >>> scipy.test()
@@ -41,6 +41,11 @@
 
   * (0.16.0) プロットの単体テストがあるらしく、途中でウィンドウがバンバン表示さ
     れる。自動的に閉じてくれないものがいくつかある。
+
+.. admonition:: 利用者ノート
+
+   SciPy 1.x 系では Nose_ を用いていない。一般使用者は上記の方法で単体テストを実
+   行することがなくなった。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

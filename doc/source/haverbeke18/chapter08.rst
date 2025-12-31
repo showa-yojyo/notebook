@@ -7,7 +7,8 @@ Bugs and Errors
 バグは思考の混乱によるものと、思考をコードに変換する際のミスによるものとに分類で
 きる。一般的に、前者は後者に比べて診断や修正が難しいとされている。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Language
 ======================================================================
@@ -26,7 +27,7 @@ Strict mode
 JavaScript は厳格モードを有効にすることで、少しだけ厳しくできる。厳格モードをオ
 ンにするには、ファイルや関数の先頭に文字列で ``use strict`` と記述する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function canYouSpotTheProblem() {
        "use strict";
@@ -52,13 +53,13 @@ JavaScript は厳格モードを有効にすることで、少しだけ厳しく
 
 次の二つの違いをよく憶えておくこと：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function Person(name) { this.name = name; }.
    let ferdinand = Person("Ferdinand"); // oops
    console.log(name); // "Ferdinand"
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    "use strict";
    function Person(name) { this.name = name; }.
@@ -197,7 +198,7 @@ Selective catching
 教科書のコードは次のものだが、どうも演算子 ``instanceof`` に頼るような方法しかな
 いようだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class InputError extends Error {}
 
@@ -230,7 +231,7 @@ Assertions
 * アサーションは、通常の操作で起こりうる状況を処理するためではなく、プログラマー
   のミスを見つけるために使用される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function firstElement(array) {
        if (array.length == 0) {
@@ -273,7 +274,7 @@ Retry
 
 **解答** せっかくなので関数 ``primitiveMultiply`` をも実装する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    class MultiplicatorUnitFailure extends Error{}
 
@@ -306,7 +307,7 @@ The locked box
 
 **問題** 次のようなかなりわざとらしいオブジェクトを考える：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const box = {
        locked: true,
@@ -332,7 +333,7 @@ The locked box
 
 **解答** 題意だと思われるコードを書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function withBoxUnlocked(f){
        const alreadyLocked = box.locked();
@@ -355,7 +356,7 @@ The locked box
 
 テストコード：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function f(content){ console.log(content); }
    function g(content){ throw new Error; }

@@ -5,7 +5,8 @@ What's New In Python 3.10 ノート
 `What's New In Python 3.10 <https://docs.python.org/3/whatsnew/3.10.html>`__ を
 たどりながら調査。興味のあるものしか読まない。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 New Features
 ======================================================================
@@ -17,7 +18,7 @@ Parenthesized context managers
 やるような記法で、複数行に及ぶ長いコンテクストマネージャーの集まりをまとめること
 ができる。以下の例はすべて有効だ。
 
-.. code:: python
+.. sourcecode:: python
 
    with (CtxManager() as example):
        ...
@@ -66,7 +67,7 @@ PEP 634: Structural Pattern Matching
 
 構文は次のように `match-statement` と `case-statement` からなる。
 
-.. code:: text
+.. sourcecode:: text
 
    match subject:
        case <pattern_1>:
@@ -85,7 +86,7 @@ Simple pattern: match to a literal
 `case-statement` を配置するのはオプショナルだ。その場合 `match-statement` に該当
 する `case-statement` が存在しなければ、文全体として `no-op` になる。
 
-.. code:: python
+.. sourcecode:: python
 
    def http_error(status):
        match status:
@@ -100,7 +101,7 @@ Simple pattern: match to a literal
 
 `case-statement` がリテラル式の場合、パイプ記号で選言にすることができる。
 
-.. code:: python
+.. sourcecode:: python
 
    case 401 | 403 | 404:
       return "Not allowed"
@@ -110,7 +111,7 @@ Patterns with a literal and variable
 
 次の例は変数への代入をする `case-statement` を含む。
 
-.. code:: python
+.. sourcecode:: python
 
    # point is an (x, y) tuple
    match point:
@@ -132,7 +133,7 @@ Patterns and classes
 ストが続くパターンを使うことができる。このパターンには、クラスの属性を変数に取り
 込む機能がある。
 
-.. code:: python
+.. sourcecode:: python
 
    class Point:
        x: int
@@ -160,7 +161,7 @@ Patterns with positional parameters
 ``("x", "y")`` とすると、以下のパターンはすべて同値だ。すべて属性 ``y`` を変数
 ``var`` に束縛する。
 
-.. code:: python
+.. sourcecode:: python
 
    Point(1, var)
    Point(1, y=var)
@@ -173,7 +174,7 @@ Nested patterns
 パターンを好きなだけ入れ子にしてよい。例えば、データが短い点のリストである場合、
 次の `match-statement` はいずれかにマッチする。
 
-.. code:: python
+.. sourcecode:: python
 
    match points:
        case []:
@@ -194,7 +195,7 @@ Complex patterns and the wildcard
 ``test_available`` は ``('error', code, 100)`` にも ``('error', code, 800)`` に
 もマッチする。
 
-.. code:: python
+.. sourcecode:: python
 
    match test_variable:
        case ('warning', code, 40):
@@ -209,7 +210,7 @@ Guard
 は次の ``case`` ブロックを試みる。値の取り込みはガードが評価される前に行われるこ
 とに注意。
 
-.. code:: python
+.. sourcecode:: python
 
    match point:
        case Point(x, y) if x == y:
@@ -234,7 +235,7 @@ Other Key Features
   ``**_`` は冗長になるため、使用を認められない。
 * 部分パターンはキーワード ``as`` を使って捕捉してよい：
 
-  .. code:: python
+  .. sourcecode:: python
 
      case (Point(x1, y1), Point(x2, y2) as p2): ...
 
@@ -245,7 +246,7 @@ Other Key Features
 * 名前付き定数はをパターン内で使用してもよい。定数が捕捉変数として解釈されるのを
   防ぐために、ドット付きの名前にする必要がある。
 
-  .. code:: python
+  .. sourcecode:: python
 
      from enum import Enum
      class Color(Enum):
@@ -291,14 +292,14 @@ PEP 604: New Type Union Operator
 以前のバージョンの Python では、複数の型の引数を受け取る関数に対して型ヒントを適
 用するのに ``typing.Union`` が使われていた。
 
-.. code:: python
+.. sourcecode:: python
 
    def square(number: Union[int, float]) -> Union[int, float]:
        return number ** 2
 
 この型ヒントをより簡潔なやり方で書ける：
 
-.. code:: python
+.. sourcecode:: python
 
    def square(number: int | float) -> int | float:
        return number ** 2
@@ -306,7 +307,7 @@ PEP 604: New Type Union Operator
 この新しい構文は ``isinstance()`` および ``issubclass()`` の第ニ引数としても受け
 入れられる。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> isinstance(1, int | str)
    True
@@ -405,7 +406,7 @@ Keyword-only fields
 ``dataclasses`` は、生成された ``__init__`` メソッドでキーワードのみのフィールド
 を対応している。
 
-.. code:: python
+.. sourcecode:: python
 
    from dataclasses import dataclass
 
@@ -415,7 +416,7 @@ Keyword-only fields
        name: str
        birthday: datetime.date
 
-.. code:: python
+.. sourcecode:: python
 
    from dataclasses import dataclass
 
@@ -432,7 +433,7 @@ keyword-only フィールドに続く必要があるため、フィールドの�
 また、``KW_ONLY`` マーカーに続くフィールドすべてが keyword-only であることを指定
 することもできる。これがおそらく最もふつうの使用法だろう。
 
-.. code:: python
+.. sourcecode:: python
 
    from dataclasses import dataclass, KW_ONLY
 
@@ -540,7 +541,7 @@ PEP 586 で指定された静的型チェッカーの動作と一致するよう
 に ``TypeError`` 例外が発生するようになっている。ただし、ハッシュ化不能引数を持
 つ ``Literal`` を宣言してもエラーは発生しない。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> from typing import Literal
    >>> Literal[{0}]

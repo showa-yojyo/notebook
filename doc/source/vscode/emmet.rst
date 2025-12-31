@@ -10,7 +10,8 @@ sass などか、または php など上記のいずれかを継承している�
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 概念
 =======================================================================
@@ -34,7 +35,7 @@ VS Code の設定ファイル :file:`settings.json` で制御できる Emmet オ
 Emmet 展開をなるべくさせない言語モード ID 文字列からなる配列を指定する。
 既定値に Markdown が含まれていることに注意。
 
-.. code:: json
+.. sourcecode:: json
 
    "emmet.excludeLanguages": ["markdown"]
 

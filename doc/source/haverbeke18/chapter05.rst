@@ -7,7 +7,8 @@ Higher-Order Functions
 前章までの記述から JavaScript にも高階関数の概念が存在することは想像できる。本章
 でそれを議論している。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Abstraction
 ======================================================================
@@ -22,7 +23,7 @@ Abstracting repetition
 プログラミングでは、与えられた回数だけ何かを反復するというのは普通のことだ。この
 ことをどれだけ抽象化できるかを考える。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function repeat(n, action) {
        for (let i = 0; i < n; i++) {
@@ -49,7 +50,7 @@ Higher-order functions
 
 この例が少し難しい：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function unless(test, then) {
    if (!test) then();
@@ -73,7 +74,7 @@ Script data set
 
 * それは配列であって、次のようなオブジェクトを 140 個含んでいるようだ：
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      {
          name: "Coptic",
@@ -89,7 +90,7 @@ Filtering arrays
 
 配列のメソッド ``filter`` を使って、与えた条件を満たす要素だけを抽出する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     console.log(SCRIPTS.filter(s => s.direction == "ttb"));
     // → [{name: "Mongolian", …}, …]
@@ -102,7 +103,7 @@ Transforming with map
 配列のメソッド ``map`` は、すべての要素に与えた関数を適用し、返された値から新し
 い配列を作成する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let rtlScripts = SCRIPTS.filter(s => s.direction == "rtl");
    console.log(map(rtlScripts, s => s.name));
@@ -120,7 +121,7 @@ Summarizing with reduce
 * 上で述べた「要素を一つ取り出し」ができない場合の値を引数として指定することもで
   きる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.assert([1, 2, 3, 4].reduce((a, b) => a + b) == 10);
 
@@ -129,7 +130,7 @@ Composability
 
 高階関数が活躍するのは、操作を合成する必要があるときだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function average(array) {
        return array.reduce((a, b) => a + b) / array.length;
@@ -186,7 +187,7 @@ Flattening
 
 **解答** 原文から、二次元配列を一次元配列に平坦にする処理として実装する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function flatten(array){
        return array.reduce((total, i) => total.concat(i), []);
@@ -209,7 +210,7 @@ Your own loop
 
 **解答** つまらないものができた：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function loop(){
        function inner(value, test, update, body){
@@ -236,7 +237,7 @@ Everything
 
 **解答** 前半は単純に：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function every(array, pred){
        for(const i of array){
@@ -249,7 +250,7 @@ Everything
 
 後半は De Morgan の法則を応用する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function every(array, pred){
        return !array.some(i => !pred(i));
@@ -270,7 +271,7 @@ Dominant writing direction
 
 **解答** 本文中の関数 ``textScripts`` を改変する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function textScripts(text) {
        const scripts = countBy(text, char => {

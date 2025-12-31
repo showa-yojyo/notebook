@@ -2,7 +2,8 @@
 Code quality
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Debugging in the browser
@@ -238,7 +239,7 @@ Initial implementation
 
 初期版は次のコードとする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function pow(x, n) {
        return 8; // :) we cheat!
@@ -246,7 +247,7 @@ Initial implementation
 
 明らかに正しくないのだが、テストの初期版も次のような感じなので成功する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    describe("pow", function() {
        it("raises to n-th power", function() {
@@ -259,7 +260,7 @@ Improving the spec
 
 次のテストを追加することで、失敗させる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    it("3 raised to power 4 is 81", function() {
        assert.equal(pow(3, 4), 81);
@@ -267,7 +268,7 @@ Improving the spec
 
 一つのテストは一つのことをチェックする。初期版も修正しておく：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    describe("pow", function() {
        it("2 raised to power 3 is 8", function() {
@@ -281,7 +282,7 @@ Improving the implementation
 ここで ``pow()`` の実装をまともにする。それからテスト項目を追加するやり方を柔軟
 にする。これで 3 乗のテストは比較的網羅できるようになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    describe("pow", function() {
        function makeTest(x) {
@@ -301,7 +302,7 @@ Nested describe
 
 関数 ``describe()`` の入れ子を形成することで、テストを階層的に構築する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    describe("pow", function() {
        describe("raises x to power 3", function() {

@@ -5,7 +5,8 @@ Account and profile documentation ノート
 `Account and profile documentation <https://docs.github.com/en/account-and-profile>`__
 を読んで、自分のアカウントを作り込もう。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Setting up and managing your personal account on GitHub
 ======================================================================
@@ -183,7 +184,7 @@ Git 操作では SSH しか使わないのでその辺のノートを割愛す�
 には環境変数 :envvar:`GIT_SSH_COMMAND` を設定して Git コマンドを実行する。例えば
 ``git clone`` を実行するにも次のように長いコマンドラインを書くことになる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ GIT_SSH_COMMAND='ssh -i PATH/TO/KEY/FILE -o IdentitiesOnly=yes' git clone git@github.com:OWNER/REPOSITORY
 
@@ -283,7 +284,7 @@ addresses private` だ。オンにしておきたい。提供アドレスはこ�
 
 Git コマンドはリポジトリーごとでも大域的にでも設定可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git config user.email ADDRESS
    bash$ git config --global user.email ADDRESS
@@ -308,7 +309,7 @@ GitHub にログインするときの名前を忘れた場合の悪あがき。�
 名前については自分のリポジトリーからクローンしたローカルリポジトリーの情報を確認
 するのがいいと思われる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git remote -v
    origin  git@github.com:showa-yojyo/notebook (fetch)

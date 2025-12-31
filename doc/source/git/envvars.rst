@@ -5,7 +5,8 @@
 本節では Git_ の環境変数について記す。コマンド ``git help git`` の出力中に環境変
 数に関するまとまった記述がある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 概要
 ======================================================================
@@ -24,7 +25,7 @@
 としている。これらの変数がすべてのコアコマンド群に影響する。また、サードパー
 ティー製の Git フロントエンドツールがこれらの環境変数を当てにしている。
 
-.. code:: text
+.. sourcecode:: text
 
    GIT_INDEX_FILE
    GIT_INDEX_VERSION
@@ -65,7 +66,7 @@
 
 次の環境変数はコミット履歴改竄の主役となるべきもので、たいへん有用だ：
 
-.. code:: text
+.. sourcecode:: text
 
    GIT_AUTHOR_NAME
    GIT_AUTHOR_EMAIL
@@ -87,7 +88,7 @@
 ``--env-filter=<command>`` でそれを行う。[SO750172]_ で紹介されていた例を
 次に引用する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git filter-branch -f --env-filter "
      GIT_AUTHOR_NAME='Newname'
@@ -100,7 +101,7 @@
 
 次の環境変数が差分コマンドに関連する：
 
-.. code:: text
+.. sourcecode:: text
 
    GIT_DIFF_OPTS
    GIT_EXTERNAL_DIFF
@@ -119,7 +120,7 @@
   定できる。「外部プログラム」と書いたが、下の形式で呼び出すようなので実際には
   ラッパースクリプトを指定することになりそうだ。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ "$GIT_EXTERNAL_DIFF" old-file old-hex old-mode new-file new-hex new-mode
 
@@ -130,7 +131,7 @@
 
 どの括りにも当てはまらない環境変数を次に列挙する：
 
-.. code:: text
+.. sourcecode:: text
 
    GIT_MERGE_VERBOSITY
    GIT_PAGER
@@ -191,7 +192,7 @@
   これは差分表示などでページャーが出てくるのを防ぐのに使える。ページャーを一時的
   に無効にしたいならば次のようにすればいい：
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ GIT_PAGER= git diff
 

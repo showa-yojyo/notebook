@@ -9,7 +9,7 @@ Docker 導入時手順
 その選択による不都合は ``docker init`` が使えないことと、Kubernetes との連携が実
 現できなくなることくらいしかない。
 
-.. contents:: 本章見出し
+.. contents:: 見出し一覧
    :depth: 3
    :local:
 

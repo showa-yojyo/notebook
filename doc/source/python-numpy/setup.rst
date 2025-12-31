@@ -4,18 +4,19 @@
 
 自分の Python_ 環境に NumPy_ をインストールする方法を記す。
 
-また、NumPy に関する各種ドキュメント、リファレンスが HTML と PDF ファイルの形で
+また、NumPy に関する各種ドキュメント、レファレンスが HTML と PDF ファイルの形で
 利用できるようになっている。これらのドキュメントをローカルディスクに保存してお
 き、オフラインでもすぐにアクセスできるようにする。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 パッケージをインストールする
 ======================================================================
 
 基本的には :ref:`miniconda-anchor-pip` の方針に従え。
 
-インストールを終了したら、何はさておき :file:`README.txt` と:file:`INSTALL.txt`
+インストールを終了したら、何はさておき :file:`README.txt` と :file:`INSTALL.txt`
 を一読すること。目をひくのは単体テストが実行できるということだが、これには別途
 Nose_ というサードパーティー製のライブラリーを Python 環境にインストールしておく
 必要がある。
@@ -35,6 +36,27 @@ nose version 1.3.3
 Ran 4762 tests in 207.414s
 OK (KNOWNFAIL=10, SKIP=8)
 <nose.result.TextTestResult run=4762 errors=0 failures=0>
+46454 passed, 2422 skipped, 2818 deselected, 33 xfailed, 5 xpassed in 276.16s (0:04:36)
+
+.. admonition:: 利用者ノート
+
+   NumPy 2.x 系では Nose_ を用いていない。単体テストを pytest_ で実装している。
+   同様の関数呼び出しでテストを開始することが可能だが、Hypothesis_ や Meson_と
+   いった依存パッケージが必要であるようだ。
+
+   >>> import numpy
+   >>> numpy.test()
+   NumPy version 2.3.0
+   NumPy CPU features:  SSE SSE2 SSE3 SSSE3* SSE41* POPCNT* SSE42* AVX* F16C* FMA3* AVX2* AVX512F? AVX512CD? AVX512_KNL? AVX512_KNM? AVX512_SKX? AVX512_CLX? AVX512_CNL? AVX512_ICL? AVX512_SPR?
+   ............................................................................................ [  0%]
+   ..............................................................x............................. [  0%]
+   ............................................................................................ [  0%]
+   ......................................................................................x..... [  0%]
+   ............................................................................................ [  0%]
+   ............................................................................................ [  1%]
+   ... 略 ...
+   ................................Xxx.......................x...                               [100%]
+   46454 passed, 2422 skipped, 2818 deselected, 33 xfailed, 5 xpassed in 276.16s (0:04:36)
 
 アップグレード
 ----------------------------------------------------------------------
@@ -42,29 +64,10 @@ OK (KNOWNFAIL=10, SKIP=8)
 Anaconda_ または Miniconda_ で Python 環境を管理しているのであれば、コンソールか
 ら ``conda update numpy`` で問題ないはずだ。
 
-最近では標準 pip_ で環境に最適なパッケージをダウンロード、インストールするような
-仕組みが整備されているようだ。そういうわけで、今回のアップグレードは
-:program:`pip` を利用した。手順は次のようなものだ。
-
-#. まずは `Python Extension Packages for Windows - Christoph Gohlke`_ から
-   :file:`numpy-x.y.z+mkl-cp34-none-win_amd64.whl` のような名前の whl アーカイブをダウンロードする。
-#. そして適当なディレクトリーに移動し、コマンドラインから次のようにする。1.8.2
-   から 1.9.2 へのアップグレードの例である。
-
-   .. code:: console
-
-      bash$ pip install --upgrade numpy-1.9.2+mkl-cp34-none-win_amd64.whl
-      Unpacking d:\tmp\numpy-1.9.2+mkl-cp34-none-win_amd64.whl
-      Installing collected packages: numpy
-      Successfully installed numpy
-      Cleaning up...
-
-#. 最後に前節の要領でインストールの成功を確認する。
-
 ドキュメントをローカルディスクに保存する
 ======================================================================
 
-オンラインであれば `Numpy and Scipy Documentation <http://docs.scipy.org/doc/>`_
+オンラインであれば `Numpy and Scipy Documentation <https://docs.scipy.org/doc/>`_
 のページから欲しい情報に辿り着けるだろう。クラス名や関数名を調べるときは、キー
 ワード検索よりもインデックスページでのサーチのほうが早い。
 
@@ -74,9 +77,11 @@ Anaconda_ または Miniconda_ で Python 環境を管理しているのであ�
 できる。
 
 NumPy Reference Guide (:file:`numpy.chm`)
-  全関数リファレンスが含まれている。
+  全関数レファレンスが含まれている。
 Guide to NumPy
   こちらはどちらかと言えば読み物。読書家向けか。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
+.. _Hypothesis: https://hypothesis.works/
+.. _Meson: https://mesonbuild.com/

@@ -5,7 +5,8 @@ Chapter 05: Smart Pointers and Memory Management
 `Chapter 05 Smart Pointers and Memory Management <https://changkun.de/modern-cpp/en-us/05-pointers/>`__
 についてのノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 5.1 RAII and Reference Counting
 ======================================================================
@@ -32,7 +33,7 @@ Chapter 05: Smart Pointers and Memory Management
 くなる。``std::make_shared`` は指定引数からオブジェクトを生成、確保する。そし
 て、このオブジェクト型の ``std::shared_ptr`` オブジェクトを返す。
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto pointer = std::make_shared<int>(10);
 
@@ -72,7 +73,7 @@ Chapter 05: Smart Pointers and Memory Management
 ``std::shared_ptr`` は次のような使い方をすると解放漏れが生じる。デストラクターを
 実装して、デバッガーでステップ実行すればわかる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    class A;
    class B;

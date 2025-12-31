@@ -4,7 +4,8 @@ What's New In Python 3.6 ノート
 
 What's New In Python 3.6 を読んで、個人的に関心のある項目に注釈を付けていく。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 新規機能
 ======================================================================
@@ -14,7 +15,7 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
   * 最初は利用価値がわからなかったが、使ってみると便利だったのでこれ一本にしよ
     う。
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        '{} {} {}'.format(a, b, c))
        f'{a} {b} {c}'
@@ -25,7 +26,7 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
 * 数値リテラル内のおよびフォーマット文字列内のアンダースコア表記法が追加。最近の
   C++ にもこういう表記法がある。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: 0xFFFF_FFFF
      Out[1]: 4294967295
@@ -38,7 +39,7 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
 
   反対方向もできる：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [7]: f'{0xFFFFFFFF:_}'
      Out[7]: '4_294_967_295'
@@ -54,7 +55,7 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
 
 * ``__init_subclass__`` クラスメソッドによるサブクラス生成のカスタマイズ。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      def __init_subclass__(cls, **kwargs):
          super().__init_subclass__(**kwargs)
@@ -68,7 +69,7 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
 
     言いたいことはこれだけだ：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: class IntField:
           ...:
@@ -139,7 +140,7 @@ What's New In Python 3.6 を読んで、個人的に関心のある項目に注�
 * ``json``: ``load()``, ``loads()`` がバイナリーを入力として認めるようになった。
 * ``math``: 定数 ``tau`` 追加。円周率の倍。地味に便利。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from math import cos, sin, isclose, tau
 

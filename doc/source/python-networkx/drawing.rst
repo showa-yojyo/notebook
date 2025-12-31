@@ -13,7 +13,8 @@
 る。例えば、完全グラフのデモなら、ノードが正多角形を構成するような描画になるよう
 に dot を編集するのだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Matplotlib との連携
 ======================================================================
@@ -51,7 +52,7 @@ PyGraphviz との連携
 Python 3.5 環境では、現時点で PyGraphviz_ を利用するには自分でビルドをする必要が
 ありそうだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/pygraphviz/pygraphviz.git
    Cloning into 'pygraphviz'...
@@ -84,7 +85,7 @@ Python3 動作版 pydot のセットアップ
 <https://github.com/nlhepler/pydot>`_ を利用するのがもっとも安定した動作実績を得
 られることがわかった。バージョンは 1.0.29 だ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/nlhepler/pydot.git
    bash$ cd pydot
@@ -96,7 +97,7 @@ Python3 動作版 pydot のセットアップ
 別の方法を見つけたので記す。それは nxpydot_ というサードパーティー製パッケージを
 利用するやり方だ。本稿ではこちらを採用する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install nxpydot
    Collecting nxpydot

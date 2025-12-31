@@ -2,7 +2,8 @@
 User Journey Diagram
 =======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ..
@@ -27,7 +28,7 @@ Mermaid の文書を読むまでこれを知らなかった。いったん知れ
 
   Tasks syntax is
 
-  .. code:: text
+  .. sourcecode:: text
 
      Task name: <score>: <comma separated list of actors>
 

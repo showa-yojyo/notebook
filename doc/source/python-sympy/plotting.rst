@@ -4,7 +4,8 @@
 
 ここでは SymPy_ プロット機能に関する覚え書きを記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 所感
 ======================================================================
@@ -153,7 +154,7 @@
     数点型の数を返す関数からどのように線の色が決まるのかがわからない。SymPy の実
     装を見ても理解できないのでダメだ。
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        plot(sin(x), (x, -pi, pi), adaptive=False, line_color=lambda a: sin(a))
 

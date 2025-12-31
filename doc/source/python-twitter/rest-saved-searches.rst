@@ -6,7 +6,8 @@
 ントに頻用検索用語集を埋め込んだことにより、現在ではまったく用いなくなったもので
 ある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET saved_searches/list
 ======================================================================
@@ -34,7 +35,7 @@ GET saved_searches/show:id は保存済みの検索クエリーの詳細を得�
 
 実行結果を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./saved_searches-show-id.py
    [{'created_at': 'Fri Nov 27 14:14:19 +0000 2015',
@@ -55,7 +56,7 @@ POST saved_searches/create
 
 実行結果を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./saved_searches-list.py
    [{'created_at': 'Fri Nov 27 14:14:19 +0000 2015',

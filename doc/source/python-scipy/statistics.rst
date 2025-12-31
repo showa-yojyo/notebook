@@ -4,7 +4,8 @@
 
 本稿では SciPy_ の確率と統計の機能を見ていこう。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 基本統計量
 ======================================================================
@@ -197,7 +198,7 @@ Python 標準の ``range()`` のように引数を指定する。
 メソッド ``cdf()`` は分布関数だ。この例では意味はないが :math:`{P(X \le i)}` を順次
 計算している。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from scipy.stats import randint
 
@@ -243,7 +244,7 @@ Python 標準の ``range()`` のように引数を指定する。
 
 最後に ``cdf()`` 関数で分布関数の値 :math:`{P(X \lt x)}` を出力する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: from scipy.stats import norm
 

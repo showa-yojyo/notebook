@@ -5,7 +5,8 @@ Chapter 06: Regular Expression
 `Chapter 06: Regular Expression <https://changkun.de/modern-cpp/en-us/06-regex/>`__
 に関するノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 6.1 Introduction
 ======================================================================
@@ -46,7 +47,7 @@ C++11 の正規表現ライブラリーは
 ロードが存在する。単純な形式は ``std::string`` と ``std::regex`` を渡すものだ。
 マッチするか否かを ``bool`` 値で返す。
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <iostream>
    #include <string>
@@ -72,7 +73,7 @@ C++11 の正規表現ライブラリーは
 れており、これは部分文字列反復子型の ``match_results`` を意味する。
 ``std::smatch`` を使うと、例えば、マッチング結果を容易に得ることが可能だ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    const std::regex base_regex(R"(([a-z]+)\.txt)");
    for(const auto &fname: fnames) {

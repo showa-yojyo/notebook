@@ -4,14 +4,15 @@
 
 SymPy オブジェクトを表現するいろいろな方法について記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy import cos, sin
       from sympy.printing import *
@@ -55,7 +56,7 @@ LaTeX
 * ``fold_func_brackets=True`` を指定すると、数学関数呼び出しのカッコを可能な限り
   省略する。例えば三角関数を多く含む式に対して適用すると効果がわかりやすい：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy import cos, sin
 
@@ -77,7 +78,7 @@ LaTeX
   には行列のカッコを SymPy が別途補うので、さらに ``mat_delim`` キーワード引数を
   空文字列等に指定することでそれを無効化する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: from sympy import Matrix
 
@@ -214,7 +215,7 @@ PNG 出力
 
   例えば Windows 上での実行において「ペイント」を起動させるには次のようにする：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: preview(cos(x)**2 + sin**2(x), viewer='mspaint')
 
@@ -225,7 +226,7 @@ PNG 出力
   ``viewer='file'`` に加えて、キーワード引数 ``filename`` を指定し、保存先のファ
   イルパスを指定する必要がある：
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [2]: preview(cos(x)**2 + sin(x)**2, viewer='file', filename='preview.png')
 
@@ -245,7 +246,7 @@ DVI 出力
 り、環境変数 ``PATH`` には :program:`dviout` 等の実行形式格納フォルダーのパスが
 含まれている。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: preview(cos(x)**2 + sin(x)**2, output='dvi', viewer='dviout')
 
@@ -261,14 +262,14 @@ PDF 出力
 同等の処理が入る。 TeX Live では :program:`dvipdf` が存在しないためにこれが通じ
 ず、実行時エラーを引き起こす。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ dvipdf texput.dvi texput.pdf
 
 SymPy のコードを修正して、次のようなコマンドライン実行に差し替えられれば動作する
 だろう：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ dvipdfmx texput.dvi
 
@@ -291,13 +292,13 @@ TeX ファイルを保存する
 と、処理中に中間生成する TeX ファイルを捨てずにとっておくことができる。SymPy の
 生成する TeX コードをテキストエディターで清書するにはこの手段を採用する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: preview(cos(x)**2 + sin(x)**2, outputTexFile='preview.tex', ...)
 
 ついでに preamble についても説明する。既定の内容は次のようなものだ：
 
-.. code:: latex
+.. sourcecode:: latex
 
    \documentclass[12pt]{article}
    \pagestyle{empty}
@@ -311,7 +312,7 @@ TeX ファイルを保存する
 これをキーワード引数 ``preamble`` を指定することで変更できる。次に説明する TeX
 数式直接指定の際に、必要パッケージを指示するためにはこれが使える。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [2]: preamble = r'''\documentclass[10pt]{article}
       ...: \usepackage{amsmath,amsfonts}
@@ -326,7 +327,7 @@ TeX ファイルを保存する
 実は関数 ``preview`` の引数としては SymPy オブジェクトだけではなく、 TeX 数式を
 表す文字列も受け付ける。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: preview(r'$\cos^2 x + \sin^2 x$', output='png', viewer='mspaint')
 
@@ -334,4 +335,3 @@ TeX ファイルを保存する
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
-

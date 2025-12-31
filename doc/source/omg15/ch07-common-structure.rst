@@ -2,7 +2,8 @@
 7 Common Structure
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 7.1 Summary
@@ -509,7 +510,7 @@ TemplateableElement の記法。TemplateableElement に TemplateParameter があ
 
 TemplateParameter の記法。CSV で記すか、一行に一つの仮引数を示す。
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <template-parameter> ::= <template-param-name> [':' <parameter-kind> ] ['=' <default>]
 
@@ -530,7 +531,7 @@ TemplateBinding の記法。破線矢印で示す。
 
 束縛情報を CSV で記してよい：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <template-param-substitution> ::= <template-param-name> ‘->’ <actual-template-parameter>
 
@@ -545,7 +546,7 @@ TemplateParameter に対する ParameteredElement の種類によって異なる
    The name of the bound element is extended to contain binding expressions with
    the following syntax:
 
-   .. code:: bnf
+   .. sourcecode:: bnf
 
       [<element-name> ‘:’] <binding-expression> [‘,’ <binding-expression>]*
       <binding-expression> ::= <template-element-name> ‘<‘ <template-param-substitution> [‘,’<template-param-substitution]*‘>’
@@ -786,19 +787,19 @@ PackageImport または ElementImport は頭が開いた破線矢印で表現す
 破線による表記の代替として、一意に識別するテキストを示せる。PackageImport のテキ
 スト記法は：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    ‘{import ’ <qualified-name> ‘}’ | ‘{access ’ <qualified-name> ‘}’
 
 ElementImport のテキスト記法は：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    ‘{element import’ <qualified-name> ‘}’ | ‘{element access ’ <qualified-name> ‘}’
 
 ``alias`` がある場合には、それを示してもよい：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    ‘{element import ’ <qualified-name> ‘ as ’ <alias> ‘}’ | ‘{element access ’ <qualified-name> ‘as’ <alias> ‘}’
 
@@ -941,7 +942,7 @@ MultiplicityElement が多値でない場合、``isUniqueOrdered`` の値は意�
 
 MultiplicityElement の記法は体が覚えていると思う：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <lower-bound> ‘..’ <upper-bound>
 
@@ -963,7 +964,7 @@ UnlimitedNatural 型の ValueSpecification だ。星形文字 ``*`` は、無制
    to use a textual annotation containing “ordered” or “unordered” to define the
    ordering, and “unique” or “nonunique” to define the uniqueness.
 
-.. code:: bnf
+.. sourcecode:: bnf
 
   <multiplicity> ::= <multiplicity-range> [ [ ‘{‘ <order-designator> [‘,’ <uniqueness-designator> ] ‘}’ ] |
   [ ‘{‘ <uniqueness-designator> [‘,’ <order-designator> ] ‘}’ ] ]
@@ -1052,7 +1053,7 @@ Operation の ``precondition`` である Constraint は Operation の呼び出�
 
 基本的には中括弧とブーリアン式を組み合わせた表記になる：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <constraint> ::= ‘{‘ [ <name> ‘:’ ] <boolean-expression> ‘ }’
 

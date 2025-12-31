@@ -5,7 +5,8 @@
 NetworkX_ 自身のインストールおよび、依存パッケージのインストールについて説明す
 る。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 NetworkX をインストールする
 ======================================================================
@@ -15,7 +16,7 @@ NetworkX をインストールする
 もしくは開発版レポジトリーからモジュールをクローンして、場合によっては改造して利
 用するのもありだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ git clone https://github.com/networkx/networkx.git
    ...
@@ -25,14 +26,11 @@ NetworkX をインストールする
 インストールの成功を確認する
 ======================================================================
 
-NetworkX のユニットテストを実行して、結果が正常であればインストール成功とみなそ
-う。Nose_ が環境にあれば、次の操作でテストの実行となる。 NumPy_ や SciPy_ のそれ
-と同じスタイルなので馴染みやすい。
+NetworkX の単体試験を実行して結果が正常であればインストール成功とみなそう。
+Nose_ が環境にあれば次の操作で試験となる。NumPy_ や SciPy_ のそれと同じスタイル
+なので馴染みやすい：
 
-次のコードは、Python コマンドライン上から NetworkX のユニットテストを実行するも
-のだ：
-
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> import networkx as nx
    >>> nx.test(verbosity=2)
@@ -46,16 +44,21 @@ NetworkX のユニットテストを実行して、結果が正常であれば�
 
    OK (SKIP=4)
 
-``verbosity=2`` でテストすると、いくつかスキップされる項目が出てくる。これらよ
-り、NetworkX がサポートしていて現在の環境に存在しないサードパーティー製パッケー
-ジが判明する。
+``verbosity=2`` で呼び出すいくつかスキップされる項目が出てくる。これらより
+NetworkX がサポートしていて現在の環境に存在しないサードパーティー製パッケージが
+判明する。
 
-.. code:: text
+.. sourcecode:: text
 
    SKIP: PyGraphviz not available.
    SKIP: pydot not available.
    SKIP: ogr not available.
    SKIP: yaml not available.
+
+.. admonition:: 利用者ノート
+
+   NetworkX 3.x ではテストモジュールがパッケージから取り除かれた。上記の単体テス
+   ト実行関数は現存しない。Nose のことも忘れていい。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

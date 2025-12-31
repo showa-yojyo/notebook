@@ -2,7 +2,8 @@
 Chapter 25. Using the Command Line
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 コマンドラインで Inkscape を操縦できればたいへんうれしい。何ができるのか見ていこ
 う。
@@ -26,7 +27,7 @@ Chapter 25. Using the Command Line
    Here is a simple example of opening a file, selecting an object, flipping it,
    and then saving the file. The Star has an id of ``MyStar``.
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ inkscape --select=MyStar --verb ObjectFlipVertically --verb FileSave --verb FileClose MyStar.svg
 
@@ -60,7 +61,7 @@ Chapter 25. Using the Command Line
    without restarting Inkscape each time. Here is an example of exporting the
    :file:`MyStar.svg` to a :abbr:`PNG`:
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ inkscape --shell
       Inkscape 0.48 interactive shell mode. Type 'quit' to quit.
@@ -104,7 +105,7 @@ General Command Line Options
    例えば後述する :abbr:`PNG` エクスポートをこれで実行するには、例えば次のように
    指定する：
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ inkscape --actions="file-new:/path/to/input.svg;export-area-page;export-filename:/path/to/output.png;export-do"
 
@@ -170,7 +171,7 @@ Format Options
 例えば Linux では出力を PostScript ファイルに送るコマンドは次のようなものだ（他
 にも考えられる）：
 
-.. code:: console
+.. sourcecode:: console
 
    $inkscape -o test.ps test.svg
 
@@ -187,7 +188,7 @@ Export Region Options
    次は図面が 200×100 だとしたら、その左半分を PNG に書き出すコマンドラインの例
    だ：
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ inkscape --export-area=0:0:100:100 -o test.png test.svg
 
@@ -318,7 +319,7 @@ Query Command Line Options
    Here is an example of finding the *x* position of the zoom-in icon in the
    default icon file on a Linux system:
 
-   .. code:: console
+   .. sourcecode:: console
 
       $ inkscape --query-id=zoom-in -X /usr/share/inkscape/icons/icons.svg
 
@@ -359,7 +360,7 @@ Inkscape 1.2 のディレクトリー以下に見当たらない。試したい�
 
 最後の四つのオプションはテキスト処理の観点から使いにくい：
 
-.. code:: console
+.. sourcecode:: console
 
    $ inkscape -I rect312645 -XYWH drawing.svg
    134.17

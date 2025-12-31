@@ -6,7 +6,8 @@ SymPy_ をインストールする前に、オンラインシェルでまずは�
 を感じたので、自分の Python_ 環境に SymPy をインストールした。その過程をここで述
 べる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 下見する
 ======================================================================
@@ -44,7 +45,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 私の場合は Git があるのでこちらのやり方のほうが容易だ。次のようにコマンドライン
 を入力したところ、うまくインストールできた。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd ~/devel
    bash$ git clone git://github.com/sympy/sympy.git
@@ -88,7 +89,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 
 単にバージョンを確認するには、例えば次のようにする：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python -c 'import sympy; print(sympy.__version__)'
    0.7.7.dev
@@ -96,7 +97,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 もしくは pip を利用する。こちらの方法のほうが潰しが効くので憶えておくとよいだろ
 う：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip show sympy
    ---
@@ -117,7 +118,7 @@ SymPy のドキュメントによると、ソースからのインストール�
 せっかくソースごとインストールしたので、開発用のものと思われる単体テストを行う。
 私の環境で実施したところ、次のようなレポートが延々と出力されていた。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python -c 'import sympy; sympy.doctest()'
    ============================= test process starts ==============================
@@ -155,7 +156,7 @@ SymPy のドキュメントによると、ソースからのインストール�
   :program:`isympy` を走らせるとキーバインド等の具合がよい。私の場合は下記コマン
   ドラインのようにする：
 
-  .. code:: text
+  .. sourcecode:: text
 
      D:\Python35\python.exe "D:\home\yojyo\devel\sympy\bin\isympy" --pretty=no -- --profile=sympy
 
@@ -164,7 +165,7 @@ SymPy のドキュメントによると、ソースからのインストール�
   ファイル :file:`$HOME/.ipython/profile_sympy/ipython_config.py` を採用する。次
   の行を編集してある。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      c.InteractiveShellApp.pylab_import_all = False
 

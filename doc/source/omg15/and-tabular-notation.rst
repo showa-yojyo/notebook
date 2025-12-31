@@ -2,7 +2,8 @@
 Annex D: Tabular Notation for Sequence Diagrams
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 この付録では sequence 図のオプションの表形式記法を述べる。

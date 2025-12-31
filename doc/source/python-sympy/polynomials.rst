@@ -6,14 +6,15 @@
 な限り見ていく。 SymPy_ は多項式の取り扱いをかなり重要視しているようで、素人に
 とっては手に余るほどの豊富な機能を提供している。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy import *
       init_printing(pretty_print=False)
@@ -41,7 +42,7 @@
     ものであるのかを指定する。引数として文字列 ``'ZZ'`` や ``'QQ'`` などを指定す
     る。例を示す：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: from sympy.abc import x
 
@@ -60,7 +61,7 @@
   * 多変数多項式にも対応している。
     どのシンボルが変数なのかを明示的に指示することもできる：
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [6]: from sympy.abc import y
 
@@ -139,7 +140,7 @@
     解したい場合は、別に関数 ``factorint`` が用意されている。
   * キーワード引数各種により因数分解の範囲を「拡大」できる。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: factor(x**2 + 1, gaussian=True)
        Out[1]: (x - I)*(x + I)
@@ -176,7 +177,7 @@ Gröbner 基底
   * ところでキーワード引数 :code:`domain='ZZ'` のようなものはサポートされていな
     いのだろうか。次のようにシンボルを設定し直せば意図通りの動きはするようだが。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: solve([(x**4 - 1) * (x**4 - 4)], x)
        Out[1]: [(-1,), (1,), (-sqrt(2),), (sqrt(2),), (-I,), (I,), (-sqrt(2)*I,), (sqrt(2)*I,)]
@@ -196,7 +197,7 @@ Gröbner 基底
   * Mathematica のドキュメントを参考にした例が解けない。先述の動作環境では 1 分
     経っても呼び出しから返ってこない。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: x = symbols('x', real=True)
 
@@ -238,7 +239,7 @@ Gröbner 基底
   * キーワード引数 :code:`formal=True` を指定すること、基本対称式を名前で出して
     くれる。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: symmetrize(x**3 + y**3 + z**3, formal=True)
        Out[1]: (s1**3 - 3*s1*s2 + 3*s3, 0, [(s1, x + y + z), (s2, x*y + x*z + y*z), (s3, x*y*z)])
@@ -251,7 +252,7 @@ Gröbner 基底
   * :code:`{1:1, 2:4, 3:9, 4:16}`
   * :code:`[1, 4, 9, 16]`
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: x0, x1, x2 = symbols('x0:3')
 
@@ -306,7 +307,7 @@ Gröbner 基底
 
   * :code:`multiple=True` とすると、重根を丁寧に出力するようだ。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: roots(x**2 - 2*x + 1, multiple=True)
        Out[1]: [1, 1]
@@ -316,7 +317,7 @@ Gröbner 基底
 
   * 根基で表現できる解だけを計算する。
 
-    .. code:: ipython
+    .. sourcecode:: ipython
 
        In [1]: roots(x**5 - 22*x + 19)
        Out[1]: {}
@@ -341,7 +342,7 @@ Gröbner 基底
 関数 :code:`symmetric_poly(n, *gens, **args)`
   与えた複数の文字における ``n`` 番目の基本対称多項式を生成する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: symmetric_poly(4, symbols('x0:5'))
      Out[1]: x0*x1*x2*x3 + x0*x1*x2*x4 + x0*x1*x3*x4 + x0*x2*x3*x4 + x1*x2*x3*x4
@@ -349,7 +350,7 @@ Gröbner 基底
 関数 :code:`random_poly(x, n, inf, sup, domain=ZZ, polys=False)`
   各項の係数がランダムかつ指定範囲に収まるような多項式を生成する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: random_poly(x, 3, -10, 10)
      Out[1]: x**3 + 2*x**2 + 4*x + 9
@@ -371,7 +372,7 @@ Gröbner 基底
 関数 :code:`chebyshevt_poly(n, x=None, **args)`, :code:`chebyshevu_poly(n, x=None, **args)`
   それぞれ第一種 Chebyshev 多項式、第二種 Chebyshev 多項式を求める。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: simplify(chebyshevt_poly(3, cos(x)))
      Out[1]: cos(3*x)
@@ -407,7 +408,7 @@ Gröbner 基底
 関数 :code:`jacobi_poly(n, a, b, x=None, **args)`
   Jacobi の多項式を求める。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: P = jacobi(2, 10, 20, x)
 
@@ -419,7 +420,7 @@ Gröbner 基底
 関数 :code:`legendre_poly(n, x=None, **args)`
   Legendre の多項式を求める。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: P3 = legendre_poly(3, x)
 
@@ -455,7 +456,7 @@ Gröbner 基底
 関数 :code:`apart(f, x=None, full=False, **options)`, :code:`apart_list(f, x=None, dummies=None, **options)`
   有理関数を部分分数分解する。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: together((x**2 - 4*x)/(x**2 - x) + (x**2 + 3*x - 4)/(x**2- 1))
      Out[1]: ((x - 4)*(x**2 - 1) + (x - 1)*(x**2 + 3*x - 4))/((x - 1)*(x**2 - 1))

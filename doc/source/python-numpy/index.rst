@@ -32,7 +32,7 @@ NumPy 利用ノート
    以降の Python インタープリターセッション内にあるコード片では、次の ``import``
    を済ませてあるものとする：
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       import numpy as np
 
@@ -46,7 +46,7 @@ Numpy_
 ======================================================================
 
 * :doc:`/python-scipy/index`
-* :doc:`/python-nose`
+* :doc:`/python-nose`: ただし NumPy 2.x を使う場合は忘れろ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

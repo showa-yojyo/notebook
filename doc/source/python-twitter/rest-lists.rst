@@ -5,7 +5,8 @@
 本節では lists 系 API の応用について記す。私が Twitter の機能で最も利用するのが
 リストである。特にリストへのユーザー登録処理を重視している。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 POST lists/create
 ======================================================================
@@ -43,7 +44,7 @@ GET lists/list は指定ユーザーの所有する全てのリストと購読�
 
 実行例を示す。自分のものについては隠しリストも得られる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./lists-list.py
    public @mj_sega_ad/【mj5】twitter連動
@@ -87,7 +88,7 @@ GET lists/show は指定のリストの詳細を知るための API だ。次の
 
 コンソールからの実行例を示す。ユーザー自身の情報は一部カットした。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ lists-show.py
    {'created_at': 'Sun Feb 12 13:21:16 +0000 2012',

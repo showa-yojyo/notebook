@@ -4,7 +4,8 @@ OpenGL Shading Language 4.60 Specification 読書ノート Part 7
 
 `仕様書該当部分 <https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.html#built-in-variables>`__
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. _khronos18-7:
 
@@ -168,7 +169,7 @@ Tessellation Evaluation Input Variables
 を識別する三成分 ``(u, v ,w)`` ベクトルを指定する。値は以下の性質に従い、細分計
 算を再現する援助とする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    gl_TessCoord.x == 1.0 - (1.0 - gl_TessCoord.x) // two operations performed
    gl_TessCoord.y == 1.0 - (1.0 - gl_TessCoord.y) // two operations performed
@@ -442,7 +443,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 よって開始されたすべての作業グループにわたる他のすべての呼び出しからこの呼び出し
 を一意に識別する。これは次のように計算される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    gl_GlobalInvocationID =
        gl_WorkGroupID * gl_WorkGroupSize + gl_LocalInvocationID;
@@ -450,7 +451,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 組み込み変数 ``gl_LocalInvocationIndex`` は ``gl_LocalInvocationID`` の一次元表
 現を含む計算シェーダーの入力変数だ。これは次のように計算される：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    gl_LocalInvocationIndex =
        gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +
@@ -476,7 +477,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 義だ。これらの言語では、出力 ``gl_PerVertex`` ブロックに以下のメンバーが追加されて
 いる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    out gl_PerVertex { // part of the gl_PerVertex block described in 7.1
        // in addition to other gl_PerVertex members...
@@ -501,7 +502,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 シェーダーで再宣言して、これらの追加メンバーを明示的に含めることができる。例え
 ば：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    out gl_PerVertex {
        vec4 gl_Position;    // will use gl_Position
@@ -530,7 +531,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 デックスを使用すると、実装が様々な (varying) 資源を保存するのに役立つかもしれな
 い。``gl_TexCoord`` の再宣言は、例えば、大域スコープで行うこともできる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    in vec4 gl_TexCoord[3];
    out vec4 gl_TexCoord[4];
@@ -545,7 +546,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 細分化制御、同評価、幾何シェーダーでは、上述の直前段階の出力は、これらの言語の入
 力 ``gl_PerVertex`` ブロックでも利用可能だ。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    in gl_PerVertex { // part of the gl_PerVertex block described in 7.1
        // in addition to other gl_PerVertex members...
@@ -565,7 +566,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 含めなければならない。組み込みインスタンス名を含まない場合や、名前を変更する場合
 は、コンパイルエラーとなる。例えば、以下のようになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    in gl_PerVertex {
        vec4 gl_ClipVertex;
@@ -581,7 +582,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 次の断片入力ブロックは、互換性プロファイルを使用する場合、断片シェーダーでも使用
 できる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    in gl_PerFragment {
        in float gl_FogFragCoord;
@@ -617,7 +618,7 @@ gl_WorkGroupSize.y - 1, gl_WorkGroupSize.z - 1)`` までだ。
 互換性プロファイルを使用する場合、以下の断片出力変数が断片シェーダーで使用でき
 る：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    out vec4 gl_FragColor;
    out vec4 gl_FragData[gl_MaxDrawBuffers];
@@ -705,7 +706,7 @@ SPIR-V を生成する際、組み込み一様状態は利用できない。そ�
 ターフェイスのどの部分集合を使用するかを明示的に示すことができる。これは複数のプ
 ログラム間のインターフェイスを設定するために必要だ。例えば、以下のようになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    out gl_PerVertex {
        vec4 gl_Position;   // will use gl_Position
@@ -719,7 +720,7 @@ SPIR-V を生成する際、組み込み一様状態は利用できない。そ�
 ``xfb_buffer``, ``xfb_stride`` を追加することができる。また、サイズなし配列に対
 しては、配列のサイズを追加することもできる。例えば、以下のようになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    out layout(xfb_buffer = 1, xfb_stride = 16) gl_PerVertex {
        vec4 gl_Position;

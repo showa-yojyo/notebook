@@ -5,7 +5,8 @@
 Inkscape にまつわるささやかな技法を集めて記す。一般的な技法については Inkscape
 Manual で習得する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 フリーの SVG ファイルを入手する
 ======================================================================
@@ -23,7 +24,7 @@ WinGet でインストールする
 現在では WinGet でのインストールに対応している。コンソールから更新、アンインス
 トールが可能となり便利だ。
 
-.. code:: pwsh
+.. sourcecode:: pwsh
 
    > winget install -e --id Inkscape.Inkscape
 
@@ -49,7 +50,7 @@ Inkscape を操作するときは、UI の言語はドキュメントと同じ�
 `Inkscape Wiki`_ より。要するに Inkscape は環境変数 ``LANG`` を確認するというこ
 とだ。バッチファイルをインストールフォルダーに作る場合には次のように書く：
 
-.. code:: bat
+.. sourcecode:: bat
 
    @echo off
    @set LANG=en_US
@@ -88,7 +89,7 @@ Windows 版 Inkscape は既定ではフォルダー :file:`%APPDATA%\\inkscape\\
 にユーザー設定が保存される。XML なので適当に編集する。属性 ``id`` の値が ``ui``
 であるノードをテキストエディターなどで編集すればいいだろう：
 
-.. code:: xml
+.. sourcecode:: xml
 
    <group
      id="ui"

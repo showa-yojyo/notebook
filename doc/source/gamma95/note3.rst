@@ -4,7 +4,8 @@
 
 .. include:: /_include/book-details/gamma95.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 第 5 章 振る舞いに関するパターン
 ======================================================================
@@ -157,7 +158,7 @@ Command
   ``Receiver`` オブジェクトをパラメータ化するためにクラステンプレートを使うこと
   ができる> (p. 257)
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 257
      template <class Receiver>
@@ -201,7 +202,7 @@ Interpreter
 * <C++ で実装された Bool 表現を操作・評価するシステム> (p. 269) の例。これは先に
   利用例を見てから、各メソッドを見ていくのが理解がいいと思う。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // p. 272 一部改変
 
@@ -455,7 +456,7 @@ State
   * 多くの TCP 関連メソッドは空実装。当然仮想関数。
   * ここにも ``ChangeState`` という名のメソッドがいる。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        // p. 331
        void TCPState::ChangeState(TCPConnection* t, TCPState* s){
@@ -469,7 +470,7 @@ State
   * 例えば ``TCPListen::Send`` メソッドの実装は、まず SYN や ACK の送受信処理を
     行ってから、最後に
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        ChangeState(t, TCPEstablished::Instance());
 
@@ -532,7 +533,7 @@ Template Method
 またぞろ ``Application`` と ``Document`` クラスの例を挙げ、``Document`` を「開
 く」オペレーションについての議論。
 
-.. code:: c++
+.. sourcecode:: c++
 
    // pp. 347-348; 一部省略
    void Application::OpenDocument(const char* name){
@@ -665,7 +666,7 @@ Visitor
 
 * Visitor の利用例コードを見落としがちだが、以下のようになる。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      Equipment* component;
 

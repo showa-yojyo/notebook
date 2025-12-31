@@ -2,7 +2,8 @@
 An introduction
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 An Introduction to JavaScript

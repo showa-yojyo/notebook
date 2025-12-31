@@ -16,7 +16,7 @@ MongoDB 利用ノート
 インストール後、サービスを手動で稼動させる。Ubuntu の場合には :program:`service`
 を用いる：
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo service mongodb start
     * Starting database mongod                           [ OK ]
@@ -26,7 +26,7 @@ MongoDB 利用ノート
 
 サービスを停止するには：
 
-.. code:: console
+.. sourcecode:: console
 
    $ sudo service mongodb stop
     * Stopping database mongod                           [ OK ]

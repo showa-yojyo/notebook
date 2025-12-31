@@ -1,11 +1,12 @@
 ======================================================================
-GitHub Issues documentation
+GitHub Issues documentation ノート
 ======================================================================
 
 `GitHub Issues documentation <https://docs.github.com/en/issues>`__ を読んでこの
 機能を理解し、上手に利用する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 3
 
 * :guilabel:`Overview` → :ref:`About issues <issues-overview>`
@@ -87,7 +88,7 @@ GitHub ならリポジトリー :menuselection:`Issues --> New issue`. なぜわ
 角括弧の中は空白文字。次の例のようにリストを書き込むと、プレビューあるいは投稿後
 の表示ではチェックボックス付きのリストとして描画される：
 
-.. code:: markdown
+.. sourcecode:: markdown
 
    - [ ] #70
    - [ ] https://github.com/oct-org/oct-repo/issues/1752
@@ -130,7 +131,7 @@ Creating an issue
 
 GitHub CLI から作成する：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ gh issue create --title "My new issue" --body "Here are more details."
    bash$ gh issue create \

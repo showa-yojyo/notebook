@@ -7,7 +7,8 @@
 ``nx.topological_sort`` と ``nx.lexicographical_topological_sort`` である。まず
 は前者を見ていく。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 先にグラフ概形とサンプルコード全体を示す。
 

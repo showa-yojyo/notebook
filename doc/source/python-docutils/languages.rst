@@ -6,7 +6,8 @@ Docutils_ における多言語対応のフレームワークとして、サブ�
 ``docutils.languages`` およびその構成モジュールがある。これらのコードを読んでい
 く。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 利用側
 ======================================================================
@@ -19,21 +20,21 @@ Docutils_ における多言語対応のフレームワークとして、サブ�
 #. サブパッケージ ``docutils.languages`` から関数 ``get_language`` をインポート
    する。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from docutils.languages import get_language
 
 #. 関数を呼び出す。このとき、上記の言語コードを入力とする。戻り値は Python のモ
    ジュールそのものとなる。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       languages = get_language('ja')
 
 #. 必要に応じて受け取ったモジュールから何らかのデータを得る。例えば caution タグ
    用のラベルテキストを得るにはこうする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       label_caution = self.language.labels['caution']
 
@@ -50,7 +51,7 @@ Docutils_ における多言語対応のフレームワークとして、サブ�
 関数 ``get_language`` を解読する。本物ではなく、処理の本質と関わらないコードを取
 り除いた版を示す。
 
-.. code:: python3
+.. sourcecode:: python3
 
    _languages = {}
 

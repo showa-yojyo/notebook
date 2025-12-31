@@ -11,7 +11,7 @@ Sphinx 利用ノート
    bunch of reStructuredText or Markdown documents, Sphinx can generate a series
    of HTML files, a PDF file (via LaTeX), man pages and much more.
 
-.. contents::
+.. contents:: 見出し一覧
    :depth: 3
    :local:
 
@@ -139,34 +139,24 @@ online <https://www.sphinx-doc.org/en/master/tutorial/deploying.html>`__ にあ
 * リポジトリーの :menuselection:`Settings-->Pages` ページで各種項目を設定する：
 
   * Publish を有効にする
-  * :guilabel:`Source` を :guilabel:`Deploy from a branch` に設定にする
-  * :guilabel:`Branch` を設定する：
-
-    * 左ドロップダウンリストを :guilabel:`gh-pages` に設定
-    * 右ドロップダウンリストを :file:`Makefile` のあるほうのディレクトリーに設定
-
+  * :guilabel:`Source` を :guilabel:`GitHub Actions` に設定にする
 * :file:`Makefile` のあるディレクトリーに :program:`pipenv` 用のファイル
   :file:`Pipfile` および :file:`Pipfile.lock` があることを確認する。必要に応じて
   前者に対してサードパーティー製パッケージのバージョン条件を明記する。例えば：
 
   .. parsed-literal::
 
-     Sphinx >= 7.0
-     ipython >= 8.0
-     sphinxcontrib-mermaid
+     [packages]
+     sphinx = "~=8.2"
+     ipython = "~=9.0"
+     sphinxcontrib-mermaid = "~=0.9"
+     pickleshare = "*"
 
-* リポジトリーにワークフローファイルを置く。例えば
-  :file:`.github/workflows/sphinx.yml` とし、本文の内容にする。
+     [requires]
+     python_version = "3.13"
 
-  .. admonition:: 読者ノート
-
-     ステップ Upload artifacts では大容量サイズのファイルを生成することになる。
-     開発ブランチのビルドアクションでは行わず、リリースブランチだけで行うように
-     書き換えるのが望ましい。
-
-GitHub Actions がわからない場合や、ビルド時間が上限を超えるまでに文書が肥大化し
-た場合は、ローカルで Sphinx ビルドをし、得られる生成ファイルを ``gh-pages`` ブラ
-ンチに対して ``git push`` することになるだろう。
+* リポジトリーにワークフローファイルを置く。例えば次のような内容にする：
+  <https://github.com/showa-yojyo/notebook/blob/develop/.github/workflows/ci.yml>
 
 reStructuredText
 ======================================================================
@@ -639,5 +629,7 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 * :doc:`/github/index`
 * :doc:`/mathjax`
 * :doc:`/javascript-mermaid/index`
+* :doc:`/python-mkdocs`
+* :doc:`/ruby-jekyll`
 
 .. _Sphinx: https://www.sphinx-doc.org/en/master/

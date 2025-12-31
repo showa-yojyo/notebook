@@ -9,7 +9,8 @@ Chapter 02: Language Usability Enhancements
 の定義、コードの流れの制御、オブジェクト指向関数、テンプレートプログラミングなど
 が該当する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 2.1 Constants
 ======================================================================
@@ -53,7 +54,7 @@ Initializer list
 C++11 では ``std::initializer_list`` を用いてクラスオブジェクトの初期化を通常の
 配列とPOD 初期化方法と同様の記法で行えるようにすることが可能だ。
 
-.. code:: c++
+.. sourcecode:: c++
 
    #include <initializer_list>
    #include <vector>
@@ -75,7 +76,7 @@ C++11 では ``std::initializer_list`` を用いてクラスオブジェクト�
 
 上のコンストラクターがあれば、次のようにオブジェクトを生成できる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    MagicFoo magicFoo = {1, 2, 3, 4, 5};
 
@@ -88,7 +89,7 @@ Structured binding
 Python や JavaScript で見るような他の言語で提供されている複数戻り値に似た機能だ。
 C++17 から次のように書ける：
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto [x, y, z] = std::make_tuple(1, 2.3, "456");
 
@@ -106,14 +107,14 @@ C++11 では ``auto`` と ``decltype`` というキーワードを導入して�
 動変数として扱われるというものだったが、C++11 から意味が全然異なるものに変貌し
 た。
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto i = 5;              // i as int
    auto arr = new auto(10); // arr as int *
 
 C++ 20 以降、関数の引数としても ``auto`` を使うこともできる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    int add(auto x, auto y) {
        return x + y;
@@ -124,7 +125,7 @@ C++ 20 以降、関数の引数としても ``auto`` を使うこともできる
 
 キーワード ``decltype`` は式からその型をコンパイラーに推論させる。例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    auto x = 1;
    auto y = 2;
@@ -135,7 +136,7 @@ Tail type inference
 
 新しい順に述べる。C++14 では次の関数テンプレートの戻り値型 ``auto`` が適法だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T, typename U>
    auto add(T x, U y){
@@ -146,7 +147,7 @@ C++11 の時点から次のような文法があった。戻り値型のとこ�
 と書ければ一貫性があるのだが、この時点ではコンパイラーは式を構成する ``x``,
 ``y`` が何であるか解らないので、このような新文法ができた：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T, typename U>
    auto add(T x, U y) -> decltype(x + y){
@@ -156,7 +157,7 @@ C++11 の時点から次のような文法があった。戻り値型のとこ�
 従来の C++ では戻り値型もテンプレート型に書かざるを得なかった。これでは呼び出し
 コードを書くのが面倒だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename R, typename T, typename U>
    R add(T x, U y) {
@@ -174,7 +175,7 @@ C++11 の時点から次のような文法があった。戻り値型のとこ�
 めに使われるものだ、``decltype`` の引数式を明示的に指定する必要はないということ
 だ。例えば、次の関数があり、それらを個別にラップする関数を定義することを考える：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::string lookup1();
    std::string& lookup2();
@@ -182,7 +183,7 @@ C++11 の時点から次のような文法があった。戻り値型のとこ�
 C++11 まででも通じる文法で、次のよう定義される関数を現代的に書き換えることを考え
 る：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::string look_up_a_string_1() {
        return lookup1();
@@ -193,7 +194,7 @@ C++11 まででも通じる文法で、次のよう定義される関数を現�
 
 このような面倒なパラメータ転送は ``decltype(auto)`` を使ってコンパイラーに任せる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    decltype(auto) look_up_a_string_1() {
        return lookup1();
@@ -219,7 +220,7 @@ C++17 では ``if`` 文に ``constexpr`` キーワードが導入され、コー
 条件を宣言することができる。コンパイル時に分岐判定を完了させればプログラムを効率
 化できる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T>
    auto print_type_info(const T& t) {
@@ -240,7 +241,7 @@ Range-based for loop
 
 C++11 では範囲ベースの反復法が導入され、Python のように簡潔なループが書ける。
 
-.. code:: c++
+.. sourcecode:: c++
 
    for (auto element: vec)
        std::cout << element << std::endl; // read only
@@ -270,7 +271,7 @@ Extern Templates
 このため、C++11 ではテンプレートをインスタンス化するタイミングをコンパイラーに明
 示的に指示できるようにした。次の構文により実現する：
 
-.. code:: c++
+.. sourcecode:: c++
 
    extern template class std::vector<double>; // should not instantiation in current file
 
@@ -280,7 +281,7 @@ The ">"
 次のコードは C++11 からはコンパイルエラーが生じなくなっている。つまり、コンパイ
 ラーがシフト演算子に解釈しなくなった：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::vector<std::vector<int>> matrix;
 
@@ -289,7 +290,7 @@ Type alias templates
 
 C++11では ``using`` を使って次のような別名宣言を与えることができる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    // typedef int (*process)(void *);
    using NewProcess = int(*)(void *);
@@ -298,7 +299,7 @@ C++11では ``using`` を使って次のような別名宣言を与えること�
 ではなく、代えが効かない。前提として「テンプレートは型ではない」ことを理解してお
 く。
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T, typename U>
    class MagicType {
@@ -313,27 +314,27 @@ Variadic templates
 
 テンプレート引数リストが可変個になり得る：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename... Ts> class Magic;
 
 引数を一個以上にしたいならばこう書けばいい：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename Require, typename... Args> class Magic;
 
 テンプレート引数と同様にして、関数引数でも ``...`` 表記を用いて可変長引数を表現
 できる：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename... Args> void printf(const std::string &str, Args... args);
 
 引数の個数は ``sizeof...`` で得られる。仮引数自体のアクセス方法は複数ある。まず
 は再帰テンプレート展開だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T0>
    void printf1(T0 value) {
@@ -348,7 +349,7 @@ Variadic templates
 
 次に、C++17 の変数引数テンプレート展開に対応したやり方だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T0, typename... T>
    void printf2(T0 t0, T... t) {
@@ -358,7 +359,7 @@ Variadic templates
 
 最後に、初期化リストとラムダ式を組み合わる方法を紹介してこの節を締めている：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename T, typename... Ts>
    auto printf3(T value, Ts... args) {
@@ -372,13 +373,13 @@ Variadic templates
 
    この定義はすぐには理解しがたい。まず
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       ([&args] {std::cout << args << std::endl; }()
 
    でラムダ式を定義してその場で呼び出している。これを ``A`` とおくと、
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       std::initializer_list<T>{(A, value)...};
 
@@ -389,7 +390,7 @@ Fold expression
 
 C++17 からは ``...`` の用法がさらに拡張される：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template<typename ... T>
    auto sum(T ... t) {
@@ -402,7 +403,7 @@ Non-type template parameter deduction
 型だけではなく、リテラルをテンプレート引数とすることができるのは従来どおりだが、
 それに対してもキーワード ``auto`` を用いることが C++17 から許される。例：
 
-.. code:: c++
+.. sourcecode:: c++
 
    template <auto value>
    void foo() {
@@ -418,7 +419,7 @@ Non-type template parameter deduction
    説明のためだけの例なので、上記コードに実用性は皆無だ。むしろ先の例を再利用し
    てこうしたい：
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       template <typename T, auto BufSize>
       class buffer_t {
@@ -448,7 +449,7 @@ C++11 ではキーワード ``using`` を使って継承コンストラクター
 る。派生クラスに対して、基底クラスと同じ引数リストのコンストラクターを利用できる
 仕組みだ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    class Base{
        int value1;
@@ -481,7 +482,7 @@ Explicit virtual function overwrite
 polymorphism が効くことがわかるが、現代の C++ では紛れがないようにする工夫が加
 わった。
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct Base {
        virtual void foo();
@@ -497,7 +498,7 @@ polymorphism が効くことがわかるが、現代の C++ では紛れがな�
 仮想関数に対して明示的に ``override`` と修飾すると、それが基底クラスにある場合に
 限り、当該メンバー関数をコンパイラーが認めるようになる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct Base {
        virtual void foo(int);
@@ -514,7 +515,7 @@ polymorphism が効くことがわかるが、現代の C++ では紛れがな�
 本書の記述からすると、キーワード ``final`` は Java にある概念を拝借したものと思
 われる。
 
-.. code:: c++
+.. sourcecode:: c++
 
    struct Base {
        virtual void foo() final;
@@ -542,7 +543,7 @@ Explicit delete default function
 C++ ではキーワードを付与することで抑止させることが可能だ。逆に、自動生成を明示的
 に命じることも可能だ：
 
-.. code:: c++
+.. sourcecode:: c++
 
    class Magic {
    public:

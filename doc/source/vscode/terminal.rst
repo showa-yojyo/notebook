@@ -10,7 +10,8 @@ VS Code にはハイスペックな端末が組み込まれている。シェル
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 端末を表示する
 ======================================================================
@@ -357,7 +358,7 @@ VS Code の :file:`settings.json` で値がオブジェクトである項目は�
 る。ユーザー版 :file:`settings.json` で VS Code が用意している端末プロファイルの値を
 ``null`` にすればよい。
 
-.. code:: json
+.. sourcecode:: json
 
    {
      "terminal.integrated.profiles.windows": {
@@ -384,7 +385,7 @@ Windows PowerShell
 VS Code はモダンな :program:`PowerShell` を自動検出しない。これをプロファイルと
 して手動で定義する。端末画面タブ用のアイコンはあるようだ。
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.profiles.windows": {
@@ -448,7 +449,7 @@ VS Code 端末は初期設定でも Powerline の一部を描画できる（後�
 号が必要な場合は、フォントファミリーの設定で Powerline フォントを設定する。
 Powerline フォントは通常 ``for Powerline`` で終わる名前である。例：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "editor.fontFamily": "'DejaVu Sans Mono for Powerline'"
@@ -456,7 +457,7 @@ Powerline フォントは通常 ``for Powerline`` で終わる名前である。
 
 Nerd Fonts も同じように動作し、通常 ``NF`` という接尾辞を持つ。例：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.fontFamily": "'Hack NF'"
@@ -537,7 +538,7 @@ VS Code の端末画面タブに関する初期設定は、横方向の空間を
 :program:`Windows Terminal` など他の端末では、シェルが送信したエスケープシーケン
 スをラベルとして表示することが多い。VS Code でも同じことが可能だ：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.tabs.title": "${sequence}"
@@ -596,7 +597,7 @@ VS Code の端末は 24 ビット色を表示することができるが、プ�
 この機能の欠点は、テキスト色の彩度が低下することがあることだ。元の色を得るには、
 次の設定項目を調整する：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.minimumContrastRatio": 1
@@ -649,7 +650,7 @@ perfect でセル全体のサイズに伸張するように描画されること
 
 この機能は ON にするべきだが、無効にする設定項目がある。
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.customGlyphs": false
@@ -780,7 +781,7 @@ Mnemonics
 
 自動応答機能については、次の設定例を見れば理解できるだろう：
 
-.. code:: json
+.. sourcecode:: json
 
    {
        "terminal.integrated.autoReplies": {

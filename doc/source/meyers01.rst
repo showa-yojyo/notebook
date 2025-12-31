@@ -7,7 +7,8 @@ Effective STL 読書ノート
 
 .. include:: /_include/book-details/meyers01.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 はじめに
 ======================================================================
@@ -193,7 +194,7 @@ Effective STL 読書ノート
   して、``vector``/``string`` から余分な容量を削除することができる。著者はこの技
   法を "shrink to fit" 方法と呼んでいる。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      string s;
      // ...
@@ -201,7 +202,7 @@ Effective STL 読書ノート
 
   あるいは
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      string().swap(s);
 
@@ -257,7 +258,7 @@ Effective STL 読書ノート
 
   * ただし「キー以外の部分」については変更することに問題はない。
 
-    .. code:: c++
+    .. sourcecode:: c++
 
        EmpIDSet::iterator i = se.find(selectedID);
        if(i != se.end()){
@@ -335,7 +336,7 @@ Effective STL 読書ノート
 * ``find`` 等のアルゴリズムに ``reverse_iterator`` を与えると、その戻り値の型も
   また ``reverse_iterator`` になる。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      vector<int> v;
      // ...
@@ -398,7 +399,7 @@ Effective STL 読書ノート
   る。つまり、本当に削除する場合は、``remove`` の後に ``erase`` を実行しなければ
   ならない> (pp. 138-139)
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      vector<int> v;
      // ...
@@ -435,7 +436,7 @@ Effective STL 読書ノート
 * 次のタイプのコードは、業務時に見落とす可能性が大なのでノートをとっておく。望ま
   しくない理由と望ましいコードを、読み返したときに思い出せ。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      vector<int> v;
      // ...
@@ -578,7 +579,7 @@ STL を使ったプログラミング
 
 * 冒頭で次のコードを提示しておき、
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      v.erase(
        remove_if(find_if(v.rbegin(), v.rend(),
@@ -623,7 +624,7 @@ STL を使ったプログラミング
 * <``x`` と ``y`` が ``std::string`` 型であれば、式 ``x < y`` は次の式と等価であ
   る。
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 
@@ -641,7 +642,7 @@ STL を使ったプログラミング
   を抽出する。ファセット ``ctype`` は、大文字小文字の変換を含め、文字の分類を処
   理する> (p. 230)
 
-  .. code:: c++
+  .. sourcecode:: c++
 
      // L をロケールとして
      const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(L);
@@ -659,7 +660,7 @@ Microsoft の STL プラットフォームについて
 STL のメンバ関数テンプレート、特に型の違うコンテナから ``insert`` や ``assign``
 する場合、
 
-.. code:: c++
+.. sourcecode:: c++
 
    vector<Widget> vw;
    list<Widget> lw;

@@ -6,7 +6,8 @@ HTML-XML-utils 利用ノート
 重要だ。とくに CSS セレクターで指定することが私は多い。その目的にかなう標準的
 ツールであろう `HTML-XML-utils`_ パッケージを導入して利用したい。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 インストール
 ======================================================================
@@ -14,7 +15,7 @@ HTML-XML-utils 利用ノート
 私の環境は Cygwin だ。ソースからビルドしてインストールする必要がある。
 記憶によると次のような手順で `HTML-XML-utils`_ をインストールすることができた：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ cd /tmp
    bash$ wget https://www.w3.org/Tools/HTML-XML-utils/html-xml-utils-7.8.tar.gz
@@ -31,7 +32,7 @@ HTML-XML-utils 利用ノート
 
 ツール各種が :file:`/usr/local/bin` にインストールされれば成功とみなす。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ which hxselect
    /usr/local/bin/hxselect
@@ -75,7 +76,7 @@ HTML-XML-utils 利用ノート
 
 使い方は欲しい要素のタグ名またはクラス名を指定する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ hxextract img $URL_OR_FILE
    bash$ hxextract img.thumbnail $URL_OR_FILE
@@ -92,7 +93,7 @@ HTML-XML-utils 利用ノート
 処理対象の HTML ファイルを :program:`hxclean` してパイプに流すのが典型的な用途と
 思われる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ wget --output-file - $URL | hxclean | some-command ...
    bash$ # or
@@ -112,7 +113,7 @@ HTML-XML-utils 利用ノート
 
 どちらの機能もパイプによるテキスト処理の前工程になじむ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ wget -O $FILE $URL
    bash$ hxnormalize $FILE -l 80 | some-command ...
@@ -124,7 +125,7 @@ HTML-XML-utils 利用ノート
 る要素を HTMLから取り去ったものを出力するコマンドだ。処理ファイルを単純化するの
 に利用できる。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ hxremove script < $FILE
 
@@ -134,7 +135,7 @@ HTML-XML-utils 利用ノート
 :program:`hxselect` は CSS セレクター形式の文字列を指定すると HTML テキストの要
 素を抽出するコマンドだ。これを使いたかった。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ hxselect -s '\n' 'h2>a' $FILE_OR_URL | grep -oP "(?<=href=\").+html(?=\")"
    bash$ hxselect -s '\n' 'img[class="thumbnail_image]' $FILE_OR_URL | grep -oP "(?<=src=\").+jpg(?=\")"
@@ -147,7 +148,7 @@ HTML-XML-utils 利用ノート
 出力するになる。:command:`grep -oP` にパイプする手間が省ける可能性が高い。上の例
 は次のようにも書ける：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ hxselect -c -s '\n' 'h2>a::attr(href)' $FILE_OR_URL
    bash$ hxselect -c -s '\n' 'img[class="thumbnail_image"]::attr(src)' $FILE_OR_URL
@@ -161,7 +162,7 @@ HTML-XML-utils 利用ノート
 :program:`hxwls` は HTML テキスト中の各種リンクのリンク先（つまり ``href`` や
 ``src`` の値）のみを一覧するコマンドだ。場合によってはこれで事足りるだろう。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ hxwls $URL_OR_FILE | awk '/archives/ && /jpg/'
 

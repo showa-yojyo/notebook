@@ -2,7 +2,8 @@
 Gantt diagrams
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ..
@@ -105,7 +106,7 @@ Input date format
   The default input date format is ``YYYY-MM-DD``. You can define your custom
   ``dateFormat``.
 
-  .. code:: text
+  .. sourcecode:: text
 
      dateFormat YYYY-MM-DD
 
@@ -120,7 +121,7 @@ Output date format on the axis
   The default output date format is YYYY-MM-DD. You can define your custom
   ``axisFormat``, like ``2020-Q1`` for the first quarter of the year 2020.
 
-  .. code:: text
+  .. sourcecode:: text
 
      axisFormat %Y-%m-%d
 
@@ -136,7 +137,7 @@ Axis ticks
 
   The pattern is:
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      /^([1-9][0-9]*)(minute|hour|day|week|month)$/;
 
@@ -162,7 +163,7 @@ Comments
 これまで見てきた他の図式で用いられてきたコメントの構文と同じだ。``%%`` から行末
 までがコメント扱いとなる。
 
-  .. code:: text
+  .. sourcecode:: text
 
      gantt
          title A Gantt Diagram
@@ -186,13 +187,13 @@ Today marker
   You can style or hide the marker for the current date. To style it, add a
   value for the ``todayMarker`` key.
 
-  .. code:: text
+  .. sourcecode:: text
 
      todayMarker stroke-width:5px,stroke:#0f0,opacity:0.5
 
   To hide the marker, set ``todayMarker`` to ``off``.
 
-  .. code:: text
+  .. sourcecode:: text
 
      todayMarker off
 
@@ -202,7 +203,7 @@ Configuration
   ``mermaid.ganttConfig`` can be set to a JSON string with config parameters or
   the corresponding object.
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      mermaid.ganttConfig = {
          titleTopMargin: 25,
@@ -227,7 +228,7 @@ Interaction
 チャート上のタスクに対するクリックイベント処理を定義できる。コード例は本書参照。
 Flowchart など、他の図式でも定義できるものがある。
 
-  .. code:: text
+  .. sourcecode:: text
 
      click taskId call callback(arguments)
      click taskId href URL

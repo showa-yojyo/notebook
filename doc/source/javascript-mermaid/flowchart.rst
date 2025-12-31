@@ -2,7 +2,8 @@
 Flowcharts - Basic Syntax
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ..
@@ -28,7 +29,7 @@ Node
 A node (default)
 ----------------------------------------------------------------------
 
-  .. code:: text
+  .. sourcecode:: text
 
      ---
      title: Node
@@ -44,7 +45,7 @@ A node with text
 
 次の文法により、ID 文字列とは異なるテキストをノードに書ける：
 
-  .. code:: text
+  .. sourcecode:: text
 
      ---
      title: Node with text
@@ -57,7 +58,7 @@ Graph
 
   This declares the flowchart is oriented from top to bottom (``TD`` or ``TB``).
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart TD
          Start --> Stop
@@ -95,7 +96,7 @@ Links between nodes
 A link with arrow head
 ----------------------------------------------------------------------
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-->B
@@ -105,7 +106,7 @@ A link with arrow head
 An open link
 ----------------------------------------------------------------------
 
-.. code:: text
+.. sourcecode:: text
 
    flowchart LR
        A --- B
@@ -118,14 +119,14 @@ Text on links
 次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現
 れる：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-- This is the text! ---B
 
 または：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A---|This is the text|B
@@ -136,14 +137,14 @@ A link with arrow head and text
 次の二つの記法があるがどちらも同様の描画となる。ラベルはエッジの中央になるべく現
 れる：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-->|text|B
 
 もしくは：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-- text -->B
@@ -154,7 +155,7 @@ Dotted link
 点線スタイルはしばしば採用したくなるので記法を覚えておく。ドットしか使わないわけ
 ではない。
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR;
         A-.->B;
@@ -164,7 +165,7 @@ Dotted link with text
 
 記憶しにくい記法だ：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
         A-. text .-> B
@@ -174,7 +175,7 @@ Thick link
 
 太い線を描く場合には文字 ``=`` をつなげる。これは自然な記法だ。
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
         A ==> B
@@ -184,7 +185,7 @@ Thick link with text
 
 こちらも自然：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
         A == text ==> B
@@ -197,7 +198,7 @@ An invisible link
 
 昔のバージョンにはなかったリンクのスタイルだ。
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A ~~~ B
@@ -207,7 +208,7 @@ Chaining of links
 
   It is possible declare many links in the same line as per below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
         A -- text --> B -- text2 --> C
@@ -217,7 +218,7 @@ Chaining of links
   It is also possible to declare multiple nodes links in the same line as per
   below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
         a --> b & c--> d
@@ -225,7 +226,7 @@ Chaining of links
   You can then describe dependencies in a very expressive way. Like the
   one-liner below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart TB
          A & B--> C & D
@@ -237,7 +238,7 @@ New arrow types
 
   There are new types of arrows supported as per below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A --o B
@@ -250,7 +251,7 @@ Multi directional arrows
 
   There is the possibility to use multidirectional arrows.
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A o--o B
@@ -268,7 +269,7 @@ Minimum length of a link
   In the following example, two extra dashes are added in the link from node *B*
   to node *E*, so that it spans two more ranks than regular links:
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart TD
          A[Start] --> B{Is it?}
@@ -283,7 +284,7 @@ Minimum length of a link
   be added on the right side of the link. The following example is equivalent to
   the previous one:
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart TD
          A[Start] --> B{Is it?}
@@ -323,7 +324,7 @@ Entity codes to escape characters
 
   It is possible to escape characters using the syntax exemplified here.
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A["A double quote:#quot;"] -->B["A dec char:#9829;"]
@@ -339,7 +340,7 @@ Subgraphs
 
 部分グラフの構文は次のとおりだ：
 
-  .. code:: text
+  .. sourcecode:: text
 
      subgraph title
          graph definition
@@ -349,7 +350,7 @@ Subgraphs
 
   You can also set an explicit id for the subgraph.
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart TB
          c1-->a2
@@ -390,7 +391,7 @@ Markdown Strings
 
 これは最近のバージョンで追加された機能だ。
 
-.. code:: text
+.. sourcecode:: text
 
    %%{init: {"flowchart": {"htmlLabels": false}} }%%
    flowchart LR
@@ -423,7 +424,7 @@ Interaction
 Markdown 設定により Flowchart ノードに対してはクリックイベントを実装することがで
 きる。
 
-  .. code:: text
+  .. sourcecode:: text
 
      click nodeId callback
      click nodeId call callback()
@@ -438,7 +439,7 @@ Markdown 設定により Flowchart ノードに対してはクリックイベン
 
 イベントハンドラーは Markdown コードの外部に別途実装する：
 
-  .. code:: html
+  .. sourcecode:: html
 
      <script>
        const callback = function () {
@@ -449,7 +450,7 @@ Markdown 設定により Flowchart ノードに対してはクリックイベン
   The tooltip text is surrounded in double quotes. The styles of the tooltip are
   set by the class ``.mermaidTooltip``.
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-->B
@@ -467,7 +468,7 @@ Markdown 設定により Flowchart ノードに対してはクリックイベン
   change this by adding a link target to the click definition (``_self``,
   ``_blank``, ``_parent`` and ``_top`` are supported):
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-->B
@@ -481,7 +482,7 @@ Markdown 設定により Flowchart ノードに対してはクリックイベン
 
 初心者向けコード例のうち、設定部分を引用する：
 
-  .. code:: html
+  .. sourcecode:: html
 
      <script>
        const callback = function () {
@@ -504,7 +505,7 @@ Comments
 コメントは一行丸々を必要とすることに注意。コード行末にコメントすることはできな
 い。
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
      %% this is a comment A -- text --> B{node}
@@ -523,7 +524,7 @@ Styling links
   the graph is used. In the example below the style defined in the ``linkStyle``
   statement will belong to the fourth link in the graph:
 
-  .. code:: text
+  .. sourcecode:: text
 
      linkStyle 3 stroke:#ff3,stroke-width:4px,color:red;
 
@@ -538,7 +539,7 @@ Styling line curves
 
 エッジの曲線的形状を指定する術があり、次のような設定により有効になる：
 
-  .. code:: text
+  .. sourcecode:: text
 
      %%{ init: { 'flowchart': { 'curve': 'stepBefore' } } }%%
 
@@ -554,7 +555,7 @@ Styling a node
   It is possible to apply specific styles such as a thicker border or a different
   background color to a node.
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          id1(Start)-->id2(Stop)
@@ -571,13 +572,13 @@ Styling a node
 
   A class definition looks like the example below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDef className fill:#f9f,stroke:#333,stroke-width:4px;
 
   Attachment of a class to a node is done as per below:
 
-  .. code:: text
+  .. sourcecode:: text
 
      class nodeId1 className;
 
@@ -586,13 +587,13 @@ Styling a node
 
   It is also possible to attach a class to a list of nodes in one statement:
 
-  .. code:: text
+  .. sourcecode:: text
 
      class nodeId1,nodeId2 className;
 
 この方式ではノードスタイルをグラフ定義コードでインラインで指定する記法もある：
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A:::someclass --> B
@@ -606,7 +607,7 @@ CSS classes
   It is also possible to predefine classes in css styles that can be applied from
   the graph definition as in the example below:
 
-  .. code:: html
+  .. sourcecode:: html
 
      <style>
          .cssClass > rect{
@@ -616,7 +617,7 @@ CSS classes
          }
      </style>
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart LR
          A-->B[AAA<span>BBB</span>]
@@ -634,7 +635,7 @@ Default class
   If a class is named ``default`` it will be assigned to all classes without
   specific class definitions.
 
-  .. code:: text
+  .. sourcecode:: text
 
      classDef default fill:#f9f,stroke:#333,stroke-width:4px;
 
@@ -648,7 +649,7 @@ Basic support for fontawesome
 
   The icons are accessed via the syntax ``fa:#icon class name#``.
 
-  .. code:: text
+  .. sourcecode:: text
 
      flowchart TD
          B["fa:fa-twitter for peace"]
@@ -685,7 +686,7 @@ Renderer
   The elk renderer is an experimenal feature. You can change the renderer to elk
   by adding this directive:
 
-  .. code:: text
+  .. sourcecode:: text
 
      %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 
@@ -704,7 +705,7 @@ Width
   mermaidCLI page. ``mermaid.flowchartConfig`` can be set to a JSON string with
   config parameters or the corresponding object.
 
-  .. code:: javascript
+  .. sourcecode:: javascript
 
      mermaid.flowchartConfig = {
          width: 100%

@@ -2,7 +2,8 @@
 JavaScript Fundamentals
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Hello, world!
@@ -267,7 +268,7 @@ Interaction: ``alert``, ``prompt``, ``confirm``
 モーダルダイアログボックスを表示する。戻り値はテキストボックスに入力されている値
 だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    result = prompt(title, [default]);
 
@@ -288,7 +289,7 @@ Parameter   Description
 関数 ``confirm()`` は :guilabel:`OK` ボタンと :guilabel:`Cancel` ボタンを有する
 モーダルダイアログボックスを表示する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    result = confirm(question);
 
@@ -528,7 +529,7 @@ Comparisons
 
 次のは特に理解を確認しておくこと：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    undefined == null
    undefined === null
@@ -667,7 +668,7 @@ Nullish coalescing operator ``??``
 * そうでなければ、つまり ``a`` が ``null`` または ``undefined`` であれば ``b``
   と評価される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    (a !== null && a !== undefined) ? a : b;
 
@@ -833,7 +834,7 @@ Function Declaration
 
 関数定義の基本形式は次のとおり。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function functionName(parameterList) {
        statements;
@@ -934,7 +935,7 @@ Arrow functions, the basics
 
 他言語で言うラムダ式に相当する関数だ。JavaScript の記法はきわめて単純でありがたい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    (parameterList) => expression
 
@@ -947,7 +948,7 @@ Multiline arrow functions
 
 中括弧で複文を与えることもできる。こうなると普通の関数とほとんど変わらない：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    (parameterList) => {
        statements;

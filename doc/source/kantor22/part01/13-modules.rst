@@ -2,7 +2,8 @@
 Modules
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Modules, introduction
@@ -27,7 +28,7 @@ What is a module?
 ``import`` でロードすることができる。ロードしたいオブジェクトとモジュールファイ
 ルパスを指定する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    import {sayHi} from './sayHi.js';
 
@@ -35,7 +36,7 @@ What is a module?
 ``type="module"`` という属性を使って、モジュールとして扱われることを宣言する必要
 がある。
 
-.. code:: html
+.. sourcecode:: html
 
    <script type="module">
        import {sayHi} from './say.js';
@@ -157,7 +158,7 @@ Compatibility, ``nomodule``
 
 古いブラウザーに対応したい場合にはこうする：
 
-.. code:: html
+.. sourcecode:: html
 
    <script type="module">
        // ...
@@ -231,7 +232,7 @@ Export default
 
 本文の例では、モジュール :file:`user.js` が次のクラス宣言だけであるとする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    export default class User {
        // class body
@@ -240,7 +241,7 @@ Export default
 それを利用するモジュール :file:`main.js` では、クラス ``User`` を利用するのに、
 次のように中括弧なしで単純に書けるようになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    import User from './user.js';
 
@@ -265,7 +266,7 @@ A word against default exports
 好きに名前を付けられると混乱するので、モジュールスクリプトの名前に対応したものに
 するのが普通だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    import User from './user.js';
    import LoginForm from './loginForm.js';
@@ -277,7 +278,7 @@ Re-export
 あるモジュールから ``import`` したものを、別の名前に付け替えて ``export`` する構
 文がある。名前付き ``export`` と ``default export`` のどちらの形式も選べる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    export {XXX} from YYY;
 
@@ -294,7 +295,7 @@ Re-exporting the default export
 ジュールスクリプト ``YYY`` で ``default export`` されたオブジェクト ``XXX``があ
 るとする。``XXX`` を ``export`` し直すには、次の二行を書く：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    export * from YYY;
    export {default} from YYY;

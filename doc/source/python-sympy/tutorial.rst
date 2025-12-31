@@ -4,7 +4,8 @@
 
 本稿は SymPy_ の SymPy Tutorial を読んだときのメモである。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Preliminaries
 ======================================================================
@@ -26,7 +27,7 @@ Installtion
   おそらく関数 ``init_printing`` を異なる引数で適用したか、利用するコンソール環
   境の Unicode サポート状況に違いがあるのだろう。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: a = Integral(cos(x) * exp(x), x)
 
@@ -43,7 +44,7 @@ Installtion
   または起動時にコマンドラインオプション ``--pretty=no`` とすれば、出力の書式が
   コンソールにやさしいものに変わる。
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [3]: init_printing(pretty_print=False)
 
@@ -217,7 +218,7 @@ Substitution
   immutable である。
 * 多変数の同時代入例
 
-  .. code:: ipython
+  .. sourcecode:: ipython
 
      In [1]: expr = x**3 + 4*x*y - z
 

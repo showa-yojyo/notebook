@@ -2,7 +2,8 @@
 Miscellaneous
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Mutation observer
@@ -16,7 +17,7 @@ Mutation observer
 Syntax
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let observer = new MutationObserver(callback);
    observer.observe(node, config);
@@ -41,7 +42,7 @@ Syntax
 
 コールバック関数は次のような形だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function callback(mutations, observer){ /* ... */ }
 

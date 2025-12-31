@@ -19,8 +19,14 @@ sys.path.append(os.path.abspath('./_extension'))
 project = '読書ノート'
 author = 'プレハブ小屋'
 copyright = f'1999-{date.today().year}, {author} All rights reserved'
-release = '1.6dev'
-version = '1.6'
+
+# The short X.Y version.
+# The major project version, used as the replacement for |version|.
+version = '1.7'
+
+# The full project version, used as the replacement for |release| and e.g. in
+# the HTML templates.
+release = '1.7'
 
 # -- General configuration -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

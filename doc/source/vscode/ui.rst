@@ -10,7 +10,8 @@ VS Code の UI について記す。メインウィンドウの構成は本家 V
 
    :doc:`./index` 冒頭の前提条件に留意すること。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 基本レイアウト
 ======================================================================
@@ -76,7 +77,8 @@ Editor Groups の配置
 ``workbench.editor.openSideBySideDirection`` の値がこの動作を変更する。
 新しい Editor をアクティブ Editor の下に開くように設定することも可能だ：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: 新規編集領域を下に開く設定
 
    {
        "workbench.editor.openSideBySideDirection": "down"
@@ -100,7 +102,8 @@ Editor Groups の配置
 設定ファイル :file:`settings.json` でミニマップ表示位置を左側に変更したり、完全
 に無効にすることも可能だ：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: ミニマップ設定例
 
    {
        "editor.minimap.side": "left",
@@ -116,7 +119,7 @@ Editor それぞれの上部にパンクズと呼ばれるナビゲーション�
 パンクズは次のように、現在キャレットがあるシンボルをルートから階層的に表現したパ
 スのように表現している：
 
-.. code:: text
+.. sourcecode:: text
 
    path > to > file > path > to > symbol
 
@@ -148,16 +151,17 @@ VS Code は外部ツール、特にコマンドラインツールと非常によ
 る。設定項目 ``files.exclude`` を使用して、:guilabel:`EXPLORER` からファイルや
 フォルダーを隠すための規則を設定する（次の設定は既定値）：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: 無視ファイル設定例
 
    {
        "files.exclude": {
            "**/.git": true,
-           "**/.svn": true,
+          "**/.svn": true,
            "**/.hg": true,
-           "**/CVS": true,
+          "**/CVS": true,
            "**/.DS_Store": true,
-           "**/Thumbs.db": true
+          "**/Thumbs.db": true
        }
    }
 
@@ -234,7 +238,7 @@ OPEN EDITORS
 
 * ファイルに変更を加える
 * ファイルのヘッダをダブルクリックする
-* エクスプローラでファイルをダブルクリックする
+* エクスプローラーでファイルをダブルクリックする
 * 現在のフォルダにないファイルを開く
 
 このビューの項目をクリックすると、そのファイルを内容とする Editor がアクティブに
@@ -248,7 +252,8 @@ OPEN EDITORS
 
 このビューを表示したくない場合は設定を編集する：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: :guilabel:`OPEN EDITORS` 区画を引っ込める例
 
    {
        "explorer.openEditors.visible": 0
@@ -345,7 +350,8 @@ Editor Group 右上の詳細ボタンメニューから :menuselection:`Show Ope
 
 タブを使いたくない場合は次のように設定する：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: タブを隠す設定
 
    {
        "workbench.editor.showTabs": false
@@ -358,7 +364,8 @@ Editor Group 右上の詳細ボタンメニューから :menuselection:`Show Ope
 ``workbench.editor.openPositioning`` の値で制御可能だ。例えば、新しいタブを左側
 に表示させたいならば：
 
-.. code:: json
+.. sourcecode:: json
+   :caption: 新規タブを左から追加していく設定
 
    {
        "workbench.editor.openPositioning": "left"

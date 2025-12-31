@@ -6,7 +6,8 @@
 
 .. include:: /_include/book-details/stepanov15.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 第 1 章 本書の内容
 ======================================================================

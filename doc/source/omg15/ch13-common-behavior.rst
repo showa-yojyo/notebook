@@ -2,7 +2,8 @@
 13 Common Behavior
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 13.1 Summary
@@ -696,7 +697,7 @@ TimeEvent の開始時刻は Behavior が待機点に到達した時刻となる
 Triggers で使用される文脈以外では Events に関する記法はない。Trigger は Event の
 種類に基いてテキストで表記される：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <trigger> ::= <call-event> | <signal-event> | <any-receive-event> | <time-event> | <change-event>
 
@@ -704,7 +705,7 @@ Triggers で使用される文脈以外では Events に関する記法はない
 
 CallEvent は原因 Operation の名前で示され、その後に代入指定を続けてもよい：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <call-event> ::= <name> [‘(‘ [<assignment-specification>] ‘)’]
    <assignment-specification> ::= <assigned-name> [‘,’ <assigned-name>]*
@@ -717,7 +718,7 @@ CallEvent は原因 Operation の名前で示され、その後に代入指定�
 
 SignalEvent は原因 Signal の名前で示される。その後に代入仕様が続いてもよい：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <signal-event> ::= <name> [‘(‘ [<assignment-specification>] ‘)’]
    <assignment-specification> ::= <attr-name> [‘,’<attr-name>]*
@@ -726,7 +727,7 @@ SignalEvent は原因 Signal の名前で示される。その後に代入仕様
 
 どの AnyReceiveEvent についても ``all`` と記す：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <any-receive-event> ::= ‘all’
 
@@ -737,7 +738,7 @@ ChangeEventは、``when`` の後に真偽 ValueSpecification が続くことで�
 ``"after 5 seconds"`` など。絶対 TimeEvent は ``at`` の後に TimeExpression を続
 けることで指定する。例えば``"at Jan. 1, 2000, Noon"`` など：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <change-event> ::= ‘when’ <value-specification>
 

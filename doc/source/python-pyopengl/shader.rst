@@ -11,7 +11,8 @@ OpenGL が推奨する様式でコードを書くことにしたい。残念な�
 私の OpenGL の知識はバージョン 1.4 程度で止まっており、ましてやシェーダーなどは
 触ったこともない。ゆえに、ここでは初歩的な事項の確認にとどまる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. warning::
 
@@ -19,7 +20,7 @@ OpenGL が推奨する様式でコードを書くことにしたい。残念な�
    しており、本稿のスクリプトを実行すると、次のエラーメッセージが生じて異常終了
    する。ちなみに description のテキストは「無効な列挙」だ。
 
-   .. code:: console
+   .. sourcecode:: console
 
       bash$ ./shaderdemo.py
       freeglut (./shaderdemo.py): OpenGL >2.1 context requested but wglCreateContextAttribsARB is not available! Falling back to legacycontext creation

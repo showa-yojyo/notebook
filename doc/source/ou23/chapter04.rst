@@ -5,7 +5,8 @@ Chapter 04: Containers
 `Chapter 04 Containers <https://changkun.de/modern-cpp/en-us/04-containers/>`__
 についてのノート。|
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 4.1 Linear Container
 ======================================================================
@@ -73,7 +74,7 @@ Basic Operations
 
 ``get()`` はテンプレート引数に型を指示するか、インデックスを指示する：
 
-.. code:: c++
+.. sourcecode:: c++
 
    std::tuple<std::string, double, double, int> t("123", 4.5, 6.7, 8);
    std::cout << std::get<std::string>(t) << std::endl;
@@ -84,7 +85,7 @@ Basic Operations
 
    ``tie()`` については、もっと簡潔な記法があったと以前述べられていた：
 
-   .. code:: c++
+   .. sourcecode:: c++
 
       // double gpa;
       // char grade;

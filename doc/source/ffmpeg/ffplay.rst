@@ -6,7 +6,8 @@ WSLg が有効になっている必要があるが、:program:`ffplay` でコン
 ずにビデオを再生することが可能だ。他にも :program:`ffmpeg` の出力をパイプして再
 生するという使い方や、フィルターを試すためだけに使う用途もある。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 再生
 ======================================================================
@@ -20,7 +21,7 @@ WSLg が有効になっている必要があるが、:program:`ffplay` でコン
 もう一つの使い方は、FFmpeg のフィルター機能を試すのに使うというものだ。例えば次
 のコマンドを実行するとある映像が再生される：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffplay -f lavfi -i "testsrc=duration=10:size=256x224:rate=30" -autoexit
 
@@ -30,7 +31,7 @@ WSLg が有効になっている必要があるが、:program:`ffplay` でコン
 パイプを介する再生方法も用意されている。:command:`ffmpeg` の encoding オプション
 の値を ``matroska`` にするのが望ましい。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg ... -f matroska - | ffplay -
 

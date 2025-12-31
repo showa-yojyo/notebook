@@ -8,10 +8,11 @@ Nose 利用ノート [obsolete]
    cease without a new person/team to take over maintainership. New projects
    should consider using Nose2, py.test, or just plain unittest/unittest2.»
    (<https://nose.readthedocs.io/en/latest/>) とのことなので、本稿は少なくとも新
-   規プロジェクトでは役に立たない（代替パッケージとして pytest の学習を予定して
-   いる）。
+   規プロジェクトでは役に立たない。代替パッケージとして pytest の学習を行ってい
+   る。:doc:`/python-pytest`
 
-.. contents:: 見出し目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -21,9 +22,9 @@ Nose 利用ノート [obsolete]
      * Python_ 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2
      * Nose_ 1.0.0, 1.1.2, 1.3.3, 1.3.7
 
-   * 当ノートでは ``--verbosity`` オプションを多用しているが、
-     単にノートを見返すときのわかりやすさを優先するためだけによる。
-     実用時には省略することのほうが普通。
+   * 当ノートでは ``--verbosity`` オプションを多用しているが、単にノートを見返す
+     ときのわかりやすさを優先するためだけによる。実用時には省略することのほうが
+     普通。
 
 関連リンク
 ======================================================================
@@ -68,8 +69,7 @@ TestSuite を集めて TestRunner に渡すコードを書くという、これ�
 ----------------------------------------------------------------------
 
 Nose をインストールすると、Python パッケージだけでなく、:program:`nosetests` と
-いうスクリプトか実行ファイルが :file:`Scripts` フォルダーにインストールされ
-る。
+いうスクリプトか実行ファイルが :file:`Scripts` フォルダーにインストールされる。
 
 * これは py ファイルからテストを自動的に発見し、実行することができる便利なツール
   だ。
@@ -81,7 +81,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
   さらにテスト名を指定したり、あるいはモジュールフルパスプラステスト名という指定
   の仕方がサポートされているようだ。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ nosetests test.module
      bash$ nosetests another.test:TestCase.test_method
@@ -90,7 +90,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
 
 * ディレクトリーごと指示するやり方もある。その場合、複数パス指定が許される。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ nosetests /path/to/tests /another/path/to/tests
 
@@ -106,7 +106,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
   * 設定ファイルの書き方で注意が要るのは、設定項目を ``[nosetests]`` セクション
     に書かねばならないことだ。
 
-    .. code:: ini
+    .. sourcecode:: ini
 
        [nosetests]
        verbosity=2
@@ -124,7 +124,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
 * さらに ``--with-id`` を併用し、テストのインデックスリストも得られる。
 * ``--verbosity`` オプションを併用して、テスト名等を明示させるのがコツ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests --collect-only --with-id --verbosity=2
    #1 A regular test case ... ok
@@ -160,7 +160,7 @@ Nose をインストールすると、Python パッケージだけでなく、:p
 .. literalinclude:: /_sample/nose/testattr2.py
    :language: python3
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests -a '!online' testattr2.py
    bash$ nosetests -A "speed != slow" testattr2.py
@@ -177,7 +177,7 @@ Python の :program:`pdb` デバッガが起動する。
 * :program:`pdb` はコンソールベースのデバッガ。正直なところ不慣れなツールだが、
   この際慣れておく。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests --pdb-failures testeven.py
    .> d:\home\yojyo\devel\all-note\notebook\source\_sample\nose\testeven.py(13)check_even()
@@ -210,7 +210,7 @@ Python の :program:`pdb` デバッガが起動する。
 この機能を利用するには、別途 coverage_ という別のパッケージが必要だ。インストー
 ルは難しくないので、Nose 環境の一部とみなして導入しておくとよさそうだ。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ nosetests --with-coverage -v testrandom.py
    test_choice (testrandom.TestSequenceFunctions) ... ok
@@ -237,7 +237,7 @@ Python の :program:`pdb` デバッガが起動する。
 間の統計を取れる。いつものテスト結果を出力した直後に、プロファイル結果を出力す
 る。
 
-.. code:: console
+.. sourcecode:: console
 
             4101 function calls (4084 primitive calls) in 0.201 CPU seconds
 
@@ -381,7 +381,7 @@ Nose のバージョンが上がってから勉強しに行こう。
 
     nose は動詞だとクンカクンカするとかいう意味なのでは。
 
-  * Nose は `py.test`_ というテスティングフレームワークにインスパイヤされて作っ
+  * Nose は py.test というテスティングフレームワークにインスパイヤされて作っ
     たとある。以前の py.test はインストールが難しく、unittest ベースでなかった
     とのこと。
   * Nose のライセンスは LGPL とかいうものらしい。バージョン 2 以降ならば、利用者
@@ -393,7 +393,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     ば Jinja2_ の ``testsuite`` フォルダーの各ファイルからテストを全部抽出してリ
     ストを作成できたりする。
 
-    .. code:: console
+    .. sourcecode:: console
 
        bash$ cd site-packages/jinja2/
        bash$ python34 -c 'import jinja2; print(jinja2.__version__)'
@@ -426,7 +426,7 @@ Nose のバージョンが上がってから勉強しに行こう。
     例えば線形代数サブパッケージだけテストしたいのならば、Python インタープリ
     ターから次のようにタイプしてみるだけでよい。
 
-    .. code:: pycon
+    .. sourcecode:: pycon
 
        >>> import numpy as np
        >>> np.linalg.test(verbose=2)
@@ -463,6 +463,5 @@ Nose のバージョンが上がってから勉強しに行こう。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
-.. _coverage: http://nedbatchelder.com/code/coverage
-.. _py.test: http://codespeak.net/py/current/doc/test.html
-.. _Jinja2: http://jinja.pocoo.org/
+.. _coverage: https://coverage.readthedocs.io/en/latest/
+.. _Jinja2: https://jinja.palletsprojects.com/en/stable/

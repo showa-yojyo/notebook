@@ -5,7 +5,8 @@
 本節では Twitter REST API の application 系機能について記す。と言ってはみたもの
 の、実のところ利用するものは一つだけだ。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET application/rate_limit_status
 ======================================================================
@@ -24,7 +25,7 @@ GET application/rate_limit_status は現在の API 利用制限状況を知る�
 
 次に実行例を示す。長くなるので一部を省略する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./application-rate_limit_status.py
    {
@@ -70,7 +71,7 @@ GET application/rate_limit_status は現在の API 利用制限状況を知る�
 かる時刻を POSIX 時刻表現で表した数値だ。見慣れた時刻表現にするならば、Python 標
 準のメソッド ``datetime.datetime.fromtimestamp`` を利用する等の方法がある。
 
-.. code:: pycon
+.. sourcecode:: pycon
 
    >>> import datetime
    >>> datetime.datetime.fromtimestamp(1450622609).strftime('%c')

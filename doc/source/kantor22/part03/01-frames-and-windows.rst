@@ -2,7 +2,8 @@
 Frames and windows
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 Popups and window methods
@@ -12,7 +13,7 @@ Popups and window methods
 
 ポップアップウィンドウはユーザーに文書を追加的に表示する最も古い方法の一つだ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.open('https://javascript.info/');
 
@@ -57,14 +58,14 @@ Popup blocking
 後に開かれる場合はどうなるか。これはブラウザーによりけりで、開くものもあれば、そ
 うでないものもある。本書では指定する遅延時間によっても挙動が変わると述べている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    setTimeout(() => window.open('http://google.com'), 3000);
 
 ``window.open``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.open(url, name, params);
 
@@ -109,7 +110,7 @@ Example: a minimalistic window
 られる。例えば、Chrome はこのようなウィンドウを幅と高さを目一杯使って開き、画面
 全体を占めるようにする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
 
@@ -135,7 +136,7 @@ Accessing popup from window
 ``open()`` 呼び出しは、新しいウィンドウへの参照を返す。これは、プロパティーを操
 作したり、場所を変更したり、さらに多くのことに利用できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let newWin = window.open("about:blank", "hello", "width=200,height=200");
    newWin.document.write("Hello, world!");
@@ -148,7 +149,7 @@ Accessing popup from window
 ウはまだロードされていない。そのため、変更は ``onload`` か、``DOMContentLoaded``
 ハンドラーで行う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let newWindow = open('/', 'example', 'width=300,height=300')
    newWindow.focus();
@@ -170,7 +171,7 @@ Accessing window from popup
 
 次のコードでは、現在のウィンドウの内容が ``Test`` に置き換わる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let newWin = window.open("about:blank", "hello", "width=200,height=200");
 
@@ -198,7 +199,7 @@ Closing a popup
 
 ウィンドウを読み込んでから閉じるコード：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let newWindow = open('/', 'example', 'width=300,height=300');
 
@@ -257,7 +258,7 @@ Focus/blur on a window
 場所に切り替えた瞬間を捕捉することができる。しかし、過去に悪いページがこれらを悪
 用したため、実際には厳しく制限されている。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.onblur = () => window.focus();
 
@@ -364,7 +365,7 @@ Windows on subdomains: ``document.domain``
 同じオリジンであるものとして扱わせることができる。これを実現するには、そのような
 ウィンドウごとに、次のコードを実行する必要がある：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    document.domain = 'site.com';
 
@@ -390,7 +391,7 @@ Windows on subdomains: ``document.domain``
 べてを含む ``iframe`` 全体がロードされたときにしか起こされない。
 ``setInterval()`` でチェックすることで、より早くその瞬間を捉えられる：
 
-.. code:: html
+.. sourcecode:: html
 
    <iframe src="/" id="iframe"></iframe>
 
@@ -445,7 +446,7 @@ The ``"sandbox"`` ``iframe`` attribute
 し、例えば次のように、適用すべきでない制限を空白文字区切りリストを属性の値として
 指定すると、制限を緩和することができる：
 
-.. code:: html
+.. sourcecode:: html
 
    <iframe sandbox="allow-forms allow-popups">
 
@@ -496,7 +497,7 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 メッセージを送りたいウィンドウは、受信側のウィンドウのメソッド ``postMessage()``
 を呼び出す。``win`` にメッセージを送りたいとすると、
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    win.postMessage(data, targetOrigin);
 
@@ -518,7 +519,7 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 データを受け取るのは、それがまだ正しいサイトにいる場合だけであることを保証する。
 データの機密性が高い場合に重要だ。
 
-.. code:: html
+.. sourcecode:: html
 
    <iframe src="http://example.com" name="example">
 
@@ -550,7 +551,7 @@ gmail.com と会話し、情報を交換することを可能にする。ただ�
 ハンドラーは、``addEventListener()`` でしか割り当てられない。``onmessage`` への
 代入ではダメだ。例：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.addEventListener("message", function(event) {
        if (event.origin != 'http://javascript.info') {
@@ -618,7 +619,7 @@ Old-school defences (weak)
 
 最も古い防御策は、次のようにしてフレーム内でページを開くことを禁止するものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    if (top != window) {
        top.location = window.location;
@@ -634,7 +635,7 @@ Blocking top-navigation
 ページ遷移を阻止できる。トップページ（ハッカーのもの）では、阻止ハンドラーをこの
 ように設定する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    window.onbeforeunload = function() {
        return false;
@@ -659,7 +660,7 @@ Sandbox attribute
 ``allow-top-navigation`` を省略し、``top.location`` を変更することを禁止してい
 る。
 
-.. code:: html
+.. sourcecode:: html
 
    <iframe sandbox="allow-scripts allow-forms" src="facebook.html"></iframe>
 
@@ -695,7 +696,7 @@ Showing with disabled functionality
 覆って、すべてのクリックを阻止できるようにする。この ``<div>`` は、
 ``window ==top`` の場合か、または保護が不要と判断された場合に削除される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // protector がページ全体を覆う div ノード
 
@@ -716,7 +717,7 @@ Facebook のように、サイトがその認証 cookie に属性 ``samesite`` �
 Facebook が他のサイトから ``iframe`` で開かれたときに、そのような cookie は送ら
 れないだろう。だから攻撃は失敗する。
 
-.. code:: text
+.. sourcecode:: text
 
    Set-Cookie: authorization=secret; samesite
 

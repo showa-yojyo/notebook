@@ -9,7 +9,8 @@ Effective Python 読書ノート
 
 .. include:: /_include/book-details/slakin16.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 1 章 Python 流思考
 ======================================================================
@@ -21,7 +22,7 @@ Effective Python 読書ノート
   を反復するときに添字が必要であれば、下のようにするなという意味だろう。どのよう
   なときにも ``enumerate`` を使えと言っているのではない。
 
-  .. code:: python3
+  .. sourcecode:: python3
 
      for i in range(len(a)):
          handle(a[i])

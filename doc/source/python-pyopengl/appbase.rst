@@ -13,7 +13,8 @@
 
 本稿では、それらのベースクラスのベースクラス ``AppBase`` を設計する。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 クラス ``AppBase``
 ======================================================================
@@ -56,7 +57,7 @@ OpenGL サポートバージョン情報表示機能
   る情報については、プログラムが利用する OpenGL のバージョンが 2.0 以上のときし
   か表示しないし、することができない。
 
-  .. code:: text
+  .. sourcecode:: text
 
      Vendor: Intel
      Renderer: Intel(R) HD Graphics

@@ -13,7 +13,8 @@
 
 `bin/twhelp.py <https://github.com/showa-yojyo/bin/blob/master/twhelp.py>`_
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 GET help/configuration
 ======================================================================
@@ -37,7 +38,7 @@ GET help/languages を用いることで Twitter がサポートする言語の�
 先のデモコードによる実行例を示す（出力を一部省略する）。全部で 33 言語をサポート
 していることがわかった。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ./twhelp.py help/languages
    [

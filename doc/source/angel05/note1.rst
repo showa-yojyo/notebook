@@ -4,7 +4,8 @@ OpenGL: A Primer Second Edition 読書ノート 1/4
 
 .. include:: /_include/book-details/angel05.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Preface
 ======================================================================
@@ -167,7 +168,7 @@ Coordinate Systems and Transformations
   dimensional applications> (p. 23)
 * まず間違いなく以下の手順で利用する。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glMatrixMode(GL_PROJECTION);
      glLoadIdentity();
@@ -223,7 +224,7 @@ Enabling OpenGL Features
 * OpenGL の機能の中には、明示的にそれを有効にしなければ利用できないものがある。
 * ``glEnable(feature)`` で機能 feature を ON にする。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glEnable(GL_LINE_STIPPLE);
 
@@ -300,7 +301,7 @@ Polygon Types
 
   ``glPolygonOffset`` 関数は次のようにして利用する。
 
-  .. code:: c
+  .. sourcecode:: c
 
      glPolygonOffset(1.0, 1.0);
      glEnable(GL_POLYGON_OFFSET_LINE);
@@ -430,7 +431,7 @@ Double Buffering
 * 書くのが最後になったが、ダブルバッファを有効にするには ``glutInitDisplayMode``
   で指定する。
 
-  .. code:: c
+  .. sourcecode:: c
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_XXXX);
 

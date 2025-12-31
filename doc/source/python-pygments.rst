@@ -2,7 +2,8 @@
 Pygments 利用ノート
 ======================================================================
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -80,7 +81,7 @@ Python コードから Pygments の機能を利用する
 ドキュメントに紹介されている例を検討してみる。ここでは PythonLexer に代えて
 Python3Lexer を適用してみる。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from pygments import highlight
    from pygments.lexers import Python3Lexer
@@ -94,7 +95,7 @@ Python3Lexer を適用してみる。
 
 出力結果を示す。
 
-.. code:: html
+.. sourcecode:: html
 
    <div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
    </pre></div>
@@ -126,7 +127,7 @@ Pygments をインストールすると、フォルダー :file:`Scripts` に :f
 が、実際やってみると前者はコントロール文字をガンガン出力するだけで読めたものでは
 ない。もっぱら後者の用法で利用する。
 
-.. code:: console
+.. sourcecode:: console
 
    # HTML 形式で出力し、ファイル名を test.html と指定。
    bash$ pygmentize -f html -o test.html test.py
@@ -155,7 +156,7 @@ Lexers
 おぼえるには aliases 形式が応用が効く。 Sphinx_ の ``code-block`` ディレクティブ
 の引数がこの aliases と一致することに注意。
 
-.. code:: text
+.. sourcecode:: text
 
    ('bash', 'sh')
    ('cpp', 'c++')

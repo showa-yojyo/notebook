@@ -6,7 +6,8 @@
 パッケージが提供する機能は、入力データから文書情報を読み取り、メモリ内に構文木オ
 ブジェクトを生成するクラス群ということになる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 クラス図
 ======================================================================
@@ -125,7 +126,7 @@
 
 モジュール ``docutils.core`` でオブジェクトの生成処理が確認できる。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def set_reader(self, reader_name, parser, parser_name):
         """Set `self.reader` by name."""

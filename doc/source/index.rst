@@ -30,6 +30,7 @@
    alexandrescu01/index
    meyers01
    sutter02
+   The Art of Unix Programming 読書ノート <https://showa-yojyo.github.io/taoup/>
    joel04/index
    graham04
    angel05/index
@@ -61,20 +62,18 @@
    khronos18/index
    kantor22/index
    ou23/index
+   入門モダン Linux 読書ノート <https://gist.github.com/showa-yojyo/caf7c68a253184fd07ac5e78cf9270f8>
    github/index
-   libreoffice/common/index
-   libreoffice/calc-guide/index
-   libreoffice/writer-guide/index
+   LibreOffice Getting Started Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/common/>
+   LibreOffice Calc Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/calc-guide/>
+   LibreOffice Writer Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/writer-guide/>
 
 .. toctree::
-   :caption: ノートにまとまっていない書籍類一覧
+   :caption: 読書目録
+   :glob:
    :maxdepth: 1
 
-   preliminary2014
-   preliminary2015
-   preliminary2016
-   preliminary2017
-   preliminary2018
+   bibliography*
 
 .. toctree::
    :caption: シェルノート
@@ -104,11 +103,14 @@
    python-pip
    python-pipenv
    python-pylint
-   python-docutils/index
-   python-restview
+   python-mypy
+   python-ruff
    python-nose
+   python-pytest
+   python-hatch
    python-ipython
    python-jupyter
+   python-click
    python-numpy/index
    python-scipy/index
    python-sympy/index
@@ -120,7 +122,10 @@
    python-quaternion
    python-jinja2
    python-pygments
+   python-docutils/index
+   python-restview
    python-sphinx
+   python-mkdocs
    python-bs4
    python-selenium
    python-scrapy
@@ -162,13 +167,18 @@
    :maxdepth: 1
 
    backup-restore
+   Windows 11 初期換装ノート <https://gist.github.com/showa-yojyo/d419470d0f9f432c1e8147cdec737fb5>
+   Windows 11 初期設定ノート <https://gist.github.com/showa-yojyo/75c261c12efa8c782d0bee1907025466>
+   Windows 11 データ＆アプリケーション移行ノート <https://gist.github.com/showa-yojyo/4bc08711c7f0c55357754b9a711689b1>
    freeware
    google-ime
    deepl-translator
    winget
-   libreoffice/index
+   LibreOffice 基本ノート <https://showa-yojyo.github.io/libreoffice-notes/main.html>
+   LibreOffice Calc 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/calc.html>
+   LibreOffice Writer 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/writer.html>
    powertoys/index
-   windows-terminal
+   wt
    wsl
    wslg
    vscode/index
@@ -180,8 +190,10 @@
    docker/index
    oh-my-posh
    twitter
+   GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>
    inkscape/index
    vlc-media-player
+   OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>
    ffmpeg/index
    mathjax
    javascript-mermaid/index
@@ -198,6 +210,7 @@
    :maxdepth: 1
 
    android
+   Windows 11 初期換装ノート <https://gist.github.com/showa-yojyo/d419470d0f9f432c1e8147cdec737fb5>
 
 .. toctree::
    :caption: その他

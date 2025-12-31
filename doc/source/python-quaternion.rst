@@ -5,7 +5,8 @@ Quaternion 利用ノート
 本稿では Python_ パッケージ Quaternion_ について記す。このパッケージを利用する目
 的、導入方法、私が興味のある機能の利用方法について調べる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -56,7 +57,7 @@ Hamilton の四元数を扱える Python パッケージがあれば、とりあ
 まず、私がこのパッケージを知った経緯について記す。単に :program:`pip` の検索機能
 で知ったに過ぎない。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip search quaternion
    qmath                     - qmath provides a class for deal with quaternion algebra and 3D rotations.
@@ -73,7 +74,7 @@ Hamilton の四元数を扱える Python パッケージがあれば、とりあ
 このように多数の候補が出力されるが、ここから私は一番名前が素直な Quaternion をイ
 ンストールすることに決めた。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install Quaternion
    Downloading/unpacking Quaternion
@@ -103,7 +104,7 @@ Observatory の作品だ。
 Quaternion を利用する最も普通の形態は、次のインポート文だけを書いて済ませること
 ではないだろうか。
 
-.. code:: python3
+.. sourcecode:: python3
 
    from Quaternion import Quat
 
@@ -165,7 +166,7 @@ Quaternion を利用する最も普通の形態は、次のインポート文だ
   * 3 次正方行列の shape である。
   * PyOpenGL のインターフェイスに渡す際には、これを 4 次正方行列に直す必要がある。
 
-    .. code:: python3
+    .. sourcecode:: python3
 
        quat = Quat(...)
        rotation_matrix = np.identity(4)
@@ -223,7 +224,7 @@ Quaternion を利用する最も普通の形態は、次のインポート文だ
 
 次のようなテキスト片をテキストエディターに書きつける。
 
-.. code:: python3
+.. sourcecode:: python3
 
    def make_quat(alpha, axis):
        alpha_half = alpha / 2
@@ -236,7 +237,7 @@ IPython のセッションでコードを試すつもりでいるので、各種
 る。それから関数全体をおもむろにクリップボードにコピーし、IPython のセッションで
 :command:`%paste` する。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: %paste
    def make_quat(alpha, axis):
@@ -251,7 +252,7 @@ IPython のセッションでコードを試すつもりでいるので、各種
 
 それでは Wikipedia の The conjugation operation の状況を再現してみよう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [2]: q1 = make_quat(np.pi * 2/3, np.array([1, 1, 1]))
 
@@ -266,7 +267,7 @@ IPython のセッションでコードを試すつもりでいるので、各種
 まずはプロパティー ``q.transform`` を用いた 3 次元ベクトルの回転を確認したい。
 これがうまくいけば、当初の計画通りに PyOpenGL のプログラムに応用できる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [4]: t = q1.transform
 
@@ -279,7 +280,7 @@ IPython のセッションでコードを試すつもりでいるので、各種
 適当に 3D ベクトルを与えて、成分が軸 ``[1, 1, 1]`` 周りに 120 度回転するかテスト
 しよう。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [6]: dot(t, [1, 2, 3])
    Out[6]: array([ 3.,  1.,  2.])

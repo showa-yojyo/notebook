@@ -6,7 +6,8 @@ Py2exe に関しては筆者が興味を失っている状態なので、本稿�
 いる。現在、バージョン 0.9.2 のインストーラー（全 Python バージョン対応）が PyPI
 に置いてある。 64 ビット用のビルドもあるので、その気になれば下記記事を修正する。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -46,7 +47,7 @@ hello.py
 
 文字列を標準出力に出力するだけのコード。
 
-.. code:: python
+.. sourcecode:: python
 
    # hello.py
 
@@ -57,7 +58,7 @@ hello.py
 
 :file:`hello.py` と同じフォルダーに :file:`setup.py` を作成する。
 
-.. code:: python
+.. sourcecode:: python
 
    # setup.py
 
@@ -75,7 +76,7 @@ hello.py
   :program:`python.exe` のフルパスの alias だ。
 * 配布は :file:`dist` フォルダー全部となる。
 
-.. code:: console
+.. sourcecode:: console
 
    $ python26 setup.py py2exe
    ... 長い出力
@@ -115,7 +116,7 @@ Python 2.6 以降に係わる VC ランタイム問題
    とする。
 #. :file:`setup.py` の内容を修正する。例を示す。
 
-   .. code:: python
+   .. sourcecode:: python
 
       from distutils.core import setup
       import py2exe
@@ -138,7 +139,7 @@ PIL
 次のコードを考える。コマンドライン引数を画像ファイルとみなし、ビューワーで開くだ
 けのものだ。エラー処理は実装していない。
 
-.. code:: python
+.. sourcecode:: python
 
    import sys
    import Image
@@ -163,7 +164,7 @@ Py2exe が予想以上に色々な pyd ファイルを同梱してくれるの�
 
 ターゲットとなるコードは次のようなものだ。
 
-.. code:: python
+.. sourcecode:: python
 
    import numpy as np
    from scipy.spatial import KDTree
@@ -191,7 +192,7 @@ Py2exe が予想以上に色々な pyd ファイルを同梱してくれるの�
 :command:`setup.py py2exe` すると :file:`dist` フォルダーの中身がマッシブになる。
 Tcl/Tk 関連のランタイムは本当に必要なのだろうか。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ls -l dist
    合計 24M
@@ -236,7 +237,7 @@ Matplotlib
 
 わざとらしく NumPy, SciPy 関連を利用しない Matplotlib プログラムを考える。
 
-.. code:: python
+.. sourcecode:: python
 
    import matplotlib as mpl
    import matplotlib.pyplot as plt
@@ -263,7 +264,7 @@ Matplotlib
 
 面白いことに、MSVC90 ランタイムに関連するエラーメッセージが出る。
 
-.. code:: text
+.. sourcecode:: text
 
    *** finding dlls needed ***
    error: MSVCP90.dll: No such file or directory
@@ -271,7 +272,7 @@ Matplotlib
 ここで、先述の仮の措置を適用した :file:`setup.py` に書き換えると、ビルドが通る。
 そして :file:`dist` の内容がとんでもないことにある。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ls -l dist
    合計 38M
@@ -326,7 +327,7 @@ PyOpenGL
 
 GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試す。
 
-.. code:: python
+.. sourcecode:: python
 
    import sys
    from OpenGL.GL import *
@@ -359,7 +360,7 @@ GLUT ベースの簡単なプログラムに対して、Py2exe ビルドを試�
 
 Hello world のときと同じ設定でビルドすると、次の不審なメッセージが現れる。
 
-.. code:: text
+.. sourcecode:: text
 
    The following modules appear to be missing
    ['OpenGL.GL.GL_EXTENSIONS', 'OpenGL.GL.GL_NUM_EXTENSIONS', 'OpenGL.GL.GL_VERSION
@@ -371,7 +372,7 @@ Hello world のときと同じ設定でビルドすると、次の不審なメ�
 
 EXE はビルドできているので、試しに実行するとエラーメッセージが現れる。
 
-.. code:: text
+.. sourcecode:: text
 
    Traceback (most recent call last):
      File "main.py", line 3, in <module>
@@ -391,7 +392,7 @@ EXE はビルドできているので、試しに実行するとエラーメッ�
 やはりここは ``setup`` 側で対応したい。:file:`main.py` を元に戻して、こういうふ
 うにするのはどうだろうか。
 
-.. code:: python
+.. sourcecode:: python
 
    setup(console=['main.py'],
          options={"py2exe":{"includes":["OpenGL.platform.win32"]}})
@@ -401,7 +402,7 @@ PyQt4
 
 拡張子が ``pyw`` のケースに挑戦してみる。
 
-.. code:: python
+.. sourcecode:: python
 
    import sys
    from PyQt4 import QtGui, QtCore
@@ -439,7 +440,7 @@ PyQt4
 
 詳細は省くが :file:`setup.py` の ``setup`` 部分は次のようになる。
 
-.. code:: python
+.. sourcecode:: python
 
    setup(windows=['main.pyw'],
          data_files=data_files)
@@ -447,7 +448,7 @@ PyQt4
 ビルドして実行する。いきなりエラーメッセージが現れ、ログファイルを見るように言わ
 れる。
 
-.. code:: text
+.. sourcecode:: text
 
    Traceback (most recent call last):
      File "main.pyw", line 6, in <module>
@@ -459,7 +460,7 @@ PyQt4
 これは Py2exe Wiki に解法が書かれていて、例えば次のように書き換えるのがよい。
 ``options`` キーワード引数をいじるのだ。
 
-.. code:: python
+.. sourcecode:: python
 
    setup(windows=['main.pyw'],
          options={"py2exe":{"includes":["sip"]}},
@@ -467,7 +468,7 @@ PyQt4
 
 ビルド後の :file:`dist` フォルダーはこうなる：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ls -l dist
    合計 21M

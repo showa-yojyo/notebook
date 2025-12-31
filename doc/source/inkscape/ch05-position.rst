@@ -2,7 +2,8 @@
 Chapter 5. Positioning and Transforming
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Inkscape はオブジェクトとそれに適用する座標変換を区別して管理していると理解でき
 る。

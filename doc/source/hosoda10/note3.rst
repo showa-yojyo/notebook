@@ -4,7 +4,8 @@ Python 入門［２＆３対応］読書ノート 3/3
 
 .. include:: /_include/book-details/hosoda10.txt
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 第 16 章 日時の操作
 ======================================================================
@@ -139,7 +140,7 @@ ReportLab を紹介している。
 * ネットに接続して :command:`easy_install reportlab` でインストールできる。
 * 基本的に Python のコード一丁で PDF を生成する。面倒くさい。
 
-  .. code:: python
+  .. sourcecode:: python
 
      from reportlab import canvas
 
@@ -297,6 +298,11 @@ ReportLab を紹介している。
 * サンプルコード (p. 473) の ``__contains__`` と ``__getitem__`` のやり方を覚え
   よう。
 
+.. admonition:: 読者ノート
+
+   何年かして nose が開発を事実上休止し、私も pytest を学ぶことになる：
+   :doc:`/python-pytest`
+
 25.2 ドキュメンテーション
 ----------------------------------------------------------------------
 
@@ -359,7 +365,7 @@ ReportLab を紹介している。
 * ``threading`` モジュールに ``Lock`` クラスがあるので、それをロックに利用する。
   pp. 502-503 のサンプルコードの構造を頭に叩き込んでおく。
 
-  .. code:: python
+  .. sourcecode:: python
 
      lock.acquire()
      try:

@@ -9,7 +9,8 @@ Project: Skill-Sharing Website
 * 完全なコードは <https://eloquentjavascript.net/code/skillsharing.zip> からダウ
   ンロードできる。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Design
 ======================================================================
@@ -93,7 +94,7 @@ HTTP interface
 
 ``/talks`` に対する GET リクエストは次のような JSON を返す：
 
-.. code:: json
+.. sourcecode:: json
 
    [{"title": "Unituning",
      "presenter": "Jamal",
@@ -108,13 +109,13 @@ HTTP interface
 ないので、そのような URL を構築するときに文字列を関数 ``encodeURIComponent`` で
 符号化する必要がある。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    console.log("/talks/" + encodeURIComponent("How to Idle"));
 
 アイドリングに関する会話を作りたいというリクエストは次のようなものだ：
 
-.. code:: http
+.. sourcecode:: http
 
    PUT /talks/How%20to%20Idle HTTP/1.1
    Content-Type: application/json
@@ -130,7 +131,7 @@ DELETE リクエストもサポートする。
 POST リクエストを使用し、JSON 本体にプロパティー ``author`` と ``message`` があ
 るようにして行う。
 
-.. code:: http
+.. sourcecode:: http
 
    POST /talks/Unituning/comments HTTP/1.1
    Content-Type: application/json
@@ -166,7 +167,7 @@ Long polling をサポートするために ``/talks`` への GET リクエス�
 として使う。クライアントは、このようなリクエストを行うことで、会話が変更されたと
 きに通知される。
 
-.. code:: http
+.. sourcecode:: http
 
    GET /talks HTTP/1.1
    If-None-Match: "4"
@@ -211,7 +212,7 @@ NPM_ には多くの優れた中継器パッケージがあるが、ここでは
 
 次のコードが :file:`router.js` で、サーバーモジュールが必要とするものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    // router.js
 
@@ -271,7 +272,7 @@ Serving files
 イルだけを提供するサーバーを作成できる。しかし、特別に処理すべきリクエストを最初
 にチェックしたいので、別の関数でラップする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const {createServer} = require("http");
    const Router = require("./router");
@@ -329,7 +330,7 @@ Talks as resources
 会話一つを取得するリクエストのハンドラーは、会話を検索し、その JSON データを返す
 か、そうでなければ 404 エラーを返さねばならない。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const talkPath = /^\/talks\/([^\/]+)$/;
    router.add("GET", talkPath, async (server, title) => {
@@ -345,7 +346,7 @@ Talks as resources
 
 会話を削除するには、``takings`` オブジェクトから削除する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    router.add("DELETE", talkPath, async (server, title) => {
        if (title in server.talks) {
@@ -364,7 +365,7 @@ Talks as resources
 可能なストリームからすべての内容を読み取り、文字列に解決する ``Promise`` を返
 す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function readStream(stream) {
        return new Promise((resolve, reject) => {
@@ -387,7 +388,7 @@ Talks as resources
 ``talks`` に格納し、場合によっては既存のタイトルの会話を上書きし、再び
 ``updated`` を呼び出す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    router.add("PUT", talkPath,
               async (server, title, request) => {
@@ -416,7 +417,7 @@ Talks as resources
 会話へのコメントの追加も同様だ。``readStream`` を呼び出してリクエストの内容を取
 得し、結果のデータを検証して、有効そうであればコメントとして保存する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    router.add("POST", /^\/talks\/([^\/]+)\/comments$/,
               async (server, title, request) => {
@@ -450,7 +451,7 @@ Long polling support
 信しなければならない箇所が複数あるので、まず配列を構築し、ヘッダー ``ETag`` を応
 答に含めるヘルパーメソッドを定義する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    SkillShareServer.prototype.talkResponse = function() {
        let talks = [];
@@ -473,7 +474,7 @@ Long polling support
 * Node は、大文字と小文字を区別しないように指定されたヘッダーを、小文字の名前で
   保存する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    router.add("GET", /^\/talks$/, async (server, request) => {
        let tag = /"(.*)"/.exec(request.headers["if-none-match"]);
@@ -499,7 +500,7 @@ Long polling support
 メソッド ``waitForChanges`` は、リクエストが十分に待たされたときに 304 ステータ
 スで応答するためのタイマーを即座に設定する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    SkillShareServer.prototype.waitForChanges = function(time) {
        return new Promise(resolve => {
@@ -517,7 +518,7 @@ Long polling support
 メソッド ``updated`` で変更を登録すると、プロパティー ``version`` の値を上げて、
 待機中のリクエストすべてを叩き起こす。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    SkillShareServer.prototype.updated = function() {
        this.version++;
@@ -534,7 +535,7 @@ Long polling support
 た HTTP サーバーは ``public`` サブディレクトリーのファイルと、``/talks`` URL の
 会話管理インターフェースをサーブするようになる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    new SkillShareServer(Object.create(null)).start(8000);
 
@@ -555,7 +556,7 @@ HTML
   ブラウザーがサーバーを指したときにページを表示したい場合は、ファイル
   :file:`public/index.html` を置く必要がある。
 
-.. code:: html
+.. sourcecode:: html
 
    <!doctype html>
    <meta charset="utf-8">
@@ -583,7 +584,7 @@ Actions
 関数 ``handleAction`` はそれを実現する。状態の更新はとても単純なので、状態の変更
 も同じ関数で処理できる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function handleAction(state, action) {
        if (action.type == "setUser") {
@@ -624,7 +625,7 @@ Actions
 を呼び出し、サーバーがエラーコードを返したときに、返された ``Promise`` が却下さ
 れるようにする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function fetchOK(url, options) {
        return fetch(url, options).then(response => {
@@ -646,7 +647,7 @@ Rendering components
 ある。例えば、ユーザーが名前を入力するフィールドを表示するコンポーネントがそう
 だ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function renderUserField(name, dispatch) {
        return elt("label", {}, "Your name: ", elt("input", {
@@ -684,7 +685,7 @@ Rendering components
 
 ユーザーが新しい会話を作成するためのフォームは次のようにレンダリングする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function renderTalkForm(dispatch) {
        let title = elt("input", {type: "text"});
@@ -713,7 +714,7 @@ Polling
 るため、サーバーの ``/talks`` をポーリングし続け、会話の新しい集合が利用可能に
 なったときにコールバック関数を呼び出す関数 ``pollTalks`` を書く。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    async function pollTalks(update) {
        let tag = undefined;
@@ -767,7 +768,7 @@ The application
 
 このようにして、アプリケーションを起動する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function runApp() {
        let user = localStorage.getItem("userName") || "Anon";
@@ -811,7 +812,7 @@ Disk persistence
 
 永続データを更新するタイミングは ``updated`` とする。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     const data_path = './talks.json';
 
@@ -825,7 +826,7 @@ Disk persistence
 ``SkillShareServer`` のコンストラクターにちょうど ``talks`` 引数がある。この設計
 をそのまま活用する。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const { readFile } = require("fs");
 
@@ -863,7 +864,7 @@ Comment field resets
 ``this.talks`` が未定義のときはコンストラクターから呼び出されているので、従来ど
 おりの全更新をする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    if (this.talks === undefined) {
        this.talkDOM.textContent = "";
@@ -878,7 +879,7 @@ Comment field resets
 次は long polling のいちばん頻繁に発生する場合で、何の変更もないときの処理をす
 る：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    if(this.talks == state.talks){
        return;
@@ -887,7 +888,7 @@ Comment field resets
 本題は会話の配列に変化が生じているときの処理だ。会話が増えているときには、その会
 話だけを DOM および ``this.talks`` に追加する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const numTalksOld = this.talks.length;
    const numTalksNew = state.talks.length;
@@ -906,7 +907,7 @@ Comment field resets
 会話の削除は少しややこしい。会話の比較を ``title`` に基づいて行うのでこういう感
 じになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    if (numTalksNew < numTalksOld) {
        const setOld = new Set(this.talks.map(i => i.title));
@@ -939,7 +940,7 @@ Comment field resets
 
 会話内容が更新されるとき、すなわちコメントが増えるときの処理を次のようにする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    for(let i = 0; i < numTalksNew; ++i){
        const commentsOld = this.talks[i].comments;

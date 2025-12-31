@@ -7,7 +7,8 @@ Functions
 他のプログラミングと同様に JavaScript でも関数概念は基本的だ。大規模なプログラム
 を構造化し、反復を減らし、部分プログラムに分割して全体を管理することができる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 Defining a function
 ======================================================================
@@ -15,7 +16,7 @@ Defining a function
 * 関数定義とは、変数定義であって、変数の値が関数であるものだ。
 * 関数はキーワード ``function`` で始まる式で作成される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
     const square = function(x) {
         return x * x;
@@ -64,7 +65,7 @@ Declaration notation
 次の形式の関数定義も認められている。そのようなものは先ほどの形式のそれと動作が異
 なる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function square(x) {
        return x * x;
@@ -82,7 +83,7 @@ Arrow functions
 他プログラム言語でいうラムダ式に相当する関数定義の様式もある。キーワード
 ``function`` の代わりに、記号 ``=>`` を使う。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    const power = (base, exponent) => {
        let result = 1;
@@ -133,7 +134,7 @@ Closure
 局所変数の特定のオブジェクトを、それを囲むスコープの中で参照することができる機能
 を :dfn:`クロージャー` と呼ぶ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function wrapValue(n) {
        let local = n;
@@ -201,7 +202,7 @@ Minimum
 
 **解答**：C++ 標準の ``std::max`` をパクる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function max(a, b){
        console.assert(!isNaN(a));
@@ -229,7 +230,7 @@ Recursion
 
 **解答**：教科書の演習問題の解答としてはこの程度の品質でいいと思われる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function isEven(n){
        console.assert(Number.isSafeInteger(n) && n >= 0);
@@ -250,7 +251,7 @@ Bean counting
 
 **解答**：題意を無視して後半からやる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
   function countChar(s, char = "B"){
       return Array.from(s).filter(c => c == char).length;

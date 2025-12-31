@@ -5,7 +5,8 @@ WebGL Specification 1.0 読書ノート 1 of 4
 `WebGL Specification <https://www.khronos.org/registry/webgl/specs/latest/1.0/>`__
 を読んでいく。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Abstract
 ======================================================================
@@ -284,7 +285,7 @@ API 呼び出しがレンダリングされる描画バッファーは |WebGLCon
    ログラムが（ユーザーの操作によるものではなく）プログラムによってキャンバスの
    サイズを変更する方法を示す：
 
-   .. code:: javascript
+   .. sourcecode:: javascript
 
       const canvas = document.getElementById('canvas1');
       const gl = canvas.getContext('webgl');
@@ -436,7 +437,7 @@ WebGL でもアルファブレンディングは難しい仕事らしい。
       する方法を示している。画像は、認証情報 (cookie) なしでサーバーから得られ
       る：
 
-      .. code:: javascript
+      .. sourcecode:: javascript
 
          const gl = document.querySelector("canvas").getContext("webgl");
          const image = new Image();

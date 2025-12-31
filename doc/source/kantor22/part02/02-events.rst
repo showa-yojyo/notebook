@@ -2,7 +2,8 @@
 Introduction to Events
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ブラウザーイベント、そのプロパティーと処理の入門。
@@ -69,7 +70,7 @@ JavaScript では識別子の大文字小文字を区別するので、HTML の�
 上述の指定方法では一つのイベントに一つのイベントハンドラーしか与えられない。一般
 的には複数のハンドラーを定義したい。そこで、次のメソッドを利用する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    element.addEventListener(event, handler, [options]);
    element.removeEventListener(event, handler, [options]);
@@ -291,7 +292,7 @@ Behavior: Counter
 ``document.addEventListener()`` を呼び出す。イベントが発生したのが属性付きの要素
 であるかどうかを、次の参照でチェックする：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    event.target.dataset.counter != undefined
 
@@ -438,7 +439,7 @@ Event constructor
 組み込みイベントクラス群は ``Event`` を基底クラスとして、クラス階層を形成してい
 る。その基底クラスのコンストラクターを直接呼び出してイベントを生成できる。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let event = new Event(type[, options]);
 

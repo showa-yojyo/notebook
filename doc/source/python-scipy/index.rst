@@ -41,7 +41,7 @@ SciPy 利用ノート
    SciPy Reference Guide に倣い、以降のコード片においては、あらかじめ各種
    ``import`` を次のようにしたものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       import numpy as np
       import scipy as sp
@@ -59,7 +59,7 @@ SciPy_
 
 * :doc:`/python-numpy/index`
 * :doc:`/python-matplotlib/index`
-* :doc:`/python-nose`
+* :doc:`/python-nose`: ただし NumPy 2.x を使う場合は忘れろ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

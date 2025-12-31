@@ -9,7 +9,8 @@ Restview 利用ノート
 具体例を挙げると :file:`README.rst` のような、 Sphinx のビルド対象外の孤立した
 rstファイルの確認に用いる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -25,7 +26,7 @@ rstファイルの確認に用いる。
 :ref:`miniconda-anchor-pip` を参照。以下に :program:`pip` によるインストールの進
 行例を示す。
 
-.. code:: console
+.. sourcecode:: console
 
    $ pip install restview
    Collecting restview
@@ -54,7 +55,7 @@ rstファイルの確認に用いる。
 ``localhost:xxxx`` で起動する。直ちにウェブブラウザーが自動的に開いて README の
 HTML 版を表示する。その後、下に示すように HTTP ログを表示し続ける。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ restview README.rst
    Listening on http://localhost:64492/
@@ -73,7 +74,7 @@ HTML 版を表示する。その後、下に示すように HTTP ログを表示
 次のログは rst ファイルの 99 行目辺りにテキトーにテキストを挿入して保存した例で
 ある。
 
-.. code:: console
+.. sourcecode:: console
 
    127.0.0.1 - - [29/Oct/2015 22:41:55] "HEAD /polling?pathname=/&mtime=1446040040.280132 HTTP/1.1" 200 -
    README.rst:99: (ERROR/3) Unexpected indentation.
@@ -104,7 +105,7 @@ Restview を停止する
   り変わらない。ただ Cygwin 環境だと Python のスクリプト呼び出しが若干面倒なので
   確かに有用かもしれない。
 
-  .. code:: console
+  .. sourcecode:: console
 
      bash$ python "$PYTHON_SCRIPTS_DIR/rst2html.py" README.rst > /tmp/README.html
      bash$ cygstart /tmp/README.html

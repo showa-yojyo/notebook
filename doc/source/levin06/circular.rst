@@ -7,7 +7,8 @@ Circular & Elliptical Shaping Functions
 :math:`{[0, 1]}` を定義域とする、ある種の二次式の平方根を利用する整形関数が紹介
 されている。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Circular Interpolation: Ease-In and Ease-Out
 ======================================================================

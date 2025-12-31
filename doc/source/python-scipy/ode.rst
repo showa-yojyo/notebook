@@ -5,7 +5,8 @@
 本稿では SciPy_ を用いて簡単な微分方程式の数値計算を行う。どうも偏微分方程式は現
 時点では未実装らしいので、常微分方程式だけを解くことにする。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
@@ -58,7 +59,7 @@
 
    SymPy_ ならばこのようになる：
 
-   .. code:: ipython
+   .. sourcecode:: ipython
 
       In [1]: dsolve(f(x).diff(x, 2) + 3 * f(x).diff(x) + 2 * f(x))
       Out[1]: Eq(f(x), (C1 + C2*exp(-x))*exp(-x))

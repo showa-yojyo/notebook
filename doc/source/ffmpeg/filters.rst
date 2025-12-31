@@ -4,7 +4,8 @@
 
 FFmpeg Filters Documentation から興味のある部分を読んでノートをつづる。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 フィルター概念
 ======================================================================
@@ -13,7 +14,7 @@ FFmpeg のフィルターは libavfilter ライブラリーで実装されてい
 ではフィルター一つが入力と出力を複数持つことができる。説明のために次のような
 フィルターグラフを考える：
 
-.. code:: console
+.. sourcecode:: console
 
    ffmpeg -i INPUT -vf "
      split[main][tmp];
@@ -63,14 +64,14 @@ ON にしたい場合に有用だ。簡単に述べると値が 0 でない場�
 
 オプション ``enable`` を対応しているフィルターは次のコマンドで確認可能：
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ ffmpeg -filters | grep -- '^ T'
 
 例：映像フィルター ``smartblur`` で、その効果を ``10`` 秒から ``3*60`` 秒までに
 限って適用したい：
 
-.. code:: text
+.. sourcecode:: text
 
    smartblur=enable='between(t,10,3*60)'
 

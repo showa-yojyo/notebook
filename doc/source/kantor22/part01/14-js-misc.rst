@@ -2,7 +2,8 @@
 Miscellaneous
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 2
 
 ``Proxy`` and ``Reflect``
@@ -17,7 +18,7 @@ Miscellaneous
 ``Proxy``
 ----------------------------------------------------------------------
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let proxy = new Proxy(target, handler)
 
@@ -91,7 +92,7 @@ Protected properties with ``deleteProperty`` and other traps
 演算子 ``in`` を盗聴したい。例えば、次のオブジェクト ``range`` に対して ``5 in
 range`` のようなコードを意味のあるものにしたい。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let range = {
        start: 1,
@@ -101,7 +102,7 @@ range`` のようなコードを意味のあるものにしたい。
 メソッド ``has(target, property)`` を ``handler`` に実装すると ``in`` テストを盗
 聴できる。例えば：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    range = new Proxy(range, {
        has(target, prop) {
@@ -122,7 +123,7 @@ Wrapping functions: ``apply``
 以前やった関数ベースの Decorator パターンを ``Proxy`` で実装する。この方式の利点
 は、関数のプロパティーを損なわないという点だ。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function delay(f, ms) {
        //return function() {
@@ -165,7 +166,7 @@ Proxying a getter
 従来のように ``handler.get`` を実装すると ``admin.name`` は ``user._name`` に評
 価される。こういうときには ``Reflect.get`` を使う：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let userProxy = new Proxy(user, {
        // target, prop, receiver == user (guest), "name", admin
@@ -192,7 +193,7 @@ Built-in objects: Internal slots
 トを生成し、それに対して ``set`` を呼び出すと ``map.set`` の呼び出しに失敗する。
 これは、``hander.get`` を本文のように実装することで修正される。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    get(target, prop, receiver) {
        let value = Reflect.get(target, prop, receiver);
@@ -219,7 +220,7 @@ Revocable proxies
 ``Proxy.revocable()`` は ``target`` との結びつきを取り消す ``Proxy`` オブジェク
 トを可能にする。それには、後で戻り値の ``revoke()`` を呼び出す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let {proxy, revoke} = Proxy.revocable(target, handler);
 
@@ -306,7 +307,7 @@ currying という。この用語はプログラミング言語に依らない�
 
 二変数関数の場合は次のような関数がそれを実現する：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    function curry(f) { // curry(f) does the currying transform
        return function(a) {
@@ -344,7 +345,7 @@ Reference type explained
 
 実は次のコードですらエラーになる：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    let f = user.hi;
    f();
@@ -361,7 +362,7 @@ Reference type explained
 
 例えば ``user.hi`` は、実体は次のものだ：
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    (user, "hi", true)
 
@@ -403,7 +404,7 @@ BigInt
 この型の値を定義するには、整数リテラルのケツに ``n`` を付加する。または、文字列
 や数値などから ``BigInt`` コンストラクターを呼び出す。
 
-.. code:: javascript
+.. sourcecode:: javascript
 
    1234567890123456789012345678901234567890n;
    BigInt("1234567890123456789012345678901234567890");

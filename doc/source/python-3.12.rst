@@ -5,7 +5,7 @@ What's New In Python 3.12 ノート
 `What's New In Python 3.12 <https://docs.python.org/3/whatsnew/3.12.html>`__ を
 たどりながら調査。興味のあるものしか読まない。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
    :local:
 
 New Features

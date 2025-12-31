@@ -2,7 +2,8 @@
 18 UseCases
 ======================================================================
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
    :depth: 4
 
 18.1 Use Cases
@@ -267,7 +268,7 @@ UseCase の記法：
 
 各 ExtensionPoint は、次の構文に従い、UseCase の楕円の記号内の文字列で示される：
 
-.. code:: bnf
+.. sourcecode:: bnf
 
    <extension point> ::= <name> [: <explanation>]
 

@@ -4,7 +4,8 @@
 
 自分の Python_ 環境に `Python Twitter Tools`_ をインストールする方法を記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 前準備
 ======================================================================
@@ -16,14 +17,14 @@ PTT のインストールだけではモノが動かない。Twitter 側の設�
 
 PTT のインストールはいつものように pip で構わない。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ pip install twitter
 
 本パッケージ配布版には単体テストコードのようなものはない。インストールが無事に終
 わったことを知りたいのならば、``import twitter`` の確認で我慢する。
 
-.. code:: console
+.. sourcecode:: console
 
    bash$ python -c 'import twitter; help(twitter)'
    Help on package twitter:

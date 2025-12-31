@@ -5,7 +5,8 @@ Chapter 01: Towards Modern C++
 `Chapter 01: Towards Modern C++ <https://changkun.de/modern-cpp/en-us/01-intro/>`__
 についてのノート。
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 本書著者が用いているコンパイラー :program:`clang++` のオプション ``-std=c++2a``
 は C++20 相当だと思っていいだろう。
@@ -16,7 +17,7 @@ Chapter 01: Towards Modern C++
    :file:`.vscode/tasks.json` のコマンドラインオプション配列に次のコマンドライン
    と同等の引数を指定しておく：
 
-   .. code:: console
+   .. sourcecode:: console
 
       g++ -fdiagnostics-color=always \
           -g -Werror -Wall -Wextra -ansi -pedantic -std=c++17 \

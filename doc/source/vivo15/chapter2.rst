@@ -2,7 +2,8 @@
 Algorithmic drawing
 ======================================================================
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 Shaping functions
 ======================================================================
@@ -137,7 +138,7 @@ Exercise
 ``abs`` も併用するようだ。非負だとわかっている合成関数ならば ``abs`` 呼び出しを
 省略する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    y = 1. - sqrt(abs(x));
    y = 1. - abs(x);
@@ -163,7 +164,7 @@ Colors
 
 次のようなスニペットを愛用しているテキストエディターに仕込んでおけとある：
 
-.. code:: text
+.. sourcecode:: text
 
    vec3($1, $2, $3)
    vec4($1, $2, $3, ${4:1.0})
@@ -194,7 +195,7 @@ Playing with gradients
 ターナーの課題は三色使いたい。線形グラデーションをうまく指定する。水平方向の座標
 成分についてはどうでもいい。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 skyblue = vec3(.5294, .8078, .9216);
    vec3 white = vec3(1., 1., 1.);
@@ -210,7 +211,7 @@ Playing with gradients
 
 アニメーションのは中間地点を時刻とともに下方向へ移動させる方針で行く。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float sunset = fract(u_time);
        vec2 st = gl_FragCoord.xy / u_resolution.xy;
@@ -224,7 +225,7 @@ Playing with gradients
 中間が暗いのがいやならば、さらなる色を定義して補間処理を追加すればいいのだが、そ
 の問題は次の節で解決する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 red = vec3(1., 0., 0.);
    vec3 green = vec3(0., 1., 0.);
@@ -286,7 +287,7 @@ HSB in polar coordinates
 
 マウスカーソルの問題は次の一行を加えれば十分：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    color *= step(0.5, radius) - step(0.75, radius);
 
@@ -303,7 +304,7 @@ HSB in polar coordinates
 
 ロジックをスケッチすると次のようになる。初版：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // Map the angle (-PI to PI) to the Hue (from 0 to 1)
    // and the Saturation to the radius
@@ -329,7 +330,7 @@ HSB in polar coordinates
 
 ここから条件分岐などをシェーダーらしく書き直す：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float pulse(float a, float b, float x){
        return step(a, x) - step(b, x);
@@ -337,7 +338,7 @@ HSB in polar coordinates
 
 として関数 ``pulse`` を定義すると一連の ``if`` 文を次の式に置き換えられる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    hue = pulse(0., x1, hue) * mix(0., y1, hue/d)
        + pulse(x1, x2, hue) * mix(y1, y2, (hue - x1) / (x2 - x1))
@@ -345,7 +346,7 @@ HSB in polar coordinates
 
 各項をさらに関数化する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float slope(float x1, float x2, float y1, float y2, float hue){
        return pulse(x1, x2, hue) * mix(y1, y2, (hue - x1) / (x2 - x1));
@@ -385,7 +386,7 @@ Rectangle
   * L 型を反復する方法
   * ロ型を反復する方法
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 bl = step(vec2(0.1), st); // bottom-left
    vec2 tr = step(vec2(0.1), 1.0 - st); // top-right
@@ -412,7 +413,7 @@ Rectangle
 
 次のように ``floor`` を使うと同じ結果が得られる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 bl = floor(0.9 + st);
    vec2 tr = floor(1.9 - st);
@@ -421,7 +422,7 @@ Rectangle
 れているが、初版なので色々と決め打ちする。線幅や矩形のサイズ、位置を引数リストに
 追加することが考えられる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float rectangle(vec2 st, float border_width){
        vec2 border = vec2(max(0.01, border_width));
@@ -437,7 +438,7 @@ Rectangle
 
 単純塗りつぶしバージョン。以前定義した関数 ``pulse`` を用いる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float rectangle(vec2 st, vec2 bl, vec2 tr){
        return pulse(bl.x, tr.x, st.x) * pulse(bl.y, tr.y, st.y);
@@ -469,7 +470,7 @@ Circles
 
 当然だが、固定点から距離が一定であるピクセルだけを他の色で描けば円が現れる。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float d = .01;
    vec3 color = 1. - vec3(step(.5 - d, pct) - step(.5, pct));
@@ -478,7 +479,7 @@ Circles
 
 グラデーション全体をキャンバス内に収めるだけならば次のように修正すれば十分：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 color = vec3(pct) * 2.;
 
@@ -507,7 +508,7 @@ Distance field
 
 白と黒はそれぞれ ``vec3(1, 1, 1)``, ``vec3(0, 0, 0)`` だから：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // Turn everything above 0.5 to white and everything below to black
    vec3 color = vec3(step(.5, pct));
@@ -517,7 +518,7 @@ Distance field
 
 関数 ``smoothstep`` を使うのはよくやるのでもう大丈夫だろう。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float radius = .5;
    float line_width = .01;
@@ -527,7 +528,7 @@ Distance field
 
 色を付けるのは単に好きな色を成分ごとの乗算をすればいい。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec3 line_color = vec3(1., 0., 0.);
    // ...
@@ -539,7 +540,7 @@ Distance field
 円を動かすとは、文脈上円の中心を運動させるという意味しか残っていない。円の中心を
 運動させるには、``distance`` の行の実引数を工夫すればいい。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    pct = distance(st,vec2(0.5 - .25 * sin(u_time), 0.5 + .1 * sin(u_time)));
 
@@ -562,7 +563,7 @@ Polar shapes
 正規化された座標 ``st`` からキャンバスの中心を原点とする極座標空間の座標 ``(r,
 theta)`` を得る公式：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 pos = vec2(0.5) - st;
    float r = length(pos) * 2.0;
@@ -582,7 +583,7 @@ theta)`` を得る公式：
 アニメーションは色々考えられるが、偏角 ``a`` またはプロット ``f`` を ``u_time``
 で加工するのが普通だろう。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    const float TAU = radians(360.);
 
@@ -594,7 +595,7 @@ theta)`` を得る公式：
 
 穴をあける問題は少し手を抜いて、白を白で引くと黒になることを利用する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float a = atan(pos.y,pos.x) + u_time;
 
@@ -608,7 +609,7 @@ theta)`` を得る公式：
 
 プロットの問題は興味深い結果が得られる。前章で使用した実装はこういうものだった：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float plot(vec2 st, float pct){
        return smoothstep(pct - 0.02, pct, st.y) -
@@ -617,7 +618,7 @@ theta)`` を得る公式：
 
 題意を好意的に解釈して極座標用に書き直すことにする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float plot(float r, float pct){
        return smoothstep(pct - 0.02, pct, r) -
@@ -627,7 +628,7 @@ theta)`` を得る公式：
 しかし、これをそのまま適用するとプロット曲線の太さが原点から遠ざかるほど太くなっ
 て不格好だ。そこでこのように調整する。少しましになる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float plot(float r, float pct){
        flot line_width = 0.02 / max(r, .001);
@@ -653,7 +654,7 @@ Combining powers
 
 最初の問題はリファクタリングに過ぎない：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float regular_polygon(int N, float size, vec2 st){
        // Angle and radius from the current pixel
@@ -739,7 +740,7 @@ Scale
 回転を組み合わせるのは ``scale`` の前か後ろになる。いつものように世界座標系を回
 転させるので、次のコードは十字の形状を時計回りに回転する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    float t = u_time;
    float c = cos(t);
@@ -787,7 +788,7 @@ Patterns
 
 「キャンバスを横何個かける縦何個のタイル列に分割する」関数を定義する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 tile(float scalar, in vec2 st){
        return fract(scalar * st);
@@ -799,7 +800,7 @@ Patterns
 
 これを使えばキャンバスを 3x3 に分割する処理は一行で記述できる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    tile(st, 3.);
 
@@ -808,7 +809,7 @@ Patterns
 scalar`` ならば ``st`` は中央の列のどこかにある。ただし ``st`` は係数倍される前
 の値とする。GLSL なので ``floor`` が適任だ：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    ivec2(floor(st * scalar))
 
@@ -846,7 +847,7 @@ Offset patterns
 
 関数 ``mod`` を利用した偶数奇数の判定方法を理解する。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    y = step(1.0, mod(x, 2.0));
 
@@ -854,7 +855,7 @@ Offset patterns
 ンだけ半ブロック分横にずらすという処理を示している。関数 ``brickTile`` がそれを
 実現している。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    st.x += step(1., mod(st.y, 2.0)) * 0.5;
 
@@ -871,7 +872,7 @@ Offset patterns
 
 関数 ``brickTile`` を順次機能拡張する方針をとる。引数 ``offset`` を追加する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 brickTile(vec2 st, float zoom, float offset){
        st *= zoom;
@@ -881,14 +882,14 @@ Offset patterns
 
 呼び出し箇所を修正する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    st = brickTile(st, 5.0, fract(u_time));
 
 偶数奇数で互い違いにオフセットさせるには、偶数、奇数を -1, 1 にそれぞれ写像する
 ことができれば十分だ。次のようにする：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 brickTile(vec2 st, float zoom, float offset){
        st *= zoom;
@@ -899,7 +900,7 @@ Offset patterns
 列で再現するには上記の ``xy`` を ``yx`` に入れ替えた版を作る必要があるが、この二
 つのバージョンを一つの関数にまとめられる：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    vec2 brickTile(vec2 st, float zoom, float offset){
        st *= zoom;
@@ -912,7 +913,7 @@ Offset patterns
 
 呼び出しを例えば次のように変更する：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // Apply the brick tiling
    st = brickTile(st, 5.0, fract(u_time) * 2.);
@@ -922,7 +923,7 @@ Truchet Tiles
 
 一つのセルをもう一度四つ切りに細分する。次の処理を ``zoom`` の直後に行う：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    //  Scale the coordinate system by 2x2
    st *= 2.;
@@ -945,7 +946,7 @@ Truchet Tiles
 ここまでは分かり易い。次に細分されたセルの ``index`` に応じてパターンを変換す
 る。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // Rotate each cell according to the index
    if(index == 1.){
@@ -962,7 +963,7 @@ Truchet Tiles
 例によって ``if`` 文が気に入らないので ``step`` で書き換える。神経質なようだが修
 練だと考えればいい。
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    st = fract(st);
 
@@ -996,7 +997,7 @@ Truchet Tiles
 黒と白の三角形を生じているのは次に引用するコードの RGB 部分だ。これを今までのパ
 ターン定義関数に置き換える：
 
-.. code:: glsl
+.. sourcecode:: glsl
 
    // step(st.x,st.y) just makes a b&w triangles
    // but you can use whatever design you want.

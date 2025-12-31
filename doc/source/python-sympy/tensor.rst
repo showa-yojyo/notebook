@@ -4,14 +4,15 @@
 
 モジュール ``sympy.tensor`` について記す。
 
-.. contents:: ノート目次
+.. contents:: 見出し一覧
+   :local:
 
 .. note::
 
    本文中のすべての IPython セッション中のサンプルコードで、以下のインポートおよ
    び出力書式設定が済んでいるものとする。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       from sympy.tensor.tensor import *
       init_printing(pretty_print=False)
@@ -27,7 +28,7 @@
 この例では主に添字の上げ下げについて見ていく。具体的に言えば各階のテンソルに対し
 て関数 ``contract_metric`` がどのように利用できるのかを示す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
 
@@ -58,7 +59,7 @@
 する各添字オブジェクトにマイナス符号を付けるかどうかで共変反変の階数を自在に設定
 できる。ここでは回りくどい方法を採る。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [6]: A = tensorhead('A', [Lorentz]*1, [[1]])
 
@@ -97,7 +98,7 @@
 引き続き二階のテンソルを定義して、添字の上げ下げを試みる。:math:`{B^{ij} =
 g^{il} g^{jm} B_{lm}}` などを確かめる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [12]: B = tensorhead('B', [Lorentz]*2, [[1]*2])
 
@@ -113,7 +114,7 @@ g^{il} g^{jm} B_{lm}}` などを確かめる。
 四元運動量は一階テンソルとして表現できる。以下の例ではテンソルオブジェクトの生
 成、上付き下付き添字の使い分け方、内積・ノルムの評価をする。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
 
@@ -162,7 +163,7 @@ g^{il} g^{jm} B_{lm}}` などを確かめる。
 電磁場の強度は二階のテンソルで表現することがある。以下の例では、テンソルの行列形
 式の成分を直接設定して、各種メソッドや関数を試す。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dummy_fmt='L')
 
@@ -247,7 +248,7 @@ g^{il} g^{jm} B_{lm}}` などを確かめる。
 
 もっと確かめる。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [15]: Fmat = F(m, n).get_matrix()
 
@@ -285,7 +286,7 @@ Levi-Civita 記号
 を表現する。以下の例では、三階の Levi-Civita 記号の添字の重複のない六個の値を見
 る。
 
-.. code:: ipython
+.. sourcecode:: ipython
 
    In [1]: Lorentz = TensorIndexType('Lorentz', dim=3, dummy_fmt='L')
 

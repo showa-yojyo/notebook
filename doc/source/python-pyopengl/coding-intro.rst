@@ -12,14 +12,15 @@
    特に断らない限り、以降のテキストおよびコード片においては、各種 ``import`` を
    次のようにしたものと仮定している。
 
-   .. code:: python3
+   .. sourcecode:: python3
 
       import numpy as np
       import OpenGL.GL as GL
       import OpenGL.GLU as GLU
       import OpenGL.GLUT as GLUT
 
-.. contents::
+.. contents:: 見出し一覧
+   :local:
 
 PyOpenGL プログラム共通の注意事項およびコツ
 ======================================================================
