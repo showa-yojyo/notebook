@@ -8,6 +8,7 @@ Hatch 利用ノート
 .. |pip| replace:: :program:`pip`
 .. |pyproject.toml| replace:: :file:`pyproject.toml`
 .. |pytest| replace:: :program:`pytest`
+.. |coverage| replace:: :program:`coverage`
 .. |ruff.toml| replace:: :file:`ruff.toml`
 
 .. contents:: 見出し一覧
@@ -404,7 +405,8 @@ Hatch_ 既定構成をいっさい採用せず、完全に自分の構成を与�
 しないときのコマンドと考えればよい。
 
 スクリプト ``run-cov`` は ``hatch test --cover`` および ``hatch test
---cover-quiet`` の動作を指定する。
+--cover-quiet`` の動作を指定する。前者は |coverage| によるコード網羅度計測をテス
+ト時に追加的に実行する。
 
 スクリプト ``cov-combine`` もスクリプト ``cov-report`` も、コード網羅度を計測す
 るオプションを使う場合の、テストコマンドの実行が完了した後にこの順番で実行され
@@ -419,12 +421,13 @@ Hatch_ 既定構成をいっさい採用せず、完全に自分の構成を与�
 
 .. todo::
 
-   * そもそも :program:`coverage` を私が理解していない。
    * ``hatch test --all`` は互換な環境全てで実行
 
 .. seealso::
 
-   Pytest_ については :doc:`/python-pytest` に記す。
+   プログラム |pytest| については :doc:`/python-pytest` に記す。
+
+   プログラム |coverage| については :doc:`/python-coverage` に記す。
 
 環境選択
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
