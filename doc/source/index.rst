@@ -107,6 +107,7 @@
    python-ruff
    python-nose
    python-pytest
+   python-coverage
    python-hatch
    python-ipython
    python-jupyter
