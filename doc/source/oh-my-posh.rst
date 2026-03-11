@@ -690,6 +690,39 @@ Segment の構成を模索中。時刻書式の指定を Go 言語方式です�
 
    垢抜けていないので、より相応しい記法が実はある予感がする。
 
+コマンド履歴番号を表示する
+--------------------------------------------------------------------------------
+
+Bash コマンド履歴番号をプロンプトに含めるやり方の一つを記す。まず、次のような
+Segment を定義する：
+
+.. sourcecode:: json
+   :caption: コマンド履歴番号を Segment に含める手口の例
+   :force:
+
+   {
+     "template": "{{ .Env.CURRENT_HISTORY_NUMBER }} $",
+     "type": "text",
+     "style": "plain"
+   }
+
+Template テキスト内では :samp:`.Env.{var}` で環境変数 `var` を参照することが可能
+だ。
+
+次にシェル関数 ``set_poshcontext`` を環境に定義し、Oh My Posh が参照可能であるよ
+うにする。この関数で環境変数 ``CURRENT_HISTORY_NUMBER`` を設定するのだ：
+
+.. sourcecode:: bash
+   :caption: 関数 ``set_poshcontext`` 実装例
+   :force:
+
+   function set_poshcontext() {
+       export CURRENT_HISTORY_NUMBER="$HISTCMD"
+   }
+   export -f set_poshcontext
+
+以上により、プロンプトに ``1096 $`` のような文字列が含まれるようになる。
+
 色指定をする
 ----------------------------------------------------------------------
 
