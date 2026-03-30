@@ -53,7 +53,9 @@ extensions = [
 templates_path = ['_templates']
 
 # A list of warning types to suppress arbitrary warning messages.
-suppress_warnings = ['autosectionlabel.*']
+suppress_warnings = [
+    'autosectionlabel.*',
+    'docutils',]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
