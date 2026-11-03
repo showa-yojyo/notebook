@@ -51,7 +51,6 @@
    gorelick14
    stroustrup14
    stepanov15
-   khronos15/index
    vivo15/index
    saha16
    slatkin16
