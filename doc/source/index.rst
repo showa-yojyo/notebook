@@ -105,7 +105,6 @@
    python-pylint
    python-mypy
    python-ruff
-   python-nose
    python-pytest
    python-coverage
    python-hatch

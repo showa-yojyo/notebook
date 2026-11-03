@@ -8,11 +8,10 @@
 * :ref:`miniconda-anchor-pip` の方針でインストールする。
 * 各種計算結果の出力（表示）に Matplotlib_ を多用しているので、そちらもインス
   トール済みであるとする。
-* SciPy_ は単体テストに Nose_ を利用している。NumPy_ インストール時に併せてイン
+* SciPy_ は単体テストに Nose を利用している。NumPy_ インストール時に併せてイン
   ストールしてあるハズ。
 * インストールを終了したら、何はさておき :file:`INSTALL.rst.txt` を一読するこ
-  と。NumPy_ のときと同様、Nose_ が環境にあれば単体テストが実行できる。例によっ
-  て実行時間は決して短くない。
+  と。
 
   .. sourcecode:: pycon
 
@@ -44,7 +43,7 @@
 
 .. admonition:: 利用者ノート
 
-   SciPy 1.x 系では Nose_ を用いていない。一般使用者は上記の方法で単体テストを実
+   SciPy 1.x 系では Nose を用いていない。一般使用者は上記の方法で単体テストを実
    行することがなくなった。
 
 .. include:: /_include/python-refs-core.txt
