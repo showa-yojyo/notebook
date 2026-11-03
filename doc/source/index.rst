@@ -116,7 +116,6 @@
    python-scipy/index
    python-sympy/index
    python-apgl
-   python-pil
    python-pillow
    python-matplotlib/index
    python-networkx/index
