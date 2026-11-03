@@ -130,7 +130,6 @@
    python-pyqt5
    python-pandas/index
    python-pygame
-   youtube-dl
    python-py2exe
 
 .. toctree::
