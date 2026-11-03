@@ -181,7 +181,6 @@
    powertoys/index
    wt
    wsl
-   wslg
    vscode/index
    regex
    cygwin
