@@ -85,7 +85,6 @@ IPython_ のセッションを起動して、次のように単体テストを�
 Python のサードパーティー製ライブラリーのインストール手段全般についてのノートが
 すでにある。
 
-* :doc:`/python-upgrade`
 * :doc:`/python-miniconda`
 * :doc:`/python-pip`
 

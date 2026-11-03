@@ -21,6 +21,5 @@ JavaScript 総合
 
 * :doc:`/javascript-mermaid/index`
 * :doc:`/mathjax`
-* :doc:`/khronos15/index`
 * :doc:`/webgl`
 * :doc:`/xpath`

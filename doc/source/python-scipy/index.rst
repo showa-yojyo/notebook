@@ -34,7 +34,7 @@ SciPy 利用ノート
      * SciPy_: 0.10.1, 0.14.0, 0.16.0, 0.18.0, 1.1.0
      * NumPy_: 1.6.1, 1.6.2, 1.8.2, 1.10.0, 1.11.1, 1.13.3
      * Matplotlib_: 1.1.0, 1.1.1, 1.3.1, 1.4.3, 1.5.1, 2.2.2
-     * Nose_: 1.1.2, 1.3.3, 1.3.7
+     * Nose: 1.1.2, 1.3.3, 1.3.7
 
 .. note::
 
@@ -59,7 +59,6 @@ SciPy_
 
 * :doc:`/python-numpy/index`
 * :doc:`/python-matplotlib/index`
-* :doc:`/python-nose`: ただし NumPy 2.x を使う場合は忘れろ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
