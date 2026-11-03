@@ -25,7 +25,7 @@ NumPy 利用ノート
 
      * Python_: 2.6.6, 2.7.3, 3.4.1, 3.5.0, 3.5.2
      * NumPy_: 1.6.0, 1.6.2, 1.8.2, 1.9.2, 1.10.0, 1.11.1
-     * Nose_: 1.0.0, 1.1.2, 1.3.3, 1.3.7
+     * Nose: 1.0.0, 1.1.2, 1.3.3, 1.3.7
 
 .. note::
 
@@ -46,7 +46,6 @@ Numpy_
 ======================================================================
 
 * :doc:`/python-scipy/index`
-* :doc:`/python-nose`: ただし NumPy 2.x を使う場合は忘れろ。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

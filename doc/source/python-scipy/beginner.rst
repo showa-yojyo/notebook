@@ -41,7 +41,6 @@ How to work with SciPy
   * IPython_: インターフェイス。環境と言ったほうが伝わる。
   * Pandas_: データ構造パッケージ。
   * SymPy_: 計算機数学・計算機代数パッケージ。
-  * Nose_: 単体テストに便利なパッケージ。SciPy 0.x のみ。
 
 * NumPy_ も SciPy_ もプロット機能を提供しない。プロットパッケージとしては
   Matplotlib_ が最も普通に利用されている。
@@ -53,7 +52,6 @@ How to work with SciPy
    * :doc:`/python-ipython`
    * :doc:`/python-pandas/index`
    * :doc:`/python-sympy/index`
-   * :doc:`/python-nose`: ただし SciPy 1.x を使う場合は忘れろ。
 
 Learning to work with SciPy
 ======================================================================

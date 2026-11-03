@@ -22,7 +22,7 @@ IPython 利用ノート
      * Python_ 3.4.1, 3.5.0, 3.5.2, 3.6.6, 3.12.3
      * IPython_ 3.0.0, 4.0.0, 5.0.0, 6.4.0, 8.24.0
      * PyReadline_ 2.0, 2.1, n/a
-     * Nose_ 1.3.4, 1.3.7
+     * Nose 1.3.4, 1.3.7
      * PyQt_ v5.3.1 for Python v3.4 (x64), n/a for Python v3.5 (x64), 4.11.4
      * PyZMQ_ 14.5.0, 14.7.0, TODO
 
