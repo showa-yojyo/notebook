@@ -98,7 +98,6 @@
 
    python-3.[0-9]
    python-3.1[0-9]
-   python-upgrade
    python-miniconda
    python-pip
    python-pipenv

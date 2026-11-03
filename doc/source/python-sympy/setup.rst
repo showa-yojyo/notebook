@@ -178,7 +178,6 @@ SymPy のドキュメントによると、ソースからのインストール�
     すことが発覚した。
 
 * ConEmu の :guilabel:`Predefined Tasks` にこのコマンドラインを含めておく。
-  :doc:`/python-upgrade` も参照。
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
