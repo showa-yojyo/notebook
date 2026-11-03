@@ -37,7 +37,7 @@ NetworkX 利用ノート
 
      * Python_: 3.4.1, 3.5.0, 3.5.2, 3.6.4, 3.6.5.
      * NetworkX_: 1.9.1, 2.0.dev20151014034116, 1.11, 2.1.
-     * Nose_: 1.3.4, 1.3.7
+     * Nose: 1.3.4, 1.3.7
      * Numpy_: 1.9.1, 1.10.0, 1.11.1
      * Matplotlib_: 1.4.2, 1.4.3, 1.5.1, 2.2.2.
 
@@ -50,7 +50,6 @@ NetworkX_
 関連ノート
 ======================================================================
 
-* :doc:`/python-nose`: NetworkX 3.x を使う場合は忘れろ。
 * :doc:`/python-matplotlib/index`
 
 .. include:: /_include/python-refs-core.txt

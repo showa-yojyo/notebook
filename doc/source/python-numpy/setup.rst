@@ -18,29 +18,12 @@
 
 インストールを終了したら、何はさておき :file:`README.txt` と :file:`INSTALL.txt`
 を一読すること。目をひくのは単体テストが実行できるということだが、これには別途
-Nose_ というサードパーティー製のライブラリーを Python 環境にインストールしておく
+Nose というサードパーティー製のライブラリーを Python 環境にインストールしておく
 必要がある。
-
-実際にやってみるとこのような感じになる。なお、数値計算パッケージの単体テストゆ
-え、実行時間は短くはない。時間に余裕があるときに試すとよい。
-
->>> import numpy
->>> numpy.test()
-Running unit tests for numpy
-NumPy version 1.8.2
-NumPy is installed in D:\Python34\lib\site-packages\numpy
-Python version 3.4.1 (v3.4.1:c0e311e010fc, May 18 2014, 10:45:13) [MSC v.1600 64 bit (AMD64)]
-nose version 1.3.3
-... more dots ...
-----------------------------------------------------------------------
-Ran 4762 tests in 207.414s
-OK (KNOWNFAIL=10, SKIP=8)
-<nose.result.TextTestResult run=4762 errors=0 failures=0>
-46454 passed, 2422 skipped, 2818 deselected, 33 xfailed, 5 xpassed in 276.16s (0:04:36)
 
 .. admonition:: 利用者ノート
 
-   NumPy 2.x 系では Nose_ を用いていない。単体テストを pytest_ で実装している。
+   NumPy 2.x 系では Nose を用いていない。単体テストを pytest_ で実装している。
    同様の関数呼び出しでテストを開始することが可能だが、Hypothesis_ や Meson_と
    いった依存パッケージが必要であるようだ。
 

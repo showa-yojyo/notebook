@@ -98,14 +98,12 @@
 
    python-3.[0-9]
    python-3.1[0-9]
-   python-upgrade
    python-miniconda
    python-pip
    python-pipenv
    python-pylint
    python-mypy
    python-ruff
-   python-nose
    python-pytest
    python-coverage
    python-hatch
@@ -116,7 +114,6 @@
    python-scipy/index
    python-sympy/index
    python-apgl
-   python-pil
    python-pillow
    python-matplotlib/index
    python-networkx/index
@@ -133,7 +130,6 @@
    python-twitter/index
    python-isbn-hyphenate
    python-pyopengl/index
-   python-pyqt4
    python-pyqt5
    python-pandas/index
    python-pygame
@@ -190,7 +186,6 @@
    git/index
    docker/index
    oh-my-posh
-   twitter
    GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>
    inkscape/index
    vlc-media-player
