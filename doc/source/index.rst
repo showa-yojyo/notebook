@@ -133,7 +133,6 @@
    python-twitter/index
    python-isbn-hyphenate
    python-pyopengl/index
-   python-pyqt4
    python-pyqt5
    python-pandas/index
    python-pygame
