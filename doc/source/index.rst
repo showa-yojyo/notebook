@@ -58,7 +58,6 @@
    speinellis17
    bancila18
    haverbeke18/index
-   khronos18/index
    kantor22/index
    ou23/index
    入門モダン Linux 読書ノート <https://gist.github.com/showa-yojyo/caf7c68a253184fd07ac5e78cf9270f8>
