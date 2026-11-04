@@ -457,10 +457,80 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 バージョン 5.2
 ================================================================================
 
-.. todo::
+以下、`Bash 5.2 released [LWN.net] <https://lwn.net/Articles/909596/>`__ から引
+用する。
 
-   現在利用している Ubuntu 22.04.2 LTS の Bash はバージョンが 5.1 だ。本節以降を
-   記すのは Ubuntu をアップグレードしてバージョンが 5.2 以上になってからとする。
+----
+
+ANSI-C quoting を自然に記述することができる箇所が増えた：
+
+   e. Here-document parsing now handles ``$'...'`` and ``$"..."`` quoting when
+   reading the here-document body.
+
+   f. The ``shell-expand-line`` and ``history-and-alias-expand-line`` bindable
+   readline commands now understand ``$'...'`` and ``$"..."`` quoting.
+
+----
+
+GNU Readline 命令 ``spell-correct-word`` が追加した：
+
+   g. There is a new ``spell-correct-word`` bindable readline command to perform
+   spelling correction on the current word.
+
+この命令はキャレット位置にある語をファイル名として扱い、オプション ``cdspell``
+と同様に、その語の綴りを正す。単語の区切りは、``shell-forward-word`` で用いられ
+るものと同一だ。
+
+----
+
+これは憶えておくと便利かもしれない：
+
+   p. The ``$0`` special parameter is now set to the name of the script when
+   running any (non-interactive) startup files such as ``$BASH_ENV``.
+
+環境変数 ``BASH_ENV`` には非対話的 Bash が起動する際に、対象スクリプト実行前に
+``source`` されるファイルが指定されている。そのようなスクリプトで ``$0`` が自身
+の名前を指す。
+
+----
+
+   r. The ``printf`` builtin has a new format specifier: ``%Q``. This acts like
+   ``%q`` but applies any specified precision to the original unquoted argument,
+   then quotes and outputs the result.
+
+指定された精度を適用するのが引数を quote する前であるのが ``%q`` との違いだ。
+
+----
+
+   s. The new ``noexpand_translation`` option controls whether or not the
+   translated output of ``$"..."`` is single-quoted.
+
+文字列が変換されない場合、この設定は効果がない。
+
+----
+
+   t. There is a new parameter transformation operator: ``@k``. This is like
+   ``@K``, but expands the result to separate words after word splitting.
+
+ふつうは ``@k`` のほうが有用だと考えられる。
+
+----
+
+オプション ``patsub_replacement`` は置換パターンの ``&`` をメタ文字としてではな
+く、通常文字として扱いたい場合に off にするといいらしい：
+
+   x. New shell option: ``patsub_replacement``. When enabled, a ``&`` in the
+   replacement string of the pattern substitution expansion is replaced by the
+   portion of the string that matched the pattern. Backslash will escape the
+   ``&`` and insert a literal ``&``.
+
+----
+
+ファイル名展開は ``.`` や ``..`` には展開されないはずだが、次の新オプションを
+off にすることでそれを実現可能になる：
+
+   aa. The new ``globskipdots`` shell option forces pathname expansion never to
+   return ``.`` or ``..`` unless explicitly matched. It is enabled by default.
 
 関連ノート
 ================================================================================
