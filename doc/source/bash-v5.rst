@@ -1,6 +1,6 @@
-======================================================================
+================================================================================
 What's New In Bash 5 ノート
-======================================================================
+================================================================================
 
 Bash バージョン 5.x で追加された新機能のメモ。全部を追跡するのは無理だから気にな
 るものと便利とされている機能を中心に拾っていく。
@@ -9,7 +9,7 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
    :local:
 
 バージョン 5.0
-======================================================================
+================================================================================
 
 `Bash-5.0 release available <https://lists.gnu.org/archive/html/bug-bash/2019-01/msg00063.html>`__
 からめぼしい項目に絞ってノートを取る。
@@ -17,14 +17,14 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
   There is an ``EPOCHSECONDS`` variable, which expands to the time in seconds
   since the Unix epoch.
 
-例えばコマンド ``echo $EPOCHSECONDS`` を実行すると、コマンド ``date +%s`` と同じ
-ものを出力する。
+例えば命令 ``echo $EPOCHSECONDS`` を実行すると、命令 ``date +%s`` と同じものを出
+力する。
 
   There is an ``EPOCHREALTIME`` variable, which expands to the time in seconds
   since the Unix epoch with microsecond granularity.
 
-これも同様で、コマンド ``echo $EPOCHREALTIME`` を実行すれば ``date +%s.%6N`` と
-同じ出力が得られる。
+これも同様で、命令 ``echo $EPOCHREALTIME`` を実行すれば ``date +%s.%6N`` と同じ
+出力が得られる。
 
   ``BASH_ARGV0``: a new variable that expands to ``$0`` and sets ``$0`` on
   assignment.
@@ -35,15 +35,15 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
   ``history -d`` understands negative arguments: negative arguments offset from
   the end of the history list.
 
-例えば ``history -d -10`` とすれば、有効なコマンド履歴の十個前に実行したコマンド
-を履歴から削除する。
+例えば ``history -d -10`` とすれば、有効な命令履歴の十個前に実行した命令を履歴か
+ら削除する。
 
   The ``wait`` builtin now has a ``-f`` option, which signfies to wait until the
   specified job or process terminates, instead of waiting until it changes
   state.
 
-コマンド ``wait -f ID`` はジョブ状態が変更されたときに返るのではなく、ジョブ
-``ID`` が実際に終了するのを待ってからその終了コードを返すようになる。
+命令 ``wait -f ID`` はジョブ状態が変更されたときに返るのではなく、ジョブ ``ID``
+が実際に終了するのを待ってからその終了コードを返すようになる。
 
   If a non-interactive shell with job control enabled detects that a foreground
   job died due to ``SIGINT``, it acts as if it received the ``SIGINT``.
@@ -58,7 +58,7 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 コープに宣言する。このオプションを有効にすると、局所変数スコープ突入前に同名の変
 数に値が初期化済みならば、その値を引き継ぐようになる。
 
-.. sourcecode:: shell
+.. sourcecode:: bash
 
    function demo_localvar_inherit
    {
@@ -97,19 +97,19 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
   The ``history`` builtin can now delete ranges of history entries using
   ``-d start-end``.
 
-コマンド履歴を履歴番号範囲を指定することで削除できるようになった。次を実行すると
-コマンド履歴番号 1103 から 1118 までの履歴を削除する：
+命令履歴を履歴番号範囲を指定することで削除できるようになった。次を実行すると命令
+履歴番号 1103 から 1118 までの履歴を削除する：
 
-.. sourcecode:: console
+.. sourcecode:: bash
 
-   bash$ history -d 1103-1118
+   history -d 1103-1118
 
 先ほど挙げた負のオフセットを ``start`` および ``end`` の値として受け入れる。例え
-ば次のようなコマンドが考えられる：
+ば次のような命令が考えられる：
 
-.. sourcecode:: console
+.. sourcecode:: bash
 
-   bash$ history -d -16--1
+   history -d -16--1
 
   The command completion code now matches aliases and shell function names
   case-insensitively if the readline ``completion-ignore-case`` variable is set.
@@ -126,7 +126,8 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 
   The ``umask`` builtin now allows modes and masks greater than octal 777.
 
-要するに四桁のマスクを操作可能になったということか。
+四桁のマスクを操作可能になったというより、特殊属性ビットを設定可能になったと読む
+べきか？
 
   The ``complete`` builtin now accepts a ``-I`` option that applies the
   completion to the initial word on the line.
@@ -183,9 +184,9 @@ Bash バージョン 5.x で追加された新機能のメモ。全部を追跡�
 
   POSIX mode now enables the ``shift_verbose`` option.
 
-コマンド ``shift`` で範囲外の数を指定すると、たいていのシェルではエラーとなる。
-しかし、本家 POSIX ではエラーとする仕様では特にない。Bash 5.0 からはこのオプショ
-ン自体を有効にするようになった。そう解釈していいか。
+命令 ``shift`` で範囲外の数を指定すると、たいていのシェルではエラーとなる。しか
+し、本家 POSIX ではエラーとする仕様では特にない。Bash 5.0 からはこのオプション自
+体を有効にするようになった。そう解釈していいか。
 
 バージョン 5.1
 ======================================================================
@@ -201,8 +202,8 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   The ``select`` builtin now runs traps if its internal call to the ``read``
   builtin is interrupted by a signal.
 
-組み込みコマンド :command:`select` は、信号が :command:`read` の内部呼び出しに割
-り込んだときにトラップするようになった。
+内蔵命令 :command:`select` は、信号が :command:`read` の内部呼び出しに割り込んだ
+ときにトラップするようになった。
 
   ``SRANDOM``: a new variable that expands to a 32-bit random number that is not
   produced by an LCRNG, and uses ``getrandom``/``getentropy``, falling back to
@@ -230,17 +231,17 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   The shell now adds default bindings for ``shell-forward-word``,
   ``shell-backward-word``, ``shell-transpose-words``, and ``shell-kill-word``.
 
-新コマンド ``shell-transpose-words`` の意味は直観的に理解できると思うので説明を
+新命令 ``shell-transpose-words`` の意味は直観的に理解できると思うので説明を
 省く（パス文字列などで ``transpose-words`` との違いを実感できる）。
 
-ここで挙げたコマンドに対するキーバインド既定値は次のとおり：
+ここで挙げた命令に対するキーバインド既定値は次のとおり：
 
 .. csv-table::
    :delim: |
    :header-rows: 1
    :widths: auto
 
-   キーバインド | コマンド
+   キーバインド | 命令
    :kbd:`M-C-b` | ``shell-backward-word``
    :kbd:`M-C-d` | ``shell-kill-word``
    :kbd:`M-C-f` | ``shell-forward-word``
@@ -252,7 +253,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   a shell function if a name argument cannot be a shell variable name because
   it's not an identifier.
 
-コマンド :command:`unset` をオプションなしで実行すると、引数を変数名として処理す
+命令 :command:`unset` をオプションなしで実行すると、引数を変数名として処理す
 ることをまず試みる。それが失敗すると、今度は関数名として処理する。
 
   The :command:`test -N` operator uses nanosecond timestamp granularity if it's
@@ -269,7 +270,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   :command:`wait`: has a new ``-p VARNAME`` option, which stores the PID
   returned by :command:`wait -n` or :command:`wait` without arguments.
 
-コマンド :command:`wait` 実行時にプロセス ID を保存しておく事態になったらこれを
+命令 :command:`wait` 実行時にプロセス ID を保存しておく事態になったらこれを
 使おう。
 
   Sorting the results of pathname expansion now uses byte-by-byte comparisons if
@@ -290,7 +291,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   ``READLINE_MARK``: a new variable available while executing commands bound
   with :command:`bind -x`, contains the value of the mark.
 
-変数 ``READLINE_MARK`` はコマンド :command:`bind -x` で使用する Readline ライン
+変数 ``READLINE_MARK`` は命令 :command:`bind -x` で使用する Readline ライン
 バッファー内の印の位置を含む変数だ。挿入点と印の間の文字列が region と呼ばれるもの
 だ。
 
@@ -351,7 +352,7 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   When run from a ``-c`` command, ``jobs`` now reports the status of completed
   jobs.
 
-コマンド :command:`jobs` を :command:`bash -h` 中に実行するとジョブの実行状況を
+命令 :command:`jobs` を :command:`bash -h` 中に実行するとジョブの実行状況を
 確認できる。
 
   New ``U``, ``u``, and ``L`` parameter transformations to convert to uppercase,
@@ -372,20 +373,20 @@ Readline が効いた状態と descriptors を指定することが両立可能�
   ``PROMPT_COMMAND``: can now be an array variable, each element of which can
   contain a command to be executed like a string ``PROMPT_COMMAND`` variable.
 
-変数 ``PROMPT_COMMAND`` は ``PS1`` を表示する前に毎回実行されるコマンドを指定す
-るものだ。複数のコマンドを実行するために配列を代入することが可能になった。例えば
+変数 ``PROMPT_COMMAND`` は ``PS1`` を表示する前に毎回実行される命令を指定す
+るものだ。複数の命令を実行するために配列を代入することが可能になった。例えば
 
 .. sourcecode:: shell
 
    PROMPT_COMMAND=( "command1" "command2" ... )
 
-とすると、端末でコマンドを何か入力、実行するたびに ``command1``, ``command2``, ...
+とすると、端末で命令を何か入力、実行するたびに ``command1``, ``command2``, ...
 がいちいち実行されるようになる。
 
   :command:`ulimit` has a ``-R`` option to report and set the ``RLIMIT_RTTIME``
   resource.
 
-コマンド :command:`ulimit` 自体を全く利用しないので後回し。
+命令 :command:`ulimit` 自体を全く利用しないので後回し。
 
   Associative arrays may be assigned using a list of key-value pairs within a
   compound assignment. Compound assignments where the words are not of the form
@@ -454,15 +455,27 @@ Readline が効いた状態と descriptors を指定することが両立可能�
 構成要素としては無視されるようになったと言っている。
 
 バージョン 5.2
-======================================================================
+================================================================================
 
 .. todo::
 
    現在利用している Ubuntu 22.04.2 LTS の Bash はバージョンが 5.1 だ。本節以降を
    記すのは Ubuntu をアップグレードしてバージョンが 5.2 以上になってからとする。
 
+関連ノート
+================================================================================
+
+* `Bash 変数展開ノート <https://gist.github.com/showa-yojyo/7a7005f5d909964a140468a927a57169>`__
+* `Bash ファイル名展開ノート <https://gist.github.com/showa-yojyo/dbc6b610d76c6f3c63586922338e1855>`__
+* `Bash 関数ノート <https://gist.github.com/showa-yojyo/6b4cb5a92d1c64f023870c8ba8c05eec>`__
+* `Bash trap ノート <https://gist.github.com/showa-yojyo/444c1d94172f68072c756ac720fafe12>`__
+* `Bash ジョブノート <https://gist.github.com/showa-yojyo/25c5bf5d76be2872a5a502e95f18cd39>`__
+* `Bash Readline 基本ノート <https://gist.github.com/showa-yojyo/5621aa89f14d4619b02108f6edfb7d2a>`__
+* `Bash Readline 命令ノート <https://gist.github.com/showa-yojyo/7dfa1190dd49808c63155fa73f044ab2>`__
+* `Bash プログラム可能補完内蔵命令ノート <https://gist.github.com/showa-yojyo/fc06eabe197ecc33dc2ea073c82f2b7a>`__
+
 参考資料
-======================================================================
+================================================================================
 
 * `Bash 5.0 is here with new features and improvements | Packt Hub <https://hub.packtpub.com/gnu-bash-5-0-is-here-with-new-features-and-improvements/>`__
 * `Bash 5.0 Released with New Features <https://itsfoss.com/bash-5-release/>`__
