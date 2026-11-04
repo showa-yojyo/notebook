@@ -532,6 +532,218 @@ off にすることでそれを実現可能になる：
    aa. The new ``globskipdots`` shell option forces pathname expansion never to
    return ``.`` or ``..`` unless explicitly matched. It is enabled by default.
 
+バージョン 5.3
+================================================================================
+
+Bash 5.3 は次の新機能と性能の向上を目指したものとのことだ。
+
+* 新形式の命令置換
+
+  * ``${ something; }`` はサブシェルを起動することなく標準出力を捕捉する。
+  * ``${| something; }`` は現在のシェルコンテキストで命令を実行し、``REPLY`` に
+    結果を収める。
+* 各種機能の改善
+
+  * シェル変数 ``GLOBSORT`` が追加
+  * 内蔵命令 ``source`` にオプション ``-p`` が追加。パス指定が可能。
+  * 内蔵命令 ``compgen`` にオプション ``-V`` が追加。配列に結果を収めることが可
+    能。
+  * 内蔵命令 ``read`` にオプション ``-E`` が追加。Readline を用いて行を入力する。
+* Readline のバージョンを 8.3 に更新
+
+  * ``search-ignore-case``
+  * ``execute-named-command``
+  * ``export-completions``
+* スクリプト処理とデバッグ機能の改良
+* C 言語のバージョン 23 で実装された
+
+以下、`Bash-5.3-release available <https://lwn.net/Articles/1029079/>`__ から引
+用する。
+
+----
+
+内蔵命令 ``type`` の動作が少し詳しくなった：
+
+   i. ``type -a -P`` reports both hashed pathnames and the result of a ``$PATH``
+   search.
+
+----
+
+内蔵命令 ``trap`` で何かの信号に処理コードをあてがった後に、それを確認できるよう
+になった：
+
+   j. ``trap`` has a new ``-P`` option that prints the trap action associated
+   with each signal argument.
+
+例えば ``trap -p INT`` のようにする。
+
+----
+
+内蔵命令 ``printf`` に細かい機能の追加がある：
+
+   l. ``printf`` uses the `alternate form` for ``%q`` and ``%Q`` to force single
+   quoting.
+
+こういうことか：
+
+.. sourcecode:: console
+   :force:
+
+   $ printf "%q\n" $'\a\b'
+   $'\a\b'
+
+----
+
+内蔵命令 ``printf`` でもう一つ：
+
+   m. ``printf`` now interprets ``%ls`` (``%S``) and ``%lc`` (``%C``) as
+   referring to wide strings and characters, respectively, when in a multibyte
+   locale.
+
+それぞれ ``%s`` および ``%c`` 書式の long 版と考えればいい。これにより、引数文字
+列がワイド文字列に変換され、指定された欄幅および精度がバイト単位ではなく文字単位
+で適用される。
+
+----
+
+シェル変数 ``PATH`` に空文字列が入っていると次のようになる：
+
+   p. Treat a NULL value for ``$PATH`` as equivalent to ".".
+
+Bash の教科書には ``.`` を含めると危ないと書かれていたと私は記憶している。
+
+----
+
+シェル変数 ``GLOBSORT`` は Bash 5.3 の新機能の目玉の一つだ。
+
+   q. ``GLOBSORT``: new variable to specify how to sort the results of pathname
+   expansion (name, size, blocks, mtime, atime, ctime, numeric, none) in
+   ascending or descending order.
+
+例：
+
+.. sourcecode:: console
+   :force:
+
+   $ ls
+   0.mp4  1.mp4  2.mp4  3.mp4
+   $ GLOBSORT=numeric
+   $ printf '%s\n' *.mp4
+   0.mp4
+   1.mp4
+   2.mp4
+   3.mp4
+   $ GLOBSORT=-numeric
+   $ printf '%s\n' *.mp4
+   3.mp4
+   2.mp4
+   1.mp4
+   0.mp4
+
+----
+
+プログラム可能補完を使いこなす Bash プログラマーにとってこの機能はありがたい：
+
+   r. ``compgen`` has a new option: ``-V`` *varname*. If supplied, it stores the
+   generated completions into *varname* instead of printing them on stdout.
+
+補完候補生成関数の実装で、シェル変数 ``COMPREPLY`` への値の設定が容易になること
+が期待される。
+
+----
+
+次の命令置換も Bash 5.3 の新機能の目玉の一つだ。
+
+   s. New form of command substitution: ``${ command; }`` or ``${|command; }``
+      to capture the output of *command* without forking a child process and
+      using pipes.
+
+今すぐにでも既存の ``$(command)`` 形式の置換コードを前者で書き換えたいくらい魅力
+的な機能だ。
+
+----
+
+   t. ``array_expand_once``: new shopt option, replaces ``assoc_expand_once``
+
+使っていないから大丈夫。
+
+----
+
+次の新機能は、おそらく自動補完命令系の ``-o bashdefault`` に対応する？
+
+   cc. ``read`` has a new ``-E`` option to use readline but with the default
+   bash completion (including programmable completion).
+
+標準入力が端末からのものである必要がある。Readline は現在の編集設定を用いるが、
+プログラム可能補完を含め、Bash の既定の補完機能を使用する。
+
+----
+
+   gg. The ``bind`` builtin interprets additional non-option arguments after
+   ``-p`` or ``-P`` as bindable command names and restricts output to the
+   bindings for those names.
+
+試してみる：
+
+.. sourcecode:: console
+   :force:
+
+   $ bind -p yank-pop
+   "\ey": yank-pop
+   $ bind -P yank-pop
+   yank-pop can be found on "\ey".
+
+----
+
+内蔵命令 ``source`` のためだけにシェル変数 ``PATH`` を変更する必要がなくなった：
+
+   kk. ``.``/``source`` has a new ``-p`` *PATH* option, which makes it use the
+   *PATH* argument instead of ``$PATH`` to look for the file.
+
+----
+
+シェル変数 ``BASH_SOURCE`` の内容に関わる新オプションが追加：
+
+   pp. There is a new ``bash_source_fullpath`` shopt option, which makes bash
+   put full pathnames into ``BASH_SOURCE``, and a way to set a default value for
+   it at configure time.
+
+これにより、スクリプトで自身の完全パスを得るコードを記述するのがかなり楽になるこ
+とが期待できる。実験した結果：
+
+* 初期状態ではこの値は off だ。
+* ``.``/``source`` を実行する側でオプションを on にする必要がある。
+
+----
+
+ここからは Readline 8.3 関係だ。
+
+   c. New bindable variable ``search-ignore-case``, causes readline to perform
+   case-insensitive incremental and non-incremental history searches.
+
+端末ウィンドウ操作中は心情的に :kbd:`Shift` を押しにくいので、on にしておくのは
+ありかもしれない。初期状態では off となっている。
+
+----
+
+Emacs でおなじみの機能が使えるようになった：
+
+   h. ``execute-named-command``: a new bindable command that reads the name of a
+   readline command from the standard input and executes it. Bound to ``M-x`` in
+   emacs mode by default.
+
+* 初期状態で on になっているから ``.inputrc`` を更新せずに使える。
+* ``M-x`` で ``!`` が表示される。このときに Readline 命令名を打鍵すればいい。
+
+----
+
+次の ``export-completions`` 命令は動作はわかるが用途がわからない：
+
+   n. There is a new bindable command, ``export-completions``, which writes the
+   possible completions for a word to the standard output in a defined format.
+
+Readline `complete-` 系命令の仲間と考えられる。
+
 関連ノート
 ================================================================================
 
@@ -552,7 +764,7 @@ off にすることでそれを実現可能になる：
 * `What's New in GNU Bash 5? <https://www.shell-tips.com/bash/what-is-new-in-gnu-bash-5/>`__
 * `upgrade - What's going to be new in bash 5 - Unix & Linux Stack Exchange <https://unix.stackexchange.com/questions/478590/whats-going-to-be-new-in-bash-5>`__
 * `Get current time in seconds since the Epoch on Linux, Bash - Stack Overflow <https://stackoverflow.com/questions/1092631/get-current-time-in-seconds-since-the-epoch-on-linux-bash>`__
-* `variable - What is the purpose of BASH_ARGV0 in bash? - Unix &amp; Linux Stack Exchange <https://unix.stackexchange.com/questions/493221/what-is-the-purpose-of-bash-argv0-in-bash>`__
+* `variable - What is the purpose of BASH_ARGV0 in bash? - Unix & Linux Stack Exchange <https://unix.stackexchange.com/questions/493221/what-is-the-purpose-of-bash-argv0-in-bash>`__
 * `scope - Bash: Hide global variable using local variable with same name - Stack Overflow <https://stackoverflow.com/questions/54204612/bash-hide-global-variable-using-local-variable-with-same-name>`__
 * `Globbing e as variáveis ‘LANG’ e ‘LC_’ – DEBXP COMUNIDADE <https://debxp.org/globbing-e-as-variaveis-lang-e-lc_/>`__
 * `linux - How to delete history of last 10 commands in shell? - Stack Overflow <https://stackoverflow.com/questions/14750650/how-to-delete-history-of-last-10-commands-in-shell>`__
@@ -560,4 +772,4 @@ off にすることでそれを実現可能になる：
 * `Bash 5.1 has already been released and these are its news | Linux Addicts <https://www.linuxadictos.com/en/bash-5-1-has-already-been-released-and-these-are-its-news.html>`__
 * `bash - Is $PROMPT_COMMAND a colon-separated list? - Unix & Linux Stack Exchange <https://unix.stackexchange.com/questions/460651/is-prompt-command-a-colon-separated-list>`__
 * `Bash fc Command : Easily Wield the Bash Shell Like a Pro <https://adamtheautomator.com/bash-fc-command/>`__
-* その他、Bash Reference Manual やヘルプなど
+* その他、Bash Reference Manual など
