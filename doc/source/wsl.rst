@@ -1,6 +1,6 @@
-======================================================================
+================================================================================
 Windows Subsystem for Linux 利用ノート
-======================================================================
+================================================================================
 
 WSL に関する利用ノートをつづる。次の課題を解決したい：
 
@@ -16,25 +16,27 @@ Linux 用 Windows Subsytem for Linux (WSL) を使用すると、従来の仮想�
 
 .. note::
 
-   本ノートの初版を記すのに用いていた Windows 本体、WSL および Ubuntu のバージョ
-   ン情報はそれぞれ次のとおりだ。
+   本ノートの初版を記すのに用いていた Windows 本体、Ubuntu のバージョン情報はそ
+   れぞれ次のとおりだ。
 
-   :OS: Windows 10 Home version 22H2 ビルド 19045.2006
-   :WSL 2: 5.10.102.1
+   :Windows: 10 Home; 22H2 19045.2006
    :Ubuntu: 20.04 LTS
 
    その後かなり間が空き Windows 10 のサポート終了に伴う環境移行を敢行。移行後の
    環境は次のとおり：
 
-   :OS: Windows 11 Pro version 25H2 ビルド 26200.7019
-   :WSL 2: 6.6.87.2-1
-   :Ubuntu: 24.04.3 LTS
+   :Windows: 11 Pro; 25H2 26200.7019, 26H2 26300.9818
+   :Ubuntu: 24.04.3 LTS, 26.04.1 LTS
+
+.. admonition:: 関連ノート
+
+   `WSL Documentation 読書ノート <https://gist.github.com/showa-yojyo/07644b4ded83b434589affdf6dcccfb4>`__
 
 .. contents:: 見出し一覧
    :local:
 
 インストール
-======================================================================
+================================================================================
 
 公式文書によると最初から :program:`wsl` が利用可能であるようだ。次のコマンドを実
 行しろとある：
@@ -53,7 +55,7 @@ Linux 用 Windows Subsytem for Linux (WSL) を使用すると、従来の仮想�
 いことから、本稿ではこれ以降、この二つの単語を区別なしに記述するかもしれない。
 
 アップグレードする
-======================================================================
+================================================================================
 
 WSL 自体のアップグレード方法は次のコマンド実行による。これで WSL Linux カーネル
 が存在する場合に限り、その最新版に更新される。
@@ -71,7 +73,7 @@ Linux ディストリビューションのアップグレード方法を Ubuntu 
 2. Microsoft Store から :program:`Ubuntu on Windows` を更新
 
 Use Cases
-======================================================================
+================================================================================
 
 プログラム :program:`wsl` が利用者に用意している機能は次の二つに分類される：
 
@@ -79,7 +81,7 @@ Use Cases
 * WSL を管理する
 
 Linux プログラムを実行する
-----------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 Linux コマンドを指定しないで実行すると、Linux シェルを起動する。
 
@@ -115,7 +117,7 @@ Linux コマンド ``COMMAND_LINE`` を実行するには次のどちらかの�
 Bash のような引数リストマーカー ``--`` も使える。
 
 WSL を管理する
-----------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 WSL 管理ツールとしての用途としては、次のものがある：
 
@@ -133,7 +135,7 @@ WSL 管理ツールとしての用途としては、次のものがある：
 インストールと更新については記したので、以下ではその他の用途を見ていく。
 
 WSL に関する情報を確認する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 サブコマンド ``--status`` で既定の Linux ディストリビューションの種類、カーネル
 バージョンなど、WSL に関する一般的な情報を出力する。簡単なコマンドなので実行例を
@@ -144,13 +146,13 @@ WSL に関する情報を確認する
    :force:
 
    PS> wsl --status
-   既定のディストリビューション: Ubuntu
-   既定のバージョン: 2
-   WSL1 は、現在のマシン構成ではサポートされていません。
-   WSL1 を使用するには、"Linux 用 Windows サブシステム" オプション コンポーネントを有効にしてください。
+   Default Distribution: Ubuntu
+   Default Version: 2
+   WSL1 is not supported with your current machine configuration.
+   Please enable the "Windows Subsystem for Linux" optional component to use WSL1.
 
 Linux ディストリビューションを一覧する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 サブコマンド ``--list`` は Linux ディストリビューションを確認する。次の使用状況
 があり得る：
@@ -166,12 +168,12 @@ Linux ディストリビューションを一覧する
    :force:
 
    PS> wsl --list
-   Linux 用 Windows サブシステム ディストリビューション:
-   Ubuntu (既定)
+   Windows Subsystem for Linux Distributions:
+   Ubuntu (Default)
 
    PS> wsl --list --all
-   Linux 用 Windows サブシステム ディストリビューション:
-   Ubuntu (既定)
+   Windows Subsystem for Linux Distributions:
+   Ubuntu (Default)
 
    PS> wsl --list --quiet
    Ubuntu
@@ -181,39 +183,41 @@ Linux ディストリビューションを一覧する
    * Ubuntu    Running         2
 
    PS> wsl --list --running
-   Linux 用 Windows サブシステム ディストリビューション:
-   Ubuntu (既定)
+   Windows Subsystem for Linux Distributions:
+   Ubuntu (Default)
 
    PS> wsl --list --online
-   インストールできる有効なディストリビューションの一覧を次に示します。
-   'wsl --install -d <Distro>' を使用してインストールします。
+   The following is a list of valid distributions that can be installed.
+   Install using 'wsl.exe --install <Distro>'.
 
    NAME                            FRIENDLY NAME
+   Ubuntu                          Ubuntu
+   Ubuntu-26.04                    Ubuntu 26.04 LTS
+   Ubuntu-24.04                    Ubuntu 24.04 LTS
+   Ubuntu-22.04                    Ubuntu 22.04 LTS
+   openSUSE-Tumbleweed             openSUSE Tumbleweed
+   openSUSE-Leap-16.1              openSUSE Leap 16.1
+   RLCPlus-9                       Rocky Linux Plus 9 (CIQ)
+   RLCPlus-10                      Rocky Linux Plus 10 (CIQ)
+   SUSE-Linux-Enterprise-15-SP7    SUSE Linux Enterprise 15 SP7
+   SUSE-Linux-Enterprise-16.0      SUSE Linux Enterprise 16.0
+   kali-linux                      Kali Linux Rolling
+   Debian                          Debian GNU/Linux
    AlmaLinux-8                     AlmaLinux OS 8
    AlmaLinux-9                     AlmaLinux OS 9
    AlmaLinux-Kitten-10             AlmaLinux OS Kitten 10
    AlmaLinux-10                    AlmaLinux OS 10
-   Debian                          Debian GNU/Linux
-   FedoraLinux-43                  Fedora Linux 43
-   FedoraLinux-42                  Fedora Linux 42
-   SUSE-Linux-Enterprise-15-SP7    SUSE Linux Enterprise 15 SP7
-   SUSE-Linux-Enterprise-16.0      SUSE Linux Enterprise 16.0
-   Ubuntu                          Ubuntu
-   Ubuntu-24.04                    Ubuntu 24.04 LTS
    archlinux                       Arch Linux
-   kali-linux                      Kali Linux Rolling
-   openSUSE-Tumbleweed             openSUSE Tumbleweed
-   openSUSE-Leap-16.0              openSUSE Leap 16.0
-   Ubuntu-20.04                    Ubuntu 20.04 LTS
-   Ubuntu-22.04                    Ubuntu 22.04 LTS
+   FedoraLinux-45                  Fedora Linux 45
+   FedoraLinux-44                  Fedora Linux 44
+   eLxr                            eLxr 12.12.0.0 GNU/Linux
    OracleLinux_7_9                 Oracle Linux 7.9
    OracleLinux_8_10                Oracle Linux 8.10
    OracleLinux_9_5                 Oracle Linux 9.5
-   openSUSE-Leap-15.6              openSUSE Leap 15.6
    SUSE-Linux-Enterprise-15-SP6    SUSE Linux Enterprise 15 SP6
 
 各種の既定バージョンを指定する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. admonition:: 利用者ノート
 
@@ -227,8 +231,8 @@ Linux ディストリビューションを一覧する
    :force:
 
    PS> wsl --set-default-version 2
-   WSL 2 との主な違いについては、https://aka.ms/wsl2 を参照してください
-   この操作を正しく終了しました。
+   For information on key differences with WSL 2 please visit https://aka.ms/wsl2
+   The operation completed successfully.
 
 サブコマンド ``--set-default`` は既定の Linux ディストリビューションを指定する。
 先のコマンドが対象とするバージョンとは、このディストリビューションを利用する WSL
@@ -239,7 +243,7 @@ Linux ディストリビューションを一覧する
    :force:
 
    PS> wsl --set-default Ubuntu
-   この操作を正しく終了しました。
+   The operation completed successfully.
 
 サブコマンド ``--set-version`` は指定ディストリビューションを実行する WSL のバー
 ジョンを指定するものだ。Ubuntu を WSL 2 で動作させたい場合には次のようにする：
@@ -249,15 +253,15 @@ Linux ディストリビューションを一覧する
    :force:
 
    PS> wsl --set-version Ubuntu 2
-   WSL 2 との主な違いについては、https://aka.ms/wsl2
-   を参照してください
-   変換中です。これには数分かかる場合があります。
+   For information on key differences with WSL 2 please visit https://aka.ms/wsl2
+   Conversion in progress, this may take a few minutes.
 
-   ディストリビューションは既に、要求されているバージョンです。
-   エラー コード: Wsl/Service/WSL_E_VM_MODE_INVALID_STATE
+   The distribution is already the requested version.
+   Error code: Wsl/Service/WSL_E_VM_MODE_INVALID_STATE
+   If this error was unexpected, please consider searching for existing issues or filing a new issue at https://github.com/microsoft/WSL/issues.
 
 Linux ディストリビューションをインポート・エクスポートする
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. caution::
 
@@ -303,7 +307,7 @@ Linux ディストリビューションをインポート・エクスポート�
   :ref:`anchor-wsl-user` で述べる。
 
 実行中の仮想マシンすべてを即終了する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 サブコマンド ``--shutdown`` は実行中のディストリビューション全部と、WSL 2 仮想マ
 シンを直ちに終了する。
@@ -324,7 +328,7 @@ Linux ディストリビューションをインポート・エクスポート�
    きに WSL を終了して、それをやりくりするのに援用することもある。
 
 Linux ディストリビューションを停止する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 サブコマンド ``--terminate`` は指定したディストリビューションを終了する。
 
@@ -333,16 +337,16 @@ Linux ディストリビューションを停止する
    :force:
 
    PS> wsl --list --running
-   Linux 用 Windows サブシステム ディストリビューション:
-   Ubuntu (既定)
+   Windows Subsystem for Linux Distributions:
+   Ubuntu (Default)
 
    PS> wsl --terminate Ubuntu
 
    PS> wsl --list --running
-   実行中のディストリビューションはありません。
+   There are no running distributions.
 
 Linux ディストリビューションを抹消する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 このコマンドは Linux ディストリビューションのメジャーアップグレード作業発生時に
 利用する可能性があるので、ここに記す。
@@ -360,7 +364,7 @@ Linux ディストリビューションを抹消する
 だろう。
 
 構成
-======================================================================
+================================================================================
 
 .. warning::
 
@@ -372,24 +376,31 @@ WSL は二段構えの構成手段を採用している。WSL 全体に対する
 り）読み込まれ、適用される。
 
 ファイル :file:`%USERPROFILE%\\.wslconfig`
-----------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ファイル :file:`.wslconfig` は WSL 全体を統括する構成を指示する。Windows のフォ
 ルダー ``%USERPROFILE%`` に置かれる。このファイルを手動で設置してかまわない。
 
-構成項目すべてを理解する必要はまだないので、私の環境の設定内容を記す。RAM が 8
-GB しかない（当ノート初版当時）ので、メモリー周りの設定を余儀なくされる（普通は
-上手くいかない）。
+.. tip::
+
+   最近の WSL には GUI 構成アプリケーション :program:`wslsettings.exe` が同梱さ
+   れている。これを使えば記述ミスがなくなる。
+
+構成項目すべてを理解する必要はまだないので、私の環境の設定内容を記す。
 
 .. sourcecode:: dosini
    :caption: :file:`.wslconfig` ``wsl2`` 区画構成例
    :force:
 
    [wsl2]
-   memory=2G
-   swap=0
+   memory=12G
+   processors=2
+   swap=1GB
+   networkingMode=mirrored
 
-セクションラベルを ``wsl2`` とする。
+   [experimental]
+   autoMemoryReclaim=gradual
+   sparseVhd=true
 
 キー ``memory`` は WSL 仮想マシンに割り当てるメモリー容量だ。
 
@@ -397,10 +408,20 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
 がない場合は 0 とする（註＊スワップ領域とは、メモリー需要がハードウェア器機の制
 限を超過する状況で使用される「ディスク上のメモリー」だ）。
 
-ファイルサイズを指定するエントリーでは、値を GB 単位で記す必要がある。
+キー ``networkingMode`` は Windows と仮想環境のネットワーク方式を値に指定する。
+値 ``mirrored`` に設定することで、Windows のネットワークインターフェイスを
+Ubuntu 側に丸写しする。これにより、次の長所が得られる：
+
+* VPN との互換性向上
+* マルチキャスト可能
+* IPv6 利用可能
+
+.. admonition:: 関連ノート
+
+   * `.wslconfig <https://gist.github.com/showa-yojyo/4c2d8e631b1accf3ef8655c419f809a3>`__
 
 ファイル :file:`/etc/wsl.conf`
-----------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 ファイル :file:`/etc/wsl.conf` は Linux ディストリビューションごとに用意できる。
 このファイルが指示する構成内容は、当然ながらこのファイルを特定の Linux ディスト
@@ -417,8 +438,12 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
 このファイルを編集するには管理者権限を要する。例えば ``sudo -e /etc/wsl.conf``
 を実行してエディターを開くことで編集する。
 
+.. admonition:: 関連ノート
+
+   * `/etc/wsl.conf <https://gist.github.com/showa-yojyo/d99d0f14c15b1a64f77e49c482ded9ea>`__
+
 自動マウント構成
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 区画 ``automount`` では自動マウントを構成する。自動になる構成例を示す：
 
@@ -445,7 +470,7 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
    セッションで :command:`source` するのが良かろう。
 
 ブート構成
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 区画 ``boot`` で :program:`systemd` を使いたいのでこう記す：
 
@@ -460,7 +485,7 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
 .. _anchor-wsl-user:
 
 ユーザー構成
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 区画 ``user`` では作業ユーザーを指定する。構成例を示す：
 
@@ -477,7 +502,7 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
 .. _anchor-wsl-migration:
 
 新 PC にディストリビューションを移行する
-======================================================================
+================================================================================
 
 大まかな手順は次のとおり。実際には VHDX ファイルのサイズを切り詰める工程をエクス
 ポート前後に入れる。詳細な手順は資料 wsl1_ と wsl2_ を合わせて見ろ。
@@ -517,7 +542,7 @@ GB しかない（当ノート初版当時）ので、メモリー周りの設�
 しい。それがありなら外付け SSD に入れて複数台からアクセス可能にするかも？
 
 Windows のソフトウェア各種との連携
-======================================================================
+================================================================================
 
 今すぐ思いつくものを列挙しておく。他にもコツがあるだろう。
 
@@ -536,14 +561,11 @@ Windows のソフトウェア各種との連携
    * :doc:`/vscode/index`
 
 資料
-======================================================================
+================================================================================
 
 * `Windows Subsystem for Linux に関するドキュメント | Microsoft Learn <https://learn.microsoft.com/ja-jp/windows/wsl/>`__
 * `Terminate Running WSL Linux Distro in Windows 10 <https://winaero.com/terminate-running-wsl-linux-distro-windows-10/>`__
 * `How to completely remove a Linux distro from WSL | Windows Central <https://www.windowscentral.com/how-completely-remove-linux-distro-wsl>`__
-* `wslu | wslu Wiki <https://wslutiliti.es/wslu/>`__: 本稿では言及できなかった
-  が、是非ともインストールすべきパッケージだ。私は :program:`wslview` を常用して
-  いる。
 
 次の二つの資料は Windows 11 新 PC を導入したときにたいへん参考になった：
 
