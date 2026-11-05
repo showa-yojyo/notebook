@@ -30,7 +30,7 @@ Linux 用 Windows Subsytem for Linux (WSL) を使用すると、従来の仮想�
 
 .. admonition:: 関連ノート
 
-   `WSL Documentation 読書ノート <https://gist.github.com/showa-yojyo/07644b4ded83b434589affdf6dcccfb4>`__
+   `WSL Documentation 読書ノート`_
 
 .. contents:: 見出し一覧
    :local:
@@ -485,7 +485,7 @@ Ubuntu 側に丸写しする。これにより、次の長所が得られる：
 イメージファイルのエクスポートを省略して、元イメージをそのまま用いる方法もあるら
 しい。それがありなら外付け SSD に入れて複数台からアクセス可能にするかも？
 
-Windows のソフトウェア各種との連携
+Windows との連携
 ================================================================================
 
 今すぐ思いつくものを列挙しておく。他にもコツがあるだろう。
@@ -496,18 +496,27 @@ Windows のソフトウェア各種との連携
 * Windows Terminal を利用しているならば、一度は設定画面を確認しておくべきだ。
   WSLで Linux ディストリビューションを追加すると、便利なことに Windows Terminal
   にプロファイルが自動的に定義される。
-* Visual Studio Code を利用しているならば、WSL 関連の追加設定をするべきだ。これ
-  については VS Code 利用ノートに記す。
+* Windows 側で Visual Studio Code を利用しているならば、WSL 関連の追加設定をする
+  べきだ。これについては関連ノートに記す。
+* Windows の細かい設定を管理するのに PowerShell, つまり :program:`pwsh.exe` を実
+  行可能にしておく。
+* Windows に PowerToys をインストールしている場合、Peek の CLI 版実行形式をファ
+  イルビューワーとして活用する。手順を関連ノートに詳しく記す。
+* Windows 環境変数 ``WSLENV`` を所定の書式で定義することで、Windows と Linux と
+  で環境変数を共有することが可能だ。`WSL Documentation 読書ノート`_ で具体的な設
+  定例を示す。
 
 .. admonition:: 関連ノート
 
    * :doc:`/wt`
    * :doc:`/vscode/index`
+   * `PowerToys.Peek.UI.exe 利用ノート
+     <https://gist.github.com/showa-yojyo/bcfb33d895dced528e8c6d04511df9c2>`__
 
 資料
 ================================================================================
 
-* `Windows Subsystem for Linux に関するドキュメント | Microsoft Learn <https://learn.microsoft.com/ja-jp/windows/wsl/>`__
+* `Windows Subsystem for Linux Documentation | Microsoft Learn <https://learn.microsoft.com/en-us/windows/wsl/>`__
 * `Terminate Running WSL Linux Distro in Windows 10 <https://winaero.com/terminate-running-wsl-linux-distro-windows-10/>`__
 * `How to completely remove a Linux distro from WSL | Windows Central <https://www.windowscentral.com/how-completely-remove-linux-distro-wsl>`__
 
@@ -518,3 +527,4 @@ Windows のソフトウェア各種との連携
 
 .. _wsl1: https://qiita.com/ootakazuhiko/items/c08311ad61183c4127f4
 .. _wsl2: https://qiita.com/siruku6/items/c91a40d460095013540d
+.. _WSL Documentation 読書ノート: https://gist.github.com/showa-yojyo/07644b4ded83b434589affdf6dcccfb4
