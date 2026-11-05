@@ -303,8 +303,7 @@ Linux ディストリビューションをインポート・エクスポート�
   ジが消滅する。
 * ``wsl --import`` すると、おそらく Ubuntu コンソールを起動したときにユーザーを
   「忘れている」状態でプロンプトが示される。その場合にはファイル
-  :file:`/etc/wsl.conf` を root で編集して既定ユーザーを示すこと。指定方法を
-  :ref:`anchor-wsl-user` で述べる。
+  :file:`/etc/wsl.conf` を root で編集して既定ユーザーを示すこと。
 
 実行中の仮想マシンすべてを即終了する
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -440,64 +439,9 @@ Ubuntu 側に丸写しする。これにより、次の長所が得られる：
 
 .. admonition:: 関連ノート
 
-   * `/etc/wsl.conf <https://gist.github.com/showa-yojyo/d99d0f14c15b1a64f77e49c482ded9ea>`__
+   より細かい解説を次のファイルに記した：
 
-自動マウント構成
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-区画 ``automount`` では自動マウントを構成する。自動になる構成例を示す：
-
-.. sourcecode:: dosini
-   :caption: ``automount`` 区画構成例
-   :force:
-
-   [automount]
-   enable = true
-   root = /mnt/
-   options = "metadata,uid=1000,gid=1000,umask=22,fmask=11"
-
-項目 ``enable = true`` だけで固定ドライブ (e.g. C:) は項目 ``root`` に従うパスに
-より (e.g. :file:`/mnt/c`) アクセス可能になる。
-
-.. admonition:: 利用者ノート
-
-   ここでは指定しないが、項目 ``mountFsTab = true`` により、WSL 開始時にファイル
-   :file:`/etc/fstab` を処理するようになる。そのファイルを適切に編集することで、
-   USB 外付けストレージ、Google Drive, pCloud といった、WSL 外の記憶域にも自動マ
-   ウントさせることが可能になる。
-
-   個人的には手動マウントを好む。マウントする処理をシェル関数に定義しておいて
-   セッションで :command:`source` するのが良かろう。
-
-ブート構成
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-区画 ``boot`` で :program:`systemd` を使いたいのでこう記す：
-
-.. sourcecode:: dosini
-   :caption: ``boot`` 区画構成例
-   :force:
-
-   [boot]
-   systemd = true
-   #command = service docker start
-
-.. _anchor-wsl-user:
-
-ユーザー構成
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-区画 ``user`` では作業ユーザーを指定する。構成例を示す：
-
-.. sourcecode:: ini
-   :caption: ``user`` 区画構成例
-   :force:
-
-   [user]
-   default={{ username }}
-
-ここで、``{{ username }}`` は対象ディストリビューションセッションで日常的に使用
-するユーザー名を指定する。
+   * `wsl.conf ノート <https://gist.github.com/showa-yojyo/d99d0f14c15b1a64f77e49c482ded9ea>`__
 
 .. _anchor-wsl-migration:
 
