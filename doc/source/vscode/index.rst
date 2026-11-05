@@ -36,3 +36,4 @@ Visual Studio Code 利用ノート
    themes
    key-bindings
    locale
+   計算資源消費改善ノート <https://gist.github.com/showa-yojyo/69721b1876f5c2f446f8911f08787458>
