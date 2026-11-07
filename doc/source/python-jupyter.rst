@@ -106,19 +106,8 @@ IPython は IPython.parallel という名の平行計算フレームワークを
 Jupyter をインストールする
 ================================================================================
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``jupyter`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install jupyter
-   conda install -n envname jupyter
-   mamba install -n envname jupyter
-   uv add jupyter
-   uv pip install jupyter
-
-.. include:: /_include/python-install-update-remove.txt
+一般の :ref:`python-pkg-install-anchor` の手順に従ってインストールしろ。識別子は
+``jupyter`` だ。
 
 設定を理解する
 ================================================================================

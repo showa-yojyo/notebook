@@ -33,19 +33,8 @@ Ruff_ が比較対象に挙げているものを現在利用しているので�
 プロジェクトの定める手順に従え。README や :file:`pyproject.toml` を読めば判明す
 る。
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``ruff`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install ruff
-   conda install -n envname ruff
-   mamba install -n envname ruff
-   uv add ruff
-   uv pip install ruff
-
-.. include:: /_include/python-install-update-remove.txt
+そのような制約がない場合は一般の :ref:`python-pkg-install-anchor` の手順に従って
+インストールしろ。識別子は ``ruff`` だ。
 
 構成・カスタマイズ
 ================================================================================

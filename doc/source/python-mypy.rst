@@ -41,19 +41,8 @@ Python 言語仕様には、変数、関数、クラス、等々のコード構�
 インストール・更新・アンインストール
 ================================================================================
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``mypy`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install mypy
-   conda install -n envname mypy
-   mamba install -n envname mypy
-   uv add mypy
-   uv pip install mypy
-
-.. include:: /_include/python-install-update-remove.txt
+一般の :ref:`python-pkg-install-anchor` の手順に従ってインストールしろ。識別子は
+パッケージ名は ``mypy`` だ。
 
 構成・カスタマイズ
 ================================================================================

@@ -23,19 +23,8 @@ Python のテストフレームワークとして著名かつ人気のある pyt
 のプロジェクトの定める手順に従え。README や :file:`pyproject.toml` を読めば判明
 する。
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``pytest`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install pytest
-   conda install -n envname pytest
-   mamba install -n envname pytest
-   uv add pytest
-   uv pip install pytest
-
-.. include:: /_include/python-install-update-remove.txt
+そのような制約がない場合には一般の :ref:`python-pkg-install-anchor` の手順に従っ
+てインストールしろ。識別子は ``pytest`` だ。
 
 構成・カスタマイズ
 ================================================================================

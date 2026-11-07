@@ -48,19 +48,8 @@ PIL が既に環境に居座っている場合は、Pillow をインストール
 ストールする必要があるようだ。公式サイトの Installation ページに PIL と Pillow
 が共存できない旨が明記されている。
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``hatch`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install hatch
-   conda install -n envname hatch
-   mamba install -n envname hatch
-   uv add hatch
-   uv pip install hatch
-
-.. include:: /_include/python-install-update-remove.txt
+Pillow をインストールするには、一般の :ref:`python-pkg-install-anchor` の手順に
+従え。識別子はパッケージ名は ``pillow`` だ。
 
 バージョン確認
 --------------------------------------------------------------------------------

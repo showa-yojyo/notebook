@@ -32,22 +32,8 @@ Python で |CLI| を書くときに Click_ はたいへん便利なパッケー�
 インストール・更新・アンインストール
 ================================================================================
 
-複数人で共用するプロジェクトの開発環境に Click_ をインストールする事例では、その
-プロジェクトの定める手順に従え。README や |pyproject| を読めば判明する。
-
-自分が所有する作業用仮想環境にインストールするならば、そのインストール機能を使
-え。対象パッケージ名は ``click`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install click
-   conda install -n envname click
-   mamba install -n envname click
-   uv add click
-   uv pip install click
-
-.. include:: /_include/python-install-update-remove.txt
+一般の :ref:`python-pkg-install-anchor` の手順に従ってインストールしろ。識別子は
+``click`` だ。
 
 使用方法・コツ
 ================================================================================
