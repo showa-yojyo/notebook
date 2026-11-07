@@ -132,6 +132,7 @@
    python-pyqt5
    python-pandas/index
    python-pygame
+   python-yt-dlp
 
 .. toctree::
    :caption: Ruby
