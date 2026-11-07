@@ -3,8 +3,8 @@
 ================================================================================
 
 Pandas_ の環境構築について記す。当ノート著者は Windows PC でプログラミング作業を
-しており、 Python_ は Windows Subsystem for Linux (Ubuntu) 環境に Miniconda_ を
-インストールすることでそのサードパーティー製ライブラリーを管理している。
+しており、Windows Subsystem for Linux (Ubuntu) 環境で Python_ 製パッケージを管理
+している。
 
 .. contents:: 見出し一覧
    :local:
@@ -22,22 +22,8 @@ Download documentation と書いてあるところの隣のリンクから HTML 
 Pandas 本体をインストールする
 --------------------------------------------------------------------------------
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``pandas`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install pandas
-   conda install -n envname pandas
-   mamba install -n envname pandas
-   uv add pandas
-   uv pip install pandas
-
-依存ライブラリーも同時にインストールされるので、これだけで Pandas_ のチュートリ
-アルの大部分を実行可能な環境ができる。
-
-.. include:: /_include/python-install-update-remove.txt
+一般の :ref:`python-pkg-install-anchor` の手順に従ってインストールしろ。識別子は
+パッケージ名は ``pandas`` だ。
 
 お好みでその他のライブラリーをインストールする
 --------------------------------------------------------------------------------
@@ -53,8 +39,7 @@ Pandas_ を利用する目的にもよるが、以下に挙げるサードパー
 * numexpr_, bottleneck_: ある種の計算速度を向上させるため。この二つについては公
   式ドキュメントが recommended dependencies であると述べている。
 
-いずれのライブラリーについても、インストール手段はコンソールからの ``conda
-install`` コマンドまたは ``pip install`` コマンドを実行することによる。
+いずれのライブラリーについても、インストール手段は一般の手順が通じるだろう。
 
 テスト
 ================================================================================
@@ -85,15 +70,6 @@ IPython_ のセッションを起動して、次のように単体テストを�
      warn("To exit: use 'exit', 'quit', or Ctrl-D.", stacklevel=1)
 
    In [3]:
-
-関連ノート
-================================================================================
-
-Python のサードパーティー製ライブラリーのインストール手段全般についてのノートが
-すでにある。
-
-* :doc:`/python-miniconda`
-* :doc:`/python-pip`
 
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt

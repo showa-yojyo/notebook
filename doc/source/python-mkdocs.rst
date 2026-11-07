@@ -51,19 +51,8 @@ Jekyll_ と同じだが、MkDocs_ は Ruby ではなく Python で実装され�
 インストール・更新・アンインストール
 ================================================================================
 
-愛用している仮想環境ツールがインストールコマンドを実装している場合にはそれを使え。
-パッケージ名は ``mkdocs`` だ。例を複数挙げる：
-
-.. sourcecode:: bash
-   :caption: インストール命令例
-
-   pip install mkdocs
-   conda install -n envname mkdocs
-   mamba install -n envname mkdocs
-   uv add mkdocs
-   uv pip install mkdocs
-
-.. include:: /_include/python-install-update-remove.txt
+一般の :ref:`python-pkg-install-anchor` の手順に従ってインストールしろ。識別子は
+``mkdocs`` だ。
 
 構成・カスタマイズ
 ================================================================================
