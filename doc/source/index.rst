@@ -96,7 +96,9 @@
 
    python-3.[0-9]
    python-3.1[0-9]
+   python-general
    python-miniconda
+   python-micromamba
    python-pip
    python-pipenv
    python-pylint
