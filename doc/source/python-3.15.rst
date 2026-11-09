@@ -8,29 +8,161 @@ What's New In Python 3.15 ノート
 .. contents:: 見出し一覧
    :local:
 
-要点
-================================================================================
-
-最大の変化：
-
-* 遅延インポート
-* 内蔵関数 ``frozendict``
-* 内蔵関数 ``sentinel``
-* デフォルトエンコーディングとしての UTF-8 の採用
-* ``list`` 内包表記での unpack
-
-ライブラリーの変更：
-
-* 高頻度統計サンプリングプロファイラ「Tachyon」を搭載した新しいプロファイリング
-  パッケージの追加
-* コマンドライン出力の色付けの充実
-* Deprecated and removal
-* 使いやすさと正確性の向上
-
 New features
 ================================================================================
 
-TBW
+遅延インポート文 ``lazy import``
+--------------------------------------------------------------------------------
+
+次の構文が搭載された：
+
+* :samp:`lazy import {module}`
+* :samp:`lazy from {module} import {module_item}`
+
+この ``import`` 文を用いると、*module* や *module_item* が初めて用いられる頃合い
+まで読み込みが先送りされる。
+
+この仕組が特に有用なのは、最上位で多数のモジュールを ``import`` するものの、実際
+の実行時にはその一部しか使用しないようなパッケージやアプリケーションだ。
+
+モジュール読み込みが失敗する場合、例外送出の頃合いは ``import`` 対象の名前が最初
+に用いられた時点だ。
+
+手持ちの Python コードを変更せずに遅延 ``import`` を有効にする方法がある：
+
+* :program:`python` のコマンドラインオプション ``-X lazy_imports`` を指定する
+* 環境変数 ``PYTHON_LAZY_IMPORTS`` を使う。
+
+.. list-table:: 遅延オプションの値と動作
+   :align: left
+   :header-rows: 1
+   :stub-columns: 0
+   :widths: auto
+
+   * - 値
+     - 動作
+   * - ``all``
+     - ``import`` の全てが lazy になる
+   * - ``normal``
+     - コード内のキーワード ``lazy`` の有無に従う
+
+この遅延モードに関連する関数が新規に追加した：
+
+.. list-table:: 遅延 ``import`` に関係する関数
+   :align: left
+   :header-rows: 1
+   :stub-columns: 0
+   :widths: auto
+
+   * - 関数
+     - 動作
+   * - ``sys.set_lazy_imports()``
+     - 実行時に遅延モードを設定する
+   * - ``sys.get_lazy_imports()``
+     - 実行時点の遅延モードを確認する
+
+遅延 ``import`` はモジュールスコープでしか認められない。関数内、クラス本体、
+``try``/``except``/``finally`` ブロック内で ``lazy`` を使用すると ``SyntaxError``
+が送出する。同様に、米印 ``import`` や ``from __future__ import`` を ``lazy`` に
+することは不可能だ。
+
+Python 3.15 より前の Python でも動作するコードを書かねばならない場合、モジュール
+属性として ``__lazy_modules__`` を定義し、値として遅延 ``import`` 可能なモジュー
+ル名を（完全修飾名により）列挙する。そうすることで、それらのモジュールに対する通
+常の ``import`` 文は ``lazy`` として扱われる。例を標準ライブラリー文書から引用す
+る：
+
+.. sourcecode:: python
+   :caption: ``__lazy_modules__`` 定義例
+   :force:
+
+   __lazy_modules__ = ["json", "pathlib"]
+
+   import json     # lazy
+   import os       # still eager
+
+内蔵型 ``frozendict``
+--------------------------------------------------------------------------------
+
+内蔵型 ``frozendict`` が追加。その名前が示す性質を持つ。
+
+* 辞書オブジェクト作成後に値としての変更は不可能。
+* 基底型は ``object`` であり、``dict`` ではない。
+* キーと値のすべてがハッシュ可能である場合、かつその場合に限り、辞書自身もハッ
+  シュ可能だ。
+* 項目の追加順序を維持する。
+* 比較の際には追加順序は考慮しない。
+
+標準ライブラリーの ``dict`` を受け付ける機能のうち、``frozendict`` も受け付ける
+ようになったものがある。
+
+既存コードに ``isinstance(arg, dict)`` のようなコードがあるならば、それを更新す
+るべきだろう。
+
+* 案一： ``isinstance(arg, (dict, frozendict))``
+* 案二： ``isinstance(arg, collections.abc.Mapping)``
+
+内蔵型 ``sentinel``
+--------------------------------------------------------------------------------
+
+内蔵型 ``sentinel`` が追加。機能は一意の値を簡潔な表現で生成することだ。
+
+* オブジェクトを複製しても同一性を保持する。
+* 演算子 ``|`` を用いた型表現（←術語がわからない）での使用に対応。
+* モジュールと名前で ``import`` が可能なオブジェクトであるときに ``pickle`` 操作
+  が可能。
+
+プロファイリング特化パッケージ ``profiling``
+--------------------------------------------------------------------------------
+
+モジュール ``profiling`` が新規に追加。下位モジュールが二つ：
+
+* ``profiling.tracing``: ``cProfile`` から移行。関数呼び出し探知モジュール
+* ``profiling.sampling``: 統計的性能測定モジュール
+
+互換性確保のため、モジュール ``cProfile`` は上記下位モジュールの別名として存続す
+る。モジュール ``profile`` は Python 3.17 で削除する予定だ。
+
+モジュール ``profiling.sampling`` に関する、Python 公式によるテキストをいくつか
+引用する：
+
+   This profiler enables low-overhead performance analysis of running Python
+   processes without requiring code modification or process restart.
+
+最速：
+
+   ... making it the fastest sampling profiler available for Python (at the time
+   of its contribution) and ideal for debugging performance issues in production
+   environments. This capability is particularly valuable for debugging
+   performance issues in production systems where traditional profiling
+   approaches would be too intrusive.
+
+内包記法内の unpack 操作が可能になる
+--------------------------------------------------------------------------------
+
+これはコードを見るほうが話が早い。標準手引から引用する：
+
+.. sourcecode:: python
+   :caption: 内包記法内の unpack 操作
+   :force:
+
+   lists = [[1, 2], [3, 4], [5]]
+   [*L for L in lists]  # equivalent to [x for L in lists for x in L]
+
+   sets = [{1, 2}, {2, 3}, {3, 4}]
+   {*s for s in sets}  # equivalent to {x for s in sets for x in s}
+
+   dicts = [{'a': 1}, {'b': 2}, {'a': 3}]
+   {**d for d in dicts}  # equivalent to {k: v for d in dicts for k,v in d.items()}
+
+   gen = (*L for L in lists)  # equivalent to (x for L in lists for x in L)
+
+込み入った構造のコンテナーを平坦な構造のそれに作り直しやすくなるということだ。例
+えば次の手法を避けられるようになった：
+
+* 入れ子の内包表記
+* ``itertools.chain()``
+* ``itertools.chain.from_iterable()``
 
 Other language changes
 ================================================================================
@@ -73,7 +205,7 @@ New modules
 * ``lcm(*integers)``
 * ``perm(n, k=None, /)``
 
-関数 ``isqrt`` は名前から機能を想像できなかった。動作を参照手引から引用する：
+関数 ``isqrt`` は名前から機能を想像できなかった。Python 標準から記述を引用する：
 
    Return the integer square root of the nonnegative integer :math:`n`. This is
    the floor of the exact square root of :math:`n`, or equivalently the greatest
@@ -87,14 +219,27 @@ Improved modules
 ``array``
 --------------------------------------------------------------------------------
 
-私は使う機会がないだろうが、複素数の配列が扱えることは知っていたい。書式文字列は
-次のとおり：
+複素数配列を扱える。また、16 ビット IEEE 754 バイナリー交換形式浮動小数点数配列
+も扱える。
 
-* ``complex float``: ``Zf``
-* ``complex double``: ``Zd``
+.. list-table:: Python 3.15 で使用可能になる配列型
+   :align: left
+   :header-rows: 1
+   :stub-columns: 0
+   :widths: auto
 
-また、16 ビット IEEE 754 バイナリー交換形式浮動小数点数の配列も可能だ。書式文字
-列は ``e`` だ。
+   * - コード
+     - C
+     - Python
+   * - ``'Zf'``
+     - ``complex float``
+     - ``complex``
+   * - ``'Zd'``
+     - ``complex double``
+     - ``complex``
+   * - ``'e'``
+     - ``float``
+     - ``float``
 
 ``asyncio``
 --------------------------------------------------------------------------------
