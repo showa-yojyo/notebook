@@ -101,6 +101,7 @@
    python-micromamba
    python-pip
    python-pipenv
+   python-uv
    python-pylint
    python-mypy
    python-ruff
