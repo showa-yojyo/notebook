@@ -25,8 +25,8 @@ uv 利用ノート
   トール方法に紛れがないという利点がある。
 * 上級プログラマーからの信頼が厚い Rust で記述されている。
 
-  * というか、|uv| と作者が同じだ。
-  * とはいえ、インストールに Rust ランタイムは不要だ。
+  * Rust と |uv| は作者が同じだ。
+  * インストールに Rust ランタイムは不要だ。
   * 少なくともメモリー安全性と処理効率性は折り紙付きだ。
 * Python 本体のバージョン管理を得意とする。特に、ファイルシステムに指定バージョ
   ンの環境が存在すればそれを流用する。
@@ -114,7 +114,79 @@ Homebrew プロファイルコードにより Bash などの対話シェルで�
 構成・カスタマイズ
 ================================================================================
 
-TBW
+環境変数
+--------------------------------------------------------------------------------
+
+|uv| が参照する環境変数のうち、一部を記載する。
+
+.. rubric:: 専用
+
+何らかの |uv| 命令行オプションと対応する環境変数が多数存在する。あらかじめ定義し
+ておくと便利なオプションがあるかもしれない：
+
+:envvar:`UV_CACHE_DIR`
+      命令行オプション ``--cache-dir`` に相当する。
+:envvar:`UV_CONFIG_HOME`
+   命令行オプション ``--config-file`` に相当する。
+:envvar:`UV_INSTALL_DIR`
+   これは使わない。
+:envvar:`UV_TOOL_BIN_DIR`
+   命令 ``uv tool dir --bin`` に相当する値を指定する。
+:envvar:`UV_TOOL_DIR`
+   命令 ``uv tool dir`` に相当する値を指定する。
+:envvar:`UV_WORKING_DIR`
+   命令行オプション ``--directory`` に相当する。
+
+.. rubric:: 汎用
+
+:envvar:`CONDA_DEFAULT_ENV` と :envvar:`CONDA_PREFIX`
+   Miniconda/Mamba/Micromamba から |uv| に完全に乗り換えるならば、これらの環境変
+   数を完全に削除しろ。
+:envvar:`GITHUB_ACTIONS`
+   GitHub Actions 環境で |uv| が実行中であるか否かを、この環境変数が定義されてい
+   ることで判断する。
+:envvar:`FORCE_COLOR` や :envvar:`NO_COLOR`
+   |uv| は出力に ANSI 色を追加する CLI だ。環境変数 :envvar:`FORCE_COLOR` および
+   :envvar:`NO_COLOR` の有無を確認する。
+
+   両者が定義されている場合には :envvar:`NO_COLOR` を優先し、色を使わない。
+
+   命令行オプション :samp:`--color {COLOR_CHOICE}` に相当する。
+:envvar:`HOME`
+   UNIX と同じ意味で用いられるが、特に後述の ``XDG_`` 系環境変数が未定義の場合に
+   |uv| が初めてこれを参照すると考えたい（そういう設計であって欲しい）。
+:envvar:`PAGER`
+   これをまともに設定しておかないとヘルプテキストが読めたものではない。
+:envvar:`SHELL`
+   |uv| がシェルを使うときには :envvar:`SHELL` を採用する？
+:envvar:`XDG_CACHE_HOME`, :envvar:`XDG_CONFIG_HOME`, :envvar:`XDG_DATA_HOME`
+   :doc:`/xdg` の意味で参照する。
+
+構成ファイル
+--------------------------------------------------------------------------------
+
+.. |uvtoml| replace:: :file:`uv.toml`
+
+|uv| の動作を制御するファイルは次の三階層で構成される：
+
+#. プロジェクト階層 (|pyproject|, |uvtoml|)
+#. 使用者階層 (:file:`$XDG_CONFIG_HOME/uv/uv.toml`)
+#. システム階層 (:file:`$XDG_CONFIG_DIRS/uv/uv.toml`)
+
+これらのファイル内容がマージされる。同一項目の優先度は上に挙げた順序と同じだ。
+
+なお、命令行、環境変数、構成ファイルで同一項目が指定されている場合、|uv| はこの
+順に優先する。
+
+また、|uv| の命令行オプション ``--no-config`` や :samp:`--config-file {FILE}` を
+使って、この優先順位を無効にすることも可能だ。
+
+ファイル |pyproject| に対しては ``[tool.uv]`` 表から設定を読み込む。ファイル
+|uvtoml| は |pyproject| の ``[tool.uv]`` 接頭辞を省いた構造であり、人間は |uv|
+の設定を直接的に記述すればいい。
+
+同一ディレクトリーに |pyproject| と |uvtoml| が共存する場合、同一項目に対しては
+|uv| は |uvtoml| の記述を優先する。
 
 使用方法・コツ
 ================================================================================
@@ -236,6 +308,8 @@ Ruff, pytest, mypy など、CLI 形式で利用するプログラムに対して
 ================================================================================
 
 * uv_: 最低でも Getting Started, Guides, Concepts の章は通読しろ。
+* `Writing your pyproject.toml
+  <https://packaging.python.org/en/latest/guides/writing-pyproject-toml/>`__
 
 .. include:: /_include/python-refs-core.txt
 .. _uv: https://docs.astral.sh/uv/
