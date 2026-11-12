@@ -1,6 +1,8 @@
-======================================================================
+================================================================================
 GitHub CLI documentation ノート
-======================================================================
+================================================================================
+
+.. |gh| replace:: :program:`gh`
 
 `GitHub CLI documentation <https://docs.github.com/en/github-cli>`__ を見ていく。
 ブラウザーとコンソールを往復するのが億劫な人に最適な道具だ。
@@ -16,7 +18,7 @@ GitHub CLI documentation ノート
 .. _cli-overview:
 
 About GitHub CLI
-======================================================================
+================================================================================
 
    GitHub CLI is an open source tool for using GitHub from your computer's
    command line.
@@ -33,22 +35,21 @@ About GitHub CLI
    * List, create, delete, and connect to a codespace
    * Retrieve information from the GitHub API
 
-素の :command:`git` とどう違うのか：
+素の :program:`git` とどう違うのか：
 
-   GitHub CLI (:command:`gh`) is specifically for working with GitHub. It allows
-   you to use the command line to interact with GitHub in all sorts of ways, as
+   GitHub CLI (|gh|) is specifically for working with GitHub. It allows you to
+   use the command line to interact with GitHub in all sorts of ways, as
    illustrated by the previous list.
 
 GitHub の自動化に利用したい。
 
-導入および更新は :command:`conda` で行う：
+導入および更新は Homebrew を使うのがいい。
 
-.. sourcecode:: console
+.. sourcecode:: bash
+   :caption: Homebrew による |gh| パッケージ管理命令例
 
-   bash$ conda install gh --channel conda-forge
-   bash$ conda update gh --channel conda-forge
-
-エラーが出たら ``--channel conda-forge`` を省いて様子を見たい。
+   brew install gh
+   brew update --yes
 
 .. seealso::
 
@@ -57,7 +58,7 @@ GitHub の自動化に利用したい。
 .. _cli-quickstart:
 
 GitHub CLI quickstart
-======================================================================
+================================================================================
 
    Authenticate with GitHub by running this command from your terminal.
 
@@ -136,7 +137,7 @@ GitHub CLI quickstart
    される。このディレクトリーの意味については :doc:`/xdg` 参照。
 
 Creating GitHub CLI extensions
-======================================================================
+================================================================================
 
 カスタムコマンドを作る。
 
@@ -171,11 +172,12 @@ Go 以外のプログラミング言語でコードを書く場合：
 スクリプト型実行可能ファイルでもカスタムコマンドを定義可能。スクリプトを作り
 ``gh extension install .`` を実行する。皆に利用させるためにはさらに：
 
-.. sourcecode:: console
+.. sourcecode:: bash
+   :caption: ？？？？
 
-   bash$ git init -b main
-   bash$ git add . && git commit -m "initial commit"
-   bash$ gh repo create gh-EXTENSION-NAME --source=. --public --push
+   git init -b main
+   git add . && git commit -m "initial commit"
+   gh repo create gh-EXTENSION-NAME --source=. --public --push
 
 ..
 
@@ -198,7 +200,7 @@ Twitter API でデータ処理をするのとひじょうに似ている。
 Go 言語周りのトピックがもう一つあるが割愛。
 
 Using GitHub CLI extensions
-======================================================================
+================================================================================
 
 反対に、他人が作ったカスタムコマンドを利用する。どこの馬の骨が作ったコマンドとも
 限らないので：
@@ -250,7 +252,7 @@ Using GitHub CLI extensions
 .. _cli-reference:
 
 GitHub CLI reference
-======================================================================
+================================================================================
 
 頭に叩き込む必要があるコマンド：
 

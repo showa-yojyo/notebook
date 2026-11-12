@@ -2,6 +2,7 @@
 yt-dlp 利用ノート
 ================================================================================
 
+.. |uv| replace:: :program:`uv`
 .. |yt-dlp| replace:: :program:`yt-dlp`
 
 .. contents:: 見出し一覧
@@ -22,29 +23,28 @@ yt-dlp_ のほうが更新活動が活発そうであり、こちらに乗り換
 ================================================================================
 
 YouTube の性質上、開発中最新版 |yt-dlp| を使うのが最善習慣とされている。したがっ
-て、仮想環境内で利用可能な :program:`pip` を用いて、次のような命令を実行するのが
-いいだろう：
+て、一般の :ref:`python-pkg-install-anchor` の方法を少し変形して適用する。
+
+|yt-dlp| を（仮想環境に）明示的にインストールする場合にはこのようにする：
 
 .. sourcecode:: bash
    :caption: 望ましいインストール・更新命令例
-   :force:
 
    pip install -U --pre "yt-dlp[default]"
 
-.. |mamba| replace:: :program:`mamba`
+他の仮想環境切り替え方式のパッケージ管理プログラムを使っているならば、上の命令行
+オプションに対応するオプションと `yt-dlp[default]` 指定を使え。
 
-一般の :ref:`python-pkg-install-anchor` のインストール手順に従うのはよろしくな
-い。参考までに、|mamba| を用いて仮想環境作成から始める場合はこのようにする：
+|uv| を使っている場合は |yt-dlp| を実行するたびに最新版を |uv| に取得させる命令
+行になる：
 
 .. sourcecode:: bash
-   :caption: |mamba| 採用時のインストール・更新手順例：
+   :caption: |uv| 使用時の |yt-dlp| 実行例
 
-   mamba create yt-dlp
-   mamba -n yt-dlp install pip
-   mamba run -n yt-dlp pip install -U --pre "yt-dlp[default]"
+   uvx --pre --from "yt-dlp[default]" yt-dlp ...
 
-また、|yt-dlp| を Homebrew を用いることでもパッケージ管理することが可能だが、開
-発最新版でないことが容易に想像される。
+また、Homebrew でも |yt-dlp| を取り扱える。常に最新版ではないだろうが、YouTube
+以外の用途には使えると考えられる。
 
 構成・カスタマイズ
 ================================================================================
