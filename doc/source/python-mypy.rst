@@ -5,7 +5,6 @@ Mypy 利用ノート
 道具としての |mypy| に関する雑記帳にしたいが、Python 型注釈機能に関しても綴って
 いく。ページを二つに分割するのがもちろん望ましい。
 
-.. |conda| replace:: :program:`conda`
 .. |mypy| replace:: :program:`mypy`
 .. |mypy.ini| replace:: :file:`mypy.ini`
 .. |pyproject| replace:: :file:`pyproject.toml`
