@@ -25,16 +25,6 @@ yt-dlp_ のほうが更新活動が活発そうであり、こちらに乗り換
 YouTube の性質上、開発中最新版 |yt-dlp| を使うのが最善習慣とされている。したがっ
 て、一般の :ref:`python-pkg-install-anchor` の方法を少し変形して適用する。
 
-|yt-dlp| を（仮想環境に）明示的にインストールする場合にはこのようにする：
-
-.. sourcecode:: bash
-   :caption: 望ましいインストール・更新命令例
-
-   pip install -U --pre "yt-dlp[default]"
-
-他の仮想環境切り替え方式のパッケージ管理プログラムを使っているならば、上の命令行
-オプションに対応するオプションと `yt-dlp[default]` 指定を使え。
-
 |uv| を使っている場合は |yt-dlp| を実行するたびに最新版を |uv| に取得させる命令
 行になる：
 
@@ -42,6 +32,10 @@ YouTube の性質上、開発中最新版 |yt-dlp| を使うのが最善習慣�
    :caption: |uv| 使用時の |yt-dlp| 実行例
 
    uvx --pre --from "yt-dlp[default]" yt-dlp ...
+
+その他の Python パッケージ管理プログラムを使っている場合は、適当な Python 仮想環
+境に対して |yt-dlp| をインストールする形になる。その実行時には仮想環境に「入る」
+必要がある。
 
 また、Homebrew でも |yt-dlp| を取り扱える。常に最新版ではないだろうが、YouTube
 以外の用途には使えると考えられる。
@@ -72,9 +66,9 @@ YouTube の性質上、開発中最新版 |yt-dlp| を使うのが最善習慣�
 動ファイル :file:`.bashrc` に追加する：
 
 .. sourcecode:: bash
-   :caption: Bash での別名付与例
+   :caption: :command:`alias` 例
 
-   alias yt-dlp='mamba run -n yt-dlp yt-dlp'
+   alias yt-dlp='uvx --pre --from "yt-dlp[default]" yt-dlp'
 
 ラッパーを用意する
 --------------------------------------------------------------------------------

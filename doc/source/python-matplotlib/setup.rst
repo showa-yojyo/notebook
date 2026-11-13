@@ -170,5 +170,6 @@ Droettboom and the matplotlib development team" が書かれている（途中�
 .. include:: /_include/python-refs-core.txt
 .. include:: /_include/python-refs-sci.txt
 .. include:: /_include/python-refs-vision.txt
+.. _setuptools: https://bitbucket.org/pypa/setuptools
 .. _PyQt: http://www.riverbankcomputing.com/software/pyqt/intro
 .. _PyParsing: https://pypi.python.org/pypi/pyparsing

@@ -493,5 +493,6 @@ fixture 関数定義をここで行え。さらに、テストモジュールが
 
 .. include:: /_include/python-refs-core.txt
 .. _Hatch: https://hatch.pypa.io/latest/
+.. _pytest: https://docs.pytest.org/en/latest/
 .. _pytest documentation: https://docs.pytest.org/en/stable/
 .. _nose2pytest: https://github.com/pytest-dev/nose2pytest
