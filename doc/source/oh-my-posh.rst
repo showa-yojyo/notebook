@@ -719,7 +719,6 @@ Template テキスト内では :samp:`.Env.{var}` で環境変数 `var` を参�
    function set_poshcontext() {
        export CURRENT_HISTORY_NUMBER="$HISTCMD"
    }
-   export -f set_poshcontext
 
 以上により、プロンプトに ``1096 $`` のような文字列が含まれるようになる。
 
