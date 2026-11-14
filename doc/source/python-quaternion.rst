@@ -104,7 +104,7 @@ Observatory の作品だ。
    Ubuntu で作る：
 
    .. sourcecode:: bash
-      :console: 本稿の実践環境作成例
+      :caption: 本稿の実践環境作成例
 
       uv run --with Quaternion --with ipython --with numpy ipython
 
