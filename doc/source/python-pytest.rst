@@ -84,10 +84,7 @@ Pytest_ はプロジェクトごとに構成ファイルを設ける流儀であ
 
 .. todo::
 
-   * Hatch_ を利用することで pytest_ を間接的にインストールする
-
-     * :file:`Pipfile`
-     * :file:`pyproject.toml`
+   * :file:`pyproject.toml` などで pytest_ 依存を指定
    * 自作 marks
    * doctest
    * 前回失敗したエラーからテストを再開
@@ -492,7 +489,6 @@ fixture 関数定義をここで行え。さらに、テストモジュールが
    Stack Overflow より。
 
 .. include:: /_include/python-refs-core.txt
-.. _Hatch: https://hatch.pypa.io/latest/
 .. _pytest: https://docs.pytest.org/en/latest/
 .. _pytest documentation: https://docs.pytest.org/en/stable/
 .. _nose2pytest: https://github.com/pytest-dev/nose2pytest
