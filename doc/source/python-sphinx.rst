@@ -24,10 +24,6 @@ Sphinx 利用ノート
 原稿ディレクトリーを初期化する
 ================================================================================
 
-.. note::
-
-   以下、コマンドラインは Pipenv で用意した仮想環境で実行することを前提とする。
-
 将来的に生成した HTML ファイル群を GitHub に配備するので、プロジェクトディレクト
 リーのルートにサブディレクトリー :file:`docs` を作成し、そこを Sphinx 用作業場と
 する：
@@ -37,7 +33,7 @@ Sphinx 利用ノート
 
    $ cd $PROJECT_DIR
    $ mkdir docs
-   $ pipenv run sphinx-quickstart
+   $ sphinx-quickstart
    （略）
 
 :program:`sphinx-quickstart` 成功後、生成されたファイルを確認すること。
@@ -85,10 +81,9 @@ Sphinx 利用ノート
 
 :file:`Makefile` のあるディレクトリーに移動して：
 
-.. sourcecode:: console
-   :caption: Pipenv 仮想環境での :program:`make` 実行例
+.. sourcecode:: bash
 
-   $ pipenv run make html
+   make html
 
 成果物はサブディレクトリー :file:`build/html` 以下の内容すべてだ。
 
@@ -103,26 +98,26 @@ GitHub のリポジトリーに Sphinx 用原稿を格納する場合、GitHub A
 
 そのためのワークフロー YAML の記述方法は `Appendix: Deploying a Sphinx project
 online <https://www.sphinx-doc.org/en/master/tutorial/deploying.html>`__ にあ
-る。まとめておくと：
+る。一部を現代風に解釈すると、趣旨はこうだ：
 
 * リポジトリーの :menuselection:`Settings-->Pages` ページで各種項目を設定する：
 
   * Publish を有効にする
   * :guilabel:`Source` を :guilabel:`GitHub Actions` に設定にする
-* :file:`Makefile` のあるディレクトリーに :program:`pipenv` 用のファイル
-  :file:`Pipfile` および :file:`Pipfile.lock` があることを確認する。必要に応じて
-  前者に対してサードパーティー製パッケージのバージョン条件を明記する。例えば：
+* Python パッケージ管理プログラムを利用するなどして、Sphinx_ 自身および依存拡張
+  パッケージ群のバージョンロックファイルを設ける
 
-  .. parsed-literal::
+  .. sourcecode:: toml
+     :caption: ファイル |pyproject| における依存記述例
 
-     [packages]
-     sphinx = "~=8.2"
-     ipython = "~=9.0"
-     sphinxcontrib-mermaid = "~=0.9"
-     pickleshare = "*"
+     requires-python = ">=3.15"
 
-     [requires]
-     python_version = "3.13"
+     [dependency-groups]
+     dev = [
+         "ipython~=9.9",
+         "sphinx~=8.2",
+         "sphinxcontrib-mermaid~=0.9",
+     ]
 
 * リポジトリーにワークフローファイルを置く。例えば次のような内容にする：
   <https://github.com/showa-yojyo/notebook/blob/develop/.github/workflows/ci.yml>
@@ -404,9 +399,9 @@ HTML 出力
 ``sphinx.ext`` から始まる名前の拡張は Sphinx 組み込みの拡張だ。:file:`conf.py`
 内のリスト ``extensions`` に含まれるだけで利用可能だ。
 
-:program:`pipenv` でインストールされない拡張については、前述の構成上、サブディレ
-クトリー :file:`source/_extensions` に拡張用 Python ファイルを手動で追加する必要
-がある。
+Python 仮想環境 or パッケージ管理プログラムを使ってもインストールされない拡張に
+ついては、前述の構成上、サブディレクトリー :file:`source/_extensions` に拡張用
+Python ファイルを手動で追加する必要がある。
 
 ``sphinx.ext.githubpages``
 --------------------------------------------------------------------------------
@@ -592,7 +587,7 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 関連ノート
 ================================================================================
 
-* :doc:`/python-pipenv`
+* :doc:`/python-uv`
 * :doc:`/python-jinja2`
 * :doc:`/python-pygments`
 * :doc:`/github/index`

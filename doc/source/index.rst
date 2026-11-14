@@ -100,7 +100,6 @@
    python-miniconda
    python-micromamba
    python-pip
-   python-pipenv
    python-uv
    python-pylint
    python-mypy
@@ -128,7 +127,6 @@
    python-bs4
    python-selenium
    python-scrapy
-   python-isbn-hyphenate
    python-pyopengl/index
    python-pyqt5
    python-pandas/index

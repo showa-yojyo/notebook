@@ -63,3 +63,4 @@ Guide to NumPy
 .. include:: /_include/python-refs-sci.txt
 .. _Hypothesis: https://hypothesis.works/
 .. _Meson: https://mesonbuild.com/
+.. _pytest: https://docs.pytest.org/en/latest/
