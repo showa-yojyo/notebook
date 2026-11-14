@@ -568,4 +568,4 @@ Hatch_
 .. _PEP 508 Dependency specification for Python Software Packages:
    https://peps.python.org/pep-0508/
 .. _Ruff: https://docs.astral.sh/ruff/
-.. uv: <https://docs.astral.sh/uv/>_
+.. _uv: <https://docs.astral.sh/uv/>_
