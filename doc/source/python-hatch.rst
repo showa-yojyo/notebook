@@ -30,11 +30,18 @@ Hatch 利用ノート
 
 * Python 仮想環境管理
 * クロスプラットフォーム
-* 依存パッケージの導入や更新などの環境
+* 依存パッケージの導入や更新
 * ビルド構成
 * 製品バージョン更新
 * テストおよびコード静的解析手順構成
 * 成果物の配備
+
+.. admonition:: 利用者ノート
+
+   いずれ uv_ と機能を比較したい。上に列挙した機能群の大部分を網羅している。uv_
+   には手順構成機能が見当たらない。
+
+   関連ノート：:doc:`/python-uv`
 
 インストール・更新・アンインストール
 ================================================================================
@@ -561,3 +568,4 @@ Hatch_
 .. _PEP 508 Dependency specification for Python Software Packages:
    https://peps.python.org/pep-0508/
 .. _Ruff: https://docs.astral.sh/ruff/
+.. uv: <https://docs.astral.sh/uv/>_
