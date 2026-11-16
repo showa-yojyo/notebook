@@ -61,6 +61,8 @@
    kantor22/index
    ou23/index
    入門モダン Linux 読書ノート <https://gist.github.com/showa-yojyo/caf7c68a253184fd07ac5e78cf9270f8>
+   Efficient Linux コマンドライン読書ノート <https://gist.github.com/showa-yojyo/c5236f82fd15c5aca1eb38f672956c00>
+   WSL Documentation 読書ノート <https://gist.github.com/showa-yojyo/07644b4ded83b434589affdf6dcccfb4>
    github/index
    LibreOffice Getting Started Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/common/>
    LibreOffice Calc Guide 読書ノート <https://showa-yojyo.github.io/libreoffice-notes/calc-guide/>
@@ -134,7 +136,7 @@
    python-yt-dlp
 
 .. toctree::
-   :caption: Ruby
+   :caption: Ruby ノート
    :maxdepth: 1
 
    ruby-jekyll
@@ -171,6 +173,8 @@
    LibreOffice Calc 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/calc.html>
    LibreOffice Writer 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/writer.html>
    powertoys/index
+   Windows Task Scheduler 利用ノート <https://gist.github.com/showa-yojyo/120eeb409acf1504d79b828944a535dd>
+   Windows Sandbox 利用ノート <https://gist.github.com/showa-yojyo/a7154f463f721cffd68fc90e32fc9403>
    wt
    wsl
    vscode/index
@@ -195,6 +199,8 @@
    pandoc
    yaml
    zoom
+   Phone Link / Link to Windows 利用ノート <https://gist.github.com/showa-yojyo/8a598d3cce83faa1d7244b56c7152e9a>
+   自動化ノート <https://gist.github.com/showa-yojyo/c485cb849862525fa540b395c70a4c69>
 
 .. toctree::
    :caption: ハードウェア・システムノート
