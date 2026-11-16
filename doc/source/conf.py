@@ -164,5 +164,5 @@ todo_include_todos = True
 # https://github.com/mgaitan/sphinxcontrib-mermaid
 
 # See html_js_files
-mermaid_version = ""
-mermaid_init_js = ""
+# mermaid_version = ""
+# mermaid_init_js = ""
