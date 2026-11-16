@@ -85,6 +85,18 @@
    powershell
 
 .. toctree::
+   :caption: CLI ノート
+   :maxdepth: 1
+
+   cron(8)/crontab(1) 利用ノート <https://gist.github.com/showa-yojyo/e6d2d1eb44ce0b929ec61a0efc1212ce>
+   index-mount
+   WSL SSH 練習環境ノート <https://gist.github.com/showa-yojyo/a5b9c7121e43675d30a7bd951be1d864>
+   bat 利用ノート <https://gist.github.com/showa-yojyo/39b69d831eeb9526fa4c186ef3fd4860>
+   eza 利用ノート <https://gist.github.com/showa-yojyo/71f56ca3a5a784ead976bfa9d07d7344>
+   index-fzf
+   WSL から Android に usbpid でマウントする手順ノート <https://gist.github.com/showa-yojyo/34eeab0cf8d25bc23b08358cada3ca65>
+
+.. toctree::
    :caption: C++ ノート
    :glob:
    :maxdepth: 1
