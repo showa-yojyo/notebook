@@ -226,7 +226,7 @@ Windows Package Manager CLI を使って自動インストールする
 繰り返しになるが、ここに列挙されるソフトウェアの順序はインストール優先度を意味し
 ない。
 
-`Sleipnir <https://www.fenrir-inc.com/jp/sleipnir/>`__
+`Sleipnir 6 <https://www.fenrir-inc.com/jp/sleipnir/>`__
     愛用のウェブブラウザー。Google Chrome を子ウィンドウとするタブブラウザーと解
     釈される。ブックマークを作り込み過ぎて、本家 Google Chrome や Mozilla
     Firefox などの有力ブラウザーに乗り換えらるのが億劫だ。それゆえ、インストール
@@ -235,10 +235,8 @@ Windows Package Manager CLI を使って自動インストールする
 
     .. seealso::
 
-       * `Sleipnir 6 よくある質問ノート
-         <https://gist.github.com/showa-yojyo/e5005e744e79258d0a23969eba93c3e7>`__
-       * `Sleipnir 6 障害狙撃ノート
-         <https://gist.github.com/showa-yojyo/d39db3230d8baefc2b3bcaa897d55596>`__
+       * :doc:`/sleipnir-6`
+
 `Windows Subsystem for Linux <https://docs.microsoft.com/ja-jp/windows/wsl/install>`__
     |WSL| と略称で呼称するのが一般的だ。Windows で Linux を使えるようになる何か
     だと考えていればいい。
