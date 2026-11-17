@@ -242,6 +242,15 @@ Windows PC を新規調達した場合には、これらのサブフォルダー
 保存先の既定パスが変なところにあるので注意すること。必ずバックアップ先に変えろ。
 復元手順は上記手順のエクスポートの代わりにインポートを指示すれば後は自明だ。
 
+.. seealso::
+
+   後日、バックアップ手順を大幅に改善した。
+
+   * `Sleipnir 6 よくある質問ノート
+     <https://gist.github.com/showa-yojyo/e5005e744e79258d0a23969eba93c3e7>`__
+   * `showa-yojyo / backup-sleipnir-essentials.ps1
+     <https://gist.github.com/showa-yojyo/5fa87551c9320e40ab059cef91f398ee>`__
+
 メール
 ----------------------------------------------------------------------
 
