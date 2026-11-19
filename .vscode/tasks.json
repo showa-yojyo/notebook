@@ -2,29 +2,26 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "command": "make html",
+            "command": "uv run make -C ${workspaceFolder}/doc html",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "label": "Build HTML files",
+            "label": "(uv) Build HTML files",
             "problemMatcher": [],
             "type": "shell"
         },
         {
-            "command": "wslview ${workspaceFolder}/build/html/index.html",
+            "command": "open",
             "group": "test",
+            "args": [
+                {
+                    "value": "${workspaceFolder}/doc/build/html/index.html",
+                    "quoting": "weak"
+                }
+            ],
             "label": "View HTML files",
             "problemMatcher": [],
-            "presentation": {
-                "clear": true,
-                "close": true,
-                "echo": false,
-                "focus": false,
-                "reveal": "never",
-                "panel": "shared",
-                "showReuseMessage": false
-            },
             "type": "shell"
         }
     ]
