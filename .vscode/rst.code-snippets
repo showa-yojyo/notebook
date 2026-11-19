@@ -1,63 +1,413 @@
 {
-	// Place your notebook workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
-	// Placeholders with the same ids are connected.
-
-	"Header": {
-		"scope": "restructuredtext",
-		"prefix": ["===", "header"],
-		"body": [
-			"======================================================================",
-			"${1:ノート}",
-			"======================================================================",
-			"",
-			"${2:TBW}",
-			"",
-			".. contents:: ノート目次",
-			"",
-			"${0:TBW}"
-		]
-	},
-	"Index": {
-		"scope": "restructuredtext",
-		"description": "template for index.rst",
-		"prefix": "index",
-		"body": [
-			"======================================================================",
-			"${1:}ノート",
-			"======================================================================",
-			"",
-			"${2:}",
-			"",
-			".. toctree::",
-			"   :maxdepth: ${:3}"
-		]
-	},
-
-	"Section Level 1": {
-		"scope": "restructuredtext",
-		"prefix": ["===", "section1"],
-		"body": "======================================================================\n${1}"
-	},
-
-	"Section Level 2": {
-		"scope": "restructuredtext",
-		"prefix": ["---", "section2"],
-		"body": "----------------------------------------------------------------------\n${1}"
-	},
-
-	"Section Level 3": {
-		"scope": "restructuredtext",
-		"prefix": ["~~~", "section3"],
-		"body": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n${1}"
-	},
-
-	"Section Level 4": {
-		"scope": "restructuredtext",
-		"prefix": ["^^^", "section4"],
-		"body": "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n${1}"
-	}
+    "define custom anchor": {
+        "scope": "restructuredtext",
+        "prefix": "anchor",
+        "body": ".. _${0}:"
+    },
+    "footnote number": {
+        "scope": "restructuredtext",
+        "prefix": "footnotenum",
+        "body": "[#${1:number}]_ $0",
+        "description": "A footnote marker"
+    },
+    "footnote body": {
+        "scope": "restructuredtext",
+        "prefix": "footnotebody",
+        "body": ".. [#${1:number}] ${2:Text of the footnote}",
+        "description": "A footnote body at the bottom of the document"
+    },
+    "external link/link definition": {
+        "scope": "restructuredtext",
+        "prefix": "link",
+        "body": "`${1:name}`_"
+    },
+    "external link/target definition": {
+        "scope": "restructuredtext",
+        "prefix": "link",
+        "body": ".. _${1:name}: ${2:raw_url}",
+    },
+    "sphinx directive admonition": {
+        "scope": "restructuredtext",
+        "prefix": "admonition",
+        "body": [
+            ".. ${1|admonition,attention,caution,danger,error,hint,important,note,tip,warning|}::${2| , 読者ノート, 利用者ノート|}",
+            "",
+            "   ${0:TBD}"
+        ],
+        "description": "A generic, titled admonition, a distinctive and self-contained notice."
+    },
+    "sphinx directive caution": {
+        "scope": "restructuredtext",
+        "prefix": "caution",
+        "body": [
+            ".. caution::",
+            "",
+            "   ${0:TBD}"
+        ],
+        "description": "An admonition, a distinctive and self-contained notice."
+    },
+    "sphinx directive note": {
+        "scope": "restructuredtext",
+        "prefix": "note",
+        "body": [
+            ".. note::",
+            "",
+            "   ${0:TBD}"
+        ],
+        "description": "An admonition, a distinctive and self-contained notice."
+    },
+    "sphinx directive replace": {
+        "prefix": "replace",
+        "body": ".. |${1:name}| replace:: ${2:replacement}",
+        "description": "Indicate replacement text for a substitution reference."
+    },
+    "sphinx directive tip": {
+        "scope": "restructuredtext",
+        "prefix": "tip",
+        "body": [
+            ".. tip::",
+            "",
+            "   ${0:TBD}"
+        ],
+        "description": "An admonition, a distinctive and self-contained notice."
+    },
+    "sphinx directive todo": {
+        "scope": "restructuredtext",
+        "prefix": "todo",
+        "body": [
+            ".. todo::",
+            "",
+            "   ${0:TBD}"
+        ],
+        "description": "TODO"
+    },
+    "sphinx directive contents": {
+        "scope": "restructuredtext",
+        "prefix": "contents",
+        "body": [
+            ".. contents:: ${1:見出し一覧}",
+            "   :backlinks: ${2|entry,top,none|}",
+            "   :depth: ${3:999}",
+            "   :local:",
+        ]
+    },
+    "sphinx directive figure": {
+        "scope": "restructuredtext",
+        "prefix": "figure",
+        "body": [
+            ".. figure:: ${1:/path/to/image}",
+            "   :align: ${2|left,center,right|}",
+            "   :alt: ${3:text}",
+            "   :figwidth: ${4|image,length,percentage-of-current-line-width|}",
+            "   :scale: ${6:integer-percentage}",
+            "   :target: ${7:url}",
+            "   :height: ${8:length}",
+            "   :width: ${9:length-or-percentage}",
+        ]
+    },
+    "sphinx directive rubric": {
+        "scope": "restructuredtext",
+        "prefix": "rubric",
+        "body": ".. rubric:: ${1:text}",
+        "description": "A heading without relation to the document sectioning"
+    },
+    "sphinx directive code": {
+        "scope": "restructuredtext",
+        "prefix": ["code", "code-block", "sourcecode"],
+        "body": [
+            ".. sourcecode:: ${1:lang}",
+            "   :caption: ${2:caption}",
+            "   :force:",
+            "",
+            "   $0"
+        ],
+        "description": ""
+    },
+    "sphinx directive toctree": {
+        "scope": "restructuredtext",
+        "prefix": "toctree",
+        "body": [
+            ".. toctree::",
+            "   :caption: ${1:caption}",
+            "   :glob:",
+            "   :maxdepth: ${3|1,2,3|}",
+            "   :name: ${2:anchor-name}",
+            "   :numbered:",
+            "   :titlesonly:"
+        ],
+        "description": "Insert a TOC tree at the current location"
+    },
+    "sphinx role general": {
+        "scope": "restructuredtext",
+        "prefix": "role",
+        "body": ":${1:role}:`${TM_SELECTED_TEXT/`//g}$0`",
+        "description": "Enclose selection with :role:`...`"
+    },
+    "sphinx role ref": {
+        "scope": "restructuredtext",
+        "prefix": ":ref",
+        "body": ":ref:`${1:text}` $0",
+        "description": "Cross-referencing arbitrary locations"
+    },
+    "sphinx role doc": {
+        "scope": "restructuredtext",
+        "prefix": ":doc:",
+        "body": ":doc:`${1:text} <${2:path}>` $0",
+        "description": "Cross-referencing documents"
+    },
+    "sphinx role download": {
+        "scope": "restructuredtext",
+        "prefix": ":download:",
+        "body": ":download:`${1:title} <${2:path}>` $0",
+        "description": "Referencing downloadable files"
+    },
+    "sphinx role command": {
+        "scope": "restructuredtext",
+        "prefix": ":command:",
+        "body": ":command:`${1:title}` $0",
+        "description": "The name of an OS-level command, such as rm."
+    },
+    "sphinx role dfn": {
+        "scope": "restructuredtext",
+        "prefix": ":dfn:",
+        "body": ":dfn:`${TM_SELECTED_TEXT}$0`",
+        "description": "Mark the defining instance of a term in the text."
+    },
+    "sohinx roles file": {
+        "scope": "restructuredtext",
+        "prefix": ":file:",
+        "body": ":file:`${TM_SELECTED_TEXT}$0`",
+        "description": "The name of a file or directory."
+    },
+    "sphinx role guilabel": {
+        "scope": "restructuredtext",
+        "prefix": ":guilabel:",
+        "body": ":guilabel:`${TM_SELECTED_TEXT}$0`",
+        "description": "Labels presented as part of an interactive user interface"
+    },
+    "sphinx role kbd": {
+        "scope": "restructuredtext",
+        "prefix": ":kbd:",
+        "body": ":kbd:`${TM_SELECTED_TEXT}$0`",
+        "description": "Mark a sequence of keystrokes"
+    },
+    "sphinx role menuselection": {
+        "scope": "restructuredtext",
+        "prefix": ":menuselection:",
+        "body": ":menuselection:`${TM_SELECTED_TEXT}$0`",
+        "description": "This is used to mark a complete sequence of menu selections"
+    },
+    "sphinx role program": {
+        "scope": "restructuredtext",
+        "prefix": "program",
+        "body": ":program:`${1:program}` $0",
+        "description": "The name of an executable program."
+    },
+    "sphinx role regexp": {
+        "scope": "restructuredtext",
+        "prefix": "regexp",
+        "body": ":regexp:`${1:regex}` $0",
+        "description": "A regular expression. Quotes should not be included."
+    },
+    "sphinx role samp": {
+        "scope": "restructuredtext",
+        "prefix": "samp",
+        "body": ":samp:`${1:code}` $0",
+        "description": "A piece of literal text, such as code."
+    },
+    "ctrl": {
+        "scope": "restructuredtext",
+        "prefix": "ctrl",
+        "body": ":kbd:`Ctrl`$0",
+        "description": "Insert :kbd:`Ctrl`"
+    },
+    "shift": {
+        "scope": "restructuredtext",
+        "prefix": "shift",
+        "body": ":kbd:`Shift`$0",
+        "description": "Insert :kbd:`Shift`"
+    },
+    "alt": {
+        "scope": "restructuredtext",
+        "prefix": "alt",
+        "body": ":kbd:`Alt`$0",
+        "description": "Insert :kbd:`Alt`"
+    },
+    "winkey": {
+        "scope": "restructuredtext",
+        "prefix": "winkey",
+        "body": ":kbd:`Win`$0",
+        "description": "Insert :kbd:`Win`"
+    },
+    "space": {
+        "scope": "restructuredtext",
+        "prefix": "space",
+        "body": ":kbd:`Space`$0",
+        "description": "Insert :kbd:`Space`"
+    },
+    "tab": {
+        "scope": "restructuredtext",
+        "prefix": "tab",
+        "body": ":kbd:`Tab`$0",
+        "description": "Insert :kbd:`Tab`"
+    },
+    "enter": {
+        "scope": "restructuredtext",
+        "prefix": "enter",
+        "body": ":kbd:`Enter`$0",
+        "description": "Insert :kbd:`Enter`"
+    },
+    "escape": {
+        "scope": "restructuredtext",
+        "prefix": "escape",
+        "body": ":kbd:`Esc`$0",
+        "description": "Insert :kbd:`Esc`"
+    },
+    "Note template": {
+        "scope": "restructuredtext",
+        "isFileTemplate": true,
+        "body": [
+            "================================================================================",
+            "${1:ノート}",
+            "================================================================================",
+            "",
+            "${2:TBW}",
+            "",
+            ".. contents:: ${3:見出し一覧}",
+            "   :backlinks: ${4|entry,top,none|}",
+            "   :depth: ${5:}",
+            "   :local:",
+            "",
+            "${0:TBW}"
+        ]
+    },
+    "Note index": {
+        "scope": "restructuredtext",
+        "isFileTemplate": true,
+        "description": "template for index.rst",
+        "prefix": "index",
+        "body": [
+            "================================================================================",
+            "${1}ノート",
+            "================================================================================",
+            "",
+            ".. toctree::",
+            "   :caption: ${2:caption}",
+            "   :glob:",
+            "   :maxdepth: ${3:}"
+        ]
+    },
+    "Note general": {
+        "scope": "restructuredtext",
+        "isFileTemplate": true,
+        "description": "template for general rst",
+        "body": [
+            "================================================================================",
+            "${1}ノート",
+            "================================================================================",
+            "",
+            ".. contents:: 見出し一覧",
+            "   :depth: ${2:3}",
+            "   :local:"
+        ]
+    },
+    "Python note template": {
+        "scope": "restructuredtext",
+        "isFileTemplate": true,
+        "description": "template for general python-*.rst",
+        "body": [
+            "================================================================================",
+            "${1} 利用ノート",
+            "================================================================================",
+            "",
+            ".. contents:: 見出し一覧",
+            "   :local:",
+            "",
+            "概要",
+            "================================================================================",
+            "",
+            "インストール・更新・アンインストール",
+            "================================================================================",
+            "",
+            "構成・カスタマイズ",
+            "================================================================================",
+            "",
+            "使用方法・コツ",
+            "================================================================================",
+            "",
+            "資料集",
+            "================================================================================",
+            "",
+            ".. include:: /_include/python-refs-core.txt"
+        ]
+    },
+    "Section Level 1": {
+        "scope": "restructuredtext",
+        "prefix": [
+            "===",
+            "section1"
+        ],
+        "body": "================================================================================${1}"
+    },
+    "Section Level 2": {
+        "scope": "restructuredtext",
+        "prefix": [
+            "---",
+            "section2"
+        ],
+        "body": "--------------------------------------------------------------------------------${1}"
+    },
+    "Section Level 3": {
+        "scope": "restructuredtext",
+        "prefix": [
+            "~~~",
+            "section3"
+        ],
+        "body": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${1}"
+    },
+    "Section Level 4": {
+        "scope": "restructuredtext",
+        "prefix": [
+            "^^^",
+            "section4"
+        ],
+        "body": "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^${1}"
+    },
+    "CSV Table": {
+        "scope": "restructuredtext",
+        "prefix": "csv-table",
+        "body": [
+            ".. csv-table::",
+            "   :delim: @",
+            "   :header-rows: 1",
+            "   :widths: auto"
+        ]
+    },
+    "List Table": {
+        "scope": "restructuredtext",
+        "prefix": "list-table",
+        "body": [
+            ".. list-table:: ${1:title}",
+            "   :align: ${2|left,center,right|}",
+            "   :header-rows: ${3|0,1|}",
+            "   :stub-columns: ${4:0}",
+            "   :widths: auto",
+            "",
+            "   * - row0col0",
+            "     - row0col1",
+            "   * - row1col0",
+            "     - row1col1"
+        ],
+        "description": ""
+    },
+    "mermaid": {
+        "scope": "restructuredtext",
+        "prefix": "mermaid",
+        "body": [
+            ".. mermaid::",
+            "   :align: center",
+            "   :alt: $1",
+            "   :caption: $1"
+        ]
+    },
 }
