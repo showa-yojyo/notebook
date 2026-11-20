@@ -89,13 +89,20 @@
    :caption: CLI ノート
    :maxdepth: 1
 
-   cron(8)/crontab(1) 利用ノート <https://gist.github.com/showa-yojyo/e6d2d1eb44ce0b929ec61a0efc1212ce>
    index-mount
+   cron(8)/crontab(1) 利用ノート <https://gist.github.com/showa-yojyo/e6d2d1eb44ce0b929ec61a0efc1212ce>
    WSL SSH 練習環境ノート <https://gist.github.com/showa-yojyo/a5b9c7121e43675d30a7bd951be1d864>
-   bat 利用ノート <https://gist.github.com/showa-yojyo/39b69d831eeb9526fa4c186ef3fd4860>
-   eza 利用ノート <https://gist.github.com/showa-yojyo/71f56ca3a5a784ead976bfa9d07d7344>
+   ffmpeg/index
+   hxutils
+   git/index
+   pandoc
+   docker/index
    index-fzf
-   WSL から Android に usbpid でマウントする手順ノート <https://gist.github.com/showa-yojyo/34eeab0cf8d25bc23b08358cada3ca65>
+   oh-my-posh
+   bat 利用ノート <https://gist.github.com/showa-yojyo/39b69d831eeb9526fa4c186ef3fd4860>
+   winget
+   WSL から Android に usbipd でマウントする手順ノート <https://gist.github.com/showa-yojyo/34eeab0cf8d25bc23b08358cada3ca65>
+   eza 利用ノート <https://gist.github.com/showa-yojyo/71f56ca3a5a784ead976bfa9d07d7344>
 
 .. toctree::
    :caption: C++ ノート
@@ -149,10 +156,28 @@
    python-yt-dlp
 
 .. toctree::
+   :caption: JavaScript ノート
+   :maxdepth: 1
+
+   mathjax
+   webgl
+   javascript-mermaid/index
+
+.. toctree::
    :caption: Ruby ノート
    :maxdepth: 1
 
    ruby-jekyll
+
+.. toctree::
+   :caption: その他のプログラミングノート
+   :maxdepth: 1
+
+   regex
+   css-selector
+   xpath
+   yaml
+   xdg
 
 .. toctree::
    :caption: データベースノート
@@ -182,7 +207,6 @@
    sleipnir-6
    google-ime
    deepl-translator
-   winget
    LibreOffice 基本ノート <https://showa-yojyo.github.io/libreoffice-notes/main.html>
    LibreOffice Calc 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/calc.html>
    LibreOffice Writer 利用ノート <https://showa-yojyo.github.io/libreoffice-notes/writer.html>
@@ -192,26 +216,12 @@
    wt
    wsl
    vscode/index
-   regex
    cygwin
-   xdg
    chrome
-   git/index
-   docker/index
-   oh-my-posh
    GIMP 3 利用ノート <https://gist.github.com/showa-yojyo/92e9935e7b13b06c324607136174baa2>
    inkscape/index
    vlc-media-player
    OBS Studio 利用ノート <https://gist.github.com/showa-yojyo/6bdb84aafa72e0a43214e0be4bc531e2>
-   ffmpeg/index
-   mathjax
-   javascript-mermaid/index
-   css-selector
-   xpath
-   hxutils
-   webgl
-   pandoc
-   yaml
    zoom
    Phone Link / Link to Windows 利用ノート <https://gist.github.com/showa-yojyo/8a598d3cce83faa1d7244b56c7152e9a>
    自動化ノート <https://gist.github.com/showa-yojyo/c485cb849862525fa540b395c70a4c69>
