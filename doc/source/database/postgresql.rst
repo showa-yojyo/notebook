@@ -7,7 +7,7 @@ PostgreSQL 利用ノート
 :Version: :program:`psql` 16.3 (Debian 16.3-1.pgdg120+1)
 
 PostgreSQL をとりあえず利用するまでの手順を記す。SQL 学習環境が得られれば十分
-だ。本稿では :doc:`Docker</docker/index>` を利用するものとする。
+だ。本稿では :doc:`Docker</cli/docker/index>` を利用するものとする。
 
 .. rubric:: 以前の PostgreSQL 環境の残滓を一掃する
 
