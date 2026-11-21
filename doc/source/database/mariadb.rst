@@ -8,7 +8,7 @@ MariaDB 利用ノート
 :Server Version: 11.4.2-MariaDB-ubu2404 mariadb.org binary distribution
 
 MariaDB をとりあえず利用するまでの手順を記す。ただし、
-:doc:`Docker</docker/index>` を利用するものとする。
+:doc:`Docker</cli/docker/index>` を利用するものとする。
 
 `Installing and Using MariaDB via Docker - MariaDB Knowledge Base
 <https://mariadb.com/kb/en/installing-and-using-mariadb-via-docker/>`__ の記述に

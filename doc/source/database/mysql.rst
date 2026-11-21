@@ -9,7 +9,7 @@ MySQL 利用ノート
 :Server: :program:`mysqld`
 
 MySQL をとりあえず利用するまでの手順を記す。ただし、
-:doc:`Docker</docker/index>` を利用するものとする。
+:doc:`Docker</cli/docker/index>` を利用するものとする。
 
 .. rubric:: 以前の MySQL 環境の残滓を一掃する
 
@@ -83,7 +83,7 @@ Google で "How to uninstall MySQL on Ubuntu" などで検索すれば手順は�
 
 .. seealso::
 
-   MariaDB については :doc:`./mariadb` で探求する。
+   MariaDB については :doc:`/database/mariadb` で探求する。
 
 コンテナーに例えば ``some-mysql`` などの名前を付けて稼働する。このときに MySQL
 に対して必要な情報、環境変数を指定する：

@@ -29,8 +29,8 @@ Homebrew を使えば SQLite の管理が容易になる。
 構成
 ================================================================================
 
-CLI のドットファイルのパスは :file:`$XDG_HOME_CONFIG/sqlite3/sqliterc` にした
-い。:doc:`/xdg` 参照。
+CLI のドットファイルのパスは :file:`$XDG_HOME_CONFIG/sqlite3/sqliterc` にしたい。
+:doc:`/programming/xdg` 参照。
 
 .. sourcecode:: bash
    :caption: 環境関数 `SQLITE_HISTORY` を定義する
