@@ -28,8 +28,8 @@ Jekyll 利用ノート
    * :doc:`/javascript/mathjax`
    * :doc:`/javascript/mermaid/index`
    * :doc:`/python/jinja2`
-   * :doc:`/python/sphinx`
-   * :doc:`/python/mkdocs`
+   * :doc:`/cli/sphinx`
+   * :doc:`/cli/mkdocs`
 
 資料
 ======================================================================

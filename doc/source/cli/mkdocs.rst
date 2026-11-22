@@ -42,7 +42,7 @@ Jekyll_ と同じだが、MkDocs_ は Ruby ではなく Python で実装され�
 
 .. seealso::
 
-   :doc:`/python/sphinx`
+   :doc:`/cli/sphinx`
       MkDocs_ とは異なり、Sphinx_ は Markdown ではなく reStructuredText を既定の
       原稿書式とする。また、HTTP サーバーを自前で持っていない。
    :doc:`/programming/jekyll`

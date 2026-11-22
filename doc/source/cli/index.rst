@@ -12,8 +12,10 @@ CLI ノート
    hxutils
    git/index
    pandoc
+   sphinx
    docker/index
    index-fzf
+   mkdocs
    oh-my-posh
    bat 利用ノート <https://gist.github.com/showa-yojyo/39b69d831eeb9526fa4c186ef3fd4860>
    winget
