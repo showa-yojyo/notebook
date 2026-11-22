@@ -593,7 +593,7 @@ Sphinx 原稿内に ``todo`` および ``todolist`` 囲み記事を書けるよ�
 * :doc:`/reading/github/index`
 * :doc:`/javascript/mathjax`
 * :doc:`/javascript/mermaid/index`
-* :doc:`/python/mkdocs`
+* :doc:`/cli/mkdocs`
 * :doc:`/programming/jekyll`
 
 .. _Sphinx: https://www.sphinx-doc.org/en/master/

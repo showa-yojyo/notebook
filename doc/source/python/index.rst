@@ -33,9 +33,6 @@ Python ノート
    ./jinja2
    ./pygments
    ./docutils/index
-   ./restview
-   ./sphinx
-   ./mkdocs
    ./bs4
    ./selenium
    ./scrapy
